@@ -139,3 +139,20 @@ test("یکدست‌سازی متن", () => {
   assert.equal(P.normalizePersian("كتاب‌‌ها  ي ١٢", { digits: "fa" }), "کتاب‌ها ی ۱۲");
   assert.equal(P.normalizePersian("سلامٌ"), "سلام");
 });
+
+test("زمان نسبی", () => {
+  const now = new Date(2026, 9, 27, 15, 0, 0); // ۵ آبان ۱۴۰۵، ساعت ۱۵
+  const at = (ms) => P.formatRelative(new Date(now.getTime() + ms), { now });
+  const M = 60_000, H = 60 * M, D = 24 * H;
+  assert.equal(at(-10_000), "همین الان");
+  assert.equal(at(-5 * M), "۵ دقیقه پیش");
+  assert.equal(at(20 * M), "۲۰ دقیقه دیگر");
+  assert.equal(at(-3 * H), "۳ ساعت پیش");
+  assert.equal(P.formatRelative(new Date(2026, 9, 26, 23, 0), { now }), "دیروز"); // ۱۶ ساعت قبل ولی روز قبل
+  assert.equal(P.formatRelative(new Date(2026, 9, 28, 9, 0), { now }), "فردا");
+  assert.equal(at(-3 * D), "۳ روز پیش");
+  assert.equal(at(-15 * D), "۲ هفته پیش");
+  assert.equal(at(-95 * D), "۳ ماه پیش");
+  assert.equal(at(-800 * D), "۲ سال پیش");
+  assert.equal(P.formatRelative(new Date(now.getTime() - 5 * M), { now, digits: "latin" }), "5 دقیقه پیش");
+});

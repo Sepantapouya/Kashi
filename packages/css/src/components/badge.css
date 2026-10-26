@@ -15,7 +15,7 @@
   gap: var(--k-space-1);
   padding-block: 0.125rem;
   padding-inline: var(--_px);
-  border: 1px solid color-mix(in srgb, var(--_fg) 24%, transparent);
+  border: 1px solid color-mix(in srgb, var(--_fg) 20%, transparent);
   border-radius: var(--k-badge-radius, var(--k-radius-full));
   background: var(--_bg);
   color: var(--_fg);

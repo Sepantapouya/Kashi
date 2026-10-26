@@ -23,8 +23,9 @@
   margin: 0;
   border: 1px solid var(--_border);
   border-radius: var(--k-checkbox-radius, calc(0.3125rem * var(--k-radius-factor)));
-  background: var(--k-bg-primary);
+  background: var(--k-bg-elevated);
   color: var(--k-text-on-brand);
+  box-shadow: var(--k-shadow-xs);
   cursor: pointer;
   transition:
     background-color var(--k-duration-fast) var(--k-ease-standard),
@@ -45,7 +46,7 @@
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M3 7h8'/%3E%3C/svg%3E");
 }
 
-.k-checkbox:hover { --_border: var(--k-border-brand); }
+.k-checkbox:hover:not(:disabled) { --_border: var(--k-border-brand); box-shadow: 0 0 0 4px var(--k-bg-hover); }
 
 .k-checkbox:is(:checked, :indeterminate) {
   --_border: var(--k-bg-brand);

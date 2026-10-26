@@ -11,8 +11,8 @@
   --_h: var(--k-btn-height-md, calc(2.5rem * var(--k-density)));
   --_px: var(--k-btn-padding-md, calc(0.875rem * var(--k-density)));
   --_fs: var(--k-text-sm);
-  --_bg: var(--k-bg-primary);
-  --_bg-hover: var(--k-bg-hover);
+  --_bg: var(--k-btn-secondary-bg, var(--k-bg-elevated));
+  --_bg-hover: color-mix(in srgb, var(--_bg), var(--k-text-primary) 5%);
   --_fg: var(--k-text-secondary);
   --_fg-hover: var(--k-text-primary);
   --_border: var(--k-border-primary);
@@ -81,7 +81,7 @@
   content: "";
   position: absolute;
   inset: 1px;
-  border: 1px solid rgb(255 255 255 / 0.12);
+  border: 1px solid rgb(255 255 255 / var(--k-btn-highlight, 0.14));
   border-radius: inherit;
   mask: linear-gradient(to bottom, #000, transparent);
   pointer-events: none;
@@ -89,6 +89,7 @@
 .k-btn:is(.k-btn--primary, .k-btn--danger):is(:disabled, [aria-disabled="true"]:not([aria-busy="true"]))::before { display: none; }
 .k-btn--tertiary {
   --_bg: transparent;
+  --_bg-hover: var(--k-bg-hover);
   --_border: transparent;
   --_shadow: none;
 }
@@ -106,8 +107,8 @@
 .k-btn--danger {
   --_bg: var(--k-bg-error);
   --_bg-hover: var(--k-bg-error-hover);
-  --_fg: var(--k-text-on-brand);
-  --_fg-hover: var(--k-text-on-brand);
+  --_fg: var(--k-text-on-error);
+  --_fg-hover: var(--k-text-on-error);
   --_border: transparent;
   --_shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic);
   --_ring: var(--k-ring-error);
@@ -115,7 +116,6 @@
 .k-btn--danger-secondary {
   --_fg: var(--k-text-error);
   --_fg-hover: var(--k-text-error);
-  --_bg-hover: var(--k-bg-error-subtle);
   --_ring: var(--k-ring-error);
 }
 

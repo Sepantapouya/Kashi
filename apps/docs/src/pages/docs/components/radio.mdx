@@ -1,0 +1,71 @@
+---
+layout: ../../../layouts/Docs.astro
+title: رادیو
+description: انتخاب دقیقاً یک گزینه از چند گزینه؛ به شکل فهرست، افقی یا کارت‌های قابل‌انتخاب.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { RadioGroup, Radio } from "@kashi-ui/react";
+import { RadioCardsDemo } from "../../../components/demos";
+
+```tsx
+import { RadioGroup, Radio } from "@kashi-ui/react";
+```
+
+## فهرست
+
+<Demo align="start" code={`<RadioGroup label="روش ارسال" name="shipping" defaultValue="post">
+  <Radio value="post" label="پست پیشتاز" description="۳ تا ۵ روز کاری" />
+  <Radio value="courier" label="پیک" description="همان روز، فقط تهران" />
+  <Radio value="pickup" label="تحویل حضوری" disabled />
+</RadioGroup>`}>
+  <RadioGroup label="روش ارسال" name="shipping" defaultValue="post">
+    <Radio value="post" label="پست پیشتاز" description="۳ تا ۵ روز کاری" />
+    <Radio value="courier" label="پیک" description="همان روز، فقط تهران" />
+    <Radio value="pickup" label="تحویل حضوری" disabled />
+  </RadioGroup>
+</Demo>
+
+## افقی
+
+<Demo align="start" code={`<RadioGroup label="اندازه" variant="inline" defaultValue="m">
+  <Radio value="s" label="کوچک" />
+  <Radio value="m" label="متوسط" />
+  <Radio value="l" label="بزرگ" />
+</RadioGroup>`}>
+  <RadioGroup label="اندازه" variant="inline" defaultValue="m">
+    <Radio value="s" label="کوچک" />
+    <Radio value="m" label="متوسط" />
+    <Radio value="l" label="بزرگ" />
+  </RadioGroup>
+</Demo>
+
+## کارت‌های قابل‌انتخاب
+
+برای گزینه‌هایی که توضیح بیشتری لازم دارند، مثل انتخاب پلن.
+
+<Demo html={false} code={`<RadioGroup label="پلن اشتراک" variant="cards" value={plan} onChange={setPlan}>
+  <Radio value="basic" label="پایه" description="۱ کاربر · ۹۰ هزار تومان در ماه" />
+  <Radio value="pro" label="حرفه‌ای" description="تا ۲۰ کاربر · ۴۹۰ هزار تومان در ماه" />
+  <Radio value="org" label="سازمانی" description="کاربر نامحدود · تماس بگیرید" />
+</RadioGroup>`}>
+  <RadioCardsDemo client:load />
+</Demo>
+
+## ویژگی‌های RadioGroup
+
+<Props rows={[
+  ["label", "ReactNode", "", "عنوان گروه (legend) — الزامی"],
+  ["name", "string", "خودکار", "نام فیلد فرم"],
+  ["value / defaultValue", "string", "", "گزینهٔ انتخاب‌شده"],
+  ["onChange", "(value: string) => void", "", "با تغییر انتخاب"],
+  ["variant", '"list" | "inline" | "cards"', '"list"', "چیدمان"],
+  ["hint / error", "ReactNode", "", "راهنما و خطای گروه"],
+  ["required / disabled", "boolean", "false", "الزامی یا غیرفعال کردن کل گروه"],
+]} />
+
+## دسترس‌پذیری
+
+- گروه در `<fieldset>` با `<legend>` است؛ صفحه‌خوان عنوان گروه را پیش از هر گزینه می‌خواند.
+- رادیوها بومی‌اند: <kbd>Tab</kbd> وارد گروه می‌شود و کلیدهای جهت‌دار بین گزینه‌ها جابه‌جا می‌کنند.
+- اگر کاربر باید چند گزینه انتخاب کند، از [چک‌باکس](/docs/components/checkbox/) استفاده کنید.

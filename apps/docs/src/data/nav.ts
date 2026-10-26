@@ -1,7 +1,7 @@
 export interface NavItem { title: string; href: string; badge?: string }
 export interface NavGroup { title: string; items: NavItem[] }
 
-export const nav: NavGroup[] = [
+const RAW: NavGroup[] = [
   {
     title: "شروع",
     items: [
@@ -29,6 +29,12 @@ export const nav: NavGroup[] = [
     title: "کامپوننت‌ها",
     items: [
       { title: "آواتار", href: "/docs/components/avatar/" },
+      { title: "اعلان کوتاه", href: "/docs/components/toast/", badge: "جدید" },
+      { title: "انتخاب از فهرست", href: "/docs/components/select/", badge: "جدید" },
+      { title: "پنجرهٔ گفتگو", href: "/docs/components/dialog/", badge: "جدید" },
+      { title: "راهنمای کوتاه", href: "/docs/components/tooltip/", badge: "جدید" },
+      { title: "رادیو", href: "/docs/components/radio/", badge: "جدید" },
+      { title: "زبانه‌ها", href: "/docs/components/tabs/", badge: "جدید" },
       { title: "چک‌باکس", href: "/docs/components/checkbox/" },
       { title: "دکمه", href: "/docs/components/button/" },
       { title: "سوییچ", href: "/docs/components/switch/" },
@@ -39,6 +45,11 @@ export const nav: NavGroup[] = [
     ],
   },
 ];
+
+// کامپوننت‌ها به ترتیب الفبای فارسی
+export const nav: NavGroup[] = RAW.map((g) =>
+  g.title === "کامپوننت‌ها" ? { ...g, items: [...g.items].sort((a, b) => a.title.localeCompare(b.title, "fa")) } : g,
+);
 
 /** صفحهٔ قبل و بعد برای پیمایش پایین صفحه */
 export function siblings(path: string) {

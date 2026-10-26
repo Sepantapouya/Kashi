@@ -20,7 +20,7 @@ export function SignUp() {
 }
 ```
 
-کامپوننت‌ها: Button · Input · Textarea · Badge · Card · Alert · Avatar · AvatarGroup · Checkbox · Switch
+کامپوننت‌ها: Button · Input · Textarea · Select · Checkbox · RadioGroup · Switch · Badge · Card · Alert · Avatar · AvatarGroup · Tabs · Dialog · Toast · Tooltip · RelativeTime
 
 فارسی: DatePicker و Calendar شمسی · NationalIdInput · CardNumberInput · IbanInput · MobileInput · PriceInput
 

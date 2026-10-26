@@ -1,0 +1,56 @@
+/* انتخاب از فهرست — <select> بومی با ظاهر کاشی (دسترس‌پذیر و سازگار با گوشی)
+ * <div class="k-select"><select class="k-select__control">…</select></div>
+ * اندازه‌ها: k-select--sm | k-select--lg — خطا: aria-invalid="true"
+ */
+.k-select {
+  --_h: var(--k-input-height-md, calc(2.75rem * var(--k-density)));
+  position: relative;
+  display: flex;
+}
+.k-select--sm { --_h: var(--k-input-height-sm, calc(2.5rem * var(--k-density))); }
+.k-select--lg { --_h: var(--k-input-height-lg, calc(3rem * var(--k-density))); }
+
+.k-select__control {
+  appearance: none;
+  flex: 1;
+  min-inline-size: 0;
+  block-size: var(--_h);
+  padding-inline: calc(0.875rem * var(--k-density)) 2.5rem;
+  border: 1px solid var(--k-input-border, var(--k-border-input));
+  border-radius: var(--k-input-radius, var(--k-radius-md));
+  background: var(--k-input-bg, var(--k-bg-primary));
+  color: var(--k-text-primary);
+  box-shadow: var(--k-shadow-xs);
+  font: inherit;
+  font-size: var(--k-text-md);
+  cursor: pointer;
+  transition: border-color var(--k-duration-fast), box-shadow var(--k-duration-fast);
+}
+.k-select__control:hover:not(:disabled, :focus) { border-color: var(--k-text-quaternary); }
+.k-select__control:focus-visible { outline: 2px solid transparent; border-color: var(--k-border-brand); box-shadow: var(--k-shadow-xs), var(--k-ring-brand); }
+.k-select__control[aria-invalid="true"] { border-color: var(--k-border-error); }
+.k-select__control[aria-invalid="true"]:focus-visible { box-shadow: var(--k-ring-error); }
+.k-select__control:disabled { background: var(--k-bg-secondary); border-color: var(--k-border-secondary); color: var(--k-text-quaternary); box-shadow: none; cursor: not-allowed; }
+.k-select__control:has(option[value=""]:checked) { color: var(--k-text-tertiary); }
+.k-select__control option { background: var(--k-bg-elevated); color: var(--k-text-primary); }
+
+/* فلش در انتهای فیلد */
+.k-select::after {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 0.875rem;
+  inline-size: 1.125rem;
+  margin-block: auto;
+  block-size: 1.125rem;
+  background: var(--k-text-tertiary);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 8 4 4 4-4'/%3E%3C/svg%3E") center / contain no-repeat;
+  pointer-events: none;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .k-select__control { font-size: max(16px, 1em); }
+}
+@media (forced-colors: active) {
+  .k-select::after { background: CanvasText; }
+}

@@ -1,0 +1,76 @@
+/* اعلان کوتاه (Toast) — محل نمایش را کامپوننت <Toaster> می‌سازد
+ * رنگ‌ها: neutral | success | error | warning | info
+ */
+.k-toaster {
+  position: fixed;
+  inset-block-end: var(--k-space-6);
+  inset-inline-end: var(--k-space-6);
+  z-index: var(--k-z-toast);
+  display: grid;
+  gap: var(--k-space-3);
+  inline-size: min(24rem, calc(100vw - 2rem));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: none;
+}
+.k-toaster--top { inset-block: var(--k-space-6) auto; }
+@media (max-width: 30rem) {
+  .k-toaster { inset-inline: var(--k-space-4); inset-block-end: var(--k-space-4); inline-size: auto; }
+}
+
+.k-toast {
+  --_accent: var(--k-text-tertiary);
+
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--k-space-3);
+  padding: var(--k-space-4);
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-xl);
+  background: var(--k-bg-elevated);
+  color: var(--k-text-primary);
+  box-shadow: var(--k-shadow-lg), var(--k-highlight);
+  pointer-events: auto;
+  animation: k-toast-in var(--k-duration-slow) var(--k-ease-emphasized);
+  overflow: hidden;
+}
+.k-toast[data-state="closing"] { animation: k-toast-out var(--k-duration-normal) var(--k-ease-standard) forwards; }
+@keyframes k-toast-in { from { opacity: 0; translate: 0 12px; scale: 0.97; } }
+@keyframes k-toast-out { to { opacity: 0; translate: 0 8px; scale: 0.97; } }
+
+.k-toast--success { --_accent: var(--k-text-success); }
+.k-toast--error { --_accent: var(--k-text-error); }
+.k-toast--warning { --_accent: var(--k-text-warning); }
+.k-toast--info { --_accent: var(--k-text-info); }
+
+.k-toast__icon { flex-shrink: 0; inline-size: 1.25rem; block-size: 1.25rem; margin-block-start: 0.125rem; color: var(--_accent); }
+.k-toast__icon svg { inline-size: 100%; block-size: 100%; }
+.k-toast__content { flex: 1; display: grid; gap: 0.125rem; min-inline-size: 0; font-size: var(--k-text-sm); }
+.k-toast__title { margin: 0; font-weight: var(--k-weight-semibold); }
+.k-toast__description { margin: 0; color: var(--k-text-tertiary); }
+.k-toast__action { margin-block-start: var(--k-space-2); justify-self: start; }
+.k-toast__close { margin-block: -0.375rem; margin-inline-end: -0.375rem; }
+
+/* نوار زمان باقی‌مانده */
+.k-toast__progress {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: 2px;
+  background: var(--_accent);
+  opacity: 0.6;
+  transform-origin: var(--_origin, right);
+  animation: k-toast-progress linear forwards;
+}
+[dir="ltr"] .k-toast__progress { --_origin: left; }
+.k-toast:is(:hover, :focus-within) .k-toast__progress { animation-play-state: paused; }
+@keyframes k-toast-progress { to { scale: 0 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .k-toast__progress { display: none; }
+}
+@media (forced-colors: active) {
+  .k-toast { border-color: CanvasText; }
+}

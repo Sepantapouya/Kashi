@@ -1,0 +1,41 @@
+---
+layout: ../../../layouts/Docs.astro
+title: راهنمای کوتاه
+description: توضیح کوتاه یک کنترل هنگام hover یا فوکوس.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { TooltipDemo } from "../../../components/demos";
+
+```tsx
+import { Tooltip } from "@kashi-ui/react";
+```
+
+## نمونه
+
+نشانگر را روی دکمه‌ها ببرید یا با <kbd>Tab</kbd> روی آن‌ها بروید.
+
+<Demo html={false} code={`<Tooltip content="جستجو در همهٔ پروژه‌ها">
+  <Button iconOnly aria-label="جستجو"><SearchIcon /></Button>
+</Tooltip>
+
+<Tooltip content="ایمیل برای همه قابل‌مشاهده نیست" placement="bottom">
+  …
+</Tooltip>`}>
+  <TooltipDemo client:load />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["content", "ReactNode", "", "متن راهنما"],
+  ["children", "ReactElement", "", "یک عنصر فوکوس‌پذیر، معمولاً دکمه"],
+  ["placement", '"top" | "bottom"', '"top"', "جایگاه"],
+  ["delay", "number", "300", "تأخیر نمایش با hover (میلی‌ثانیه)؛ با فوکوس فوری است"],
+]} />
+
+## دسترس‌پذیری
+
+- با `aria-describedby` به عنصر متصل است؛ صفحه‌خوان آن را پس از نام دکمه می‌خواند.
+- طبق WCAG 1.4.13: با <kbd>Esc</kbd> بسته می‌شود، نشانگر می‌تواند روی خود راهنما برود بدون اینکه بسته شود، و تا وقتی hover یا فوکوس ادامه دارد می‌ماند.
+- راهنمای کوتاه **جایگزین برچسب نیست**: دکمهٔ فقط‌آیکون همچنان `aria-label` لازم دارد. اطلاعات ضروری را در آن پنهان نکنید؛ کاربران لمسی آن را نمی‌بینند.

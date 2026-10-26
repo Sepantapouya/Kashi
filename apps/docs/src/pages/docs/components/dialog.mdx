@@ -1,0 +1,58 @@
+---
+layout: ../../../layouts/Docs.astro
+title: پنجرهٔ گفتگو
+description: پنجره‌ای روی صفحه برای کاری کوتاه یا تأیید یک تصمیم، روی dialog بومی مرورگر.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { DialogDemo } from "../../../components/demos";
+
+```tsx
+import { Dialog } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`const [open, setOpen] = useState(false);
+
+<Button onClick={() => setOpen(true)}>دعوت هم‌تیمی</Button>
+<Dialog
+  open={open}
+  onOpenChange={setOpen}
+  title="دعوت به تیم"
+  description="ایمیل هم‌تیمی را وارد کنید تا دعوت‌نامه برایش ارسال شود."
+  icon={<UserIcon />}
+  footer={<>
+    <Button variant="secondary" onClick={() => setOpen(false)}>انصراف</Button>
+    <Button variant="primary">ارسال دعوت</Button>
+  </>}
+>
+  <Input label="ایمیل" type="email" autoFocus />
+</Dialog>
+
+// تأیید عملیات مخرب
+<Dialog tone="danger" size="sm" title="پروژه حذف شود؟" … />`}>
+  <DialogDemo client:load />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["open", "boolean", "", "باز بودن (کنترل‌شده)"],
+  ["onOpenChange", "(open: boolean) => void", "", "با Esc، دکمهٔ بستن یا کلیک روی پس‌زمینه"],
+  ["title", "ReactNode", "", "عنوان — الزامی"],
+  ["description", "ReactNode", "", "توضیح زیر عنوان"],
+  ["icon", "ReactNode", "", "آیکون شاخص"],
+  ["tone", '"default" | "danger"', '"default"', "رنگ آیکون برای عملیات مخرب"],
+  ["size", '"sm" | "md" | "lg"', '"md"', "عرض: ۲۴، ۳۰ یا ۴۲ rem"],
+  ["footer", "ReactNode", "", "دکمه‌ها"],
+  ["dismissible", "boolean", "true", "بستن با کلیک روی پس‌زمینه"],
+  ["closeLabel", "string", '"بستن"', "نام دکمهٔ بستن"],
+]} />
+
+## دسترس‌پذیری
+
+- روی `<dialog>` بومی با `showModal()` ساخته شده: فوکوس داخل پنجره می‌ماند، بقیهٔ صفحه برای کیبورد و صفحه‌خوان غیرفعال می‌شود و <kbd>Esc</kbd> پنجره را می‌بندد.
+- پس از بستن، فوکوس به دکمه‌ای که پنجره را باز کرده برمی‌گردد.
+- عنوان و توضیح با `aria-labelledby` و `aria-describedby` به پنجره متصل‌اند.
+- برای تأیید عملیات مخرب، دکمهٔ «انصراف» را اول بگذارید و نتیجهٔ کار را در توضیح صریح بنویسید.

@@ -1,0 +1,51 @@
+---
+layout: ../../../layouts/Docs.astro
+title: اعلان کوتاه
+description: پیام کوتاه و موقت پس از یک عمل، مثل «ذخیره شد»؛ با توقف هنگام hover و امکان واگرد.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { ToastDemo } from "../../../components/demos";
+
+```tsx
+import { Toaster, toast } from "@kashi-ui/react";
+```
+
+`<Toaster />` را یک بار در ریشهٔ برنامه بگذارید؛ سپس از هر جای برنامه `toast()` را صدا بزنید.
+
+## نمونه
+
+<Demo html={false} code={`toast.success("تغییرات ذخیره شد", { description: "…" });
+toast.error("پرداخت ناموفق بود");
+toast.warning("اتصال اینترنت ناپایدار است");
+toast({
+  title: "پیام بایگانی شد",
+  action: { label: "واگرد", onClick: () => restore() },
+});
+
+// در ریشهٔ برنامه
+<Toaster />`}>
+  <ToastDemo client:load />
+</Demo>
+
+## رفتار
+
+- **زمان:** پیش‌فرض ۵ ثانیه. نوار پایین زمان باقی‌مانده را نشان می‌دهد و با hover یا فوکوس متوقف می‌شود.
+- **با عمل:** اعلانی که دکمه دارد (مثل «واگرد») خودکار بسته نمی‌شود تا کاربر فرصت کافی داشته باشد.
+- **بستن:** با دکمهٔ بستن یا <kbd>Esc</kbd> وقتی فوکوس روی اعلان است.
+
+## ویژگی‌های toast()
+
+<Props rows={[
+  ["title", "ReactNode", "", "متن اصلی"],
+  ["description", "ReactNode", "", "توضیح"],
+  ["tone", '"neutral" | "success" | "error" | "warning" | "info"', '"neutral"', "رنگ و آیکون"],
+  ["duration", "number", "۵۰۰۰، یا بی‌نهایت با action", "میلی‌ثانیه"],
+  ["action", "{ label, onClick }", "", "دکمهٔ عمل"],
+]} />
+
+## دسترس‌پذیری
+
+- ناحیهٔ اعلان‌ها با `aria-live="polite"` از ابتدا در صفحه است تا اعلان‌های جدید بدون جابه‌جایی فوکوس خوانده شوند؛ اعلان خطا با `role="alert"` فوراً خوانده می‌شود.
+- توقف زمان هنگام hover و فوکوس و ماندن اعلان‌های دارای عمل، معیار WCAG 2.2.1 (زمان کافی) را برآورده می‌کنند.
+- اطلاعات حیاتی را فقط در اعلان کوتاه نگذارید؛ ممکن است کاربر آن را نبیند.

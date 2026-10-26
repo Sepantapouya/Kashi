@@ -186,19 +186,19 @@ code, pre, kbd {
 
 .prose { max-inline-size: 50rem; color: var(--k-text-secondary); line-height: 1.9; }
 .prose > :first-child { margin-block-start: 0; }
-.prose h2 {
+.prose > h2 {
   margin-block: var(--k-space-12) var(--k-space-4);
   padding-block-start: var(--k-space-8);
   border-block-start: 1px solid var(--k-border-secondary);
   color: var(--k-text-primary);
   font-size: var(--k-text-2xl);
 }
-.prose .page-head + h2 { border: 0; padding: 0; margin-block-start: 0; }
-.prose h3 { margin-block: var(--k-space-8) var(--k-space-3); color: var(--k-text-primary); font-size: var(--k-text-lg); font-weight: var(--k-weight-semibold); }
-.prose p { margin-block: var(--k-space-4); }
-.prose ul, .prose ol { padding-inline-start: var(--k-space-6); }
-.prose li { margin-block: var(--k-space-2); }
-.prose li::marker { color: var(--k-text-quaternary); }
+.prose > .page-head + h2 { border: 0; padding: 0; margin-block-start: 0; }
+.prose > h3 { margin-block: var(--k-space-8) var(--k-space-3); color: var(--k-text-primary); font-size: var(--k-text-lg); font-weight: var(--k-weight-semibold); }
+.prose > p { margin-block: var(--k-space-4); }
+.prose > ul, .prose > ol { padding-inline-start: var(--k-space-6); }
+.prose > :is(ul, ol) > li { margin-block: var(--k-space-2); }
+.prose > :is(ul, ol) > li::marker { color: var(--k-text-quaternary); }
 .prose strong { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
 .prose :not(pre) > code {
   padding: 0.125em 0.375em;
@@ -208,14 +208,14 @@ code, pre, kbd {
   color: var(--k-text-primary);
   font-size: 0.85em;
 }
-.prose blockquote {
+.prose > blockquote {
   margin-inline: 0;
   padding: var(--k-space-3) var(--k-space-4);
   border-inline-start: 3px solid var(--k-border-brand);
   border-radius: var(--k-radius-sm);
   background: var(--k-bg-secondary);
 }
-.prose blockquote p { margin: 0; }
+.prose > blockquote p { margin: 0; }
 .prose > .demo, .prose > .codeblock, .prose > .table-wrap, .prose > .k-alert { margin-block: var(--k-space-6); }
 
 /* ───────── بلوک کد ───────── */
@@ -427,3 +427,4 @@ code, pre, kbd {
   color: var(--k-text-tertiary);
   font-size: var(--k-text-sm);
 }
+.demo-panel { margin: 0; padding: var(--k-space-4); border-radius: var(--k-radius-md); background: var(--k-bg-secondary); color: var(--k-text-secondary); }

@@ -1,9 +1,9 @@
 // نمونه‌هایی که JSX را به‌عنوان prop می‌دهند باید در فایل React باشند؛
 // در MDX، JSX داخل prop به عنصر React تبدیل نمی‌شود.
 import { useState, type ReactNode } from "react";
-import { Alert, Button, Calendar, CardNumberInput, DatePicker, IbanInput, Input, MobileInput, NationalIdInput, PriceInput } from "@kashi-ui/react";
+import { Alert, Badge, Button, Calendar, CardNumberInput, DatePicker, Dialog, IbanInput, Input, MobileInput, NationalIdInput, PriceInput, Radio, RadioGroup, Tab, TabList, TabPanel, Tabs, Toaster, Tooltip, toast } from "@kashi-ui/react";
 import { formatJalali, formatNumber, toISODate, toJalali } from "@kashi-ui/persian";
-import { ArrowIcon, MailIcon, PlusIcon, SearchIcon, TrashIcon } from "./icons";
+import { ArrowIcon, MailIcon, PlusIcon, SearchIcon, TrashIcon, UserIcon } from "./icons";
 
 export const ButtonIcons = () => (
   <>
@@ -118,3 +118,90 @@ export const PriceDemo = () => {
     </div>
   );
 };
+
+// ───── کامپوننت‌های تعاملی
+
+export const RadioCardsDemo = () => {
+  const [plan, setPlan] = useState("pro");
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 28rem)" }}>
+      <RadioGroup label="پلن اشتراک" variant="cards" value={plan} onChange={setPlan}>
+        <Radio value="basic" label="پایه" description="۱ کاربر · ۹۰ هزار تومان در ماه" />
+        <Radio value="pro" label="حرفه‌ای" description="تا ۲۰ کاربر · ۴۹۰ هزار تومان در ماه" />
+        <Radio value="org" label="سازمانی" description="کاربر نامحدود · تماس بگیرید" />
+      </RadioGroup>
+      <Out>{`انتخاب: ${plan}`}</Out>
+    </div>
+  );
+};
+
+export const TabsDemo = ({ variant = "line" }: { variant?: "line" | "pill" | "segmented" }) => (
+  <Tabs defaultValue="account" variant={variant} style={{ inlineSize: "min(100%, 30rem)" }}>
+    <TabList aria-label="تنظیمات">
+      <Tab value="account">حساب کاربری</Tab>
+      <Tab value="security">امنیت</Tab>
+      <Tab value="billing">پرداخت <Badge tone="brand" size="sm">۲</Badge></Tab>
+      <Tab value="api" disabled>API</Tab>
+    </TabList>
+    <TabPanel value="account"><p className="demo-panel">نام، ایمیل و عکس پروفایل خود را ویرایش کنید.</p></TabPanel>
+    <TabPanel value="security"><p className="demo-panel">رمز عبور و ورود دو مرحله‌ای را مدیریت کنید.</p></TabPanel>
+    <TabPanel value="billing"><p className="demo-panel">۲ فاکتور پرداخت‌نشده دارید.</p></TabPanel>
+    <TabPanel value="api"><p className="demo-panel">به‌زودی.</p></TabPanel>
+  </Tabs>
+);
+
+export const DialogDemo = () => {
+  const [open, setOpen] = useState(false);
+  const [del, setDel] = useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>دعوت هم‌تیمی</Button>
+      <Button variant="danger" onClick={() => setDel(true)}>حذف پروژه</Button>
+      <Dialog
+        open={open}
+        onOpenChange={setOpen}
+        title="دعوت به تیم"
+        description="ایمیل هم‌تیمی را وارد کنید تا دعوت‌نامه برایش ارسال شود."
+        icon={<UserIcon />}
+        footer={<><Button variant="secondary" onClick={() => setOpen(false)}>انصراف</Button><Button variant="primary" onClick={() => { setOpen(false); toast.success("دعوت‌نامه ارسال شد"); }}>ارسال دعوت</Button></>}
+      >
+        <Input label="ایمیل" type="email" placeholder="name@company.com" autoFocus />
+      </Dialog>
+      <Dialog
+        open={del}
+        onOpenChange={setDel}
+        tone="danger"
+        size="sm"
+        title="پروژه حذف شود؟"
+        description="همهٔ فایل‌ها و تاریخچهٔ این پروژه برای همیشه حذف می‌شوند. این کار قابل بازگشت نیست."
+        icon={<TrashIcon />}
+        footer={<><Button variant="secondary" onClick={() => setDel(false)}>انصراف</Button><Button variant="danger" onClick={() => { setDel(false); toast.error("پروژه حذف شد"); }}>حذف</Button></>}
+      />
+      <Toaster />
+    </>
+  );
+};
+
+export const ToastDemo = () => (
+  <>
+    <Button onClick={() => toast.success("تغییرات ذخیره شد", { description: "نسخهٔ جدید برای همهٔ اعضا قابل‌مشاهده است." })}>موفقیت</Button>
+    <Button onClick={() => toast.error("پرداخت ناموفق بود", { description: "موجودی کارت کافی نیست." })}>خطا</Button>
+    <Button onClick={() => toast({ title: "پیام بایگانی شد", action: { label: "واگرد", onClick: () => toast.info("پیام برگردانده شد") } })}>با عمل</Button>
+    <Button onClick={() => toast.warning("اتصال اینترنت ناپایدار است")}>هشدار</Button>
+    <Toaster />
+  </>
+);
+
+export const TooltipDemo = () => (
+  <>
+    <Tooltip content="جستجو در همهٔ پروژه‌ها">
+      <Button iconOnly aria-label="جستجو"><SearchIcon /></Button>
+    </Tooltip>
+    <Tooltip content="ایجاد پروژهٔ جدید (Ctrl+N)">
+      <Button variant="primary" iconStart={<PlusIcon />}>پروژهٔ جدید</Button>
+    </Tooltip>
+    <Tooltip content="ایمیل برای همه قابل‌مشاهده نیست" placement="bottom">
+      <Button variant="tertiary" iconOnly aria-label="ایمیل"><MailIcon /></Button>
+    </Tooltip>
+  </>
+);

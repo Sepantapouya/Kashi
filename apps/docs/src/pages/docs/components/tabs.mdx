@@ -1,0 +1,65 @@
+---
+layout: ../../../layouts/Docs.astro
+title: زبانه‌ها
+description: نمایش بخش‌های مرتبط یک محتوا در یک فضا، با سه سبک و پیمایش کامل کیبورد.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { TabsDemo } from "../../../components/demos";
+
+```tsx
+import { Tabs, TabList, Tab, TabPanel } from "@kashi-ui/react";
+```
+
+## خطی
+
+<Demo html={false} code={`<Tabs defaultValue="account">
+  <TabList aria-label="تنظیمات">
+    <Tab value="account">حساب کاربری</Tab>
+    <Tab value="security">امنیت</Tab>
+    <Tab value="billing">پرداخت <Badge tone="brand" size="sm">۲</Badge></Tab>
+    <Tab value="api" disabled>API</Tab>
+  </TabList>
+  <TabPanel value="account">…</TabPanel>
+  <TabPanel value="security">…</TabPanel>
+  <TabPanel value="billing">…</TabPanel>
+</Tabs>`}>
+  <TabsDemo client:load />
+</Demo>
+
+## قرصی
+
+<Demo html={false} code={`<Tabs defaultValue="account" variant="pill">…</Tabs>`}>
+  <TabsDemo client:load variant="pill" />
+</Demo>
+
+## چندبخشی
+
+<Demo html={false} code={`<Tabs defaultValue="account" variant="segmented">…</Tabs>`}>
+  <TabsDemo client:load variant="segmented" />
+</Demo>
+
+## کیبورد
+
+| کلید | عمل |
+|---|---|
+| <kbd>Tab</kbd> | ورود به زبانهٔ فعال، سپس رفتن به محتوای پنل |
+| <kbd>←</kbd> / <kbd>→</kbd> | زبانهٔ بعد / قبل (در راست‌به‌چپ) و فعال‌سازی آن |
+| <kbd>Home</kbd> / <kbd>End</kbd> | اولین / آخرین زبانه |
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "زبانهٔ فعال (Tabs)"],
+  ["onChange", "(value: string) => void", "", "با تغییر زبانه"],
+  ["variant", '"line" | "pill" | "segmented"', '"line"', "سبک"],
+  ["block", "boolean", "false", "زبانه‌ها تمام عرض را پر کنند"],
+  ["aria-label", "string", "", "نام فهرست زبانه‌ها (TabList) — الزامی"],
+  ["value", "string", "", "شناسهٔ زبانه و پنل متناظر (Tab و TabPanel)"],
+]} />
+
+## دسترس‌پذیری
+
+- الگوی Tabs در WAI-ARIA: `tablist`، `tab` و `tabpanel` با اتصال `aria-controls` و `aria-labelledby`.
+- فقط زبانهٔ فعال در ترتیب Tab است؛ زبانه‌های غیرفعال (`disabled`) در پیمایش رد می‌شوند.
+- برای ناوبری بین صفحه‌ها از زبانه استفاده نکنید؛ لینک‌ها مناسب‌ترند.

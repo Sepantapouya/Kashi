@@ -20,7 +20,7 @@
   border-radius: var(--k-card-radius, var(--k-radius-xl));
   background: var(--k-card-bg, var(--k-bg-elevated));
   color: var(--k-text-primary);
-  box-shadow: var(--k-card-shadow, var(--k-shadow-xs));
+  box-shadow: var(--k-card-shadow, var(--k-shadow-xs)), var(--k-highlight);
   overflow: clip;
 }
 
@@ -57,7 +57,7 @@
 
 .k-card__media { display: block; inline-size: 100%; object-fit: cover; }
 
-.k-card--flat { box-shadow: none; }
+.k-card--flat { box-shadow: var(--k-highlight); }
 
 .k-card--interactive {
   position: relative;
@@ -65,7 +65,7 @@
     border-color var(--k-duration-fast) var(--k-ease-standard),
     box-shadow var(--k-duration-normal) var(--k-ease-standard);
 }
-.k-card--interactive:hover { border-color: var(--k-border-primary); box-shadow: var(--k-shadow-md); }
+.k-card--interactive:hover { border-color: var(--k-border-primary); box-shadow: var(--k-shadow-md), var(--k-highlight); }
 .k-card--interactive:has(:focus-visible) { box-shadow: var(--k-shadow-md), var(--k-ring-brand); }
 /* لینک اصلی کل کارت را قابل‌کلیک می‌کند ولی فقط یک توقف Tab دارد */
 .k-card--interactive :is(a, button).k-card__link::after { content: ""; position: absolute; inset: 0; }

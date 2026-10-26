@@ -1,0 +1,61 @@
+---
+layout: ../../../layouts/Docs.astro
+title: انتخاب از فهرست
+description: انتخاب یک گزینه از فهرست بلند، روی select بومی مرورگر.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { Select } from "@kashi-ui/react";
+
+```tsx
+import { Select } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo align="stretch" code={`<Select
+  label="استان"
+  placeholder="انتخاب کنید"
+  hint="برای محاسبهٔ هزینهٔ ارسال"
+  options={[
+    { value: "thr", label: "تهران" },
+    { value: "isf", label: "اصفهان" },
+    { value: "frs", label: "فارس" },
+    { value: "krm", label: "کرمان" },
+  ]}
+/>`}>
+  <Select label="استان" placeholder="انتخاب کنید" hint="برای محاسبهٔ هزینهٔ ارسال" options={[{ value: "thr", label: "تهران" }, { value: "isf", label: "اصفهان" }, { value: "frs", label: "فارس" }, { value: "krm", label: "کرمان" }]} />
+</Demo>
+
+## خطا و اندازه‌ها
+
+<Demo align="stretch" code={`<Select label="نقش" error="یک نقش انتخاب کنید." placeholder="انتخاب کنید" required>
+  <option value="admin">مدیر</option>
+  <option value="editor">ویرایشگر</option>
+</Select>
+<Select label="مرتب‌سازی" size="sm" defaultValue="new">
+  <option value="new">جدیدترین</option>
+  <option value="price">ارزان‌ترین</option>
+</Select>`}>
+  <Select label="نقش" error="یک نقش انتخاب کنید." placeholder="انتخاب کنید" required>
+    <option value="admin">مدیر</option>
+    <option value="editor">ویرایشگر</option>
+  </Select>
+  <Select label="مرتب‌سازی" size="sm" defaultValue="new">
+    <option value="new">جدیدترین</option>
+    <option value="price">ارزان‌ترین</option>
+  </Select>
+</Demo>
+
+## چرا select بومی؟
+
+فهرست بومی مرورگر در گوشی انتخاب‌گر سیستم‌عامل را باز می‌کند (که برای انگشت ساخته شده)، با صفحه‌خوان‌ها بی‌نقص کار می‌کند و در فرم‌ها بدون کد اضافه ارسال می‌شود. کاشی فقط ظاهر آن را هماهنگ می‌کند.
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["label / hint / error", "ReactNode", "", "مثل Input"],
+  ["placeholder", "string", "", "گزینهٔ خالی اول که قابل‌انتخاب نیست"],
+  ["options", "{ value, label, disabled? }[]", "", "گزینه‌ها؛ یا <option> به‌عنوان children"],
+  ["size", '"sm" | "md" | "lg"', '"md"', "ارتفاع"],
+]} />

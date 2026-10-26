@@ -124,7 +124,7 @@
   border: 1px solid var(--k-border-secondary);
   border-radius: var(--k-radius-xl);
   background: var(--k-calendar-bg, var(--k-bg-elevated));
-  box-shadow: var(--k-shadow-xl);
+  box-shadow: var(--k-shadow-xl), var(--k-highlight);
   animation: k-pop-in var(--k-duration-fast) var(--k-ease-standard);
 }
 @keyframes k-pop-in { from { opacity: 0; translate: 0 -4px; } }

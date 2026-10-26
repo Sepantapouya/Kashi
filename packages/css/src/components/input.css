@@ -23,9 +23,14 @@
   color: var(--k-text-primary);
   box-shadow: var(--k-shadow-xs);
   cursor: text;
+  font-size: var(--k-text-md);
   transition:
     border-color var(--k-duration-fast) var(--k-ease-standard),
     box-shadow var(--k-duration-fast) var(--k-ease-standard);
+}
+
+.k-input:hover:not(:focus-within, :has(:disabled, [aria-invalid="true"])) {
+  --_border: var(--k-input-border-hover, var(--k-text-quaternary));
 }
 
 .k-input:focus-within {
@@ -59,6 +64,17 @@
   font: inherit;
   font-size: var(--k-text-md);
 }
+/* ارقام هم‌عرض تا عدد هنگام تایپ جابه‌جا نشود */
+.k-input__control:is([inputmode="numeric"], [inputmode="tel"], [inputmode="decimal"]) {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* iOS هنگام فوکوس روی فیلدی با متن کوچک‌تر از ۱۶ پیکسل کل صفحه را بزرگ می‌کند */
+@supports (-webkit-touch-callout: none) {
+  .k-input__control { font-size: max(16px, 1em); }
+}
+
 .k-input__control::placeholder { color: var(--k-text-tertiary); opacity: 1; }
 .k-input__control:disabled { color: var(--k-text-quaternary); cursor: not-allowed; }
 
@@ -93,5 +109,9 @@
 
 @media (forced-colors: active) {
   .k-input { border-color: FieldText; }
-  .k-input:focus-within { outline-color: Highlight; }
+  .k-input:hover:not(:focus-within, :has(:disabled, [aria-invalid="true"])) {
+  --_border: var(--k-input-border-hover, var(--k-text-quaternary));
+}
+
+.k-input:focus-within { outline-color: Highlight; }
 }

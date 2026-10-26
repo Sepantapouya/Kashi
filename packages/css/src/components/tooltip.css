@@ -1,0 +1,48 @@
+/* راهنمای کوتاه (Tooltip) — با hover و فوکوس، بسته شدن با Esc (WCAG 1.4.13)
+ * فقط برای توضیح تکمیلی؛ اطلاعات ضروری را در tooltip پنهان نکنید.
+ */
+.k-tooltip-anchor { position: relative; display: inline-flex; }
+
+.k-tooltip {
+  position: absolute;
+  inset-block-end: calc(100% + 8px);
+  inset-inline-start: 50%;
+  z-index: var(--k-z-dropdown);
+  inline-size: max-content;
+  max-inline-size: 16rem;
+  padding: var(--k-space-1_5) var(--k-space-3);
+  border-radius: var(--k-radius-md);
+  background: var(--k-tooltip-bg, var(--k-text-primary));
+  color: var(--k-tooltip-fg, var(--k-bg-primary));
+  box-shadow: var(--k-shadow-lg);
+  font-size: var(--k-text-xs);
+  font-weight: var(--k-weight-medium);
+  line-height: 1.6;
+  text-align: center;
+  translate: 50% 0;
+  pointer-events: auto;
+  animation: k-tip-in var(--k-duration-fast) var(--k-ease-standard);
+}
+[dir="ltr"] .k-tooltip { translate: -50% 0; }
+.k-tooltip[hidden] { display: none; }
+.k-tooltip--bottom { inset-block: calc(100% + 8px) auto; }
+
+/* پیکان */
+.k-tooltip::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-start: 50%;
+  translate: 50% 0;
+  border: 5px solid transparent;
+  border-block-start-color: var(--k-tooltip-bg, var(--k-text-primary));
+}
+[dir="ltr"] .k-tooltip::after { translate: -50% 0; }
+.k-tooltip--bottom::after { inset-block: auto 100%; border-block-start-color: transparent; border-block-end-color: var(--k-tooltip-bg, var(--k-text-primary)); }
+@keyframes k-tip-in { from { opacity: 0; translate: 50% 3px; } }
+[dir="ltr"] .k-tooltip { animation-name: k-tip-in-ltr; }
+@keyframes k-tip-in-ltr { from { opacity: 0; translate: -50% 3px; } }
+
+@media (forced-colors: active) {
+  .k-tooltip { border: 1px solid CanvasText; }
+}

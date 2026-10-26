@@ -1,0 +1,74 @@
+/* پنجرهٔ گفتگو — روی <dialog> بومی: تلهٔ فوکوس، Esc و غیرفعال شدن پس‌زمینه رایگان
+ * اندازه‌ها: k-dialog--sm | k-dialog--md (پیش‌فرض) | k-dialog--lg
+ *
+ * متغیرها: --k-dialog-width  --k-dialog-radius  --k-dialog-padding
+ */
+.k-dialog {
+  --_p: var(--k-dialog-padding, var(--k-space-6));
+
+  inline-size: min(var(--k-dialog-width, 30rem), calc(100vw - 2rem));
+  max-block-size: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-dialog-radius, var(--k-radius-2xl));
+  background: var(--k-bg-elevated);
+  color: var(--k-text-primary);
+  box-shadow: var(--k-shadow-2xl), var(--k-highlight);
+  overflow: auto;
+}
+.k-dialog--sm { --k-dialog-width: 24rem; }
+.k-dialog--lg { --k-dialog-width: 42rem; }
+
+.k-dialog::backdrop {
+  background: rgb(8 9 12 / 0.6);
+  backdrop-filter: blur(4px);
+}
+.k-dialog[open] { animation: k-dialog-in var(--k-duration-normal) var(--k-ease-emphasized); }
+.k-dialog[open]::backdrop { animation: k-fade-in var(--k-duration-normal) var(--k-ease-standard); }
+@keyframes k-dialog-in { from { opacity: 0; scale: 0.96; translate: 0 8px; } }
+@keyframes k-fade-in { from { opacity: 0; } }
+
+.k-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--k-space-4);
+  padding: var(--_p) var(--_p) 0;
+}
+.k-dialog__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: 3rem;
+  block-size: 3rem;
+  border-radius: 50%;
+  background: var(--k-bg-brand-subtle);
+  color: var(--k-text-brand);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--k-bg-brand-subtle) 50%, transparent);
+}
+.k-dialog__icon svg { inline-size: 1.5rem; block-size: 1.5rem; }
+.k-dialog--danger .k-dialog__icon { background: var(--k-bg-error-subtle); color: var(--k-text-error); box-shadow: 0 0 0 8px color-mix(in srgb, var(--k-bg-error-subtle) 50%, transparent); }
+.k-dialog__heading { flex: 1; display: grid; gap: var(--k-space-1); padding-block-start: var(--k-space-1); }
+.k-dialog__title { margin: 0; font-size: var(--k-text-lg); font-weight: var(--k-weight-semibold); line-height: var(--k-leading-tight); }
+.k-dialog__description { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: var(--k-leading-normal); }
+.k-dialog__close { margin-block: -0.25rem; margin-inline-end: -0.5rem; }
+.k-dialog__body { padding: var(--k-space-5) var(--_p) 0; }
+.k-dialog__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--k-space-3);
+  padding: var(--k-space-6) var(--_p) var(--_p);
+}
+.k-dialog__footer--block > * { flex: 1; }
+
+/* قفل اسکرول صفحه هنگام باز بودن */
+html:has(.k-dialog[open]) { overflow: hidden; }
+
+@media (max-width: 30rem) {
+  .k-dialog__footer { flex-direction: column-reverse; }
+  .k-dialog__footer > * { inline-size: 100%; }
+}
+@media (forced-colors: active) {
+  .k-dialog { border-color: CanvasText; }
+}

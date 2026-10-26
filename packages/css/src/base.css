@@ -14,6 +14,9 @@
   font-size: var(--k-text-md);
   line-height: var(--k-leading-normal);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* نوار اسکرول هم‌رنگ تم */
+  scrollbar-color: var(--k-border-primary) transparent;
   -moz-osx-font-smoothing: grayscale;
   /* کشیده‌نویسی و اتصال درست حروف فارسی */
   font-feature-settings: "kern", "liga", "calt";
@@ -70,6 +73,9 @@
     --k-border-secondary: var(--k-border-primary);
   }
 }
+
+/* متن پاراگراف‌ها بدون تک‌کلمهٔ تنها در خط آخر */
+:where(p, li, figcaption) { text-wrap: pretty; }
 
 /* ارقام لاتین در کنار متن فارسی: tabular برای جدول‌ها و اعداد */
 .k-tabular { font-variant-numeric: tabular-nums; }

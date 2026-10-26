@@ -1,0 +1,77 @@
+/* زبانه‌ها (Tabs) — ساختار ARIA را کامپوننت React می‌سازد
+ * گونه‌ها: k-tabs--line (پیش‌فرض) | k-tabs--pill | k-tabs--segmented — تمام‌عرض: k-tabs--block
+ */
+.k-tabs { display: grid; gap: var(--k-space-4); }
+
+.k-tabs__list {
+  position: relative;
+  display: flex;
+  gap: var(--k-space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.k-tabs__tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--k-space-2);
+  min-block-size: calc(2.5rem * var(--k-density));
+  padding-inline: var(--k-space-3);
+  border: 0;
+  border-radius: var(--k-radius-md);
+  background: transparent;
+  color: var(--k-text-tertiary);
+  font: inherit;
+  font-size: var(--k-text-sm);
+  font-weight: var(--k-weight-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--k-duration-fast), background-color var(--k-duration-fast);
+}
+.k-tabs__tab:hover { color: var(--k-text-primary); }
+.k-tabs__tab[aria-selected="true"] { color: var(--k-text-primary); }
+.k-tabs__tab:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-tabs__tab:disabled { color: var(--k-text-quaternary); cursor: not-allowed; }
+.k-tabs__tab .k-badge { font-size: var(--k-text-xs); padding-block: 0; }
+
+.k-tabs__panel:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: 4px; border-radius: var(--k-radius-sm); }
+
+/* خطی: خط زیر زبانهٔ فعال */
+.k-tabs--line .k-tabs__list { border-block-end: 1px solid var(--k-border-secondary); gap: var(--k-space-4); }
+.k-tabs--line .k-tabs__tab { padding-inline: var(--k-space-1); border-radius: 0; }
+.k-tabs--line .k-tabs__tab:focus-visible { border-radius: var(--k-radius-sm); }
+.k-tabs--line .k-tabs__tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -1px;
+  block-size: 2px;
+  border-radius: 2px;
+  background: var(--k-border-brand);
+}
+
+/* قرصی */
+.k-tabs--pill .k-tabs__tab:hover { background: var(--k-bg-hover); }
+.k-tabs--pill .k-tabs__tab[aria-selected="true"] { background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+
+/* چندبخشی: مثل کنترل iOS */
+.k-tabs--segmented .k-tabs__list {
+  inline-size: fit-content;
+  padding: 3px;
+  border: 1px solid var(--k-border-secondary);
+  border-radius: calc(var(--k-radius-md) + 3px);
+  background: var(--k-bg-secondary);
+}
+.k-tabs--segmented .k-tabs__tab { min-block-size: calc(2.25rem * var(--k-density)); }
+.k-tabs--segmented .k-tabs__tab[aria-selected="true"] {
+  background: var(--k-bg-elevated);
+  box-shadow: var(--k-shadow-sm), var(--k-highlight);
+}
+.k-tabs--block .k-tabs__list { inline-size: auto; }
+.k-tabs--block .k-tabs__tab { flex: 1; }
+
+@media (forced-colors: active) {
+  .k-tabs__tab[aria-selected="true"] { outline: 2px solid Highlight; }
+}

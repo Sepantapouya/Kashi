@@ -14,3 +14,5 @@ export type { Operator } from "./mobile.js";
 export { numberToWords } from "./words.js";
 export { normalizePersian } from "./text.js";
 export type { NormalizeOptions } from "./text.js";
+export { formatRelative } from "./relative.js";
+export type { RelativeOptions } from "./relative.js";

@@ -16,7 +16,7 @@
 
 ## کامپوننت‌ها
 
-Button · Input · Textarea · Badge · Card · Alert · Avatar · AvatarGroup · Checkbox · Switch
+Button · Input · Textarea · Select · Checkbox · RadioGroup · Switch · Badge · Card · Alert · Avatar · AvatarGroup · Tabs · Dialog · Toast · Tooltip · RelativeTime
 
 **فارسی:** DatePicker و Calendar شمسی · NationalIdInput (کد ملی) · CardNumberInput (شماره کارت با لوگوی بانک) · IbanInput (شبا) · MobileInput (موبایل) · PriceInput (مبلغ به حروف) · ابزارهای `@kashi-ui/persian`
 

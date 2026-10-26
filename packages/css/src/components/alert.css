@@ -26,7 +26,7 @@
   background: var(--_bg);
   color: var(--k-text-tertiary);
   font-size: var(--k-text-sm);
-  box-shadow: var(--k-shadow-xs);
+  box-shadow: var(--k-shadow-xs), var(--k-highlight);
 }
 
 .k-alert--brand { --_accent: var(--k-text-brand); }

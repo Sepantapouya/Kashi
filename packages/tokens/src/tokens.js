@@ -6,7 +6,7 @@ export const palette = {
   // فیروزه‌ای — رنگ اصلی برند
   firoozeh: {
     50: "#e6fbf8", 100: "#c2f4ee", 200: "#8ce9df", 300: "#4fd8cb", 400: "#22c2b4",
-    500: "#0fa89b", 600: "#08877e", 700: "#0a6b65", 800: "#0d5551", 900: "#0f4644", 950: "#042a29",
+    500: "#0fa89b", 600: "#0b8077", 700: "#0a6b65", 800: "#0d5551", 900: "#0f4644", 950: "#042a29",
   },
   // لاجوردی — اطلاعات و لینک
   lajvard: {
@@ -29,10 +29,11 @@ export const palette = {
     500: "#6aae33", 600: "#518b25", 700: "#3f6a21", 800: "#35551f", 900: "#2e491e", 950: "#15270c",
   },
   // شب — خاکستری‌های کمی آبی برای پس‌زمینه و متن
+  // ۴۵۰ و ۵۵۰ کم‌رنگ‌ترین خاکستری‌هایی‌اند که هنوز کنتراست ۳:۱ حاشیهٔ فیلد را دارند (روشن و تیره)
   shab: {
     0: "#ffffff", 50: "#f6f7f9", 100: "#eceef2", 200: "#d5d9e2", 300: "#b1b9c9", 400: "#8792ab",
-    500: "#687491", 600: "#535d78", 700: "#444c62", 800: "#2a2f3d", 850: "#1e222c", 900: "#161921",
-    950: "#0d0f14", 1000: "#08090c",
+    450: "#848fa7", 500: "#687491", 550: "#5a637a", 600: "#535d78", 700: "#444c62", 800: "#2a2f3d",
+    850: "#1e222c", 900: "#161921", 925: "#111319", 950: "#0d0f14", 1000: "#08090c",
   },
 };
 
@@ -101,11 +102,11 @@ export const themes = {
     "bg-primary": p("shab", 1000),
     "bg-secondary": p("shab", 950),
     "bg-tertiary": p("shab", 900),
-    "bg-elevated": p("shab", 900),
+    "bg-elevated": p("shab", 925),
     "bg-hover": "rgb(255 255 255 / 0.05)",
     "bg-active": "rgb(255 255 255 / 0.08)",
-    "bg-brand": p("brand", 700),
-    "bg-brand-hover": p("brand", 800),
+    "bg-brand": p("brand", 400),
+    "bg-brand-hover": p("brand", 300),
     "bg-brand-subtle": "color-mix(in srgb, var(--k-brand-500) 14%, transparent)",
     "bg-error": p("anar", 600),
     "bg-error-hover": p("anar", 700),
@@ -118,7 +119,8 @@ export const themes = {
     "text-secondary": p("shab", 200),
     "text-tertiary": p("shab", 400),
     "text-quaternary": p("shab", 500),
-    "text-on-brand": p("shab", 0),
+    "text-on-brand": p("shab", 1000),
+    "text-on-error": p("shab", 0),
     "text-brand": p("brand", 300),
     "text-error": p("anar", 400),
     "text-warning": p("zafaran", 400),
@@ -129,13 +131,22 @@ export const themes = {
     "border-secondary": p("shab", 800),
     "border-brand": p("brand", 400),
     // حاشیهٔ فیلدها، چک‌باکس و سوییچ خاموش — حداقل ۳:۱ (WCAG 1.4.11)
-    "border-input": p("shab", 500),
+    "border-input": p("shab", 550),
     "border-error": p("anar", 400),
     // حلقهٔ فوکوس نرم و پهن (Untitled UI)
     "ring-brand": "0 0 0 4px color-mix(in srgb, var(--k-brand-400) 28%, transparent)",
     "ring-error": "0 0 0 4px rgb(248 59 71 / 0.28)",
     // سایهٔ اسکئومورفیک دکمه‌ها و فیلدها (Untitled UI)
-    "shadow-skeuomorphic": "inset 0 0 0 1px rgb(12 14 18 / 0.18), inset 0 -2px 0 rgb(12 14 18 / 0.05)",
+    "shadow-skeuomorphic": "inset 0 0 0 1px rgb(0 0 0 / 0.2), inset 0 -2px 0 rgb(0 0 0 / 0.12)",
+    // خط روشن بالای سطوح برجسته در تم تیره؛ حس عمق می‌دهد
+    "highlight": "inset 0 1px 0 rgb(255 255 255 / 0.05)",
+    // سایه‌ها در تیره باید پررنگ‌تر باشند تا دیده شوند
+    "shadow-xs": "0 1px 2px rgb(0 0 0 / 0.4)",
+    "shadow-sm": "0 1px 3px rgb(0 0 0 / 0.45), 0 1px 2px -1px rgb(0 0 0 / 0.4)",
+    "shadow-md": "0 4px 8px -2px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.35)",
+    "shadow-lg": "0 12px 24px -4px rgb(0 0 0 / 0.55), 0 4px 8px -4px rgb(0 0 0 / 0.35)",
+    "shadow-xl": "0 20px 32px -6px rgb(0 0 0 / 0.6), 0 8px 12px -6px rgb(0 0 0 / 0.4)",
+    "shadow-2xl": "0 28px 56px -12px rgb(0 0 0 / 0.7)",
   },
   light: {
     "bg-primary": p("shab", 0),
@@ -144,8 +155,8 @@ export const themes = {
     "bg-elevated": p("shab", 0),
     "bg-hover": p("shab", 50),
     "bg-active": p("shab", 100),
-    "bg-brand": p("brand", 700),
-    "bg-brand-hover": p("brand", 800),
+    "bg-brand": p("brand", 600),
+    "bg-brand-hover": p("brand", 700),
     "bg-brand-subtle": p("brand", 50),
     "bg-error": p("anar", 600),
     "bg-error-hover": p("anar", 700),
@@ -158,6 +169,7 @@ export const themes = {
     "text-tertiary": p("shab", 600),
     "text-quaternary": p("shab", 500),
     "text-on-brand": p("shab", 0),
+    "text-on-error": p("shab", 0),
     "text-brand": p("brand", 700),
     "text-error": p("anar", 700),
     "text-warning": p("zafaran", 700),
@@ -166,10 +178,18 @@ export const themes = {
     "border-primary": p("shab", 300),
     "border-secondary": p("shab", 200),
     "border-brand": p("brand", 600),
-    "border-input": p("shab", 500),
+    "border-input": p("shab", 450),
     "border-error": p("anar", 500),
     "ring-brand": "0 0 0 4px color-mix(in srgb, var(--k-brand-500) 20%, transparent)",
     "ring-error": "0 0 0 4px rgb(229 29 42 / 0.2)",
     "shadow-skeuomorphic": "inset 0 0 0 1px rgb(10 13 18 / 0.18), inset 0 -2px 0 rgb(10 13 18 / 0.05)",
+    "highlight": "0 0 #0000",
+    // بازگرداندن سایه‌های روشن برای زیرشاخه‌هایی که داخل تم تیره روشن شده‌اند
+    "shadow-xs": "0 1px 2px rgb(10 13 18 / 0.05)",
+    "shadow-sm": "0 1px 3px rgb(10 13 18 / 0.1), 0 1px 2px -1px rgb(10 13 18 / 0.1)",
+    "shadow-md": "0 4px 6px -1px rgb(10 13 18 / 0.1), 0 2px 4px -2px rgb(10 13 18 / 0.06)",
+    "shadow-lg": "0 12px 16px -4px rgb(10 13 18 / 0.08), 0 4px 6px -2px rgb(10 13 18 / 0.03)",
+    "shadow-xl": "0 20px 24px -4px rgb(10 13 18 / 0.08), 0 8px 8px -4px rgb(10 13 18 / 0.03)",
+    "shadow-2xl": "0 24px 48px -12px rgb(10 13 18 / 0.18)",
   },
 };
