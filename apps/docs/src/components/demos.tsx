@@ -1,7 +1,7 @@
 // نمونه‌هایی که JSX را به‌عنوان prop می‌دهند باید در فایل React باشند؛
 // در MDX، JSX داخل prop به عنصر React تبدیل نمی‌شود.
 import { useState, type ReactNode } from "react";
-import { Alert, Badge, Button, Calendar, CardNumberInput, DatePicker, Dialog, IbanInput, Input, MobileInput, NationalIdInput, PriceInput, Radio, RadioGroup, Tab, TabList, TabPanel, Tabs, Toaster, Tooltip, toast } from "@kashi-ui/react";
+import { Alert, Avatar, AvatarGroup, Badge, Button, Calendar, CardNumberInput, DatePicker, Dialog, IbanInput, Input, MobileInput, NationalIdInput, PriceInput, Radio, RadioGroup, Tab, TabList, TabPanel, Tabs, Toaster, Tooltip, toast } from "@kashi-ui/react";
 import { formatJalali, formatNumber, toISODate, toJalali } from "@kashi-ui/persian";
 import { ArrowIcon, MailIcon, PlusIcon, SearchIcon, TrashIcon, UserIcon } from "./icons";
 
@@ -204,4 +204,33 @@ export const TooltipDemo = () => (
       <Button variant="tertiary" iconOnly aria-label="ایمیل"><MailIcon /></Button>
     </Tooltip>
   </>
+);
+
+// در MDX، فرزندان یک کامپوننت React جداگانه رندر می‌شوند و context به آن‌ها نمی‌رسد؛
+// پس گروه‌ها (RadioGroup، AvatarGroup) باید کامل اینجا ساخته شوند.
+export const RadioListDemo = () => (
+  <RadioGroup label="روش ارسال" name="shipping" defaultValue="post">
+    <Radio value="post" label="پست پیشتاز" description="۳ تا ۵ روز کاری" />
+    <Radio value="courier" label="پیک" description="همان روز، فقط تهران" />
+    <Radio value="pickup" label="تحویل حضوری" disabled />
+  </RadioGroup>
+);
+
+export const RadioInlineDemo = () => (
+  <RadioGroup label="اندازه" variant="inline" name="size" defaultValue="m">
+    <Radio value="s" label="کوچک" />
+    <Radio value="m" label="متوسط" />
+    <Radio value="l" label="بزرگ" />
+  </RadioGroup>
+);
+
+export const AvatarGroupDemo = () => (
+  <AvatarGroup max={4} aria-label="اعضای تیم">
+    <Avatar name="سپنتا پویا" src="/images/sepanta-pouya.jpg" />
+    <Avatar name="سارا احمدی" brand />
+    <Avatar name="علی رضایی" />
+    <Avatar name="مریم کریمی" brand />
+    <Avatar name="رضا نوری" />
+    <Avatar name="نگار صادقی" />
+  </AvatarGroup>
 );

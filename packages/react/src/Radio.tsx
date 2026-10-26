@@ -1,5 +1,6 @@
 import { createContext, forwardRef, useContext, useId, useState, type InputHTMLAttributes, type ReactNode } from "react";
 import { cx } from "./cx.js";
+import { isDev } from "./utils.js";
 
 interface Ctx { name: string; value: string | undefined; setValue: (v: string) => void; invalid?: boolean; disabled?: boolean }
 const RadioCtx = createContext<Ctx | null>(null);
@@ -62,14 +63,18 @@ export function RadioGroup({
   );
 }
 
-export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "value" | "name"> {
+export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "value"> {
   value: string;
   label: ReactNode;
   description?: ReactNode;
 }
 
-export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({ value, label, description, id, className, disabled, ...rest }, ref) {
+export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({ value, label, description, id, className, disabled, name, ...rest }, ref) {
   const ctx = useContext(RadioCtx);
+  // بدون name مشترک، مرورگر رادیوها را یک گروه نمی‌داند و چند گزینه هم‌زمان انتخاب می‌شود
+  if (!ctx && !name && isDev()) {
+    console.warn("[kashi] <Radio> باید داخل <RadioGroup> باشد یا name داشته باشد؛ وگرنه چند گزینه هم‌زمان قابل‌انتخاب است.");
+  }
   const autoId = useId();
   const inputId = id ?? autoId;
   return (
@@ -79,7 +84,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({ v
         type="radio"
         className="k-radio"
         id={inputId}
-        name={ctx?.name}
+        name={ctx?.name ?? name}
         value={value}
         checked={ctx ? ctx.value === value : undefined}
         onChange={() => ctx?.setValue(value)}

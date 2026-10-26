@@ -5,11 +5,9 @@ description: انتخاب دقیقاً یک گزینه از چند گزینه؛ 
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { RadioGroup, Radio } from "@kashi-ui/react";
-import { RadioCardsDemo } from "../../../components/demos";
+import { RadioCardsDemo, RadioInlineDemo, RadioListDemo } from "../../../components/demos";
 
 ```tsx
-import { RadioGroup, Radio } from "@kashi-ui/react";
 ```
 
 ## فهرست
@@ -19,25 +17,17 @@ import { RadioGroup, Radio } from "@kashi-ui/react";
   <Radio value="courier" label="پیک" description="همان روز، فقط تهران" />
   <Radio value="pickup" label="تحویل حضوری" disabled />
 </RadioGroup>`}>
-  <RadioGroup label="روش ارسال" name="shipping" defaultValue="post">
-    <Radio value="post" label="پست پیشتاز" description="۳ تا ۵ روز کاری" />
-    <Radio value="courier" label="پیک" description="همان روز، فقط تهران" />
-    <Radio value="pickup" label="تحویل حضوری" disabled />
-  </RadioGroup>
+  <RadioListDemo />
 </Demo>
 
 ## افقی
 
-<Demo align="start" code={`<RadioGroup label="اندازه" variant="inline" defaultValue="m">
+<Demo align="start" code={`<RadioGroup label="اندازه" variant="inline" name="size" defaultValue="m">
   <Radio value="s" label="کوچک" />
   <Radio value="m" label="متوسط" />
   <Radio value="l" label="بزرگ" />
 </RadioGroup>`}>
-  <RadioGroup label="اندازه" variant="inline" defaultValue="m">
-    <Radio value="s" label="کوچک" />
-    <Radio value="m" label="متوسط" />
-    <Radio value="l" label="بزرگ" />
-  </RadioGroup>
+  <RadioInlineDemo />
 </Demo>
 
 ## کارت‌های قابل‌انتخاب

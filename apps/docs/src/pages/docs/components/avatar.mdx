@@ -6,7 +6,8 @@ description: نمایش تصویر یا حروف اول یک شخص، با وض�
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
 import Vars from "../../../components/Vars.astro";
-import { Avatar, AvatarGroup } from "@kashi-ui/react";
+import { Avatar } from "@kashi-ui/react";
+import { AvatarGroupDemo } from "../../../components/demos";
 
 ```tsx
 import { Avatar, AvatarGroup } from "@kashi-ui/react";
@@ -64,14 +65,7 @@ import { Avatar, AvatarGroup } from "@kashi-ui/react";
   <Avatar name="رضا نوری" />
   <Avatar name="نگار صادقی" />
 </AvatarGroup>`}>
-  <AvatarGroup max={4} aria-label="اعضای تیم">
-    <Avatar name="سپنتا پویا" src="/images/sepanta-pouya.jpg" />
-    <Avatar name="سارا احمدی" brand />
-    <Avatar name="علی رضایی" />
-    <Avatar name="مریم کریمی" brand />
-    <Avatar name="رضا نوری" />
-    <Avatar name="نگار صادقی" />
-  </AvatarGroup>
+  <AvatarGroupDemo />
 </Demo>
 
 ## ویژگی‌ها
