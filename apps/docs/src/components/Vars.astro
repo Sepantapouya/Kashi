@@ -1,0 +1,18 @@
+---
+// جدول متغیرهای CSS: [نام، پیش‌فرض، توضیح]
+interface Props { rows: [string, string, string][] }
+---
+<div class="table-wrap" role="region" aria-label="متغیرهای CSS" tabindex="0">
+  <table class="ref-table">
+    <thead><tr><th scope="col">متغیر</th><th scope="col">پیش‌فرض</th><th scope="col">کاربرد</th></tr></thead>
+    <tbody>
+      {Astro.props.rows.map(([name, def, desc]) => (
+        <tr>
+          <th scope="row"><code>{name}</code></th>
+          <td><code class="type">{def}</code></td>
+          <td>{desc}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

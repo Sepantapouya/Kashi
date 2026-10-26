@@ -1,0 +1,75 @@
+---
+layout: ../../layouts/Docs.astro
+title: نصب
+description: کاشی را در پروژهٔ React یا هر پروژهٔ وب دیگری راه‌اندازی کنید.
+---
+import Install from "../../components/Install.astro";
+
+## React
+
+پکیج کامپوننت‌ها و استایل‌ها را نصب کنید:
+
+<Install command="npm i @kashi-ui/react @kashi-ui/css" />
+
+فایل CSS را یک‌بار در ریشهٔ برنامه وارد کنید و جهت صفحه را راست‌به‌چپ قرار دهید:
+
+```tsx
+// main.tsx یا app/layout.tsx
+import "@kashi-ui/css";
+```
+
+```html
+<html lang="fa" dir="rtl">
+```
+
+حالا کامپوننت‌ها آمادهٔ استفاده‌اند:
+
+```tsx
+import { Button } from "@kashi-ui/react";
+
+export function Example() {
+  return <Button variant="primary">ثبت‌نام</Button>;
+}
+```
+
+کاشی با React نسخهٔ ۱۸ و بالاتر کار می‌کند و با Next.js، Vite و Remix سازگار است.
+
+## HTML و فریم‌ورک‌های دیگر
+
+برای Vue، Svelte، Angular یا HTML ساده، فقط پکیج CSS لازم است:
+
+<Install command="npm i @kashi-ui/css" />
+
+یا بدون نصب، از CDN:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">
+```
+
+سپس از کلاس‌ها استفاده کنید. نمونهٔ HTML هر کامپوننت در صفحهٔ همان کامپوننت آمده است.
+
+```html
+<button class="k-btn k-btn--primary">ثبت‌نام</button>
+```
+
+## وارد کردن بخشی از CSS
+
+اگر فقط به چند کامپوننت نیاز دارید، فایل‌ها را جداگانه وارد کنید. ترتیب مهم است: توکن‌ها، فونت و پایه، سپس کامپوننت‌ها.
+
+```css
+@import "@kashi-ui/css/tokens.css";
+@import "@kashi-ui/css/font.css";
+@import "@kashi-ui/css/base.css";
+@import "@kashi-ui/css/components/button.css";
+@import "@kashi-ui/css/components/input.css";
+```
+
+> فایل‌های جداگانه در Cascade Layer قرار ندارند. اگر به اولویت لایه‌ها نیاز دارید، از فایل کامل `kashi.css` استفاده کنید.
+
+## تم روشن
+
+تم پیش‌فرض تیره است. برای تم روشن، ویژگی `data-theme` را روی هر عنصری بگذارید؛ زیرشاخهٔ آن عنصر روشن می‌شود.
+
+```html
+<html lang="fa" dir="rtl" data-theme="light">
+```

@@ -1,0 +1,77 @@
+/* آواتار
+ * <span class="k-avatar k-avatar--lg">
+ *   <img class="k-avatar__image" src="…" alt="سارا احمدی">   ← یا حروف اول: <span aria-hidden="true">س‌ا</span> + role="img" aria-label روی والد
+ *   <span class="k-avatar__status k-avatar__status--online"></span>
+ * </span>
+ * اندازه‌ها: xs | sm | md | lg | xl | 2xl — شکل: k-avatar--square — رنگ: k-avatar--brand
+ * گروه: <div class="k-avatar-group">…</div>
+ *
+ * متغیرها: --k-avatar-size  --k-avatar-radius  --k-avatar-bg  --k-avatar-fg
+ */
+.k-avatar {
+  --_s: var(--k-avatar-size, 2.5rem);
+
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: var(--_s);
+  block-size: var(--_s);
+  border-radius: var(--k-avatar-radius, var(--k-radius-full));
+  background: var(--k-avatar-bg, var(--k-bg-tertiary));
+  color: var(--k-avatar-fg, var(--k-text-secondary));
+  font-size: calc(var(--_s) * 0.36);
+  font-weight: var(--k-weight-semibold);
+  line-height: 1;
+  user-select: none;
+  /* حاشیهٔ داخلی ظریف مثل Untitled UI */
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--k-text-primary) 8%, transparent);
+}
+
+.k-avatar__image {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.k-avatar--xs { --_s: var(--k-avatar-size, 1.5rem); }
+.k-avatar--sm { --_s: var(--k-avatar-size, 2rem); }
+.k-avatar--lg { --_s: var(--k-avatar-size, 3rem); }
+.k-avatar--xl { --_s: var(--k-avatar-size, 3.5rem); }
+.k-avatar--2xl { --_s: var(--k-avatar-size, 4rem); }
+
+.k-avatar--square { border-radius: var(--k-avatar-radius, var(--k-radius-md)); }
+.k-avatar--brand {
+  background: var(--k-avatar-bg, var(--k-bg-brand-subtle));
+  color: var(--k-avatar-fg, var(--k-text-brand));
+}
+
+.k-avatar__status {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline-end: 0;
+  inline-size: max(0.5rem, calc(var(--_s) * 0.28));
+  block-size: max(0.5rem, calc(var(--_s) * 0.28));
+  border: 2px solid var(--k-bg-primary);
+  border-radius: var(--k-radius-full);
+  background: var(--k-border-input);
+}
+.k-avatar__status--online { background: var(--k-text-success); }
+.k-avatar__status--busy { background: var(--k-text-error); }
+.k-avatar__status--away { background: var(--k-text-warning); }
+
+.k-avatar-group { display: inline-flex; align-items: center; }
+.k-avatar-group > .k-avatar {
+  box-shadow: 0 0 0 2px var(--k-bg-primary);
+}
+.k-avatar-group > .k-avatar + .k-avatar {
+  margin-inline-start: calc(var(--_s) * -0.28);
+}
+
+@media (forced-colors: active) {
+  .k-avatar { border: 1px solid CanvasText; }
+  .k-avatar__status { background: CanvasText; }
+}

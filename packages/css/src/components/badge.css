@@ -1,0 +1,48 @@
+/* نشان (Badge)
+ * <span class="k-badge k-badge--success"><span class="k-badge__dot" aria-hidden="true"></span>فعال</span>
+ * رنگ‌ها: neutral | brand | error | warning | success | info — اندازه‌ها: sm | md | lg
+ * شکل: پیش‌فرض گرد (pill)؛ k-badge--square برای گوشهٔ کم
+ *
+ * متغیرها: --k-badge-radius  --k-badge-font-weight
+ */
+.k-badge {
+  --_bg: var(--k-bg-tertiary);
+  --_fg: var(--k-text-secondary);
+  --_px: 0.625rem;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-1);
+  padding-block: 0.125rem;
+  padding-inline: var(--_px);
+  border: 1px solid color-mix(in srgb, var(--_fg) 24%, transparent);
+  border-radius: var(--k-badge-radius, var(--k-radius-full));
+  background: var(--_bg);
+  color: var(--_fg);
+  font-size: var(--k-text-sm);
+  font-weight: var(--k-badge-font-weight, var(--k-weight-medium));
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.k-badge--brand { --_bg: var(--k-bg-brand-subtle); --_fg: var(--k-text-brand); }
+.k-badge--error { --_bg: var(--k-bg-error-subtle); --_fg: var(--k-text-error); }
+.k-badge--warning { --_bg: var(--k-bg-warning-subtle); --_fg: var(--k-text-warning); }
+.k-badge--success { --_bg: var(--k-bg-success-subtle); --_fg: var(--k-text-success); }
+.k-badge--info { --_bg: var(--k-bg-info-subtle); --_fg: var(--k-text-info); }
+
+.k-badge--sm { --_px: 0.5rem; font-size: var(--k-text-xs); }
+.k-badge--lg { --_px: 0.75rem; padding-block: 0.25rem; }
+.k-badge--square { border-radius: var(--k-badge-radius, var(--k-radius-sm)); }
+
+.k-badge__dot {
+  inline-size: 0.375rem;
+  block-size: 0.375rem;
+  border-radius: var(--k-radius-full);
+  background: currentColor;
+}
+.k-badge svg { inline-size: 0.875em; block-size: 0.875em; }
+
+@media (forced-colors: active) {
+  .k-badge { border-color: CanvasText; }
+}

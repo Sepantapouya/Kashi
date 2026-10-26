@@ -1,0 +1,64 @@
+---
+layout: ../../../layouts/Docs.astro
+title: سوییچ
+description: برای روشن و خاموش کردن تنظیمی که بلافاصله اعمال می‌شود.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { Switch } from "@kashi-ui/react";
+
+```tsx
+import { Switch } from "@kashi-ui/react";
+```
+
+## پایه
+
+در راست‌به‌چپ، دستگیرهٔ سوییچ در حالت روشن به سمت چپ می‌رود؛ این رفتار خودکار است.
+
+<Demo column align="start" code={`<Switch label="اعلان‌های ایمیلی" description="خلاصهٔ هفتگی فعالیت‌ها" defaultChecked />
+<Switch label="حالت تعطیلات" />`}>
+  <Switch label="اعلان‌های ایمیلی" description="خلاصهٔ هفتگی فعالیت‌ها" defaultChecked />
+  <Switch label="حالت تعطیلات" />
+</Demo>
+
+## اندازه‌ها و حالت‌ها
+
+<Demo column align="start" code={`<Switch label="کوچک" size="sm" defaultChecked />
+<Switch label="متوسط" defaultChecked />
+<Switch label="بزرگ" size="lg" defaultChecked />
+<Switch label="غیرفعال" disabled />`}>
+  <Switch label="کوچک" size="sm" defaultChecked />
+  <Switch label="متوسط" defaultChecked />
+  <Switch label="بزرگ" size="lg" defaultChecked />
+  <Switch label="غیرفعال" disabled />
+</Demo>
+
+## سوییچ یا چک‌باکس؟
+
+- **سوییچ:** تغییر فوراً اعمال می‌شود، مثل روشن کردن اعلان‌ها.
+- **چک‌باکس:** انتخاب پس از ارسال فرم اعمال می‌شود، مثل پذیرفتن قوانین.
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["label", "ReactNode", "", "برچسب کنار سوییچ"],
+  ["description", "ReactNode", "", "توضیح زیر برچسب"],
+  ["size", '"sm" | "md" | "lg"', '"md"', "اندازه"],
+  ["invalid", "boolean", "false", "حالت خطا"],
+]} />
+
+## متغیرهای CSS
+
+<Vars rows={[
+  ["--k-switch-width", "2.25rem", "عرض"],
+  ["--k-switch-height", "1.25rem", "ارتفاع"],
+  ["--k-switch-track-on", "var(--k-bg-brand)", "رنگ مسیر در حالت روشن"],
+  ["--k-switch-track-off", "var(--k-border-input)", "رنگ مسیر در حالت خاموش"],
+  ["--k-switch-thumb", "#fff", "رنگ دستگیره"],
+]} />
+
+## دسترس‌پذیری
+
+- روی `<input type="checkbox" role="switch">` ساخته شده؛ صفحه‌خوان آن را «سوییچ، روشن» یا «خاموش» اعلام می‌کند.
+- مسیر خاموش کنتراست حداقل ۳ به ۱ با پس‌زمینه دارد.

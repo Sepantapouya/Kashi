@@ -1,0 +1,107 @@
+---
+import "@kashi-ui/css";
+import "../styles/site.css";
+
+interface Props { title?: string; description?: string }
+const { title, description = "کاشی — دیزاین‌سیستم فارسی، متن‌باز، راست‌به‌چپ و دسترس‌پذیر برای React و هر فریم‌ورک دیگری." } = Astro.props;
+const fullTitle = title ? `${title} · کاشی` : "کاشی — دیزاین‌سیستم فارسی";
+---
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <!-- تم را پیش از نقاشی صفحه اعمال می‌کند تا چشمک نزند. پیش‌فرض: تیره -->
+    <script is:inline>
+      try {
+        const t = localStorage.getItem("kashi-theme");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="k-skip-link" href="#main">رفتن به محتوای اصلی</a>
+    <slot />
+    <div class="k-sr-only" aria-live="polite" id="live-region"></div>
+
+    <script>
+      const root = document.documentElement;
+      const live = document.getElementById("live-region")!;
+      const announce = (msg: string) => {
+        live.textContent = "";
+        setTimeout(() => (live.textContent = msg), 50);
+      };
+
+      // تغییر تم
+      const syncToggle = () => {
+        const dark = root.dataset.theme !== "light";
+        document.querySelectorAll("[data-theme-toggle]").forEach((b) => b.setAttribute("aria-label", dark ? "تم روشن" : "تم تیره"));
+      };
+      syncToggle();
+      document.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+
+        if (target.closest("[data-theme-toggle]")) {
+          const next = root.dataset.theme === "light" ? "dark" : "light";
+          root.dataset.theme = next;
+          try { localStorage.setItem("kashi-theme", next); } catch {}
+          syncToggle();
+          announce(next === "dark" ? "تم تیره فعال شد" : "تم روشن فعال شد");
+        }
+
+        // کپی کد
+        const copy = target.closest<HTMLButtonElement>("[data-copy]");
+        if (copy) {
+          navigator.clipboard?.writeText(copy.dataset.copy ?? "").then(() => {
+            copy.dataset.copied = "";
+            announce("کپی شد");
+            setTimeout(() => delete copy.dataset.copied, 1500);
+          });
+        }
+      });
+
+      // تب‌ها (الگوی ARIA: کلیدهای جهت‌دار، Home و End)
+      document.querySelectorAll<HTMLElement>("[data-tabs]").forEach((box) => {
+        const tabs = [...box.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+        const select = (tab: HTMLButtonElement, focus = true) => {
+          for (const t of tabs) {
+            const on = t === tab;
+            t.setAttribute("aria-selected", String(on));
+            t.tabIndex = on ? 0 : -1;
+            document.getElementById(t.getAttribute("aria-controls")!)!.hidden = !on;
+          }
+          if (focus) tab.focus();
+        };
+        tabs.forEach((tab, i) => {
+          tab.addEventListener("click", () => select(tab, false));
+          tab.addEventListener("keydown", (e) => {
+            // در RTL «چپ» یعنی تب بعدی
+            const rtl = getComputedStyle(tab).direction === "rtl";
+            const step = { ArrowLeft: rtl ? 1 : -1, ArrowRight: rtl ? -1 : 1 }[e.key];
+            if (step) select(tabs[(i + step + tabs.length) % tabs.length]);
+            else if (e.key === "Home") select(tabs[0]);
+            else if (e.key === "End") select(tabs[tabs.length - 1]);
+            else return;
+            e.preventDefault();
+          });
+        });
+      });
+
+      // چک‌باکس‌های نیمه‌انتخاب رندرشده در سرور
+      document.querySelectorAll<HTMLInputElement>("input[data-indeterminate]").forEach((el) => (el.indeterminate = true));
+
+      // منوی موبایل (dialog بومی: تله‌ی فوکوس و Esc رایگان)
+      const dialog = document.querySelector<HTMLDialogElement>("[data-menu-dialog]");
+      document.querySelector("[data-open-menu]")?.addEventListener("click", () => dialog?.showModal());
+      dialog?.addEventListener("click", (e) => {
+        if (e.target === dialog || (e.target as HTMLElement).closest("[data-close-menu], a")) dialog.close();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+---
+// جدول props: [نام، نوع، پیش‌فرض، توضیح]
+interface Props { rows: [string, string, string, string][]; caption?: string }
+const { rows, caption = "ویژگی‌ها (props)" } = Astro.props;
+---
+<div class="table-wrap" role="region" aria-label={caption} tabindex="0">
+  <table class="ref-table">
+    <thead><tr><th scope="col">نام</th><th scope="col">نوع</th><th scope="col">پیش‌فرض</th><th scope="col">توضیح</th></tr></thead>
+    <tbody>
+      {rows.map(([name, type, def, desc]) => (
+        <tr>
+          <th scope="row"><code>{name}</code></th>
+          <td><code class="type">{type}</code></td>
+          <td>{def ? <code>{def}</code> : <span class="muted">—</span>}</td>
+          <td>{desc}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

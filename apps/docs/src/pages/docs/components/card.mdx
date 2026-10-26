@@ -1,0 +1,86 @@
+---
+layout: ../../../layouts/Docs.astro
+title: کارت
+description: ظرفی برای گروه‌بندی محتوای مرتبط، با سربرگ، بدنه و پانویس.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { Badge, Button, Card, CardBody, CardDescription, CardFooter, CardHeader, CardTitle } from "@kashi-ui/react";
+
+```tsx
+import { Card, CardHeader, CardTitle, CardDescription, CardBody, CardFooter } from "@kashi-ui/react";
+```
+
+## پایه
+
+<Demo align="stretch" code={`<Card>
+  <CardHeader>
+    <CardTitle>پلن حرفه‌ای</CardTitle>
+    <CardDescription>برای تیم‌های در حال رشد</CardDescription>
+  </CardHeader>
+  <CardBody>۴۹۰ هزار تومان در ماه، تا ۲۰ کاربر.</CardBody>
+  <CardFooter>
+    <Button variant="tertiary">مقایسه</Button>
+    <Button variant="primary">انتخاب پلن</Button>
+  </CardFooter>
+</Card>`}>
+  <Card>
+    <CardHeader>
+      <CardTitle>پلن حرفه‌ای</CardTitle>
+      <CardDescription>برای تیم‌های در حال رشد</CardDescription>
+    </CardHeader>
+    <CardBody>۴۹۰ هزار تومان در ماه، تا ۲۰ کاربر.</CardBody>
+    <CardFooter>
+      <Button variant="tertiary">مقایسه</Button>
+      <Button variant="primary">انتخاب پلن</Button>
+    </CardFooter>
+  </Card>
+</Demo>
+
+## کارت قابل‌کلیک
+
+کل سطح کارت قابل‌کلیک است، ولی فقط یک لینک با کلاس `k-card__link` دارد؛ کاربر کیبورد با یک Tab از آن عبور می‌کند.
+
+<Demo align="stretch" code={`<Card interactive>
+  <CardHeader>
+    <Badge tone="brand">راهنما</Badge>
+    <CardTitle>
+      <a className="k-card__link" href="/docs/accessibility/">دسترس‌پذیری در کاشی</a>
+    </CardTitle>
+    <CardDescription>آنچه خودکار تضمین می‌شود و آنچه بر عهدهٔ شماست.</CardDescription>
+  </CardHeader>
+</Card>`}>
+  <Card interactive>
+    <CardHeader>
+      <Badge tone="brand" style={{ justifySelf: "start" }}>راهنما</Badge>
+      <CardTitle><a className="k-card__link" href="/docs/accessibility/" style={{ color: "inherit", textDecoration: "none" }}>دسترس‌پذیری در کاشی</a></CardTitle>
+      <CardDescription>آنچه خودکار تضمین می‌شود و آنچه بر عهدهٔ شماست.</CardDescription>
+    </CardHeader>
+  </Card>
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["as", "ElementType", '"article"', "عنصر HTML؛ برای کارت‌های غیرمستقل div یا section"],
+  ["flat", "boolean", "false", "بدون سایه"],
+  ["interactive", "boolean", "false", "حالت hover و فوکوس برای کارت قابل‌کلیک"],
+]} />
+
+`CardTitle` پیش‌فرض `h3` است. با `as` سطح عنوان را با ساختار صفحه هماهنگ کنید؛ برای مثال `<CardTitle as="h2">`.
+
+## متغیرهای CSS
+
+<Vars rows={[
+  ["--k-card-padding", "1.5rem × density", "فاصلهٔ داخلی بخش‌ها"],
+  ["--k-card-radius", "var(--k-radius-xl)", "گردی گوشه‌ها"],
+  ["--k-card-bg", "var(--k-bg-elevated)", "پس‌زمینه"],
+  ["--k-card-border", "var(--k-border-secondary)", "رنگ حاشیه"],
+  ["--k-card-shadow", "var(--k-shadow-xs)", "سایه"],
+]} />
+
+## دسترس‌پذیری
+
+- از کارت‌هایی که کل آن‌ها یک لینک بزرگ است (`<a>` دور همهٔ محتوا) پرهیز کنید؛ صفحه‌خوان همهٔ متن را به‌عنوان نام لینک می‌خواند.
+- در کارت قابل‌کلیک، دکمه‌های داخلی دیگر را بالای لایهٔ لینک (`position: relative; z-index: 1`) قرار دهید.

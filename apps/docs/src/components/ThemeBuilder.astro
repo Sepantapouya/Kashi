@@ -1,0 +1,106 @@
+---
+// تم‌ساز زنده: تغییرات فوراً روی کل صفحه اعمال می‌شود و کد آماده تولید می‌کند
+import CodeBlock from "./CodeBlock.astro";
+---
+<div class="builder">
+  <div class="builder__controls">
+    <div class="k-field">
+      <label class="k-label" for="tb-brand">رنگ برند (پلهٔ ۵۰۰)</label>
+      <div class="k-input">
+        <input class="k-input__control" id="tb-brand-hex" value="#0fa89b" dir="ltr" aria-label="کد رنگ برند" spellcheck="false" />
+        <input type="color" id="tb-brand" value="#0fa89b" class="builder__color" />
+      </div>
+    </div>
+    <div class="k-field">
+      <label class="k-label" for="tb-radius">گردی گوشه‌ها: <output id="tb-radius-out" for="tb-radius">۱</output></label>
+      <input type="range" id="tb-radius" min="0" max="2.5" step="0.25" value="1" class="builder__range" />
+    </div>
+    <div class="k-field">
+      <label class="k-label" for="tb-density">تراکم: <output id="tb-density-out" for="tb-density">۱</output></label>
+      <input type="range" id="tb-density" min="0.75" max="1.25" step="0.0625" value="1" class="builder__range" />
+    </div>
+    <button type="button" class="k-btn k-btn--secondary k-btn--sm" id="tb-reset">بازنشانی</button>
+  </div>
+  <div class="builder__preview" aria-label="پیش‌نمایش تم" role="group">
+    <div class="builder__row">
+      <button class="k-btn k-btn--primary" type="button">دکمهٔ اصلی</button>
+      <button class="k-btn k-btn--secondary" type="button">ثانویه</button>
+      <span class="k-badge k-badge--brand">نشان</span>
+    </div>
+    <div class="k-input"><input class="k-input__control" placeholder="یک فیلد نمونه" aria-label="فیلد نمونه" /></div>
+    <div class="builder__row">
+      <label class="k-check"><input type="checkbox" class="k-checkbox" checked /><span class="k-check__label">چک‌باکس</span></label>
+      <label class="k-check"><input type="checkbox" role="switch" class="k-switch" checked /><span class="k-check__label">سوییچ</span></label>
+    </div>
+  </div>
+  <div class="builder__code" id="tb-code"><CodeBlock code=":root {}" lang="css" /></div>
+</div>
+
+<style>
+  .builder { display: grid; gap: var(--k-space-4); margin-block: var(--k-space-6); }
+  .builder__controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: var(--k-space-5);
+    align-items: end;
+    padding: var(--k-space-5);
+    border: 1px solid var(--k-border-secondary);
+    border-radius: var(--k-radius-xl);
+    background: var(--k-bg-secondary);
+  }
+  .builder__color { inline-size: 1.75rem; block-size: 1.75rem; padding: 0; border: 0; background: none; cursor: pointer; }
+  .builder__range { inline-size: 100%; accent-color: var(--k-bg-brand); block-size: 2.75rem; }
+  .builder__preview {
+    display: grid;
+    gap: var(--k-space-4);
+    padding: var(--k-space-6);
+    border: 1px solid var(--k-border-secondary);
+    border-radius: var(--k-radius-xl);
+    background: var(--k-bg-primary);
+  }
+  .builder__row { display: flex; flex-wrap: wrap; gap: var(--k-space-3); align-items: center; }
+  .builder__code :global(pre) { border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); }
+</style>
+
+<script>
+  import { createTheme } from "@kashi-ui/tokens";
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const brand = $<HTMLInputElement>("tb-brand");
+  const hex = $<HTMLInputElement>("tb-brand-hex");
+  const radius = $<HTMLInputElement>("tb-radius");
+  const density = $<HTMLInputElement>("tb-density");
+  const pre = $("tb-code").querySelector("pre")!;
+  const copy = $("tb-code").querySelector<HTMLButtonElement>("[data-copy]")!;
+  const style = document.createElement("style");
+  document.head.append(style);
+  const fa = (v: string) => v.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+  const DEFAULT = "#0fa89b";
+
+  function apply() {
+    const isDefault = brand.value.toLowerCase() === DEFAULT;
+    const css = createTheme({
+      brand: isDefault ? undefined : brand.value,
+      radius: +radius.value,
+      density: +density.value,
+    });
+    style.textContent = css;
+    pre.textContent = css.trim();
+    copy.dataset.copy = css.trim();
+    $("tb-radius-out").textContent = fa(radius.value);
+    $("tb-density-out").textContent = fa(density.value);
+  }
+
+  brand.addEventListener("input", () => { hex.value = brand.value; apply(); });
+  hex.addEventListener("change", () => {
+    if (/^#[0-9a-f]{6}$/i.test(hex.value)) { brand.value = hex.value; apply(); }
+  });
+  radius.addEventListener("input", apply);
+  density.addEventListener("input", apply);
+  $("tb-reset").addEventListener("click", () => {
+    brand.value = hex.value = DEFAULT;
+    radius.value = density.value = "1";
+    apply();
+  });
+  apply();
+</script>

@@ -1,0 +1,93 @@
+/* چک‌باکس — روی <input type="checkbox"> بومی، پس کیبورد و صفحه‌خوان خودکار کار می‌کنند
+ * <label class="k-check">
+ *   <input type="checkbox" class="k-checkbox">
+ *   <span class="k-check__text">
+ *     <span class="k-check__label">مرا به خاطر بسپار</span>
+ *     <span class="k-check__description">توضیح اختیاری</span>
+ *   </span>
+ * </label>
+ * حالت نیمه: input.indeterminate = true — خطا: aria-invalid="true" — اندازه: k-checkbox--lg
+ *
+ * متغیرها: --k-checkbox-size  --k-checkbox-radius
+ */
+.k-checkbox {
+  --_s: var(--k-checkbox-size, 1.125rem);
+  --_border: var(--k-border-input);
+
+  appearance: none;
+  display: inline-grid;
+  place-content: center;
+  flex-shrink: 0;
+  inline-size: var(--_s);
+  block-size: var(--_s);
+  margin: 0;
+  border: 1px solid var(--_border);
+  border-radius: var(--k-checkbox-radius, calc(0.3125rem * var(--k-radius-factor)));
+  background: var(--k-bg-primary);
+  color: var(--k-text-on-brand);
+  cursor: pointer;
+  transition:
+    background-color var(--k-duration-fast) var(--k-ease-standard),
+    border-color var(--k-duration-fast) var(--k-ease-standard),
+    box-shadow var(--k-duration-fast) var(--k-ease-standard);
+}
+
+.k-checkbox::before {
+  content: "";
+  inline-size: calc(var(--_s) * 0.7);
+  block-size: calc(var(--_s) * 0.7);
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11.5 3.5 5.5 10 2.5 7'/%3E%3C/svg%3E") center / contain no-repeat;
+  scale: 0;
+  transition: scale var(--k-duration-fast) var(--k-ease-emphasized);
+}
+.k-checkbox:indeterminate::before {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M3 7h8'/%3E%3C/svg%3E");
+}
+
+.k-checkbox:hover { --_border: var(--k-border-brand); }
+
+.k-checkbox:is(:checked, :indeterminate) {
+  --_border: var(--k-bg-brand);
+  background: var(--k-bg-brand);
+}
+.k-checkbox:is(:checked, :indeterminate)::before { scale: 1; }
+
+.k-checkbox:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--k-ring-brand);
+}
+
+.k-checkbox[aria-invalid="true"] { --_border: var(--k-border-error); }
+.k-checkbox[aria-invalid="true"]:focus-visible { box-shadow: var(--k-ring-error); }
+
+.k-checkbox:disabled {
+  --_border: var(--k-border-secondary);
+  background: var(--k-bg-tertiary);
+  color: var(--k-text-quaternary);
+  cursor: not-allowed;
+}
+
+.k-checkbox--lg { --_s: var(--k-checkbox-size, 1.25rem); }
+
+/* ردیف برچسب — مشترک بین چک‌باکس و سوییچ */
+.k-check {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--k-space-2);
+  cursor: pointer;
+  /* ارتفاع خط متن با کنترل هم‌تراز شود */
+  line-height: 1.25rem;
+}
+.k-check > :is(.k-checkbox, .k-switch) { margin-block-start: calc((1.25rem - var(--_h, var(--_s))) / 2); }
+.k-check:has(:disabled) { cursor: not-allowed; }
+.k-check__text { display: grid; gap: 0.125rem; }
+.k-check__label { color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); }
+.k-check__description { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+.k-check:has(:disabled) .k-check__label { color: var(--k-text-quaternary); }
+
+/* حالت کنتراست بالای ویندوز: برگشت به کنترل بومی سیستم */
+@media (forced-colors: active) {
+  .k-checkbox { appearance: auto; }
+  .k-checkbox::before { display: none; }
+}

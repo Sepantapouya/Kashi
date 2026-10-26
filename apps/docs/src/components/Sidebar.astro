@@ -1,0 +1,21 @@
+---
+import { nav } from "../data/nav";
+const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : Astro.url.pathname + "/";
+---
+<nav class="sidebar" aria-label="مستندات">
+  {nav.map((group) => (
+    <div class="sidebar__group">
+      <p class="sidebar__title">{group.title}</p>
+      <ul role="list">
+        {group.items.map((item) => (
+          <li>
+            <a href={item.href} aria-current={item.href === path ? "page" : undefined}>
+              {item.title}
+              {item.badge && <span class="k-badge k-badge--sm k-badge--brand">{item.badge}</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ))}
+</nav>

@@ -1,0 +1,45 @@
+{
+  "name": "@kashi-ui/tokens",
+  "version": "0.2.0",
+  "description": "توکن‌های طراحی کاشی — رنگ، فاصله، فونت",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./tokens.css": "./dist/tokens.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "node contrast.mjs && node build.mjs"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sepantapouya/Kashi.git",
+    "directory": "packages/tokens"
+  },
+  "homepage": "https://github.com/Sepantapouya/Kashi",
+  "bugs": "https://github.com/Sepantapouya/Kashi/issues",
+  "author": "Sepanta Pouya (https://sepantapouya.com)",
+  "keywords": [
+    "design-system",
+    "persian",
+    "farsi",
+    "rtl",
+    "accessibility",
+    "ui",
+    "css",
+    "react"
+  ]
+}

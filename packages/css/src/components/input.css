@@ -1,0 +1,97 @@
+/* ورودی متن
+ * <div class="k-input">
+ *   <span class="k-input__addon">svg یا متن</span>
+ *   <input class="k-input__control" id="email" aria-describedby="email-hint">
+ * </div>
+ * خطا: aria-invalid="true" روی input — اندازه‌ها: k-input--sm | k-input--lg
+ *
+ * متغیرها: --k-input-height-{sm,md,lg}  --k-input-radius  --k-input-bg  --k-input-border
+ */
+.k-input {
+  --_h: var(--k-input-height-md, calc(2.75rem * var(--k-density)));
+  --_border: var(--k-input-border, var(--k-border-input));
+  --_ring: var(--k-ring-brand);
+
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-2);
+  min-block-size: var(--_h);
+  padding-inline: calc(0.875rem * var(--k-density));
+  border: 1px solid var(--_border);
+  border-radius: var(--k-input-radius, var(--k-radius-md));
+  background: var(--k-input-bg, var(--k-bg-primary));
+  color: var(--k-text-primary);
+  box-shadow: var(--k-shadow-xs);
+  cursor: text;
+  transition:
+    border-color var(--k-duration-fast) var(--k-ease-standard),
+    box-shadow var(--k-duration-fast) var(--k-ease-standard);
+}
+
+.k-input:focus-within {
+  --_border: var(--k-border-brand);
+  box-shadow: var(--k-shadow-xs), var(--_ring);
+  /* forced-colors */
+  outline: 2px solid transparent;
+}
+
+.k-input:has(.k-input__control[aria-invalid="true"]) {
+  --_border: var(--k-border-error);
+  --_ring: var(--k-ring-error);
+}
+
+.k-input:has(.k-input__control:disabled) {
+  background: var(--k-bg-secondary);
+  border-color: var(--k-border-secondary);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.k-input__control {
+  flex: 1;
+  min-inline-size: 0;
+  align-self: stretch;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--k-text-md);
+}
+.k-input__control::placeholder { color: var(--k-text-tertiary); opacity: 1; }
+.k-input__control:disabled { color: var(--k-text-quaternary); cursor: not-allowed; }
+
+/* ایمیل، آدرس، شماره و رمز همیشه چپ‌به‌راست تایپ می‌شوند */
+.k-input__control:is([type="email"], [type="url"], [type="tel"], [type="number"], [type="password"], [dir="ltr"]) {
+  direction: ltr;
+  text-align: end;
+}
+.k-input__control:is([type="email"], [type="url"], [type="tel"], [type="number"], [type="password"]):placeholder-shown {
+  direction: rtl;
+  text-align: start;
+}
+[dir="ltr"] .k-input__control:is([type="email"], [type="url"], [type="tel"], [type="number"], [type="password"]):placeholder-shown {
+  direction: ltr;
+}
+
+.k-input__addon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--k-text-tertiary);
+  font-size: var(--k-text-md);
+}
+.k-input__addon svg { inline-size: 1.25rem; block-size: 1.25rem; }
+
+/* چندخطی */
+.k-input--textarea { align-items: stretch; padding-block: calc(0.625rem * var(--k-density)); }
+.k-input--textarea .k-input__control { min-block-size: 5lh; resize: vertical; line-height: var(--k-leading-normal); }
+
+.k-input--sm { --_h: var(--k-input-height-sm, calc(2.5rem * var(--k-density))); }
+.k-input--lg { --_h: var(--k-input-height-lg, calc(3rem * var(--k-density))); }
+
+@media (forced-colors: active) {
+  .k-input { border-color: FieldText; }
+  .k-input:focus-within { outline-color: Highlight; }
+}

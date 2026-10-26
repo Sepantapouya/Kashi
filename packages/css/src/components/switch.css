@@ -1,0 +1,69 @@
+/* سوییچ — روی <input type="checkbox" role="switch"> بومی
+ * <label class="k-check">
+ *   <input type="checkbox" role="switch" class="k-switch">
+ *   <span class="k-check__text"><span class="k-check__label">اعلان‌ها</span></span>
+ * </label>
+ * در RTL دکمهٔ سوییچ در حالت روشن به چپ می‌رود (خودکار با Logical Properties)
+ * اندازه‌ها: k-switch--sm | k-switch--lg
+ *
+ * متغیرها: --k-switch-width  --k-switch-height  --k-switch-track-on  --k-switch-track-off  --k-switch-thumb
+ */
+.k-switch {
+  --_w: var(--k-switch-width, 2.25rem);
+  --_h: var(--k-switch-height, 1.25rem);
+  --_pad: 2px;
+  --_track: var(--k-switch-track-off, var(--k-border-input));
+
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  inline-size: var(--_w);
+  block-size: var(--_h);
+  margin: 0;
+  padding: var(--_pad);
+  border: 0;
+  border-radius: var(--k-radius-full);
+  background: var(--_track);
+  cursor: pointer;
+  transition:
+    background-color var(--k-duration-normal) var(--k-ease-standard),
+    box-shadow var(--k-duration-fast) var(--k-ease-standard);
+}
+
+.k-switch::before {
+  content: "";
+  inline-size: calc(var(--_h) - var(--_pad) * 2);
+  block-size: calc(var(--_h) - var(--_pad) * 2);
+  border-radius: var(--k-radius-full);
+  background: var(--k-switch-thumb, #fff);
+  box-shadow: var(--k-shadow-sm);
+  transition: margin-inline-start var(--k-duration-normal) var(--k-ease-emphasized);
+}
+
+.k-switch:hover { --_track: color-mix(in srgb, var(--k-switch-track-off, var(--k-border-input)), var(--k-text-primary) 12%); }
+
+.k-switch:checked { --_track: var(--k-switch-track-on, var(--k-bg-brand)); }
+.k-switch:checked:hover { --_track: var(--k-switch-track-on, var(--k-bg-brand-hover)); }
+.k-switch:checked::before { margin-inline-start: calc(var(--_w) - var(--_h)); }
+
+.k-switch:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--k-ring-brand);
+}
+
+.k-switch:disabled {
+  --_track: var(--k-bg-tertiary);
+  cursor: not-allowed;
+}
+.k-switch:disabled::before { background: var(--k-bg-secondary); box-shadow: none; }
+
+.k-switch--sm { --_w: var(--k-switch-width, 1.75rem); --_h: var(--k-switch-height, 1rem); }
+.k-switch--lg { --_w: var(--k-switch-width, 2.75rem); --_h: var(--k-switch-height, 1.5rem); }
+
+@media (forced-colors: active) {
+  .k-switch { border: 1px solid ButtonText; background: Canvas; }
+  .k-switch::before { background: ButtonText; forced-color-adjust: none; }
+  .k-switch:checked { background: Highlight; }
+  .k-switch:checked::before { background: HighlightText; }
+}

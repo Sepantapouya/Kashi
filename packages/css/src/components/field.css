@@ -1,0 +1,29 @@
+/* فیلد: برچسب + کنترل + راهنما/خطا — مشترک بین Input، Checkbox و Switch
+ * <div class="k-field">
+ *   <label class="k-label" for="email">ایمیل <span class="k-label__required" aria-hidden="true">*</span></label>
+ *   ...کنترل...
+ *   <p class="k-hint" id="email-hint">راهنما</p>
+ *   <p class="k-hint k-hint--error" id="email-error">خطا</p>
+ * </div>
+ */
+.k-field {
+  display: grid;
+  gap: var(--k-field-gap, var(--k-space-1_5));
+  min-inline-size: 0;
+}
+
+.k-label {
+  color: var(--k-text-secondary);
+  font-size: var(--k-text-sm);
+  font-weight: var(--k-weight-medium);
+  line-height: var(--k-leading-tight);
+}
+.k-label__required { color: var(--k-text-error); margin-inline-start: 0.125em; }
+
+.k-hint {
+  margin: 0;
+  color: var(--k-text-tertiary);
+  font-size: var(--k-text-sm);
+  line-height: var(--k-leading-tight);
+}
+.k-hint--error { color: var(--k-text-error); }

@@ -1,0 +1,83 @@
+---
+layout: ../../../layouts/Docs.astro
+title: ورودی
+description: فیلد متن تک‌خطی و چندخطی، با برچسب، متن راهنما، پیام خطا و افزونه.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { Input, Textarea } from "@kashi-ui/react";
+import { InputAddons } from "../../../components/demos";
+
+```tsx
+import { Input, Textarea } from "@kashi-ui/react";
+```
+
+## پایه
+
+برچسب، متن راهنما و فیلد به‌صورت خودکار با `id` و `aria-describedby` به هم وصل می‌شوند.
+
+<Demo align="stretch" code={`<Input label="نام و نام خانوادگی" placeholder="مثلاً سارا احمدی" hint="همان‌طور که در کارت ملی آمده است." required />`}>
+  <Input label="نام و نام خانوادگی" placeholder="مثلاً سارا احمدی" hint="همان‌طور که در کارت ملی آمده است." required />
+</Demo>
+
+## خطا
+
+با دادن `error`، فیلد `aria-invalid` می‌شود و پیام خطا پیش از متن راهنما خوانده می‌شود.
+
+<Demo align="stretch" code={`<Input label="ایمیل" type="email" defaultValue="sara@example" error="آدرس ایمیل معتبر نیست." />`}>
+  <Input label="ایمیل" type="email" defaultValue="sara@example" error="آدرس ایمیل معتبر نیست." />
+</Demo>
+
+## افزونه‌ها
+
+ایمیل، تلفن، آدرس اینترنتی، عدد و رمز عبور به‌صورت خودکار چپ‌به‌راست تایپ می‌شوند، ولی متن راهنمای داخل فیلد راست‌چین می‌ماند.
+
+<Demo align="stretch" code={`<Input label="ایمیل" type="email" placeholder="you@example.com" addonStart={<MailIcon />} />
+<Input label="مبلغ" inputMode="numeric" placeholder="۰" addonEnd="تومان" />
+<Input aria-label="جستجو" placeholder="جستجو…" addonStart={<SearchIcon />} size="sm" />`}>
+  <InputAddons />
+</Demo>
+
+## چندخطی
+
+<Demo align="stretch" code={`<Textarea label="توضیحات" placeholder="چند خط بنویسید…" hint="حداکثر ۵۰۰ نویسه." />`}>
+  <Textarea label="توضیحات" placeholder="چند خط بنویسید…" hint="حداکثر ۵۰۰ نویسه." />
+</Demo>
+
+## غیرفعال
+
+<Demo align="stretch" code={`<Input label="کد ملی" defaultValue="۰۰۱۲۳۴۵۶۷۸" disabled />`}>
+  <Input label="کد ملی" defaultValue="۰۰۱۲۳۴۵۶۷۸" disabled />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["label", "ReactNode", "", "برچسب بالای فیلد؛ اگر نمی‌دهید aria-label بدهید"],
+  ["hint", "ReactNode", "", "متن راهنمای زیر فیلد"],
+  ["error", "ReactNode", "", "پیام خطا؛ فیلد را aria-invalid می‌کند"],
+  ["size", '"sm" | "md" | "lg"', '"md"', "ارتفاع‌ها ۴۰، ۴۴ و ۴۸ پیکسل (فقط Input)"],
+  ["addonStart", "ReactNode", "", "آیکون یا متن ابتدای فیلد (فقط Input)"],
+  ["addonEnd", "ReactNode", "", "آیکون یا متن انتهای فیلد (فقط Input)"],
+  ["fieldClassName", "string", "", "کلاس ظرف بیرونی k-field"],
+  ["required", "boolean", "false", "ستاره کنار برچسب و ویژگی required"],
+]} />
+
+سایر ویژگی‌های `<input>` و `<textarea>` به خود فیلد منتقل می‌شوند. `ref` به عنصر فیلد اشاره می‌کند.
+
+## متغیرهای CSS
+
+<Vars rows={[
+  ["--k-input-height-{sm,md,lg}", "2.5rem تا 3rem × density", "ارتفاع"],
+  ["--k-input-radius", "var(--k-radius-md)", "گردی گوشه‌ها"],
+  ["--k-input-bg", "var(--k-bg-primary)", "پس‌زمینه"],
+  ["--k-input-border", "var(--k-border-input)", "رنگ حاشیه در حالت عادی"],
+  ["--k-field-gap", "var(--k-space-1_5)", "فاصلهٔ برچسب، فیلد و راهنما"],
+]} />
+
+## دسترس‌پذیری
+
+- حاشیهٔ فیلد کنتراست حداقل ۳ به ۱ دارد تا مرز آن برای کاربران کم‌بینا مشخص باشد.
+- متن راهنمای داخل فیلد (placeholder) جایگزین برچسب نیست؛ با تایپ کاربر ناپدید می‌شود.
+- پیام خطا باید بگوید چه اشتباهی رخ داده و چطور درست شود، نه فقط «نامعتبر».

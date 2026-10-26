@@ -1,0 +1,47 @@
+{
+  "name": "@kashi-ui/css",
+  "version": "0.2.0",
+  "description": "استایل کامپوننت‌های کاشی با CSS خالص — برای هر فریم‌ورکی",
+  "main": "./dist/kashi.css",
+  "style": "./dist/kashi.css",
+  "exports": {
+    ".": "./dist/kashi.css",
+    "./*.css": "./dist/*.css",
+    "./components/*.css": "./dist/components/*.css",
+    "./fonts/*": "./dist/fonts/*"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@kashi-ui/tokens": "0.2.0"
+  },
+  "devDependencies": {
+    "vazirmatn": "^33.0.3"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sepantapouya/Kashi.git",
+    "directory": "packages/css"
+  },
+  "homepage": "https://github.com/Sepantapouya/Kashi",
+  "bugs": "https://github.com/Sepantapouya/Kashi/issues",
+  "author": "Sepanta Pouya (https://sepantapouya.com)",
+  "keywords": [
+    "design-system",
+    "persian",
+    "farsi",
+    "rtl",
+    "accessibility",
+    "ui",
+    "css",
+    "react"
+  ]
+}

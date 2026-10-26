@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>کاشی — پیش‌نمایش</title>
+  <link rel="stylesheet" href="../packages/css/dist/kashi.css">
+  <style>
+    /* استایل خود صفحهٔ پیش‌نمایش — خارج از لایه‌های کاشی، پس همیشه برنده است */
+    main { max-inline-size: 960px; margin-inline: auto; padding: var(--k-space-12) var(--k-space-4); }
+    header { margin-block-end: var(--k-space-10); }
+    h1 { font-size: var(--k-text-4xl); font-weight: var(--k-weight-black); }
+    h1 span { color: var(--k-text-brand); }
+    h2 { font-size: var(--k-text-lg); margin-block-end: var(--k-space-4); color: var(--k-text-secondary); }
+    p.lead { color: var(--k-text-tertiary); font-size: var(--k-text-lg); margin-block: var(--k-space-2) 0; }
+    section {
+      padding: var(--k-space-6);
+      margin-block-end: var(--k-space-6);
+      border: 1px solid var(--k-border-secondary);
+      border-radius: var(--k-radius-xl);
+      background: var(--k-bg-secondary);
+    }
+    .row { display: flex; flex-wrap: wrap; gap: var(--k-space-3); align-items: center; }
+    .stack { display: grid; gap: var(--k-space-4); align-content: start; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: var(--k-space-5); }
+    .span-2 { grid-column: 1 / -1; }
+    .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--k-space-5); }
+    .controls label { display: grid; gap: var(--k-space-2); font-size: var(--k-text-sm); color: var(--k-text-secondary); }
+    output { color: var(--k-text-tertiary); font-variant-numeric: tabular-nums; }
+    input[type="range"] { accent-color: var(--k-bg-brand); }
+    input[type="color"] { inline-size: 100%; block-size: 2.5rem; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: none; }
+    pre {
+      direction: ltr; text-align: left; overflow-x: auto; margin: 0;
+      padding: var(--k-space-4); border-radius: var(--k-radius-md);
+      background: var(--k-bg-primary); color: var(--k-text-secondary);
+      font-family: var(--k-font-mono); font-size: var(--k-text-sm); line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <a class="k-skip-link" href="#content">رفتن به محتوای اصلی</a>
+  <main id="content">
+    <header>
+      <h1>کاشی <span>۰.۲</span></h1>
+      <p class="lead">دیزاین‌سیستم فارسی، راست‌به‌چپ، دسترس‌پذیر و کاملاً قابل‌سفارشی‌سازی.</p>
+    </header>
+
+    <section aria-labelledby="h-custom">
+      <h2 id="h-custom">سفارشی‌سازی زنده</h2>
+      <div class="controls">
+        <label>رنگ برند
+          <input type="color" id="brand" value="#0fa89b">
+        </label>
+        <label>گردی گوشه‌ها <output id="radius-out">۱</output>
+          <input type="range" id="radius" min="0" max="3" step="0.25" value="1">
+        </label>
+        <label>تراکم <output id="density-out">۱</output>
+          <input type="range" id="density" min="0.75" max="1.25" step="0.0625" value="1">
+        </label>
+        <label>تم
+          <button class="k-btn" id="theme" type="button" aria-pressed="true">تیره</button>
+        </label>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-variants">
+      <h2 id="h-variants">گونه‌ها</h2>
+      <div class="row">
+        <button class="k-btn k-btn--primary">ثبت‌نام رایگان</button>
+        <button class="k-btn k-btn--secondary">ذخیرهٔ پیش‌نویس</button>
+        <button class="k-btn k-btn--tertiary">انصراف</button>
+        <button class="k-btn k-btn--link">اطلاعات بیشتر</button>
+        <button class="k-btn k-btn--danger">حذف حساب</button>
+        <button class="k-btn k-btn--danger-secondary">بایگانی</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-sizes">
+      <h2 id="h-sizes">اندازه‌ها و حالت‌ها</h2>
+      <div class="row">
+        <button class="k-btn k-btn--primary k-btn--sm">کوچک</button>
+        <button class="k-btn k-btn--primary">متوسط</button>
+        <button class="k-btn k-btn--primary k-btn--lg">بزرگ</button>
+        <button class="k-btn k-btn--primary k-btn--xl">خیلی بزرگ</button>
+        <button class="k-btn k-btn--primary" aria-disabled="true" aria-busy="true">پرداخت<span class="k-sr-only" role="status">در حال بارگذاری</span></button>
+        <button class="k-btn k-btn--secondary" disabled>غیرفعال</button>
+        <button class="k-btn k-btn--secondary">
+          ادامه
+          <svg data-k-mirror aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12m-5-5 5 5-5 5"/></svg>
+        </button>
+        <button class="k-btn k-btn--secondary k-btn--icon" aria-label="جستجو">
+          <svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="9" r="5.5"/><path d="m13.5 13.5 3 3"/></svg>
+        </button>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-input">
+      <h2 id="h-input">ورودی</h2>
+      <div class="grid">
+        <div class="k-field">
+          <label class="k-label" for="name">نام و نام خانوادگی <span class="k-label__required" aria-hidden="true">*</span></label>
+          <div class="k-input"><input class="k-input__control" id="name" placeholder="مثلاً سارا احمدی" required aria-describedby="name-hint"></div>
+          <p class="k-hint" id="name-hint">همان‌طور که در کارت ملی آمده است.</p>
+        </div>
+        <div class="k-field">
+          <label class="k-label" for="email">ایمیل</label>
+          <div class="k-input">
+            <span class="k-input__addon"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="15" height="11" rx="2"/><path d="m3 5.5 7 5 7-5"/></svg></span>
+            <input class="k-input__control" id="email" type="email" value="sara@example" aria-invalid="true" aria-describedby="email-error">
+          </div>
+          <p class="k-hint k-hint--error" id="email-error">آدرس ایمیل معتبر نیست.</p>
+        </div>
+        <div class="k-field">
+          <label class="k-label" for="price">مبلغ</label>
+          <div class="k-input"><input class="k-input__control" id="price" inputmode="numeric" placeholder="۰"><span class="k-input__addon">تومان</span></div>
+        </div>
+        <div class="k-field">
+          <label class="k-label" for="dis">غیرفعال</label>
+          <div class="k-input"><input class="k-input__control" id="dis" value="قابل ویرایش نیست" disabled></div>
+        </div>
+        <div class="k-field span-2">
+          <label class="k-label" for="bio">دربارهٔ شما</label>
+          <div class="k-input k-input--textarea"><textarea class="k-input__control" id="bio" placeholder="چند خط دربارهٔ خودتان بنویسید…"></textarea></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-check">
+      <h2 id="h-check">چک‌باکس و سوییچ</h2>
+      <div class="grid">
+        <div class="stack">
+          <label class="k-check"><input type="checkbox" class="k-checkbox" checked><span class="k-check__text"><span class="k-check__label">مرا به خاطر بسپار</span></span></label>
+          <label class="k-check"><input type="checkbox" class="k-checkbox" id="indet"><span class="k-check__text"><span class="k-check__label">انتخاب همه</span><span class="k-check__description">حالت نیمه‌انتخاب</span></span></label>
+          <label class="k-check"><input type="checkbox" class="k-checkbox" aria-invalid="true"><span class="k-check__text"><span class="k-check__label">قوانین را می‌پذیرم</span></span></label>
+          <label class="k-check"><input type="checkbox" class="k-checkbox" disabled><span class="k-check__text"><span class="k-check__label">غیرفعال</span></span></label>
+        </div>
+        <div class="stack">
+          <label class="k-check"><input type="checkbox" role="switch" class="k-switch" checked><span class="k-check__text"><span class="k-check__label">اعلان‌های ایمیلی</span><span class="k-check__description">خلاصهٔ هفتگی فعالیت‌ها</span></span></label>
+          <label class="k-check"><input type="checkbox" role="switch" class="k-switch"><span class="k-check__text"><span class="k-check__label">حالت تعطیلات</span></span></label>
+          <label class="k-check"><input type="checkbox" role="switch" class="k-switch k-switch--lg" checked><span class="k-check__text"><span class="k-check__label">بزرگ</span></span></label>
+          <label class="k-check"><input type="checkbox" role="switch" class="k-switch" disabled><span class="k-check__text"><span class="k-check__label">غیرفعال</span></span></label>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-badge">
+      <h2 id="h-badge">نشان</h2>
+      <div class="row">
+        <span class="k-badge">پیش‌نویس</span>
+        <span class="k-badge k-badge--brand">جدید</span>
+        <span class="k-badge k-badge--success"><span class="k-badge__dot" aria-hidden="true"></span>فعال</span>
+        <span class="k-badge k-badge--warning">در انتظار</span>
+        <span class="k-badge k-badge--error">رد شده</span>
+        <span class="k-badge k-badge--info">بتا</span>
+        <span class="k-badge k-badge--brand k-badge--sm">کوچک</span>
+        <span class="k-badge k-badge--brand k-badge--lg">بزرگ</span>
+        <span class="k-badge k-badge--success k-badge--square">مربعی</span>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-alert">
+      <h2 id="h-alert">هشدار</h2>
+      <div class="stack">
+        <div class="k-alert k-alert--brand" role="status">
+          <span class="k-alert__icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="10" cy="10" r="7.5"/><path d="M10 13.5V9.5M10 6.5h.01"/></svg></span>
+          <div class="k-alert__content">
+            <p class="k-alert__title">نسخهٔ جدید منتشر شد</p>
+            <p class="k-alert__description">کاشی ۰.۲ با هفت کامپوننت تازه در دسترس است. تغییرات را ببینید و پروژه‌تان را به‌روز کنید.</p>
+            <div class="k-alert__actions"><button class="k-btn k-btn--link">تغییرات</button><button class="k-btn k-btn--link" style="--k-text-brand: var(--k-text-tertiary)">بعداً</button></div>
+          </div>
+          <button class="k-btn k-btn--tertiary k-btn--icon k-btn--sm k-alert__close" aria-label="بستن"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="m5 5 10 10M15 5 5 15"/></svg></button>
+        </div>
+        <div class="k-alert k-alert--success" role="status">
+          <span class="k-alert__icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.5"/><path d="m6.75 10 2.25 2.25 4.25-4.5"/></svg></span>
+          <div class="k-alert__content"><p class="k-alert__title">تغییرات ذخیره شد</p></div>
+        </div>
+        <div class="k-alert k-alert--warning k-alert--tinted" role="alert">
+          <span class="k-alert__icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8.6 3.4 2.4 14a1.6 1.6 0 0 0 1.4 2.4h12.4a1.6 1.6 0 0 0 1.4-2.4L11.4 3.4a1.6 1.6 0 0 0-2.8 0Z"/><path d="M10 7.5v3.25M10 13.5h.01"/></svg></span>
+          <div class="k-alert__content"><p class="k-alert__title">اشتراک شما ۳ روز دیگر تمام می‌شود</p><p class="k-alert__description">برای جلوگیری از قطع سرویس، اشتراک را تمدید کنید.</p></div>
+        </div>
+        <div class="k-alert k-alert--error" role="alert">
+          <span class="k-alert__icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="10" cy="10" r="7.5"/><path d="M10 6.5v4M10 13.5h.01"/></svg></span>
+          <div class="k-alert__content"><p class="k-alert__title">پرداخت ناموفق بود</p><p class="k-alert__description">موجودی کارت کافی نیست. کارت دیگری را امتحان کنید.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-avatar">
+      <h2 id="h-avatar">آواتار</h2>
+      <div class="row">
+        <span class="k-avatar k-avatar--xs" role="img" aria-label="سارا احمدی"><span aria-hidden="true">س‌ا</span></span>
+        <span class="k-avatar k-avatar--sm" role="img" aria-label="سارا احمدی"><span aria-hidden="true">س‌ا</span></span>
+        <span class="k-avatar" role="img" aria-label="سارا احمدی، آنلاین"><span aria-hidden="true">س‌ا</span><span class="k-avatar__status k-avatar__status--online" aria-hidden="true"></span></span>
+        <span class="k-avatar k-avatar--lg k-avatar--brand" role="img" aria-label="علی رضایی، مشغول"><span aria-hidden="true">ع‌ر</span><span class="k-avatar__status k-avatar__status--busy" aria-hidden="true"></span></span>
+        <span class="k-avatar k-avatar--xl k-avatar--square" role="img" aria-label="کاشی"><span aria-hidden="true">ک</span></span>
+        <span class="k-avatar k-avatar--2xl k-avatar--brand" role="img" aria-label="مریم کریمی"><span aria-hidden="true">م‌ک</span></span>
+        <div class="k-avatar-group" role="group" aria-label="اعضای تیم">
+          <span class="k-avatar k-avatar--brand" role="img" aria-label="سارا"><span aria-hidden="true">س</span></span>
+          <span class="k-avatar" role="img" aria-label="علی"><span aria-hidden="true">ع</span></span>
+          <span class="k-avatar k-avatar--brand" role="img" aria-label="مریم"><span aria-hidden="true">م</span></span>
+          <span class="k-avatar" role="img" aria-label="۵ نفر دیگر"><span aria-hidden="true">+۵</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-card">
+      <h2 id="h-card">کارت</h2>
+      <div class="grid">
+        <article class="k-card">
+          <header class="k-card__header">
+            <h3 class="k-card__title">پلن حرفه‌ای</h3>
+            <p class="k-card__description">برای تیم‌های در حال رشد</p>
+          </header>
+          <div class="k-card__body">
+            <p style="margin:0;font-size:var(--k-text-3xl);font-weight:var(--k-weight-bold)">۴۹۰ <span style="font-size:var(--k-text-md);color:var(--k-text-tertiary);font-weight:400">هزار تومان / ماه</span></p>
+          </div>
+          <footer class="k-card__footer">
+            <button class="k-btn k-btn--tertiary">مقایسه</button>
+            <button class="k-btn k-btn--primary">انتخاب پلن</button>
+          </footer>
+        </article>
+        <article class="k-card k-card--interactive">
+          <header class="k-card__header">
+            <span class="k-badge k-badge--brand" style="justify-self:start">آموزش</span>
+            <h3 class="k-card__title"><a class="k-card__link" href="#" style="color:inherit;text-decoration:none">راهنمای طراحی راست‌به‌چپ</a></h3>
+            <p class="k-card__description">چرا margin-left را باید فراموش کنید و Logical Properties چطور زندگی را راحت می‌کنند.</p>
+          </header>
+          <div class="k-card__body row">
+            <span class="k-avatar k-avatar--sm k-avatar--brand" role="img" aria-label="سارا احمدی"><span aria-hidden="true">س‌ا</span></span>
+            <span style="font-size:var(--k-text-sm);color:var(--k-text-tertiary)">سارا احمدی · ۵ دقیقه مطالعه</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-code">
+      <h2 id="h-code">کد تم فعلی</h2>
+      <pre id="code"></pre>
+    </section>
+  </main>
+
+  <script type="module">
+    import { createTheme } from "../packages/tokens/dist/index.js";
+
+    const $ = (id) => document.getElementById(id);
+    const fa = (n) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+    const style = document.createElement("style");
+    document.head.append(style);
+
+    // در بارگذاری اول تم پیش‌فرض (طیف دست‌ساز فیروزه‌ای) دست‌نخورده می‌ماند
+    function apply(inject = true) {
+      const css = createTheme({ brand: $("brand").value, radius: +$("radius").value, density: +$("density").value });
+      if (inject) style.textContent = css;
+      $("code").textContent = `import { createTheme } from "@kashi-ui/tokens";\n\n${css}`;
+      $("radius-out").textContent = fa($("radius").value);
+      $("density-out").textContent = fa($("density").value);
+    }
+    for (const id of ["brand", "radius", "density"]) $(id).addEventListener("input", apply);
+
+    $("theme").addEventListener("click", (e) => {
+      const dark = document.documentElement.dataset.theme !== "dark";
+      document.documentElement.dataset.theme = dark ? "dark" : "light";
+      e.currentTarget.textContent = dark ? "تیره" : "روشن";
+      e.currentTarget.setAttribute("aria-pressed", String(dark));
+    });
+    $("indet").indeterminate = true;
+    apply(false);
+  </script>
+</body>
+</html>

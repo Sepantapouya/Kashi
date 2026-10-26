@@ -1,0 +1,58 @@
+---
+layout: ../../../layouts/Docs.astro
+title: چک‌باکس
+description: برای انتخاب یک یا چند گزینه، یا تأیید یک مورد. روی input بومی ساخته شده است.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { Checkbox } from "@kashi-ui/react";
+
+```tsx
+import { Checkbox } from "@kashi-ui/react";
+```
+
+## پایه
+
+<Demo column align="start" code={`<Checkbox label="مرا به خاطر بسپار" defaultChecked />
+<Checkbox label="خبرنامه" description="ماهی یک ایمیل، بدون تبلیغات." />`}>
+  <Checkbox label="مرا به خاطر بسپار" defaultChecked />
+  <Checkbox label="خبرنامه" description="ماهی یک ایمیل، بدون تبلیغات." />
+</Demo>
+
+## حالت‌ها
+
+`indeterminate` برای «انتخاب همه» وقتی فقط بخشی از گزینه‌ها انتخاب شده‌اند.
+
+<Demo column align="start" code={`<Checkbox label="انتخاب همه" indeterminate />
+<Checkbox label="قوانین را می‌پذیرم" invalid />
+<Checkbox label="غیرفعال" disabled />
+<Checkbox label="بزرگ" size="lg" defaultChecked />`}>
+  <Checkbox label="انتخاب همه" indeterminate />
+  <Checkbox label="قوانین را می‌پذیرم" invalid />
+  <Checkbox label="غیرفعال" disabled />
+  <Checkbox label="بزرگ" size="lg" defaultChecked />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["label", "ReactNode", "", "برچسب کنار چک‌باکس؛ کل برچسب قابل‌کلیک است"],
+  ["description", "ReactNode", "", "توضیح زیر برچسب؛ با aria-describedby متصل می‌شود"],
+  ["indeterminate", "boolean", "false", "حالت نیمه‌انتخاب"],
+  ["invalid", "boolean", "false", "حالت خطا"],
+  ["size", '"md" | "lg"', '"md"', "۱۸ یا ۲۰ پیکسل"],
+]} />
+
+## متغیرهای CSS
+
+<Vars rows={[
+  ["--k-checkbox-size", "1.125rem", "اندازه"],
+  ["--k-checkbox-radius", "0.3125rem × radius-factor", "گردی گوشه‌ها"],
+]} />
+
+## دسترس‌پذیری
+
+- روی `<input type="checkbox">` بومی ساخته شده؛ کلید Space، فرم‌ها و صفحه‌خوان‌ها بدون کد اضافه کار می‌کنند.
+- در حالت کنتراست بالای ویندوز، ظاهر بومی سیستم نمایش داده می‌شود.
+- برای گروه چک‌باکس‌ها از `<fieldset>` و `<legend>` استفاده کنید.

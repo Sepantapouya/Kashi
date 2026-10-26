@@ -1,0 +1,30 @@
+---
+// پیش‌نمایش زنده + کد React + HTML خروجی.
+// HTML مستقیم از خروجی همان کامپوننت React ساخته می‌شود، پس همیشه با کد هم‌خوان است.
+import CodeBlock from "./CodeBlock.astro";
+import { formatHtml } from "../lib/format-html";
+
+interface Props {
+  /** کد React نمایش‌داده‌شده */
+  code?: string;
+  /** چینش پیش‌نمایش */
+  align?: "center" | "start" | "stretch";
+  /** پیش‌نمایش ستونی */
+  column?: boolean;
+  label?: string;
+}
+const { code, align = "center", column = false, label = "نمونه" } = Astro.props;
+const html = await Astro.slots.render("default");
+const id = `demo-${Math.random().toString(36).slice(2, 8)}`;
+---
+<figure class="demo">
+  <div class:list={["demo__preview", `demo__preview--${align}`, { "demo__preview--column": column }]} role="group" aria-label={label} set:html={html} />
+  <div class="demo__code" data-tabs>
+    <div class="demo__tabs" role="tablist" aria-label="زبان کد">
+      {code && <button role="tab" type="button" id={`${id}-t1`} aria-controls={`${id}-p1`} aria-selected="true">React</button>}
+      <button role="tab" type="button" id={`${id}-t2`} aria-controls={`${id}-p2`} aria-selected={code ? "false" : "true"} tabindex={code ? -1 : undefined}>HTML</button>
+    </div>
+    {code && <div role="tabpanel" id={`${id}-p1`} aria-labelledby={`${id}-t1`}><CodeBlock code={code} lang="tsx" /></div>}
+    <div role="tabpanel" id={`${id}-p2`} aria-labelledby={`${id}-t2`} hidden={code ? true : undefined}><CodeBlock code={formatHtml(html)} lang="html" /></div>
+  </div>
+</figure>

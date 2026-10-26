@@ -1,0 +1,77 @@
+/* کارت
+ * <article class="k-card">
+ *   <header class="k-card__header">
+ *     <h3 class="k-card__title">عنوان</h3>
+ *     <p class="k-card__description">توضیح</p>
+ *   </header>
+ *   <div class="k-card__body">...</div>
+ *   <footer class="k-card__footer">...دکمه‌ها</footer>
+ * </article>
+ * گونه‌ها: k-card--flat (بدون سایه) | k-card--interactive (برای کارت قابل‌کلیک، همراه با <a> یا <button>)
+ *
+ * متغیرها: --k-card-padding  --k-card-radius  --k-card-bg  --k-card-border  --k-card-shadow
+ */
+.k-card {
+  --_p: var(--k-card-padding, calc(1.5rem * var(--k-density)));
+
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--k-card-border, var(--k-border-secondary));
+  border-radius: var(--k-card-radius, var(--k-radius-xl));
+  background: var(--k-card-bg, var(--k-bg-elevated));
+  color: var(--k-text-primary);
+  box-shadow: var(--k-card-shadow, var(--k-shadow-xs));
+  overflow: clip;
+}
+
+.k-card__header,
+.k-card__body,
+.k-card__footer { padding: var(--_p); }
+
+.k-card__header + .k-card__body { padding-block-start: 0; }
+
+.k-card__header { display: grid; gap: var(--k-space-1); }
+
+.k-card__title {
+  margin: 0;
+  font-size: var(--k-text-lg);
+  font-weight: var(--k-weight-semibold);
+  line-height: var(--k-leading-tight);
+}
+
+.k-card__description {
+  margin: 0;
+  color: var(--k-text-tertiary);
+  font-size: var(--k-text-sm);
+}
+
+.k-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--k-space-3);
+  justify-content: flex-end;
+  padding-block: calc(var(--_p) * 0.66);
+  border-block-start: 1px solid var(--k-border-secondary);
+  margin-block-start: auto;
+}
+
+.k-card__media { display: block; inline-size: 100%; object-fit: cover; }
+
+.k-card--flat { box-shadow: none; }
+
+.k-card--interactive {
+  position: relative;
+  transition:
+    border-color var(--k-duration-fast) var(--k-ease-standard),
+    box-shadow var(--k-duration-normal) var(--k-ease-standard);
+}
+.k-card--interactive:hover { border-color: var(--k-border-primary); box-shadow: var(--k-shadow-md); }
+.k-card--interactive:has(:focus-visible) { box-shadow: var(--k-shadow-md), var(--k-ring-brand); }
+/* لینک اصلی کل کارت را قابل‌کلیک می‌کند ولی فقط یک توقف Tab دارد */
+.k-card--interactive :is(a, button).k-card__link::after { content: ""; position: absolute; inset: 0; }
+.k-card--interactive .k-card__link:focus-visible { outline: none; }
+
+@media (forced-colors: active) {
+  .k-card { border-color: CanvasText; }
+  .k-card--interactive:has(:focus-visible) { outline: 2px solid Highlight; }
+}

@@ -1,0 +1,34 @@
+---
+import Logo from "./Logo.astro";
+import { author } from "../data/author";
+const columns = [
+  { title: "محصول", links: [["معرفی", "/docs/"], ["نصب", "/docs/installation/"], ["کامپوننت‌ها", "/docs/components/button/"]] },
+  { title: "راهنما", links: [["سفارشی‌سازی و تم", "/docs/theming/"], ["دسترس‌پذیری", "/docs/accessibility/"], ["رنگ‌ها", "/docs/colors/"]] },
+  { title: "جامعه", links: [["GitHub", author.repo], ["گزارش مشکل", `${author.repo}/issues`], ["راهنمای مشارکت", `${author.repo}/blob/main/CONTRIBUTING.md`]] },
+];
+---
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__brand">
+      <a href="/" class="brand" aria-label="کاشی، صفحهٔ اصلی"><Logo size={24} /><span class="brand__name" aria-hidden="true">کاشی</span></a>
+      <p>دیزاین‌سیستم متن‌باز فارسی.<br />منتشرشده با لایسنس MIT.</p>
+      <a class="credit" href={author.site} target="_blank" rel="noopener">
+        <img src={author.photo} alt="" width="28" height="28" loading="lazy" />
+        <span>ساخته‌شده توسط <strong>{author.name}</strong><span class="k-sr-only"> (در پنجرهٔ جدید)</span></span>
+      </a>
+    </div>
+    {columns.map((c) => (
+      <nav aria-label={c.title}>
+        <p class="site-footer__title">{c.title}</p>
+        <ul role="list">{c.links.map(([label, href]) => {
+          const external = href.startsWith("http");
+          return <li><a href={href} target={external ? "_blank" : undefined} rel={external ? "noopener" : undefined}>{label}{external && <span class="k-sr-only"> (در پنجرهٔ جدید)</span>}</a></li>;
+        })}</ul>
+      </nav>
+    ))}
+  </div>
+  <div class="site-footer__legal">
+    <span>© ۲۰۲۶ مشارکت‌کنندگان کاشی</span>
+    <span>فونت وزیرمتن اثر صابر راستی‌کردار، تحت لایسنس SIL OFL 1.1</span>
+  </div>
+</footer>

@@ -1,0 +1,80 @@
+---
+layout: ../../../layouts/Docs.astro
+title: هشدار
+description: پیامی مهم دربارهٔ وضعیت سیستم یا نتیجهٔ یک عمل، با آیکون شاخص و عمل‌های اختیاری.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { Alert } from "@kashi-ui/react";
+import { AlertActions } from "../../../components/demos";
+
+```tsx
+import { Alert } from "@kashi-ui/react";
+```
+
+## رنگ‌ها
+
+سطح هشدار خنثی است و رنگ فقط در آیکون شاخص دیده می‌شود؛ این کار صفحه را آرام نگه می‌دارد.
+
+<Demo column code={`<Alert tone="brand" title="نسخهٔ جدید منتشر شد">کاشی ۰.۲ با هفت کامپوننت تازه در دسترس است.</Alert>
+<Alert tone="success" title="تغییرات ذخیره شد" />
+<Alert tone="warning" title="اشتراک شما ۳ روز دیگر تمام می‌شود">برای جلوگیری از قطع سرویس، اشتراک را تمدید کنید.</Alert>
+<Alert tone="error" title="پرداخت ناموفق بود">موجودی کارت کافی نیست. کارت دیگری را امتحان کنید.</Alert>`}>
+  <Alert tone="brand" title="نسخهٔ جدید منتشر شد">کاشی ۰.۲ با هفت کامپوننت تازه در دسترس است.</Alert>
+  <Alert tone="success" title="تغییرات ذخیره شد" />
+  <Alert tone="warning" title="اشتراک شما ۳ روز دیگر تمام می‌شود">برای جلوگیری از قطع سرویس، اشتراک را تمدید کنید.</Alert>
+  <Alert tone="error" title="پرداخت ناموفق بود">موجودی کارت کافی نیست. کارت دیگری را امتحان کنید.</Alert>
+</Demo>
+
+## عمل‌ها و بستن
+
+<Demo column code={`<Alert
+  tone="info"
+  title="به‌روزرسانی در دسترس است"
+  actions={<>
+    <Button variant="link">به‌روزرسانی</Button>
+    <Button variant="link">بعداً</Button>
+  </>}
+  onClose={() => setOpen(false)}
+>
+  نسخهٔ جدید بهبودهای امنیتی دارد.
+</Alert>`}>
+  <AlertActions />
+</Demo>
+
+## پس‌زمینهٔ رنگی
+
+برای پیام‌هایی که باید بیشتر دیده شوند، از `tinted` استفاده کنید.
+
+<Demo column code={`<Alert tone="warning" tinted title="حالت نگهداری">سرویس امشب از ساعت ۲ تا ۴ در دسترس نیست.</Alert>`}>
+  <Alert tone="warning" tinted title="حالت نگهداری">سرویس امشب از ساعت ۲ تا ۴ در دسترس نیست.</Alert>
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["tone", '"neutral" | "brand" | "info" | "success" | "warning" | "error"', '"neutral"', "رنگ و آیکون پیش‌فرض"],
+  ["title", "ReactNode", "", "عنوان"],
+  ["children", "ReactNode", "", "توضیح"],
+  ["icon", "ReactNode | false", "", "آیکون سفارشی؛ false برای حذف"],
+  ["actions", "ReactNode", "", "دکمه‌ها یا لینک‌های زیر متن"],
+  ["onClose", "() => void", "", "با دادن این تابع دکمهٔ بستن نمایش داده می‌شود"],
+  ["closeLabel", "string", '"بستن"', "نام دسترس‌پذیر دکمهٔ بستن"],
+  ["tinted", "boolean", "false", "پس‌زمینهٔ رنگی کم‌رنگ"],
+  ["role", "string", "خودکار", "پیش‌فرض alert برای خطا و هشدار، status برای بقیه"],
+]} />
+
+## متغیرهای CSS
+
+<Vars rows={[
+  ["--k-alert-radius", "var(--k-radius-xl)", "گردی گوشه‌ها"],
+  ["--k-alert-padding", "1rem × density", "فاصلهٔ داخلی"],
+  ["--k-alert-bg", "var(--k-bg-secondary)", "پس‌زمینه"],
+]} />
+
+## دسترس‌پذیری
+
+- هشدارهای `error` و `warning` نقش `alert` دارند و صفحه‌خوان آن‌ها را فوراً اعلام می‌کند؛ بقیه با نقش `status` بدون قطع کاربر خوانده می‌شوند.
+- فقط هشدارهایی را که پس از بارگذاری صفحه اضافه می‌شوند `alert` کنید؛ هشدار ثابت صفحه را با `role="note"` نمایش دهید.
+- آیکون تزئینی است و از صفحه‌خوان پنهان است؛ عنوان باید معنا را کامل برساند.

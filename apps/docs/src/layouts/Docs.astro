@@ -1,0 +1,40 @@
+---
+import Base from "./Base.astro";
+import Header from "../components/Header.astro";
+import Sidebar from "../components/Sidebar.astro";
+import Toc from "../components/Toc.astro";
+import Footer from "../components/Footer.astro";
+import { siblings } from "../data/nav";
+
+interface Props {
+  frontmatter?: { title: string; description?: string; status?: string };
+  title?: string;
+  description?: string;
+  headings?: { depth: number; slug: string; text: string }[];
+}
+const fm = Astro.props.frontmatter ?? { title: Astro.props.title ?? "", description: Astro.props.description };
+const headings = Astro.props.headings ?? [];
+const { prev, next } = siblings(Astro.url.pathname);
+---
+<Base title={fm.title} description={fm.description}>
+  <Header />
+
+  <div class="docs">
+    <aside class="docs__sidebar"><Sidebar /></aside>
+    <main id="main" class="docs__main" tabindex="-1">
+      <article class="prose">
+        <header class="page-head">
+          <h1>{fm.title}</h1>
+          {fm.description && <p class="page-head__lead">{fm.description}</p>}
+        </header>
+        <slot />
+      </article>
+      <nav class="pager" aria-label="صفحه‌های مجاور">
+        {prev ? <a class="pager__link" href={prev.href} rel="prev"><span>قبلی</span>{prev.title}</a> : <span />}
+        {next && <a class="pager__link pager__link--next" href={next.href} rel="next"><span>بعدی</span>{next.title}</a>}
+      </nav>
+    </main>
+    <aside class="docs__toc"><Toc headings={headings} /></aside>
+  </div>
+  <Footer />
+</Base>

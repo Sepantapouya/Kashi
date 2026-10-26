@@ -1,0 +1,107 @@
+---
+layout: ../../../layouts/Docs.astro
+title: آواتار
+description: نمایش تصویر یا حروف اول یک شخص، با وضعیت حضور و گروه‌بندی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { Avatar, AvatarGroup } from "@kashi-ui/react";
+
+```tsx
+import { Avatar, AvatarGroup } from "@kashi-ui/react";
+```
+
+## تصویر و حروف اول
+
+اگر تصویر نباشد یا بارگذاری نشود، حروف اول نام نمایش داده می‌شود. بین حروف فارسی نیم‌فاصله قرار می‌گیرد تا به هم نچسبند.
+
+<Demo code={`<Avatar name="سپنتا پویا" src="/images/sepanta-pouya.jpg" size="lg" />
+<Avatar name="سارا احمدی" size="lg" />
+<Avatar name="علی رضایی" size="lg" brand />
+<Avatar name="کاشی" size="lg" square />`}>
+  <Avatar name="سپنتا پویا" src="/images/sepanta-pouya.jpg" size="lg" />
+  <Avatar name="سارا احمدی" size="lg" />
+  <Avatar name="علی رضایی" size="lg" brand />
+  <Avatar name="کاشی" size="lg" square />
+</Demo>
+
+## اندازه‌ها
+
+<Demo code={`<Avatar name="سارا احمدی" size="xs" />
+<Avatar name="سارا احمدی" size="sm" />
+<Avatar name="سارا احمدی" />
+<Avatar name="سارا احمدی" size="lg" />
+<Avatar name="سارا احمدی" size="xl" />
+<Avatar name="سارا احمدی" size="2xl" />`}>
+  <Avatar name="سارا احمدی" size="xs" />
+  <Avatar name="سارا احمدی" size="sm" />
+  <Avatar name="سارا احمدی" />
+  <Avatar name="سارا احمدی" size="lg" />
+  <Avatar name="سارا احمدی" size="xl" />
+  <Avatar name="سارا احمدی" size="2xl" />
+</Demo>
+
+## وضعیت
+
+<Demo code={`<Avatar name="سارا احمدی" status="online" size="lg" />
+<Avatar name="علی رضایی" status="busy" size="lg" />
+<Avatar name="مریم کریمی" status="away" size="lg" />
+<Avatar name="رضا نوری" status="offline" size="lg" />`}>
+  <Avatar name="سارا احمدی" status="online" size="lg" />
+  <Avatar name="علی رضایی" status="busy" size="lg" />
+  <Avatar name="مریم کریمی" status="away" size="lg" />
+  <Avatar name="رضا نوری" status="offline" size="lg" />
+</Demo>
+
+## گروه
+
+<Demo code={`<AvatarGroup max={4} aria-label="اعضای تیم">
+  <Avatar name="سپنتا پویا" src="/images/sepanta-pouya.jpg" />
+  <Avatar name="سارا احمدی" brand />
+  <Avatar name="علی رضایی" />
+  <Avatar name="مریم کریمی" brand />
+  <Avatar name="رضا نوری" />
+  <Avatar name="نگار صادقی" />
+</AvatarGroup>`}>
+  <AvatarGroup max={4} aria-label="اعضای تیم">
+    <Avatar name="سپنتا پویا" src="/images/sepanta-pouya.jpg" />
+    <Avatar name="سارا احمدی" brand />
+    <Avatar name="علی رضایی" />
+    <Avatar name="مریم کریمی" brand />
+    <Avatar name="رضا نوری" />
+    <Avatar name="نگار صادقی" />
+  </AvatarGroup>
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["name", "string", "", "نام شخص (الزامی)؛ برای نام دسترس‌پذیر و حروف اول"],
+  ["src", "string", "", "آدرس تصویر"],
+  ["size", '"xs" | "sm" | "md" | "lg" | "xl" | "2xl"', '"md"', "۲۴ تا ۶۴ پیکسل"],
+  ["status", '"online" | "offline" | "busy" | "away"', "", "نشانگر وضعیت حضور"],
+  ["statusLabels", "Partial<Record<AvatarStatus, string>>", "فارسی", "متن وضعیت برای صفحه‌خوان"],
+  ["square", "boolean", "false", "شکل مربعی برای سازمان‌ها و پروژه‌ها"],
+  ["brand", "boolean", "false", "رنگ برند برای حالت حروف اول"],
+]} />
+
+<Props caption="ویژگی‌های AvatarGroup" rows={[
+  ["max", "number", "", "حداکثر تعداد نمایش؛ بقیه به شکل «+۲»"],
+  ["size", "AvatarSize", '"md"', "اندازهٔ آواتار باقی‌مانده"],
+  ["moreLabel", "(count: number) => string", '"۲ نفر دیگر"', "متن صفحه‌خوان برای باقی‌مانده"],
+]} />
+
+## متغیرهای CSS
+
+<Vars rows={[
+  ["--k-avatar-size", "2.5rem", "اندازه"],
+  ["--k-avatar-radius", "var(--k-radius-full)", "گردی گوشه‌ها"],
+  ["--k-avatar-bg", "var(--k-bg-tertiary)", "پس‌زمینهٔ حروف اول"],
+  ["--k-avatar-fg", "var(--k-text-secondary)", "رنگ حروف اول"],
+]} />
+
+## دسترس‌پذیری
+
+- آواتار نقش `img` دارد و نام شخص به‌همراه وضعیت («سارا احمدی، آنلاین») اعلام می‌شود. تصویر داخلی تزئینی است.
+- وضعیت فقط با رنگ نمایش داده نمی‌شود؛ متن آن برای صفحه‌خوان در دسترس است.

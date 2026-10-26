@@ -1,0 +1,169 @@
+/* دکمه — به سبک Untitled UI: سایهٔ اسکئومورفیک و حلقهٔ فوکوس نرم
+ * <button class="k-btn k-btn--primary k-btn--md">ثبت</button>
+ * گونه‌ها: primary | secondary | tertiary | link | danger | danger-secondary
+ * اندازه‌ها: sm | md | lg | xl — حالت‌ها: disabled، aria-disabled، aria-busy="true"
+ *
+ * متغیرهای قابل‌بازنویسی (روی :root یا هر والدی):
+ *   --k-btn-height-{sm,md,lg,xl}  --k-btn-padding-{sm,md,lg,xl}
+ *   --k-btn-radius  --k-btn-font-weight  --k-btn-gap
+ */
+.k-btn {
+  --_h: var(--k-btn-height-md, calc(2.5rem * var(--k-density)));
+  --_px: var(--k-btn-padding-md, calc(0.875rem * var(--k-density)));
+  --_fs: var(--k-text-sm);
+  --_bg: var(--k-bg-primary);
+  --_bg-hover: var(--k-bg-hover);
+  --_fg: var(--k-text-secondary);
+  --_fg-hover: var(--k-text-primary);
+  --_border: var(--k-border-primary);
+  --_shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic);
+  --_ring: var(--k-ring-brand);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--k-btn-gap, var(--k-space-1_5));
+  block-size: var(--_h);
+  /* حداقل ناحیهٔ لمس WCAG 2.5.8 */
+  min-block-size: 24px;
+  min-inline-size: 24px;
+  padding-inline: var(--_px);
+  border: 1px solid var(--_border);
+  border-radius: var(--k-btn-radius, var(--k-radius-md));
+  background: var(--_bg);
+  color: var(--_fg);
+  box-shadow: var(--_shadow);
+  font: inherit;
+  font-size: var(--_fs);
+  font-weight: var(--k-btn-font-weight, var(--k-weight-semibold));
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--k-duration-fast) var(--k-ease-standard),
+    color var(--k-duration-fast) var(--k-ease-standard),
+    box-shadow var(--k-duration-fast) var(--k-ease-standard);
+}
+
+.k-btn:hover { background: var(--_bg-hover); color: var(--_fg-hover); }
+
+.k-btn:focus-visible {
+  /* outline شفاف در حالت forced-colors ویندوز قابل‌مشاهده می‌شود */
+  outline: 2px solid transparent;
+  box-shadow: var(--_shadow), var(--_ring);
+}
+
+.k-btn:disabled,
+.k-btn[aria-disabled="true"]:not([aria-busy="true"]) {
+  --_bg: var(--k-bg-secondary);
+  --_fg: var(--k-text-quaternary);
+  --_border: var(--k-border-secondary);
+  --_shadow: var(--k-shadow-xs);
+  cursor: not-allowed;
+}
+.k-btn[aria-disabled="true"]:hover { background: var(--_bg); color: var(--_fg); }
+
+
+/* گونه‌ها */
+.k-btn--primary {
+  --_bg: var(--k-bg-brand);
+  --_bg-hover: var(--k-bg-brand-hover);
+  --_fg: var(--k-text-on-brand);
+  --_fg-hover: var(--k-text-on-brand);
+  --_border: transparent;
+  --_shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic);
+}
+/* حاشیهٔ داخلی سفید که به پایین محو می‌شود (Untitled UI) */
+.k-btn:is(.k-btn--primary, .k-btn--danger)::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: inherit;
+  mask: linear-gradient(to bottom, #000, transparent);
+  pointer-events: none;
+}
+.k-btn:is(.k-btn--primary, .k-btn--danger):is(:disabled, [aria-disabled="true"]:not([aria-busy="true"]))::before { display: none; }
+.k-btn--tertiary {
+  --_bg: transparent;
+  --_border: transparent;
+  --_shadow: none;
+}
+.k-btn--link {
+  --_bg: transparent;
+  --_bg-hover: transparent;
+  --_fg: var(--k-text-brand);
+  --_fg-hover: var(--k-text-brand);
+  --_border: transparent;
+  --_shadow: none;
+  --_h: auto;
+  --_px: 0;
+}
+.k-btn--link:hover { text-decoration: underline; text-underline-offset: 0.3em; }
+.k-btn--danger {
+  --_bg: var(--k-bg-error);
+  --_bg-hover: var(--k-bg-error-hover);
+  --_fg: var(--k-text-on-brand);
+  --_fg-hover: var(--k-text-on-brand);
+  --_border: transparent;
+  --_shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic);
+  --_ring: var(--k-ring-error);
+}
+.k-btn--danger-secondary {
+  --_fg: var(--k-text-error);
+  --_fg-hover: var(--k-text-error);
+  --_bg-hover: var(--k-bg-error-subtle);
+  --_ring: var(--k-ring-error);
+}
+
+/* اندازه‌ها */
+.k-btn--sm {
+  --_h: var(--k-btn-height-sm, calc(2.25rem * var(--k-density)));
+  --_px: var(--k-btn-padding-sm, calc(0.75rem * var(--k-density)));
+}
+.k-btn--lg {
+  --_h: var(--k-btn-height-lg, calc(2.75rem * var(--k-density)));
+  --_px: var(--k-btn-padding-lg, calc(1.125rem * var(--k-density)));
+  --_fs: var(--k-text-md);
+}
+.k-btn--xl {
+  --_h: var(--k-btn-height-xl, calc(3rem * var(--k-density)));
+  --_px: var(--k-btn-padding-xl, calc(1.25rem * var(--k-density)));
+  --_fs: var(--k-text-md);
+}
+.k-btn--icon { padding-inline: 0; inline-size: var(--_h); }
+.k-btn--block { display: flex; inline-size: 100%; }
+
+.k-btn svg { inline-size: 1.25em; block-size: 1.25em; flex-shrink: 0; }
+
+/* آیکون‌های جهت‌دار (فلش و…) در RTL آینه می‌شوند */
+[dir="rtl"] .k-btn [data-k-mirror] { transform: scaleX(-1); }
+
+/* در حال بارگذاری */
+.k-btn[aria-busy="true"] {
+  color: transparent;
+  cursor: progress;
+}
+.k-btn[aria-busy="true"]::after {
+  content: "";
+  position: absolute;
+  inline-size: 1.1em;
+  block-size: 1.1em;
+  border: 2px solid var(--_fg);
+  border-block-start-color: transparent;
+  border-radius: var(--k-radius-full);
+  animation: k-spin 0.7s linear infinite;
+}
+
+@keyframes k-spin { to { rotate: 360deg; } }
+
+/* حالت کنتراست بالای ویندوز */
+@media (forced-colors: active) {
+  .k-btn { border-color: ButtonText; }
+  .k-btn--primary, .k-btn--danger { border-color: ButtonText; }
+  .k-btn:disabled, .k-btn[aria-disabled="true"] { border-color: GrayText; color: GrayText; }
+  .k-btn[aria-busy="true"]::after { border-color: ButtonText; border-block-start-color: transparent; }
+}

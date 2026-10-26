@@ -1,0 +1,92 @@
+/* هشدار (Alert) — به سبک Untitled UI: سطح خنثی، رنگ فقط در آیکون شاخص
+ * <div class="k-alert k-alert--warning" role="alert">  ← role="status" برای پیام‌های غیرفوری
+ *   <span class="k-alert__icon" aria-hidden="true"><svg>…</svg></span>
+ *   <div class="k-alert__content">
+ *     <p class="k-alert__title">عنوان</p>
+ *     <p class="k-alert__description">توضیح</p>
+ *     <div class="k-alert__actions">…</div>
+ *   </div>
+ *   <button class="k-btn k-btn--tertiary k-btn--icon k-btn--sm k-alert__close" aria-label="بستن">×</button>
+ * </div>
+ * رنگ‌ها: neutral | brand | info | success | warning | error
+ * k-alert--tinted: پس‌زمینهٔ رنگی کم‌رنگ به‌جای سطح خنثی
+ *
+ * متغیرها: --k-alert-radius  --k-alert-padding  --k-alert-bg
+ */
+.k-alert {
+  --_accent: var(--k-text-tertiary);
+  --_bg: var(--k-alert-bg, var(--k-bg-secondary));
+
+  display: flex;
+  align-items: flex-start;
+  gap: var(--k-space-4);
+  padding: var(--k-alert-padding, calc(1rem * var(--k-density)));
+  border: 1px solid var(--k-border-primary);
+  border-radius: var(--k-alert-radius, var(--k-radius-xl));
+  background: var(--_bg);
+  color: var(--k-text-tertiary);
+  font-size: var(--k-text-sm);
+  box-shadow: var(--k-shadow-xs);
+}
+
+.k-alert--brand { --_accent: var(--k-text-brand); }
+.k-alert--info { --_accent: var(--k-text-info); }
+.k-alert--success { --_accent: var(--k-text-success); }
+.k-alert--warning { --_accent: var(--k-text-warning); }
+.k-alert--error { --_accent: var(--k-text-error); }
+
+.k-alert--tinted {
+  --_bg: var(--k-alert-bg, color-mix(in srgb, var(--_accent) 8%, var(--k-bg-primary)));
+  border-color: color-mix(in srgb, var(--_accent) 32%, transparent);
+}
+
+/* آیکون شاخص با دو حلقهٔ هم‌مرکز (featured icon) */
+.k-alert__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  margin: 0.375rem;
+  color: var(--_accent);
+}
+.k-alert__icon::before,
+.k-alert__icon::after {
+  content: "";
+  position: absolute;
+  border: 2px solid var(--_accent);
+  border-radius: var(--k-radius-full);
+}
+.k-alert__icon::before { inset: -0.3125rem; opacity: 0.3; }
+.k-alert__icon::after { inset: -0.625rem; opacity: 0.1; }
+.k-alert__icon svg { inline-size: 100%; block-size: 100%; }
+
+.k-alert__content {
+  flex: 1;
+  display: grid;
+  gap: var(--k-space-1);
+  min-inline-size: 0;
+  padding-block-start: 0.125rem;
+}
+
+.k-alert__title {
+  margin: 0;
+  color: var(--k-text-secondary);
+  font-weight: var(--k-weight-semibold);
+}
+
+.k-alert__description { margin: 0; }
+
+.k-alert__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--k-space-3);
+  margin-block-start: var(--k-space-2);
+}
+
+.k-alert__close { margin-block: -0.375rem; margin-inline-end: -0.375rem; }
+
+@media (forced-colors: active) {
+  .k-alert { border-color: CanvasText; }
+}

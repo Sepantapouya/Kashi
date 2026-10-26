@@ -1,0 +1,65 @@
+---
+layout: ../../../layouts/Docs.astro
+title: نشان
+description: برچسب کوچک برای وضعیت، دسته‌بندی یا شمارش.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { Badge } from "@kashi-ui/react";
+
+```tsx
+import { Badge } from "@kashi-ui/react";
+```
+
+## رنگ‌ها
+
+رنگ را بر اساس معنا انتخاب کنید، نه سلیقه؛ کاربر رنگ‌ها را در کل محصول یکسان تفسیر می‌کند.
+
+<Demo code={`<Badge>پیش‌نویس</Badge>
+<Badge tone="brand">جدید</Badge>
+<Badge tone="success" dot>فعال</Badge>
+<Badge tone="warning">در انتظار</Badge>
+<Badge tone="error">رد شده</Badge>
+<Badge tone="info">بتا</Badge>`}>
+  <Badge>پیش‌نویس</Badge>
+  <Badge tone="brand">جدید</Badge>
+  <Badge tone="success" dot>فعال</Badge>
+  <Badge tone="warning">در انتظار</Badge>
+  <Badge tone="error">رد شده</Badge>
+  <Badge tone="info">بتا</Badge>
+</Demo>
+
+## اندازه و شکل
+
+<Demo code={`<Badge tone="brand" size="sm">کوچک</Badge>
+<Badge tone="brand">متوسط</Badge>
+<Badge tone="brand" size="lg">بزرگ</Badge>
+<Badge tone="success" square>مربعی</Badge>`}>
+  <Badge tone="brand" size="sm">کوچک</Badge>
+  <Badge tone="brand">متوسط</Badge>
+  <Badge tone="brand" size="lg">بزرگ</Badge>
+  <Badge tone="success" square>مربعی</Badge>
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["tone", '"neutral" | "brand" | "error" | "warning" | "success" | "info"', '"neutral"', "رنگ معنایی"],
+  ["size", '"sm" | "md" | "lg"', '"md"', "اندازه"],
+  ["dot", "boolean", "false", "نقطهٔ رنگی ابتدای متن"],
+  ["square", "boolean", "false", "گوشهٔ کم به‌جای گرد"],
+]} />
+
+## متغیرهای CSS
+
+<Vars rows={[
+  ["--k-badge-radius", "var(--k-radius-full)", "گردی گوشه‌ها"],
+  ["--k-badge-font-weight", "500", "وزن متن"],
+]} />
+
+## دسترس‌پذیری
+
+- همهٔ ترکیب‌های رنگ متن و پس‌زمینه کنتراست حداقل ۴٫۵ به ۱ دارند.
+- رنگ نباید تنها حامل معنا باشد؛ متن نشان باید به‌تنهایی وضعیت را برساند.
+- اگر عدد نشان (مثلاً تعداد پیام‌ها) تغییر می‌کند، تغییر را با یک ناحیهٔ `aria-live` اعلام کنید.

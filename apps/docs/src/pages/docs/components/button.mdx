@@ -1,0 +1,95 @@
+---
+layout: ../../../layouts/Docs.astro
+title: دکمه
+description: برای اجرای یک عمل. شش گونه برای سلسله‌مراتب بصری، چهار اندازه و حالت بارگذاری دسترس‌پذیر.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { Button } from "@kashi-ui/react";
+import { ButtonIcons } from "../../../components/demos";
+
+```tsx
+import { Button } from "@kashi-ui/react";
+```
+
+## گونه‌ها
+
+در هر بخش از صفحه فقط یک دکمهٔ `primary` بگذارید. بقیهٔ عمل‌ها با `secondary` یا `tertiary` نمایش داده شوند.
+
+<Demo code={`<Button variant="primary">ذخیره</Button>
+<Button variant="secondary">پیش‌نمایش</Button>
+<Button variant="tertiary">انصراف</Button>
+<Button variant="link">اطلاعات بیشتر</Button>
+<Button variant="danger">حذف</Button>
+<Button variant="danger-secondary">بایگانی</Button>`}>
+  <Button variant="primary">ذخیره</Button>
+  <Button variant="secondary">پیش‌نمایش</Button>
+  <Button variant="tertiary">انصراف</Button>
+  <Button variant="link">اطلاعات بیشتر</Button>
+  <Button variant="danger">حذف</Button>
+  <Button variant="danger-secondary">بایگانی</Button>
+</Demo>
+
+## اندازه‌ها
+
+<Demo code={`<Button variant="primary" size="sm">کوچک</Button>
+<Button variant="primary">متوسط</Button>
+<Button variant="primary" size="lg">بزرگ</Button>
+<Button variant="primary" size="xl">خیلی بزرگ</Button>`}>
+  <Button variant="primary" size="sm">کوچک</Button>
+  <Button variant="primary">متوسط</Button>
+  <Button variant="primary" size="lg">بزرگ</Button>
+  <Button variant="primary" size="xl">خیلی بزرگ</Button>
+</Demo>
+
+## با آیکون
+
+`iconStart` در RTL سمت راست و `iconEnd` سمت چپ قرار می‌گیرد. آیکون‌های جهت‌دار مثل فلش را با `data-k-mirror` علامت بزنید تا در RTL آینه شوند.
+
+<Demo code={`<Button variant="primary" iconStart={<PlusIcon />}>پروژهٔ جدید</Button>
+<Button iconEnd={<ArrowIcon />}>ادامه</Button>
+<Button iconOnly aria-label="جستجو"><SearchIcon /></Button>
+<Button variant="danger-secondary" iconOnly aria-label="حذف"><TrashIcon /></Button>`}>
+  <ButtonIcons />
+</Demo>
+
+## حالت‌ها
+
+<Demo code={`<Button variant="primary" loading>پرداخت</Button>
+<Button disabled>غیرفعال</Button>`}>
+  <Button variant="primary" loading>پرداخت</Button>
+  <Button disabled>غیرفعال</Button>
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["variant", '"primary" | "secondary" | "tertiary" | "link" | "danger" | "danger-secondary"', '"secondary"', "سبک بصری و اهمیت عمل"],
+  ["size", '"sm" | "md" | "lg" | "xl"', '"md"', "اندازه؛ ارتفاع‌ها ۳۶، ۴۰، ۴۴ و ۴۸ پیکسل"],
+  ["loading", "boolean", "false", "نمایش اسپینر؛ دکمه فوکوس‌پذیر می‌ماند ولی کلیک نمی‌گیرد"],
+  ["loadingLabel", "string", '"در حال بارگذاری"', "متنی که صفحه‌خوان هنگام بارگذاری اعلام می‌کند"],
+  ["iconStart", "ReactNode", "", "آیکون ابتدای متن"],
+  ["iconEnd", "ReactNode", "", "آیکون انتهای متن"],
+  ["iconOnly", "boolean", "false", "دکمهٔ مربعی فقط‌آیکون؛ aria-label الزامی است"],
+  ["block", "boolean", "false", "تمام‌عرض"],
+]} />
+
+سایر ویژگی‌های `<button>` مثل `onClick`، `type` و `disabled` هم پشتیبانی می‌شوند. مقدار پیش‌فرض `type` برابر `"button"` است تا فرم‌ها ناخواسته ارسال نشوند.
+
+## متغیرهای CSS
+
+<Vars rows={[
+  ["--k-btn-height-{sm,md,lg,xl}", "2.25rem تا 3rem × density", "ارتفاع هر اندازه"],
+  ["--k-btn-padding-{sm,md,lg,xl}", "0.75rem تا 1.25rem × density", "فاصلهٔ افقی داخلی"],
+  ["--k-btn-radius", "var(--k-radius-md)", "گردی گوشه‌ها"],
+  ["--k-btn-font-weight", "600", "وزن متن"],
+  ["--k-btn-gap", "var(--k-space-1_5)", "فاصلهٔ آیکون و متن"],
+]} />
+
+## دسترس‌پذیری
+
+- در حالت `loading` از `aria-disabled` به‌جای `disabled` استفاده می‌شود تا فوکوس کیبورد از دست نرود، و متن «در حال بارگذاری» با `role="status"` اعلام می‌شود.
+- دکمهٔ `iconOnly` بدون `aria-label` در حالت توسعه هشدار می‌دهد.
+- حداقل ناحیهٔ لمس ۲۴×۲۴ پیکسل است و حلقهٔ فوکوس در حالت کنتراست بالای ویندوز هم دیده می‌شود.
+- برای رفتن به صفحهٔ دیگر از لینک (`<a class="k-btn">`) استفاده کنید، نه دکمه.

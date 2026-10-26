@@ -1,0 +1,450 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Install from "../components/Install.astro";
+import Footer from "../components/Footer.astro";
+import Showcase from "../components/Showcase";
+import { nav } from "../data/nav";
+import { author } from "../data/author";
+import * as tokens from "@kashi-ui/tokens";
+import pkg from "@kashi-ui/react/package.json";
+
+const fa = (n: number | string) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+const count = (o: object): number => Object.values(o).reduce((n: number, v) => n + (typeof v === "object" ? count(v) : 1), 0);
+const { themes, ...primitives } = tokens as Record<string, any>;
+delete primitives.createTheme;
+delete primitives.brandScale;
+const tokenCount = count(primitives) + Object.keys(themes.dark).length;
+const componentCount = nav.find((g) => g.title === "کامپوننت‌ها")!.items.length;
+
+const metrics = [
+  { value: fa(componentCount), label: "کامپوننت آماده" },
+  { value: fa(tokenCount), label: "توکن طراحی" },
+  { value: "AA", label: "انطباق با WCAG 2.2", ltr: true },
+  { value: fa(0), label: "وابستگی زمان اجرا در هستهٔ CSS" },
+];
+
+const features = [
+  { title: "راست‌به‌چپ از پایه", text: "تمام استایل‌ها با Logical Properties نوشته شده‌اند. چیدمان فارسی و انگلیسی از یک کد، بدون بازنویسی.", icon: "M4 6h12M4 10h8M4 14h12" },
+  { title: "دسترس‌پذیری قابل‌اثبات", text: "کنتراست همهٔ جفت‌رنگ‌ها در هر بیلد بررسی می‌شود و بیلد ناموفق منتشر نمی‌شود. کیبورد، صفحه‌خوان و حالت کنتراست بالا پشتیبانی می‌شوند.", icon: "M10 2.5 3.5 5v4.5c0 4 2.8 7 6.5 8 3.7-1 6.5-4 6.5-8V5L10 2.5ZM7 10l2 2 4-4" },
+  { title: "سفارشی‌سازی چندلایه", text: "از یک رنگ برند تا ضریب گردی، تراکم و متغیرهای هر کامپوننت. همهٔ استایل‌ها در Cascade Layer هستند تا CSS شما همیشه اولویت داشته باشد.", icon: "M4 6h7M15 6h1M4 14h1M9 14h7M13 4v4M7 12v4" },
+  { title: "مستقل از فریم‌ورک", text: "هستهٔ کاشی CSS خالص است. React امروز آماده است و همان کلاس‌ها در HTML، Vue، Svelte و Angular کار می‌کنند.", icon: "m7 6-4 4 4 4M13 6l4 4-4 4" },
+  { title: "تایپوگرافی فارسی", text: "فونت متغیر وزیرمتن همراه پکیج؛ اندازه‌ها و ارتفاع خط برای خوانایی حروف فارسی تنظیم شده‌اند.", icon: "M5 16 10 4l5 12M7 12h6" },
+  { title: "متن‌باز با MIT", text: "رایگان برای پروژه‌های تجاری، شفاف در توسعه و باز برای مشارکت.", icon: "M6.5 7.5 3 10l3.5 2.5M13.5 7.5 17 10l-3.5 2.5M11.5 4.5l-3 11" },
+];
+
+const support = [
+  { name: "React", how: "@kashi-ui/react", status: "ready" },
+  { name: "HTML و CSS", how: "@kashi-ui/css", status: "ready" },
+  { name: "Vue، Svelte، Angular", how: "@kashi-ui/css", status: "ready" },
+  { name: "Web Components", how: "@kashi-ui/elements", status: "planned" },
+  { name: "CLI (افزودن کامپوننت)", how: "npx kashi-ui add", status: "planned" },
+];
+
+const brands = [
+  { name: "فیروزه‌ای", value: "" },
+  { name: "لاجوردی", value: "#3d5ef8" },
+  { name: "زعفرانی", value: "#dd5e02" },
+  { name: "اناری", value: "#e51d2a" },
+  { name: "بنفش", value: "#7c3aed" },
+];
+---
+<Base>
+  <Header />
+  <main id="main" tabindex="-1">
+    <section class="hero">
+      <svg class="hero__pattern" aria-hidden="true">
+        <defs>
+          <pattern id="shamseh" width="64" height="64" patternUnits="userSpaceOnUse">
+            <path transform="translate(16 16)" d="M16.00 1.00 L11.61 5.39 L5.39 5.39 L5.39 11.61 L1.00 16.00 L5.39 20.39 L5.39 26.61 L11.61 26.61 L16.00 31.00 L20.39 26.61 L26.61 26.61 L26.61 20.39 L31.00 16.00 L26.61 11.61 L26.61 5.39 L20.39 5.39Z" />
+            <path d="M0 0 L16 16 M64 0 L48 16 M0 64 L16 48 M64 64 L48 48" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#shamseh)" />
+      </svg>
+
+      <div class="hero__inner">
+        <p class="eyebrow"><span dir="ltr">Kashi Design System · v{pkg.version}</span></p>
+        <h1 class="hero__title">
+          زیرساخت طراحی برای محصولات فارسی
+          <span>دسترس‌پذیر، مقیاس‌پذیر و متن‌باز.</span>
+        </h1>
+        <p class="hero__lead">کاشی کامپوننت‌ها، توکن‌ها و الگوهایی را فراهم می‌کند که تیم‌ها برای ساخت رابط‌های راست‌به‌چپِ سازگار و قابل‌اعتماد به آن نیاز دارند؛ از استارتاپ تا سازمان.</p>
+        <div class="hero__actions">
+          <a class="k-btn k-btn--primary k-btn--xl" href="/docs/">شروع کنید</a>
+          <a class="k-btn k-btn--secondary k-btn--xl" href="/docs/components/button/">مستندات کامپوننت‌ها</a>
+        </div>
+        <div class="hero__install"><Install /></div>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="کاشی در یک نگاه">
+      <dl class="metrics__grid">
+        {metrics.map((m) => (
+          <div class="metric">
+            <dt>{m.label}</dt>
+            <dd dir={m.ltr ? "ltr" : undefined}>{m.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section class="showcase" aria-labelledby="showcase-title">
+      <div class="frame">
+        <div class="frame__bar">
+          <h2 id="showcase-title" class="frame__title">پیش‌نمایش زنده</h2>
+          <code class="frame__pkg">@kashi-ui/react</code>
+        </div>
+        <Showcase />
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="features-title">
+      <div class="block__head">
+        <p class="eyebrow">اصول</p>
+        <h2 id="features-title">برای تیم‌هایی ساخته شده که کیفیت برایشان مذاکره‌پذیر نیست</h2>
+      </div>
+      <ul class="features" role="list">
+        {features.map((f) => (
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={f.icon} /></svg>
+            </span>
+            <h3>{f.title}</h3>
+            <p>{f.text}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="block split" aria-labelledby="support-title">
+      <div class="block__head block__head--start">
+        <p class="eyebrow">پشتیبانی</p>
+        <h2 id="support-title">یک سیستم، هر پشته‌ای</h2>
+        <p>ظاهر کامپوننت‌ها یک‌بار در CSS تعریف می‌شود و هر فریم‌ورک فقط لایهٔ نازکی روی آن است. نقشهٔ راه شفاف است: آنچه آماده است و آنچه در راه است.</p>
+      </div>
+      <div class="table-wrap" role="region" aria-label="وضعیت پشتیبانی فریم‌ورک‌ها" tabindex="0">
+        <table class="ref-table support">
+          <thead><tr><th scope="col">بستر</th><th scope="col">پکیج</th><th scope="col">وضعیت</th></tr></thead>
+          <tbody>
+            {support.map((s) => (
+              <tr>
+                <th scope="row">{s.name}</th>
+                <td><code class="type">{s.how}</code></td>
+                <td>
+                  {s.status === "ready"
+                    ? <span class="k-badge k-badge--sm k-badge--success"><span class="k-badge__dot" aria-hidden="true"></span>آماده</span>
+                    : <span class="k-badge k-badge--sm">در نقشهٔ راه</span>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block split" aria-labelledby="brandify-title">
+      <div class="block__head block__head--start">
+        <p class="eyebrow">تم‌پذیری</p>
+        <h2 id="brandify-title">برند شما، در یک خط کد</h2>
+        <p>رنگ اصلی برند را بدهید؛ کاشی طیف یازده‌پله‌ای را می‌سازد و همهٔ کامپوننت‌ها هماهنگ می‌شوند. روی این صفحه امتحان کنید:</p>
+        <div class="swatches" role="group" aria-label="رنگ برند">
+          {brands.map((b, i) => (
+            <button type="button" class="swatch" data-brand={b.value} aria-pressed={i === 0 ? "true" : "false"} style={`--sw: ${b.value || "var(--k-firoozeh-600)"}`}>
+              <span class="swatch__dot" aria-hidden="true"></span>{b.name}
+            </button>
+          ))}
+        </div>
+        <a class="k-btn k-btn--link" href="/docs/theming/">راهنمای سفارشی‌سازی</a>
+      </div>
+      <pre class="snippet"><code><span class="tok-k">import</span> {"{ createTheme }"} <span class="tok-k">from</span> <span class="tok-s">"@kashi-ui/tokens"</span>;
+
+<span class="tok-k">const</span> css = createTheme({"{"}
+  brand: <span class="tok-s" data-brand-code>"#0fa89b"</span>,
+  radius: <span class="tok-n">1.5</span>,
+  density: <span class="tok-n">0.875</span>,
+{"}"});</code></pre>
+    </section>
+
+    <section class="block" aria-labelledby="author-title">
+      <div class="author">
+        <img class="author__photo" src={author.photo} alt={`عکس ${author.name}`} width="400" height="400" loading="lazy" decoding="async" />
+        <div class="author__body">
+          <p class="eyebrow">سازنده</p>
+          <h2 id="author-title" class="author__name">ساخته‌شده توسط {author.name}</h2>
+          <p class="author__role">{author.role}</p>
+          <p class="author__bio">{author.bio} کاشی را ساخت تا تیم‌های فارسی‌زبان به ابزار طراحی‌ای هم‌سطح با بهترین دیزاین‌سیستم‌های دنیا دسترسی داشته باشند.</p>
+          <ul class="author__links" role="list">
+            {author.links.map((l) => (
+              <li><a class="k-btn k-btn--secondary k-btn--sm" href={l.href} target="_blank" rel="noopener">{l.label}<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" aria-labelledby="cta-title">
+      <h2 id="cta-title">آمادهٔ ساختن هستید؟</h2>
+      <p>نصب در یک خط. مستندات کامل برای هر کامپوننت، با نمونهٔ React و HTML.</p>
+      <div class="cta__actions">
+        <a class="k-btn k-btn--primary k-btn--lg" href="/docs/installation/">راهنمای نصب</a>
+        <a class="k-btn k-btn--secondary k-btn--lg" href={author.repo} target="_blank" rel="noopener">مشارکت در GitHub<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .eyebrow {
+    margin: 0;
+    color: var(--k-text-brand);
+    font-size: var(--k-text-sm);
+    font-weight: var(--k-weight-semibold);
+  }
+  .eyebrow span { font-family: var(--k-font-mono); font-size: 0.8125rem; letter-spacing: 0.02em; }
+
+  /* ───── هیرو ───── */
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: clamp(4.5rem, 10vw, 8rem) var(--gutter) clamp(3.5rem, 7vw, 5.5rem);
+    text-align: center;
+  }
+  .hero__pattern {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    inline-size: 100%;
+    block-size: 100%;
+    fill: none;
+    stroke: var(--k-border-secondary);
+    stroke-width: 1;
+    opacity: 0.7;
+    mask-image: radial-gradient(ellipse 60% 70% at 50% 0%, #000 20%, transparent 70%);
+  }
+  .hero__inner { max-inline-size: 54rem; margin-inline: auto; }
+  .hero__title {
+    margin-block: var(--k-space-5) var(--k-space-6);
+    font-size: clamp(2.125rem, 5.6vw, 3.75rem);
+    font-weight: var(--k-weight-bold);
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+  .hero__title span { display: block; color: var(--k-text-quaternary); }
+  .hero__lead {
+    max-inline-size: 42rem;
+    margin: 0 auto;
+    color: var(--k-text-tertiary);
+    font-size: clamp(var(--k-text-md), 1.8vw, var(--k-text-lg));
+    line-height: 1.95;
+    text-wrap: pretty;
+  }
+  .hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--k-space-3); margin-block-start: var(--k-space-10); }
+  .hero__install { max-inline-size: 26rem; margin: var(--k-space-5) auto 0; }
+
+  /* ───── اعداد ───── */
+  .metrics { padding-inline: var(--gutter); }
+  .metrics__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-inline-size: 72rem;
+    margin: 0 auto;
+    border: 1px solid var(--k-border-secondary);
+    border-radius: var(--k-radius-xl);
+    background: var(--k-bg-secondary);
+  }
+  .metric { padding: var(--k-space-6) var(--k-space-6); display: flex; flex-direction: column-reverse; gap: var(--k-space-1); }
+  .metric + .metric { border-inline-start: 1px solid var(--k-border-secondary); }
+  .metric dt { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .metric dd { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-3xl); font-weight: var(--k-weight-semibold); line-height: 1.2; text-align: start; }
+
+  /* ───── پیش‌نمایش ───── */
+  .showcase { padding: clamp(3rem, 7vw, 5rem) var(--gutter) clamp(4rem, 8vw, 6rem); }
+  .frame {
+    max-inline-size: 72rem;
+    margin-inline: auto;
+    border: 1px solid var(--k-border-secondary);
+    border-radius: var(--k-radius-2xl);
+    background: var(--k-bg-secondary);
+    box-shadow: var(--k-shadow-2xl);
+    overflow: clip;
+  }
+  .frame__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--k-space-3) var(--k-space-5);
+    border-block-end: 1px solid var(--k-border-secondary);
+  }
+  .frame__title { margin: 0; color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .frame__pkg { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .frame :global(.showcase__grid) {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--k-space-5);
+    align-items: start;
+    padding: clamp(1rem, 3vw, 2rem);
+    background:
+      radial-gradient(circle at 1px 1px, var(--k-border-secondary) 1px, transparent 0) 0 0 / 1.25rem 1.25rem,
+      var(--k-bg-primary);
+  }
+  .frame :global(.k-card__title) { font-size: var(--k-text-md); }
+  .frame :global(.sc-stack) { display: grid; gap: var(--k-space-5); }
+  .frame :global(.sc-row) { display: flex; flex-wrap: wrap; gap: var(--k-space-2); }
+  .frame :global(.sc-team) { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-4); }
+  .frame :global(.sc-team__title) { margin: 0 0 var(--k-space-2); color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+
+  /* ───── بلوک‌های محتوا ───── */
+  .block {
+    max-inline-size: 72rem;
+    margin-inline: auto;
+    padding: clamp(4rem, 8vw, 6rem) var(--gutter);
+    border-block-start: 1px solid var(--k-border-secondary);
+  }
+  .block__head { max-inline-size: 40rem; margin: 0 auto var(--k-space-12); text-align: center; }
+  .block__head--start { margin: 0; text-align: start; }
+  .block__head h2, .cta h2 {
+    margin-block: var(--k-space-3) 0;
+    font-size: clamp(var(--k-text-2xl), 3.4vw, var(--k-text-4xl));
+    font-weight: var(--k-weight-bold);
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+  .block__head p:not(.eyebrow), .cta p { margin-block: var(--k-space-4) 0; color: var(--k-text-tertiary); font-size: var(--k-text-lg); line-height: 1.9; }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--k-border-secondary);
+    border-radius: var(--k-radius-xl);
+    overflow: clip;
+  }
+  .feature {
+    padding: var(--k-space-8);
+    border-block-end: 1px solid var(--k-border-secondary);
+    border-inline-end: 1px solid var(--k-border-secondary);
+    margin-block-end: -1px;
+    margin-inline-end: -1px;
+  }
+  .feature h3 { margin-block: var(--k-space-5) var(--k-space-2); font-size: var(--k-text-md); font-weight: var(--k-weight-semibold); }
+  .feature p { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.95; }
+  .feature__icon {
+    display: inline-grid;
+    place-items: center;
+    inline-size: 2.5rem;
+    block-size: 2.5rem;
+    border: 1px solid var(--k-border-primary);
+    border-radius: var(--k-radius-lg);
+    background: var(--k-bg-secondary);
+    color: var(--k-text-secondary);
+    box-shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic);
+  }
+  .feature__icon svg { inline-size: 1.25rem; block-size: 1.25rem; }
+
+  .split { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+  .support th[scope="row"] { color: var(--k-text-primary); font-weight: var(--k-weight-medium); }
+
+  .swatches { display: flex; flex-wrap: wrap; gap: var(--k-space-2); margin-block: var(--k-space-6) var(--k-space-4); }
+  .swatch {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--k-space-2);
+    min-block-size: 2.25rem;
+    padding-inline: var(--k-space-3);
+    border: 1px solid var(--k-border-primary);
+    border-radius: var(--k-radius-md);
+    background: var(--k-bg-primary);
+    color: var(--k-text-secondary);
+    font: inherit;
+    font-size: var(--k-text-sm);
+    cursor: pointer;
+    box-shadow: var(--k-shadow-xs);
+  }
+  .swatch:hover { color: var(--k-text-primary); background: var(--k-bg-hover); }
+  .swatch:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+  .swatch[aria-pressed="true"] { border-color: var(--k-border-brand); color: var(--k-text-primary); }
+  .swatch__dot { inline-size: 0.875rem; block-size: 0.875rem; border-radius: 50%; background: var(--sw); }
+  .snippet {
+    margin: 0;
+    padding: var(--k-space-6);
+    border: 1px solid var(--k-border-secondary);
+    border-radius: var(--k-radius-xl);
+    background: var(--k-bg-secondary);
+    color: var(--k-text-secondary);
+    font-size: var(--k-text-sm);
+    line-height: 1.8;
+    text-align: left;
+    overflow-x: auto;
+  }
+  .tok-k { color: var(--k-text-brand); }
+  .tok-s { color: var(--k-text-warning); }
+  .tok-n { color: var(--k-text-info); }
+
+  .author {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(1.5rem, 5vw, 3.5rem);
+    align-items: center;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid var(--k-border-secondary);
+    border-radius: var(--k-radius-2xl);
+    background: var(--k-bg-secondary);
+  }
+  .author__photo {
+    inline-size: clamp(7rem, 16vw, 11rem);
+    block-size: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--k-radius-xl);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--k-text-primary) 10%, transparent), var(--k-shadow-lg);
+  }
+  .author__name { margin-block: var(--k-space-2) 0; font-size: clamp(var(--k-text-xl), 3vw, var(--k-text-3xl)); font-weight: var(--k-weight-bold); }
+  .author__role { margin: var(--k-space-1) 0 0; color: var(--k-text-brand); font-weight: var(--k-weight-medium); }
+  .author__bio { max-inline-size: 42rem; margin-block: var(--k-space-4) 0; color: var(--k-text-tertiary); line-height: 1.95; }
+  .author__links { display: flex; flex-wrap: wrap; gap: var(--k-space-2); margin: var(--k-space-6) 0 0; padding: 0; list-style: none; }
+  @media (max-width: 40rem) {
+    .author { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  .cta {
+    padding: clamp(4rem, 8vw, 6rem) var(--gutter);
+    border-block-start: 1px solid var(--k-border-secondary);
+    text-align: center;
+  }
+  .cta__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--k-space-3); margin-block-start: var(--k-space-8); }
+
+  @media (max-width: 60rem) {
+    .features { grid-template-columns: repeat(2, 1fr); }
+    .split, .frame :global(.showcase__grid) { grid-template-columns: minmax(0, 1fr); }
+    .metrics__grid { grid-template-columns: repeat(2, 1fr); }
+    .metric:nth-child(3) { border-inline-start: 0; }
+    .metric:nth-child(n + 3) { border-block-start: 1px solid var(--k-border-secondary); }
+  }
+  @media (max-width: 36rem) {
+    .features { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
+
+<script>
+  import { createTheme } from "@kashi-ui/tokens";
+
+  const style = document.createElement("style");
+  document.head.append(style);
+  const code = document.querySelector("[data-brand-code]");
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".swatch");
+
+  buttons.forEach((btn) =>
+    btn.addEventListener("click", () => {
+      const value = btn.dataset.brand;
+      // رشتهٔ خالی یعنی برگشت به طیف دست‌ساز پیش‌فرض
+      style.textContent = value ? createTheme({ brand: value }) : "";
+      if (code) code.textContent = `"${value || "#0fa89b"}"`;
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+    }),
+  );
+</script>

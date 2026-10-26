@@ -1,0 +1,20 @@
+{
+  "name": "@kashi-ui/docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --port 4400",
+    "build": "astro build",
+    "preview": "astro preview --port 4400"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^8.1.1",
+    "@astrojs/react": "^7.1.1",
+    "@kashi-ui/css": "^0.2.0",
+    "@kashi-ui/react": "^0.2.0",
+    "@kashi-ui/tokens": "^0.2.0",
+    "astro": "^7.4.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

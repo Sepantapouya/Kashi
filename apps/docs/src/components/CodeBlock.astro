@@ -1,0 +1,12 @@
+---
+import { Code } from "astro:components";
+interface Props { code: string; lang?: string; label?: string }
+const { code, lang = "tsx", label } = Astro.props;
+---
+<div class="codeblock">
+  {label && <span class="codeblock__label">{label}</span>}
+  <Code code={code.trim()} lang={lang as any} themes={{ light: "github-light", dark: "github-dark-default" }} defaultColor={false} />
+  <button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm copy-btn" aria-label="کپی کد" data-copy={code.trim()}>
+    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2" /><path d="M13 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /></svg>
+  </button>
+</div>

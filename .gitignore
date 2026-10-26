@@ -1,0 +1,6 @@
+.DS_Store
+.astro
+.claude
+apps/docs/dist
+dist
+node_modules
