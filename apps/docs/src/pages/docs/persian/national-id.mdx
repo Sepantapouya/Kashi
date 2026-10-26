@@ -1,0 +1,60 @@
+---
+layout: ../../../layouts/Docs.astro
+title: کد ملی
+description: فیلد کد ملی با اعتبارسنجی رقم کنترل؛ ارقام فارسی و انگلیسی را می‌پذیرد.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { NationalIdDemo } from "../../../components/demos";
+
+```tsx
+import { NationalIdInput } from "@kashi-ui/react";
+```
+
+## نمونه
+
+یک کد ملی آزمایشی معتبر: `0013542419`. یک رقم آخر را عوض کنید تا خطا را ببینید.
+
+<Demo html={false} code={`<NationalIdInput
+  label="کد ملی"
+  name="nationalId"
+  onValueChange={(value, valid) => console.log(value, valid)}
+/>`}>
+  <NationalIdDemo client:load />
+</Demo>
+
+## رفتار
+
+- **ارقام:** کاربر می‌تواند با صفحه‌کلید فارسی یا انگلیسی تایپ کند. نمایش با ارقام فارسی است (`digits="latin"` برای انگلیسی)، ولی مقدار همیشه با ارقام انگلیسی به شما داده می‌شود.
+- **محدودیت:** هر نویسهٔ غیر رقمی حذف می‌شود و بیش از ۱۰ رقم پذیرفته نمی‌شود. در گوشی، صفحه‌کلید عددی باز می‌شود.
+- **اعتبارسنجی:** رقم دهم با الگوریتم رسمی رقم کنترل بررسی می‌شود. پیام خطا فقط پس از خروج از فیلد یا کامل شدن ۱۰ رقم نمایش داده می‌شود، نه هنگام تایپ.
+- **فرم:** با `name`، مقدار با ارقام انگلیسی در یک فیلد مخفی ارسال می‌شود.
+
+> اعتبارسنجی رقم کنترل فقط درستی ساختار کد را نشان می‌دهد، نه وجود آن را. برای احراز هویت، کد را با سرویس رسمی استعلام کنید.
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["value", "string", "", "مقدار کنترل‌شده با ارقام انگلیسی"],
+  ["defaultValue", "string", '""', "مقدار اولیه"],
+  ["onValueChange", "(value: string, valid: boolean) => void", "", "با هر تغییر"],
+  ["digits", '"fa" | "latin"', '"fa"', "خط ارقام نمایشی"],
+  ["invalidMessage", "ReactNode", '"کد ملی معتبر نیست."', "پیام خطا"],
+  ["name", "string", "", "نام فیلد مخفی فرم"],
+]} />
+
+همهٔ ویژگی‌های `Input` مثل `label`، `hint`، `error` و `required` هم پشتیبانی می‌شوند.
+
+## بدون React
+
+```ts
+import { isValidNationalId } from "@kashi-ui/persian";
+
+isValidNationalId("۰۰۱۳۵۴۲۴۱۹"); // true
+isValidNationalId("1111111111"); // false
+```
+
+## دسترس‌پذیری
+
+- خطا با `aria-invalid` و `aria-describedby` به فیلد متصل است.
+- فیلد با `dir="ltr"` است تا ترتیب ارقام هنگام تایپ جابه‌جا نشود.

@@ -1,0 +1,104 @@
+---
+layout: ../../../layouts/Docs.astro
+title: انتخاب تاریخ شمسی
+description: فیلد تاریخ با تقویم شمسی؛ تایپ مستقیم یا انتخاب از تقویم، با پیمایش کامل کیبورد و پشتیبانی صفحه‌خوان.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { AppointmentDemo, BirthDateDemo, InlineCalendarDemo } from "../../../components/demos";
+
+```tsx
+import { DatePicker, Calendar } from "@kashi-ui/react";
+```
+
+کاربر می‌تواند تاریخ را مستقیم تایپ کند (با ارقام فارسی یا انگلیسی، مثل `۱۴۰۳/۵/۱۲`) یا آن را از تقویم انتخاب کند. مقدار کامپوننت یک `Date` استاندارد جاوااسکریپت است، پس سرور شما با تاریخ شمسی سروکار ندارد.
+
+## تاریخ تولد
+
+فهرست ماه و سال برای انتخاب سریع تاریخ‌های دور است. با `name`، مقدار میلادی به شکل `YYYY-MM-DD` در فرم ارسال می‌شود.
+
+<Demo html={false} code={`const [birth, setBirth] = useState<Date | null>(null);
+
+<DatePicker
+  label="تاریخ تولد"
+  name="birth"
+  max={new Date()}
+  yearRange={[1300, 1405]}
+  onChange={setBirth}
+/>`}>
+  <BirthDateDemo client:only="react" />
+</Demo>
+
+## محدود کردن روزها
+
+با `min`، `max` و `isDateDisabled` روزهای غیرمجاز را مشخص کنید؛ مثلاً برای رزرو نوبت.
+
+<Demo html={false} code={`<DatePicker
+  label="تاریخ نوبت"
+  min={new Date()}
+  isDateDisabled={(date) => date.getDay() === 5} // جمعه
+/>`}>
+  <AppointmentDemo client:only="react" />
+</Demo>
+
+## تقویم مستقل
+
+`Calendar` همان تقویم بدون فیلد است؛ برای صفحه‌های رزرو یا داشبورد.
+
+<Demo html={false} code={`const [date, setDate] = useState<Date | null>(new Date());
+
+<Calendar value={date} onChange={setDate} />`}>
+  <InlineCalendarDemo client:only="react" />
+</Demo>
+
+## کیبورد
+
+| کلید | عمل |
+|---|---|
+| <kbd>←</kbd> / <kbd>→</kbd> | روز بعد / روز قبل (در راست‌به‌چپ) |
+| <kbd>↑</kbd> / <kbd>↓</kbd> | هفتهٔ قبل / هفتهٔ بعد |
+| <kbd>Home</kbd> / <kbd>End</kbd> | شنبه / جمعهٔ همان هفته |
+| <kbd>PageUp</kbd> / <kbd>PageDown</kbd> | ماه قبل / ماه بعد |
+| <kbd>Shift</kbd> + <kbd>PageUp</kbd> / <kbd>PageDown</kbd> | سال قبل / سال بعد |
+| <kbd>Enter</kbd> / <kbd>Space</kbd> | انتخاب روز |
+| <kbd>Esc</kbd> | بستن تقویم و برگشت به دکمه |
+
+## ویژگی‌های DatePicker
+
+<Props rows={[
+  ["value", "Date | null", "", "تاریخ انتخاب‌شده (کنترل‌شده)"],
+  ["defaultValue", "Date | null", "null", "مقدار اولیه (کنترل‌نشده)"],
+  ["onChange", "(date: Date | null) => void", "", "با انتخاب، تایپ معتبر یا پاک کردن"],
+  ["min / max", "Date", "", "محدودهٔ مجاز"],
+  ["isDateDisabled", "(date: Date) => boolean", "", "غیرفعال کردن روزهای خاص"],
+  ["yearRange", "[number, number]", "۱۰۰ سال قبل تا ۲۰ سال بعد", "سال‌های فهرست سال (شمسی)"],
+  ["digits", '"fa" | "latin"', '"fa"', "خط ارقام"],
+  ["name", "string", "", "نام فیلد مخفی فرم با مقدار YYYY-MM-DD میلادی"],
+  ["invalidMessage", "ReactNode", "«تاریخ را به شکل … وارد کنید.»", "پیام خطای تایپ نامعتبر"],
+  ["openLabel", "string", '"انتخاب تاریخ از تقویم"', "نام دکمهٔ تقویم برای صفحه‌خوان"],
+  ["todayLabel", "string", '"امروز"', "متن دکمهٔ امروز"],
+]} />
+
+همهٔ ویژگی‌های `Input` مثل `label`، `hint` و `error` هم پشتیبانی می‌شوند.
+
+## متغیرهای CSS
+
+<Vars rows={[
+  ["--k-calendar-day-size", "2.5rem × density", "اندازهٔ خانهٔ هر روز"],
+  ["--k-calendar-radius", "var(--k-radius-full)", "گردی خانهٔ روز"],
+  ["--k-calendar-bg", "var(--k-bg-elevated)", "پس‌زمینهٔ تقویم شناور"],
+  ["--k-datepicker-width", "max-content", "عرض تقویم شناور"],
+]} />
+
+## دسترس‌پذیری
+
+- تقویم از الگوی Date Picker در WAI-ARIA پیروی می‌کند: جدول با نقش `grid`، فقط یک روز در ترتیب Tab، و پیمایش با کلیدهای جهت‌دار.
+- هر روز با نام کامل خوانده می‌شود («جمعه ۱۲ مرداد ۱۴۰۳»)، امروز با `aria-current="date"` و روز انتخاب‌شده با `aria-selected` مشخص است.
+- تغییر ماه با یک ناحیهٔ `aria-live` اعلام می‌شود.
+- دکمهٔ تقویم تاریخ فعلی را هم در نام خود دارد، پس کاربر صفحه‌خوان بدون باز کردن تقویم مقدار را می‌شنود.
+- تایپ مستقیم همیشه ممکن است؛ کاربرانی که با تقویم راحت نیستند مجبور به استفاده از آن نیستند.
+
+## تبدیل تاریخ
+
+تبدیل شمسی و میلادی با پکیج `@kashi-ui/persian` انجام می‌شود که برای سال‌های ۱۳۰۰ تا ۱۵۰۰، روزبه‌روز با تقویم رسمی ICU تست شده است. [ابزارهای فارسی](/docs/persian/utilities/) را ببینید.

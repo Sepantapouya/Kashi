@@ -4,13 +4,14 @@
   "description": "کاشی — دیزاین‌سیستم فارسی، RTL-first و چندفریم‌ورکی",
   "workspaces": [
     "packages/tokens",
+    "packages/persian",
     "packages/css",
     "packages/react",
     "apps/docs"
   ],
   "scripts": {
-    "build": "npm run build -w @kashi-ui/tokens && npm run build -w @kashi-ui/css && npm run build -w @kashi-ui/react",
-    "test": "npm test -w @kashi-ui/react",
+    "build": "npm run build -w @kashi-ui/tokens && npm run build -w @kashi-ui/persian && npm run build -w @kashi-ui/css && npm run build -w @kashi-ui/react",
+    "test": "npm test -w @kashi-ui/persian && npm test -w @kashi-ui/react",
     "dev": "npx --yes serve . -l 4321",
     "docs": "npm run dev -w @kashi-ui/docs",
     "docs:build": "npm run build && npm run build -w @kashi-ui/docs",

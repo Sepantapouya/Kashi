@@ -67,7 +67,8 @@
 | **۴ ✓** | CI با GitHub Actions، نسخه‌بندی با Changesets، گردش کار انتشار npm با provenance، پیکربندی Vercel |
 | ۵ | CLI (`npx kashi-ui add …`) |
 | ۶ | Web Components برای Vue/Svelte/Angular |
-| ۷ | کامپوننت‌های ویژهٔ فارسی: تقویم جلالی، DatePicker شمسی، ورودی کد ملی/شماره کارت/شبا، فرمت پول تومان |
+| **۷ (بخش اول) ✓** | DatePicker و Calendar شمسی، کد ملی، شماره کارت، پکیج `@kashi-ui/persian` |
+| ۷ (ادامه) | کامپوننت‌های ویژهٔ فارسی: تقویم جلالی، DatePicker شمسی، ورودی کد ملی/شماره کارت/شبا، فرمت پول تومان |
 | ۸ | کامپوننت‌های پیچیده: Dialog، Dropdown، Tabs، Toast، Table، Command |
 
 مورد ۷ مزیت رقابتی اصلی ماست — چیزی که هیچ دیزاین‌سیستم خارجی ندارد.

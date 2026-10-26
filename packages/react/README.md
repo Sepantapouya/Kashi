@@ -22,4 +22,6 @@ export function SignUp() {
 
 کامپوننت‌ها: Button · Input · Textarea · Badge · Card · Alert · Avatar · AvatarGroup · Checkbox · Switch
 
+فارسی: DatePicker و Calendar شمسی · NationalIdInput · CardNumberInput
+
 نیازمند React ۱۸ یا بالاتر. مستندات کامل: [kashi.sepantapouya.com](https://kashi.sepantapouya.com) · کد: [GitHub](https://github.com/Sepantapouya/Kashi) · لایسنس MIT

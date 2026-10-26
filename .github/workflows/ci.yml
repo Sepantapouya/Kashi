@@ -30,6 +30,6 @@ jobs:
         run: npm run build -w @kashi-ui/docs
       - name: Check package contents
         run: |
-          for p in tokens css react; do
+          for p in tokens persian css react; do
             (cd packages/$p && npm pack --dry-run --json > /dev/null)
           done

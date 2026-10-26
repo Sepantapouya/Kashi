@@ -15,7 +15,10 @@ const { themes, ...primitives } = tokens as Record<string, any>;
 delete primitives.createTheme;
 delete primitives.brandScale;
 const tokenCount = count(primitives) + Object.keys(themes.dark).length;
-const componentCount = nav.find((g) => g.title === "کامپوننت‌ها")!.items.length;
+const componentCount = nav
+  .filter((g) => g.title === "کامپوننت‌ها" || g.title === "فارسی")
+  .flatMap((g) => g.items)
+  .filter((i) => !i.href.includes("utilities")).length;
 
 const metrics = [
   { value: fa(componentCount), label: "کامپوننت آماده" },
@@ -37,6 +40,7 @@ const support = [
   { name: "React", how: "@kashi-ui/react", status: "ready" },
   { name: "HTML و CSS", how: "@kashi-ui/css", status: "ready" },
   { name: "Vue، Svelte، Angular", how: "@kashi-ui/css", status: "ready" },
+  { name: "ابزارهای فارسی (تاریخ شمسی، کد ملی، کارت)", how: "@kashi-ui/persian", status: "ready" },
   { name: "Web Components", how: "@kashi-ui/elements", status: "planned" },
   { name: "CLI (افزودن کامپوننت)", how: "npx kashi-ui add", status: "planned" },
 ];

@@ -10,11 +10,14 @@
 |---|---|
 | `@kashi-ui/tokens` | رنگ، فاصله، فونت و… به شکل CSS Variables، JSON و JS |
 | `@kashi-ui/css` | استایل کامپوننت‌ها با CSS خالص — برای هر فریم‌ورکی |
+| `@kashi-ui/persian` | تاریخ شمسی، ارقام فارسی، اعتبارسنجی کد ملی و کارت؛ بدون وابستگی |
 | `@kashi-ui/react` | کامپوننت‌های React |
 
 ## کامپوننت‌ها
 
 Button · Input · Textarea · Badge · Card · Alert · Avatar · AvatarGroup · Checkbox · Switch
+
+**فارسی:** DatePicker و Calendar شمسی · NationalIdInput (کد ملی) · CardNumberInput (شماره کارت) · ابزارهای `@kashi-ui/persian`
 
 ## نصب
 

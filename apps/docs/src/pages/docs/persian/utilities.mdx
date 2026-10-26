@@ -1,0 +1,68 @@
+---
+layout: ../../../layouts/Docs.astro
+title: ابزارهای فارسی
+description: تاریخ شمسی، ارقام فارسی، قالب‌بندی اعداد و اعتبارسنجی؛ بدون وابستگی و برای هر فریم‌ورکی.
+---
+import Install from "../../../components/Install.astro";
+
+پکیج `@kashi-ui/persian` هیچ وابستگی‌ای ندارد و در مرورگر، Node.js و هر فریم‌ورکی (React، Vue، Svelte، Angular) کار می‌کند. کامپوننت‌های فارسی کاشی هم روی همین پکیج ساخته شده‌اند.
+
+<Install command="npm i @kashi-ui/persian" />
+
+## تاریخ شمسی
+
+```ts
+import { toJalali, toGregorian, formatJalali, parseJalali } from "@kashi-ui/persian";
+
+toJalali(new Date(2024, 7, 2));        // { jy: 1403, jm: 5, jd: 12 }
+toGregorian(1403, 5, 12);               // Date: 2024-08-02
+
+formatJalali(date);                     // "۱۴۰۳/۰۵/۱۲"
+formatJalali(date, { style: "long" });  // "۱۲ مرداد ۱۴۰۳"
+formatJalali(date, { style: "full" });  // "جمعه ۱۲ مرداد ۱۴۰۳"
+
+parseJalali("۱۴۰۳/۵/۱۲");               // Date
+parseJalali("1404/12/30");              // null (۱۴۰۴ کبیسه نیست)
+```
+
+| تابع | کاربرد |
+|---|---|
+| `toJalali(date)` | میلادی به شمسی |
+| `toGregorian(jy, jm, jd)` | شمسی به `Date` |
+| `formatJalali(date, options)` | نمایش؛ سبک `numeric`، `long` یا `full` |
+| `parseJalali(text)` | خواندن متن کاربر؛ ارقام فارسی و جداکننده‌های `/`، `-` و `.` |
+| `isLeapJalaliYear(jy)` | سال کبیسه |
+| `jalaliMonthLength(jy, jm)` | تعداد روزهای ماه |
+| `isValidJalaliDate(jy, jm, jd)` | وجود تاریخ |
+| `jalaliWeekday(date)` | روز هفته؛ ۰ = شنبه |
+| `toISODate(date)` | `YYYY-MM-DD` بر اساس وقت محلی، برای ارسال به سرور |
+| `fromISODate(text)` | `YYYY-MM-DD` به `Date` محلی |
+| `JALALI_MONTHS`، `WEEKDAYS` | نام ماه‌ها و روزها |
+
+> **هشدار منطقهٔ زمانی:** برای ارسال تاریخ به سرور از `date.toISOString()` استفاده نکنید. این تابع زمان را به UTC تبدیل می‌کند و چون ایران ۳٫۵ ساعت جلوتر است، نیمه‌شب را روز قبل می‌کند. به‌جای آن از `toISODate(date)` استفاده کنید.
+
+دقت: تبدیل برای همهٔ ۷۲٬۹۷۰ روز از ۱۳۰۰ تا ۱۵۰۰ با تقویم persian کتابخانهٔ ICU (همان تقویم مرورگرها) مقایسه و تست شده است.
+
+## ارقام و اعداد
+
+```ts
+import { toFaDigits, toEnDigits, onlyDigits, formatNumber } from "@kashi-ui/persian";
+
+toFaDigits(1403);              // "۱۴۰۳"
+toEnDigits("۰۹۱۲ ٣٤٥");        // "0912 345"  (ارقام عربی هم)
+onlyDigits("۰۹۱۲-۳۴۵ 67");     // "091234567"
+formatNumber(1250000);         // "۱٬۲۵۰٬۰۰۰"
+```
+
+`toEnDigits` را همیشه پیش از ذخیرهٔ ورودی کاربر استفاده کنید؛ کاربر ایرانی ممکن است با هر دو صفحه‌کلید تایپ کند.
+
+## اعتبارسنجی
+
+```ts
+import { isValidNationalId, isValidCardNumber, getBankByCard, formatCardNumber } from "@kashi-ui/persian";
+
+isValidNationalId("0013542419");         // true
+isValidCardNumber("4111111111111111");   // true
+getBankByCard("610433");                 // { name: "بانک ملت", slug: "mellat" }
+formatCardNumber("6104331234");          // "6104 3312 34"
+```

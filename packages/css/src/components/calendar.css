@@ -1,0 +1,143 @@
+/* تقویم شمسی و انتخاب تاریخ
+ * ساختار را کامپوننت React می‌سازد (Calendar و DatePicker)؛ این استایل برای هر پیاده‌سازی دیگری هم قابل‌استفاده است.
+ *
+ * متغیرها: --k-calendar-day-size  --k-calendar-radius  --k-calendar-bg  --k-datepicker-width
+ */
+.k-calendar {
+  --_day: var(--k-calendar-day-size, calc(2.5rem * var(--k-density)));
+
+  display: grid;
+  gap: var(--k-space-2);
+  inline-size: max-content;
+  max-inline-size: 100%;
+  color: var(--k-text-primary);
+  font-size: var(--k-text-sm);
+}
+
+.k-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--k-space-2);
+}
+
+.k-calendar__selects { display: flex; gap: var(--k-space-1); }
+
+.k-calendar__select {
+  appearance: none;
+  min-block-size: 2.25rem;
+  padding-block: 0;
+  padding-inline: var(--k-space-3) var(--k-space-6);
+  border: 1px solid transparent;
+  border-radius: var(--k-radius-md);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23687491' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 8 4 4 4-4'/%3E%3C/svg%3E") no-repeat,
+    transparent;
+  background-position: left var(--k-space-1_5) center;
+  background-size: 1rem;
+  color: var(--k-text-primary);
+  font: inherit;
+  font-weight: var(--k-weight-semibold);
+  cursor: pointer;
+}
+[dir="ltr"] .k-calendar__select { background-position: right var(--k-space-1_5) center; }
+.k-calendar__select:hover { background-color: var(--k-bg-hover); }
+.k-calendar__select:focus-visible { outline: 2px solid transparent; border-color: var(--k-border-brand); box-shadow: var(--k-ring-brand); }
+.k-calendar__select option { background: var(--k-bg-elevated); color: var(--k-text-primary); }
+
+.k-calendar__grid { border-collapse: collapse; margin-inline: auto; }
+.k-calendar__grid th {
+  block-size: 2rem;
+  padding: 0;
+  color: var(--k-text-tertiary);
+  font-size: var(--k-text-xs);
+  font-weight: var(--k-weight-medium);
+  text-align: center;
+}
+.k-calendar__grid td { padding: 1px; text-align: center; }
+
+.k-calendar__day {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  inline-size: var(--_day);
+  block-size: var(--_day);
+  padding: 0;
+  border: 0;
+  border-radius: var(--k-calendar-radius, var(--k-radius-full));
+  background: transparent;
+  color: var(--k-text-secondary);
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background-color var(--k-duration-fast) var(--k-ease-standard);
+}
+.k-calendar__day:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-calendar__day:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+
+/* امروز: نقطهٔ زیر عدد */
+.k-calendar__day[aria-current="date"] { color: var(--k-text-brand); font-weight: var(--k-weight-bold); }
+.k-calendar__day[aria-current="date"]::after {
+  content: "";
+  position: absolute;
+  inset-block-end: 0.3rem;
+  inline-size: 0.25rem;
+  block-size: 0.25rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+[aria-selected="true"] > .k-calendar__day {
+  background: var(--k-bg-brand);
+  color: var(--k-text-on-brand);
+  font-weight: var(--k-weight-semibold);
+  box-shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic);
+}
+[aria-selected="true"] > .k-calendar__day:focus-visible { box-shadow: var(--k-ring-brand); }
+
+.k-calendar__day[aria-disabled="true"] {
+  color: var(--k-text-quaternary);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+.k-calendar__day[aria-disabled="true"]:hover { background: transparent; }
+
+.k-calendar__footer {
+  display: flex;
+  justify-content: center;
+  padding-block-start: var(--k-space-2);
+  border-block-start: 1px solid var(--k-border-secondary);
+}
+
+/* انتخاب تاریخ: فیلد + تقویم شناور */
+.k-datepicker { position: relative; }
+.k-datepicker .k-input { padding-inline-end: var(--k-space-1); }
+.k-datepicker__toggle { margin-block: -0.25rem; }
+
+.k-datepicker__popover {
+  position: absolute;
+  inset-inline-end: 0;
+  z-index: var(--k-z-dropdown);
+  inline-size: var(--k-datepicker-width, max-content);
+  max-inline-size: calc(100vw - 2rem);
+  padding: var(--k-space-4);
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-xl);
+  background: var(--k-calendar-bg, var(--k-bg-elevated));
+  box-shadow: var(--k-shadow-xl);
+  animation: k-pop-in var(--k-duration-fast) var(--k-ease-standard);
+}
+@keyframes k-pop-in { from { opacity: 0; translate: 0 -4px; } }
+
+/* متن کوچک داخل فیلد، مثل نام بانک */
+.k-input__meta {
+  color: var(--k-text-tertiary);
+  font-size: var(--k-text-sm);
+  white-space: nowrap;
+}
+
+@media (forced-colors: active) {
+  [aria-selected="true"] > .k-calendar__day { forced-color-adjust: none; background: Highlight; color: HighlightText; }
+  .k-calendar__day[aria-current="date"] { outline: 1px solid CanvasText; }
+  .k-datepicker__popover { border-color: CanvasText; }
+}

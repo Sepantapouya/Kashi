@@ -1,6 +1,6 @@
 {
   "name": "@kashi-ui/react",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "کامپوننت‌های React دیزاین‌سیستم کاشی",
   "type": "module",
   "main": "./dist/index.js",
@@ -22,7 +22,7 @@
     "test": "node --test test/*.test.mjs"
   },
   "peerDependencies": {
-    "@kashi-ui/css": "^0.2.0",
+    "@kashi-ui/css": "^0.3.0",
     "react": ">=18"
   },
   "devDependencies": {
@@ -57,5 +57,8 @@
     "@kashi-ui/css": {
       "optional": false
     }
+  },
+  "dependencies": {
+    "@kashi-ui/persian": "^0.3.0"
   }
 }

@@ -415,3 +415,15 @@ code, pre, kbd {
   border-block-start: 1px solid var(--k-border-secondary);
   font-size: var(--k-text-xs);
 }
+
+/* خروجی زندهٔ نمونه‌های تعاملی */
+.demo-stack { display: grid; gap: var(--k-space-4); inline-size: min(100%, 24rem); }
+.demo-stack--center { justify-items: center; inline-size: auto; }
+.demo-out {
+  margin: 0;
+  padding: var(--k-space-2) var(--k-space-3);
+  border-radius: var(--k-radius-md);
+  background: var(--k-bg-secondary);
+  color: var(--k-text-tertiary);
+  font-size: var(--k-text-sm);
+}

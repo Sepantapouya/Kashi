@@ -13,6 +13,15 @@ export const nav: NavGroup[] = [
     ],
   },
   {
+    title: "فارسی",
+    items: [
+      { title: "انتخاب تاریخ شمسی", href: "/docs/persian/date-picker/", badge: "جدید" },
+      { title: "کد ملی", href: "/docs/persian/national-id/", badge: "جدید" },
+      { title: "شماره کارت", href: "/docs/persian/card-number/", badge: "جدید" },
+      { title: "ابزارهای فارسی", href: "/docs/persian/utilities/" },
+    ],
+  },
+  {
     title: "کامپوننت‌ها",
     items: [
       { title: "آواتار", href: "/docs/components/avatar/" },

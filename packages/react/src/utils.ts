@@ -1,9 +1,6 @@
 import type { Ref, RefCallback } from "react";
 
-/** ارقام لاتین را به فارسی تبدیل می‌کند: 12 → ۱۲ */
-export function toFaDigits(value: string | number): string {
-  return String(value).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[Number(d)]);
-}
+export { toFaDigits } from "@kashi-ui/persian";
 
 /** چند ref را یکی می‌کند */
 export function mergeRefs<T>(...refs: Array<Ref<T> | undefined>): RefCallback<T> {
