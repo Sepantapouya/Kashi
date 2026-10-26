@@ -1,0 +1,138 @@
+---
+// پیش‌نمایش زندهٔ فونت‌ها روی کامپوننت‌های واقعی کاشی
+import { fonts, cdnCss } from "../data/fonts";
+import CodeBlock from "./CodeBlock.astro";
+const textFonts = fonts.filter((f) => f.kind === "متن");
+const displayFonts = [{ id: "same", name: "همان فونت متن", family: "", css: undefined }, ...fonts];
+---
+<div class="fp" data-fonts={JSON.stringify(fonts.map((f) => ({ id: f.id, family: f.family, url: cdnCss(f), pkg: f.pkg, css: f.css })))}>
+  <div class="fp__controls">
+    <div class="k-field">
+      <label class="k-label" for="fp-body">فونت متن</label>
+      <div class="k-select"><select class="k-select__control" id="fp-body">
+        {textFonts.map((f) => <option value={f.id}>{f.name}</option>)}
+      </select></div>
+    </div>
+    <div class="k-field">
+      <label class="k-label" for="fp-display">فونت عنوان</label>
+      <div class="k-select"><select class="k-select__control" id="fp-display">
+        {displayFonts.map((f) => <option value={f.id}>{f.name}</option>)}
+      </select></div>
+    </div>
+    <div class="k-field">
+      <label class="k-label" for="fp-scale">اندازهٔ متن: <output id="fp-scale-out" for="fp-scale">۱۰۰٪</output></label>
+      <input type="range" id="fp-scale" min="0.85" max="1.15" step="0.05" value="1" class="fp__range" />
+    </div>
+  </div>
+
+  <div class="fp__preview" id="fp-preview" aria-live="polite" aria-busy="false">
+    <h3 class="fp__h">زیرساخت طراحی برای محصولات فارسی</h3>
+    <p class="fp__p">کاشی کامپوننت‌ها و توکن‌هایی فراهم می‌کند که تیم‌ها برای ساخت رابط‌های راست‌به‌چپ و دسترس‌پذیر نیاز دارند. ارقام: ۰۱۲۳۴۵۶۷۸۹ و Latin text 2026.</p>
+    <div class="fp__row">
+      <button class="k-btn k-btn--primary" type="button">ثبت‌نام رایگان</button>
+      <button class="k-btn k-btn--secondary" type="button">مشاهدهٔ نمونه‌ها</button>
+      <span class="k-badge k-badge--success"><span class="k-badge__dot" aria-hidden="true"></span>فعال</span>
+    </div>
+    <div class="k-input" style="max-inline-size: 22rem"><input class="k-input__control" aria-label="نمونهٔ فیلد" value="سارا احمدی" /></div>
+    <div class="fp__weights" aria-hidden="true">
+      <span style="font-weight:300">نازک</span><span style="font-weight:400">معمولی</span><span style="font-weight:600">نیم‌ضخیم</span><span style="font-weight:800">ضخیم</span>
+    </div>
+  </div>
+  <div id="fp-code"><CodeBlock code="" lang="ts" /></div>
+</div>
+
+<style>
+  .fp { display: grid; gap: var(--k-space-4); margin-block: var(--k-space-6); }
+  .fp__controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: var(--k-space-4);
+    align-items: end;
+    padding: var(--k-space-5);
+    border: 1px solid var(--k-border-secondary);
+    border-radius: var(--k-radius-xl);
+    background: var(--k-bg-secondary);
+  }
+  .fp__range { inline-size: 100%; block-size: 2.75rem; accent-color: var(--k-bg-brand); }
+  .fp__preview {
+    display: grid;
+    gap: var(--k-space-4);
+    padding: var(--k-space-8) var(--k-space-6);
+    border: 1px solid var(--k-border-secondary);
+    border-radius: var(--k-radius-xl);
+    background: var(--k-bg-primary);
+    font-family: var(--k-font-sans);
+    transition: opacity var(--k-duration-normal);
+  }
+  .fp__preview[aria-busy="true"] { opacity: 0.5; }
+  .fp__h { margin: 0; font-size: var(--k-text-3xl); font-weight: var(--k-weight-bold); line-height: 1.4; color: var(--k-text-primary); }
+  .fp__p { margin: 0; max-inline-size: 38rem; color: var(--k-text-secondary); font-size: var(--k-text-md); line-height: 1.9; }
+  .fp__row { display: flex; flex-wrap: wrap; gap: var(--k-space-3); align-items: center; }
+  .fp__weights { display: flex; flex-wrap: wrap; gap: var(--k-space-5); color: var(--k-text-tertiary); font-size: var(--k-text-lg); }
+  #fp-code :global(pre) { border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); }
+</style>
+
+<script>
+  type F = { id: string; family: string; url: string | null; pkg: string; css?: string };
+  const root = document.querySelector<HTMLElement>(".fp")!;
+  const fonts: F[] = JSON.parse(root.dataset.fonts!);
+  const byId = (id: string) => fonts.find((f) => f.id === id);
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const preview = $("fp-preview");
+  const pre = $("fp-code").querySelector("pre")!;
+  const copy = $("fp-code").querySelector<HTMLButtonElement>("[data-copy]")!;
+  const loaded = new Set<string>();
+  const fa = (v: string) => v.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+
+  // CSS فونت را فقط یک بار و فقط هنگام انتخاب بارگذاری می‌کند
+  function load(f?: F): Promise<void> {
+    if (!f?.url || loaded.has(f.id)) return Promise.resolve();
+    loaded.add(f.id);
+    return new Promise((resolve) => {
+      const link = Object.assign(document.createElement("link"), { rel: "stylesheet", href: f.url });
+      link.onload = () => document.fonts.load(`400 1em "${f.family}"`, "سلام").then(() => resolve(), () => resolve());
+      link.onerror = () => resolve();
+      document.head.append(link);
+    });
+  }
+
+  const stack = (family: string) => `"${family}", "Vazirmatn", Tahoma, system-ui, sans-serif`;
+
+  // شمارهٔ آخرین درخواست؛ نتیجهٔ درخواست‌های قدیمی‌تر که دیرتر برسند نادیده گرفته می‌شود
+  let run = 0;
+
+  async function apply() {
+    const mine = ++run;
+    const body = byId($<HTMLSelectElement>("fp-body").value)!;
+    const displayId = $<HTMLSelectElement>("fp-display").value;
+    const display = displayId === "same" ? undefined : byId(displayId);
+    const scale = $<HTMLInputElement>("fp-scale").value;
+    preview.setAttribute("aria-busy", "true");
+    await Promise.all([load(body), load(display)]);
+    if (mine !== run) return;
+    preview.style.setProperty("--k-font-sans", stack(body.family));
+    preview.style.setProperty("--k-font-display", display ? stack(display.family) : "var(--k-font-sans)");
+    preview.style.setProperty("--k-text-scale", scale);
+    preview.setAttribute("aria-busy", "false");
+    $("fp-scale-out").textContent = fa(`${Math.round(+scale * 100)}٪`);
+
+    const imports = [body, display].filter((f): f is F => !!f?.css).map((f) => `import "${f.css!.replace(/@[\d.]+\//, "/")}"; // npm i ${f.pkg}`);
+    const opts = [
+      body.id !== "vazirmatn" ? `  fontFamily: "${body.family}",` : null,
+      display ? `  displayFontFamily: "${display.family}",` : null,
+      scale !== "1" ? `  textScale: ${scale},` : null,
+    ].filter(Boolean);
+    const code = [
+      ...imports,
+      imports.length ? "" : null,
+      `import { createTheme } from "@kashi-ui/tokens";`,
+      "",
+      opts.length ? `const css = createTheme({\n${opts.join("\n")}\n});` : "// وزیرمتن پیش‌فرض است و تنظیمی لازم ندارد",
+    ].filter((l) => l !== null).join("\n");
+    pre.textContent = code;
+    copy.dataset.copy = code;
+  }
+
+  for (const id of ["fp-body", "fp-display", "fp-scale"]) $(id).addEventListener("input", apply);
+  apply();
+</script>

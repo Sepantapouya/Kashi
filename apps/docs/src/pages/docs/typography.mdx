@@ -1,0 +1,106 @@
+---
+layout: ../../layouts/Docs.astro
+title: فونت و تایپوگرافی
+description: وزیرمتن پیش‌فرض است، ولی هر فونتی، رایگان یا خریداری‌شده، با یک خط قابل‌جایگزینی است.
+---
+import FontPlayground from "../../components/FontPlayground.astro";
+import Props from "../../components/Props.astro";
+import { fonts } from "../../data/fonts";
+
+## پیش‌نمایش زنده
+
+فونت‌ها فقط هنگام انتخاب بارگذاری می‌شوند. کد تولیدشده را کپی کنید.
+
+<FontPlayground />
+
+## سه متغیر برای فونت
+
+| متغیر | پیش‌فرض | کاربرد |
+|---|---|---|
+| `--k-font-sans` | وزیرمتن | متن و همهٔ کامپوننت‌ها |
+| `--k-font-display` | همان `--k-font-sans` | عنوان‌ها (h1 تا h6) |
+| `--k-font-mono` | فونت سیستم + وزیرمتن | کد |
+| `--k-text-scale` | `1` | ضریب اندازهٔ همهٔ متن‌ها |
+
+## فونت رایگان
+
+فونت را با npm نصب و CSS آن را وارد کنید، سپس نامش را به کاشی بدهید:
+
+```ts
+import "@fontsource-variable/estedad"; // npm i @fontsource-variable/estedad
+import { createTheme } from "@kashi-ui/tokens";
+
+const css = createTheme({ fontFamily: "Estedad Variable" });
+```
+
+یا فقط با CSS:
+
+```css
+@import "@fontsource-variable/estedad";
+:root { --k-font-sans: "Estedad Variable", "Vazirmatn", Tahoma, sans-serif; }
+```
+
+<div class="table-wrap" role="region" aria-label="فونت‌های رایگان پیشنهادی" tabindex="0">
+  <table class="ref-table">
+    <thead><tr><th scope="col">فونت</th><th scope="col">پکیج npm</th><th scope="col">کاربرد</th><th scope="col">مجوز</th></tr></thead>
+    <tbody>
+      {fonts.map((f) => (
+        <tr>
+          <th scope="row">{f.name}</th>
+          <td><code class="type">{f.pkg}</code></td>
+          <td>{f.kind}؛ {f.note}</td>
+          <td>{f.license}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+## فونت خریداری‌شده
+
+فونت‌های تجاری مثل ایران‌سنس، یکان بخ، دانا یا پیدا مجوز جداگانه برای هر وب‌سایت دارند و نمی‌توان آن‌ها را در پکیج‌های عمومی منتشر کرد؛ فایل‌هایی را که خریده‌اید روی سرور خودتان بگذارید و به کاشی معرفی کنید:
+
+```ts
+import { createTheme } from "@kashi-ui/tokens";
+
+const css = createTheme({
+  fonts: [
+    // فونت متغیر: یک فایل، همهٔ وزن‌ها
+    { family: "IRANSansX", src: "/fonts/IRANSansXV.woff2", weight: "100 900" },
+    // یا فونت ثابت: هر وزن یک فایل
+    { family: "Yekan Bakh", src: "/fonts/YekanBakh-Regular.woff2", weight: 400 },
+    { family: "Yekan Bakh", src: "/fonts/YekanBakh-Bold.woff2", weight: 700 },
+  ],
+  fontFamily: "IRANSansX",
+  displayFontFamily: "Yekan Bakh",
+});
+// css شامل قواعد @font-face و متغیرهاست؛ آن را در یک <style> یا فایل CSS بگذارید
+```
+
+نام تنها (مثل `"IRANSansX"`) خودکار با وزیرمتن و فونت‌های سیستم کامل می‌شود تا تا زمان بارگذاری فونت اصلی، متن نامرئی نباشد.
+
+> **حجم:** اگر از وزیرمتن استفاده نمی‌کنید، به‌جای `@kashi-ui/css` فایل `@kashi-ui/css/kashi.nofont.css` را وارد کنید تا فایل فونت (حدود ۱۱۰ کیلوبایت) در خروجی شما نیاید. مرورگر به‌هرحال فقط فونتی را دانلود می‌کند که واقعاً استفاده شود.
+
+## حروف لاتین با فونت جدا
+
+بیشتر فونت‌های فارسی حروف لاتین هم دارند. اگر برای متن انگلیسی فونت دیگری می‌خواهید، آن را **اول** بیاورید؛ مرورگر هر حرف را از اولین فونتی که آن را دارد می‌گیرد و چون Inter حروف فارسی ندارد، فارسی از فونت دوم خوانده می‌شود:
+
+```css
+:root { --k-font-sans: "Inter", "Vazirmatn", Tahoma, sans-serif; }
+```
+
+## اندازه و ارتفاع خط
+
+فونت‌ها در یک اندازهٔ یکسان، درشتی متفاوتی دارند. با `textScale` (یا `--k-text-scale`) همهٔ اندازه‌ها را با هم کوچک یا بزرگ کنید، مثلاً `0.95` برای فونتی که درشت‌تر دیده می‌شود. ارتفاع خط با `--k-leading-normal` (پیش‌فرض ۱٫۷۵) قابل‌تغییر است؛ حروف فارسی به‌خاطر نقطه‌ها و دندانه‌ها فضای عمودی بیشتری از لاتین لازم دارند.
+
+## ویژگی‌های فونت در createTheme
+
+<Props rows={[
+  ["fontFamily", "string", "", "فونت متن؛ نام تنها یا فهرست کامل"],
+  ["displayFontFamily", "string", "", "فونت عنوان‌ها"],
+  ["monoFontFamily", "string", "", "فونت کد"],
+  ["textScale", "number", "1", "ضریب اندازهٔ متن‌ها"],
+  ["fonts", "{ family, src, weight?, style?, display?, unicodeRange? }[]", "", "فایل‌های فونت برای ساخت @font-face"],
+]} />
+
+`fontFace()` و `fontStack()` هم جداگانه از `@kashi-ui/tokens` صادر می‌شوند.

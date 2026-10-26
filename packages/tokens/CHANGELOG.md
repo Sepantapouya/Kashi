@@ -4,6 +4,7 @@
 
 ### Minor Changes
 
+- فونت قابل‌تعویض: `createTheme` حالا `fontFamily`، `displayFontFamily`، `monoFontFamily`، `textScale` و `fonts` (برای @font-face فونت‌های خودمیزبان، از جمله فونت‌های خریداری‌شده) می‌پذیرد؛ توابع `fontFace` و `fontStack`؛ توکن‌های `--k-font-display` و `--k-text-scale`؛ و فایل `@kashi-ui/css/kashi.nofont.css` بدون وزیرمتن.
 - کامپوننت‌های جدید: RadioGroup و Radio (با سبک کارت)، Select، Tabs (سه سبک)، Dialog روی dialog بومی، Toast با `toast()`، Tooltip و RelativeTime. ابزار جدید `formatRelative` برای زمان نسبی فارسی.
   
   بازطراحی ظاهری: دکمهٔ اصلی روشن‌تر و زنده‌تر در تم تیره، حاشیهٔ سبک‌تر فیلدها (همچنان با کنتراست ۳:۱)، عمق و خط روشن روی سطوح برجسته در تم تیره، سایه‌های قابل‌دیدن در تم تیره، ارقام هم‌عرض در فیلدهای عددی، hover برای فیلدها و رفع بزرگ‌نمایی ناخواستهٔ iOS هنگام فوکوس روی فیلد. توکن جدید `--k-text-on-error`؛ اگر رنگ متن دکمهٔ قرمز را بازنویسی کرده‌اید، آن را به این توکن منتقل کنید.

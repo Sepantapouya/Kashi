@@ -8,6 +8,7 @@ const RAW: NavGroup[] = [
       { title: "معرفی", href: "/docs/" },
       { title: "نصب", href: "/docs/installation/" },
       { title: "سفارشی‌سازی و تم", href: "/docs/theming/" },
+      { title: "فونت و تایپوگرافی", href: "/docs/typography/", badge: "جدید" },
       { title: "دسترس‌پذیری", href: "/docs/accessibility/" },
       { title: "رنگ‌ها", href: "/docs/colors/" },
     ],

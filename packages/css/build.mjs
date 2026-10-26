@@ -25,14 +25,16 @@ writeFileSync("dist/font.css", font);
 writeFileSync("dist/base.css", base);
 // همه چیز داخل Cascade Layer است تا CSS کاربر همیشه بدون !important برنده شود
 const layer = (name, css) => `@layer kashi.${name} {\n${css}\n}\n`;
+const core = [
+  "@layer kashi.tokens, kashi.base, kashi.components;\n",
+  layer("tokens", tokens),
+  layer("base", base),
+  layer("components", components.map((f) => read(`src/components/${f}`)).join("\n")),
+];
+writeFileSync("dist/kashi.css", [core[0], font, ...core.slice(1)].join("\n"));
+// بدون فونت وزیرمتن: برای تیم‌هایی که فونت دیگری (رایگان یا خریداری‌شده) استفاده می‌کنند
 writeFileSync(
-  "dist/kashi.css",
-  [
-    "@layer kashi.tokens, kashi.base, kashi.components;\n",
-    font,
-    layer("tokens", tokens),
-    layer("base", base),
-    layer("components", components.map((f) => read(`src/components/${f}`)).join("\n")),
-  ].join("\n"),
+  "dist/kashi.nofont.css",
+  ["/* @kashi-ui/css بدون فونت؛ فونت خود را با @font-face و --k-font-sans تعریف کنید */\n", ...core].join("\n"),
 );
-console.log(`css: base + ${components.length} components → dist/kashi.css`);
+console.log(`css: base + ${components.length} components → dist/kashi.css (+ kashi.nofont.css)`);

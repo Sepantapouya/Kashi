@@ -46,7 +46,7 @@ writeFileSync("dist/tokens.css", css);
 writeFileSync("dist/tokens.json", JSON.stringify(t, null, 2));
 copyFileSync("src/tokens.js", "dist/tokens.js");
 copyFileSync("src/theme.js", "dist/theme.js");
-writeFileSync("dist/index.js", 'export * from "./tokens.js";\nexport { createTheme } from "./theme.js";\n');
+writeFileSync("dist/index.js", 'export * from "./tokens.js";\nexport { createTheme, brandScale, fontFace, fontStack, FALLBACK_SANS } from "./theme.js";\n');
 writeFileSync(
   "dist/index.d.ts",
   Object.keys(t)

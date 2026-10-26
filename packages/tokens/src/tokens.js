@@ -43,6 +43,8 @@ export const knobs = {
   "radius-factor": "1",
   // تراکم: 0.875 = فشرده (مثل Polaris)، 1 = عادی، 1.125 = جادار
   "density": "1",
+  // ضریب اندازهٔ همهٔ متن‌ها؛ برای فونت‌هایی که درشت‌تر یا ریزتر از وزیرمتن دیده می‌شوند
+  "text-scale": "1",
 };
 
 /** فاصله‌ها — مضرب ۴ پیکسل */
@@ -58,16 +60,20 @@ export const radius = {
   none: "0", sm: r(0.25), md: r(0.5), lg: r(0.75), xl: r(1), "2xl": r(1.5), full: "9999px",
 };
 
+const t = (rem) => `calc(${rem}rem * var(--k-text-scale))`;
+
 export const font = {
   family: {
     sans: '"Vazirmatn", "Vazir", Tahoma, system-ui, sans-serif',
+    // فونت عنوان‌ها؛ پیش‌فرض همان فونت متن
+    display: "var(--k-font-sans)",
     // وزیرمتن به‌عنوان جایگزین تا متن فارسی داخل کد هم یکدست باشد
     mono: 'ui-monospace, "SF Mono", Menlo, Consolas, "Vazirmatn", monospace',
   },
   // متن فارسی در اندازه‌های یکسان کمی کوچک‌تر از لاتین دیده می‌شود؛ پایه ۱۵px است
   size: {
-    xs: "0.75rem", sm: "0.875rem", md: "0.9375rem", lg: "1.0625rem", xl: "1.25rem",
-    "2xl": "1.5rem", "3xl": "1.875rem", "4xl": "2.25rem", "5xl": "3rem", "6xl": "3.75rem",
+    xs: t(0.75), sm: t(0.875), md: t(0.9375), lg: t(1.0625), xl: t(1.25),
+    "2xl": t(1.5), "3xl": t(1.875), "4xl": t(2.25), "5xl": t(3), "6xl": t(3.75),
   },
   weight: { light: "300", regular: "400", medium: "500", semibold: "600", bold: "700", black: "900" },
   // حروف فارسی نقطه و دندانه دارند و به ارتفاع خط بیشتری نیاز دارند

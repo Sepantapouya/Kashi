@@ -22,7 +22,8 @@
     "*.css"
   ],
   "scripts": {
-    "build": "node contrast.mjs && node build.mjs"
+    "build": "node contrast.mjs && node build.mjs",
+    "test": "node --test test/*.test.mjs"
   },
   "license": "MIT",
   "repository": {
