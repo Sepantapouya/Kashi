@@ -10,6 +10,8 @@
 
 ### Patch Changes
 
+- `Radio` حالا `name` را مستقیم هم می‌پذیرد و اگر بیرون از `RadioGroup` و بدون `name` استفاده شود، در حالت توسعه هشدار می‌دهد (بدون name مشترک، چند گزینه هم‌زمان قابل‌انتخاب بود).
+
 - Updated dependencies
   - @kashi-ui/persian@0.5.0
   - @kashi-ui/bank-logos@0.5.0
