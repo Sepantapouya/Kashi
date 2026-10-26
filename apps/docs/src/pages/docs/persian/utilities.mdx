@@ -56,12 +56,37 @@ formatNumber(1250000);         // "۱٬۲۵۰٬۰۰۰"
 
 `toEnDigits` را همیشه پیش از ذخیرهٔ ورودی کاربر استفاده کنید؛ کاربر ایرانی ممکن است با هر دو صفحه‌کلید تایپ کند.
 
+## عدد به حروف
+
+```ts
+import { numberToWords } from "@kashi-ui/persian";
+
+numberToWords(1250000); // "یک میلیون و دویست و پنجاه هزار"
+numberToWords(1001);    // "هزار و یک"
+numberToWords(-45);     // "منفی چهل و پنج"
+```
+
+## یکدست‌سازی متن
+
+کاربران با صفحه‌کلید عربی «ي» و «ك» تایپ می‌کنند و جستجوی «علی» دیگر «علي» را پیدا نمی‌کند. پیش از ذخیره و جستجو، متن را یکدست کنید:
+
+```ts
+import { normalizePersian } from "@kashi-ui/persian";
+
+normalizePersian("علي كريمي");                 // "علی کریمی"
+normalizePersian("مـــدرسه");                   // "مدرسه"   (حذف کشیده)
+normalizePersian("كتاب ١٢", { digits: "fa" }); // "کتاب ۱۲"
+```
+
 ## اعتبارسنجی
 
 ```ts
 import { isValidNationalId, isValidCardNumber, getBankByCard, formatCardNumber } from "@kashi-ui/persian";
 
 isValidNationalId("0013542419");         // true
+isValidIban("IR062960000000100324200001");
+isValidMobile("+98 912 345 6789");       // true
+getMobileOperator("0935")?.name;          // "ایرانسل"
 isValidCardNumber("4111111111111111");   // true
 getBankByCard("610433");                 // { name: "بانک ملت", slug: "mellat" }
 formatCardNumber("6104331234");          // "6104 3312 34"

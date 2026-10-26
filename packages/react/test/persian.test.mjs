@@ -65,3 +65,32 @@ test("رندر سمت سرور بدون هشدار useLayoutEffect", () => {
   }
   assert.deepEqual(errors.filter((e) => e.includes("useLayoutEffect")), []);
 });
+
+test("IbanInput: IR خودکار، گروه‌بندی و نام بانک متصل", () => {
+  const bban = "0170000000123456789001";
+  const iban = "IR" + String(98n - (BigInt(bban + "182700") % 97n)).padStart(2, "0") + bban;
+  const html = render(h(K.IbanInput, { id: "s", label: "شبا", defaultValue: iban, name: "sheba" }));
+  assert.match(html, new RegExp(`value="${iban.replace(/(.{4})(?=.)/g, "$1 ")}"`));
+  assert.doesNotMatch(html, /aria-invalid/);
+  assert.match(html, /id="s-bank">بانک ملی</);
+  assert.match(html, /aria-describedby="s-bank"/);
+  assert.match(html, new RegExp(`type="hidden" name="sheba" value="${iban}"`));
+  // شبای نادرست خطا می‌دهد
+  assert.match(render(h(K.IbanInput, { label: "شبا", defaultValue: iban.slice(0, -1) + "9" })), /شماره شبا معتبر نیست/);
+});
+
+test("MobileInput: +98 به ۰۹ تبدیل می‌شود و اپراتور اعلام می‌شود", () => {
+  const html = render(h(K.MobileInput, { id: "m", label: "موبایل", defaultValue: "+98 912 345 6789", name: "mobile" }));
+  assert.match(html, /value="۰۹۱۲ ۳۴۵ ۶۷۸۹"/);
+  assert.match(html, /id="m-operator">همراه اول</);
+  assert.match(html, /type="tel"/);
+  assert.match(html, /type="hidden" name="mobile" value="09123456789"/);
+});
+
+test("PriceInput: جداکنندهٔ هزارگان و مبلغ به حروف در راهنما", () => {
+  const html = render(h(K.PriceInput, { id: "p", label: "مبلغ", defaultValue: 1250000 }));
+  assert.match(html, /value="۱٬۲۵۰٬۰۰۰"/);
+  assert.match(html, /id="p-hint">یک میلیون و دویست و پنجاه هزار تومان</);
+  assert.match(html, /aria-describedby="p-hint"/);
+  assert.match(html, />تومان</);
+});

@@ -18,7 +18,7 @@ const tokenCount = count(primitives) + Object.keys(themes.dark).length;
 const componentCount = nav
   .filter((g) => g.title === "کامپوننت‌ها" || g.title === "فارسی")
   .flatMap((g) => g.items)
-  .filter((i) => !i.href.includes("utilities")).length;
+  .filter((i) => !i.href.includes("utilities") && !i.href.includes("bank-logos")).length;
 
 const metrics = [
   { value: fa(componentCount), label: "کامپوننت آماده" },

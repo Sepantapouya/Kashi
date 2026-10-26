@@ -1,0 +1,23 @@
+{
+  "name": "@kashi-ui/bank-logos",
+  "version": "0.4.0",
+  "description": "لوگوی SVG بانک‌های ایران برای کاشی",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+    "./svg/*": "./dist/svg/*",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md", "LICENSE", "LOGOS-LICENSE.txt"],
+  "sideEffects": false,
+  "scripts": { "build": "node build.mjs" },
+  "publishConfig": { "access": "public" },
+  "keywords": ["iran", "bank", "logo", "svg", "persian"],
+  "repository": { "type": "git", "url": "git+https://github.com/Sepantapouya/Kashi.git", "directory": "packages/bank-logos" },
+  "homepage": "https://kashi.sepantapouya.com",
+  "bugs": "https://github.com/Sepantapouya/Kashi/issues",
+  "author": "Sepanta Pouya (https://sepantapouya.com)",
+  "license": "MIT AND CC0-1.0"
+}

@@ -1,8 +1,8 @@
 // نمونه‌هایی که JSX را به‌عنوان prop می‌دهند باید در فایل React باشند؛
 // در MDX، JSX داخل prop به عنصر React تبدیل نمی‌شود.
 import { useState, type ReactNode } from "react";
-import { Alert, Button, Calendar, CardNumberInput, DatePicker, Input, NationalIdInput } from "@kashi-ui/react";
-import { formatJalali, toISODate, toJalali } from "@kashi-ui/persian";
+import { Alert, Button, Calendar, CardNumberInput, DatePicker, IbanInput, Input, MobileInput, NationalIdInput, PriceInput } from "@kashi-ui/react";
+import { formatJalali, formatNumber, toISODate, toJalali } from "@kashi-ui/persian";
 import { ArrowIcon, MailIcon, PlusIcon, SearchIcon, TrashIcon } from "./icons";
 
 export const ButtonIcons = () => (
@@ -85,6 +85,36 @@ export const CardNumberDemo = () => {
     <div className="demo-stack">
       <CardNumberInput label="شماره کارت" name="card" onValueChange={(value, valid, bank) => setState({ value, valid, bank })} />
       <Out>{state.value.length === 16 ? (state.valid ? `✓ شماره کارت معتبر است${state.bank ? ` (${state.bank})` : ""}.` : "✗ شماره کارت معتبر نیست.") : "با تایپ شش رقم اول، نام بانک نمایش داده می‌شود."}</Out>
+    </div>
+  );
+};
+
+export const IbanDemo = () => {
+  const [s, set] = useState<{ value: string; valid: boolean; bank: string | null }>({ value: "", valid: false, bank: null });
+  return (
+    <div className="demo-stack">
+      <IbanInput label="شماره شبا" name="iban" onValueChange={(value, valid, bank) => set({ value, valid, bank })} />
+      <Out>{s.value.length === 26 ? (s.valid ? `✓ شبا معتبر است${s.bank ? ` (${s.bank})` : ""}.` : "✗ رقم‌های کنترل شبا درست نیست.") : "بعد از ۵ رقم اول، بانک تشخیص داده می‌شود."}</Out>
+    </div>
+  );
+};
+
+export const MobileDemo = () => {
+  const [s, set] = useState<{ value: string; valid: boolean; op: string | null }>({ value: "", valid: false, op: null });
+  return (
+    <div className="demo-stack">
+      <MobileInput label="شماره موبایل" name="mobile" onValueChange={(value, valid, op) => set({ value, valid, op })} />
+      <Out>{s.valid ? `✓ مقدار ارسالی: ${s.value}${s.op ? ` (${s.op})` : ""}` : "+98 و 0098 هم پذیرفته می‌شود."}</Out>
+    </div>
+  );
+};
+
+export const PriceDemo = () => {
+  const [v, setV] = useState<number | null>(1250000);
+  return (
+    <div className="demo-stack">
+      <PriceInput label="مبلغ پرداخت" name="amount" defaultValue={1250000} max={500000000} onValueChange={setV} />
+      <Out>{v === null ? "مبلغی وارد نشده." : `مقدار عددی: ${formatNumber(v, { digits: "latin" })}`}</Out>
     </div>
   );
 };

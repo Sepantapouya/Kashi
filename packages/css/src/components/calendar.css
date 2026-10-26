@@ -141,3 +141,25 @@
   .k-calendar__day[aria-current="date"] { outline: 1px solid CanvasText; }
   .k-datepicker__popover { border-color: CanvasText; }
 }
+
+/* نشان بانک داخل فیلد (کارت، شبا): لوگو + نام */
+.k-bank {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-1_5);
+  color: var(--k-text-tertiary);
+  font-size: var(--k-text-sm);
+  white-space: nowrap;
+}
+.k-bank__logo {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  flex-shrink: 0;
+  border-radius: var(--k-radius-sm);
+  animation: k-pop-in var(--k-duration-normal) var(--k-ease-standard);
+}
+/* لوگوهای تیره روی پس‌زمینهٔ تیره دیده شوند */
+[data-theme="dark"] .k-bank__logo, :root:not([data-theme]) .k-bank__logo {
+  padding: 1px;
+  background: #fff;
+}

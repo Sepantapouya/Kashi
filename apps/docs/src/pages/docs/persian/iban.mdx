@@ -1,0 +1,58 @@
+---
+layout: ../../../layouts/Docs.astro
+title: شماره شبا
+description: فیلد شبا (IBAN ایران) با IR خودکار، گروه‌بندی، لوگو و نام بانک و بررسی رقم‌های کنترل.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { IbanDemo } from "../../../components/demos";
+
+```tsx
+import { IbanInput } from "@kashi-ui/react";
+```
+
+## نمونه
+
+فقط ارقام را تایپ کنید؛ «IR» خودکار اضافه می‌شود. با تایپ ارقام ۳ تا ۵ (کد بانک)، لوگو و نام بانک نمایش داده می‌شوند.
+
+<Demo html={false} code={`<IbanInput
+  label="شماره شبا"
+  name="iban"
+  onValueChange={(iban, valid, bank) => console.log(iban, valid, bank)}
+/>`}>
+  <IbanDemo client:load />
+</Demo>
+
+## رفتار
+
+- **ورودی آزاد:** شبا با یا بدون «IR»، با فاصله یا بدون آن، و با ارقام فارسی یا انگلیسی پذیرفته می‌شود.
+- **اعتبارسنجی:** رقم‌های کنترل با استاندارد ISO 13616 (باقیماندهٔ ۹۷) بررسی می‌شوند؛ هر رقم اشتباه یا جابه‌جایی ارقام مجاور تشخیص داده می‌شود.
+- **مقدار:** همیشه به شکل `IR` + ۲۴ رقم بدون فاصله به شما داده می‌شود.
+- **ارقام:** شبا معمولاً با ارقام انگلیسی نوشته می‌شود؛ برای ارقام فارسی `digits="fa"` بدهید.
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["value", "string", "", "شبای کنترل‌شده، با یا بدون IR"],
+  ["defaultValue", "string", "", "مقدار اولیه"],
+  ["onValueChange", "(iban: string, valid: boolean, bank: string | null) => void", "", "با هر تغییر"],
+  ["digits", '"fa" | "latin"', '"latin"', "خط ارقام نمایشی"],
+  ["showBank", "boolean", "true", "نمایش نام بانک"],
+  ["showBankLogo", "boolean", "true", "نمایش لوگوی بانک (بارگذاری تنبل)"],
+  ["invalidMessage", "ReactNode", '"شماره شبا معتبر نیست."', "پیام خطا"],
+  ["name", "string", "", "نام فیلد مخفی فرم با مقدار IR…"],
+]} />
+
+## بدون React
+
+```ts
+import { isValidIban, getBankByIban, formatIban } from "@kashi-ui/persian";
+
+isValidIban("IR06 2960 0000 0010 0324 2000 01");
+getBankByIban("IR..0170...")?.name;   // "بانک ملی"
+formatIban("062960000000100324200001"); // "IR06 2960 0000 0010 0324 2000 01"
+```
+
+## دسترس‌پذیری
+
+- نام بانک با `aria-describedby` به فیلد متصل است؛ لوگو تزئینی است (`alt=""`) تا صفحه‌خوان نام بانک را دو بار نخواند.

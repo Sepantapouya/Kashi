@@ -1,0 +1,70 @@
+---
+import Docs from "../../../layouts/Docs.astro";
+import CodeBlock from "../../../components/CodeBlock.astro";
+import Install from "../../../components/Install.astro";
+import { bankLogoDataUri, bankLogos } from "@kashi-ui/bank-logos";
+
+// نام فارسی از روی همان داده‌های تشخیص بانک
+const NAMES: Record<string, string> = {
+  melli: "بانک ملی", sepah: "بانک سپه", edbi: "بانک توسعه صادرات", bim: "بانک صنعت و معدن", keshavarzi: "بانک کشاورزی",
+  maskan: "بانک مسکن", postbank: "پست بانک", "tosee-taavon": "بانک توسعه تعاون", "eghtesad-novin": "بانک اقتصاد نوین",
+  parsian: "بانک پارسیان", pasargad: "بانک پاسارگاد", karafarin: "بانک کارآفرین", saman: "بانک سامان", sina: "بانک سینا",
+  sarmayeh: "بانک سرمایه", ayandeh: "بانک آینده", shahr: "بانک شهر", dey: "بانک دی", saderat: "بانک صادرات",
+  mellat: "بانک ملت", tejarat: "بانک تجارت", refah: "بانک رفاه", "iran-zamin": "بانک ایران زمین",
+  "mehr-iran": "بانک قرض‌الحسنه مهر ایران", gardeshgari: "بانک گردشگری", markazi: "بانک مرکزی",
+  khavarmianeh: "بانک خاورمیانه", noor: "موسسه اعتباری نور", melal: "موسسه اعتباری ملل", tosee: "موسسه اعتباری توسعه",
+  resalat: "بانک قرض‌الحسنه رسالت",
+};
+const slugs = Object.keys(bankLogos).sort((a, b) => (NAMES[a] ?? a).localeCompare(NAMES[b] ?? b, "fa"));
+const headings = [
+  { depth: 2, slug: "logos", text: "همهٔ لوگوها" },
+  { depth: 2, slug: "usage", text: "استفاده" },
+  { depth: 2, slug: "license", text: "منبع و مجوز" },
+];
+---
+<Docs title="لوگوی بانک‌ها" description={`لوگوی SVG بهینه‌شدهٔ ${slugs.length.toLocaleString("fa-IR")} بانک و موسسهٔ اعتباری ایران؛ در فیلدهای کارت و شبا خودکار نمایش داده می‌شوند.`} headings={headings}>
+  <Install command="npm i @kashi-ui/bank-logos" />
+
+  <h2 id="logos">همهٔ لوگوها</h2>
+  <ul class="logo-grid" role="list">
+    {slugs.map((slug) => (
+      <li class="logo-card">
+        <img src={bankLogoDataUri(slug)} alt="" width="48" height="48" loading="lazy" />
+        <span class="logo-card__name">{NAMES[slug] ?? slug}</span>
+        <code class="logo-card__slug">{slug}</code>
+      </li>
+    ))}
+  </ul>
+
+  <h2 id="usage">استفاده</h2>
+  <p>فیلدهای <a href="/docs/persian/card-number/">شماره کارت</a> و <a href="/docs/persian/iban/">شماره شبا</a> لوگو را خودکار نمایش می‌دهند. لوگوها فقط وقتی بانک تشخیص داده شد بارگذاری می‌شوند (code-splitting)، پس حجم اولیهٔ برنامه تغییر نمی‌کند. برای استفادهٔ مستقیم:</p>
+  <CodeBlock lang="ts" code={`import { bankLogoDataUri } from "@kashi-ui/bank-logos";
+import { getBankByCard } from "@kashi-ui/persian";
+
+const bank = getBankByCard("6037 99");   // { name: "بانک ملی", slug: "melli" }
+img.src = bankLogoDataUri(bank.slug);`} />
+  <p>یا فایل SVG: <code>@kashi-ui/bank-logos/svg/melli.svg</code></p>
+
+  <h2 id="license">منبع و مجوز</h2>
+  <ul>
+    <li>طرح‌های وکتور از مجموعهٔ <a href="https://github.com/zegond/logos-per-banks">zegond/logos-per-banks</a> با مجوز CC0 1.0 (مالکیت عمومی) گرفته و با SVGO بهینه شده‌اند؛ حجم کل از ۸۰۰ به حدود ۲۰۰ کیلوبایت رسیده است.</li>
+    <li><strong>نشان‌های تجاری:</strong> لوگوها نشان تجاری بانک‌های مربوط هستند. از آن‌ها فقط برای معرفی همان بانک استفاده کنید، نه به شکلی که القای همکاری یا تأیید کند.</li>
+  </ul>
+</Docs>
+
+<style>
+  .logo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: var(--k-space-3); margin: var(--k-space-6) 0; padding: 0; list-style: none; }
+  .logo-card {
+    display: grid;
+    justify-items: center;
+    gap: var(--k-space-2);
+    padding: var(--k-space-4) var(--k-space-2);
+    border: 1px solid var(--k-border-secondary);
+    border-radius: var(--k-radius-lg);
+    background: var(--k-bg-secondary);
+    text-align: center;
+  }
+  .logo-card img { inline-size: 3rem; block-size: 3rem; padding: 4px; border-radius: var(--k-radius-md); background: #fff; }
+  .logo-card__name { color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); line-height: 1.5; }
+  .logo-card__slug { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+</style>

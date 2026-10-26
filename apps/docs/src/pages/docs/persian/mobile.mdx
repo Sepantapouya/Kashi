@@ -1,0 +1,52 @@
+---
+layout: ../../../layouts/Docs.astro
+title: شماره موبایل
+description: فیلد شماره موبایل ایران با تبدیل خودکار +98، گروه‌بندی و تشخیص اپراتور.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { MobileDemo } from "../../../components/demos";
+
+```tsx
+import { MobileInput } from "@kashi-ui/react";
+```
+
+## نمونه
+
+شماره را به هر شکلی بنویسید یا بچسبانید: `09123456789`، `+98 912 345 6789` یا `00989123456789`.
+
+<Demo html={false} code={`<MobileInput
+  label="شماره موبایل"
+  name="mobile"
+  onValueChange={(mobile, valid, operator) => console.log(mobile, valid, operator)}
+/>`}>
+  <MobileDemo client:load />
+</Demo>
+
+## رفتار
+
+- **یکدست‌سازی:** `+98`، `0098`، `98` و شمارهٔ بدون صفر اول (`912…`) به شکل استاندارد `09xxxxxxxxx` درمی‌آیند.
+- **اپراتور:** همراه اول، ایرانسل و رایتل از روی پیش‌شماره تشخیص داده می‌شوند. به دلیل امکان ترابرد شماره، اپراتور فقط برای راهنمایی است.
+- **صفحه‌کلید:** در گوشی صفحه‌کلید تلفن باز می‌شود و مرورگر می‌تواند شمارهٔ ذخیره‌شده را پیشنهاد دهد.
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["value", "string", "", "مقدار کنترل‌شده، به هر شکل"],
+  ["defaultValue", "string", "", "مقدار اولیه"],
+  ["onValueChange", "(mobile: string, valid: boolean, operator: string | null) => void", "", "مقدار به شکل ۰۹xxxxxxxxx"],
+  ["digits", '"fa" | "latin"', '"fa"', "خط ارقام نمایشی"],
+  ["showOperator", "boolean", "true", "نمایش نام اپراتور"],
+  ["invalidMessage", "ReactNode", '"شماره موبایل معتبر نیست."', "پیام خطا"],
+  ["name", "string", "", "نام فیلد مخفی فرم"],
+]} />
+
+## بدون React
+
+```ts
+import { normalizeMobile, isValidMobile, getMobileOperator, formatMobile } from "@kashi-ui/persian";
+
+normalizeMobile("+98 912 345 6789"); // "09123456789"
+getMobileOperator("0935")?.name;     // "ایرانسل"
+formatMobile("09123456789");         // "0912 345 6789"
+```

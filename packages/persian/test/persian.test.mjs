@@ -81,3 +81,61 @@ test("تاریخ ISO محلی، بدون جابه‌جایی منطقهٔ زما
   assert.equal(P.fromISODate("2026-02-30"), null);
   assert.equal(P.fromISODate("18/09/2026"), null);
 });
+
+// شبای معتبر می‌سازد (مستقل از کد پکیج، با BigInt)
+function makeIban(bban22) {
+  const check = 98n - (BigInt(bban22 + "182700") % 97n);
+  return "IR" + String(check).padStart(2, "0") + bban22;
+}
+
+test("شبا", () => {
+  const iban = makeIban("0170000000123456789001"); // کد بانک ۰۱۷ = ملی
+  assert.equal(P.isValidIban(iban), true);
+  assert.equal(P.isValidIban(iban.toLowerCase()), true);
+  assert.equal(P.isValidIban(P.toFaDigits(iban.slice(2))), true); // بدون IR و با ارقام فارسی
+  assert.equal(P.isValidIban(iban.slice(0, -1) + ((Number(iban.at(-1)) + 1) % 10)), false);
+  assert.equal(P.isValidIban("IR12"), false);
+  assert.equal(P.getBankByIban(iban)?.name, "بانک ملی");
+  assert.equal(P.getBankByIban(makeIban("0120000000000000000001"))?.name, "بانک ملت");
+  assert.equal(P.formatIban(iban).split(" ").length, 7);
+  assert.equal(P.formatIban(iban).replace(/ /g, ""), iban);
+  // هر رقم اشتباه یا جابه‌جایی دو رقم مجاور باید رد شود
+  for (let i = 4; i < 26; i++) {
+    const bad = iban.slice(0, i) + ((Number(iban[i]) + 3) % 10) + iban.slice(i + 1);
+    assert.equal(P.isValidIban(bad), false, `digit ${i}`);
+  }
+});
+
+test("موبایل", () => {
+  for (const v of ["09123456789", "+989123456789", "00989123456789", "989123456789", "9123456789", "۰۹۱۲ ۳۴۵ ۶۷۸۹"]) {
+    assert.equal(P.normalizeMobile(v), "09123456789", v);
+    assert.equal(P.isValidMobile(v), true, v);
+  }
+  assert.equal(P.isValidMobile("0912345678"), false);
+  assert.equal(P.isValidMobile("08123456789"), false);
+  assert.equal(P.getMobileOperator("0912")?.name, "همراه اول");
+  assert.equal(P.getMobileOperator("0935")?.name, "ایرانسل");
+  assert.equal(P.getMobileOperator("0921")?.name, "رایتل");
+  assert.equal(P.getMobileOperator("09"), null);
+  assert.equal(P.formatMobile("09123456789"), "0912 345 6789");
+  assert.equal(P.formatMobile("09123"), "0912 3");
+});
+
+test("عدد به حروف", () => {
+  const cases = {
+    0: "صفر", 7: "هفت", 13: "سیزده", 21: "بیست و یک", 105: "صد و پنج", 320: "سیصد و بیست",
+    1000: "هزار", 1001: "هزار و یک", 2000: "دو هزار", 21000: "بیست و یک هزار",
+    1250000: "یک میلیون و دویست و پنجاه هزار", 1000000000: "یک میلیارد",
+    1002003: "یک میلیون و دو هزار و سه", [-45]: "منفی چهل و پنج",
+  };
+  for (const [n, w] of Object.entries(cases)) assert.equal(P.numberToWords(Number(n)), w, n);
+  assert.equal(P.numberToWords(123456789012345n).startsWith("صد و بیست و سه تریلیون"), true);
+  assert.throws(() => P.numberToWords(10n ** 15n));
+});
+
+test("یکدست‌سازی متن", () => {
+  assert.equal(P.normalizePersian("علي كريمي"), "علی کریمی");
+  assert.equal(P.normalizePersian("مـــدرسه"), "مدرسه");
+  assert.equal(P.normalizePersian("كتاب‌‌ها  ي ١٢", { digits: "fa" }), "کتاب‌ها ی ۱۲");
+  assert.equal(P.normalizePersian("سلامٌ"), "سلام");
+});

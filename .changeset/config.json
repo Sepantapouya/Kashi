@@ -9,6 +9,7 @@
     [
       "@kashi-ui/tokens",
       "@kashi-ui/persian",
+      "@kashi-ui/bank-logos",
       "@kashi-ui/css",
       "@kashi-ui/react"
     ]

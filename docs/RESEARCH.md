@@ -68,6 +68,7 @@
 | ۵ | CLI (`npx kashi-ui add …`) |
 | ۶ | Web Components برای Vue/Svelte/Angular |
 | **۷ (بخش اول) ✓** | DatePicker و Calendar شمسی، کد ملی، شماره کارت، پکیج `@kashi-ui/persian` |
+| **۷ (بخش دوم) ✓** | شبا، موبایل، مبلغ به حروف، لوگوی ۳۱ بانک، یکدست‌سازی متن فارسی |
 | ۷ (ادامه) | کامپوننت‌های ویژهٔ فارسی: تقویم جلالی، DatePicker شمسی، ورودی کد ملی/شماره کارت/شبا، فرمت پول تومان |
 | ۸ | کامپوننت‌های پیچیده: Dialog، Dropdown، Tabs، Toast، Table، Command |
 

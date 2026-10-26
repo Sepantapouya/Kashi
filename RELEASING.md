@@ -15,11 +15,12 @@ npm login
 npm run build && npm test
 npm publish -w @kashi-ui/tokens
 npm publish -w @kashi-ui/persian
+npm publish -w @kashi-ui/bank-logos
 npm publish -w @kashi-ui/css
 npm publish -w @kashi-ui/react
 ```
 
-ترتیب مهم است: `css` به `tokens` وابسته است و `react` به `css` و `persian`.
+ترتیب مهم است: `css` به `tokens` وابسته است و `react` به `css`، `persian` و `bank-logos`.
 
 > **نکته‌هایی که در اولین انتشار (۰.۲.۰) یاد گرفتیم:**
 > - ورود دومرحله‌ای (2FA) حساب npm باید روی **Authorization and Publishing** فعال باشد؛ وگرنه npm خطای `E403` می‌دهد و کدی نمی‌پرسد. وضعیت را با `npm profile get` ببینید.
