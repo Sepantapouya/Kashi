@@ -6,6 +6,7 @@ export const author = {
   photo: "/images/sepanta-pouya.jpg",
   site: "https://sepantapouya.com",
   repo: "https://github.com/Sepantapouya/Kashi",
+  docs: "https://kashi.sepantapouya.com",
   bio: "طراح ارشد محصول در Partnerz و مدیر طراحی پیشین Pattern، با بیش از هفت سال تجربه در طراحی محصول، همکاری با تیم‌های میان‌رشته‌ای و منتورینگ طراحان تجربهٔ کاربری.",
   links: [
     { label: "وب‌سایت", href: "https://sepantapouya.com/fa/about.html" },

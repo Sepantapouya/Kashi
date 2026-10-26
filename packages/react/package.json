@@ -37,7 +37,7 @@
     "url": "git+https://github.com/Sepantapouya/Kashi.git",
     "directory": "packages/react"
   },
-  "homepage": "https://github.com/Sepantapouya/Kashi",
+  "homepage": "https://kashi.sepantapouya.com",
   "bugs": "https://github.com/Sepantapouya/Kashi/issues",
   "author": "Sepanta Pouya (https://sepantapouya.com)",
   "keywords": [

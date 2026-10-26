@@ -19,4 +19,4 @@ const css = createTheme({ brand: "#7c3aed", radius: 1.5, density: 0.875 });
 
 کنتراست همهٔ جفت‌رنگ‌های معنایی در هر بیلد با معیار WCAG 2.2 AA بررسی می‌شود.
 
-مستندات کامل: [github.com/Sepantapouya/Kashi](https://github.com/Sepantapouya/Kashi) · لایسنس MIT
+مستندات کامل: [kashi.sepantapouya.com](https://kashi.sepantapouya.com) · کد: [GitHub](https://github.com/Sepantapouya/Kashi) · لایسنس MIT

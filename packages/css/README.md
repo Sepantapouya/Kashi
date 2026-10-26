@@ -24,4 +24,4 @@ import "@kashi-ui/css";
 - همهٔ استایل‌ها در Cascade Layer؛ CSS شما همیشه اولویت دارد
 - فونت متغیر وزیرمتن همراه پکیج (لایسنس SIL OFL 1.1، اثر صابر راستی‌کردار)
 
-مستندات کامل: [github.com/Sepantapouya/Kashi](https://github.com/Sepantapouya/Kashi) · لایسنس MIT
+مستندات کامل: [kashi.sepantapouya.com](https://kashi.sepantapouya.com) · کد: [GitHub](https://github.com/Sepantapouya/Kashi) · لایسنس MIT

@@ -3,6 +3,7 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 
 export default defineConfig({
+  site: "https://kashi.sepantapouya.com",
   integrations: [mdx(), react()],
   devToolbar: { enabled: false },
   markdown: {

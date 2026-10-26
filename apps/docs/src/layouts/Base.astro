@@ -4,6 +4,7 @@ import "../styles/site.css";
 
 interface Props { title?: string; description?: string }
 const { title, description = "کاشی — دیزاین‌سیستم فارسی، متن‌باز، راست‌به‌چپ و دسترس‌پذیر برای React و هر فریم‌ورک دیگری." } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title ? `${title} · کاشی` : "کاشی — دیزاین‌سیستم فارسی";
 ---
 <!doctype html>
@@ -15,6 +16,11 @@ const fullTitle = title ? `${title} · کاشی` : "کاشی — دیزاین‌
     <meta name="description" content={description} />
     <meta name="color-scheme" content="dark light" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="کاشی" />
+    <meta property="og:locale" content="fa_IR" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <!-- تم را پیش از نقاشی صفحه اعمال می‌کند تا چشمک نزند. پیش‌فرض: تیره -->

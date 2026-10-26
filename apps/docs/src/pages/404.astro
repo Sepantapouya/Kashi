@@ -1,0 +1,35 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Logo from "../components/Logo.astro";
+---
+<Base title="صفحه پیدا نشد">
+  <Header />
+  <main id="main" tabindex="-1" class="not-found">
+    <Logo size={56} />
+    <p class="not-found__code" dir="ltr">404</p>
+    <h1>این کاشی سر جایش نیست</h1>
+    <p class="not-found__lead">صفحه‌ای که دنبالش هستید وجود ندارد یا جابه‌جا شده است.</p>
+    <div class="not-found__actions">
+      <a class="k-btn k-btn--primary k-btn--lg" href="/">صفحهٔ اصلی</a>
+      <a class="k-btn k-btn--secondary k-btn--lg" href="/docs/">مستندات</a>
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .not-found {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    min-block-size: 70dvh;
+    padding: var(--k-space-16) var(--gutter);
+    text-align: center;
+  }
+  .not-found__code { margin: var(--k-space-6) 0 0; color: var(--k-text-brand); font-family: var(--k-font-mono); font-weight: var(--k-weight-semibold); }
+  h1 { margin-block: var(--k-space-2) var(--k-space-3); font-size: clamp(var(--k-text-2xl), 4vw, var(--k-text-4xl)); }
+  .not-found__lead { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-lg); }
+  .not-found__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--k-space-3); margin-block-start: var(--k-space-8); }
+</style>
