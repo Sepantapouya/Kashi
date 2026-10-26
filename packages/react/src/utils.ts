@@ -1,4 +1,4 @@
-import type { Ref, RefCallback } from "react";
+import { useEffect, useLayoutEffect, type Ref, type RefCallback } from "react";
 
 export { toFaDigits } from "@kashi-ui/persian";
 
@@ -15,3 +15,6 @@ export function mergeRefs<T>(...refs: Array<Ref<T> | undefined>): RefCallback<T>
 export function isDev(): boolean {
   return typeof process !== "undefined" && process.env.NODE_ENV !== "production";
 }
+
+/** useLayoutEffect در مرورگر، useEffect در سرور؛ تا در Next.js و رندر سمت سرور هشدار ندهد */
+export const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;

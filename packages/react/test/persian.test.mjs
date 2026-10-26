@@ -52,3 +52,16 @@ test("DatePicker: دکمهٔ تقویم نام و وضعیت دارد، مقدا
   assert.match(html, /value="۱۴۰۳\/۰۵\/۱۲"/);
   assert.match(html, /type="hidden" name="birth" value="2024-08-02"/);
 });
+
+test("رندر سمت سرور بدون هشدار useLayoutEffect", () => {
+  const errors = [];
+  const orig = console.error;
+  console.error = (...a) => errors.push(a.join(" "));
+  try {
+    render(h(K.DatePicker, { label: "تاریخ" }));
+    render(h(K.CardNumberInput, { label: "کارت", defaultValue: "610433" }));
+  } finally {
+    console.error = orig;
+  }
+  assert.deepEqual(errors.filter((e) => e.includes("useLayoutEffect")), []);
+});

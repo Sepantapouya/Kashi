@@ -1,7 +1,7 @@
-import { forwardRef, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { forwardRef, useId, useRef, useState, type ReactNode } from "react";
 import { formatCardNumber, getBankByCard, isValidCardNumber, onlyDigits, toFaDigits } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";
-import { mergeRefs } from "./utils.js";
+import { mergeRefs, useIsomorphicLayoutEffect } from "./utils.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange" | "type" | "inputMode" | "addonEnd">;
 
@@ -48,7 +48,7 @@ export const CardNumberInput = forwardRef<HTMLInputElement, CardNumberInputProps
   const bankId = `${inputId}-bank`;
 
   // پس از قالب‌بندی دوباره، مکان‌نما را سر جای منطقی‌اش برمی‌گرداند
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (caret.current !== null && inputRef.current === document.activeElement) {
       const pos = caretFor(shown, caret.current);
       inputRef.current?.setSelectionRange(pos, pos);

@@ -1,8 +1,8 @@
-import { forwardRef, useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { forwardRef, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { formatJalali, parseJalali, toISODate } from "@kashi-ui/persian";
 import { Calendar, sameDay, type CalendarLabels } from "./Calendar.js";
 import { Input, type InputProps } from "./Input.js";
-import { mergeRefs } from "./utils.js";
+import { mergeRefs, useIsomorphicLayoutEffect } from "./utils.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange" | "type" | "addonEnd" | "min" | "max">;
 
@@ -57,7 +57,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
   }, [selected?.getTime(), digits]);
 
   // تقویم درست زیر کادر فیلد باز می‌شود (نه زیر متن راهنما)
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!open || !wrap.current) return;
     const box = wrap.current.querySelector(".k-input") as HTMLElement | null;
     if (box) setTop(box.offsetTop + box.offsetHeight + 6);
