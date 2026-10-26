@@ -64,7 +64,7 @@
 | **۱ ✓** | مونوریپو، توکن‌ها، CSS پایه، کامپوننت Button، صفحهٔ پیش‌نمایش |
 | **۲ ✓** | Input، Textarea، Badge، Card، Alert، Avatar، AvatarGroup، Switch، Checkbox + تست‌های دسترس‌پذیری |
 | **۳ ✓** | سایت مستندات تیره با Astro: صفحهٔ اصلی، ۵ راهنما، ۸ صفحهٔ کامپوننت، تم‌ساز زنده |
-| ۴ | انتشار روی npm + CI/CD با GitHub Actions |
+| **۴ ✓** | CI با GitHub Actions، نسخه‌بندی با Changesets، گردش کار انتشار npm با provenance، پیکربندی Vercel |
 | ۵ | CLI (`npx kashi-ui add …`) |
 | ۶ | Web Components برای Vue/Svelte/Angular |
 | ۷ | کامپوننت‌های ویژهٔ فارسی: تقویم جلالی، DatePicker شمسی، ورودی کد ملی/شماره کارت/شبا، فرمت پول تومان |

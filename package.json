@@ -13,12 +13,22 @@
     "test": "npm test -w @kashi-ui/react",
     "dev": "npx --yes serve . -l 4321",
     "docs": "npm run dev -w @kashi-ui/docs",
-    "docs:build": "npm run build && npm run build -w @kashi-ui/docs"
+    "docs:build": "npm run build && npm run build -w @kashi-ui/docs",
+    "changeset": "changeset",
+    "version-packages": "changeset version && npm install --package-lock-only",
+    "release": "npm run build && npm test && changeset publish"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Sepantapouya/Kashi.git"
   },
-  "author": "Sepanta Pouya (https://sepantapouya.com)"
+  "author": "Sepanta Pouya (https://sepantapouya.com)",
+  "devDependencies": {
+    "@changesets/changelog-git": "^1.0.0",
+    "@changesets/cli": "^3.0.3"
+  },
+  "engines": {
+    "node": ">=22.23.4"
+  }
 }

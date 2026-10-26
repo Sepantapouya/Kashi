@@ -1,5 +1,7 @@
 # کاشی (Kashi)
 
+[![CI](https://github.com/Sepantapouya/Kashi/actions/workflows/ci.yml/badge.svg)](https://github.com/Sepantapouya/Kashi/actions/workflows/ci.yml)
+
 دیزاین‌سیستم فارسی و متن‌باز — **RTL-first**، **Dark-first**، **دسترس‌پذیر** و **کاملاً قابل‌سفارشی‌سازی**، برای React و هر فریم‌ورک دیگری. با الهام از Untitled UI.
 
 | پکیج | کاربرد |
@@ -69,7 +71,7 @@ const css = createTheme({ brand: "#7c3aed", radius: 1.5, density: 0.875 });
 مخزن: [github.com/Sepantapouya/Kashi](https://github.com/Sepantapouya/Kashi)
 
 کاشی متن‌باز است (MIT). راهنما: [CONTRIBUTING.md](CONTRIBUTING.md)
-ریسرچ و نقشهٔ راه: [docs/RESEARCH.md](docs/RESEARCH.md)
+ریسرچ و نقشهٔ راه: [docs/RESEARCH.md](docs/RESEARCH.md) · انتشار نسخه: [RELEASING.md](RELEASING.md)
 
 ساخته‌شده توسط [سپنتا پویا](https://sepantapouya.com).
 

@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build, contrast check and tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # بیلد توکن‌ها شامل بررسی کنتراست WCAG است و در صورت رد شدن شکست می‌خورد
+      - run: npm run build
+      - run: npm test
+      - name: Build docs site
+        run: npm run build -w @kashi-ui/docs
+      - name: Check package contents
+        run: |
+          for p in tokens css react; do
+            (cd packages/$p && npm pack --dry-run --json > /dev/null)
+          done

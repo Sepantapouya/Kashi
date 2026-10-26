@@ -13,7 +13,8 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "sideEffects": false,
   "scripts": {
@@ -21,7 +22,7 @@
     "test": "node --test test/*.test.mjs"
   },
   "peerDependencies": {
-    "@kashi-ui/css": "0.2.0",
+    "@kashi-ui/css": "^0.2.0",
     "react": ">=18"
   },
   "devDependencies": {
@@ -48,5 +49,13 @@
     "ui",
     "css",
     "react"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependenciesMeta": {
+    "@kashi-ui/css": {
+      "optional": false
+    }
+  }
 }

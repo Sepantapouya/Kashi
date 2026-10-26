@@ -1,0 +1,12 @@
+{
+  "$schema": "../node_modules/@changesets/config/schema.json",
+  "baseBranch": "main",
+  "access": "public",
+  "changelog": "@changesets/changelog-git",
+  "commit": false,
+  "format": false,
+  "fixed": [["@kashi-ui/tokens", "@kashi-ui/css", "@kashi-ui/react"]],
+  "ignore": ["@kashi-ui/docs"],
+  "privatePackages": false,
+  "updateInternalDependencies": "patch"
+}

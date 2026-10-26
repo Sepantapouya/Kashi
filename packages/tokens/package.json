@@ -15,7 +15,8 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "sideEffects": [
     "*.css"
@@ -41,5 +42,8 @@
     "ui",
     "css",
     "react"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }

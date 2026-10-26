@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency: release-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write # برای provenance و انتشار مطمئن (Trusted Publishing) در npm
+
+jobs:
+  release:
+    name: Version PR or publish
+    # انتشار تا وقتی متغیر مخزن NPM_PUBLISH برابر true نشود خاموش است (RELEASING.md)
+    if: vars.NPM_PUBLISH == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      # اگر changeset منتشرنشده وجود داشته باشد، PR «نسخهٔ جدید» ساخته می‌شود؛
+      # با ادغام آن PR، پکیج‌ها روی npm منتشر می‌شوند.
+      - uses: changesets/action@v2.1.2
+        with:
+          version: npm run version-packages
+          publish: npm run release
+          title: "نسخهٔ جدید کاشی"
+          commit: "chore: version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # تا پیش از تنظیم Trusted Publishing در npm، از توکن استفاده می‌شود
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
