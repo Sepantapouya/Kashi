@@ -1,0 +1,47 @@
+---
+layout: ../../../layouts/Docs.astro
+title: ناوبری کناری
+description: منوی کناری پنل مدیریت با گروه‌ها، زیرمنو، نشان و حالت جمع‌شده.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { SideNavDemo } from "../../../components/demos";
+
+```tsx
+import { SideNav } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<SideNav
+  collapsed={collapsed}
+  header={<Logo />}
+  sections={[
+    { items: [
+      { label: "داشبورد", href: "/", icon: <HomeIcon />, current: true },
+      { label: "صندوق ورودی", href: "/inbox", icon: <InboxIcon />, badge: <Badge size="sm" tone="brand">۱۲</Badge> },
+      { label: "گزارش‌ها", icon: <ChartIcon />, items: [
+        { label: "فروش", href: "/reports/sales" },
+        { label: "کاربران", href: "/reports/users" },
+      ] },
+    ] },
+    { label: "مدیریت", items: [{ label: "تیم", href: "/team", icon: <UsersIcon /> }] },
+  ]}
+  footer={<UserMenu />}
+/>`}>
+  <SideNavDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["sections", "{ label?, items: SideNavItem[] }[]", "", "گروه‌های منو"],
+  ["SideNavItem", "{ label, href?, icon?, badge?, current?, onClick?, items? }", "", "با items، زیرمنوی باز و بسته‌شونده"],
+  ["collapsed", "boolean", "false", "فقط آیکون‌ها"],
+  ["header / footer", "ReactNode", "", "بالا و پایین منو"],
+  ["aria-label", "string", "«اصلی»", "نام ناحیهٔ ناوبری"],
+]} />
+
+عرض با متغیر `--k-sidenav-width` (پیش‌فرض ۱۷rem) عوض می‌شود.
+
+## دسترس‌پذیری
+
+ناحیهٔ `<nav>` با نام «اصلی». صفحهٔ فعلی `aria-current="page"` دارد و زیرمنویی که صفحهٔ فعلی در آن است از اول باز است. والد زیرمنو دکمه‌ای با `aria-expanded` است. در حالت جمع‌شده، نام هر مورد با `aria-label` و `title` حفظ می‌شود.

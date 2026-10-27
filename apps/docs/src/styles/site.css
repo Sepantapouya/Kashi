@@ -264,9 +264,13 @@ code, pre, kbd {
   margin: 0;
   border: 1px solid var(--k-border-secondary);
   border-radius: var(--k-radius-xl);
-  overflow: clip;
 }
+/* بدون overflow: clip تا فهرست‌ها و پنجره‌های شناور بیرون از پیش‌نمایش بریده نشوند */
+.demo > :first-child { border-start-start-radius: calc(var(--k-radius-xl) - 1px); border-start-end-radius: calc(var(--k-radius-xl) - 1px); }
+.demo > :last-child { border-end-start-radius: calc(var(--k-radius-xl) - 1px); border-end-end-radius: calc(var(--k-radius-xl) - 1px); overflow: clip; }
 .demo__preview {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -422,6 +426,7 @@ code, pre, kbd {
 /* خروجی زندهٔ نمونه‌های تعاملی */
 .demo-stack { display: grid; gap: var(--k-space-4); inline-size: min(100%, 24rem); }
 .demo-stack--center { justify-items: center; inline-size: auto; }
+.demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-3); }
 .demo-out {
   margin: 0;
   padding: var(--k-space-2) var(--k-space-3);

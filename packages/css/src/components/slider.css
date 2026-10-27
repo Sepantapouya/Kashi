@@ -1,0 +1,53 @@
+/* لغزنده (Slider) — روی <input type="range"> بومی */
+.k-slider { display: grid; gap: var(--k-space-2); }
+.k-slider__head { display: flex; justify-content: space-between; gap: var(--k-space-3); font-size: var(--k-text-sm); }
+.k-slider__value { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+.k-slider__track { --_h: 0.375rem; --_thumb: 1.25rem; position: relative; block-size: var(--_thumb); }
+.k-slider__track::before, .k-slider__fill {
+  content: "";
+  position: absolute;
+  inset-block: calc((var(--_thumb) - var(--_h)) / 2);
+  border-radius: var(--k-radius-full);
+}
+.k-slider__track::before { inset-inline: 0; background: var(--k-bg-tertiary); }
+.k-slider__fill { inset-inline-start: var(--_from, 0%); inset-inline-end: calc(100% - var(--_to, 0%)); background: var(--k-slider-color, var(--k-bg-brand)); }
+.k-slider__input {
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  margin: 0;
+  background: none;
+  pointer-events: none;
+}
+.k-slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  inline-size: var(--_thumb);
+  block-size: var(--_thumb);
+  border: 2px solid var(--k-slider-color, var(--k-bg-brand));
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--k-shadow-sm);
+  cursor: grab;
+  pointer-events: auto;
+}
+.k-slider__input::-moz-range-thumb {
+  inline-size: var(--_thumb);
+  block-size: var(--_thumb);
+  border: 2px solid var(--k-slider-color, var(--k-bg-brand));
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: var(--k-shadow-sm);
+  cursor: grab;
+  pointer-events: auto;
+}
+.k-slider__input:focus-visible { outline: none; }
+.k-slider__input:focus-visible::-webkit-slider-thumb { box-shadow: var(--k-ring-brand); }
+.k-slider__input:focus-visible::-moz-range-thumb { box-shadow: var(--k-ring-brand); }
+.k-slider__input:disabled::-webkit-slider-thumb { border-color: var(--k-border-input); cursor: not-allowed; }
+.k-slider__marks { display: flex; justify-content: space-between; color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-variant-numeric: tabular-nums; }
+@media (forced-colors: active) {
+  .k-slider__input { appearance: auto; pointer-events: auto; }
+  .k-slider__track::before, .k-slider__fill { display: none; }
+}

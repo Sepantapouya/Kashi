@@ -1,0 +1,51 @@
+---
+layout: ../../../layouts/Docs.astro
+title: کارت آمار
+description: نمایش شاخص‌های کلیدی (KPI) داشبورد با روند تغییر.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { StatCard } from "@kashi-ui/react";
+import { StatDemo } from "../../../components/demos";
+
+```tsx
+import { StatCard, StatGrid } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo align="stretch" code={`<StatGrid>
+  <StatCard label="فروش این ماه" value="۱۸۴٬۵۰۰٬۰۰۰" unit="تومان" icon={<WalletIcon />}
+    change={12.4} caption="نسبت به ماه قبل">
+    <Sparkline points={…} />
+  </StatCard>
+  <StatCard label="کاربران فعال" value="۳٬۸۲۰" unit="نفر" change={-2} caption="نسبت به هفتهٔ قبل" />
+  <StatCard label="نرخ خطا" value="۰٫۸٪" change={-35} invertTrend />
+</StatGrid>`}>
+  <StatDemo />
+</Demo>
+
+## ساده
+
+<Demo code={`<StatCard label="سفارش‌های امروز" value="۴۸" />`}>
+  <StatCard label="سفارش‌های امروز" value="۴۸" style={{ inlineSize: "16rem" }} />
+</Demo>
+
+<Props rows={[
+  ["label", "ReactNode", "", "نام شاخص"],
+  ["value", "ReactNode", "", "مقدار قالب‌بندی‌شده"],
+  ["unit", "ReactNode", "", "واحد کوچک کنار عدد، مثل «تومان»"],
+  ["icon", "ReactNode", "", "آیکون تزئینی"],
+  ["change", "number", "", "درصد تغییر؛ منفی یعنی کاهش"],
+  ["invertTrend", "boolean", "false", "وقتی کاهش خوب است (رنگ سبز برای کاهش)"],
+  ["caption", "ReactNode", "", "متن کنار روند"],
+  ["children", "ReactNode", "", "نمودار کوچک یا محتوای اضافه"],
+]} />
+
+`StatGrid` کارت‌ها را در ستون‌های خودکار (حداقل ۱۴rem) می‌چیند.
+
+عدد با ارقام فارسی و عرض طبیعی نمایش داده می‌شود (نه `tabular-nums`)، چون ارقام فارسی با عرض ثابت از هم فاصله می‌گیرند. اندازهٔ عدد با `--k-stat-value-size` عوض می‌شود.
+
+## دسترس‌پذیری
+
+جهت روند فقط با رنگ و فلش نشان داده نمی‌شود: صفحه‌خوان متن کامل را می‌خواند («۱۲٫۴٪ افزایش»). رنگ روند بر اساس خوب یا بد بودن است، نه جهت.

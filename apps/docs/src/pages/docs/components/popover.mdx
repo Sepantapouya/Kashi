@@ -1,0 +1,40 @@
+---
+layout: ../../../layouts/Docs.astro
+title: پنجرهٔ شناور
+description: محتوای تعاملی کوتاه کنار یک دکمه، مثل فیلتر، فرم کوچک یا توضیح.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { PopoverDemo } from "../../../components/demos";
+
+```tsx
+import { Popover } from "@kashi-ui/react";
+```
+
+برخلاف `Tooltip`، داخل `Popover` می‌توان دکمه و فیلد گذاشت؛ برخلاف `Dialog`، بقیهٔ صفحه را مسدود نمی‌کند.
+
+## نمونه
+
+<Demo html={false} code={`<Popover title="فیلتر سفارش‌ها" trigger={<Button iconStart={<FilterIcon />}>فیلتر</Button>}>
+  <Checkbox label="پرداخت‌شده" />
+  …
+</Popover>
+
+<Popover placement="bottom-end" aria-label="دربارهٔ کارمزد"
+  trigger={<Button variant="tertiary">کارمزد چطور محاسبه می‌شود؟</Button>}>
+  کارمزد هر تراکنش ۱٪ مبلغ است.
+</Popover>`}>
+  <PopoverDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["trigger", "ReactElement", "", "دکمهٔ باز کردن"],
+  ["title", "ReactNode", "", "عنوان و نام پنجره"],
+  ["open / onOpenChange", "boolean / (open) => void", "", "حالت کنترل‌شده"],
+  ["placement", '"bottom-start" | "bottom-end" | "top-start" | "top-end"', '"bottom-start"', "جای پنجره"],
+  ["aria-label", "string", "", "نام پنجره وقتی title ندارد"],
+]} />
+
+## دسترس‌پذیری
+
+دکمه `aria-haspopup="dialog"` و `aria-expanded` می‌گیرد. با باز شدن، فوکوس به اولین عنصر داخل می‌رود؛ <kbd>Esc</kbd> می‌بندد و فوکوس را به دکمه برمی‌گرداند. کلیک بیرون یا رفتن فوکوس به بیرون هم پنجره را می‌بندد.

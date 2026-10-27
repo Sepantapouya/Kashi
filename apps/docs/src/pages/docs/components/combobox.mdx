@@ -1,0 +1,63 @@
+---
+layout: ../../../layouts/Docs.astro
+title: جستجو و انتخاب
+description: فیلد جستجو با فهرست پیشنهادها (Combobox)؛ برای فهرست‌های بلند مثل شهر، کاربر یا محصول.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { ComboboxDemo, ComboboxRichDemo } from "../../../components/demos";
+
+```tsx
+import { Combobox } from "@kashi-ui/react";
+```
+
+وقتی گزینه‌ها بیشتر از ده‌تاست، به‌جای `Select` از `Combobox` استفاده کنید. جستجو متن فارسی را یکدست می‌کند: «ي» و «ی»، «ك» و «ک» و ارقام فارسی و انگلیسی یکی حساب می‌شوند.
+
+## نمونه
+
+<Demo html={false} code={`const [city, setCity] = useState<string | null>(null);
+
+<Combobox label="استان" placeholder="جستجو کنید…"
+  options={provinces.map((p) => ({ value: p, label: p }))}
+  value={city} onChange={setCity} />`}>
+  <ComboboxDemo client:load />
+</Demo>
+
+## گروه، توضیح و آیکون
+
+<Demo html={false} code={`<Combobox label="مسئول" options={[
+  { value: "sara", label: "سارا محمدی", description: "طراح محصول", group: "طراحی", icon: <Avatar name="سارا محمدی" size="xs" /> },
+  { value: "ali", label: "علی رضایی", group: "فنی", keywords: ["ali"] },
+  { value: "mina", label: "مینا احمدی", group: "فنی", disabled: true },
+]} />`}>
+  <ComboboxRichDemo client:load />
+</Demo>
+
+برای جستجوی سمت سرور، `onInputChange` را بگیرید، `options` را از پاسخ سرور بسازید، `loading` را در زمان درخواست روشن کنید و `filter={() => true}` بدهید.
+
+<Props rows={[
+  ["options", "{ value, label, description?, icon?, group?, keywords?, disabled? }[]", "", "گزینه‌ها؛ گزینه‌های هم‌گروه باید پشت سر هم باشند"],
+  ["value / defaultValue", "string | null", "null", "مقدار انتخاب‌شده"],
+  ["onChange", "(value: string | null) => void", "", "پس از انتخاب یا پاک کردن"],
+  ["onInputChange", "(query: string) => void", "", "تغییر متن جستجو"],
+  ["filter", "(option, query) => boolean", "defaultFilter", "جستجوی سفارشی"],
+  ["loading", "boolean", "false", "اسپینر و متن «در حال جستجو…»"],
+  ["emptyMessage", "ReactNode", "«نتیجه‌ای پیدا نشد.»", "متن فهرست خالی"],
+  ["name", "string", "", "فیلد پنهان برای ارسال فرم"],
+  ["label / hint / error", "ReactNode", "", "مثل ورودی"],
+]} />
+
+ابزارهای `defaultFilter`، `searchText` و `highlight` هم صادر شده‌اند تا در جستجوهای خودتان استفاده کنید.
+
+## کیبورد
+
+| کلید | عمل |
+|---|---|
+| <kbd>↓</kbd> / <kbd>↑</kbd> | باز کردن فهرست و رفتن به گزینهٔ بعد / قبل |
+| <kbd>Enter</kbd> | انتخاب گزینهٔ فعال |
+| <kbd>Esc</kbd> | بستن فهرست؛ اگر بسته است، پاک کردن مقدار |
+| <kbd>Home</kbd> / <kbd>End</kbd> | اولین / آخرین گزینه (وقتی فهرست باز است) |
+
+## دسترس‌پذیری
+
+الگوی Combobox در WAI-ARIA با `aria-activedescendant`: فوکوس همیشه در فیلد می‌ماند و صفحه‌خوان گزینهٔ فعال را می‌خواند. تعداد نتیجه‌ها پس از هر تایپ با یک ناحیهٔ `aria-live` اعلام می‌شود («۳ نتیجه») و گزینه‌های غیرفعال `aria-disabled` دارند.

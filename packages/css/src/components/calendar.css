@@ -95,6 +95,15 @@
 }
 [aria-selected="true"] > .k-calendar__day:focus-visible { box-shadow: var(--k-ring-brand); }
 
+/* بازهٔ تاریخ */
+.k-calendar__grid td[data-in-range] { background: var(--k-bg-brand-subtle); }
+.k-calendar__grid td[data-range-start] { border-start-start-radius: var(--k-radius-full); border-end-start-radius: var(--k-radius-full); }
+.k-calendar__grid td[data-range-end] { border-start-end-radius: var(--k-radius-full); border-end-end-radius: var(--k-radius-full); }
+.k-calendar__grid td[data-in-range] > .k-calendar__day { color: var(--k-text-primary); }
+.k-calendar__grid td:is([data-range-start], [data-range-end]) > .k-calendar__day { background: var(--k-bg-brand); color: var(--k-text-on-brand); font-weight: var(--k-weight-semibold); }
+.k-calendar__grid td[data-preview] { background: color-mix(in srgb, var(--k-bg-brand-subtle) 60%, transparent); }
+.k-calendars { display: flex; flex-wrap: wrap; gap: var(--k-space-6); }
+
 .k-calendar__day[aria-disabled="true"] {
   color: var(--k-text-quaternary);
   text-decoration: line-through;
@@ -162,4 +171,23 @@
 [data-theme="dark"] .k-bank__logo, :root:not([data-theme]) .k-bank__logo {
   padding: 1px;
   background: #fff;
+}
+
+/* بازهٔ تاریخ (DateRangePicker) */
+.k-daterange__trigger { display: flex; align-items: center; gap: var(--k-space-2); text-align: start; cursor: pointer; }
+.k-daterange__trigger svg { inline-size: 1.25rem; block-size: 1.25rem; flex-shrink: 0; color: var(--k-text-tertiary); }
+.k-daterange__trigger[data-placeholder] { color: var(--k-text-tertiary); }
+.k-daterange__popover { display: flex; gap: var(--k-space-4); inset-inline-end: auto; inset-inline-start: 0; inset-block-start: calc(100% + 6px); }
+.k-daterange__presets { display: grid; align-content: start; gap: 2px; margin: 0; padding: 0 0 0 0; padding-inline-end: var(--k-space-4); border-inline-end: 1px solid var(--k-border-secondary); list-style: none; }
+.k-daterange__preset { inline-size: 100%; padding: var(--k-space-2) var(--k-space-3); border: 0; border-radius: var(--k-radius-md); background: none; color: var(--k-text-secondary); font: inherit; font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); text-align: start; white-space: nowrap; cursor: pointer; }
+.k-daterange__preset:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-daterange__preset:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-daterange__preset[aria-pressed="true"] { background: var(--k-bg-active); color: var(--k-text-primary); }
+.k-daterange__main { display: grid; gap: var(--k-space-3); }
+.k-daterange__footer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-2); padding-block-start: var(--k-space-3); border-block-start: 1px solid var(--k-border-secondary); }
+.k-daterange__summary { flex: 1; min-inline-size: 10rem; color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+@media (max-width: 40rem) {
+  .k-daterange__popover { flex-direction: column; }
+  .k-daterange__presets { display: flex; flex-wrap: wrap; padding-inline-end: 0; padding-block-end: var(--k-space-3); border-inline-end: 0; border-block-end: 1px solid var(--k-border-secondary); }
+  .k-daterange__preset { inline-size: auto; }
 }

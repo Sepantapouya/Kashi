@@ -1,0 +1,41 @@
+---
+layout: ../../../layouts/Docs.astro
+title: پالت فرمان
+description: جستجوی سریع صفحه‌ها و عملیات با Ctrl+K، به سبک ابزارهای حرفه‌ای.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { CommandDemo } from "../../../components/demos";
+
+```tsx
+import { CommandPalette, type CommandItem } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`const [open, setOpen] = useState(false);
+const items: CommandItem[] = [
+  { id: "home", label: "داشبورد", group: "صفحه‌ها", icon: <HomeIcon />, shortcut: "G D", href: "/" },
+  { id: "users", label: "کاربران", group: "صفحه‌ها", keywords: ["users"], href: "/users" },
+  { id: "new", label: "پروژهٔ جدید", group: "عملیات", shortcut: "N", onSelect: createProject },
+];
+
+<Button onClick={() => setOpen(true)}>جستجوی دستور <Kbd keys={["Ctrl", "K"]} /></Button>
+<CommandPalette open={open} onOpenChange={setOpen} items={items} />`}>
+  <CommandDemo client:load />
+</Demo>
+
+پالت را یک بار در ریشهٔ برنامه بگذارید. با `shortcut` (پیش‌فرض روشن) میان‌بر <kbd>Ctrl</kbd>+<kbd>K</kbd> (و <kbd>⌘</kbd>+<kbd>K</kbd> در مک) در کل صفحه فعال است.
+
+<Props rows={[
+  ["open / onOpenChange", "boolean / (open) => void", "", "کنترل باز و بسته بودن"],
+  ["items", "{ id, label, group?, icon?, shortcut?, description?, keywords?, href?, onSelect? }[]", "", "فرمان‌ها؛ با href به آن آدرس می‌رود"],
+  ["shortcut", "boolean", "true", "میان‌بر سراسری Ctrl/⌘+K"],
+  ["placeholder", "string", "«جستجوی صفحه یا فرمان…»", ""],
+  ["emptyMessage", "ReactNode", "«نتیجه‌ای پیدا نشد.»", ""],
+  ["labels", "{ title?, navigate?, select?, close?, results? }", "", "متن‌های راهنما و صفحه‌خوان"],
+]} />
+
+## دسترس‌پذیری
+
+روی `<dialog>` بومی ساخته شده، پس فوکوس داخل پنجره می‌ماند و پشت آن غیرفعال است. فیلد جستجو `role="combobox"` است و فهرست `listbox`؛ با <kbd>↑</kbd>/<kbd>↓</kbd> حرکت، <kbd>Enter</kbd> اجرا و <kbd>Esc</kbd> بسته می‌شود و فوکوس به دکمه‌ای که پالت را باز کرد برمی‌گردد.

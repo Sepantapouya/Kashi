@@ -1,0 +1,54 @@
+/* جستجو و انتخاب (Combobox) و پالت فرمان — فهرست گزینه‌ها با الگوی listbox
+ * متغیرها: --k-listbox-max-height  --k-option-height
+ */
+.k-combobox { position: relative; }
+.k-combobox .k-input { padding-inline-end: var(--k-space-1); }
+.k-combobox__toggle { transition: rotate var(--k-duration-fast); }
+.k-combobox[data-open] .k-combobox__toggle { rotate: 180deg; }
+
+.k-listbox {
+  position: absolute;
+  inset-inline: 0;
+  z-index: var(--k-z-dropdown);
+  max-block-size: var(--k-listbox-max-height, 18rem);
+  margin: 0;
+  padding: var(--k-space-1_5);
+  overflow-y: auto;
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-lg);
+  background: var(--k-bg-elevated);
+  box-shadow: var(--k-shadow-lg), var(--k-highlight);
+  list-style: none;
+  animation: k-pop-in var(--k-duration-fast) var(--k-ease-standard);
+}
+.k-listbox[hidden] { display: none; }
+.k-listbox--inline { position: static; max-block-size: none; border: 0; box-shadow: none; padding: 0; background: none; animation: none; }
+.k-option {
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-2);
+  min-block-size: var(--k-option-height, calc(2.5rem * var(--k-density)));
+  padding-inline: var(--k-space-2_5, 0.625rem);
+  border-radius: var(--k-radius-md);
+  color: var(--k-text-secondary);
+  font-size: var(--k-text-sm);
+  cursor: pointer;
+}
+.k-option[data-active] { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-option[aria-selected="true"] { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+.k-option[aria-disabled="true"] { color: var(--k-text-quaternary); cursor: not-allowed; }
+.k-option__check { margin-inline-start: auto; color: var(--k-text-brand); }
+.k-option__check svg, .k-option svg { inline-size: 1.125rem; block-size: 1.125rem; flex-shrink: 0; }
+.k-option__desc { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.k-option__body { display: grid; min-inline-size: 0; }
+.k-option mark { background: none; color: var(--k-text-brand); font-weight: var(--k-weight-semibold); }
+.k-listbox__group { padding: var(--k-space-2) var(--k-space-2_5, 0.625rem) var(--k-space-1); color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+.k-listbox__empty { padding: var(--k-space-6) var(--k-space-3); color: var(--k-text-tertiary); font-size: var(--k-text-sm); text-align: center; }
+
+/* پالت فرمان */
+.k-command { --k-dialog-width: 36rem; margin-block-start: 12vh; }
+.k-command .k-input { border: 0; border-block-end: 1px solid var(--k-border-secondary); border-radius: 0; box-shadow: none; min-block-size: 3.5rem; padding-inline: var(--k-space-5); background: transparent; }
+.k-command .k-input:focus-within { box-shadow: none; }
+.k-command__list { max-block-size: min(24rem, 60dvh); overflow-y: auto; padding: var(--k-space-2); }
+.k-command__footer { display: flex; gap: var(--k-space-4); padding: var(--k-space-2) var(--k-space-5); border-block-start: 1px solid var(--k-border-secondary); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.k-command__footer span { display: inline-flex; align-items: center; gap: var(--k-space-1); }

@@ -1,0 +1,40 @@
+---
+layout: ../../../layouts/Docs.astro
+title: لغزنده
+description: انتخاب یک عدد یا یک بازه با کشیدن، مثل صدا، روشنایی یا بازهٔ قیمت.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { SliderDemo } from "../../../components/demos";
+
+```tsx
+import { Slider } from "@kashi-ui/react";
+```
+
+## مقدار تکی و بازه
+
+برای بازه، به‌جای عدد یک آرایهٔ دوتایی بدهید؛ دستگیره‌ها از روی هم رد نمی‌شوند.
+
+<Demo html={false} code={`<Slider label="روشنایی" value={v} onChange={setV} format={(n) => \`\${toFaDigits(n)}٪\`} />
+
+<Slider label="قیمت" min={0} max={10_000_000} step={500_000}
+  value={price} onChange={setPrice}
+  format={(n) => \`\${formatNumber(n)} تومان\`}
+  marks={[0, 5_000_000, 10_000_000]} />`}>
+  <SliderDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["value / defaultValue", "number | [number, number]", "", "آرایه برای بازه"],
+  ["onChange", "(value) => void", "", ""],
+  ["min / max / step", "number", "0 / 100 / 1", ""],
+  ["format", "(n: number) => string", "formatNumber", "قالب نمایش و متن صفحه‌خوان"],
+  ["showValue", "boolean", "true", "مقدار کنار برچسب"],
+  ["marks", "number[]", "", "برچسب‌های زیر نوار"],
+  ["name", "string", "", "در بازه: name_min و name_max"],
+  ["labels", "{ from?, to?, separator? }", "«حداقل»، «حداکثر»", ""],
+]} />
+
+## دسترس‌پذیری
+
+روی `<input type="range">` بومی ساخته شده، پس همهٔ کلیدهای استاندارد (<kbd>←</kbd>/<kbd>→</kbd>، <kbd>PageUp</kbd>، <kbd>Home</kbd>/<kbd>End</kbd>) کار می‌کنند. `aria-valuetext` مقدار قالب‌بندی‌شده را می‌خواند («۲٬۰۰۰٬۰۰۰ تومان») و در بازه، هر دستگیره نام جدا دارد: «حداقل قیمت» و «حداکثر قیمت».

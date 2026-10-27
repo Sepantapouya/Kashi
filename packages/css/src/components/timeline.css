@@ -1,0 +1,36 @@
+/* خط زمانی و فعالیت‌ها */
+.k-timeline { display: grid; margin: 0; padding: 0; list-style: none; }
+.k-timeline__item { position: relative; display: grid; grid-template-columns: auto 1fr; gap: var(--k-space-3); padding-block-end: var(--k-space-6); }
+.k-timeline__item:last-child { padding-block-end: 0; }
+.k-timeline__marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border: 1px solid var(--k-border-primary);
+  border-radius: 50%;
+  background: var(--k-bg-elevated);
+  color: var(--k-text-tertiary);
+}
+.k-timeline__marker svg { inline-size: 1rem; block-size: 1rem; }
+.k-timeline__marker .k-avatar { --k-avatar-size: 2rem; }
+.k-timeline__marker:has(.k-avatar) { border: 0; background: none; }
+.k-timeline__item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  inset-block: 2.25rem 0.25rem;
+  inset-inline-start: calc(1rem - 1px);
+  inline-size: 2px;
+  border-radius: 1px;
+  background: var(--k-border-secondary);
+}
+.k-timeline__item[data-tone="success"] .k-timeline__marker { border-color: transparent; background: var(--k-bg-success-subtle); color: var(--k-text-success); }
+.k-timeline__item[data-tone="error"] .k-timeline__marker { border-color: transparent; background: var(--k-bg-error-subtle); color: var(--k-text-error); }
+.k-timeline__item[data-tone="brand"] .k-timeline__marker { border-color: transparent; background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+.k-timeline__body { display: grid; gap: var(--k-space-1); padding-block-start: 0.25rem; min-inline-size: 0; }
+.k-timeline__title { margin: 0; color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+.k-timeline__title strong { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+.k-timeline__time { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.k-timeline__content { margin-block-start: var(--k-space-2); padding: var(--k-space-3) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary); color: var(--k-text-tertiary); font-size: var(--k-text-sm); }

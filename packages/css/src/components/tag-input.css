@@ -1,0 +1,20 @@
+/* ورود چند مقدار (Tag input) */
+.k-tag-input {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--k-space-1_5);
+  min-block-size: var(--k-input-height-md, calc(2.75rem * var(--k-density)));
+  padding: var(--k-space-1_5) calc(0.625rem * var(--k-density));
+  border: 1px solid var(--k-input-border, var(--k-border-input));
+  border-radius: var(--k-input-radius, var(--k-radius-md));
+  background: var(--k-input-bg, var(--k-bg-primary));
+  box-shadow: var(--k-shadow-xs);
+  cursor: text;
+  transition: border-color var(--k-duration-fast), box-shadow var(--k-duration-fast);
+}
+.k-tag-input:focus-within { border-color: var(--k-border-brand); box-shadow: var(--k-shadow-xs), var(--k-ring-brand); outline: 2px solid transparent; }
+.k-tag-input[data-invalid] { border-color: var(--k-border-error); }
+.k-tag-input__control { flex: 1; min-inline-size: 6rem; padding: 0.25rem 0.25rem; border: 0; outline: 0; background: none; color: var(--k-text-primary); font: inherit; font-size: var(--k-text-md); }
+.k-tag-input__control::placeholder { color: var(--k-text-tertiary); }
+.k-tag-input .k-badge { font-size: var(--k-text-sm); }

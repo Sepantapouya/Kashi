@@ -1,0 +1,22 @@
+/* پنجرهٔ شناور (Popover) — غیرمودال، کنار یک دکمه */
+.k-popover-anchor { position: relative; display: inline-flex; vertical-align: middle; }
+.k-popover {
+  position: absolute;
+  inset-block-start: calc(100% + 8px);
+  inset-inline-start: 0;
+  z-index: var(--k-z-dropdown);
+  inline-size: var(--k-popover-width, 20rem);
+  max-inline-size: calc(100vw - 2rem);
+  padding: var(--k-popover-padding, var(--k-space-4));
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-popover-radius, var(--k-radius-xl));
+  background: var(--k-bg-elevated);
+  color: var(--k-text-primary);
+  box-shadow: var(--k-shadow-xl), var(--k-highlight);
+  animation: k-pop-in var(--k-duration-fast) var(--k-ease-standard);
+}
+.k-popover[hidden] { display: none; }
+.k-popover--end { inset-inline: auto 0; }
+.k-popover--top { inset-block: auto calc(100% + 8px); }
+.k-popover__title { margin: 0 0 var(--k-space-1); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+.k-popover__body { color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: var(--k-leading-normal); }

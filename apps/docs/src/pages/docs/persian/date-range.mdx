@@ -1,0 +1,50 @@
+---
+layout: ../../../layouts/Docs.astro
+title: بازهٔ تاریخ شمسی
+description: انتخاب بازهٔ تاریخ با تقویم جلالی و میان‌برهایی مثل «۷ روز اخیر» و «ماه قبل».
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { DateRangeDemo } from "../../../components/demos";
+
+```tsx
+import { DateRangePicker } from "@kashi-ui/react";
+```
+
+## نمونه
+
+کلیک اول تاریخ شروع و کلیک دوم تاریخ پایان است (ترتیب مهم نیست)؛ پیش از کلیک دوم، بازه با حرکت موس یا فوکوس پیش‌نمایش می‌شود. تغییرها با «تأیید» ثبت می‌شوند.
+
+<Demo html={false} code={`const [range, setRange] = useState<DateRange>({ start: null, end: null });
+
+<DateRangePicker label="بازهٔ گزارش" name="period" value={range} onChange={setRange} max={new Date()} />`}>
+  <DateRangeDemo client:only="react" />
+</Demo>
+
+با `name`، دو فیلد پنهان `period_start` و `period_end` به شکل میلادی `YYYY-MM-DD` در فرم ارسال می‌شوند.
+
+## میان‌برها
+
+میان‌برهای پیش‌فرض (`defaultRangePresets`) «۷ روز اخیر»، «۳۰ روز اخیر»، «این ماه» و «ماه قبل» هستند و ماه‌ها شمسی حساب می‌شوند. فهرست خودتان را بدهید یا با `presets={[]}` حذفشان کنید:
+
+```tsx
+<DateRangePicker presets={[
+  ...defaultRangePresets,
+  { label: "امسال", range: (today) => ({ start: toGregorian(toJalali(today).jy, 1, 1), end: today }) },
+]} />
+```
+
+<Props rows={[
+  ["value / defaultValue", "{ start: Date | null; end: Date | null }", "", ""],
+  ["onChange", "(range) => void", "", "پس از «تأیید»"],
+  ["min / max", "Date", "", "محدودهٔ مجاز"],
+  ["isDateDisabled", "(date) => boolean", "", "روزهای غیرقابل‌انتخاب"],
+  ["presets", "{ label, range: (today) => { start, end } }[]", "defaultRangePresets", "میان‌برها"],
+  ["name", "string", "", "name_start و name_end"],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["labels", "{ placeholder?, separator?, apply?, cancel?, presets?, pickEnd? }", "", "متن‌ها"],
+]} />
+
+## دسترس‌پذیری
+
+دکمهٔ باز کردن `aria-haspopup="dialog"` و `aria-expanded` دارد و متن آن بازهٔ انتخاب‌شده است. تقویم همان الگوی grid تقویم تک‌تاریخ را دارد؛ روزهای داخل بازه `aria-selected` می‌گیرند. خلاصهٔ بازه پس از هر انتخاب با `aria-live` اعلام می‌شود و <kbd>Esc</kbd> بدون ثبت تغییر می‌بندد.

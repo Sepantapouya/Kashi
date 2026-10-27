@@ -72,7 +72,7 @@
 | ۷ (ادامه) | کامپوننت‌های ویژهٔ فارسی: تقویم جلالی، DatePicker شمسی، ورودی کد ملی/شماره کارت/شبا، فرمت پول تومان |
 | **۸ (بخش اول) ✓** | Dialog، Tabs، Toast، Tooltip، Select، Radio + بازطراحی ظاهری همهٔ کامپوننت‌ها |
 | **۸ (بخش دوم) ✓** | DropdownMenu، DataTable، Pagination، Breadcrumb، Accordion، Stepper، Progress، Skeleton، EmptyState، OTP |
-| ۸ (ادامه) | Command palette، Combobox، Date range، File upload |
+| **۸ (بخش سوم) ✓** | Combobox، CommandPalette، TagInput، FileUpload، Slider، NumberInput، Popover، DateRangePicker، StatCard، Timeline، SideNav |
 
 مورد ۷ مزیت رقابتی اصلی ماست — چیزی که هیچ دیزاین‌سیستم خارجی ندارد.
 

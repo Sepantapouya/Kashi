@@ -4,6 +4,8 @@ import { useState, type ReactNode } from "react";
 import { Accordion, AccordionItem, Alert, Avatar, AvatarGroup, Badge, Breadcrumb, Card, CardBody, CardDescription, CardHeader, CardMedia, CardTitle, Checkbox, Divider, Switch, Textarea, DataTable, DropdownMenu, EmptyState, Kbd, MenuItem, MenuLabel, MenuSeparator, OtpInput, Pagination, Progress, Skeleton, Spinner, Stepper, Button, Calendar, CardNumberInput, DatePicker, Dialog, IbanInput, Input, MobileInput, NationalIdInput, PriceInput, Radio, RadioGroup, Tab, TabList, TabPanel, Tabs, Toaster, Tooltip, toast } from "@kashi-ui/react";
 import { formatJalali, formatNumber, toISODate, toJalali } from "@kashi-ui/persian";
 import { ArrowIcon, MailIcon, PlusIcon, SearchIcon, TrashIcon, UserIcon } from "./icons";
+import { Combobox, CommandPalette, DateRangePicker, FileUpload, NumberInput, Popover, SideNav, Slider, StatCard, StatGrid, TagInput, Timeline, type CommandItem, type DateRange } from "@kashi-ui/react";
+import { ChartIcon, CheckIcon, FilterIcon, HomeIcon, InboxIcon, SettingsIcon, UsersIcon, WalletIcon } from "./icons";
 
 export const ButtonIcons = () => (
   <>
@@ -583,3 +585,210 @@ export const SettingsListDemo = () => (
     </CardBody>
   </Card>
 );
+
+// ───── نسخهٔ ۰٫۹ ─────
+
+const provinces = ["تهران", "اصفهان", "فارس", "خراسان رضوی", "آذربایجان شرقی", "گیلان", "مازندران", "خوزستان", "کرمان", "یزد", "همدان", "کردستان"];
+
+export const ComboboxDemo = () => {
+  const [v, setV] = useState<string | null>(null);
+  return (
+    <div className="demo-stack">
+      <Combobox
+        label="استان"
+        placeholder="جستجو کنید…"
+        hint="«علي» و «علی» یکی حساب می‌شوند."
+        options={provinces.map((p) => ({ value: p, label: p }))}
+        value={v}
+        onChange={setV}
+      />
+      <Out>{v ? `انتخاب: ${v}` : "هنوز انتخابی نشده."}</Out>
+    </div>
+  );
+};
+
+export const ComboboxRichDemo = () => (
+  <Combobox
+    label="مسئول"
+    placeholder="نام همکار"
+    options={[
+      { value: "sara", label: "سارا محمدی", description: "طراح محصول", group: "طراحی", icon: <Avatar name="سارا محمدی" size="xs" /> },
+      { value: "reza", label: "رضا کریمی", description: "طراح رابط", group: "طراحی", icon: <Avatar name="رضا کریمی" size="xs" /> },
+      { value: "ali", label: "علی رضایی", description: "برنامه‌نویس فرانت‌اند", group: "فنی", icon: <Avatar name="علی رضایی" size="xs" />, keywords: ["ali"] },
+      { value: "mina", label: "مینا احمدی", description: "مرخصی", group: "فنی", icon: <Avatar name="مینا احمدی" size="xs" />, disabled: true },
+    ]}
+  />
+);
+
+export const CommandDemo = () => {
+  const [open, setOpen] = useState(false);
+  const [last, setLast] = useState("");
+  const run = (label: string) => () => setLast(label);
+  const items: CommandItem[] = [
+    { id: "home", label: "داشبورد", group: "صفحه‌ها", icon: <HomeIcon />, shortcut: "G D", onSelect: run("داشبورد") },
+    { id: "users", label: "کاربران", group: "صفحه‌ها", icon: <UsersIcon />, keywords: ["users"], onSelect: run("کاربران") },
+    { id: "reports", label: "گزارش‌ها", group: "صفحه‌ها", icon: <ChartIcon />, onSelect: run("گزارش‌ها") },
+    { id: "new", label: "پروژهٔ جدید", group: "عملیات", icon: <PlusIcon />, shortcut: "N", onSelect: run("پروژهٔ جدید") },
+    { id: "invite", label: "دعوت همکار", group: "عملیات", icon: <MailIcon />, description: "ارسال لینک دعوت با ایمیل", onSelect: run("دعوت همکار") },
+    { id: "settings", label: "تنظیمات", group: "عملیات", icon: <SettingsIcon />, shortcut: "Ctrl+,", onSelect: run("تنظیمات") },
+  ];
+  return (
+    <div className="demo-stack">
+      <Button iconStart={<SearchIcon />} onClick={() => setOpen(true)}>جستجوی دستور <Kbd keys={["Ctrl", "K"]} /></Button>
+      <CommandPalette open={open} onOpenChange={setOpen} items={items} />
+      <Out>{last ? `اجرا شد: ${last}` : "Ctrl+K یا ⌘K را بزنید."}</Out>
+    </div>
+  );
+};
+
+export const TagInputDemo = () => {
+  const [tags, setTags] = useState(["طراحی", "React"]);
+  return (
+    <div className="demo-stack">
+      <TagInput label="مهارت‌ها" hint="با Enter یا ویرگول جدا کنید؛ حداکثر ۵ مورد." value={tags} onChange={setTags} max={5} placeholder="افزودن مهارت" />
+      <Out>{`${tags.length.toLocaleString("fa")} مورد: ${tags.join("، ")}`}</Out>
+    </div>
+  );
+};
+
+export const TagInputEmailDemo = () => (
+  <TagInput
+    label="گیرندگان"
+    placeholder="ایمیل را بنویسید"
+    tone="neutral"
+    validate={(t) => (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(t) ? undefined : "این ایمیل معتبر نیست.")}
+  />
+);
+
+// بارگذاری ساختگی: پیشرفت تصادفی، و خطا برای فایل‌هایی که نامشان «خطا» دارد
+const fakeUpload = (file: File, onProgress: (p: number) => void) =>
+  new Promise<void>((resolve, reject) => {
+    let p = 0;
+    const t = setInterval(() => {
+      p = Math.min(100, p + 8 + Math.random() * 20);
+      onProgress(p);
+      if (p >= 100) {
+        clearInterval(t);
+        file.name.includes("خطا") ? reject(new Error("اتصال قطع شد.")) : resolve();
+      }
+    }, 250);
+  });
+
+export const FileUploadDemo = () => (
+  <FileUpload hint="PNG، JPG یا PDF؛ هر فایل تا ۵ مگابایت" accept="image/png,image/jpeg,application/pdf" maxSize={5 * 1024 * 1024} maxFiles={4} uploader={fakeUpload} />
+);
+
+export const SliderDemo = () => {
+  const [v, setV] = useState(60);
+  const [price, setPrice] = useState<[number, number]>([2_000_000, 8_000_000]);
+  return (
+    <div className="demo-stack">
+      <Slider label="روشنایی" value={v} onChange={setV} format={(n) => `${n.toLocaleString("fa")}٪`} />
+      <Slider label="قیمت" min={0} max={10_000_000} step={500_000} value={price} onChange={setPrice} format={(n) => `${formatNumber(n)} تومان`} marks={[0, 5_000_000, 10_000_000]} />
+    </div>
+  );
+};
+
+export const NumberInputDemo = () => {
+  const [n, setN] = useState<number | null>(2);
+  return (
+    <div className="demo-stack">
+      <NumberInput label="تعداد مسافر" min={1} max={9} value={n} onChange={setN} unit="نفر" hint="۱ تا ۹ نفر" />
+      <NumberInput label="بودجه" min={0} step={100_000} defaultValue={1_500_000} thousands unit="تومان" />
+    </div>
+  );
+};
+
+export const PopoverDemo = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="demo-row">
+      <Popover open={open} onOpenChange={setOpen} title="فیلتر سفارش‌ها" trigger={<Button iconStart={<FilterIcon />}>فیلتر</Button>}>
+        <div className="demo-stack">
+          <Checkbox label="پرداخت‌شده" defaultChecked />
+          <Checkbox label="در انتظار ارسال" />
+          <Checkbox label="لغوشده" />
+          <div className="demo-row">
+            <Button size="sm" variant="primary" onClick={() => setOpen(false)}>اعمال</Button>
+            <Button size="sm" onClick={() => setOpen(false)}>انصراف</Button>
+          </div>
+        </div>
+      </Popover>
+      <Popover placement="bottom-end" aria-label="دربارهٔ کارمزد" trigger={<Button variant="tertiary">کارمزد چطور محاسبه می‌شود؟</Button>}>
+        کارمزد هر تراکنش ۱٪ مبلغ است و حداکثر ۴۰ هزار تومان.
+      </Popover>
+    </div>
+  );
+};
+
+export const DateRangeDemo = () => {
+  const [r, setR] = useState<DateRange>({ start: null, end: null });
+  return (
+    <div className="demo-stack">
+      <DateRangePicker label="بازهٔ گزارش" name="period" value={r} onChange={setR} max={new Date()} />
+      <Out>{r.start && r.end ? `مقدار ارسالی فرم: period_start=${toISODate(r.start)}، period_end=${toISODate(r.end)}` : "هنوز بازه‌ای انتخاب نشده."}</Out>
+    </div>
+  );
+};
+
+const Spark = ({ points, tone = "brand" }: { points: number[]; tone?: "brand" | "error" }) => {
+  const max = Math.max(...points), min = Math.min(...points);
+  const d = points.map((p, i) => `${(i / (points.length - 1)) * 100},${28 - ((p - min) / (max - min || 1)) * 24}`).join(" ");
+  return (
+    <svg viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true" style={{ inlineSize: "100%", blockSize: 36, color: `var(--k-text-${tone === "brand" ? "brand" : "error"})` }}>
+      <polyline points={d} fill="none" stroke="currentColor" strokeWidth={2} vectorEffect="non-scaling-stroke" strokeLinejoin="round" strokeLinecap="round" />
+    </svg>
+  );
+};
+
+export const StatDemo = () => (
+  <StatGrid>
+    <StatCard label="فروش این ماه" value={formatNumber(184_500_000)} unit="تومان" icon={<WalletIcon />} change={12.4} caption="نسبت به ماه قبل">
+      <Spark points={[4, 6, 5, 8, 7, 9, 12]} />
+    </StatCard>
+    <StatCard label="کاربران فعال" value={formatNumber(3_820)} unit="نفر" icon={<UsersIcon />} change={-2} caption="نسبت به هفتهٔ قبل">
+      <Spark points={[9, 8, 9, 7, 8, 7, 6]} tone="error" />
+    </StatCard>
+    <StatCard label="نرخ خطا" value="۰٫۸٪" icon={<ChartIcon />} change={-35} invertTrend caption="کاهش خطا خوب است" />
+  </StatGrid>
+);
+
+const ago = (m: number) => new Date(Date.now() - m * 60_000);
+
+export const TimelineDemo = () => (
+  <Timeline
+    items={[
+      { title: <><strong>سارا محمدی</strong> سفارش را تأیید کرد</>, time: ago(4), tone: "success", icon: <CheckIcon /> },
+      { title: <><strong>رضا کریمی</strong> نظر گذاشت</>, time: ago(52), icon: <Avatar name="رضا کریمی" size="sm" />, content: "بسته‌بندی را دوبل کنید؛ کالا شکستنی است." },
+      { title: <>فاکتور <strong>#۱۲۸۴</strong> صادر شد</>, time: ago(60 * 26), tone: "brand", icon: <InboxIcon /> },
+      { title: "سفارش ثبت شد", time: ago(60 * 30) },
+    ]}
+  />
+);
+
+export const SideNavDemo = () => {
+  const [collapsed, setCollapsed] = useState(false);
+  return (
+    <div className="demo-stack" style={{ alignItems: "flex-start" }}>
+      <Switch label="جمع کردن منو" checked={collapsed} onChange={(e) => setCollapsed(e.currentTarget.checked)} />
+      <div style={{ blockSize: 460, display: "flex", border: "1px solid var(--k-border-secondary)", borderRadius: "var(--k-radius-xl)", overflow: "hidden" }}>
+        <SideNav
+          collapsed={collapsed}
+          header={<strong>{collapsed ? "ک" : "پنل کاشی"}</strong>}
+          sections={[
+            { items: [
+              { label: "داشبورد", href: "#", icon: <HomeIcon />, current: true },
+              { label: "صندوق ورودی", href: "#", icon: <InboxIcon />, badge: <Badge size="sm" tone="brand">۱۲</Badge> },
+              { label: "گزارش‌ها", icon: <ChartIcon />, items: [{ label: "فروش", href: "#" }, { label: "کاربران", href: "#" }] },
+            ] },
+            { label: "مدیریت", items: [
+              { label: "تیم", href: "#", icon: <UsersIcon /> },
+              { label: "تنظیمات", href: "#", icon: <SettingsIcon /> },
+            ] },
+          ]}
+          footer={<Avatar name="سپنتا پویا" size="sm" />}
+        />
+      </div>
+    </div>
+  );
+};

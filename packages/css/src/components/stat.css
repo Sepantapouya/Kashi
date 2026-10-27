@@ -1,0 +1,58 @@
+/* کارت آمار (KPI) */
+.k-stat {
+  position: relative;
+  display: grid;
+  gap: var(--k-space-4);
+  align-content: start;
+  padding: var(--k-stat-padding, var(--k-space-5) var(--k-space-6));
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-xl);
+  background: var(--k-bg-elevated);
+  box-shadow: var(--k-shadow-xs), var(--k-highlight);
+}
+.k-stat__head { display: flex; align-items: center; gap: var(--k-space-3); }
+.k-stat__label { margin: 0; color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); line-height: 1.5; }
+.k-stat__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+  border: 1px solid var(--k-border-primary);
+  border-radius: var(--k-radius-lg);
+  background: var(--k-bg-primary);
+  color: var(--k-text-secondary);
+  box-shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic);
+}
+.k-stat__icon svg { inline-size: 1.25rem; block-size: 1.25rem; }
+.k-stat__body { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--k-space-2) var(--k-space-4); }
+/* ارقام فارسی با عرض ثابت (tabular-nums) از هم فاصله می‌گیرند؛ عرض طبیعی خواناتر است */
+.k-stat__value {
+  display: flex;
+  align-items: baseline;
+  gap: var(--k-space-1_5);
+  margin: 0;
+  color: var(--k-text-primary);
+  font-size: var(--k-stat-value-size, var(--k-text-3xl));
+  font-weight: var(--k-weight-semibold);
+  line-height: 1.15;
+  font-variant-numeric: proportional-nums;
+}
+.k-stat__unit { color: var(--k-text-tertiary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); }
+.k-stat__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-2); color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+.k-stat__chart { margin-block-start: calc(var(--k-space-2) * -1); }
+.k-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.125rem 0.5rem 0.125rem 0.375rem;
+  border-radius: var(--k-radius-full);
+  font-size: var(--k-text-xs);
+  font-weight: var(--k-weight-semibold);
+  line-height: 1.5;
+}
+.k-trend svg { inline-size: 0.875rem; block-size: 0.875rem; }
+.k-trend--up { background: var(--k-bg-success-subtle); color: var(--k-text-success); }
+.k-trend--down { background: var(--k-bg-error-subtle); color: var(--k-text-error); }
+.k-trend--flat { background: var(--k-bg-secondary); color: var(--k-text-tertiary); }
+.k-stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: var(--k-space-4); }

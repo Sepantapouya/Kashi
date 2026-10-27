@@ -1,0 +1,35 @@
+---
+layout: ../../../layouts/Docs.astro
+title: خط زمانی
+description: نمایش رویدادها و فعالیت‌ها به ترتیب زمان، مثل تاریخچهٔ سفارش یا فعالیت تیم.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { TimelineDemo } from "../../../components/demos";
+
+```tsx
+import { Timeline } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo align="start" html={false} code={`<Timeline items={[
+  { title: <><strong>سارا محمدی</strong> سفارش را تأیید کرد</>, time: new Date(…), tone: "success", icon: <CheckIcon /> },
+  { title: <><strong>رضا کریمی</strong> نظر گذاشت</>, time: new Date(…), icon: <Avatar name="رضا کریمی" size="sm" />,
+    content: "بسته‌بندی را دوبل کنید؛ کالا شکستنی است." },
+  { title: "سفارش ثبت شد", time: "۱۲ آبان، ۱۰:۲۰" },
+]} />`}>
+  <TimelineDemo client:only="react" />
+</Demo>
+
+اگر `time` از نوع `Date` باشد، به شکل نسبی («۵ دقیقه پیش») با `RelativeTime` نمایش داده و خودکار به‌روز می‌شود؛ متن هم می‌توانید بدهید.
+
+<Props rows={[
+  ["items", "{ id?, title, time?, icon?, tone?, content? }[]", "", "رویدادها به ترتیب نمایش"],
+  ["items[].tone", '"neutral" | "brand" | "success" | "error"', '"neutral"', "رنگ نشانگر"],
+  ["digits", '"fa" | "latin"', '"fa"', "ارقام زمان نسبی"],
+]} />
+
+## دسترس‌پذیری
+
+فهرست مرتب `<ol>` است، پس صفحه‌خوان تعداد و ترتیب رویدادها را می‌گوید. نشانگرها تزئینی‌اند و زمان در عنصر `<time>` با تاریخ دقیق است.

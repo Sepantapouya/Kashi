@@ -1,5 +1,17 @@
 # @kashi-ui/css
 
+## 0.9.0
+
+### Minor Changes
+
+- ۱۱ کامپوننت تازه: Combobox (جستجو با یکدست‌سازی فارسی)، CommandPalette (Ctrl+K)، TagInput، FileUpload (کشیدن و رها کردن با پیشرفت)، Slider (تکی و بازه)، NumberInput، Popover، DateRangePicker شمسی با میان‌برها، StatCard و StatGrid، Timeline و SideNav. Calendar حالا بازه را با پیش‌نمایش نشان می‌دهد.
+
+### Patch Changes
+
+- 03a121a: رفع پرش انیمیشن Progress دایره‌ایِ نامعین (چرخش حالا روی ظرف است، نه svg)، و حذف قواعد تکراری‌ای که به اشتباه داخل بخش‌های forced-colors و prefers-reduced-motion کپی شده بودند (avatar، input، progress).
+- Updated dependencies
+  - @kashi-ui/tokens@0.9.0
+
 ## 0.8.0
 
 ### Minor Changes

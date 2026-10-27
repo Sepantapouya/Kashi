@@ -1,0 +1,20 @@
+/* ورودی عدد با دکمه‌های افزایش و کاهش */
+.k-number .k-input { padding-inline: var(--k-space-1); }
+.k-number .k-input__control { text-align: center; }
+.k-number__step {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: 2.25rem;
+  block-size: calc(100% - 0.5rem);
+  min-block-size: 2rem;
+  border: 0;
+  border-radius: var(--k-radius-sm);
+  background: none;
+  color: var(--k-text-secondary);
+  cursor: pointer;
+}
+.k-number__step:hover:not(:disabled) { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-number__step:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-number__step:disabled { color: var(--k-text-quaternary); cursor: not-allowed; }
+.k-number__step svg { inline-size: 1rem; block-size: 1rem; }

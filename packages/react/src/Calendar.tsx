@@ -57,6 +57,8 @@ export interface CalendarProps {
   labels?: CalendarLabels;
   /** محتوای پایین تقویم، مثل دکمهٔ «امروز» */
   footer?: ReactNode;
+  /** حالت بازه: روزهای بین start و end برجسته می‌شوند؛ با start بدون end، hover پیش‌نمایش می‌دهد */
+  range?: { start: Date | null; end: Date | null };
   className?: string;
   "aria-label"?: string;
 }
@@ -64,13 +66,14 @@ export interface CalendarProps {
 /** تقویم شمسی با الگوی grid استاندارد WAI-ARIA و پیمایش کامل با کیبورد */
 export function Calendar({
   value, defaultValue = null, onChange, min, max, isDateDisabled, digits = "fa", autoFocus = false,
-  yearRange, labels = {}, footer, className, "aria-label": ariaLabel = "تقویم",
+  yearRange, labels = {}, footer, range, className, "aria-label": ariaLabel = "تقویم",
 }: CalendarProps) {
   const id = useId();
   const [inner, setInner] = useState<Date | null>(defaultValue);
   const selected = value !== undefined ? value : inner;
   const [today] = useState(() => startOfDay(new Date()));
-  const [focused, setFocused] = useState<Date>(() => clamp(startOfDay(selected ?? today), min, max));
+  const [focused, setFocused] = useState<Date>(() => clamp(startOfDay(range?.start ?? selected ?? today), min, max));
+  const [hover, setHover] = useState<Date | null>(null);
   const moveFocus = useRef(autoFocus);
   const grid = useRef<HTMLTableElement>(null);
   const n = (v: number) => (digits === "fa" ? toFaDigits(v) : String(v));
@@ -198,10 +201,24 @@ export function Calendar({
             <tr key={wi}>
               {week.map((d, di) => {
                 if (!d) return <td key={di} role="gridcell" />;
-                const isSelected = sameDay(d, selected);
                 const isDisabled = disabled(d);
+                // حالت بازه
+                const rs = range?.start ? startOfDay(range.start) : null;
+                const re = range?.end ? startOfDay(range.end) : null;
+                const previewEnd = rs && !re && hover ? hover : null;
+                const [lo, hi] = rs && (re || previewEnd) ? [rs, (re ?? previewEnd)!].sort((a, b) => +a - +b) : [null, null];
+                const inRange = !!lo && !!hi && d >= lo && d <= hi;
+                const isSelected = range ? inRange || sameDay(d, rs) : sameDay(d, selected);
                 return (
-                  <td key={di} role="gridcell" aria-selected={isSelected}>
+                  <td
+                    key={di}
+                    role="gridcell"
+                    aria-selected={isSelected}
+                    data-in-range={range && inRange && re ? "" : undefined}
+                    data-preview={range && inRange && !re ? "" : undefined}
+                    data-range-start={range && (lo ? sameDay(d, lo) : sameDay(d, rs)) ? "" : undefined}
+                    data-range-end={range && (hi ? sameDay(d, hi) : sameDay(d, rs)) ? "" : undefined}
+                  >
                     <button
                       type="button"
                       className="k-calendar__day"
@@ -215,6 +232,8 @@ export function Calendar({
                         select(d);
                       }}
                       onKeyDown={onKeyDown}
+                      onPointerEnter={range ? () => setHover(d) : undefined}
+                      onFocus={range ? () => setHover(d) : undefined}
                     >
                       {n(toJalali(d).jd)}
                     </button>

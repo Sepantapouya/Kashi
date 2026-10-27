@@ -1,0 +1,44 @@
+---
+layout: ../../../layouts/Docs.astro
+title: ورودی عدد
+description: فیلد عدد با دکمه‌های افزایش و کاهش، محدودهٔ مجاز و ارقام فارسی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { NumberInputDemo } from "../../../components/demos";
+
+```tsx
+import { NumberInput } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<NumberInput label="تعداد مسافر" min={1} max={9} value={n} onChange={setN} unit="نفر" />
+<NumberInput label="بودجه" min={0} step={100_000} defaultValue={1_500_000} thousands unit="تومان" />`}>
+  <NumberInputDemo client:load />
+</Demo>
+
+کاربر می‌تواند با ارقام فارسی یا انگلیسی تایپ کند. هنگام تایپ عدد محدود نمی‌شود تا عدد نیمه‌کاره پاک نشود؛ با خروج از فیلد به محدودهٔ `min` و `max` برمی‌گردد.
+
+<Props rows={[
+  ["value / defaultValue", "number | null", "null", ""],
+  ["onChange", "(value: number | null) => void", "", ""],
+  ["min / max", "number", "", "محدودهٔ مجاز"],
+  ["step", "number", "1", "گام دکمه‌ها و کلیدهای جهت"],
+  ["thousands", "boolean", "false", "جداکنندهٔ هزارگان"],
+  ["digits", '"fa" | "latin"', '"fa"', "ارقام نمایش"],
+  ["unit", "ReactNode", "", "واحد کنار عدد"],
+  ["labels", "{ increment?, decrement? }", "«افزایش»، «کاهش»", "نام دکمه‌ها"],
+]} />
+
+## کیبورد
+
+| کلید | عمل |
+|---|---|
+| <kbd>↑</kbd> / <kbd>↓</kbd> | یک گام بیشتر / کمتر |
+| <kbd>PageUp</kbd> / <kbd>PageDown</kbd> | ده گام |
+| <kbd>Home</kbd> / <kbd>End</kbd> | کمینه / بیشینه |
+
+## دسترس‌پذیری
+
+فیلد `role="spinbutton"` با `aria-valuenow`، `aria-valuemin` و `aria-valuemax` است. دکمه‌های + و − از ترتیب Tab بیرون‌اند (کلیدهای جهت همان کار را می‌کنند) و در مرز محدوده غیرفعال می‌شوند.

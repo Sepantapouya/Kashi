@@ -1,0 +1,45 @@
+---
+layout: ../../../layouts/Docs.astro
+title: بارگذاری فایل
+description: کشیدن و رها کردن یا انتخاب فایل، با بررسی نوع و حجم و نوار پیشرفت هر فایل.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { FileUploadDemo } from "../../../components/demos";
+
+```tsx
+import { FileUpload } from "@kashi-ui/react";
+```
+
+## نمونه
+
+فایلی که نامش «خطا» دارد، در این نمونه با شکست روبه‌رو می‌شود.
+
+<Demo html={false} code={`<FileUpload
+  accept="image/png,image/jpeg,application/pdf"
+  maxSize={5 * 1024 * 1024}
+  maxFiles={4}
+  hint="PNG، JPG یا PDF؛ هر فایل تا ۵ مگابایت"
+  uploader={(file, onProgress) => upload(file, { onProgress })}
+/>`}>
+  <FileUploadDemo client:load />
+</Demo>
+
+`uploader` هر فایل را می‌گیرد و یک Promise برمی‌گرداند؛ با `onProgress(درصد)` نوار پیشرفت به‌روز می‌شود. بدون `uploader`، فایل‌ها فقط فهرست می‌شوند و با `onFilesChange` به شما می‌رسند (یا با `name` در فرم ارسال می‌شوند).
+
+<Props rows={[
+  ["accept", "string", "", "مثل input بومی"],
+  ["multiple", "boolean", "true", ""],
+  ["maxSize", "number", "", "بیشترین حجم هر فایل به بایت"],
+  ["maxFiles", "number", "", "بیشترین تعداد"],
+  ["uploader", "(file, onProgress) => Promise<void>", "", "بارگذاری هر فایل"],
+  ["onFilesChange", "(items: FileItem[]) => void", "", "وضعیت همهٔ فایل‌ها"],
+  ["hint", "ReactNode", "", "متن راهنما داخل ناحیه"],
+  ["labels", "{ browse?, drop?, tooBig?, wrongType?, tooMany?, … }", "", "متن‌ها"],
+]} />
+
+تابع `formatBytes` حجم را فارسی می‌نویسد: `formatBytes(1536)` ← «۱٫۵ کیلوبایت».
+
+## دسترس‌پذیری
+
+ناحیهٔ رها کردن یک دکمهٔ واقعی «انتخاب فایل» دارد، پس بدون موس هم کار می‌کند. هر فایل نام، حجم و وضعیتش را با متن نشان می‌دهد (نه فقط رنگ) و دکمهٔ حذف آن «حذف نام‌فایل» نام دارد. پایان بارگذاری و خطاها با `aria-live` اعلام می‌شوند.

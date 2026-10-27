@@ -1,0 +1,45 @@
+---
+layout: ../../../layouts/Docs.astro
+title: ورودی برچسب
+description: نوشتن چند مقدار در یک فیلد، مثل مهارت‌ها، برچسب‌ها یا گیرندگان ایمیل.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { TagInputDemo, TagInputEmailDemo } from "../../../components/demos";
+
+```tsx
+import { TagInput } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`const [tags, setTags] = useState(["طراحی", "React"]);
+
+<TagInput label="مهارت‌ها" value={tags} onChange={setTags} max={5}
+  hint="با Enter یا ویرگول جدا کنید؛ حداکثر ۵ مورد." />`}>
+  <TagInputDemo client:load />
+</Demo>
+
+با <kbd>Enter</kbd>، ویرگول انگلیسی و ویرگول فارسی «،» برچسب ساخته می‌شود؛ متن چسبانده‌شده هم جدا می‌شود. <kbd>Backspace</kbd> در فیلد خالی آخرین برچسب را حذف می‌کند.
+
+## اعتبارسنجی
+
+<Demo html={false} code={`<TagInput label="گیرندگان" tone="neutral"
+  validate={(t) => (isEmail(t) ? undefined : "این ایمیل معتبر نیست.")} />`}>
+  <TagInputEmailDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["value / defaultValue", "string[]", "[]", "برچسب‌ها"],
+  ["onChange", "(tags: string[]) => void", "", ""],
+  ["separators", "string[]", '["Enter", ",", "،"]', "کلیدهای جداکننده"],
+  ["validate", "(tag) => string | undefined", "", "پیام خطا برای برچسب نامعتبر"],
+  ["max", "number", "", "بیشترین تعداد"],
+  ["allowDuplicates", "boolean", "false", ""],
+  ["tone", "BadgeTone", '"brand"', "رنگ برچسب‌ها"],
+  ["name", "string", "", "یک فیلد پنهان برای هر برچسب"],
+]} />
+
+## دسترس‌پذیری
+
+هر برچسب دکمهٔ حذف با نام «حذف React» دارد. افزودن، حذف و خطاها (تکراری، بیش از حد مجاز) با `aria-live` اعلام می‌شوند و پیام خطا به فیلد وصل است.

@@ -1,5 +1,19 @@
 # @kashi-ui/react
 
+## 0.9.0
+
+### Minor Changes
+
+- ۱۱ کامپوننت تازه: Combobox (جستجو با یکدست‌سازی فارسی)، CommandPalette (Ctrl+K)، TagInput، FileUpload (کشیدن و رها کردن با پیشرفت)، Slider (تکی و بازه)، NumberInput، Popover، DateRangePicker شمسی با میان‌برها، StatCard و StatGrid، Timeline و SideNav. Calendar حالا بازه را با پیش‌نمایش نشان می‌دهد.
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies [03a121a]
+  - @kashi-ui/persian@0.9.0
+  - @kashi-ui/bank-logos@0.9.0
+  - @kashi-ui/css@0.9.0
+
 ## 0.8.0
 
 ### Minor Changes
