@@ -6,9 +6,10 @@
  * خطا: aria-invalid="true" روی input — اندازه‌ها: k-input--sm | k-input--lg
  *
  * متغیرها: --k-input-height-{sm,md,lg}  --k-input-radius  --k-input-bg  --k-input-border
+ * ارتفاع‌ها با دکمه یکی است (۳۶، ۴۰، ۴۴ پیکسل) تا فیلد و دکمه در یک ردیف هم‌قد باشند.
  */
 .k-input {
-  --_h: var(--k-input-height-md, calc(2.75rem * var(--k-density)));
+  --_h: var(--k-input-height-md, calc(2.5rem * var(--k-density)));
   --_border: var(--k-input-border, var(--k-border-input));
   --_ring: var(--k-ring-brand);
 
@@ -103,8 +104,8 @@
 .k-input--textarea { align-items: stretch; padding-block: calc(0.625rem * var(--k-density)); }
 .k-input--textarea .k-input__control { min-block-size: 5lh; resize: vertical; line-height: var(--k-leading-normal); }
 
-.k-input--sm { --_h: var(--k-input-height-sm, calc(2.5rem * var(--k-density))); }
-.k-input--lg { --_h: var(--k-input-height-lg, calc(3rem * var(--k-density))); }
+.k-input--sm { --_h: var(--k-input-height-sm, calc(2.25rem * var(--k-density))); }
+.k-input--lg { --_h: var(--k-input-height-lg, calc(2.75rem * var(--k-density))); }
 
 @media (forced-colors: active) {
   .k-input { border-color: FieldText; }

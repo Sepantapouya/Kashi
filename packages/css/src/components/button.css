@@ -49,6 +49,9 @@
 }
 
 .k-btn:hover { background: var(--_bg-hover); color: var(--_fg-hover); }
+/* حالت فشرده: کمی تیره‌تر، بدون جابه‌جایی که چشم را اذیت کند */
+.k-btn:active:not(:disabled, [aria-disabled="true"]) { background: color-mix(in srgb, var(--_bg-hover), #000 8%); }
+.k-btn:is(.k-btn--tertiary, .k-btn--link):active:not(:disabled) { background: var(--_bg-hover); }
 
 .k-btn:focus-visible {
   /* outline شفاف در حالت forced-colors ویندوز قابل‌مشاهده می‌شود */
@@ -81,7 +84,7 @@
   content: "";
   position: absolute;
   inset: 1px;
-  border: 1px solid rgb(255 255 255 / var(--k-btn-highlight, 0.14));
+  border: 1px solid rgb(255 255 255 / var(--k-btn-highlight, 0.12));
   border-radius: inherit;
   mask: linear-gradient(to bottom, #000, transparent);
   pointer-events: none;

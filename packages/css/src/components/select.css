@@ -3,12 +3,12 @@
  * اندازه‌ها: k-select--sm | k-select--lg — خطا: aria-invalid="true"
  */
 .k-select {
-  --_h: var(--k-input-height-md, calc(2.75rem * var(--k-density)));
+  --_h: var(--k-input-height-md, calc(2.5rem * var(--k-density)));
   position: relative;
   display: flex;
 }
-.k-select--sm { --_h: var(--k-input-height-sm, calc(2.5rem * var(--k-density))); }
-.k-select--lg { --_h: var(--k-input-height-lg, calc(3rem * var(--k-density))); }
+.k-select--sm { --_h: var(--k-input-height-sm, calc(2.25rem * var(--k-density))); }
+.k-select--lg { --_h: var(--k-input-height-lg, calc(2.75rem * var(--k-density))); }
 
 .k-select__control {
   appearance: none;

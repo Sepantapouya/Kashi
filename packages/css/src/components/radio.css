@@ -37,6 +37,7 @@
 .k-radio:hover:not(:disabled) { --_border: var(--k-border-brand); box-shadow: 0 0 0 4px var(--k-bg-hover); }
 .k-radio:checked { --_border: var(--k-bg-brand); background: var(--k-bg-brand); }
 .k-radio:checked::before { scale: 1; }
+.k-radio:checked:hover:not(:disabled) { --_border: var(--k-bg-brand-hover); background: var(--k-bg-brand-hover); }
 .k-radio:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
 .k-radio[aria-invalid="true"] { --_border: var(--k-border-error); }
 .k-radio:disabled { --_border: var(--k-border-secondary); background: var(--k-bg-tertiary); cursor: not-allowed; }

@@ -53,6 +53,7 @@
   background: var(--k-bg-brand);
 }
 .k-checkbox:is(:checked, :indeterminate)::before { scale: 1; }
+.k-checkbox:is(:checked, :indeterminate):hover:not(:disabled) { --_border: var(--k-bg-brand-hover); background: var(--k-bg-brand-hover); }
 
 .k-checkbox:focus-visible {
   outline: 2px solid transparent;
