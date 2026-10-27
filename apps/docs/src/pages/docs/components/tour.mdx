@@ -1,0 +1,34 @@
+---
+layout: ../../../layouts/Docs.astro
+title: راهنمای قدم‌به‌قدم
+description: معرفی بخش‌های تازهٔ محصول به کاربر، مرحله به مرحله، با روشن کردن همان بخش.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { TourDemo } from "../../../components/demos";
+
+```tsx
+import { Tour } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<Tour open={open} onOpenChange={setOpen} steps={[
+  { target: "#search", title: "جستجوی سریع", content: "نام مشتری یا شمارهٔ سفارش را بنویسید." },
+  { target: "#export", title: "خروجی اکسل", content: "فهرست فیلترشده را دانلود کنید." },
+]} />`}>
+  <TourDemo client:load />
+</Demo>
+
+راهنما را کوتاه نگه دارید (سه تا پنج مرحله) و همیشه امکان «رد کردن» بدهید. بهتر است فقط یک بار، برای کاربر تازه یا بخش تازه، نمایش داده شود.
+
+<Props rows={[
+  ["steps", "{ target, title, content }[]", "", "target یک CSS selector است"],
+  ["open / onOpenChange", "boolean / (open) => void", "", ""],
+  ["onFinish", "() => void", "", "پس از آخرین مرحله"],
+  ["labels", "{ next?, prev?, done?, skip?, step? }", "", "متن دکمه‌ها"],
+]} />
+
+## دسترس‌پذیری
+
+هر مرحله یک `role="dialog"` غیرمودال با عنوان و توضیح است و فوکوس به آن می‌رود. <kbd>Esc</kbd> می‌بندد، ←→ بین مرحله‌ها حرکت می‌کند و پس از پایان فوکوس به جای قبلی برمی‌گردد.

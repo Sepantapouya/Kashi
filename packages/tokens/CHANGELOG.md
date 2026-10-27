@@ -1,5 +1,11 @@
 # @kashi-ui/tokens
 
+## 0.13.0
+
+### Minor Changes
+
+- کامپوننت‌های تازه: Carousel (روی scroll-snap بومی، بدون چرخش خودکار)، ColorPicker (با کنتراست متن و `contrastRatio`)، Tour (راهنمای قدم‌به‌قدم)، Meter (`role="meter"` با آستانهٔ هشدار) و Splitter (پنل‌های قابل‌تغییر اندازه با کیبورد). Calendar حالا `holidays` می‌گیرد و جمعه‌ها و تعطیلات رسمی را قرمز و با نام نشان می‌دهد؛ `getIranHoliday` و `IRAN_FIXED_HOLIDAYS` در `@kashi-ui/persian`. رفع رنگ تیک نمونه‌رنگ‌ها.
+
 ## 0.12.0
 
 ### Minor Changes

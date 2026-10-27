@@ -1,0 +1,32 @@
+---
+layout: ../../../layouts/Docs.astro
+title: انتخاب رنگ
+description: انتخاب رنگ برند یا برچسب با نمونه‌رنگ‌ها، کد hex و انتخابگر بومی، همراه کنتراست متن.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { ColorPickerDemo } from "../../../components/demos";
+
+```tsx
+import { ColorPicker } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<ColorPicker label="رنگ برند" value={color} onChange={setColor} name="brand" />`}>
+  <ColorPickerDemo client:load />
+</Demo>
+
+زیر انتخابگر، کنتراست رنگ با متن سفید یا مشکی (هر کدام بهتر است) نمایش داده می‌شود تا رنگی انتخاب نشود که متن روی آن خوانا نباشد. تابع `contrastRatio` هم صادر شده است.
+
+<Props rows={[
+  ["value / defaultValue", "string", '"#0b8077"', "رنگ hex"],
+  ["onChange", "(hex: string) => void", "", ""],
+  ["swatches", "{ name, value }[]", "رنگ‌های کاشی", "نمونه‌رنگ‌ها؛ [] برای حذف"],
+  ["showContrast", "boolean", "true", "نمایش کنتراست متن"],
+  ["name", "string", "", "فیلد پنهان برای فرم"],
+]} />
+
+## دسترس‌پذیری
+
+نمونه‌رنگ‌ها رادیوهای بومی با نام فارسی هستند («فیروزه‌ای»)، نه فقط یک خانهٔ رنگی. کد hex یک فیلد متنی معمولی است، پس کاربر صفحه‌خوان هم می‌تواند رنگ دقیق را وارد کند.

@@ -2,7 +2,7 @@
 import type { ReactNode } from "react";
 import {
   Accordion, AccordionItem, Alert, Avatar, AvatarGroup, Badge, Banner, Breadcrumb, Button, ButtonGroup, Calendar, Card, CardBody, CardDescription,
-  CardHeader, CardTitle, CardNumberInput, BarChart, ActivityHeatmap, Checkbox, ChipGroup, Countdown, Divider, EmptyState, IbanInput, Input, Kbd, MobileInput, NationalIdInput,
+  CardHeader, CardTitle, CardNumberInput, BarChart, ActivityHeatmap, Meter, Checkbox, ChipGroup, Countdown, Divider, EmptyState, IbanInput, Input, Kbd, MobileInput, NationalIdInput,
   NumberInput, OtpInput, Pagination, PasswordStrength, PlateInput, PostalCodeInput, PriceInput, Progress, Radio, RadioGroup, Rating,
   SegmentedControl, Select, Skeleton, Slider, StatCard, Stepper, Switch, Tab, TabList, Tabs, TagInput, Textarea, Timeline,
 } from "@kashi-ui/react";
@@ -81,6 +81,11 @@ export const previews: Record<string, ReactNode> = {
   province: <Box cls="pv--field"><div className="k-input"><input className="k-input__control" defaultValue="مشه" readOnly /></div><ul className="k-listbox k-listbox--inline pv-list"><li className="k-option" data-active=""><span className="k-option__body"><span>خراسان رضوی</span><span className="k-option__desc">مرکز: <mark>مشه</mark>د</span></span></li></ul></Box>,
   charts: <Box cls="pv--field"><BarChart title="فروش" data={[3, 5, 4, 7, 6, 9, 8].map((v, i) => ({ label: String(i + 1), value: v }))} labelMax={false} height="6rem" /></Box>,
   "context-menu": <Box><div className="pv-ctx"><span className="pv-muted">راست‌کلیک</span><div className="k-menu pv-menu" role="presentation"><div className="k-menu__item">باز کردن</div><div className="k-menu__item" data-active="">تغییر نام</div><div className="k-menu__separator" /><div className="k-menu__item k-menu__item--danger">حذف</div></div></div></Box>,
+  meter: <Box cls="pv--field"><Meter label="فضای ذخیره" value={8.6} max={10} format={(n) => `${n.toLocaleString("fa")} گیگ`} /></Box>,
+  carousel: <Box cls="pv--col pv--field"><div className="pv-car">{["#0b8077", "#2740ed", "#dd5e02"].map((c) => <span key={c} style={{ background: c }} />)}</div><div className="k-carousel__dots" style={{ justifyContent: "center" }}><span className="k-carousel__dot" aria-current="true" /><span className="k-carousel__dot" /><span className="k-carousel__dot" /></div></Box>,
+  "color-picker": <Box cls="pv--col"><div className="k-color__swatches">{["#0b8077", "#2740ed", "#7c3aed", "#e51d2a", "#dd5e02"].map((c, i) => <span key={c} className="k-color__swatch" style={{ "--_sw": c, boxShadow: i === 0 ? `0 0 0 2px var(--k-bg-primary), 0 0 0 4px ${c}` : undefined } as React.CSSProperties} />)}</div><span className="pv-muted" dir="ltr">#0b8077</span></Box>,
+  tour: <Box><div className="pv-tour"><span className="pv-tour__spot"><Button size="sm">خروجی اکسل</Button></span><div className="k-tour__card pv-static"><span className="k-tour__step">مرحلهٔ ۲ از ۳</span><p className="k-tour__title">خروجی اکسل</p></div></div></Box>,
+  splitter: <Box cls="pv--field"><div className="k-splitter" style={{ blockSize: "6rem" }}><div className="k-splitter__pane" style={{ inlineSize: "40%", padding: 8 }}><span className="pv-muted">فهرست</span></div><div className="k-splitter__handle" /><div className="k-splitter__pane" style={{ padding: 8 }}><span className="pv-muted">پیش‌نمایش</span></div></div></Box>,
   "inline-edit": <Box><span className="k-inline-edit"><span className="k-inline-edit__view pv-ie"><strong>بازطراحی فروشگاه</strong><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m13.5 3.5 3 3L7 16H4v-3Z" /></svg></span></span></Box>,
   landline: <Box cls="pv--field"><Input aria-label="تلفن" defaultValue="۰۲۱ ۸۸۷۷ ۶۶۵۵" dir="ltr" addonEnd={<span className="k-input__meta">تهران</span>} /></Box>,
 };

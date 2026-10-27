@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import {
   JALALI_MONTHS, WEEKDAYS, WEEKDAYS_SHORT,
-  formatJalali, jalaliMonthLength, jalaliWeekday, toFaDigits, toGregorian, toJalali,
+  formatJalali, getIranHoliday, jalaliMonthLength, jalaliWeekday, toFaDigits, toGregorian, toJalali,
 } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
 
@@ -48,6 +48,11 @@ export interface CalendarProps {
   max?: Date;
   /** غیرفعال کردن روزهای خاص، مثلاً جمعه‌ها */
   isDateDisabled?: (date: Date) => boolean;
+  /**
+   * نمایش تعطیلات: true برای جمعه‌ها و تعطیلات ثابت ایران،
+   * یا تابعی که نام تعطیلی آن روز (یا null) را برمی‌گرداند، مثلاً با getIranHoliday و تعطیلات قمری همان سال
+   */
+  holidays?: boolean | ((date: Date) => string | null | false | undefined);
   /** @default "fa" */
   digits?: "fa" | "latin";
   /** فوکوس روی روز انتخاب‌شده (یا امروز) هنگام نمایش */
@@ -65,7 +70,7 @@ export interface CalendarProps {
 
 /** تقویم شمسی با الگوی grid استاندارد WAI-ARIA و پیمایش کامل با کیبورد */
 export function Calendar({
-  value, defaultValue = null, onChange, min, max, isDateDisabled, digits = "fa", autoFocus = false,
+  value, defaultValue = null, onChange, min, max, isDateDisabled, holidays, digits = "fa", autoFocus = false,
   yearRange, labels = {}, footer, range, className, "aria-label": ariaLabel = "تقویم",
 }: CalendarProps) {
   const id = useId();
@@ -209,6 +214,7 @@ export function Calendar({
                 const [lo, hi] = rs && (re || previewEnd) ? [rs, (re ?? previewEnd)!].sort((a, b) => +a - +b) : [null, null];
                 const inRange = !!lo && !!hi && d >= lo && d <= hi;
                 const isSelected = range ? inRange || sameDay(d, rs) : sameDay(d, selected);
+                const holiday = holidays === true ? getIranHoliday(d) : holidays ? holidays(d) || null : null;
                 return (
                   <td
                     key={di}
@@ -224,7 +230,9 @@ export function Calendar({
                       className="k-calendar__day"
                       data-day={dayKey(d)}
                       tabIndex={sameDay(d, focused) ? 0 : -1}
-                      aria-label={formatJalali(d, { style: "full", digits })}
+                      aria-label={formatJalali(d, { style: "full", digits }) + (holiday ? `، تعطیل${holiday === "جمعه" ? "" : `: ${holiday}`}` : "")}
+                      title={holiday && holiday !== "جمعه" ? holiday : undefined}
+                      data-holiday={holiday ? "" : undefined}
                       aria-current={sameDay(d, today) ? "date" : undefined}
                       aria-disabled={isDisabled || undefined}
                       onClick={() => {

@@ -204,3 +204,12 @@ test("استان‌ها: ۳۱ استان و هماهنگ با پیش‌شمار�
   assert.equal(P.PROVINCES.length, 31);
   for (const p of P.PROVINCES) assert.equal(P.getLandlineProvince("0" + p.areaCode), p.name);
 });
+
+test("تعطیلات: نوروز، ۲۲ بهمن، جمعه و تعطیلی اضافه", () => {
+  assert.equal(P.getIranHoliday(P.toGregorian(1405, 1, 1)), "عید نوروز");
+  assert.equal(P.getIranHoliday(P.toGregorian(1405, 11, 22)), "پیروزی انقلاب اسلامی");
+  assert.equal(P.getIranHoliday(new Date(2026, 9, 30)), "جمعه"); // جمعه ۸ آبان ۱۴۰۵
+  assert.equal(P.getIranHoliday(new Date(2026, 9, 30), { friday: false }), null);
+  assert.equal(P.getIranHoliday(new Date(2026, 9, 27)), null);
+  assert.equal(P.getIranHoliday(new Date(2026, 2, 20), { extra: { "2026-03-20": "عید فطر" } }), "عید فطر");
+});

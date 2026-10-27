@@ -1,0 +1,16 @@
+/* انتخاب رنگ: نمونه‌رنگ‌ها + فیلد hex + انتخابگر بومی */
+.k-color { display: grid; gap: var(--k-space-3); }
+.k-color__swatches { display: flex; flex-wrap: wrap; gap: var(--k-space-2); }
+.k-color__swatch { position: relative; display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: var(--k-radius-full); background: var(--_sw); box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15); cursor: pointer; transition: scale var(--k-duration-fast) var(--k-ease-emphasized); }
+.k-color__swatch:hover { scale: 1.08; }
+.k-color__swatch:has(:checked) { box-shadow: 0 0 0 2px var(--k-bg-primary), 0 0 0 4px var(--_sw); }
+.k-color__swatch:has(:focus-visible) { box-shadow: 0 0 0 2px var(--k-bg-primary), 0 0 0 4px var(--k-border-brand); }
+.k-color__swatch svg { inline-size: 1rem; block-size: 1rem; color: var(--_ink, #fff); opacity: 0; }
+.k-color__swatch:has(:checked) svg { opacity: 1; }
+.k-color__row { display: flex; align-items: center; gap: var(--k-space-2); }
+.k-color__preview { position: relative; flex-shrink: 0; inline-size: 2.5rem; block-size: 2.5rem; border-radius: var(--k-radius-md); background: var(--_sw); box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.15); overflow: hidden; cursor: pointer; }
+.k-color__preview input { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; opacity: 0; cursor: pointer; }
+.k-color__preview:has(:focus-visible) { box-shadow: var(--k-ring-brand); }
+.k-color__row .k-input { flex: 1; }
+.k-color__contrast { display: flex; flex-wrap: wrap; gap: var(--k-space-2); margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.k-color__sample { display: inline-flex; align-items: center; gap: var(--k-space-1); padding: 0.125rem 0.5rem; border-radius: var(--k-radius-sm); background: var(--_sw); color: var(--_ink); font-weight: var(--k-weight-semibold); }

@@ -6,7 +6,7 @@ description: فیلد تاریخ با تقویم شمسی؛ تایپ مستقی�
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
 import Vars from "../../../components/Vars.astro";
-import { AppointmentDemo, BirthDateDemo, InlineCalendarDemo } from "../../../components/demos";
+import { HolidayDemo, AppointmentDemo, BirthDateDemo, InlineCalendarDemo } from "../../../components/demos";
 
 ```tsx
 import { DatePicker, Calendar } from "@kashi-ui/react";
@@ -102,3 +102,15 @@ import { DatePicker, Calendar } from "@kashi-ui/react";
 ## تبدیل تاریخ
 
 تبدیل شمسی و میلادی با پکیج `@kashi-ui/persian` انجام می‌شود که برای سال‌های ۱۳۰۰ تا ۱۵۰۰، روزبه‌روز با تقویم رسمی ICU تست شده است. [ابزارهای فارسی](/docs/persian/utilities/) را ببینید.
+
+## تعطیلات
+
+با `holidays`، جمعه‌ها و تعطیلات رسمی ثابت (نوروز، ۱۲ و ۱۳ فروردین، ۱۴ و ۱۵ خرداد، ۲۲ بهمن و ۲۹ اسفند) قرمز نمایش داده می‌شوند و نامشان برای صفحه‌خوان خوانده می‌شود. تعطیلات قمری هر سال با رؤیت ماه جابه‌جا می‌شوند، پس آن‌ها را از تقویم رسمی همان سال بدهید:
+
+<Demo html={false} code={`import { getIranHoliday } from "@kashi-ui/persian";
+
+<Calendar holidays /> // فقط جمعه‌ها و تعطیلات ثابت
+
+<Calendar holidays={(d) => getIranHoliday(d, { extra: { "2026-03-20": "عید فطر" } })} />`}>
+  <HolidayDemo client:only="react" />
+</Demo>

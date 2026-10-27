@@ -1,0 +1,16 @@
+/* سنجه (Meter): مقدار در برابر یک سقف، مثل فضای مصرفی */
+.k-meter { display: grid; gap: var(--k-space-2); }
+.k-meter__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--k-space-2); }
+.k-meter__label { color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); }
+.k-meter__value { color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+.k-meter__value span { color: var(--k-text-tertiary); font-weight: var(--k-weight-regular); }
+.k-meter__track { position: relative; block-size: 0.5rem; border-radius: var(--k-radius-full); background: var(--k-bg-tertiary); overflow: hidden; }
+.k-meter__fill { position: absolute; inset-block: 0; inset-inline-start: 0; border-radius: inherit; background: var(--k-bg-brand); transition: inline-size var(--k-duration-slow) var(--k-ease-standard), background-color var(--k-duration-normal); }
+.k-meter[data-status="warning"] .k-meter__fill { background: var(--k-text-warning); }
+.k-meter[data-status="critical"] .k-meter__fill { background: var(--k-text-error); }
+.k-meter__mark { position: absolute; inset-block: -2px; inline-size: 2px; background: var(--k-bg-primary); }
+.k-meter__status { display: inline-flex; align-items: center; gap: var(--k-space-1); margin: 0; font-size: var(--k-text-xs); color: var(--k-text-tertiary); }
+.k-meter__status svg { inline-size: 0.875rem; block-size: 0.875rem; }
+.k-meter[data-status="warning"] .k-meter__status { color: var(--k-text-warning); }
+.k-meter[data-status="critical"] .k-meter__status { color: var(--k-text-error); }
+@media (forced-colors: active) { .k-meter__track { border: 1px solid CanvasText; } .k-meter__fill { background: Highlight; } }

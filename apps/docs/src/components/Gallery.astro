@@ -14,10 +14,10 @@ const slugOf = (href: string) => href.split("/").filter(Boolean).pop()!;
 // دسته‌بندی بر اساس کاربرد
 const CATEGORIES: Record<"components" | "persian", { key: string; label: string; text?: string; slugs: string[] }[]> = {
   components: [
-    { key: "form", label: "فرم و ورودی", text: "هر چیزی که کاربر با آن داده وارد می‌کند؛ با برچسب، راهنما و پیام خطای فارسی.", slugs: ["button", "input", "select", "checkbox", "radio", "switch", "combobox", "tag-input", "file-upload", "slider", "number-input", "segmented-control", "button-group", "chips", "copy-button", "password-strength", "rating", "inline-edit"] },
-    { key: "data", label: "نمایش داده", text: "جدول، کارت آمار و خط زمانی برای داشبوردها و پنل‌های مدیریت.", slugs: ["charts", "table", "stat-card", "timeline", "card", "badge", "avatar", "tree-view", "progress", "skeleton", "empty-state", "divider"] },
-    { key: "nav", label: "ناوبری", text: "زبانه، منو، صفحه‌بندی و پالت فرمان، همه با پیمایش کامل کیبورد.", slugs: ["tabs", "side-nav", "breadcrumb", "pagination", "stepper", "command-palette", "dropdown-menu", "context-menu", "accordion"] },
-    { key: "feedback", label: "بازخورد و پنجره", text: "پیام‌ها و پنجره‌هایی که فوکوس و صفحه‌خوان را درست مدیریت می‌کنند.", slugs: ["alert", "toast", "banner", "dialog", "popover", "tooltip"] },
+    { key: "form", label: "فرم و ورودی", text: "هر چیزی که کاربر با آن داده وارد می‌کند؛ با برچسب، راهنما و پیام خطای فارسی.", slugs: ["button", "input", "select", "checkbox", "radio", "switch", "combobox", "tag-input", "file-upload", "slider", "number-input", "segmented-control", "button-group", "chips", "copy-button", "password-strength", "rating", "inline-edit", "color-picker"] },
+    { key: "data", label: "نمایش داده", text: "جدول، کارت آمار و خط زمانی برای داشبوردها و پنل‌های مدیریت.", slugs: ["charts", "table", "stat-card", "timeline", "card", "badge", "avatar", "tree-view", "progress", "meter", "carousel", "skeleton", "empty-state", "divider"] },
+    { key: "nav", label: "ناوبری", text: "زبانه، منو، صفحه‌بندی و پالت فرمان، همه با پیمایش کامل کیبورد.", slugs: ["tabs", "side-nav", "breadcrumb", "pagination", "stepper", "command-palette", "dropdown-menu", "context-menu", "accordion", "splitter"] },
+    { key: "feedback", label: "بازخورد و پنجره", text: "پیام‌ها و پنجره‌هایی که فوکوس و صفحه‌خوان را درست مدیریت می‌کنند.", slugs: ["alert", "toast", "banner", "dialog", "popover", "tooltip", "tour"] },
   ],
   persian: [
     { key: "date", label: "تاریخ و زمان", text: "تقویم جلالی دقیق برای سال‌های ۱۳۰۰ تا ۱۵۰۰، بدون کتابخانهٔ جانبی.", slugs: ["date-picker", "date-range", "month-picker", "time", "countdown", "activity-heatmap"] },
@@ -194,11 +194,21 @@ numberToWords(<span class="t-n">2500000</span>);                     <span class
   .gcard__preview .k-countdown__num { font-size: var(--k-text-lg); }
   .gcard__preview .pv-bank { display: grid; place-items: center; inline-size: 3.5rem; block-size: 3.5rem; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-lg); background: var(--k-bg-elevated); color: var(--k-text-brand); }
   .gcard__preview .pv-bank svg { inline-size: 1.75rem; }
-  .gcard__preview .pv-heat { scale: 0.5; }
+  /* سال کامل در عرض کارت: خانه‌های ریز بدون برچسب */
+  .gcard__preview .pv-heat { inline-size: 100%; justify-content: center; }
+  .gcard__preview .pv-heat .k-heatmap { --k-heatmap-cell: 4px; }
+  .gcard__preview .pv-heat .k-heatmap__grid { gap: 1px; }
   .gcard__preview .pv-heat .k-heatmap__scroll { overflow: visible; }
+  .gcard__preview .pv-heat :is(.k-heatmap__months, .k-heatmap__days, .k-heatmap__foot) { display: none; }
+  .gcard__preview .pv-heat .k-heatmap__cell { border-radius: 1px; }
   .gcard__preview .pv-ctx { display: grid; justify-items: center; gap: var(--k-space-2); }
   .gcard__preview .pv-ie { background: var(--k-bg-hover); }
   .gcard__preview .pv-ie svg { opacity: 1; }
+  .gcard__preview .pv-car { display: grid; grid-template-columns: 1fr 1fr 0.4fr; gap: 8px; }
+  .gcard__preview .pv-car span { block-size: 4.5rem; border-radius: var(--k-radius-lg); }
+  .gcard__preview .pv-tour { display: grid; justify-items: center; gap: 10px; }
+  .gcard__preview .pv-tour__spot { padding: 4px; border-radius: var(--k-radius-md); box-shadow: 0 0 0 2px var(--k-border-brand); }
+  .gcard__preview .pv-tour .k-tour__card { position: static; inline-size: 11rem; padding: var(--k-space-2) var(--k-space-3); box-shadow: var(--k-shadow-lg); }
 
   /* فهرست کامپوننت‌ها */
   .gallery__switch { color: var(--k-text-tertiary); font-size: var(--k-text-sm); text-decoration: none; transition: color var(--k-duration-fast); }

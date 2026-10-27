@@ -1,0 +1,168 @@
+---
+import Docs from "../../layouts/Docs.astro";
+
+// ارزیابی بر اساس مستندات عمومی هر پروژه در آبان ۱۴۰۵. «اعلام نشده» یعنی در مستندات پیدا نشد، نه اینکه حتماً ندارد.
+type Mark = "yes" | "part" | "no" | "na";
+interface Cell { m: Mark; t?: string }
+const systems = [
+  { key: "kashi", name: "کاشی", kind: "فارسی" },
+  { key: "farsi", name: "Farsi UI", kind: "فارسی" },
+  { key: "shadcn", name: "shadcn/ui", kind: "بین‌المللی" },
+  { key: "mui", name: "MUI", kind: "بین‌المللی" },
+  { key: "antd", name: "Ant Design", kind: "بین‌المللی" },
+] as const;
+
+const rows: { group: string; label: string; cells: Cell[] }[] = [
+  { group: "فارسی و راست‌به‌چپ", label: "راست‌به‌چپ", cells: [
+    { m: "yes", t: "پیش‌فرض" }, { m: "yes", t: "پیش‌فرض" }, { m: "part", t: "با تنظیم rtl" }, { m: "part", t: "با تنظیم theme و افزونهٔ RTL" }, { m: "part", t: "با ConfigProvider" } ] },
+  { group: "فارسی و راست‌به‌چپ", label: "تقویم و انتخاب تاریخ شمسی", cells: [
+    { m: "yes", t: "داخلی؛ تاریخ، بازه، ماه و تعطیلات" }, { m: "na" }, { m: "part", t: "با react-day-picker/persian" }, { m: "part", t: "در MUI X با AdapterDateFnsJalali" }, { m: "part", t: "با بستهٔ جامعه (antd-jalali)" } ] },
+  { group: "فارسی و راست‌به‌چپ", label: "کد ملی، شبا، کارت، پلاک و کد پستی", cells: [
+    { m: "yes", t: "ورودی و اعتبارسنجی" }, { m: "na" }, { m: "no" }, { m: "no" }, { m: "no" } ] },
+  { group: "فارسی و راست‌به‌چپ", label: "پذیرش ارقام فارسی در ورودی‌ها", cells: [
+    { m: "yes" }, { m: "na" }, { m: "no" }, { m: "no" }, { m: "no" } ] },
+  { group: "فارسی و راست‌به‌چپ", label: "برچسب‌ها و پیام‌های فارسی", cells: [
+    { m: "yes", t: "پیش‌فرض" }, { m: "yes" }, { m: "no", t: "متن‌ها را خودتان می‌نویسید" }, { m: "part", t: "با locale فارسی" }, { m: "part", t: "با locale فارسی" } ] },
+  { group: "فارسی و راست‌به‌چپ", label: "فونت فارسی همراه پکیج", cells: [
+    { m: "yes", t: "وزیرمتن متغیر" }, { m: "na" }, { m: "no" }, { m: "no" }, { m: "no" } ] },
+  { group: "فارسی و راست‌به‌چپ", label: "لوگوی بانک‌ها و درگاه‌های ایرانی", cells: [
+    { m: "yes", t: "۴۰ بانک و ۱۰ درگاه" }, { m: "na" }, { m: "no" }, { m: "no" }, { m: "no" } ] },
+  { group: "فنی", label: "شکل استفاده", cells: [
+    { m: "yes", t: "پکیج npm" }, { m: "part", t: "کپی کد در پروژه" }, { m: "part", t: "کپی کد با CLI" }, { m: "yes", t: "پکیج npm" }, { m: "yes", t: "پکیج npm" } ] },
+  { group: "فنی", label: "استفاده بدون React", cells: [
+    { m: "yes", t: "هستهٔ CSS خالص" }, { m: "no", t: "React و Tailwind" }, { m: "no", t: "React و Tailwind" }, { m: "no", t: "React" }, { m: "no", t: "React" } ] },
+  { group: "فنی", label: "بررسی خودکار کنتراست در هر بیلد", cells: [
+    { m: "yes", t: "بیلد ناموفق منتشر نمی‌شود" }, { m: "na" }, { m: "na" }, { m: "na" }, { m: "na" } ] },
+  { group: "فنی", label: "لایسنس", cells: [
+    { m: "yes", t: "MIT" }, { m: "na" }, { m: "yes", t: "MIT" }, { m: "part", t: "MIT؛ بخشی از MUI X پولی" }, { m: "yes", t: "MIT" } ] },
+  { group: "بلوغ", label: "تعداد کامپوننت و اکوسیستم", cells: [
+    { m: "part", t: "نوپا" }, { m: "part", t: "نوپا" }, { m: "yes", t: "بزرگ" }, { m: "yes", t: "بسیار بزرگ" }, { m: "yes", t: "بسیار بزرگ" } ] },
+  { group: "بلوغ", label: "جامعه و منابع آموزشی", cells: [
+    { m: "part", t: "در حال شکل‌گیری" }, { m: "part", t: "کوچک" }, { m: "yes" }, { m: "yes" }, { m: "yes" } ] },
+];
+const groups = [...new Set(rows.map((r) => r.group))];
+const MARK = { yes: "دارد", part: "بخشی یا با تنظیم", no: "ندارد", na: "اعلام نشده" } as const;
+const PATHS = { yes: "m5 10.5 3.2 3L15 7", part: "M5 10h10", no: "m6 6 8 8M14 6l-8 8", na: "M5.5 10h.01M10 10h.01M14.5 10h.01" };
+const icon = (m: Mark) => `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="${PATHS[m]}"/></svg>`;
+const headings = [
+  { depth: 2, slug: "table", text: "جدول مقایسه" },
+  { depth: 2, slug: "when", text: "کی سراغ کدام برویم" },
+  { depth: 2, slug: "method", text: "روش ارزیابی" },
+];
+---
+<Docs title="مقایسه با دیگران" description="کاشی در کنار دیزاین‌سیستم‌های فارسی و بین‌المللی؛ با صداقت دربارهٔ جایی که بهترین انتخاب نیست." headings={headings}>
+  <h2 id="table">جدول مقایسه</h2>
+  <ul class="cmp-legend" role="list">
+    {(["yes", "part", "no", "na"] as const).map((m) => <li><span class={`mk mk--${m}`} aria-hidden="true" set:html={icon(m)} />{MARK[m]}</li>)}
+  </ul>
+
+  <div class="cmp-wrap" role="region" aria-label="جدول مقایسهٔ دیزاین‌سیستم‌ها" tabindex="0">
+    <table class="cmp">
+      <thead>
+        <tr>
+          <th scope="col" class="cmp__corner">ویژگی</th>
+          {systems.map((s) => (
+            <th scope="col" class:list={["cmp__sys", { "cmp__sys--us": s.key === "kashi" }]}>
+              <span class="cmp__name">{s.name}</span>
+              <span class="cmp__kind">{s.kind}</span>
+            </th>
+          ))}
+        </tr>
+      </thead>
+      {groups.map((g) => (
+        <tbody>
+          <tr class="cmp__group"><th scope="rowgroup" colspan={systems.length + 1}>{g}</th></tr>
+          {rows.filter((r) => r.group === g).map((r) => (
+            <tr>
+              <th scope="row">{r.label}</th>
+              {r.cells.map((c, i) => (
+                <td class:list={{ "cmp__us": i === 0 }}>
+                  <span class="cmp__cell">
+                    <span class={`mk mk--${c.m}`} aria-hidden="true" set:html={icon(c.m)} />
+                    <span class="k-sr-only">{MARK[c.m]}{c.t ? "، " : ""}</span>
+                    {c.t && <span class="cmp__note">{c.t}</span>}
+                  </span>
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      ))}
+    </table>
+  </div>
+
+  <h2 id="when">کی سراغ کدام برویم</h2>
+  <div class="cmp-cards">
+    <article class="cmp-card cmp-card--us">
+      <h3>کاشی را انتخاب کنید اگر</h3>
+      <ul>
+        <li>محصول شما فارسی و راست‌به‌چپ است و نمی‌خواهید RTL را بعداً وصله کنید.</li>
+        <li>تاریخ شمسی، کد ملی، شبا، کارت بانکی یا پلاک در فرم‌هایتان هست.</li>
+        <li>دسترس‌پذیری برایتان شرط است، نه گزینه.</li>
+        <li>بخشی از محصول بدون React است (وردپرس، HTML یا فریم‌ورک دیگر).</li>
+      </ul>
+    </article>
+    <article class="cmp-card">
+      <h3>MUI یا Ant Design بهتر است اگر</h3>
+      <ul>
+        <li>به صدها کامپوننت پیشرفته مثل جدول داده با ویرایش و گروه‌بندی نیاز دارید.</li>
+        <li>تیم شما از قبل با آن‌ها کار می‌کند و اکوسیستم و منابع آموزشی بزرگ برایتان مهم‌تر است.</li>
+        <li>محصول اصلاً فارسی نیست، یا RTL فقط یک حالت فرعی است.</li>
+      </ul>
+    </article>
+    <article class="cmp-card">
+      <h3>shadcn/ui یا Farsi UI بهتر است اگر</h3>
+      <ul>
+        <li>می‌خواهید کد هر کامپوننت را مستقیم در پروژه داشته باشید و خودتان تغییرش دهید.</li>
+        <li>پروژه با Tailwind ساخته شده و می‌خواهید همه چیز در همان سبک بماند.</li>
+      </ul>
+    </article>
+  </div>
+  <p>این‌ها رقیب مطلق هم نیستند: می‌توانید ابزارهای <a href="/docs/persian/utilities/">@kashi-ui/persian</a> (تاریخ شمسی، اعتبارسنجی‌ها، ارقام) را کنار هر دیزاین‌سیستم دیگری استفاده کنید.</p>
+
+  <h2 id="method">روش ارزیابی</h2>
+  <p>ستون‌ها بر اساس مستندات عمومی هر پروژه در آبان ۱۴۰۵ پر شده‌اند. «اعلام نشده» یعنی چیزی در مستندات پیدا نکردیم، نه اینکه حتماً ندارد. پروژه‌ها مدام به‌روز می‌شوند؛ اگر خطایی دیدید، لطفاً <a href="https://github.com/Sepantapouya/Kashi/issues">در GitHub گزارش دهید</a> تا اصلاح شود.</p>
+  <ul>
+    <li><a href="https://ui.shadcn.com/docs/rtl">پشتیبانی RTL در shadcn/ui</a></li>
+    <li><a href="https://mui.com/x/react-date-pickers/calendar-systems/">تقویم‌های غیرمیلادی در MUI X</a></li>
+    <li><a href="https://ant.design/components/date-picker">DatePicker در Ant Design</a> و بستهٔ جامعهٔ <a href="https://npmjs.com/package/antd-jalali">antd-jalali</a></li>
+  </ul>
+</Docs>
+
+<style>
+  .cmp-legend { display: flex; flex-wrap: wrap; gap: var(--k-space-2) var(--k-space-5); margin: var(--k-space-4) 0; padding: 0; list-style: none; color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .cmp-legend li { display: inline-flex; align-items: center; gap: var(--k-space-1_5); }
+  .cmp-wrap { margin-block: var(--k-space-4) var(--k-space-6); overflow-x: auto; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); box-shadow: var(--k-shadow-xs), var(--k-highlight); scrollbar-width: thin; }
+  .cmp-wrap:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+  .cmp { inline-size: 100%; min-inline-size: 42rem; border-collapse: separate; border-spacing: 0; font-size: var(--k-text-sm); line-height: 1.6; }
+  .cmp th, .cmp td { padding: var(--k-space-3) var(--k-space-3); border-block-end: 1px solid var(--k-border-secondary); text-align: start; vertical-align: middle; }
+  .cmp tbody:last-child tr:last-child > * { border-block-end: 0; }
+  .cmp thead th { position: sticky; inset-block-start: 0; z-index: 2; background: var(--k-bg-secondary); }
+  .cmp__corner { color: var(--k-text-tertiary); font-weight: var(--k-weight-semibold); }
+  .cmp__sys { min-inline-size: 0; }
+  .cmp__name { display: block; color: var(--k-text-primary); font-weight: var(--k-weight-bold); }
+  .cmp__kind { display: block; color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-weight: var(--k-weight-regular); }
+  /* ستون کاشی برجسته */
+  .cmp__sys--us, .cmp__us { background: color-mix(in srgb, var(--k-bg-brand) 8%, var(--k-bg-primary)); }
+  .cmp__sys--us { box-shadow: inset 0 3px 0 var(--k-border-brand); }
+  .cmp__sys--us .cmp__name { color: var(--k-text-brand); }
+  .cmp tbody th[scope="row"] { position: sticky; inset-inline-start: 0; z-index: 1; min-inline-size: 9.5rem; background: var(--k-bg-primary); color: var(--k-text-primary); font-weight: var(--k-weight-medium); }
+  .cmp__group th { padding-block: var(--k-space-2); background: var(--k-bg-secondary); color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-weight: var(--k-weight-bold); }
+  .cmp tbody tr:not(.cmp__group):hover > * { background: var(--k-bg-hover); }
+  .cmp tbody tr:not(.cmp__group):hover > .cmp__us { background: color-mix(in srgb, var(--k-bg-brand) 14%, var(--k-bg-primary)); }
+  .cmp__cell { display: inline-flex; align-items: flex-start; gap: var(--k-space-2); }
+  .cmp__note { color: var(--k-text-secondary); font-size: var(--k-text-xs); line-height: 1.7; }
+  .mk { display: inline-grid; place-items: center; flex-shrink: 0; inline-size: 1.25rem; block-size: 1.25rem; margin-block-start: 0.1rem; border-radius: var(--k-radius-full); }
+  .mk :global(svg) { inline-size: 0.8rem; block-size: 0.8rem; }
+  .mk--yes { background: var(--k-bg-success-subtle); color: var(--k-text-success); }
+  .mk--part { background: var(--k-bg-warning-subtle); color: var(--k-text-warning); }
+  .mk--no { background: var(--k-bg-error-subtle); color: var(--k-text-error); }
+  .mk--na { background: var(--k-bg-tertiary); color: var(--k-text-tertiary); }
+
+  .cmp-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--k-space-4); margin-block: var(--k-space-6); }
+  .cmp-card { padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-secondary); }
+  .cmp-card--us { border-color: color-mix(in srgb, var(--k-border-brand) 60%, transparent); background: color-mix(in srgb, var(--k-bg-brand) 7%, var(--k-bg-secondary)); }
+  .cmp-card h3 { margin: 0 0 var(--k-space-3); color: var(--k-text-primary); font-size: var(--k-text-md); }
+  .cmp-card ul { display: grid; gap: var(--k-space-2); margin: 0; padding-inline-start: var(--k-space-5); color: var(--k-text-secondary); font-size: var(--k-text-sm); line-height: 1.8; }
+</style>
+

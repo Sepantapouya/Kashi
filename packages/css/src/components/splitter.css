@@ -1,0 +1,37 @@
+/* پنل‌های قابل‌تغییر اندازه (Splitter) */
+.k-splitter { display: flex; min-block-size: 0; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); overflow: hidden; }
+.k-splitter--vertical { flex-direction: column; }
+.k-splitter__pane { min-inline-size: 0; min-block-size: 0; overflow: auto; }
+.k-splitter__pane:last-child { flex: 1; }
+.k-splitter__handle {
+  position: relative;
+  flex-shrink: 0;
+  inline-size: 1px;
+  background: var(--k-border-secondary);
+  cursor: col-resize;
+  touch-action: none;
+  outline: 0;
+}
+.k-splitter--vertical .k-splitter__handle { inline-size: auto; block-size: 1px; cursor: row-resize; }
+/* ناحیهٔ کلیک پهن‌تر از خط */
+.k-splitter__handle::before { content: ""; position: absolute; inset: 0 -6px; }
+.k-splitter--vertical .k-splitter__handle::before { inset: -6px 0; }
+.k-splitter__handle::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  inline-size: 6px;
+  block-size: 2rem;
+  border: 1px solid var(--k-border-primary);
+  border-radius: var(--k-radius-full);
+  background: var(--k-bg-elevated);
+  translate: -50% -50%;
+  transition: background-color var(--k-duration-fast), border-color var(--k-duration-fast);
+}
+[dir="rtl"] .k-splitter__handle::after { translate: 50% -50%; }
+.k-splitter--vertical .k-splitter__handle::after { inline-size: 2rem; block-size: 6px; }
+.k-splitter__handle:is(:hover, [data-dragging])::after { border-color: var(--k-border-brand); background: var(--k-bg-brand); }
+.k-splitter__handle:focus-visible::after { box-shadow: var(--k-ring-brand); border-color: var(--k-border-brand); }
+.k-splitter[data-dragging] { user-select: none; cursor: col-resize; }
+.k-splitter--vertical[data-dragging] { cursor: row-resize; }

@@ -219,6 +219,34 @@ const stacks = ["React", "HTML", "Vue", "Svelte", "Angular", "Astro"];
       </div>
     </section>
 
+    <!-- ───── مقایسه ───── -->
+    <section class="section" aria-labelledby="vs-title">
+      <a class="vs" href="/docs/compare/" data-reveal data-spot>
+        <div class="vs__text">
+          <p class="eyebrow">مقایسه</p>
+          <h2 id="vs-title">کاشی در کنار MUI، Ant Design و shadcn/ui</h2>
+          <p>آن‌ها برای راست‌به‌چپ و تاریخ شمسی به تنظیم و بستهٔ جانبی نیاز دارند؛ کاشی از روز اول فارسی است. مقایسهٔ کامل، با صداقت دربارهٔ جایی که بهترین انتخاب نیستیم.</p>
+          <span class="tile__link">دیدن جدول مقایسه <span aria-hidden="true">←</span></span>
+        </div>
+        <ul class="vs__list" role="list">
+          <li class="vs__head" aria-hidden="true"><span></span><span>کاشی</span><span>بقیه</span></li>
+          {[
+            ["راست‌به‌چپ پیش‌فرض", true, false],
+            ["تقویم شمسی داخلی", true, false],
+            ["کد ملی، شبا، کارت و پلاک", true, false],
+            ["فونت فارسی همراه پکیج", true, false],
+            ["استفاده بدون React", true, false],
+          ].map(([label, us, them]) => (
+            <li>
+              <span>{label}</span>
+              <span class="vs__mark vs__mark--yes" aria-label="کاشی: دارد">✓</span>
+              <span class={`vs__mark ${them ? "vs__mark--yes" : "vs__mark--no"}`} aria-label={`بقیه: ${them ? "دارد" : "بدون تنظیم یا بستهٔ جانبی نه"}`}>{them ? "✓" : "—"}</span>
+            </li>
+          ))}
+        </ul>
+      </a>
+    </section>
+
     <!-- ───── سه قدم ───── -->
     <section class="section" aria-labelledby="steps-title">
       <header class="section__head" data-reveal>
@@ -474,6 +502,23 @@ const stacks = ["React", "HTML", "Vue", "Svelte", "Angular", "Astro"];
   .stacks { display: flex; flex-wrap: wrap; align-content: center; gap: var(--k-space-2); margin: 0; padding: 0; list-style: none; }
   .stacks li { padding: var(--k-space-2) var(--k-space-4); border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); color: var(--k-text-secondary); font: 600 var(--k-text-sm) var(--k-font-mono); box-shadow: var(--k-shadow-xs); transition: border-color var(--k-duration-fast), color var(--k-duration-fast), translate var(--k-duration-normal) var(--k-ease-emphasized); }
   .stacks li:hover { border-color: var(--k-border-brand); color: var(--k-text-primary); translate: 0 -2px; }
+
+  /* مقایسه */
+  .vs { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3rem); align-items: center; padding: clamp(1.5rem, 4vw, 2.5rem); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-2xl); background: var(--k-bg-secondary); box-shadow: var(--k-shadow-xs), var(--k-highlight); color: inherit; text-decoration: none; overflow: clip; transition: border-color var(--k-duration-normal); }
+  .vs:hover { border-color: var(--k-border-primary); }
+  .vs:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+  .vs h2 { margin: var(--k-space-3) 0; font-size: clamp(var(--k-text-2xl), 3vw, var(--k-text-3xl)); font-weight: var(--k-weight-bold); line-height: 1.4; }
+  .vs__text > p:not(.eyebrow) { margin: 0; color: var(--k-text-tertiary); line-height: 1.95; }
+  .vs__list { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); }
+  .vs__list li { display: grid; grid-template-columns: 1fr 4rem 4rem; align-items: center; gap: var(--k-space-2); padding: var(--k-space-3) var(--k-space-4); border-block-start: 1px solid var(--k-border-secondary); color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+  .vs__list li:first-child { border-block-start: 0; }
+  .vs__head { color: var(--k-text-tertiary) !important; font-size: var(--k-text-xs) !important; font-weight: var(--k-weight-semibold); }
+  .vs__head span:nth-child(2) { color: var(--k-text-brand); }
+  .vs__list li > span:not(:first-child) { justify-self: center; }
+  .vs__mark { display: grid; place-items: center; inline-size: 1.5rem; block-size: 1.5rem; border-radius: 50%; font-weight: var(--k-weight-bold); }
+  .vs__mark--yes { background: var(--k-bg-success-subtle); color: var(--k-text-success); }
+  .vs__mark--no { background: var(--k-bg-tertiary); color: var(--k-text-tertiary); }
+  @media (max-width: 48rem) { .vs { grid-template-columns: minmax(0, 1fr); } }
 
   /* سه قدم */
   .steps { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--k-space-4); margin: 0; padding: 0; list-style: none; }

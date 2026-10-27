@@ -1,0 +1,34 @@
+---
+layout: ../../../layouts/Docs.astro
+title: پنل قابل‌تغییر اندازه
+description: دو پنل کنار هم یا زیر هم که کاربر اندازه‌شان را با کشیدن مرز تغییر می‌دهد.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { SplitterDemo } from "../../../components/demos";
+
+```tsx
+import { Splitter } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<Splitter label="اندازهٔ فهرست فایل‌ها" defaultSize={35} height="16rem">
+  <FileList />
+  <Preview />
+</Splitter>`}>
+  <SplitterDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["children", "[ReactNode, ReactNode]", "", "پنل ابتدا و پنل انتها"],
+  ["orientation", '"horizontal" | "vertical"', '"horizontal"', "کنار هم یا زیر هم"],
+  ["size / defaultSize", "number", "40", "اندازهٔ پنل اول به درصد"],
+  ["onSizeChange", "(percent) => void", "", "برای ذخیرهٔ اندازه"],
+  ["min / max", "number", "15 / 85", "محدودهٔ درصد"],
+  ["label", "string", "«تغییر اندازهٔ پنل‌ها»", "نام دستگیره"],
+]} />
+
+## دسترس‌پذیری
+
+دستگیره یک `role="separator"` فوکوس‌پذیر با `aria-valuenow` است. با ←→ (یا ↑↓ در حالت عمودی) پنج درصد، و با <kbd>Home</kbd>/<kbd>End</kbd> به کمینه و بیشینه می‌رود. دوبار کلیک اندازهٔ اولیه را برمی‌گرداند.

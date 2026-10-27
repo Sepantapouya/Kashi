@@ -1,0 +1,34 @@
+---
+layout: ../../../layouts/Docs.astro
+title: اسلایدر
+description: نمایش چند کارت یا تصویر در یک ردیف قابل‌پیمایش، مثل محصولات پیشنهادی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { CarouselDemo } from "../../../components/demos";
+
+```tsx
+import { Carousel } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<Carousel label="محصولات پیشنهادی" perView={2}>
+  {products.map((p) => <ProductCard key={p.id} {...p} />)}
+</Carousel>`}>
+  <CarouselDemo client:visible />
+</Demo>
+
+روی scroll-snap بومی مرورگر ساخته شده: با کشیدن انگشت، چرخ موس، دکمه‌ها و کلیدهای جهت کار می‌کند و در RTL خودکار درست است. چرخش خودکار ندارد، چون خواندن را برای همه، به‌خصوص کاربران صفحه‌خوان و کم‌بینا، سخت می‌کند.
+
+<Props rows={[
+  ["children", "ReactNode", "", "هر فرزند یک اسلاید"],
+  ["label", "string", "", "نام اسلایدر (الزامی)"],
+  ["perView", "number", "1", "تعداد اسلاید در هر نما؛ یا متغیر --k-carousel-per-view"],
+  ["dots", "boolean", "true", "نقطه‌های پیمایش"],
+  ["labels", "{ prev?, next?, slide? }", "", "متن دکمه‌ها و نام اسلایدها"],
+]} />
+
+## دسترس‌پذیری
+
+الگوی Carousel در WAI-ARIA: ظرف با `aria-roledescription="اسلایدر"` و هر اسلاید با نام «۲ از ۵». ریل اسلایدها فوکوس‌پذیر است و ←→ بین آن‌ها حرکت می‌کند؛ اسلاید فعال با `aria-live` اعلام می‌شود.

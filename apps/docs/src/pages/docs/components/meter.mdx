@@ -1,0 +1,34 @@
+---
+layout: ../../../layouts/Docs.astro
+title: سنجه
+description: نمایش یک مقدار در برابر سقف، مثل فضای ذخیره، سهمیهٔ پیامک یا ظرفیت پلن.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { MeterDemo } from "../../../components/demos";
+
+```tsx
+import { Meter } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<Meter label="فضای ذخیره‌سازی" value={4.2} max={10} format={(n) => \`\${n} گیگابایت\`} />
+<Meter label="سهمیهٔ پیامک این ماه" value={8600} max={10000} />
+<Meter label="کاربران پلن تیمی" value={49} max={50} />`}>
+  <MeterDemo client:visible />
+</Demo>
+
+فرق آن با `Progress`: نوار پیشرفت برای کاری است که در حال انجام است؛ سنجه برای اندازه‌ای است که ثابت است، مثل میزان مصرف. از ۸۰٪ رنگ هشدار و از ۹۵٪ رنگ بحرانی می‌گیرد و وضعیت با متن و آیکون هم گفته می‌شود.
+
+<Props rows={[
+  ["label", "ReactNode", "", "نام سنجه"],
+  ["value / max", "number", "— / 100", ""],
+  ["warning / critical", "number", "۸۰٪ / ۹۵٪ max", "آستانهٔ هشدار و بحرانی"],
+  ["format", "(n: number) => string", "ارقام فارسی", "قالب مقدار"],
+  ["labels", "{ ok?, warning?, critical?, of? }", "", "متن وضعیت‌ها"],
+]} />
+
+## دسترس‌پذیری
+
+`role="meter"` با `aria-valuetext` کامل («۸٬۶۰۰ از ۱۰٬۰۰۰، ۸۶٪، نزدیک به سقف»). وضعیت فقط با رنگ نشان داده نمی‌شود.

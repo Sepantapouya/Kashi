@@ -24,3 +24,5 @@ export type { Time } from "./time.js";
 export { normalizeLandline, getLandlineProvince, isValidLandline, formatLandline } from "./landline.js";
 export { PROVINCES } from "./provinces.js";
 export type { Province } from "./provinces.js";
+export { IRAN_FIXED_HOLIDAYS, getIranHoliday } from "./holidays.js";
+export type { HolidayOptions } from "./holidays.js";

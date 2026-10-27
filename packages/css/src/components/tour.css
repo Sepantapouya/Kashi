@@ -1,0 +1,28 @@
+/* راهنمای قدم‌به‌قدم (Tour) */
+.k-tour__spot { position: fixed; z-index: var(--k-z-overlay); border-radius: var(--k-radius-lg); box-shadow: 0 0 0 9999px rgb(0 0 0 / 0.55), 0 0 0 2px var(--k-border-brand); pointer-events: none; transition: inset var(--k-duration-slow) var(--k-ease-standard), inline-size var(--k-duration-slow) var(--k-ease-standard), block-size var(--k-duration-slow) var(--k-ease-standard), top var(--k-duration-slow) var(--k-ease-standard), left var(--k-duration-slow) var(--k-ease-standard); }
+.k-tour__card {
+  position: fixed;
+  z-index: calc(var(--k-z-overlay) + 1);
+  display: grid;
+  gap: var(--k-space-2);
+  inline-size: min(20rem, calc(100vw - 2rem));
+  padding: var(--k-space-4) var(--k-space-5);
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-xl);
+  background: var(--k-bg-elevated);
+  box-shadow: var(--k-shadow-2xl), var(--k-highlight);
+  color: var(--k-text-secondary);
+  font-size: var(--k-text-sm);
+  outline: 0;
+  transition: top var(--k-duration-slow) var(--k-ease-standard), left var(--k-duration-slow) var(--k-ease-standard);
+}
+.k-tour__step { color: var(--k-text-brand); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+.k-tour__title { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-md); font-weight: var(--k-weight-semibold); }
+.k-tour__body { margin: 0; line-height: 1.8; }
+.k-tour__actions { display: flex; align-items: center; gap: var(--k-space-2); margin-block-start: var(--k-space-2); }
+.k-tour__actions .k-tour__skip { margin-inline-end: auto; }
+.k-tour__progress { display: flex; gap: 4px; }
+.k-tour__progress span { inline-size: 1rem; block-size: 3px; border-radius: 2px; background: var(--k-border-primary); }
+.k-tour__progress span[data-on] { background: var(--k-bg-brand); }
+@media (prefers-reduced-motion: reduce) { .k-tour__spot, .k-tour__card { transition: none; } }
+@media (forced-colors: active) { .k-tour__spot { outline: 3px solid Highlight; } }

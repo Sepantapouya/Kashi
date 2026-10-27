@@ -1,0 +1,25 @@
+/* اسلایدر (Carousel) — روی scroll-snap بومی؛ در RTL خودکار درست است */
+.k-carousel { --_per: var(--k-carousel-per-view, 1); --_gap: var(--k-carousel-gap, var(--k-space-4)); position: relative; display: grid; gap: var(--k-space-3); }
+.k-carousel__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - (var(--_per) - 1) * var(--_gap)) / var(--_per));
+  gap: var(--_gap);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  border-radius: var(--k-radius-xl);
+}
+.k-carousel__track::-webkit-scrollbar { display: none; }
+.k-carousel__track:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-carousel__slide { min-inline-size: 0; scroll-snap-align: start; }
+.k-carousel__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-3); }
+.k-carousel__nav { display: flex; gap: var(--k-space-1_5); }
+.k-carousel__dots { display: flex; gap: var(--k-space-1_5); margin: 0; padding: 0; list-style: none; }
+.k-carousel__dot { inline-size: 0.5rem; block-size: 0.5rem; padding: 0; border: 0; border-radius: var(--k-radius-full); background: var(--k-border-primary); cursor: pointer; transition: inline-size var(--k-duration-normal) var(--k-ease-standard), background-color var(--k-duration-fast); }
+.k-carousel__dot[aria-current="true"] { inline-size: 1.5rem; background: var(--k-bg-brand); }
+.k-carousel__dot:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+@media (prefers-reduced-motion: reduce) { .k-carousel__track { scroll-behavior: auto; } }
+@media (forced-colors: active) { .k-carousel__dot[aria-current="true"] { background: Highlight; } }

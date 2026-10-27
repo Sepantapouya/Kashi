@@ -190,3 +190,8 @@
   .k-daterange__presets { display: flex; flex-wrap: wrap; padding-inline-end: 0; padding-block-end: var(--k-space-3); border-inline-end: 0; border-block-end: 1px solid var(--k-border-secondary); }
   .k-daterange__preset { inline-size: auto; }
 }
+
+/* تعطیلات: رقم قرمز، مثل تقویم‌های کاغذی */
+.k-calendar__day[data-holiday] { color: var(--k-text-error); }
+.k-calendar__day[data-holiday]:hover { color: var(--k-text-error); }
+.k-calendar__grid td[aria-selected="true"] > .k-calendar__day[data-holiday] { color: var(--k-text-on-brand); }

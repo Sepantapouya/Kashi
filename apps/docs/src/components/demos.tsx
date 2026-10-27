@@ -12,6 +12,8 @@ import { ButtonGroup, ChipGroup, Countdown, LandlineInput, MonthPicker, Password
 import { JALALI_MONTHS } from "@kashi-ui/persian";
 import { ActivityHeatmap, BarChart, BarList, ContextMenu, InlineEdit, LineChart, PieChart, ProportionBar, ProvinceSelect, Sparkline } from "@kashi-ui/react";
 import { toISODate as isoDate } from "@kashi-ui/persian";
+import { Carousel, ColorPicker, Meter, Splitter, Tour } from "@kashi-ui/react";
+import { getIranHoliday } from "@kashi-ui/persian";
 
 export const ButtonIcons = () => (
   <>
@@ -1158,3 +1160,93 @@ export const PieDemo = () => {
     </div>
   );
 };
+
+// ───── نسخهٔ ۰٫۱۳ ─────
+
+const products = [
+  ["مبل راحتی نارون", "۱۸٬۵۰۰٬۰۰۰ تومان", "#0b8077"],
+  ["فرش ماشینی ۱۲۰۰ شانه", "۹٬۲۰۰٬۰۰۰ تومان", "#2740ed"],
+  ["میز ناهارخوری چوبی", "۱۲٬۸۰۰٬۰۰۰ تومان", "#dd5e02"],
+  ["آباژور برنجی", "۲٬۴۰۰٬۰۰۰ تومان", "#7c3aed"],
+  ["کتابخانهٔ دیواری", "۶٬۹۰۰٬۰۰۰ تومان", "#518b25"],
+];
+
+export const CarouselDemo = () => (
+  <div style={{ inlineSize: "100%" }}>
+    <Carousel label="محصولات پیشنهادی" perView={2}>
+      {products.map(([name, price, c]) => (
+        <Card key={name}>
+          <div style={{ blockSize: "8rem", background: `linear-gradient(135deg, ${c}, color-mix(in srgb, ${c} 40%, #000))`, borderRadius: "var(--k-radius-lg) var(--k-radius-lg) 0 0" }} />
+          <CardBody><strong style={{ color: "var(--k-text-primary)" }}>{name}</strong><p style={{ margin: "var(--k-space-1) 0 0", color: "var(--k-text-tertiary)", fontSize: "var(--k-text-sm)" }}>{price}</p></CardBody>
+        </Card>
+      ))}
+    </Carousel>
+  </div>
+);
+
+export const ColorPickerDemo = () => {
+  const [c, setC] = useState("#0b8077");
+  return (
+    <div className="demo-stack">
+      <ColorPicker label="رنگ برند" hint="یکی را انتخاب کنید یا کد دلخواه بنویسید." value={c} onChange={setC} name="brand" />
+      <Button variant="primary" style={{ background: c, borderColor: c }}>دکمه با این رنگ</Button>
+    </div>
+  );
+};
+
+export const MeterDemo = () => (
+  <div className="demo-stack" style={{ inlineSize: "min(100%, 28rem)" }}>
+    <Meter label="فضای ذخیره‌سازی" value={4.2} max={10} format={(n) => `${n.toLocaleString("fa")} گیگابایت`} />
+    <Meter label="سهمیهٔ پیامک این ماه" value={8600} max={10000} />
+    <Meter label="کاربران پلن تیمی" value={49} max={50} format={(n) => `${n.toLocaleString("fa")} نفر`} />
+  </div>
+);
+
+export const SplitterDemo = () => (
+  <div style={{ inlineSize: "100%" }}>
+    <Splitter label="اندازهٔ فهرست فایل‌ها" defaultSize={35} height="16rem">
+      <div style={{ padding: "var(--k-space-4)", display: "grid", gap: 6, color: "var(--k-text-secondary)", fontSize: "var(--k-text-sm)" }}>
+        <strong style={{ color: "var(--k-text-primary)" }}>فایل‌ها</strong>
+        {["قرارداد-۱۴۰۵.pdf", "فاکتور-۱۲۸۴.xlsx", "لوگو.svg", "راهنما.md"].map((f) => <span key={f}>{f}</span>)}
+      </div>
+      <div style={{ padding: "var(--k-space-4)", color: "var(--k-text-tertiary)", fontSize: "var(--k-text-sm)", lineHeight: 1.9 }}>
+        <strong style={{ color: "var(--k-text-primary)" }}>پیش‌نمایش</strong>
+        <p>مرز میان دو پنل را بکشید، یا با Tab روی آن بروید و کلیدهای جهت را بزنید. دوبار کلیک اندازه را به حالت اول برمی‌گرداند.</p>
+      </div>
+    </Splitter>
+  </div>
+);
+
+export const TourDemo = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 30rem)" }}>
+      <div className="demo-row" style={{ justifyContent: "space-between" }}>
+        <Input id="tour-search" aria-label="جستجو" placeholder="جستجوی سفارش" fieldClassName="demo-grow" />
+        <Button id="tour-export">خروجی اکسل</Button>
+      </div>
+      <div className="demo-row">
+        <Badge id="tour-status" tone="warning" dot>۱۲ سفارش در انتظار</Badge>
+      </div>
+      <Button variant="primary" onClick={() => setOpen(true)}>شروع راهنما</Button>
+      <Tour
+        open={open}
+        onOpenChange={setOpen}
+        steps={[
+          { target: "#tour-search", title: "جستجوی سریع", content: "نام مشتری، شمارهٔ سفارش یا کد پستی را بنویسید." },
+          { target: "#tour-export", title: "خروجی اکسل", content: "فهرست فیلترشده را با یک کلیک دانلود کنید." },
+          { target: "#tour-status", title: "سفارش‌های در انتظار", content: "این‌ها هنوز ارسال نشده‌اند؛ روی آن بزنید تا فقط همین‌ها را ببینید." },
+        ]}
+      />
+    </div>
+  );
+};
+
+export const HolidayDemo = () => (
+  <div className="demo-stack" style={{ inlineSize: "auto" }}>
+    <Calendar
+      value={new Date(2026, 2, 21)}
+      holidays={(d) => getIranHoliday(d, { extra: { "2026-03-20": "عید فطر" } })}
+    />
+  </div>
+);
