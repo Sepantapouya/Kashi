@@ -4,6 +4,7 @@
 
 ### Minor Changes
 
+- Breadcrumb بازطراحی شد: لینک‌های خنثی، صفحهٔ فعلی با پس‌زمینهٔ ملایم، فاصلهٔ آیکون و متن، `hideLabel` برای نمایش فقط آیکون (مثل خانه)، `maxItems` برای جمع کردن مسیرهای بلند به «…» (با انتقال فوکوس پس از باز شدن)، `separator="slash"` و کوتاه شدن نام‌های بلند.
 - ۱۲ کامپوننت جدید: DropdownMenu (الگوی Menu Button با پیمایش کامل کیبورد)، DataTable (مرتب‌سازی الفبای فارسی، انتخاب ردیف‌ها، ستون‌های عددی)، OtpInput (کد تأیید با یک input واقعی و پر شدن خودکار پیامک)، Accordion روی details بومی، Stepper، Pagination با ارقام فارسی، Breadcrumb، Progress و Spinner، Skeleton، EmptyState، Divider و Kbd.
 
 ### Patch Changes

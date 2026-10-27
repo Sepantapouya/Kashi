@@ -363,9 +363,14 @@ export const EmptyDemo = () => (
   />
 );
 
-export const BreadcrumbDemo = () => (
-  <Breadcrumb items={[{ label: "خانه", href: "#", icon: <Icon d={I.home} /> }, { label: "تنظیمات", href: "#" }, { label: "امنیت" }]} />
-);
+export const BreadcrumbDemo = ({ variant = "default" }: { variant?: "default" | "long" | "slash" }) => {
+  const home = { label: "خانه", href: "#", icon: <Icon d={I.home} />, hideLabel: true };
+  if (variant === "long")
+    return <Breadcrumb maxItems={3} items={[home, { label: "پروژه‌ها", href: "#" }, { label: "فروشگاه آنلاین", href: "#" }, { label: "تنظیمات", href: "#" }, { label: "امنیت و ورود دو مرحله‌ای" }]} />;
+  if (variant === "slash")
+    return <Breadcrumb separator="slash" items={[{ label: "داشبورد", href: "#" }, { label: "گزارش‌ها", href: "#" }, { label: "فروش آبان" }]} />;
+  return <Breadcrumb items={[home, { label: "تنظیمات", href: "#" }, { label: "امنیت" }]} />;
+};
 
 export const KbdDemo = () => (
   <p style={{ margin: 0, color: "var(--k-text-secondary)" }}>برای جستجو <Kbd keys={["Ctrl", "K"]} /> و برای بستن <Kbd>Esc</Kbd> را بزنید.</p>

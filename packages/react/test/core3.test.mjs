@@ -7,8 +7,18 @@ import * as K from "../dist/index.js";
 test("Breadcrumb: nav با نام و صفحهٔ فعلی", () => {
   const html = render(h(K.Breadcrumb, { items: [{ label: "خانه", href: "/" }, { label: "تنظیمات", href: "/s" }, { label: "امنیت" }] }));
   assert.match(html, /<nav class="k-breadcrumb" aria-label="مسیر"><ol>/);
-  assert.match(html, /<span aria-current="page">امنیت<\/span>/);
-  assert.equal((html.match(/<a href/g) || []).length, 2);
+  assert.match(html, /<span class="k-breadcrumb__link" aria-current="page" title="امنیت"><span class="k-breadcrumb__text">امنیت<\/span><\/span>/);
+  assert.equal((html.match(/<a class="k-breadcrumb__link" href/g) || []).length, 2);
+});
+
+test("Breadcrumb: فقط آیکون با برچسب صفحه‌خوان، و جمع شدن مسیر بلند", () => {
+  const home = h("svg", { "aria-hidden": "true" });
+  const icon = render(h(K.Breadcrumb, { items: [{ label: "خانه", href: "/", icon: home, hideLabel: true }, { label: "الف" }] }));
+  assert.match(icon, /k-breadcrumb__link--icon" href="\/"><svg aria-hidden="true"><\/svg><span class="k-sr-only">خانه<\/span>/);
+  const long = render(h(K.Breadcrumb, { maxItems: 3, items: ["خانه", "الف", "ب", "پ", "ت"].map((label, i) => ({ label, href: `/${i}` })) }));
+  assert.equal((long.match(/<li/g) || []).length, 4); // خانه، …، پ، ت
+  assert.match(long, /aria-label="نمایش مسیر کامل">…<\/button>/);
+  assert.doesNotMatch(long, />الف</);
 });
 
 test("Pagination: بازهٔ صفحه‌ها با «…» و صفحهٔ فعلی", () => {

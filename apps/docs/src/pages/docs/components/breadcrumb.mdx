@@ -13,19 +13,48 @@ import { Breadcrumb } from "@kashi-ui/react";
 
 ## نمونه
 
+خانه فقط با آیکون نمایش داده می‌شود و برچسبش برای صفحه‌خوان می‌ماند.
+
 <Demo code={`<Breadcrumb items={[
-  { label: "خانه", href: "/", icon: <HomeIcon /> },
+  { label: "خانه", href: "/", icon: <HomeIcon />, hideLabel: true },
   { label: "تنظیمات", href: "/settings" },
   { label: "امنیت" },
 ]} />`}>
   <BreadcrumbDemo />
 </Demo>
 
+## مسیر بلند
+
+با `maxItems` وسط مسیر به «…» جمع می‌شود؛ با زدن آن، مسیر کامل باز می‌شود. نام‌های بلند هم کوتاه می‌شوند و متن کامل در `title` است.
+
+<Demo html={false} code={`<Breadcrumb maxItems={3} items={[
+  { label: "خانه", href: "/", icon: <HomeIcon />, hideLabel: true },
+  { label: "پروژه‌ها", href: "/projects" },
+  { label: "فروشگاه آنلاین", href: "/projects/shop" },
+  { label: "تنظیمات", href: "/projects/shop/settings" },
+  { label: "امنیت و ورود دو مرحله‌ای" },
+]} />`}>
+  <BreadcrumbDemo client:load variant="long" />
+</Demo>
+
+## جداکنندهٔ «/»
+
+<Demo code={`<Breadcrumb separator="slash" items={[…]} />`}>
+  <BreadcrumbDemo variant="slash" />
+</Demo>
+
 <Props rows={[
-  ["items", "{ label, href?, icon? }[]", "", "آخرین مورد صفحهٔ فعلی است"],
+  ["items", "{ label, href?, icon?, hideLabel? }[]", "", "آخرین مورد صفحهٔ فعلی است"],
+  ["maxItems", "number", "", "جمع کردن وسط مسیرهای بلند"],
+  ["separator", '"chevron" | "slash"', '"chevron"', "شکل جداکننده"],
   ["label", "string", '"مسیر"', "نام nav برای صفحه‌خوان"],
+  ["expandLabel", "string", '"نمایش مسیر کامل"', "نام دکمهٔ «…»"],
 ]} />
+
+## متغیرهای CSS
+
+`--k-breadcrumb-max-item` (پیش‌فرض `14rem`): بیشترین عرض هر مورد پیش از کوتاه شدن.
 
 ## دسترس‌پذیری
 
-داخل `<nav aria-label="مسیر">` با فهرست `<ol>`؛ صفحهٔ فعلی `aria-current="page"` دارد و لینک نیست. جداکننده‌ها تزئینی‌اند و در راست‌به‌چپ آینه می‌شوند.
+داخل `<nav aria-label="مسیر">` با فهرست `<ol>`؛ صفحهٔ فعلی `aria-current="page"` دارد و لینک نیست. جداکننده‌ها تزئینی‌اند و در راست‌به‌چپ آینه می‌شوند. «…» یک دکمهٔ واقعی با نام «نمایش مسیر کامل» است.

@@ -9,8 +9,10 @@
 html { scroll-padding-top: calc(var(--header-h) + 1rem); }
 body { min-block-size: 100dvh; }
 
-/* :where تا اختصاصی بودن صفر شود و کلاس‌های دیگر (لوگو، منو) برنده باشند؛ دکمه‌های لینکی رنگ خودشان را دارند */
-:where(a:not(.k-btn)) { color: var(--k-text-brand); text-underline-offset: 0.3em; }
+/* رنگ پایهٔ لینک در لایهٔ زیر کاشی (layers.css)؛ لینک‌های داخل کامپوننت‌ها رنگ خودشان را دارند */
+@layer site-base {
+  a { color: var(--k-text-brand); text-underline-offset: 0.3em; }
+}
 
 /* کد همیشه چپ‌به‌راست و جدا از جهت متن فارسی */
 code, pre, kbd {
