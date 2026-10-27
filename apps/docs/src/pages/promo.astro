@@ -1,0 +1,87 @@
+---
+// صفحهٔ ساخت تصویر معرفی؛ با ?size=og برای ۱۲۰۰×۶۳۰. در فهرست سایت نیست.
+import "../styles/layers.css";
+import "@kashi-ui/css";
+import Logo from "../components/Logo.astro";
+import PromoArt from "../components/PromoArt";
+---
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex" />
+  <title>کاشی</title>
+</head>
+<body>
+  <main class="promo">
+    <svg class="promo__pattern" aria-hidden="true">
+      <defs><pattern id="sh" width="72" height="72" patternUnits="userSpaceOnUse"><path transform="translate(20 20)" d="M16 1 11.61 5.39H5.39v6.22L1 16l4.39 4.39v6.22h6.22L16 31l4.39-4.39h6.22v-6.22L31 16l-4.39-4.39V5.39h-6.22Z" /><path d="M0 0 L20 20 M72 0 L52 20 M0 72 L20 52 M72 72 L52 52" /></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#sh)" />
+    </svg>
+    <span class="glow glow--a"></span><span class="glow glow--b"></span>
+
+    <section class="promo__text">
+      <div class="promo__brand"><Logo size={64} /><span>کاشی</span></div>
+      <h1>دیزاین‌سیستم متن‌باز<br /><span class="grad">برای محصولات فارسی</span></h1>
+      <p class="promo__lead">کامپوننت‌های راست‌به‌چپ و دسترس‌پذیر، با تقویم شمسی، کد ملی، شبا، پلاک و لوگوی بانک‌ها</p>
+      <ul class="promo__chips">
+        <li>+۶۵ کامپوننت</li><li>WCAG 2.2 AA</li><li>React و CSS خالص</li><li>رایگان · MIT</li>
+      </ul>
+      <div class="promo__foot">
+        <span class="promo__url" dir="ltr">kashi.sepantapouya.com</span>
+        <span class="promo__id" dir="ltr">@sepantapouya_ux</span>
+      </div>
+    </section>
+
+    <section class="promo__art"><PromoArt /></section>
+  </main>
+
+  <style is:global>
+    html, body { margin: 0; background: #09090b; }
+    .promo { position: relative; isolation: isolate; display: grid; grid-template-columns: 1fr 1.05fr; align-items: center; gap: 56px; inline-size: 1600px; block-size: 900px; padding: 72px 88px; box-sizing: border-box; overflow: hidden; background: var(--k-bg-primary); color: var(--k-text-primary); }
+    .promo__pattern { position: absolute; inset: 0; z-index: -2; inline-size: 100%; block-size: 100%; fill: none; stroke: var(--k-border-secondary); stroke-width: 1; opacity: 0.9; mask-image: radial-gradient(ellipse 60% 70% at 80% 40%, #000 10%, transparent 75%); }
+    .glow { position: absolute; z-index: -1; border-radius: 50%; filter: blur(110px); }
+    .glow--a { inline-size: 760px; block-size: 520px; inset-block-start: -180px; inset-inline-start: -120px; background: var(--k-brand-500); opacity: 0.32; }
+    .glow--b { inline-size: 560px; block-size: 420px; inset-block-end: -220px; inset-inline-start: 520px; background: var(--k-lajvard-500); opacity: 0.2; }
+    .promo__brand { display: flex; align-items: center; gap: 16px; font-size: 44px; font-weight: 900; }
+    .promo h1 { margin: 36px 0 24px; font-size: 64px; font-weight: 900; line-height: 1.3; letter-spacing: 0; }
+    .grad { background: linear-gradient(100deg, var(--k-brand-300), var(--k-brand-500) 45%, var(--k-lajvard-400)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .promo__lead { margin: 0; max-inline-size: 640px; color: var(--k-text-secondary); font-size: 26px; line-height: 1.85; }
+    .promo__chips { display: flex; flex-wrap: wrap; gap: 12px; margin: 36px 0 0; padding: 0; list-style: none; }
+    .promo__chips li { padding: 10px 20px; border: 1px solid var(--k-border-primary); border-radius: 999px; background: color-mix(in srgb, var(--k-bg-elevated) 80%, transparent); color: var(--k-text-primary); font-size: 20px; font-weight: 600; box-shadow: var(--k-highlight); }
+    .promo__foot { display: flex; align-items: center; gap: 28px; margin-block-start: 48px; font: 600 22px var(--k-font-mono); }
+    .promo__url { color: var(--k-text-brand); }
+    .promo__id { padding: 8px 16px; border-radius: 12px; background: var(--k-bg-brand); color: var(--k-text-on-brand); }
+
+    .promo__art { position: relative; block-size: 100%; }
+    .promo-cards { position: relative; block-size: 100%; }
+    .promo-card { position: absolute; padding: 18px; border: 1px solid var(--k-border-secondary); border-radius: 20px; background: var(--k-bg-secondary); box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.7), var(--k-highlight); }
+    .promo-card .k-stat { border: 0; box-shadow: none; padding: 4px; background: none; }
+    .promo-card--stat { inset-block-start: 10px; inset-inline-start: 0; inline-size: 340px; }
+    .promo-card--plate { inset-block-start: 28px; inset-inline-end: 0; padding: 22px; }
+    .promo-card--plate .k-plate { --k-plate-height: 3.6rem; }
+    .promo-card--cal { inset-block-start: 210px; inset-inline-start: 40px; padding: 14px; }
+    .promo-card--cal .k-calendar { --k-calendar-day-size: 2.2rem; }
+    .promo-card--chart { inset-block-start: 250px; inset-inline-end: 0; inline-size: 350px; }
+    .promo-card--ui { inset-block-end: 40px; inset-inline-start: 0; display: grid; gap: 14px; padding: 20px 22px; }
+    .promo-row { display: flex; gap: 8px; }
+
+    /* نسخهٔ پیش‌نمایش ۱۲۰۰×۶۳۰ */
+    html[data-size="og"] .promo { inline-size: 1200px; block-size: 630px; padding: 56px 56px; gap: 28px; grid-template-columns: 1fr 1fr; }
+    html[data-size="og"] .promo__brand { font-size: 34px; }
+    html[data-size="og"] .promo h1 { margin: 22px 0 16px; font-size: 46px; }
+    html[data-size="og"] .promo__lead { font-size: 19px; }
+    html[data-size="og"] .promo__chips { margin-block-start: 24px; gap: 8px; }
+    html[data-size="og"] .promo__chips li { padding: 7px 14px; font-size: 15px; }
+    html[data-size="og"] .promo__foot { margin-block-start: 28px; font-size: 16px; gap: 16px; }
+    html[data-size="og"] .promo-card--chart, html[data-size="og"] .promo-card--ui { display: none; }
+    html[data-size="og"] .promo-card--stat { inline-size: 230px; inset-block-start: 0; }
+    html[data-size="og"] .promo-card--stat .k-stat { --k-stat-value-size: 1.6rem; }
+    html[data-size="og"] .promo-card--plate { inset-block-start: auto; inset-block-end: 20px; inset-inline-end: auto; inset-inline-start: 0; }
+    html[data-size="og"] .promo-card--cal { inset-block-start: 40px; inset-inline-start: auto; inset-inline-end: 0; }
+    html[data-size="og"] .promo-card--cal { inset-block-start: 0; }
+    html[data-size="og"] .promo-card--cal .k-calendar { --k-calendar-day-size: 1.75rem; font-size: 13px; }
+  </style>
+  <script is:inline>if (new URLSearchParams(location.search).get("size") === "og") document.documentElement.dataset.size = "og";</script>
+</body>
+</html>
