@@ -109,11 +109,7 @@
 
 @media (forced-colors: active) {
   .k-input { border-color: FieldText; }
-  .k-input:hover:not(:focus-within, :has(:disabled, [aria-invalid="true"])) {
-  --_border: var(--k-input-border-hover, var(--k-text-quaternary));
-}
-
-.k-input:focus-within { outline-color: Highlight; }
+  .k-input:focus-within { outline-color: Highlight; }
 }
 
 /* دکمه‌های داخل فیلد: پاک کردن، نمایش رمز */

@@ -79,11 +79,5 @@
 
 @media (forced-colors: active) {
   .k-avatar { border: 1px solid CanvasText; }
-  /* رنگ‌ها (همه جفت متن/پس‌زمینهٔ بررسی‌شده با کنتراست AA) */
-.k-avatar--info { background: var(--k-avatar-bg, var(--k-bg-info-subtle)); color: var(--k-avatar-fg, var(--k-text-info)); }
-.k-avatar--success { background: var(--k-avatar-bg, var(--k-bg-success-subtle)); color: var(--k-avatar-fg, var(--k-text-success)); }
-.k-avatar--warning { background: var(--k-avatar-bg, var(--k-bg-warning-subtle)); color: var(--k-avatar-fg, var(--k-text-warning)); }
-.k-avatar--error { background: var(--k-avatar-bg, var(--k-bg-error-subtle)); color: var(--k-avatar-fg, var(--k-text-error)); }
-
-.k-avatar__status { background: CanvasText; }
+  .k-avatar__status { background: CanvasText; }
 }

@@ -56,7 +56,8 @@
 .k-progress-ring__track { stroke: var(--k-bg-tertiary); }
 .k-progress-ring__bar { stroke: var(--_c); stroke-linecap: round; transition: stroke-dashoffset var(--k-duration-slow) var(--k-ease-standard); }
 .k-progress-ring__value { color: var(--k-text-primary); font-size: calc(var(--_s) * 0.24); font-weight: var(--k-weight-semibold); font-variant-numeric: tabular-nums; }
-.k-progress-ring--indeterminate svg { animation: k-spin 1s linear infinite; }
+/* چرخش روی ظرف، نه svg: svg از قبل ۹۰- درجه چرخیده و چرخاندن خودش در پایان هر دور پرش می‌ساخت */
+.k-progress-ring--indeterminate { animation: k-spin 0.9s linear infinite; }
 
 .k-spinner {
   --_s: 1.25rem;
@@ -73,28 +74,7 @@
 .k-spinner--sm { --_s: 1rem; }
 .k-spinner--lg { --_s: 2rem; border-width: 3px; }
 @media (prefers-reduced-motion: reduce) {
-  /* حلقهٔ پیشرفت */
-.k-progress-ring {
-  --_s: var(--k-progress-ring-size, 3.5rem);
-  --_c: var(--k-progress-color, var(--k-bg-brand));
-  position: relative;
-  display: inline-grid;
-  place-items: center;
-  inline-size: var(--_s);
-  block-size: var(--_s);
-}
-.k-progress-ring--sm { --_s: var(--k-progress-ring-size, 2.5rem); }
-.k-progress-ring--lg { --_s: var(--k-progress-ring-size, 5rem); }
-.k-progress-ring.k-progress--success { --_c: var(--k-text-success); }
-.k-progress-ring.k-progress--warning { --_c: var(--k-text-warning); }
-.k-progress-ring.k-progress--error { --_c: var(--k-text-error); }
-.k-progress-ring svg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; rotate: -90deg; }
-[dir="rtl"] .k-progress-ring svg { scale: -1 1; rotate: 90deg; }
-.k-progress-ring circle { fill: none; stroke-width: 4; }
-.k-progress-ring__track { stroke: var(--k-bg-tertiary); }
-.k-progress-ring__bar { stroke: var(--_c); stroke-linecap: round; transition: stroke-dashoffset var(--k-duration-slow) var(--k-ease-standard); }
-.k-progress-ring__value { color: var(--k-text-primary); font-size: calc(var(--_s) * 0.24); font-weight: var(--k-weight-semibold); font-variant-numeric: tabular-nums; }
-.k-progress-ring--indeterminate svg { animation: k-spin 1s linear infinite; }
+  .k-progress-ring--indeterminate { animation-duration: 2s; }
 
 .k-spinner { animation-duration: 2s !important; }
   .k-progress:not([aria-valuenow]) .k-progress__bar { animation: none; inline-size: 100%; opacity: 0.5; }
