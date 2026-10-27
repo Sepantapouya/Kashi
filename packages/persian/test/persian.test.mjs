@@ -194,3 +194,8 @@ test("تلفن ثابت: پیش‌شمارهٔ استان، اعتبارسنجی
   assert.equal(P.isValidLandline("02108776655"), false); // شمارهٔ محلی با ۰
   assert.equal(P.formatLandline("02188776655"), "021 8877 6655");
 });
+
+test("کارت: بانک‌های ادغام‌شده در سپه", () => {
+  assert.equal(P.getBankByCard("6273 81")?.slug, "ansar");
+  assert.equal(P.getBankByCard("639599")?.name, "بانک قوامین");
+});

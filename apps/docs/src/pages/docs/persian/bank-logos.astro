@@ -14,23 +14,48 @@ const NAMES: Record<string, string> = {
   "mehr-iran": "بانک قرض‌الحسنه مهر ایران", gardeshgari: "بانک گردشگری", markazi: "بانک مرکزی",
   khavarmianeh: "بانک خاورمیانه", noor: "موسسه اعتباری نور", melal: "موسسه اعتباری ملل", tosee: "موسسه اعتباری توسعه",
   resalat: "بانک قرض‌الحسنه رسالت",
+  ansar: "بانک انصار", ghavamin: "بانک قوامین", hekmat: "بانک حکمت ایرانیان", kosar: "موسسه اعتباری کوثر",
+  "mehr-eghtesad": "بانک مهر اقتصاد", caspian: "موسسه اعتباری کاسپین", "iran-venezuela": "بانک ایران و ونزوئلا",
+  "iran-europe": "بانک تجارتی ایران و اروپا", futurebank: "فیوچر بانک",
 };
-const slugs = Object.keys(bankLogos).sort((a, b) => (NAMES[a] ?? a).localeCompare(NAMES[b] ?? b, "fa"));
+// درگاه‌ها و شبکهٔ پرداخت
+const GATEWAYS: Record<string, string> = {
+  shaparak: "شاپرک", zarinpal: "زرین‌پال", "asan-pardakht": "آسان پرداخت", sedad: "سداد", digipay: "دیجی‌پی",
+  idpay: "آیدی‌پی", payir: "Pay.ir", payping: "پی‌پینگ", vandar: "وندار", hesabit: "حسابیت",
+};
+const byName = (names: Record<string, string>) => (a: string, b: string) => (names[a] ?? a).localeCompare(names[b] ?? b, "fa");
+const all = Object.keys(bankLogos);
+const slugs = all.filter((s) => !(s in GATEWAYS)).sort(byName(NAMES));
+const gateways = all.filter((s) => s in GATEWAYS).sort(byName(GATEWAYS));
 const headings = [
-  { depth: 2, slug: "logos", text: "همهٔ لوگوها" },
+  { depth: 2, slug: "logos", text: "بانک‌ها و موسسه‌ها" },
+  { depth: 2, slug: "gateways", text: "درگاه‌های پرداخت" },
   { depth: 2, slug: "usage", text: "استفاده" },
   { depth: 2, slug: "license", text: "منبع و مجوز" },
 ];
 ---
-<Docs title="لوگوی بانک‌ها" description={`لوگوی SVG بهینه‌شدهٔ ${slugs.length.toLocaleString("fa-IR")} بانک و موسسهٔ اعتباری ایران؛ در فیلدهای کارت و شبا خودکار نمایش داده می‌شوند.`} headings={headings}>
+<Docs title="لوگوی بانک‌ها" description={`لوگوی SVG بهینه‌شدهٔ ${slugs.length.toLocaleString("fa-IR")} بانک و موسسهٔ اعتباری و ${gateways.length.toLocaleString("fa-IR")} درگاه پرداخت ایران؛ در فیلدهای کارت و شبا خودکار نمایش داده می‌شوند.`} headings={headings}>
   <Install command="npm i @kashi-ui/bank-logos" />
 
-  <h2 id="logos">همهٔ لوگوها</h2>
+  <h2 id="logos">بانک‌ها و موسسه‌ها</h2>
+  <p>بانک‌های ادغام‌شده در سپه (انصار، قوامین، حکمت ایرانیان، کوثر و مهر اقتصاد) هم آمده‌اند، چون کارت‌های قدیمی آن‌ها هنوز در دست مردم است.</p>
   <ul class="logo-grid" role="list">
     {slugs.map((slug) => (
       <li class="logo-card">
         <img src={bankLogoDataUri(slug)} alt="" width="48" height="48" loading="lazy" />
         <span class="logo-card__name">{NAMES[slug] ?? slug}</span>
+        <code class="logo-card__slug">{slug}</code>
+      </li>
+    ))}
+  </ul>
+
+  <h2 id="gateways">درگاه‌های پرداخت</h2>
+  <p>برای صفحه‌های پرداخت و انتخاب درگاه؛ با همان تابع‌ها: <code>bankLogoDataUri("zarinpal")</code>.</p>
+  <ul class="logo-grid" role="list">
+    {gateways.map((slug) => (
+      <li class="logo-card">
+        <img src={bankLogoDataUri(slug)} alt="" width="48" height="48" loading="lazy" />
+        <span class="logo-card__name">{GATEWAYS[slug]}</span>
         <code class="logo-card__slug">{slug}</code>
       </li>
     ))}
