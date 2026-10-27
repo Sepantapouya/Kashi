@@ -1,0 +1,123 @@
+---
+layout: ../../../layouts/Docs.astro
+title: نمودار
+description: نمودار ستونی، انباشته، خطی، دایره‌ای و دونات، میله‌ای افقی، سهم از کل و خط روند؛ با ارقام فارسی و جدول هم‌ارز برای صفحه‌خوان.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { BarChartDemo, BarListDemo, LineChartDemo, PieDemo, ProportionDemo, SparklineDemo, StackedBarDemo } from "../../../components/demos";
+
+```tsx
+import { BarChart, BarList, LineChart, PieChart, ProportionBar, Sparkline } from "@kashi-ui/react";
+```
+
+نمودارهای کاشی برای داشبورد و پنل مدیریت ساخته شده‌اند، نه برای تحلیل سنگین داده. اگر نمودار تعاملی پیچیده لازم دارید، از کتابخانهٔ تخصصی استفاده کنید و رنگ‌ها را از متغیرهای `--k-chart-1` تا `--k-chart-4` بگیرید.
+
+## ستونی
+
+برای مقایسهٔ مقدار در چند دسته یا دوره. فقط بلندترین ستون برچسب دارد؛ مقدار بقیه با موس یا Tab نمایش داده می‌شود.
+
+<Demo html={false} code={`<BarChart
+  title="فروش ماهانه (میلیون تومان)"
+  data={[{ label: "فروردین", value: 82 }, { label: "اردیبهشت", value: 96 }, …]}
+/>`}>
+  <BarChartDemo client:visible />
+</Demo>
+
+## ستونی انباشته
+
+برای ترکیب یک کل در طول زمان، تا چهار سری. بخش‌ها با فاصلهٔ ۲ پیکسلی از هم جدا شده‌اند و راهنما همیشه نمایش داده می‌شود.
+
+<Demo html={false} code={`<BarChart title="سفارش‌ها بر اساس کانال" labels={months} series={[
+  { name: "وب", values: [420, 460, …] },
+  { name: "اپ", values: [260, 300, …] },
+  { name: "حضوری", values: [120, 110, …] },
+]} />`}>
+  <StackedBarDemo client:visible />
+</Demo>
+
+## خطی
+
+برای روند در طول زمان، تا چهار سری. محور زمان در جهت خواندن صفحه است: در RTL اولین ماه سمت راست. نام هر سری کنار انتهای خطش آمده تا تشخیص سری فقط به رنگ وابسته نباشد.
+
+<Demo html={false} code={`<LineChart
+  title="کاربران فعال روزانه"
+  labels={["فروردین", "اردیبهشت", …]}
+  series={[
+    { name: "وب", values: [3200, 3600, …] },
+    { name: "اپ", values: [1800, 2300, …] },
+    { name: "API", values: [600, 700, …] },
+  ]}
+/>`}>
+  <LineChartDemo client:only="react" />
+</Demo>
+
+## میله‌ای افقی
+
+برای رتبه‌بندی، به‌خصوص وقتی نام‌ها بلندند؛ نام داخل میله و مقدار در انتهای ردیف.
+
+<Demo html={false} code={`<BarList title="پربازدیدترین صفحه‌ها" data={[
+  { label: "صفحهٔ اصلی", value: 48210 },
+  { label: "محصولات / مبل راحتی", value: 21840, href: "/products/sofa" },
+  …
+]} />`}>
+  <BarListDemo client:visible />
+</Demo>
+
+## سهم از کل
+
+جایگزین خواناتر نمودار دایره‌ای: مقایسهٔ طول در یک میله از مقایسهٔ زاویه دقیق‌تر است. حداکثر چهار بخش؛ بقیه را در «سایر» جمع کنید.
+
+<Demo html={false} code={`<ProportionBar title="منبع ورود کاربران" data={[
+  { label: "جستجوی گوگل", value: 46200 },
+  { label: "ورود مستقیم", value: 21800 },
+  { label: "اینستاگرام", value: 15400 },
+  { label: "سایر", value: 6100 },
+]} />`}>
+  <ProportionDemo client:visible />
+</Demo>
+
+## دایره‌ای و دونات
+
+برای نشان دادن سهم چند بخش از کل، وقتی تعداد بخش‌ها کم است. بخش‌ها از بزرگ به کوچک چیده می‌شوند و بیش از پنج بخش در «سایر» جمع می‌شود. با بردن موس روی هر بخش، درصد آن وسط دونات نمایش داده می‌شود. چشم زاویه را دقیق مقایسه نمی‌کند؛ برای مقایسهٔ دقیق از «سهم از کل» یا نمودار میله‌ای استفاده کنید.
+
+<Demo html={false} code={`<PieChart title="سفارش‌ها بر اساس استان" data={[
+  { label: "تهران", value: 48200 },
+  { label: "اصفهان", value: 18400 },
+  …
+]} />
+
+<PieChart title="روش پرداخت" variant="pie" data={[…]} />`}>
+  <PieDemo client:visible />
+</Demo>
+
+## خط روند
+
+شکل روند بدون محور، برای کارت آمار و سلول جدول. نام دسترس‌پذیر را با جهت روند بدهید.
+
+<Demo html={false} code={`<Sparkline values={[4, 6, 5, 8, 7, 9, 12]} tone="success" aria-label="روند فروش: افزایشی" />`}>
+  <SparklineDemo client:visible />
+</Demo>
+
+<Props rows={[
+  ["title", "string", "", "عنوان و نام دسترس‌پذیر (الزامی)"],
+  ["data (BarChart)", "{ label, value }[]", "", "یک سری"],
+  ["labels / series (BarChart)", "string[] / { name, values }[]", "", "ستون انباشته، حداکثر چهار سری"],
+  ["data (BarList)", "{ label, value, href? }[]", "", "ردیف‌ها به همان ترتیب"],
+  ["data (ProportionBar)", "{ label, value }[]", "", "حداکثر چهار بخش؛ percent برای درصد"],
+  ["data / variant (PieChart)", '{ label, value }[] / "donut" | "pie"', '"donut"', "حداکثر پنج بخش؛ totalLabel برای متن وسط"],
+  ["values / tone (Sparkline)", "number[] / brand | success | error | neutral", "", "بدون محور؛ aria-label بدهید"],
+  ["labels / series (LineChart)", "string[] / { name, values }[]", "", "حداکثر چهار سری؛ بیشتر نادیده گرفته می‌شود"],
+  ["format", "(n: number) => string", "ارقام فارسی", "قالب مقدار در راهنما و جدول"],
+  ["area (LineChart)", "boolean", "false", "سطح کم‌رنگ زیر خط، فقط برای یک سری"],
+  ["labelMax (BarChart)", "boolean", "true", "برچسب مقدار روی بلندترین ستون"],
+  ["height", "string", '"14rem"', "یا متغیر --k-chart-height"],
+]} />
+
+## رنگ‌ها
+
+چهار رنگ دسته‌ای با ترتیب ثابت، برای تم تیره و روشن جداگانه انتخاب و با شبیه‌سازی کوررنگی بررسی شده‌اند (فاصلهٔ رنگی دست‌کم ۸). رنگ همیشه به نام سری وابسته است، نه به جایگاهش. نمودار دومحوره نداریم؛ دو مقیاس متفاوت را در دو نمودار جدا نشان دهید.
+
+## دسترس‌پذیری
+
+هر نمودار یک جدول هم‌ارز پنهان دارد که صفحه‌خوان کامل می‌خواند. در نمودار ستونی هر ستون با Tab فوکوس می‌گیرد («آبان: ۱۸۴»)؛ در نمودار خطی، با فوکوس روی نمودار کلیدهای ←→ بین نقطه‌ها حرکت می‌کنند و مقدار همهٔ سری‌ها اعلام می‌شود.

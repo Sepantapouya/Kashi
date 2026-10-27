@@ -4,7 +4,7 @@ import {
 } from "react";
 import { cx } from "./cx.js";
 
-const MenuCtx = createContext<{ close: (focusTrigger?: boolean) => void } | null>(null);
+export const MenuCtx = createContext<{ close: (focusTrigger?: boolean) => void } | null>(null);
 
 export interface DropdownMenuProps {
   /** دکمه‌ای که منو را باز می‌کند */
@@ -16,7 +16,7 @@ export interface DropdownMenuProps {
   children: ReactNode;
 }
 
-const items = (menu: HTMLElement | null) =>
+export const items = (menu: HTMLElement | null) =>
   [...(menu?.querySelectorAll<HTMLElement>('[role^="menuitem"]:not([aria-disabled="true"])') ?? [])];
 
 /**
@@ -53,25 +53,7 @@ export function DropdownMenu({ trigger, label, align = "start", children }: Drop
     setOpen(true);
   };
 
-  const onMenuKey = (e: KeyboardEvent<HTMLUListElement>) => {
-    const list = items(menuRef.current);
-    const i = list.indexOf(document.activeElement as HTMLElement);
-    const go = (j: number) => list[(j + list.length) % list.length]?.focus();
-    if (e.key === "ArrowDown") go(i + 1);
-    else if (e.key === "ArrowUp") go(i - 1);
-    else if (e.key === "Home") go(0);
-    else if (e.key === "End") go(list.length - 1);
-    else if (e.key === "Escape") close();
-    else if (e.key === "Tab") return setOpen(false);
-    else if (e.key.length === 1 && /\S/.test(e.key)) {
-      // پرش با حرف اول
-      const k = e.key.toLowerCase();
-      const start = i + 1;
-      const hit = [...list.slice(start), ...list.slice(0, start)].find((el) => el.textContent?.trim().toLowerCase().startsWith(k));
-      hit?.focus();
-    } else return;
-    e.preventDefault();
-  };
+  const onMenuKey = (e: KeyboardEvent<HTMLUListElement>) => menuKeyDown(e, menuRef.current, close, () => setOpen(false));
 
   const t = isValidElement<Record<string, unknown>>(trigger)
     ? cloneElement(trigger, {
@@ -109,6 +91,27 @@ export function DropdownMenu({ trigger, label, align = "start", children }: Drop
       </MenuCtx.Provider>
     </span>
   );
+}
+
+/** پیمایش کیبورد مشترک منوها: ↑↓، Home/End، حرف اول، Esc و Tab */
+export function menuKeyDown(e: KeyboardEvent<HTMLElement>, menu: HTMLElement | null, close: () => void, dismiss: () => void) {
+  const list = items(menu);
+  const i = list.indexOf(document.activeElement as HTMLElement);
+  const go = (j: number) => list[(j + list.length) % list.length]?.focus();
+  if (e.key === "ArrowDown") go(i + 1);
+  else if (e.key === "ArrowUp") go(i - 1);
+  else if (e.key === "Home") go(0);
+  else if (e.key === "End") go(list.length - 1);
+  else if (e.key === "Escape") close();
+  else if (e.key === "Tab") return dismiss();
+  else if (e.key.length === 1 && /\S/.test(e.key)) {
+    // پرش با حرف اول
+    const k = e.key.toLowerCase();
+    const start = i + 1;
+    const hit = [...list.slice(start), ...list.slice(0, start)].find((el) => el.textContent?.trim().toLowerCase().startsWith(k));
+    hit?.focus();
+  } else return;
+  e.preventDefault();
 }
 
 export interface MenuItemProps {

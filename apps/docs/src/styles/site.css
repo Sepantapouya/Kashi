@@ -91,6 +91,8 @@ code, pre, kbd {
 }
 .site-header__end { margin-inline-start: auto; display: flex; align-items: center; gap: var(--k-space-1); }
 .menu-btn { display: none; }
+.install-btn { margin-inline-start: var(--k-space-1); }
+@media (max-width: 26rem) { .install-btn { display: none; } }
 
 /* دکمهٔ جستجو */
 .search-btn {

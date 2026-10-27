@@ -1,0 +1,36 @@
+---
+layout: ../../../layouts/Docs.astro
+title: انتخاب استان
+description: انتخاب یکی از ۳۱ استان با جستجو؛ با نام مرکز استان هم پیدا می‌شود.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { ProvinceDemo } from "../../../components/demos";
+
+```tsx
+import { ProvinceSelect } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<ProvinceSelect value={province} onChange={setProvince} name="province" />`}>
+  <ProvinceDemo client:load />
+</Demo>
+
+روی `Combobox` ساخته شده، پس همهٔ ویژگی‌های آن را دارد. فهرست استان‌ها با مرکز و پیش‌شمارهٔ تلفن ثابت در `PROVINCES` از `@kashi-ui/persian` هم در دسترس است:
+
+```ts
+import { PROVINCES } from "@kashi-ui/persian";
+// [{ name: "اصفهان", capital: "اصفهان", areaCode: "31" }, …]
+```
+
+<Props rows={[
+  ["value / defaultValue", "string | null", "", "نام استان"],
+  ["onChange", "(value: string | null) => void", "", ""],
+  ["showCapital", "boolean", "true", "مرکز استان زیر نام"],
+  ["…", "ComboboxProps", "", "همهٔ ویژگی‌های Combobox"],
+]} />
+
+## دسترس‌پذیری
+
+همان الگوی Combobox در WAI-ARIA؛ تعداد نتیجه‌ها پس از هر تایپ اعلام می‌شود.

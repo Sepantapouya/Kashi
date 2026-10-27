@@ -1,5 +1,18 @@
 # @kashi-ui/react
 
+## 0.12.0
+
+### Minor Changes
+
+- نمودارها: BarChart (تک‌سری و انباشته)، LineChart، PieChart (دایره‌ای و دونات)، BarList، ProportionBar و Sparkline؛ با راهنمای شناور روی هاور و فوکوس، انیمیشن ورود، ارقام فارسی، جهت زمان راست‌به‌چپ و جدول هم‌ارز برای صفحه‌خوان. پالت چهاررنگی `--k-chart-1..4` برای هر دو تم با شبیه‌سازی کوررنگی اعتبارسنجی شده است. کامپوننت‌های تازه: ActivityHeatmap (نقشهٔ فعالیت با ماه‌های شمسی)، ContextMenu (منوی راست‌کلیک با Popover API)، InlineEdit و ProvinceSelect. `PROVINCES` در `@kashi-ui/persian`: ۳۱ استان با مرکز و پیش‌شماره.
+
+### Patch Changes
+
+- Updated dependencies
+  - @kashi-ui/persian@0.12.0
+  - @kashi-ui/bank-logos@0.12.0
+  - @kashi-ui/css@0.12.0
+
 ## 0.11.0
 
 ### Minor Changes

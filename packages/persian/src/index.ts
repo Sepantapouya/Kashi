@@ -22,3 +22,5 @@ export type { Plate, PlateType } from "./plate.js";
 export { parseTime, formatTime } from "./time.js";
 export type { Time } from "./time.js";
 export { normalizeLandline, getLandlineProvince, isValidLandline, formatLandline } from "./landline.js";
+export { PROVINCES } from "./provinces.js";
+export type { Province } from "./provinces.js";

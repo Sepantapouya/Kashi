@@ -199,3 +199,8 @@ test("کارت: بانک‌های ادغام‌شده در سپه", () => {
   assert.equal(P.getBankByCard("6273 81")?.slug, "ansar");
   assert.equal(P.getBankByCard("639599")?.name, "بانک قوامین");
 });
+
+test("استان‌ها: ۳۱ استان و هماهنگ با پیش‌شمارهٔ تلفن", () => {
+  assert.equal(P.PROVINCES.length, 31);
+  for (const p of P.PROVINCES) assert.equal(P.getLandlineProvince("0" + p.areaCode), p.name);
+});

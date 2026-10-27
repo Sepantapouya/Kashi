@@ -1,0 +1,43 @@
+---
+layout: ../../../layouts/Docs.astro
+title: ویرایش درجا
+description: ویرایش متن در همان جا، مثل نام پروژه یا عنوان کارت، بدون فرم جداگانه.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { InlineEditDemo } from "../../../components/demos";
+
+```tsx
+import { InlineEdit } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<InlineEdit label="نام پروژه" defaultValue="بازطراحی فروشگاه"
+  validate={(v) => (v ? undefined : "نام پروژه نمی‌تواند خالی باشد.")}
+  onSave={(v) => api.rename(v)} />`}>
+  <InlineEditDemo client:load />
+</Demo>
+
+اگر `onSave` یک Promise برگرداند، دکمهٔ ثبت تا پایانش در حالت بارگذاری می‌ماند و در صورت خطا متن قبلی برمی‌گردد.
+
+<Props rows={[
+  ["label", "string", "", "نام فیلد برای صفحه‌خوان (الزامی)"],
+  ["value / defaultValue", "string", '""', ""],
+  ["onSave", "(value) => void | Promise", "", "پس از ثبت"],
+  ["validate", "(value) => string | undefined", "", "پیام خطا"],
+  ["renderView", "(value) => ReactNode", "", "ظاهر حالت نمایش، مثلاً عنوان"],
+  ["placeholder", "string", "«خالی»", ""],
+]} />
+
+## کیبورد
+
+| کلید | عمل |
+|---|---|
+| <kbd>Enter</kbd> روی متن | شروع ویرایش |
+| <kbd>Enter</kbd> در فیلد | ثبت |
+| <kbd>Esc</kbd> | انصراف و برگشت به متن |
+
+## دسترس‌پذیری
+
+حالت نمایش یک دکمه با نام کامل است («نام پروژه: بازطراحی فروشگاه، ویرایش»). پس از ثبت یا انصراف، فوکوس به همان دکمه برمی‌گردد.

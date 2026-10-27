@@ -1,0 +1,169 @@
+/* نمودارها (BarChart، LineChart) — طبق روش dataviz: نشانه‌های باریک، شبکهٔ کم‌رنگ، رنگ دسته‌ای با ترتیب ثابت
+ * پالت: چهار رنگ اول پالت مرجع، اعتبارسنجی‌شده روی سطح کاشی در هر دو تم (CVD ΔE ≥ ۸)
+ * متغیرها: --k-chart-1..4  --k-chart-height
+ */
+:root, [data-theme="dark"] {
+  --k-chart-1: #3987e5;
+  --k-chart-2: #d95926;
+  --k-chart-3: #199e70;
+  --k-chart-4: #c98500;
+}
+[data-theme="light"] {
+  --k-chart-1: #2a78d6;
+  --k-chart-2: #eb6834;
+  --k-chart-3: #1baf7a;
+  --k-chart-4: #eda100;
+}
+.k-chart { position: relative; display: grid; gap: var(--k-space-3); font-size: var(--k-text-xs); }
+.k-chart__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--k-space-2) var(--k-space-4); }
+.k-chart__title { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+.k-chart__legend { display: flex; flex-wrap: wrap; gap: var(--k-space-1) var(--k-space-4); margin: 0; padding: 0; list-style: none; color: var(--k-text-secondary); }
+.k-chart__legend li { display: inline-flex; align-items: center; gap: var(--k-space-1_5); }
+.k-chart__key { inline-size: 0.875rem; block-size: 2px; border-radius: 1px; background: var(--_c); }
+.k-chart__plot { position: relative; block-size: var(--k-chart-height, 14rem); }
+.k-chart__svg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; overflow: visible; }
+.k-chart__grid line { stroke: var(--k-border-secondary); stroke-width: 1; shape-rendering: crispEdges; }
+.k-chart__tick { fill: var(--k-text-tertiary); font-size: 11px; }
+.k-chart__line { fill: none; stroke: var(--_c); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.k-chart__area { stroke: none; }
+.k-chart__dot { fill: var(--_c); stroke: var(--k-bg-elevated); stroke-width: 2; }
+.k-chart__end { fill: var(--k-text-secondary); font-size: 11px; font-weight: var(--k-weight-medium); }
+.k-chart__cross { stroke: var(--k-border-primary); stroke-width: 1; }
+.k-chart__hit { fill: transparent; cursor: crosshair; outline: 0; }
+.k-chart__plot:focus-visible { outline: 2px solid transparent; border-radius: var(--k-radius-md); box-shadow: var(--k-ring-brand); }
+
+/* ستون‌ها با HTML تا در RTL و هر عرضی درست بچینند */
+.k-bars { position: absolute; inset: 0 0 1.5rem; display: flex; align-items: flex-end; gap: 2px; padding-inline: var(--k-space-1); }
+.k-bars__grid { position: absolute; inset: 0 0 1.5rem; display: flex; flex-direction: column-reverse; justify-content: space-between; pointer-events: none; }
+.k-bars__grid span { position: relative; border-block-start: 1px solid var(--k-border-secondary); }
+.k-bars__grid span::after { content: attr(data-v); position: absolute; inset-block-start: -0.55rem; inset-inline-end: 100%; padding-inline-end: var(--k-space-1_5); color: var(--k-text-tertiary); white-space: nowrap; }
+.k-bars__col { position: relative; display: flex; flex: 1; flex-direction: column; justify-content: flex-end; align-items: center; block-size: 100%; outline: 0; }
+.k-bars__bar { inline-size: min(100%, 24px); min-block-size: 2px; border-radius: 4px 4px 0 0; background: var(--_c, var(--k-bg-brand)); transition: opacity var(--k-duration-fast); }
+.k-bars:has(.k-bars__col:is(:hover, :focus-visible)) .k-bars__col:not(:hover, :focus-visible) .k-bars__bar { opacity: 0.45; }
+.k-bars__col:focus-visible .k-bars__bar { box-shadow: var(--k-ring-brand); }
+.k-bars__label { position: absolute; inset-block-start: calc(100% + 0.4rem); color: var(--k-text-tertiary); white-space: nowrap; }
+.k-bars__value { margin-block-end: var(--k-space-1); color: var(--k-text-secondary); font-weight: var(--k-weight-semibold); white-space: nowrap; }
+.k-chart--bar .k-chart__plot { margin-inline-start: 2.5rem; }
+
+.k-chart__tip {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  gap: 2px;
+  min-inline-size: 8rem;
+  padding: var(--k-space-2) var(--k-space-3);
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-md);
+  background: var(--k-bg-elevated);
+  box-shadow: var(--k-shadow-lg);
+  color: var(--k-text-secondary);
+  pointer-events: none;
+  white-space: nowrap;
+  /* با left جای‌گذاری می‌شود، پس در هر جهتی ‎-50%‎ وسط‌چین می‌کند */
+  translate: -50% calc(-100% - 0.625rem);
+  font-size: var(--k-text-xs);
+  animation: k-tip-in 140ms var(--k-ease-standard);
+}
+/* زبانهٔ کوچک زیر راهنما */
+.k-chart__tip::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 100%;
+  left: 50%;
+  inline-size: 0.625rem;
+  block-size: 0.625rem;
+  margin-block-start: -0.3rem;
+  border: 1px solid var(--k-border-secondary);
+  border-block-start: 0;
+  border-inline-start: 0;
+  background: var(--k-bg-elevated);
+  translate: -50% 0;
+  rotate: 45deg;
+}
+@keyframes k-tip-in { from { opacity: 0; translate: -50% calc(-100% - 0.25rem); } }
+.k-chart__tip-title { padding-block-end: 2px; font-weight: var(--k-weight-medium); }
+.k-chart__tip-row strong { font-size: var(--k-text-sm); }
+.k-chart__tip-title { color: var(--k-text-tertiary); }
+.k-chart__tip-row { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-4); }
+.k-chart__tip-row strong { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+.k-chart__tip-row span { display: inline-flex; align-items: center; gap: var(--k-space-1_5); }
+.k-chart__tip-row i { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background: var(--_c); }
+@media (forced-colors: active) {
+  .k-chart__line { stroke: CanvasText; }
+  .k-bars__bar { background: CanvasText; }
+}
+
+/* ستون انباشته: فاصلهٔ ۲ پیکسلی بین بخش‌ها، گوشهٔ گرد فقط بالای ستون */
+.k-bars__stack { display: flex; flex-direction: column-reverse; gap: 2px; inline-size: min(100%, 24px); min-block-size: 2px; border-radius: 4px 4px 0 0; overflow: hidden; transition: opacity var(--k-duration-fast); }
+.k-bars__seg { flex-basis: 0; min-block-size: 0; background: var(--_c); }
+.k-bars:has(.k-bars__col:is(:hover, :focus-visible)) .k-bars__col:not(:hover, :focus-visible) .k-bars__stack { opacity: 0.45; }
+.k-chart__key--box { inline-size: 0.625rem; block-size: 0.625rem; border-radius: 2px; }
+
+/* فهرست میله‌ای افقی */
+.k-barlist { display: grid; gap: var(--k-space-1_5); margin: 0; padding: 0; list-style: none; font-size: var(--k-text-sm); }
+.k-barlist__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--k-space-4); }
+.k-barlist__track { position: relative; display: flex; align-items: center; min-block-size: 2rem; }
+.k-barlist__fill { position: absolute; inset-block: 0; inset-inline-start: 0; border-radius: var(--k-radius-sm); background: color-mix(in srgb, var(--k-bg-brand) 22%, transparent); }
+.k-barlist__label { position: relative; padding-inline: var(--k-space-2_5, 0.625rem); color: var(--k-text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-decoration: none; }
+a.k-barlist__label:hover { text-decoration: underline; }
+a.k-barlist__label:focus-visible { outline: 2px solid transparent; border-radius: var(--k-radius-sm); box-shadow: var(--k-ring-brand); }
+.k-barlist__value { color: var(--k-text-secondary); font-weight: var(--k-weight-semibold); }
+
+/* سهم از کل */
+.k-proportion { display: flex; gap: 2px; block-size: 0.75rem; border-radius: var(--k-radius-full); overflow: hidden; }
+.k-proportion__seg { flex-basis: 0; min-inline-size: 2px; background: var(--_c); }
+.k-proportion__legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--k-space-2) var(--k-space-4); margin: var(--k-space-1) 0 0; padding: 0; list-style: none; color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+.k-proportion__legend li { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--k-space-1_5) var(--k-space-2); }
+.k-proportion__legend strong { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+.k-proportion__abs { grid-column: 2 / -1; margin-block-start: -0.25rem; color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+
+.k-sparkline { display: block; inline-size: 100%; block-size: 2rem; overflow: visible; }
+/* زمان در جهت خواندن، هماهنگ با LineChart */
+[dir="rtl"] .k-sparkline { scale: -1 1; }
+@media (forced-colors: active) {
+  .k-proportion__seg, .k-bars__seg, .k-barlist__fill { background: CanvasText; forced-color-adjust: none; }
+}
+
+/* ───── حرکت و برجسته‌سازی ───── */
+.k-bars__col[data-active] .k-bars__label { color: var(--k-text-primary); }
+.k-barlist__row { transition: opacity var(--k-duration-fast); }
+.k-barlist:has(.k-barlist__row[data-active]) .k-barlist__row:not([data-active]) { opacity: 0.5; }
+.k-barlist__row[data-active] .k-barlist__fill { background: color-mix(in srgb, var(--k-bg-brand) 38%, transparent); }
+.k-barlist__share { margin-inline-start: var(--k-space-1); color: var(--k-text-tertiary); font-weight: var(--k-weight-regular); font-size: var(--k-text-xs); }
+.k-proportion__wrap { position: relative; }
+.k-proportion__seg { transition: opacity var(--k-duration-fast); cursor: default; }
+.k-proportion:has([data-active]) .k-proportion__seg:not([data-active]) { opacity: 0.35; }
+.k-proportion { block-size: 0.875rem; }
+.k-heatmap__cell[data-active] { outline: 2px solid var(--k-text-primary); outline-offset: 1px; }
+.k-chart__plot .k-chart__dot { transition: r var(--k-duration-fast); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .k-bars__bar, .k-bars__stack { transform-origin: 50% 100%; animation: k-grow 0.7s var(--k-ease-standard) both; animation-delay: var(--_d, 0ms); }
+  .k-barlist__fill { transform-origin: 100% 50%; animation: k-grow-x 0.8s var(--k-ease-standard) both; animation-delay: var(--_d, 0ms); }
+  [dir="ltr"] .k-barlist__fill { transform-origin: 0 50%; }
+  .k-proportion__seg { animation: k-fade 0.6s var(--k-ease-standard) both; }
+  .k-chart__line { stroke-dasharray: 1; animation: k-draw 1.2s var(--k-ease-standard) both; }
+  .k-chart__area { animation: k-fade 1s 0.4s both; }
+}
+@keyframes k-grow { from { scale: 1 0; } }
+@keyframes k-grow-x { from { scale: 0 1; } }
+@keyframes k-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes k-fade { from { opacity: 0; } }
+
+/* نمودار دایره‌ای و دونات */
+.k-pie__body { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-6); }
+.k-pie__plot { position: relative; flex-shrink: 0; }
+.k-pie__svg { inline-size: 100%; block-size: 100%; overflow: visible; }
+.k-pie__slice { pointer-events: stroke; cursor: default; transition: opacity var(--k-duration-fast), stroke-width var(--k-duration-normal) var(--k-ease-standard); }
+.k-pie__svg:has([data-active]) .k-pie__slice:not([data-active]) { opacity: 0.35; }
+.k-pie__center { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 2px; pointer-events: none; text-align: center; }
+.k-pie__center strong { color: var(--k-text-primary); font-size: var(--k-text-xl); font-weight: var(--k-weight-bold); line-height: 1.2; }
+.k-pie__center span { max-inline-size: 6rem; color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.k-pie__legend { display: grid; flex: 1 1 12rem; gap: var(--k-space-1); margin: 0; padding: 0; list-style: none; font-size: var(--k-text-sm); }
+.k-pie__legend li { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: var(--k-space-2) var(--k-space-3); padding: var(--k-space-1_5) var(--k-space-2); border-radius: var(--k-radius-md); color: var(--k-text-secondary); transition: background-color var(--k-duration-fast); }
+.k-pie__legend li[data-active] { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-pie__legend strong { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+.k-pie__abs { min-inline-size: 4.5rem; color: var(--k-text-tertiary); font-size: var(--k-text-xs); text-align: end; }
+@media (prefers-reduced-motion: no-preference) {
+  .k-pie__slice { animation: k-fade 0.6s var(--k-ease-standard) both; animation-delay: var(--_d, 0ms); }
+}

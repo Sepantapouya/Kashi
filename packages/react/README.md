@@ -20,8 +20,8 @@ export function SignUp() {
 }
 ```
 
-کامپوننت‌ها: Button · Input · Textarea · Select · Checkbox · RadioGroup · Switch · Badge · Card · Alert · Avatar · AvatarGroup · Tabs · Dialog · Toast · Tooltip · DropdownMenu · DataTable · Pagination · Breadcrumb · Accordion · Stepper · Progress · Spinner · Skeleton · EmptyState · Divider · Kbd · RelativeTime · Combobox · CommandPalette · TagInput · FileUpload · Slider · NumberInput · Popover · StatCard · Timeline · SideNav · SegmentedControl · CopyButton · Banner · Rating · TreeView · ButtonGroup · ChipGroup · PasswordStrength
+کامپوننت‌ها: Button · Input · Textarea · Select · Checkbox · RadioGroup · Switch · Badge · Card · Alert · Avatar · AvatarGroup · Tabs · Dialog · Toast · Tooltip · DropdownMenu · DataTable · Pagination · Breadcrumb · Accordion · Stepper · Progress · Spinner · Skeleton · EmptyState · Divider · Kbd · RelativeTime · Combobox · CommandPalette · TagInput · FileUpload · Slider · NumberInput · Popover · StatCard · Timeline · SideNav · SegmentedControl · CopyButton · Banner · Rating · TreeView · ButtonGroup · ChipGroup · PasswordStrength · BarChart · LineChart · ContextMenu · InlineEdit
 
-فارسی: DatePicker و Calendar شمسی · DateRangePicker · TimeInput · PostalCodeInput · PlateInput · LandlineInput · MonthPicker · Countdown · NationalIdInput · CardNumberInput · IbanInput · MobileInput · PriceInput · OtpInput
+فارسی: DatePicker و Calendar شمسی · DateRangePicker · TimeInput · PostalCodeInput · PlateInput · LandlineInput · MonthPicker · Countdown · ActivityHeatmap · ProvinceSelect · NationalIdInput · CardNumberInput · IbanInput · MobileInput · PriceInput · OtpInput
 
 نیازمند React ۱۸ یا بالاتر. مستندات کامل: [kashi.sepantapouya.com](https://kashi.sepantapouya.com) · کد: [GitHub](https://github.com/Sepantapouya/Kashi) · لایسنس MIT

@@ -1,0 +1,25 @@
+/* ویرایش درجا: متن معمولی که با کلیک یا Enter به فیلد تبدیل می‌شود */
+.k-inline-edit { display: inline-flex; align-items: center; gap: var(--k-space-1); max-inline-size: 100%; }
+.k-inline-edit__view {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-1_5);
+  min-inline-size: 4rem;
+  margin-inline: calc(var(--k-space-2) * -1);
+  padding: var(--k-space-1) var(--k-space-2);
+  border: 0;
+  border-radius: var(--k-radius-md);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: text;
+  transition: background-color var(--k-duration-fast);
+}
+.k-inline-edit__view:hover { background: var(--k-bg-hover); }
+.k-inline-edit__view:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-inline-edit__view svg { inline-size: 1rem; block-size: 1rem; color: var(--k-text-quaternary); opacity: 0; transition: opacity var(--k-duration-fast); }
+.k-inline-edit__view:is(:hover, :focus-visible) svg { opacity: 1; }
+.k-inline-edit__placeholder { color: var(--k-text-tertiary); }
+.k-inline-edit .k-input { --_h: 2.25rem; min-inline-size: 12rem; }
+.k-inline-edit__actions { display: inline-flex; gap: 2px; }

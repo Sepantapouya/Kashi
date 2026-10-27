@@ -1,0 +1,39 @@
+---
+layout: ../../../layouts/Docs.astro
+title: منوی راست‌کلیک
+description: منوی میان‌بر روی فایل، ردیف جدول یا کارت؛ با موس و کیبورد.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { ContextMenuDemo } from "../../../components/demos";
+
+```tsx
+import { ContextMenu, MenuItem, MenuSeparator } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<ContextMenu label="عملیات فایل" menu={
+  <>
+    <MenuItem onSelect={open}>باز کردن</MenuItem>
+    <MenuItem shortcut="Ctrl+D" onSelect={copy}>کپی</MenuItem>
+    <MenuSeparator />
+    <MenuItem tone="danger" onSelect={remove}>حذف</MenuItem>
+  </>
+}>
+  <FileCard tabIndex={0} />
+</ContextMenu>`}>
+  <ContextMenuDemo client:load />
+</Demo>
+
+گزینه‌ها همان `MenuItem`، `MenuSeparator` و `MenuLabel` منوی کشویی‌اند. منو کنار نشانگر باز می‌شود و از لبهٔ صفحه بیرون نمی‌رود.
+
+<Props rows={[
+  ["children", "ReactNode", "", "ناحیهٔ راست‌کلیک"],
+  ["menu", "ReactNode", "", "گزینه‌ها"],
+  ["label", "string", "«گزینه‌ها»", "نام منو"],
+]} />
+
+## دسترس‌پذیری
+
+راست‌کلیک برای کاربر کیبورد و صفحه‌خوان در دسترس نیست، پس منو با کلید ContextMenu یا <kbd>Shift</kbd>+<kbd>F10</kbd> روی عنصر فوکوس‌شده هم باز می‌شود و این راهنما به ناحیه وصل است. همهٔ عمل‌های منو باید از راه دیگری (دکمه یا منوی کشویی) هم در دسترس باشند.

@@ -54,3 +54,10 @@
   .k-menu { border-color: CanvasText; }
   .k-menu__item:focus { outline: 2px solid Highlight; }
 }
+
+/* منوی راست‌کلیک: جای منو از مختصات نشانگر */
+.k-context-area { position: relative; }
+.k-menu--context { position: fixed; inset: auto; inset-block-start: var(--_y); inset-inline-start: auto; left: var(--_x); }
+/* سبک پیش‌فرض مرورگر برای popover را خنثی می‌کند */
+.k-menu--context[popover] { margin: 0; padding: var(--k-space-1_5); border: 1px solid var(--k-border-secondary); color: inherit; overflow: visible; }
+.k-menu--context:popover-open { position: fixed; inset: auto; top: var(--_y); left: var(--_x); }

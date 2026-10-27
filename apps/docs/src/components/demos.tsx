@@ -10,6 +10,8 @@ import { Banner, CopyButton, PlateInput, PostalCodeInput, Rating, SegmentedContr
 import { formatPlate, type Plate } from "@kashi-ui/persian";
 import { ButtonGroup, ChipGroup, Countdown, LandlineInput, MonthPicker, PasswordStrength, TreeView, type JalaliMonth, type TreeNode } from "@kashi-ui/react";
 import { JALALI_MONTHS } from "@kashi-ui/persian";
+import { ActivityHeatmap, BarChart, BarList, ContextMenu, InlineEdit, LineChart, PieChart, ProportionBar, ProvinceSelect, Sparkline } from "@kashi-ui/react";
+import { toISODate as isoDate } from "@kashi-ui/persian";
 
 export const ButtonIcons = () => (
   <>
@@ -991,6 +993,168 @@ export const LandlineDemo = () => {
     <div className="demo-stack">
       <LandlineInput label="تلفن ثابت" hint="با پیش‌شماره؛ +98 هم پذیرفته می‌شود" name="tel" onValueChange={(v, ok, p) => setS({ v, ok, p })} />
       <Out>{s.v.length === 11 ? (s.ok ? `معتبر: ${s.v} (${s.p})` : "نامعتبر") : "مثلاً ۰۳۱۳۲۲۲۱۱۰۰ را امتحان کنید."}</Out>
+    </div>
+  );
+};
+
+// ───── نسخهٔ ۰٫۱۲ ─────
+
+const sixMonths = ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان"];
+
+export const BarChartDemo = () => (
+  <div style={{ inlineSize: "100%" }}>
+    <BarChart
+      title="فروش ماهانه (میلیون تومان)"
+      data={sixMonths.map((label, i) => ({ label, value: [82, 96, 74, 120, 138, 112, 164, 184][i] }))}
+    />
+  </div>
+);
+
+export const LineChartDemo = () => (
+  <div style={{ inlineSize: "100%" }}>
+    <LineChart
+      title="کاربران فعال روزانه"
+      labels={sixMonths}
+      series={[
+        { name: "وب", values: [3200, 3600, 3400, 4100, 4600, 4400, 5200, 5800] },
+        { name: "اپ", values: [1800, 2300, 2900, 3300, 3800, 4500, 4900, 5600] },
+        { name: "API", values: [600, 700, 900, 1100, 1000, 1300, 1500, 1700] },
+      ]}
+    />
+  </div>
+);
+
+// دادهٔ ساختگی ولی ثابت (بدون Math.random تا SSR و کلاینت یکی باشند)
+const activity = (() => {
+  const out: Record<string, number> = {};
+  const start = new Date(2026, 2, 21);
+  for (let i = 0; i < 365; i++) {
+    const d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
+    const v = ((i * 37) % 11) - (d.getDay() === 5 ? 9 : 3);
+    if (v > 0) out[isoDate(d)] = v;
+  }
+  return out;
+})();
+
+export const HeatmapDemo = () => <ActivityHeatmap year={1405} data={activity} unit="کامیت" label="کامیت‌های تیم در ۱۴۰۵" />;
+
+export const ContextMenuDemo = () => {
+  const [last, setLast] = useState("");
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 26rem)" }}>
+      <ContextMenu
+        label="عملیات فایل"
+        menu={
+          <>
+            <MenuItem onSelect={() => setLast("باز کردن")}>باز کردن</MenuItem>
+            <MenuItem shortcut="Ctrl+D" onSelect={() => setLast("کپی")}>کپی</MenuItem>
+            <MenuItem onSelect={() => setLast("تغییر نام")}>تغییر نام</MenuItem>
+            <MenuSeparator />
+            <MenuItem tone="danger" onSelect={() => setLast("حذف")}>حذف</MenuItem>
+          </>
+        }
+      >
+        <div tabIndex={0} className="demo-panel" style={{ display: "grid", placeItems: "center", minBlockSize: "8rem", border: "1px dashed var(--k-border-primary)", textAlign: "center" }}>
+          روی این کادر راست‌کلیک کنید<br />یا با Tab بیایید و Shift+F10 بزنید
+        </div>
+      </ContextMenu>
+      <Out>{last ? `انتخاب: ${last}` : "هنوز گزینه‌ای انتخاب نشده."}</Out>
+    </div>
+  );
+};
+
+export const InlineEditDemo = () => (
+  <div className="demo-stack">
+    <InlineEdit label="نام پروژه" defaultValue="بازطراحی فروشگاه" renderView={(v) => <strong style={{ fontSize: "var(--k-text-xl)", color: "var(--k-text-primary)" }}>{v}</strong>} validate={(v) => (v ? undefined : "نام پروژه نمی‌تواند خالی باشد.")} />
+    <InlineEdit label="توضیح" placeholder="توضیحی اضافه کنید" onSave={() => new Promise((r) => setTimeout(r, 600))} />
+  </div>
+);
+
+export const ProvinceDemo = () => {
+  const [v, setV] = useState<string | null>(null);
+  return (
+    <div className="demo-stack">
+      <ProvinceSelect value={v} onChange={setV} hint="با نام مرکز استان هم پیدا می‌شود، مثلاً «مشهد»." name="province" />
+      <Out>{v ? `استان: ${v}` : "هنوز استانی انتخاب نشده."}</Out>
+    </div>
+  );
+};
+
+export const StackedBarDemo = () => (
+  <div style={{ inlineSize: "100%" }}>
+    <BarChart
+      title="سفارش‌ها بر اساس کانال"
+      labels={sixMonths}
+      series={[
+        { name: "وب", values: [420, 460, 410, 520, 580, 540, 640, 700] },
+        { name: "اپ", values: [260, 300, 340, 380, 430, 470, 520, 590] },
+        { name: "حضوری", values: [120, 110, 130, 140, 120, 150, 160, 170] },
+      ]}
+    />
+  </div>
+);
+
+export const BarListDemo = () => (
+  <div style={{ inlineSize: "min(100%, 34rem)" }}>
+    <BarList
+      title="پربازدیدترین صفحه‌ها در هفتهٔ اخیر"
+      data={[
+        { label: "صفحهٔ اصلی", value: 48210 },
+        { label: "محصولات / مبل راحتی", value: 21840 },
+        { label: "وبلاگ / راهنمای انتخاب فرش", value: 15390 },
+        { label: "سبد خرید", value: 9120 },
+        { label: "تماس با ما", value: 3260 },
+      ]}
+    />
+  </div>
+);
+
+export const ProportionDemo = () => (
+  <div style={{ inlineSize: "min(100%, 34rem)" }}>
+    <ProportionBar
+      title="منبع ورود کاربران"
+      data={[
+        { label: "جستجوی گوگل", value: 46200 },
+        { label: "ورود مستقیم", value: 21800 },
+        { label: "اینستاگرام", value: 15400 },
+        { label: "سایر", value: 6100 },
+      ]}
+    />
+  </div>
+);
+
+export const SparklineDemo = () => (
+  <table className="k-table" style={{ inlineSize: "min(100%, 34rem)" }}>
+    <thead><tr><th scope="col">محصول</th><th scope="col">۳۰ روز اخیر</th><th scope="col" className="k-table__num">فروش</th></tr></thead>
+    <tbody>
+      {[
+        ["مبل راحتی", [4, 6, 5, 8, 7, 9, 12, 11, 14], "success", "۱۸۴ میلیون"],
+        ["فرش ماشینی", [9, 8, 9, 7, 8, 6, 6, 5, 4], "error", "۹۶ میلیون"],
+        ["میز ناهارخوری", [5, 5, 6, 5, 6, 6, 5, 6, 6], "neutral", "۵۲ میلیون"],
+      ].map(([name, v, tone, sum]) => (
+        <tr key={name as string}>
+          <td>{name as string}</td>
+          <td style={{ inlineSize: "9rem" }}><Sparkline values={v as number[]} tone={tone as "success"} aria-label={`روند ${name}: ${tone === "success" ? "افزایشی" : tone === "error" ? "کاهشی" : "ثابت"}`} /></td>
+          <td className="k-table__num">{sum as string}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
+
+export const PieDemo = () => {
+  const data = [
+    { label: "تهران", value: 48200 },
+    { label: "اصفهان", value: 18400 },
+    { label: "خراسان رضوی", value: 14900 },
+    { label: "فارس", value: 11200 },
+    { label: "آذربایجان شرقی", value: 7600 },
+    { label: "گیلان", value: 4300 },
+  ];
+  return (
+    <div className="demo-row" style={{ inlineSize: "100%", alignItems: "flex-start", gap: "var(--k-space-10)" }}>
+      <div style={{ flex: "1 1 22rem" }}><PieChart title="سفارش‌ها بر اساس استان" data={data} /></div>
+      <div style={{ flex: "1 1 22rem" }}><PieChart title="روش پرداخت" variant="pie" size={150} data={[{ label: "درگاه بانکی", value: 6200 }, { label: "کیف پول", value: 2100 }, { label: "پرداخت در محل", value: 900 }]} /></div>
     </div>
   );
 };

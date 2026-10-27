@@ -1,0 +1,32 @@
+---
+layout: ../../../layouts/Docs.astro
+title: نقشهٔ فعالیت
+description: فعالیت روزانهٔ یک سال شمسی به سبک GitHub، با ماه‌های جلالی و هفتهٔ شنبه‌تا‌جمعه.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { HeatmapDemo } from "../../../components/demos";
+
+```tsx
+import { ActivityHeatmap } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<ActivityHeatmap year={1405} unit="کامیت"
+  data={{ "2026-03-21": 3, "2026-03-22": 7, … }} />`}>
+  <HeatmapDemo client:visible />
+</Demo>
+
+کلید داده تاریخ میلادی `YYYY-MM-DD` است (مثل خروجی `toISODate`) تا مستقیم از پایگاه‌داده بیاید. شدت رنگ نسبت به بیشترین مقدار سال در چهار پله است، با یک رنگ از کم‌رنگ به پررنگ.
+
+<Props rows={[
+  ["data", "Record<string, number>", "", "تعداد در هر روز؛ کلید YYYY-MM-DD"],
+  ["year", "number", "سال جاری", "سال شمسی"],
+  ["unit", "string", "«فعالیت»", "واحد در راهنما"],
+  ["label", "string", "", "نام دسترس‌پذیر"],
+]} />
+
+## دسترس‌پذیری
+
+برای صفحه‌خوان، نقشه یک تصویر با جمع کل است و یک جدول پنهان جمع هر ماه را می‌گوید؛ ۳۶۵ خانه یکی‌یکی خوانده نمی‌شوند. مقدار هر روز با نگه‌داشتن موس نمایش داده می‌شود.

@@ -2,7 +2,7 @@
 import type { ReactNode } from "react";
 import {
   Accordion, AccordionItem, Alert, Avatar, AvatarGroup, Badge, Banner, Breadcrumb, Button, ButtonGroup, Calendar, Card, CardBody, CardDescription,
-  CardHeader, CardTitle, CardNumberInput, Checkbox, ChipGroup, Countdown, Divider, EmptyState, IbanInput, Input, Kbd, MobileInput, NationalIdInput,
+  CardHeader, CardTitle, CardNumberInput, BarChart, ActivityHeatmap, Checkbox, ChipGroup, Countdown, Divider, EmptyState, IbanInput, Input, Kbd, MobileInput, NationalIdInput,
   NumberInput, OtpInput, Pagination, PasswordStrength, PlateInput, PostalCodeInput, PriceInput, Progress, Radio, RadioGroup, Rating,
   SegmentedControl, Select, Skeleton, Slider, StatCard, Stepper, Switch, Tab, TabList, Tabs, TagInput, Textarea, Timeline,
 } from "@kashi-ui/react";
@@ -77,6 +77,11 @@ export const previews: Record<string, ReactNode> = {
   plate: <Box><PlateInput aria-label="پلاک" defaultValue={{ first: "12", letter: "ب", middle: "345", region: "67" }} /></Box>,
   "month-picker": <Box><div className="pv-months">{["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور"].map((m, i) => <span key={m} className="k-monthpicker__month pv-month" aria-pressed={i === 4}>{m}</span>)}</div></Box>,
   countdown: <Box><Countdown seconds={154} variant="blocks" /></Box>,
+  "activity-heatmap": <Box cls="pv-heat"><ActivityHeatmap year={1405} data={Object.fromEntries(Array.from({ length: 200 }, (_, i) => [new Date(2026, 2, 21 + i * 1.7).toISOString().slice(0, 10), (i * 7) % 9]))} /></Box>,
+  province: <Box cls="pv--field"><div className="k-input"><input className="k-input__control" defaultValue="مشه" readOnly /></div><ul className="k-listbox k-listbox--inline pv-list"><li className="k-option" data-active=""><span className="k-option__body"><span>خراسان رضوی</span><span className="k-option__desc">مرکز: <mark>مشه</mark>د</span></span></li></ul></Box>,
+  charts: <Box cls="pv--field"><BarChart title="فروش" data={[3, 5, 4, 7, 6, 9, 8].map((v, i) => ({ label: String(i + 1), value: v }))} labelMax={false} height="6rem" /></Box>,
+  "context-menu": <Box><div className="pv-ctx"><span className="pv-muted">راست‌کلیک</span><div className="k-menu pv-menu" role="presentation"><div className="k-menu__item">باز کردن</div><div className="k-menu__item" data-active="">تغییر نام</div><div className="k-menu__separator" /><div className="k-menu__item k-menu__item--danger">حذف</div></div></div></Box>,
+  "inline-edit": <Box><span className="k-inline-edit"><span className="k-inline-edit__view pv-ie"><strong>بازطراحی فروشگاه</strong><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m13.5 3.5 3 3L7 16H4v-3Z" /></svg></span></span></Box>,
   landline: <Box cls="pv--field"><Input aria-label="تلفن" defaultValue="۰۲۱ ۸۸۷۷ ۶۶۵۵" dir="ltr" addonEnd={<span className="k-input__meta">تهران</span>} /></Box>,
 };
 
