@@ -7,7 +7,7 @@ import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
 import Vars from "../../../components/Vars.astro";
 import { Avatar } from "@kashi-ui/react";
-import { AvatarGroupDemo } from "../../../components/demos";
+import { AvatarGroupDemo, AvatarAutoDemo } from "../../../components/demos";
 
 ```tsx
 import { Avatar, AvatarGroup } from "@kashi-ui/react";
@@ -67,6 +67,18 @@ import { Avatar, AvatarGroup } from "@kashi-ui/react";
 </AvatarGroup>`}>
   <AvatarGroupDemo />
 </Demo>
+
+## رنگ خودکار
+
+با `color="auto"` هر نام همیشه یک رنگ ثابت می‌گیرد (در هر دستگاه یکسان)؛ فهرست اعضا خواناتر و رنگارنگ‌تر می‌شود.
+
+<Demo code={`{members.map((m) => <Avatar key={m.id} name={m.name} color="auto" size="lg" />)}`}>
+  <AvatarAutoDemo />
+</Demo>
+
+<Props caption="ویژگی‌های جدید" rows={[
+  ["color", '"auto" | "neutral" | "brand" | "info" | "success" | "warning" | "error"', '"neutral"', "رنگ حروف اول؛ همهٔ رنگ‌ها کنتراست AA دارند"],
+]} />
 
 ## ویژگی‌ها
 

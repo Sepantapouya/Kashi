@@ -12,7 +12,9 @@ export interface DialogProps {
   /** «danger» برای تأیید عملیات مخرب */
   tone?: "default" | "danger";
   /** @default "md" */
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "full";
+  /** «center» پنجرهٔ وسط، «start»/«end» کشوی کناری، «bottom» برگهٔ پایین (مناسب گوشی) @default "center" */
+  placement?: "center" | "start" | "end" | "bottom";
   /** دکمه‌های پایین پنجره */
   footer?: ReactNode;
   /** بستن با کلیک روی پس‌زمینه @default true */
@@ -30,7 +32,7 @@ export interface DialogProps {
  */
 export function Dialog({
   open, onOpenChange, title, description, icon, tone = "default", size = "md", footer, dismissible = true,
-  closeLabel = "بستن", className, children,
+  closeLabel = "بستن", placement = "center", className, children,
 }: DialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
   const opener = useRef<Element | null>(null);
@@ -50,7 +52,8 @@ export function Dialog({
   return (
     <dialog
       ref={ref}
-      className={cx("k-dialog", size !== "md" && `k-dialog--${size}`, tone === "danger" && "k-dialog--danger", className)}
+      data-placement={placement}
+      className={cx("k-dialog", size !== "md" && `k-dialog--${size}`, placement !== "center" && `k-dialog--${placement}`, tone === "danger" && "k-dialog--danger", className)}
       aria-labelledby={`${id}-title`}
       aria-describedby={description ? `${id}-desc` : undefined}
       onClose={() => {

@@ -5,7 +5,7 @@ description: پنجره‌ای روی صفحه برای کاری کوتاه یا
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { DialogDemo } from "../../../components/demos";
+import { DialogDemo, DrawerDemo } from "../../../components/demos";
 
 ```tsx
 import { Dialog } from "@kashi-ui/react";
@@ -34,6 +34,25 @@ import { Dialog } from "@kashi-ui/react";
 <Dialog tone="danger" size="sm" title="پروژه حذف شود؟" … />`}>
   <DialogDemo client:load />
 </Demo>
+
+## کشوی کناری و برگهٔ پایین
+
+همان دسترس‌پذیری پنجرهٔ گفتگو (تلهٔ فوکوس، Esc، برگشت فوکوس) با چیدمان کشو؛ برگهٔ پایین برای گوشی مناسب است.
+
+<Demo html={false} code={`<Dialog placement="end" open={open} onOpenChange={setOpen} title="فیلترها" footer={…}>
+  …
+</Dialog>
+
+<Dialog placement="bottom" …>…</Dialog>`}>
+  <DrawerDemo client:load />
+</Demo>
+
+<Props caption="ویژگی‌های جدید" rows={[
+  ["placement", '"center" | "start" | "end" | "bottom"', '"center"', "جایگاه؛ در RTL «start» سمت راست است"],
+  ["size", '"sm" | "md" | "lg" | "full"', '"md"', "اندازهٔ full اضافه شد"],
+]} />
+
+متغیرهای CSS: `--k-drawer-width` (پیش‌فرض ۲۶rem) و `--k-dialog-backdrop`.
 
 ## ویژگی‌ها
 

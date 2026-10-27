@@ -5,7 +5,7 @@ description: جدول با مرتب‌سازی، انتخاب ردیف‌ها، 
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { TableDemo } from "../../../components/demos";
+import { TableDemo, TableExtrasDemo } from "../../../components/demos";
 
 ```tsx
 import { DataTable } from "@kashi-ui/react";
@@ -34,6 +34,39 @@ import { DataTable } from "@kashi-ui/react";
 />`}>
   <TableDemo client:load />
 </Demo>
+
+## بارگذاری، راه‌راه، سرستون ثابت و صفحه‌بندی
+
+روی «بارگذاری دوباره» بزنید تا ردیف‌های اسکلت را ببینید؛ روی هر ردیف بزنید تا رویداد کلیک را ببینید. جدول را اسکرول کنید: سرستون ثابت می‌ماند.
+
+<Demo html={false} code={`<DataTable
+  …
+  striped
+  stickyHeader
+  maxHeight="16rem"
+  loading={isLoading ? 4 : false}
+  onRowClick={(row) => open(row)}
+  columns={[
+    { key: "date", header: "تاریخ", hideBelow: "sm" },
+    { key: "status", header: "وضعیت", align: "center" },
+    …
+  ]}
+  footer={<Pagination page={page} total={8} onChange={setPage} />}
+/>`}>
+  <TableExtrasDemo client:load />
+</Demo>
+
+<Props caption="ویژگی‌های جدید" rows={[
+  ["striped", "boolean", "false", "ردیف‌های راه‌راه"],
+  ["stickyHeader / maxHeight", "boolean / string", "", "سرستون ثابت هنگام اسکرول"],
+  ["loading", "boolean | number", "false", "ردیف‌های اسکلت؛ عدد = تعداد ردیف"],
+  ["onRowClick", "(row) => void", "", "کلیک روی ردیف (کلیک روی دکمه و لینک داخل ردیف را نمی‌گیرد)"],
+  ["footer", "ReactNode", "", "محتوای پایین جدول"],
+  ["align / hideBelow / className (ستون)", "", "", "چینش، پنهان شدن در موبایل، کلاس خانه‌ها"],
+  ["classNames", "{ root, table, row, cell, header, footer }", "", "کلاس دلخواه برای هر بخش"],
+]} />
+
+متغیرهای CSS: `--k-table-radius`، `--k-table-cell-px`، `--k-table-cell-py`، `--k-table-header-bg`، `--k-table-stripe`، `--k-table-row-hover`.
 
 ## ویژگی‌ها
 

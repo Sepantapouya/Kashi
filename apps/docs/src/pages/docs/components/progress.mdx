@@ -5,7 +5,7 @@ description: نمایش پیشرفت یک کار طولانی، به‌همرا�
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { ProgressDemo } from "../../../components/demos";
+import { ProgressDemo, ProgressRingDemo } from "../../../components/demos";
 
 ```tsx
 import { Progress, Spinner } from "@kashi-ui/react";
@@ -19,6 +19,15 @@ import { Progress, Spinner } from "@kashi-ui/react";
 <Spinner size="sm" />`}>
   <ProgressDemo client:load />
 </Demo>
+
+## دایره‌ای
+
+<Demo html={false} code={`<Progress variant="circular" value={72} showValue aria-label="پیشرفت پروژه" />
+<Progress variant="circular" size="sm" aria-label="در حال پردازش" />`}>
+  <ProgressRingDemo />
+</Demo>
+
+`variant="circular"` با همان `value`، `size`، `tone` و `showValue`. متغیرهای CSS: `--k-progress-height`، `--k-progress-color`، `--k-progress-ring-size`.
 
 ## ویژگی‌ها
 

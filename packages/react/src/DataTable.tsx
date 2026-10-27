@@ -11,7 +11,13 @@ export interface Column<T> {
   sortable?: boolean;
   /** عدد و مبلغ: چپ‌چین در RTL با ارقام هم‌عرض */
   numeric?: boolean;
+  /** چینش خانه‌ها؛ numeric خودکار «end» است */
+  align?: "start" | "center" | "end";
   width?: string;
+  /** پنهان کردن ستون در صفحه‌های باریک */
+  hideBelow?: "sm" | "md";
+  /** کلاس خانه‌های این ستون */
+  className?: string;
 }
 
 export type SortState = { key: string; direction: "ascending" | "descending" } | null;
@@ -34,14 +40,28 @@ export interface DataTableProps<T> {
   /** وقتی ردیفی نیست */
   empty?: ReactNode;
   compact?: boolean;
-  labels?: { selectAll?: string; selectRow?: (row: T) => string };
+  /** ردیف‌های راه‌راه */
+  striped?: boolean;
+  /** سرستون هنگام اسکرول ثابت بماند؛ با maxHeight */
+  stickyHeader?: boolean;
+  /** بیشترین ارتفاع جدول (مثل "24rem")؛ بیشتر از آن اسکرول می‌خورد */
+  maxHeight?: string;
+  /** نمایش ردیف‌های اسکلت به‌جای داده */
+  loading?: boolean | number;
+  /** کلیک روی ردیف؛ برای ناوبری بهتر است در یک خانه لینک واقعی هم بگذارید */
+  onRowClick?: (row: T) => void;
+  /** محتوای پایین جدول، مثل صفحه‌بندی */
+  footer?: ReactNode;
+  labels?: { selectAll?: string; selectRow?: (row: T) => string; loading?: string };
+  classNames?: { root?: string; table?: string; row?: string; cell?: string; header?: string; footer?: string };
   className?: string;
 }
 
 /** جدول داده با مرتب‌سازی (aria-sort)، انتخاب ردیف‌ها و حالت خالی */
 export function DataTable<T extends Record<string, unknown>>({
   columns, rows, getRowId, caption, description, hideCaption, selectable, selected, onSelectedChange,
-  sort, defaultSort = null, onSortChange, empty, compact, labels = {}, className,
+  sort, defaultSort = null, onSortChange, empty, compact, striped, stickyHeader, maxHeight, loading, onRowClick, footer,
+  labels = {}, classNames = {}, className,
 }: DataTableProps<T>) {
   const id = useId();
   const [innerSort, setInnerSort] = useState<SortState>(defaultSort);
@@ -80,12 +100,22 @@ export function DataTable<T extends Record<string, unknown>>({
     if (allRef.current) allRef.current.indeterminate = some;
   }, [some]);
 
-  const { selectAll = "انتخاب همهٔ ردیف‌ها", selectRow = () => "انتخاب ردیف" } = labels;
+  const { selectAll = "انتخاب همهٔ ردیف‌ها", selectRow = () => "انتخاب ردیف", loading: loadingLabel = "در حال بارگذاری" } = labels;
+  const loadingRows = loading === true ? 5 : typeof loading === "number" ? loading : 0;
+  const cellCls = (c: Column<T>) =>
+    cx(c.numeric && "k-table__num", c.align && !c.numeric && `k-table__align-${c.align}`, c.hideBelow && `k-table__hide-${c.hideBelow}`, c.className, classNames.cell) || undefined;
   const colCount = columns.length + (selectable ? 1 : 0);
 
   return (
-    <div className={cx("k-table-wrap", className)} role="region" aria-labelledby={`${id}-caption`} tabIndex={0}>
-      <table className={cx("k-table", compact && "k-table--compact")}>
+    <div
+      className={cx("k-table-wrap", stickyHeader && "k-table-wrap--sticky", className, classNames.root)}
+      role="region"
+      aria-labelledby={`${id}-caption`}
+      aria-busy={loadingRows > 0 || undefined}
+      tabIndex={0}
+      style={maxHeight ? { maxBlockSize: maxHeight } : undefined}
+    >
+      <table className={cx("k-table", compact && "k-table--compact", striped && "k-table--striped", onRowClick && "k-table--clickable", classNames.table)}>
         <caption id={`${id}-caption`} className={hideCaption ? "k-sr-only" : undefined}>
           <span className="k-table__caption-title">{caption}</span>
           {description && <span className="k-table__caption-desc">{description}</span>}
@@ -100,7 +130,7 @@ export function DataTable<T extends Record<string, unknown>>({
             {columns.map((c) => {
               const s = activeSort?.key === c.key ? activeSort.direction : undefined;
               return (
-                <th key={c.key} scope="col" aria-sort={c.sortable ? (s ?? "none") : undefined} className={c.numeric ? "k-table__num" : undefined} style={c.width ? { inlineSize: c.width } : undefined}>
+                <th key={c.key} scope="col" aria-sort={c.sortable ? (s ?? "none") : undefined} className={cx(cellCls(c), classNames.header) || undefined} style={c.width ? { inlineSize: c.width } : undefined}>
                   {c.sortable ? <button type="button" className="k-table__sort" onClick={() => setSort(c.key)}>{c.header}</button> : c.header}
                 </th>
               );
@@ -108,21 +138,39 @@ export function DataTable<T extends Record<string, unknown>>({
           </tr>
         </thead>
         <tbody>
-          {sorted.length === 0 ? (
+          {loadingRows > 0 ? (
+            Array.from({ length: loadingRows }, (_, i) => (
+              <tr key={`sk-${i}`} aria-hidden="true">
+                {selectable && <td className="k-table__check"><span className="k-skeleton" style={{ inlineSize: "1.125rem", blockSize: "1.125rem" }} /></td>}
+                {columns.map((c) => (
+                  <td key={c.key} className={cellCls(c)}><span className="k-skeleton" style={{ inlineSize: `${50 + ((i * 17 + c.key.length * 11) % 40)}%` }} /></td>
+                ))}
+              </tr>
+            ))
+          ) : sorted.length === 0 ? (
             <tr className="k-table__empty"><td colSpan={colCount}>{empty ?? <p style={{ padding: "2rem", margin: 0, textAlign: "center" }}>داده‌ای وجود ندارد.</p>}</td></tr>
           ) : (
             sorted.map((r) => {
               const rid = getRowId(r);
               const on = sel.includes(rid);
               return (
-                <tr key={rid} aria-selected={selectable ? on : undefined}>
+                <tr
+                  key={rid}
+                  aria-selected={selectable ? on : undefined}
+                  className={classNames.row}
+                  onClick={onRowClick ? (e) => {
+                    // کلیک روی چک‌باکس، دکمه یا لینک داخل ردیف را ردیف نگیرد
+                    if ((e.target as HTMLElement).closest("a, button, input, label, select, textarea")) return;
+                    onRowClick(r);
+                  } : undefined}
+                >
                   {selectable && (
                     <td className="k-table__check">
                       <input type="checkbox" className="k-checkbox" aria-label={selectRow(r)} checked={on} onChange={() => setSel(on ? sel.filter((x) => x !== rid) : [...sel, rid])} />
                     </td>
                   )}
                   {columns.map((c) => (
-                    <td key={c.key} className={c.numeric ? "k-table__num" : undefined}>{c.render ? c.render(r) : (r[c.key] as ReactNode)}</td>
+                    <td key={c.key} className={cellCls(c)}>{c.render ? c.render(r) : (r[c.key] as ReactNode)}</td>
                   ))}
                 </tr>
               );
@@ -130,6 +178,8 @@ export function DataTable<T extends Record<string, unknown>>({
           )}
         </tbody>
       </table>
+      {loadingRows > 0 && <span className="k-sr-only" role="status">{loadingLabel}</span>}
+      {footer && <div className={cx("k-table__footer", classNames.footer)}>{footer}</div>}
     </div>
   );
 }

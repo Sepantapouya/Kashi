@@ -1,4 +1,5 @@
-/* مراحل (Stepper) */
+/* مراحل (Stepper)
+ * متغیرها: --k-step-size  --k-step-line  --k-step-done */
 .k-steps { display: flex; gap: var(--k-space-4); margin: 0; padding: 0; list-style: none; counter-reset: k-step; }
 .k-steps__step { position: relative; flex: 1; display: grid; justify-items: center; gap: var(--k-space-2); text-align: center; min-inline-size: 0; }
 .k-steps__marker {
@@ -6,8 +7,8 @@
   z-index: 1;
   display: grid;
   place-items: center;
-  inline-size: 2rem;
-  block-size: 2rem;
+  inline-size: var(--k-step-size, 2rem);
+  block-size: var(--k-step-size, 2rem);
   border: 2px solid var(--k-border-secondary);
   border-radius: 50%;
   background: var(--k-bg-primary);
@@ -25,9 +26,9 @@
   inline-size: calc(100% - 2.5rem + var(--k-space-4));
   block-size: 2px;
   border-radius: 1px;
-  background: var(--k-border-secondary);
+  background: var(--k-step-line, var(--k-border-secondary));
 }
-.k-steps__step[data-status="complete"] + .k-steps__step::before { background: var(--k-bg-brand); }
+.k-steps__step[data-status="complete"] + .k-steps__step::before { background: var(--k-step-done, var(--k-bg-brand)); }
 .k-steps__step[data-status="complete"] .k-steps__marker { border-color: var(--k-bg-brand); background: var(--k-bg-brand); color: var(--k-text-on-brand); }
 .k-steps__step[data-status="current"] .k-steps__marker { border-color: var(--k-border-brand); color: var(--k-text-brand); box-shadow: var(--k-ring-brand); }
 .k-steps__title { color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }

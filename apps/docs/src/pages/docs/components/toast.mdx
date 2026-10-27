@@ -5,7 +5,7 @@ description: پیام کوتاه و موقت پس از یک عمل، مثل «ذ
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { ToastDemo } from "../../../components/demos";
+import { ToastDemo, ToastExtrasDemo } from "../../../components/demos";
 
 ```tsx
 import { Toaster, toast } from "@kashi-ui/react";
@@ -33,6 +33,27 @@ toast({
 - **زمان:** پیش‌فرض ۵ ثانیه. نوار پایین زمان باقی‌مانده را نشان می‌دهد و با hover یا فوکوس متوقف می‌شود.
 - **با عمل:** اعلانی که دکمه دارد (مثل «واگرد») خودکار بسته نمی‌شود تا کاربر فرصت کافی داشته باشد.
 - **بستن:** با دکمهٔ بستن یا <kbd>Esc</kbd> وقتی فوکوس روی اعلان است.
+
+## کار زمان‌بر و جایگاه
+
+`toast.promise` اعلان «در حال ذخیره…» را نشان می‌دهد و پس از پایان کار، **همان اعلان** را به پیام موفقیت یا خطا تغییر می‌دهد. (در این نمونه از هر چهار بار، حدود یک بار خطا شبیه‌سازی می‌شود.)
+
+<Demo html={false} code={`toast.promise(saveFiles(), {
+  loading: "در حال ذخیره…",
+  success: (n) => \`\${n} فایل ذخیره شد\`,
+  error: (e) => \`ذخیره نشد: \${e.message}\`,
+});
+
+<Toaster placement="top-center" max={3} />`}>
+  <ToastExtrasDemo client:load />
+</Demo>
+
+<Props caption="ویژگی‌های جدید" rows={[
+  ["placement (Toaster)", '"top-start" | "top-center" | "top-end" | "bottom-start" | "bottom-center" | "bottom-end"', '"bottom-end"', "جایگاه؛ در RTL «end» سمت چپ است"],
+  ["max (Toaster)", "number", "5", "بیشترین اعلان هم‌زمان"],
+  ["toast.promise", "(promise, { loading, success, error })", "", "اعلان یک کار زمان‌بر"],
+  ["id (toast)", "number | string", "", "با شناسهٔ تکراری، اعلان قبلی به‌روز می‌شود"],
+]} />
 
 ## ویژگی‌های toast()
 

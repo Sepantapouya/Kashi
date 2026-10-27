@@ -115,3 +115,26 @@
 
 .k-input:focus-within { outline-color: Highlight; }
 }
+
+/* دکمه‌های داخل فیلد: پاک کردن، نمایش رمز */
+.k-input__action {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  margin-inline: -0.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--k-radius-sm);
+  background: none;
+  color: var(--k-text-tertiary);
+  cursor: pointer;
+}
+.k-input__action:hover { color: var(--k-text-primary); background: var(--k-bg-hover); }
+.k-input__action:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-input__action svg { inline-size: 1.125rem; block-size: 1.125rem; }
+.k-input__control::-ms-reveal { display: none; }
+
+/* ارتفاع خودکار textarea */
+.k-input--autoresize .k-input__control { resize: none; overflow-y: auto; min-block-size: 3lh; field-sizing: content; }

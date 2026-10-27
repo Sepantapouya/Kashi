@@ -1,10 +1,11 @@
-/* حالت خالی: وقتی داده‌ای برای نمایش نیست */
+/* حالت خالی: وقتی داده‌ای برای نمایش نیست
+ * متغیرها: --k-empty-padding  --k-empty-pattern */
 .k-empty {
   position: relative;
   display: grid;
   justify-items: center;
   gap: var(--k-space-2);
-  padding: var(--k-space-12) var(--k-space-6);
+  padding: var(--k-empty-padding, var(--k-space-12) var(--k-space-6));
   text-align: center;
   isolation: isolate;
 }
@@ -30,7 +31,7 @@
   inline-size: 20rem;
   block-size: 20rem;
   border-radius: 50%;
-  background: repeating-radial-gradient(circle, transparent 0 2.4rem, var(--k-border-secondary) 2.4rem calc(2.4rem + 1px));
+  background: repeating-radial-gradient(circle, transparent 0 2.4rem, var(--k-empty-pattern, var(--k-border-secondary)) 2.4rem calc(2.4rem + 1px));
   mask-image: radial-gradient(circle, #000 15%, transparent 65%);
   pointer-events: none;
 }

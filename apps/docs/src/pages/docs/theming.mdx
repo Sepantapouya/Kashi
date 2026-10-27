@@ -55,7 +55,26 @@ createTheme({ brand: { 50: "#f5f3ff", 100: "#ede9fe", /* … */ 950: "#2e1065" }
 }
 ```
 
-### ۴. بازنویسی مستقیم
+### ۴. کلاس برای هر بخش داخلی
+
+کامپوننت‌های چندبخشی `classNames` می‌پذیرند تا بدون دستکاری CSS کاشی، هر بخش را جدا استایل دهید (مثلاً با Tailwind):
+
+```tsx
+<Input
+  label="ایمیل"
+  classNames={{ label: "text-lg", box: "rounded-full", control: "font-mono" }}
+/>
+<DataTable classNames={{ row: "h-14", header: "uppercase" }} … />
+```
+
+همچنین ریشهٔ کامپوننت‌ها ویژگی‌های `data-variant`، `data-size`، `data-tone`، `data-state` و `data-placement` دارند:
+
+```css
+.k-btn[data-variant="primary"][data-size="lg"] { letter-spacing: 0; }
+.k-input[data-state="invalid"] { background: var(--k-bg-error-subtle); }
+```
+
+### ۵. بازنویسی مستقیم
 
 همهٔ استایل‌های کاشی در Cascade Layer با نام `kashi` قرار دارند. هر CSS معمولی شما، با هر میزان اختصاصی بودن، روی آن‌ها اولویت دارد:
 

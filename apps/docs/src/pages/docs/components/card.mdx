@@ -5,6 +5,7 @@ description: ظرفی برای گروه‌بندی محتوای مرتبط، ب�
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
+import { CardExtrasDemo } from "../../../components/demos";
 import Vars from "../../../components/Vars.astro";
 import { Badge, Button, Card, CardBody, CardDescription, CardFooter, CardHeader, CardTitle } from "@kashi-ui/react";
 
@@ -59,6 +60,27 @@ import { Card, CardHeader, CardTitle, CardDescription, CardBody, CardFooter } fr
     </CardHeader>
   </Card>
 </Demo>
+
+## سبک‌ها، تصویر و منوی سربرگ
+
+<Demo html={false} code={`<Card variant="elevated" padding="sm">
+  <CardMedia src="/cover.jpg" alt="" ratio="16 / 9" />
+  <CardHeader actions={<DropdownMenu trigger={…}>…</DropdownMenu>}>
+    <CardTitle>سبک برجسته</CardTitle>
+    <CardDescription>با تصویر و منوی سربرگ</CardDescription>
+  </CardHeader>
+</Card>
+
+<Card variant="filled">…</Card>`}>
+  <CardExtrasDemo client:load />
+</Demo>
+
+<Props caption="ویژگی‌های جدید" rows={[
+  ["variant", '"outlined" | "elevated" | "filled"', '"outlined"', "سبک (Card)"],
+  ["padding", '"none" | "sm" | "md" | "lg"', '"md"', "فاصلهٔ داخلی همهٔ بخش‌ها (Card)"],
+  ["actions", "ReactNode", "", "دکمه یا منو در انتهای سربرگ (CardHeader)"],
+  ["ratio", "string", '"16 / 9"', "نسبت ابعاد تصویر (CardMedia)"],
+]} />
 
 ## ویژگی‌ها
 

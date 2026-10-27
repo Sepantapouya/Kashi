@@ -5,6 +5,7 @@ description: برچسب کوچک برای وضعیت، دسته‌بندی یا 
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
+import { BadgeExtrasDemo } from "../../../components/demos";
 import Vars from "../../../components/Vars.astro";
 import { Badge } from "@kashi-ui/react";
 
@@ -41,6 +42,23 @@ import { Badge } from "@kashi-ui/react";
   <Badge tone="brand" size="lg">بزرگ</Badge>
   <Badge tone="success" square>مربعی</Badge>
 </Demo>
+
+## سبک‌ها و برچسب‌های حذف‌شدنی
+
+<Demo html={false} code={`<Badge tone="success" variant="solid">پرداخت‌شده</Badge>
+<Badge tone="brand" variant="outline">بتا</Badge>
+<Badge variant="outline" icon={<UserIcon />}>۱۲ عضو</Badge>
+
+// فیلترهای فعال
+{tags.map((t) => <Badge key={t} tone="brand" onRemove={() => remove(t)}>{t}</Badge>)}`}>
+  <BadgeExtrasDemo client:load />
+</Demo>
+
+<Props caption="ویژگی‌های جدید" rows={[
+  ["variant", '"soft" | "solid" | "outline"', '"soft"', "سبک"],
+  ["icon", "ReactNode", "", "آیکون ابتدای متن"],
+  ["onRemove / removeLabel", "() => void / string", "«حذف {متن}»", "دکمهٔ حذف با نام برای صفحه‌خوان"],
+]} />
 
 ## ویژگی‌ها
 

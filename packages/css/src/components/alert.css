@@ -90,3 +90,13 @@
 @media (forced-colors: active) {
   .k-alert { border-color: CanvasText; }
 }
+
+/* فشرده */
+.k-alert--sm { gap: var(--k-space-3); padding: var(--k-alert-padding, calc(0.75rem * var(--k-density))); border-radius: var(--k-alert-radius, var(--k-radius-lg)); }
+.k-alert--sm .k-alert__icon { inline-size: 1rem; block-size: 1rem; margin: 0.25rem; }
+.k-alert--sm .k-alert__icon::before, .k-alert--sm .k-alert__icon::after { display: none; }
+/* نوار بالای صفحه */
+.k-alert--banner { align-items: center; border-inline: 0; border-block-start: 0; border-radius: 0; box-shadow: none; }
+.k-alert--banner .k-alert__content { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-1) var(--k-space-3); padding: 0; }
+.k-alert--banner .k-alert__actions { margin: 0; }
+.k-alert--banner .k-alert__icon::after { display: none; }

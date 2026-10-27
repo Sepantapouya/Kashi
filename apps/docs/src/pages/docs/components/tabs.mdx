@@ -5,7 +5,7 @@ description: نمایش بخش‌های مرتبط یک محتوا در یک ف�
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { TabsDemo } from "../../../components/demos";
+import { TabsDemo, TabsVerticalDemo } from "../../../components/demos";
 
 ```tsx
 import { Tabs, TabList, Tab, TabPanel } from "@kashi-ui/react";
@@ -46,6 +46,24 @@ import { Tabs, TabList, Tab, TabPanel } from "@kashi-ui/react";
 | <kbd>Tab</kbd> | ورود به زبانهٔ فعال، سپس رفتن به محتوای پنل |
 | <kbd>←</kbd> / <kbd>→</kbd> | زبانهٔ بعد / قبل (در راست‌به‌چپ) و فعال‌سازی آن |
 | <kbd>Home</kbd> / <kbd>End</kbd> | اولین / آخرین زبانه |
+
+## عمودی
+
+برای صفحه‌های تنظیمات؛ کلیدهای ↑ و ↓ بین زبانه‌ها جابه‌جا می‌کنند. در صفحه‌های باریک خودکار افقی می‌شود.
+
+<Demo html={false} code={`<Tabs defaultValue="profile" orientation="vertical">
+  <TabList aria-label="تنظیمات حساب">…</TabList>
+  …
+</Tabs>`}>
+  <TabsVerticalDemo client:load />
+</Demo>
+
+<Props caption="ویژگی‌های جدید" rows={[
+  ["orientation", '"horizontal" | "vertical"', '"horizontal"', "جهت؛ aria-orientation و کلیدهای پیمایش هم تغییر می‌کنند"],
+  ["size", '"sm" | "md"', '"md"', "اندازه"],
+]} />
+
+متغیرهای CSS: `--k-tab-height`، `--k-tab-radius`، `--k-tabs-gap`، `--k-tabs-indicator`، `--k-tabs-list-width`.
 
 ## ویژگی‌ها
 

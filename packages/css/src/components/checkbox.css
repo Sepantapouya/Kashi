@@ -82,6 +82,8 @@
 }
 .k-check > :is(.k-checkbox, .k-switch) { margin-block-start: calc((1.25rem - var(--_h, var(--_s))) / 2); }
 .k-check:has(:disabled) { cursor: not-allowed; }
+/* برچسب در ابتدا، کنترل در انتهای ردیف (فهرست تنظیمات) */
+.k-check--start { display: flex; flex-direction: row-reverse; justify-content: space-between; gap: var(--k-space-4); inline-size: 100%; }
 .k-check__text { display: grid; gap: 0.125rem; }
 .k-check__label { color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); }
 .k-check__description { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }

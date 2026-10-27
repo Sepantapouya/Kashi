@@ -7,7 +7,7 @@ import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
 import Vars from "../../../components/Vars.astro";
 import { Input, Textarea } from "@kashi-ui/react";
-import { InputAddons } from "../../../components/demos";
+import { InputAddons, InputExtrasDemo } from "../../../components/demos";
 
 ```tsx
 import { Input, Textarea } from "@kashi-ui/react";
@@ -50,6 +50,28 @@ import { Input, Textarea } from "@kashi-ui/react";
 <Demo align="stretch" code={`<Input label="کد ملی" defaultValue="۰۰۱۲۳۴۵۶۷۸" disabled />`}>
   <Input label="کد ملی" defaultValue="۰۰۱۲۳۴۵۶۷۸" disabled />
 </Demo>
+
+## رمز، پاک کردن، شمارنده و بیشتر
+
+<Demo html={false} code={`<Input label="رمز عبور" type="password" labelEnd={<a href="/forgot">فراموشی رمز؟</a>} />
+<Input aria-label="جستجو" addonStart={<SearchIcon />} clearable />
+<Input label="نام کاربری" loading hint="در حال بررسی…" />
+<Input label="نام شرکت" optional />
+<Textarea label="دربارهٔ شما" autoResize showCount maxLength={280} />`}>
+  <InputExtrasDemo client:load />
+</Demo>
+
+<Props caption="ویژگی‌های جدید" rows={[
+  ["type=\"password\"", "", "", "دکمهٔ نمایش/پنهان کردن رمز خودکار اضافه می‌شود؛ با revealable={false} خاموش"],
+  ["clearable / onClear", "boolean / () => void", "", "دکمهٔ پاک کردن وقتی فیلد مقدار دارد"],
+  ["loading", "boolean", "false", "اسپینر در انتهای فیلد"],
+  ["showCount", "boolean", "false", "شمارندهٔ نویسه؛ با maxLength به شکل «۱۲ / ۲۸۰»"],
+  ["optional", "boolean | string", "", "نشان «(اختیاری)» کنار برچسب"],
+  ["labelEnd", "ReactNode", "", "محتوای انتهای ردیف برچسب"],
+  ["autoResize / maxRows", "boolean / number", "", "ارتفاع خودکار Textarea"],
+  ["classNames", "{ root, label, box, control, addon, hint, error }", "", "کلاس دلخواه برای هر بخش داخلی"],
+  ["labels", "{ clear, show, hide, loading }", "فارسی", "متن‌های صفحه‌خوان"],
+]} />
 
 ## ویژگی‌ها
 

@@ -7,7 +7,7 @@ import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
 import Vars from "../../../components/Vars.astro";
 import { Alert } from "@kashi-ui/react";
-import { AlertActions } from "../../../components/demos";
+import { AlertActions, AlertExtrasDemo } from "../../../components/demos";
 
 ```tsx
 import { Alert } from "@kashi-ui/react";
@@ -50,6 +50,19 @@ import { Alert } from "@kashi-ui/react";
 <Demo column code={`<Alert tone="warning" tinted title="حالت نگهداری">سرویس امشب از ساعت ۲ تا ۴ در دسترس نیست.</Alert>`}>
   <Alert tone="warning" tinted title="حالت نگهداری">سرویس امشب از ساعت ۲ تا ۴ در دسترس نیست.</Alert>
 </Demo>
+
+## نوار بالای صفحه و فشرده
+
+<Demo html={false} code={`<Alert tone="brand" layout="banner" title="نسخهٔ ۰.۸ منتشر شد" actions={…} onClose={…}>…</Alert>
+<Alert tone="warning" size="sm" title="این ایمیل قبلاً ثبت شده است." />`}>
+  <AlertExtrasDemo client:load />
+</Demo>
+
+<Props caption="ویژگی‌های جدید" rows={[
+  ["layout", '"card" | "banner"', '"card"', "نوار تمام‌عرض بالای صفحه"],
+  ["size", '"sm" | "md"', '"md"', "نسخهٔ فشرده برای داخل فرم"],
+  ["classNames", "{ root, icon, title, description, actions }", "", "کلاس دلخواه برای هر بخش"],
+]} />
 
 ## ویژگی‌ها
 

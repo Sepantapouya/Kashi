@@ -2,7 +2,12 @@ import { forwardRef, useEffect, useId, useRef, type InputHTMLAttributes, type Re
 import { cx } from "./cx.js";
 import { mergeRefs } from "./utils.js";
 
+export interface CheckClassNames { root?: string; control?: string; label?: string; description?: string }
+
 interface CheckOwnProps {
+  /** «start»: برچسب پیش از کنترل و کشیده تا انتهای ردیف (مثل صفحهٔ تنظیمات) @default "end" */
+  labelPosition?: "start" | "end";
+  classNames?: CheckClassNames;
   /** برچسب کنار کنترل */
   label?: ReactNode;
   /** توضیح زیر برچسب */
@@ -19,21 +24,21 @@ export interface CheckboxProps extends CheckOwnProps, Omit<InputHTMLAttributes<H
 }
 
 /** برچسب و توضیح مشترک بین Checkbox و Switch */
-function CheckLabel({ id, label, description, className, children }: { id: string; label?: ReactNode; description?: ReactNode; className?: string; children: ReactNode }) {
+function CheckLabel({ id, label, description, className, classNames = {}, labelPosition = "end", children }: { id: string; label?: ReactNode; description?: ReactNode; className?: string; classNames?: CheckClassNames; labelPosition?: "start" | "end"; children: ReactNode }) {
   if (!label && !description) return <>{children}</>;
   return (
-    <label className={cx("k-check", className)} htmlFor={id}>
+    <label className={cx("k-check", labelPosition === "start" && "k-check--start", className, classNames.root)} htmlFor={id}>
       {children}
       <span className="k-check__text">
-        {label && <span className="k-check__label">{label}</span>}
-        {description && <span className="k-check__description" id={`${id}-desc`}>{description}</span>}
+        {label && <span className={cx("k-check__label", classNames.label)}>{label}</span>}
+        {description && <span className={cx("k-check__description", classNames.description)} id={`${id}-desc`}>{description}</span>}
       </span>
     </label>
   );
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
-  { label, description, invalid, indeterminate = false, size = "md", id, className, ...rest },
+  { label, description, invalid, indeterminate = false, size = "md", id, className, classNames, labelPosition, ...rest },
   ref,
 ) {
   const autoId = useId();
@@ -45,12 +50,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   }, [indeterminate]);
 
   return (
-    <CheckLabel id={inputId} label={label} description={description} className={className}>
+    <CheckLabel id={inputId} label={label} description={description} className={className} classNames={classNames} labelPosition={labelPosition}>
       <input
         ref={mergeRefs(ref, inner)}
         type="checkbox"
         id={inputId}
-        className={cx("k-checkbox", size === "lg" && "k-checkbox--lg", !label && !description && className)}
+        className={cx("k-checkbox", size === "lg" && "k-checkbox--lg", !label && !description && className, classNames?.control)}
         aria-invalid={invalid || undefined}
         aria-describedby={description ? `${inputId}-desc` : undefined}
         // برای رندر سمت سرور: اسکریپت صفحه می‌تواند indeterminate را پیش از hydrate تنظیم کند
@@ -67,19 +72,19 @@ export interface SwitchProps extends CheckOwnProps, Omit<InputHTMLAttributes<HTM
 }
 
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
-  { label, description, invalid, size = "md", id, className, ...rest },
+  { label, description, invalid, size = "md", id, className, classNames, labelPosition, ...rest },
   ref,
 ) {
   const autoId = useId();
   const inputId = id ?? autoId;
   return (
-    <CheckLabel id={inputId} label={label} description={description} className={className}>
+    <CheckLabel id={inputId} label={label} description={description} className={className} classNames={classNames} labelPosition={labelPosition}>
       <input
         ref={ref}
         type="checkbox"
         role="switch"
         id={inputId}
-        className={cx("k-switch", size !== "md" && `k-switch--${size}`, !label && !description && className)}
+        className={cx("k-switch", size !== "md" && `k-switch--${size}`, !label && !description && className, classNames?.control)}
         aria-invalid={invalid || undefined}
         aria-describedby={description ? `${inputId}-desc` : undefined}
         {...rest}

@@ -7,7 +7,7 @@ import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
 import Vars from "../../../components/Vars.astro";
 import { Button } from "@kashi-ui/react";
-import { ButtonIcons } from "../../../components/demos";
+import { ButtonIcons, ButtonExtrasDemo } from "../../../components/demos";
 
 ```tsx
 import { Button } from "@kashi-ui/react";
@@ -61,6 +61,25 @@ import { Button } from "@kashi-ui/react";
   <Button variant="primary" loading>پرداخت</Button>
   <Button disabled>غیرفعال</Button>
 </Demo>
+
+## شکل، اندازه و لینک
+
+با `href` دکمه یک لینک واقعی (`<a>`) می‌شود؛ با `as` می‌توانید کامپوننت لینک روتر خود را بدهید، مثل `as={Link}` در Next.js.
+
+<Demo code={`<Button variant="primary" shape="pill">کاملاً گرد</Button>
+<Button shape="square">گوشهٔ کم</Button>
+<Button size="xs">خیلی کوچک</Button>
+<Button href="/docs" variant="link">دکمهٔ لینکی</Button>
+<Button as={Link} href="/pricing">با Link در Next.js</Button>`}>
+  <ButtonExtrasDemo />
+</Demo>
+
+<Props caption="ویژگی‌های جدید" rows={[
+  ["shape", '"default" | "pill" | "square"', '"default"', "شکل گوشه‌ها"],
+  ["size", '"xs" | "sm" | "md" | "lg" | "xl"', '"md"', "اندازهٔ xs (۲۸ پیکسل) اضافه شد"],
+  ["href / target / rel", "string", "", "رندر به‌صورت لینک؛ با disabled، href حذف و aria-disabled گذاشته می‌شود"],
+  ["as", "ElementType", "", "عنصر یا کامپوننت دلخواه"],
+]} />
 
 ## ویژگی‌ها
 

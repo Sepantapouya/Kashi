@@ -6,8 +6,8 @@ export interface TooltipProps {
   content: ReactNode;
   /** عنصر فوکوس‌پذیر، معمولاً یک دکمه */
   children: ReactElement;
-  /** @default "top" */
-  placement?: "top" | "bottom";
+  /** «start»/«end» کنار عنصر؛ در RTL «start» سمت راست است @default "top" */
+  placement?: "top" | "bottom" | "start" | "end";
   /** تأخیر نمایش با hover بر حسب میلی‌ثانیه @default 300 */
   delay?: number;
 }
@@ -53,7 +53,7 @@ export function Tooltip({ content, children, placement = "top", delay = 300 }: T
       onBlur={hide}
     >
       {child}
-      <span role="tooltip" id={id} className={cx("k-tooltip", placement === "bottom" && "k-tooltip--bottom")} hidden={!open}>
+      <span role="tooltip" id={id} className={cx("k-tooltip", placement !== "top" && `k-tooltip--${placement}`)} hidden={!open}>
         {content}
       </span>
     </span>

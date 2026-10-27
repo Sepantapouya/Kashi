@@ -1,10 +1,11 @@
 /* آکاردئون — روی <details> و <summary> بومی؛ بدون JavaScript دسترس‌پذیر است
+ * متغیرها: --k-accordion-radius  --k-accordion-padding  --k-accordion-bg
  * باز شدن تنها یک بخش در هر لحظه: name یکسان روی همهٔ <details>
  */
 .k-accordion {
   border: 1px solid var(--k-border-secondary);
-  border-radius: var(--k-radius-xl);
-  background: var(--k-bg-elevated);
+  border-radius: var(--k-accordion-radius, var(--k-radius-xl));
+  background: var(--k-accordion-bg, var(--k-bg-elevated));
   box-shadow: var(--k-shadow-xs), var(--k-highlight);
   overflow: hidden;
 }
@@ -15,7 +16,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--k-space-4);
-  padding: var(--k-space-4) var(--k-space-5);
+  padding: var(--k-space-4) var(--k-accordion-padding, var(--k-space-5));
   color: var(--k-text-primary);
   font-weight: var(--k-weight-semibold);
   cursor: pointer;
@@ -35,7 +36,7 @@
   transition: rotate var(--k-duration-normal) var(--k-ease-standard);
 }
 .k-accordion__item[open] > .k-accordion__trigger::after { rotate: 180deg; }
-.k-accordion__content { padding: 0 var(--k-space-5) var(--k-space-5); color: var(--k-text-tertiary); line-height: var(--k-leading-normal); }
+.k-accordion__content { padding: 0 var(--k-accordion-padding, var(--k-space-5)) var(--k-accordion-padding, var(--k-space-5)); color: var(--k-text-tertiary); line-height: var(--k-leading-normal); }
 /* انیمیشن باز شدن در مرورگرهای جدید */
 @supports (interpolate-size: allow-keywords) {
   .k-accordion { interpolate-size: allow-keywords; }

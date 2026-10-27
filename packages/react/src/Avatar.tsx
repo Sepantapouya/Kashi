@@ -23,6 +23,15 @@ export function initials(name: string): string {
     .toUpperCase();
 }
 
+const TONES = ["brand", "info", "success", "warning", "error"] as const;
+
+/** رنگ ثابت از روی نام؛ یکسان در هر بار و هر دستگاه */
+export function autoTone(name: string): (typeof TONES)[number] {
+  let h = 0;
+  for (const ch of name.trim()) h = (h * 31 + ch.codePointAt(0)!) >>> 0;
+  return TONES[h % TONES.length];
+}
+
 export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   /** نام شخص — برای alt تصویر و حروف اول جایگزین */
   name: string;
@@ -32,24 +41,28 @@ export interface AvatarProps extends HTMLAttributes<HTMLSpanElement> {
   square?: boolean;
   /** رنگ برند برای حالت حروف اول */
   brand?: boolean;
+  /** «auto»: رنگ ثابت از روی نام (هر شخص همیشه یک رنگ)، یا یکی از رنگ‌ها */
+  color?: "auto" | "neutral" | "brand" | "info" | "success" | "warning" | "error";
   status?: AvatarStatus;
   /** برچسب‌های وضعیت برای صفحه‌خوان (پیش‌فرض فارسی) */
   statusLabels?: Partial<Record<AvatarStatus, string>>;
 }
 
 export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
-  { name, src, size = "md", square = false, brand = false, status, statusLabels, className, ...rest },
+  { name, src, size = "md", square = false, brand = false, color, status, statusLabels, className, ...rest },
   ref,
 ) {
   const [failed, setFailed] = useState(false);
   const showImage = src && !failed;
+  const tone = color === "auto" ? autoTone(name) : color ?? (brand ? "brand" : "neutral");
   const statusText = status ? (statusLabels?.[status] ?? STATUS_LABEL[status]) : undefined;
   return (
     <span
       ref={ref}
       role="img"
       aria-label={statusText ? `${name}، ${statusText}` : name}
-      className={cx("k-avatar", size !== "md" && `k-avatar--${size}`, square && "k-avatar--square", brand && "k-avatar--brand", className)}
+      data-tone={tone}
+      className={cx("k-avatar", size !== "md" && `k-avatar--${size}`, square && "k-avatar--square", tone !== "neutral" && `k-avatar--${tone}`, className)}
       {...rest}
     >
       {showImage ? (

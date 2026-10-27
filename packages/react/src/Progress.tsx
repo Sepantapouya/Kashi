@@ -14,11 +14,35 @@ export interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
   /** @default "md" */
   size?: "sm" | "md" | "lg";
   tone?: "brand" | "success" | "warning" | "error";
+  /** «circular»: حلقهٔ پیشرفت با درصد در وسط @default "linear" */
+  variant?: "linear" | "circular";
 }
 
-export function Progress({ value, max = 100, label, showValue, size = "md", tone = "brand", className, "aria-label": ariaLabel, ...rest }: ProgressProps) {
+export function Progress({ value, max = 100, label, showValue, size = "md", tone = "brand", variant = "linear", className, "aria-label": ariaLabel, ...rest }: ProgressProps) {
   const pct = value === undefined ? undefined : Math.max(0, Math.min(100, (value / max) * 100));
   const text = pct === undefined ? undefined : `${toFaDigits(Math.round(pct))}٪`;
+  if (variant === "circular") {
+    const r = 16;
+    const c = 2 * Math.PI * r;
+    return (
+      <div
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={max}
+        aria-valuenow={value}
+        aria-valuetext={text}
+        aria-label={ariaLabel ?? (typeof label === "string" ? label : undefined)}
+        className={cx("k-progress-ring", size !== "md" && `k-progress-ring--${size}`, tone !== "brand" && `k-progress--${tone}`, pct === undefined && "k-progress-ring--indeterminate", className)}
+        {...rest}
+      >
+        <svg viewBox="0 0 40 40" aria-hidden="true">
+          <circle className="k-progress-ring__track" cx="20" cy="20" r={r} />
+          <circle className="k-progress-ring__bar" cx="20" cy="20" r={r} strokeDasharray={c} strokeDashoffset={pct === undefined ? c * 0.7 : c * (1 - pct / 100)} />
+        </svg>
+        {showValue && text && <span className="k-progress-ring__value" aria-hidden="true">{text}</span>}
+      </div>
+    );
+  }
   const bar = (
     <div
       role="progressbar"

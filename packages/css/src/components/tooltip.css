@@ -1,5 +1,7 @@
 /* راهنمای کوتاه (Tooltip) — با hover و فوکوس، بسته شدن با Esc (WCAG 1.4.13)
  * فقط برای توضیح تکمیلی؛ اطلاعات ضروری را در tooltip پنهان نکنید.
+ * جایگاه: پیش‌فرض بالا | k-tooltip--bottom | k-tooltip--start | k-tooltip--end
+ * متغیرها: --k-tooltip-bg  --k-tooltip-fg  --k-tooltip-max-width  --k-tooltip-radius
  */
 .k-tooltip-anchor { position: relative; display: inline-flex; }
 
@@ -42,6 +44,16 @@
 @keyframes k-tip-in { from { opacity: 0; translate: 50% 3px; } }
 [dir="ltr"] .k-tooltip { animation-name: k-tip-in-ltr; }
 @keyframes k-tip-in-ltr { from { opacity: 0; translate: -50% 3px; } }
+
+/* کنار عنصر */
+.k-tooltip:is(.k-tooltip--start, .k-tooltip--end) { inset-block: 50% auto; translate: 0 -50%; animation-name: k-tip-side; }
+.k-tooltip--start { inset-inline: auto calc(100% + 8px); }
+.k-tooltip--end { inset-inline: calc(100% + 8px) auto; }
+.k-tooltip:is(.k-tooltip--start, .k-tooltip--end)::after { inset-block: 50% auto; translate: 0 -50%; border-color: transparent; }
+.k-tooltip--start::after { inset-inline: 100% auto; border-inline-start-color: var(--k-tooltip-bg, var(--k-text-primary)); }
+.k-tooltip--end::after { inset-inline: auto 100%; border-inline-end-color: var(--k-tooltip-bg, var(--k-text-primary)); }
+@keyframes k-tip-side { from { opacity: 0; } }
+.k-tooltip { max-inline-size: var(--k-tooltip-max-width, 16rem); border-radius: var(--k-tooltip-radius, var(--k-radius-md)); }
 
 @media (forced-colors: active) {
   .k-tooltip { border: 1px solid CanvasText; }

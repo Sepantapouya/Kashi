@@ -17,7 +17,7 @@ export interface DropdownMenuProps {
 }
 
 const items = (menu: HTMLElement | null) =>
-  [...(menu?.querySelectorAll<HTMLElement>('[role="menuitem"]:not([aria-disabled="true"])') ?? [])];
+  [...(menu?.querySelectorAll<HTMLElement>('[role^="menuitem"]:not([aria-disabled="true"])') ?? [])];
 
 /**
  * منوی کشویی با الگوی Menu Button در WAI-ARIA:
@@ -121,14 +121,22 @@ export interface MenuItemProps {
   disabled?: boolean;
   /** لینک به‌جای عمل */
   href?: string;
+  /** گزینهٔ تیک‌دار (menuitemcheckbox)، مثل «نمایش ستون تاریخ»؛ منو پس از انتخاب باز می‌ماند */
+  checked?: boolean;
   children: ReactNode;
 }
 
-export function MenuItem({ onSelect, icon, shortcut, tone = "default", disabled, href, children }: MenuItemProps) {
+export function MenuItem({ onSelect, icon, shortcut, tone = "default", disabled, href, checked, children }: MenuItemProps) {
+  const checkable = checked !== undefined;
   const ctx = useContext(MenuCtx);
   const cls = cx("k-menu__item", tone === "danger" && "k-menu__item--danger");
   const content = (
     <>
+      {checkable && (
+        <span className="k-menu__check" aria-hidden="true">
+          {checked && <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="m5 10.5 3.2 3L15 7" /></svg>}
+        </span>
+      )}
       {icon}
       <span>{children}</span>
       {shortcut && <span className="k-menu__shortcut" aria-hidden="true">{shortcut}</span>}
@@ -137,14 +145,14 @@ export function MenuItem({ onSelect, icon, shortcut, tone = "default", disabled,
   const select = () => {
     if (disabled) return;
     onSelect?.();
-    ctx?.close();
+    if (!checkable) ctx?.close();
   };
   return (
     <li role="none">
       {href && !disabled ? (
         <a role="menuitem" tabIndex={-1} className={cls} href={href} onClick={() => ctx?.close(false)}>{content}</a>
       ) : (
-        <button type="button" role="menuitem" tabIndex={-1} className={cls} aria-disabled={disabled || undefined} onClick={select}>{content}</button>
+        <button type="button" role={checkable ? "menuitemcheckbox" : "menuitem"} aria-checked={checkable ? checked : undefined} tabIndex={-1} className={cls} aria-disabled={disabled || undefined} onClick={select}>{content}</button>
       )}
     </li>
   );

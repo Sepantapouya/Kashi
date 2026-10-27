@@ -5,7 +5,7 @@ description: فهرستی از عمل‌ها که با یک دکمه باز می
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { MenuDemo } from "../../../components/demos";
+import { MenuDemo, MenuCheckDemo } from "../../../components/demos";
 
 ```tsx
 import { DropdownMenu, MenuItem, MenuSeparator, MenuLabel } from "@kashi-ui/react";
@@ -40,6 +40,16 @@ import { DropdownMenu, MenuItem, MenuSeparator, MenuLabel } from "@kashi-ui/reac
 | حرف | پرش به گزینه‌ای که با آن حرف شروع می‌شود |
 | <kbd>Esc</kbd> | بستن و برگشت به دکمه |
 | <kbd>Tab</kbd> | بستن و رفتن به عنصر بعدی صفحه |
+
+## گزینه‌های تیک‌دار
+
+برای تنظیماتی مثل نمایش ستون‌ها؛ منو پس از انتخاب باز می‌ماند تا چند گزینه پشت سر هم عوض شوند.
+
+<Demo html={false} code={`<MenuItem checked={cols.date} onSelect={() => toggle("date")}>تاریخ</MenuItem>`}>
+  <MenuCheckDemo client:load />
+</Demo>
+
+`checked` نقش گزینه را `menuitemcheckbox` با `aria-checked` می‌کند. متغیرهای CSS: `--k-menu-min-width`، `--k-menu-radius`، `--k-menu-item-height`، `--k-menu-bg`.
 
 ## ویژگی‌ها
 

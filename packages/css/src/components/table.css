@@ -1,27 +1,38 @@
-/* جدول داده */
+/* جدول داده
+ * متغیرها: --k-table-radius  --k-table-cell-px  --k-table-cell-py  --k-table-header-bg  --k-table-stripe  --k-table-row-hover
+ */
 .k-table-wrap {
   overflow-x: auto;
   border: 1px solid var(--k-border-secondary);
-  border-radius: var(--k-radius-xl);
+  border-radius: var(--k-table-radius, var(--k-radius-xl));
   background: var(--k-bg-elevated);
   box-shadow: var(--k-shadow-xs), var(--k-highlight);
 }
+.k-table-wrap--sticky { overflow-y: auto; }
+.k-table-wrap--sticky thead th { position: sticky; inset-block-start: 0; z-index: 1; box-shadow: 0 1px 0 var(--k-border-secondary); }
 .k-table-wrap:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: 2px; }
 .k-table { inline-size: 100%; border-collapse: collapse; font-size: var(--k-text-sm); }
 .k-table caption { padding: var(--k-space-5) var(--k-space-6) var(--k-space-4); text-align: start; caption-side: top; }
 .k-table__caption-title { display: block; color: var(--k-text-primary); font-size: var(--k-text-lg); font-weight: var(--k-weight-semibold); }
 .k-table__caption-desc { display: block; margin-block-start: var(--k-space-1); color: var(--k-text-tertiary); font-size: var(--k-text-sm); font-weight: var(--k-weight-regular); }
-.k-table th, .k-table td { padding: var(--k-space-3) var(--k-space-6); text-align: start; vertical-align: middle; border-block-end: 1px solid var(--k-border-secondary); }
+.k-table th, .k-table td { padding: var(--k-table-cell-py, var(--k-space-3)) var(--k-table-cell-px, var(--k-space-6)); text-align: start; vertical-align: middle; border-block-end: 1px solid var(--k-border-secondary); }
 .k-table thead th {
   padding-block: var(--k-space-3);
-  background: var(--k-bg-secondary);
+  background: var(--k-table-header-bg, var(--k-bg-secondary));
   color: var(--k-text-tertiary);
   font-size: var(--k-text-xs);
   font-weight: var(--k-weight-semibold);
   white-space: nowrap;
 }
 .k-table tbody tr { transition: background-color var(--k-duration-fast); }
-.k-table tbody tr:hover { background: var(--k-bg-hover); }
+.k-table tbody tr:hover { background: var(--k-table-row-hover, var(--k-bg-hover)); }
+.k-table--striped tbody tr:nth-child(even) { background: var(--k-table-stripe, var(--k-bg-secondary)); }
+.k-table--clickable tbody tr:not([aria-hidden]) { cursor: pointer; }
+.k-table .k-table__align-center { text-align: center; }
+.k-table .k-table__align-end { text-align: end; }
+.k-table__footer { padding: var(--k-space-3) var(--k-table-cell-px, var(--k-space-6)); border-block-start: 1px solid var(--k-border-secondary); }
+@media (max-width: 40rem) { .k-table .k-table__hide-sm { display: none; } }
+@media (max-width: 56rem) { .k-table .k-table__hide-md { display: none; } }
 .k-table tbody tr[aria-selected="true"] { background: var(--k-bg-brand-subtle); }
 .k-table tbody tr:last-child > * { border-block-end: 0; }
 .k-table td { color: var(--k-text-tertiary); }

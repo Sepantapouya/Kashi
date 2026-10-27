@@ -1,7 +1,7 @@
 import { createContext, useContext, useId, useRef, useState, type HTMLAttributes, type KeyboardEvent, type ReactNode } from "react";
 import { cx } from "./cx.js";
 
-interface Ctx { id: string; selected: string; select: (v: string) => void }
+interface Ctx { id: string; selected: string; select: (v: string) => void; orientation: "horizontal" | "vertical" }
 const TabsCtx = createContext<Ctx | null>(null);
 const useTabs = () => {
   const ctx = useContext(TabsCtx);
@@ -17,10 +17,14 @@ export interface TabsProps extends Omit<HTMLAttributes<HTMLDivElement>, "onChang
   variant?: "line" | "pill" | "segmented";
   /** زبانه‌ها تمام عرض را پر کنند */
   block?: boolean;
+  /** «vertical»: زبانه‌ها در ستون کناری، مثل صفحهٔ تنظیمات @default "horizontal" */
+  orientation?: "horizontal" | "vertical";
+  /** @default "md" */
+  size?: "sm" | "md";
 }
 
 /** زبانه‌ها با الگوی Tabs در WAI-ARIA؛ کلیدهای جهت‌دار در راست‌به‌چپ برعکس عمل می‌کنند */
-export function Tabs({ value, defaultValue = "", onChange, variant = "line", block, className, children, ...rest }: TabsProps) {
+export function Tabs({ value, defaultValue = "", onChange, variant = "line", block, orientation = "horizontal", size = "md", className, children, ...rest }: TabsProps) {
   const id = useId();
   const [inner, setInner] = useState(defaultValue);
   const selected = value !== undefined ? value : inner;
@@ -29,13 +33,20 @@ export function Tabs({ value, defaultValue = "", onChange, variant = "line", blo
       value={{
         id,
         selected,
+        orientation,
         select: (v) => {
           if (value === undefined) setInner(v);
           onChange?.(v);
         },
       }}
     >
-      <div className={cx("k-tabs", `k-tabs--${variant}`, block && "k-tabs--block", className)} {...rest}>{children}</div>
+      <div
+        className={cx("k-tabs", `k-tabs--${variant}`, block && "k-tabs--block", orientation === "vertical" && "k-tabs--vertical", size === "sm" && "k-tabs--sm", className)}
+        data-orientation={orientation}
+        {...rest}
+      >
+        {children}
+      </div>
     </TabsCtx.Provider>
   );
 }
@@ -47,17 +58,16 @@ export interface TabListProps extends HTMLAttributes<HTMLDivElement> {
 
 export function TabList({ className, children, ...rest }: TabListProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const { orientation } = useTabs();
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     const tabs = [...(ref.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]:not(:disabled)') ?? [])];
     const i = tabs.indexOf(document.activeElement as HTMLButtonElement);
     if (i < 0) return;
     const rtl = getComputedStyle(ref.current!).direction === "rtl";
-    const moves: Record<string, number> = {
-      ArrowLeft: rtl ? i + 1 : i - 1,
-      ArrowRight: rtl ? i - 1 : i + 1,
-      Home: 0,
-      End: tabs.length - 1,
-    };
+    const moves: Record<string, number> =
+      orientation === "vertical"
+        ? { ArrowDown: i + 1, ArrowUp: i - 1, Home: 0, End: tabs.length - 1 }
+        : { ArrowLeft: rtl ? i + 1 : i - 1, ArrowRight: rtl ? i - 1 : i + 1, Home: 0, End: tabs.length - 1 };
     if (!(e.key in moves)) return;
     e.preventDefault();
     const next = tabs[(moves[e.key] + tabs.length) % tabs.length];
@@ -65,7 +75,7 @@ export function TabList({ className, children, ...rest }: TabListProps) {
     next.click(); // فعال‌سازی خودکار با فوکوس
   };
   return (
-    <div ref={ref} role="tablist" className={cx("k-tabs__list", className)} onKeyDown={onKeyDown} {...rest}>
+    <div ref={ref} role="tablist" aria-orientation={orientation} className={cx("k-tabs__list", className)} onKeyDown={onKeyDown} {...rest}>
       {children}
     </div>
   );

@@ -1,5 +1,6 @@
 /* اعلان کوتاه (Toast) — محل نمایش را کامپوننت <Toaster> می‌سازد
  * رنگ‌ها: neutral | success | error | warning | info
+ * متغیرها: --k-toast-width  --k-toast-radius  --k-toast-bg
  */
 .k-toaster {
   position: fixed;
@@ -14,7 +15,13 @@
   list-style: none;
   pointer-events: none;
 }
-.k-toaster--top { inset-block: var(--k-space-6) auto; }
+.k-toaster { inline-size: min(var(--k-toast-width, 24rem), calc(100vw - 2rem)); }
+.k-toaster:is(.k-toaster--top-start, .k-toaster--top-center, .k-toaster--top-end) { inset-block: var(--k-space-6) auto; }
+.k-toaster:is(.k-toaster--top-start, .k-toaster--bottom-start) { inset-inline: var(--k-space-6) auto; }
+.k-toaster:is(.k-toaster--top-center, .k-toaster--bottom-center) { inset-inline: 0; margin-inline: auto; }
+/* اعلان‌های بالا از بالا وارد می‌شوند */
+.k-toaster:is(.k-toaster--top-start, .k-toaster--top-center, .k-toaster--top-end) .k-toast { animation-name: k-toast-in-top; }
+@keyframes k-toast-in-top { from { opacity: 0; translate: 0 -12px; scale: 0.97; } }
 @media (max-width: 30rem) {
   .k-toaster { inset-inline: var(--k-space-4); inset-block-end: var(--k-space-4); inline-size: auto; }
 }
@@ -28,8 +35,8 @@
   gap: var(--k-space-3);
   padding: var(--k-space-4);
   border: 1px solid var(--k-border-secondary);
-  border-radius: var(--k-radius-xl);
-  background: var(--k-bg-elevated);
+  border-radius: var(--k-toast-radius, var(--k-radius-xl));
+  background: var(--k-toast-bg, var(--k-bg-elevated));
   color: var(--k-text-primary);
   box-shadow: var(--k-shadow-lg), var(--k-highlight);
   pointer-events: auto;

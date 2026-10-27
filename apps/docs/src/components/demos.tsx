@@ -1,7 +1,7 @@
 // نمونه‌هایی که JSX را به‌عنوان prop می‌دهند باید در فایل React باشند؛
 // در MDX، JSX داخل prop به عنصر React تبدیل نمی‌شود.
 import { useState, type ReactNode } from "react";
-import { Accordion, AccordionItem, Alert, Avatar, AvatarGroup, Badge, Breadcrumb, DataTable, DropdownMenu, EmptyState, Kbd, MenuItem, MenuLabel, MenuSeparator, OtpInput, Pagination, Progress, Skeleton, Spinner, Stepper, Button, Calendar, CardNumberInput, DatePicker, Dialog, IbanInput, Input, MobileInput, NationalIdInput, PriceInput, Radio, RadioGroup, Tab, TabList, TabPanel, Tabs, Toaster, Tooltip, toast } from "@kashi-ui/react";
+import { Accordion, AccordionItem, Alert, Avatar, AvatarGroup, Badge, Breadcrumb, Card, CardBody, CardDescription, CardHeader, CardMedia, CardTitle, Checkbox, Divider, Switch, Textarea, DataTable, DropdownMenu, EmptyState, Kbd, MenuItem, MenuLabel, MenuSeparator, OtpInput, Pagination, Progress, Skeleton, Spinner, Stepper, Button, Calendar, CardNumberInput, DatePicker, Dialog, IbanInput, Input, MobileInput, NationalIdInput, PriceInput, Radio, RadioGroup, Tab, TabList, TabPanel, Tabs, Toaster, Tooltip, toast } from "@kashi-ui/react";
 import { formatJalali, formatNumber, toISODate, toJalali } from "@kashi-ui/persian";
 import { ArrowIcon, MailIcon, PlusIcon, SearchIcon, TrashIcon, UserIcon } from "./icons";
 
@@ -385,4 +385,201 @@ export const SkeletonDemo = () => (
     <Skeleton height={120} />
     <Skeleton lines={3} />
   </div>
+);
+
+// ───── قابلیت‌های شخصی‌سازی (نسخهٔ ۰.۸)
+
+export const ButtonExtrasDemo = () => (
+  <>
+    <Button variant="primary" shape="pill">کاملاً گرد</Button>
+    <Button shape="square">گوشهٔ کم</Button>
+    <Button size="xs">خیلی کوچک</Button>
+    <Button href="#" variant="link">دکمهٔ لینکی</Button>
+    <Button href="#" variant="secondary" iconEnd={<ArrowIcon />}>لینک با ظاهر دکمه</Button>
+  </>
+);
+
+export const InputExtrasDemo = () => (
+  <div className="demo-stack">
+    <Input label="رمز عبور" type="password" defaultValue="kashi-1405" labelEnd={<a href="#">فراموشی رمز؟</a>} />
+    <Input aria-label="جستجو" placeholder="جستجو در پروژه‌ها…" addonStart={<SearchIcon />} clearable defaultValue="فروشگاه" />
+    <Input label="نام کاربری" defaultValue="sara" loading dir="ltr" hint="در حال بررسی در دسترس بودن…" />
+    <Input label="نام شرکت" optional placeholder="مثلاً کاشی" />
+    <Textarea label="دربارهٔ شما" autoResize showCount maxLength={280} placeholder="بنویسید؛ فیلد با متن بزرگ می‌شود…" />
+  </div>
+);
+
+export const BadgeExtrasDemo = () => {
+  const [tags, setTags] = useState(["تهران", "اصفهان", "شیراز", "تبریز"]);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "auto" }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <Badge tone="success" variant="solid">پرداخت‌شده</Badge>
+        <Badge tone="error" variant="solid">ناموفق</Badge>
+        <Badge tone="brand" variant="outline">بتا</Badge>
+        <Badge variant="outline" icon={<UserIcon />}>۱۲ عضو</Badge>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }} aria-label="فیلترهای فعال" role="group">
+        {tags.map((t) => <Badge key={t} tone="brand" onRemove={() => setTags(tags.filter((x) => x !== t))}>{t}</Badge>)}
+        {tags.length === 0 && <Button size="xs" onClick={() => setTags(["تهران", "اصفهان", "شیراز", "تبریز"])}>بازگرداندن فیلترها</Button>}
+      </div>
+    </div>
+  );
+};
+
+export const AvatarAutoDemo = () => (
+  <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+    {["سارا احمدی", "علی رضایی", "مریم کریمی", "رضا نوری", "نگار صادقی", "امیر حسینی", "زهرا موسوی"].map((n) => <Avatar key={n} name={n} color="auto" size="lg" />)}
+  </div>
+);
+
+export const CardExtrasDemo = () => (
+  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(15rem, 1fr))", gap: 16, inlineSize: "100%" }}>
+    <Card variant="elevated" padding="sm">
+      <CardMedia src="/images/sepanta-pouya.jpg" alt="" ratio="16 / 9" />
+      <CardHeader actions={<DropdownMenu align="end" trigger={<Button variant="tertiary" size="sm" iconOnly aria-label="گزینه‌های کارت"><Icon d={I.dots} /></Button>}><MenuItem>ویرایش</MenuItem><MenuItem tone="danger">حذف</MenuItem></DropdownMenu>}>
+        <CardTitle>سبک برجسته</CardTitle>
+        <CardDescription>با تصویر و منوی سربرگ</CardDescription>
+      </CardHeader>
+    </Card>
+    <Card variant="filled">
+      <CardHeader><CardTitle>سبک پرشده</CardTitle><CardDescription>بدون سایه، برای بخش‌های تودرتو</CardDescription></CardHeader>
+      <CardBody>مناسب داخل صفحه‌هایی که خودشان کارت دارند.</CardBody>
+    </Card>
+  </div>
+);
+
+export const AlertExtrasDemo = () => (
+  <div className="demo-stack" style={{ inlineSize: "100%" }}>
+    <Alert tone="brand" layout="banner" title="نسخهٔ ۰.۸ منتشر شد" actions={<Button variant="link" size="sm">تغییرات</Button>} onClose={() => {}}>همهٔ کامپوننت‌ها قابل‌شخصی‌سازی‌تر شدند.</Alert>
+    <Alert tone="warning" size="sm" title="این ایمیل قبلاً ثبت شده است." />
+  </div>
+);
+
+export const TabsVerticalDemo = () => (
+  <Tabs defaultValue="profile" orientation="vertical" style={{ inlineSize: "100%" }}>
+    <TabList aria-label="تنظیمات حساب">
+      <Tab value="profile">پروفایل</Tab>
+      <Tab value="security">امنیت</Tab>
+      <Tab value="notifications">اعلان‌ها</Tab>
+      <Tab value="billing">صورت‌حساب</Tab>
+    </TabList>
+    <TabPanel value="profile"><p className="demo-panel">نام، عکس و اطلاعات تماس.</p></TabPanel>
+    <TabPanel value="security"><p className="demo-panel">رمز عبور و ورود دو مرحله‌ای.</p></TabPanel>
+    <TabPanel value="notifications"><p className="demo-panel">ایمیل، پیامک و اعلان‌های درون‌برنامه.</p></TabPanel>
+    <TabPanel value="billing"><p className="demo-panel">روش پرداخت و فاکتورها.</p></TabPanel>
+  </Tabs>
+);
+
+export const DrawerDemo = () => {
+  const [side, setSide] = useState<null | "end" | "start" | "bottom">(null);
+  return (
+    <>
+      <Button onClick={() => setSide("end")}>کشوی فیلترها</Button>
+      <Button onClick={() => setSide("start")}>کشوی سمت دیگر</Button>
+      <Button onClick={() => setSide("bottom")}>برگهٔ پایین</Button>
+      <Dialog
+        open={side !== null}
+        onOpenChange={(o) => !o && setSide(null)}
+        placement={side ?? "end"}
+        title="فیلترها"
+        description="نتایج را محدود کنید."
+        footer={<><Button variant="secondary" onClick={() => setSide(null)}>پاک کردن</Button><Button variant="primary" onClick={() => setSide(null)}>اعمال فیلترها</Button></>}
+      >
+        <div className="demo-stack" style={{ inlineSize: "100%" }}>
+          <RadioGroup label="وضعیت" name="drawer-status" defaultValue="all">
+            <Radio value="all" label="همه" /><Radio value="paid" label="پرداخت‌شده" /><Radio value="failed" label="ناموفق" />
+          </RadioGroup>
+          <Checkbox label="فقط مشتریان جدید" />
+        </div>
+      </Dialog>
+    </>
+  );
+};
+
+export const ToastExtrasDemo = () => {
+  const [place, setPlace] = useState<"bottom-end" | "top-center" | "bottom-start">("bottom-end");
+  const save = () => new Promise<number>((res, rej) => setTimeout(() => (Math.random() > 0.25 ? res(3) : rej(new Error("اتصال قطع شد"))), 1500));
+  return (
+    <>
+      <Button variant="primary" onClick={() => toast.promise(save(), { loading: "در حال ذخیره…", success: (n) => `${formatNumber(n)} فایل ذخیره شد`, error: (e) => `ذخیره نشد: ${(e as Error).message}` })}>ذخیره (با promise)</Button>
+      <Button onClick={() => setPlace(place === "bottom-end" ? "top-center" : place === "top-center" ? "bottom-start" : "bottom-end")}>جایگاه: {place}</Button>
+      <Button onClick={() => toast.success("ذخیره شد")}>اعلان ساده</Button>
+      <Toaster placement={place} max={3} />
+    </>
+  );
+};
+
+export const TooltipSidesDemo = () => (
+  <>
+    {(["top", "bottom", "start", "end"] as const).map((p) => (
+      <Tooltip key={p} content={`راهنما در «${p}»`} placement={p}>
+        <Button size="sm">{p}</Button>
+      </Tooltip>
+    ))}
+  </>
+);
+
+export const TableExtrasDemo = () => {
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "100%" }}>
+      <div style={{ display: "flex", gap: 8 }}>
+        <Button size="sm" onClick={() => { setLoading(true); setTimeout(() => setLoading(false), 1500); }}>بارگذاری دوباره</Button>
+      </div>
+      <DataTable<Tx>
+        caption="سفارش‌ها"
+        hideCaption
+        rows={TX}
+        getRowId={(r) => r.id}
+        striped
+        stickyHeader
+        maxHeight="16rem"
+        loading={loading ? 4 : false}
+        onRowClick={(r) => toast(`سفارش ${r.customer}`)}
+        columns={[
+          { key: "customer", header: "مشتری", sortable: true },
+          { key: "date", header: "تاریخ", hideBelow: "sm" },
+          { key: "status", header: "وضعیت", align: "center", render: (r) => <Badge tone={STATUS[r.status][0]} size="sm">{STATUS[r.status][1]}</Badge> },
+          { key: "amount", header: "مبلغ", numeric: true, sortable: true, render: (r) => formatNumber(r.amount) },
+        ]}
+        footer={<Pagination page={page} total={8} onChange={setPage} />}
+      />
+      <Toaster />
+    </div>
+  );
+};
+
+export const ProgressRingDemo = () => (
+  <>
+    <Progress variant="circular" value={72} showValue aria-label="پیشرفت پروژه" />
+    <Progress variant="circular" value={100} tone="success" showValue size="lg" aria-label="پشتیبان‌گیری" />
+    <Progress variant="circular" size="sm" aria-label="در حال پردازش" />
+  </>
+);
+
+export const MenuCheckDemo = () => {
+  const [cols, setCols] = useState({ date: true, status: true, amount: false });
+  const toggle = (k: keyof typeof cols) => setCols({ ...cols, [k]: !cols[k] });
+  return (
+    <DropdownMenu trigger={<Button iconEnd={<Icon d="m6 8 4 4 4-4" />}>ستون‌ها</Button>}>
+      <MenuLabel>نمایش ستون</MenuLabel>
+      <MenuItem checked={cols.date} onSelect={() => toggle("date")}>تاریخ</MenuItem>
+      <MenuItem checked={cols.status} onSelect={() => toggle("status")}>وضعیت</MenuItem>
+      <MenuItem checked={cols.amount} onSelect={() => toggle("amount")}>مبلغ</MenuItem>
+    </DropdownMenu>
+  );
+};
+
+export const SettingsListDemo = () => (
+  <Card style={{ inlineSize: "min(100%, 30rem)" }}>
+    <CardBody className="demo-stack" style={{ inlineSize: "100%" }}>
+      <Switch labelPosition="start" label="اعلان‌های ایمیلی" description="خلاصهٔ هفتگی فعالیت‌ها" defaultChecked />
+      <Divider />
+      <Switch labelPosition="start" label="ورود دو مرحله‌ای" description="کد پیامکی هنگام ورود" />
+      <Divider />
+      <Checkbox labelPosition="start" label="نمایش در فهرست اعضا" defaultChecked />
+    </CardBody>
+  </Card>
 );

@@ -1,7 +1,7 @@
 /* دکمه — به سبک Untitled UI: سایهٔ اسکئومورفیک و حلقهٔ فوکوس نرم
  * <button class="k-btn k-btn--primary k-btn--md">ثبت</button>
  * گونه‌ها: primary | secondary | tertiary | link | danger | danger-secondary
- * اندازه‌ها: sm | md | lg | xl — حالت‌ها: disabled، aria-disabled، aria-busy="true"
+ * اندازه‌ها: xs | sm | md | lg | xl — شکل: k-btn--pill | k-btn--square — حالت‌ها: disabled، aria-disabled، aria-busy="true"
  *
  * متغیرهای قابل‌بازنویسی (روی :root یا هر والدی):
  *   --k-btn-height-{sm,md,lg,xl}  --k-btn-padding-{sm,md,lg,xl}
@@ -120,6 +120,12 @@
 }
 
 /* اندازه‌ها */
+.k-btn--xs {
+  --_h: var(--k-btn-height-xs, calc(1.75rem * var(--k-density)));
+  --_px: var(--k-btn-padding-xs, calc(0.5rem * var(--k-density)));
+  --_fs: var(--k-text-xs);
+  gap: var(--k-space-1);
+}
 .k-btn--sm {
   --_h: var(--k-btn-height-sm, calc(2.25rem * var(--k-density)));
   --_px: var(--k-btn-padding-sm, calc(0.75rem * var(--k-density)));
@@ -135,6 +141,16 @@
   --_fs: var(--k-text-md);
 }
 .k-btn--icon { padding-inline: 0; inline-size: var(--_h); }
+.k-btn--pill { border-radius: var(--k-radius-full); }
+.k-btn--pill:not(.k-btn--icon) { --_px: calc(var(--k-btn-padding-md, 0.875rem) + 0.25rem); }
+.k-btn--square { border-radius: var(--k-radius-sm); }
+/* لینک غیرفعال (بدون href) */
+a.k-btn[aria-disabled="true"]:not([aria-busy="true"]) {
+  --_bg: var(--k-bg-secondary);
+  --_fg: var(--k-text-quaternary);
+  --_border: var(--k-border-secondary);
+  cursor: not-allowed;
+}
 .k-btn--block { display: flex; inline-size: 100%; }
 
 .k-btn svg { inline-size: 1.25em; block-size: 1.25em; flex-shrink: 0; }

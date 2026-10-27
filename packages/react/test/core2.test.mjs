@@ -28,7 +28,7 @@ test("Tabs: نقش‌ها، اتصال زبانه و پنل، فقط زبانه�
   const html = render(h(K.Tabs, { defaultValue: "a" },
     h(K.TabList, { "aria-label": "تنظیمات" }, h(K.Tab, { value: "a" }, "حساب"), h(K.Tab, { value: "b" }, "امنیت")),
     h(K.TabPanel, { value: "a" }, "الف"), h(K.TabPanel, { value: "b" }, "ب")));
-  assert.match(html, /role="tablist" class="k-tabs__list" aria-label="تنظیمات"/);
+  assert.match(html, /role="tablist" aria-orientation="horizontal" class="k-tabs__list" aria-label="تنظیمات"/);
   assert.match(html, /role="tab" id="([^"]+)-tab-a" aria-selected="true" aria-controls="\1-panel-a" tabindex="0"/);
   assert.match(html, /aria-selected="false"[^>]*tabindex="-1"/);
   assert.match(html, /role="tabpanel" id="[^"]+-panel-b" aria-labelledby="[^"]+-tab-b" hidden=""/);
@@ -36,14 +36,14 @@ test("Tabs: نقش‌ها، اتصال زبانه و پنل، فقط زبانه�
 
 test("Dialog: عنوان و توضیح متصل، دکمهٔ بستن نام دارد", () => {
   const html = render(h(K.Dialog, { open: false, onOpenChange() {}, title: "حذف پروژه", description: "قابل بازگشت نیست." }, "متن"));
-  assert.match(html, /<dialog class="k-dialog" aria-labelledby="([^"]+)-title" aria-describedby="\1-desc">/);
+  assert.match(html, /<dialog data-placement="center" class="k-dialog" aria-labelledby="([^"]+)-title" aria-describedby="\1-desc">/);
   assert.match(html, /<h2 class="k-dialog__title" id="[^"]+-title">حذف پروژه/);
   assert.match(html, /aria-label="بستن"/);
 });
 
 test("Toaster: ناحیهٔ زنده از ابتدا در صفحه است", () => {
   const html = render(h(K.Toaster));
-  assert.match(html, /<section aria-label="اعلان‌ها"><ol class="k-toaster" aria-live="polite"><\/ol>/);
+  assert.match(html, /<section aria-label="اعلان‌ها"><ol class="k-toaster k-toaster--bottom-end" data-placement="bottom-end" aria-live="polite"><\/ol>/);
 });
 
 test("Tooltip: متصل با aria-describedby و پنهان تا hover یا فوکوس", () => {

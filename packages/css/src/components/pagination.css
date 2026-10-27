@@ -1,14 +1,15 @@
-/* صفحه‌بندی */
+/* صفحه‌بندی
+ * متغیرها: --k-pagination-size  --k-pagination-radius */
 .k-pagination { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-3); flex-wrap: wrap; }
 .k-pagination__pages { display: flex; align-items: center; gap: 2px; margin: 0; padding: 0; list-style: none; }
 .k-pagination__page {
   display: inline-grid;
   place-items: center;
-  min-inline-size: 2.5rem;
-  block-size: 2.5rem;
+  min-inline-size: var(--k-pagination-size, 2.5rem);
+  block-size: var(--k-pagination-size, 2.5rem);
   padding-inline: var(--k-space-2);
   border: 0;
-  border-radius: var(--k-radius-md);
+  border-radius: var(--k-pagination-radius, var(--k-radius-md));
   background: transparent;
   color: var(--k-text-tertiary);
   font: inherit;

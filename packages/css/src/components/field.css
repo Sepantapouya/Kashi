@@ -27,3 +27,14 @@
   line-height: var(--k-leading-tight);
 }
 .k-hint--error { color: var(--k-text-error); }
+
+.k-field__label-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--k-space-3); }
+.k-field__label-end { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+.k-label__optional { margin-inline-start: var(--k-space-1_5); color: var(--k-text-tertiary); font-weight: var(--k-weight-regular); }
+.k-label__optional::before { content: "("; }
+.k-label__optional::after { content: ")"; }
+.k-field__hint-row { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--k-space-3); }
+.k-field__hints { display: grid; gap: var(--k-space-1); min-inline-size: 0; }
+/* شمارندهٔ نویسه */
+.k-counter { flex-shrink: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); font-variant-numeric: tabular-nums; }
+.k-counter[data-over] { color: var(--k-text-error); font-weight: var(--k-weight-semibold); }

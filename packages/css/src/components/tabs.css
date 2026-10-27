@@ -1,7 +1,10 @@
 /* زبانه‌ها (Tabs) — ساختار ARIA را کامپوننت React می‌سازد
  * گونه‌ها: k-tabs--line (پیش‌فرض) | k-tabs--pill | k-tabs--segmented — تمام‌عرض: k-tabs--block
+ * عمودی: k-tabs--vertical — فشرده: k-tabs--sm
+ *
+ * متغیرها: --k-tab-height  --k-tab-radius  --k-tabs-gap  --k-tabs-indicator  --k-tabs-list-width
  */
-.k-tabs { display: grid; gap: var(--k-space-4); }
+.k-tabs { display: grid; gap: var(--k-tabs-gap, var(--k-space-4)); }
 
 .k-tabs__list {
   position: relative;
@@ -17,10 +20,10 @@
   align-items: center;
   justify-content: center;
   gap: var(--k-space-2);
-  min-block-size: calc(2.5rem * var(--k-density));
+  min-block-size: var(--k-tab-height, calc(2.5rem * var(--k-density)));
   padding-inline: var(--k-space-3);
   border: 0;
-  border-radius: var(--k-radius-md);
+  border-radius: var(--k-tab-radius, var(--k-radius-md));
   background: transparent;
   color: var(--k-text-tertiary);
   font: inherit;
@@ -49,7 +52,7 @@
   inset-block-end: -1px;
   block-size: 2px;
   border-radius: 2px;
-  background: var(--k-border-brand);
+  background: var(--k-tabs-indicator, var(--k-border-brand));
 }
 
 /* قرصی */
@@ -71,6 +74,22 @@
 }
 .k-tabs--block .k-tabs__list { inline-size: auto; }
 .k-tabs--block .k-tabs__tab { flex: 1; }
+
+/* فشرده */
+.k-tabs--sm .k-tabs__tab { --k-tab-height: calc(2rem * var(--k-density)); padding-inline: var(--k-space-2); font-size: var(--k-text-xs); }
+
+/* عمودی: فهرست در ستون کناری */
+.k-tabs--vertical { grid-template-columns: var(--k-tabs-list-width, 13rem) minmax(0, 1fr); align-items: start; gap: var(--k-tabs-gap, var(--k-space-8)); }
+.k-tabs--vertical .k-tabs__list { flex-direction: column; overflow: visible; }
+.k-tabs--vertical .k-tabs__tab { justify-content: flex-start; }
+.k-tabs--vertical.k-tabs--line .k-tabs__list { gap: var(--k-space-1); border-block-end: 0; border-inline-start: 1px solid var(--k-border-secondary); }
+.k-tabs--vertical.k-tabs--line .k-tabs__tab { padding-inline: var(--k-space-3); }
+.k-tabs--vertical.k-tabs--line .k-tabs__tab[aria-selected="true"]::after { inset-block: 0.25rem; inset-inline-start: -1px; inset-inline-end: auto; inline-size: 2px; block-size: auto; }
+.k-tabs--vertical.k-tabs--segmented .k-tabs__list { inline-size: auto; }
+@media (max-width: 40rem) {
+  .k-tabs--vertical { grid-template-columns: minmax(0, 1fr); }
+  .k-tabs--vertical .k-tabs__list { flex-direction: row; overflow-x: auto; }
+}
 
 @media (forced-colors: active) {
   .k-tabs__tab[aria-selected="true"] { outline: 2px solid Highlight; }

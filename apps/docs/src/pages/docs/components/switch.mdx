@@ -5,6 +5,7 @@ description: برای روشن و خاموش کردن تنظیمی که بلاف
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
+import { SettingsListDemo } from "../../../components/demos";
 import Vars from "../../../components/Vars.astro";
 import { Switch } from "@kashi-ui/react";
 
@@ -38,6 +39,19 @@ import { Switch } from "@kashi-ui/react";
 
 - **سوییچ:** تغییر فوراً اعمال می‌شود، مثل روشن کردن اعلان‌ها.
 - **چک‌باکس:** انتخاب پس از ارسال فرم اعمال می‌شود، مثل پذیرفتن قوانین.
+
+## فهرست تنظیمات
+
+با `labelPosition="start"` برچسب پیش از کنترل می‌آید و کنترل به انتهای ردیف می‌رود؛ چیدمان رایج صفحه‌های تنظیمات. برای Checkbox هم کار می‌کند.
+
+<Demo code={`<Switch labelPosition="start" label="اعلان‌های ایمیلی" description="خلاصهٔ هفتگی فعالیت‌ها" />`}>
+  <SettingsListDemo />
+</Demo>
+
+<Props caption="ویژگی‌های جدید" rows={[
+  ["labelPosition", '"start" | "end"', '"end"', "جای برچسب (Switch و Checkbox)"],
+  ["classNames", "{ root, control, label, description }", "", "کلاس دلخواه برای هر بخش"],
+]} />
 
 ## ویژگی‌ها
 

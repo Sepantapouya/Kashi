@@ -5,7 +5,7 @@ description: توضیح کوتاه یک کنترل هنگام hover یا فوک�
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { TooltipDemo } from "../../../components/demos";
+import { TooltipDemo, TooltipSidesDemo } from "../../../components/demos";
 
 ```tsx
 import { Tooltip } from "@kashi-ui/react";
@@ -24,6 +24,14 @@ import { Tooltip } from "@kashi-ui/react";
 </Tooltip>`}>
   <TooltipDemo client:load />
 </Demo>
+
+## چهار جایگاه
+
+<Demo html={false} code={`<Tooltip content="…" placement="start">…</Tooltip>`}>
+  <TooltipSidesDemo client:load />
+</Demo>
+
+`placement` حالا `"start"` و `"end"` هم می‌پذیرد. متغیرهای CSS: `--k-tooltip-bg`، `--k-tooltip-fg`، `--k-tooltip-max-width`، `--k-tooltip-radius`.
 
 ## ویژگی‌ها
 
