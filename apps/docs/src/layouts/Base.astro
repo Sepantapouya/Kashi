@@ -26,6 +26,7 @@ const fullTitle = title ? `${title} · کاشی` : "کاشی — دیزاین‌
     <meta property="og:description" content={description} />
     <!-- تم را پیش از نقاشی صفحه اعمال می‌کند تا چشمک نزند. پیش‌فرض: تیره -->
     <script is:inline>
+      document.documentElement.classList.add("js");
       try {
         const t = localStorage.getItem("kashi-theme");
         if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
@@ -99,6 +100,25 @@ const fullTitle = title ? `${title} · کاشی` : "کاشی — دیزاین‌
           });
         });
       });
+
+      // هدر پس از اسکرول شیشه‌ای و سایه‌دار می‌شود
+      const header = document.querySelector(".site-header");
+      const onScroll = () => header?.toggleAttribute("data-scrolled", scrollY > 8);
+      onScroll();
+      addEventListener("scroll", onScroll, { passive: true });
+
+      // فهرست «در این صفحه»: بخشی که در حال خواندنش هستید روشن می‌شود
+      const tocLinks = [...document.querySelectorAll<HTMLAnchorElement>(".toc a")];
+      if (tocLinks.length) {
+        const targets = tocLinks.map((a) => document.getElementById(decodeURIComponent(a.hash.slice(1)))).filter(Boolean) as HTMLElement[];
+        const spy = () => {
+          let current = targets[0];
+          for (const t of targets) if (t.getBoundingClientRect().top < innerHeight * 0.3) current = t;
+          tocLinks.forEach((a) => a.toggleAttribute("data-active", decodeURIComponent(a.hash.slice(1)) === current?.id));
+        };
+        spy();
+        addEventListener("scroll", spy, { passive: true });
+      }
 
       // چک‌باکس‌های نیمه‌انتخاب رندرشده در سرور
       document.querySelectorAll<HTMLInputElement>("input[data-indeterminate]").forEach((el) => (el.indeterminate = true));

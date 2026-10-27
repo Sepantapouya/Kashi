@@ -1,0 +1,188 @@
+---
+// فهرست کامپوننت‌ها با پیش‌نمایش زنده؛ کلیک روی هر کارت صفحهٔ آن را باز می‌کند
+import Base from "../layouts/Base.astro";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import Preview from "./Previews";
+import { nav } from "../data/nav";
+
+interface Props { filter?: "all" | "general" | "persian" }
+const { filter = "all" } = Astro.props;
+const fa = (n: number) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+const groups = [
+  { key: "general", title: "کامپوننت‌ها" },
+  { key: "persian", title: "فارسی" },
+] as const;
+const items = groups.flatMap((g) =>
+  nav.find((n) => n.title === g.title)!.items
+    .filter((i) => !i.href.includes("utilities"))
+    .map((i) => ({ ...i, group: g.key, slug: i.href.split("/").filter(Boolean).pop()! })),
+);
+const total = items.length;
+const filters = [
+  { key: "all", label: "همه", count: total },
+  { key: "general", label: "عمومی", count: items.filter((i) => i.group === "general").length },
+  { key: "persian", label: "فارسی", count: items.filter((i) => i.group === "persian").length },
+];
+---
+<Base title={filter === "persian" ? "کامپوننت‌های فارسی" : "کامپوننت‌ها"} description="همهٔ کامپوننت‌های کاشی با پیش‌نمایش زنده؛ روی هر کدام بزنید تا مستندات کامل آن باز شود.">
+  <Header />
+  <main id="main" tabindex="-1" class="gallery" data-filter={filter}>
+    <header class="gallery__head">
+      <p class="gallery__eyebrow" data-enter style="--d: 0">کتابخانهٔ کامپوننت</p>
+      <h1 data-enter style="--d: 1">{fa(total)} کامپوننت، آمادهٔ استفاده</h1>
+      <p class="gallery__lead" data-enter style="--d: 2">هر کارت پیش‌نمایش زندهٔ همان کامپوننت است. برای مستندات، نمونه‌ها و ویژگی‌ها روی آن بزنید.</p>
+
+      <div class="gallery__tools" data-enter style="--d: 3">
+        <label class="gallery__search k-input">
+          <span class="k-input__addon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="9" r="5.5" /><path d="m13.5 13.5 3 3" /></svg></span>
+          <span class="k-sr-only">جستجوی کامپوننت</span>
+          <input class="k-input__control" type="search" placeholder="جستجو، مثلاً «تاریخ» یا «جدول»" data-gallery-search autocomplete="off" />
+        </label>
+        <div class="k-chips" role="group" aria-label="دسته">
+          {filters.map((f) => (
+            <button type="button" class="k-chip" data-gallery-filter={f.key} aria-pressed={String(f.key === filter)}>
+              {f.label}<span class="k-chip__count">{fa(f.count)}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      <p class="k-sr-only" aria-live="polite" data-gallery-status></p>
+    </header>
+
+    <ul class="gallery__grid" role="list">
+      {items.map((it, i) => (
+        <li class="gcard" data-group={it.group} data-title={it.title} data-slug={it.slug} style={`--i: ${i % 12}`}>
+          <div class="gcard__preview" inert aria-hidden="true">
+            <Preview slug={it.slug} title={it.title} />
+          </div>
+          <div class="gcard__body">
+            <h2 class="gcard__title"><a href={it.href}>{it.title}</a></h2>
+            {it.badge && <span class="k-badge k-badge--sm k-badge--brand">{it.badge}</span>}
+            <svg class="gcard__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 5-5 5 5 5" /></svg>
+          </div>
+        </li>
+      ))}
+    </ul>
+    <p class="gallery__empty" hidden data-gallery-empty>کامپوننتی با این نام پیدا نشد.</p>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .gallery { max-inline-size: 84rem; margin-inline: auto; padding: clamp(3rem, 7vw, 5rem) var(--gutter) clamp(4rem, 8vw, 6rem); }
+  .gallery__head { position: relative; isolation: isolate; max-inline-size: 48rem; margin: 0 auto clamp(2.5rem, 5vw, 3.5rem); text-align: center; }
+  .gallery__head::before { content: ""; position: absolute; inset: -6rem 10% auto; block-size: 16rem; z-index: -1; border-radius: 50%; background: var(--k-brand-500); filter: blur(90px); opacity: 0.16; pointer-events: none; }
+  .gallery__eyebrow { margin: 0; color: var(--k-text-brand); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .gallery h1 { margin: var(--k-space-3) 0 0; font-size: clamp(var(--k-text-3xl), 5vw, 3.25rem); font-weight: var(--k-weight-black); line-height: 1.3; }
+  .gallery__lead { margin: var(--k-space-4) auto 0; max-inline-size: 36rem; color: var(--k-text-tertiary); font-size: var(--k-text-lg); line-height: 1.9; }
+  .gallery__tools { display: grid; justify-items: center; gap: var(--k-space-4); margin-block-start: var(--k-space-8); }
+  .gallery__search { inline-size: min(100%, 30rem); cursor: text; }
+
+  .gallery__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: var(--k-space-4); margin: 0; padding: 0; list-style: none; }
+  .gcard {
+    position: relative; isolation: isolate;
+    display: grid; grid-template-rows: auto auto;
+    border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl);
+    background: var(--k-bg-secondary);
+    box-shadow: var(--k-shadow-xs), var(--k-highlight);
+    overflow: clip;
+    transition: border-color var(--k-duration-normal), translate 0.35s var(--k-ease-standard), box-shadow 0.35s var(--k-ease-standard);
+  }
+  .gcard:hover { border-color: var(--k-border-primary); translate: 0 -4px; box-shadow: var(--k-shadow-xl), var(--k-highlight); }
+  .gcard:has(a:focus-visible) { box-shadow: var(--k-ring-brand); }
+  .gcard[hidden] { display: none; }
+  .gcard__preview {
+    display: grid; place-items: center; block-size: 11rem; padding: var(--k-space-4); overflow: hidden;
+    border-block-end: 1px solid var(--k-border-secondary);
+    background: radial-gradient(circle at 1px 1px, var(--k-border-secondary) 1px, transparent 0) 0 0 / 1rem 1rem, var(--k-bg-primary);
+  }
+  .gcard__preview > :global(.pv) { transition: scale 0.5s var(--k-ease-standard); }
+  .gcard:hover .gcard__preview > :global(.pv) { scale: 1.04; }
+  .gcard__body { display: flex; align-items: center; gap: var(--k-space-2); padding: var(--k-space-3) var(--k-space-4); }
+  .gcard__title { flex: 1; margin: 0; font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .gcard__title a { color: var(--k-text-primary); text-decoration: none; outline: 0; }
+  /* کل کارت قابل کلیک است */
+  .gcard__title a::after { content: ""; position: absolute; inset: 0; z-index: 1; }
+  .gcard__arrow { inline-size: 1rem; block-size: 1rem; color: var(--k-text-quaternary); transition: translate var(--k-duration-normal) var(--k-ease-standard), color var(--k-duration-fast); }
+  .gcard:hover .gcard__arrow { translate: -3px 0; color: var(--k-text-brand); }
+  .gallery__empty { margin: var(--k-space-10) 0 0; color: var(--k-text-tertiary); text-align: center; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .gallery [data-enter] { animation: g-enter 0.8s var(--k-ease-standard) both; animation-delay: calc(var(--d, 0) * 80ms); }
+    :global(.js) .gcard { animation: g-card 0.6s var(--k-ease-standard) both; animation-delay: calc(var(--i, 0) * 45ms + 250ms); }
+  }
+  @keyframes g-enter { from { opacity: 0; translate: 0 0.75rem; filter: blur(4px); } }
+  @keyframes g-card { from { opacity: 0; translate: 0 1rem; scale: 0.98; } }
+
+  /* اندازهٔ پیش‌نمایش‌ها */
+  .gcard__preview :global(.pv) { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--k-space-2); pointer-events: none; }
+  .gcard__preview :global(.pv--col) { flex-direction: column; align-items: stretch; gap: var(--k-space-2); }
+  .gcard__preview :global(.pv--row) { flex-wrap: nowrap; inline-size: 100%; }
+  .gcard__preview :global(.pv--grow) { display: grid; flex: 1; gap: var(--k-space-2); }
+  .gcard__preview :global(.pv--field) { flex-direction: column; align-items: stretch; inline-size: 100%; }
+  .gcard__preview :global(.pv-pag) { scale: 0.78; }
+  .gcard__preview :global(.pv-muted) { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .gcard__preview :global(.pv-cal) { scale: 0.62; margin: -4.5rem; }
+  .gcard__preview :global(.k-plate) { --k-plate-height: 2.75rem; }
+  .gcard__preview :global(.pv-menu), .gcard__preview :global(.pv-static) { position: static; display: grid; inline-size: 12rem; }
+  .gcard__preview :global(.pv-pop) { display: grid; justify-items: center; gap: var(--k-space-2); }
+  .gcard__preview :global(.pv-pop .k-popover) { position: static; inline-size: 11rem; }
+  .gcard__preview :global(.pv-tip) { display: grid; justify-items: center; gap: var(--k-space-2); }
+  .gcard__preview :global(.pv-tip__bubble) { position: static; opacity: 1; visibility: visible; translate: none; }
+  .gcard__preview :global(.pv-dialog) { inline-size: 13rem; padding: var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-lg); }
+  .gcard__preview :global(.pv-dialog__title) { margin: 0; color: var(--k-text-primary); font-weight: var(--k-weight-semibold); font-size: var(--k-text-sm); }
+  .gcard__preview :global(.pv-dialog__text) { margin: var(--k-space-1) 0 var(--k-space-3); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .gcard__preview :global(.pv-dialog__actions) { display: flex; justify-content: flex-end; gap: var(--k-space-2); }
+  .gcard__preview :global(.pv-list) { margin-block-start: var(--k-space-1); }
+  .gcard__preview :global(.pv-cmd) { border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-lg); overflow: hidden; font-size: var(--k-text-sm); }
+  .gcard__preview :global(.pv-cmd__search) { display: flex; align-items: center; gap: var(--k-space-2); padding: var(--k-space-2) var(--k-space-3); border-block-end: 1px solid var(--k-border-secondary); color: var(--k-text-tertiary); }
+  .gcard__preview :global(.pv-cmd__search svg) { inline-size: 1rem; }
+  .gcard__preview :global(.pv-cmd__search span) { flex: 1; }
+  .gcard__preview :global(.pv-cmd__item) { margin: 4px; padding: var(--k-space-1_5) var(--k-space-3); border-radius: var(--k-radius-md); color: var(--k-text-secondary); }
+  .gcard__preview :global(.pv-cmd__item[data-active]) { background: var(--k-bg-active); color: var(--k-text-primary); }
+  .gcard__preview :global(.pv-drop) { padding: var(--k-space-4); }
+  .gcard__preview :global(.pv-table) { inline-size: 100%; font-size: var(--k-text-xs); }
+  .gcard__preview :global(.pv-sidenav) { inline-size: 100%; padding: 0; border: 0; background: none; }
+  .gcard__preview :global(.pv-tree-sub) { margin: 0; padding-inline-start: 1.25rem; list-style: none; }
+  .gcard__preview :global(.pv-months) { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; inline-size: 100%; }
+  .gcard__preview :global(.pv-month) { display: grid; place-items: center; block-size: 2rem; font-size: var(--k-text-xs); }
+  .gcard__preview :global(.pv-empty) { padding: 0; scale: 0.85; }
+  .gcard__preview :global(.k-countdown__unit) { min-inline-size: 2.75rem; padding: var(--k-space-1_5) var(--k-space-2); }
+  .gcard__preview :global(.k-countdown__num) { font-size: var(--k-text-lg); }
+  .gcard__preview :global(.pv-bank) { display: grid; place-items: center; inline-size: 3.5rem; block-size: 3.5rem; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-lg); background: var(--k-bg-elevated); color: var(--k-text-brand); }
+  .gcard__preview :global(.pv-bank svg) { inline-size: 1.75rem; }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>(".gallery")!;
+  const cards = [...root.querySelectorAll<HTMLElement>(".gcard")];
+  const search = root.querySelector<HTMLInputElement>("[data-gallery-search]")!;
+  const chips = [...root.querySelectorAll<HTMLButtonElement>("[data-gallery-filter]")];
+  const status = root.querySelector<HTMLElement>("[data-gallery-status]")!;
+  const empty = root.querySelector<HTMLElement>("[data-gallery-empty]")!;
+  const fa = (n: number) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+  const norm = (s: string) => s.replace(/ي/g, "ی").replace(/ك/g, "ک").replace(/‌/g, " ").toLowerCase().trim();
+  let group = root.dataset.filter ?? "all";
+
+  const apply = () => {
+    const q = norm(search.value);
+    let n = 0;
+    for (const c of cards) {
+      const show = (group === "all" || c.dataset.group === group) && (!q || norm(c.dataset.title ?? "").includes(q) || (c.dataset.slug ?? "").includes(q));
+      c.hidden = !show;
+      if (show) n++;
+    }
+    empty.hidden = n > 0;
+    status.textContent = `${fa(n)} کامپوننت`;
+  };
+  search.addEventListener("input", apply);
+  chips.forEach((chip) =>
+    chip.addEventListener("click", () => {
+      group = chip.dataset.galleryFilter!;
+      chips.forEach((c) => c.setAttribute("aria-pressed", String(c === chip)));
+      apply();
+    }),
+  );
+  apply();
+</script>

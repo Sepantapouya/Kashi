@@ -4,7 +4,7 @@ import Header from "../components/Header.astro";
 import Sidebar from "../components/Sidebar.astro";
 import Toc from "../components/Toc.astro";
 import Footer from "../components/Footer.astro";
-import { siblings } from "../data/nav";
+import { nav, siblings } from "../data/nav";
 
 interface Props {
   frontmatter?: { title: string; description?: string; status?: string };
@@ -15,6 +15,7 @@ interface Props {
 const fm = Astro.props.frontmatter ?? { title: Astro.props.title ?? "", description: Astro.props.description };
 const headings = Astro.props.headings ?? [];
 const { prev, next } = siblings(Astro.url.pathname);
+const group = nav.find((g) => g.items.some((i) => i.href === (Astro.url.pathname.endsWith("/") ? Astro.url.pathname : Astro.url.pathname + "/")))?.title;
 ---
 <Base title={fm.title} description={fm.description}>
   <Header />
@@ -24,6 +25,7 @@ const { prev, next } = siblings(Astro.url.pathname);
     <main id="main" class="docs__main" tabindex="-1">
       <article class="prose">
         <header class="page-head">
+          {group && <p class="page-head__crumb">{group}</p>}
           <h1>{fm.title}</h1>
           {fm.description && <p class="page-head__lead">{fm.description}</p>}
         </header>

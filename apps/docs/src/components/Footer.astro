@@ -2,12 +2,13 @@
 import Logo from "./Logo.astro";
 import { author } from "../data/author";
 const columns = [
-  { title: "محصول", links: [["معرفی", "/docs/"], ["نصب", "/docs/installation/"], ["کامپوننت‌ها", "/docs/components/button/"]] },
+  { title: "محصول", links: [["معرفی", "/docs/"], ["نصب", "/docs/installation/"], ["کامپوننت‌ها", "/docs/components/"], ["ابزارهای فارسی", "/docs/persian/"]] },
   { title: "راهنما", links: [["سفارشی‌سازی و تم", "/docs/theming/"], ["فونت و تایپوگرافی", "/docs/typography/"], ["دسترس‌پذیری", "/docs/accessibility/"], ["رنگ‌ها", "/docs/colors/"]] },
   { title: "جامعه", links: [["GitHub", author.repo], ["گزارش مشکل", `${author.repo}/issues`], ["راهنمای مشارکت", `${author.repo}/blob/main/CONTRIBUTING.md`]] },
 ];
 ---
 <footer class="site-footer">
+  <span class="site-footer__word" aria-hidden="true">کاشی</span>
   <div class="site-footer__inner">
     <div class="site-footer__brand">
       <a href="/" class="brand" aria-label="کاشی، صفحهٔ اصلی"><Logo size={24} /><span class="brand__name" aria-hidden="true">کاشی</span></a>
