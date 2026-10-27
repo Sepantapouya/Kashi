@@ -1,0 +1,13 @@
+---
+import Preview from "./Previews";
+interface Props { it: { href: string; title: string; badge?: string; slug: string; cat: string }; i: number }
+const { it, i } = Astro.props;
+---
+<li class="gcard" data-group={it.cat} data-title={it.title} data-slug={it.slug} style={`--i: ${i}`}>
+  <div class="gcard__preview" inert aria-hidden="true"><Preview slug={it.slug} title={it.title} /></div>
+  <div class="gcard__body">
+    <h3 class="gcard__title"><a href={it.href}>{it.title}</a></h3>
+    {it.badge && <span class="k-badge k-badge--sm k-badge--brand">{it.badge}</span>}
+    <svg class="gcard__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 5-5 5 5 5" /></svg>
+  </div>
+</li>
