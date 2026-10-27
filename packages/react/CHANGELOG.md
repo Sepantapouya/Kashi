@@ -1,5 +1,18 @@
 # @kashi-ui/react
 
+## 0.14.0
+
+### Minor Changes
+
+- بهبود کامپوننت‌ها: کامپوننت تازهٔ MultiSelect (انتخاب چندتایی با جستجو، برچسب و سقف انتخاب). نشانگر Tabs در هر سه گونه و حالت عمودی با تغییر زبانه می‌لغزد. Pagination فهرست «در هر صفحه» (`pageSize`، `onPageSizeChange`) و فیلد «برو به صفحه» (`jumper`) گرفت. DatePicker و DateRangePicker حالا `holidays` را به تقویم می‌دهند.
+
+### Patch Changes
+
+- Updated dependencies
+  - @kashi-ui/persian@0.14.0
+  - @kashi-ui/bank-logos@0.14.0
+  - @kashi-ui/css@0.14.0
+
 ## 0.13.1
 
 ### Patch Changes

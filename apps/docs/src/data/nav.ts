@@ -42,6 +42,7 @@ const RAW: NavGroup[] = [
     items: [
       { title: "آواتار", href: "/docs/components/avatar/" },
       { title: "اسلایدر", href: "/docs/components/carousel/", badge: "جدید" },
+      { title: "انتخاب چندتایی", href: "/docs/components/multi-select/", badge: "جدید" },
       { title: "انتخاب رنگ", href: "/docs/components/color-picker/", badge: "جدید" },
       { title: "راهنمای قدم‌به‌قدم", href: "/docs/components/tour/", badge: "جدید" },
       { title: "سنجه", href: "/docs/components/meter/", badge: "جدید" },

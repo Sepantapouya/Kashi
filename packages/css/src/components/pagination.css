@@ -25,3 +25,9 @@
 .k-pagination__ellipsis { min-inline-size: 2.5rem; text-align: center; color: var(--k-text-quaternary); }
 .k-pagination__summary { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
 @media (max-width: 36rem) { .k-pagination__pages li:not(:has([aria-current])):not(:first-child):not(:last-child) { display: none; } }
+/* ابزارهای کمکی: تعداد در هر صفحه و پرش به صفحه */
+.k-pagination__tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-4); inline-size: 100%; justify-content: flex-end; padding-block-start: var(--k-space-3); border-block-start: 1px solid var(--k-border-secondary); color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+.k-pagination__tool { display: inline-flex; align-items: center; gap: var(--k-space-2); margin: 0; }
+.k-pagination__tool .k-select { inline-size: 5rem; }
+.k-pagination__jump { inline-size: 4.5rem; }
+.k-pagination__jump .k-input__control { text-align: center; }

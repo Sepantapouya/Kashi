@@ -132,3 +132,5 @@ export { Splitter } from "./Splitter.js";
 export type { SplitterProps } from "./Splitter.js";
 export { Tour } from "./Tour.js";
 export type { TourProps, TourStep } from "./Tour.js";
+export { MultiSelect } from "./MultiSelect.js";
+export type { MultiSelectProps } from "./MultiSelect.js";

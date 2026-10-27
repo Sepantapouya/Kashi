@@ -94,3 +94,21 @@
 @media (forced-colors: active) {
   .k-tabs__tab[aria-selected="true"] { outline: 2px solid Highlight; }
 }
+
+/* نشانگر لغزان (وقتی JavaScript جای زبانهٔ فعال را اندازه گرفت) */
+.k-tabs__indicator { position: absolute; left: var(--_ix); top: var(--_iy); inline-size: var(--_iw); block-size: var(--_ih); pointer-events: none; transition: left var(--k-duration-slow) var(--k-ease-standard), top var(--k-duration-slow) var(--k-ease-standard), inline-size var(--k-duration-slow) var(--k-ease-standard), block-size var(--k-duration-slow) var(--k-ease-standard); }
+.k-tabs__list[data-indicator] .k-tabs__tab { z-index: 1; }
+/* خطی */
+.k-tabs--line .k-tabs__list[data-indicator] .k-tabs__tab[aria-selected="true"]::after { content: none; }
+.k-tabs--line .k-tabs__indicator { top: auto; bottom: -1px; block-size: 2px; border-radius: 2px; background: var(--k-tabs-indicator, var(--k-border-brand)); }
+.k-tabs--line .k-tabs__list[data-indicator] { overflow-y: hidden; }
+.k-tabs--vertical.k-tabs--line .k-tabs__indicator { inset-inline: auto; left: auto; top: var(--_iy); bottom: auto; inline-size: 2px; block-size: var(--_ih); }
+[dir="rtl"] .k-tabs--vertical.k-tabs--line .k-tabs__indicator { right: -1px; }
+[dir="ltr"] .k-tabs--vertical.k-tabs--line .k-tabs__indicator { left: -1px; }
+/* قرصی و چندبخشی: پس‌زمینهٔ زبانهٔ فعال می‌لغزد */
+.k-tabs--pill .k-tabs__list[data-indicator] .k-tabs__tab[aria-selected="true"] { background: transparent; }
+.k-tabs--pill .k-tabs__indicator { border-radius: var(--k-tab-radius, var(--k-radius-md)); background: var(--k-bg-brand-subtle); }
+.k-tabs--segmented .k-tabs__list[data-indicator] .k-tabs__tab[aria-selected="true"] { background: transparent; box-shadow: none; }
+.k-tabs--segmented .k-tabs__indicator { border-radius: var(--k-tab-radius, var(--k-radius-md)); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-sm), var(--k-highlight); }
+@media (prefers-reduced-motion: reduce) { .k-tabs__indicator { transition: none; } }
+@media (forced-colors: active) { .k-tabs__indicator { background: Highlight; } }

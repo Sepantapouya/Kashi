@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { formatJalali, toGregorian, toISODate, toJalali } from "@kashi-ui/persian";
-import { Calendar, type CalendarLabels } from "./Calendar.js";
+import { Calendar, type CalendarLabels, type CalendarProps } from "./Calendar.js";
 import { Field } from "./Field.js";
 import { cx } from "./cx.js";
 
@@ -58,6 +58,8 @@ export interface DateRangePickerProps {
   id?: string;
   className?: string;
   calendarLabels?: CalendarLabels;
+  /** تعطیلات در تقویم؛ مثل Calendar */
+  holidays?: CalendarProps["holidays"];
   labels?: { placeholder?: string; separator?: string; apply?: string; cancel?: string; presets?: string; pickEnd?: string };
 }
 
@@ -66,7 +68,7 @@ export interface DateRangePickerProps {
  * تغییرها فقط با «تأیید» ثبت می‌شوند.
  */
 export function DateRangePicker({
-  label, hint, error, value, defaultValue = { start: null, end: null }, onChange, min, max, isDateDisabled,
+  label, hint, error, value, defaultValue = { start: null, end: null }, onChange, min, max, isDateDisabled, holidays,
   presets = defaultRangePresets, digits = "fa", name, disabled, id, className, calendarLabels, labels = {},
 }: DateRangePickerProps) {
   const autoId = useId();
@@ -190,6 +192,7 @@ export function DateRangePicker({
                 min={min}
                 max={max}
                 isDateDisabled={isDateDisabled}
+            holidays={holidays}
                 digits={digits}
                 labels={calendarLabels}
                 autoFocus

@@ -52,3 +52,12 @@
 .k-command__list { max-block-size: min(24rem, 60dvh); overflow-y: auto; padding: var(--k-space-2); }
 .k-command__footer { display: flex; gap: var(--k-space-4); padding: var(--k-space-2) var(--k-space-5); border-block-start: 1px solid var(--k-border-secondary); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
 .k-command__footer span { display: inline-flex; align-items: center; gap: var(--k-space-1); }
+
+/* چندانتخابی: چک‌باکس کنار هر گزینه */
+.k-multiselect .k-tag-input { position: relative; }
+.k-multiselect__box { display: inline-grid; place-items: center; flex-shrink: 0; inline-size: 1.125rem; block-size: 1.125rem; border: 1px solid var(--k-border-input); border-radius: calc(0.3125rem * var(--k-radius-factor)); background: var(--k-bg-elevated); color: var(--k-text-on-brand); transition: background-color var(--k-duration-fast), border-color var(--k-duration-fast); }
+.k-multiselect__box svg { inline-size: 0.8rem; block-size: 0.8rem; }
+.k-option[aria-selected="true"] .k-multiselect__box { border-color: var(--k-bg-brand); background: var(--k-bg-brand); }
+.k-multiselect .k-option[aria-selected="true"] { background: none; }
+.k-multiselect .k-option[aria-selected="true"][data-active] { background: var(--k-bg-hover); }
+.k-multiselect .k-input__action { margin-inline-start: auto; }

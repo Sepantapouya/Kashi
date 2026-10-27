@@ -1,0 +1,43 @@
+---
+layout: ../../../layouts/Docs.astro
+title: انتخاب چندتایی
+description: انتخاب چند گزینه از یک فهرست بلند با جستجو، مثل مسئولان پروژه یا برچسب‌های یک محصول.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { MultiSelectDemo } from "../../../components/demos";
+
+```tsx
+import { MultiSelect } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<MultiSelect label="مسئولان پروژه" options={team} value={owners} onChange={setOwners}
+  max={3} placeholder="جستجوی همکار" name="owners" />`}>
+  <MultiSelectDemo client:load />
+</Demo>
+
+همان گزینه‌ها و جستجوی `Combobox` را دارد (یکدست‌سازی «ي» و «ی»، توضیح و آیکون). انتخاب‌ها به‌شکل برچسب داخل فیلد نمایش داده می‌شوند و با رسیدن به `max`، بقیهٔ گزینه‌ها غیرفعال می‌شوند. برای وارد کردن مقدار آزاد، که در فهرست نیست، `TagInput` مناسب‌تر است.
+
+<Props rows={[
+  ["options", "ComboboxOption[]", "", "مثل Combobox"],
+  ["value / defaultValue", "string[]", "[]", "مقدارهای انتخاب‌شده"],
+  ["onChange", "(value: string[]) => void", "", ""],
+  ["max", "number", "", "بیشترین تعداد انتخاب"],
+  ["name", "string", "", "یک فیلد پنهان برای هر مقدار"],
+  ["labels", "{ remove?, selected?, max?, clear? }", "", "متن‌های صفحه‌خوان"],
+]} />
+
+## کیبورد
+
+| کلید | عمل |
+|---|---|
+| <kbd>↓</kbd> / <kbd>↑</kbd> | گزینهٔ بعد / قبل |
+| <kbd>Enter</kbd> | انتخاب یا لغو انتخاب گزینهٔ فعال |
+| <kbd>Backspace</kbd> در فیلد خالی | حذف آخرین برچسب |
+| <kbd>Esc</kbd> | بستن فهرست |
+
+## دسترس‌پذیری
+
+الگوی Combobox با `aria-multiselectable`؛ هر گزینه `aria-selected` دارد و تعداد انتخاب‌ها به فیلد وصل است («۲ مورد انتخاب شده»). افزودن و حذف با `aria-live` اعلام می‌شود.

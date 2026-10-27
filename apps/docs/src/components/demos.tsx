@@ -12,7 +12,7 @@ import { ButtonGroup, ChipGroup, Countdown, LandlineInput, MonthPicker, Password
 import { JALALI_MONTHS } from "@kashi-ui/persian";
 import { ActivityHeatmap, BarChart, BarList, ContextMenu, InlineEdit, LineChart, PieChart, ProportionBar, ProvinceSelect, Sparkline } from "@kashi-ui/react";
 import { toISODate as isoDate } from "@kashi-ui/persian";
-import { Carousel, ColorPicker, Meter, Splitter, Tour } from "@kashi-ui/react";
+import { Carousel, ColorPicker, Meter, MultiSelect, Splitter, Tour } from "@kashi-ui/react";
 import { getIranHoliday } from "@kashi-ui/persian";
 
 export const ButtonIcons = () => (
@@ -1250,3 +1250,42 @@ export const HolidayDemo = () => (
     />
   </div>
 );
+
+// ───── بهبودها ─────
+
+const team = [
+  { value: "sara", label: "سارا محمدی", description: "طراح محصول", icon: <Avatar name="سارا محمدی" size="xs" color="auto" /> },
+  { value: "reza", label: "رضا کریمی", description: "طراح رابط", icon: <Avatar name="رضا کریمی" size="xs" color="auto" /> },
+  { value: "ali", label: "علی رضایی", description: "فرانت‌اند", icon: <Avatar name="علی رضایی" size="xs" color="auto" /> },
+  { value: "mina", label: "مینا احمدی", description: "بک‌اند", icon: <Avatar name="مینا احمدی" size="xs" color="auto" /> },
+  { value: "nima", label: "نیما صادقی", description: "تست", icon: <Avatar name="نیما صادقی" size="xs" color="auto" /> },
+];
+
+export const MultiSelectDemo = () => {
+  const [v, setV] = useState(["sara", "ali"]);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 26rem)" }}>
+      <MultiSelect label="مسئولان پروژه" hint="حداکثر سه نفر" options={team} value={v} onChange={setV} max={3} placeholder="جستجوی همکار" name="owners" />
+      <Out>{`${v.length.toLocaleString("fa")} نفر: ${v.map((x) => team.find((t) => t.value === x)?.label).join("، ")}`}</Out>
+    </div>
+  );
+};
+
+export const PaginationToolsDemo = () => {
+  const [page, setPage] = useState(3);
+  const [size, setSize] = useState(20);
+  const total = Math.ceil(487 / size);
+  return (
+    <div style={{ inlineSize: "100%" }}>
+      <Pagination
+        page={Math.min(page, total)}
+        total={total}
+        onChange={setPage}
+        pageSize={size}
+        onPageSizeChange={(s) => { setSize(s); setPage(1); }}
+        jumper
+        summary={`${((Math.min(page, total) - 1) * size + 1).toLocaleString("fa")} تا ${Math.min(page * size, 487).toLocaleString("fa")} از ۴۸۷`}
+      />
+    </div>
+  );
+};

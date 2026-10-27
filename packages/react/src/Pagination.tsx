@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
 
@@ -27,7 +27,14 @@ export interface PaginationProps {
   summary?: ReactNode;
   /** @default "fa" */
   digits?: "fa" | "latin";
-  labels?: { nav?: string; prev?: string; next?: string; page?: (n: string) => string };
+  /** تعداد ردیف در هر صفحه؛ با onPageSizeChange فهرست انتخاب نمایش داده می‌شود */
+  pageSize?: number;
+  /** @default [10, 20, 50, 100] */
+  pageSizes?: number[];
+  onPageSizeChange?: (size: number) => void;
+  /** فیلد «برو به صفحه» برای فهرست‌های طولانی */
+  jumper?: boolean;
+  labels?: { nav?: string; prev?: string; next?: string; page?: (n: string) => string; perPage?: string; jump?: string };
   className?: string;
 }
 
@@ -38,9 +45,12 @@ const Chevron = ({ dir }: { dir: "prev" | "next" }) => (
 );
 
 /** صفحه‌بندی با ارقام فارسی؛ صفحهٔ فعلی با aria-current="page" */
-export function Pagination({ page, total, onChange, getHref, siblings = 1, summary, digits = "fa", labels = {}, className }: PaginationProps) {
+export function Pagination({
+  page, total, onChange, getHref, siblings = 1, summary, digits = "fa", pageSize, pageSizes = [10, 20, 50, 100], onPageSizeChange, jumper, labels = {}, className,
+}: PaginationProps) {
   const n = (v: number) => (digits === "fa" ? toFaDigits(v) : String(v));
-  const { nav = "صفحه‌بندی", prev = "قبلی", next = "بعدی", page: pageLabel = (x) => `صفحهٔ ${x}` } = labels;
+  const { nav = "صفحه‌بندی", prev = "قبلی", next = "بعدی", page: pageLabel = (x) => `صفحهٔ ${x}`, perPage = "در هر صفحه", jump = "برو به صفحه" } = labels;
+  const [jumpText, setJumpText] = useState("");
   // تابع معمولی، نه کامپوننت: تا دکمه‌ها با هر رندر دوباره ساخته نشوند و فوکوس کیبورد حفظ شود
   const item = ({ to, children, current, disabled, aria, className: c }: { to: number; children: ReactNode; current?: boolean; disabled?: boolean; aria?: string; className: string }) =>
     getHref && !disabled ? (
@@ -64,6 +74,36 @@ export function Pagination({ page, total, onChange, getHref, siblings = 1, summa
         ))}
       </ul>
       {item({ to: page + 1, disabled: page >= total, className: "k-btn k-btn--secondary k-btn--sm", children: <>{next}<Chevron dir="next" /></> })}
+      {(onPageSizeChange || (jumper && onChange)) && (
+        <div className="k-pagination__tools">
+          {onPageSizeChange && (
+            <label className="k-pagination__tool">
+              <span className="k-select k-select--sm">
+                <select className="k-select__control" value={pageSize} onChange={(e) => onPageSizeChange(Number(e.target.value))}>
+                  {pageSizes.map((sz) => <option key={sz} value={sz}>{n(sz)}</option>)}
+                </select>
+              </span>
+              <span>{perPage}</span>
+            </label>
+          )}
+          {jumper && onChange && (
+            <form
+              className="k-pagination__tool"
+              onSubmit={(e) => {
+                e.preventDefault();
+                const to = Number(jumpText.replace(/[۰-۹]/g, (d) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(d))).replace(/\D/g, ""));
+                if (to >= 1 && to <= total) onChange(to);
+                setJumpText("");
+              }}
+            >
+              <label className="k-pagination__tool">
+                <span>{jump}</span>
+                <span className="k-input k-input--sm k-pagination__jump"><input className="k-input__control" inputMode="numeric" dir="ltr" value={jumpText} placeholder={n(page)} aria-label={`${jump}، از ${n(1)} تا ${n(total)}`} onChange={(e) => setJumpText(e.target.value)} /></span>
+              </label>
+            </form>
+          )}
+        </div>
+      )}
     </nav>
   );
 }

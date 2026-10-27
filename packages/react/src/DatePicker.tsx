@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { formatJalali, parseJalali, toISODate } from "@kashi-ui/persian";
-import { Calendar, sameDay, type CalendarLabels } from "./Calendar.js";
+import { Calendar, sameDay, type CalendarLabels, type CalendarProps } from "./Calendar.js";
 import { Input, type InputProps } from "./Input.js";
 import { mergeRefs, useIsomorphicLayoutEffect } from "./utils.js";
 
@@ -23,6 +23,8 @@ export interface DatePickerProps extends Base {
   /** @default "امروز" */
   todayLabel?: string;
   calendarLabels?: CalendarLabels;
+  /** تعطیلات در تقویم؛ مثل Calendar */
+  holidays?: CalendarProps["holidays"];
 }
 
 /**
@@ -31,7 +33,7 @@ export interface DatePickerProps extends Base {
  */
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function DatePicker(
   {
-    value, defaultValue = null, onChange, min, max, isDateDisabled, digits = "fa", yearRange,
+    value, defaultValue = null, onChange, min, max, isDateDisabled, holidays, digits = "fa", yearRange,
     invalidMessage = "این تاریخ معتبر نیست؛ آن را به شکل ۱۴۰۳/۰۵/۱۲ وارد کنید.", openLabel = "انتخاب تاریخ از تقویم",
     todayLabel = "امروز", calendarLabels, error, name, onBlur, placeholder, ...rest
   },
@@ -154,6 +156,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
             min={min}
             max={max}
             isDateDisabled={isDateDisabled}
+            holidays={holidays}
             digits={digits}
             yearRange={yearRange}
             labels={calendarLabels}

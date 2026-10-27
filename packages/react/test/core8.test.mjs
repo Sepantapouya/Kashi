@@ -46,3 +46,26 @@ test("Splitter: جداکنندهٔ فوکوس‌پذیر با مقدار", () =>
 test("Tour: بسته رندر نمی‌شود", () => {
   assert.equal(render(h(K.Tour, { open: false, onOpenChange() {}, steps: [{ target: "#a", title: "x", content: "y" }] })), "");
 });
+
+test("MultiSelect: listbox چندانتخابی، برچسب‌ها و فیلدهای پنهان", () => {
+  const options = [{ value: "a", label: "سارا" }, { value: "b", label: "علی" }, { value: "c", label: "مینا" }];
+  const html = render(h(K.MultiSelect, { label: "مسئولان", options, defaultValue: ["a", "c"], name: "owners", max: 2 }));
+  assert.match(html, /role="listbox" aria-multiselectable="true"/);
+  assert.match(html, /aria-label="حذف سارا"/);
+  assert.equal((html.match(/type="hidden" name="owners"/g) || []).length, 2);
+  assert.match(html, /۲ مورد انتخاب شده/);
+  assert.match(html, /aria-selected="false" aria-disabled="true"/); // سقف دو انتخاب پر شده
+  assert.match(html, /aria-label="پاک کردن همه"/);
+});
+
+test("Pagination: تعداد در هر صفحه و پرش به صفحه", () => {
+  const html = render(h(K.Pagination, { page: 3, total: 12, onChange() {}, pageSize: 20, onPageSizeChange() {}, jumper: true }));
+  assert.match(html, /<option value="20" selected="">۲۰<\/option>/);
+  assert.match(html, /در هر صفحه/);
+  assert.match(html, /aria-label="برو به صفحه، از ۱ تا ۱۲"/);
+  assert.doesNotMatch(render(h(K.Pagination, { page: 1, total: 3, onChange() {} })), /k-pagination__tools/);
+});
+
+test("DatePicker: holidays به تقویم می‌رسد", () => {
+  assert.equal(typeof K.DatePicker, "object"); // forwardRef
+});

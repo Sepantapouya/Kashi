@@ -1,5 +1,6 @@
 import { createContext, useContext, useId, useRef, useState, type HTMLAttributes, type KeyboardEvent, type ReactNode } from "react";
 import { cx } from "./cx.js";
+import { useIsomorphicLayoutEffect } from "./utils.js";
 
 interface Ctx { id: string; selected: string; select: (v: string) => void; orientation: "horizontal" | "vertical" }
 const TabsCtx = createContext<Ctx | null>(null);
@@ -58,7 +59,22 @@ export interface TabListProps extends HTMLAttributes<HTMLDivElement> {
 
 export function TabList({ className, children, ...rest }: TabListProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const { orientation } = useTabs();
+  const { orientation, selected } = useTabs();
+  // نشانگر زبانهٔ فعال که با تغییر زبانه می‌لغزد؛ تا اندازه‌گیری نشده، سبک ایستای CSS نمایش داده می‌شود
+  const [box, setBox] = useState<{ x: number; y: number; w: number; h: number } | null>(null);
+  useIsomorphicLayoutEffect(() => {
+    const list = ref.current;
+    if (!list) return;
+    const measure = () => {
+      const tab = list.querySelector<HTMLElement>('[role="tab"][aria-selected="true"]');
+      if (!tab) return setBox(null);
+      setBox({ x: tab.offsetLeft, y: tab.offsetTop, w: tab.offsetWidth, h: tab.offsetHeight });
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(list);
+    return () => ro.disconnect();
+  }, [selected]);
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     const tabs = [...(ref.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]:not(:disabled)') ?? [])];
     const i = tabs.indexOf(document.activeElement as HTMLButtonElement);
@@ -75,8 +91,18 @@ export function TabList({ className, children, ...rest }: TabListProps) {
     next.click(); // فعال‌سازی خودکار با فوکوس
   };
   return (
-    <div ref={ref} role="tablist" aria-orientation={orientation} className={cx("k-tabs__list", className)} onKeyDown={onKeyDown} {...rest}>
+    <div
+      ref={ref}
+      role="tablist"
+      aria-orientation={orientation}
+      className={cx("k-tabs__list", className)}
+      data-indicator={box ? "" : undefined}
+      style={box ? ({ "--_ix": `${box.x}px`, "--_iy": `${box.y}px`, "--_iw": `${box.w}px`, "--_ih": `${box.h}px` } as React.CSSProperties) : undefined}
+      onKeyDown={onKeyDown}
+      {...rest}
+    >
       {children}
+      {box && <span className="k-tabs__indicator" aria-hidden="true" />}
     </div>
   );
 }

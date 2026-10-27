@@ -5,7 +5,7 @@ description: پیمایش بین صفحه‌های یک فهرست، با ارق
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { PaginationDemo } from "../../../components/demos";
+import { PaginationDemo, PaginationToolsDemo } from "../../../components/demos";
 
 ```tsx
 import { Pagination } from "@kashi-ui/react";
@@ -31,7 +31,19 @@ import { Pagination } from "@kashi-ui/react";
   ["siblings", "number", "1", "تعداد صفحه‌های کنار صفحهٔ فعلی"],
   ["summary", "ReactNode", "", "متن خلاصه"],
   ["digits", '"fa" | "latin"', '"fa"', "خط ارقام"],
+  ["pageSize / pageSizes / onPageSizeChange", "number / number[] / (size) => void", "— / [10, 20, 50, 100]", "فهرست «در هر صفحه»"],
+  ["jumper", "boolean", "false", "فیلد «برو به صفحه» (با onChange)"],
 ]} />
+
+## تعداد در هر صفحه و پرش به صفحه
+
+برای جدول‌های بلند: با `onPageSizeChange` فهرست «در هر صفحه» و با `jumper` فیلد «برو به صفحه» نمایش داده می‌شود. فیلد پرش ارقام فارسی و انگلیسی را می‌پذیرد.
+
+<Demo html={false} code={`<Pagination page={page} total={total} onChange={setPage}
+  pageSize={size} onPageSizeChange={setSize} pageSizes={[10, 20, 50, 100]}
+  jumper summary="۴۱ تا ۶۰ از ۴۸۷" />`}>
+  <PaginationToolsDemo client:load />
+</Demo>
 
 ## دسترس‌پذیری
 
