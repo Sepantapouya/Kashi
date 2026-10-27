@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- کامپوننت‌های فارسی تازه: PersianInput (یک فیلد برای کد ملی، شبا، کارت، مبلغ، کد پستی، موبایل، تلفن و متن با `kind`)، LegalIdInput (شناسهٔ ملی شرکت با رقم کنترل)، KeyboardFixInput (پیشنهاد «سلام» برای «sghl»)، PersianTextarea (ویرایش نگارشی: «ي/ك» عربی، نیم‌فاصله، علامت‌ها و ارقام)، Money (تومان و ریال، حالت خلاصه و مبلغ به حروف برای صفحه‌خوان)، BankCard (کارت بانکی با رنگ و لوگوی بانک)، PaymentReceipt (رسید پرداخت) و DateTile (برگ تقویم شمسی با مناسبت). ابزارهای تازه در `@kashi-ui/persian`: `isValidLegalId`، `fixKeyboardLayout`، `looksLikeWrongLayout`، `fixPersianText`، `formatMoney`، `rialToToman` و `tomanToRial`.
+- کامپوننت‌های فارسی تازه: PersianInput (یک فیلد برای کد ملی، شبا، کارت، مبلغ، کد پستی، موبایل، تلفن، ساعت، پلاک و متن با `kind`)، LegalIdInput (شناسهٔ ملی شرکت با رقم کنترل)، KeyboardFixInput (پیشنهاد «سلام» برای «sghl»)، PersianTextarea (ویرایش نگارشی: «ي/ك» عربی، نیم‌فاصله، علامت‌ها و ارقام)، Money (تومان و ریال، حالت خلاصه و مبلغ به حروف برای صفحه‌خوان)، BankCard (کارت بانکی با رنگ و لوگوی بانک)، PaymentReceipt (رسید پرداخت) و DateTile (برگ تقویم شمسی با مناسبت). ابزارهای تازه در `@kashi-ui/persian`: `isValidLegalId`، `fixKeyboardLayout`، `looksLikeWrongLayout`، `fixPersianText`، `formatMoney`، `rialToToman` و `tomanToRial`.
 
 ### Patch Changes
 

@@ -69,5 +69,7 @@ test("PersianInput: یک فیلد برای همهٔ نوع‌ها با برچس�
   assert.match(render(h(K.PersianInput, { kind: "postal", label: "کد پستی محل کار" })), />کد پستی محل کار</);
   assert.match(render(h(K.PersianInput, { kind: "text", defaultValue: "sghl" })), /«سلام»/);
   assert.doesNotMatch(render(h(K.PersianInput, { kind: "mobile", "aria-label": "موبایل" })), /<label/);
-  assert.equal(Object.keys(K.PERSIAN_INPUT_LABELS).length, 9);
+  assert.equal(Object.keys(K.PERSIAN_INPUT_LABELS).length, 11);
+  assert.match(render(h(K.PersianInput, { kind: "time", defaultValue: "09:30" })), /value="۰۹:۳۰"/);
+  assert.match(render(h(K.PersianInput, { kind: "plate", defaultValue: { first: "12", letter: "ب", middle: "345", region: "67" } })), /پلاک خودرو/);
 });

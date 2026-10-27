@@ -1,11 +1,11 @@
 ---
 layout: ../../../layouts/Docs.astro
 title: فیلد فارسی
-description: یک کامپوننت برای همهٔ داده‌های فارسی؛ کد ملی، شبا، کارت، مبلغ، کد پستی، موبایل و متن با اصلاح زبان صفحه‌کلید.
+description: یک کامپوننت برای همهٔ داده‌های فارسی؛ کد ملی، شناسهٔ شرکت، موبایل، تلفن، کارت، شبا، مبلغ، کد پستی، ساعت، پلاک و متن با اصلاح زبان صفحه‌کلید.
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { PersianInputDemo } from "../../../components/demos";
+import { PersianInputDemo, CardNumberDemo, IbanDemo, KeyboardFixDemo, LandlineDemo, LegalIdDemo, MobileDemo, NationalIdDemo, PlateDemo, PostalDemo, PriceDemo, TimeDemo } from "../../../components/demos";
 
 ```tsx
 import { PersianInput } from "@kashi-ui/react";
@@ -20,27 +20,502 @@ import { PersianInput } from "@kashi-ui/react";
   <PersianInputDemo client:load />
 </Demo>
 
-به جای به خاطر سپردن نام نُه کامپوننت، یک فیلد با `kind` بسازید. هر نوع برچسب، قالب، اعتبارسنجی و پیام خطای فارسی خودش را دارد. ویژگی‌های دیگر همان کامپوننت تخصصی است و TypeScript بر اساس `kind` آن‌ها را پیشنهاد می‌دهد. مثلاً `showBank` فقط برای `card` و `iban` مجاز است.
+به جای به خاطر سپردن نام یازده کامپوننت، یک فیلد با `kind` بسازید. هر نوع برچسب، قالب، اعتبارسنجی و پیام خطای فارسی خودش را دارد. ویژگی‌های دیگر همان کامپوننت تخصصی است و TypeScript بر اساس `kind` آن‌ها را پیشنهاد می‌دهد. مثلاً `showBank` فقط برای `card` و `iban` مجاز است.
 
 | kind | داده | کامپوننت تخصصی |
 |---|---|---|
-| `text` | متن با پیشنهاد اصلاح زبان صفحه‌کلید | [KeyboardFixInput](/docs/persian/keyboard-fix/) |
-| `national-id` | کد ملی | [NationalIdInput](/docs/persian/national-id/) |
-| `legal-id` | شناسهٔ ملی شرکت | [LegalIdInput](/docs/persian/legal-id/) |
-| `mobile` | موبایل با اپراتور | [MobileInput](/docs/persian/mobile/) |
-| `landline` | تلفن ثابت با استان | [LandlineInput](/docs/persian/landline/) |
-| `card` | شمارهٔ کارت با بانک | [CardNumberInput](/docs/persian/card-number/) |
-| `iban` | شبا با بانک | [IbanInput](/docs/persian/iban/) |
-| `price` | مبلغ با حروف | [PriceInput](/docs/persian/price/) |
-| `postal` | کد پستی | [PostalCodeInput](/docs/persian/postal-code/) |
+| `text` | متن با پیشنهاد اصلاح زبان صفحه‌کلید | [KeyboardFixInput](#text) |
+| `national-id` | کد ملی | [NationalIdInput](#national-id) |
+| `legal-id` | شناسهٔ ملی شرکت | [LegalIdInput](#legal-id) |
+| `mobile` | موبایل با اپراتور | [MobileInput](#mobile) |
+| `landline` | تلفن ثابت با استان | [LandlineInput](#landline) |
+| `card` | شمارهٔ کارت با بانک | [CardNumberInput](#card) |
+| `iban` | شبا با بانک | [IbanInput](#iban) |
+| `price` | مبلغ با حروف | [PriceInput](#price) |
+| `postal` | کد پستی | [PostalCodeInput](#postal) |
+| `time` | ساعت | [TimeInput](#time) |
+| `plate` | پلاک خودرو | [PlateInput](#plate) |
 
 اگر برچسب ندهید، برچسب پیش‌فرض همان نوع («شمارهٔ شبا»، «کد پستی» و…) گذاشته می‌شود. با `aria-label` برچسب دیده نمی‌شود. فهرست برچسب‌ها در `PERSIAN_INPUT_LABELS` است.
 
-## حجم
+## حجم بارگذاری
 
-`PersianInput` همهٔ نُه فیلد را import می‌کند. اگر در صفحه فقط یکی را لازم دارید، کامپوننت تخصصی را مستقیم import کنید تا حجم کمتری بارگذاری شود.
+`PersianInput` همهٔ یازده فیلد را import می‌کند. اگر در صفحه فقط یکی را لازم دارید، کامپوننت تخصصی را مستقیم import کنید تا حجم کمتری بارگذاری شود.
 
 <Props rows={[
-  ["kind", '"text" | "national-id" | "legal-id" | "mobile" | "landline" | "card" | "iban" | "price" | "postal"', "", "نوع داده"],
+  ["kind", '"text" | "national-id" | "legal-id" | "mobile" | "landline" | "card" | "iban" | "price" | "postal" | "time" | "plate"', "", "نوع داده"],
   ["…", "", "", "ویژگی‌های کامپوننت تخصصی همان نوع"],
 ]} />
+
+## ویژگی‌های هر نوع
+
+در بخش‌های زیر، نمونه و ویژگی‌های اختصاصی هر نوع آمده است. همهٔ نوع‌ها ویژگی‌های `Input` مثل `label`، `hint`، `error`، `required` و `disabled` را هم می‌پذیرند.
+
+<span id="national-id" class="kind-anchor"></span>
+
+## کد ملی
+
+فیلد کد ملی با اعتبارسنجی رقم کنترل؛ ارقام فارسی و انگلیسی را می‌پذیرد.
+
+```tsx
+<PersianInput kind="national-id" />   // یا مستقیم: <NationalIdInput />
+```
+
+یک کد ملی آزمایشی معتبر: `0013542419`. یک رقم آخر را عوض کنید تا خطا را ببینید.
+
+<Demo html={false} code={`<PersianInput kind="national-id"
+  label="کد ملی"
+  name="nationalId"
+  onValueChange={(value, valid) => console.log(value, valid)}
+/>`}>
+  <NationalIdDemo client:load />
+</Demo>
+
+#### رفتار
+
+- **ارقام:** کاربر می‌تواند با صفحه‌کلید فارسی یا انگلیسی تایپ کند. نمایش با ارقام فارسی است (`digits="latin"` برای انگلیسی)، ولی مقدار همیشه با ارقام انگلیسی به شما داده می‌شود.
+- **محدودیت:** هر نویسهٔ غیر رقمی حذف می‌شود و بیش از ۱۰ رقم پذیرفته نمی‌شود. در گوشی، صفحه‌کلید عددی باز می‌شود.
+- **اعتبارسنجی:** رقم دهم با الگوریتم رسمی رقم کنترل بررسی می‌شود. پیام خطا فقط پس از خروج از فیلد یا کامل شدن ۱۰ رقم نمایش داده می‌شود، نه هنگام تایپ.
+- **فرم:** با `name`، مقدار با ارقام انگلیسی در یک فیلد مخفی ارسال می‌شود.
+
+> اعتبارسنجی رقم کنترل فقط درستی ساختار کد را نشان می‌دهد، نه وجود آن را. برای احراز هویت، کد را با سرویس رسمی استعلام کنید.
+
+#### ویژگی‌ها
+
+<Props rows={[
+  ["value", "string", "", "مقدار کنترل‌شده با ارقام انگلیسی"],
+  ["defaultValue", "string", '""', "مقدار اولیه"],
+  ["onValueChange", "(value: string, valid: boolean) => void", "", "با هر تغییر"],
+  ["digits", '"fa" | "latin"', '"fa"', "خط ارقام نمایشی"],
+  ["invalidMessage", "ReactNode", '"کد ملی معتبر نیست."', "پیام خطا"],
+  ["name", "string", "", "نام فیلد مخفی فرم"],
+]} />
+
+همهٔ ویژگی‌های `Input` مثل `label`، `hint`، `error` و `required` هم پشتیبانی می‌شوند.
+
+#### بدون React
+
+```ts
+
+isValidNationalId("۰۰۱۳۵۴۲۴۱۹"); // true
+isValidNationalId("1111111111"); // false
+```
+
+#### دسترس‌پذیری
+
+- خطا با `aria-invalid` و `aria-describedby` به فیلد متصل است.
+- فیلد با `dir="ltr"` است تا ترتیب ارقام هنگام تایپ جابه‌جا نشود.
+
+<span id="legal-id" class="kind-anchor"></span>
+
+## شناسهٔ ملی شرکت
+
+شناسهٔ ملی ۱۱ رقمی اشخاص حقوقی با بررسی رقم کنترل.
+
+```tsx
+<PersianInput kind="legal-id" />   // یا مستقیم: <LegalIdInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="legal-id" label="شناسهٔ ملی شرکت" name="legalId"
+  onValueChange={(value, valid) => …} />`}>
+  <LegalIdDemo client:load />
+</Demo>
+
+شناسهٔ ملی شرکت‌ها، مؤسسات و سازمان‌ها ۱۱ رقم دارد و رقم آخر آن رقم کنترل است. برای فرم‌های B2B، فاکتور رسمی و ثبت فروشنده در بازارگاه‌ها لازم است. ارقام فارسی و انگلیسی پذیرفته می‌شوند. بدون React هم با `isValidLegalId` از `@kashi-ui/persian` در دسترس است:
+
+```ts
+isValidLegalId("10380284790"); // true
+```
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "ارقام لاتین"],
+  ["onValueChange", "(value: string, valid: boolean) => void", "", ""],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "«شناسهٔ ملی معتبر نیست.»", ""],
+  ["name", "string", "", "فیلد پنهان با ۱۱ رقم لاتین"],
+]} />
+
+#### دسترس‌پذیری
+
+خطا پس از خروج از فیلد یا کامل شدن ۱۱ رقم نمایش داده می‌شود و با `aria-describedby` به فیلد وصل است.
+
+<span id="mobile" class="kind-anchor"></span>
+
+## شماره موبایل
+
+فیلد شماره موبایل ایران با تبدیل خودکار +98، گروه‌بندی و تشخیص اپراتور.
+
+```tsx
+<PersianInput kind="mobile" />   // یا مستقیم: <MobileInput />
+```
+
+شماره را به هر شکلی بنویسید یا بچسبانید: `09123456789`، `+98 912 345 6789` یا `00989123456789`.
+
+<Demo html={false} code={`<PersianInput kind="mobile"
+  label="شماره موبایل"
+  name="mobile"
+  onValueChange={(mobile, valid, operator) => console.log(mobile, valid, operator)}
+/>`}>
+  <MobileDemo client:load />
+</Demo>
+
+#### رفتار
+
+- **یکدست‌سازی:** `+98`، `0098`، `98` و شمارهٔ بدون صفر اول (`912…`) به شکل استاندارد `09xxxxxxxxx` درمی‌آیند.
+- **اپراتور:** همراه اول، ایرانسل و رایتل از روی پیش‌شماره تشخیص داده می‌شوند. به دلیل امکان ترابرد شماره، اپراتور فقط برای راهنمایی است.
+- **صفحه‌کلید:** در گوشی صفحه‌کلید تلفن باز می‌شود و مرورگر می‌تواند شمارهٔ ذخیره‌شده را پیشنهاد دهد.
+
+#### ویژگی‌ها
+
+<Props rows={[
+  ["value", "string", "", "مقدار کنترل‌شده، به هر شکل"],
+  ["defaultValue", "string", "", "مقدار اولیه"],
+  ["onValueChange", "(mobile: string, valid: boolean, operator: string | null) => void", "", "مقدار به شکل ۰۹xxxxxxxxx"],
+  ["digits", '"fa" | "latin"', '"fa"', "خط ارقام نمایشی"],
+  ["showOperator", "boolean", "true", "نمایش نام اپراتور"],
+  ["invalidMessage", "ReactNode", '"شماره موبایل معتبر نیست."', "پیام خطا"],
+  ["name", "string", "", "نام فیلد مخفی فرم"],
+]} />
+
+#### بدون React
+
+```ts
+
+normalizeMobile("+98 912 345 6789"); // "09123456789"
+getMobileOperator("0935")?.name;     // "ایرانسل"
+formatMobile("09123456789");         // "0912 345 6789"
+```
+
+<span id="landline" class="kind-anchor"></span>
+
+## تلفن ثابت
+
+شمارهٔ تلفن ثابت با پیش‌شماره، گروه‌بندی و تشخیص استان.
+
+```tsx
+<PersianInput kind="landline" />   // یا مستقیم: <LandlineInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="landline" label="تلفن ثابت" name="tel"
+  onValueChange={(value, valid, province) => …} />`}>
+  <LandlineDemo client:load />
+</Demo>
+
++98 و 0098 به ۰ تبدیل می‌شوند و نام استان از روی پیش‌شمارهٔ سه‌رقمی (مثل ۰۳۱ برای اصفهان) کنار فیلد نمایش داده می‌شود. پیش‌شمارهٔ هر ۳۱ استان در `getLandlineProvince` است.
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "مثل 02188776655"],
+  ["onValueChange", "(value, valid, province) => void", "", ""],
+  ["showProvince", "boolean", "true", "نام استان کنار فیلد"],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "«شمارهٔ تلفن ثابت معتبر نیست.»", ""],
+  ["name", "string", "", "فیلد پنهان با ۱۱ رقم لاتین"],
+]} />
+
+#### دسترس‌پذیری
+
+نام استان با `aria-describedby` به فیلد وصل است. `autocomplete="tel-national"` و صفحه‌کلید عددی گوشی فعال است.
+
+<span id="card" class="kind-anchor"></span>
+
+## شماره کارت
+
+فیلد شماره کارت بانکی با گروه‌بندی خودکار، تشخیص بانک و اعتبارسنجی Luhn.
+
+```tsx
+<PersianInput kind="card" />   // یا مستقیم: <CardNumberInput />
+```
+
+شش رقم اول را تایپ کنید، مثلاً `603799` یا `610433`، تا لوگو و نام بانک نمایش داده شوند.
+
+<Demo html={false} code={`<PersianInput kind="card"
+  label="شماره کارت"
+  name="card"
+  onValueChange={(value, valid, bank) => console.log(value, valid, bank)}
+/>`}>
+  <CardNumberDemo client:load />
+</Demo>
+
+#### رفتار
+
+- **گروه‌بندی:** ارقام به‌صورت خودکار در گروه‌های چهارتایی نمایش داده می‌شوند. هنگام ویرایش وسط شماره، مکان‌نما سر جای درستش می‌ماند.
+- **چسباندن:** شماره‌ای که با فاصله، خط تیره یا ارقام فارسی کپی شده هم درست خوانده می‌شود.
+- **تشخیص بانک:** لوگو و نام بانک از شش رقم اول (BIN) تشخیص داده می‌شوند. لوگوها فقط وقتی بانک شناخته شد بارگذاری می‌شوند و حجم اولیهٔ برنامه را زیاد نمی‌کنند ([لوگوی بانک‌ها](/docs/persian/bank-logos/)). فهرست بانک‌ها ممکن است کامل نباشد؛ از آن فقط برای راهنمایی کاربر استفاده کنید.
+- **اعتبارسنجی:** شمارهٔ ۱۶ رقمی با الگوریتم Luhn بررسی می‌شود.
+- **تکمیل خودکار:** با `autocomplete="cc-number"`، مرورگر می‌تواند کارت ذخیره‌شده را پیشنهاد دهد.
+
+> این فیلد شماره را فقط در مرورگر قالب‌بندی می‌کند. شمارهٔ کارت داده‌ای حساس است؛ آن را فقط از طریق HTTPS ارسال کنید و بدون نیاز ذخیره نکنید.
+
+#### ویژگی‌ها
+
+<Props rows={[
+  ["value", "string", "", "مقدار کنترل‌شده: ۱۶ رقم انگلیسی بدون فاصله"],
+  ["defaultValue", "string", '""', "مقدار اولیه"],
+  ["onValueChange", "(value: string, valid: boolean, bank: string | null) => void", "", "با هر تغییر"],
+  ["digits", '"fa" | "latin"', '"fa"', "خط ارقام نمایشی"],
+  ["showBank", "boolean", "true", "نمایش نام بانک"],
+  ["showBankLogo", "boolean", "true", "نمایش لوگوی بانک (بارگذاری تنبل)"],
+  ["invalidMessage", "ReactNode", '"شماره کارت معتبر نیست."', "پیام خطا"],
+  ["name", "string", "", "نام فیلد مخفی فرم با ارقام بدون فاصله"],
+]} />
+
+#### بدون React
+
+```ts
+
+formatCardNumber("6037991234567890"); // "6037 9912 3456 7890"
+getBankByCard("603799")?.name;        // "بانک ملی"
+isValidCardNumber("4111 1111 1111 1111"); // true
+```
+
+#### دسترس‌پذیری
+
+- نام بانک با `aria-describedby` به فیلد متصل است و صفحه‌خوان آن را همراه فیلد می‌خواند.
+- خطا پس از خروج از فیلد یا کامل شدن ۱۶ رقم نمایش داده می‌شود، نه هنگام تایپ.
+
+<span id="iban" class="kind-anchor"></span>
+
+## شماره شبا
+
+فیلد شبا (IBAN ایران) با IR خودکار، گروه‌بندی، لوگو و نام بانک و بررسی رقم‌های کنترل.
+
+```tsx
+<PersianInput kind="iban" />   // یا مستقیم: <IbanInput />
+```
+
+فقط ارقام را تایپ کنید؛ «IR» خودکار اضافه می‌شود. با تایپ ارقام ۳ تا ۵ (کد بانک)، لوگو و نام بانک نمایش داده می‌شوند.
+
+<Demo html={false} code={`<PersianInput kind="iban"
+  label="شماره شبا"
+  name="iban"
+  onValueChange={(iban, valid, bank) => console.log(iban, valid, bank)}
+/>`}>
+  <IbanDemo client:load />
+</Demo>
+
+#### رفتار
+
+- **ورودی آزاد:** شبا با یا بدون «IR»، با فاصله یا بدون آن، و با ارقام فارسی یا انگلیسی پذیرفته می‌شود.
+- **اعتبارسنجی:** رقم‌های کنترل با استاندارد ISO 13616 (باقیماندهٔ ۹۷) بررسی می‌شوند؛ هر رقم اشتباه یا جابه‌جایی ارقام مجاور تشخیص داده می‌شود.
+- **مقدار:** همیشه به شکل `IR` + ۲۴ رقم بدون فاصله به شما داده می‌شود.
+- **ارقام:** شبا معمولاً با ارقام انگلیسی نوشته می‌شود؛ برای ارقام فارسی `digits="fa"` بدهید.
+
+#### ویژگی‌ها
+
+<Props rows={[
+  ["value", "string", "", "شبای کنترل‌شده، با یا بدون IR"],
+  ["defaultValue", "string", "", "مقدار اولیه"],
+  ["onValueChange", "(iban: string, valid: boolean, bank: string | null) => void", "", "با هر تغییر"],
+  ["digits", '"fa" | "latin"', '"latin"', "خط ارقام نمایشی"],
+  ["showBank", "boolean", "true", "نمایش نام بانک"],
+  ["showBankLogo", "boolean", "true", "نمایش لوگوی بانک (بارگذاری تنبل)"],
+  ["invalidMessage", "ReactNode", '"شماره شبا معتبر نیست."', "پیام خطا"],
+  ["name", "string", "", "نام فیلد مخفی فرم با مقدار IR…"],
+]} />
+
+#### بدون React
+
+```ts
+
+isValidIban("IR06 2960 0000 0010 0324 2000 01");
+getBankByIban("IR..0170...")?.name;   // "بانک ملی"
+formatIban("062960000000100324200001"); // "IR06 2960 0000 0010 0324 2000 01"
+```
+
+#### دسترس‌پذیری
+
+- نام بانک با `aria-describedby` به فیلد متصل است؛ لوگو تزئینی است (`alt=""`) تا صفحه‌خوان نام بانک را دو بار نخواند.
+
+<span id="price" class="kind-anchor"></span>
+
+## مبلغ
+
+فیلد مبلغ با جداکنندهٔ هزارگان فارسی، واحد پول و نمایش مبلغ به حروف.
+
+```tsx
+<PersianInput kind="price" />   // یا مستقیم: <PriceInput />
+```
+
+مبلغ به حروف زیر فیلد نمایش داده می‌شود تا کاربر مطمئن شود صفرها را درست وارد کرده است؛ اشتباهی رایج و پرهزینه در پرداخت‌ها.
+
+<Demo html={false} code={`<PersianInput kind="price"
+  label="مبلغ پرداخت"
+  name="amount"
+  max={500_000_000}
+  onValueChange={(amount) => console.log(amount)}
+/>`}>
+  <PriceDemo client:load />
+</Demo>
+
+#### رفتار
+
+- **قالب‌بندی:** جداکنندهٔ هزارگان فارسی (`٬`) هنگام تایپ اضافه می‌شود و مکان‌نما سر جایش می‌ماند.
+- **به حروف:** «یک میلیون و دویست و پنجاه هزار تومان». با `showWords={false}` خاموش می‌شود.
+- **واحد:** پیش‌فرض «تومان»؛ با `unit="ریال"` یا هر متن دیگری عوض می‌شود.
+- **مقدار:** عدد (`number`) یا `null` برای فیلد خالی. صفرهای ابتدایی حذف می‌شوند. تا ۱۵ رقم.
+- **محدوده:** با `min` و `max`، پس از خروج از فیلد پیام خطا نمایش داده می‌شود.
+
+#### ویژگی‌ها
+
+<Props rows={[
+  ["value", "number | null", "", "مقدار کنترل‌شده"],
+  ["defaultValue", "number | null", "", "مقدار اولیه"],
+  ["onValueChange", "(value: number | null) => void", "", "با هر تغییر"],
+  ["unit", "ReactNode", '"تومان"', "واحد پول کنار فیلد"],
+  ["showWords", "boolean", "true", "نمایش مبلغ به حروف در متن راهنما"],
+  ["min / max", "number", "", "محدودهٔ مجاز"],
+  ["rangeMessage", "(min?, max?) => ReactNode", "خودکار", "پیام خطای محدوده"],
+  ["digits", '"fa" | "latin"', '"fa"', "خط ارقام نمایشی"],
+  ["name", "string", "", "نام فیلد مخفی فرم با مقدار عددی خام"],
+]} />
+
+#### بدون React
+
+```ts
+
+numberToWords(1250000); // "یک میلیون و دویست و پنجاه هزار"
+formatNumber(1250000);  // "۱٬۲۵۰٬۰۰۰"
+```
+
+#### دسترس‌پذیری
+
+- مبلغ به حروف در متن راهنما است و با `aria-describedby` به فیلد متصل است؛ صفحه‌خوان پس از نام فیلد آن را می‌خواند.
+- واحد پول کنار فیلد نمایش داده می‌شود؛ آن را در برچسب هم تکرار کنید اگر برای فهم فیلد ضروری است.
+
+<span id="postal" class="kind-anchor"></span>
+
+## کد پستی
+
+کد پستی ۱۰ رقمی ایران با قالب ۱۲۳۴۵-۶۷۸۹۰ و بررسی قواعد آن.
+
+```tsx
+<PersianInput kind="postal" />   // یا مستقیم: <PostalCodeInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="postal" label="کد پستی" name="postal"
+  onValueChange={(value, valid) => …} />`}>
+  <PostalDemo client:load />
+</Demo>
+
+ارقام فارسی و انگلیسی پذیرفته می‌شوند و خط تیره خودکار اضافه می‌شود. کد پستی ایران در پنج رقم اول ۰ و ۲ ندارد و چهار رقم یکسان پشت سر هم ندارد؛ `isValidPostalCode` همین قواعد را بررسی می‌کند. این بررسی وجود واقعی کد را تضمین نمی‌کند.
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "ارقام لاتین"],
+  ["onValueChange", "(value: string, valid: boolean) => void", "", ""],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "«کد پستی معتبر نیست.»", ""],
+  ["name", "string", "", "فیلد پنهان با ۱۰ رقم لاتین"],
+]} />
+
+#### دسترس‌پذیری
+
+`autocomplete="postal-code"` دارد تا مرورگر بتواند آن را پر کند. خطا پس از خروج از فیلد یا کامل شدن ۱۰ رقم نمایش داده می‌شود، نه هنگام تایپ.
+
+<span id="time" class="kind-anchor"></span>
+
+## ساعت
+
+ورود ساعت ۲۴ساعته با ارقام فارسی، تایپ سریع و گام‌های ↑↓.
+
+```tsx
+<PersianInput kind="time" />   // یا مستقیم: <TimeInput />
+```
+
+کاربر می‌تواند «۹۳۰»، «۹:۳۰» یا «9.30» بنویسد؛ پس از خروج از فیلد به «۰۹:۳۰» تبدیل می‌شود. <kbd>↑</kbd>/<kbd>↓</kbd> به گام بعدی یا قبلی می‌پرد.
+
+<Demo html={false} code={`<PersianInput kind="time" label="ساعت شروع جلسه" min="08:00" max="20:00" value={t} onChange={setT} name="start" />`}>
+  <TimeDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["value / defaultValue", '"HH:MM" | null', "null", "با ارقام لاتین"],
+  ["onChange", "(value: string | null) => void", "", ""],
+  ["step", "number", "15", "گام ↑↓ به دقیقه"],
+  ["min / max", '"HH:MM"', "", "محدودهٔ مجاز"],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "", "پیام ساعت نامعتبر"],
+  ["rangeMessage", "(min, max) => ReactNode", "«ساعت باید بین … و … باشد.»", "پیام ساعت خارج از محدوده"],
+]} />
+
+ابزارهای `parseTime` و `formatTime` در `@kashi-ui/persian` هم در دسترس‌اند.
+
+#### دسترس‌پذیری
+
+یک فیلد متنی ساده با برچسب و راهنما؛ برخلاف `<input type="time">`، در همهٔ مرورگرها یکسان و با ارقام فارسی کار می‌کند. خطا پس از خروج از فیلد نمایش داده و به آن وصل می‌شود.
+
+<span id="plate" class="kind-anchor"></span>
+
+## پلاک خودرو
+
+ورود پلاک خودروی ایران با ظاهر واقعی پلاک: دو رقم، حرف، سه رقم و کد استان.
+
+```tsx
+<PersianInput kind="plate" />   // یا مستقیم: <PlateInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="plate" label="پلاک خودرو" name="car"
+  onChange={(plate, valid) => …} />
+// plate = { first: "12", letter: "ب", middle: "345", region: "67" }`}>
+  <PlateDemo client:load />
+</Demo>
+
+پلاک نسبت واقعی ۵۲۰ در ۱۱۰ میلی‌متر را دارد و رنگش مثل پلاک واقعی از روی حرف تعیین می‌شود (`plateType`):
+
+| حرف | نوع | رنگ |
+|---|---|---|
+| ب، ج، د، س… | شخصی | سفید |
+| ت / ع / ک | تاکسی / عمومی / کشاورزی | زرد |
+| الف | دولتی | قرمز |
+| پ / ث | پلیس / سپاه | سبز |
+| ش | ارتش | قهوه‌ای روشن |
+| ز / ف | وزارت دفاع / ستاد کل | آبی روشن |
+| ژ | معلولین | سفید |
+
+ارتفاع با `--k-plate-height` (پیش‌فرض 3.5rem) عوض می‌شود و عرض به همان نسبت تغییر می‌کند. با پر شدن هر بخش، فوکوس به بخش بعد می‌رود و <kbd>Backspace</kbd> در بخش خالی به بخش قبل برمی‌گردد. `formatPlate` متن خوانا می‌سازد: «۱۲ ب ۳۴۵ ایران ۶۷».
+
+<Props rows={[
+  ["value / defaultValue", "{ first, letter, middle, region }", "", "ارقام لاتین"],
+  ["onChange", "(plate, valid: boolean) => void", "", ""],
+  ["name", "string", "", "چهار فیلد پنهان: name_first، name_letter، name_middle، name_region"],
+  ["labels", "{ first?, letter?, middle?, region? }", "", "نام هر بخش برای صفحه‌خوان"],
+  ["invalidMessage", "ReactNode", "«پلاک خودرو معتبر نیست.»", ""],
+]} />
+
+#### دسترس‌پذیری
+
+یک `role="group"` با نام «پلاک خودرو» و چهار کنترل که هرکدام نام خودش را دارد («دو رقم اول پلاک»، «حرف پلاک»…). حرف با `<select>` بومی انتخاب می‌شود. وقتی پلاک کامل و معتبر شد، متن کامل آن با `aria-live` خوانده می‌شود.
+
+<span id="text" class="kind-anchor"></span>
+
+## اصلاح زبان صفحه‌کلید
+
+اگر کاربر فارسی را با صفحه‌کلید انگلیسی تایپ کند، شکل درست را پیشنهاد می‌دهد: sghl ← سلام.
+
+```tsx
+<PersianInput kind="text" />   // یا مستقیم: <KeyboardFixInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="text" label="جستجو" value={query} onValueChange={setQuery} />`}>
+  <KeyboardFixDemo client:load />
+</Demo>
+
+کاربر فارسی‌زبان زیاد پیش می‌آید که فراموش کند زبان صفحه‌کلید را عوض کند و «سلام» را «sghl» تایپ کند. این فیلد شکل فارسی را زیر فیلد پیشنهاد می‌دهد و با یک کلیک جایگزین می‌کند. برای جستجو بیشترین کاربرد را دارد.
+
+تشخیص به‌صورت پیش‌فرض حدسی است (`suggest="auto"`): کلمه‌های لاتینِ بدون حرف صدادار یا با `;`، `'` و `[` در وسط کلمه مشکوک‌اند. برای پیشنهاد روی هر متن لاتین از `suggest="always"` استفاده کنید. تبدیل بر اساس چیدمان استاندارد صفحه‌کلید فارسی است.
+
+```ts
+fixKeyboardLayout("sghl o,fd?");       // "سلام خوبی؟"
+fixKeyboardLayout("لخخلمث", "en");    // "google"
+looksLikeWrongLayout("sghl");          // true
+```
+
+<Props rows={[
+  ["value / defaultValue", "string", "", ""],
+  ["onValueChange", "(value: string) => void", "", ""],
+  ["suggest", '"auto" | "always"', '"auto"', ""],
+  ["renderSuggestion", "(fixed, apply) => ReactNode", "", "متن دلخواه پیشنهاد"],
+]} />
+
+#### دسترس‌پذیری
+
+پیشنهاد در ناحیهٔ `role="status"` است تا صفحه‌خوان آن را اعلام کند و دکمهٔ آن با کیبورد در دسترس است. پس از جایگزینی، فوکوس به فیلد برمی‌گردد.

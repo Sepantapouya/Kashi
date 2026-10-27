@@ -7,7 +7,9 @@ import { LegalIdInput, type LegalIdInputProps } from "./LegalIdInput.js";
 import { MobileInput, type MobileInputProps } from "./MobileInput.js";
 import { NationalIdInput, type NationalIdInputProps } from "./NationalIdInput.js";
 import { PostalCodeInput, type PostalCodeInputProps } from "./PostalCodeInput.js";
+import { PlateInput, type PlateInputProps } from "./PlateInput.js";
 import { PriceInput, type PriceInputProps } from "./PriceInput.js";
+import { TimeInput, type TimeInputProps } from "./TimeInput.js";
 
 /** نوع‌های پشتیبانی‌شده و ویژگی‌های هر کدام؛ همان ویژگی‌های کامپوننت تخصصی */
 export interface PersianInputKinds {
@@ -20,6 +22,8 @@ export interface PersianInputKinds {
   iban: IbanInputProps;
   price: PriceInputProps;
   postal: PostalCodeInputProps;
+  time: TimeInputProps;
+  plate: PlateInputProps;
 }
 export type PersianInputKind = keyof PersianInputKinds;
 export type PersianInputProps = { [K in PersianInputKind]: { kind: K } & PersianInputKinds[K] }[PersianInputKind];
@@ -35,6 +39,8 @@ export const PERSIAN_INPUT_LABELS: Record<PersianInputKind, string> = {
   iban: "شمارهٔ شبا",
   price: "مبلغ",
   postal: "کد پستی",
+  time: "ساعت",
+  plate: "پلاک خودرو",
 };
 
 const COMPONENTS = {
@@ -47,15 +53,18 @@ const COMPONENTS = {
   iban: IbanInput,
   price: PriceInput,
   postal: PostalCodeInput,
+  time: TimeInput,
+  plate: PlateInput,
 } as const;
 
 /**
- * یک فیلد برای همهٔ داده‌های فارسی: نوع را با kind انتخاب کنید و بقیهٔ ویژگی‌ها همان کامپوننت تخصصی است.
+ * یک فیلد برای همهٔ داده‌های فارسی (کد ملی، شبا، کارت، مبلغ، کد پستی، ساعت، پلاک و…): نوع را با kind انتخاب کنید و بقیهٔ ویژگی‌ها همان کامپوننت تخصصی است.
  * `<PersianInput kind="iban" />` همان `<IbanInput />` است. برای حجم کمتر، کامپوننت تخصصی را مستقیم import کنید.
  */
 export const PersianInput = forwardRef<HTMLInputElement, PersianInputProps>(function PersianInput({ kind, ...rest }, ref) {
   const Component = COMPONENTS[kind] as unknown as (p: Record<string, unknown> & { ref?: unknown }) => ReactNode;
   const props = rest as Record<string, unknown>;
   const label = props.label ?? (props["aria-label"] ? undefined : PERSIAN_INPUT_LABELS[kind]);
-  return <Component ref={ref} {...props} label={label} data-kind={kind} />;
+  // PlateInput چند فیلد دارد و ref نمی‌گیرد
+  return <Component ref={kind === "plate" ? undefined : ref} {...props} label={label} data-kind={kind} />;
 });

@@ -20,12 +20,10 @@ const CATEGORIES: Record<"components" | "persian", { key: string; label: string;
     { key: "feedback", label: "بازخورد و پنجره", text: "پیام‌ها و پنجره‌هایی که فوکوس و صفحه‌خوان را درست مدیریت می‌کنند.", slugs: ["alert", "toast", "banner", "dialog", "popover", "tooltip", "tour"] },
   ],
   persian: [
-    { key: "input", label: "فیلد یکپارچه", text: "کد ملی، شبا، کارت، مبلغ، کد پستی، موبایل و متن فارسی، همه در یک کامپوننت با kind.", slugs: ["input"] },
-    { key: "date", label: "تاریخ و زمان", text: "تقویم جلالی دقیق برای سال‌های ۱۳۰۰ تا ۱۵۰۰، بدون کتابخانهٔ جانبی.", slugs: ["date-picker", "date-range", "month-picker", "date-tile", "time", "countdown", "activity-heatmap"] },
-    { key: "id", label: "هویت و آدرس", text: "اعتبارسنجی بر اساس قواعد واقعی: رقم کنترل کد ملی، ساختار کد پستی و حروف پلاک.", slugs: ["national-id", "legal-id", "postal-code", "plate", "province"] },
-    { key: "bank", label: "بانکی و مالی", text: "تشخیص بانک از روی کارت و شبا، کارت بانکی، رسید پرداخت، لوگوی ۴۰ بانک و مبلغ به حروف.", slugs: ["card-number", "iban", "price", "money", "bank-card", "receipt", "bank-logos"] },
-    { key: "text", label: "متن فارسی", text: "نیم‌فاصله، «ي» و «ك» عربی و صفحه‌کلید اشتباه؛ مشکلاتی که فقط متن فارسی دارد.", slugs: ["text-fix", "keyboard-fix"] },
-    { key: "contact", label: "ارتباط", text: "موبایل با اپراتور، تلفن ثابت با استان و کد تأیید پیامکی.", slugs: ["mobile", "landline", "otp"] },
+    { key: "input", label: "فیلدهای فارسی", text: "کد ملی، شناسهٔ شرکت، موبایل، تلفن، کارت، شبا، مبلغ، کد پستی، ساعت، پلاک و متن؛ همه در یک کامپوننت با kind.", slugs: ["input", "province", "otp"] },
+    { key: "date", label: "تاریخ و زمان", text: "تقویم جلالی دقیق برای سال‌های ۱۳۰۰ تا ۱۵۰۰، بدون کتابخانهٔ جانبی.", slugs: ["date-picker", "date-range", "month-picker", "date-tile", "countdown", "activity-heatmap"] },
+    { key: "bank", label: "بانکی و مالی", text: "نمایش مبلغ، کارت بانکی با رنگ و لوگوی بانک، رسید پرداخت و لوگوی ۴۰ بانک.", slugs: ["money", "bank-card", "receipt", "bank-logos"] },
+    { key: "text", label: "متن فارسی", text: "نیم‌فاصله، «ي» و «ك» عربی و صفحه‌کلید اشتباه؛ مشکلاتی که فقط متن فارسی دارد.", slugs: ["text-fix"] },
   ],
 };
 const navItems = nav.flatMap((g) => g.items);
