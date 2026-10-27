@@ -104,6 +104,10 @@ isValidPostalCode("1193653471");         // true
 formatPostalCode("1193653471");          // "11936-53471"
 isValidPlate({ first: "12", letter: "ب", middle: "345", region: "67" }); // true
 formatPlate({ first: "12", letter: "ب", middle: "345", region: "67" });  // "۱۲ ب ۳۴۵ ایران ۶۷"
+plateType("ت");                          // "taxi"
+isValidLandline("+98 21 8877 6655");     // true
+getLandlineProvince("031");              // "اصفهان"
+formatLandline("02188776655");           // "021 8877 6655"
 ```
 
 ## ساعت

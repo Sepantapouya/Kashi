@@ -1,0 +1,53 @@
+---
+layout: ../../../layouts/Docs.astro
+title: درخت
+description: نمایش ساختار سلسله‌مراتبی مثل پوشه‌ها، دسته‌بندی محصولات یا نمودار سازمانی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { TreeDemo } from "../../../components/demos";
+
+```tsx
+import { TreeView, type TreeNode } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`const items: TreeNode[] = [
+  { id: "docs", label: "اسناد", icon: <FolderIcon />, meta: "۳ پوشه", children: [
+    { id: "contracts", label: "قراردادها", icon: <FolderIcon />, children: [
+      { id: "c1", label: "قرارداد-۱۴۰۵.pdf", icon: <FileIcon />, meta: "۲٫۴ مگابایت" },
+    ] },
+    { id: "archive", label: "بایگانی", disabled: true },
+  ] },
+];
+
+<TreeView aria-label="فایل‌ها" items={items} selected={sel} onSelect={setSel}
+  defaultExpanded={["docs", "contracts"]} />`}>
+  <TreeDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["items", "{ id, label, icon?, meta?, disabled?, children? }[]", "", "گره‌ها"],
+  ["selected / defaultSelected", "string | null", "null", "گره انتخاب‌شده"],
+  ["onSelect", "(id, node) => void", "", ""],
+  ["expanded / defaultExpanded", "string[]", "[]", "شناسهٔ گره‌های باز"],
+  ["onExpandedChange", "(ids: string[]) => void", "", ""],
+  ["aria-label", "string", "", "نام درخت (الزامی)"],
+]} />
+
+## کیبورد
+
+| کلید | عمل |
+|---|---|
+| <kbd>↓</kbd> / <kbd>↑</kbd> | ردیف بعد / قبل |
+| <kbd>←</kbd> (در RTL) | باز کردن، یا رفتن به اولین زیرشاخه |
+| <kbd>→</kbd> (در RTL) | بستن، یا رفتن به والد |
+| <kbd>Home</kbd> / <kbd>End</kbd> | اولین / آخرین ردیف |
+| <kbd>Enter</kbd> / <kbd>Space</kbd> | انتخاب |
+
+در صفحه‌های چپ‌به‌راست، جهت ← و → برعکس است.
+
+## دسترس‌پذیری
+
+الگوی Tree در WAI-ARIA با `role="tree"`، `treeitem` و `group`؛ هر گره `aria-level` و `aria-expanded` دارد و فقط یک گره در ترتیب Tab است (roving tabindex). زیرشاخه‌های بسته رندر نمی‌شوند.

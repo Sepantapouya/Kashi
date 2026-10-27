@@ -1,0 +1,34 @@
+/* تراشه‌های فیلتر (Chips) — دکمه‌های aria-pressed
+ * <div class="k-chips" role="group" aria-label="دسته‌بندی"><button class="k-chip" aria-pressed="true">…</button></div>
+ */
+.k-chips { display: flex; flex-wrap: wrap; gap: var(--k-space-2); }
+.k-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-1_5);
+  block-size: 2rem;
+  padding-inline: var(--k-space-3);
+  border: 1px solid var(--k-border-primary);
+  border-radius: var(--k-radius-full);
+  background: var(--k-bg-elevated);
+  color: var(--k-text-secondary);
+  font: inherit;
+  font-size: var(--k-text-sm);
+  font-weight: var(--k-weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(--k-shadow-xs);
+  transition: background-color var(--k-duration-fast), border-color var(--k-duration-fast), color var(--k-duration-fast);
+}
+.k-chip:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-chip:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-chip svg { inline-size: 1rem; block-size: 1rem; }
+.k-chip[aria-pressed="true"] { border-color: var(--k-border-brand); background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+.k-chip__check { display: none; }
+.k-chip[aria-pressed="true"] .k-chip__check { display: inline-flex; }
+.k-chip__count { min-inline-size: 1.25rem; padding-inline: 0.375rem; border-radius: var(--k-radius-full); background: var(--k-bg-tertiary); color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.25rem; text-align: center; }
+.k-chip[aria-pressed="true"] .k-chip__count { background: color-mix(in srgb, var(--k-text-brand) 18%, transparent); color: var(--k-text-brand); }
+.k-chip:disabled { color: var(--k-text-quaternary); cursor: not-allowed; }
+@media (forced-colors: active) {
+  .k-chip[aria-pressed="true"] { border-width: 2px; border-color: Highlight; }
+}

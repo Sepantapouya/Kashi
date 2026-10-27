@@ -1,0 +1,34 @@
+---
+layout: ../../../layouts/Docs.astro
+title: تلفن ثابت
+description: شمارهٔ تلفن ثابت با پیش‌شماره، گروه‌بندی و تشخیص استان.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { LandlineDemo } from "../../../components/demos";
+
+```tsx
+import { LandlineInput } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<LandlineInput label="تلفن ثابت" name="tel"
+  onValueChange={(value, valid, province) => …} />`}>
+  <LandlineDemo client:load />
+</Demo>
+
++98 و 0098 به ۰ تبدیل می‌شوند و نام استان از روی پیش‌شمارهٔ سه‌رقمی (مثل ۰۳۱ برای اصفهان) کنار فیلد نمایش داده می‌شود. پیش‌شمارهٔ هر ۳۱ استان در `getLandlineProvince` است.
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "مثل 02188776655"],
+  ["onValueChange", "(value, valid, province) => void", "", ""],
+  ["showProvince", "boolean", "true", "نام استان کنار فیلد"],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "«شمارهٔ تلفن ثابت معتبر نیست.»", ""],
+  ["name", "string", "", "فیلد پنهان با ۱۱ رقم لاتین"],
+]} />
+
+## دسترس‌پذیری
+
+نام استان با `aria-describedby` به فیلد وصل است. `autocomplete="tel-national"` و صفحه‌کلید عددی گوشی فعال است.

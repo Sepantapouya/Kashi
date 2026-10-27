@@ -1,0 +1,34 @@
+---
+layout: ../../../layouts/Docs.astro
+title: تراشهٔ فیلتر
+description: فیلترهای روشن و خاموش‌شونده با تعداد نتیجه، بالای فهرست یا جدول.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { ChipsDemo } from "../../../components/demos";
+
+```tsx
+import { ChipGroup } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<ChipGroup aria-label="وضعیت سفارش" value={v} onChange={setV} options={[
+  { value: "paid", label: "پرداخت‌شده", count: 128 },
+  { value: "pending", label: "در انتظار", count: 14 },
+  { value: "shipped", label: "ارسال‌شده", count: 96 },
+]} />`}>
+  <ChipsDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["options", "{ value, label, icon?, count?, disabled? }[]", "", "تراشه‌ها"],
+  ["value / defaultValue", "string[]", "[]", "تراشه‌های روشن"],
+  ["onChange", "(value: string[]) => void", "", ""],
+  ["single", "boolean", "false", "فقط یکی روشن؛ کلیک دوباره خاموشش می‌کند"],
+  ["aria-label", "string", "", "نام گروه"],
+]} />
+
+## دسترس‌پذیری
+
+هر تراشه یک دکمه با `aria-pressed` است. حالت روشن با تیک، رنگ و حاشیه نشان داده می‌شود، نه فقط رنگ.

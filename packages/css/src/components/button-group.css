@@ -1,0 +1,11 @@
+/* گروه دکمه‌های چسبیده (Button group)
+ * <div class="k-btn-group" role="group" aria-label="قالب‌بندی"><button class="k-btn">…</button>…</div>
+ */
+.k-btn-group { display: inline-flex; isolation: isolate; border-radius: var(--k-btn-radius, var(--k-radius-md)); box-shadow: var(--k-shadow-xs); }
+.k-btn-group > .k-btn { border-radius: 0; box-shadow: var(--k-shadow-skeuomorphic); }
+.k-btn-group > .k-btn:not(:first-child) { margin-inline-start: -1px; }
+.k-btn-group > .k-btn:first-child { border-start-start-radius: inherit; border-end-start-radius: inherit; }
+.k-btn-group > .k-btn:last-child { border-start-end-radius: inherit; border-end-end-radius: inherit; }
+.k-btn-group > .k-btn:is(:hover, :focus-visible) { z-index: 1; }
+.k-btn-group > .k-btn:focus-visible { box-shadow: var(--k-shadow-skeuomorphic), var(--k-ring-brand); }
+.k-btn-group > .k-btn[aria-pressed="true"], .k-btn-group > .k-btn[aria-current] { background: var(--k-bg-active); color: var(--k-text-primary); }

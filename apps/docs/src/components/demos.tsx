@@ -8,6 +8,8 @@ import { Combobox, CommandPalette, DateRangePicker, FileUpload, NumberInput, Pop
 import { ChartIcon, CheckIcon, FilterIcon, HomeIcon, InboxIcon, SettingsIcon, UsersIcon, WalletIcon } from "./icons";
 import { Banner, CopyButton, PlateInput, PostalCodeInput, Rating, SegmentedControl, TimeInput } from "@kashi-ui/react";
 import { formatPlate, type Plate } from "@kashi-ui/persian";
+import { ButtonGroup, ChipGroup, Countdown, LandlineInput, MonthPicker, PasswordStrength, TreeView, type JalaliMonth, type TreeNode } from "@kashi-ui/react";
+import { JALALI_MONTHS } from "@kashi-ui/persian";
 
 export const ButtonIcons = () => (
   <>
@@ -882,6 +884,113 @@ export const PlateDemo = () => {
     <div className="demo-stack">
       <PlateInput label="پلاک خودرو" hint="با پر شدن هر بخش، فوکوس به بخش بعد می‌رود." onChange={(plate, ok) => setP({ plate, ok })} name="car" />
       <Out>{p?.ok ? `پلاک: ${formatPlate(p.plate)}` : "پلاک را کامل وارد کنید."}</Out>
+    </div>
+  );
+};
+
+// ───── ادامهٔ ۰٫۱۰ ─────
+
+const FolderIcon = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinejoin="round" aria-hidden="true"><path d="M2.5 5.5a1 1 0 0 1 1-1h4l2 2h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1Z" /></svg>;
+const FileIcon = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinejoin="round" aria-hidden="true"><path d="M5 2.5h6l4 4v11H5Z" /><path d="M11 2.5v4h4" /></svg>;
+
+const files: TreeNode[] = [
+  { id: "docs", label: "اسناد", icon: <FolderIcon />, meta: "۳ پوشه", children: [
+    { id: "contracts", label: "قراردادها", icon: <FolderIcon />, children: [
+      { id: "c1", label: "قرارداد-۱۴۰۵.pdf", icon: <FileIcon />, meta: "۲٫۴ مگابایت" },
+      { id: "c2", label: "پیوست-الف.pdf", icon: <FileIcon />, meta: "۸۰۰ کیلوبایت" },
+    ] },
+    { id: "invoices", label: "فاکتورها", icon: <FolderIcon />, children: [{ id: "i1", label: "فاکتور-۱۲۸۴.xlsx", icon: <FileIcon /> }] },
+    { id: "archive", label: "بایگانی", icon: <FolderIcon />, disabled: true },
+  ] },
+  { id: "images", label: "تصاویر", icon: <FolderIcon />, children: [{ id: "logo", label: "لوگو.svg", icon: <FileIcon /> }] },
+  { id: "readme", label: "راهنما.md", icon: <FileIcon /> },
+];
+
+export const TreeDemo = () => {
+  const [sel, setSel] = useState<string | null>("c1");
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 22rem)" }}>
+      <TreeView aria-label="فایل‌ها" items={files} selected={sel} onSelect={setSel} defaultExpanded={["docs", "contracts"]} />
+      <Out>{`انتخاب: ${sel ?? "—"}`}</Out>
+    </div>
+  );
+};
+
+export const ButtonGroupDemo = () => {
+  const [view, setView] = useState("week");
+  return (
+    <div className="demo-row">
+      <ButtonGroup aria-label="بازهٔ تقویم">
+        {[["day", "روز"], ["week", "هفته"], ["month", "ماه"]].map(([v, l]) => (
+          <Button key={v} aria-pressed={view === v} onClick={() => setView(v)}>{l}</Button>
+        ))}
+      </ButtonGroup>
+      <ButtonGroup aria-label="پیمایش">
+        <Button iconOnly aria-label="قبلی"><span style={{ display: "inline-flex", scale: "-1 1" }}><ArrowIcon /></span></Button>
+        <Button>امروز</Button>
+        <Button iconOnly aria-label="بعدی"><ArrowIcon /></Button>
+      </ButtonGroup>
+    </div>
+  );
+};
+
+export const ChipsDemo = () => {
+  const [v, setV] = useState<string[]>(["paid"]);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "auto" }}>
+      <ChipGroup aria-label="وضعیت سفارش" value={v} onChange={setV} options={[
+        { value: "paid", label: "پرداخت‌شده", count: 128 },
+        { value: "pending", label: "در انتظار", count: 14 },
+        { value: "shipped", label: "ارسال‌شده", count: 96 },
+        { value: "canceled", label: "لغوشده", count: 3 },
+      ]} />
+      <Out>{v.length ? `فیلتر: ${v.length.toLocaleString("fa")} وضعیت` : "بدون فیلتر"}</Out>
+    </div>
+  );
+};
+
+export const PasswordDemo = () => {
+  const [p, setP] = useState("");
+  return (
+    <div className="demo-stack">
+      <Input label="رمز عبور" type="password" value={p} onChange={(e) => setP(e.target.value)} aria-describedby="pw-strength" autoComplete="new-password" />
+      <PasswordStrength id="pw-strength" password={p} />
+    </div>
+  );
+};
+
+export const CountdownDemo = () => {
+  const [key, setKey] = useState(0);
+  const [done, setDone] = useState(false);
+  const launch = new Date(Date.now() + 3 * 86400_000 + 5 * 3600_000);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "auto", justifyItems: "start" }}>
+      <p style={{ margin: 0, color: "var(--k-text-secondary)", fontSize: "var(--k-text-sm)" }}>
+        ارسال دوبارهٔ کد تا{" "}
+        <Countdown key={key} seconds={30} aria-label="زمان باقی‌مانده تا ارسال دوباره" onComplete={() => setDone(true)} />
+      </p>
+      <Button size="sm" disabled={!done} onClick={() => { setDone(false); setKey((k) => k + 1); }}>ارسال دوبارهٔ کد</Button>
+      <Countdown to={launch} variant="blocks" aria-label="زمان باقی‌مانده تا شروع فروش" />
+    </div>
+  );
+};
+
+export const MonthPickerDemo = () => {
+  const [m, setM] = useState<JalaliMonth | null>(null);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "auto" }}>
+      <MonthPicker aria-label="ماه گزارش" value={m} onChange={setM} max={{ year: 1405, month: 12 }} />
+      <Out>{m ? `گزارش ${JALALI_MONTHS[m.month - 1]} ${m.year.toLocaleString("fa", { useGrouping: false })}` : "ماهی انتخاب نشده."}</Out>
+    </div>
+  );
+};
+
+export const LandlineDemo = () => {
+  const [s, setS] = useState<{ v: string; ok: boolean; p: string | null }>({ v: "", ok: false, p: null });
+  return (
+    <div className="demo-stack">
+      <LandlineInput label="تلفن ثابت" hint="با پیش‌شماره؛ +98 هم پذیرفته می‌شود" name="tel" onValueChange={(v, ok, p) => setS({ v, ok, p })} />
+      <Out>{s.v.length === 11 ? (s.ok ? `معتبر: ${s.v} (${s.p})` : "نامعتبر") : "مثلاً ۰۳۱۳۲۲۲۱۱۰۰ را امتحان کنید."}</Out>
     </div>
   );
 };

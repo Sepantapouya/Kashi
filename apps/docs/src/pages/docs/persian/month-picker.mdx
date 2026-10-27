@@ -1,0 +1,44 @@
+---
+layout: ../../../layouts/Docs.astro
+title: انتخاب ماه
+description: انتخاب ماه و سال شمسی برای گزارش ماهانه، صورت‌حساب یا تاریخ انقضا.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { MonthPickerDemo } from "../../../components/demos";
+
+```tsx
+import { MonthPicker, type JalaliMonth } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`const [m, setM] = useState<JalaliMonth | null>(null);
+
+<MonthPicker aria-label="ماه گزارش" value={m} onChange={setM} max={{ year: 1405, month: 12 }} />`}>
+  <MonthPickerDemo client:load />
+</Demo>
+
+برای تبدیل به تاریخ میلادی: `toGregorian(m.year, m.month, 1)` از `@kashi-ui/persian`.
+
+<Props rows={[
+  ["value / defaultValue", "{ year, month } | null", "null", "ماه شمسی؛ month از ۱ تا ۱۲"],
+  ["onChange", "(value) => void", "", ""],
+  ["min / max", "{ year, month }", "", "محدودهٔ مجاز"],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["aria-label", "string", "«انتخاب ماه»", ""],
+  ["labels", "{ prevYear?, nextYear? }", "«سال قبل»، «سال بعد»", ""],
+]} />
+
+## کیبورد
+
+| کلید | عمل |
+|---|---|
+| <kbd>←</kbd> / <kbd>→</kbd> | ماه بعد / قبل (در RTL) |
+| <kbd>↑</kbd> / <kbd>↓</kbd> | سه ماه قبل / بعد |
+| <kbd>PageUp</kbd> / <kbd>PageDown</kbd> | سال قبل / بعد |
+| <kbd>Home</kbd> / <kbd>End</kbd> | فروردین / اسفند |
+
+## دسترس‌پذیری
+
+هر ماه دکمه‌ای با نام کامل («آبان ۱۴۰۵») و `aria-pressed` است؛ ماه جاری `aria-current="date"` دارد. فقط یک ماه در ترتیب Tab است و سال با `aria-live` اعلام می‌شود.

@@ -1,0 +1,36 @@
+---
+layout: ../../../layouts/Docs.astro
+title: شمارش معکوس
+description: زمان باقی‌مانده با ارقام فارسی، برای ارسال دوبارهٔ کد، پایان تخفیف یا شروع رویداد.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { CountdownDemo } from "../../../components/demos";
+
+```tsx
+import { Countdown } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`ارسال دوبارهٔ کد تا <Countdown seconds={30} aria-label="زمان باقی‌مانده تا ارسال دوباره" onComplete={() => setDone(true)} />
+
+<Countdown to={launchDate} variant="blocks" aria-label="زمان باقی‌مانده تا شروع فروش" />`}>
+  <CountdownDemo client:only="react" />
+</Demo>
+
+برای شروع دوباره، `key` کامپوننت را عوض کنید. شمارش از ساعت سیستم حساب می‌شود، پس اگر زبانه مدتی پنهان باشد هم درست می‌ماند.
+
+<Props rows={[
+  ["to", "Date", "", "زمان پایان"],
+  ["seconds", "number", "", "یا مدت به ثانیه از لحظهٔ نمایش"],
+  ["onComplete", "() => void", "", "یک بار در پایان"],
+  ["variant", '"clock" | "blocks"', '"clock"', "۰۲:۳۴ یا کادرهای روز و ساعت"],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["aria-label", "string", "", "موضوع شمارش"],
+  ["labels", "{ days?, hours?, minutes?, seconds? }", "", ""],
+]} />
+
+## دسترس‌پذیری
+
+`role="timer"` دارد که صفحه‌خوان آن را هر ثانیه اعلام نمی‌کند. نام دسترس‌پذیر متن کامل است («زمان باقی‌مانده تا ارسال دوباره: ۲ دقیقه و ۳۴ ثانیه»)، پس کاربر هر وقت به آن برسد زمان را می‌شنود.

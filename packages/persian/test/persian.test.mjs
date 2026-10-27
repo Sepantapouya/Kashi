@@ -184,3 +184,13 @@ test("زمان: خواندن و قالب", () => {
   assert.equal(P.parseTime("25:00"), null);
   assert.equal(P.formatTime({ hours: 9, minutes: 5 }), "09:05");
 });
+
+test("تلفن ثابت: پیش‌شمارهٔ استان، اعتبارسنجی و قالب", () => {
+  assert.equal(P.normalizeLandline("+98 21 8877 6655"), "02188776655");
+  assert.equal(P.getLandlineProvince("031"), "اصفهان");
+  assert.equal(P.getLandlineProvince("۰۲۱۸۸"), "تهران");
+  assert.equal(P.isValidLandline("02188776655"), true);
+  assert.equal(P.isValidLandline("02908776655"), false); // پیش‌شمارهٔ ناموجود
+  assert.equal(P.isValidLandline("02108776655"), false); // شمارهٔ محلی با ۰
+  assert.equal(P.formatLandline("02188776655"), "021 8877 6655");
+});

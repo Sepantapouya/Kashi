@@ -1,0 +1,8 @@
+/* شمارش معکوس */
+.k-countdown { display: inline-flex; align-items: baseline; gap: var(--k-space-1); color: var(--k-text-secondary); font-weight: var(--k-weight-semibold); }
+.k-countdown--blocks { gap: var(--k-space-2); }
+.k-countdown__unit { display: grid; justify-items: center; gap: var(--k-space-1); min-inline-size: 3.25rem; padding: var(--k-space-2) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-xs), var(--k-highlight); }
+.k-countdown__num { color: var(--k-text-primary); font-size: var(--k-text-2xl); line-height: 1.1; }
+.k-countdown__name { color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-weight: var(--k-weight-medium); }
+.k-countdown__sep { align-self: center; color: var(--k-text-quaternary); }
+.k-countdown[data-done] { color: var(--k-text-tertiary); }

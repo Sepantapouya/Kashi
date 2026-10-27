@@ -1,0 +1,39 @@
+---
+layout: ../../../layouts/Docs.astro
+title: گروه دکمه
+description: دکمه‌های چسبیده به هم برای عمل‌های مرتبط، مثل «روز / هفته / ماه» یا «قبلی / امروز / بعدی».
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { ButtonGroupDemo } from "../../../components/demos";
+
+```tsx
+import { ButtonGroup, Button } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<ButtonGroup aria-label="بازهٔ تقویم">
+  <Button aria-pressed={view === "day"} onClick={() => setView("day")}>روز</Button>
+  <Button aria-pressed={view === "week"} onClick={() => setView("week")}>هفته</Button>
+  <Button aria-pressed={view === "month"} onClick={() => setView("month")}>ماه</Button>
+</ButtonGroup>
+
+<ButtonGroup aria-label="پیمایش">
+  <Button iconOnly aria-label="قبلی">…</Button>
+  <Button>امروز</Button>
+  <Button iconOnly aria-label="بعدی">…</Button>
+</ButtonGroup>`}>
+  <ButtonGroupDemo client:load />
+</Demo>
+
+برای انتخاب یک گزینه از چند گزینه، `SegmentedControl` معمولاً مناسب‌تر است؛ `ButtonGroup` برای عمل‌هاست. دکمهٔ روشن با `aria-pressed` یا `aria-current` برجسته می‌شود.
+
+<Props rows={[
+  ["aria-label", "string", "", "نام گروه برای صفحه‌خوان"],
+  ["children", "Button[]", "", "دکمه‌ها؛ همهٔ گونه‌ها و اندازه‌های Button"],
+]} />
+
+## دسترس‌پذیری
+
+ظرف `role="group"` با نام دارد. هر دکمه جدا در ترتیب Tab است و حلقهٔ فوکوس روی دکمهٔ کناری نمی‌رود.

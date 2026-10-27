@@ -1,0 +1,38 @@
+/* درخت (Tree view) — الگوی Tree در WAI-ARIA
+ * <ul role="tree" class="k-tree"><li role="treeitem" aria-expanded="true" class="k-tree__item">…<ul role="group">…</ul></li></ul>
+ */
+.k-tree, .k-tree [role="group"] { margin: 0; padding: 0; list-style: none; }
+.k-tree [role="group"] { padding-inline-start: var(--k-tree-indent, 1.25rem); }
+.k-tree__item { outline: 0; }
+.k-tree__row {
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-1_5);
+  min-block-size: var(--k-tree-row-height, 2.25rem);
+  padding-inline: var(--k-space-2);
+  border-radius: var(--k-radius-md);
+  color: var(--k-text-secondary);
+  font-size: var(--k-text-sm);
+  font-weight: var(--k-weight-medium);
+  cursor: pointer;
+  user-select: none;
+}
+.k-tree__row:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-tree__item:focus-visible > .k-tree__row { box-shadow: var(--k-ring-brand); }
+.k-tree__item[aria-selected="true"] > .k-tree__row { background: var(--k-bg-active); color: var(--k-text-primary); }
+.k-tree__item[aria-selected="true"] > .k-tree__row .k-tree__icon { color: var(--k-text-brand); }
+.k-tree__toggle { display: grid; place-items: center; flex-shrink: 0; inline-size: 1.25rem; block-size: 1.25rem; color: var(--k-text-tertiary); transition: rotate var(--k-duration-fast); }
+/* فلش «بسته» در RTL به چپ اشاره می‌کند */
+.k-tree__toggle svg { inline-size: 1rem; block-size: 1rem; }
+[dir="rtl"] .k-tree__toggle svg { scale: -1 1; }
+.k-tree__item[aria-expanded="true"] > .k-tree__row .k-tree__toggle { rotate: 90deg; }
+[dir="rtl"] .k-tree__item[aria-expanded="true"] > .k-tree__row .k-tree__toggle { rotate: -90deg; }
+.k-tree__spacer { flex-shrink: 0; inline-size: 1.25rem; }
+.k-tree__icon { display: inline-grid; flex-shrink: 0; color: var(--k-text-tertiary); }
+.k-tree__icon svg { inline-size: 1.125rem; block-size: 1.125rem; }
+.k-tree__label { flex: 1; min-inline-size: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.k-tree__meta { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.k-tree__item[aria-disabled="true"] > .k-tree__row { color: var(--k-text-quaternary); cursor: not-allowed; }
+@media (forced-colors: active) {
+  .k-tree__item[aria-selected="true"] > .k-tree__row { outline: 2px solid Highlight; }
+}
