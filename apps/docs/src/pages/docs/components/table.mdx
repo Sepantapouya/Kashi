@@ -1,0 +1,58 @@
+---
+layout: ../../../layouts/Docs.astro
+title: جدول داده
+description: جدول با مرتب‌سازی، انتخاب ردیف‌ها، ستون‌های عددی و حالت خالی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { TableDemo } from "../../../components/demos";
+
+```tsx
+import { DataTable } from "@kashi-ui/react";
+```
+
+## نمونه
+
+روی سرستون «مشتری» یا «مبلغ» بزنید تا مرتب شود. نام‌ها به ترتیب الفبای فارسی مرتب می‌شوند.
+
+<Demo html={false} code={`<DataTable
+  caption="تراکنش‌های اخیر"
+  description="آخرین پرداخت‌های مشتریان در این ماه"
+  rows={transactions}
+  getRowId={(r) => r.id}
+  selectable
+  selected={selected}
+  onSelectedChange={setSelected}
+  defaultSort={{ key: "amount", direction: "descending" }}
+  columns={[
+    { key: "customer", header: "مشتری", sortable: true },
+    { key: "date", header: "تاریخ" },
+    { key: "status", header: "وضعیت", render: (r) => <Badge tone="success" dot>…</Badge> },
+    { key: "amount", header: "مبلغ (تومان)", sortable: true, numeric: true,
+      render: (r) => formatNumber(r.amount) },
+  ]}
+/>`}>
+  <TableDemo client:load />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["columns", "Column[]", "", "ستون‌ها: key، header، render، sortable، sortValue، numeric، width"],
+  ["rows", "T[]", "", "ردیف‌ها"],
+  ["getRowId", "(row) => string", "", "شناسهٔ یکتای هر ردیف"],
+  ["caption", "ReactNode", "", "عنوان جدول — الزامی، برای صفحه‌خوان"],
+  ["description / hideCaption", "ReactNode / boolean", "", "توضیح زیر عنوان / پنهان کردن عنوان از دید"],
+  ["selectable", "boolean", "false", "ستون انتخاب با «انتخاب همه»"],
+  ["selected / onSelectedChange", "string[]", "", "ردیف‌های انتخاب‌شده"],
+  ["sort / defaultSort / onSortChange", "{ key, direction } | null", "", "مرتب‌سازی؛ کنترل‌شده برای مرتب‌سازی سمت سرور"],
+  ["empty", "ReactNode", "", "محتوای جدول خالی، مثلاً یک EmptyState"],
+  ["compact", "boolean", "false", "ردیف‌های فشرده"],
+]} />
+
+## دسترس‌پذیری
+
+- جدول واقعی HTML با `<caption>` و سرستون‌های `scope="col"`؛ صفحه‌خوان‌ها می‌توانند بین خانه‌ها پیمایش کنند.
+- سرستون مرتب‌شده `aria-sort` دارد و مرتب‌سازی با یک دکمهٔ واقعی انجام می‌شود.
+- چک‌باکس هر ردیف نام اختصاصی می‌گیرد (`labels.selectRow`)، مثل «انتخاب تراکنش سارا احمدی».
+- ظرف جدول در صفحه‌های باریک اسکرول افقی دارد و با کیبورد (Tab) قابل‌اسکرول است.

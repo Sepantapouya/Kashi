@@ -1,0 +1,35 @@
+---
+layout: ../../../layouts/Docs.astro
+title: حالت خالی
+description: وقتی داده‌ای برای نمایش نیست؛ توضیح بدهید چرا و قدم بعدی را پیشنهاد کنید.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { EmptyDemo } from "../../../components/demos";
+
+```tsx
+import { EmptyState } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo code={`<EmptyState
+  icon={<FolderIcon />}
+  title="هنوز پروژه‌ای ندارید"
+  description="اولین پروژه را بسازید یا از یکی از قالب‌های آماده شروع کنید."
+  actions={<>
+    <Button variant="secondary">مشاهدهٔ قالب‌ها</Button>
+    <Button variant="primary">پروژهٔ جدید</Button>
+  </>}
+/>`}>
+  <EmptyDemo />
+</Demo>
+
+<Props rows={[
+  ["title", "ReactNode", "", "عنوان — الزامی"],
+  ["description", "ReactNode", "", "توضیح و راهنمایی"],
+  ["icon", "ReactNode", "", "آیکون"],
+  ["actions", "ReactNode", "", "دکمه‌ها"],
+]} />
+
+داخل [جدول داده](/docs/components/table/) هم می‌توانید آن را به‌عنوان `empty` بدهید.

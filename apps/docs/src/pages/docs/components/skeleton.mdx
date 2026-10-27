@@ -1,0 +1,35 @@
+---
+layout: ../../../layouts/Docs.astro
+title: اسکلت بارگذاری
+description: جای خالی محتوا هنگام بارگذاری؛ از پرش صفحه جلوگیری می‌کند.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { SkeletonDemo } from "../../../components/demos";
+
+```tsx
+import { Skeleton } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo code={`<div aria-busy="true" aria-label="در حال بارگذاری">
+  <Skeleton circle width={40} />
+  <Skeleton lines={2} />
+  <Skeleton height={120} />
+  <Skeleton lines={3} />
+</div>`}>
+  <SkeletonDemo />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["width / height", "string | number", "100% / 1em", "اندازه"],
+  ["circle", "boolean", "false", "شکل دایره"],
+  ["lines", "number", "", "چند خط متن؛ خط آخر کوتاه‌تر است"],
+]} />
+
+## دسترس‌پذیری
+
+اسکلت تزئینی است (`aria-hidden`). روی ظرف بارگذاری `aria-busy="true"` و یک `aria-label` بگذارید تا صفحه‌خوان بداند محتوا در راه است. با `prefers-reduced-motion` درخشش متوقف می‌شود.

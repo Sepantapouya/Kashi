@@ -1,0 +1,31 @@
+---
+layout: ../../../layouts/Docs.astro
+title: مسیر صفحه
+description: نشان می‌دهد کاربر کجای ساختار سایت است.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { BreadcrumbDemo } from "../../../components/demos";
+
+```tsx
+import { Breadcrumb } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo code={`<Breadcrumb items={[
+  { label: "خانه", href: "/", icon: <HomeIcon /> },
+  { label: "تنظیمات", href: "/settings" },
+  { label: "امنیت" },
+]} />`}>
+  <BreadcrumbDemo />
+</Demo>
+
+<Props rows={[
+  ["items", "{ label, href?, icon? }[]", "", "آخرین مورد صفحهٔ فعلی است"],
+  ["label", "string", '"مسیر"', "نام nav برای صفحه‌خوان"],
+]} />
+
+## دسترس‌پذیری
+
+داخل `<nav aria-label="مسیر">` با فهرست `<ol>`؛ صفحهٔ فعلی `aria-current="page"` دارد و لینک نیست. جداکننده‌ها تزئینی‌اند و در راست‌به‌چپ آینه می‌شوند.

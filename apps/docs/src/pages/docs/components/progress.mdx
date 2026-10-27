@@ -1,0 +1,37 @@
+---
+layout: ../../../layouts/Docs.astro
+title: نوار پیشرفت
+description: نمایش پیشرفت یک کار طولانی، به‌همراه اسپینر برای انتظارهای کوتاه.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { ProgressDemo } from "../../../components/demos";
+
+```tsx
+import { Progress, Spinner } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<Progress value={35} label="آپلود گزارش.pdf" showValue />
+<Progress value={100} tone="success" label="پشتیبان‌گیری" showValue size="sm" />
+<Progress aria-label="در حال پردازش" size="sm" />   // بدون value: نامعین
+<Spinner size="sm" />`}>
+  <ProgressDemo client:load />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["value", "number", "", "مقدار؛ بدون آن نوار نامعین است"],
+  ["max", "number", "100", "حداکثر"],
+  ["label", "ReactNode", "", "برچسب؛ اگر نمی‌دهید aria-label بدهید"],
+  ["showValue", "boolean", "false", "نمایش درصد"],
+  ["size", '"sm" | "md" | "lg"', '"md"', "ضخامت"],
+  ["tone", '"brand" | "success" | "warning" | "error"', '"brand"', "رنگ"],
+]} />
+
+## دسترس‌پذیری
+
+- `role="progressbar"` با `aria-valuenow` و `aria-valuetext` فارسی («۳۵٪»)؛ در حالت نامعین `aria-valuenow` حذف می‌شود.
+- اسپینر `role="status"` با متن «در حال بارگذاری» برای صفحه‌خوان دارد. با `prefers-reduced-motion` انیمیشن‌ها کند یا متوقف می‌شوند.

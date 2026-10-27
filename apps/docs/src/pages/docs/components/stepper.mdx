@@ -1,0 +1,40 @@
+---
+layout: ../../../layouts/Docs.astro
+title: مراحل
+description: نشان دادن مراحل یک فرایند چندبخشی، مثل خرید یا ثبت‌نام.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { Stepper } from "@kashi-ui/react";
+
+```tsx
+import { Stepper } from "@kashi-ui/react";
+```
+
+## افقی
+
+<Demo align="stretch" code={`<Stepper current={1} steps={[
+  { title: "سبد خرید", description: "۳ کالا" },
+  { title: "اطلاعات ارسال", description: "آدرس و زمان" },
+  { title: "پرداخت" },
+  { title: "تأیید" },
+]} />`}>
+  <Stepper current={1} steps={[{ title: "سبد خرید", description: "۳ کالا" }, { title: "اطلاعات ارسال", description: "آدرس و زمان" }, { title: "پرداخت" }, { title: "تأیید" }]} />
+</Demo>
+
+## عمودی
+
+<Demo align="start" code={`<Stepper orientation="vertical" current={2} steps={[…]} />`}>
+  <Stepper orientation="vertical" current={2} steps={[{ title: "ایجاد حساب", description: "ایمیل و رمز عبور" }, { title: "تأیید شماره موبایل", description: "کد پیامکی" }, { title: "اطلاعات کسب‌وکار", description: "نام و نوع فعالیت" }, { title: "پایان" }]} />
+</Demo>
+
+<Props rows={[
+  ["steps", "{ title, description? }[]", "", "مراحل"],
+  ["current", "number", "", "مرحلهٔ فعلی از صفر"],
+  ["orientation", '"horizontal" | "vertical"', '"horizontal"', "جهت"],
+  ["label / labels", "string / { complete?, current? }", "«مراحل»", "متن‌های صفحه‌خوان"],
+]} />
+
+## دسترس‌پذیری
+
+فهرست `<ol>` با نام «مراحل»؛ مرحلهٔ فعلی `aria-current="step"` دارد و صفحه‌خوان وضعیت هر مرحله را می‌خواند («ارسال، مرحلهٔ فعلی»، «سبد خرید، انجام شده»). وضعیت فقط با رنگ نمایش داده نمی‌شود: مراحل انجام‌شده تیک دارند.

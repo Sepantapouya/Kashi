@@ -1,0 +1,35 @@
+---
+layout: ../../../layouts/Docs.astro
+title: آکاردئون
+description: بخش‌های جمع‌شونده برای محتوای طولانی، مثل پرسش‌های متداول؛ روی details بومی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { AccordionDemo } from "../../../components/demos";
+
+```tsx
+import { Accordion, AccordionItem } from "@kashi-ui/react";
+```
+
+## نمونه
+
+با `type="single"` باز شدن هر بخش بقیه را می‌بندد.
+
+<Demo code={`<Accordion type="single">
+  <AccordionItem title="کاشی رایگان است؟" defaultOpen>بله. …</AccordionItem>
+  <AccordionItem title="با Next.js کار می‌کند؟">بله؛ …</AccordionItem>
+  <AccordionItem title="می‌توانم فونت خودم را استفاده کنم؟">بله، …</AccordionItem>
+</Accordion>`}>
+  <AccordionDemo />
+</Demo>
+
+<Props rows={[
+  ["type", '"single" | "multiple"', '"multiple"', "فقط یک بخش باز یا چند بخش (Accordion)"],
+  ["flush", "boolean", "false", "بدون حاشیه (Accordion)"],
+  ["title", "ReactNode", "", "عنوان بخش (AccordionItem)"],
+  ["defaultOpen", "boolean", "false", "باز در ابتدا (AccordionItem)"],
+]} />
+
+## دسترس‌پذیری
+
+روی `<details>` و `<summary>` بومی ساخته شده: بدون JavaScript کار می‌کند، با <kbd>Enter</kbd> و <kbd>Space</kbd> باز و بسته می‌شود و صفحه‌خوان وضعیت باز یا بسته را اعلام می‌کند. جستجوی صفحه (<kbd>Ctrl</kbd>+<kbd>F</kbd>) محتوای بخش‌های بسته را هم پیدا و باز می‌کند.

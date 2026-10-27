@@ -1,0 +1,17 @@
+/* اسکلت بارگذاری — تزئینی است؛ روی ظرف والد aria-busy="true" بگذارید */
+.k-skeleton {
+  display: block;
+  inline-size: var(--k-skeleton-width, 100%);
+  block-size: var(--k-skeleton-height, 1em);
+  border-radius: var(--k-skeleton-radius, var(--k-radius-sm));
+  background:
+    linear-gradient(90deg, transparent, color-mix(in srgb, var(--k-text-primary) 6%, transparent), transparent) 0 0 / 200% 100% no-repeat,
+    var(--k-bg-tertiary);
+  animation: k-shimmer 1.6s linear infinite;
+}
+.k-skeleton--text { block-size: 0.8em; margin-block: 0.35em; }
+.k-skeleton--text:last-child:not(:only-child) { inline-size: 70%; }
+.k-skeleton--circle { border-radius: 50%; }
+.k-skeleton-group { display: grid; gap: var(--k-space-1); }
+@keyframes k-shimmer { from { background-position: 150% 0, 0 0; } to { background-position: -50% 0, 0 0; } }
+@media (prefers-reduced-motion: reduce) { .k-skeleton { animation: none; } }

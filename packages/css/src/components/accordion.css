@@ -1,0 +1,45 @@
+/* آکاردئون — روی <details> و <summary> بومی؛ بدون JavaScript دسترس‌پذیر است
+ * باز شدن تنها یک بخش در هر لحظه: name یکسان روی همهٔ <details>
+ */
+.k-accordion {
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-xl);
+  background: var(--k-bg-elevated);
+  box-shadow: var(--k-shadow-xs), var(--k-highlight);
+  overflow: hidden;
+}
+.k-accordion--flush { border: 0; border-radius: 0; background: none; box-shadow: none; }
+.k-accordion__item + .k-accordion__item { border-block-start: 1px solid var(--k-border-secondary); }
+.k-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--k-space-4);
+  padding: var(--k-space-4) var(--k-space-5);
+  color: var(--k-text-primary);
+  font-weight: var(--k-weight-semibold);
+  cursor: pointer;
+  list-style: none;
+  transition: background-color var(--k-duration-fast);
+}
+.k-accordion__trigger::-webkit-details-marker { display: none; }
+.k-accordion__trigger:hover { background: var(--k-bg-hover); }
+.k-accordion__trigger:focus-visible { outline: 2px solid transparent; box-shadow: inset var(--k-ring-brand); }
+.k-accordion__trigger::after {
+  content: "";
+  flex-shrink: 0;
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+  background: var(--k-text-tertiary);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 8 4 4 4-4'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: rotate var(--k-duration-normal) var(--k-ease-standard);
+}
+.k-accordion__item[open] > .k-accordion__trigger::after { rotate: 180deg; }
+.k-accordion__content { padding: 0 var(--k-space-5) var(--k-space-5); color: var(--k-text-tertiary); line-height: var(--k-leading-normal); }
+/* انیمیشن باز شدن در مرورگرهای جدید */
+@supports (interpolate-size: allow-keywords) {
+  .k-accordion { interpolate-size: allow-keywords; }
+  .k-accordion__item::details-content { block-size: 0; overflow: clip; transition: block-size var(--k-duration-normal) var(--k-ease-standard), content-visibility var(--k-duration-normal) allow-discrete; }
+  .k-accordion__item[open]::details-content { block-size: auto; }
+}
+@media (forced-colors: active) { .k-accordion__trigger::after { background: CanvasText; } }

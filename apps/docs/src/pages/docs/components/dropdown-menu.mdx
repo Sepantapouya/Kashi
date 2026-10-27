@@ -1,0 +1,61 @@
+---
+layout: ../../../layouts/Docs.astro
+title: منوی کشویی
+description: فهرستی از عمل‌ها که با یک دکمه باز می‌شود؛ با الگوی Menu Button و پیمایش کامل کیبورد.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { MenuDemo } from "../../../components/demos";
+
+```tsx
+import { DropdownMenu, MenuItem, MenuSeparator, MenuLabel } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<DropdownMenu trigger={<Button>گزینه‌ها</Button>}>
+  <MenuLabel>پروژه</MenuLabel>
+  <MenuItem icon={<EditIcon />} shortcut="Ctrl+E" onSelect={edit}>ویرایش</MenuItem>
+  <MenuItem icon={<CopyIcon />} shortcut="Ctrl+D" onSelect={copy}>کپی</MenuItem>
+  <MenuItem icon={<ArchiveIcon />} disabled>بایگانی</MenuItem>
+  <MenuSeparator />
+  <MenuItem icon={<TrashIcon />} tone="danger" onSelect={remove}>حذف</MenuItem>
+</DropdownMenu>
+
+<DropdownMenu align="end" label="عملیات ردیف"
+  trigger={<Button variant="tertiary" iconOnly aria-label="عملیات بیشتر"><DotsIcon /></Button>}>
+  …
+</DropdownMenu>`}>
+  <MenuDemo client:load />
+</Demo>
+
+## کیبورد
+
+| کلید | عمل |
+|---|---|
+| <kbd>Enter</kbd> / <kbd>Space</kbd> / <kbd>↓</kbd> | باز کردن و رفتن به اولین گزینه |
+| <kbd>↑</kbd> روی دکمه | باز کردن و رفتن به آخرین گزینه |
+| <kbd>↑</kbd> / <kbd>↓</kbd> | گزینهٔ قبل / بعد (گزینه‌های غیرفعال رد می‌شوند) |
+| <kbd>Home</kbd> / <kbd>End</kbd> | اولین / آخرین گزینه |
+| حرف | پرش به گزینه‌ای که با آن حرف شروع می‌شود |
+| <kbd>Esc</kbd> | بستن و برگشت به دکمه |
+| <kbd>Tab</kbd> | بستن و رفتن به عنصر بعدی صفحه |
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["trigger", "ReactElement", "", "دکمهٔ بازکننده (DropdownMenu)"],
+  ["label", "string", "متن دکمه", "نام منو برای صفحه‌خوان"],
+  ["align", '"start" | "end"', '"start"', "هم‌ترازی با دکمه"],
+  ["onSelect", "() => void", "", "با انتخاب گزینه؛ منو بسته می‌شود (MenuItem)"],
+  ["icon / shortcut", "ReactNode / string", "", "آیکون و میان‌بر نمایشی"],
+  ["tone", '"default" | "danger"', '"default"', "رنگ قرمز برای عملیات مخرب"],
+  ["href", "string", "", "گزینهٔ لینکی"],
+  ["disabled", "boolean", "false", "غیرفعال؛ در پیمایش رد می‌شود"],
+]} />
+
+## دسترس‌پذیری
+
+- دکمه `aria-haspopup="menu"` و `aria-expanded` دارد؛ منو `role="menu"` با گزینه‌های `menuitem`.
+- فوکوس داخل منو با کلیدهای جهت‌دار جابه‌جا می‌شود، نه Tab؛ پس از انتخاب یا Esc، فوکوس به دکمه برمی‌گردد.
+- منو برای **عمل‌ها** است. برای انتخاب یک مقدار در فرم از [انتخاب از فهرست](/docs/components/select/) استفاده کنید.

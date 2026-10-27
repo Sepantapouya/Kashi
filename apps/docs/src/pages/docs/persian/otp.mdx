@@ -1,0 +1,48 @@
+---
+layout: ../../../layouts/Docs.astro
+title: کد تأیید (OTP)
+description: ورود کد پیامکی یک‌بارمصرف؛ با پر شدن خودکار از پیامک در گوشی و ارقام فارسی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { OtpDemo } from "../../../components/demos";
+
+```tsx
+import { OtpInput } from "@kashi-ui/react";
+```
+
+## نمونه
+
+کد آزمایشی `123456` را تایپ کنید، یا کد را کپی کنید و بچسبانید.
+
+<Demo html={false} code={`<OtpInput
+  label="کد ارسال‌شده به ۰۹۱۲ ••• ۶۷۸۹"
+  length={6}
+  groupAfter={3}
+  onComplete={(code) => verify(code)}
+/>`}>
+  <OtpDemo client:load />
+</Demo>
+
+## چرا یک input؟
+
+بیشتر پیاده‌سازی‌های OTP شش فیلد جدا دارند که چسباندن، پاک کردن و صفحه‌خوان را خراب می‌کند. کاشی **یک input واقعی** زیر خانه‌های نمایشی دارد، پس:
+
+- **پر شدن خودکار:** با `autocomplete="one-time-code"`، iOS و Android کد پیامک دریافتی را بالای صفحه‌کلید پیشنهاد می‌دهند.
+- **چسباندن:** «۱۲۳ ۴۵۶» یا «123-456» هم درست خوانده می‌شود؛ ارقام فارسی و فاصله‌ها پذیرفته می‌شوند.
+- **صفحه‌خوان:** یک فیلد با یک برچسب می‌خواند، نه شش فیلد بی‌نام.
+- **پاک کردن و جابه‌جایی:** <kbd>Backspace</kbd>، کلیدهای جهت‌دار و انتخاب متن همان رفتار عادی را دارند.
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["length", "number", "6", "تعداد رقم"],
+  ["value / defaultValue", "string", "", "کد با ارقام انگلیسی"],
+  ["onChange", "(code) => void", "", "با هر تغییر"],
+  ["onComplete", "(code) => void", "", "وقتی همهٔ رقم‌ها وارد شد"],
+  ["groupAfter", "number", "", "خط فاصله بعد از این تعداد رقم"],
+  ["label / hint / error", "ReactNode", "", "مثل Input"],
+  ["digits", '"fa" | "latin"', '"fa"', "خط ارقام نمایشی"],
+  ["size", '"sm" | "md"', '"md"', "اندازهٔ خانه‌ها"],
+  ["name", "string", "", "نام فیلد مخفی فرم"],
+]} />

@@ -1,0 +1,59 @@
+/* کد تأیید یک‌بارمصرف (OTP) — یک input واقعی روی خانه‌های نمایشی؛ پر شدن خودکار پیامک کار می‌کند */
+.k-otp {
+  --_s: var(--k-otp-size, 3.25rem);
+  position: relative;
+  display: inline-flex;
+  gap: var(--k-space-2);
+  direction: ltr;
+}
+.k-otp__input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  inline-size: 100%;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  font-size: 16px;
+  letter-spacing: 2em;
+  cursor: text;
+}
+.k-otp__input::selection { background: transparent; }
+.k-otp__slot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: var(--_s);
+  block-size: calc(var(--_s) * 1.15);
+  border: 1px solid var(--k-border-input);
+  border-radius: var(--k-radius-lg);
+  background: var(--k-bg-primary);
+  color: var(--k-text-primary);
+  box-shadow: var(--k-shadow-xs);
+  font-size: calc(var(--_s) * 0.5);
+  font-weight: var(--k-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  transition: border-color var(--k-duration-fast), box-shadow var(--k-duration-fast);
+}
+.k-otp__slot[data-filled] { border-color: var(--k-border-primary); }
+.k-otp:has(.k-otp__input:focus-visible, .k-otp__input:focus) .k-otp__slot[data-active] { border-color: var(--k-border-brand); box-shadow: var(--k-shadow-xs), var(--k-ring-brand); }
+/* مکان‌نمای نمایشی */
+.k-otp:has(.k-otp__input:focus) .k-otp__slot[data-active]:not([data-filled])::after {
+  content: "";
+  inline-size: 2px;
+  block-size: 40%;
+  border-radius: 1px;
+  background: var(--k-text-brand);
+  animation: k-caret 1s steps(1) infinite;
+}
+@keyframes k-caret { 50% { opacity: 0; } }
+.k-otp--invalid .k-otp__slot { border-color: var(--k-border-error); }
+.k-otp--invalid:has(.k-otp__input:focus) .k-otp__slot[data-active] { box-shadow: var(--k-ring-error); border-color: var(--k-border-error); }
+.k-otp:has(.k-otp__input:disabled) .k-otp__slot { background: var(--k-bg-secondary); color: var(--k-text-quaternary); box-shadow: none; }
+.k-otp__sep { align-self: center; inline-size: 0.75rem; block-size: 2px; background: var(--k-border-primary); }
+.k-otp--sm { --_s: var(--k-otp-size, 2.5rem); }
+@media (prefers-reduced-motion: reduce) { .k-otp__slot::after { animation: none !important; } }
+@media (forced-colors: active) { .k-otp__slot { border-color: CanvasText; } .k-otp__slot[data-active] { outline: 2px solid Highlight; } }

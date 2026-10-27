@@ -1,0 +1,39 @@
+---
+layout: ../../../layouts/Docs.astro
+title: صفحه‌بندی
+description: پیمایش بین صفحه‌های یک فهرست، با ارقام فارسی و «…» برای صفحه‌های زیاد.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { PaginationDemo } from "../../../components/demos";
+
+```tsx
+import { Pagination } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`const [page, setPage] = useState(4);
+
+<Pagination page={page} total={12} onChange={setPage} summary="صفحهٔ ۴ از ۱۲" />
+
+// با لینک (بهتر برای موتورهای جستجو)
+<Pagination page={page} total={12} getHref={(p) => \`?page=\${p}\`} />`}>
+  <PaginationDemo client:load />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["page / total", "number", "", "صفحهٔ فعلی و تعداد کل"],
+  ["onChange", "(page) => void", "", "برای صفحه‌بندی با دکمه"],
+  ["getHref", "(page) => string", "", "برای صفحه‌بندی با لینک"],
+  ["siblings", "number", "1", "تعداد صفحه‌های کنار صفحهٔ فعلی"],
+  ["summary", "ReactNode", "", "متن خلاصه"],
+  ["digits", '"fa" | "latin"', '"fa"', "خط ارقام"],
+]} />
+
+## دسترس‌پذیری
+
+- داخل `<nav aria-label="صفحه‌بندی">`؛ صفحهٔ فعلی `aria-current="page"` و هر شماره نام کامل «صفحهٔ ۵» دارد.
+- «قبلی» در صفحهٔ اول و «بعدی» در صفحهٔ آخر غیرفعال‌اند. فوکوس کیبورد پس از تغییر صفحه حفظ می‌شود.

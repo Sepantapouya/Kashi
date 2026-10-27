@@ -1,0 +1,21 @@
+/* کلید صفحه‌کلید: <kbd class="k-kbd">Ctrl</kbd> */
+.k-kbd {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 1.5rem;
+  block-size: 1.5rem;
+  padding-inline: 0.375rem;
+  border: 1px solid var(--k-border-primary);
+  border-block-end-width: 2px;
+  border-radius: var(--k-radius-sm);
+  background: var(--k-bg-secondary);
+  color: var(--k-text-secondary);
+  font-family: var(--k-font-mono);
+  font-size: var(--k-text-xs);
+  font-weight: var(--k-weight-medium);
+  line-height: 1;
+  direction: ltr;
+  unicode-bidi: isolate;
+  vertical-align: middle;
+}
+.k-kbd-combo { display: inline-flex; align-items: center; gap: 0.25rem; direction: ltr; color: var(--k-text-quaternary); font-size: var(--k-text-xs); }

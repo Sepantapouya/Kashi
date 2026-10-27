@@ -1,7 +1,7 @@
 // نمونه‌هایی که JSX را به‌عنوان prop می‌دهند باید در فایل React باشند؛
 // در MDX، JSX داخل prop به عنصر React تبدیل نمی‌شود.
 import { useState, type ReactNode } from "react";
-import { Alert, Avatar, AvatarGroup, Badge, Button, Calendar, CardNumberInput, DatePicker, Dialog, IbanInput, Input, MobileInput, NationalIdInput, PriceInput, Radio, RadioGroup, Tab, TabList, TabPanel, Tabs, Toaster, Tooltip, toast } from "@kashi-ui/react";
+import { Accordion, AccordionItem, Alert, Avatar, AvatarGroup, Badge, Breadcrumb, DataTable, DropdownMenu, EmptyState, Kbd, MenuItem, MenuLabel, MenuSeparator, OtpInput, Pagination, Progress, Skeleton, Spinner, Stepper, Button, Calendar, CardNumberInput, DatePicker, Dialog, IbanInput, Input, MobileInput, NationalIdInput, PriceInput, Radio, RadioGroup, Tab, TabList, TabPanel, Tabs, Toaster, Tooltip, toast } from "@kashi-ui/react";
 import { formatJalali, formatNumber, toISODate, toJalali } from "@kashi-ui/persian";
 import { ArrowIcon, MailIcon, PlusIcon, SearchIcon, TrashIcon, UserIcon } from "./icons";
 
@@ -233,4 +233,151 @@ export const AvatarGroupDemo = () => (
     <Avatar name="رضا نوری" />
     <Avatar name="نگار صادقی" />
   </AvatarGroup>
+);
+
+// ───── دستهٔ سوم کامپوننت‌ها
+
+const Icon = ({ d }: { d: string }) => (
+  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>
+);
+const I = {
+  edit: "M4 16h3l8.5-8.5a2.1 2.1 0 0 0-3-3L4 13v3Z",
+  copy: "M7 7h9v9H7zM4 13V4h9",
+  archive: "M3 5h14v3H3zM4.5 8v8h11V8M8 11h4",
+  trash: "M3.5 5.5h13M8 5.5V4h4v1.5M5 5.5l.8 10.2a1.5 1.5 0 0 0 1.5 1.3h5.4a1.5 1.5 0 0 0 1.5-1.3L15 5.5",
+  dots: "M4 10h.01M10 10h.01M16 10h.01",
+  folder: "M3 6.5A1.5 1.5 0 0 1 4.5 5H8l1.5 2h6A1.5 1.5 0 0 1 17 8.5v6a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 14.5v-8Z",
+  home: "M3.5 9 10 3.5 16.5 9v7a1 1 0 0 1-1 1h-3.5v-5h-4v5H4.5a1 1 0 0 1-1-1V9Z",
+};
+
+export const MenuDemo = () => (
+  <>
+    <DropdownMenu trigger={<Button iconEnd={<Icon d="m6 8 4 4 4-4" />}>گزینه‌ها</Button>}>
+      <MenuLabel>پروژه</MenuLabel>
+      <MenuItem icon={<Icon d={I.edit} />} shortcut="Ctrl+E" onSelect={() => toast("ویرایش")}>ویرایش</MenuItem>
+      <MenuItem icon={<Icon d={I.copy} />} shortcut="Ctrl+D" onSelect={() => toast("کپی شد")}>کپی</MenuItem>
+      <MenuItem icon={<Icon d={I.archive} />} disabled>بایگانی</MenuItem>
+      <MenuSeparator />
+      <MenuItem icon={<Icon d={I.trash} />} tone="danger" onSelect={() => toast.error("حذف شد")}>حذف</MenuItem>
+    </DropdownMenu>
+    <DropdownMenu align="end" label="عملیات ردیف" trigger={<Button variant="tertiary" iconOnly aria-label="عملیات بیشتر"><Icon d={I.dots} /></Button>}>
+      <MenuItem onSelect={() => toast("مشاهده")}>مشاهده</MenuItem>
+      <MenuItem onSelect={() => toast("اشتراک‌گذاری")}>اشتراک‌گذاری</MenuItem>
+    </DropdownMenu>
+    <Toaster />
+  </>
+);
+
+type Tx = { id: string; customer: string; date: string; status: "paid" | "pending" | "failed"; amount: number };
+const TX: Tx[] = [
+  { id: "1", customer: "سارا احمدی", date: "۱۴۰۵/۰۸/۰۴", status: "paid", amount: 1250000 },
+  { id: "2", customer: "علی رضایی", date: "۱۴۰۵/۰۸/۰۳", status: "pending", amount: 480000 },
+  { id: "3", customer: "مریم کریمی", date: "۱۴۰۵/۰۸/۰۳", status: "paid", amount: 3900000 },
+  { id: "4", customer: "رضا نوری", date: "۱۴۰۵/۰۸/۰۱", status: "failed", amount: 75000 },
+  { id: "5", customer: "نگار صادقی", date: "۱۴۰۵/۰۷/۲۹", status: "paid", amount: 620000 },
+];
+const STATUS = { paid: ["success", "پرداخت‌شده"], pending: ["warning", "در انتظار"], failed: ["error", "ناموفق"] } as const;
+
+export const TableDemo = () => {
+  const [sel, setSel] = useState<string[]>([]);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "100%" }}>
+      <DataTable<Tx>
+        caption="تراکنش‌های اخیر"
+        description="آخرین پرداخت‌های مشتریان در این ماه"
+        rows={TX}
+        getRowId={(r) => r.id}
+        selectable
+        selected={sel}
+        onSelectedChange={setSel}
+        defaultSort={{ key: "amount", direction: "descending" }}
+        labels={{ selectRow: (r) => `انتخاب تراکنش ${r.customer}` }}
+        columns={[
+          { key: "customer", header: "مشتری", sortable: true, render: (r) => <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}><Avatar name={r.customer} size="sm" />{r.customer}</span> },
+          { key: "date", header: "تاریخ" },
+          { key: "status", header: "وضعیت", render: (r) => <Badge tone={STATUS[r.status][0]} dot size="sm">{STATUS[r.status][1]}</Badge> },
+          { key: "amount", header: "مبلغ (تومان)", sortable: true, numeric: true, render: (r) => formatNumber(r.amount) },
+        ]}
+      />
+      <Out>{sel.length ? `${formatNumber(sel.length)} ردیف انتخاب شده` : "هیچ ردیفی انتخاب نشده"}</Out>
+    </div>
+  );
+};
+
+export const PaginationDemo = () => {
+  const [page, setPage] = useState(4);
+  return (
+    <div style={{ inlineSize: "100%" }}>
+      <Pagination page={page} total={12} onChange={setPage} summary={`صفحهٔ ${formatNumber(page)} از ${formatNumber(12)}`} />
+    </div>
+  );
+};
+
+export const OtpDemo = () => {
+  const [state, setState] = useState<"idle" | "ok" | "bad">("idle");
+  return (
+    <div className="demo-stack demo-stack--center">
+      <OtpInput
+        label="کد ارسال‌شده به ۰۹۱۲ ••• ۶۷۸۹"
+        hint="کد آزمایشی: ۱۲۳۴۵۶"
+        error={state === "bad" ? "کد وارد شده درست نیست." : undefined}
+        groupAfter={3}
+        onChange={() => setState("idle")}
+        onComplete={(c) => setState(c === "123456" ? "ok" : "bad")}
+      />
+      <Out>{state === "ok" ? "✓ ورود موفق" : "کد را تایپ یا بچسبانید؛ در گوشی، کد پیامکی خودکار پیشنهاد می‌شود."}</Out>
+    </div>
+  );
+};
+
+export const ProgressDemo = () => {
+  const [v, setV] = useState(35);
+  return (
+    <div className="demo-stack">
+      <Progress value={v} label="آپلود گزارش.pdf" showValue />
+      <Progress value={100} tone="success" label="پشتیبان‌گیری" showValue size="sm" />
+      <Progress aria-label="در حال پردازش" size="sm" />
+      <div className="demo-row" style={{ display: "flex", gap: 8, alignItems: "center" }}>
+        <Button size="sm" onClick={() => setV((x) => Math.max(0, x - 15))}>کمتر</Button>
+        <Button size="sm" onClick={() => setV((x) => Math.min(100, x + 15))}>بیشتر</Button>
+        <Spinner size="sm" />
+      </div>
+    </div>
+  );
+};
+
+export const AccordionDemo = () => (
+  <Accordion type="single" style={{ inlineSize: "min(100%, 34rem)" }}>
+    <AccordionItem title="کاشی رایگان است؟" defaultOpen>بله. کاشی متن‌باز و با مجوز MIT است و برای پروژه‌های تجاری هم رایگان است.</AccordionItem>
+    <AccordionItem title="با Next.js کار می‌کند؟">بله؛ کامپوننت‌ها در رندر سمت سرور هم بدون هشدار کار می‌کنند.</AccordionItem>
+    <AccordionItem title="می‌توانم فونت خودم را استفاده کنم؟">بله، هر فونت رایگان یا خریداری‌شده؛ راهنمای فونت و تایپوگرافی را ببینید.</AccordionItem>
+  </Accordion>
+);
+
+export const EmptyDemo = () => (
+  <EmptyState
+    icon={<Icon d={I.folder} />}
+    title="هنوز پروژه‌ای ندارید"
+    description="اولین پروژه را بسازید یا از یکی از قالب‌های آماده شروع کنید."
+    actions={<><Button variant="secondary">مشاهدهٔ قالب‌ها</Button><Button variant="primary" iconStart={<PlusIcon />}>پروژهٔ جدید</Button></>}
+  />
+);
+
+export const BreadcrumbDemo = () => (
+  <Breadcrumb items={[{ label: "خانه", href: "#", icon: <Icon d={I.home} /> }, { label: "تنظیمات", href: "#" }, { label: "امنیت" }]} />
+);
+
+export const KbdDemo = () => (
+  <p style={{ margin: 0, color: "var(--k-text-secondary)" }}>برای جستجو <Kbd keys={["Ctrl", "K"]} /> و برای بستن <Kbd>Esc</Kbd> را بزنید.</p>
+);
+
+export const SkeletonDemo = () => (
+  <div aria-busy="true" aria-label="در حال بارگذاری" className="k-card" style={{ inlineSize: "min(100%, 24rem)", padding: "1.5rem", display: "grid", gap: "1rem" }}>
+    <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+      <Skeleton circle width={40} />
+      <div style={{ flex: 1 }}><Skeleton lines={2} /></div>
+    </div>
+    <Skeleton height={120} />
+    <Skeleton lines={3} />
+  </div>
 );

@@ -1,0 +1,36 @@
+---
+layout: ../../../layouts/Docs.astro
+title: جداکننده و کلید
+description: خط جداکننده با متن اختیاری، و نمایش کلیدهای صفحه‌کلید.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { Divider } from "@kashi-ui/react";
+import { KbdDemo } from "../../../components/demos";
+
+```tsx
+import { Divider, Kbd } from "@kashi-ui/react";
+```
+
+## جداکننده
+
+<Demo column align="stretch" code={`<Divider />
+<Divider label="یا" />`}>
+  <Divider />
+  <Divider label="یا" />
+</Demo>
+
+## کلید صفحه‌کلید
+
+<Demo code={`<Kbd keys={["Ctrl", "K"]} />
+<Kbd>Esc</Kbd>`}>
+  <KbdDemo />
+</Demo>
+
+<Props caption="ویژگی‌های Divider و Kbd" rows={[
+  ["label", "ReactNode", "", "متن وسط خط (Divider)"],
+  ["vertical", "boolean", "false", "جداکنندهٔ عمودی (Divider)"],
+  ["keys", "string[]", "", "ترکیب کلیدها (Kbd)"],
+]} />
+
+کلیدها همیشه چپ‌به‌راست نمایش داده می‌شوند تا ترتیب «Ctrl + K» در متن فارسی برعکس نشود.

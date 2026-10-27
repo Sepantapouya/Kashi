@@ -1,0 +1,39 @@
+/* حالت خالی: وقتی داده‌ای برای نمایش نیست */
+.k-empty {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--k-space-2);
+  padding: var(--k-space-12) var(--k-space-6);
+  text-align: center;
+  isolation: isolate;
+}
+.k-empty__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: 3rem;
+  block-size: 3rem;
+  margin-block-end: var(--k-space-3);
+  border: 1px solid var(--k-border-primary);
+  border-radius: var(--k-radius-lg);
+  background: var(--k-bg-elevated);
+  color: var(--k-text-secondary);
+  box-shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic);
+}
+.k-empty__icon svg { inline-size: 1.5rem; block-size: 1.5rem; }
+/* دایره‌های هم‌مرکز پشت آیکون */
+.k-empty__icon::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inline-size: 20rem;
+  block-size: 20rem;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, transparent 0 2.4rem, var(--k-border-secondary) 2.4rem calc(2.4rem + 1px));
+  mask-image: radial-gradient(circle, #000 15%, transparent 65%);
+  pointer-events: none;
+}
+.k-empty__title { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-md); font-weight: var(--k-weight-semibold); }
+.k-empty__description { margin: 0; max-inline-size: 22rem; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: var(--k-leading-normal); }
+.k-empty__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--k-space-3); margin-block-start: var(--k-space-4); }

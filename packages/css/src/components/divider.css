@@ -1,0 +1,14 @@
+/* جداکننده؛ با متن وسط: <div class="k-divider" role="separator"><span>یا</span></div> */
+.k-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-3);
+  margin-block: var(--k-divider-space, var(--k-space-4));
+  border: 0;
+  color: var(--k-text-tertiary);
+  font-size: var(--k-text-sm);
+}
+.k-divider::before, .k-divider::after { content: ""; flex: 1; block-size: 1px; background: var(--k-border-secondary); }
+.k-divider:not(:has(> *))::after { display: none; }
+.k-divider--vertical { flex-direction: column; align-self: stretch; margin-block: 0; margin-inline: var(--k-divider-space, var(--k-space-3)); }
+.k-divider--vertical::before, .k-divider--vertical::after { inline-size: 1px; block-size: auto; }

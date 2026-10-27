@@ -1,0 +1,56 @@
+/* نوار پیشرفت و اسپینر
+ * <div class="k-progress" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="…"><div class="k-progress__bar" style="--k-value: 40%"></div></div>
+ */
+.k-progress-field { display: grid; gap: var(--k-space-2); }
+.k-progress-field__head { display: flex; justify-content: space-between; gap: var(--k-space-3); font-size: var(--k-text-sm); }
+.k-progress-field__label { color: var(--k-text-secondary); font-weight: var(--k-weight-medium); }
+.k-progress-field__value { color: var(--k-text-tertiary); font-variant-numeric: tabular-nums; }
+
+.k-progress {
+  --_h: 0.5rem;
+  --_c: var(--k-bg-brand);
+  position: relative;
+  block-size: var(--_h);
+  border-radius: var(--k-radius-full);
+  background: var(--k-bg-tertiary);
+  overflow: hidden;
+}
+.k-progress--sm { --_h: 0.25rem; }
+.k-progress--lg { --_h: 0.75rem; }
+.k-progress--success { --_c: var(--k-text-success); }
+.k-progress--warning { --_c: var(--k-text-warning); }
+.k-progress--error { --_c: var(--k-text-error); }
+.k-progress__bar {
+  block-size: 100%;
+  inline-size: var(--k-value, 0%);
+  border-radius: inherit;
+  background: var(--_c);
+  transition: inline-size var(--k-duration-slow) var(--k-ease-standard);
+}
+/* نامعین: مقدار مشخص نیست */
+.k-progress:not([aria-valuenow]) .k-progress__bar {
+  inline-size: 40%;
+  animation: k-progress-indeterminate 1.4s var(--k-ease-standard) infinite;
+}
+@keyframes k-progress-indeterminate { from { translate: 120% 0; } to { translate: -260% 0; } }
+[dir="ltr"] .k-progress:not([aria-valuenow]) .k-progress__bar { animation-direction: reverse; }
+
+.k-spinner {
+  --_s: 1.25rem;
+  display: inline-block;
+  inline-size: var(--_s);
+  block-size: var(--_s);
+  border: 2px solid color-mix(in srgb, currentColor 20%, transparent);
+  border-block-start-color: currentColor;
+  border-radius: 50%;
+  color: var(--k-text-brand);
+  animation: k-spin 0.7s linear infinite;
+  vertical-align: middle;
+}
+.k-spinner--sm { --_s: 1rem; }
+.k-spinner--lg { --_s: 2rem; border-width: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .k-spinner { animation-duration: 2s !important; }
+  .k-progress:not([aria-valuenow]) .k-progress__bar { animation: none; inline-size: 100%; opacity: 0.5; }
+}
+@media (forced-colors: active) { .k-progress { border: 1px solid CanvasText; } .k-progress__bar { background: Highlight; } }

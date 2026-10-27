@@ -20,8 +20,8 @@ export function SignUp() {
 }
 ```
 
-کامپوننت‌ها: Button · Input · Textarea · Select · Checkbox · RadioGroup · Switch · Badge · Card · Alert · Avatar · AvatarGroup · Tabs · Dialog · Toast · Tooltip · RelativeTime
+کامپوننت‌ها: Button · Input · Textarea · Select · Checkbox · RadioGroup · Switch · Badge · Card · Alert · Avatar · AvatarGroup · Tabs · Dialog · Toast · Tooltip · DropdownMenu · DataTable · Pagination · Breadcrumb · Accordion · Stepper · Progress · Spinner · Skeleton · EmptyState · Divider · Kbd · RelativeTime
 
-فارسی: DatePicker و Calendar شمسی · NationalIdInput · CardNumberInput · IbanInput · MobileInput · PriceInput
+فارسی: DatePicker و Calendar شمسی · NationalIdInput · CardNumberInput · IbanInput · MobileInput · PriceInput · OtpInput
 
 نیازمند React ۱۸ یا بالاتر. مستندات کامل: [kashi.sepantapouya.com](https://kashi.sepantapouya.com) · کد: [GitHub](https://github.com/Sepantapouya/Kashi) · لایسنس MIT

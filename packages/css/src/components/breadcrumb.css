@@ -1,0 +1,25 @@
+/* مسیر صفحه (Breadcrumb)
+ * <nav class="k-breadcrumb" aria-label="مسیر"><ol><li><a href="/">خانه</a></li>…<li><span aria-current="page">…</span></li></ol></nav>
+ */
+.k-breadcrumb ol { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-1_5); margin: 0; padding: 0; list-style: none; font-size: var(--k-text-sm); }
+.k-breadcrumb li { display: inline-flex; align-items: center; gap: var(--k-space-1_5); }
+.k-breadcrumb li + li::before {
+  content: "";
+  inline-size: 1rem;
+  block-size: 1rem;
+  background: var(--k-text-quaternary);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m8 5 5 5-5 5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+[dir="rtl"] .k-breadcrumb li + li::before { transform: scaleX(-1); }
+.k-breadcrumb a {
+  padding: var(--k-space-1) var(--k-space-1_5);
+  margin-inline: calc(var(--k-space-1_5) * -1);
+  border-radius: var(--k-radius-sm);
+  color: var(--k-text-tertiary);
+  font-weight: var(--k-weight-medium);
+  text-decoration: none;
+}
+.k-breadcrumb a:hover { color: var(--k-text-primary); background: var(--k-bg-hover); }
+.k-breadcrumb [aria-current="page"] { color: var(--k-text-brand); font-weight: var(--k-weight-semibold); }
+.k-breadcrumb svg { inline-size: 1.125rem; block-size: 1.125rem; vertical-align: middle; }
+@media (forced-colors: active) { .k-breadcrumb li + li::before { background: CanvasText; } }

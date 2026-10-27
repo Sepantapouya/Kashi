@@ -71,7 +71,8 @@
 | **۷ (بخش دوم) ✓** | شبا، موبایل، مبلغ به حروف، لوگوی ۳۱ بانک، یکدست‌سازی متن فارسی |
 | ۷ (ادامه) | کامپوننت‌های ویژهٔ فارسی: تقویم جلالی، DatePicker شمسی، ورودی کد ملی/شماره کارت/شبا، فرمت پول تومان |
 | **۸ (بخش اول) ✓** | Dialog، Tabs، Toast، Tooltip، Select، Radio + بازطراحی ظاهری همهٔ کامپوننت‌ها |
-| ۸ (ادامه) | Dropdown، Table، Command، Pagination |
+| **۸ (بخش دوم) ✓** | DropdownMenu، DataTable، Pagination، Breadcrumb، Accordion، Stepper، Progress، Skeleton، EmptyState، OTP |
+| ۸ (ادامه) | Command palette، Combobox، Date range، File upload |
 
 مورد ۷ مزیت رقابتی اصلی ماست — چیزی که هیچ دیزاین‌سیستم خارجی ندارد.
 

@@ -1,0 +1,27 @@
+/* صفحه‌بندی */
+.k-pagination { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-3); flex-wrap: wrap; }
+.k-pagination__pages { display: flex; align-items: center; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.k-pagination__page {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 2.5rem;
+  block-size: 2.5rem;
+  padding-inline: var(--k-space-2);
+  border: 0;
+  border-radius: var(--k-radius-md);
+  background: transparent;
+  color: var(--k-text-tertiary);
+  font: inherit;
+  font-size: var(--k-text-sm);
+  font-weight: var(--k-weight-medium);
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--k-duration-fast), color var(--k-duration-fast);
+}
+.k-pagination__page:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-pagination__page:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-pagination__page[aria-current="page"] { background: var(--k-bg-active); color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+.k-pagination__ellipsis { min-inline-size: 2.5rem; text-align: center; color: var(--k-text-quaternary); }
+.k-pagination__summary { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+@media (max-width: 36rem) { .k-pagination__pages li:not(:has([aria-current])):not(:first-child):not(:last-child) { display: none; } }
