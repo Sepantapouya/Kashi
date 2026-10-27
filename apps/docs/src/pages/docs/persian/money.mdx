@@ -1,0 +1,44 @@
+---
+layout: ../../../layouts/Docs.astro
+title: نمایش مبلغ
+description: مبلغ با تومان یا ریال، حالت خلاصه مثل «۱٫۲ میلیون» و مبلغ به حروف برای صفحه‌خوان.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { MoneyDemo } from "../../../components/demos";
+
+```tsx
+import { Money } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<Money value={1250000} />
+<Money value={1250000} compact />
+<Money value={48500000} from="rial" compact />   {/* ریال به تومان */}
+<Money value={-85000} signed />`}>
+  <MoneyDemo client:load />
+</Demo>
+
+در محصولات ایرانی مبلغ معمولاً در پایگاه داده به ریال است و به کاربر به تومان نشان داده می‌شود. با `from="rial"` تبدیل خودکار انجام می‌شود. حالت `compact` برای کارت‌ها و جدول‌ها مناسب است و برای اعداد بسیار بزرگ «همت» (هزار میلیارد تومان) را به کار می‌برد.
+
+```ts
+import { formatMoney } from "@kashi-ui/persian";
+formatMoney(1250000);                    // "۱٬۲۵۰٬۰۰۰ تومان"
+formatMoney(1250000, { compact: true }); // "۱٫۲۵ میلیون تومان"
+formatMoney(5000, { unit: "rial" });     // "۵۰٬۰۰۰ ریال"
+```
+
+<Props rows={[
+  ["value", "number", "", ""],
+  ["unit", '"toman" | "rial"', '"toman"', "واحد نمایش"],
+  ["from", '"toman" | "rial"', '"toman"', "واحد مقدار ورودی"],
+  ["compact", "boolean", "false", "هزار، میلیون، میلیارد، همت"],
+  ["signed", "boolean", "false", "+ و رنگ سبز یا قرمز"],
+  ["words", "boolean", "true", "مبلغ به حروف در title و برای صفحه‌خوان"],
+  ["size", '"sm" | "md" | "lg" | "xl"', '"md"', ""],
+]} />
+
+## دسترس‌پذیری
+
+عنصر `<data>` مقدار عددی خام را در `value` نگه می‌دارد. صفحه‌خوان به جای ارقام جداشده، مبلغ را به حروف می‌خواند («یک میلیون و دویست و پنجاه هزار تومان»). رنگ مثبت و منفی همیشه همراه علامت + و − است.

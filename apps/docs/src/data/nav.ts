@@ -17,6 +17,7 @@ const RAW: NavGroup[] = [
   {
     title: "فارسی",
     items: [
+      { title: "فیلد فارسی (همه در یکی)", href: "/docs/persian/input/", badge: "جدید" },
       { title: "انتخاب تاریخ شمسی", href: "/docs/persian/date-picker/" },
       { title: "کد ملی", href: "/docs/persian/national-id/" },
       { title: "شماره کارت", href: "/docs/persian/card-number/" },
@@ -33,6 +34,13 @@ const RAW: NavGroup[] = [
       { title: "تلفن ثابت", href: "/docs/persian/landline/" },
       { title: "نقشهٔ فعالیت", href: "/docs/persian/activity-heatmap/" },
       { title: "انتخاب استان", href: "/docs/persian/province/" },
+      { title: "شناسهٔ ملی شرکت", href: "/docs/persian/legal-id/", badge: "جدید" },
+      { title: "اصلاح زبان صفحه‌کلید", href: "/docs/persian/keyboard-fix/", badge: "جدید" },
+      { title: "ویرایش نگارشی", href: "/docs/persian/text-fix/", badge: "جدید" },
+      { title: "نمایش مبلغ", href: "/docs/persian/money/", badge: "جدید" },
+      { title: "کارت بانکی", href: "/docs/persian/bank-card/", badge: "جدید" },
+      { title: "رسید پرداخت", href: "/docs/persian/receipt/", badge: "جدید" },
+      { title: "برگ تقویم", href: "/docs/persian/date-tile/", badge: "جدید" },
       { title: "لوگوی بانک‌ها", href: "/docs/persian/bank-logos/" },
       { title: "ابزارهای فارسی", href: "/docs/persian/utilities/" },
     ],

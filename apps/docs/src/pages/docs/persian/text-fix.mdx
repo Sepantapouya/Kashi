@@ -1,0 +1,40 @@
+---
+layout: ../../../layouts/Docs.astro
+title: ویرایش نگارشی
+description: ناحیهٔ متن که «ي» و «ك» عربی، نیم‌فاصله، علامت‌های فارسی و ارقام را پیدا و با یک کلیک اصلاح می‌کند.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { TextFixDemo } from "../../../components/demos";
+
+```tsx
+import { PersianTextarea } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<PersianTextarea label="توضیحات محصول" value={text} onValueChange={setText} />`}>
+  <TextFixDemo client:load />
+</Demo>
+
+متنی که از ورد، سایت‌های عربی یا صفحه‌کلیدهای مختلف کپی می‌شود معمولاً «ي» و «ك» عربی دارد که جستجو را خراب می‌کند. این فیلد تعداد مشکل‌ها را زیر متن نشان می‌دهد و با «اصلاح نگارش» همه را درست می‌کند:
+
+| اصلاح | قبل | بعد |
+|---|---|---|
+| حروف عربی | كتاب، ايران | کتاب، ایران |
+| نیم‌فاصله | مي خوانم، كتاب ها، بزرگ تر | می‌خوانم، کتاب‌ها، بزرگ‌تر |
+| علامت‌ها | چرا ? خوب , بد | چرا؟ خوب، بد |
+| ارقام | ۲۰ را 20 نوشتن | ۲۰ |
+| فاصله | فاصلهٔ اضافه و فاصله پیش از نقطه | یک فاصله |
+
+با `fixOnBlur` اصلاح هنگام خروج از فیلد خودکار انجام می‌شود. همین منطق در `fixPersianText` بدون React در دسترس است و تعداد هر نوع اصلاح را هم برمی‌گرداند.
+
+<Props rows={[
+  ["value / defaultValue", "string", "", ""],
+  ["onValueChange", "(value: string) => void", "", ""],
+  ["fixDigits", "boolean", "true", "ارقام لاتین کنار متن فارسی"],
+  ["fixOnBlur", "boolean", "false", "اصلاح خودکار هنگام خروج"],
+  ["labels", "{ fix?, clean? }", "", ""],
+]} />
+
+همهٔ ویژگی‌های `Textarea` مثل `autoResize` و `showCount` را هم می‌پذیرد.

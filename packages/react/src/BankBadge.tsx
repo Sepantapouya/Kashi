@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { Bank } from "@kashi-ui/persian";
 
 /** لوگوی بانک را فقط هنگام نیاز بارگذاری می‌کند (code-split)، تا حجم اولیهٔ برنامه زیاد نشود */
-function useBankLogo(slug: string | undefined, enabled: boolean): string | null {
+export function useBankLogo(slug: string | undefined, enabled: boolean): string | null {
   const [uri, setUri] = useState<string | null>(null);
   useEffect(() => {
     if (!slug || !enabled) {

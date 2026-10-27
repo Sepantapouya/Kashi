@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import {
   Accordion, AccordionItem, Alert, Avatar, AvatarGroup, Badge, Banner, Breadcrumb, Button, ButtonGroup, Calendar, Card, CardBody, CardDescription,
   CardHeader, CardTitle, CardNumberInput, BarChart, ActivityHeatmap, Meter, Checkbox, ChipGroup, Countdown, Divider, EmptyState, IbanInput, Input, Kbd, MobileInput, NationalIdInput,
+  PersianInput, BankCard, DateTile, KeyboardFixInput, LegalIdInput, Money, PaymentReceipt, PersianTextarea,
   NumberInput, OtpInput, Pagination, PasswordStrength, PlateInput, PostalCodeInput, PriceInput, Progress, Radio, RadioGroup, Rating,
   SegmentedControl, Select, Skeleton, Slider, StatCard, Stepper, Switch, Tab, TabList, Tabs, TagInput, Textarea, Timeline,
 } from "@kashi-ui/react";
@@ -72,6 +73,14 @@ export const previews: Record<string, ReactNode> = {
   mobile: <Box cls="pv--field"><MobileInput aria-label="موبایل" defaultValue="09123456789" /></Box>,
   otp: <Box><OtpInput aria-label="کد" length={5} defaultValue="۴۸۲" /></Box>,
   price: <Box cls="pv--field"><PriceInput aria-label="مبلغ" defaultValue={2500000} /></Box>,
+  input: <Box cls="pv--col"><PersianInput kind="iban" aria-label="شبا" defaultValue="IR820540102680020817909002" /><PersianInput kind="price" aria-label="مبلغ" defaultValue={2500000} showWords={false} /></Box>,
+  "legal-id": <Box cls="pv--field"><LegalIdInput aria-label="شناسهٔ ملی" defaultValue="10380284790" /></Box>,
+  "keyboard-fix": <Box cls="pv--field"><KeyboardFixInput aria-label="جستجو" defaultValue="sghl o,fd" /></Box>,
+  "text-fix": <Box cls="pv--field"><PersianTextarea aria-label="متن" defaultValue="كتاب ها را مي خوانم" rows={1} /></Box>,
+  money: <Box cls="pv--col"><Money value={1250000} size="lg" /><Money value={3_400_000_000} compact /><Money value={-85000} signed size="sm" /></Box>,
+  "bank-card": <Box><BankCard number="6104337712345678" holder="سپنتا پویا" expiry="08/05" masked style={{ ["--k-bankcard-width" as string]: "15rem" }} /></Box>,
+  receipt: <Box><PaymentReceipt status="success" amount={250000} style={{ scale: "0.7", maxInlineSize: "17rem" }} /></Box>,
+  "date-tile": <Box><DateTile date={new Date(2026, 2, 21)} size="sm" /><DateTile date={new Date(2026, 9, 27)} size="sm" /></Box>,
   time: <Box cls="pv--field"><Input aria-label="ساعت" defaultValue="۰۹:۳۰" dir="ltr" /></Box>,
   "postal-code": <Box cls="pv--field"><PostalCodeInput aria-label="کد پستی" defaultValue="1193653471" /></Box>,
   plate: <Box><PlateInput aria-label="پلاک" defaultValue={{ first: "12", letter: "ب", middle: "345", region: "67" }} /></Box>,

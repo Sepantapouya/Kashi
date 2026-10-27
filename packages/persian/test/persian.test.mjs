@@ -213,3 +213,38 @@ test("تعطیلات: نوروز، ۲۲ بهمن، جمعه و تعطیلی اض
   assert.equal(P.getIranHoliday(new Date(2026, 9, 27)), null);
   assert.equal(P.getIranHoliday(new Date(2026, 2, 20), { extra: { "2026-03-20": "عید فطر" } }), "عید فطر");
 });
+
+test("شناسهٔ ملی حقوقی: رقم کنترل و ساختار", () => {
+  assert.equal(P.isValidLegalId("10380284790"), true);
+  assert.equal(P.isValidLegalId("۱۰۳۸۰۲۸۴۷۹۰"), true);
+  assert.equal(P.isValidLegalId("10380284791"), false);
+  assert.equal(P.isValidLegalId("10300000000"), false);
+  assert.equal(P.isValidLegalId("1038028479"), false);
+});
+
+test("صفحه‌کلید اشتباه: تبدیل و تشخیص", () => {
+  assert.equal(P.fixKeyboardLayout("sghl o,fd?"), "سلام خوبی؟");
+  assert.equal(P.fixKeyboardLayout("lnvsi"), "مدرسه");
+  assert.equal(P.fixKeyboardLayout("لخخلمث", "en"), "google");
+  assert.equal(P.looksLikeWrongLayout("sghl o,fd"), true);
+  assert.equal(P.looksLikeWrongLayout("hello world"), false);
+  assert.equal(P.looksLikeWrongLayout("سلام"), false);
+});
+
+test("مبلغ: تومان، ریال و حالت خلاصه", () => {
+  assert.equal(P.formatMoney(1250000), "۱٬۲۵۰٬۰۰۰ تومان");
+  assert.equal(P.formatMoney(1250000, { compact: true }), "۱٫۲۵ میلیون تومان");
+  assert.equal(P.formatMoney(125000000, { from: "rial", compact: true }), "۱۲٫۵ میلیون تومان");
+  assert.equal(P.formatMoney(5000, { unit: "rial" }), "۵۰٬۰۰۰ ریال");
+  assert.equal(P.formatMoney(3.2e12, { compact: true }), "۳٫۲ همت");
+  assert.equal(P.formatMoney(-2000, { digits: "latin", showUnit: false }), "−2,000");
+});
+
+test("ویرایش نگارشی: عربی، نیم‌فاصله، علامت‌ها و ارقام", () => {
+  const r = P.fixPersianText("كتاب ها را مي خوانم , چرا ? 12 صفحه  خواندم .");
+  assert.equal(r.text, "کتاب‌ها را می‌خوانم، چرا؟ ۱۲ صفحه خواندم.");
+  assert.equal(r.fixes.arabic, 2);
+  assert.equal(r.fixes.zwnj, 2);
+  assert.equal(P.fixPersianText("متن درست است.").count, 0);
+  assert.equal(P.fixPersianText("version 2 of app").count, 0);
+});

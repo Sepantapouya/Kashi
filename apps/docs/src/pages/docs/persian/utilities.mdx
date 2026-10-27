@@ -88,12 +88,33 @@ normalizePersian("مـــدرسه");                   // "مدرسه"   (حذ�
 normalizePersian("كتاب ١٢", { digits: "fa" }); // "کتاب ۱۲"
 ```
 
+برای متنی که کاربر می‌نویسد (توضیحات، نظرها، مقاله‌ها)، `fixPersianText` ویرایش نگارشی هم انجام می‌دهد: نیم‌فاصله، ویرگول و علامت سؤال فارسی و ارقام. تعداد هر نوع اصلاح را هم برمی‌گرداند. کامپوننت آن [ویرایش نگارشی](/docs/persian/text-fix/) است.
+
+```ts
+import { fixPersianText, fixKeyboardLayout } from "@kashi-ui/persian";
+
+fixPersianText("كتاب ها را مي خوانم ?").text; // "کتاب‌ها را می‌خوانم؟"
+fixKeyboardLayout("sghl");                     // "سلام" (صفحه‌کلید انگلیسی به فارسی)
+```
+
+## مبلغ
+
+```ts
+import { formatMoney, rialToToman } from "@kashi-ui/persian";
+
+formatMoney(1250000);                              // "۱٬۲۵۰٬۰۰۰ تومان"
+formatMoney(1250000, { compact: true });           // "۱٫۲۵ میلیون تومان"
+formatMoney(125000000, { from: "rial", compact: true }); // "۱۲٫۵ میلیون تومان"
+rialToToman(50000);                                // 5000
+```
+
 ## اعتبارسنجی
 
 ```ts
 import { isValidNationalId, isValidCardNumber, getBankByCard, formatCardNumber } from "@kashi-ui/persian";
 
 isValidNationalId("0013542419");         // true
+isValidLegalId("10380284790");           // true (شناسهٔ ملی شرکت)
 isValidIban("IR062960000000100324200001");
 isValidMobile("+98 912 345 6789");       // true
 getMobileOperator("0935")?.name;          // "ایرانسل"

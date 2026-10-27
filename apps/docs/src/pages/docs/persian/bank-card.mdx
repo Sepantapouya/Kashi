@@ -1,0 +1,35 @@
+---
+layout: ../../../layouts/Docs.astro
+title: کارت بانکی
+description: نمایش کارت بانکی با رنگ و لوگوی بانک، شمارهٔ پوشانده و تاریخ انقضای شمسی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { BankCardDemo } from "../../../components/demos";
+
+```tsx
+import { BankCard } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<BankCard number="6104337712345678" holder="سپنتا پویا"
+  expiry={{ year: 1408, month: 5 }} masked />`}>
+  <BankCardDemo client:load />
+</Demo>
+
+بانک از شش رقم اول تشخیص داده می‌شود و کارت رنگ و لوگوی همان بانک را می‌گیرد. برای بانک‌های ناشناخته رنگ برند استفاده می‌شود و با `--k-bankcard-color` قابل تغییر است. برای کیف پول، انتخاب کارت ذخیره‌شده و صفحهٔ پرداخت مناسب است. با `masked` فقط شش رقم اول و چهار رقم آخر دیده می‌شود.
+
+<Props rows={[
+  ["number", "string", "", "با هر خطی"],
+  ["holder", "ReactNode", "", "نام دارنده"],
+  ["expiry", "string | { year, month }", "", "«۰۸/۰۵» یا سال و ماه شمسی"],
+  ["masked", "boolean", "false", "پنهان کردن ارقام میانی"],
+  ["bank", "Bank | null", "", "بانک دستی"],
+  ["showLogo", "boolean", "true", ""],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+]} />
+
+## دسترس‌پذیری
+
+کارت یک `figure` با نام کامل است، مثل «کارت بانک ملت، مختوم به ۵۶۷۸»، تا صفحه‌خوان ۱۶ رقم را جدا جدا نخواند. لوگو تزئینی است. رنگ‌ها تقریبی‌اند و رسمی نیستند.

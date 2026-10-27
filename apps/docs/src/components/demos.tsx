@@ -1289,3 +1289,97 @@ export const PaginationToolsDemo = () => {
     </div>
   );
 };
+
+import { BankCard, DateTile, KeyboardFixInput, LegalIdInput, Money, PaymentReceipt, PersianTextarea } from "@kashi-ui/react";
+
+export const LegalIdDemo = () => {
+  const [s, setS] = useState({ v: "", ok: false });
+  return (
+    <div className="demo-stack">
+      <LegalIdInput label="شناسهٔ ملی شرکت" hint="۱۱ رقم؛ مثلاً ۱۰۳۸۰۲۸۴۷۹۰" onValueChange={(v, ok) => setS({ v, ok })} name="legalId" />
+      <Out>{s.v ? `${s.v} · ${s.ok ? "معتبر" : "نامعتبر"}` : "هنوز چیزی وارد نشده."}</Out>
+    </div>
+  );
+};
+
+export const KeyboardFixDemo = () => {
+  const [v, setV] = useState("sghl o,fd?");
+  return (
+    <div className="demo-stack">
+      <KeyboardFixInput label="جستجو" value={v} onValueChange={setV} hint="فارسی را با صفحه‌کلید انگلیسی تایپ کنید، مثلاً lpw,g" />
+      <Out>{`مقدار: ${v || "—"}`}</Out>
+    </div>
+  );
+};
+
+export const TextFixDemo = () => (
+  <PersianTextarea label="توضیحات محصول" defaultValue={"اين كتاب ها را مي توانيد با 20 درصد تخفيف بخريد , چرا منتظر بمانيد ?"} rows={3} />
+);
+
+export const MoneyDemo = () => (
+  <div className="demo-stack" style={{ gap: "var(--k-space-3)" }}>
+    <Money value={1250000} size="xl" />
+    <Money value={1250000} compact size="lg" />
+    <Money value={48_500_000} from="rial" compact />
+    <div style={{ display: "flex", gap: "var(--k-space-4)" }}><Money value={320000} signed /><Money value={-85000} signed /></div>
+    <Money value={4_200_000_000_000} compact />
+  </div>
+);
+
+export const BankCardDemo = () => (
+  <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--k-space-4)", justifyContent: "center" }}>
+    <BankCard number="6104337712345678" holder="سپنتا پویا" expiry={{ year: 1408, month: 5 }} masked />
+    <BankCard number="6037991234567890" holder="مریم رضایی" expiry="07/11" masked />
+    <BankCard number="5022291234567890" holder="علی کریمی" expiry="09/02" />
+  </div>
+);
+
+export const ReceiptDemo = () => {
+  const [status, setStatus] = useState<"success" | "failed" | "pending">("success");
+  return (
+    <div className="demo-stack" style={{ alignItems: "center" }}>
+      <SegmentedControl options={[{ value: "success", label: "موفق" }, { value: "pending", label: "در انتظار" }, { value: "failed", label: "ناموفق" }]} value={status} onChange={(v) => setStatus(v as typeof status)} />
+      <PaymentReceipt
+        status={status}
+        amount={1_250_000}
+        merchant="فروشگاه کاشی"
+        trackingCode="482913"
+        referenceId="140508270123"
+        cardNumber="6104337712345678"
+        date={new Date(2026, 9, 27, 14, 5)}
+        description={status === "failed" ? "مبلغ کسرشده تا ۷۲ ساعت دیگر به حسابتان برمی‌گردد." : undefined}
+      >
+        <Button variant="primary">بازگشت به فروشگاه</Button>
+        <Button>دریافت رسید</Button>
+      </PaymentReceipt>
+    </div>
+  );
+};
+
+export const DateTileDemo = () => (
+  <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--k-space-4)", alignItems: "start" }}>
+    <DateTile date={new Date()} size="lg" />
+    <DateTile date={new Date(2026, 2, 21)} />
+    <DateTile date={new Date(2027, 1, 11)} />
+    <DateTile date={new Date(2026, 9, 30)} size="sm" gregorian={false} />
+  </div>
+);
+
+import { ChipGroup as Chips, PersianInput, PERSIAN_INPUT_LABELS, type PersianInputKind } from "@kashi-ui/react";
+
+const SAMPLES: Partial<Record<PersianInputKind, string | number>> = { iban: "IR820540102680020817909002", card: "6104337712345678", price: 2500000, text: "sghl o,fd?", "national-id": "0013542419" };
+
+export const PersianInputDemo = () => {
+  const [kind, setKind] = useState<PersianInputKind>("iban");
+  const [out, setOut] = useState("");
+  return (
+    <div className="demo-stack" style={{ inlineSize: "100%", maxInlineSize: "28rem" }}>
+      <Chips single aria-label="نوع فیلد" options={(Object.keys(PERSIAN_INPUT_LABELS) as PersianInputKind[]).map((k) => ({ value: k, label: PERSIAN_INPUT_LABELS[k] }))} value={[kind]} onChange={(v) => { if (v[0]) { setKind(v[0] as PersianInputKind); setOut(""); } }} />
+      <PersianInput
+        key={kind}
+        {...({ kind, defaultValue: SAMPLES[kind], onValueChange: (v: unknown, ok?: boolean) => setOut(`${v ?? ""}${ok === undefined ? "" : ok ? " · معتبر" : " · نامعتبر"}`) } as never)}
+      />
+      <Out>{out ? `مقدار: ${out}` : `kind="${kind}"`}</Out>
+    </div>
+  );
+};

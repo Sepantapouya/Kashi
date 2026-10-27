@@ -1,0 +1,32 @@
+---
+layout: ../../../layouts/Docs.astro
+title: برگ تقویم
+description: کاشی تاریخ شمسی به شکل برگ تقویم، با روز هفته، مناسبت تعطیل و معادل میلادی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { DateTileDemo } from "../../../components/demos";
+
+```tsx
+import { DateTile } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<DateTile date={new Date()} size="lg" />
+<DateTile date={new Date(2026, 2, 21)} />   {/* نوروز */}`}>
+  <DateTileDemo client:load />
+</Demo>
+
+برای رویدادها، نوبت‌دهی، تاریخ ارسال سفارش و فهرست جلسات. روزهای تعطیل (از جمله جمعه) قرمز می‌شوند و نام مناسبت رسمی نمایش داده می‌شود. تعطیلات قمری را با `holidays={{ extra: { … } }}` اضافه کنید. همان قالب `getIranHoliday` است.
+
+<Props rows={[
+  ["date", "Date", "", ""],
+  ["holidays", "boolean | HolidayOptions", "true", "مناسبت و رنگ تعطیل"],
+  ["gregorian", "boolean", "true", "معادل میلادی"],
+  ["size", '"sm" | "md" | "lg"', '"md"', ""],
+]} />
+
+## دسترس‌پذیری
+
+عنصر `<time>` با `datetime` استاندارد است تا موتورهای جستجو و ابزارها تاریخ را بفهمند.

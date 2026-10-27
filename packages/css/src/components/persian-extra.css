@@ -1,0 +1,157 @@
+/* پیشنهاد صفحه‌کلید اشتباه و ویرایش نگارشی */
+.k-kbfix { color: var(--k-text-tertiary); }
+.k-kbfix__btn {
+  padding: 0 0.15em;
+  border: 0;
+  border-radius: var(--k-radius-sm);
+  background: none;
+  color: var(--k-text-brand);
+  font: inherit;
+  font-weight: var(--k-weight-semibold);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.k-kbfix__btn:hover { background: var(--k-bg-hover); }
+.k-kbfix__btn:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-textfix { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-2); inline-size: 100%; }
+.k-textfix[data-state="fix"] .k-textfix__text { color: var(--k-text-warning); }
+.k-textfix[data-state="clean"] .k-textfix__text { color: var(--k-text-success); }
+.k-textfix .k-btn { flex-shrink: 0; margin-block: -0.25rem; }
+
+/* مبلغ
+ * متغیرها: --k-money-size */
+.k-money { display: inline-flex; align-items: baseline; gap: 0.3em; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--k-text-primary); }
+.k-money__amount { font-size: var(--k-money-size, 1em); font-weight: var(--k-weight-semibold); letter-spacing: -0.01em; }
+.k-money__unit { color: var(--k-text-tertiary); font-size: 0.8em; font-weight: var(--k-weight-medium); }
+.k-money--sm { --k-money-size: var(--k-text-sm); }
+.k-money--lg { --k-money-size: var(--k-text-xl); }
+.k-money--xl { --k-money-size: var(--k-text-3xl, 1.875rem); }
+.k-money--lg .k-money__unit, .k-money--xl .k-money__unit { font-size: var(--k-text-sm); }
+.k-money[data-tone="positive"] .k-money__amount { color: var(--k-text-success); }
+.k-money[data-tone="negative"] .k-money__amount { color: var(--k-text-error); }
+
+/* کارت بانکی — نسبت استاندارد ۸۵٫۶ × ۵۴ میلی‌متر
+ * متغیرها: --k-bankcard-color  --k-bankcard-width */
+.k-bankcard {
+  --_c: var(--k-bankcard-color, var(--k-firoozeh-700));
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  box-sizing: border-box;
+  inline-size: var(--k-bankcard-width, 21rem);
+  max-inline-size: 100%;
+  aspect-ratio: 85.6 / 54;
+  margin: 0;
+  padding: 1.25rem 1.4rem;
+  overflow: hidden;
+  border-radius: calc(var(--k-radius-xl) * 1.1);
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgb(255 255 255 / 0.22), transparent 55%),
+    linear-gradient(135deg, color-mix(in srgb, var(--_c) 78%, #fff 22%), var(--_c) 45%, color-mix(in srgb, var(--_c) 70%, #000 30%));
+  color: #fff;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 0.25) inset, 0 18px 36px -14px color-mix(in srgb, var(--_c) 70%, #000), var(--k-shadow-md);
+  font-family: var(--k-font-sans);
+  container-type: inline-size;
+}
+/* نقش کاشی‌کاری در پس‌زمینه */
+.k-bankcard::before {
+  content: "";
+  position: absolute;
+  inset-block: -20%;
+  inset-inline-start: 38%;
+  inline-size: 90%;
+  z-index: -1;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='none' stroke='white' stroke-width='.6' d='M16 1 11.61 5.39H5.39v6.22L1 16l4.39 4.39v6.22h6.22L16 31l4.39-4.39h6.22v-6.22L31 16l-4.39-4.39V5.39h-6.22Z'/%3E%3C/svg%3E") center / 7rem repeat;
+  opacity: 0.12;
+  mask-image: radial-gradient(closest-side, #000, transparent);
+}
+.k-bankcard__top { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-2); }
+.k-bankcard__bank { display: inline-flex; align-items: center; gap: var(--k-space-2); font-size: max(0.75rem, 4.2cqi); font-weight: var(--k-weight-semibold); }
+.k-bankcard__logo { inline-size: 1.75rem; block-size: 1.75rem; padding: 2px; border-radius: var(--k-radius-md); background: #fff; }
+.k-bankcard__chip { inline-size: 11.5cqi; fill: #e9c46a; stroke: rgb(120 80 10 / 0.45); stroke-width: 1; }
+.k-bankcard__number { align-self: center; font-size: 6.9cqi; white-space: nowrap; font-weight: var(--k-weight-semibold); letter-spacing: 0.06em; text-align: center; word-spacing: 0.15em; text-shadow: 0 1px 2px rgb(0 0 0 / 0.3); font-variant-numeric: tabular-nums; }
+.k-bankcard__bottom { display: flex; align-items: end; justify-content: space-between; gap: var(--k-space-3); min-block-size: 1.5rem; font-size: max(0.75rem, 4.2cqi); }
+.k-bankcard__holder { font-weight: var(--k-weight-medium); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.k-bankcard__exp { display: inline-grid; justify-items: end; line-height: 1.3; margin-inline-start: auto; }
+.k-bankcard__exp small { font-size: 0.7rem; opacity: 0.75; }
+
+/* کاشی تاریخ */
+.k-datetile {
+  --_s: 1;
+  display: inline-grid;
+  justify-items: center;
+  inline-size: calc(8rem * var(--_s));
+  overflow: hidden;
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-xl);
+  background: var(--k-bg-elevated);
+  box-shadow: var(--k-shadow-sm), var(--k-highlight, none);
+  text-align: center;
+  line-height: 1.4;
+}
+.k-datetile--sm { --_s: 0.75; font-size: var(--k-text-sm); }
+.k-datetile--lg { --_s: 1.35; }
+.k-datetile__head { justify-self: stretch; padding: calc(0.35rem * var(--_s)) 0.5rem; background: var(--k-bg-brand); color: var(--k-text-on-brand); font-size: calc(0.8rem * var(--_s)); font-weight: var(--k-weight-semibold); }
+.k-datetile__day { margin-block-start: calc(0.25rem * var(--_s)); font-size: calc(2.75rem * var(--_s)); font-weight: var(--k-weight-bold, 700); line-height: 1.15; color: var(--k-text-primary); }
+.k-datetile__weekday { color: var(--k-text-secondary); font-size: calc(0.85rem * var(--_s)); font-weight: var(--k-weight-medium); }
+.k-datetile__occasion { margin-block-start: 0.15rem; padding-inline: 0.5rem; color: var(--k-text-error); font-size: calc(0.72rem * var(--_s)); font-weight: var(--k-weight-semibold); }
+.k-datetile__greg { justify-self: stretch; margin-block-start: calc(0.45rem * var(--_s)); padding: calc(0.3rem * var(--_s)) 0.5rem; border-block-start: 1px dashed var(--k-border-secondary); color: var(--k-text-tertiary); font-size: calc(0.72rem * var(--_s)); }
+.k-datetile[data-holiday] .k-datetile__head { background: var(--k-bg-error); color: #fff; }
+.k-datetile[data-holiday] .k-datetile__day { color: var(--k-text-error); }
+
+/* رسید پرداخت */
+.k-receipt {
+  --_tone: var(--k-text-success);
+  --_tone-bg: var(--k-bg-success-subtle);
+  position: relative;
+  display: grid;
+  inline-size: 100%;
+  max-inline-size: 26rem;
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-2xl);
+  background: var(--k-bg-elevated);
+  box-shadow: var(--k-shadow-lg);
+}
+.k-receipt[data-status="failed"] { --_tone: var(--k-text-error); --_tone-bg: var(--k-bg-error-subtle); }
+.k-receipt[data-status="pending"] { --_tone: var(--k-text-warning); --_tone-bg: var(--k-bg-warning-subtle); }
+.k-receipt__head { display: grid; justify-items: center; gap: var(--k-space-1); padding: var(--k-space-6) var(--k-space-5) var(--k-space-5); text-align: center; }
+.k-receipt__icon { display: grid; place-items: center; inline-size: 3.5rem; block-size: 3.5rem; margin-block-end: var(--k-space-2); border-radius: 50%; background: var(--_tone-bg); color: var(--_tone); box-shadow: 0 0 0 0.5rem color-mix(in srgb, var(--_tone-bg) 50%, transparent); }
+.k-receipt__icon svg { inline-size: 1.75rem; block-size: 1.75rem; }
+.k-receipt__title { margin: 0; font-size: var(--k-text-lg); font-weight: var(--k-weight-semibold); color: var(--_tone); }
+.k-receipt__desc { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+.k-receipt__amount { margin-block-start: var(--k-space-3); }
+.k-receipt__words { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-xs, 0.75rem); }
+/* لبهٔ سوراخ‌دار بین بالا و جزئیات */
+.k-receipt__rows {
+  position: relative;
+  display: grid;
+  gap: var(--k-space-3);
+  margin: 0;
+  padding: var(--k-space-5);
+  border-block-start: 2px dashed var(--k-border-secondary);
+}
+.k-receipt__rows::before, .k-receipt__rows::after {
+  content: "";
+  position: absolute;
+  inset-block-start: -0.75rem;
+  inline-size: 1.4rem;
+  block-size: 1.4rem;
+  border: 1px solid var(--k-border-secondary);
+  border-radius: 50%;
+  background: var(--k-bg-primary);
+}
+.k-receipt__rows::before { inset-inline-start: -0.75rem; clip-path: inset(0 0 0 50%); }
+.k-receipt__rows::after { inset-inline-end: -0.75rem; clip-path: inset(0 50% 0 0); }
+.k-receipt__row { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-3); min-block-size: 1.75rem; font-size: var(--k-text-sm); }
+.k-receipt__row dt { color: var(--k-text-tertiary); }
+.k-receipt__row dd { margin: 0; color: var(--k-text-primary); font-weight: var(--k-weight-medium); text-align: end; font-variant-numeric: tabular-nums; }
+.k-receipt__code, .k-receipt__card { display: inline-flex; align-items: center; gap: var(--k-space-1_5); }
+.k-receipt__card img { border-radius: var(--k-radius-sm); background: #fff; padding: 1px; }
+.k-receipt__actions { display: flex; gap: var(--k-space-2); padding: 0 var(--k-space-5) var(--k-space-5); }
+.k-receipt__actions > * { flex: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .k-receipt__icon { animation: k-receipt-pop 0.5s var(--k-ease-standard) both; }
+  @keyframes k-receipt-pop { from { scale: 0.6; opacity: 0; } }
+}

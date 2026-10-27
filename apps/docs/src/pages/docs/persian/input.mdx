@@ -1,0 +1,46 @@
+---
+layout: ../../../layouts/Docs.astro
+title: فیلد فارسی
+description: یک کامپوننت برای همهٔ داده‌های فارسی؛ کد ملی، شبا، کارت، مبلغ، کد پستی، موبایل و متن با اصلاح زبان صفحه‌کلید.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { PersianInputDemo } from "../../../components/demos";
+
+```tsx
+import { PersianInput } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<PersianInput kind="iban" name="iban" />
+<PersianInput kind="price" min={10000} />
+<PersianInput kind="postal" label="کد پستی محل کار" />
+<PersianInput kind="text" label="جستجو" />   {/* با پیشنهاد «sghl» ← «سلام» */}`}>
+  <PersianInputDemo client:load />
+</Demo>
+
+به جای به خاطر سپردن نام نُه کامپوننت، یک فیلد با `kind` بسازید. هر نوع برچسب، قالب، اعتبارسنجی و پیام خطای فارسی خودش را دارد. ویژگی‌های دیگر همان کامپوننت تخصصی است و TypeScript بر اساس `kind` آن‌ها را پیشنهاد می‌دهد. مثلاً `showBank` فقط برای `card` و `iban` مجاز است.
+
+| kind | داده | کامپوننت تخصصی |
+|---|---|---|
+| `text` | متن با پیشنهاد اصلاح زبان صفحه‌کلید | [KeyboardFixInput](/docs/persian/keyboard-fix/) |
+| `national-id` | کد ملی | [NationalIdInput](/docs/persian/national-id/) |
+| `legal-id` | شناسهٔ ملی شرکت | [LegalIdInput](/docs/persian/legal-id/) |
+| `mobile` | موبایل با اپراتور | [MobileInput](/docs/persian/mobile/) |
+| `landline` | تلفن ثابت با استان | [LandlineInput](/docs/persian/landline/) |
+| `card` | شمارهٔ کارت با بانک | [CardNumberInput](/docs/persian/card-number/) |
+| `iban` | شبا با بانک | [IbanInput](/docs/persian/iban/) |
+| `price` | مبلغ با حروف | [PriceInput](/docs/persian/price/) |
+| `postal` | کد پستی | [PostalCodeInput](/docs/persian/postal-code/) |
+
+اگر برچسب ندهید، برچسب پیش‌فرض همان نوع («شمارهٔ شبا»، «کد پستی» و…) گذاشته می‌شود. با `aria-label` برچسب دیده نمی‌شود. فهرست برچسب‌ها در `PERSIAN_INPUT_LABELS` است.
+
+## حجم
+
+`PersianInput` همهٔ نُه فیلد را import می‌کند. اگر در صفحه فقط یکی را لازم دارید، کامپوننت تخصصی را مستقیم import کنید تا حجم کمتری بارگذاری شود.
+
+<Props rows={[
+  ["kind", '"text" | "national-id" | "legal-id" | "mobile" | "landline" | "card" | "iban" | "price" | "postal"', "", "نوع داده"],
+  ["…", "", "", "ویژگی‌های کامپوننت تخصصی همان نوع"],
+]} />

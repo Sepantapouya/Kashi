@@ -1,0 +1,42 @@
+---
+layout: ../../../layouts/Docs.astro
+title: رسید پرداخت
+description: صفحهٔ نتیجهٔ پرداخت با وضعیت، مبلغ به حروف، کد پیگیری قابل کپی و کارت پوشانده.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { ReceiptDemo } from "../../../components/demos";
+
+```tsx
+import { PaymentReceipt } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<PaymentReceipt status="success" amount={1250000} merchant="فروشگاه کاشی"
+  trackingCode="482913" referenceId="140508270123"
+  cardNumber="6104337712345678" date={paidAt}>
+  <Button variant="primary">بازگشت به فروشگاه</Button>
+</PaymentReceipt>`}>
+  <ReceiptDemo client:load />
+</Demo>
+
+صفحه‌ای که کاربر پس از بازگشت از درگاه بانکی می‌بیند. سه وضعیت دارد: `success`، `pending` (بانک هنوز تأیید نکرده) و `failed`. برای پرداخت ناموفق، در `description` توضیح دهید که مبلغ کسرشده کی برمی‌گردد. کارت خودکار پوشانده می‌شود و تاریخ شمسی است. ردیف‌های دیگر را با `rows` اضافه کنید.
+
+<Props rows={[
+  ["status", '"success" | "pending" | "failed"', "", ""],
+  ["amount", "number", "", ""],
+  ["unit", '"toman" | "rial"', '"toman"', ""],
+  ["title / description", "ReactNode", "", "پیش‌فرض بر اساس وضعیت"],
+  ["merchant", "ReactNode", "", "پذیرنده"],
+  ["trackingCode", "string", "", "با دکمهٔ کپی"],
+  ["referenceId", "string", "", ""],
+  ["cardNumber", "string", "", "پوشانده با لوگوی بانک"],
+  ["date", "Date", "", ""],
+  ["rows", "[ReactNode, ReactNode][]", "", "ردیف‌های دیگر"],
+  ["children", "ReactNode", "", "دکمه‌ها"],
+]} />
+
+## دسترس‌پذیری
+
+رسید یک `section` است که عنوانش نام آن است. وضعیت با آیکون، رنگ و متن عنوان بیان می‌شود، نه فقط با رنگ. دکمهٔ کپی کد پیگیری پس از کپی «کپی شد» را اعلام می‌کند.
