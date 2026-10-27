@@ -283,6 +283,29 @@ const stacks = ["React", "HTML", "Vue", "Svelte", "Angular", "Astro"];
       </div>
     </section>
 
+    <!-- ───── حمایت ───── -->
+    <section class="section" aria-labelledby="support-title">
+      <div class="support" data-reveal data-spot>
+        <span class="support__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-9.2-9.4C1.6 7.2 3.8 4 7.2 4c2 0 3.5 1.1 4.8 2.8C13.3 5.1 14.8 4 16.8 4c3.4 0 5.6 3.2 4.4 6.6C19.5 15.4 12 20 12 20Z" /></svg>
+        </span>
+        <div class="support__body">
+          <p class="eyebrow">حمایت از کاشی</p>
+          <h2 id="support-title">کاشی رایگان است، اما ساختنش هزینه دارد</h2>
+          <p>پشت کاشی ماه‌ها طراحی، کدنویسی، تست دسترس‌پذیری و نگه‌داری مداوم است که با هزینهٔ شخصی انجام شده. اگر کاشی به کار شما یا تیمتان آمده، می‌توانید با دونیت (حمایت مالی) به ادامه و رشد آن کمک کنید.</p>
+          <p class="support__how">برای دونیت، در تلگرام به <bdi dir="ltr">@{author.telegram.handle}</bdi> پیام بدهید.</p>
+        </div>
+        <div class="support__actions">
+          <a class="k-btn k-btn--primary k-btn--lg" href={author.telegram.href} target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.4 3.6 2.9 10.7c-1.3.5-1.3 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.1.9.8.9.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8L23 5c.3-1.3-.5-1.9-1.6-1.4ZM8.7 13.4l9.5-6c.5-.3.9-.1.5.2l-8.1 7.3-.3 3.4-1.6-4.9Z" /></svg>
+            پیام در تلگرام
+            <span class="k-sr-only"> (در پنجرهٔ جدید)</span>
+          </a>
+          <a class="k-btn k-btn--secondary k-btn--lg" href={author.repo} target="_blank" rel="noopener">ستاره در GitHub<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+        </div>
+      </div>
+    </section>
+
     <!-- ───── دعوت به عمل ───── -->
     <section class="cta" aria-labelledby="cta-title">
       <div class="cta__glow" aria-hidden="true"></div>
@@ -541,6 +564,35 @@ const stacks = ["React", "HTML", "Vue", "Svelte", "Angular", "Astro"];
   .author__role { margin: var(--k-space-1) 0 0; color: var(--k-text-brand); font-weight: var(--k-weight-medium); }
   .author__bio { max-inline-size: 42rem; margin-block: var(--k-space-4) 0; color: var(--k-text-tertiary); line-height: 1.95; }
   .author__links { display: flex; flex-wrap: wrap; gap: var(--k-space-2); margin: var(--k-space-6) 0 0; padding: 0; list-style: none; }
+
+  /* حمایت */
+  .support {
+    position: relative; isolation: isolate;
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: clamp(1.25rem, 4vw, 2.5rem); align-items: center;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border: 1px solid color-mix(in srgb, var(--k-border-brand) 45%, var(--k-border-secondary));
+    border-radius: var(--k-radius-2xl);
+    background: radial-gradient(40rem 18rem at 100% 0%, color-mix(in srgb, var(--k-brand-500) 14%, transparent), transparent 70%), var(--k-bg-secondary);
+    box-shadow: var(--k-shadow-xs), var(--k-highlight);
+    overflow: clip;
+  }
+  .support__icon { display: grid; place-items: center; inline-size: 3.5rem; block-size: 3.5rem; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); color: var(--k-text-error); box-shadow: var(--k-shadow-sm), var(--k-highlight); }
+  .support__icon svg { inline-size: 1.75rem; block-size: 1.75rem; }
+  @media (prefers-reduced-motion: no-preference) {
+    .support__icon svg { animation: beat 2.4s ease-in-out infinite; }
+  }
+  @keyframes beat { 0%, 70%, 100% { scale: 1; } 80% { scale: 1.12; } 90% { scale: 0.98; } }
+  .support h2 { margin: var(--k-space-2) 0 var(--k-space-3); font-size: clamp(var(--k-text-xl), 3vw, var(--k-text-3xl)); font-weight: var(--k-weight-bold); line-height: 1.4; }
+  .support__body > p:not(.eyebrow) { margin: 0; color: var(--k-text-tertiary); line-height: 1.95; }
+  .support__how { margin-block-start: var(--k-space-3) !important; color: var(--k-text-secondary) !important; font-weight: var(--k-weight-medium); }
+  .support__how bdi { color: var(--k-text-brand); font-family: var(--k-font-mono); }
+  .support__actions { display: grid; gap: var(--k-space-2); }
+  .support__actions .k-btn svg { inline-size: 1.25rem; block-size: 1.25rem; }
+  @media (max-width: 56rem) {
+    .support { grid-template-columns: auto minmax(0, 1fr); }
+    .support__actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; }
+  }
+  @media (max-width: 36rem) { .support { grid-template-columns: minmax(0, 1fr); } }
 
   /* دعوت به عمل */
   .cta { position: relative; isolation: isolate; margin-block-start: clamp(5rem, 10vw, 8rem); padding: clamp(5rem, 10vw, 8rem) var(--gutter); border-block-start: 1px solid var(--k-border-secondary); text-align: center; overflow: clip; }
