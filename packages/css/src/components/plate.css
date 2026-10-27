@@ -8,7 +8,10 @@
   --_ink: #111;
   display: inline-grid;
   grid-template-columns: calc(var(--_h) * 0.42) 1fr auto 1.35fr auto;
+  /* ارتفاع بخش‌ها دقیقاً هم‌اندازهٔ پلاک؛ وگرنه input بلندتر می‌شود و پایینش بریده و متن بالا می‌رود */
+  grid-template-rows: minmax(0, 1fr);
   align-items: stretch;
+  box-sizing: border-box;
   justify-self: start;
   /* ۵۲۰ ÷ ۱۱۰ */
   inline-size: calc(var(--_h) * 4.73);
@@ -50,9 +53,13 @@
 }
 
 .k-plate__seg {
+  box-sizing: border-box;
   min-inline-size: 0;
   inline-size: 100%;
-  padding: 0;
+  block-size: 100%;
+  min-block-size: 0;
+  /* ارقام فارسی وزیرمتن حدود ۰٫۰۹em بالاتر از وسط جعبهٔ فونت‌اند (اندازه‌گیری با measureText) */
+  padding: 0.18em 0 0;
   border: 0;
   outline: 0;
   background: transparent;
@@ -66,7 +73,11 @@
 .k-plate__seg::placeholder { color: currentColor; opacity: 0.25; }
 .k-plate__letter {
   appearance: none;
-  padding: 0 calc(var(--_h) * 0.08);
+  box-sizing: border-box;
+  block-size: 100%;
+  min-block-size: 0;
+  /* حرف‌ها برعکسِ ارقام کمی پایین‌تر از وسط‌اند */
+  padding: 0 calc(var(--_h) * 0.08) 0.16em;
   border: 0;
   outline: 0;
   background: transparent;
@@ -87,15 +98,17 @@
 /* بخش استان: «ایران» بالا، دو رقم پایین، جدا با خط عمودی */
 .k-plate__region {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto minmax(0, 1fr);
   align-items: center;
   justify-items: center;
+  box-sizing: border-box;
   inline-size: calc(var(--_h) * 0.95);
+  min-block-size: 0;
   padding-block: calc(var(--_h) * 0.06) calc(var(--_h) * 0.04);
   border-inline-start: 2px solid currentColor;
 }
 .k-plate__region-label { font-size: calc(var(--_h) * 0.2); font-weight: var(--k-weight-bold); line-height: 1; }
-.k-plate__region .k-plate__seg { font-size: calc(var(--_h) * 0.48); }
+.k-plate__region .k-plate__seg { font-size: calc(var(--_h) * 0.48); padding-block-start: 0.1em; }
 @media (forced-colors: active) {
   .k-plate { border-color: CanvasText; }
 }
