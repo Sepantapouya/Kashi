@@ -1,0 +1,33 @@
+---
+layout: ../../../layouts/Docs.astro
+title: دکمهٔ کپی
+description: کپی متن در کلیپ‌بورد با بازخورد «کپی شد»، برای کلید API، شماره شبا یا کد تخفیف.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { CopyDemo } from "../../../components/demos";
+
+```tsx
+import { CopyButton } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<Input aria-label="کلید API" readOnly value="sk_live_4f9a…b21c" />
+<CopyButton value={apiKey} />
+<CopyButton value={iban} iconOnly labels={{ copy: "کپی شماره شبا" }} />`}>
+  <CopyDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["value", "string", "", "متنی که کپی می‌شود"],
+  ["onCopy", "(value: string) => void", "", "پس از کپی موفق"],
+  ["iconOnly", "boolean", "false", "فقط آیکون؛ نام از labels.copy"],
+  ["timeout", "number", "2000", "مدت نمایش «کپی شد» به میلی‌ثانیه"],
+  ["labels", "{ copy?, copied?, failed? }", "«کپی»، «کپی شد»، «کپی نشد»", ""],
+  ["variant / size", "ButtonProps", '"secondary" / "sm"', "همهٔ props دکمه"],
+]} />
+
+## دسترس‌پذیری
+
+نتیجه («کپی شد» یا «کپی نشد») با `aria-live` اعلام می‌شود، پس کاربر صفحه‌خوان هم بازخورد می‌گیرد. در حالت فقط‌آیکون، نام دکمه هم به «کپی شد» تغییر می‌کند. کلیپ‌بورد فقط در HTTPS یا localhost در دسترس است.

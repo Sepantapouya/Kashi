@@ -1,0 +1,17 @@
+/* امتیاز ستاره‌ای (Rating) — روی رادیوهای بومی؛ نسخهٔ فقط‌خواندنی با role="img" */
+.k-rating { --_s: var(--k-rating-size, 1.5rem); display: inline-flex; align-items: center; gap: 2px; margin: 0; padding: 0; border: 0; }
+.k-rating--sm { --_s: var(--k-rating-size, 1.125rem); }
+.k-rating--lg { --_s: var(--k-rating-size, 2rem); }
+.k-rating__star { position: relative; display: inline-grid; place-items: center; inline-size: var(--_s); block-size: var(--_s); border-radius: var(--k-radius-sm); color: var(--k-border-primary); cursor: pointer; transition: color var(--k-duration-fast), scale var(--k-duration-fast) var(--k-ease-emphasized); }
+.k-rating__star svg { inline-size: 100%; block-size: 100%; }
+.k-rating__star[data-filled] { color: var(--k-rating-color, var(--k-zafaran-400)); }
+.k-rating__star[data-half] svg .k-rating__half { fill: var(--k-rating-color, var(--k-zafaran-400)); }
+.k-rating__star:hover { scale: 1.12; }
+.k-rating__star:has(:focus-visible) { box-shadow: var(--k-ring-brand); }
+.k-rating[data-readonly] .k-rating__star { cursor: default; }
+.k-rating[data-readonly] .k-rating__star:hover { scale: none; }
+.k-rating__value { margin-inline-start: var(--k-space-2); color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+.k-rating:has(:disabled) .k-rating__star { cursor: not-allowed; opacity: 0.6; }
+@media (forced-colors: active) {
+  .k-rating__star[data-filled] { color: Highlight; }
+}

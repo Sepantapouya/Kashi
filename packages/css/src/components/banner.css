@@ -1,0 +1,40 @@
+/* نوار اطلاع‌رسانی بالای صفحه (Banner)
+ * <div class="k-banner k-banner--brand" role="region" aria-label="اطلاعیه">…</div>
+ * رنگ‌ها: neutral (پیش‌فرض) | brand | warning | error
+ */
+.k-banner {
+  --_accent: var(--k-text-tertiary);
+  --_bg: var(--k-bg-secondary);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--k-space-2) var(--k-space-4);
+  padding: var(--k-space-3) var(--k-space-4);
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-banner-radius, var(--k-radius-xl));
+  background: var(--_bg);
+  box-shadow: var(--k-shadow-xs), var(--k-highlight);
+  color: var(--k-text-secondary);
+  font-size: var(--k-text-sm);
+}
+.k-banner--flush { border-inline: 0; border-block-start: 0; border-radius: 0; box-shadow: none; }
+.k-banner--brand { --_accent: var(--k-text-brand); --_bg: var(--k-bg-brand-subtle); }
+.k-banner--warning { --_accent: var(--k-text-warning); --_bg: var(--k-bg-warning-subtle); }
+.k-banner--error { --_accent: var(--k-text-error); --_bg: var(--k-bg-error-subtle); }
+.k-banner__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  inline-size: 2rem;
+  block-size: 2rem;
+  border: 1px solid var(--k-border-primary);
+  border-radius: var(--k-radius-md);
+  background: var(--k-bg-elevated);
+  color: var(--_accent);
+  box-shadow: var(--k-shadow-xs);
+}
+.k-banner__icon svg { inline-size: 1.125rem; block-size: 1.125rem; }
+.k-banner__text { flex: 1 1 16rem; min-inline-size: 0; margin: 0; }
+.k-banner__text strong { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+.k-banner__actions { display: flex; align-items: center; gap: var(--k-space-2); }
+.k-banner__close { margin-inline-start: auto; }

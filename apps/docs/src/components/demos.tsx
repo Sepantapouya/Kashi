@@ -6,6 +6,8 @@ import { formatJalali, formatNumber, toISODate, toJalali } from "@kashi-ui/persi
 import { ArrowIcon, MailIcon, PlusIcon, SearchIcon, TrashIcon, UserIcon } from "./icons";
 import { Combobox, CommandPalette, DateRangePicker, FileUpload, NumberInput, Popover, SideNav, Slider, StatCard, StatGrid, TagInput, Timeline, type CommandItem, type DateRange } from "@kashi-ui/react";
 import { ChartIcon, CheckIcon, FilterIcon, HomeIcon, InboxIcon, SettingsIcon, UsersIcon, WalletIcon } from "./icons";
+import { Banner, CopyButton, PlateInput, PostalCodeInput, Rating, SegmentedControl, TimeInput } from "@kashi-ui/react";
+import { formatPlate, type Plate } from "@kashi-ui/persian";
 
 export const ButtonIcons = () => (
   <>
@@ -789,6 +791,97 @@ export const SideNavDemo = () => {
           footer={<Avatar name="سپنتا پویا" size="sm" />}
         />
       </div>
+    </div>
+  );
+};
+
+// ───── نسخهٔ ۰٫۱۰ ─────
+
+const ListIcon = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" aria-hidden="true"><path d="M7 5h10M7 10h10M7 15h10M3 5h.01M3 10h.01M3 15h.01" /></svg>;
+const GridIcon = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="6" height="6" rx="1.5" /><rect x="11" y="3" width="6" height="6" rx="1.5" /><rect x="3" y="11" width="6" height="6" rx="1.5" /><rect x="11" y="11" width="6" height="6" rx="1.5" /></svg>;
+
+export const SegmentedDemo = () => {
+  const [view, setView] = useState("list");
+  const [range, setRange] = useState("30");
+  return (
+    <div className="demo-stack" style={{ justifyItems: "start" }}>
+      <SegmentedControl aria-label="نمایش" value={view} onChange={setView} options={[
+        { value: "list", label: "فهرست", icon: <ListIcon /> },
+        { value: "grid", label: "کارت", icon: <GridIcon /> },
+      ]} />
+      <SegmentedControl aria-label="بازهٔ زمانی" size="sm" value={range} onChange={setRange} options={[
+        { value: "1", label: "امروز" }, { value: "7", label: "۷ روز" }, { value: "30", label: "۳۰ روز" }, { value: "365", label: "یک سال" },
+      ]} />
+      <Out>{`نمایش: ${view === "list" ? "فهرست" : "کارت"} — بازه: ${range.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d])} روز`}</Out>
+    </div>
+  );
+};
+
+export const CopyDemo = () => (
+  <div className="demo-row">
+    <Input aria-label="کلید API" readOnly value="sk_live_4f9a…b21c" fieldClassName="demo-grow" />
+    <CopyButton value="sk_live_4f9a2c7e0b21c" />
+    <CopyButton value="IR820540102680020817909002" iconOnly labels={{ copy: "کپی شماره شبا" }} />
+  </div>
+);
+
+export const BannerDemo = () => {
+  const [open, setOpen] = useState(true);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "100%" }}>
+      {open ? (
+        <Banner tone="brand" icon={<InfoIcon />} onClose={() => setOpen(false)} actions={<Button size="sm" variant="primary">مشاهدهٔ تغییرات</Button>}>
+          <strong>نسخهٔ ۰٫۱۰ منتشر شد.</strong> هفت کامپوننت تازه، از جمله پلاک خودرو و کد پستی.
+        </Banner>
+      ) : (
+        <Button size="sm" onClick={() => setOpen(true)}>نمایش دوبارهٔ اطلاعیه</Button>
+      )}
+      <Banner tone="warning" icon={<WarnIcon />} actions={<Button size="sm">تمدید اشتراک</Button>}>
+        <strong>اشتراک شما ۳ روز دیگر تمام می‌شود.</strong> برای جلوگیری از قطع سرویس آن را تمدید کنید.
+      </Banner>
+    </div>
+  );
+};
+const InfoIcon = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5" /><path d="M10 9v5M10 6.5h.01" /></svg>;
+const WarnIcon = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10 3 2.5 16.5h15Z" /><path d="M10 8v4M10 14.5h.01" /></svg>;
+
+export const RatingDemo = () => {
+  const [v, setV] = useState(0);
+  return (
+    <div className="demo-stack">
+      <Rating label="امتیاز شما به این محصول" value={v} onChange={setV} showValue />
+      <div className="demo-row"><Rating value={4.5} readOnly size="sm" showValue /><span style={{ color: "var(--k-text-tertiary)", fontSize: "var(--k-text-sm)" }}>از ۱٬۲۸۴ نظر</span></div>
+      <Out>{v ? `امتیاز ثبت‌شده: ${v.toLocaleString("fa")} از ۵` : "هنوز امتیازی نداده‌اید."}</Out>
+    </div>
+  );
+};
+
+export const TimeDemo = () => {
+  const [t, setT] = useState<string | null>("09:30");
+  return (
+    <div className="demo-stack">
+      <TimeInput label="ساعت شروع جلسه" hint="بین ۰۸:۰۰ تا ۲۰:۰۰؛ ↑↓ هر ۱۵ دقیقه" min="08:00" max="20:00" value={t} onChange={setT} name="start" />
+      <Out>{t ? `مقدار ارسالی فرم: ${t}` : "ساعتی وارد نشده."}</Out>
+    </div>
+  );
+};
+
+export const PostalDemo = () => {
+  const [s, setS] = useState({ v: "", ok: false });
+  return (
+    <div className="demo-stack">
+      <PostalCodeInput label="کد پستی" hint="۱۰ رقم، بدون خط تیره هم می‌شود" onValueChange={(v, ok) => setS({ v, ok })} name="postal" />
+      <Out>{s.v.length === 10 ? (s.ok ? `معتبر: ${s.v}` : "نامعتبر") : "مثلاً ۱۱۹۳۶۵۳۴۷۱ را امتحان کنید."}</Out>
+    </div>
+  );
+};
+
+export const PlateDemo = () => {
+  const [p, setP] = useState<{ plate: Plate; ok: boolean } | null>(null);
+  return (
+    <div className="demo-stack">
+      <PlateInput label="پلاک خودرو" hint="با پر شدن هر بخش، فوکوس به بخش بعد می‌رود." onChange={(plate, ok) => setP({ plate, ok })} name="car" />
+      <Out>{p?.ok ? `پلاک: ${formatPlate(p.plate)}` : "پلاک را کامل وارد کنید."}</Out>
     </div>
   );
 };

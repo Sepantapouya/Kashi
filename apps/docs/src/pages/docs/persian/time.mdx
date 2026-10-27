@@ -1,0 +1,36 @@
+---
+layout: ../../../layouts/Docs.astro
+title: ساعت
+description: ورود ساعت ۲۴ساعته با ارقام فارسی، تایپ سریع و گام‌های ↑↓.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { TimeDemo } from "../../../components/demos";
+
+```tsx
+import { TimeInput } from "@kashi-ui/react";
+```
+
+## نمونه
+
+کاربر می‌تواند «۹۳۰»، «۹:۳۰» یا «9.30» بنویسد؛ پس از خروج از فیلد به «۰۹:۳۰» تبدیل می‌شود. <kbd>↑</kbd>/<kbd>↓</kbd> به گام بعدی یا قبلی می‌پرد.
+
+<Demo html={false} code={`<TimeInput label="ساعت شروع جلسه" min="08:00" max="20:00" value={t} onChange={setT} name="start" />`}>
+  <TimeDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["value / defaultValue", '"HH:MM" | null', "null", "با ارقام لاتین"],
+  ["onChange", "(value: string | null) => void", "", ""],
+  ["step", "number", "15", "گام ↑↓ به دقیقه"],
+  ["min / max", '"HH:MM"', "", "محدودهٔ مجاز"],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "", "پیام ساعت نامعتبر"],
+  ["rangeMessage", "(min, max) => ReactNode", "«ساعت باید بین … و … باشد.»", "پیام ساعت خارج از محدوده"],
+]} />
+
+ابزارهای `parseTime` و `formatTime` در `@kashi-ui/persian` هم در دسترس‌اند.
+
+## دسترس‌پذیری
+
+یک فیلد متنی ساده با برچسب و راهنما؛ برخلاف `<input type="time">`، در همهٔ مرورگرها یکسان و با ارقام فارسی کار می‌کند. خطا پس از خروج از فیلد نمایش داده و به آن وصل می‌شود.

@@ -156,3 +156,31 @@ test("زمان نسبی", () => {
   assert.equal(at(-800 * D), "۲ سال پیش");
   assert.equal(P.formatRelative(new Date(now.getTime() - 5 * M), { now, digits: "latin" }), "5 دقیقه پیش");
 });
+
+test("کد پستی: اعتبارسنجی و قالب", () => {
+  assert.equal(P.isValidPostalCode("1193653471"), true);
+  assert.equal(P.isValidPostalCode("۱۱۹۳۶-۵۳۴۷۱"), true);
+  assert.equal(P.isValidPostalCode("0193653471"), false); // شروع با ۰
+  assert.equal(P.isValidPostalCode("1111153471"), false); // تکرار
+  assert.equal(P.isValidPostalCode("119365347"), false);
+  assert.equal(P.formatPostalCode("1193653471"), "11936-53471");
+});
+
+test("پلاک خودرو: اعتبارسنجی و متن", () => {
+  const p = { first: "12", letter: "ب", middle: "345", region: "67" };
+  assert.equal(P.isValidPlate(p), true);
+  assert.equal(P.isValidPlate({ ...p, letter: "x" }), false);
+  assert.equal(P.isValidPlate({ ...p, middle: "045" }), false);
+  assert.equal(P.formatPlate(p), "۱۲ ب ۳۴۵ ایران ۶۷");
+  assert.equal(P.plateType("ب"), "private");
+  assert.equal(P.plateType("ت"), "taxi");
+  assert.equal(P.plateType("الف"), "government");
+});
+
+test("زمان: خواندن و قالب", () => {
+  assert.deepEqual(P.parseTime("۹:۵"), { hours: 9, minutes: 5 });
+  assert.deepEqual(P.parseTime("2145"), { hours: 21, minutes: 45 });
+  assert.deepEqual(P.parseTime("8"), { hours: 8, minutes: 0 });
+  assert.equal(P.parseTime("25:00"), null);
+  assert.equal(P.formatTime({ hours: 9, minutes: 5 }), "09:05");
+});

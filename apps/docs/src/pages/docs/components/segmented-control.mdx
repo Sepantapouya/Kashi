@@ -1,0 +1,42 @@
+---
+layout: ../../../layouts/Docs.astro
+title: کنترل تکه‌ای
+description: انتخاب یکی از چند گزینهٔ کوتاه کنار هم، مثل حالت نمایش یا بازهٔ زمانی گزارش.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { SegmentedDemo } from "../../../components/demos";
+
+```tsx
+import { SegmentedControl } from "@kashi-ui/react";
+```
+
+برای دو تا پنج گزینهٔ کوتاه که نتیجه‌شان بلافاصله دیده می‌شود. برای گزینه‌های بیشتر یا فرم‌ها از `RadioGroup` یا `Select` استفاده کنید؛ برای جابه‌جایی بین محتواهای مختلف از `Tabs`.
+
+## نمونه
+
+<Demo html={false} code={`<SegmentedControl aria-label="نمایش" value={view} onChange={setView} options={[
+  { value: "list", label: "فهرست", icon: <ListIcon /> },
+  { value: "grid", label: "کارت", icon: <GridIcon /> },
+]} />
+
+<SegmentedControl aria-label="بازهٔ زمانی" size="sm" defaultValue="30" options={[
+  { value: "1", label: "امروز" }, { value: "7", label: "۷ روز" },
+  { value: "30", label: "۳۰ روز" }, { value: "365", label: "یک سال" },
+]} />`}>
+  <SegmentedDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["options", "{ value, label, icon?, disabled?, aria-label? }[]", "", "گزینه‌ها"],
+  ["value / defaultValue", "string", "اولین گزینهٔ فعال", ""],
+  ["onChange", "(value: string) => void", "", ""],
+  ["aria-label / aria-labelledby", "string", "", "نام گروه (الزامی)"],
+  ["size", '"sm" | "md"', '"md"', "هم‌قد دکمه‌ها: ۳۶ و ۴۰ پیکسل"],
+  ["block", "boolean", "false", "تمام‌عرض با بخش‌های هم‌اندازه"],
+  ["name", "string", "خودکار", "نام رادیوها برای ارسال فرم"],
+]} />
+
+## دسترس‌پذیری
+
+روی رادیوهای بومی ساخته شده: <kbd>Tab</kbd> وارد گروه می‌شود و <kbd>←</kbd>/<kbd>→</kbd> گزینه را عوض می‌کند. گروه `role="radiogroup"` با نام دارد و گزینهٔ انتخاب‌شده با سطح برجسته و سایه، نه فقط رنگ، مشخص است. اگر گزینه فقط آیکون دارد، `aria-label` بدهید.

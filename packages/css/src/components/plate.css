@@ -1,0 +1,101 @@
+/* پلاک خودروی ایران — نسبت واقعی ۵۲۰×۱۱۰ میلی‌متر و رنگ بر اساس نوع پلاک
+ * ترتیب فیزیکی چپ‌به‌راست: نوار آبی (پرچم و I.R. IRAN) | دو رقم | حرف | سه رقم | «ایران» و کد استان
+ * رنگ با data-type: private سفید، taxi/public/agricultural زرد، government قرمز، police سبز، army قهوه‌ای روشن، defense آبی روشن
+ */
+.k-plate {
+  --_h: var(--k-plate-height, 3.5rem);
+  --_bg: #fff;
+  --_ink: #111;
+  display: inline-grid;
+  grid-template-columns: calc(var(--_h) * 0.42) 1fr auto 1.35fr auto;
+  align-items: stretch;
+  justify-self: start;
+  /* ۵۲۰ ÷ ۱۱۰ */
+  inline-size: calc(var(--_h) * 4.73);
+  max-inline-size: 100%;
+  block-size: var(--_h);
+  direction: ltr;
+  border: 2px solid #111;
+  border-radius: calc(var(--_h) * 0.12);
+  background: var(--_bg);
+  color: var(--_ink);
+  box-shadow: var(--k-shadow-sm);
+  overflow: hidden;
+  transition: box-shadow var(--k-duration-fast);
+}
+.k-plate[data-type="taxi"], .k-plate[data-type="public"], .k-plate[data-type="agricultural"] { --_bg: #f7c600; }
+.k-plate[data-type="government"] { --_bg: #c8102e; --_ink: #fff; }
+.k-plate[data-type="police"] { --_bg: #0b5d3b; --_ink: #fff; }
+.k-plate[data-type="army"] { --_bg: #c9a46a; }
+.k-plate[data-type="defense"] { --_bg: #5aa7dc; --_ink: #fff; }
+.k-plate:focus-within { box-shadow: var(--k-shadow-sm), var(--k-ring-brand); }
+.k-plate[data-invalid] { box-shadow: var(--k-shadow-sm), var(--k-ring-error); }
+
+.k-plate__flag {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  justify-items: center;
+  align-content: start;
+  gap: calc(var(--_h) * 0.1);
+  padding-block: calc(var(--_h) * 0.1);
+  background: #1f4fa8;
+  color: #fff;
+  font: 700 calc(var(--_h) * 0.13)/1.15 system-ui, sans-serif;
+  text-align: center;
+}
+.k-plate__flag-colors {
+  inline-size: 70%;
+  aspect-ratio: 7 / 4;
+  background: linear-gradient(#239f40 0 33.3%, #fff 33.3% 66.6%, #da0000 66.6%);
+}
+
+.k-plate__seg {
+  min-inline-size: 0;
+  inline-size: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: calc(var(--_h) * 0.62);
+  font-weight: var(--k-weight-bold);
+  line-height: 1;
+  text-align: center;
+}
+.k-plate__seg::placeholder { color: currentColor; opacity: 0.25; }
+.k-plate__letter {
+  appearance: none;
+  padding: 0 calc(var(--_h) * 0.08);
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: calc(var(--_h) * 0.5);
+  font-weight: var(--k-weight-bold);
+  text-align: center;
+  text-align-last: center;
+  cursor: pointer;
+}
+.k-plate__letter option { color: #111; background: #fff; }
+.k-plate__seg:focus-visible, .k-plate__letter:focus-visible { background: rgb(0 0 0 / 0.07); }
+.k-plate[data-type="government"] :is(.k-plate__seg, .k-plate__letter):focus-visible,
+.k-plate[data-type="police"] :is(.k-plate__seg, .k-plate__letter):focus-visible,
+.k-plate[data-type="defense"] :is(.k-plate__seg, .k-plate__letter):focus-visible { background: rgb(255 255 255 / 0.15); }
+
+/* بخش استان: «ایران» بالا، دو رقم پایین، جدا با خط عمودی */
+.k-plate__region {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  align-items: center;
+  justify-items: center;
+  inline-size: calc(var(--_h) * 0.95);
+  padding-block: calc(var(--_h) * 0.06) calc(var(--_h) * 0.04);
+  border-inline-start: 2px solid currentColor;
+}
+.k-plate__region-label { font-size: calc(var(--_h) * 0.2); font-weight: var(--k-weight-bold); line-height: 1; }
+.k-plate__region .k-plate__seg { font-size: calc(var(--_h) * 0.48); }
+@media (forced-colors: active) {
+  .k-plate { border-color: CanvasText; }
+}

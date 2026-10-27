@@ -100,4 +100,19 @@ getMobileOperator("0935")?.name;          // "ایرانسل"
 isValidCardNumber("4111111111111111");   // true
 getBankByCard("610433");                 // { name: "بانک ملت", slug: "mellat" }
 formatCardNumber("6104331234");          // "6104 3312 34"
+isValidPostalCode("1193653471");         // true
+formatPostalCode("1193653471");          // "11936-53471"
+isValidPlate({ first: "12", letter: "ب", middle: "345", region: "67" }); // true
+formatPlate({ first: "12", letter: "ب", middle: "345", region: "67" });  // "۱۲ ب ۳۴۵ ایران ۶۷"
+```
+
+## ساعت
+
+```ts
+import { parseTime, formatTime } from "@kashi-ui/persian";
+
+parseTime("۹:۳۰");                       // { hours: 9, minutes: 30 }
+parseTime("2145");                       // { hours: 21, minutes: 45 }
+parseTime("25:00");                      // null
+formatTime({ hours: 9, minutes: 5 });    // "09:05"
 ```

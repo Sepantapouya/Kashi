@@ -1,5 +1,11 @@
 # @kashi-ui/bank-logos
 
+## 0.10.0
+
+### Minor Changes
+
+- هفت کامپوننت تازه: SegmentedControl، CopyButton، Banner و Rating، و سه کامپوننت فارسی: TimeInput (ساعت ۲۴ساعته با ارقام فارسی)، PostalCodeInput (کد پستی با اعتبارسنجی) و PlateInput (پلاک خودروی ایران با نسبت واقعی و رنگ بر اساس نوع پلاک). ابزارهای تازهٔ `@kashi-ui/persian`: isValidPostalCode، formatPostalCode، isValidPlate، formatPlate، PLATE_LETTERS، plateType، parseTime و formatTime.
+
 ## 0.9.1
 
 No changes in this release.

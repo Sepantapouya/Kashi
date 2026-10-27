@@ -1,0 +1,48 @@
+/* کنترل تکه‌ای (Segmented control) — روی رادیوهای بومی
+ * <div class="k-segmented" role="radiogroup" aria-label="نمایش">
+ *   <label class="k-segmented__item"><input type="radio" name="v" class="k-sr-only" checked>فهرست</label>
+ *   …
+ * </div>
+ * اندازه‌ها: k-segmented--sm | k-segmented--block (تمام‌عرض)
+ */
+.k-segmented {
+  --_h: calc(2.5rem * var(--k-density));
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-lg);
+  background: var(--k-bg-secondary);
+}
+.k-segmented--sm { --_h: calc(2.25rem * var(--k-density)); }
+.k-segmented--block { display: flex; }
+.k-segmented--block .k-segmented__item { flex: 1; }
+.k-segmented__item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--k-space-1_5);
+  block-size: calc(var(--_h) - 8px);
+  padding-inline: var(--k-space-3);
+  border-radius: calc(var(--k-radius-lg) - 3px);
+  color: var(--k-text-tertiary);
+  font-size: var(--k-text-sm);
+  font-weight: var(--k-weight-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--k-duration-fast), color var(--k-duration-fast), box-shadow var(--k-duration-fast);
+}
+.k-segmented__item svg { inline-size: 1.125rem; block-size: 1.125rem; }
+.k-segmented__item:hover { color: var(--k-text-primary); }
+.k-segmented__item:has(:checked) {
+  background: var(--k-bg-elevated);
+  color: var(--k-text-primary);
+  box-shadow: var(--k-shadow-sm), inset 0 0 0 1px var(--k-border-secondary), var(--k-highlight);
+}
+.k-segmented__item:has(:focus-visible) { box-shadow: var(--k-ring-brand); }
+.k-segmented__item:has(:disabled) { color: var(--k-text-quaternary); cursor: not-allowed; }
+@media (forced-colors: active) {
+  .k-segmented__item:has(:checked) { outline: 2px solid Highlight; }
+}

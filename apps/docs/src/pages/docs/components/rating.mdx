@@ -1,0 +1,35 @@
+---
+layout: ../../../layouts/Docs.astro
+title: امتیاز ستاره‌ای
+description: دریافت یا نمایش امتیاز ۱ تا ۵، با نیم‌ستاره در حالت نمایش.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { RatingDemo } from "../../../components/demos";
+
+```tsx
+import { Rating } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<Rating label="امتیاز شما به این محصول" value={v} onChange={setV} showValue />
+
+<Rating value={4.5} readOnly size="sm" showValue />`}>
+  <RatingDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["value / defaultValue", "number", "0", "امتیاز؛ در readOnly اعشار هم می‌پذیرد"],
+  ["onChange", "(value: number) => void", "", ""],
+  ["max", "number", "5", "تعداد ستاره‌ها"],
+  ["readOnly", "boolean", "false", "فقط نمایش"],
+  ["showValue", "boolean", "false", "عدد کنار ستاره‌ها"],
+  ["size", '"sm" | "md" | "lg"', '"md"', ""],
+  ["label", "string", "«امتیاز»", "نام گروه"],
+  ["starLabel", "(n, max) => string", "«n از max»", "نام هر ستاره"],
+]} />
+
+## دسترس‌پذیری
+
+حالت قابل‌انتخاب یک `fieldset` با رادیوهای بومی است: <kbd>←</kbd>/<kbd>→</kbd> امتیاز را عوض می‌کند و هر ستاره نام «۳ از ۵» دارد. حالت فقط‌خواندنی یک تصویر با نام کامل است («امتیاز: ۴٫۵ از ۵») تا صفحه‌خوان ستاره‌ها را یکی‌یکی نخواند.

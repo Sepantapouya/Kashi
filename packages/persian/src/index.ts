@@ -16,3 +16,8 @@ export { normalizePersian } from "./text.js";
 export type { NormalizeOptions } from "./text.js";
 export { formatRelative } from "./relative.js";
 export type { RelativeOptions } from "./relative.js";
+export { isValidPostalCode, formatPostalCode } from "./postal.js";
+export { PLATE_LETTERS, isValidPlate, formatPlate, plateType } from "./plate.js";
+export type { Plate, PlateType } from "./plate.js";
+export { parseTime, formatTime } from "./time.js";
+export type { Time } from "./time.js";

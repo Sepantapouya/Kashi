@@ -1,6 +1,6 @@
 {
   "name": "@kashi-ui/css",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "description": "استایل کامپوننت‌های کاشی با CSS خالص — برای هر فریم‌ورکی",
   "main": "./dist/kashi.css",
   "style": "./dist/kashi.css",
@@ -21,7 +21,7 @@
     "build": "node build.mjs"
   },
   "dependencies": {
-    "@kashi-ui/tokens": "^0.9.1"
+    "@kashi-ui/tokens": "^0.10.0"
   },
   "devDependencies": {
     "vazirmatn": "^33.0.3"

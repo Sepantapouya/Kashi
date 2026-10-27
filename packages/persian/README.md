@@ -7,7 +7,7 @@ npm i @kashi-ui/persian
 ```
 
 ```ts
-import { formatJalali, parseJalali, toISODate, isValidNationalId, getBankByCard, toEnDigits } from "@kashi-ui/persian";
+import { formatJalali, parseJalali, toISODate, isValidNationalId, getBankByCard, toEnDigits, isValidPostalCode, formatPlate, parseTime } from "@kashi-ui/persian";
 
 formatJalali(new Date(2024, 7, 2), { style: "full" }); // "جمعه ۱۲ مرداد ۱۴۰۳"
 parseJalali("۱۴۰۳/۵/۱۲");                            // Date
@@ -15,6 +15,9 @@ toISODate(date);                                      // "2024-08-02" (بدون 
 isValidNationalId("۰۰۱۳۵۴۲۴۱۹");                      // true
 getBankByCard("610433")?.name;                        // "بانک ملت"
 toEnDigits("۰۹۱۲");                                   // "0912"
+isValidPostalCode("۱۱۹۳۶-۵۳۴۷۱");                     // true
+formatPlate({ first: "12", letter: "ب", middle: "345", region: "67" }); // "۱۲ ب ۳۴۵ ایران ۶۷"
+parseTime("۹۳۰");                                     // { hours: 9, minutes: 30 }
 ```
 
 تبدیل تاریخ برای همهٔ روزهای سال‌های ۱۳۰۰ تا ۱۵۰۰ با تقویم persian کتابخانهٔ ICU تست شده است.

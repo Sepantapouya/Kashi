@@ -16,9 +16,9 @@
 
 ## کامپوننت‌ها
 
-Button · Input · Textarea · Select · Checkbox · RadioGroup · Switch · Badge · Card · Alert · Avatar · AvatarGroup · Tabs · Dialog · Toast · Tooltip · DropdownMenu · DataTable · Pagination · Breadcrumb · Accordion · Stepper · Progress · Spinner · Skeleton · EmptyState · Divider · Kbd · RelativeTime · Combobox · CommandPalette · TagInput · FileUpload · Slider · NumberInput · Popover · StatCard · Timeline · SideNav
+Button · Input · Textarea · Select · Checkbox · RadioGroup · Switch · Badge · Card · Alert · Avatar · AvatarGroup · Tabs · Dialog · Toast · Tooltip · DropdownMenu · DataTable · Pagination · Breadcrumb · Accordion · Stepper · Progress · Spinner · Skeleton · EmptyState · Divider · Kbd · RelativeTime · Combobox · CommandPalette · TagInput · FileUpload · Slider · NumberInput · Popover · StatCard · Timeline · SideNav · SegmentedControl · CopyButton · Banner · Rating
 
-**فارسی:** DatePicker و Calendar شمسی · DateRangePicker (بازهٔ تاریخ شمسی) · NationalIdInput (کد ملی) · CardNumberInput (شماره کارت با لوگوی بانک) · IbanInput (شبا) · MobileInput (موبایل) · PriceInput (مبلغ به حروف) · OtpInput (کد تأیید) · ابزارهای `@kashi-ui/persian`
+**فارسی:** DatePicker و Calendar شمسی · DateRangePicker (بازهٔ تاریخ شمسی) · TimeInput (ساعت) · PostalCodeInput (کد پستی) · PlateInput (پلاک خودرو) · NationalIdInput (کد ملی) · CardNumberInput (شماره کارت با لوگوی بانک) · IbanInput (شبا) · MobileInput (موبایل) · PriceInput (مبلغ به حروف) · OtpInput (کد تأیید) · ابزارهای `@kashi-ui/persian`
 
 ## نصب
 

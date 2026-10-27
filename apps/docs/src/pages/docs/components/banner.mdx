@@ -1,0 +1,42 @@
+---
+layout: ../../../layouts/Docs.astro
+title: نوار اطلاعیه
+description: پیام سطح صفحه مثل نسخهٔ جدید، پایان اشتراک یا اختلال سرویس، با دکمهٔ عمل و بستن.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { BannerDemo } from "../../../components/demos";
+
+```tsx
+import { Banner } from "@kashi-ui/react";
+```
+
+برای پیامی که به کل صفحه یا حساب مربوط است. پیام مربوط به یک بخش یا فرم را با `Alert` و پیام گذرا را با `Toast` نشان دهید.
+
+## نمونه
+
+<Demo html={false} align="stretch" code={`<Banner tone="brand" icon={<InfoIcon />} onClose={dismiss}
+  actions={<Button size="sm" variant="primary">مشاهدهٔ تغییرات</Button>}>
+  <strong>نسخهٔ ۰٫۱۰ منتشر شد.</strong> هفت کامپوننت تازه…
+</Banner>
+
+<Banner tone="warning" icon={<WarningIcon />} actions={<Button size="sm">تمدید اشتراک</Button>}>
+  <strong>اشتراک شما ۳ روز دیگر تمام می‌شود.</strong> …
+</Banner>`}>
+  <BannerDemo client:load />
+</Demo>
+
+برای چسباندن به بالای صفحه، `flush` را بدهید تا حاشیه و گوشهٔ گرد حذف شود.
+
+<Props rows={[
+  ["tone", '"neutral" | "brand" | "warning" | "error"', '"neutral"', "رنگ"],
+  ["icon", "ReactNode", "", "آیکون شاخص"],
+  ["actions", "ReactNode", "", "دکمه یا لینک‌ها"],
+  ["onClose", "() => void", "", "با آن دکمهٔ بستن نمایش داده می‌شود"],
+  ["flush", "boolean", "false", "بدون حاشیه، برای بالای صفحه"],
+  ["label / closeLabel", "string", "«اطلاعیه» / «بستن اطلاعیه»", "نام ناحیه و دکمه"],
+]} />
+
+## دسترس‌پذیری
+
+ناحیهٔ `role="region"` با نام «اطلاعیه»، تا کاربر صفحه‌خوان بتواند به آن پرش کند. نوار به‌عمد `aria-live` ندارد، چون هنگام بارگذاری صفحه نمایش داده می‌شود؛ برای پیام‌هایی که بعداً ظاهر می‌شوند از `Toast` استفاده کنید.

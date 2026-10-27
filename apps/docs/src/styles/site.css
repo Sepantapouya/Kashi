@@ -427,6 +427,7 @@ code, pre, kbd {
 .demo-stack { display: grid; gap: var(--k-space-4); inline-size: min(100%, 24rem); }
 .demo-stack--center { justify-items: center; inline-size: auto; }
 .demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-3); }
+.demo-row .demo-grow { flex: 1 1 14rem; }
 .demo-out {
   margin: 0;
   padding: var(--k-space-2) var(--k-space-3);
