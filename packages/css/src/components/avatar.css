@@ -20,7 +20,7 @@
   border-radius: var(--k-avatar-radius, var(--k-radius-full));
   background: var(--k-avatar-bg, var(--k-bg-tertiary));
   color: var(--k-avatar-fg, var(--k-text-secondary));
-  font-size: calc(var(--_s) * 0.36);
+  font-size: calc(var(--_s) * 0.34);
   font-weight: var(--k-weight-semibold);
   line-height: 1;
   user-select: none;

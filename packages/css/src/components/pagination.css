@@ -15,7 +15,6 @@
   font: inherit;
   font-size: var(--k-text-sm);
   font-weight: var(--k-weight-medium);
-  font-variant-numeric: tabular-nums;
   text-decoration: none;
   cursor: pointer;
   transition: background-color var(--k-duration-fast), color var(--k-duration-fast);

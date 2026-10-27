@@ -4,7 +4,7 @@
 .k-progress-field { display: grid; gap: var(--k-space-2); }
 .k-progress-field__head { display: flex; justify-content: space-between; gap: var(--k-space-3); font-size: var(--k-text-sm); }
 .k-progress-field__label { color: var(--k-text-secondary); font-weight: var(--k-weight-medium); }
-.k-progress-field__value { color: var(--k-text-tertiary); font-variant-numeric: tabular-nums; }
+.k-progress-field__value { color: var(--k-text-tertiary); }
 
 .k-progress {
   --_h: var(--k-progress-height, 0.5rem);
@@ -55,7 +55,7 @@
 .k-progress-ring circle { fill: none; stroke-width: 4; }
 .k-progress-ring__track { stroke: var(--k-bg-tertiary); }
 .k-progress-ring__bar { stroke: var(--_c); stroke-linecap: round; transition: stroke-dashoffset var(--k-duration-slow) var(--k-ease-standard); }
-.k-progress-ring__value { color: var(--k-text-primary); font-size: calc(var(--_s) * 0.24); font-weight: var(--k-weight-semibold); font-variant-numeric: tabular-nums; }
+.k-progress-ring__value { color: var(--k-text-primary); font-size: calc(var(--_s) * 0.24); font-weight: var(--k-weight-semibold); }
 /* چرخش روی ظرف، نه svg: svg از قبل ۹۰- درجه چرخیده و چرخاندن خودش در پایان هر دور پرش می‌ساخت */
 .k-progress-ring--indeterminate { animation: k-spin 0.9s linear infinite; }
 

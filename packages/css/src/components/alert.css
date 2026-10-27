@@ -20,6 +20,9 @@
   display: flex;
   align-items: flex-start;
   gap: var(--k-space-4);
+  /* همهٔ هشدارهای یک ستون هم‌عرض باشند، نه به اندازهٔ متنشان */
+  inline-size: 100%;
+  box-sizing: border-box;
   padding: var(--k-alert-padding, calc(1rem * var(--k-density)));
   border: 1px solid var(--k-border-primary);
   border-radius: var(--k-alert-radius, var(--k-radius-xl));

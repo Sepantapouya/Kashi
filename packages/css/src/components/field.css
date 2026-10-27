@@ -36,5 +36,5 @@
 .k-field__hint-row { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--k-space-3); }
 .k-field__hints { display: grid; gap: var(--k-space-1); min-inline-size: 0; }
 /* شمارندهٔ نویسه */
-.k-counter { flex-shrink: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); font-variant-numeric: tabular-nums; }
+.k-counter { flex-shrink: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
 .k-counter[data-over] { color: var(--k-text-error); font-weight: var(--k-weight-semibold); }

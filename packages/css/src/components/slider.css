@@ -46,7 +46,7 @@
 .k-slider__input:focus-visible::-webkit-slider-thumb { box-shadow: var(--k-ring-brand); }
 .k-slider__input:focus-visible::-moz-range-thumb { box-shadow: var(--k-ring-brand); }
 .k-slider__input:disabled::-webkit-slider-thumb { border-color: var(--k-border-input); cursor: not-allowed; }
-.k-slider__marks { display: flex; justify-content: space-between; color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-variant-numeric: tabular-nums; }
+.k-slider__marks { display: flex; justify-content: space-between; color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
 @media (forced-colors: active) {
   .k-slider__input { appearance: auto; pointer-events: auto; }
   .k-slider__track::before, .k-slider__fill { display: none; }

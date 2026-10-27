@@ -32,8 +32,9 @@ export const palette = {
   // ۴۵۰ و ۵۵۰ کم‌رنگ‌ترین خاکستری‌هایی‌اند که هنوز کنتراست ۳:۱ حاشیهٔ فیلد را دارند (روشن و تیره)
   shab: {
     0: "#ffffff", 50: "#f6f7f9", 100: "#eceef2", 200: "#d5d9e2", 300: "#b1b9c9", 400: "#8792ab",
-    450: "#848fa7", 500: "#687491", 550: "#5a637a", 600: "#535d78", 700: "#444c62", 800: "#2a2f3d",
-    850: "#1e222c", 900: "#161921", 925: "#111319", 950: "#0d0f14", 1000: "#08090c",
+    450: "#848fa7", 500: "#687491", 550: "#5a637a", 600: "#535d78", 700: "#3e4350", 800: "#262a33",
+    // سطوح تیره کم‌رنگ‌مایه‌تر از قبل؛ خاکستری خیلی آبی ارزان دیده می‌شد
+    850: "#1c1f26", 900: "#15171c", 925: "#111317", 950: "#0d0e11", 1000: "#09090b",
   },
 };
 
@@ -111,8 +112,9 @@ export const themes = {
     "bg-elevated": p("shab", 925),
     "bg-hover": "rgb(255 255 255 / 0.05)",
     "bg-active": "rgb(255 255 255 / 0.08)",
-    "bg-brand": p("brand", 400),
-    "bg-brand-hover": p("brand", 300),
+    // رنگ برند پررنگ با متن سفید، مثل Untitled UI و Linear؛ فیروزه‌ای روشن روی تیره اسباب‌بازی‌گونه دیده می‌شد
+    "bg-brand": p("brand", 600),
+    "bg-brand-hover": p("brand", 700),
     "bg-brand-subtle": "color-mix(in srgb, var(--k-brand-500) 14%, transparent)",
     "bg-error": p("anar", 600),
     "bg-error-hover": p("anar", 700),
@@ -125,7 +127,7 @@ export const themes = {
     "text-secondary": p("shab", 200),
     "text-tertiary": p("shab", 400),
     "text-quaternary": p("shab", 500),
-    "text-on-brand": p("shab", 1000),
+    "text-on-brand": p("shab", 0),
     "text-on-error": p("shab", 0),
     "text-brand": p("brand", 300),
     "text-error": p("anar", 400),

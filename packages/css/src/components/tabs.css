@@ -4,7 +4,7 @@
  *
  * متغیرها: --k-tab-height  --k-tab-radius  --k-tabs-gap  --k-tabs-indicator  --k-tabs-list-width
  */
-.k-tabs { display: grid; gap: var(--k-tabs-gap, var(--k-space-4)); }
+.k-tabs { display: grid; gap: var(--k-tabs-gap, var(--k-space-4)); inline-size: 100%; }
 
 .k-tabs__list {
   position: relative;

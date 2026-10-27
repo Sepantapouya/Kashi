@@ -68,7 +68,6 @@
   background: transparent;
   color: var(--k-text-secondary);
   font: inherit;
-  font-variant-numeric: tabular-nums;
   cursor: pointer;
   transition: background-color var(--k-duration-fast) var(--k-ease-standard);
 }

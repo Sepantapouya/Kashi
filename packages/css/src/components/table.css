@@ -37,7 +37,7 @@
 .k-table tbody tr:last-child > * { border-block-end: 0; }
 .k-table td { color: var(--k-text-tertiary); }
 .k-table td:first-child, .k-table__primary { color: var(--k-text-primary); font-weight: var(--k-weight-medium); }
-.k-table .k-table__num { text-align: end; font-variant-numeric: tabular-nums; }
+.k-table .k-table__num { text-align: end; }
 .k-table .k-table__check { inline-size: 1px; padding-inline-end: 0; }
 .k-table--compact th, .k-table--compact td { padding-block: var(--k-space-2); }
 

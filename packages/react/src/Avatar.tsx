@@ -13,11 +13,11 @@ const STATUS_LABEL: Record<AvatarStatus, string> = {
 };
 
 /** حروف اول دو کلمهٔ اول؛ با نیم‌فاصله تا حروف فارسی به هم نچسبند */
-export function initials(name: string): string {
+export function initials(name: string, max = 2): string {
   return name
     .trim()
     .split(/\s+/)
-    .slice(0, 2)
+    .slice(0, max)
     .map((w) => w[0])
     .join("‌")
     .toUpperCase();
@@ -68,7 +68,7 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
       {showImage ? (
         <img className="k-avatar__image" src={src} alt="" onError={() => setFailed(true)} />
       ) : (
-        <span aria-hidden="true">{initials(name)}</span>
+        <span aria-hidden="true">{initials(name, size === "xs" || size === "sm" ? 1 : 2)}</span>
       )}
       {status && <span className={`k-avatar__status k-avatar__status--${status}`} aria-hidden="true" />}
     </span>
