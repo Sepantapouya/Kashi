@@ -18,7 +18,9 @@
     "docs:build": "npm run build && npm run build -w @kashi-ui/docs",
     "changeset": "changeset",
     "version-packages": "changeset version && npm install --package-lock-only",
-    "release": "npm run build && npm test && changeset publish"
+    "release": "npm run build && npm test && changeset publish",
+    "figma:build": "node apps/figma-plugin/build.mjs",
+    "figma:test": "node apps/figma-plugin/build.mjs && node apps/figma-plugin/test/run.mjs"
   },
   "license": "MIT",
   "repository": {

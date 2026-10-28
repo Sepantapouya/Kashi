@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<style>
+  :root {
+    --bg: var(--figma-color-bg, #1e1e1e);
+    --bg2: var(--figma-color-bg-secondary, #2c2c2c);
+    --fg: var(--figma-color-text, #fff);
+    --fg2: var(--figma-color-text-secondary, #b3b3b3);
+    --border: var(--figma-color-border, #444);
+    --brand: #0b8077;
+    --brand-hover: #0a6b65;
+    --error: var(--figma-color-text-danger, #f24822);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 16px; background: var(--bg); color: var(--fg); font: 12px/1.6 "Vazirmatn", Tahoma, system-ui, sans-serif; }
+  h1 { margin: 0; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+  .logo { display: inline-grid; place-items: center; inline-size: 28px; block-size: 28px; border-radius: 8px; background: var(--brand); color: #fff; font-size: 14px; }
+  .muted { color: var(--fg2); margin: 4px 0 16px; }
+  .version { margin-inline-start: auto; font-size: 11px; font-weight: 500; color: var(--fg2); }
+  fieldset { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin: 0 0 12px; }
+  legend { padding: 0 4px; font-weight: 600; }
+  label { display: flex; align-items: center; gap: 8px; padding: 3px 0; cursor: pointer; }
+  label small { color: var(--fg2); }
+  input[type="text"] { inline-size: 100%; padding: 7px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg2); color: var(--fg); font: inherit; }
+  input[type="text"]:focus-visible { outline: 2px solid var(--brand); outline-offset: 1px; }
+  .hint { color: var(--fg2); font-size: 11px; margin-top: 6px; }
+  button { inline-size: 100%; padding: 10px; border: 0; border-radius: 8px; background: var(--brand); color: #fff; font: inherit; font-weight: 600; font-size: 13px; cursor: pointer; }
+  button:hover { background: var(--brand-hover); }
+  button:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+  button:disabled { opacity: 0.6; cursor: progress; }
+  .bar { block-size: 6px; border-radius: 3px; background: var(--bg2); overflow: hidden; margin: 12px 0 6px; }
+  .bar i { display: block; block-size: 100%; inline-size: 0; background: var(--brand); transition: inline-size 0.3s; }
+  #status { min-block-size: 20px; color: var(--fg2); white-space: pre-line; }
+  #status.error { color: var(--error); }
+  .footer { margin-top: 14px; color: var(--fg2); font-size: 11px; text-align: center; }
+  .footer a { color: inherit; }
+</style>
+</head>
+<body>
+  <h1><span class="logo" aria-hidden="true">ک</span> کیت فیگمای کاشی <span class="version" id="version"></span></h1>
+  <p class="muted">متغیرها، استایل‌ها و همهٔ کامپوننت‌های کاشی را در همین فایل می‌سازد.</p>
+
+  <fieldset>
+    <legend>چه چیزی ساخته شود؟</legend>
+    <label><input type="checkbox" checked disabled /> متغیرها و استایل‌ها <small>(همیشه؛ به‌روزرسانی امن)</small></label>
+    <label><input type="checkbox" id="components" checked /> صفحه‌های کامپوننت</label>
+    <p class="hint">اگر قبلاً کیت را ساخته‌اید و فقط رنگ یا فونت را می‌خواهید به‌روز کنید، تیک کامپوننت‌ها را بردارید تا instance های طرح‌هایتان دست نخورند.</p>
+  </fieldset>
+
+  <fieldset>
+    <legend>تم پیش‌فرض صفحه‌ها</legend>
+    <label><input type="radio" name="theme" value="dark" checked /> تیره</label>
+    <label><input type="radio" name="theme" value="light" /> روشن</label>
+  </fieldset>
+
+  <fieldset>
+    <legend>فونت</legend>
+    <input type="text" id="font" value="Vazirmatn" dir="ltr" aria-label="نام فونت" />
+    <p class="hint">هر فونتی که روی سیستم شما نصب است، حتی فونت پولی (مثل IRANSans یا Yekan Bakh). اگر پیدا نشود، وزیرمتن استفاده می‌شود.</p>
+  </fieldset>
+
+  <button id="build">ساخت کیت</button>
+  <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+  <div id="status" role="status" aria-live="polite"></div>
+  <div class="footer">ساخته شده توسط سپنتا پویا · <a href="https://kashi.sepantapouya.com" target="_blank">kashi.sepantapouya.com</a></div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  $("build").onclick = () => {
+    $("build").disabled = true;
+    $("status").className = "";
+    parent.postMessage({ pluginMessage: {
+      type: "build",
+      components: $("components").checked,
+      theme: document.querySelector('input[name="theme"]:checked').value,
+      font: $("font").value,
+    } }, "*");
+  };
+  const fa = (n) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  onmessage = (e) => {
+    const m = e.data.pluginMessage;
+    if (!m) return;
+    if (m.type === "init") { $("version").textContent = "v" + m.version; $("font").value = m.font; }
+    if (m.type === "progress") { $("status").textContent = m.text; $("bar").style.inlineSize = m.pct + "%"; }
+    if (m.type === "done") {
+      const s = m.summary;
+      $("bar").style.inlineSize = "100%";
+      $("build").disabled = false;
+      $("build").textContent = "ساخت دوباره";
+      $("status").textContent = `انجام شد در ${fa(s.seconds)} ثانیه: ${fa(s.sets)} کامپوننت، ${fa(s.components)} variant، ${fa(s.variables)} متغیر، ${fa(s.textStyles)} استایل متن، ${fa(s.effectStyles)} سایه. فونت: ${s.family}`
+        + (s.errors.length ? `\n${fa(s.errors.length)} بخش ساخته نشد: ${s.errors.join(" | ")}` : "");
+      if (s.errors.length) $("status").className = "error";
+    }
+    if (m.type === "error") { $("status").textContent = "خطا: " + m.message; $("status").className = "error"; $("build").disabled = false; }
+  };
+</script>
+</body>
+</html>

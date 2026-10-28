@@ -40,6 +40,15 @@ import { Button } from "@kashi-ui/react";
 <button class="k-btn k-btn--primary">ثبت‌نام</button>
 ```
 
+## فیگما
+
+پلاگین **Kashi UI Kit** کل دیزاین‌سیستم را از روی همین کد در فیگما می‌سازد:
+- حدود ۲۰۰ Variable با تم تیره/روشن، گردی، تراکم و فونت
+- استایل‌های متن و سایه
+- بیش از ۷۰ کامپوننت با حدود ۷۰۰ variant، شامل کامپوننت‌های فارسی و لوگوی همهٔ بانک‌ها
+
+راهنمای نصب: [apps/figma-plugin](apps/figma-plugin/README.md)
+
 ## توسعه
 
 ```bash

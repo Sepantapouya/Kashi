@@ -26,6 +26,11 @@ jobs:
       # بیلد توکن‌ها شامل بررسی کنتراست WCAG است و در صورت رد شدن شکست می‌خورد
       - run: npm run build
       - run: npm test
+      # پلاگین فیگما در شبیه‌ساز اجرا می‌شود؛ plugin/ باید با src/ و توکن‌ها هم‌خوان باشد
+      - name: Figma plugin
+        run: |
+          npm run figma:test
+          git diff --exit-code apps/figma-plugin/plugin || (echo "apps/figma-plugin/plugin is stale: run npm run figma:build" && exit 1)
       - name: Build docs site
         run: npm run build -w @kashi-ui/docs
       - name: Check package contents
