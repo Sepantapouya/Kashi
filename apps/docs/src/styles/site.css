@@ -76,6 +76,7 @@ code, pre, kbd {
   font-size: var(--k-text-sm);
   font-weight: var(--k-weight-semibold);
   text-decoration: none;
+  white-space: nowrap;
   transition: color var(--k-duration-fast), background-color var(--k-duration-fast);
 }
 .site-nav a:hover { color: var(--k-text-primary); background: var(--k-bg-hover); }
@@ -247,6 +248,11 @@ code, pre, kbd {
 @media (max-width: 64rem) {
   .search-btn { inline-size: 2.25rem; padding: 0; justify-content: center; margin-inline-end: 0; border-color: transparent; background: none; box-shadow: none; }
   .search-btn__text, .search-btn__kbd { display: none; }
+}
+/* هفت پیوند سربرگ زیر این عرض جا نمی‌شوند؛ به منوی کشویی می‌روند */
+@media (max-width: 64rem) {
+  .menu-btn { display: inline-flex; }
+  .site-nav { display: none; }
 }
 @media (max-width: 56rem) {
   .docs { grid-template-columns: minmax(0, 1fr); }
