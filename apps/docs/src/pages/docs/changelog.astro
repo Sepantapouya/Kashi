@@ -1,0 +1,166 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import { formatJalali, toFaDigits } from "@kashi-ui/persian";
+import { author } from "../../data/author";
+import data from "../../data/releases.json";
+
+// داده‌ها را scripts/releases.mjs از کامیت‌های گیت و CHANGELOG پکیج‌ها می‌سازد
+interface Commit { sha: string; short: string; date: string; author: string; subject: string; details: string[]; files: number; added: number; removed: number }
+interface Note { kind: string; text: string; sub: string[]; packages: string[] }
+interface Version { version: string; date: string; releaseCommit: string; commits: Commit[]; notes: Note[] }
+const versions = data.versions as Version[];
+const unreleased = data.unreleased as Commit[];
+
+const fa = (n: number) => toFaDigits(n.toLocaleString("en-US").replace(/,/g, "٬"));
+const day = (iso: string) => formatJalali(new Date(iso), { style: "long" });
+const time = (iso: string) => toFaDigits(new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Tehran" }));
+const slug = (v: string) => `v-${v.replace(/\./g, "-")}`;
+const kindOf = (v: string, i: number) => {
+  if (i === versions.length - 1) return "نخستین انتشار";
+  const [, , patch] = v.split(".").map(Number);
+  return patch ? "رفع اشکال و بهبود" : "نسخهٔ تازه";
+};
+const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// `کد` در یادداشت‌ها
+const rich = (s: string) => esc(s).replace(/`([^`]+)`/g, '<code dir="ltr">$1</code>');
+
+const headings = [
+  { depth: 2, slug: "summary", text: "خلاصه" },
+  ...(unreleased.length ? [{ depth: 2, slug: "unreleased", text: "بعد از آخرین انتشار" }] : []),
+  ...versions.map((v) => ({ depth: 2, slug: slug(v.version), text: `نسخهٔ ${toFaDigits(v.version)}` })),
+];
+const totals = data.totals;
+const removed = [...unreleased, ...versions.flatMap((v) => v.commits)].reduce((a, c) => a + c.removed, 0);
+---
+<Docs title="نسخه‌ها" description="همهٔ نسخه‌های کاشی، از اولین کامیت تا امروز؛ با یادداشت هر انتشار و همهٔ کامیت‌ها." headings={headings}>
+  <h2 id="summary">خلاصه</h2>
+  <dl class="rl-stats">
+    <div><dt>نسخه</dt><dd>{fa(versions.length)}</dd></div>
+    <div><dt>کامیت</dt><dd>{fa(totals.commits)}</dd></div>
+    <div><dt>خط کد اضافه‌شده</dt><dd>{fa(totals.added)}</dd></div>
+    <div><dt>آغاز پروژه</dt><dd class="rl-stats__date">{day(totals.first)}</dd></div>
+  </dl>
+  <p class="rl-lead">
+    هر نسخه روی npm با همین شماره منتشر شده و هر پنج پکیج (<code dir="ltr">@kashi-ui/react</code>، <code dir="ltr">css</code>، <code dir="ltr">persian</code>، <code dir="ltr">tokens</code> و <code dir="ltr">bank-logos</code>) با هم نسخه می‌گیرند. فهرست کامیت‌های هر نسخه از تاریخچهٔ گیت ساخته می‌شود و کامل در <a href={`${author.repo}/commits/main`} target="_blank" rel="noopener">GitHub</a> هم هست.
+  </p>
+
+  {unreleased.length > 0 && (
+    <section class="rl-version rl-version--next" aria-labelledby="unreleased">
+      <header class="rl-head">
+        <div class="rl-title">
+          <h2 id="unreleased">بعد از آخرین انتشار</h2>
+          <span class="k-badge k-badge--warning k-badge--sm">منتشرنشده روی npm</span>
+        </div>
+        <p class="rl-meta">تغییرات سایت، پلاگین فیگما و کدهایی که در نسخهٔ بعدی منتشر می‌شوند.</p>
+      </header>
+      <ol class="rl-commits" role="list">
+        {unreleased.map((c) => (
+          <li class="rl-commit">
+            <div class="rl-commit__main">
+              <span class="rl-commit__subject" dir="ltr">{c.subject}</span>
+              {c.details.length > 0 && <details class="rl-body"><summary>جزئیات</summary><ul class="rl-commit__details" dir="ltr" role="list">{c.details.map((d) => <li>{d.replace(/^- /, "")}</li>)}</ul></details>}
+            </div>
+            <div class="rl-commit__side">
+              <a class="rl-sha" href={`${author.repo}/commit/${c.sha}`} target="_blank" rel="noopener" dir="ltr">{c.short}<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+              <span class="rl-when">{day(c.date)} · {time(c.date)}</span>
+              <span class="rl-diff" dir="ltr"><span class="rl-diff__add">+{c.added}</span> <span class="rl-diff__del">−{c.removed}</span></span>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  {versions.map((v, i) => (
+    <section class="rl-version" aria-labelledby={slug(v.version)}>
+      <header class="rl-head">
+        <div class="rl-title">
+          <h2 id={slug(v.version)}><span dir="ltr">v{v.version}</span></h2>
+          {i === 0 && <span class="k-badge k-badge--brand k-badge--sm">آخرین نسخه</span>}
+          <span class="k-badge k-badge--sm">{kindOf(v.version, i)}</span>
+        </div>
+        <p class="rl-meta">
+          <span>{day(v.date)}</span>
+          <a href={`https://www.npmjs.com/package/@kashi-ui/react/v/${v.version}`} target="_blank" rel="noopener">npm<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+          <a href={`${author.repo}/commit/${v.commits[0] ? v.commits.find((c) => c.short === v.releaseCommit)?.sha ?? v.commits[0].sha : ""}`} target="_blank" rel="noopener">کامیت انتشار<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+        </p>
+      </header>
+
+      {v.notes.length > 0 ? (
+        <ul class="rl-notes" role="list">
+          {v.notes.map((n) => (
+            <li>
+              <span set:html={rich(n.text)} />
+              {n.sub.length > 0 && <ul role="list">{n.sub.map((s) => <li set:html={rich(s)} />)}</ul>}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="rl-empty">{i === versions.length - 1 ? "اولین نسخهٔ عمومی کاشی: توکن‌ها، CSS، کامپوننت‌های React و سایت مستندات." : "یادداشت انتشاری برای این نسخه ثبت نشده است."}</p>
+      )}
+
+      <details class="rl-more">
+        <summary>{fa(v.commits.length)} کامیت در این نسخه</summary>
+        <ol class="rl-commits" role="list">
+          {v.commits.map((c) => (
+            <li class="rl-commit">
+              <div class="rl-commit__main">
+                <span class="rl-commit__subject" dir="ltr">{c.subject}</span>
+                {c.details.length > 0 && <details class="rl-body"><summary>جزئیات</summary><ul class="rl-commit__details" dir="ltr" role="list">{c.details.map((d) => <li>{d.replace(/^- /, "")}</li>)}</ul></details>}
+              </div>
+              <div class="rl-commit__side">
+                <a class="rl-sha" href={`${author.repo}/commit/${c.sha}`} target="_blank" rel="noopener" dir="ltr">{c.short}<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+                <span class="rl-when">{day(c.date)} · {time(c.date)}</span>
+                <span class="rl-diff" dir="ltr"><span class="rl-diff__add">+{c.added}</span> <span class="rl-diff__del">−{c.removed}</span></span>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </details>
+    </section>
+  ))}
+
+  <p class="rl-foot">مجموع تغییرات: {fa(totals.added)} خط اضافه و {fa(removed)} خط حذف در {fa(totals.commits)} کامیت.</p>
+</Docs>
+
+<style>
+  .rl-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--k-space-3); margin: var(--k-space-4) 0; }
+  .rl-stats div { padding: var(--k-space-4) var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-xs), var(--k-highlight); }
+  .rl-stats dt { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .rl-stats dd { margin: var(--k-space-1) 0 0; color: var(--k-text-primary); font-size: var(--k-text-2xl); font-weight: var(--k-weight-bold); line-height: var(--k-leading-tight); }
+  .rl-stats .rl-stats__date { font-size: var(--k-text-lg); }
+  .rl-lead { color: var(--k-text-secondary); }
+
+  .rl-version { position: relative; margin-block-start: var(--k-space-8); padding-inline-start: var(--k-space-6); border-inline-start: 2px solid var(--k-border-secondary); }
+  .rl-version::before { content: ""; position: absolute; inset-block-start: 0.6rem; inset-inline-start: calc(-0.4375rem - 1px); inline-size: 0.75rem; block-size: 0.75rem; border: 2px solid var(--k-border-brand); border-radius: 50%; background: var(--k-bg-primary); }
+  .rl-version--next::before { border-color: var(--k-text-warning); border-style: dashed; }
+  .rl-head { margin-block-end: var(--k-space-3); }
+  .rl-title { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-2); }
+  .rl-title h2 { margin: 0; scroll-margin-block-start: 5rem; font-size: var(--k-text-xl); }
+  .rl-meta { display: flex; flex-wrap: wrap; gap: var(--k-space-1) var(--k-space-4); margin: var(--k-space-1) 0 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+
+  .rl-notes { display: grid; gap: var(--k-space-3); margin: var(--k-space-3) 0; padding-inline-start: var(--k-space-5); color: var(--k-text-secondary); line-height: 1.9; }
+  .rl-notes ul { margin: var(--k-space-2) 0 0; padding-inline-start: var(--k-space-5); }
+  .rl-pkgs { display: flex; flex-wrap: wrap; gap: var(--k-space-1); margin-block-start: var(--k-space-1); }
+  .rl-pkgs code { font-size: var(--k-text-xs); }
+  .rl-empty { color: var(--k-text-tertiary); }
+
+  .rl-more { margin-block-start: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary); }
+  .rl-more summary { padding: var(--k-space-2) var(--k-space-4); color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); cursor: pointer; }
+  .rl-more summary:focus-visible { outline: 2px solid transparent; border-radius: var(--k-radius-lg); box-shadow: var(--k-ring-brand); }
+  .rl-more .rl-commits { margin: 0; padding: 0 var(--k-space-4) var(--k-space-3); }
+
+  .rl-commits { display: grid; gap: 0; margin: var(--k-space-3) 0; padding: 0; list-style: none; }
+  .rl-commit { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--k-space-2) var(--k-space-4); padding-block: var(--k-space-3); border-block-end: 1px solid var(--k-border-secondary); }
+  .rl-commit:last-child { border-block-end: 0; }
+  .rl-commit__main { flex: 1 1 20rem; min-inline-size: 0; }
+  .rl-commit__subject { display: block; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); text-align: start; overflow-wrap: anywhere; }
+  .rl-commit__details { margin: var(--k-space-1) 0 0; padding: 0; list-style: none; color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.7; text-align: start; }
+  .rl-commit__side { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--k-space-1) var(--k-space-3); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .rl-body summary { margin-block-start: var(--k-space-1); color: var(--k-text-tertiary); font-size: var(--k-text-xs); cursor: pointer; inline-size: fit-content; }
+  .rl-body summary:focus-visible { outline: 2px solid transparent; border-radius: var(--k-radius-sm); box-shadow: var(--k-ring-brand); }
+  .rl-sha { font-family: var(--k-font-mono); }
+  .rl-diff__add { color: var(--k-text-success); }
+  .rl-diff__del { color: var(--k-text-error); }
+  .rl-foot { margin-block-start: var(--k-space-8); color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+</style>

@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev --port 4400",
-    "build": "astro build",
+    "dev": "node scripts/releases.mjs && astro dev --port 4400",
+    "build": "node scripts/releases.mjs && astro build",
     "preview": "astro preview --port 4400",
-    "docs:build": "npm run build --prefix ../.. && astro build"
+    "docs:build": "npm run build --prefix ../.. && node scripts/releases.mjs && astro build"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.1.1",

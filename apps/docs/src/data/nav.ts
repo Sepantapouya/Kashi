@@ -13,6 +13,7 @@ const RAW: NavGroup[] = [
       { title: "دسترس‌پذیری", href: "/docs/accessibility/" },
       { title: "رنگ‌ها", href: "/docs/colors/" },
       { title: "مقایسه با دیگران", href: "/docs/compare/", badge: "جدید" },
+      { title: "نسخه‌ها", href: "/docs/changelog/" },
     ],
   },
   {

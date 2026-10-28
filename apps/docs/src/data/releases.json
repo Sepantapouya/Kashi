@@ -1,0 +1,1062 @@
+{
+ "generated": "2026-10-29T00:10:33+03:30",
+ "totals": {
+  "commits": 44,
+  "versions": 16,
+  "added": 54270,
+  "first": "2026-10-26T23:11:45+03:30"
+ },
+ "unreleased": [
+  {
+   "sha": "9e7c320d915a7896e1a200593b1b57138ee7d032",
+   "short": "9e7c320",
+   "date": "2026-10-29T00:10:33+03:30",
+   "author": "sepantapouya",
+   "subject": "Figma plugin: match every component to the live CSS",
+   "details": [
+    "Every Figma part is tagged with its CSS class and compared with real",
+    "browser measurements (test/css-metrics.json): padding, radius, gap,",
+    "background, border and text colour, font size and weight, height.",
+    "268 classes / 1722 parts match with zero differences.",
+    "Rebuilt to the CSS: field labels/hints (1.35 line height), check text",
+    "(20px), options, tag input, number steps, OTP slots, dropzone and file",
+    "rows, calendar, month picker, segmented, alert icon rings, banner,",
+    "meter, empty state, popover, tour, dialog halo, stat card, table,",
+    "accordion, timeline, tree, kbd, tabs, breadcrumb, stepper numbers,",
+    "splitter, plate proportions, bank card gradient, bank badge in fields,",
+    "money, receipt, date tile and countdown."
+   ],
+   "files": 17,
+   "added": 14550,
+   "removed": 545
+  },
+  {
+   "sha": "a22c4b1bb51c6a574b6392b7218755cd140f6c77",
+   "short": "a22c4b1",
+   "date": "2026-10-28T23:07:52+03:30",
+   "author": "sepantapouya",
+   "subject": "Docs header: add Figma plugin and compare links",
+   "details": [],
+   "files": 1,
+   "added": 3,
+   "removed": 1
+  },
+  {
+   "sha": "bfde2607fa72cbc4ad8a3060a382f6a71d78cd64",
+   "short": "bfde260",
+   "date": "2026-10-28T23:05:02+03:30",
+   "author": "sepantapouya",
+   "subject": "Figma plugin v2: one page per component, variables only, in-place updates",
+   "details": [
+    "- Every component on its own page, grouped with page dividers",
+    "- No text or effect styles: text binds to typography variables and every",
+    "shadow layer binds to theme variables (colour, offset, blur, spread)",
+    "- Re-running in the same file updates components in place (same node ids),",
+    "adds new ones and keeps instances and text overrides linked",
+    "- Variants laid out in a labelled grid (state columns, variant/size rows)",
+    "- Matches measured CSS: badge heights, alert/card surfaces, checkbox and chip",
+    "shadows, dialog shadow, tooltip height; 61 parity checks in the test",
+    "- Fixes palette overflow, URL field, combobox two-line options, docs links",
+    "- Author photo on the cover; downloadable zip and a Figma plugin docs page"
+   ],
+   "files": 25,
+   "added": 1393,
+   "removed": 636
+  },
+  {
+   "sha": "81a7c41caad23c3e0d18f48ba44e97ddb0bc267b",
+   "short": "81a7c41",
+   "date": "2026-10-28T22:44:41+03:30",
+   "author": "sepantapouya",
+   "subject": "Figma plugin: make the source manifest importable too",
+   "details": [],
+   "files": 3,
+   "added": 13,
+   "removed": 5
+  },
+  {
+   "sha": "97f2aeb45a036589e47bee4cfe20a9fbde86e1f9",
+   "short": "97f2aeb",
+   "date": "2026-10-28T22:22:41+03:30",
+   "author": "sepantapouya",
+   "subject": "Add Kashi UI Kit Figma plugin",
+   "details": [
+    "Builds Kashi in Figma from the real tokens: ~200 variables (theme, radius,",
+    "density, spacing, typography modes), 44 text styles, effect styles, 70 icons,",
+    "50 bank logos and 73 RTL component sets with ~726 variants. Tested in a strict",
+    "mock of the Figma plugin API (npm run figma:test), also run in CI."
+   ],
+   "files": 25,
+   "added": 6656,
+   "removed": 1
+  },
+  {
+   "sha": "b26f30061c692b666677f33fc614d00ca5011a29",
+   "short": "b26f300",
+   "date": "2026-10-27T22:05:03+03:30",
+   "author": "Sepanta Pouya",
+   "subject": "Merge Persian field pages into one PersianInput page",
+   "details": [
+    "PersianInput gains time and plate kinds, covering eleven field types.",
+    "The separate docs pages for each field are folded into sections of",
+    "the PersianInput page, and their old URLs redirect to the matching",
+    "section. The menu and Persian gallery list the merged field once."
+   ],
+   "files": 23,
+   "added": 529,
+   "removed": 579
+  }
+ ],
+ "versions": [
+  {
+   "version": "0.15.0",
+   "date": "2026-10-27T21:44:51+03:30",
+   "releaseCommit": "4aff675",
+   "commits": [
+    {
+     "sha": "4aff675ab6a640b7a300e3421c75c383fd1defd5",
+     "short": "4aff675",
+     "date": "2026-10-27T21:44:51+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Kashi 0.15: PersianInput and new Persian components",
+     "details": [
+      "PersianInput puts national ID, company ID, mobile, landline, card,",
+      "Sheba, amount, postal code and text into one field chosen by kind.",
+      "New components: LegalIdInput, KeyboardFixInput (suggests «سلام» for",
+      "\"sghl\"), PersianTextarea (Arabic letters, half-spaces, punctuation",
+      "and digits), Money, BankCard, PaymentReceipt and DateTile. The",
+      "persian package gains isValidLegalId, fixKeyboardLayout,",
+      "looksLikeWrongLayout, fixPersianText, formatMoney, rialToToman and",
+      "tomanToRial. Each has a docs page and a gallery card."
+     ],
+     "files": 49,
+     "added": 1394,
+     "removed": 24
+    },
+    {
+     "sha": "34225f01ae67fb99c17ca386f4fc69f154ad3a09",
+     "short": "34225f0",
+     "date": "2026-10-27T20:44:04+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Add social preview image and promo artwork page",
+     "details": [
+      "og:image and twitter:card point to a 1200x630 image rendered from real",
+      "Kashi components; /promo (noindex) regenerates it and the 16:9 post."
+     ],
+     "files": 4,
+     "added": 122,
+     "removed": 0
+    },
+    {
+     "sha": "540e836e4f1a223cad9eeaa8af6f5fb46efa03cb",
+     "short": "540e836",
+     "date": "2026-10-27T20:35:22+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Reword donation text",
+     "details": [],
+     "files": 1,
+     "added": 1,
+     "removed": 1
+    },
+    {
+     "sha": "822c446445a898c10881abbca4d5567da57c33ae",
+     "short": "822c446",
+     "date": "2026-10-27T20:35:13+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Add donation section to the homepage and footer",
+     "details": [
+      "Explains that Kashi is free but costly to build, and invites donations",
+      "via Telegram (@sepantapouya_ux)."
+     ],
+     "files": 3,
+     "added": 54,
+     "removed": 1
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "کامپوننت‌های فارسی تازه: PersianInput (یک فیلد برای کد ملی، شبا، کارت، مبلغ، کد پستی، موبایل، تلفن، ساعت، پلاک و متن با `kind`)، LegalIdInput (شناسهٔ ملی شرکت با رقم کنترل)، KeyboardFixInput (پیشنهاد «سلام» برای «sghl»)، PersianTextarea (ویرایش نگارشی: «ي/ك» عربی، نیم‌فاصله، علامت‌ها و ارقام)، Money (تومان و ریال، حالت خلاصه و مبلغ به حروف برای صفحه‌خوان)، BankCard (کارت بانکی با رنگ و لوگوی بانک)، PaymentReceipt (رسید پرداخت) و DateTile (برگ تقویم شمسی با مناسبت). ابزارهای تازه در `@kashi-ui/persian`: `isValidLegalId`، `fixKeyboardLayout`، `looksLikeWrongLayout`، `fixPersianText`، `formatMoney`، `rialToToman` و `tomanToRial`.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.14.0",
+   "date": "2026-10-27T20:32:03+03:30",
+   "releaseCommit": "aa4c243",
+   "commits": [
+    {
+     "sha": "aa4c243f417ea4375341e99bda460eee703a450d",
+     "short": "aa4c243",
+     "date": "2026-10-27T20:32:03+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Kashi 0.14: MultiSelect, sliding tab indicator, pagination tools",
+     "details": [
+      "New MultiSelect with search, chips and a selection cap. Tabs indicator",
+      "slides in all variants including vertical. Pagination gains page size",
+      "selection and a jump-to-page field. DatePicker and DateRangePicker",
+      "forward holidays to the calendar."
+     ],
+     "files": 30,
+     "added": 466,
+     "removed": 33
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "بهبود کامپوننت‌ها: کامپوننت تازهٔ MultiSelect (انتخاب چندتایی با جستجو، برچسب و سقف انتخاب). نشانگر Tabs در هر سه گونه و حالت عمودی با تغییر زبانه می‌لغزد. Pagination فهرست «در هر صفحه» (`pageSize`، `onPageSizeChange`) و فیلد «برو به صفحه» (`jumper`) گرفت. DatePicker و DateRangePicker حالا `holidays` را به تقویم می‌دهند.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens",
+      "bank-logos"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.13.1",
+   "date": "2026-10-27T16:58:44+03:30",
+   "releaseCommit": "7a1d662",
+   "commits": [
+    {
+     "sha": "7a1d66228d2e47fc13f20b00d50ac7e6ca0bf321",
+     "short": "7a1d662",
+     "date": "2026-10-27T16:58:44+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Custom color panel; accurate Farsi UI comparison",
+     "details": [
+      "ColorPicker opens Kashi's own panel (saturation area, hue slider,",
+      "eyedropper, RGB fields) instead of the native browser picker. The",
+      "comparison page now reflects Farsi UI from its repository and docs:",
+      "Jalali calendar, Persian inputs, Vazirmatn, 500+ components and blocks."
+     ],
+     "files": 15,
+     "added": 309,
+     "removed": 41
+    }
+   ],
+   "notes": [
+    {
+     "kind": "patch",
+     "text": "ColorPicker حالا پنل انتخاب اختصاصی کاشی دارد به‌جای انتخابگر بومی مرورگر: سطح اشباع و روشنایی با موس و کیبورد، نوار رنگ‌مایه، قطره‌چکان (در مرورگرهای پشتیبان) و فیلدهای R، G و B.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.13.0",
+   "date": "2026-10-27T16:46:33+03:30",
+   "releaseCommit": "ef0f2ab",
+   "commits": [
+    {
+     "sha": "ef0f2ab9bc249b5846160e3b617789b0653f1eae",
+     "short": "ef0f2ab",
+     "date": "2026-10-27T16:46:33+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Kashi 0.13: carousel, color picker, tour, meter, splitter, holidays",
+     "details": [
+      "Calendar marks Fridays and Iran's fixed official holidays, with lunar",
+      "holidays supplied per year. Docs gain a comparison page against Farsi",
+      "UI, shadcn/ui, MUI and Ant Design, with a homepage teaser, and a fixed",
+      "activity heatmap preview."
+     ],
+     "files": 42,
+     "added": 1292,
+     "removed": 35
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "کامپوننت‌های تازه: Carousel (روی scroll-snap بومی، بدون چرخش خودکار)، ColorPicker (با کنتراست متن و `contrastRatio`)، Tour (راهنمای قدم‌به‌قدم)، Meter (`role=\"meter\"` با آستانهٔ هشدار) و Splitter (پنل‌های قابل‌تغییر اندازه با کیبورد). Calendar حالا `holidays` می‌گیرد و جمعه‌ها و تعطیلات رسمی را قرمز و با نام نشان می‌دهد؛ `getIranHoliday` و `IRAN_FIXED_HOLIDAYS` در `@kashi-ui/persian`. رفع رنگ تیک نمونه‌رنگ‌ها.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens",
+      "bank-logos"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.12.0",
+   "date": "2026-10-27T16:25:55+03:30",
+   "releaseCommit": "5cc464c",
+   "commits": [
+    {
+     "sha": "5cc464c0232b7d93de80ff72ebdd114e0be3d83e",
+     "short": "5cc464c",
+     "date": "2026-10-27T16:25:55+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Kashi 0.12: charts, heatmap, context menu, inline edit, province select",
+     "details": [
+      "BarChart (single and stacked), LineChart, PieChart, BarList,",
+      "ProportionBar and Sparkline with hover tooltips and entry motion;",
+      "palette validated for color-vision deficiency in both themes.",
+      "ActivityHeatmap with Jalali months, ContextMenu on the Popover API,",
+      "InlineEdit, ProvinceSelect and a PROVINCES list. Install button in the",
+      "docs header."
+     ],
+     "files": 39,
+     "added": 1757,
+     "removed": 56
+    },
+    {
+     "sha": "66efaca50a8c204b453a5f718f4a897f431e361b",
+     "short": "66efaca",
+     "date": "2026-10-27T16:04:56+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Give Components and Persian their own pages",
+     "details": [
+      "Components shows the 42 general components in sections by use (form,",
+      "data, navigation, feedback) with search and filters. Persian is now a",
+      "dedicated hub with its own hero, grouped sections and a utilities",
+      "code sample."
+     ],
+     "files": 3,
+     "added": 182,
+     "removed": 97
+    },
+    {
+     "sha": "8911d9582d47afe8f01e7bbb45089d673cd36544",
+     "short": "8911d95",
+     "date": "2026-10-27T15:56:01+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Redesign docs site",
+     "details": [
+      "New homepage with live product panel, scroll motion, marquee, animated",
+      "metrics and a bento grid of live demos. Components gallery with live",
+      "previews, search and filters. Site search via CommandPalette (Ctrl+K),",
+      "glass header, TOC scrollspy and refreshed footer. Motion respects",
+      "prefers-reduced-motion."
+     ],
+     "files": 13,
+     "added": 1033,
+     "removed": 345
+    },
+    {
+     "sha": "dd34568b6a00805667239c02d96783b2cbf2a9e0",
+     "short": "dd34568",
+     "date": "2026-10-27T15:56:01+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Add 9 bank logos and 10 payment gateway logos",
+     "details": [
+      "From the CC0 zegond/logos-per-banks set, optimized with SVGO. Card",
+      "BINs for banks merged into Sepah, since their cards still circulate."
+     ],
+     "files": 28,
+     "added": 65,
+     "removed": 5
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "نمودارها: BarChart (تک‌سری و انباشته)، LineChart، PieChart (دایره‌ای و دونات)، BarList، ProportionBar و Sparkline؛ با راهنمای شناور روی هاور و فوکوس، انیمیشن ورود، ارقام فارسی، جهت زمان راست‌به‌چپ و جدول هم‌ارز برای صفحه‌خوان. پالت چهاررنگی `--k-chart-1..4` برای هر دو تم با شبیه‌سازی کوررنگی اعتبارسنجی شده است. کامپوننت‌های تازه: ActivityHeatmap (نقشهٔ فعالیت با ماه‌های شمسی)، ContextMenu (منوی راست‌کلیک با Popover API)، InlineEdit و ProvinceSelect. `PROVINCES` در `@kashi-ui/persian`: ۳۱ استان با مرکز و پیش‌شماره.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens",
+      "bank-logos"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.11.0",
+   "date": "2026-10-27T15:38:57+03:30",
+   "releaseCommit": "e2ff2ef",
+   "commits": [
+    {
+     "sha": "e2ff2ef47d0a9a4a8282fdf6f90eedc3de7198c6",
+     "short": "e2ff2ef",
+     "date": "2026-10-27T15:38:57+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Release 0.11.0",
+     "details": [
+      "0.10.0 was already published before the second batch of components",
+      "landed, so that batch ships as 0.11.0."
+     ],
+     "files": 11,
+     "added": 60,
+     "removed": 23
+    },
+    {
+     "sha": "bf24f4c6f23cf4fc995d0fbb7f95aebbdbf2f405",
+     "short": "bf24f4c",
+     "date": "2026-10-27T15:33:33+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Add TreeView, ButtonGroup, ChipGroup, PasswordStrength, MonthPicker, Countdown and LandlineInput",
+     "details": [
+      "Part of 0.10.0 (not yet published). New persian landline helpers with",
+      "area codes for all 31 provinces."
+     ],
+     "files": 35,
+     "added": 1171,
+     "removed": 11
+    },
+    {
+     "sha": "bf4bdf53e2cce119f94cfc368e4c9bc24e3a5a50",
+     "short": "bf4bdf5",
+     "date": "2026-10-27T15:25:01+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Center plate digits vertically",
+     "details": [
+      "Segments now fill exactly the plate height instead of overflowing it,",
+      "and Persian digits get a measured nudge to sit at the optical center."
+     ],
+     "files": 1,
+     "added": 17,
+     "removed": 4
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "هفت کامپوننت تازه: TreeView (الگوی Tree در WAI-ARIA)، ButtonGroup، ChipGroup (تراشهٔ فیلتر)، PasswordStrength (با هشدار صفحه‌کلید فارسی)، MonthPicker (ماه و سال شمسی)، Countdown (شمارش معکوس با ارقام فارسی) و LandlineInput (تلفن ثابت با تشخیص استان). ابزارهای تازهٔ `@kashi-ui/persian`: normalizeLandline، getLandlineProvince، isValidLandline و formatLandline. ارقام پلاک خودرو حالا عمودی وسط‌چین‌اند.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens",
+      "bank-logos"
+     ]
+    },
+    {
+     "kind": "minor",
+     "text": "۱۹ لوگوی تازه در `@kashi-ui/bank-logos`: نه بانک و موسسه (انصار، قوامین، حکمت ایرانیان، کوثر، مهر اقتصاد، کاسپین، ایران و ونزوئلا، ایران و اروپا، فیوچر بانک) و ده درگاه پرداخت (شاپرک، زرین‌پال، آسان پرداخت، سداد، دیجی‌پی، آیدی‌پی، Pay.ir، پی‌پینگ، وندار، حسابیت). `getBankByCard` حالا کارت‌های بانک‌های ادغام‌شده در سپه را هم می‌شناسد.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens",
+      "bank-logos"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.10.0",
+   "date": "2026-10-27T12:15:26+03:30",
+   "releaseCommit": "ee5952f",
+   "commits": [
+    {
+     "sha": "ee5952f568900ddc7089bc83a34c5d1277381df4",
+     "short": "ee5952f",
+     "date": "2026-10-27T12:15:26+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Kashi 0.10: seven new components",
+     "details": [
+      "SegmentedControl, CopyButton, Banner and Rating, plus Persian",
+      "TimeInput, PostalCodeInput and PlateInput (real Iranian plate",
+      "proportions, colored by plate type). New persian helpers for postal",
+      "codes, plates and time."
+     ],
+     "files": 43,
+     "added": 1378,
+     "removed": 34
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "هفت کامپوننت تازه: SegmentedControl، CopyButton، Banner و Rating، و سه کامپوننت فارسی: TimeInput (ساعت ۲۴ساعته با ارقام فارسی)، PostalCodeInput (کد پستی با اعتبارسنجی) و PlateInput (پلاک خودروی ایران با نسبت واقعی و رنگ بر اساس نوع پلاک). ابزارهای تازهٔ `@kashi-ui/persian`: isValidPostalCode، formatPostalCode، isValidPlate، formatPlate، PLATE_LETTERS، plateType، parseTime و formatTime.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens",
+      "bank-logos"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.9.1",
+   "date": "2026-10-27T11:49:10+03:30",
+   "releaseCommit": "5884cb8",
+   "commits": [
+    {
+     "sha": "5884cb82aae36e86355fbfa719a50fa47dd16a39",
+     "short": "5884cb8",
+     "date": "2026-10-27T11:49:10+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Release 0.9.1",
+     "details": [],
+     "files": 13,
+     "added": 52,
+     "removed": 30
+    },
+    {
+     "sha": "a03ef3623d80be7defb263cc02eecbf38dd6e0b5",
+     "short": "a03ef36",
+     "date": "2026-10-27T11:40:14+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Align field heights with buttons; add pressed and hover states",
+     "details": [],
+     "files": 8,
+     "added": 20,
+     "removed": 9
+    },
+    {
+     "sha": "4497a4dce645474299e519fad9cfd8eaa3ffc99c",
+     "short": "4497a4d",
+     "date": "2026-10-27T11:37:22+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Polish foundations for a more enterprise look",
+     "details": [
+      "Deeper brand fill with white text in dark theme, less blue dark",
+      "neutrals, proportional Persian digits everywhere, full-width alerts",
+      "and tabs, and single-letter initials on small avatars."
+     ],
+     "files": 14,
+     "added": 28,
+     "removed": 19
+    }
+   ],
+   "notes": [
+    {
+     "kind": "patch",
+     "text": "ظاهر حرفه‌ای‌تر: رنگ برند در تم تیره پررنگ‌تر با متن سفید، خاکستری‌های تیره کم‌رنگ‌مایه‌تر، ارقام فارسی با عرض طبیعی در همهٔ کامپوننت‌ها (جدول، صفحه‌بندی، پیشرفت، ورودی و تقویم)، هشدار و زبانه‌ها تمام‌عرض، و آواتار کوچک تک‌حرفی.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "tokens"
+     ]
+    },
+    {
+     "kind": "patch",
+     "text": "ارتفاع فیلد، انتخاب از فهرست و ورودی برچسب با دکمه یکی شد (۳۶، ۴۰ و ۴۴ پیکسل) تا در یک ردیف هم‌قد باشند. دکمه‌ها حالت فشرده و چک‌باکس و رادیوی انتخاب‌شده حالت hover گرفتند.",
+     "sub": [],
+     "packages": [
+      "css"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.9.0",
+   "date": "2026-10-27T11:31:56+03:30",
+   "releaseCommit": "267c3ec",
+   "commits": [
+    {
+     "sha": "267c3ec69416ea332f174fb41b07fd9b0c3a0e38",
+     "short": "267c3ec",
+     "date": "2026-10-27T11:31:56+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Kashi 0.9: eleven new components",
+     "details": [
+      "Combobox, CommandPalette, TagInput, FileUpload, Slider, NumberInput,",
+      "Popover, Jalali DateRangePicker with presets, StatCard/StatGrid,",
+      "Timeline and SideNav, with docs pages, demos and tests. Calendar gains",
+      "range selection with hover preview. Docs demos no longer clip popups."
+     ],
+     "files": 54,
+     "added": 2847,
+     "removed": 45
+    },
+    {
+     "sha": "03a121a4fc656afca4a0cfc34194596bc5bc9439",
+     "short": "03a121a",
+     "date": "2026-10-27T11:10:24+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Fix circular progress spin jump; remove duplicated CSS blocks",
+     "details": [
+      "The indeterminate ring rotated the svg, which already had a -90deg base",
+      "rotation, so each loop jumped 90 degrees. Spin the container instead.",
+      "Also remove rule blocks that an earlier edit duplicated into",
+      "forced-colors and reduced-motion sections (avatar, input, progress)."
+     ],
+     "files": 4,
+     "added": 10,
+     "removed": 35
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "۱۱ کامپوننت تازه: Combobox (جستجو با یکدست‌سازی فارسی)، CommandPalette (Ctrl+K)، TagInput، FileUpload (کشیدن و رها کردن با پیشرفت)، Slider (تکی و بازه)، NumberInput، Popover، DateRangePicker شمسی با میان‌برها، StatCard و StatGrid، Timeline و SideNav. Calendar حالا بازه را با پیش‌نمایش نشان می‌دهد.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens",
+      "bank-logos"
+     ]
+    },
+    {
+     "kind": "patch",
+     "text": "رفع پرش انیمیشن Progress دایره‌ایِ نامعین (چرخش حالا روی ظرف است، نه svg)، و حذف قواعد تکراری‌ای که به اشتباه داخل بخش‌های forced-colors و prefers-reduced-motion کپی شده بودند (avatar، input، progress).",
+     "sub": [],
+     "packages": [
+      "css"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.8.0",
+   "date": "2026-10-27T11:01:40+03:30",
+   "releaseCommit": "0b56ae4",
+   "commits": [
+    {
+     "sha": "0b56ae409cf5efee1776a44b10fea576a71fa7ff",
+     "short": "0b56ae4",
+     "date": "2026-10-27T11:01:40+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Kashi 0.8: deep customization for every component",
+     "details": [
+      "classNames slots and data-state attributes, 93 component CSS variables,",
+      "and new options across Button, Input, Textarea, Badge, Avatar, Card,",
+      "Alert, Tabs, Dialog (drawer and sheet), Toast (placements, promise),",
+      "Tooltip, DataTable, Progress (circular), DropdownMenu and Switch.",
+      "Fixes duplicate toasts with multiple Toasters and exports CardMedia."
+     ],
+     "files": 64,
+     "added": 1556,
+     "removed": 208
+    },
+    {
+     "sha": "509ccaf69bf74e829abbeabc06ee853c5ec6c1a0",
+     "short": "509ccaf",
+     "date": "2026-10-27T10:47:22+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Redesign Breadcrumb; keep docs link color below kashi layers",
+     "details": [
+      "The docs' base link color was unlayered, so it beat every component's",
+      "link styles (breadcrumb links all brand-colored). It now lives in a",
+      "site-base layer declared before kashi. Breadcrumb gets neutral links,",
+      "a distinct current page, icon-only items, collapsing with focus",
+      "handoff, a slash separator and truncation."
+     ],
+     "files": 10,
+     "added": 185,
+     "removed": 34
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "ارتقای شخصی‌سازی همهٔ کامپوننت‌ها:",
+     "sub": [
+      "**پایه:** `classNames` برای استایل هر بخش داخلی (Input، Textarea، Checkbox، Switch، Alert، DataTable)، ویژگی‌های `data-variant`/`data-size`/`data-tone`/`data-state`/`data-placement` و ۹۳ متغیر CSS در سطح کامپوننت.",
+      "**Button:** رندر به‌صورت لینک با `href`، کامپوننت دلخواه با `as` (مثل Link در Next.js)، `shape` (pill/square) و اندازهٔ `xs`.",
+      "**Input/Textarea:** نمایش و پنهان کردن رمز، `clearable`، `loading`، `showCount`، `optional`، `labelEnd` و ارتفاع خودکار.",
+      "**Badge:** سبک‌های `solid` و `outline`، آیکون و `onRemove`. **Avatar:** رنگ خودکار ثابت از روی نام.",
+      "**Card:** سبک‌های `elevated` و `filled`، `padding`، `CardMedia` و `actions` در سربرگ. **Alert:** `layout=\"banner\"` و `size=\"sm\"`.",
+      "**Tabs:** جهت عمودی و اندازهٔ `sm`. **Dialog:** کشوی کناری و برگهٔ پایین با `placement`. **Tooltip:** جایگاه‌های start و end.",
+      "**Toast:** شش جایگاه، `max`، به‌روزرسانی با `id` و `toast.promise`؛ با چند Toaster در صفحه، اعلان‌ها دیگر تکراری نمی‌شوند.",
+      "**DataTable:** راه‌راه، سرستون ثابت، ردیف‌های بارگذاری، کلیک روی ردیف، `footer`، چینش و پنهان شدن ستون در موبایل.",
+      "**Progress:** نسخهٔ دایره‌ای. **DropdownMenu:** گزینه‌های تیک‌دار. **Switch/Checkbox:** `labelPosition=\"start\"`."
+     ],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens",
+      "bank-logos"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.7.0",
+   "date": "2026-10-27T10:41:17+03:30",
+   "releaseCommit": "183da98",
+   "commits": [
+    {
+     "sha": "183da98c5fd17da6648826d080050826b6130dfc",
+     "short": "183da98",
+     "date": "2026-10-27T10:41:17+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Kashi 0.7: twelve more components",
+     "details": [
+      "DropdownMenu (WAI-ARIA menu button), DataTable (Persian collation sort,",
+      "row selection, numeric columns), OtpInput (single real input with SMS",
+      "autofill), Accordion on native details, Stepper, Pagination, Breadcrumb,",
+      "Progress and Spinner, Skeleton, EmptyState, Divider and Kbd, each with",
+      "docs, live demos and accessibility tests."
+     ],
+     "files": 51,
+     "added": 1981,
+     "removed": 36
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "Breadcrumb بازطراحی شد: لینک‌های خنثی، صفحهٔ فعلی با پس‌زمینهٔ ملایم، فاصلهٔ آیکون و متن، `hideLabel` برای نمایش فقط آیکون (مثل خانه)، `maxItems` برای جمع کردن مسیرهای بلند به «…» (با انتقال فوکوس پس از باز شدن)، `separator=\"slash\"` و کوتاه شدن نام‌های بلند.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css"
+     ]
+    },
+    {
+     "kind": "minor",
+     "text": "۱۲ کامپوننت جدید: DropdownMenu (الگوی Menu Button با پیمایش کامل کیبورد)، DataTable (مرتب‌سازی الفبای فارسی، انتخاب ردیف‌ها، ستون‌های عددی)، OtpInput (کد تأیید با یک input واقعی و پر شدن خودکار پیامک)، Accordion روی details بومی، Stepper، Pagination با ارقام فارسی، Breadcrumb، Progress و Spinner، Skeleton، EmptyState، Divider و Kbd.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens",
+      "bank-logos"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.6.0",
+   "date": "2026-10-27T10:28:12+03:30",
+   "releaseCommit": "ecb99e2",
+   "commits": [
+    {
+     "sha": "ecb99e22755c4fbab7b59c987667e76720c1b8de",
+     "short": "ecb99e2",
+     "date": "2026-10-27T10:28:12+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Release swappable fonts as 0.6.0",
+     "details": [
+      "0.5.0 was already published before the font work landed, so its",
+      "changelog wrongly listed it. Font changes now ship as 0.6.0."
+     ],
+     "files": 11,
+     "added": 52,
+     "removed": 20
+    },
+    {
+     "sha": "11e58ad0769ec34d744f4bb1737694c27b04a3e8",
+     "short": "11e58ad",
+     "date": "2026-10-27T01:11:51+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Swappable fonts: createTheme font options, font-face helper, no-font CSS",
+     "details": [
+      "Any font, free or purchased, can replace Vazirmatn: createTheme accepts",
+      "fontFamily, displayFontFamily, monoFontFamily, textScale and fonts",
+      "(@font-face for self-hosted files). New --k-font-display and",
+      "--k-text-scale tokens, kashi.nofont.css, and a typography docs page with",
+      "a live font picker for nine free OFL Persian fonts."
+     ],
+     "files": 17,
+     "added": 424,
+     "removed": 21
+    },
+    {
+     "sha": "94d1d44599392aa165f0eaca9914d6d34753dbcd",
+     "short": "94d1d44",
+     "date": "2026-10-27T01:03:35+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Fold radio name fix into the unreleased 0.5.0 changelog",
+     "details": [],
+     "files": 2,
+     "added": 2,
+     "removed": 5
+    },
+    {
+     "sha": "02d7658bfa3f84fb048ba5dc5f4844b1268ac4d7",
+     "short": "02d7658",
+     "date": "2026-10-27T01:02:42+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Fix radios in docs allowing multiple selection; avatar group max",
+     "details": [
+      "MDX renders React children separately, so RadioGroup and AvatarGroup",
+      "context never reached them: radios had no shared name and AvatarGroup",
+      "showed every avatar. Demos now render whole groups in React. Radio also",
+      "accepts name directly and warns in development when it has none."
+     ],
+     "files": 5,
+     "added": 50,
+     "removed": 27
+    },
+    {
+     "sha": "1256110e957d5322b96473847fe80199c34a5a8e",
+     "short": "1256110",
+     "date": "2026-10-27T01:00:54+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Fix docs link color overriding link-buttons; document the layer pitfall",
+     "details": [
+      "The site's global a {} rule beat .k-btn (unlayered beats layered), so the",
+      "primary 'Get started' link-button had brand text on a brand background."
+     ],
+     "files": 2,
+     "added": 13,
+     "removed": 1
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "فونت قابل‌تعویض: `createTheme` حالا `fontFamily`، `displayFontFamily`، `monoFontFamily`، `textScale` و `fonts` (برای @font-face فونت‌های خودمیزبان، از جمله فونت‌های خریداری‌شده) می‌پذیرد؛ توابع جدید `fontFace` و `fontStack`؛ توکن‌های `--k-font-display` (فونت عنوان‌ها) و `--k-text-scale` (ضریب اندازهٔ متن)؛ و فایل `@kashi-ui/css/kashi.nofont.css` بدون وزیرمتن برای کسانی که فونت دیگری استفاده می‌کنند.",
+     "sub": [],
+     "packages": [
+      "css",
+      "tokens"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.5.0",
+   "date": "2026-10-27T00:59:42+03:30",
+   "releaseCommit": "16660be",
+   "commits": [
+    {
+     "sha": "16660bedcf391dc0b02dfbe68077251fbf8333a3",
+     "short": "16660be",
+     "date": "2026-10-27T00:59:42+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Kashi 0.5: core interactive components and visual polish",
+     "details": [
+      "- New: RadioGroup (list, inline, cards), Select on native select, Tabs",
+      "(line, pill, segmented) following WAI-ARIA, Dialog on native dialog",
+      "with focus return, Toast with pause-on-hover and toast() API, Tooltip",
+      "meeting WCAG 1.4.13, RelativeTime and formatRelative",
+      "- Polish: vivid dark-mode primary with dark text, lightest borders that",
+      "still meet 3:1, dark-mode surface highlight and visible shadows,",
+      "tabular digits, input hover, iOS focus-zoom fix, text-on-error token",
+      "- Docs: six new component pages; prose styles no longer leak into demos"
+     ],
+     "files": 53,
+     "added": 1729,
+     "removed": 63
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "کامپوننت‌های جدید: RadioGroup و Radio (با سبک کارت)، Select، Tabs (سه سبک)، Dialog روی dialog بومی، Toast با `toast()`، Tooltip و RelativeTime. ابزار جدید `formatRelative` برای زمان نسبی فارسی.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens",
+      "bank-logos"
+     ]
+    },
+    {
+     "kind": "patch",
+     "text": "`Radio` حالا `name` را مستقیم هم می‌پذیرد و اگر بیرون از `RadioGroup` و بدون `name` استفاده شود، در حالت توسعه هشدار می‌دهد (بدون name مشترک، چند گزینه هم‌زمان قابل‌انتخاب بود).",
+     "sub": [],
+     "packages": [
+      "react"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.4.0",
+   "date": "2026-10-27T00:41:04+03:30",
+   "releaseCommit": "5ba0336",
+   "commits": [
+    {
+     "sha": "5ba0336e6bdb43f70ce01ba047192e84e205c3a1",
+     "short": "5ba0336",
+     "date": "2026-10-27T00:41:04+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Kashi 0.4: IBAN, mobile and price inputs, bank logos",
+     "details": [
+      "- IbanInput, MobileInput and PriceInput (amount in Persian words),",
+      "sharing one caret-preserving digits hook with CardNumberInput",
+      "- New @kashi-ui/bank-logos: 31 Iranian bank logos from",
+      "zegond/logos-per-banks (CC0), optimized with SVGO from 800KB to 208KB,",
+      "loaded on demand by card and IBAN inputs (code-split)",
+      "- @kashi-ui/persian: isValidIban, getBankByIban, normalizeMobile,",
+      "getMobileOperator, numberToWords, normalizePersian, toISODate",
+      "- Docs: IBAN, mobile, price and bank logos pages"
+     ],
+     "files": 80,
+     "added": 1272,
+     "removed": 64
+    },
+    {
+     "sha": "7587c811f42c03357b8be1463dcf610666c6c358",
+     "short": "7587c81",
+     "date": "2026-10-27T00:25:56+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Fix useLayoutEffect SSR warning in DatePicker and CardNumberInput",
+     "details": [
+      "Found while testing the published 0.3.0 packages in a fresh project."
+     ],
+     "files": 5,
+     "added": 28,
+     "removed": 7
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "فیلدهای شماره شبا (IbanInput)، شماره موبایل (MobileInput) و مبلغ با نمایش به حروف (PriceInput). پکیج جدید `@kashi-ui/bank-logos` با لوگوی ۳۱ بانک (CC0، بهینه‌شده) که در فیلدهای کارت و شبا فقط هنگام نیاز بارگذاری می‌شود. ابزارهای جدید: `isValidIban`، `getBankByIban`، `normalizeMobile`، `getMobileOperator`، `numberToWords` و `normalizePersian`.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens",
+      "bank-logos"
+     ]
+    },
+    {
+     "kind": "patch",
+     "text": "رفع هشدار `useLayoutEffect` در رندر سمت سرور (مثل Next.js) برای DatePicker و CardNumberInput.",
+     "sub": [],
+     "packages": [
+      "react"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.3.0",
+   "date": "2026-10-27T00:09:36+03:30",
+   "releaseCommit": "3d2ddcb",
+   "commits": [
+    {
+     "sha": "3d2ddcb7c3f7fb2b2154c3340e3160b09277d79b",
+     "short": "3d2ddcb",
+     "date": "2026-10-27T00:09:36+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Kashi 0.3: Jalali date picker, national ID and card number fields",
+     "details": [
+      "- New @kashi-ui/persian package: Jalali conversion (tested day by day",
+      "against ICU for 1300-1500), Persian digits, toISODate without timezone",
+      "shift, national ID and card validation with bank detection",
+      "- Calendar and DatePicker following the WAI-ARIA date picker pattern:",
+      "RTL arrow keys, month/year jumps, live month announcements",
+      "- NationalIdInput and CardNumberInput accepting Persian and Latin digits,",
+      "with caret-preserving card grouping",
+      "- Docs: new Persian section with interactive demos"
+     ],
+     "files": 43,
+     "added": 1722,
+     "removed": 32
+    },
+    {
+     "sha": "5d3ba554615f2d5b74c5edd56c81c6253154923c",
+     "short": "5d3ba55",
+     "date": "2026-10-26T23:51:25+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Document lessons from the first npm release",
+     "details": [],
+     "files": 1,
+     "added": 6,
+     "removed": 0
+    },
+    {
+     "sha": "c86ebac6a4e2b81052436de6d348dee6b9462a9d",
+     "short": "c86ebac",
+     "date": "2026-10-26T23:30:27+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Add 404 page, canonical URLs and the live docs address",
+     "details": [],
+     "files": 11,
+     "added": 51,
+     "removed": 6
+    },
+    {
+     "sha": "1375e44b1299372995461bfff9eeb6017d59fa3b",
+     "short": "1375e44",
+     "date": "2026-10-26T23:24:37+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Fix Vercel build when the project root is apps/docs",
+     "details": [],
+     "files": 2,
+     "added": 12,
+     "removed": 1
+    },
+    {
+     "sha": "b09e10a2c84b675ca4806ae8027dd15d24ba604b",
+     "short": "b09e10a",
+     "date": "2026-10-26T23:20:15+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Add CI, Changesets releases and Vercel deploy config",
+     "details": [
+      "- CI workflow: clean install, build with WCAG contrast check, tests,",
+      "docs build and package contents check on every push and PR",
+      "- Changesets with the three packages versioned together; release",
+      "workflow publishes to npm with provenance, gated by NPM_PUBLISH",
+      "- Package READMEs, publishConfig and repository metadata",
+      "- vercel.json for the docs site; RELEASING.md setup guide"
+     ],
+     "files": 17,
+     "added": 640,
+     "removed": 17
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "کامپوننت‌های فارسی: انتخاب تاریخ شمسی (DatePicker و Calendar) با پیمایش کامل کیبورد، فیلد کد ملی با اعتبارسنجی رقم کنترل، و فیلد شماره کارت با گروه‌بندی، تشخیص بانک و بررسی Luhn. پکیج جدید `@kashi-ui/persian` برای تبدیل تاریخ، ارقام فارسی و اعتبارسنجی، بدون وابستگی.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.2.0",
+   "date": "2026-10-26T23:15:56+03:30",
+   "releaseCommit": "23d84a1",
+   "commits": [
+    {
+     "sha": "23d84a1faa6ec97d444e7eca3d8c98f1cf447d90",
+     "short": "23d84a1",
+     "date": "2026-10-26T23:15:56+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Kashi 0.2: Persian design system with tokens, CSS, React and docs site",
+     "details": [
+      "- @kashi-ui/tokens: colour palette inspired by Persian tiles, semantic dark/light",
+      "themes, createTheme() and a WCAG AA contrast check that fails the build",
+      "- @kashi-ui/css: RTL-first styles in cascade layers, Vazirmatn variable font,",
+      "Button, Input, Textarea, Badge, Card, Alert, Avatar, Checkbox and Switch",
+      "- @kashi-ui/react: typed React components with accessibility tests",
+      "- apps/docs: dark Astro documentation site with live demos and theme builder"
+     ],
+     "files": 86,
+     "added": 9144,
+     "removed": 1
+    },
+    {
+     "sha": "b95b407a1ebcd0c4896d7cf6c4520237f596cd70",
+     "short": "b95b407",
+     "date": "2026-10-26T23:11:45+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Initial commit",
+     "details": [],
+     "files": 1,
+     "added": 1,
+     "removed": 0
+    }
+   ],
+   "notes": []
+  }
+ ]
+}
