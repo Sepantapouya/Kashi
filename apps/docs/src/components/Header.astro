@@ -7,10 +7,12 @@ import SiteSearch from "./SiteSearch";
 
 const path = Astro.url.pathname;
 const links = [
-  { href: "/docs/", label: "مستندات", match: (p: string) => p.startsWith("/docs/") && !p.startsWith("/docs/components/") && !p.startsWith("/docs/persian/") && !p.startsWith("/docs/theming/") },
+  { href: "/docs/", label: "مستندات", match: (p: string) => p.startsWith("/docs/") && !/^\/docs\/(components|persian|theming|figma|compare)\//.test(p) },
   { href: "/docs/components/", label: "کامپوننت‌ها", match: (p: string) => p.startsWith("/docs/components/") },
   { href: "/docs/persian/", label: "فارسی", match: (p: string) => p.startsWith("/docs/persian/") },
   { href: "/docs/theming/", label: "تم‌ساز", match: (p: string) => p.startsWith("/docs/theming/") },
+  { href: "/docs/figma/", label: "پلاگین فیگما", match: (p: string) => p.startsWith("/docs/figma/") },
+  { href: "/docs/compare/", label: "مقایسه", match: (p: string) => p.startsWith("/docs/compare/") },
 ];
 ---
 <header class="site-header">
