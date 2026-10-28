@@ -2,8 +2,8 @@
   "name": "Kashi UI Kit",
   "id": "kashi-ui-kit",
   "api": "1.0.0",
-  "main": "code.js",
-  "ui": "ui.html",
+  "main": "plugin/code.js",
+  "ui": "plugin/ui.html",
   "editorType": ["figma"],
   "documentAccess": "dynamic-page",
   "networkAccess": { "allowedDomains": ["none"] }

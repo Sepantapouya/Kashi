@@ -163,5 +163,7 @@ const out = join(here, "plugin");
 mkdirSync(out, { recursive: true });
 writeFileSync(join(out, "code.js"), code);
 copyFileSync(join(here, "src/ui.html"), join(out, "ui.html"));
-copyFileSync(join(here, "manifest.json"), join(out, "manifest.json"));
+// هر دو manifest کار می‌کنند: ریشه به plugin/ اشاره می‌کند و این یکی به فایل‌های کنار خودش
+const manifest = JSON.parse(readFileSync(join(here, "manifest.json"), "utf8"));
+writeFileSync(join(out, "manifest.json"), JSON.stringify(Object.assign(manifest, { main: "code.js", ui: "ui.html" }), null, 2) + "\n");
 console.log(`figma-plugin: ${parts.length} source files, ${banks.length} bank logos, ${(code.length / 1024).toFixed(0)} KB`);
