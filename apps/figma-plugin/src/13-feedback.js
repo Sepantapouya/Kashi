@@ -22,7 +22,7 @@ function spinner(size = 20, color = "bg-brand") {
 }
 
 function buildFeedback() {
-  const { page, root } = kitPage("💬 Feedback", "بازخورد", "هشدار، اعلان، پیشرفت، دیالوگ و راهنما. نقش‌های ARIA (role=status، alert، dialog) در کد React رعایت شده‌اند.");
+  const root = kitPage("💬", "Feedback", "بازخورد", "هشدار، اعلان، پیشرفت، دیالوگ و راهنما. نقش‌های ARIA (role=status، alert، dialog) در کد React رعایت شده‌اند.");
 
   safe("Alert", () => section(root, "Alert · هشدار", "پنج لحن، سه چیدمان. عنوان، متن و دکمه‌ها از پنل ویژگی‌ها.", (h) => {
     componentSet(h, "Alert", {
@@ -31,10 +31,10 @@ function buildFeedback() {
         const t = TONES[p.Tone];
         const small = p.Layout === "Small";
         const tinted = p.Layout === "Tinted";
-        return F({ name: "Alert", dir: "H", gap: small ? "space/3" : "space/4", p: small ? 12 : "alert/padding", w: 460, cross: "start", radius: small ? "radius/lg" : "radius/xl", fill: tinted ? t.bg : "bg-elevated", stroke: tinted ? t.fg : "border-primary", strokeOpacity: tinted ? 0.35 : undefined, shadow: tinted ? undefined : "Shadow/xs" }, [
+        return F({ name: "Alert", dir: "H", gap: small ? "space/3" : "space/4", p: small ? 12 : "alert/padding", w: 460, cross: "start", radius: small ? "radius/lg" : "radius/xl", fill: tinted ? t.bg : "bg-secondary", stroke: tinted ? t.fg : "border-primary", strokeOpacity: tinted ? 0.35 : undefined, shadow: tinted ? undefined : "Surface" }, [
           small ? I(t.icon, 16, t.fg) : F({ name: "Icon ring", dir: "H", w: 20, h: 20, align: "center", cross: "center" }, [I(t.icon, 20, t.fg)]),
           F({ name: "Content", dir: "V", gap: "space/1", grow: true }, [
-            T("تغییرات ذخیره شد", { style: "Text sm/Semibold", color: "text-primary", name: "Title" }),
+            T("تغییرات ذخیره شد", { style: "Text sm/Semibold", color: "text-secondary", name: "Title" }),
             !small && T("نسخهٔ جدید پیش‌نویس شما در فضای ابری ذخیره شد و برای همهٔ اعضای تیم در دسترس است.", { style: "Text sm/Regular", color: "text-tertiary", name: "Description", w: "fill" }),
             !small && F({ name: "Actions", dir: "H", gap: "space/3", pt: "space/2" }, [
               T("نادیده گرفتن", { style: "Text sm/Semibold", color: "text-tertiary", name: "Dismiss" }),
@@ -172,7 +172,8 @@ function buildFeedback() {
       axes: { Placement: ["Top", "Bottom", "Start", "End"], Style: ["Short", "Rich"] },
       build: (p) => {
         const rich = p.Style === "Rich";
-        const bubble = F({ name: "Bubble", dir: "V", gap: 2, px: "space/3", py: rich ? "space/3" : "space/1.5", radius: "radius/md", fill: "text-primary", shadow: "Shadow/lg", w: rich ? 240 : undefined }, [
+        // ارتفاع راهنمای کوتاه در CSS دقیقاً ۳۱ است (خط ۱٫۶)
+        const bubble = F({ name: "Bubble", dir: "V", gap: 2, px: "space/3", py: rich ? "space/3" : undefined, h: rich ? undefined : 31, align: "center", radius: "radius/md", fill: "text-primary", shadow: "Shadow/lg", w: rich ? 240 : undefined }, [
           T(rich ? "میانبرهای کیبورد" : "کپی لینک", { style: rich ? "Text xs/Semibold" : "Text xs/Medium", color: "bg-primary", name: "Text" }),
           rich && T("برای دیدن همهٔ میانبرها کلید ? را بزنید.", { style: "Text xs/Regular", color: "bg-tertiary", w: "fill", name: "Description" }),
         ]);
@@ -206,11 +207,11 @@ function buildFeedback() {
       build: (p) => {
         const danger = p.Type === "Danger";
         const form = p.Type === "Form";
-        return F({ name: "Dialog", dir: "V", gap: 0, w: 480, radius: "radius/2xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover", clip: true }, [
+        return F({ name: "Dialog", dir: "V", gap: 0, w: 480, radius: "radius/2xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Dialog", clip: true }, [
           F({ name: "Header", dir: "H", gap: "space/4", pt: "space/6", px: "space/6", w: "fill", cross: "start" }, [
             featuredIcon(danger ? "trash" : form ? "users" : "sparkle", danger ? "Error" : "Brand", 48),
             F({ name: "Heading", dir: "V", gap: "space/1", grow: true, pt: "space/1" }, [
-              T(danger ? "حذف پروژه" : form ? "دعوت هم‌تیمی" : "به کاشی خوش آمدید", { style: "Text lg/Semibold", color: "text-primary", name: "Title" }),
+              T(danger ? "حذف پروژه" : form ? "دعوت هم‌تیمی" : "به کاشی خوش آمدید", { style: "Display lg/Semibold", color: "text-primary", name: "Title" }),
               T(danger ? "این کار برگشت‌پذیر نیست. همهٔ فایل‌ها و نظرها برای همیشه پاک می‌شوند." : form ? "ایمیل هم‌تیمی را وارد کنید تا دعوت‌نامه ارسال شود." : "دیزاین‌سیستم فارسی شما آماده است. از کجا شروع کنیم؟", { style: "Text sm/Regular", color: "text-tertiary", w: "fill", name: "Description" }),
             ]),
             I("close", 20, "text-quaternary"),
@@ -257,5 +258,4 @@ function buildFeedback() {
       docs: "tour",
     });
   }));
-  return page;
 }

@@ -125,7 +125,15 @@ const calendar = {
   plateLetters: P.PLATE_LETTERS,
 };
 
+// صفحه‌های مستندات، برای لینک «Documentation» هر کامپوننت در فیگما
+const docsDir = join(root, "apps/docs/src/pages/docs");
+const docPages = {};
+for (const section of ["components", "persian"]) {
+  docPages[section] = readdirSync(join(docsDir, section)).filter((f) => /\.(mdx|astro)$/.test(f)).map((f) => f.replace(/\.(mdx|astro)$/, ""));
+}
+
 const TOKENS = {
+  docPages,
   calendar,
   palette,
   brandScale: "firoozeh",
@@ -150,6 +158,7 @@ const code = [
   "(function () {",
   `const TOKENS = ${JSON.stringify(TOKENS)};`,
   `const BANKS = ${JSON.stringify(banks)};`,
+  `const AUTHOR_PHOTO = ${JSON.stringify(readFileSync(join(root, "apps/docs/public/images/sepanta-pouya.jpg")).toString("base64"))};`,
   ...parts.map((f) => `// ---- ${f}\n${readFileSync(join(srcDir, f), "utf8")}`),
   "})();",
 ].join("\n");
@@ -166,4 +175,42 @@ copyFileSync(join(here, "src/ui.html"), join(out, "ui.html"));
 // هر دو manifest کار می‌کنند: ریشه به plugin/ اشاره می‌کند و این یکی به فایل‌های کنار خودش
 const manifest = JSON.parse(readFileSync(join(here, "manifest.json"), "utf8"));
 writeFileSync(join(out, "manifest.json"), JSON.stringify(Object.assign(manifest, { main: "code.js", ui: "ui.html" }), null, 2) + "\n");
-console.log(`figma-plugin: ${parts.length} source files, ${banks.length} bank logos, ${(code.length / 1024).toFixed(0)} KB`);
+// ---------- فایل zip برای دانلود از سایت ----------
+// zip ساده بدون فشرده‌سازی با تاریخ ثابت تا خروجی هر بار یکسان باشد
+function crc32(buf) {
+  let c, crc = 0xffffffff;
+  for (let n = 0; n < buf.length; n++) {
+    c = (crc ^ buf[n]) & 0xff;
+    for (let k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+    crc = (crc >>> 8) ^ c;
+  }
+  return (crc ^ 0xffffffff) >>> 0;
+}
+function zip(files) {
+  const parts = [], central = [];
+  let offset = 0;
+  for (const [name, data] of files) {
+    const nameBuf = Buffer.from(name), crc = crc32(data);
+    const local = Buffer.alloc(30);
+    local.writeUInt32LE(0x04034b50, 0); local.writeUInt16LE(20, 4); local.writeUInt16LE(0x0800, 6); local.writeUInt16LE(0, 8);
+    local.writeUInt16LE(0, 10); local.writeUInt16LE(0x5b21, 12); local.writeUInt32LE(crc, 14);
+    local.writeUInt32LE(data.length, 18); local.writeUInt32LE(data.length, 22); local.writeUInt16LE(nameBuf.length, 26);
+    const cen = Buffer.alloc(46);
+    cen.writeUInt32LE(0x02014b50, 0); cen.writeUInt16LE(20, 4); cen.writeUInt16LE(20, 6); cen.writeUInt16LE(0x0800, 8);
+    cen.writeUInt16LE(0, 12); cen.writeUInt16LE(0x5b21, 14); cen.writeUInt32LE(crc, 16);
+    cen.writeUInt32LE(data.length, 20); cen.writeUInt32LE(data.length, 24); cen.writeUInt16LE(nameBuf.length, 28); cen.writeUInt32LE(offset, 42);
+    parts.push(local, nameBuf, data);
+    central.push(cen, nameBuf);
+    offset += 30 + nameBuf.length + data.length;
+  }
+  const cenBuf = Buffer.concat(central);
+  const end = Buffer.alloc(22);
+  end.writeUInt32LE(0x06054b50, 0); end.writeUInt16LE(files.length, 8); end.writeUInt16LE(files.length, 10);
+  end.writeUInt32LE(cenBuf.length, 12); end.writeUInt32LE(offset, 16);
+  return Buffer.concat([...parts, cenBuf, end]);
+}
+const downloads = join(root, "apps/docs/public/downloads");
+mkdirSync(downloads, { recursive: true });
+writeFileSync(join(downloads, "kashi-figma-plugin.zip"), zip(["manifest.json", "code.js", "ui.html"].map((f) => [`kashi-figma-plugin/${f}`, readFileSync(join(out, f))])));
+
+console.log(`figma-plugin:${parts.length} source files, ${banks.length} bank logos, ${(code.length / 1024).toFixed(0)} KB`);

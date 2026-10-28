@@ -76,14 +76,18 @@ const ICONS = {
 const svgOf = (inner, color = "#000") =>
   `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="${color}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
 
-/** صفحهٔ آیکون‌ها: هر آیکون یک کامپوننت تا در طرح‌ها قابل جایگزینی (Instance swap) باشد */
-function buildIcons(page) {
-  const board = F({ name: "Icons", dir: "H", wrap: true, gap: 16, rowGap: 16, p: 32, w: 1120, fill: "bg-primary" });
-  page.appendChild(board);
-  board.primaryAxisSizingMode = "FIXED";
+/** صفحه‌های آیکون و لوگو؛ هر کدام کامپوننت با کلید ثابت تا در به‌روزرسانی‌ها instance ها وصل بمانند */
+function buildAssets() {
+  const root = kitPage("🧩", "Assets", "آیکون‌ها و لوگوها", "");
+  section(root, "Icons · آیکون‌ها", `${fa(Object.keys(ICONS).length)} آیکون ۲۰×۲۰ با خط ۱٫۷، هم‌شکل آیکون‌های داخلی کاشی. در طرح‌ها با Instance swap عوض می‌شوند.`, buildIcons);
+  section(root, "Bank logos · لوگوی بانک‌ها", `${fa(BANKS.length)} لوگوی بانک و درگاه پرداخت از @kashi-ui/bank-logos.`, buildBankLogos);
+}
+
+function buildIcons(holder) {
   for (const [name, inner] of Object.entries(ICONS)) {
     const node = figma.createNodeFromSvg(svgOf(inner));
-    const comp = figma.createComponentFromNode(node);
+    node.name = `Icon / ${name}`;
+    const comp = upsertComponent(`Icon / ${name}`, node);
     comp.name = `Icon / ${name}`;
     comp.fills = [];
     comp.clipsContent = false;
@@ -92,14 +96,12 @@ function buildIcons(page) {
       if ("strokes" in n && n.strokes.length) n.strokes = [paint("text-secondary")];
     }
     comp.description = `آیکون ${name} — ۲۰×۲۰`;
-    const cell = F({ name, dir: "V", gap: 8, p: 12, cross: "center", w: 96, radius: "radius/md", stroke: "border-secondary", fill: "bg-secondary" }, [
+    add(holder, F({ name, dir: "V", gap: 8, p: 12, cross: "center", w: 96, radius: "radius/md", stroke: "border-secondary", fill: "bg-secondary" }, [
       comp,
       T(name, { style: "Text xs/Regular", color: "text-tertiary", align: "center", ltr: true }),
-    ]);
-    board.appendChild(cell);
+    ]));
     S.icons[name] = comp;
   }
-  return board;
 }
 
 /** نمونهٔ آیکون با اندازه و رنگ دلخواه */
@@ -113,27 +115,21 @@ function I(name, size = 20, color = "text-tertiary") {
 }
 
 /** لوگوی بانک‌ها به شکل کامپوننت؛ برای فیلد کارت، شبا و نشان بانک */
-function buildBankLogos(page) {
-  const board = F({ name: "Bank logos", dir: "H", wrap: true, gap: 16, rowGap: 16, p: 32, w: 1120, fill: "bg-primary" });
-  page.appendChild(board);
-  board.primaryAxisSizingMode = "FIXED";
+function buildBankLogos(holder) {
   for (const b of BANKS) {
     let node;
     try { node = figma.createNodeFromSvg(b.svg); } catch (e) { continue; }
-    const s = 32 / Math.max(node.width, node.height);
-    node.rescale(s);
-    const comp = figma.createComponentFromNode(node);
+    node.rescale(32 / Math.max(node.width, node.height));
+    const comp = upsertComponent(`Bank / ${b.slug}`, node);
     comp.name = `Bank / ${b.slug}`;
     comp.description = b.name;
     comp.fills = [];
-    const cell = F({ name: b.slug, dir: "V", gap: 8, p: 12, cross: "center", w: 120, radius: "radius/md", stroke: "border-secondary", fill: "bg-secondary" }, [
+    add(holder, F({ name: b.slug, dir: "V", gap: 8, p: 12, cross: "center", w: 120, radius: "radius/md", stroke: "border-secondary", fill: "bg-secondary" }, [
       comp,
       T(b.name, { style: "Text xs/Regular", color: "text-secondary", align: "center", w: "fill" }),
-    ]);
-    board.appendChild(cell);
+    ]));
     S.bankLogos[b.slug] = comp;
   }
-  return board;
 }
 
 function bankLogo(slug, size = 20) {

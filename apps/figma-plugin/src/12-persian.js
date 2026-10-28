@@ -53,7 +53,7 @@ function bankCard(slug) {
 }
 
 function buildPersian() {
-  const { page, root } = kitPage("🇮🇷 Persian", "کامپوننت‌های فارسی", "فیلدهای مخصوص ایران با اعتبارسنجی واقعی در کد: کارت بانکی (Luhn و تشخیص بانک)، شبا (mod 97)، کد ملی، موبایل و اپراتور، پلاک و مبلغ به حروف.");
+  const root = kitPage("🇮🇷", "Persian", "کامپوننت‌های فارسی", "فیلدهای مخصوص ایران با اعتبارسنجی واقعی در کد: کارت بانکی (Luhn و تشخیص بانک)، شبا (mod 97)، کد ملی، موبایل و اپراتور، پلاک و مبلغ به حروف.");
 
   safe("Card", () => section(root, "Card number input · شماره کارت", "با تایپ شش رقم اول، لوگو و نام بانک نمایش داده می‌شود. همهٔ ۵۰ لوگو در صفحهٔ Assets هستند.", (h) => {
     componentSet(h, "Card number input", {
@@ -278,5 +278,4 @@ function buildPersian() {
       docs: "countdown",
     });
   }));
-  return page;
 }

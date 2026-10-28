@@ -7,6 +7,7 @@ const RAW: NavGroup[] = [
     items: [
       { title: "معرفی", href: "/docs/" },
       { title: "نصب", href: "/docs/installation/" },
+      { title: "پلاگین فیگما", href: "/docs/figma/", badge: "جدید" },
       { title: "سفارشی‌سازی و تم", href: "/docs/theming/" },
       { title: "فونت و تایپوگرافی", href: "/docs/typography/" },
       { title: "دسترس‌پذیری", href: "/docs/accessibility/" },

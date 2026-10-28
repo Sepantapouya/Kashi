@@ -32,8 +32,10 @@ const TEXT_BINDABLE = new Set(["fontFamily", "fontSize", "fontStyle", "fontWeigh
 export const issues = [];
 const fail = (msg) => { throw new Error(msg); };
 
+const MIXED = Symbol("mixed");
 function checkPaint(p) {
   if (!p || typeof p !== "object") fail("paint must be object");
+  if (p.type === "IMAGE") { if (!p.imageHash) fail("image paint needs imageHash"); return; }
   if (p.type !== "SOLID") fail(`paint type ${p.type}`);
   const keys = Object.keys(p.color || {});
   if (keys.sort().join() !== "b,g,r") fail(`SOLID color must have only r,g,b: ${keys}`);
@@ -95,7 +97,21 @@ class Node {
     return out;
   }
   findOne(fn) { return this.findAll(fn)[0] || null; }
+  getPluginData(k) { return this.pluginData[k] || ""; }
+  async loadAsync() {}
+  setRangeFills(start, end, fills) {
+    if (this.type !== "TEXT") fail("setRangeFills on non-text");
+    if (!(start >= 0 && end <= this.characters.length && start < end)) fail(`setRangeFills range ${start}-${end}`);
+    fills.forEach(checkPaint);
+  }
   setBoundVariable(field, v) {
+    if (v === null) { delete this.boundVariables[field]; return; }
+    if (this.type === "TEXT" && TEXT_BINDABLE.has(field)) {
+      const want = ["fontFamily", "fontStyle"].includes(field) ? "STRING" : "FLOAT";
+      if (v.resolvedType !== want) fail(`text ${field} needs ${want}`);
+      this.boundVariables[field] = { type: "VARIABLE_ALIAS", id: v.id };
+      return;
+    }
     if (!BINDABLE.has(field)) fail(`setBoundVariable: field ${field} not bindable on ${this.type}`);
     if (!v || !v.resolvedType) fail(`setBoundVariable(${field}): not a variable`);
     if (field === "visible" ? v.resolvedType !== "BOOLEAN" : field === "characters" ? v.resolvedType !== "STRING" : v.resolvedType !== "FLOAT") fail(`setBoundVariable(${field}): wrong type ${v.resolvedType}`);
@@ -107,7 +123,7 @@ class Node {
   }
   async setTextStyleIdAsync(sid) { if (this.type !== "TEXT") fail("setTextStyleIdAsync on non-text"); if (!STYLES.has(sid)) fail("unknown text style"); this.textStyleId = sid; }
   async setEffectStyleIdAsync(sid) { if (!STYLES.has(sid)) fail("unknown effect style"); this.effectStyleId = sid; }
-  setPluginData(k, v) { this.pluginData[k] = v; }
+  setPluginData(k, v) { if (typeof v !== "string") fail("pluginData must be string"); this.pluginData[k] = v; }
 }
 
 const PROPS = {
@@ -134,7 +150,7 @@ const fontKey = (f) => `${f.family}::${f.style}`;
 function strict(node) {
   return new Proxy(node, {
     set(t, k, v) {
-      if (typeof k === "string" && !k.startsWith("_") && !(k in Node.prototype) && !["type", "id", "children", "parent", "removed", "boundVariables", "pluginData", "_props", "componentPropertyDefinitions", "addComponentProperty", "createInstance", "mainComponent"].includes(k)) {
+      if (typeof k === "string" && !k.startsWith("_") && !(k in Node.prototype) && !["type", "id", "children", "parent", "removed", "boundVariables", "pluginData", "_props", "componentPropertyDefinitions", "addComponentProperty", "createInstance", "mainComponent", "_scopes"].includes(k)) {
         if (!allowed[t.type].includes(k)) fail(`${t.type}.${k} is not a settable property`);
         if (ENUMS[k] && !ENUMS[k].includes(v)) fail(`${t.type}.${k} = ${v} is not valid`);
         if ((k === "fills" || k === "strokes")) { if (!Array.isArray(v)) fail(`${k} must be array`); v.forEach(checkPaint); }
@@ -288,6 +304,12 @@ export function createFigma({ fonts, maxModes = 4 }) {
       return v;
     },
     createVariableAlias(v) { if (!v || !v.id) fail("createVariableAlias: no variable"); return { type: "VARIABLE_ALIAS", id: v.id }; },
+    setBoundVariableForEffect(e, field, v) {
+      checkEffect(e);
+      if (!["color", "radius", "spread", "offsetX", "offsetY"].includes(field)) fail(`effect field ${field}`);
+      if (!v || v.resolvedType !== (field === "color" ? "COLOR" : "FLOAT")) fail(`effect ${field} variable type`);
+      return Object.assign({}, e, { boundVariables: Object.assign({}, e.boundVariables, { [field]: { type: "VARIABLE_ALIAS", id: v.id } }) });
+    },
     setBoundVariableForPaint(p, field, v) {
       checkPaint(p);
       if (field !== "color") fail("paint field must be color");
@@ -297,7 +319,7 @@ export function createFigma({ fonts, maxModes = 4 }) {
   };
 
   const style = (kind) => {
-    const s = { id: `S:${id()}`, type: kind, name: "", description: "", boundVariables: {} };
+    const s = { id: `S:${id()}`, type: kind, name: "", description: "", boundVariables: {}, remove() { const list = kind === "TEXT" ? textStyles : effectStyles; list.splice(list.indexOf(this), 1); STYLES.delete(this.id); } };
     if (kind === "TEXT") {
       return new Proxy(s, {
         set(t, k, v) {
@@ -315,7 +337,10 @@ export function createFigma({ fonts, maxModes = 4 }) {
   const textStyles = [], effectStyles = [];
 
   const figma = {
+    mixed: MIXED,
     root,
+    createImage(bytes) { if (!(bytes instanceof Uint8Array) || bytes.length < 100) fail("createImage: bad bytes"); return { hash: `img${id()}` }; },
+    base64Decode(s) { return new Uint8Array(Buffer.from(s, "base64")); },
     get currentPage() { return currentPage; },
     async setCurrentPageAsync(p) { if (p.type !== "PAGE") fail("not a page"); currentPage = p; },
     createPage() { const p = make("PAGE"); root.children.push(p); p.parent = root; p.name = "Page"; return p; },

@@ -4,15 +4,14 @@
 
 ## چه چیزهایی ساخته می‌شود
 
-- **Variables (حدود ۲۰۰ متغیر)**
+- **Variables (حدود ۲۷۰ متغیر؛ بدون هیچ Style)**
   - `Kashi · Primitives`: پالت رنگ (فیروزه، لاجورد، زعفران، انار، پسته، شب) و `color/brand/*`
   - `Kashi · Theme`: رنگ‌های معنایی با دو mode، **Dark** و **Light**
   - `Kashi · Radius`: گردی گوشه‌ها با چهار mode، Default، Sharp، Soft و Round
   - `Kashi · Density`: ارتفاع و فاصلهٔ داخلی کنترل‌ها با mode های Default، Compact و Comfortable
   - `Kashi · Spacing` و `Kashi · Typography`: فاصله‌ها، فونت، اندازه و ارتفاع خط
-- **Text styles:** ۴۴ استایل (`Display 6xl` تا `Text xs`، هر کدام در چهار وزن) که به متغیرهای فونت وصل‌اند.
-- **Effect styles:** سایه‌ها، حلقهٔ فوکوس و سایهٔ اسکئومورفیک دکمه، جدا برای تم تیره و روشن.
-- **بیش از ۷۰ کامپوننت با حدود ۷۰۰ variant**، در صفحه‌های زیر:
+- متن‌ها مستقیم به متغیرهای فونت، اندازه، وزن و ارتفاع خط وصل‌اند. هر لایهٔ سایه هم رنگ و فاصله‌اش را از متغیرهای تم می‌گیرد.
+- **بیش از ۷۰ کامپوننت با حدود ۷۰۰ variant**؛ هر کامپوننت در یک صفحه، variant ها در جدول مرتب با برچسب ردیف و ستون:
   - **Actions:** Button، Icon button، Button group، Segmented control، Copy button
   - **Forms:** Input، Textarea، Select، Combobox، Multi select، Tag input، Checkbox، Radio، Switch، Choice card، Slider، Number input، OTP، File upload، Rating، Password strength، Color picker، Inline edit، Time input، Date picker (تقویم شمسی)، Calendar و Month picker
   - **Persian:**
@@ -38,7 +37,7 @@
 ۲. تم پیش‌فرض و فونت را انتخاب کنید و **ساخت کیت** را بزنید.
 ۳. ساخت یکی دو دقیقه طول می‌کشد. در پایان صفحه‌های کیت (از 📕 تا 🧭) در فایل ساخته شده‌اند.
 
-> **بار دوم به بعد:** اگر فقط رنگ‌ها یا فونت را به‌روز می‌کنید، تیک «صفحه‌های کامپوننت» را بردارید. متغیرها و استایل‌ها در جای خودشان به‌روز می‌شوند و instance هایی که در طرح‌هایتان گذاشته‌اید دست نمی‌خورند.
+> **نسخه‌های بعدی:** پلاگین جدید را در همان فایل اجرا کنید. کامپوننت‌های تازه اضافه و کامپوننت‌های بهتر شده درجا به‌روز می‌شوند؛ instance های طرح‌هایتان وصل می‌مانند. راهنمای کامل: https://kashi.sepantapouya.com/docs/figma/
 
 ## سفارشی‌سازی
 
@@ -53,8 +52,8 @@
 
 ```bash
 npm run figma:build   # src/ و توکن‌ها → plugin/code.js
-npm run figma:test    # اجرای کامل پلاگین در شبیه‌ساز سخت‌گیر API فیگما
+npm run figma:test    # اجرای کامل در شبیه‌ساز سخت‌گیر API فیگما، به‌روزرسانی درجا و هم‌خوانی پیکسلی با CSS
 ```
 
 - کد پلاگین در `src/` است و به ترتیب نام فایل کنار هم گذاشته می‌شود.
-- پوشهٔ `plugin/` خروجی ساخته‌شده است و در گیت می‌ماند تا بدون ساختن هم نصب شود. CI بررسی می‌کند که به‌روز باشد.
+- پوشهٔ `plugin/` و فایل `apps/docs/public/downloads/kashi-figma-plugin.zip` خروجی ساخته‌شده‌اند و در گیت می‌مانند. CI بررسی می‌کند که به‌روز باشند.

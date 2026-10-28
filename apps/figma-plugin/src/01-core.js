@@ -6,17 +6,28 @@ const S = {
   family: TOKENS.font.family,
   /** متغیرها بر اساس نام کامل، مثل "bg-brand" یا "radius/md" */
   vars: {},
+  varById: {},
   collections: {},
-  textStyles: {},
-  effectStyles: {},
-  /** استایل متن و افکت آخر کار به‌صورت async وصل می‌شوند */
-  pendingText: [],
-  pendingEffect: [],
   icons: {},
   bankLogos: {},
   theme: "dark",
-  stats: { variables: 0, textStyles: 0, effectStyles: 0, components: 0, sets: 0 },
+  stats: { variables: 0, components: 0, sets: 0, pages: 0, added: 0, updated: 0 },
 };
+
+/**
+ * تایپوگرافی فقط با Variables (بدون Text style):
+ * "Text sm/Semibold" → اندازه، ارتفاع خط، وزن و فونت هر کدام به متغیر وصل می‌شوند.
+ */
+const TYPE_WEIGHTS = { Regular: "regular", Medium: "medium", Semibold: "semibold", Bold: "bold" };
+function typeSpec(name) {
+  const m = /^(Display|Text) ([0-9a-z]+)\/(\w+)$/.exec(name || "Text sm/Regular");
+  if (!m) throw new Error(`Unknown type style: ${name}`);
+  const kind = m[1] === "Display" ? "display" : "text";
+  const leading = kind === "display" ? TOKENS.font.leading.tight : TOKENS.font.leading.normal;
+  return { kind, sizeKey: m[2], size: TOKENS.font.size[m[2]], weight: TYPE_WEIGHTS[m[3]], leading };
+}
+const TYPE_SCALE = []
+  .concat(["6xl", "5xl", "4xl", "3xl", "2xl", "xl"].map((k) => `Display ${k}`), ["xl", "lg", "md", "sm", "xs"].map((k) => `Text ${k}`));
 
 /** جایگزین ?? (محیط اجرای پلاگین فیگما همهٔ نحوهای جدید را ندارد) */
 const pick = (a, b) => (a === undefined || a === null ? b : a);
@@ -145,14 +156,52 @@ function setRadius(node, r) {
   for (const f of ["topLeftRadius", "topRightRadius", "bottomLeftRadius", "bottomRightRadius"]) bindNum(node, f, r);
 }
 
+/** ترکیب‌های سایه؛ هر جزء یک توکن افکت است که لایه‌هایش به متغیر وصل‌اند */
+const EFFECT_COMBOS = {
+  Button: ["shadow-xs", "shadow-skeuomorphic"],
+  "Button focus": ["shadow-xs", "shadow-skeuomorphic", "ring-brand"],
+  "Button danger focus": ["shadow-xs", "shadow-skeuomorphic", "ring-error"],
+  "Input focus": ["shadow-xs", "ring-brand"],
+  "Input error focus": ["shadow-xs", "ring-error"],
+  Elevated: ["shadow-lg", "highlight"],
+  // کارت و هشدار در CSS: سایهٔ xs به‌علاوهٔ خط روشن بالا
+  Surface: ["shadow-xs", "highlight"],
+  Dialog: ["shadow-2xl", "highlight"],
+  Popover: ["shadow-xl", "highlight"],
+  "highlight-only": ["highlight"],
+  "Focus ring/brand": ["ring-brand"],
+  "Focus ring/error": ["ring-error"],
+};
+function effectTokens(name) {
+  if (EFFECT_COMBOS[name]) return EFFECT_COMBOS[name];
+  const m = /^Shadow\/(\w+)$/.exec(name);
+  if (m) return [`shadow-${m[1]}`];
+  throw new Error(`Unknown effect: ${name}`);
+}
+
+/** سایه‌ها مستقیم روی گره، با رنگ، فاصله، محو و گسترش وصل به متغیرهای تم */
 function effectStyle(node, name) {
   if (!name) return;
-  const names = Array.isArray(name) ? name : [name];
-  const list = names.map((n) => S.effectStyles[`${S.theme === "dark" ? "Dark" : "Light"}/${n}`] || S.effectStyles[n]).filter(Boolean);
-  if (!list.length) return;
-  if (list.length === 1) S.pendingEffect.push([node, list[0].id]);
-  else node.effects = list.flatMap((s) => s.effects);
+  const tokens = [].concat(name).flatMap(effectTokens);
+  const out = [];
+  for (const token of tokens) {
+    for (const layer of EFFECT_LAYERS[token] || []) {
+      const e = layer.value(S.theme);
+      let fx = {
+        type: layer.type, color: e.color, offset: { x: e.x, y: e.y }, radius: e.blur, spread: e.spread, visible: true, blendMode: "NORMAL",
+      };
+      if (layer.type === "DROP_SHADOW") fx.showShadowBehindNode = false;
+      for (const [field, key] of [["color", "color"], ["offsetX", "x"], ["offsetY", "y"], ["radius", "blur"], ["spread", "spread"]]) {
+        const v = layer.vars[key];
+        if (v) { try { fx = figma.variables.setBoundVariableForEffect(fx, field, v); } catch (err) { /* API قدیمی */ } }
+      }
+      out.push(fx);
+    }
+  }
+  node.effects = out;
 }
+/** لایه‌های هر توکن افکت؛ در buildVariables پر می‌شود */
+const EFFECT_LAYERS = {};
 
 /**
  * فریم با auto layout راست‌به‌چپ.
@@ -261,8 +310,7 @@ function applySizing(k) {
 /** متن فارسی؛ s: { style: "Text sm/Medium", color, align, w, maxLines, name } */
 function T(text, o = {}) {
   const t = figma.createText();
-  const style = S.textStyles[o.style || "Text sm/Regular"];
-  const spec = style ? style.spec : { size: TOKENS.font.size.sm, weight: "regular", leading: TOKENS.font.leading.normal };
+  const spec = typeSpec(o.style);
   t.fontName = S.fonts[o.weight || spec.weight];
   t.fontSize = o.size || spec.size;
   t.lineHeight = { unit: "PIXELS", value: Math.round((o.size || spec.size) * (o.leading || spec.leading)) };
@@ -275,10 +323,22 @@ function T(text, o = {}) {
   if (typeof o.w === "number") t.resize(o.w, t.height);
   if (o.maxLines) { t.textTruncation = "ENDING"; t.maxLines = o.maxLines; }
   if (o.decoration) t.textDecoration = o.decoration;
+  if (o.highlight) t.setRangeFills(o.highlight[0], o.highlight[1], [paint("text-brand")]);
   if (o.letterSpacing) t.letterSpacing = { unit: "PERCENT", value: o.letterSpacing };
-  if (style && !o.size && !o.weight && !o.leading) S.pendingText.push([t, style.node.id]);
+  if (!o.size && !o.weight && !o.leading) bindType(t, spec);
   SIZING.set(t, { w: o.w, h: o.h, x: o.x, y: o.y, absolute: o.absolute, grow: o.grow });
   return t;
+}
+
+function bindType(node, spec) {
+  const bind = (field, key) => {
+    const v = S.vars[key];
+    if (v) { try { node.setBoundVariable(field, v); } catch (e) { /* API قدیمی */ } }
+  };
+  bind("fontFamily", spec.kind === "display" ? "font/family/display" : "font/family/sans");
+  bind("fontStyle", `font/weight/${spec.weight}`);
+  bind("fontSize", `font/size/${spec.sizeKey}`);
+  bind("lineHeight", `font/line-height/${spec.kind}-${spec.sizeKey}`);
 }
 
 /** مستطیل/بیضی ساده */

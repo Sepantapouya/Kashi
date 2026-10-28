@@ -35,6 +35,7 @@ async function getVariable(c, name, type, scopes) {
     existingVars.push(v);
   }
   if (scopes) v.scopes = scopes;
+  S.varById[v.id] = v;
   S.stats.variables++;
   return v;
 }
@@ -142,71 +143,62 @@ async function buildVariables() {
       S.vars[`font/line-height/${kind}-${k}`] = lh;
     }
   }
+
+  await buildEffectVariables();
 }
 
-// ---------- استایل متن ----------
-const TEXT_WEIGHTS = { Regular: "regular", Medium: "medium", Semibold: "semibold", Bold: "bold" };
-
-async function buildTextStyles() {
-  const existing = await figma.getLocalTextStylesAsync();
-  const make = async (name, sizeKey, weight, kind) => {
-    let st = existing.find((s) => s.name === name);
-    if (!st) st = figma.createTextStyle();
-    st.name = name;
-    const size = TOKENS.font.size[sizeKey];
-    const leading = kind === "display" ? TOKENS.font.leading.tight : TOKENS.font.leading.normal;
-    st.fontName = S.fonts[weight];
-    st.fontSize = size;
-    st.lineHeight = { unit: "PIXELS", value: Math.round(size * leading) };
-    st.letterSpacing = { unit: "PERCENT", value: kind === "display" && size >= 36 ? -1 : 0 };
-    st.description = `${size}px · ${weight} · line-height ${leading}`;
-    const bind = (field, key) => { try { if (S.vars[key]) st.setBoundVariable(field, S.vars[key]); } catch (e) { /* قدیمی */ } };
-    bind("fontFamily", kind === "display" ? "font/family/display" : "font/family/sans");
-    bind("fontStyle", `font/weight/${weight}`);
-    bind("fontSize", `font/size/${sizeKey}`);
-    bind("lineHeight", `font/line-height/${kind}-${sizeKey}`);
-    S.textStyles[name] = { node: st, spec: { size, weight, leading } };
-    S.stats.textStyles++;
-  };
-  for (const sizeKey of ["6xl", "5xl", "4xl", "3xl", "2xl", "xl"]) {
-    for (const [label, w] of Object.entries(TEXT_WEIGHTS)) await make(`Display ${sizeKey}/${label}`, sizeKey, w, "display");
-  }
-  for (const sizeKey of ["xl", "lg", "md", "sm", "xs"]) {
-    for (const [label, w] of Object.entries(TEXT_WEIGHTS)) await make(`Text ${sizeKey}/${label}`, sizeKey, w, "text");
+// ---------- سایه‌ها به شکل متغیر ----------
+/**
+ * هر لایهٔ سایه پنج متغیر در مجموعهٔ تم دارد (رنگ، x، y، محو، گسترش) تا در تیره و روشن فرق کند.
+ * لایه‌ای که در یک تم نیست، با رنگ شفاف پر می‌شود.
+ */
+async function buildEffectVariables() {
+  const theme = S.collections["Kashi · Theme"];
+  const tokens = Object.keys(TOKENS.effects.dark);
+  for (const token of tokens) {
+    const dark = TOKENS.effects.dark[token] || [];
+    const light = TOKENS.effects.light[token] || [];
+    const n = Math.max(dark.length, light.length);
+    EFFECT_LAYERS[token] = [];
+    for (let i = 0; i < n; i++) {
+      const pickLayer = (mode) => (mode === "dark" ? dark : light)[i] || null;
+      const type = (dark[i] || light[i]).type;
+      const base = `effect/${token}/${i + 1}`;
+      const vars = {
+        color: await getVariable(theme.node, `${base}/color`, "COLOR", ["EFFECT_COLOR"]),
+        x: await getVariable(theme.node, `${base}/x`, "FLOAT", ["EFFECT_FLOAT"]),
+        y: await getVariable(theme.node, `${base}/y`, "FLOAT", ["EFFECT_FLOAT"]),
+        blur: await getVariable(theme.node, `${base}/blur`, "FLOAT", ["EFFECT_FLOAT"]),
+        spread: await getVariable(theme.node, `${base}/spread`, "FLOAT", ["EFFECT_FLOAT"]),
+      };
+      for (const [mode, key] of [["Dark", "dark"], ["Light", "light"]]) {
+        const l = pickLayer(key) || { x: 0, y: 0, blur: 0, spread: 0, rgba: [0, 0, 0, 0] };
+        setVal(vars.color, theme.modes, mode, rgbaObj(l.rgba));
+        setVal(vars.x, theme.modes, mode, l.x);
+        setVal(vars.y, theme.modes, mode, l.y);
+        setVal(vars.blur, theme.modes, mode, l.blur);
+        setVal(vars.spread, theme.modes, mode, l.spread);
+      }
+      EFFECT_LAYERS[token].push({
+        type,
+        vars,
+        value: (mode) => {
+          const l = pickLayer(mode) || { x: 0, y: 0, blur: 0, spread: 0, rgba: [0, 0, 0, 0] };
+          return { color: rgbaObj(l.rgba), x: l.x, y: l.y, blur: l.blur, spread: l.spread };
+        },
+      });
+    }
   }
 }
 
-// ---------- استایل افکت ----------
-function toEffect(e) {
-  const out = { type: e.type, color: rgbaObj(e.rgba), offset: { x: e.x, y: e.y }, radius: e.blur, spread: e.spread, visible: true, blendMode: "NORMAL" };
-  if (e.type === "DROP_SHADOW") out.showShadowBehindNode = false;
-  return out;
-}
-
-async function buildEffectStyles() {
-  const existing = await figma.getLocalEffectStylesAsync();
-  const make = (name, list, description) => {
-    let st = existing.find((s) => s.name === name);
-    if (!st) st = figma.createEffectStyle();
-    st.name = name;
-    st.effects = list.map(toEffect);
-    if (description) st.description = description;
-    S.effectStyles[name] = st;
-    S.stats.effectStyles++;
-  };
-  for (const [mode, label] of [["dark", "Dark"], ["light", "Light"]]) {
-    const E = TOKENS.effects[mode];
-    for (const k of ["xs", "sm", "md", "lg", "xl", "2xl"]) make(`${label}/Shadow/${k}`, E[`shadow-${k}`]);
-    make(`${label}/Focus ring/brand`, E["ring-brand"], "حلقهٔ فوکوس نرم (WCAG 2.4.7)");
-    make(`${label}/Focus ring/error`, E["ring-error"]);
-    make(`${label}/Skeuomorphic`, E["shadow-skeuomorphic"]);
-    // ترکیب‌های آماده برای کامپوننت‌ها
-    make(`${label}/Button`, [...E["shadow-xs"], ...E["shadow-skeuomorphic"]], "سایهٔ اسکئومورفیک دکمه");
-    make(`${label}/Button focus`, [...E["shadow-xs"], ...E["shadow-skeuomorphic"], ...E["ring-brand"]]);
-    make(`${label}/Button danger focus`, [...E["shadow-xs"], ...E["shadow-skeuomorphic"], ...E["ring-error"]]);
-    make(`${label}/Input focus`, [...E["shadow-xs"], ...E["ring-brand"]]);
-    make(`${label}/Input error focus`, [...E["shadow-xs"], ...E["ring-error"]]);
-    make(`${label}/Elevated`, [...E["shadow-lg"], ...E.highlight]);
-    make(`${label}/Popover`, [...E["shadow-xl"], ...E.highlight]);
+/** استایل‌هایی که نسخه‌های قبلی پلاگین ساخته بودند؛ حالا همه‌چیز Variable است */
+async function removeLegacyStyles() {
+  let removed = 0;
+  for (const st of await figma.getLocalTextStylesAsync()) {
+    if (/^(Display|Text) [0-9a-z]+\/(Regular|Medium|Semibold|Bold)$/.test(st.name)) { st.remove(); removed++; }
   }
+  for (const st of await figma.getLocalEffectStylesAsync()) {
+    if (/^(Dark|Light)\/(Shadow\/|Focus ring\/|Skeuomorphic|Button|Input|Elevated|Popover)/.test(st.name)) { st.remove(); removed++; }
+  }
+  return removed;
 }

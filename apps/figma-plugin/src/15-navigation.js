@@ -16,7 +16,7 @@ function menuPanel(items, { w = 240 } = {}) {
 }
 
 function buildNavigation() {
-  const { page, root } = kitPage("🧭 Navigation", "ناوبری", "تب، مسیر صفحه، صفحه‌بندی، مراحل، منوی کناری، منوی کشویی و جستجوی فرمان (⌘K).");
+  const root = kitPage("🧭", "Navigation", "ناوبری", "تب، مسیر صفحه، صفحه‌بندی، مراحل، منوی کناری، منوی کشویی و جستجوی فرمان (⌘K).");
 
   safe("Tabs", () => section(root, "Tabs · تب", "سه سبک خطی، قرصی و بخش‌بندی؛ افقی یا عمودی.", (h) => {
     const labels = ["نمای کلی", "تراکنش‌ها", "گزارش‌ها", "تنظیمات"];
@@ -192,7 +192,7 @@ function buildNavigation() {
           ...[["chart", "گزارش فروش", "صفحه", true], ["chart", "گزارش مالیات", "صفحه"], ["file", "گزارش هفتگی.pdf", "فایل"]].map(([icon, label, kind, on]) =>
             F({ name: "Result", dir: "H", gap: "space/3", h: 44, px: 10, w: "fill", cross: "center", radius: "radius/md", fill: on ? "bg-hover" : undefined }, [
               I(icon, 18, on ? "text-brand" : "text-tertiary"),
-              F({ dir: "H", gap: 0, grow: true }, [F({ dir: "H", fill: "bg-brand-subtle", radius: 2 }, [T("گزا", { style: "Text sm/Semibold", color: "text-brand" })]), T(label.slice(3), { style: "Text sm/Medium", color: "text-secondary" })]),
+              T(label, { style: "Text sm/Medium", color: "text-secondary", grow: true, highlight: [0, 3] }),
               T(kind, { style: "Text xs/Regular", color: "text-quaternary" }),
               on && I("arrow-left", 16, "text-tertiary"),
             ]),
@@ -230,5 +230,4 @@ function buildNavigation() {
       docs: "splitter",
     });
   }));
-  return page;
 }

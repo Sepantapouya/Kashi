@@ -40,13 +40,14 @@
 </head>
 <body>
   <h1><span class="logo" aria-hidden="true">ک</span> کیت فیگمای کاشی <span class="version" id="version"></span></h1>
-  <p class="muted">متغیرها، استایل‌ها و همهٔ کامپوننت‌های کاشی را در همین فایل می‌سازد.</p>
+  <p class="muted">متغیرها و همهٔ کامپوننت‌های کاشی را در همین فایل می‌سازد؛ هر کامپوننت در یک صفحه.</p>
+  <p class="muted" id="installed" hidden></p>
 
   <fieldset>
     <legend>چه چیزی ساخته شود؟</legend>
-    <label><input type="checkbox" checked disabled /> متغیرها و استایل‌ها <small>(همیشه؛ به‌روزرسانی امن)</small></label>
+    <label><input type="checkbox" checked disabled /> متغیرها (رنگ، فاصله، فونت، سایه) <small>(همیشه)</small></label>
     <label><input type="checkbox" id="components" checked /> صفحه‌های کامپوننت</label>
-    <p class="hint">اگر قبلاً کیت را ساخته‌اید و فقط رنگ یا فونت را می‌خواهید به‌روز کنید، تیک کامپوننت‌ها را بردارید تا instance های طرح‌هایتان دست نخورند.</p>
+    <p class="hint">اجرای دوباره در همین فایل، کیت را به نسخهٔ جدید می‌رساند: کامپوننت‌های تازه اضافه و کامپوننت‌های بهتر شده درجا به‌روز می‌شوند. instance هایی که در طرح‌هایتان گذاشته‌اید وصل می‌مانند.</p>
   </fieldset>
 
   <fieldset>
@@ -82,14 +83,23 @@
   onmessage = (e) => {
     const m = e.data.pluginMessage;
     if (!m) return;
-    if (m.type === "init") { $("version").textContent = "v" + m.version; $("font").value = m.font; }
+    if (m.type === "init") {
+      $("version").textContent = "v" + m.version;
+      $("font").value = m.font;
+      if (m.installed) {
+        $("installed").hidden = false;
+        $("installed").textContent = m.installed === m.version ? `این فایل نسخهٔ ${m.installed} را دارد.` : `این فایل نسخهٔ ${m.installed} را دارد؛ با به‌روزرسانی به ${m.version} می‌رسد.`;
+        $("build").textContent = m.installed === m.version ? "ساخت دوباره" : `به‌روزرسانی به ${m.version}`;
+      }
+    }
     if (m.type === "progress") { $("status").textContent = m.text; $("bar").style.inlineSize = m.pct + "%"; }
     if (m.type === "done") {
       const s = m.summary;
       $("bar").style.inlineSize = "100%";
       $("build").disabled = false;
       $("build").textContent = "ساخت دوباره";
-      $("status").textContent = `انجام شد در ${fa(s.seconds)} ثانیه: ${fa(s.sets)} کامپوننت، ${fa(s.components)} variant، ${fa(s.variables)} متغیر، ${fa(s.textStyles)} استایل متن، ${fa(s.effectStyles)} سایه. فونت: ${s.family}`
+      $("status").textContent = `انجام شد در ${fa(s.seconds)} ثانیه: ${fa(s.sets)} کامپوننت، ${fa(s.components)} variant، ${fa(s.variables)} متغیر. ${fa(s.added)} مورد جدید، ${fa(s.updated)} مورد به‌روز شد. فونت: ${s.family}`
+        + (s.limitedModes ? "\nپلن رایگان فیگما فقط یک mode دارد؛ فقط تم انتخابی ساخته شد." : "")
         + (s.errors.length ? `\n${fa(s.errors.length)} بخش ساخته نشد: ${s.errors.join(" | ")}` : "");
       if (s.errors.length) $("status").className = "error";
     }

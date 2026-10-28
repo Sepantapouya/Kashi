@@ -15,7 +15,7 @@ function badge({ tone = "Neutral", variant = "Soft", size = "md", label = "فع�
   const outline = variant === "Outline";
   const fg = solid ? "bg-primary" : t.fg;
   return F({
-    name: "Badge", dir: "H", gap: "space/1", px: { sm: 8, md: 10, lg: 12 }[size], h: { sm: 22, md: 24, lg: 28 }[size], cross: "center",
+    name: "Badge", dir: "H", gap: "space/1", px: { sm: 8, md: 10, lg: 12 }[size], h: { sm: 24, md: 27, lg: 31 }[size], cross: "center",
     radius: "radius/full", fill: solid ? t.fg : outline ? undefined : t.bg, stroke: solid ? undefined : t.fg, strokeOpacity: outline ? 0.45 : 0.2,
   }, [
     (() => { const d = R({ ellipse: true, w: 6, h: 6, fill: fg, name: "Dot" }); d.visible = dot; return d; })(),
@@ -24,14 +24,14 @@ function badge({ tone = "Neutral", variant = "Soft", size = "md", label = "فع�
 }
 
 const AVATAR_SIZES = { xs: 24, sm: 32, md: 40, lg: 48, xl: 56, "2xl": 64 };
-function avatar({ size = "md", type = "Initials", tone = "Brand", status, initials = "سپ" } = {}) {
+function avatar({ size = "md", type = "Initials", tone = "Neutral", status, initials = "سپ" } = {}) {
   const s = AVATAR_SIZES[size];
   const t = BADGE_TONES[tone] || BADGE_TONES.Brand;
   const kids = [];
-  if (type === "Initials") kids.push(T(initials, { style: "Text sm/Semibold", color: t.fg, align: "center", size: Math.round(s * 0.36), weight: "semibold", leading: 1.2 }));
+  if (type === "Initials") kids.push(T(initials, { style: "Text sm/Semibold", color: t.fg, align: "center", size: Math.round(s * 0.34), weight: "semibold", leading: 1 }));
   else if (type === "Icon") kids.push(I("user", Math.round(s * 0.5), "text-tertiary"));
   else kids.push(R({ w: s, h: s, fill: "firoozeh/700", name: "Photo" }));
-  const a = F({ name: "Avatar", dir: "H", w: s, h: s, align: "center", cross: "center", radius: "radius/full", fill: type === "Initials" ? t.bg : "bg-tertiary", stroke: "border-secondary", clip: type === "Image" }, kids);
+  const a = F({ name: "Avatar", dir: "H", w: s, h: s, align: "center", cross: "center", radius: "radius/full", fill: type === "Initials" ? t.bg : "bg-tertiary", stroke: "text-primary", strokeOpacity: 0.08, clip: type === "Image" }, kids);
   if (!status) return a;
   const dot = Math.max(8, Math.round(s * 0.28));
   return F({ name: "Avatar", dir: "none", w: s, h: s }, [
@@ -43,13 +43,13 @@ function avatar({ size = "md", type = "Initials", tone = "Brand", status, initia
 function card({ variant = "Default", padding = "md", title = "گزارش ماهانه", description = "خلاصهٔ عملکرد تیم در آبان", media, footer = true, w = 360 } = {}) {
   const fill = variant === "Filled" ? "bg-secondary" : "bg-elevated";
   const stroke = variant === "Default" || variant === "Flat" ? "border-secondary" : variant === "Elevated" ? "border-secondary" : undefined;
-  const shadow = variant === "Elevated" ? "Elevated" : variant === "Default" ? "Shadow/xs" : undefined;
+  const shadow = variant === "Elevated" ? "Elevated" : variant === "Default" ? "Surface" : variant === "Flat" ? "highlight-only" : undefined;
   const pad = `card/padding/${padding}`;
   return F({ name: "Card", dir: "V", gap: 0, w, radius: "radius/xl", fill, stroke, shadow, clip: true }, [
     media && R({ w, h: 160, fill: "bg-tertiary", name: "Media" }),
     F({ name: "Header", dir: "H", gap: "space/4", p: pad, w: "fill", cross: "start" }, [
       F({ name: "Heading", dir: "V", gap: "space/1", grow: true }, [
-        T(title, { style: "Text lg/Semibold", color: "text-primary", name: "Title" }),
+        T(title, { style: "Display lg/Semibold", color: "text-primary", name: "Title" }),
         T(description, { style: "Text sm/Regular", color: "text-tertiary", name: "Description" }),
       ]),
       I("more-vertical", 20, "text-quaternary"),
@@ -57,7 +57,7 @@ function card({ variant = "Default", padding = "md", title = "گزارش ماه�
     F({ name: "Body", dir: "V", gap: "space/3", px: pad, pb: pad, w: "fill" }, [
       T("۱۲ پروژه تکمیل شد و رضایت مشتری ۸٪ بیشتر شد. جزئیات کامل در داشبورد تحلیل در دسترس است.", { style: "Text sm/Regular", color: "text-secondary", w: "fill", name: "Content" }),
     ]),
-    footer && F({ name: "Footer", dir: "H", gap: "space/3", px: pad, py: 16, w: "fill", align: "end", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
+    footer && F({ name: "Footer", dir: "H", gap: "space/3", px: pad, py: Math.round(S.numbers[pad] * 0.66), w: "fill", align: "end", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
       button({ variant: "Tertiary", size: "sm", label: "بعداً" }),
       button({ variant: "Secondary", size: "sm", label: "مشاهدهٔ گزارش" }),
     ]),
@@ -65,7 +65,7 @@ function card({ variant = "Default", padding = "md", title = "گزارش ماه�
 }
 
 function buildData() {
-  const { page, root } = kitPage("📊 Data display", "نمایش داده", "نشان، آواتار، کارت، آمار، جدول، خط زمان، درخت، آکاردئون و نمودار.");
+  const root = kitPage("📊", "Data display", "نمایش داده", "نشان، آواتار، کارت، آمار، جدول، خط زمان، درخت، آکاردئون و نمودار.");
 
   safe("Badge", () => section(root, "Badge · نشان", "شش لحن × سه سبک × سه اندازه؛ نقطه قابل خاموش شدن است.", (h) => {
     componentSet(h, "Badge", {
@@ -86,7 +86,7 @@ function buildData() {
         const on = p.Selected === "On";
         const dis = p.State === "Disabled";
         const fg = dis ? "text-quaternary" : on ? "text-brand" : p.State === "Hover" ? "text-primary" : "text-secondary";
-        const f = F({ name: "Chip", dir: "H", gap: "space/1.5", h: 32, px: "space/3", cross: "center", radius: "radius/full", fill: on ? "bg-brand-subtle" : "bg-elevated", stroke: on ? "border-brand" : "border-primary" }, [
+        const f = F({ name: "Chip", dir: "H", gap: "space/1.5", h: 32, px: "space/3", cross: "center", radius: "radius/full", fill: on ? "bg-brand-subtle" : "bg-elevated", stroke: on ? "border-brand" : "border-primary", shadow: "Shadow/xs" }, [
           on && I("check", 16, fg),
           T("ارسال رایگان", { style: "Text sm/Medium", color: fg, name: "Label" }),
           F({ name: "Count", dir: "H", px: 6, h: 20, cross: "center", radius: "radius/full", fill: on ? "bg-brand-subtle" : "bg-tertiary" }, [T("۱۲", { style: "Text xs/Medium", color: fg })]),
@@ -342,5 +342,4 @@ function buildData() {
       docs: "carousel",
     });
   }));
-  return page;
 }

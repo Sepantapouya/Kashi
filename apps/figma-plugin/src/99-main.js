@@ -1,108 +1,113 @@
-// اجرای پلاگین: پنل تنظیمات، ساخت مرحله‌به‌مرحله و گزارش
+// اجرای پلاگین: پنل تنظیمات، ساخت یا به‌روزرسانی صفحه‌به‌صفحه و گزارش
 
-const KIT_PAGES = ["📕 Kashi UI Kit", "🎨 Foundations", "🧩 Assets", "🔘 Actions", "📝 Forms", "🇮🇷 Persian", "💬 Feedback", "📊 Data display", "🧭 Navigation"];
+// نام صفحه‌های نسخهٔ اول پلاگین (پیش از «هر کامپوننت یک صفحه»)
+const LEGACY_PAGES = ["📕 Kashi UI Kit", "🎨 Foundations", "🧩 Assets", "🔘 Actions", "📝 Forms", "🇮🇷 Persian", "💬 Feedback", "📊 Data display", "🧭 Navigation"];
+const DIVIDER = "———————————";
 
 const progress = (text, pct) => figma.ui.postMessage({ type: "progress", text, pct });
 const tick = () => new Promise((r) => setTimeout(r, 0));
 
-/** استایل‌های متن و افکت را که در ساخت جمع شده‌اند وصل می‌کند */
-async function flushStyles() {
-  for (const [node, id] of S.pendingText) {
-    try { await node.setTextStyleIdAsync(id); } catch (e) { /* گره حذف شده */ }
+const kitPages = () => {
+  const map = {};
+  for (const p of figma.root.children) {
+    const id = p.getPluginData(KEY.page);
+    if (id) map[id] = p;
   }
-  for (const [node, id] of S.pendingEffect) {
-    try { await node.setEffectStyleIdAsync(id); } catch (e) { /* گره حذف شده */ }
+  return map;
+};
+
+/** صفحهٔ کیت با شناسهٔ ثابت؛ اگر نبود ساخته می‌شود */
+function ensurePage(pages, id, name) {
+  let p = pages[id];
+  if (!p) {
+    p = figma.createPage();
+    p.setPluginData(KEY.page, id);
+    pages[id] = p;
+    S.stats.pages++;
   }
-  S.pendingText = [];
-  S.pendingEffect = [];
+  p.name = name;
+  return p;
 }
 
-async function removeOldPages() {
-  const old = figma.root.children.filter((p) => KIT_PAGES.includes(p.name));
-  if (!old.length) return;
-  // صفحهٔ فعلی را نمی‌شود حذف کرد
-  const keep = figma.root.children.find((p) => !KIT_PAGES.includes(p.name)) || figma.createPage();
-  if (!keep.name) keep.name = "Page 1";
+async function removeLegacyPages() {
+  const old = figma.root.children.filter((p) => LEGACY_PAGES.includes(p.name) && !p.getPluginData(KEY.page));
+  if (!old.length) return 0;
+  const keep = figma.root.children.find((p) => old.indexOf(p) < 0) || figma.createPage();
   await figma.setCurrentPageAsync(keep);
   for (const p of old) p.remove();
+  return old.length;
 }
 
 async function run(opts) {
   const started = Date.now();
   S.theme = opts.theme === "light" ? "light" : "dark";
   S.errors = [];
-  S.stats = { variables: 0, textStyles: 0, effectStyles: 0, components: 0, sets: 0 };
+  S.stats = { variables: 0, components: 0, sets: 0, pages: 0, added: 0, updated: 0 };
 
   progress("بارگذاری فونت…", 3);
   const family = await loadFonts((opts.font || "").trim() || TOKENS.font.family);
   if (family !== (opts.font || TOKENS.font.family)) figma.notify(`فونت «${opts.font}» پیدا نشد؛ از ${family} استفاده شد.`);
 
-  progress("ساخت متغیرها (Variables)…", 8);
+  progress("ساخت و به‌روزرسانی متغیرها (Variables)…", 8);
   await buildVariables();
-  await tick();
-  progress("ساخت استایل‌های متن و سایه…", 15);
-  await buildTextStyles();
-  await buildEffectStyles();
+  const removedStyles = await removeLegacyStyles();
   await tick();
 
   if (opts.components) {
-    await removeOldPages();
-    const steps = [
-      ["پایه‌ها", buildFoundations],
-      ["آیکون‌ها و لوگوی بانک‌ها", () => {
-        const page = S.nextPage;
-        S.nextPage = null;
-        page.name = "🧩 Assets";
-        const root = F({ name: "Kashi · Assets", dir: "V", gap: 48, p: 64, fill: "bg-primary", w: 1248 }, [
-          T("آیکون‌ها", { style: "Display xl/Semibold", color: "text-primary" }),
-        ]);
-        page.appendChild(root);
-        setThemeMode(root);
-        add(root, buildIcons(page));
-        add(root, T("لوگوی بانک‌ها و درگاه‌ها", { style: "Display xl/Semibold", color: "text-primary" }));
-        add(root, buildBankLogos(page));
-        return page;
-      }],
-      ["دکمه‌ها", buildActions],
-      ["فرم‌ها", buildForms],
-      ["کامپوننت‌های فارسی", buildPersian],
-      ["بازخورد", buildFeedback],
-      ["نمایش داده", buildData],
-      ["ناوبری", buildNavigation],
-    ];
-    // آیکون‌ها قبل از همه لازم‌اند
-    const order = [steps[1], steps[0], ...steps.slice(2)];
-    let i = 0;
-    for (const [label, fn] of order) {
-      progress(`ساخت ${label}…`, 20 + Math.round((i++ / order.length) * 70));
-      S.nextPage = figma.createPage();
-      await figma.setCurrentPageAsync(S.nextPage);
-      await tick();
-      try { fn(); } catch (e) { S.errors.push(`${label}: ${e.message || e}`); }
-      await flushStyles();
+    await removeLegacyPages();
+    // ثبت همهٔ صفحه‌ها؛ ترتیب ثبت = ترتیب ساخت (آیکون‌ها قبل از کامپوننت‌ها)
+    S.groups = [];
+    S.queue = [];
+    buildFoundations();
+    buildAssets();
+    buildActions();
+    buildForms();
+    buildPersian();
+    buildFeedback();
+    buildData();
+    buildNavigation();
+
+    const pages = kitPages();
+    const order = [ensurePage(pages, "cover", "📕 Kashi UI Kit")];
+    for (const g of S.groups) {
+      order.push(ensurePage(pages, `divider/${g.key}`, DIVIDER));
+      for (const item of S.queue.filter((q) => q.group === g)) order.push(ensurePage(pages, item.id, `${g.emoji} ${item.en}`));
     }
-    progress("صفحهٔ جلد…", 94);
-    S.nextPage = figma.createPage();
-    await figma.setCurrentPageAsync(S.nextPage);
-    const cover = buildCover();
-    await flushStyles();
-    // ترتیب صفحه‌ها
-    KIT_PAGES.forEach((name, idx) => {
-      const p = figma.root.children.find((x) => x.name === name);
-      if (p) figma.root.insertChild(idx, p);
-    });
+
+    let i = 0;
+    for (const item of S.queue) {
+      progress(`${item.group.title} · ${item.en}`, 12 + Math.round((i++ / S.queue.length) * 82));
+      const page = pages[item.id];
+      await figma.setCurrentPageAsync(page);
+      if (page.loadAsync) await page.loadAsync();
+      try { renderSection(item, page); } catch (e) { S.errors.push(`${item.en}: ${e && e.message ? e.message : e}`); }
+      await tick();
+    }
+
+    progress("صفحهٔ جلد…", 96);
+    const cover = pages.cover;
     await figma.setCurrentPageAsync(cover);
+    if (cover.loadAsync) await cover.loadAsync();
+    try { buildCover(cover); } catch (e) { S.errors.push(`cover: ${e.message || e}`); }
+
+    // صفحه‌ای که در این نسخه دیگر وجود ندارد
+    const wanted = new Set(order);
+    for (const p of Object.values(pages)) if (!wanted.has(p)) p.remove();
+
+    // ترتیب صفحه‌ها؛ صفحه‌های خود کاربر بعد از کیت می‌مانند
+    order.forEach((p, idx) => figma.root.insertChild(idx, p));
     figma.viewport.scrollAndZoomIntoView(cover.children);
   }
 
   const secs = Math.round((Date.now() - started) / 1000);
-  const summary = Object.assign({}, S.stats, { seconds: secs, family, errors: S.errors });
+  const summary = Object.assign({}, S.stats, { seconds: secs, family, errors: S.errors, removedStyles, limitedModes: !!S.limitedModes, version: TOKENS.version });
+  figma.root.setPluginData("kashi-version", TOKENS.version);
   figma.ui.postMessage({ type: "done", summary });
-  figma.notify(`کاشی آماده شد: ${S.stats.sets} کامپوننت، ${S.stats.components} variant، ${S.stats.variables} متغیر`);
+  figma.notify(`کاشی ${TOKENS.version}: ${S.stats.added} مورد جدید، ${S.stats.updated} مورد به‌روز شد`);
 }
 
-figma.showUI(__html__, { width: 380, height: 560, themeColors: true, title: "Kashi UI Kit" });
-figma.ui.postMessage({ type: "init", version: TOKENS.version, font: TOKENS.font.family });
+figma.showUI(__html__, { width: 380, height: 600, themeColors: true, title: "Kashi UI Kit" });
+figma.ui.postMessage({ type: "init", version: TOKENS.version, font: TOKENS.font.family, installed: figma.root.getPluginData("kashi-version") });
 figma.ui.onmessage = async (msg) => {
   if (msg.type === "build") {
     try { await run(msg); } catch (e) {

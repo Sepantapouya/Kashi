@@ -1,9 +1,7 @@
 // صفحهٔ جلد و راهنمای استفاده
 
-function buildCover() {
-  const page = S.nextPage || figma.createPage();
-  S.nextPage = null;
-  page.name = "📕 Kashi UI Kit";
+function buildCover(page) {
+  for (const n of page.children.slice()) if (n.getPluginData(KEY.root)) n.remove();
   const step = (n, title, body) => F({ name: "Step", dir: "H", gap: "space/4", w: "fill", cross: "start", p: "space/5", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary" }, [
     F({ dir: "H", w: 32, h: 32, align: "center", cross: "center", radius: "radius/full", fill: "bg-brand-subtle" }, [T(fa(n), { style: "Text sm/Bold", color: "text-brand" })]),
     F({ dir: "V", gap: "space/1", grow: true }, [T(title, { style: "Text md/Semibold", color: "text-primary" }), T(body, { style: "Text sm/Regular", color: "text-tertiary", w: "fill" })]),
@@ -28,7 +26,7 @@ function buildCover() {
     F({ name: "Stats", dir: "H", gap: "space/4", w: "fill" }, [
       stat(fa(S.stats.sets) + "+", "کامپوننت"),
       stat(fa(S.stats.components), "variant"),
-      stat(fa(S.stats.variables), "متغیر"),
+      stat(fa(S.stats.variables), "متغیر (Variable)"),
       stat(fa(BANKS.length), "لوگوی بانک"),
     ]),
     T("شروع سریع", { style: "Display xl/Semibold", color: "text-primary" }),
@@ -40,15 +38,23 @@ function buildCover() {
       step(5, "از طرح تا کد", "نام کامپوننت‌ها و ویژگی‌ها همان prop های React است: <Button variant=\"primary\" size=\"md\"> در فیگما Variant=Primary, Size=md است."),
     ]),
     F({ name: "Author", dir: "H", gap: "space/4", w: "fill", pt: "space/8", cross: "center", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
-      avatar({ size: "lg", initials: "سپ" }),
+      (() => {
+        // عکس سپنتا از سایت مستندات؛ داخل خود پلاگین جاسازی شده
+        const a = F({ name: "Photo", dir: "H", w: 64, h: 64, radius: "radius/full", stroke: "border-secondary", clip: true });
+        try {
+          const img = figma.createImage(figma.base64Decode(AUTHOR_PHOTO));
+          a.fills = [{ type: "IMAGE", scaleMode: "FILL", imageHash: img.hash }];
+        } catch (e) { a.fills = [paint("bg-brand-subtle")]; }
+        return a;
+      })(),
       F({ dir: "V", gap: 0, grow: true }, [
         T("ساخته شده توسط سپنتا پویا", { style: "Text md/Semibold", color: "text-primary" }),
         T("sepantapouya.com · github.com/Sepantapouya/Kashi · متن‌باز با مجوز MIT", { style: "Text sm/Regular", color: "text-tertiary" }),
       ]),
     ]),
   ]);
+  root.setPluginData(KEY.root, "1");
   page.appendChild(root);
   setThemeMode(root);
-  figma.root.insertChild(0, page);
   return page;
 }

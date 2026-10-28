@@ -59,7 +59,7 @@ function button({ variant = "Secondary", size = "md", state = "Default", label =
 }
 
 function buildActions() {
-  const { page, root } = kitPage("🔘 Actions", "دکمه‌ها و عملیات", "دکمه با سایهٔ اسکئومورفیک و حلقهٔ فوکوس نرم به سبک Untitled UI. ارتفاع و فاصلهٔ داخلی به مجموعهٔ Kashi · Density وصل است.");
+  const root = kitPage("🔘", "Actions", "دکمه‌ها و عملیات", "دکمه با سایهٔ اسکئومورفیک و حلقهٔ فوکوس نرم به سبک Untitled UI. ارتفاع و فاصلهٔ داخلی به مجموعهٔ Kashi · Density وصل است.");
 
   safe("Button", () => section(root, "Button · دکمه", "شش گونه، پنج اندازه و چهار حالت. متن، آیکون ابتدا و انتها از پنل ویژگی‌ها قابل تغییر است.", (h) => {
     componentSet(h, "Button", {
@@ -129,5 +129,4 @@ function buildActions() {
       docs: "copy-button",
     });
   }));
-  return page;
 }

@@ -44,17 +44,13 @@ function listbox(items, { w = FIELD_W, active = 1, selected = 0, query } = {}) {
       const o = typeof it === "string" ? { label: it } : it;
       if (o.group) return T(o.group, { style: "Text xs/Semibold", color: "text-tertiary", name: "Group", w: "fill" });
       const on = i === selected;
-      return F({ name: "Option", dir: "H", gap: "space/2", h: "menu/item-height", px: 10, w: "fill", cross: "center", radius: "radius/md", fill: i === active ? "bg-hover" : undefined }, [
+      // گزینهٔ دوخطی ارتفاع ثابت ندارد تا متن‌ها روی هم نیفتند
+      return F({ name: "Option", dir: "H", gap: "space/2", h: o.description ? undefined : "menu/item-height", py: o.description ? 8 : undefined, px: 10, w: "fill", cross: "center", radius: "radius/md", fill: i === active ? "bg-hover" : undefined }, [
         o.icon && I(o.icon, 18, "text-tertiary"),
         o.logo && bankLogo(o.logo, 20),
         F({ name: "Body", dir: "V", gap: 0, grow: true }, [
-          query && o.label.includes(query)
-            ? F({ dir: "H", gap: 0 }, [
-                T(o.label.slice(0, o.label.indexOf(query)), { style: "Text sm/Medium", color: "text-secondary" }),
-                F({ dir: "H", fill: "bg-brand-subtle", radius: 2 }, [T(query, { style: "Text sm/Semibold", color: "text-brand" })]),
-                T(o.label.slice(o.label.indexOf(query) + query.length), { style: "Text sm/Medium", color: "text-secondary" }),
-              ].filter((n) => n.type !== "TEXT" || n.characters))
-            : T(o.label, { style: "Text sm/Medium", color: o.disabled ? "text-quaternary" : on ? "text-primary" : "text-secondary" }),
+          // بخش منطبق در همان یک متن رنگی می‌شود تا اتصال حروف فارسی نشکند
+          T(o.label, { style: "Text sm/Medium", color: o.disabled ? "text-quaternary" : on ? "text-primary" : "text-secondary", name: "Label", highlight: query && o.label.includes(query) ? [o.label.indexOf(query), o.label.indexOf(query) + query.length] : undefined }),
           o.description && T(o.description, { style: "Text xs/Regular", color: "text-tertiary" }),
         ]),
         o.shortcut && T(o.shortcut, { style: "Text xs/Regular", color: "text-quaternary", ltr: true }),
@@ -77,7 +73,8 @@ function checkMark(kind, { checked, state = "Default", size = 18 }) {
   const isRadio = kind === "radio";
   const fill = disabled ? "bg-tertiary" : on ? (state === "Hover" ? "bg-brand-hover" : "bg-brand") : "bg-elevated";
   const stroke = disabled ? "border-secondary" : on ? fill : state === "Hover" ? "border-brand" : "border-input";
-  const shadow = state === "Focus" ? "Focus ring/brand" : undefined;
+  // در CSS چک‌باکس و رادیو سایهٔ xs دارند؛ در فوکوس حلقهٔ برند هم اضافه می‌شود
+  const shadow = state === "Focus" ? "Input focus" : disabled ? undefined : "Shadow/xs";
   const box = F({ name: isRadio ? "Radio" : "Checkbox", dir: "H", w: size, h: size, align: "center", cross: "center", radius: isRadio ? "radius/full" : "radius/checkbox", fill, stroke, shadow }, [
     on && (isRadio
       ? R({ ellipse: true, w: size * 0.4, h: size * 0.4, fill: disabled ? "text-quaternary" : "text-on-brand", name: "Dot" })
@@ -150,7 +147,7 @@ function jalaliGrid({ range, selected = 6, w = 300 } = {}) {
 }
 
 function buildForms() {
-  const { page, root } = kitPage("📝 Forms", "فرم‌ها", "فیلدها با برچسب، راهنما و پیام خطا؛ حاشیهٔ فیلدها کنتراست ۳:۱ دارد (WCAG 1.4.11) و حلقهٔ فوکوس همیشه دیده می‌شود.");
+  const root = kitPage("📝", "Forms", "فرم‌ها", "فیلدها با برچسب، راهنما و پیام خطا؛ حاشیهٔ فیلدها کنتراست ۳:۱ دارد (WCAG 1.4.11) و حلقهٔ فوکوس همیشه دیده می‌شود.");
 
   safe("Input", () => section(root, "Input · فیلد متنی", "سه اندازه، پنج حالت. برچسب، راهنما و متن داخل فیلد از پنل ویژگی‌ها عوض می‌شوند.", (h) => {
     componentSet(h, "Input", {
@@ -178,9 +175,10 @@ function buildForms() {
       build: (p) => {
         if (p.Type === "Password") return field({ label: "رمز عبور", labelEnd: T("فراموشی رمز؟", { style: "Text sm/Semibold", color: "text-brand" }), control: inputBox({ text: "••••••••••", end: [I("eye", 20, "text-tertiary")] }) });
         if (p.Type === "Search") return field({ label: "جستجو", control: inputBox({ iconStart: "search", text: "کاشی", end: [I("close", 18, "text-quaternary"), F({ dir: "H", px: 6, h: 22, cross: "center", radius: "radius/sm", stroke: "border-primary" }, [T("⌘K", { style: "Text xs/Medium", color: "text-tertiary", ltr: true })])] }) });
-        if (p.Type === "URL") return field({ label: "وب‌سایت", control: F({ dir: "H", gap: 0, w: "fill" }, [
-          F({ dir: "H", h: "input/height/md", px: "space/3", cross: "center", fill: "bg-secondary", stroke: "border-input", radius: ["radius/md", 0, 0, "radius/md"] }, [T("https://", { style: "Text md/Regular", color: "text-tertiary", ltr: true })]),
-          inputBox({ text: "kashi.ir", ltr: true }),
+        // آدرس چپ‌به‌راست است: پیشوند سمت چپ، داخل همان یک کادر با خط جداکننده
+        if (p.Type === "URL") return field({ label: "وب‌سایت", control: F({ name: "Input", dir: "H", gap: 0, w: "fill", h: "input/height/md", cross: "center", radius: "radius/md", fill: "bg-primary", stroke: "border-input", shadow: "Shadow/xs", clip: true }, [
+          F({ name: "Value wrap", dir: "H", px: "input/padding", h: "fill", grow: true, cross: "center" }, [T("kashi.ir", { style: "Text md/Regular", color: "text-primary", ltr: true, name: "Value", w: "fill" })]),
+          F({ name: "Prefix", dir: "H", px: "space/3", h: "fill", cross: "center", fill: "bg-secondary", stroke: "border-input", sides: [0, 1, 0, 0] }, [T("https://", { style: "Text md/Regular", color: "text-tertiary", ltr: true })]),
         ]) });
         if (p.Type === "Loading") return field({ label: "نام کاربری", hint: "در حال بررسی…", control: inputBox({ text: "sepanta", ltr: true, end: [R({ ellipse: true, w: 16, h: 16, stroke: "bg-brand", sw: 2, arc: { startingAngle: 0, endingAngle: 4.5, innerRadius: 0.8 }, name: "Spinner" })] }) });
         return field({ label: "درباره", optional: true, control: inputBox({ text: "طراح محصول", end: [T("۱۰ / ۵۰", { style: "Text xs/Regular", color: "text-quaternary" })] }) });
@@ -518,5 +516,4 @@ function buildForms() {
       docs: "month-picker",
     });
   }));
-  return page;
 }
