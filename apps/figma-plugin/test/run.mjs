@@ -1,5 +1,5 @@
 // پلاگین ساخته‌شده (plugin/code.js) را در شبیه‌ساز فیگما اجرا می‌کند و هر خطایی را گزارش می‌دهد.
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import vm from "node:vm";
@@ -96,6 +96,37 @@ for (const [key, spec] of Object.entries(CSS).concat(Object.entries(SUB).map(([k
   for (const k of ["h", "w", "pl", "pt", "r", "gap"]) if (spec[k] !== undefined) { assert.equal(Math.round(got[k]), spec[k], `${key}${spec.child ? " → " + spec.child : ""}: ${k} figma=${got[k]} css=${spec[k]}`); checked++; }
 }
 console.log(`  pixel parity: ${checked} measurements match the live CSS`);
+
+// هم‌خوانی خودکار: هر گرهٔ علامت‌خورده با css با همان کلاس در مرورگر مقایسه می‌شود
+{
+  const { createParity } = await import("./parity.mjs");
+  const metrics = JSON.parse(readFileSync(join(here, "css-metrics.json"), "utf8"));
+  const check = createParity(full.figma);
+  const problems = {};
+  let tagged = 0;
+  const seen = new Set();
+  for (const page of full.figma.root.children) {
+    for (const n of page.findAll((x) => x.getPluginData && x.getPluginData("css"))) {
+      if (n.parent && n.parent.type === "INSTANCE") continue;
+      let p = n.parent, inInstance = false;
+      while (p) { if (p.type === "INSTANCE") inInstance = true; p = p.parent; }
+      if (inInstance) continue;
+      tagged++;
+      seen.add(JSON.parse(n.getPluginData("css")).key);
+      for (const e of check(n, metrics)) {
+        const key = `${JSON.parse(n.getPluginData("css")).key} (${n.name})`;
+        (problems[key] = problems[key] || new Set()).add(e);
+      }
+    }
+  }
+  if (process.env.PARITY_KEYS) writeFileSync(process.env.PARITY_KEYS, JSON.stringify([...seen].sort()));
+  const keys = Object.keys(problems);
+  console.log(`  css parity: ${tagged} tagged nodes, ${seen.size} css classes, ${keys.length} with differences`);
+  // پوشش نباید کم شود: هر کامپوننت تازه هم باید با کلاس CSS خودش علامت بخورد
+  assert.ok(seen.size >= 260, `css parity covers only ${seen.size} classes`);
+  if (process.env.PARITY_REPORT) for (const k of keys) console.log(`    ✗ ${k}: ${[...problems[k]].join("; ")}`);
+  assert.equal(keys.length, 0, `css differences:\n${keys.slice(0, 40).map((k) => `${k}: ${[...problems[k]].join("; ")}`).join("\n")}`);
+}
 
 // هر کامپوننت یک صفحه
 const kitPagesList = full.figma.root.children.filter((p) => p.getPluginData("kashi-page"));

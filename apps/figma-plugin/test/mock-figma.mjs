@@ -36,6 +36,7 @@ const MIXED = Symbol("mixed");
 function checkPaint(p) {
   if (!p || typeof p !== "object") fail("paint must be object");
   if (p.type === "IMAGE") { if (!p.imageHash) fail("image paint needs imageHash"); return; }
+  if (p.type === "GRADIENT_LINEAR") { if (!Array.isArray(p.gradientTransform) || !p.gradientStops.length) fail("bad gradient"); for (const st of p.gradientStops) if (Object.keys(st.color).sort().join() !== "a,b,g,r") fail("gradient stop needs rgba"); return; }
   if (p.type !== "SOLID") fail(`paint type ${p.type}`);
   const keys = Object.keys(p.color || {});
   if (keys.sort().join() !== "b,g,r") fail(`SOLID color must have only r,g,b: ${keys}`);
@@ -127,7 +128,7 @@ class Node {
 }
 
 const PROPS = {
-  common: ["name", "visible", "x", "y", "opacity", "fills", "strokes", "strokeWeight", "strokeAlign", "effects", "rotation", "constraints", "layoutSizingHorizontal", "layoutSizingVertical", "layoutGrow", "layoutPositioning", "layoutAlign", "description", "documentationLinks", "componentPropertyReferences", "dashPattern", "minWidth", "maxWidth", "locked", "expanded", "textStyleId", "effectStyleId"],
+  common: ["name", "visible", "x", "y", "opacity", "fills", "strokes", "strokeWeight", "strokeAlign", "effects", "rotation", "constraints", "layoutSizingHorizontal", "layoutSizingVertical", "layoutGrow", "layoutPositioning", "layoutAlign", "description", "documentationLinks", "componentPropertyReferences", "dashPattern", "minWidth", "maxWidth", "minHeight", "locked", "expanded", "textStyleId", "effectStyleId"],
   frame: ["layoutMode", "layoutWrap", "itemSpacing", "counterAxisSpacing", "paddingTop", "paddingBottom", "paddingLeft", "paddingRight", "primaryAxisAlignItems", "counterAxisAlignItems", "primaryAxisSizingMode", "counterAxisSizingMode", "clipsContent", "cornerRadius", "topLeftRadius", "topRightRadius", "bottomLeftRadius", "bottomRightRadius", "strokeTopWeight", "strokeBottomWeight", "strokeLeftWeight", "strokeRightWeight", "itemReverseZIndex"],
   rect: ["cornerRadius", "topLeftRadius", "topRightRadius", "bottomLeftRadius", "bottomRightRadius", "arcData"],
   text: ["fontName", "fontSize", "lineHeight", "letterSpacing", "characters", "textAlignHorizontal", "textAlignVertical", "textAutoResize", "textTruncation", "maxLines", "textDecoration"],

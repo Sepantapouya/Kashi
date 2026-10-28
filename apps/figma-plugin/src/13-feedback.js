@@ -9,9 +9,11 @@ const TONES = {
 };
 
 /** آیکون برجسته با هالهٔ رنگی (Untitled UI) */
-function featuredIcon(name, tone = "Brand", size = 40) {
+function featuredIcon(name, tone = "Brand", size = 40, halo = 0) {
   const t = TONES[tone];
-  return F({ name: "Featured icon", dir: "H", w: size, h: size, align: "center", cross: "center", radius: "radius/full", fill: t.bg }, [I(name || t.icon, size / 2, t.fg)]);
+  // هالهٔ دور آیکون دیالوگ: حاشیهٔ بیرونی ۸ پیکسل با نیمی از همان رنگ (box-shadow در CSS)
+  return F({ name: "Featured icon", dir: "H", w: size, h: size, align: "center", cross: "center", radius: "radius/full", fill: t.bg,
+    stroke: halo ? t.bg : undefined, sw: halo || undefined, strokeAlign: halo ? "OUTSIDE" : undefined, strokeOpacity: halo ? 0.5 : undefined }, [I(name || t.icon, size / 2, t.fg)]);
 }
 
 function spinner(size = 20, color = "bg-brand") {
@@ -31,18 +33,32 @@ function buildFeedback() {
         const t = TONES[p.Tone];
         const small = p.Layout === "Small";
         const tinted = p.Layout === "Tinted";
-        return F({ name: "Alert", dir: "H", gap: small ? "space/3" : "space/4", p: small ? 12 : "alert/padding", w: 460, cross: "start", radius: small ? "radius/lg" : "radius/xl", fill: tinted ? t.bg : "bg-secondary", stroke: tinted ? t.fg : "border-primary", strokeOpacity: tinted ? 0.35 : undefined, shadow: tinted ? undefined : "Surface" }, [
-          small ? I(t.icon, 16, t.fg) : F({ name: "Icon ring", dir: "H", w: 20, h: 20, align: "center", cross: "center" }, [I(t.icon, 20, t.fg)]),
-          F({ name: "Content", dir: "V", gap: "space/1", grow: true }, [
-            T("تغییرات ذخیره شد", { style: "Text sm/Semibold", color: "text-secondary", name: "Title" }),
-            !small && T("نسخهٔ جدید پیش‌نویس شما در فضای ابری ذخیره شد و برای همهٔ اعضای تیم در دسترس است.", { style: "Text sm/Regular", color: "text-tertiary", name: "Description", w: "fill" }),
+        // k-alert__icon: آیکون ۲۰ با دو حلقهٔ هم‌مرکز (۳۰ و ۴۰ پیکسل) در قاب ۳۲
+        const icon = small
+          ? F({ name: "Icon", dir: "H", w: 24, h: 24, align: "center", cross: "center" }, [I(t.icon, 16, t.fg)])
+          : F({ name: "Icon", dir: "none", w: 32, h: 32 }, [
+              R({ ellipse: true, w: 40, h: 40, stroke: t.fg, sw: 2, name: "Ring outer", x: -4, y: -4 }),
+              R({ ellipse: true, w: 30, h: 30, stroke: t.fg, sw: 2, name: "Ring inner", x: 1, y: 1 }),
+              (() => { const i = I(t.icon, 20, t.fg); SIZING.set(i, { x: 6, y: 6 }); return i; })(),
+            ]);
+        if (!small) { icon.findOne((n) => n.name === "Ring outer").opacity = 0.1; icon.findOne((n) => n.name === "Ring inner").opacity = 0.3; }
+        const css = ["k-alert", `k-alert--${p.Tone.toLowerCase()}`, small && "k-alert--sm", tinted && "k-alert--tinted"].filter(Boolean).sort().join(" ");
+        const box = F({ name: "Alert", dir: "H", gap: small ? "space/3" : "space/4", p: small ? 12 : "alert/padding", w: 460, cross: "start", radius: small ? "radius/lg" : "radius/xl", fill: "bg-secondary", stroke: tinted ? t.fg : "border-primary", strokeOpacity: tinted ? 0.32 : undefined, shadow: tinted ? undefined : "Surface",
+          css: tinted ? undefined : css, cssCheck: ["pad", "radius", "gap", "bg", "border"] }, [
+          icon,
+          F({ name: "Content", dir: "V", gap: "space/1", grow: true, pt: 2, css: small ? undefined : "k-alert__content", cssCheck: ["pad", "gap"] }, [
+            T("تغییرات ذخیره شد", { style: "Text sm/Semibold", color: "text-secondary", name: "Title", css: "k-alert__title" }),
+            !small && T("نسخهٔ جدید پیش‌نویس شما در فضای ابری ذخیره شد و برای همهٔ اعضای تیم در دسترس است.", { style: "Text sm/Regular", color: "text-tertiary", name: "Description", w: "fill", css: "k-alert__description" }),
             !small && F({ name: "Actions", dir: "H", gap: "space/3", pt: "space/2" }, [
               T("نادیده گرفتن", { style: "Text sm/Semibold", color: "text-tertiary", name: "Dismiss" }),
               T("مشاهدهٔ تغییرات", { style: "Text sm/Semibold", color: t.fg, name: "Action" }),
             ]),
           ]),
-          I("close", small ? 16 : 20, "text-quaternary"),
+          button({ variant: "Tertiary", size: "sm", iconOnly: "close" }),
         ]);
+        // رنگ پس‌زمینهٔ tinted: ۸٪ رنگ لحن روی bg-primary
+        if (tinted) box.fills = [paint("bg-primary"), paint(t.fg, 0.08)];
+        return box;
       },
       text: { Title: ["Title", "تغییرات ذخیره شد"] },
       bools: { "Show actions": ["Actions", true] },
@@ -51,18 +67,23 @@ function buildFeedback() {
     });
   }));
 
-  safe("Banner", () => section(root, "Banner · بنر سراسری", "پیام تمام‌عرض بالای صفحه.", (h) => {
+  safe("Banner", () => section(root, "Banner · بنر", "پیام برجسته با آیکون قاب‌دار و دکمه؛ مثل اطلاع از نسخهٔ جدید.", (h) => {
     componentSet(h, "Banner", {
       axes: { Tone: ["Brand", "Warning", "Error"] },
       build: (p) => {
         const t = TONES[p.Tone];
-        return F({ name: "Banner", dir: "H", gap: "space/3", px: "space/6", py: "space/3", w: 960, cross: "center", fill: t.bg, stroke: "border-secondary", sides: [0, 0, 1, 0] }, [
-          I(t.icon, 20, t.fg),
-          T("نسخهٔ ۰٫۱۵ کاشی منتشر شد — PersianInput با پلاک و ساعت.", { style: "Text sm/Medium", color: "text-primary", name: "Message", grow: true }),
-          button({ variant: "Secondary", size: "sm", label: "مشاهده" }),
-          I("close", 18, "text-tertiary"),
+        // k-banner: کارت با فاصلهٔ ۱۲/۱۶، پس‌زمینهٔ رنگ لحن و آیکون ۳۲ در قاب
+        return F({ name: "Banner", dir: "H", gap: "space/4", py: "space/3", px: "space/4", w: 720, cross: "center", radius: "radius/xl", fill: t.bg, stroke: "border-secondary", shadow: "Surface",
+          css: `k-banner k-banner--${p.Tone.toLowerCase()}`, cssCheck: ["pad", "radius", "bg", "border"] }, [
+          F({ name: "Icon", dir: "H", w: 32, h: 32, align: "center", cross: "center", radius: "radius/md", fill: "bg-elevated", stroke: "border-primary", shadow: "Button", css: "k-banner__icon", cssCheck: ["radius", "bg", "border"] }, [I(t.icon, 18, t.fg)]),
+          T("نسخهٔ ۰٫۱۵ کاشی منتشر شد؛ PersianInput با پلاک و ساعت.", { style: "Text sm/Regular", color: "text-secondary", name: "Message", grow: true, css: "k-banner__text" }),
+          F({ name: "Actions", dir: "H", gap: "space/2", cross: "center", css: "k-banner__actions", cssCheck: ["gap"] }, [
+            button({ variant: "Secondary", size: "sm", label: "مشاهده" }),
+            button({ variant: "Tertiary", size: "sm", iconOnly: "close" }),
+          ]),
         ]);
       },
+      text: { Message: ["Message", "نسخهٔ ۰٫۱۵ کاشی منتشر شد؛ PersianInput با پلاک و ساعت."] },
       cols: 1,
       docs: "banner",
     });
@@ -99,9 +120,10 @@ function buildFeedback() {
       build: (p) => {
         const H = { sm: 4, md: 8, lg: 12 }[p.Size];
         const c = { Brand: "bg-brand", Success: "text-success", Warning: "text-warning", Error: "text-error" }[p.Tone];
-        return F({ name: "Progress", dir: "V", gap: "space/2", w: 320 }, [
-          F({ name: "Head", dir: "H", w: "fill", align: "between" }, [T("آپلود فایل‌ها", { style: "Text sm/Medium", color: "text-secondary", name: "Label" }), T("۶۸٪", { style: "Text sm/Medium", color: "text-tertiary", name: "Value" })]),
-          F({ name: "Track", dir: "H", w: "fill", h: H, radius: "radius/full", fill: "bg-tertiary", clip: true }, [R({ w: 218, h: H, radius: "radius/full", fill: c, name: "Bar" })]),
+        // k-progress-field: سربرگ با فاصلهٔ ۱۲، نوار با پس‌زمینهٔ bg-tertiary
+        return F({ name: "Progress", dir: "V", gap: "space/2", w: 320, css: "k-progress-field", cssCheck: ["gap"] }, [
+          F({ name: "Head", dir: "H", gap: "space/3", w: "fill", align: "between", css: "k-progress-field__head", cssCheck: ["gap"] }, [T("آپلود فایل‌ها", { style: "Text sm/Medium", color: "text-secondary", name: "Label", css: "k-progress-field__label" }), T("۶۸٪", { style: "Text sm/Regular", color: "text-tertiary", name: "Value", css: "k-progress-field__value" })]),
+          F({ name: "Track", dir: "H", w: "fill", h: H, radius: "radius/full", fill: "bg-tertiary", clip: true, css: p.Size === "sm" ? "k-progress k-progress--sm" : p.Size === "md" ? "k-progress" : undefined, cssCheck: ["radius", "bg", "h"] }, [R({ w: 218, h: H, radius: "radius/full", fill: c, name: "Bar", css: p.Tone === "Brand" && p.Size === "md" ? "k-progress__bar" : undefined, cssCheck: ["radius", "bg", "h"] })]),
         ]);
       },
       cols: 4,
@@ -110,7 +132,7 @@ function buildFeedback() {
     componentSet(h, "Progress circle", {
       axes: { Size: ["sm", "md", "lg"] },
       build: (p) => {
-        const s = { sm: 40, md: 64, lg: 80 }[p.Size];
+        const s = { sm: 40, md: 56, lg: 80 }[p.Size];
         return F({ name: "Ring", dir: "none", w: s, h: s }, [
           R({ ellipse: true, w: s, h: s, fill: "bg-tertiary", arc: { startingAngle: 0, endingAngle: Math.PI * 2, innerRadius: 1 - 8 / s }, name: "Track", x: 0, y: 0 }),
           R({ ellipse: true, w: s, h: s, fill: "bg-brand", arc: { startingAngle: -Math.PI / 2, endingAngle: -Math.PI / 2 + Math.PI * 2 * 0.68, innerRadius: 1 - 8 / s }, name: "Value", x: 0, y: 0 }),
@@ -122,14 +144,20 @@ function buildFeedback() {
     componentSet(h, "Spinner", { axes: { Size: ["sm", "md", "lg"] }, build: (p) => spinner({ sm: 16, md: 24, lg: 40 }[p.Size]), docs: "progress" });
   }));
 
-  safe("Meter", () => section(root, "Meter · سنجه", "مقدار در یک بازهٔ شناخته‌شده، مثل فضای ذخیره‌سازی.", (h) => {
+  safe("Meter", () => section(root, "Meter · سنجه", "مقدار در یک بازهٔ شناخته‌شده، مثل فضای ذخیره‌سازی؛ با رنگ و متن وضعیت.", (h) => {
     componentSet(h, "Meter", {
       axes: { Level: ["Low", "Medium", "High"] },
       build: (p) => {
-        const [pct, c, label] = { Low: [0.3, "text-success", "۳ از ۱۰ گیگابایت"], Medium: [0.7, "text-warning", "۷ از ۱۰ گیگابایت"], High: [0.92, "text-error", "۹٫۲ از ۱۰ گیگابایت"] }[p.Level];
-        return F({ name: "Meter", dir: "V", gap: "space/2", w: 320 }, [
-          F({ dir: "H", w: "fill", align: "between" }, [T("فضای ذخیره‌سازی", { style: "Text sm/Medium", color: "text-secondary" }), T(label, { style: "Text sm/Regular", color: "text-tertiary" })]),
-          F({ dir: "H", gap: 3, w: "fill" }, Array.from({ length: 10 }, (_, i) => R({ w: 29, h: 8, radius: 2, fill: i < Math.round(pct * 10) ? c : "bg-tertiary", name: "Segment", grow: true }))),
+        const [pct, c, used, status] = { Low: [0.3, "bg-brand", "۳", null], Medium: [0.86, "text-warning", "۸٫۶", "نزدیک به سقف"], High: [0.97, "text-error", "۹٫۷", "فضا تقریباً پر است"] }[p.Level];
+        const W = 320;
+        // k-meter: سربرگ (برچسب و مقدار)، نوار ۸ پیکسلی و متن وضعیت
+        return F({ name: "Meter", dir: "V", gap: "space/2", w: W, css: "k-meter", cssCheck: ["gap"] }, [
+          F({ name: "Head", dir: "H", gap: "space/2", w: "fill", align: "between", cross: "baseline", css: "k-meter__head", cssCheck: ["gap"] }, [
+            T("فضای ذخیره‌سازی", { style: "Text sm/Medium", color: "text-secondary", css: "k-meter__label" }),
+            F({ dir: "H", gap: "space/1", cross: "baseline" }, [T(`${used} گیگابایت`, { style: "Text sm/Semibold", color: "text-primary", css: "k-meter__value" }), T("از ۱۰", { style: "Text sm/Regular", color: "text-tertiary" })]),
+          ]),
+          F({ name: "Track", dir: "H", w: "fill", h: 8, radius: "radius/full", fill: "bg-tertiary", clip: true, css: "k-meter__track", cssCheck: ["radius", "bg", "h"] }, [R({ w: Math.round(W * pct), h: 8, radius: "radius/full", fill: c, name: "Fill" })]),
+          status && F({ name: "Status", dir: "H", gap: "space/1", cross: "center" }, [I("warning", 14, c), T(status, { style: "Text xs/Regular", color: c })]),
         ]);
       },
       docs: "meter",
@@ -153,14 +181,13 @@ function buildFeedback() {
     componentSet(h, "Empty state", {
       axes: { Type: ["Default", "Search", "Error"] },
       build: (p) => {
-        const cfg = { Default: ["inbox", "هنوز پروژه‌ای نساخته‌اید", "اولین پروژه‌تان را بسازید تا اینجا نمایش داده شود.", "پروژهٔ جدید"], Search: ["search", "نتیجه‌ای پیدا نشد", "عبارت «کاشی ۲» با هیچ موردی منطبق نبود. املای آن را بررسی کنید.", "پاک کردن جستجو"], Error: ["warning", "مشکلی پیش آمد", "بارگذاری داده‌ها ناموفق بود. چند لحظه بعد دوباره تلاش کنید.", "تلاش دوباره"] }[p.Type];
-        return F({ name: "Empty state", dir: "V", gap: "space/4", p: "space/8", w: 400, cross: "center" }, [
-          F({ name: "Icon", dir: "H", w: 48, h: 48, align: "center", cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Shadow/xs" }, [I(cfg[0], 24, p.Type === "Error" ? "text-error" : "text-secondary")]),
-          F({ dir: "V", gap: "space/1", cross: "center", w: "fill" }, [
-            T(cfg[1], { style: "Text md/Semibold", color: "text-primary", align: "center", name: "Title" }),
-            T(cfg[2], { style: "Text sm/Regular", color: "text-tertiary", align: "center", w: "fill", name: "Description" }),
-          ]),
-          F({ dir: "H", gap: "space/3" }, [p.Type === "Default" && button({ variant: "Secondary", label: "راهنما" }), button({ variant: p.Type === "Default" ? "Primary" : "Secondary", label: cfg[3], iconStart: p.Type === "Default" ? "plus" : undefined })]),
+        const cfg = { Default: ["inbox", "هنوز پروژه‌ای ندارید", "اولین پروژه را بسازید تا اینجا نمایش داده شود.", "پروژهٔ جدید"], Search: ["search", "نتیجه‌ای پیدا نشد", "عبارت «کاشی ۲» با هیچ موردی منطبق نبود. املای آن را بررسی کنید.", "پاک کردن جستجو"], Error: ["warning", "مشکلی پیش آمد", "بارگذاری داده‌ها ناموفق بود. چند لحظه بعد دوباره تلاش کنید.", "تلاش دوباره"] }[p.Type];
+        // k-empty: فاصلهٔ ۴۸/۲۴، آیکون ۴۰ با گوشهٔ ۱۲، دکمه‌ها ۱۶ پیکسل پایین‌تر
+        return F({ name: "Empty state", dir: "V", gap: "space/2", py: "space/12", px: "space/6", w: 400, cross: "center", css: "k-empty", cssCheck: ["gap"] }, [
+          F({ name: "Icon", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-primary", shadow: "Button", css: "k-empty__icon", cssCheck: ["radius", "bg", "border"] }, [I(cfg[0], 24, p.Type === "Error" ? "text-error" : "text-secondary")]),
+          T(cfg[1], { style: "Text md/Semibold", color: "text-primary", align: "center", name: "Title", css: "k-empty__title" }),
+          T(cfg[2], { style: "Text sm/Regular", color: "text-tertiary", align: "center", w: 352, name: "Description", css: "k-empty__description" }),
+          F({ name: "Actions", dir: "H", gap: "space/3", pt: "space/4" }, [p.Type === "Default" && button({ variant: "Secondary", label: "راهنما" }), button({ variant: p.Type === "Default" ? "Primary" : "Secondary", label: cfg[3], iconStart: p.Type === "Default" ? "plus" : undefined })]),
         ]);
       },
       docs: "empty-state",
@@ -190,12 +217,13 @@ function buildFeedback() {
 
   safe("Popover", () => section(root, "Popover · پنجرهٔ کوچک", "محتوای تعاملی کنار یک دکمه؛ فوکوس داخل آن به دام می‌افتد.", (h) => {
     componentSet(h, "Popover", {
-      build: () => F({ name: "Popover", dir: "V", gap: "space/4", p: "space/4", w: 320, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
-        F({ dir: "H", w: "fill", align: "between", cross: "start" }, [
-          F({ dir: "V", gap: 2 }, [T("اشتراک‌گذاری", { style: "Text sm/Semibold", color: "text-primary", name: "Title" }), T("هر کسی با لینک می‌تواند ببیند.", { style: "Text sm/Regular", color: "text-tertiary", name: "Description" })]),
-          I("close", 18, "text-quaternary"),
+      // k-popover: عرض ۳۲۰، فاصلهٔ ۱۶، گوشهٔ ۱۶
+      build: () => F({ name: "Popover", dir: "V", gap: 0, p: "space/4", w: 320, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover", css: "k-popover" }, [
+        T("اشتراک‌گذاری", { style: "Text sm/Semibold", color: "text-primary", name: "Title", css: "k-popover__title" }),
+        F({ dir: "V", gap: "space/3", pt: "space/1", w: "fill" }, [
+          T("هر کسی با لینک می‌تواند ببیند.", { style: "Text sm/Regular", color: "text-tertiary", name: "Body", w: "fill" }),
+          F({ dir: "H", gap: "space/2", w: "fill" }, [inputBox({ size: "sm", text: "kashi.ir/s/4f9a", ltr: true }), button({ variant: "Secondary", size: "sm", iconStart: "copy", label: "کپی" })]),
         ]),
-        F({ dir: "H", gap: "space/2", w: "fill" }, [inputBox({ size: "sm", text: "kashi.ir/s/4f9a", ltr: true }), button({ variant: "Secondary", size: "sm", iconStart: "copy", label: "کپی" })]),
       ]),
       docs: "popover",
     });
@@ -209,12 +237,12 @@ function buildFeedback() {
         const form = p.Type === "Form";
         return F({ name: "Dialog", dir: "V", gap: 0, w: 480, radius: "radius/2xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Dialog", clip: true }, [
           F({ name: "Header", dir: "H", gap: "space/4", pt: "space/6", px: "space/6", w: "fill", cross: "start" }, [
-            featuredIcon(danger ? "trash" : form ? "users" : "sparkle", danger ? "Error" : "Brand", 48),
+            featuredIcon(danger ? "trash" : form ? "users" : "sparkle", danger ? "Error" : "Brand", 48, 8),
             F({ name: "Heading", dir: "V", gap: "space/1", grow: true, pt: "space/1" }, [
               T(danger ? "حذف پروژه" : form ? "دعوت هم‌تیمی" : "به کاشی خوش آمدید", { style: "Display lg/Semibold", color: "text-primary", name: "Title" }),
               T(danger ? "این کار برگشت‌پذیر نیست. همهٔ فایل‌ها و نظرها برای همیشه پاک می‌شوند." : form ? "ایمیل هم‌تیمی را وارد کنید تا دعوت‌نامه ارسال شود." : "دیزاین‌سیستم فارسی شما آماده است. از کجا شروع کنیم؟", { style: "Text sm/Regular", color: "text-tertiary", w: "fill", name: "Description" }),
             ]),
-            I("close", 20, "text-quaternary"),
+            button({ variant: "Tertiary", size: "sm", iconOnly: "close" }),
           ]),
           form && F({ name: "Body", dir: "V", gap: "space/4", pt: "space/5", px: "space/6", w: "fill" }, [
             field({ label: "ایمیل", w: "fill", control: inputBox({ iconStart: "mail", placeholder: "name@example.com", ltr: true }) }),
@@ -246,13 +274,16 @@ function buildFeedback() {
   safe("Tour", () => section(root, "Tour · راهنمای قدم‌به‌قدم", "معرفی بخش‌های محصول به کاربر تازه.", (h) => {
     componentSet(h, "Tour step", {
       axes: { Step: ["1", "2", "3"] },
-      build: (p) => F({ name: "Tour step", dir: "V", gap: "space/3", p: "space/4", w: 300, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
-        F({ dir: "H", w: "fill", align: "between" }, [T(`قدم ${fa(p.Step)} از ۳`, { style: "Text xs/Semibold", color: "text-brand" }), I("close", 16, "text-quaternary")]),
-        T(["جستجوی سریع", "ساخت پروژه", "دعوت تیم"][Number(p.Step) - 1], { style: "Text md/Semibold", color: "text-primary", name: "Title" }),
-        T("با ⌘K هر جای برنامه را باز کنید؛ از صفحه‌ها تا تنظیمات.", { style: "Text sm/Regular", color: "text-tertiary", w: "fill", name: "Description" }),
-        F({ dir: "H", w: "fill", align: "between", cross: "center" }, [
-          F({ name: "Dots", dir: "H", gap: 6 }, [1, 2, 3].map((i) => R({ w: String(i) === p.Step ? 16 : 6, h: 6, radius: "radius/full", fill: String(i) === p.Step ? "bg-brand" : "bg-tertiary", name: "Dot" }))),
-          F({ dir: "H", gap: "space/2" }, [p.Step !== "1" && button({ variant: "Tertiary", size: "sm", label: "قبلی" }), button({ variant: "Primary", size: "sm", label: p.Step === "3" ? "تمام" : "بعدی" })]),
+      // k-tour__card: عرض ۳۲۰، فاصلهٔ ۱۶/۲۰، نوار پیشرفت ۱۶×۳
+      build: (p) => F({ name: "Tour step", dir: "V", gap: "space/2", py: "space/4", px: "space/5", w: 320, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
+        T(`مرحلهٔ ${fa(p.Step)} از ۳`, { style: "Text xs/Semibold", color: "text-brand", css: "k-tour__step" }),
+        T(["جستجوی سریع", "خروجی اکسل", "دعوت تیم"][Number(p.Step) - 1], { style: "Text md/Semibold", color: "text-primary", name: "Title", css: "k-tour__title" }),
+        T("با ⌘K هر جای برنامه را باز کنید؛ از صفحه‌ها تا تنظیمات.", { style: "Text sm/Regular", color: "text-secondary", w: "fill", name: "Description" }),
+        F({ name: "Actions", dir: "H", gap: "space/2", pt: "space/2", w: "fill", cross: "center" }, [
+          F({ name: "Progress", dir: "H", gap: 4 }, [1, 2, 3].map((i) => R({ w: 16, h: 3, radius: 2, fill: i <= Number(p.Step) ? "bg-brand" : "border-primary", name: "Step" }))),
+          Spacer(),
+          p.Step !== "1" && button({ variant: "Tertiary", size: "sm", label: "قبلی" }),
+          button({ variant: "Primary", size: "sm", label: p.Step === "3" ? "تمام" : "بعدی" }),
         ]),
       ]),
       docs: "tour",

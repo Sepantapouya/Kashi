@@ -45,7 +45,8 @@ function button({ variant = "Secondary", size = "md", state = "Default", label =
     name: "Button",
     dir: "H",
     gap: size === "xs" ? "space/1" : "space/1.5",
-    px: v.link ? 0 : iconOnly ? 0 : `control/padding/${size}`,
+    // دکمهٔ گرد ۴ پیکسل فاصلهٔ بیشتر دارد (k-btn--pill)
+    px: v.link ? 0 : iconOnly ? 0 : pill ? numOf(`control/padding/${size}`) + 4 : `control/padding/${size}`,
     h: v.link ? undefined : `control/height/${size}`,
     w: iconOnly ? `control/height/${size}` : w,
     align: "center",
@@ -55,6 +56,11 @@ function button({ variant = "Secondary", size = "md", state = "Default", label =
     shadow,
   }, kids);
   f.fills = fills.map((c) => paint(c));
+  // فقط حالت پیش‌فرض با CSS اندازه‌گیری‌شده مقایسه می‌شود
+  if (state === "Default" && !w) {
+    const cls = ["k-btn", `k-btn--${variant.toLowerCase().replace(" ", "-")}`, size !== "md" && `k-btn--${size}`, iconOnly && "k-btn--icon", pill && "k-btn--pill"].filter(Boolean).sort().join(" ");
+    tagCss(f, { css: cls, cssCheck: iconOnly ? ["radius", "bg", "border", "h", "w"] : v.link ? ["bg"] : ["padx", "radius", "gap", "bg", "border", "h"] });
+  }
   return f;
 }
 
@@ -106,11 +112,12 @@ function buildActions() {
       axes: { Size: ["sm", "md"], Selected: ["1", "2", "3"] },
       build: (p) => {
         const items = ["فهرست", "جدول", "نقشه"];
-        return F({ name: "Segmented", dir: "H", gap: 2, p: 3, radius: 11, fill: "bg-secondary", stroke: "border-secondary" },
+        // k-segmented: فاصلهٔ ۳، گوشهٔ ۱۲؛ هر بخش ۳۲ (کوچک ۲۸) با گوشهٔ ۹
+        return F({ name: "Segmented", dir: "H", gap: 2, p: 3, radius: 12, fill: "bg-secondary", stroke: "border-secondary", css: p.Size === "sm" ? "k-segmented k-segmented--sm" : "k-segmented" },
           items.map((label, i) => {
             const on = String(i + 1) === p.Selected;
-            return F({ name: "Segment", dir: "H", h: p.Size === "sm" ? 30 : 34, px: "space/3", cross: "center", radius: "radius/md", fill: on ? "bg-elevated" : undefined, shadow: on ? "Shadow/sm" : undefined, stroke: on ? "border-secondary" : undefined }, [
-              T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-tertiary" }),
+            return F({ name: "Segment", dir: "H", gap: "space/1.5", h: p.Size === "sm" ? 28 : 32, px: "space/3", cross: "center", radius: 9, fill: on ? "bg-elevated" : undefined, shadow: on ? "Shadow/sm" : undefined, css: on ? undefined : "k-segmented__item", cssCheck: ["padx", "radius", "gap", "bg"] }, [
+              T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-tertiary", css: on ? undefined : "k-segmented__item" }),
             ]);
           }));
       },

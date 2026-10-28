@@ -26,11 +26,14 @@ const S = {
  */
 const TYPE_WEIGHTS = { Regular: "regular", Medium: "medium", Semibold: "semibold", Bold: "bold" };
 function typeSpec(name) {
-  const m = /^(Display|Text) ([0-9a-z]+)\/(\w+)$/.exec(name || "Text sm/Regular");
+  // Display: فونت عنوان، خط ۱٫۳۵ — Text: خط ۱٫۷۵ — Tight: فونت متن با خط ۱٫۳۵ (برچسب فیلد)
+  // Control: خط ثابت ۲۰ پیکسل (متن کنار چک‌باکس و سوییچ)
+  const m = /^(Display|Text|Tight|Control) ([0-9a-z]+)\/(\w+)$/.exec(name || "Text sm/Regular");
   if (!m) throw new Error(`Unknown type style: ${name}`);
-  const kind = m[1] === "Display" ? "display" : "text";
-  const leading = kind === "display" ? TOKENS.font.leading.tight : TOKENS.font.leading.normal;
-  return { kind, sizeKey: m[2], size: TOKENS.font.size[m[2]], weight: TYPE_WEIGHTS[m[3]], leading };
+  const kind = m[1].toLowerCase();
+  const size = TOKENS.font.size[m[2]];
+  const leading = kind === "text" ? TOKENS.font.leading.normal : kind === "control" ? 20 / size : TOKENS.font.leading.tight;
+  return { kind, sizeKey: m[2], size, weight: TYPE_WEIGHTS[m[3]], leading };
 }
 const TYPE_SCALE = []
   .concat(["6xl", "5xl", "4xl", "3xl", "2xl", "xl"].map((k) => `Display ${k}`), ["xl", "lg", "md", "sm", "xs"].map((k) => `Text ${k}`));
@@ -252,6 +255,7 @@ function F(o = {}, children = []) {
   setRadius(f, o.radius);
   effectStyle(f, o.shadow);
   if (o.opacity !== undefined) f.opacity = o.opacity;
+  tagCss(f, o);
 
   // RTL: در فیگما ترتیب افقی چپ‌به‌راست است، پس فرزندان را برعکس می‌چینیم
   const kids = children.flat(Infinity).filter(Boolean);
@@ -289,6 +293,7 @@ function sizeSelf(f, o, dir) {
       if (typeof H === "string" && S.vars[H]) bindNum(f, "height", H);
     }
     if (o.minW) f.minWidth = o.minW;
+    if (o.minH) f.minHeight = o.minH;
     if (o.maxW) f.maxWidth = o.maxW;
   }
   SIZING.set(f, { w: W, h: H, x: o.x, y: o.y, absolute: o.absolute, grow: o.grow });
@@ -329,9 +334,11 @@ function T(text, o = {}) {
   if (typeof o.w === "number") t.resize(o.w, t.height);
   if (o.maxLines) { t.textTruncation = "ENDING"; t.maxLines = o.maxLines; }
   if (o.decoration) t.textDecoration = o.decoration;
+  if (o.opacity !== undefined) t.opacity = o.opacity;
   if (o.highlight) t.setRangeFills(o.highlight[0], o.highlight[1], [paint("text-brand")]);
   if (o.letterSpacing) t.letterSpacing = { unit: "PERCENT", value: o.letterSpacing };
   if (!o.size && !o.weight && !o.leading) bindType(t, spec);
+  tagCss(t, o);
   SIZING.set(t, { w: o.w, h: o.h, x: o.x, y: o.y, absolute: o.absolute, grow: o.grow });
   return t;
 }
@@ -344,7 +351,7 @@ function bindType(node, spec) {
   bind("fontFamily", spec.kind === "display" ? "font/family/display" : "font/family/sans");
   bind("fontStyle", `font/weight/${spec.weight}`);
   bind("fontSize", `font/size/${spec.sizeKey}`);
-  bind("lineHeight", `font/line-height/${spec.kind}-${spec.sizeKey}`);
+  bind("lineHeight", spec.kind === "control" ? "font/line-height/control" : `font/line-height/${spec.kind === "tight" ? "display" : spec.kind}-${spec.sizeKey}`);
 }
 
 /** مستطیل/بیضی ساده */
@@ -358,8 +365,17 @@ function R(o = {}) {
   if (o.ellipse && o.arc) r.arcData = o.arc;
   if (o.rotation) r.rotation = o.rotation;
   effectStyle(r, o.shadow);
+  tagCss(r, o);
   SIZING.set(r, { w: o.fillW ? "fill" : undefined, h: o.fillH ? "fill" : undefined, x: o.x, y: o.y, absolute: o.absolute, grow: o.grow });
   return r;
+}
+
+/**
+ * کلاس CSS متناظر برای تست هم‌خوانی پیکسلی (test/css-metrics.json).
+ * css: "k-badge k-badge--success" — cssCheck: فهرست ویژگی‌هایی که مقایسه می‌شوند (پیش‌فرض همه به‌جز ارتفاع)
+ */
+function tagCss(node, o) {
+  if (o.css) node.setPluginData("css", JSON.stringify({ key: o.css, check: o.cssCheck || null }));
 }
 
 /** جای خالی منعطف */
@@ -527,6 +543,10 @@ async function buildVariables() {
       S.vars[`font/line-height/${kind}-${k}`] = lh;
     }
   }
+  // خط ثابت متن کنار چک‌باکس، رادیو و سوییچ (1.25rem در CSS)
+  const ctl = await getVariable(typo.c, "font/line-height/control", "FLOAT", ["LINE_HEIGHT"]);
+  for (const [mode, f] of Object.entries(scales)) setVal(ctl, typo.ids, mode, Math.round(20 * f));
+  S.vars["font/line-height/control"] = ctl;
 
   await buildEffectVariables();
 }
@@ -815,9 +835,18 @@ const BIND_FIELDS = ["width", "height", "itemSpacing", "counterAxisSpacing", "pa
 const AUTO_LAYOUT_ONLY = /^(layoutWrap|primaryAxis|counterAxis|itemSpacing|padding)/;
 
 /** ظاهر و فرزندان فریم تازه را به کامپوننت موجود منتقل می‌کند؛ شناسهٔ کامپوننت و instance ها می‌مانند */
+/** تبدیل فریم به کامپوننت با حفظ برچسب CSS (pluginData در تبدیل حفظ نمی‌شود) */
+function toComponent(frame) {
+  const css = frame.getPluginData("css");
+  const comp = figma.createComponentFromNode(frame);
+  if (css) comp.setPluginData("css", css);
+  return comp;
+}
+
 function updateComponent(comp, frame) {
   // اندازه را قبل از جابه‌جایی فرزندان می‌خوانیم؛ بعدش فریم خالی است
   const w = frame.width, h = frame.height;
+  comp.setPluginData("css", frame.getPluginData("css"));
   for (const ch of comp.children.slice()) ch.remove();
   for (const f of BIND_FIELDS) {
     if (comp.boundVariables && comp.boundVariables[f]) { try { comp.setBoundVariable(f, null); } catch (e) { /* */ } }
@@ -855,7 +884,7 @@ function upsertComponent(key, frame) {
     S.stats.updated++;
     comp = updateComponent(old, frame);
   } else {
-    comp = figma.createComponentFromNode(frame);
+    comp = toComponent(frame);
     S.stats.added++;
   }
   comp.setPluginData(KEY.set, key);
@@ -878,7 +907,7 @@ function componentSet(section, name, opts) {
   const comps = [];
   if (!wantSet) {
     const frame = opts.build({});
-    if (old) { node = updateComponent(old, frame); S.stats.updated++; } else { node = figma.createComponentFromNode(frame); S.stats.added++; }
+    if (old) { node = updateComponent(old, frame); S.stats.updated++; } else { node = toComponent(frame); S.stats.added++; }
     node.name = name;
     section.appendChild(node);
     comps.push(node);
@@ -890,7 +919,7 @@ function componentSet(section, name, opts) {
       const frame = opts.build(props);
       const vn = variantName(props);
       let comp;
-      if (byName[vn]) { comp = updateComponent(byName[vn], frame); delete byName[vn]; } else { comp = figma.createComponentFromNode(frame); comp.name = vn; }
+      if (byName[vn]) { comp = updateComponent(byName[vn], frame); delete byName[vn]; } else { comp = toComponent(frame); comp.name = vn; }
       comps.push(comp);
       S.stats.components++;
     }
@@ -1189,7 +1218,8 @@ function button({ variant = "Secondary", size = "md", state = "Default", label =
     name: "Button",
     dir: "H",
     gap: size === "xs" ? "space/1" : "space/1.5",
-    px: v.link ? 0 : iconOnly ? 0 : `control/padding/${size}`,
+    // دکمهٔ گرد ۴ پیکسل فاصلهٔ بیشتر دارد (k-btn--pill)
+    px: v.link ? 0 : iconOnly ? 0 : pill ? numOf(`control/padding/${size}`) + 4 : `control/padding/${size}`,
     h: v.link ? undefined : `control/height/${size}`,
     w: iconOnly ? `control/height/${size}` : w,
     align: "center",
@@ -1199,6 +1229,11 @@ function button({ variant = "Secondary", size = "md", state = "Default", label =
     shadow,
   }, kids);
   f.fills = fills.map((c) => paint(c));
+  // فقط حالت پیش‌فرض با CSS اندازه‌گیری‌شده مقایسه می‌شود
+  if (state === "Default" && !w) {
+    const cls = ["k-btn", `k-btn--${variant.toLowerCase().replace(" ", "-")}`, size !== "md" && `k-btn--${size}`, iconOnly && "k-btn--icon", pill && "k-btn--pill"].filter(Boolean).sort().join(" ");
+    tagCss(f, { css: cls, cssCheck: iconOnly ? ["radius", "bg", "border", "h", "w"] : v.link ? ["bg"] : ["padx", "radius", "gap", "bg", "border", "h"] });
+  }
   return f;
 }
 
@@ -1250,11 +1285,12 @@ function buildActions() {
       axes: { Size: ["sm", "md"], Selected: ["1", "2", "3"] },
       build: (p) => {
         const items = ["فهرست", "جدول", "نقشه"];
-        return F({ name: "Segmented", dir: "H", gap: 2, p: 3, radius: 11, fill: "bg-secondary", stroke: "border-secondary" },
+        // k-segmented: فاصلهٔ ۳، گوشهٔ ۱۲؛ هر بخش ۳۲ (کوچک ۲۸) با گوشهٔ ۹
+        return F({ name: "Segmented", dir: "H", gap: 2, p: 3, radius: 12, fill: "bg-secondary", stroke: "border-secondary", css: p.Size === "sm" ? "k-segmented k-segmented--sm" : "k-segmented" },
           items.map((label, i) => {
             const on = String(i + 1) === p.Selected;
-            return F({ name: "Segment", dir: "H", h: p.Size === "sm" ? 30 : 34, px: "space/3", cross: "center", radius: "radius/md", fill: on ? "bg-elevated" : undefined, shadow: on ? "Shadow/sm" : undefined, stroke: on ? "border-secondary" : undefined }, [
-              T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-tertiary" }),
+            return F({ name: "Segment", dir: "H", gap: "space/1.5", h: p.Size === "sm" ? 28 : 32, px: "space/3", cross: "center", radius: 9, fill: on ? "bg-elevated" : undefined, shadow: on ? "Shadow/sm" : undefined, css: on ? undefined : "k-segmented__item", cssCheck: ["padx", "radius", "gap", "bg"] }, [
+              T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-tertiary", css: on ? undefined : "k-segmented__item" }),
             ]);
           }));
       },
@@ -1291,45 +1327,50 @@ function inputBox({ size = "md", state = "Default", text = "", placeholder = "م
   const kids = [];
   if (iconStart) kids.push(I(iconStart, 20, "text-quaternary"));
   kids.push(...start);
-  kids.push(T(text || placeholder, { style: size === "sm" ? "Text sm/Regular" : "Text md/Regular", color: valueColor, name: "Value", grow: true, ltr, w: "fill", maxLines: 1 }));
+  kids.push(T(text || placeholder, { style: "Text md/Regular", color: valueColor, name: "Value", grow: true, ltr, w: "fill", maxLines: 1, css: "k-input__control", cssCheck: ["font"] }));
   kids.push(...end);
+  const plain = state === "Default" && !h;
   return F({
     name, dir: "H", gap: "space/2", px: "input/padding", h: h || `input/height/${size}`, w, cross: "center",
     radius: "radius/md", fill: disabled ? "bg-secondary" : "bg-primary", stroke, shadow,
+    css: plain && size !== "lg" ? (size === "sm" ? "k-input k-input--sm" : "k-input") : undefined, cssCheck: ["padx", "radius", "gap", "bg", "border", "h"],
   }, kids);
 }
 
 /** برچسب، کنترل و متن راهنما */
 function field({ label = "برچسب", hint, error, optional, required, control, w = FIELD_W, labelEnd }) {
-  const labelRow = F({ name: "Label row", dir: "H", gap: "space/1", w: "fill", cross: "center" }, [
-    T(label, { style: "Text sm/Medium", color: "text-secondary", name: "Label" }),
-    required && T("*", { style: "Text sm/Medium", color: "text-error", name: "Required" }),
-    optional && T("(اختیاری)", { style: "Text sm/Regular", color: "text-quaternary", name: "Optional" }),
+  // برچسب و راهنما در CSS خط ۱٫۳۵ دارند (k-label، k-hint)
+  const labelRow = F({ name: "Label row", dir: "H", gap: "space/3", w: "fill", cross: "center", css: "k-field__label-row", cssCheck: ["gap"] }, [
+    F({ name: "Label group", dir: "H", gap: "space/1", cross: "center" }, [
+      T(label, { style: "Tight sm/Medium", color: "text-secondary", name: "Label", css: "k-label" }),
+      required && T("*", { style: "Tight sm/Medium", color: "text-error", name: "Required", css: "k-label__required" }),
+      optional && T("اختیاری", { style: "Tight sm/Regular", color: "text-tertiary", name: "Optional", css: "k-label__optional" }),
+    ]),
     labelEnd && Spacer(),
     labelEnd,
   ]);
-  const hintNode = (hint || error) && F({ name: "Hint row", dir: "H", gap: "space/1.5", w: "fill", cross: "start" }, [
-    error && I("error", 16, "text-error"),
-    T(error || hint, { style: "Text sm/Regular", color: error ? "text-error" : "text-tertiary", name: "Hint", grow: true, w: "fill" }),
+  const hintNode = (hint || error) && F({ name: "Hint row", dir: "H", gap: "space/3", w: "fill", cross: "start", css: "k-field__hint-row", cssCheck: ["gap"] }, [
+    T(error || hint, { style: "Tight sm/Regular", color: error ? "text-error" : "text-tertiary", name: "Hint", grow: true, w: "fill", css: error ? "k-hint k-hint--error" : "k-hint" }),
   ]);
-  return F({ name: "Field", dir: "V", gap: "space/1.5", w }, [labelRow, control, hintNode]);
+  return F({ name: "Field", dir: "V", gap: "space/1.5", w, css: "k-field", cssCheck: ["gap"] }, [labelRow, control, hintNode]);
 }
 
 /** پنل فهرست کشویی (Listbox / Menu) */
 function listbox(items, { w = FIELD_W, active = 1, selected = 0, query } = {}) {
-  return F({ name: "Listbox", dir: "V", gap: 1, p: "space/1.5", w, radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" },
+  return F({ name: "Listbox", dir: "V", gap: 0, p: "space/1.5", w, radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" },
     items.map((it, i) => {
       const o = typeof it === "string" ? { label: it } : it;
       if (o.group) return T(o.group, { style: "Text xs/Semibold", color: "text-tertiary", name: "Group", w: "fill" });
       const on = i === selected;
       // گزینهٔ دوخطی ارتفاع ثابت ندارد تا متن‌ها روی هم نیفتند
-      return F({ name: "Option", dir: "H", gap: "space/2", h: o.description ? undefined : "menu/item-height", py: o.description ? 8 : undefined, px: 10, w: "fill", cross: "center", radius: "radius/md", fill: i === active ? "bg-hover" : undefined }, [
+      // k-option: حداقل ۴۰ پیکسل؛ گزینهٔ دوخطی بلندتر می‌شود
+      return F({ name: "Option", dir: "H", gap: "space/2", h: o.description ? undefined : 40, minH: 40, py: o.description ? 6 : undefined, px: 10, w: "fill", cross: "center", radius: "radius/md", fill: i === active ? "bg-hover" : undefined, css: i === active && !o.description ? "k-option" : undefined, cssCheck: ["padx", "radius", "gap", "bg", "h"] }, [
         o.icon && I(o.icon, 18, "text-tertiary"),
         o.logo && bankLogo(o.logo, 20),
         F({ name: "Body", dir: "V", gap: 0, grow: true }, [
           // بخش منطبق در همان یک متن رنگی می‌شود تا اتصال حروف فارسی نشکند
-          T(o.label, { style: "Text sm/Medium", color: o.disabled ? "text-quaternary" : on ? "text-primary" : "text-secondary", name: "Label", highlight: query && o.label.includes(query) ? [o.label.indexOf(query), o.label.indexOf(query) + query.length] : undefined }),
-          o.description && T(o.description, { style: "Text xs/Regular", color: "text-tertiary" }),
+          T(o.label, { style: on ? "Text sm/Semibold" : "Text sm/Regular", color: o.disabled ? "text-quaternary" : on || i === active ? "text-primary" : "text-secondary", name: "Label", highlight: query && o.label.includes(query) ? [o.label.indexOf(query), o.label.indexOf(query) + query.length] : undefined }),
+          o.description && T(o.description, { style: "Text xs/Regular", color: "text-tertiary", css: "k-option__desc" }),
         ]),
         o.shortcut && T(o.shortcut, { style: "Text xs/Regular", color: "text-quaternary", ltr: true }),
         on && I("check", 16, "text-brand"),
@@ -1337,11 +1378,20 @@ function listbox(items, { w = FIELD_W, active = 1, selected = 0, query } = {}) {
     }));
 }
 
-function tag(label, { removable = true, logo } = {}) {
-  return F({ name: "Tag", dir: "H", gap: "space/1", h: 26, ps: logo ? 4 : 8, pe: removable ? 4 : 8, cross: "center", radius: "radius/sm", fill: "bg-secondary", stroke: "border-primary" }, [
-    logo && bankLogo(logo, 16),
-    T(label, { style: "Text sm/Medium", color: "text-secondary" }),
-    removable && I("close", 14, "text-quaternary"),
+/** برچسب داخل TagInput و MultiSelect؛ در React همان Badge قابل حذف است */
+function tag(label, { tone = "Neutral" } = {}) {
+  return badge({ tone, label, dot: false, removable: true });
+}
+
+/** کادر چندبرچسبی (k-tag-input) */
+function tagBox({ state = "Default", tags = [], placeholder = "", end = [] }) {
+  const focus = state === "Focus";
+  return F({ name: "Tag input", dir: "H", wrap: true, gap: "space/1.5", rowGap: "space/1.5", py: 6, px: 10, w: "fill", minH: 40, cross: "center",
+    radius: "radius/md", fill: "bg-primary", stroke: focus ? "border-brand" : "border-input", shadow: focus ? "Input focus" : "Shadow/xs",
+    css: focus ? undefined : "k-tag-input" }, [
+    ...tags,
+    F({ name: "Control", dir: "H", p: 4, grow: true, cross: "center", css: "k-tag-input__control", cssCheck: ["pad"] }, [T(placeholder || " ", { style: "Text md/Regular", color: "text-quaternary", name: "Placeholder" })]),
+    ...end,
   ]);
 }
 
@@ -1353,7 +1403,8 @@ function checkMark(kind, { checked, state = "Default", size = 18 }) {
   const stroke = disabled ? "border-secondary" : on ? fill : state === "Hover" ? "border-brand" : "border-input";
   // در CSS چک‌باکس و رادیو سایهٔ xs دارند؛ در فوکوس حلقهٔ برند هم اضافه می‌شود
   const shadow = state === "Focus" ? "Input focus" : disabled ? undefined : "Shadow/xs";
-  const box = F({ name: isRadio ? "Radio" : "Checkbox", dir: "H", w: size, h: size, align: "center", cross: "center", radius: isRadio ? "radius/full" : "radius/checkbox", fill, stroke, shadow }, [
+  const box = F({ name: isRadio ? "Radio" : "Checkbox", dir: "H", w: size, h: size, align: "center", cross: "center", radius: isRadio ? "radius/full" : "radius/checkbox", fill, stroke, shadow,
+    css: on && state === "Default" && checked !== "Indeterminate" ? (isRadio ? "k-radio" : size === 20 ? "k-checkbox k-checkbox--lg" : "k-checkbox") : undefined, cssCheck: ["radius", "bg", "border", "h", "w"] }, [
     on && (isRadio
       ? R({ ellipse: true, w: size * 0.4, h: size * 0.4, fill: disabled ? "text-quaternary" : "text-on-brand", name: "Dot" })
       : checked === "Indeterminate"
@@ -1368,24 +1419,27 @@ function switchTrack({ checked, state = "Default", size = "md" }) {
   const on = checked === "On";
   const disabled = state === "Disabled";
   const track = disabled ? "bg-tertiary" : on ? (state === "Hover" ? "bg-brand-hover" : "bg-brand") : state === "Hover" ? "text-quaternary" : "border-input";
-  return F({ name: "Switch", dir: "H", w, h, p: 2, cross: "center", align: on ? "end" : "start", radius: "radius/full", fill: track, shadow: state === "Focus" ? "Focus ring/brand" : undefined }, [
+  return F({ name: "Switch", dir: "H", w, h, p: 2, cross: "center", align: on ? "end" : "start", radius: "radius/full", fill: track, shadow: state === "Focus" ? "Focus ring/brand" : undefined,
+    css: on && state === "Default" ? ({ sm: "k-switch k-switch--sm", md: "k-switch", lg: "k-switch k-switch--lg" })[size] : undefined, cssCheck: ["pad", "radius", "bg", "h", "w"] }, [
     R({ ellipse: true, w: h - 4, h: h - 4, fill: disabled ? "bg-secondary" : "#ffffff", shadow: "Shadow/sm", name: "Thumb" }),
   ]);
 }
 
 function checkRow(control, { label = "مرا به خاطر بسپار", description = "تا ۳۰ روز وارد حساب بمانید.", disabled } = {}) {
-  return F({ name: "Check", dir: "H", gap: "space/2", cross: "start" }, [
-    F({ name: "Control wrap", dir: "H", h: 22, cross: "center" }, [control]),
-    F({ name: "Text", dir: "V", gap: 2 }, [
-      T(label, { style: "Text sm/Medium", color: disabled ? "text-quaternary" : "text-secondary", name: "Label" }),
-      T(description, { style: "Text sm/Regular", color: "text-tertiary", name: "Description" }),
+  // k-check: متن با خط ثابت ۲۰ پیکسل و کنترل وسط خط اول
+  return F({ name: "Check", dir: "H", gap: "space/2", cross: "start", css: "k-check", cssCheck: ["gap"] }, [
+    F({ name: "Control wrap", dir: "H", h: 20, cross: "center" }, [control]),
+    F({ name: "Text", dir: "V", gap: 2, css: "k-check__text", cssCheck: ["gap"] }, [
+      T(label, { style: "Control sm/Medium", color: disabled ? "text-quaternary" : "text-secondary", name: "Label", css: disabled ? undefined : "k-check__label" }),
+      T(description, { style: "Control sm/Regular", color: "text-tertiary", name: "Description", css: "k-check__description" }),
     ]),
   ]);
 }
 
 function jalaliGrid({ range, selected = 6, w = 300 } = {}) {
   const C = TOKENS.calendar;
-  const cell = 40;
+  // k-calendar__day: ۴۰ پیکسل، خانهٔ جدول با ۱ پیکسل فاصله
+  const cell = 42;
   const cells = [];
   const lead = C.firstWeekday;
   for (let i = 0; i < lead; i++) cells.push({ day: C.prevLength - lead + 1 + i, out: true });
@@ -1398,28 +1452,34 @@ function jalaliGrid({ range, selected = 6, w = 300 } = {}) {
       const edge = range ? !c.out && (c.day === range[0] || c.day === range[1]) : !c.out && c.day === selected;
       const holiday = !c.out && C.holidays.includes(c.day);
       const today = !c.out && c.day === 6;
-      return F({ name: "Day", dir: "H", w: cell, h: cell, align: "center", cross: "center", fill: inRange && !edge ? "bg-brand-subtle" : undefined }, [
-        F({ name: "Cell", dir: "H", w: 36, h: 36, align: "center", cross: "center", radius: "radius/full", fill: edge ? "bg-brand" : undefined, stroke: today && !edge ? "border-brand" : undefined }, [
-          T(fa(c.day), { style: edge ? "Text sm/Semibold" : "Text sm/Regular", color: edge ? "text-on-brand" : c.out ? "text-quaternary" : holiday ? "text-error" : inRange ? "text-brand" : "text-secondary", align: "center" }),
+      return F({ name: "Day", dir: "H", w: cell, h: cell, align: "center", cross: "center", fill: inRange ? "bg-brand-subtle" : undefined, radius: range && edge ? (c.day === range[0] ? ["radius/full", 0, 0, "radius/full"] : [0, "radius/full", "radius/full", 0]) : undefined }, [
+        F({ name: "Cell", dir: "V", w: 40, h: 40, align: "center", cross: "center", radius: "radius/full", fill: edge ? "bg-brand" : undefined, shadow: edge ? "Button" : undefined }, [
+          T(fa(c.day), { style: edge ? "Text sm/Semibold" : today ? "Text sm/Bold" : "Text sm/Regular", color: edge ? "text-on-brand" : c.out ? "text-quaternary" : today ? "text-brand" : holiday ? "text-error" : inRange ? "text-primary" : "text-secondary", align: "center" }),
+          // امروز: نقطهٔ ۴ پیکسلی زیر عدد
+          today && !edge && R({ ellipse: true, w: 4, h: 4, fill: "text-brand", name: "Today dot", absolute: true, x: 18, y: 31 }),
         ]),
       ]);
     })));
   }
-  return F({ name: "Calendar", dir: "V", gap: "space/3", p: "space/4", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
-    F({ name: "Header", dir: "H", w: "fill", align: "between", cross: "center" }, [
+  const select = (label) => F({ name: "Select", dir: "H", gap: "space/1", h: 36, ps: "space/3", pe: "space/1.5", cross: "center", radius: "radius/md" }, [
+    T(label, { style: "Text sm/Semibold", color: "text-primary" }),
+    I("chevron-down", 16, "text-quaternary"),
+  ]);
+  // همان ساختار k-datepicker__popover و k-calendar در React
+  return F({ name: "Calendar", dir: "V", gap: "space/2", p: "space/4", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
+    F({ name: "Header", dir: "H", gap: "space/2", w: "fill", align: "between", cross: "center" }, [
       button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-right" }),
-      T(`${C.months[C.month - 1]} ${fa(C.year)}`, { style: "Text md/Semibold", color: "text-primary" }),
+      F({ name: "Selects", dir: "H", gap: "space/1" }, [select(C.months[C.month - 1]), select(fa(C.year))]),
       button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-left" }),
     ]),
-    F({ name: "Weekdays", dir: "H", gap: 0 }, C.weekdays.map((d, i) =>
-      F({ dir: "H", w: cell, h: 28, align: "center", cross: "center" }, [T(d, { style: "Text xs/Medium", color: i === 6 ? "text-error" : "text-tertiary", align: "center" })]),
-    )),
-    F({ name: "Days", dir: "V", gap: 2 }, rows),
-    F({ name: "Footer", dir: "H", gap: "space/2", w: "fill", pt: "space/3", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
-      button({ variant: "Secondary", size: "sm", label: "امروز" }),
-      Spacer(),
-      button({ variant: "Tertiary", size: "sm", label: "انصراف" }),
-      button({ variant: "Primary", size: "sm", label: "تأیید" }),
+    F({ name: "Grid", dir: "V", gap: 0 }, [
+      F({ name: "Weekdays", dir: "H", gap: 0 }, C.weekdays.map((d, i) =>
+        F({ dir: "H", w: cell, h: 32, align: "center", cross: "center" }, [T(d, { style: "Text xs/Medium", color: i === 6 ? "text-error" : "text-tertiary", align: "center" })]),
+      )),
+      F({ name: "Days", dir: "V", gap: 0 }, rows),
+    ]),
+    F({ name: "Footer", dir: "H", w: "fill", align: "center", pt: "space/2", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
+      button({ variant: "Link", label: "امروز" }),
     ]),
   ]);
 }
@@ -1523,7 +1583,7 @@ function buildForms() {
       axes: { State: ["Default", "Open"] },
       build: (p) => {
         const open = p.State === "Open";
-        const box = inputBox({ state: open ? "Focus" : "Default", text: "", placeholder: "", start: [tag("طراحی"), tag("برنامه‌نویسی")], end: [I("chevron-down", 20, "text-tertiary")] });
+        const box = tagBox({ state: open ? "Focus" : "Default", tags: [tag("طراحی", { tone: "Brand" }), tag("برنامه‌نویسی", { tone: "Brand" })], end: [I("chevron-down", 20, "text-tertiary")] });
         const node = field({ label: "مهارت‌ها", hint: "تا ۵ مورد", control: box });
         if (open) add(node, listbox([{ label: "طراحی" }, { label: "برنامه‌نویسی" }, { label: "مدیریت محصول" }, { label: "تحقیق کاربر" }], { selected: 0, active: 2 }));
         return node;
@@ -1535,7 +1595,7 @@ function buildForms() {
   safe("TagInput", () => section(root, "Tag input · ورود برچسب", "با Enter یا ویرگول (،) برچسب جدید اضافه می‌شود.", (h) => {
     componentSet(h, "Tag input", {
       axes: { State: ["Default", "Focus"] },
-      build: (p) => field({ label: "برچسب‌ها", hint: "با Enter جدا کنید.", control: inputBox({ state: p.State, text: "", placeholder: "افزودن…", start: [tag("فارسی"), tag("RTL"), tag("React")] }) }),
+      build: (p) => field({ label: "برچسب‌ها", hint: "با Enter جدا کنید.", control: tagBox({ state: p.State, placeholder: "افزودن…", tags: [tag("فارسی"), tag("RTL"), tag("React")] }) }),
       docs: "tag-input",
     });
   }));
@@ -1607,12 +1667,12 @@ function buildForms() {
           thumb(to),
         ]);
         return F({ name: "Slider", dir: "V", gap: "space/2", w: W }, [
-          F({ name: "Head", dir: "H", w: "fill", align: "between" }, [
-            T(p.Type === "Range" ? "بازهٔ قیمت" : "میزان صدا", { style: "Text sm/Medium", color: "text-secondary", name: "Label" }),
-            T(p.Type === "Range" ? "۲۵ تا ۶۵ میلیون" : "۶۵٪", { style: "Text sm/Regular", color: "text-tertiary", name: "Value" }),
+          F({ name: "Head", dir: "H", gap: "space/3", w: "fill", align: "between", css: "k-slider__head", cssCheck: ["gap"] }, [
+            T(p.Type === "Range" ? "بازهٔ قیمت" : "میزان صدا", { style: "Tight sm/Medium", color: "text-secondary", name: "Label" }),
+            T(p.Type === "Range" ? "۲۵ تا ۶۵ میلیون" : "۶۵٪", { style: "Text sm/Semibold", color: "text-primary", name: "Value", css: "k-slider__value" }),
           ]),
           track,
-          F({ name: "Marks", dir: "H", w: "fill", align: "between" }, ["۰", "۲۵", "۵۰", "۷۵", "۱۰۰"].map((m) => T(m, { style: "Text xs/Regular", color: "text-tertiary" }))),
+          F({ name: "Marks", dir: "H", w: "fill", align: "between" }, ["۰", "۲۵", "۵۰", "۷۵", "۱۰۰"].map((m) => T(m, { style: "Text xs/Regular", color: "text-tertiary", css: "k-slider__marks" }))),
         ]);
       },
       docs: "slider",
@@ -1622,10 +1682,11 @@ function buildForms() {
   safe("NumberInput", () => section(root, "Number input · ورود عدد", "با دکمه‌های کم و زیاد و کلیدهای جهت‌دار.", (h) => {
     componentSet(h, "Number input", {
       axes: { State: ["Default", "Focus", "Disabled"] },
-      build: (p) => field({ label: "تعداد", w: 200, control: F({ name: "Number", dir: "H", gap: 0, w: "fill", h: "input/height/md", radius: "radius/md", stroke: p.State === "Focus" ? "border-brand" : "border-input", fill: p.State === "Disabled" ? "bg-secondary" : "bg-primary", shadow: p.State === "Focus" ? "Input focus" : "Shadow/xs", clip: true, cross: "center" }, [
-        F({ name: "Minus", dir: "H", w: 40, h: "fill", align: "center", cross: "center", stroke: "border-input", sides: [0, 0, 0, 1] }, [I("minus", 18, "text-tertiary")]),
-        T("۱۲", { style: "Text md/Medium", color: p.State === "Disabled" ? "text-quaternary" : "text-primary", align: "center", grow: true, w: "fill", name: "Value" }),
-        F({ name: "Plus", dir: "H", w: 40, h: "fill", align: "center", cross: "center", stroke: "border-input", sides: [0, 1, 0, 0] }, [I("plus", 18, "text-tertiary")]),
+      // k-number: دکمه‌های ۳۶×۳۲ داخل همان فیلد، فاصلهٔ داخلی فیلد ۴ پیکسل
+      build: (p) => field({ label: "تعداد", w: 200, control: F({ name: "Number", dir: "H", gap: "space/2", px: "space/1", w: "fill", h: "input/height/md", radius: "radius/md", stroke: p.State === "Focus" ? "border-brand" : "border-input", fill: p.State === "Disabled" ? "bg-secondary" : "bg-primary", shadow: p.State === "Focus" ? "Input focus" : "Shadow/xs", cross: "center" }, [
+        F({ name: "Minus", dir: "H", w: 36, h: 32, align: "center", cross: "center", radius: "radius/sm", css: "k-number__step", cssCheck: ["radius", "bg", "w", "h"] }, [I("minus", 16, p.State === "Disabled" ? "text-quaternary" : "text-secondary")]),
+        T("۱۲", { style: "Text md/Regular", color: p.State === "Disabled" ? "text-quaternary" : "text-primary", align: "center", grow: true, w: "fill", name: "Value" }),
+        F({ name: "Plus", dir: "H", w: 36, h: 32, align: "center", cross: "center", radius: "radius/sm" }, [I("plus", 16, p.State === "Disabled" ? "text-quaternary" : "text-secondary")]),
       ]) }),
       docs: "number-input",
     });
@@ -1638,15 +1699,21 @@ function buildForms() {
         const n = Number(p.Length);
         const digits = ["۴", "۸", "۱", "۵", "۹", "۲"];
         const filled = p.State === "Filled" || p.State === "Error" ? n : p.State === "Typing" ? 2 : 0;
-        return F({ name: "OTP", dir: "V", gap: "space/2" }, [
-          T("کد تأیید", { style: "Text sm/Medium", color: "text-secondary", name: "Label" }),
-          F({ name: "Digits", dir: "H", gap: "space/2", ltr: true }, Array.from({ length: n }, (_, i) => {
-            const active = p.State === "Typing" && i === filled;
-            return F({ name: "Digit", dir: "H", w: 48, h: 56, align: "center", cross: "center", radius: "radius/md", fill: "bg-primary", stroke: p.State === "Error" ? "border-error" : active || (p.State === "Filled" && i < filled) ? "border-brand" : "border-input", shadow: active ? "Input focus" : "Shadow/xs" }, [
-              i < filled ? T(digits[i], { style: "Display xl/Semibold", color: "text-primary", align: "center" }) : T("-", { style: "Display xl/Regular", color: "text-quaternary", align: "center" }),
-            ]);
-          }).reverse()),
-          p.State === "Error" ? T("کد وارد شده درست نیست.", { style: "Text sm/Regular", color: "text-error" }) : T("کد ۶ رقمی به ۰۹۱۲ ۳۴۵ ۶۷۸۹ ارسال شد.", { style: "Text sm/Regular", color: "text-tertiary" }),
+        // k-otp__slot: ۵۲×۶۰، گوشهٔ lg، رقم ۲۶ پیکسل؛ خانهٔ پر حاشیهٔ border-primary، خانهٔ فعال حلقهٔ برند و مکان‌نما
+        const slots = Array.from({ length: n }, (_, i) => {
+          const active = p.State === "Typing" && i === filled;
+          const isFilled = i < filled;
+          return F({ name: "Slot", dir: "H", w: 52, h: 60, align: "center", cross: "center", radius: "radius/lg", fill: "bg-primary", stroke: p.State === "Error" ? "border-error" : active ? "border-brand" : isFilled ? "border-primary" : "border-input", shadow: active ? "Input focus" : "Shadow/xs",
+            css: isFilled && p.State === "Filled" ? "k-otp__slot" : undefined, cssCheck: ["radius", "bg", "border", "w"] }, [
+            isFilled ? T(digits[i], { style: "Text sm/Semibold", color: "text-primary", align: "center", size: 26, weight: "semibold", leading: 1.75 }) : active ? R({ w: 2, h: 26, radius: 1, fill: "text-primary", name: "Caret" }) : null,
+          ]);
+        });
+        // شش رقم سه‌تا سه‌تا با خط جداکننده
+        const row = n === 6 ? [...slots.slice(0, 3), R({ w: 12, h: 2, fill: "border-primary", name: "Separator", css: "k-otp__sep", cssCheck: ["bg"] }), ...slots.slice(3)] : slots;
+        return F({ name: "OTP", dir: "V", gap: "space/1.5" }, [
+          T("کد تأیید", { style: "Tight sm/Medium", color: "text-secondary", name: "Label" }),
+          LTR({ name: "Digits", dir: "H", gap: "space/2", cross: "center", css: "k-otp", cssCheck: ["gap"] }, row),
+          T(p.State === "Error" ? "کد وارد شده درست نیست." : "کد ۶ رقمی به ۰۹۱۲ ۳۴۵ ۶۷۸۹ ارسال شد.", { style: "Tight sm/Regular", color: p.State === "Error" ? "text-error" : "text-tertiary" }),
         ]);
       },
       cols: 4,
@@ -1659,27 +1726,30 @@ function buildForms() {
       axes: { State: ["Default", "Drag over", "Uploading"] },
       build: (p) => {
         const drag = p.State === "Drag over";
-        const zone = F({ name: "Dropzone", dir: "V", gap: "space/3", p: "space/6", w: "fill", cross: "center", radius: "radius/xl", fill: drag ? "bg-brand-subtle" : "bg-primary", stroke: drag ? "border-brand" : "border-secondary", sw: drag ? 2 : 1, dash: drag ? [6, 4] : undefined }, [
-          F({ name: "Featured icon", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/md", fill: "bg-elevated", stroke: "border-secondary", shadow: "Shadow/xs" }, [I("upload", 20, drag ? "text-brand" : "text-secondary")]),
-          F({ dir: "H", gap: "space/1" }, [T("برای آپلود کلیک کنید", { style: "Text sm/Semibold", color: "text-brand" }), T("یا فایل را اینجا بکشید", { style: "Text sm/Regular", color: "text-tertiary" })]),
-          T("PNG، JPG یا PDF — حداکثر ۱۰ مگابایت", { style: "Text xs/Regular", color: "text-tertiary", name: "Hint" }),
-        ]);
-        const fileRow = (name, size, pct) => F({ name: "File", dir: "H", gap: "space/3", p: "space/4", w: "fill", cross: "start", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary" }, [
-          F({ dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/md", fill: "bg-brand-subtle" }, [I("file", 20, "text-brand")]),
-          F({ dir: "V", gap: "space/1", grow: true }, [
-            T(name, { style: "Text sm/Medium", color: "text-primary", ltr: true }),
-            T(size, { style: "Text sm/Regular", color: "text-tertiary" }),
-            F({ dir: "H", gap: "space/3", w: "fill", cross: "center" }, [
-              F({ name: "Progress", dir: "H", grow: true, h: 8, radius: "radius/full", fill: "bg-tertiary", clip: true }, [R({ w: 260 * pct, h: 8, radius: "radius/full", fill: pct === 1 ? "text-success" : "bg-brand", name: "Value" })]),
-              T(fa(Math.round(pct * 100)) + "٪", { style: "Text sm/Medium", color: "text-secondary" }),
-            ]),
+        // k-dropzone: فاصلهٔ ۳۲/۲۴، حاشیهٔ خط‌چین border-input؛ هنگام کشیدن خط پیوسته و پس‌زمینهٔ برند
+        const zone = F({ name: "Dropzone", dir: "V", gap: "space/2", py: "space/8", px: "space/6", w: "fill", cross: "center", radius: "radius/xl", fill: drag ? "bg-brand-subtle" : "bg-primary", stroke: drag ? "border-brand" : "border-input", dash: drag ? undefined : [4, 4],
+          css: drag ? undefined : "k-dropzone", cssCheck: ["radius", "gap", "bg", "border"] }, [
+          F({ name: "Icon", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-primary", shadow: "Button", css: "k-dropzone__icon" }, [I("upload", 20, "text-secondary")]),
+          F({ name: "Title", dir: "H", gap: "space/1" }, [
+            T("انتخاب فایل", { style: "Text sm/Semibold", color: "text-brand", decoration: "UNDERLINE", name: "Browse" }),
+            T("یا فایل را اینجا رها کنید", { style: "Text sm/Regular", color: "text-secondary", name: "Drop" }),
           ]),
-          I(pct === 1 ? "success" : "trash", 18, pct === 1 ? "text-success" : "text-quaternary"),
+          T("PNG، JPG یا PDF؛ هر فایل حداکثر ۱۰ مگابایت", { style: "Text xs/Regular", color: "text-tertiary", name: "Hint", css: "k-dropzone__hint" }),
         ]);
-        return F({ name: "File upload", dir: "V", gap: "space/3", w: 420 }, [
+        // k-file: کارت با آیکون پسوند، نام، اندازه و نوار پیشرفت
+        const fileRow = (name, ext, meta, pct) => F({ name: "File", dir: "H", gap: "space/3", p: "space/4", w: "fill", cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Surface" }, [
+          F({ name: "Ext", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/md", fill: "bg-brand-subtle" }, [T(ext, { style: "Text xs/Bold", color: "text-brand", size: 10, weight: "bold", leading: 1.2, ltr: true })]),
+          F({ dir: "V", gap: "space/1", grow: true }, [
+            T(name, { style: "Text sm/Medium", color: "text-primary", ltr: true, align: "end", w: "fill" }),
+            T(meta, { style: "Text xs/Regular", color: "text-tertiary" }),
+            pct < 1 && F({ name: "Progress", dir: "H", w: "fill", h: 4, radius: "radius/full", fill: "bg-tertiary", clip: true }, [R({ w: 180 * pct, h: 4, radius: "radius/full", fill: "bg-brand", name: "Value" })]),
+          ]),
+          button({ variant: "Tertiary", size: "sm", iconOnly: "trash" }),
+        ]);
+        return F({ name: "File upload", dir: "V", gap: "space/4", w: 420 }, [
           zone,
-          p.State === "Uploading" && fileRow("brand-guide.pdf", "۲٫۴ مگابایت", 0.6),
-          p.State === "Uploading" && fileRow("logo.png", "۸۴۰ کیلوبایت", 1),
+          p.State === "Uploading" && fileRow("brand-guide.pdf", "PDF", "۲٫۴ مگابایت · ۶۰٪", 0.6),
+          p.State === "Uploading" && fileRow("logo.png", "PNG", "۸۴۰ کیلوبایت · بارگذاری شد", 1),
         ]);
       },
       docs: "file-upload",
@@ -1697,7 +1767,7 @@ function buildForms() {
           if (on) for (const n of st.findAll((x) => "fills" in x && x.type === "VECTOR")) n.fills = [paint("zafaran/400")];
           return st;
         });
-        return F({ name: "Rating", dir: "H", gap: 2, cross: "center" }, [...stars, T(fa(p.Value) + " از ۵", { style: "Text sm/Regular", color: "text-tertiary" })]);
+        return F({ name: "Rating", dir: "H", gap: 2, cross: "center", css: "k-rating", cssCheck: ["gap"] }, [...stars, T(fa(p.Value), { style: "Text sm/Semibold", color: "text-secondary", name: "Value", css: "k-rating__value" })]);
       },
       cols: 6,
       docs: "rating",
@@ -1731,11 +1801,11 @@ function buildForms() {
         return F({ name: "Color picker", dir: "V", gap: "space/3", p: "space/4", w: 280, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
           T("رنگ برند", { style: "Text sm/Semibold", color: "text-primary" }),
           F({ name: "Swatches", dir: "H", wrap: true, gap: 8, rowGap: 8, w: "fill" }, scales.flatMap((s) => ["400", "600"].map((st) =>
-            R({ ellipse: true, w: 28, h: 28, fill: `${s}/${st}`, stroke: s === "firoozeh" && st === "600" ? "text-primary" : undefined, sw: 2, name: `${s}-${st}` }),
+            R({ ellipse: true, w: 32, h: 32, fill: `${s}/${st}`, stroke: s === "firoozeh" && st === "600" ? "text-primary" : undefined, sw: 2, name: `${s}-${st}`, shadow: "Shadow/xs" }),
           ))),
           F({ name: "Spectrum", dir: "H", w: "fill", h: 120, radius: "radius/md", fill: "firoozeh/500" }),
           F({ dir: "H", gap: "space/2", w: "fill" }, [
-            R({ w: 40, h: 40, radius: "radius/md", fill: "firoozeh/600", name: "Preview" }),
+            R({ w: 40, h: 40, radius: "radius/md", fill: "firoozeh/600", name: "Preview", shadow: "Shadow/xs", css: "k-color__preview", cssCheck: ["radius", "bg"] }),
             inputBox({ text: "#0B8077", ltr: true }),
           ]),
         ]);
@@ -1748,7 +1818,7 @@ function buildForms() {
     componentSet(h, "Inline edit", {
       axes: { State: ["View", "Edit"] },
       build: (p) => p.State === "View"
-        ? F({ name: "Inline edit", dir: "H", gap: "space/2", px: "space/2", h: 36, cross: "center", radius: "radius/md" }, [T("گزارش فروش پاییز", { style: "Text md/Semibold", color: "text-primary", name: "Value" }), I("edit", 16, "text-quaternary")])
+        ? F({ name: "Inline edit", dir: "H", gap: "space/1.5", px: "space/2", py: "space/1", cross: "center", radius: "radius/md", fill: "bg-hover", css: "k-inline-edit__view" }, [T("گزارش فروش پاییز", { style: "Text md/Regular", color: "text-primary", name: "Value" }), I("edit", 16, "text-quaternary")])
         : F({ name: "Inline edit", dir: "H", gap: "space/1", w: 320, cross: "center" }, [
             inputBox({ state: "Focus", text: "گزارش فروش پاییز" }),
             button({ variant: "Primary", size: "sm", iconOnly: "check" }),
@@ -1785,10 +1855,12 @@ function buildForms() {
 
   safe("MonthPicker", () => section(root, "Month picker · انتخاب ماه", "انتخاب ماه و سال شمسی.", (h) => {
     componentSet(h, "Month picker", {
-      build: () => F({ name: "Month picker", dir: "V", gap: "space/3", p: "space/4", w: 300, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
-        F({ dir: "H", w: "fill", align: "between", cross: "center" }, [button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-right" }), T("۱۴۰۵", { style: "Text md/Semibold" }), button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-left" })]),
-        F({ dir: "H", wrap: true, gap: 6, rowGap: 6, w: "fill" }, TOKENS.calendar.months.map((m, i) =>
-          F({ name: "Month", dir: "H", w: 84, h: 40, align: "center", cross: "center", radius: "radius/md", fill: i === 7 ? "bg-brand" : undefined, stroke: i === 7 ? undefined : "border-secondary" }, [T(m, { style: "Text sm/Medium", color: i === 7 ? "text-on-brand" : "text-secondary", align: "center" })]),
+      // k-monthpicker: سربرگ ۳۶، شبکهٔ ۴ ستونی با فاصلهٔ ۴، هر ماه ۳۲ پیکسل
+      build: () => F({ name: "Month picker", dir: "V", gap: "space/3", p: "space/4", w: 320, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
+        F({ name: "Header", dir: "H", gap: "space/2", w: "fill", h: 36, align: "between", cross: "center", css: "k-monthpicker__header", cssCheck: ["gap", "h"] }, [button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-right" }), T("۱۴۰۵", { style: "Text md/Semibold", color: "text-primary", css: "k-monthpicker__year" }), button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-left" })]),
+        F({ name: "Grid", dir: "H", wrap: true, gap: "space/1", rowGap: "space/1", w: "fill" }, TOKENS.calendar.months.map((m, i) =>
+          F({ name: "Month", dir: "H", w: 69, h: 32, align: "center", cross: "center", radius: "radius/md", fill: i === 7 ? "bg-brand" : undefined, css: i === 0 ? "k-monthpicker__month" : undefined, cssCheck: ["radius", "bg", "h"] }, [T(m, { style: i === 7 ? "Text xs/Semibold" : "Text xs/Medium", color: i === 7 ? "text-on-brand" : "text-secondary", align: "center", css: i === 0 ? "k-monthpicker__month" : undefined }),
+          ]),
         )),
       ]),
       docs: "month-picker",
@@ -1817,37 +1889,63 @@ function statusIcon(ok) {
   return I(ok ? "success" : "error", 20, ok ? "text-success" : "text-error");
 }
 
+/** پلاک ملی؛ همان نسبت‌های k-plate با ارتفاع ۵۶ (عرض ۴٫۷۳ برابر ارتفاع) */
 function plate(type = "Private", { first = "۱۲", letter = "ب", middle = "۳۶۵", region = "۴۴", h = 56 } = {}) {
-  const bg = { Private: "#ffffff", Taxi: "#f5c518", Government: "#c8102e", Police: "#1f5130" }[type];
-  const fg = type === "Government" || type === "Police" ? "#ffffff" : "#0d0e11";
-  const seg = (text, w) => F({ name: "Segment", dir: "H", w, h: "fill", align: "center", cross: "center" }, [T(text, { style: "Display xl/Bold", color: fg, align: "center", size: 26, weight: "bold", leading: 1.2 })]);
-  return LTR({ name: "Plate", dir: "H", gap: 0, h, radius: 6, fill: bg, stroke: "#0d0e11", sw: 2, clip: true, cross: "center" }, [
-    F({ name: "IR band", dir: "V", w: 28, h: "fill", gap: 2, align: "end", cross: "center", pb: 6, fill: "#1f3fa8" }, [
-      F({ name: "Flag", dir: "V", gap: 0, w: 14 }, [R({ w: 14, h: 3, fill: "#239f40", name: "Green" }), R({ w: 14, h: 3, fill: "#ffffff", name: "White" }), R({ w: 14, h: 3, fill: "#da0000", name: "Red" })]),
-      T("I.R.\nIRAN", { style: "Text xs/Bold", color: "#ffffff", size: 6, weight: "bold", leading: 1.1, align: "center", ltr: true }),
+  const bg = { Private: "#ffffff", Taxi: "#f7c600", Government: "#c8102e", Police: "#1f5130" }[type];
+  const fg = type === "Government" || type === "Police" ? "#ffffff" : "#111111";
+  const seg = (text, w, size, pt) => F({ name: "Segment", dir: "H", w, h: "fill", align: "center", cross: "start", pt }, [T(text, { style: "Text sm/Bold", color: fg, align: "center", size, weight: "bold", leading: 1 })]);
+  return LTR({ name: "Plate", dir: "H", gap: 0, w: Math.round(h * 4.73), h, radius: +(h * 0.12).toFixed(2), fill: bg, stroke: "#111111", sw: 2, clip: true, cross: "center", css: type === "Private" ? "k-plate" : undefined, cssCheck: ["radius", "bg", "border", "h"] }, [
+    F({ name: "Flag", dir: "V", w: 23.5, h: "fill", gap: +(h * 0.1).toFixed(2), py: +(h * 0.1).toFixed(2), align: "start", cross: "center", fill: "#1f4fa8", css: "k-plate__flag", cssCheck: ["bg"] }, [
+      F({ name: "Colors", dir: "V", gap: 0, w: 16.5 }, [R({ w: 16.5, h: 3.13, fill: "#239f40", name: "Green" }), R({ w: 16.5, h: 3.13, fill: "#ffffff", name: "White" }), R({ w: 16.5, h: 3.13, fill: "#da0000", name: "Red" })]),
+      T("I.R.\nIRAN", { style: "Text xs/Bold", color: "#ffffff", size: +(h * 0.13).toFixed(2), weight: "bold", leading: 1.15, align: "center", ltr: true }),
     ]),
-    seg(first, 46),
-    seg(letter, 40),
-    seg(middle, 64),
-    F({ name: "Region", dir: "V", w: 52, h: "fill", gap: 0, align: "center", cross: "center", stroke: "#0d0e11", sw: 2, sides: [0, 0, 0, 2] }, [
-      T("ایران", { style: "Text xs/Semibold", color: fg, size: 10, weight: "semibold", leading: 1.2, align: "center" }),
-      T(region, { style: "Display xl/Bold", color: fg, size: 22, weight: "bold", leading: 1.1, align: "center" }),
+    seg(first, 56.7, +(h * 0.62).toFixed(2), 6),
+    seg(letter, 51, h * 0.5, 0),
+    seg(middle, 76.5, +(h * 0.62).toFixed(2), 6),
+    F({ name: "Region", dir: "V", w: +(h * 0.95).toFixed(1), h: "fill", gap: 0, pt: +(h * 0.06).toFixed(2), pb: +(h * 0.04).toFixed(2), align: "start", cross: "center", stroke: "#111111", sw: 2, sides: [0, 0, 0, 2] }, [
+      T("ایران", { style: "Text xs/Bold", color: fg, size: +(h * 0.2).toFixed(1), weight: "bold", leading: 1, align: "center" }),
+      T(region, { style: "Text sm/Bold", color: fg, size: +(h * 0.48).toFixed(1), weight: "bold", leading: 1.15, align: "center" }),
     ]),
   ]);
 }
 
+/** گرادیان کارت بانکی (k-bankcard) از رنگ برند کارت */
+function cardGradient(hex) {
+  const [r, g, b] = hexToRgba(hex);
+  const mix = (t, w) => ({ r: r * (1 - w) + t * w, g: g * (1 - w) + t * w, b: b * (1 - w) + t * w, a: 1 });
+  return { type: "GRADIENT_LINEAR", gradientTransform: [[0.7071, 0.7071, -0.2071], [-0.7071, 0.7071, 0.5]], gradientStops: [
+    { position: 0, color: mix(1, 0.22) }, { position: 0.45, color: { r, g, b, a: 1 } }, { position: 1, color: mix(0, 0.3) },
+  ] };
+}
+
 function bankCard(slug) {
   const num = CARD_BANKS[slug] || CARD_BANKS.mellat;
-  return F({ name: "Bank card", dir: "V", gap: 0, w: 340, h: 214, p: 20, align: "between", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Elevated", clip: true }, [
-    F({ name: "Top", dir: "H", w: "fill", align: "between", cross: "center" }, [
-      F({ dir: "H", gap: "space/2", cross: "center" }, [bankLogo(slug, 32), T(bankName(slug), { style: "Text md/Semibold", color: "text-primary", name: "Bank" })]),
-      R({ w: 40, h: 30, radius: 6, fill: "zafaran/300", name: "Chip" }),
+  const color = { mellat: "#c8102e", melli: "#1f4fa8", saman: "#0b6bb3", pasargad: "#2b2b2b" }[slug] || paletteHex("firoozeh", 700);
+  // k-bankcard: عرض ۳۳۶ با نسبت کارت ۸۵٫۶×۵۴، فاصلهٔ ۲۰/۲۲٫۴، متن سفید
+  const W = 336, Hh = Math.round((W * 54) / 85.6);
+  const f = F({ name: "Bank card", dir: "V", gap: 0, w: W, h: Hh, py: 20, px: 22.4, align: "between", radius: 17.6, clip: true, shadow: "Shadow/md" }, [
+    F({ name: "Top", dir: "H", gap: "space/2", w: "fill", align: "between", cross: "center" }, [
+      F({ name: "Bank", dir: "H", gap: "space/2", cross: "center" }, [
+        F({ name: "Logo", dir: "H", w: 28, h: 28, p: 2, radius: "radius/md", fill: "#ffffff", align: "center", cross: "center" }, [bankLogo(slug, 24)]),
+        T(bankName(slug), { style: "Text sm/Semibold", color: "#ffffff", size: 14, weight: "semibold", leading: 1.5, name: "Bank" }),
+      ]),
+      R({ w: 38.6, h: 29, radius: 5, fill: "#e9c46a", stroke: [0.47, 0.31, 0.04, 0.45], name: "Chip" }),
     ]),
-    T(num, { style: "Display xl/Semibold", color: "text-primary", align: "center", w: "fill", ltr: true, name: "Number", letterSpacing: 4 }),
-    F({ name: "Bottom", dir: "H", w: "fill", align: "between", cross: "end" }, [
-      F({ dir: "V", gap: 0 }, [T("دارنده کارت", { style: "Text xs/Regular", color: "text-tertiary" }), T("سپنتا پویا", { style: "Text sm/Semibold", color: "text-primary", name: "Holder" })]),
-      F({ dir: "V", gap: 0, cross: "end" }, [T("انقضا", { style: "Text xs/Regular", color: "text-tertiary" }), T("۰۸/۰۵", { style: "Text sm/Semibold", color: "text-primary", ltr: true, name: "Expiry" })]),
+    T(num, { style: "Text sm/Semibold", color: "#ffffff", align: "center", w: "fill", ltr: true, name: "Number", size: 23, weight: "semibold", leading: 1.75, letterSpacing: 6 }),
+    F({ name: "Bottom", dir: "H", gap: "space/3", w: "fill", align: "between", cross: "end" }, [
+      T("سپنتا پویا", { style: "Text sm/Medium", color: "#ffffff", size: 14, weight: "medium", leading: 1.5, name: "Holder" }),
+      F({ dir: "V", gap: 0, cross: "end" }, [T("انقضا", { style: "Text xs/Regular", color: "#ffffff", size: 11.2, leading: 1.3, opacity: 0.75 }), T("۰۵/۰۸", { style: "Text sm/Regular", color: "#ffffff", size: 14, leading: 1.3, ltr: true, name: "Expiry" })]),
     ]),
+  ]);
+  f.fills = [cardGradient(color)];
+  return f;
+}
+
+/** نشان بانک داخل فیلد (k-bank): لوگو ۲۴ روی زمینهٔ سفید و نام بانک */
+function bankInline(slug) {
+  return F({ name: "Bank", dir: "H", gap: "space/1.5", cross: "center", css: "k-bank", cssCheck: ["gap"] }, [
+    F({ name: "Logo", dir: "H", w: 24, h: 24, p: 1, radius: "radius/sm", fill: "#ffffff", align: "center", cross: "center", css: "k-bank__logo", cssCheck: ["pad", "radius", "bg"] }, [bankLogo(slug, 22)]),
+    T(bankName(slug), { style: "Text sm/Regular", color: "text-tertiary", name: "Bank name", css: "k-bank" }),
   ]);
 }
 
@@ -1861,15 +1959,15 @@ function buildPersian() {
         const known = CARD_BANKS[p.Bank];
         return field({
           label: "شماره کارت",
-          hint: known ? bankName(p.Bank) : p.Bank === "Empty" ? "۱۶ رقم روی کارت" : undefined,
+          hint: p.Bank === "Empty" ? "۱۶ رقم روی کارت" : undefined,
           error: p.Bank === "Invalid" ? "شماره کارت معتبر نیست." : undefined,
           control: inputBox({
             state: p.Bank === "Invalid" ? "Error" : "Default",
             text: known || (p.Bank === "Invalid" ? "۶۱۰۴ ۳۳۷۸ ۱۲۳۴ ۰۰۰۰" : ""),
             placeholder: "---- ---- ---- ----",
             ltr: true,
-            start: [known ? bankLogo(p.Bank, 24) : I("credit-card", 20, p.Bank === "Invalid" ? "text-error" : "text-quaternary")],
-            end: known ? [statusIcon(true)] : [],
+            // مثل CardNumberInput: نام و لوگوی بانک انتهای فیلد (BankBadge)
+            end: known ? [bankInline(p.Bank)] : [],
           }),
         });
       },
@@ -1883,15 +1981,15 @@ function buildPersian() {
       axes: { State: ["Empty", "Valid", "Invalid"] },
       build: (p) => field({
         label: "شماره شبا", w: 380,
-        hint: p.State === "Valid" ? "بانک ملت" : p.State === "Empty" ? "۲۴ رقم بعد از IR" : undefined,
+        hint: p.State === "Empty" ? "۲۴ رقم بعد از IR" : undefined,
         error: p.State === "Invalid" ? "شماره شبا معتبر نیست." : undefined,
         control: inputBox({
           state: p.State === "Invalid" ? "Error" : "Default",
           text: p.State === "Empty" ? "" : "۱۲ ۰۱۲۰ ۰۰۰۰ ۰۰۰۰ ۱۲۳۴ ۵۶۷۸ ۹۰",
           placeholder: "-- ---- ---- ---- ---- ---- --",
           ltr: true,
-          start: [T("IR", { style: "Text md/Semibold", color: "text-tertiary", ltr: true }), p.State === "Valid" && bankLogo("mellat", 22)],
-          end: p.State === "Empty" ? [] : [statusIcon(p.State === "Valid")],
+          start: [T("IR", { style: "Text md/Semibold", color: "text-tertiary", ltr: true })],
+          end: p.State === "Valid" ? [bankInline("mellat")] : p.State === "Invalid" ? [statusIcon(false)] : [],
         }),
       }),
       docs: "iban-input",
@@ -1967,9 +2065,9 @@ function buildPersian() {
         // اصلاح متنی که با کیبورد انگلیسی تایپ شده
         const f = field({ label: "جستجو", control: inputBox({ text: "sghl", ltr: true, iconStart: "keyboard" }) });
         add(f, F({ name: "Suggestion", dir: "H", gap: "space/1", cross: "center" }, [
-          T("منظورتان", { style: "Text sm/Regular", color: "text-tertiary" }),
-          T("«سلام»", { style: "Text sm/Semibold", color: "text-brand" }),
-          T("بود؟", { style: "Text sm/Regular", color: "text-tertiary" }),
+          T("منظورتان", { style: "Tight sm/Regular", color: "text-tertiary" }),
+          T("«سلام»", { style: "Tight sm/Semibold", color: "text-brand", css: "k-kbfix__btn" }),
+          T("بود؟", { style: "Tight sm/Regular", color: "text-tertiary" }),
         ]));
         return f;
       },
@@ -1989,19 +2087,22 @@ function buildPersian() {
     });
   }));
 
-  safe("Money", () => section(root, "Money · نمایش مبلغ", "مبلغ با واحد کوچک‌تر، حالت فشرده («۱۲٫۵ میلیون») و تغییر مثبت/منفی.", (h) => {
+  safe("Money", () => section(root, "Money · نمایش مبلغ", "مبلغ با جداکنندهٔ هزارگان و واحد کم‌رنگ‌تر؛ مثبت و منفی با رنگ.", (h) => {
     componentSet(h, "Money", {
-      axes: { Format: ["Full", "Compact", "Change"], Size: ["sm", "md", "lg"] },
+      axes: { Tone: ["Neutral", "Positive", "Negative"], Size: ["sm", "md", "lg", "xl"] },
       build: (p) => {
-        const big = { sm: "Text md/Semibold", md: "Display xl/Semibold", lg: "Display 3xl/Semibold" }[p.Size];
-        const unit = { sm: "Text xs/Regular", md: "Text sm/Regular", lg: "Text md/Regular" }[p.Size];
-        if (p.Format === "Change") return F({ name: "Money", dir: "H", gap: "space/1", cross: "baseline" }, [I("arrow-left", 16, "text-success"), T("+۲٬۴۵۰٬۰۰۰", { style: big, color: "text-success", ltr: true }), T("تومان", { style: unit, color: "text-success" })]);
-        return F({ name: "Money", dir: "H", gap: "space/1", cross: "baseline" }, [
-          T(p.Format === "Full" ? "۱۲٬۵۰۰٬۰۰۰" : "۱۲٫۵", { style: big, color: "text-primary", name: "Amount" }),
-          T(p.Format === "Full" ? "تومان" : "میلیون تومان", { style: unit, color: "text-tertiary", name: "Unit" }),
+        // k-money: مبلغ Semibold، واحد ۰٫۸ برابر (در lg و xl برابر text-sm) با وزن Medium؛ فاصله ۰٫۳em فونت والد (۴٫۵ پیکسل)
+        const size = { sm: "sm", md: "md", lg: "xl", xl: "3xl" }[p.Size];
+        const px = TOKENS.font.size[size];
+        const big = p.Size === "lg" || p.Size === "xl";
+        const color = { Neutral: "text-primary", Positive: "text-success", Negative: "text-error" }[p.Tone];
+        return F({ name: "Money", dir: "H", gap: 4.5, cross: "baseline", css: p.Tone === "Neutral" && p.Size !== "md" ? `k-money k-money--${p.Size}` : undefined, cssCheck: ["gap"] }, [
+          T(p.Tone === "Negative" ? "−۱٬۲۵۰٬۰۰۰" : "۱٬۲۵۰٬۰۰۰", { style: `${p.Size === "xl" ? "Display" : "Text"} ${size}/Semibold`, color, name: "Amount", css: p.Size === "lg" && p.Tone === "Neutral" ? "k-money__amount" : undefined }),
+          big ? T("تومان", { style: "Text sm/Medium", color: "text-tertiary", name: "Unit", css: p.Size === "lg" ? "k-money__unit" : undefined })
+            : T("تومان", { style: "Text sm/Medium", color: "text-tertiary", name: "Unit", size: Math.round(px * 0.8), weight: "medium", leading: 1.75 }),
         ]);
       },
-      cols: 3,
+      text: { Amount: ["Amount", "۱٬۲۵۰٬۰۰۰"], Unit: ["Unit", "تومان"] },
       docs: "money",
     });
   }));
@@ -2023,54 +2124,67 @@ function buildPersian() {
     });
   }));
 
-  safe("Receipt", () => section(root, "Payment receipt · رسید پرداخت", "رسید موفق یا ناموفق با شمارهٔ پیگیری.", (h) => {
+  safe("Receipt", () => section(root, "Payment receipt · رسید پرداخت", "رسید موفق، ناموفق یا در انتظار با شمارهٔ پیگیری و لبهٔ بریده.", (h) => {
     componentSet(h, "Payment receipt", {
-      axes: { Status: ["Success", "Failed"] },
+      axes: { Status: ["Success", "Failed", "Pending"] },
       build: (p) => {
-        const ok = p.Status === "Success";
-        const row = (k, v, ltr) => F({ name: "Row", dir: "H", w: "fill", align: "between", py: "space/2", stroke: "border-secondary", sides: [0, 0, 1, 0] }, [T(k, { style: "Text sm/Regular", color: "text-tertiary" }), T(v, { style: "Text sm/Medium", color: "text-primary", ltr })]);
-        return F({ name: "Receipt", dir: "V", gap: "space/4", p: "space/6", w: 360, cross: "center", radius: "radius/2xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Elevated" }, [
-          F({ name: "Icon", dir: "H", w: 56, h: 56, align: "center", cross: "center", radius: "radius/full", fill: ok ? "bg-success-subtle" : "bg-error-subtle" }, [I(ok ? "success" : "error", 28, ok ? "text-success" : "text-error")]),
-          F({ dir: "V", gap: "space/1", cross: "center" }, [
-            T(ok ? "پرداخت موفق" : "پرداخت ناموفق", { style: "Text lg/Semibold", color: "text-primary", align: "center" }),
-            T(ok ? "۲٬۴۵۰٬۰۰۰ تومان" : "مبلغ تا ۷۲ ساعت به حساب شما برمی‌گردد.", { style: ok ? "Display xl/Semibold" : "Text sm/Regular", color: ok ? "text-primary" : "text-tertiary", align: "center" }),
+        const tone = { Success: ["text-success", "bg-success-subtle", "success", "پرداخت موفق"], Failed: ["text-error", "bg-error-subtle", "error", "پرداخت ناموفق"], Pending: ["text-warning", "bg-warning-subtle", "clock", "در انتظار تأیید"] }[p.Status];
+        const row = (k, v, ltr) => F({ name: "Row", dir: "H", gap: "space/3", w: "fill", h: 28, align: "between", cross: "center", css: "k-receipt__row", cssCheck: ["gap"] }, [T(k, { style: "Text sm/Regular", color: "text-tertiary" }), T(v, { style: "Text sm/Medium", color: "text-primary", ltr })]);
+        // k-receipt: گوشهٔ ۲۴ و سایهٔ lg؛ سربرگ ۲۴/۲۰/۲۰، آیکون ۵۶ با هاله، خط‌چین بین بخش‌ها
+        return F({ name: "Receipt", dir: "V", gap: 0, w: 416, radius: "radius/2xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Shadow/lg", css: "k-receipt", cssCheck: ["radius", "bg", "border"] }, [
+          F({ name: "Head", dir: "V", gap: "space/1", pt: "space/6", px: "space/5", pb: "space/5", w: "fill", cross: "center", css: "k-receipt__head", cssCheck: ["pad", "gap"] }, [
+            F({ name: "Icon wrap", dir: "V", pb: "space/2", cross: "center" }, [
+              F({ name: "Icon", dir: "H", w: 56, h: 56, align: "center", cross: "center", radius: "radius/full", fill: tone[1], stroke: tone[1], sw: 8, strokeAlign: "OUTSIDE", strokeOpacity: 0.5 }, [I(tone[2], 28, tone[0])]),
+            ]),
+            T(tone[3], { style: "Text lg/Semibold", color: tone[0], align: "center", name: "Title" }),
+            p.Status !== "Success" && T(p.Status === "Failed" ? "مبلغ تا ۷۲ ساعت به حساب شما برمی‌گردد." : "نتیجه تا چند دقیقهٔ دیگر مشخص می‌شود.", { style: "Text sm/Regular", color: "text-tertiary", align: "center", name: "Description" }),
+            F({ name: "Amount", dir: "H", gap: 9, pt: "space/3", cross: "baseline" }, [T("۲۵۰٬۰۰۰", { style: "Display 3xl/Semibold", color: "text-primary" }), T("تومان", { style: "Text sm/Medium", color: "text-tertiary" })]),
+            T("دویست و پنجاه هزار تومان", { style: "Text xs/Regular", color: "text-tertiary", align: "center", css: "k-receipt__words" }),
           ]),
-          F({ name: "Details", dir: "V", gap: 0, w: "fill" }, [
+          F({ name: "Rows", dir: "V", gap: "space/3", p: "space/5", w: "fill", stroke: "border-secondary", sides: [2, 0, 0, 0], dash: [6, 4] }, [
             row("شمارهٔ پیگیری", "۱۴۰۵۰۸۰۶۷۸۲۱"),
-            row("تاریخ", "۶ آبان ۱۴۰۵ — ۱۴:۳۰"),
-            row("کارت", "۶۱۰۴ **** **** ۵۶۷۸", true),
+            row("تاریخ", "۶ آبان ۱۴۰۵ · ۱۴:۳۰"),
+            row("کارت", "۶۱۰۴ ۳۳** **** ۵۶۷۸", true),
             row("پذیرنده", "فروشگاه کاشی"),
           ]),
-          F({ dir: "H", gap: "space/3", w: "fill" }, [button({ variant: "Secondary", label: "دریافت رسید", iconStart: "download", w: "fill" }), button({ variant: "Primary", label: ok ? "بازگشت" : "تلاش دوباره", w: "fill" })]),
+          F({ name: "Actions", dir: "H", gap: "space/2", pt: 0, px: "space/5", pb: "space/5", w: "fill", css: "k-receipt__actions", cssCheck: ["pad", "gap"] }, [button({ variant: "Secondary", label: "دریافت رسید", iconStart: "download", w: "fill" }), button({ variant: "Primary", label: p.Status === "Failed" ? "تلاش دوباره" : "بازگشت", w: "fill" })]),
         ]);
       },
       docs: "payment-receipt",
     });
   }));
 
-  safe("DateTile", () => section(root, "Date tile · کاشی تاریخ", "نمایش فشردهٔ تاریخ شمسی برای فهرست رویدادها.", (h) => {
+  safe("DateTile", () => section(root, "Date tile · برگ تقویم", "برگ تقویم شمسی با تاریخ میلادی و مناسبت؛ روز تعطیل قرمز.", (h) => {
     componentSet(h, "Date tile", {
-      axes: { Tone: ["Neutral", "Brand", "Holiday"] },
-      build: (p) => F({ name: "Date tile", dir: "V", gap: 0, w: 64, cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", clip: true }, [
-        F({ dir: "H", w: "fill", h: 22, align: "center", cross: "center", fill: p.Tone === "Brand" ? "bg-brand" : p.Tone === "Holiday" ? "bg-error" : "bg-tertiary" }, [T("آبان", { style: "Text xs/Semibold", color: p.Tone === "Neutral" ? "text-secondary" : "text-on-brand", align: "center" })]),
-        T(p.Tone === "Holiday" ? "۸" : "۶", { style: "Display xl/Bold", color: p.Tone === "Holiday" ? "text-error" : "text-primary", align: "center" }),
-        T(p.Tone === "Holiday" ? "جمعه" : "چهارشنبه", { style: "Text xs/Regular", color: "text-tertiary", align: "center", name: "Weekday" }),
-        R({ w: 1, h: 6, name: "Space" }),
-      ]),
+      axes: { Size: ["sm", "md", "lg"], Holiday: ["No", "Yes"] },
+      build: (p) => {
+        // k-datetile: عرض ۸rem × ضریب اندازه (۰٫۷۵، ۱، ۱٫۳۵)؛ همهٔ اندازه‌ها از همان ضریب
+        const k = { sm: 0.75, md: 1, lg: 1.35 }[p.Size];
+        const hol = p.Holiday === "Yes";
+        const t = (text, size, weight, color, o = {}) => T(text, Object.assign({ style: "Text sm/Regular", color, align: "center", size: +(size * k).toFixed(2), weight, leading: o.leading || 1.4 }, o));
+        return F({ name: "Date tile", dir: "V", gap: 0, w: Math.round(128 * k), cross: "center", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: ["Shadow/sm", "highlight-only"], clip: true }, [
+          F({ name: "Head", dir: "H", w: "fill", py: +(5.6 * k).toFixed(1), px: 8, align: "center", fill: hol ? "bg-error" : "bg-brand" }, [t(hol ? "فروردین ۱۴۰۵" : "آبان ۱۴۰۵", 12.8, "semibold", hol ? "#ffffff" : "text-on-brand")]),
+          F({ dir: "V", pt: +(4 * k).toFixed(1), cross: "center" }, [t(hol ? "۱" : "۶", 44, "bold", hol ? "text-error" : "text-primary", { leading: 1.15, name: "Day" })]),
+          t(hol ? "شنبه" : "سه‌شنبه", 13.6, "medium", "text-secondary", { name: "Weekday" }),
+          hol && F({ dir: "V", pt: 2.4, px: 8, cross: "center" }, [t("عید نوروز", 11.5, "semibold", "text-error", { name: "Occasion" })]),
+          F({ name: "Gregorian", dir: "H", w: "fill", py: +(4.8 * k).toFixed(1), px: 8, align: "center", stroke: "border-secondary", sides: [1, 0, 0, 0], dash: [3, 3] }, [t(hol ? "۲۱ مارس ۲۰۲۶" : "۲۸ اکتبر ۲۰۲۶", 11.5, "regular", "text-tertiary")]),
+        ]);
+      },
       docs: "date-tile",
     });
   }));
 
   safe("Countdown", () => section(root, "Countdown · شمارش معکوس", "برای پیشنهاد ویژه یا اعتبار کد.", (h) => {
     componentSet(h, "Countdown", {
-      axes: { Style: ["Boxed", "Inline"] },
+      axes: { Style: ["Blocks", "Inline"] },
       build: (p) => {
         const parts = [["۰۲", "روز"], ["۱۴", "ساعت"], ["۳۵", "دقیقه"], ["۰۹", "ثانیه"]];
-        if (p.Style === "Inline") return F({ name: "Countdown", dir: "H", gap: "space/1", cross: "center" }, [I("clock", 16, "text-warning"), T("۱۴:۳۵:۰۹ مانده", { style: "Text sm/Semibold", color: "text-warning" })]);
-        return LTR({ name: "Countdown", dir: "H", gap: "space/2", cross: "start" }, parts.slice().reverse().map(([n, l]) =>
-          F({ name: "Unit", dir: "V", gap: "space/1", cross: "center" }, [
-            F({ dir: "H", w: 56, h: 56, align: "center", cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Shadow/xs" }, [T(n, { style: "Display 2xl/Semibold", color: "text-primary", align: "center" })]),
-            T(l, { style: "Text xs/Regular", color: "text-tertiary", align: "center" }),
+        if (p.Style === "Inline") return F({ name: "Countdown", dir: "H", gap: "space/1", cross: "baseline", css: "k-countdown", cssCheck: ["gap"] }, [T("۰۲:۱۴:۳۵:۰۹", { style: "Text sm/Semibold", color: "text-secondary", ltr: true }), T("مانده", { style: "Text sm/Semibold", color: "text-secondary" })]);
+        // k-countdown__unit: حداقل ۵۲، فاصلهٔ ۸/۱۲، عدد ۲۴ پیکسل با خط ۱٫۱
+        return F({ name: "Countdown", dir: "H", gap: "space/2", cross: "start", css: "k-countdown k-countdown--blocks", cssCheck: ["gap"] }, parts.map(([n, l]) =>
+          F({ name: "Unit", dir: "V", gap: "space/1", py: "space/2", px: "space/3", minW: 52, cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Surface" }, [
+            T(n, { style: "Text sm/Semibold", color: "text-primary", align: "center", size: 24, weight: "semibold", leading: 1.1, ltr: true }),
+            T(l, { style: "Text xs/Medium", color: "text-tertiary", align: "center", css: "k-countdown__name" }),
           ]),
         ));
       },
@@ -2091,9 +2205,11 @@ const TONES = {
 };
 
 /** آیکون برجسته با هالهٔ رنگی (Untitled UI) */
-function featuredIcon(name, tone = "Brand", size = 40) {
+function featuredIcon(name, tone = "Brand", size = 40, halo = 0) {
   const t = TONES[tone];
-  return F({ name: "Featured icon", dir: "H", w: size, h: size, align: "center", cross: "center", radius: "radius/full", fill: t.bg }, [I(name || t.icon, size / 2, t.fg)]);
+  // هالهٔ دور آیکون دیالوگ: حاشیهٔ بیرونی ۸ پیکسل با نیمی از همان رنگ (box-shadow در CSS)
+  return F({ name: "Featured icon", dir: "H", w: size, h: size, align: "center", cross: "center", radius: "radius/full", fill: t.bg,
+    stroke: halo ? t.bg : undefined, sw: halo || undefined, strokeAlign: halo ? "OUTSIDE" : undefined, strokeOpacity: halo ? 0.5 : undefined }, [I(name || t.icon, size / 2, t.fg)]);
 }
 
 function spinner(size = 20, color = "bg-brand") {
@@ -2113,18 +2229,32 @@ function buildFeedback() {
         const t = TONES[p.Tone];
         const small = p.Layout === "Small";
         const tinted = p.Layout === "Tinted";
-        return F({ name: "Alert", dir: "H", gap: small ? "space/3" : "space/4", p: small ? 12 : "alert/padding", w: 460, cross: "start", radius: small ? "radius/lg" : "radius/xl", fill: tinted ? t.bg : "bg-secondary", stroke: tinted ? t.fg : "border-primary", strokeOpacity: tinted ? 0.35 : undefined, shadow: tinted ? undefined : "Surface" }, [
-          small ? I(t.icon, 16, t.fg) : F({ name: "Icon ring", dir: "H", w: 20, h: 20, align: "center", cross: "center" }, [I(t.icon, 20, t.fg)]),
-          F({ name: "Content", dir: "V", gap: "space/1", grow: true }, [
-            T("تغییرات ذخیره شد", { style: "Text sm/Semibold", color: "text-secondary", name: "Title" }),
-            !small && T("نسخهٔ جدید پیش‌نویس شما در فضای ابری ذخیره شد و برای همهٔ اعضای تیم در دسترس است.", { style: "Text sm/Regular", color: "text-tertiary", name: "Description", w: "fill" }),
+        // k-alert__icon: آیکون ۲۰ با دو حلقهٔ هم‌مرکز (۳۰ و ۴۰ پیکسل) در قاب ۳۲
+        const icon = small
+          ? F({ name: "Icon", dir: "H", w: 24, h: 24, align: "center", cross: "center" }, [I(t.icon, 16, t.fg)])
+          : F({ name: "Icon", dir: "none", w: 32, h: 32 }, [
+              R({ ellipse: true, w: 40, h: 40, stroke: t.fg, sw: 2, name: "Ring outer", x: -4, y: -4 }),
+              R({ ellipse: true, w: 30, h: 30, stroke: t.fg, sw: 2, name: "Ring inner", x: 1, y: 1 }),
+              (() => { const i = I(t.icon, 20, t.fg); SIZING.set(i, { x: 6, y: 6 }); return i; })(),
+            ]);
+        if (!small) { icon.findOne((n) => n.name === "Ring outer").opacity = 0.1; icon.findOne((n) => n.name === "Ring inner").opacity = 0.3; }
+        const css = ["k-alert", `k-alert--${p.Tone.toLowerCase()}`, small && "k-alert--sm", tinted && "k-alert--tinted"].filter(Boolean).sort().join(" ");
+        const box = F({ name: "Alert", dir: "H", gap: small ? "space/3" : "space/4", p: small ? 12 : "alert/padding", w: 460, cross: "start", radius: small ? "radius/lg" : "radius/xl", fill: "bg-secondary", stroke: tinted ? t.fg : "border-primary", strokeOpacity: tinted ? 0.32 : undefined, shadow: tinted ? undefined : "Surface",
+          css: tinted ? undefined : css, cssCheck: ["pad", "radius", "gap", "bg", "border"] }, [
+          icon,
+          F({ name: "Content", dir: "V", gap: "space/1", grow: true, pt: 2, css: small ? undefined : "k-alert__content", cssCheck: ["pad", "gap"] }, [
+            T("تغییرات ذخیره شد", { style: "Text sm/Semibold", color: "text-secondary", name: "Title", css: "k-alert__title" }),
+            !small && T("نسخهٔ جدید پیش‌نویس شما در فضای ابری ذخیره شد و برای همهٔ اعضای تیم در دسترس است.", { style: "Text sm/Regular", color: "text-tertiary", name: "Description", w: "fill", css: "k-alert__description" }),
             !small && F({ name: "Actions", dir: "H", gap: "space/3", pt: "space/2" }, [
               T("نادیده گرفتن", { style: "Text sm/Semibold", color: "text-tertiary", name: "Dismiss" }),
               T("مشاهدهٔ تغییرات", { style: "Text sm/Semibold", color: t.fg, name: "Action" }),
             ]),
           ]),
-          I("close", small ? 16 : 20, "text-quaternary"),
+          button({ variant: "Tertiary", size: "sm", iconOnly: "close" }),
         ]);
+        // رنگ پس‌زمینهٔ tinted: ۸٪ رنگ لحن روی bg-primary
+        if (tinted) box.fills = [paint("bg-primary"), paint(t.fg, 0.08)];
+        return box;
       },
       text: { Title: ["Title", "تغییرات ذخیره شد"] },
       bools: { "Show actions": ["Actions", true] },
@@ -2133,18 +2263,23 @@ function buildFeedback() {
     });
   }));
 
-  safe("Banner", () => section(root, "Banner · بنر سراسری", "پیام تمام‌عرض بالای صفحه.", (h) => {
+  safe("Banner", () => section(root, "Banner · بنر", "پیام برجسته با آیکون قاب‌دار و دکمه؛ مثل اطلاع از نسخهٔ جدید.", (h) => {
     componentSet(h, "Banner", {
       axes: { Tone: ["Brand", "Warning", "Error"] },
       build: (p) => {
         const t = TONES[p.Tone];
-        return F({ name: "Banner", dir: "H", gap: "space/3", px: "space/6", py: "space/3", w: 960, cross: "center", fill: t.bg, stroke: "border-secondary", sides: [0, 0, 1, 0] }, [
-          I(t.icon, 20, t.fg),
-          T("نسخهٔ ۰٫۱۵ کاشی منتشر شد — PersianInput با پلاک و ساعت.", { style: "Text sm/Medium", color: "text-primary", name: "Message", grow: true }),
-          button({ variant: "Secondary", size: "sm", label: "مشاهده" }),
-          I("close", 18, "text-tertiary"),
+        // k-banner: کارت با فاصلهٔ ۱۲/۱۶، پس‌زمینهٔ رنگ لحن و آیکون ۳۲ در قاب
+        return F({ name: "Banner", dir: "H", gap: "space/4", py: "space/3", px: "space/4", w: 720, cross: "center", radius: "radius/xl", fill: t.bg, stroke: "border-secondary", shadow: "Surface",
+          css: `k-banner k-banner--${p.Tone.toLowerCase()}`, cssCheck: ["pad", "radius", "bg", "border"] }, [
+          F({ name: "Icon", dir: "H", w: 32, h: 32, align: "center", cross: "center", radius: "radius/md", fill: "bg-elevated", stroke: "border-primary", shadow: "Button", css: "k-banner__icon", cssCheck: ["radius", "bg", "border"] }, [I(t.icon, 18, t.fg)]),
+          T("نسخهٔ ۰٫۱۵ کاشی منتشر شد؛ PersianInput با پلاک و ساعت.", { style: "Text sm/Regular", color: "text-secondary", name: "Message", grow: true, css: "k-banner__text" }),
+          F({ name: "Actions", dir: "H", gap: "space/2", cross: "center", css: "k-banner__actions", cssCheck: ["gap"] }, [
+            button({ variant: "Secondary", size: "sm", label: "مشاهده" }),
+            button({ variant: "Tertiary", size: "sm", iconOnly: "close" }),
+          ]),
         ]);
       },
+      text: { Message: ["Message", "نسخهٔ ۰٫۱۵ کاشی منتشر شد؛ PersianInput با پلاک و ساعت."] },
       cols: 1,
       docs: "banner",
     });
@@ -2181,9 +2316,10 @@ function buildFeedback() {
       build: (p) => {
         const H = { sm: 4, md: 8, lg: 12 }[p.Size];
         const c = { Brand: "bg-brand", Success: "text-success", Warning: "text-warning", Error: "text-error" }[p.Tone];
-        return F({ name: "Progress", dir: "V", gap: "space/2", w: 320 }, [
-          F({ name: "Head", dir: "H", w: "fill", align: "between" }, [T("آپلود فایل‌ها", { style: "Text sm/Medium", color: "text-secondary", name: "Label" }), T("۶۸٪", { style: "Text sm/Medium", color: "text-tertiary", name: "Value" })]),
-          F({ name: "Track", dir: "H", w: "fill", h: H, radius: "radius/full", fill: "bg-tertiary", clip: true }, [R({ w: 218, h: H, radius: "radius/full", fill: c, name: "Bar" })]),
+        // k-progress-field: سربرگ با فاصلهٔ ۱۲، نوار با پس‌زمینهٔ bg-tertiary
+        return F({ name: "Progress", dir: "V", gap: "space/2", w: 320, css: "k-progress-field", cssCheck: ["gap"] }, [
+          F({ name: "Head", dir: "H", gap: "space/3", w: "fill", align: "between", css: "k-progress-field__head", cssCheck: ["gap"] }, [T("آپلود فایل‌ها", { style: "Text sm/Medium", color: "text-secondary", name: "Label", css: "k-progress-field__label" }), T("۶۸٪", { style: "Text sm/Regular", color: "text-tertiary", name: "Value", css: "k-progress-field__value" })]),
+          F({ name: "Track", dir: "H", w: "fill", h: H, radius: "radius/full", fill: "bg-tertiary", clip: true, css: p.Size === "sm" ? "k-progress k-progress--sm" : p.Size === "md" ? "k-progress" : undefined, cssCheck: ["radius", "bg", "h"] }, [R({ w: 218, h: H, radius: "radius/full", fill: c, name: "Bar", css: p.Tone === "Brand" && p.Size === "md" ? "k-progress__bar" : undefined, cssCheck: ["radius", "bg", "h"] })]),
         ]);
       },
       cols: 4,
@@ -2192,7 +2328,7 @@ function buildFeedback() {
     componentSet(h, "Progress circle", {
       axes: { Size: ["sm", "md", "lg"] },
       build: (p) => {
-        const s = { sm: 40, md: 64, lg: 80 }[p.Size];
+        const s = { sm: 40, md: 56, lg: 80 }[p.Size];
         return F({ name: "Ring", dir: "none", w: s, h: s }, [
           R({ ellipse: true, w: s, h: s, fill: "bg-tertiary", arc: { startingAngle: 0, endingAngle: Math.PI * 2, innerRadius: 1 - 8 / s }, name: "Track", x: 0, y: 0 }),
           R({ ellipse: true, w: s, h: s, fill: "bg-brand", arc: { startingAngle: -Math.PI / 2, endingAngle: -Math.PI / 2 + Math.PI * 2 * 0.68, innerRadius: 1 - 8 / s }, name: "Value", x: 0, y: 0 }),
@@ -2204,14 +2340,20 @@ function buildFeedback() {
     componentSet(h, "Spinner", { axes: { Size: ["sm", "md", "lg"] }, build: (p) => spinner({ sm: 16, md: 24, lg: 40 }[p.Size]), docs: "progress" });
   }));
 
-  safe("Meter", () => section(root, "Meter · سنجه", "مقدار در یک بازهٔ شناخته‌شده، مثل فضای ذخیره‌سازی.", (h) => {
+  safe("Meter", () => section(root, "Meter · سنجه", "مقدار در یک بازهٔ شناخته‌شده، مثل فضای ذخیره‌سازی؛ با رنگ و متن وضعیت.", (h) => {
     componentSet(h, "Meter", {
       axes: { Level: ["Low", "Medium", "High"] },
       build: (p) => {
-        const [pct, c, label] = { Low: [0.3, "text-success", "۳ از ۱۰ گیگابایت"], Medium: [0.7, "text-warning", "۷ از ۱۰ گیگابایت"], High: [0.92, "text-error", "۹٫۲ از ۱۰ گیگابایت"] }[p.Level];
-        return F({ name: "Meter", dir: "V", gap: "space/2", w: 320 }, [
-          F({ dir: "H", w: "fill", align: "between" }, [T("فضای ذخیره‌سازی", { style: "Text sm/Medium", color: "text-secondary" }), T(label, { style: "Text sm/Regular", color: "text-tertiary" })]),
-          F({ dir: "H", gap: 3, w: "fill" }, Array.from({ length: 10 }, (_, i) => R({ w: 29, h: 8, radius: 2, fill: i < Math.round(pct * 10) ? c : "bg-tertiary", name: "Segment", grow: true }))),
+        const [pct, c, used, status] = { Low: [0.3, "bg-brand", "۳", null], Medium: [0.86, "text-warning", "۸٫۶", "نزدیک به سقف"], High: [0.97, "text-error", "۹٫۷", "فضا تقریباً پر است"] }[p.Level];
+        const W = 320;
+        // k-meter: سربرگ (برچسب و مقدار)، نوار ۸ پیکسلی و متن وضعیت
+        return F({ name: "Meter", dir: "V", gap: "space/2", w: W, css: "k-meter", cssCheck: ["gap"] }, [
+          F({ name: "Head", dir: "H", gap: "space/2", w: "fill", align: "between", cross: "baseline", css: "k-meter__head", cssCheck: ["gap"] }, [
+            T("فضای ذخیره‌سازی", { style: "Text sm/Medium", color: "text-secondary", css: "k-meter__label" }),
+            F({ dir: "H", gap: "space/1", cross: "baseline" }, [T(`${used} گیگابایت`, { style: "Text sm/Semibold", color: "text-primary", css: "k-meter__value" }), T("از ۱۰", { style: "Text sm/Regular", color: "text-tertiary" })]),
+          ]),
+          F({ name: "Track", dir: "H", w: "fill", h: 8, radius: "radius/full", fill: "bg-tertiary", clip: true, css: "k-meter__track", cssCheck: ["radius", "bg", "h"] }, [R({ w: Math.round(W * pct), h: 8, radius: "radius/full", fill: c, name: "Fill" })]),
+          status && F({ name: "Status", dir: "H", gap: "space/1", cross: "center" }, [I("warning", 14, c), T(status, { style: "Text xs/Regular", color: c })]),
         ]);
       },
       docs: "meter",
@@ -2235,14 +2377,13 @@ function buildFeedback() {
     componentSet(h, "Empty state", {
       axes: { Type: ["Default", "Search", "Error"] },
       build: (p) => {
-        const cfg = { Default: ["inbox", "هنوز پروژه‌ای نساخته‌اید", "اولین پروژه‌تان را بسازید تا اینجا نمایش داده شود.", "پروژهٔ جدید"], Search: ["search", "نتیجه‌ای پیدا نشد", "عبارت «کاشی ۲» با هیچ موردی منطبق نبود. املای آن را بررسی کنید.", "پاک کردن جستجو"], Error: ["warning", "مشکلی پیش آمد", "بارگذاری داده‌ها ناموفق بود. چند لحظه بعد دوباره تلاش کنید.", "تلاش دوباره"] }[p.Type];
-        return F({ name: "Empty state", dir: "V", gap: "space/4", p: "space/8", w: 400, cross: "center" }, [
-          F({ name: "Icon", dir: "H", w: 48, h: 48, align: "center", cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Shadow/xs" }, [I(cfg[0], 24, p.Type === "Error" ? "text-error" : "text-secondary")]),
-          F({ dir: "V", gap: "space/1", cross: "center", w: "fill" }, [
-            T(cfg[1], { style: "Text md/Semibold", color: "text-primary", align: "center", name: "Title" }),
-            T(cfg[2], { style: "Text sm/Regular", color: "text-tertiary", align: "center", w: "fill", name: "Description" }),
-          ]),
-          F({ dir: "H", gap: "space/3" }, [p.Type === "Default" && button({ variant: "Secondary", label: "راهنما" }), button({ variant: p.Type === "Default" ? "Primary" : "Secondary", label: cfg[3], iconStart: p.Type === "Default" ? "plus" : undefined })]),
+        const cfg = { Default: ["inbox", "هنوز پروژه‌ای ندارید", "اولین پروژه را بسازید تا اینجا نمایش داده شود.", "پروژهٔ جدید"], Search: ["search", "نتیجه‌ای پیدا نشد", "عبارت «کاشی ۲» با هیچ موردی منطبق نبود. املای آن را بررسی کنید.", "پاک کردن جستجو"], Error: ["warning", "مشکلی پیش آمد", "بارگذاری داده‌ها ناموفق بود. چند لحظه بعد دوباره تلاش کنید.", "تلاش دوباره"] }[p.Type];
+        // k-empty: فاصلهٔ ۴۸/۲۴، آیکون ۴۰ با گوشهٔ ۱۲، دکمه‌ها ۱۶ پیکسل پایین‌تر
+        return F({ name: "Empty state", dir: "V", gap: "space/2", py: "space/12", px: "space/6", w: 400, cross: "center", css: "k-empty", cssCheck: ["gap"] }, [
+          F({ name: "Icon", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-primary", shadow: "Button", css: "k-empty__icon", cssCheck: ["radius", "bg", "border"] }, [I(cfg[0], 24, p.Type === "Error" ? "text-error" : "text-secondary")]),
+          T(cfg[1], { style: "Text md/Semibold", color: "text-primary", align: "center", name: "Title", css: "k-empty__title" }),
+          T(cfg[2], { style: "Text sm/Regular", color: "text-tertiary", align: "center", w: 352, name: "Description", css: "k-empty__description" }),
+          F({ name: "Actions", dir: "H", gap: "space/3", pt: "space/4" }, [p.Type === "Default" && button({ variant: "Secondary", label: "راهنما" }), button({ variant: p.Type === "Default" ? "Primary" : "Secondary", label: cfg[3], iconStart: p.Type === "Default" ? "plus" : undefined })]),
         ]);
       },
       docs: "empty-state",
@@ -2272,12 +2413,13 @@ function buildFeedback() {
 
   safe("Popover", () => section(root, "Popover · پنجرهٔ کوچک", "محتوای تعاملی کنار یک دکمه؛ فوکوس داخل آن به دام می‌افتد.", (h) => {
     componentSet(h, "Popover", {
-      build: () => F({ name: "Popover", dir: "V", gap: "space/4", p: "space/4", w: 320, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
-        F({ dir: "H", w: "fill", align: "between", cross: "start" }, [
-          F({ dir: "V", gap: 2 }, [T("اشتراک‌گذاری", { style: "Text sm/Semibold", color: "text-primary", name: "Title" }), T("هر کسی با لینک می‌تواند ببیند.", { style: "Text sm/Regular", color: "text-tertiary", name: "Description" })]),
-          I("close", 18, "text-quaternary"),
+      // k-popover: عرض ۳۲۰، فاصلهٔ ۱۶، گوشهٔ ۱۶
+      build: () => F({ name: "Popover", dir: "V", gap: 0, p: "space/4", w: 320, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover", css: "k-popover" }, [
+        T("اشتراک‌گذاری", { style: "Text sm/Semibold", color: "text-primary", name: "Title", css: "k-popover__title" }),
+        F({ dir: "V", gap: "space/3", pt: "space/1", w: "fill" }, [
+          T("هر کسی با لینک می‌تواند ببیند.", { style: "Text sm/Regular", color: "text-tertiary", name: "Body", w: "fill" }),
+          F({ dir: "H", gap: "space/2", w: "fill" }, [inputBox({ size: "sm", text: "kashi.ir/s/4f9a", ltr: true }), button({ variant: "Secondary", size: "sm", iconStart: "copy", label: "کپی" })]),
         ]),
-        F({ dir: "H", gap: "space/2", w: "fill" }, [inputBox({ size: "sm", text: "kashi.ir/s/4f9a", ltr: true }), button({ variant: "Secondary", size: "sm", iconStart: "copy", label: "کپی" })]),
       ]),
       docs: "popover",
     });
@@ -2291,12 +2433,12 @@ function buildFeedback() {
         const form = p.Type === "Form";
         return F({ name: "Dialog", dir: "V", gap: 0, w: 480, radius: "radius/2xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Dialog", clip: true }, [
           F({ name: "Header", dir: "H", gap: "space/4", pt: "space/6", px: "space/6", w: "fill", cross: "start" }, [
-            featuredIcon(danger ? "trash" : form ? "users" : "sparkle", danger ? "Error" : "Brand", 48),
+            featuredIcon(danger ? "trash" : form ? "users" : "sparkle", danger ? "Error" : "Brand", 48, 8),
             F({ name: "Heading", dir: "V", gap: "space/1", grow: true, pt: "space/1" }, [
               T(danger ? "حذف پروژه" : form ? "دعوت هم‌تیمی" : "به کاشی خوش آمدید", { style: "Display lg/Semibold", color: "text-primary", name: "Title" }),
               T(danger ? "این کار برگشت‌پذیر نیست. همهٔ فایل‌ها و نظرها برای همیشه پاک می‌شوند." : form ? "ایمیل هم‌تیمی را وارد کنید تا دعوت‌نامه ارسال شود." : "دیزاین‌سیستم فارسی شما آماده است. از کجا شروع کنیم؟", { style: "Text sm/Regular", color: "text-tertiary", w: "fill", name: "Description" }),
             ]),
-            I("close", 20, "text-quaternary"),
+            button({ variant: "Tertiary", size: "sm", iconOnly: "close" }),
           ]),
           form && F({ name: "Body", dir: "V", gap: "space/4", pt: "space/5", px: "space/6", w: "fill" }, [
             field({ label: "ایمیل", w: "fill", control: inputBox({ iconStart: "mail", placeholder: "name@example.com", ltr: true }) }),
@@ -2328,13 +2470,16 @@ function buildFeedback() {
   safe("Tour", () => section(root, "Tour · راهنمای قدم‌به‌قدم", "معرفی بخش‌های محصول به کاربر تازه.", (h) => {
     componentSet(h, "Tour step", {
       axes: { Step: ["1", "2", "3"] },
-      build: (p) => F({ name: "Tour step", dir: "V", gap: "space/3", p: "space/4", w: 300, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
-        F({ dir: "H", w: "fill", align: "between" }, [T(`قدم ${fa(p.Step)} از ۳`, { style: "Text xs/Semibold", color: "text-brand" }), I("close", 16, "text-quaternary")]),
-        T(["جستجوی سریع", "ساخت پروژه", "دعوت تیم"][Number(p.Step) - 1], { style: "Text md/Semibold", color: "text-primary", name: "Title" }),
-        T("با ⌘K هر جای برنامه را باز کنید؛ از صفحه‌ها تا تنظیمات.", { style: "Text sm/Regular", color: "text-tertiary", w: "fill", name: "Description" }),
-        F({ dir: "H", w: "fill", align: "between", cross: "center" }, [
-          F({ name: "Dots", dir: "H", gap: 6 }, [1, 2, 3].map((i) => R({ w: String(i) === p.Step ? 16 : 6, h: 6, radius: "radius/full", fill: String(i) === p.Step ? "bg-brand" : "bg-tertiary", name: "Dot" }))),
-          F({ dir: "H", gap: "space/2" }, [p.Step !== "1" && button({ variant: "Tertiary", size: "sm", label: "قبلی" }), button({ variant: "Primary", size: "sm", label: p.Step === "3" ? "تمام" : "بعدی" })]),
+      // k-tour__card: عرض ۳۲۰، فاصلهٔ ۱۶/۲۰، نوار پیشرفت ۱۶×۳
+      build: (p) => F({ name: "Tour step", dir: "V", gap: "space/2", py: "space/4", px: "space/5", w: 320, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
+        T(`مرحلهٔ ${fa(p.Step)} از ۳`, { style: "Text xs/Semibold", color: "text-brand", css: "k-tour__step" }),
+        T(["جستجوی سریع", "خروجی اکسل", "دعوت تیم"][Number(p.Step) - 1], { style: "Text md/Semibold", color: "text-primary", name: "Title", css: "k-tour__title" }),
+        T("با ⌘K هر جای برنامه را باز کنید؛ از صفحه‌ها تا تنظیمات.", { style: "Text sm/Regular", color: "text-secondary", w: "fill", name: "Description" }),
+        F({ name: "Actions", dir: "H", gap: "space/2", pt: "space/2", w: "fill", cross: "center" }, [
+          F({ name: "Progress", dir: "H", gap: 4 }, [1, 2, 3].map((i) => R({ w: 16, h: 3, radius: 2, fill: i <= Number(p.Step) ? "bg-brand" : "border-primary", name: "Step" }))),
+          Spacer(),
+          p.Step !== "1" && button({ variant: "Tertiary", size: "sm", label: "قبلی" }),
+          button({ variant: "Primary", size: "sm", label: p.Step === "3" ? "تمام" : "بعدی" }),
         ]),
       ]),
       docs: "tour",
@@ -2354,17 +2499,20 @@ const BADGE_TONES = {
   Error: { fg: "text-error", bg: "bg-error-subtle" },
 };
 
-function badge({ tone = "Neutral", variant = "Soft", size = "md", label = "فعال", dot = true } = {}) {
+function badge({ tone = "Neutral", variant = "Soft", size = "md", label = "فعال", dot = true, removable = false } = {}) {
   const t = BADGE_TONES[tone];
   const solid = variant === "Solid";
   const outline = variant === "Outline";
   const fg = solid ? "bg-primary" : t.fg;
   return F({
-    name: "Badge", dir: "H", gap: "space/1", px: { sm: 8, md: 10, lg: 12 }[size], h: { sm: 24, md: 27, lg: 31 }[size], cross: "center",
+    name: "Badge", dir: "H", gap: "space/1", px: { sm: 8, md: 10, lg: 12 }[size], pe: removable ? 4 : undefined, h: { sm: 24, md: 27, lg: 31 }[size], cross: "center",
     radius: "radius/full", fill: solid ? t.fg : outline ? undefined : t.bg, stroke: solid ? undefined : t.fg, strokeOpacity: outline ? 0.45 : 0.2,
+    css: ["k-badge", tone !== "Neutral" && `k-badge--${tone.toLowerCase()}`, size !== "md" && `k-badge--${size}`, variant !== "Soft" && `k-badge--${variant.toLowerCase()}`, removable && "k-badge--removable"].filter(Boolean).sort().join(" "),
+    cssCheck: ["pad", "radius", "gap", "bg", "h"],
   }, [
     (() => { const d = R({ ellipse: true, w: 6, h: 6, fill: fg, name: "Dot" }); d.visible = dot; return d; })(),
     T(label, { style: size === "sm" ? "Text xs/Medium" : "Text sm/Medium", color: fg, name: "Label" }),
+    removable && F({ name: "Remove", dir: "H", w: 18, h: 18, align: "center", cross: "center", radius: "radius/full" }, [I("close", 12, fg)]),
   ]);
 }
 
@@ -2376,12 +2524,13 @@ function avatar({ size = "md", type = "Initials", tone = "Neutral", status, init
   if (type === "Initials") kids.push(T(initials, { style: "Text sm/Semibold", color: t.fg, align: "center", size: Math.round(s * 0.34), weight: "semibold", leading: 1 }));
   else if (type === "Icon") kids.push(I("user", Math.round(s * 0.5), "text-tertiary"));
   else kids.push(R({ w: s, h: s, fill: "firoozeh/700", name: "Photo" }));
-  const a = F({ name: "Avatar", dir: "H", w: s, h: s, align: "center", cross: "center", radius: "radius/full", fill: type === "Initials" ? t.bg : "bg-tertiary", stroke: "text-primary", strokeOpacity: 0.08, clip: type === "Image" }, kids);
+  const a = F({ name: "Avatar", dir: "H", w: s, h: s, align: "center", cross: "center", radius: "radius/full", fill: type === "Initials" ? t.bg : "bg-tertiary", stroke: "text-primary", strokeOpacity: 0.08, clip: type === "Image",
+    css: type === "Initials" ? ["k-avatar", size !== "md" && `k-avatar--${size}`, tone !== "Neutral" && `k-avatar--${tone.toLowerCase()}`].filter(Boolean).sort().join(" ") : undefined, cssCheck: ["radius", "bg", "h", "w"] }, kids);
   if (!status) return a;
   const dot = Math.max(8, Math.round(s * 0.28));
   return F({ name: "Avatar", dir: "none", w: s, h: s }, [
     (() => { SIZING.set(a, { x: 0, y: 0 }); return a; })(),
-    R({ ellipse: true, w: dot, h: dot, fill: { Online: "text-success", Busy: "text-error", Away: "text-warning" }[status], stroke: "bg-primary", sw: 2, name: "Status", x: s - dot, y: s - dot }),
+    R({ ellipse: true, w: dot, h: dot, fill: { Online: "text-success", Busy: "text-error", Away: "text-warning" }[status], stroke: "bg-primary", sw: 2, name: "Status", x: s - dot, y: s - dot, css: `k-avatar__status k-avatar__status--${status === "Online" ? "online" : status === "Busy" ? "busy" : "away"}`, cssCheck: ["bg", "border"] }),
   ]);
 }
 
@@ -2390,12 +2539,13 @@ function card({ variant = "Default", padding = "md", title = "گزارش ماه�
   const stroke = variant === "Default" || variant === "Flat" ? "border-secondary" : variant === "Elevated" ? "border-secondary" : undefined;
   const shadow = variant === "Elevated" ? "Elevated" : variant === "Default" ? "Surface" : variant === "Flat" ? "highlight-only" : undefined;
   const pad = `card/padding/${padding}`;
-  return F({ name: "Card", dir: "V", gap: 0, w, radius: "radius/xl", fill, stroke, shadow, clip: true }, [
+  const cardCss = { Default: "k-card", Filled: "k-card k-card--filled" }[variant];
+  return F({ name: "Card", dir: "V", gap: 0, w, radius: "radius/xl", fill, stroke, shadow, clip: true, css: padding === "md" ? cardCss : undefined, cssCheck: ["radius", "bg", "border"] }, [
     media && R({ w, h: 160, fill: "bg-tertiary", name: "Media" }),
     F({ name: "Header", dir: "H", gap: "space/4", p: pad, w: "fill", cross: "start" }, [
       F({ name: "Heading", dir: "V", gap: "space/1", grow: true }, [
-        T(title, { style: "Display lg/Semibold", color: "text-primary", name: "Title" }),
-        T(description, { style: "Text sm/Regular", color: "text-tertiary", name: "Description" }),
+        T(title, { style: "Display lg/Semibold", color: "text-primary", name: "Title", css: "k-card__title" }),
+        T(description, { style: "Text sm/Regular", color: "text-tertiary", name: "Description", css: "k-card__description" }),
       ]),
       I("more-vertical", 20, "text-quaternary"),
     ]),
@@ -2496,15 +2646,24 @@ function buildData() {
         const c = { Up: "text-success", Down: "text-error", Neutral: "text-tertiary" }[p.Trend];
         const pts = { Up: [6, 10, 8, 14, 12, 18, 22], Down: [20, 18, 19, 13, 14, 9, 6], Neutral: [12, 13, 11, 12, 13, 12, 12] }[p.Trend];
         const spark = F({ name: "Sparkline", dir: "H", gap: 4, cross: "end", h: 40 }, pts.map((v) => R({ w: 8, h: v + 4, radius: 2, fill: c, fillOpacity: 0.7, name: "Bar" })));
-        return F({ name: "Stat card", dir: "V", gap: "space/4", p: "space/6", w: 300, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Shadow/xs" }, [
-          F({ dir: "H", w: "fill", align: "between", cross: "center" }, [T("درآمد ماهانه", { style: "Text sm/Medium", color: "text-tertiary", name: "Label" }), I("more-vertical", 18, "text-quaternary")]),
-          F({ dir: "H", w: "fill", align: "between", cross: "end" }, [
-            F({ dir: "V", gap: "space/2" }, [
-              F({ dir: "H", gap: "space/1", cross: "baseline" }, [T("۴۸٫۲", { style: "Display 2xl/Semibold", color: "text-primary", name: "Value" }), T("میلیون تومان", { style: "Text sm/Regular", color: "text-tertiary" })]),
-              F({ dir: "H", gap: "space/1", cross: "center" }, [
-                F({ dir: "H", px: 6, h: 22, gap: 2, cross: "center", radius: "radius/full", fill: { Up: "bg-success-subtle", Down: "bg-error-subtle", Neutral: "bg-tertiary" }[p.Trend] }, [T({ Up: "↑ ۱۲٪", Down: "↓ ۸٪", Neutral: "۰٪" }[p.Trend], { style: "Text xs/Semibold", color: c })]),
-                T("نسبت به ماه قبل", { style: "Text sm/Regular", color: "text-tertiary" }),
+        // k-stat: فاصلهٔ ۲۰/۲۴؛ سربرگ با آیکون ۴۰، عدد ۳۰ پیکسلی با واحد، نشان روند و نمودار کوچک
+        const trendCss = { Up: "k-trend k-trend--up", Down: "k-trend k-trend--down", Neutral: undefined }[p.Trend];
+        return F({ name: "Stat card", dir: "V", gap: "space/4", py: "space/5", px: "space/6", w: 300, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Surface", css: "k-stat" }, [
+          F({ name: "Head", dir: "H", gap: "space/3", w: "fill", cross: "center", css: "k-stat__head", cssCheck: ["gap"] }, [
+            F({ name: "Icon", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/lg", fill: "bg-primary", stroke: "border-primary", shadow: "Button", css: "k-stat__icon", cssCheck: ["radius", "bg", "border"] }, [I("wallet", 20, "text-secondary")]),
+            T("درآمد ماهانه", { style: "Text sm/Medium", color: "text-secondary", name: "Label", grow: true }),
+            I("more-vertical", 18, "text-quaternary"),
+          ]),
+          F({ name: "Value", dir: "H", gap: "space/1.5", cross: "baseline", css: "k-stat__value", cssCheck: ["gap"] }, [
+            T("۴۸٫۲", { style: "Display 3xl/Semibold", color: "text-primary", name: "Value", css: "k-stat__value" }),
+            T("میلیون", { style: "Text sm/Medium", color: "text-tertiary", name: "Unit", css: "k-stat__unit" }),
+          ]),
+          F({ name: "Foot", dir: "H", gap: "space/2", w: "fill", align: "between", cross: "end" }, [
+            F({ dir: "H", gap: "space/2", cross: "center", css: "k-stat__foot", cssCheck: ["gap"] }, [
+              F({ name: "Trend", dir: "H", gap: 2, pt: 2, pb: 2, ps: 8, pe: 6, cross: "center", radius: "radius/full", fill: { Up: "bg-success-subtle", Down: "bg-error-subtle", Neutral: "bg-tertiary" }[p.Trend], css: trendCss, cssCheck: ["pad", "radius", "gap", "bg"] }, [
+                T({ Up: "↑ ۱۲٪", Down: "↓ ۸٪", Neutral: "۰٪" }[p.Trend], { style: "Text xs/Semibold", color: c, css: trendCss }),
               ]),
+              T("نسبت به ماه قبل", { style: "Text sm/Regular", color: "text-tertiary" }),
             ]),
             spark,
           ]),
@@ -2528,31 +2687,32 @@ function buildData() {
       axes: { Style: ["Default", "Striped", "Selectable"] },
       build: (p) => {
         const sel = p.Style === "Selectable";
-        const cell = (w, kids, o = {}) => F(Object.assign({ name: "Cell", dir: "H", gap: "space/3", w, px: "space/6", h: o.head ? 44 : 64, cross: "center" }, o), kids);
+        // k-table: خانه‌ها ۱۲/۲۴؛ سربرگ ۱۲ پیکسلی Semibold روی bg-secondary
+        const cell = (w, kids, o = {}) => F(Object.assign({ name: "Cell", dir: "H", gap: "space/3", w, px: "space/6", py: "space/3", h: o.head ? undefined : 57, cross: "center" }, o), kids);
         const header = F({ name: "Header row", dir: "H", gap: 0, w: "fill", fill: "bg-secondary", stroke: "border-secondary", sides: [0, 0, 1, 0] }, [
           sel && cell(56, [checkMark("checkbox", { checked: "Indeterminate", size: 18 })], { head: true, ps: 24, px: 0 }),
-          ...cols.map(([c, w]) => cell(w, [T(c, { style: "Text xs/Medium", color: "text-tertiary" })], { head: true })),
+          ...cols.map(([c, w]) => cell(w, [T(c || " ", { style: "Text xs/Semibold", color: "text-tertiary", css: c ? "k-table__num" : undefined })], { head: true })),
         ]);
         const body = rows.map((r, i) => F({ name: "Row", dir: "H", gap: 0, w: "fill", fill: sel && i === 1 ? "bg-brand-subtle" : p.Style === "Striped" && i % 2 ? "bg-secondary" : undefined, stroke: "border-secondary", sides: i < rows.length - 1 ? [0, 0, 1, 0] : [0, 0, 0, 0] }, [
           sel && cell(56, [checkMark("checkbox", { checked: i === 1 ? "On" : "Off", size: 18 })], { ps: 24, px: 0 }),
           cell(cols[0][1], [avatar({ size: "sm", tone: ["Brand", "Info", "Success", "Warning"][i], initials: r[0].slice(0, 2) }), T(r[0], { style: "Text sm/Medium", color: "text-primary" })]),
           cell(cols[1][1], [badge({ tone: r[1], size: "sm", label: statusLabel[r[1]] })]),
-          cell(cols[2][1], [T(r[2], { style: "Text sm/Regular", color: "text-tertiary" })]),
+          cell(cols[2][1], [T(r[2], { style: "Text sm/Regular", color: "text-tertiary" })], { align: "end" }),
           cell(cols[3][1], [T(r[3], { style: "Text sm/Regular", color: "text-tertiary" })]),
           cell(cols[4][1], [I("more-vertical", 18, "text-quaternary")], { px: 16 }),
         ]));
         const totalW = cols.reduce((a, [, w]) => a + w, 0) + (sel ? 56 : 0);
-        return F({ name: "Table", dir: "V", gap: 0, w: totalW, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", clip: true }, [
+        return F({ name: "Table", dir: "V", gap: 0, w: totalW, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Surface", clip: true, css: "k-table-wrap" }, [
           F({ name: "Caption", dir: "H", gap: "space/4", pt: "space/5", pb: "space/4", px: "space/6", w: "fill", cross: "start" }, [
             F({ dir: "V", gap: "space/1", grow: true }, [
-              F({ dir: "H", gap: "space/2", cross: "center" }, [T("تراکنش‌ها", { style: "Text lg/Semibold", color: "text-primary", name: "Title" }), badge({ tone: "Brand", size: "sm", label: "۱۲۸ مورد", dot: false })]),
-              T("پرداخت‌های ۳۰ روز گذشته", { style: "Text sm/Regular", color: "text-tertiary" }),
+              F({ dir: "H", gap: "space/2", cross: "center" }, [T("تراکنش‌ها", { style: "Text lg/Semibold", color: "text-primary", name: "Title", css: "k-table__caption-title" }), badge({ tone: "Brand", size: "sm", label: "۱۲۸ مورد", dot: false })]),
+              T("پرداخت‌های ۳۰ روز گذشته", { style: "Text sm/Regular", color: "text-tertiary", css: "k-table__caption-desc" }),
             ]),
             button({ variant: "Secondary", size: "sm", label: "خروجی اکسل", iconStart: "download" }),
           ]),
           header,
           ...body,
-          F({ name: "Footer", dir: "H", py: "space/3", px: "space/6", w: "fill", align: "between", cross: "center", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
+          F({ name: "Footer", dir: "H", py: "space/3", px: "space/6", w: "fill", align: "between", cross: "center", stroke: "border-secondary", sides: [1, 0, 0, 0], css: "k-table__footer", cssCheck: ["pad"] }, [
             button({ variant: "Secondary", size: "sm", label: "قبلی", iconStart: "arrow-right" }),
             T("صفحهٔ ۱ از ۱۰", { style: "Text sm/Medium", color: "text-secondary" }),
             button({ variant: "Secondary", size: "sm", label: "بعدی", iconEnd: "arrow-left" }),
@@ -2569,12 +2729,13 @@ function buildData() {
       build: () => {
         const items = [["سفارش ثبت شد", "۲ ساعت پیش", "cart", "Brand"], ["پرداخت تأیید شد", "۱ ساعت پیش", "credit-card", "Success"], ["در حال ارسال", "۱۵ دقیقه پیش", "send", "Info"], ["تحویل", "در انتظار", "home", null]];
         return F({ name: "Timeline", dir: "V", gap: 0, w: 320 }, items.map(([title, time, icon, tone], i) =>
-          F({ name: "Item", dir: "H", gap: "space/3", w: "fill", cross: "start" }, [
-            F({ name: "Rail", dir: "V", gap: 4, cross: "center" }, [
-              tone ? featuredIcon(icon, tone, 32) : F({ dir: "H", w: 32, h: 32, align: "center", cross: "center", radius: "radius/full", stroke: "border-primary", dash: [3, 3] }, [I(icon, 16, "text-quaternary")]),
-              i < items.length - 1 && R({ w: 2, h: 28, radius: 1, fill: tone ? "border-primary" : "border-secondary", name: "Line" }),
+          // k-timeline__item: نشانگر ۳۲، فاصلهٔ ۱۲، بدنه با pt 4 و gap 4، خط اتصال پشت نشانگرها
+          F({ name: "Item", dir: "H", gap: "space/3", w: "fill", cross: "start", pb: i < items.length - 1 ? "space/6" : 0 }, [
+            F({ name: "Rail", dir: "V", gap: 0, cross: "center", h: "fill" }, [
+              tone ? featuredIcon(icon, tone, 32) : F({ dir: "H", w: 32, h: 32, align: "center", cross: "center", radius: "radius/full", fill: "bg-tertiary" }, [I(icon, 16, "text-quaternary")]),
+              i < items.length - 1 && R({ w: 2, h: 24, fill: "border-secondary", name: "Line", grow: true }),
             ]),
-            F({ dir: "V", gap: 0, pt: 4 }, [T(title, { style: "Text sm/Semibold", color: tone ? "text-primary" : "text-tertiary" }), T(time, { style: "Text sm/Regular", color: "text-tertiary" })]),
+            F({ name: "Body", dir: "V", gap: "space/1", pt: "space/1", css: "k-timeline__body", cssCheck: ["pad", "gap"] }, [T(title, { style: "Text sm/Regular", color: "text-secondary", css: "k-timeline__title" }), T(time, { style: "Text xs/Regular", color: "text-tertiary", css: "k-timeline__time" })]),
           ]),
         ));
       },
@@ -2587,10 +2748,11 @@ function buildData() {
       build: () => {
         const items = [[0, "folder", "packages", true], [1, "folder", "react", true], [2, "file", "Button.tsx"], [2, "file", "Input.tsx", false, true], [1, "folder", "persian"], [0, "file", "package.json"]];
         return F({ name: "Tree", dir: "V", gap: 2, p: "space/2", w: 280, radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary" }, items.map(([lvl, icon, label, open, sel]) =>
-          F({ name: "Node", dir: "H", gap: "space/1.5", h: 32, ps: 8 + lvl * 20, pe: 8, w: "fill", cross: "center", radius: "radius/md", fill: sel ? "bg-brand-subtle" : undefined }, [
-            icon === "folder" ? I(open ? "chevron-down" : "chevron-left", 16, "text-quaternary") : R({ w: 16, h: 16, name: "Indent" }),
-            I(icon, 18, sel ? "text-brand" : icon === "folder" ? "zafaran/400" : "text-tertiary"),
-            T(label, { style: "Text sm/Medium", color: sel ? "text-brand" : "text-secondary", ltr: true }),
+          // k-tree__row: ارتفاع ۳۶، فاصلهٔ ۸ و ۶، دکمهٔ باز و بسته ۲۰، آیکون ۱۸
+          F({ name: "Node", dir: "H", gap: "space/1.5", h: 36, ps: 8 + lvl * 20, pe: 8, w: "fill", cross: "center", radius: "radius/md", fill: sel ? "bg-brand-subtle" : undefined, css: !sel && lvl === 0 ? "k-tree__row" : undefined, cssCheck: ["radius", "gap", "bg", "h"] }, [
+            F({ name: "Toggle", dir: "H", w: 20, h: 20, align: "center", cross: "center" }, [icon === "folder" ? I(open ? "chevron-down" : "chevron-left", 16, "text-tertiary") : null]),
+            I(icon, 18, sel ? "text-brand" : "text-tertiary"),
+            T(label, { style: "Text sm/Medium", color: sel ? "text-brand" : "text-secondary", ltr: true, css: sel ? undefined : "k-tree__label" }),
           ]),
         ));
       },
@@ -2598,17 +2760,22 @@ function buildData() {
     });
   }));
 
-  safe("Accordion", () => section(root, "Accordion · آکاردئون", "پرسش‌های متداول؛ یک یا چند بخش باز.", (h) => {
-    componentSet(h, "Accordion item", {
+  safe("Accordion", () => section(root, "Accordion · آکاردئون", "پرسش‌های متداول در یک کارت؛ یک یا چند بخش باز.", (h) => {
+    const item = (q, a, open, last) => F({ name: "Item", dir: "V", gap: 0, w: "fill", stroke: last ? undefined : "border-secondary", sides: last ? undefined : [0, 0, 1, 0] }, [
+      // k-accordion__trigger: فاصلهٔ ۱۶/۲۰، متن ۱۵ Semibold
+      F({ name: "Trigger", dir: "H", gap: "space/4", py: "space/4", px: "space/5", w: "fill", align: "between", cross: "center", css: "k-accordion__trigger", cssCheck: ["pad", "gap"] }, [
+        T(q, { style: "Text md/Semibold", color: "text-primary", name: "Question", css: "k-accordion__trigger" }),
+        I("chevron-down", 20, "text-tertiary"),
+      ]),
+      open && F({ name: "Content", dir: "V", pt: 0, px: "space/5", pb: "space/5", w: "fill", css: "k-accordion__content", cssCheck: ["pad"] }, [T(a, { style: "Text md/Regular", color: "text-tertiary", w: "fill", name: "Answer" })]),
+    ]);
+    componentSet(h, "Accordion", {
       axes: { State: ["Collapsed", "Expanded"] },
-      build: (p) => {
-        const open = p.State === "Expanded";
-        return F({ name: "Accordion item", dir: "V", gap: "space/2", py: "space/4", w: 480, stroke: "border-secondary", sides: [0, 0, 1, 0] }, [
-          F({ name: "Trigger", dir: "H", w: "fill", align: "between", cross: "center" }, [T("کاشی رایگان است؟", { style: "Text md/Semibold", color: "text-primary", name: "Question" }), I(open ? "minus" : "plus", 20, "text-tertiary")]),
-          open && T("بله. کاشی متن‌باز و تحت مجوز MIT است و در پروژه‌های تجاری هم می‌توانید از آن استفاده کنید.", { style: "Text sm/Regular", color: "text-tertiary", w: "fill", name: "Answer" }),
-        ]);
-      },
-      text: { Question: ["Question", "کاشی رایگان است؟"] },
+      build: (p) => F({ name: "Accordion", dir: "V", gap: 0, w: 480, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Surface", clip: true, css: "k-accordion" }, [
+        item("کاشی رایگان است؟", "بله. کاشی متن‌باز و با مجوز MIT است و در پروژه‌های تجاری هم می‌توانید از آن استفاده کنید.", p.State === "Expanded", false),
+        item("با Vue هم کار می‌کند؟", "", false, false),
+        item("تقویم شمسی دارد؟", "", false, true),
+      ]),
       docs: "accordion",
     });
   }));
@@ -2616,7 +2783,7 @@ function buildData() {
   safe("Misc", () => section(root, "Kbd, Divider, Relative time · کلید، جداکننده، زمان نسبی", "اجزای کوچک پرکاربرد.", (h) => {
     componentSet(h, "Kbd", {
       axes: { Key: ["⌘", "Ctrl", "K", "Enter", "Esc"] },
-      build: (p) => F({ name: "Kbd", dir: "H", h: 22, px: 6, align: "center", cross: "center", radius: "radius/sm", fill: "bg-secondary", stroke: "border-primary", sides: [1, 1, 2, 1], minW: 22 }, [T(p.Key, { style: "Text xs/Medium", color: "text-secondary", ltr: true, align: "center" })]),
+      build: (p) => F({ name: "Kbd", dir: "H", h: 24, px: 6, align: "center", cross: "center", radius: "radius/sm", fill: "bg-secondary", stroke: "border-primary", sides: [1, 1, 2, 1], minW: 24, css: "k-kbd", cssCheck: ["padx", "radius", "bg", "h"] }, [T(p.Key, { style: "Text xs/Medium", color: "text-secondary", ltr: true, align: "center", css: "k-kbd" })]),
       docs: "kbd",
     });
     componentSet(h, "Divider", {
@@ -2682,7 +2849,7 @@ function buildData() {
           T("اسلاید ۲ از ۵", { style: "Text md/Semibold", color: "#ffffff" }),
           button({ variant: "Secondary", size: "sm", iconOnly: "chevron-left", pill: true }),
         ]),
-        F({ name: "Dots", dir: "H", gap: 6 }, [1, 2, 3, 4, 5].map((i) => R({ w: i === 2 ? 20 : 8, h: 8, radius: "radius/full", fill: i === 2 ? "bg-brand" : "bg-tertiary", name: "Dot" }))),
+        F({ name: "Dots", dir: "H", gap: 6, css: "k-carousel__dots", cssCheck: ["gap"] }, [1, 2, 3, 4, 5].map((i) => R({ w: i === 2 ? 24 : 8, h: 8, radius: "radius/full", fill: i === 2 ? "bg-brand" : "border-primary", name: "Dot", css: i === 2 ? "k-carousel__dot" : undefined, cssCheck: ["bg", "radius", "h", "w"] }))),
       ]),
       docs: "carousel",
     });
@@ -2693,11 +2860,12 @@ function buildData() {
 // ناوبری: تب، مسیر، صفحه‌بندی، مراحل، منوی کناری، منو و جستجوی فرمان
 
 function menuPanel(items, { w = 240 } = {}) {
-  return F({ name: "Menu", dir: "V", gap: 1, p: "space/1.5", w, radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, items.map((it) => {
+  return F({ name: "Menu", dir: "V", gap: 0, p: "space/1.5", w, radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover", css: "k-menu", cssCheck: ["pad", "radius", "bg", "border"] }, items.map((it) => {
     if (it === "-") return F({ name: "Separator", dir: "H", w: "fill", py: "space/1" }, [R({ w: 10, h: 1, fill: "border-secondary", fillW: true, name: "Line" })]);
     if (it.label && it.heading) return F({ name: "Group label", dir: "H", px: 10, pt: "space/2", pb: "space/1", w: "fill" }, [T(it.label, { style: "Text xs/Medium", color: "text-tertiary" })]);
     const fg = it.danger ? "text-error" : it.disabled ? "text-quaternary" : it.active ? "text-primary" : "text-secondary";
-    return F({ name: "Menu item", dir: "H", gap: "space/2", h: "menu/item-height", px: 10, w: "fill", cross: "center", radius: "radius/md", fill: it.active ? (it.danger ? "bg-error-subtle" : "bg-hover") : undefined }, [
+    return F({ name: "Menu item", dir: "H", gap: "space/2", h: "menu/item-height", px: 10, w: "fill", cross: "center", radius: "radius/md", fill: it.active ? (it.danger ? "bg-error-subtle" : "bg-hover") : undefined,
+      css: it.active ? undefined : it.danger ? "k-menu__item k-menu__item--danger" : "k-menu__item", cssCheck: ["padx", "radius", "gap", "bg", "h"] }, [
       it.checked !== undefined && F({ dir: "H", w: 18, align: "center" }, [it.checked ? I("check", 16, "text-brand") : R({ w: 16, h: 16, name: "Empty" })]),
       it.icon && I(it.icon, 18, it.danger ? "text-error" : "text-tertiary"),
       T(it.label, { style: "Text sm/Medium", color: fg, grow: true }),
@@ -2720,10 +2888,11 @@ function buildNavigation() {
           const on = i === 0;
           if (p.Variant === "Line") {
             return F({ name: "Tab", dir: vertical ? "H" : "V", gap: 0, h: vertical ? 40 : undefined, w: vertical ? "fill" : undefined, cross: vertical ? "center" : "center", align: vertical ? "between" : "start" }, vertical
-              ? [F({ dir: "H", gap: "space/2", ps: "space/3", cross: "center", grow: true }, [T(label, { style: "Text sm/Semibold", color: on ? "text-brand" : "text-tertiary", name: "Label" })]), R({ w: 2, h: 40, fill: on ? "border-brand" : "border-secondary", name: "Indicator" })]
-              : [F({ dir: "H", gap: "space/2", h: 38, px: "space/1", cross: "center" }, [T(label, { style: "Text sm/Semibold", color: on ? "text-brand" : "text-tertiary", name: "Label" }), i === 1 && badge({ tone: on ? "Brand" : "Neutral", size: "sm", label: "۱۲", dot: false })]), R({ w: 10, h: 2, fill: on ? "border-brand" : undefined, fillW: true, name: "Indicator" })]);
+              ? [F({ dir: "H", gap: "space/2", ps: "space/3", cross: "center", grow: true }, [T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-tertiary", name: "Label" })]), R({ w: 2, h: 40, fill: on ? "border-brand" : "border-secondary", name: "Indicator" })]
+              : [F({ dir: "H", gap: "space/2", h: 38, px: "space/1", cross: "center", css: on ? undefined : "k-tabs__tab", cssCheck: ["padx", "gap"] }, [T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-tertiary", name: "Label" }), i === 1 && badge({ tone: on ? "Brand" : "Neutral", size: "sm", label: "۱۲", dot: false })]), R({ w: 10, h: 2, radius: 2, fill: on ? "border-brand" : undefined, fillW: true, name: "Indicator", css: on ? "k-tabs__indicator" : undefined, cssCheck: ["bg", "h"] })]);
           }
-          return F({ name: "Tab", dir: "H", gap: "space/2", h: p.Variant === "Segmented" ? 34 : "tab/height", px: "space/3", w: vertical ? "fill" : undefined, cross: "center", radius: "radius/md", fill: on ? (p.Variant === "Pill" ? "bg-brand-subtle" : "bg-elevated") : undefined, shadow: on && p.Variant === "Segmented" ? "Shadow/sm" : undefined }, [
+          // سگمنت: حداقل ۳۶ پیکسل، تب انتخاب‌شده روی bg-elevated با سایهٔ sm و خط روشن
+          return F({ name: "Tab", dir: "H", gap: "space/2", h: p.Variant === "Segmented" ? 36 : "tab/height", px: "space/3", w: vertical ? "fill" : undefined, cross: "center", radius: "radius/md", fill: on ? (p.Variant === "Pill" ? "bg-brand-subtle" : "bg-elevated") : undefined, shadow: on && p.Variant === "Segmented" ? ["Shadow/sm", "highlight-only"] : undefined }, [
             T(label, { style: "Text sm/Semibold", color: on ? (p.Variant === "Pill" ? "text-brand" : "text-primary") : "text-tertiary", name: "Label" }),
           ]);
         };
@@ -2732,6 +2901,7 @@ function buildNavigation() {
           p: p.Variant === "Segmented" ? 3 : undefined, radius: p.Variant === "Segmented" ? 11 : undefined,
           fill: p.Variant === "Segmented" ? "bg-secondary" : undefined, stroke: p.Variant === "Segmented" ? "border-secondary" : p.Variant === "Line" && !vertical ? "border-secondary" : undefined,
           sides: p.Variant === "Line" && !vertical ? [0, 0, 1, 0] : undefined,
+          css: p.Variant === "Segmented" && !vertical ? "k-tabs--segmented .k-tabs__list" : undefined, cssCheck: ["pad", "radius", "bg", "border"],
         }, labels.map(tab));
         return list;
       },
@@ -2749,8 +2919,10 @@ function buildNavigation() {
         items.forEach((label, i) => {
           if (i) kids.push(p.Separator === "Slash" ? T("/", { style: "Text md/Regular", color: "border-primary" }) : I("chevron-left", 16, "border-primary"));
           const last = i === items.length - 1;
-          kids.push(F({ name: "Crumb", dir: "H", gap: "space/1.5", px: i === 0 ? 6 : 8, h: 28, cross: "center", radius: "radius/md", fill: last ? "bg-active" : undefined }, [
-            i === 0 ? I("home", 18, "text-tertiary") : T(label, { style: "Text sm/Medium", color: last ? "text-secondary" : "text-tertiary" }),
+          // k-breadcrumb__link: ۴/۸ (آیکون ۴/۶)، گوشهٔ ۸، متن Semibold؛ صفحهٔ فعلی bg-active
+          kids.push(F({ name: "Crumb", dir: "H", gap: "space/1.5", px: i === 0 ? 6 : 8, py: 4, h: 28, cross: "center", radius: "radius/md", fill: last ? "bg-active" : undefined,
+            css: last ? undefined : i === 0 ? "k-breadcrumb__link k-breadcrumb__link--icon" : "k-breadcrumb__link", cssCheck: ["pad", "radius", "gap", "bg", "h"] }, [
+            i === 0 ? I("home", 18, "text-tertiary") : T(label, { style: "Tight sm/Semibold", color: last ? "text-primary" : "text-tertiary", css: last ? undefined : "k-breadcrumb__text" }),
           ]));
         });
         return F({ name: "Breadcrumb", dir: "H", gap: "space/1", cross: "center" }, kids);
@@ -2763,9 +2935,9 @@ function buildNavigation() {
     componentSet(h, "Pagination", {
       axes: { Type: ["Default", "Compact", "With tools"] },
       build: (p) => {
-        const page = (n, cur) => F({ name: "Page", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/md", fill: cur ? "bg-active" : undefined }, [T(n, { style: cur ? "Text sm/Semibold" : "Text sm/Medium", color: cur ? "text-primary" : "text-tertiary", align: "center" })]);
+        const page = (n, cur) => F({ name: "Page", dir: "H", w: 40, h: 40, px: n === "…" ? 0 : 8, align: "center", cross: "center", radius: "radius/md", fill: cur ? "bg-active" : undefined, css: cur || n === "…" ? undefined : "k-pagination__page", cssCheck: ["padx", "radius", "bg"] }, [T(n, { style: cur ? "Text sm/Semibold" : "Text sm/Medium", color: cur ? "text-primary" : n === "…" ? "text-quaternary" : "text-tertiary", align: "center" })]);
         if (p.Type === "Compact") return F({ name: "Pagination", dir: "H", gap: "space/3", cross: "center" }, [button({ variant: "Secondary", size: "sm", iconOnly: "arrow-right" }), T("صفحهٔ ۳ از ۱۰", { style: "Text sm/Medium", color: "text-secondary" }), button({ variant: "Secondary", size: "sm", iconOnly: "arrow-left" })]);
-        const row = F({ name: "Pagination", dir: "H", gap: "space/3", w: 720, align: "between", cross: "center", pt: "space/3", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
+        const row = F({ name: "Pagination", dir: "H", gap: "space/3", w: 720, align: "between", cross: "center" }, [
           button({ variant: "Secondary", size: "sm", label: "قبلی", iconStart: "arrow-right" }),
           F({ name: "Pages", dir: "H", gap: 2 }, [page("۱"), page("۲"), page("۳", true), page("…"), page("۸"), page("۹"), page("۱۰")]),
           button({ variant: "Secondary", size: "sm", label: "بعدی", iconEnd: "arrow-left" }),
@@ -2773,7 +2945,7 @@ function buildNavigation() {
         if (p.Type === "Default") return row;
         return F({ name: "Pagination", dir: "V", gap: "space/3", w: 720 }, [
           row,
-          F({ name: "Tools", dir: "H", gap: "space/4", w: "fill", cross: "center" }, [
+          F({ name: "Tools", dir: "H", gap: "space/4", w: "fill", cross: "center", pt: "space/3", stroke: "border-secondary", sides: [1, 0, 0, 0], css: "k-pagination__tools", cssCheck: ["pad", "gap", "border"] }, [
             F({ dir: "H", gap: "space/2", cross: "center" }, [T("نمایش", { style: "Text sm/Regular", color: "text-tertiary" }), inputBox({ size: "sm", text: "۲۰", w: 80, end: [I("chevron-down", 16, "text-tertiary")] }), T("در هر صفحه", { style: "Text sm/Regular", color: "text-tertiary" })]),
             F({ dir: "H", gap: "space/2", cross: "center" }, [T("برو به صفحه", { style: "Text sm/Regular", color: "text-tertiary" }), inputBox({ size: "sm", text: "۳", w: 72 })]),
             Spacer(),
@@ -2788,10 +2960,12 @@ function buildNavigation() {
 
   safe("Stepper", () => section(root, "Stepper · مراحل", "مراحل افقی یا عمودی با وضعیت تمام‌شده، فعلی و آینده.", (h) => {
     const steps = [["اطلاعات حساب", "نام و ایمیل"], ["آدرس", "محل تحویل"], ["پرداخت", "درگاه بانکی"], ["تأیید", "بازبینی سفارش"]];
+    // k-steps__marker: ۳۲ پیکسل با حاشیهٔ ۲؛ مرحلهٔ تمام‌شده تیک، فعلی شماره با حلقهٔ برند، بعدی شمارهٔ کم‌رنگ
     const marker = (i, cur) => {
       const done = i < cur, now = i === cur;
-      return F({ name: "Marker", dir: "H", w: 32, h: 32, align: "center", cross: "center", radius: "radius/full", fill: done ? "bg-brand" : now ? "bg-brand-subtle" : "bg-primary", stroke: done ? "bg-brand" : now ? "border-brand" : "border-secondary", sw: 2, shadow: now ? "Focus ring/brand" : undefined }, [
-        done ? I("check", 16, "text-on-brand") : now ? R({ ellipse: true, w: 10, h: 10, fill: "bg-brand", name: "Dot" }) : R({ ellipse: true, w: 10, h: 10, fill: "border-secondary", name: "Dot" }),
+      return F({ name: "Marker", dir: "H", w: 32, h: 32, align: "center", cross: "center", radius: "radius/full", fill: done ? "bg-brand" : "bg-primary", stroke: done ? "bg-brand" : now ? "border-brand" : "border-secondary", sw: 2, shadow: now ? "Focus ring/brand" : undefined,
+        css: done ? "k-steps__marker" : undefined, cssCheck: ["radius", "bg", "border", "h", "w"] }, [
+        done ? I("check", 16, "text-on-brand") : T(fa(i + 1), { style: "Text sm/Semibold", color: now ? "text-brand" : "text-tertiary", align: "center" }),
       ]);
     };
     componentSet(h, "Stepper", {
@@ -2806,15 +2980,15 @@ function buildNavigation() {
                 marker(i, cur),
                 R({ w: 10, h: 2, fill: i === steps.length - 1 ? undefined : i < cur ? "bg-brand" : "border-secondary", grow: true, name: "Line" }),
               ]),
-              T(t, { style: "Text sm/Semibold", color: i === cur ? "text-brand" : "text-secondary", align: "center" }),
-              T(d, { style: "Text xs/Regular", color: "text-tertiary", align: "center" }),
+              T(t, { style: "Text sm/Semibold", color: i === cur ? "text-brand" : i > cur ? "text-tertiary" : "text-secondary", align: "center", css: i < cur ? "k-steps__title" : undefined }),
+              T(d, { style: "Text xs/Regular", color: "text-tertiary", align: "center", css: "k-steps__description" }),
             ]),
           ));
         }
         return F({ name: "Stepper", dir: "V", gap: 0, w: 280 }, steps.map(([t, d], i) =>
           F({ name: "Step", dir: "H", gap: "space/3", w: "fill", cross: "start" }, [
             F({ dir: "V", gap: 4, cross: "center" }, [marker(i, cur), i < steps.length - 1 && R({ w: 2, h: 28, radius: 1, fill: i < cur ? "bg-brand" : "border-secondary", name: "Line" })]),
-            F({ dir: "V", gap: 0, pt: 4 }, [T(t, { style: "Text sm/Semibold", color: i === cur ? "text-brand" : "text-secondary" }), T(d, { style: "Text sm/Regular", color: "text-tertiary" })]),
+            F({ dir: "V", gap: 0, pt: 4 }, [T(t, { style: "Text sm/Semibold", color: i === cur ? "text-brand" : i > cur ? "text-tertiary" : "text-secondary" }), T(d, { style: "Text xs/Regular", color: "text-tertiary" })]),
           ]),
         ));
       },
@@ -2829,7 +3003,8 @@ function buildNavigation() {
       build: (p) => {
         const collapsed = p.State === "Collapsed";
         const items = [["home", "داشبورد", true], ["chart", "گزارش‌ها"], ["users", "مشتریان", false, "۱۲"], ["credit-card", "پرداخت‌ها"], ["folder", "پروژه‌ها"], ["settings", "تنظیمات"]];
-        const item = ([icon, label, on, count]) => F({ name: "Nav item", dir: "H", gap: "space/3", h: 40, px: collapsed ? 0 : "space/3", w: collapsed ? 40 : "fill", align: collapsed ? "center" : "start", cross: "center", radius: "radius/md", fill: on ? "bg-active" : undefined }, [
+        const item = ([icon, label, on, count]) => F({ name: "Nav item", dir: "H", gap: "space/3", h: 40, px: collapsed ? 0 : "space/3", w: collapsed ? 40 : "fill", align: collapsed ? "center" : "start", cross: "center", radius: "radius/md", fill: on ? "bg-active" : undefined,
+          css: on && !collapsed ? "k-sidenav__item" : undefined, cssCheck: ["padx", "radius", "gap", "bg", "h"] }, [
           I(icon, 20, on ? "text-primary" : "text-tertiary"),
           !collapsed && T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-secondary", grow: true }),
           !collapsed && count && badge({ tone: "Neutral", size: "sm", label: count, dot: false }),
@@ -2912,12 +3087,12 @@ function buildNavigation() {
       axes: { Orientation: ["Horizontal", "Vertical"] },
       build: (p) => {
         const hz = p.Orientation === "Horizontal";
-        const pane = (label) => F({ name: "Pane", dir: "V", grow: true, align: "center", cross: "center", fill: "bg-secondary", w: hz ? undefined : "fill", h: hz ? "fill" : undefined }, [T(label, { style: "Text sm/Medium", color: "text-tertiary" })]);
-        return F({ name: "Splitter", dir: hz ? "H" : "V", gap: 0, w: 480, h: 220, radius: "radius/xl", stroke: "border-secondary", clip: true }, [
-          pane("فهرست"),
-          F({ name: "Handle", dir: hz ? "V" : "H", w: hz ? 9 : "fill", h: hz ? "fill" : 9, align: "center", cross: "center", fill: "bg-primary", stroke: "border-secondary", sides: hz ? [0, 1, 0, 1] : [1, 0, 1, 0] }, [R({ w: hz ? 3 : 24, h: hz ? 24 : 3, radius: "radius/full", fill: "border-primary", name: "Grip" })]),
-          pane("جزئیات"),
+        // k-splitter: خط ۱ پیکسلی با دستگیرهٔ ۶×۳۲ وسط آن
+        const pane = (label) => F({ name: "Pane", dir: "V", grow: true, p: "space/2", align: "center", cross: "center", w: hz ? undefined : "fill", h: hz ? "fill" : undefined, css: "k-splitter__pane", cssCheck: ["pad"] }, [T(label, { style: "Text sm/Medium", color: "text-tertiary" })]);
+        const handle = F({ name: "Handle", dir: hz ? "V" : "H", w: hz ? 1 : "fill", h: hz ? "fill" : 1, align: "center", cross: "center", fill: "border-secondary", css: "k-splitter__handle", cssCheck: ["bg"] }, [
+          R({ w: hz ? 6 : 32, h: hz ? 32 : 6, radius: "radius/full", fill: "bg-elevated", stroke: "border-primary", name: "Grip" }),
         ]);
+        return F({ name: "Splitter", dir: hz ? "H" : "V", gap: 0, w: 480, h: 220, radius: "radius/xl", stroke: "border-secondary", clip: true, css: "k-splitter" }, [pane("فهرست"), handle, pane("جزئیات")]);
       },
       docs: "splitter",
     });

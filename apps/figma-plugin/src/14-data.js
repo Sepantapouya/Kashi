@@ -9,17 +9,20 @@ const BADGE_TONES = {
   Error: { fg: "text-error", bg: "bg-error-subtle" },
 };
 
-function badge({ tone = "Neutral", variant = "Soft", size = "md", label = "فعال", dot = true } = {}) {
+function badge({ tone = "Neutral", variant = "Soft", size = "md", label = "فعال", dot = true, removable = false } = {}) {
   const t = BADGE_TONES[tone];
   const solid = variant === "Solid";
   const outline = variant === "Outline";
   const fg = solid ? "bg-primary" : t.fg;
   return F({
-    name: "Badge", dir: "H", gap: "space/1", px: { sm: 8, md: 10, lg: 12 }[size], h: { sm: 24, md: 27, lg: 31 }[size], cross: "center",
+    name: "Badge", dir: "H", gap: "space/1", px: { sm: 8, md: 10, lg: 12 }[size], pe: removable ? 4 : undefined, h: { sm: 24, md: 27, lg: 31 }[size], cross: "center",
     radius: "radius/full", fill: solid ? t.fg : outline ? undefined : t.bg, stroke: solid ? undefined : t.fg, strokeOpacity: outline ? 0.45 : 0.2,
+    css: ["k-badge", tone !== "Neutral" && `k-badge--${tone.toLowerCase()}`, size !== "md" && `k-badge--${size}`, variant !== "Soft" && `k-badge--${variant.toLowerCase()}`, removable && "k-badge--removable"].filter(Boolean).sort().join(" "),
+    cssCheck: ["pad", "radius", "gap", "bg", "h"],
   }, [
     (() => { const d = R({ ellipse: true, w: 6, h: 6, fill: fg, name: "Dot" }); d.visible = dot; return d; })(),
     T(label, { style: size === "sm" ? "Text xs/Medium" : "Text sm/Medium", color: fg, name: "Label" }),
+    removable && F({ name: "Remove", dir: "H", w: 18, h: 18, align: "center", cross: "center", radius: "radius/full" }, [I("close", 12, fg)]),
   ]);
 }
 
@@ -31,12 +34,13 @@ function avatar({ size = "md", type = "Initials", tone = "Neutral", status, init
   if (type === "Initials") kids.push(T(initials, { style: "Text sm/Semibold", color: t.fg, align: "center", size: Math.round(s * 0.34), weight: "semibold", leading: 1 }));
   else if (type === "Icon") kids.push(I("user", Math.round(s * 0.5), "text-tertiary"));
   else kids.push(R({ w: s, h: s, fill: "firoozeh/700", name: "Photo" }));
-  const a = F({ name: "Avatar", dir: "H", w: s, h: s, align: "center", cross: "center", radius: "radius/full", fill: type === "Initials" ? t.bg : "bg-tertiary", stroke: "text-primary", strokeOpacity: 0.08, clip: type === "Image" }, kids);
+  const a = F({ name: "Avatar", dir: "H", w: s, h: s, align: "center", cross: "center", radius: "radius/full", fill: type === "Initials" ? t.bg : "bg-tertiary", stroke: "text-primary", strokeOpacity: 0.08, clip: type === "Image",
+    css: type === "Initials" ? ["k-avatar", size !== "md" && `k-avatar--${size}`, tone !== "Neutral" && `k-avatar--${tone.toLowerCase()}`].filter(Boolean).sort().join(" ") : undefined, cssCheck: ["radius", "bg", "h", "w"] }, kids);
   if (!status) return a;
   const dot = Math.max(8, Math.round(s * 0.28));
   return F({ name: "Avatar", dir: "none", w: s, h: s }, [
     (() => { SIZING.set(a, { x: 0, y: 0 }); return a; })(),
-    R({ ellipse: true, w: dot, h: dot, fill: { Online: "text-success", Busy: "text-error", Away: "text-warning" }[status], stroke: "bg-primary", sw: 2, name: "Status", x: s - dot, y: s - dot }),
+    R({ ellipse: true, w: dot, h: dot, fill: { Online: "text-success", Busy: "text-error", Away: "text-warning" }[status], stroke: "bg-primary", sw: 2, name: "Status", x: s - dot, y: s - dot, css: `k-avatar__status k-avatar__status--${status === "Online" ? "online" : status === "Busy" ? "busy" : "away"}`, cssCheck: ["bg", "border"] }),
   ]);
 }
 
@@ -45,12 +49,13 @@ function card({ variant = "Default", padding = "md", title = "گزارش ماه�
   const stroke = variant === "Default" || variant === "Flat" ? "border-secondary" : variant === "Elevated" ? "border-secondary" : undefined;
   const shadow = variant === "Elevated" ? "Elevated" : variant === "Default" ? "Surface" : variant === "Flat" ? "highlight-only" : undefined;
   const pad = `card/padding/${padding}`;
-  return F({ name: "Card", dir: "V", gap: 0, w, radius: "radius/xl", fill, stroke, shadow, clip: true }, [
+  const cardCss = { Default: "k-card", Filled: "k-card k-card--filled" }[variant];
+  return F({ name: "Card", dir: "V", gap: 0, w, radius: "radius/xl", fill, stroke, shadow, clip: true, css: padding === "md" ? cardCss : undefined, cssCheck: ["radius", "bg", "border"] }, [
     media && R({ w, h: 160, fill: "bg-tertiary", name: "Media" }),
     F({ name: "Header", dir: "H", gap: "space/4", p: pad, w: "fill", cross: "start" }, [
       F({ name: "Heading", dir: "V", gap: "space/1", grow: true }, [
-        T(title, { style: "Display lg/Semibold", color: "text-primary", name: "Title" }),
-        T(description, { style: "Text sm/Regular", color: "text-tertiary", name: "Description" }),
+        T(title, { style: "Display lg/Semibold", color: "text-primary", name: "Title", css: "k-card__title" }),
+        T(description, { style: "Text sm/Regular", color: "text-tertiary", name: "Description", css: "k-card__description" }),
       ]),
       I("more-vertical", 20, "text-quaternary"),
     ]),
@@ -151,15 +156,24 @@ function buildData() {
         const c = { Up: "text-success", Down: "text-error", Neutral: "text-tertiary" }[p.Trend];
         const pts = { Up: [6, 10, 8, 14, 12, 18, 22], Down: [20, 18, 19, 13, 14, 9, 6], Neutral: [12, 13, 11, 12, 13, 12, 12] }[p.Trend];
         const spark = F({ name: "Sparkline", dir: "H", gap: 4, cross: "end", h: 40 }, pts.map((v) => R({ w: 8, h: v + 4, radius: 2, fill: c, fillOpacity: 0.7, name: "Bar" })));
-        return F({ name: "Stat card", dir: "V", gap: "space/4", p: "space/6", w: 300, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Shadow/xs" }, [
-          F({ dir: "H", w: "fill", align: "between", cross: "center" }, [T("درآمد ماهانه", { style: "Text sm/Medium", color: "text-tertiary", name: "Label" }), I("more-vertical", 18, "text-quaternary")]),
-          F({ dir: "H", w: "fill", align: "between", cross: "end" }, [
-            F({ dir: "V", gap: "space/2" }, [
-              F({ dir: "H", gap: "space/1", cross: "baseline" }, [T("۴۸٫۲", { style: "Display 2xl/Semibold", color: "text-primary", name: "Value" }), T("میلیون تومان", { style: "Text sm/Regular", color: "text-tertiary" })]),
-              F({ dir: "H", gap: "space/1", cross: "center" }, [
-                F({ dir: "H", px: 6, h: 22, gap: 2, cross: "center", radius: "radius/full", fill: { Up: "bg-success-subtle", Down: "bg-error-subtle", Neutral: "bg-tertiary" }[p.Trend] }, [T({ Up: "↑ ۱۲٪", Down: "↓ ۸٪", Neutral: "۰٪" }[p.Trend], { style: "Text xs/Semibold", color: c })]),
-                T("نسبت به ماه قبل", { style: "Text sm/Regular", color: "text-tertiary" }),
+        // k-stat: فاصلهٔ ۲۰/۲۴؛ سربرگ با آیکون ۴۰، عدد ۳۰ پیکسلی با واحد، نشان روند و نمودار کوچک
+        const trendCss = { Up: "k-trend k-trend--up", Down: "k-trend k-trend--down", Neutral: undefined }[p.Trend];
+        return F({ name: "Stat card", dir: "V", gap: "space/4", py: "space/5", px: "space/6", w: 300, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Surface", css: "k-stat" }, [
+          F({ name: "Head", dir: "H", gap: "space/3", w: "fill", cross: "center", css: "k-stat__head", cssCheck: ["gap"] }, [
+            F({ name: "Icon", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/lg", fill: "bg-primary", stroke: "border-primary", shadow: "Button", css: "k-stat__icon", cssCheck: ["radius", "bg", "border"] }, [I("wallet", 20, "text-secondary")]),
+            T("درآمد ماهانه", { style: "Text sm/Medium", color: "text-secondary", name: "Label", grow: true }),
+            I("more-vertical", 18, "text-quaternary"),
+          ]),
+          F({ name: "Value", dir: "H", gap: "space/1.5", cross: "baseline", css: "k-stat__value", cssCheck: ["gap"] }, [
+            T("۴۸٫۲", { style: "Display 3xl/Semibold", color: "text-primary", name: "Value", css: "k-stat__value" }),
+            T("میلیون", { style: "Text sm/Medium", color: "text-tertiary", name: "Unit", css: "k-stat__unit" }),
+          ]),
+          F({ name: "Foot", dir: "H", gap: "space/2", w: "fill", align: "between", cross: "end" }, [
+            F({ dir: "H", gap: "space/2", cross: "center", css: "k-stat__foot", cssCheck: ["gap"] }, [
+              F({ name: "Trend", dir: "H", gap: 2, pt: 2, pb: 2, ps: 8, pe: 6, cross: "center", radius: "radius/full", fill: { Up: "bg-success-subtle", Down: "bg-error-subtle", Neutral: "bg-tertiary" }[p.Trend], css: trendCss, cssCheck: ["pad", "radius", "gap", "bg"] }, [
+                T({ Up: "↑ ۱۲٪", Down: "↓ ۸٪", Neutral: "۰٪" }[p.Trend], { style: "Text xs/Semibold", color: c, css: trendCss }),
               ]),
+              T("نسبت به ماه قبل", { style: "Text sm/Regular", color: "text-tertiary" }),
             ]),
             spark,
           ]),
@@ -183,31 +197,32 @@ function buildData() {
       axes: { Style: ["Default", "Striped", "Selectable"] },
       build: (p) => {
         const sel = p.Style === "Selectable";
-        const cell = (w, kids, o = {}) => F(Object.assign({ name: "Cell", dir: "H", gap: "space/3", w, px: "space/6", h: o.head ? 44 : 64, cross: "center" }, o), kids);
+        // k-table: خانه‌ها ۱۲/۲۴؛ سربرگ ۱۲ پیکسلی Semibold روی bg-secondary
+        const cell = (w, kids, o = {}) => F(Object.assign({ name: "Cell", dir: "H", gap: "space/3", w, px: "space/6", py: "space/3", h: o.head ? undefined : 57, cross: "center" }, o), kids);
         const header = F({ name: "Header row", dir: "H", gap: 0, w: "fill", fill: "bg-secondary", stroke: "border-secondary", sides: [0, 0, 1, 0] }, [
           sel && cell(56, [checkMark("checkbox", { checked: "Indeterminate", size: 18 })], { head: true, ps: 24, px: 0 }),
-          ...cols.map(([c, w]) => cell(w, [T(c, { style: "Text xs/Medium", color: "text-tertiary" })], { head: true })),
+          ...cols.map(([c, w]) => cell(w, [T(c || " ", { style: "Text xs/Semibold", color: "text-tertiary", css: c ? "k-table__num" : undefined })], { head: true })),
         ]);
         const body = rows.map((r, i) => F({ name: "Row", dir: "H", gap: 0, w: "fill", fill: sel && i === 1 ? "bg-brand-subtle" : p.Style === "Striped" && i % 2 ? "bg-secondary" : undefined, stroke: "border-secondary", sides: i < rows.length - 1 ? [0, 0, 1, 0] : [0, 0, 0, 0] }, [
           sel && cell(56, [checkMark("checkbox", { checked: i === 1 ? "On" : "Off", size: 18 })], { ps: 24, px: 0 }),
           cell(cols[0][1], [avatar({ size: "sm", tone: ["Brand", "Info", "Success", "Warning"][i], initials: r[0].slice(0, 2) }), T(r[0], { style: "Text sm/Medium", color: "text-primary" })]),
           cell(cols[1][1], [badge({ tone: r[1], size: "sm", label: statusLabel[r[1]] })]),
-          cell(cols[2][1], [T(r[2], { style: "Text sm/Regular", color: "text-tertiary" })]),
+          cell(cols[2][1], [T(r[2], { style: "Text sm/Regular", color: "text-tertiary" })], { align: "end" }),
           cell(cols[3][1], [T(r[3], { style: "Text sm/Regular", color: "text-tertiary" })]),
           cell(cols[4][1], [I("more-vertical", 18, "text-quaternary")], { px: 16 }),
         ]));
         const totalW = cols.reduce((a, [, w]) => a + w, 0) + (sel ? 56 : 0);
-        return F({ name: "Table", dir: "V", gap: 0, w: totalW, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", clip: true }, [
+        return F({ name: "Table", dir: "V", gap: 0, w: totalW, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Surface", clip: true, css: "k-table-wrap" }, [
           F({ name: "Caption", dir: "H", gap: "space/4", pt: "space/5", pb: "space/4", px: "space/6", w: "fill", cross: "start" }, [
             F({ dir: "V", gap: "space/1", grow: true }, [
-              F({ dir: "H", gap: "space/2", cross: "center" }, [T("تراکنش‌ها", { style: "Text lg/Semibold", color: "text-primary", name: "Title" }), badge({ tone: "Brand", size: "sm", label: "۱۲۸ مورد", dot: false })]),
-              T("پرداخت‌های ۳۰ روز گذشته", { style: "Text sm/Regular", color: "text-tertiary" }),
+              F({ dir: "H", gap: "space/2", cross: "center" }, [T("تراکنش‌ها", { style: "Text lg/Semibold", color: "text-primary", name: "Title", css: "k-table__caption-title" }), badge({ tone: "Brand", size: "sm", label: "۱۲۸ مورد", dot: false })]),
+              T("پرداخت‌های ۳۰ روز گذشته", { style: "Text sm/Regular", color: "text-tertiary", css: "k-table__caption-desc" }),
             ]),
             button({ variant: "Secondary", size: "sm", label: "خروجی اکسل", iconStart: "download" }),
           ]),
           header,
           ...body,
-          F({ name: "Footer", dir: "H", py: "space/3", px: "space/6", w: "fill", align: "between", cross: "center", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
+          F({ name: "Footer", dir: "H", py: "space/3", px: "space/6", w: "fill", align: "between", cross: "center", stroke: "border-secondary", sides: [1, 0, 0, 0], css: "k-table__footer", cssCheck: ["pad"] }, [
             button({ variant: "Secondary", size: "sm", label: "قبلی", iconStart: "arrow-right" }),
             T("صفحهٔ ۱ از ۱۰", { style: "Text sm/Medium", color: "text-secondary" }),
             button({ variant: "Secondary", size: "sm", label: "بعدی", iconEnd: "arrow-left" }),
@@ -224,12 +239,13 @@ function buildData() {
       build: () => {
         const items = [["سفارش ثبت شد", "۲ ساعت پیش", "cart", "Brand"], ["پرداخت تأیید شد", "۱ ساعت پیش", "credit-card", "Success"], ["در حال ارسال", "۱۵ دقیقه پیش", "send", "Info"], ["تحویل", "در انتظار", "home", null]];
         return F({ name: "Timeline", dir: "V", gap: 0, w: 320 }, items.map(([title, time, icon, tone], i) =>
-          F({ name: "Item", dir: "H", gap: "space/3", w: "fill", cross: "start" }, [
-            F({ name: "Rail", dir: "V", gap: 4, cross: "center" }, [
-              tone ? featuredIcon(icon, tone, 32) : F({ dir: "H", w: 32, h: 32, align: "center", cross: "center", radius: "radius/full", stroke: "border-primary", dash: [3, 3] }, [I(icon, 16, "text-quaternary")]),
-              i < items.length - 1 && R({ w: 2, h: 28, radius: 1, fill: tone ? "border-primary" : "border-secondary", name: "Line" }),
+          // k-timeline__item: نشانگر ۳۲، فاصلهٔ ۱۲، بدنه با pt 4 و gap 4، خط اتصال پشت نشانگرها
+          F({ name: "Item", dir: "H", gap: "space/3", w: "fill", cross: "start", pb: i < items.length - 1 ? "space/6" : 0 }, [
+            F({ name: "Rail", dir: "V", gap: 0, cross: "center", h: "fill" }, [
+              tone ? featuredIcon(icon, tone, 32) : F({ dir: "H", w: 32, h: 32, align: "center", cross: "center", radius: "radius/full", fill: "bg-tertiary" }, [I(icon, 16, "text-quaternary")]),
+              i < items.length - 1 && R({ w: 2, h: 24, fill: "border-secondary", name: "Line", grow: true }),
             ]),
-            F({ dir: "V", gap: 0, pt: 4 }, [T(title, { style: "Text sm/Semibold", color: tone ? "text-primary" : "text-tertiary" }), T(time, { style: "Text sm/Regular", color: "text-tertiary" })]),
+            F({ name: "Body", dir: "V", gap: "space/1", pt: "space/1", css: "k-timeline__body", cssCheck: ["pad", "gap"] }, [T(title, { style: "Text sm/Regular", color: "text-secondary", css: "k-timeline__title" }), T(time, { style: "Text xs/Regular", color: "text-tertiary", css: "k-timeline__time" })]),
           ]),
         ));
       },
@@ -242,10 +258,11 @@ function buildData() {
       build: () => {
         const items = [[0, "folder", "packages", true], [1, "folder", "react", true], [2, "file", "Button.tsx"], [2, "file", "Input.tsx", false, true], [1, "folder", "persian"], [0, "file", "package.json"]];
         return F({ name: "Tree", dir: "V", gap: 2, p: "space/2", w: 280, radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary" }, items.map(([lvl, icon, label, open, sel]) =>
-          F({ name: "Node", dir: "H", gap: "space/1.5", h: 32, ps: 8 + lvl * 20, pe: 8, w: "fill", cross: "center", radius: "radius/md", fill: sel ? "bg-brand-subtle" : undefined }, [
-            icon === "folder" ? I(open ? "chevron-down" : "chevron-left", 16, "text-quaternary") : R({ w: 16, h: 16, name: "Indent" }),
-            I(icon, 18, sel ? "text-brand" : icon === "folder" ? "zafaran/400" : "text-tertiary"),
-            T(label, { style: "Text sm/Medium", color: sel ? "text-brand" : "text-secondary", ltr: true }),
+          // k-tree__row: ارتفاع ۳۶، فاصلهٔ ۸ و ۶، دکمهٔ باز و بسته ۲۰، آیکون ۱۸
+          F({ name: "Node", dir: "H", gap: "space/1.5", h: 36, ps: 8 + lvl * 20, pe: 8, w: "fill", cross: "center", radius: "radius/md", fill: sel ? "bg-brand-subtle" : undefined, css: !sel && lvl === 0 ? "k-tree__row" : undefined, cssCheck: ["radius", "gap", "bg", "h"] }, [
+            F({ name: "Toggle", dir: "H", w: 20, h: 20, align: "center", cross: "center" }, [icon === "folder" ? I(open ? "chevron-down" : "chevron-left", 16, "text-tertiary") : null]),
+            I(icon, 18, sel ? "text-brand" : "text-tertiary"),
+            T(label, { style: "Text sm/Medium", color: sel ? "text-brand" : "text-secondary", ltr: true, css: sel ? undefined : "k-tree__label" }),
           ]),
         ));
       },
@@ -253,17 +270,22 @@ function buildData() {
     });
   }));
 
-  safe("Accordion", () => section(root, "Accordion · آکاردئون", "پرسش‌های متداول؛ یک یا چند بخش باز.", (h) => {
-    componentSet(h, "Accordion item", {
+  safe("Accordion", () => section(root, "Accordion · آکاردئون", "پرسش‌های متداول در یک کارت؛ یک یا چند بخش باز.", (h) => {
+    const item = (q, a, open, last) => F({ name: "Item", dir: "V", gap: 0, w: "fill", stroke: last ? undefined : "border-secondary", sides: last ? undefined : [0, 0, 1, 0] }, [
+      // k-accordion__trigger: فاصلهٔ ۱۶/۲۰، متن ۱۵ Semibold
+      F({ name: "Trigger", dir: "H", gap: "space/4", py: "space/4", px: "space/5", w: "fill", align: "between", cross: "center", css: "k-accordion__trigger", cssCheck: ["pad", "gap"] }, [
+        T(q, { style: "Text md/Semibold", color: "text-primary", name: "Question", css: "k-accordion__trigger" }),
+        I("chevron-down", 20, "text-tertiary"),
+      ]),
+      open && F({ name: "Content", dir: "V", pt: 0, px: "space/5", pb: "space/5", w: "fill", css: "k-accordion__content", cssCheck: ["pad"] }, [T(a, { style: "Text md/Regular", color: "text-tertiary", w: "fill", name: "Answer" })]),
+    ]);
+    componentSet(h, "Accordion", {
       axes: { State: ["Collapsed", "Expanded"] },
-      build: (p) => {
-        const open = p.State === "Expanded";
-        return F({ name: "Accordion item", dir: "V", gap: "space/2", py: "space/4", w: 480, stroke: "border-secondary", sides: [0, 0, 1, 0] }, [
-          F({ name: "Trigger", dir: "H", w: "fill", align: "between", cross: "center" }, [T("کاشی رایگان است؟", { style: "Text md/Semibold", color: "text-primary", name: "Question" }), I(open ? "minus" : "plus", 20, "text-tertiary")]),
-          open && T("بله. کاشی متن‌باز و تحت مجوز MIT است و در پروژه‌های تجاری هم می‌توانید از آن استفاده کنید.", { style: "Text sm/Regular", color: "text-tertiary", w: "fill", name: "Answer" }),
-        ]);
-      },
-      text: { Question: ["Question", "کاشی رایگان است؟"] },
+      build: (p) => F({ name: "Accordion", dir: "V", gap: 0, w: 480, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Surface", clip: true, css: "k-accordion" }, [
+        item("کاشی رایگان است؟", "بله. کاشی متن‌باز و با مجوز MIT است و در پروژه‌های تجاری هم می‌توانید از آن استفاده کنید.", p.State === "Expanded", false),
+        item("با Vue هم کار می‌کند؟", "", false, false),
+        item("تقویم شمسی دارد؟", "", false, true),
+      ]),
       docs: "accordion",
     });
   }));
@@ -271,7 +293,7 @@ function buildData() {
   safe("Misc", () => section(root, "Kbd, Divider, Relative time · کلید، جداکننده، زمان نسبی", "اجزای کوچک پرکاربرد.", (h) => {
     componentSet(h, "Kbd", {
       axes: { Key: ["⌘", "Ctrl", "K", "Enter", "Esc"] },
-      build: (p) => F({ name: "Kbd", dir: "H", h: 22, px: 6, align: "center", cross: "center", radius: "radius/sm", fill: "bg-secondary", stroke: "border-primary", sides: [1, 1, 2, 1], minW: 22 }, [T(p.Key, { style: "Text xs/Medium", color: "text-secondary", ltr: true, align: "center" })]),
+      build: (p) => F({ name: "Kbd", dir: "H", h: 24, px: 6, align: "center", cross: "center", radius: "radius/sm", fill: "bg-secondary", stroke: "border-primary", sides: [1, 1, 2, 1], minW: 24, css: "k-kbd", cssCheck: ["padx", "radius", "bg", "h"] }, [T(p.Key, { style: "Text xs/Medium", color: "text-secondary", ltr: true, align: "center", css: "k-kbd" })]),
       docs: "kbd",
     });
     componentSet(h, "Divider", {
@@ -337,7 +359,7 @@ function buildData() {
           T("اسلاید ۲ از ۵", { style: "Text md/Semibold", color: "#ffffff" }),
           button({ variant: "Secondary", size: "sm", iconOnly: "chevron-left", pill: true }),
         ]),
-        F({ name: "Dots", dir: "H", gap: 6 }, [1, 2, 3, 4, 5].map((i) => R({ w: i === 2 ? 20 : 8, h: 8, radius: "radius/full", fill: i === 2 ? "bg-brand" : "bg-tertiary", name: "Dot" }))),
+        F({ name: "Dots", dir: "H", gap: 6, css: "k-carousel__dots", cssCheck: ["gap"] }, [1, 2, 3, 4, 5].map((i) => R({ w: i === 2 ? 24 : 8, h: 8, radius: "radius/full", fill: i === 2 ? "bg-brand" : "border-primary", name: "Dot", css: i === 2 ? "k-carousel__dot" : undefined, cssCheck: ["bg", "radius", "h", "w"] }))),
       ]),
       docs: "carousel",
     });

@@ -81,9 +81,18 @@ const BIND_FIELDS = ["width", "height", "itemSpacing", "counterAxisSpacing", "pa
 const AUTO_LAYOUT_ONLY = /^(layoutWrap|primaryAxis|counterAxis|itemSpacing|padding)/;
 
 /** ظاهر و فرزندان فریم تازه را به کامپوننت موجود منتقل می‌کند؛ شناسهٔ کامپوننت و instance ها می‌مانند */
+/** تبدیل فریم به کامپوننت با حفظ برچسب CSS (pluginData در تبدیل حفظ نمی‌شود) */
+function toComponent(frame) {
+  const css = frame.getPluginData("css");
+  const comp = figma.createComponentFromNode(frame);
+  if (css) comp.setPluginData("css", css);
+  return comp;
+}
+
 function updateComponent(comp, frame) {
   // اندازه را قبل از جابه‌جایی فرزندان می‌خوانیم؛ بعدش فریم خالی است
   const w = frame.width, h = frame.height;
+  comp.setPluginData("css", frame.getPluginData("css"));
   for (const ch of comp.children.slice()) ch.remove();
   for (const f of BIND_FIELDS) {
     if (comp.boundVariables && comp.boundVariables[f]) { try { comp.setBoundVariable(f, null); } catch (e) { /* */ } }
@@ -121,7 +130,7 @@ function upsertComponent(key, frame) {
     S.stats.updated++;
     comp = updateComponent(old, frame);
   } else {
-    comp = figma.createComponentFromNode(frame);
+    comp = toComponent(frame);
     S.stats.added++;
   }
   comp.setPluginData(KEY.set, key);
@@ -144,7 +153,7 @@ function componentSet(section, name, opts) {
   const comps = [];
   if (!wantSet) {
     const frame = opts.build({});
-    if (old) { node = updateComponent(old, frame); S.stats.updated++; } else { node = figma.createComponentFromNode(frame); S.stats.added++; }
+    if (old) { node = updateComponent(old, frame); S.stats.updated++; } else { node = toComponent(frame); S.stats.added++; }
     node.name = name;
     section.appendChild(node);
     comps.push(node);
@@ -156,7 +165,7 @@ function componentSet(section, name, opts) {
       const frame = opts.build(props);
       const vn = variantName(props);
       let comp;
-      if (byName[vn]) { comp = updateComponent(byName[vn], frame); delete byName[vn]; } else { comp = figma.createComponentFromNode(frame); comp.name = vn; }
+      if (byName[vn]) { comp = updateComponent(byName[vn], frame); delete byName[vn]; } else { comp = toComponent(frame); comp.name = vn; }
       comps.push(comp);
       S.stats.components++;
     }

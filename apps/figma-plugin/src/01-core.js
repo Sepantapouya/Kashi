@@ -20,11 +20,14 @@ const S = {
  */
 const TYPE_WEIGHTS = { Regular: "regular", Medium: "medium", Semibold: "semibold", Bold: "bold" };
 function typeSpec(name) {
-  const m = /^(Display|Text) ([0-9a-z]+)\/(\w+)$/.exec(name || "Text sm/Regular");
+  // Display: فونت عنوان، خط ۱٫۳۵ — Text: خط ۱٫۷۵ — Tight: فونت متن با خط ۱٫۳۵ (برچسب فیلد)
+  // Control: خط ثابت ۲۰ پیکسل (متن کنار چک‌باکس و سوییچ)
+  const m = /^(Display|Text|Tight|Control) ([0-9a-z]+)\/(\w+)$/.exec(name || "Text sm/Regular");
   if (!m) throw new Error(`Unknown type style: ${name}`);
-  const kind = m[1] === "Display" ? "display" : "text";
-  const leading = kind === "display" ? TOKENS.font.leading.tight : TOKENS.font.leading.normal;
-  return { kind, sizeKey: m[2], size: TOKENS.font.size[m[2]], weight: TYPE_WEIGHTS[m[3]], leading };
+  const kind = m[1].toLowerCase();
+  const size = TOKENS.font.size[m[2]];
+  const leading = kind === "text" ? TOKENS.font.leading.normal : kind === "control" ? 20 / size : TOKENS.font.leading.tight;
+  return { kind, sizeKey: m[2], size, weight: TYPE_WEIGHTS[m[3]], leading };
 }
 const TYPE_SCALE = []
   .concat(["6xl", "5xl", "4xl", "3xl", "2xl", "xl"].map((k) => `Display ${k}`), ["xl", "lg", "md", "sm", "xs"].map((k) => `Text ${k}`));
@@ -246,6 +249,7 @@ function F(o = {}, children = []) {
   setRadius(f, o.radius);
   effectStyle(f, o.shadow);
   if (o.opacity !== undefined) f.opacity = o.opacity;
+  tagCss(f, o);
 
   // RTL: در فیگما ترتیب افقی چپ‌به‌راست است، پس فرزندان را برعکس می‌چینیم
   const kids = children.flat(Infinity).filter(Boolean);
@@ -283,6 +287,7 @@ function sizeSelf(f, o, dir) {
       if (typeof H === "string" && S.vars[H]) bindNum(f, "height", H);
     }
     if (o.minW) f.minWidth = o.minW;
+    if (o.minH) f.minHeight = o.minH;
     if (o.maxW) f.maxWidth = o.maxW;
   }
   SIZING.set(f, { w: W, h: H, x: o.x, y: o.y, absolute: o.absolute, grow: o.grow });
@@ -323,9 +328,11 @@ function T(text, o = {}) {
   if (typeof o.w === "number") t.resize(o.w, t.height);
   if (o.maxLines) { t.textTruncation = "ENDING"; t.maxLines = o.maxLines; }
   if (o.decoration) t.textDecoration = o.decoration;
+  if (o.opacity !== undefined) t.opacity = o.opacity;
   if (o.highlight) t.setRangeFills(o.highlight[0], o.highlight[1], [paint("text-brand")]);
   if (o.letterSpacing) t.letterSpacing = { unit: "PERCENT", value: o.letterSpacing };
   if (!o.size && !o.weight && !o.leading) bindType(t, spec);
+  tagCss(t, o);
   SIZING.set(t, { w: o.w, h: o.h, x: o.x, y: o.y, absolute: o.absolute, grow: o.grow });
   return t;
 }
@@ -338,7 +345,7 @@ function bindType(node, spec) {
   bind("fontFamily", spec.kind === "display" ? "font/family/display" : "font/family/sans");
   bind("fontStyle", `font/weight/${spec.weight}`);
   bind("fontSize", `font/size/${spec.sizeKey}`);
-  bind("lineHeight", `font/line-height/${spec.kind}-${spec.sizeKey}`);
+  bind("lineHeight", spec.kind === "control" ? "font/line-height/control" : `font/line-height/${spec.kind === "tight" ? "display" : spec.kind}-${spec.sizeKey}`);
 }
 
 /** مستطیل/بیضی ساده */
@@ -352,8 +359,17 @@ function R(o = {}) {
   if (o.ellipse && o.arc) r.arcData = o.arc;
   if (o.rotation) r.rotation = o.rotation;
   effectStyle(r, o.shadow);
+  tagCss(r, o);
   SIZING.set(r, { w: o.fillW ? "fill" : undefined, h: o.fillH ? "fill" : undefined, x: o.x, y: o.y, absolute: o.absolute, grow: o.grow });
   return r;
+}
+
+/**
+ * کلاس CSS متناظر برای تست هم‌خوانی پیکسلی (test/css-metrics.json).
+ * css: "k-badge k-badge--success" — cssCheck: فهرست ویژگی‌هایی که مقایسه می‌شوند (پیش‌فرض همه به‌جز ارتفاع)
+ */
+function tagCss(node, o) {
+  if (o.css) node.setPluginData("css", JSON.stringify({ key: o.css, check: o.cssCheck || null }));
 }
 
 /** جای خالی منعطف */

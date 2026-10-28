@@ -13,45 +13,50 @@ function inputBox({ size = "md", state = "Default", text = "", placeholder = "م
   const kids = [];
   if (iconStart) kids.push(I(iconStart, 20, "text-quaternary"));
   kids.push(...start);
-  kids.push(T(text || placeholder, { style: size === "sm" ? "Text sm/Regular" : "Text md/Regular", color: valueColor, name: "Value", grow: true, ltr, w: "fill", maxLines: 1 }));
+  kids.push(T(text || placeholder, { style: "Text md/Regular", color: valueColor, name: "Value", grow: true, ltr, w: "fill", maxLines: 1, css: "k-input__control", cssCheck: ["font"] }));
   kids.push(...end);
+  const plain = state === "Default" && !h;
   return F({
     name, dir: "H", gap: "space/2", px: "input/padding", h: h || `input/height/${size}`, w, cross: "center",
     radius: "radius/md", fill: disabled ? "bg-secondary" : "bg-primary", stroke, shadow,
+    css: plain && size !== "lg" ? (size === "sm" ? "k-input k-input--sm" : "k-input") : undefined, cssCheck: ["padx", "radius", "gap", "bg", "border", "h"],
   }, kids);
 }
 
 /** برچسب، کنترل و متن راهنما */
 function field({ label = "برچسب", hint, error, optional, required, control, w = FIELD_W, labelEnd }) {
-  const labelRow = F({ name: "Label row", dir: "H", gap: "space/1", w: "fill", cross: "center" }, [
-    T(label, { style: "Text sm/Medium", color: "text-secondary", name: "Label" }),
-    required && T("*", { style: "Text sm/Medium", color: "text-error", name: "Required" }),
-    optional && T("(اختیاری)", { style: "Text sm/Regular", color: "text-quaternary", name: "Optional" }),
+  // برچسب و راهنما در CSS خط ۱٫۳۵ دارند (k-label، k-hint)
+  const labelRow = F({ name: "Label row", dir: "H", gap: "space/3", w: "fill", cross: "center", css: "k-field__label-row", cssCheck: ["gap"] }, [
+    F({ name: "Label group", dir: "H", gap: "space/1", cross: "center" }, [
+      T(label, { style: "Tight sm/Medium", color: "text-secondary", name: "Label", css: "k-label" }),
+      required && T("*", { style: "Tight sm/Medium", color: "text-error", name: "Required", css: "k-label__required" }),
+      optional && T("اختیاری", { style: "Tight sm/Regular", color: "text-tertiary", name: "Optional", css: "k-label__optional" }),
+    ]),
     labelEnd && Spacer(),
     labelEnd,
   ]);
-  const hintNode = (hint || error) && F({ name: "Hint row", dir: "H", gap: "space/1.5", w: "fill", cross: "start" }, [
-    error && I("error", 16, "text-error"),
-    T(error || hint, { style: "Text sm/Regular", color: error ? "text-error" : "text-tertiary", name: "Hint", grow: true, w: "fill" }),
+  const hintNode = (hint || error) && F({ name: "Hint row", dir: "H", gap: "space/3", w: "fill", cross: "start", css: "k-field__hint-row", cssCheck: ["gap"] }, [
+    T(error || hint, { style: "Tight sm/Regular", color: error ? "text-error" : "text-tertiary", name: "Hint", grow: true, w: "fill", css: error ? "k-hint k-hint--error" : "k-hint" }),
   ]);
-  return F({ name: "Field", dir: "V", gap: "space/1.5", w }, [labelRow, control, hintNode]);
+  return F({ name: "Field", dir: "V", gap: "space/1.5", w, css: "k-field", cssCheck: ["gap"] }, [labelRow, control, hintNode]);
 }
 
 /** پنل فهرست کشویی (Listbox / Menu) */
 function listbox(items, { w = FIELD_W, active = 1, selected = 0, query } = {}) {
-  return F({ name: "Listbox", dir: "V", gap: 1, p: "space/1.5", w, radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" },
+  return F({ name: "Listbox", dir: "V", gap: 0, p: "space/1.5", w, radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" },
     items.map((it, i) => {
       const o = typeof it === "string" ? { label: it } : it;
       if (o.group) return T(o.group, { style: "Text xs/Semibold", color: "text-tertiary", name: "Group", w: "fill" });
       const on = i === selected;
       // گزینهٔ دوخطی ارتفاع ثابت ندارد تا متن‌ها روی هم نیفتند
-      return F({ name: "Option", dir: "H", gap: "space/2", h: o.description ? undefined : "menu/item-height", py: o.description ? 8 : undefined, px: 10, w: "fill", cross: "center", radius: "radius/md", fill: i === active ? "bg-hover" : undefined }, [
+      // k-option: حداقل ۴۰ پیکسل؛ گزینهٔ دوخطی بلندتر می‌شود
+      return F({ name: "Option", dir: "H", gap: "space/2", h: o.description ? undefined : 40, minH: 40, py: o.description ? 6 : undefined, px: 10, w: "fill", cross: "center", radius: "radius/md", fill: i === active ? "bg-hover" : undefined, css: i === active && !o.description ? "k-option" : undefined, cssCheck: ["padx", "radius", "gap", "bg", "h"] }, [
         o.icon && I(o.icon, 18, "text-tertiary"),
         o.logo && bankLogo(o.logo, 20),
         F({ name: "Body", dir: "V", gap: 0, grow: true }, [
           // بخش منطبق در همان یک متن رنگی می‌شود تا اتصال حروف فارسی نشکند
-          T(o.label, { style: "Text sm/Medium", color: o.disabled ? "text-quaternary" : on ? "text-primary" : "text-secondary", name: "Label", highlight: query && o.label.includes(query) ? [o.label.indexOf(query), o.label.indexOf(query) + query.length] : undefined }),
-          o.description && T(o.description, { style: "Text xs/Regular", color: "text-tertiary" }),
+          T(o.label, { style: on ? "Text sm/Semibold" : "Text sm/Regular", color: o.disabled ? "text-quaternary" : on || i === active ? "text-primary" : "text-secondary", name: "Label", highlight: query && o.label.includes(query) ? [o.label.indexOf(query), o.label.indexOf(query) + query.length] : undefined }),
+          o.description && T(o.description, { style: "Text xs/Regular", color: "text-tertiary", css: "k-option__desc" }),
         ]),
         o.shortcut && T(o.shortcut, { style: "Text xs/Regular", color: "text-quaternary", ltr: true }),
         on && I("check", 16, "text-brand"),
@@ -59,11 +64,20 @@ function listbox(items, { w = FIELD_W, active = 1, selected = 0, query } = {}) {
     }));
 }
 
-function tag(label, { removable = true, logo } = {}) {
-  return F({ name: "Tag", dir: "H", gap: "space/1", h: 26, ps: logo ? 4 : 8, pe: removable ? 4 : 8, cross: "center", radius: "radius/sm", fill: "bg-secondary", stroke: "border-primary" }, [
-    logo && bankLogo(logo, 16),
-    T(label, { style: "Text sm/Medium", color: "text-secondary" }),
-    removable && I("close", 14, "text-quaternary"),
+/** برچسب داخل TagInput و MultiSelect؛ در React همان Badge قابل حذف است */
+function tag(label, { tone = "Neutral" } = {}) {
+  return badge({ tone, label, dot: false, removable: true });
+}
+
+/** کادر چندبرچسبی (k-tag-input) */
+function tagBox({ state = "Default", tags = [], placeholder = "", end = [] }) {
+  const focus = state === "Focus";
+  return F({ name: "Tag input", dir: "H", wrap: true, gap: "space/1.5", rowGap: "space/1.5", py: 6, px: 10, w: "fill", minH: 40, cross: "center",
+    radius: "radius/md", fill: "bg-primary", stroke: focus ? "border-brand" : "border-input", shadow: focus ? "Input focus" : "Shadow/xs",
+    css: focus ? undefined : "k-tag-input" }, [
+    ...tags,
+    F({ name: "Control", dir: "H", p: 4, grow: true, cross: "center", css: "k-tag-input__control", cssCheck: ["pad"] }, [T(placeholder || " ", { style: "Text md/Regular", color: "text-quaternary", name: "Placeholder" })]),
+    ...end,
   ]);
 }
 
@@ -75,7 +89,8 @@ function checkMark(kind, { checked, state = "Default", size = 18 }) {
   const stroke = disabled ? "border-secondary" : on ? fill : state === "Hover" ? "border-brand" : "border-input";
   // در CSS چک‌باکس و رادیو سایهٔ xs دارند؛ در فوکوس حلقهٔ برند هم اضافه می‌شود
   const shadow = state === "Focus" ? "Input focus" : disabled ? undefined : "Shadow/xs";
-  const box = F({ name: isRadio ? "Radio" : "Checkbox", dir: "H", w: size, h: size, align: "center", cross: "center", radius: isRadio ? "radius/full" : "radius/checkbox", fill, stroke, shadow }, [
+  const box = F({ name: isRadio ? "Radio" : "Checkbox", dir: "H", w: size, h: size, align: "center", cross: "center", radius: isRadio ? "radius/full" : "radius/checkbox", fill, stroke, shadow,
+    css: on && state === "Default" && checked !== "Indeterminate" ? (isRadio ? "k-radio" : size === 20 ? "k-checkbox k-checkbox--lg" : "k-checkbox") : undefined, cssCheck: ["radius", "bg", "border", "h", "w"] }, [
     on && (isRadio
       ? R({ ellipse: true, w: size * 0.4, h: size * 0.4, fill: disabled ? "text-quaternary" : "text-on-brand", name: "Dot" })
       : checked === "Indeterminate"
@@ -90,24 +105,27 @@ function switchTrack({ checked, state = "Default", size = "md" }) {
   const on = checked === "On";
   const disabled = state === "Disabled";
   const track = disabled ? "bg-tertiary" : on ? (state === "Hover" ? "bg-brand-hover" : "bg-brand") : state === "Hover" ? "text-quaternary" : "border-input";
-  return F({ name: "Switch", dir: "H", w, h, p: 2, cross: "center", align: on ? "end" : "start", radius: "radius/full", fill: track, shadow: state === "Focus" ? "Focus ring/brand" : undefined }, [
+  return F({ name: "Switch", dir: "H", w, h, p: 2, cross: "center", align: on ? "end" : "start", radius: "radius/full", fill: track, shadow: state === "Focus" ? "Focus ring/brand" : undefined,
+    css: on && state === "Default" ? ({ sm: "k-switch k-switch--sm", md: "k-switch", lg: "k-switch k-switch--lg" })[size] : undefined, cssCheck: ["pad", "radius", "bg", "h", "w"] }, [
     R({ ellipse: true, w: h - 4, h: h - 4, fill: disabled ? "bg-secondary" : "#ffffff", shadow: "Shadow/sm", name: "Thumb" }),
   ]);
 }
 
 function checkRow(control, { label = "مرا به خاطر بسپار", description = "تا ۳۰ روز وارد حساب بمانید.", disabled } = {}) {
-  return F({ name: "Check", dir: "H", gap: "space/2", cross: "start" }, [
-    F({ name: "Control wrap", dir: "H", h: 22, cross: "center" }, [control]),
-    F({ name: "Text", dir: "V", gap: 2 }, [
-      T(label, { style: "Text sm/Medium", color: disabled ? "text-quaternary" : "text-secondary", name: "Label" }),
-      T(description, { style: "Text sm/Regular", color: "text-tertiary", name: "Description" }),
+  // k-check: متن با خط ثابت ۲۰ پیکسل و کنترل وسط خط اول
+  return F({ name: "Check", dir: "H", gap: "space/2", cross: "start", css: "k-check", cssCheck: ["gap"] }, [
+    F({ name: "Control wrap", dir: "H", h: 20, cross: "center" }, [control]),
+    F({ name: "Text", dir: "V", gap: 2, css: "k-check__text", cssCheck: ["gap"] }, [
+      T(label, { style: "Control sm/Medium", color: disabled ? "text-quaternary" : "text-secondary", name: "Label", css: disabled ? undefined : "k-check__label" }),
+      T(description, { style: "Control sm/Regular", color: "text-tertiary", name: "Description", css: "k-check__description" }),
     ]),
   ]);
 }
 
 function jalaliGrid({ range, selected = 6, w = 300 } = {}) {
   const C = TOKENS.calendar;
-  const cell = 40;
+  // k-calendar__day: ۴۰ پیکسل، خانهٔ جدول با ۱ پیکسل فاصله
+  const cell = 42;
   const cells = [];
   const lead = C.firstWeekday;
   for (let i = 0; i < lead; i++) cells.push({ day: C.prevLength - lead + 1 + i, out: true });
@@ -120,28 +138,34 @@ function jalaliGrid({ range, selected = 6, w = 300 } = {}) {
       const edge = range ? !c.out && (c.day === range[0] || c.day === range[1]) : !c.out && c.day === selected;
       const holiday = !c.out && C.holidays.includes(c.day);
       const today = !c.out && c.day === 6;
-      return F({ name: "Day", dir: "H", w: cell, h: cell, align: "center", cross: "center", fill: inRange && !edge ? "bg-brand-subtle" : undefined }, [
-        F({ name: "Cell", dir: "H", w: 36, h: 36, align: "center", cross: "center", radius: "radius/full", fill: edge ? "bg-brand" : undefined, stroke: today && !edge ? "border-brand" : undefined }, [
-          T(fa(c.day), { style: edge ? "Text sm/Semibold" : "Text sm/Regular", color: edge ? "text-on-brand" : c.out ? "text-quaternary" : holiday ? "text-error" : inRange ? "text-brand" : "text-secondary", align: "center" }),
+      return F({ name: "Day", dir: "H", w: cell, h: cell, align: "center", cross: "center", fill: inRange ? "bg-brand-subtle" : undefined, radius: range && edge ? (c.day === range[0] ? ["radius/full", 0, 0, "radius/full"] : [0, "radius/full", "radius/full", 0]) : undefined }, [
+        F({ name: "Cell", dir: "V", w: 40, h: 40, align: "center", cross: "center", radius: "radius/full", fill: edge ? "bg-brand" : undefined, shadow: edge ? "Button" : undefined }, [
+          T(fa(c.day), { style: edge ? "Text sm/Semibold" : today ? "Text sm/Bold" : "Text sm/Regular", color: edge ? "text-on-brand" : c.out ? "text-quaternary" : today ? "text-brand" : holiday ? "text-error" : inRange ? "text-primary" : "text-secondary", align: "center" }),
+          // امروز: نقطهٔ ۴ پیکسلی زیر عدد
+          today && !edge && R({ ellipse: true, w: 4, h: 4, fill: "text-brand", name: "Today dot", absolute: true, x: 18, y: 31 }),
         ]),
       ]);
     })));
   }
-  return F({ name: "Calendar", dir: "V", gap: "space/3", p: "space/4", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
-    F({ name: "Header", dir: "H", w: "fill", align: "between", cross: "center" }, [
+  const select = (label) => F({ name: "Select", dir: "H", gap: "space/1", h: 36, ps: "space/3", pe: "space/1.5", cross: "center", radius: "radius/md" }, [
+    T(label, { style: "Text sm/Semibold", color: "text-primary" }),
+    I("chevron-down", 16, "text-quaternary"),
+  ]);
+  // همان ساختار k-datepicker__popover و k-calendar در React
+  return F({ name: "Calendar", dir: "V", gap: "space/2", p: "space/4", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
+    F({ name: "Header", dir: "H", gap: "space/2", w: "fill", align: "between", cross: "center" }, [
       button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-right" }),
-      T(`${C.months[C.month - 1]} ${fa(C.year)}`, { style: "Text md/Semibold", color: "text-primary" }),
+      F({ name: "Selects", dir: "H", gap: "space/1" }, [select(C.months[C.month - 1]), select(fa(C.year))]),
       button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-left" }),
     ]),
-    F({ name: "Weekdays", dir: "H", gap: 0 }, C.weekdays.map((d, i) =>
-      F({ dir: "H", w: cell, h: 28, align: "center", cross: "center" }, [T(d, { style: "Text xs/Medium", color: i === 6 ? "text-error" : "text-tertiary", align: "center" })]),
-    )),
-    F({ name: "Days", dir: "V", gap: 2 }, rows),
-    F({ name: "Footer", dir: "H", gap: "space/2", w: "fill", pt: "space/3", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
-      button({ variant: "Secondary", size: "sm", label: "امروز" }),
-      Spacer(),
-      button({ variant: "Tertiary", size: "sm", label: "انصراف" }),
-      button({ variant: "Primary", size: "sm", label: "تأیید" }),
+    F({ name: "Grid", dir: "V", gap: 0 }, [
+      F({ name: "Weekdays", dir: "H", gap: 0 }, C.weekdays.map((d, i) =>
+        F({ dir: "H", w: cell, h: 32, align: "center", cross: "center" }, [T(d, { style: "Text xs/Medium", color: i === 6 ? "text-error" : "text-tertiary", align: "center" })]),
+      )),
+      F({ name: "Days", dir: "V", gap: 0 }, rows),
+    ]),
+    F({ name: "Footer", dir: "H", w: "fill", align: "center", pt: "space/2", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
+      button({ variant: "Link", label: "امروز" }),
     ]),
   ]);
 }
@@ -245,7 +269,7 @@ function buildForms() {
       axes: { State: ["Default", "Open"] },
       build: (p) => {
         const open = p.State === "Open";
-        const box = inputBox({ state: open ? "Focus" : "Default", text: "", placeholder: "", start: [tag("طراحی"), tag("برنامه‌نویسی")], end: [I("chevron-down", 20, "text-tertiary")] });
+        const box = tagBox({ state: open ? "Focus" : "Default", tags: [tag("طراحی", { tone: "Brand" }), tag("برنامه‌نویسی", { tone: "Brand" })], end: [I("chevron-down", 20, "text-tertiary")] });
         const node = field({ label: "مهارت‌ها", hint: "تا ۵ مورد", control: box });
         if (open) add(node, listbox([{ label: "طراحی" }, { label: "برنامه‌نویسی" }, { label: "مدیریت محصول" }, { label: "تحقیق کاربر" }], { selected: 0, active: 2 }));
         return node;
@@ -257,7 +281,7 @@ function buildForms() {
   safe("TagInput", () => section(root, "Tag input · ورود برچسب", "با Enter یا ویرگول (،) برچسب جدید اضافه می‌شود.", (h) => {
     componentSet(h, "Tag input", {
       axes: { State: ["Default", "Focus"] },
-      build: (p) => field({ label: "برچسب‌ها", hint: "با Enter جدا کنید.", control: inputBox({ state: p.State, text: "", placeholder: "افزودن…", start: [tag("فارسی"), tag("RTL"), tag("React")] }) }),
+      build: (p) => field({ label: "برچسب‌ها", hint: "با Enter جدا کنید.", control: tagBox({ state: p.State, placeholder: "افزودن…", tags: [tag("فارسی"), tag("RTL"), tag("React")] }) }),
       docs: "tag-input",
     });
   }));
@@ -329,12 +353,12 @@ function buildForms() {
           thumb(to),
         ]);
         return F({ name: "Slider", dir: "V", gap: "space/2", w: W }, [
-          F({ name: "Head", dir: "H", w: "fill", align: "between" }, [
-            T(p.Type === "Range" ? "بازهٔ قیمت" : "میزان صدا", { style: "Text sm/Medium", color: "text-secondary", name: "Label" }),
-            T(p.Type === "Range" ? "۲۵ تا ۶۵ میلیون" : "۶۵٪", { style: "Text sm/Regular", color: "text-tertiary", name: "Value" }),
+          F({ name: "Head", dir: "H", gap: "space/3", w: "fill", align: "between", css: "k-slider__head", cssCheck: ["gap"] }, [
+            T(p.Type === "Range" ? "بازهٔ قیمت" : "میزان صدا", { style: "Tight sm/Medium", color: "text-secondary", name: "Label" }),
+            T(p.Type === "Range" ? "۲۵ تا ۶۵ میلیون" : "۶۵٪", { style: "Text sm/Semibold", color: "text-primary", name: "Value", css: "k-slider__value" }),
           ]),
           track,
-          F({ name: "Marks", dir: "H", w: "fill", align: "between" }, ["۰", "۲۵", "۵۰", "۷۵", "۱۰۰"].map((m) => T(m, { style: "Text xs/Regular", color: "text-tertiary" }))),
+          F({ name: "Marks", dir: "H", w: "fill", align: "between" }, ["۰", "۲۵", "۵۰", "۷۵", "۱۰۰"].map((m) => T(m, { style: "Text xs/Regular", color: "text-tertiary", css: "k-slider__marks" }))),
         ]);
       },
       docs: "slider",
@@ -344,10 +368,11 @@ function buildForms() {
   safe("NumberInput", () => section(root, "Number input · ورود عدد", "با دکمه‌های کم و زیاد و کلیدهای جهت‌دار.", (h) => {
     componentSet(h, "Number input", {
       axes: { State: ["Default", "Focus", "Disabled"] },
-      build: (p) => field({ label: "تعداد", w: 200, control: F({ name: "Number", dir: "H", gap: 0, w: "fill", h: "input/height/md", radius: "radius/md", stroke: p.State === "Focus" ? "border-brand" : "border-input", fill: p.State === "Disabled" ? "bg-secondary" : "bg-primary", shadow: p.State === "Focus" ? "Input focus" : "Shadow/xs", clip: true, cross: "center" }, [
-        F({ name: "Minus", dir: "H", w: 40, h: "fill", align: "center", cross: "center", stroke: "border-input", sides: [0, 0, 0, 1] }, [I("minus", 18, "text-tertiary")]),
-        T("۱۲", { style: "Text md/Medium", color: p.State === "Disabled" ? "text-quaternary" : "text-primary", align: "center", grow: true, w: "fill", name: "Value" }),
-        F({ name: "Plus", dir: "H", w: 40, h: "fill", align: "center", cross: "center", stroke: "border-input", sides: [0, 1, 0, 0] }, [I("plus", 18, "text-tertiary")]),
+      // k-number: دکمه‌های ۳۶×۳۲ داخل همان فیلد، فاصلهٔ داخلی فیلد ۴ پیکسل
+      build: (p) => field({ label: "تعداد", w: 200, control: F({ name: "Number", dir: "H", gap: "space/2", px: "space/1", w: "fill", h: "input/height/md", radius: "radius/md", stroke: p.State === "Focus" ? "border-brand" : "border-input", fill: p.State === "Disabled" ? "bg-secondary" : "bg-primary", shadow: p.State === "Focus" ? "Input focus" : "Shadow/xs", cross: "center" }, [
+        F({ name: "Minus", dir: "H", w: 36, h: 32, align: "center", cross: "center", radius: "radius/sm", css: "k-number__step", cssCheck: ["radius", "bg", "w", "h"] }, [I("minus", 16, p.State === "Disabled" ? "text-quaternary" : "text-secondary")]),
+        T("۱۲", { style: "Text md/Regular", color: p.State === "Disabled" ? "text-quaternary" : "text-primary", align: "center", grow: true, w: "fill", name: "Value" }),
+        F({ name: "Plus", dir: "H", w: 36, h: 32, align: "center", cross: "center", radius: "radius/sm" }, [I("plus", 16, p.State === "Disabled" ? "text-quaternary" : "text-secondary")]),
       ]) }),
       docs: "number-input",
     });
@@ -360,15 +385,21 @@ function buildForms() {
         const n = Number(p.Length);
         const digits = ["۴", "۸", "۱", "۵", "۹", "۲"];
         const filled = p.State === "Filled" || p.State === "Error" ? n : p.State === "Typing" ? 2 : 0;
-        return F({ name: "OTP", dir: "V", gap: "space/2" }, [
-          T("کد تأیید", { style: "Text sm/Medium", color: "text-secondary", name: "Label" }),
-          F({ name: "Digits", dir: "H", gap: "space/2", ltr: true }, Array.from({ length: n }, (_, i) => {
-            const active = p.State === "Typing" && i === filled;
-            return F({ name: "Digit", dir: "H", w: 48, h: 56, align: "center", cross: "center", radius: "radius/md", fill: "bg-primary", stroke: p.State === "Error" ? "border-error" : active || (p.State === "Filled" && i < filled) ? "border-brand" : "border-input", shadow: active ? "Input focus" : "Shadow/xs" }, [
-              i < filled ? T(digits[i], { style: "Display xl/Semibold", color: "text-primary", align: "center" }) : T("-", { style: "Display xl/Regular", color: "text-quaternary", align: "center" }),
-            ]);
-          }).reverse()),
-          p.State === "Error" ? T("کد وارد شده درست نیست.", { style: "Text sm/Regular", color: "text-error" }) : T("کد ۶ رقمی به ۰۹۱۲ ۳۴۵ ۶۷۸۹ ارسال شد.", { style: "Text sm/Regular", color: "text-tertiary" }),
+        // k-otp__slot: ۵۲×۶۰، گوشهٔ lg، رقم ۲۶ پیکسل؛ خانهٔ پر حاشیهٔ border-primary، خانهٔ فعال حلقهٔ برند و مکان‌نما
+        const slots = Array.from({ length: n }, (_, i) => {
+          const active = p.State === "Typing" && i === filled;
+          const isFilled = i < filled;
+          return F({ name: "Slot", dir: "H", w: 52, h: 60, align: "center", cross: "center", radius: "radius/lg", fill: "bg-primary", stroke: p.State === "Error" ? "border-error" : active ? "border-brand" : isFilled ? "border-primary" : "border-input", shadow: active ? "Input focus" : "Shadow/xs",
+            css: isFilled && p.State === "Filled" ? "k-otp__slot" : undefined, cssCheck: ["radius", "bg", "border", "w"] }, [
+            isFilled ? T(digits[i], { style: "Text sm/Semibold", color: "text-primary", align: "center", size: 26, weight: "semibold", leading: 1.75 }) : active ? R({ w: 2, h: 26, radius: 1, fill: "text-primary", name: "Caret" }) : null,
+          ]);
+        });
+        // شش رقم سه‌تا سه‌تا با خط جداکننده
+        const row = n === 6 ? [...slots.slice(0, 3), R({ w: 12, h: 2, fill: "border-primary", name: "Separator", css: "k-otp__sep", cssCheck: ["bg"] }), ...slots.slice(3)] : slots;
+        return F({ name: "OTP", dir: "V", gap: "space/1.5" }, [
+          T("کد تأیید", { style: "Tight sm/Medium", color: "text-secondary", name: "Label" }),
+          LTR({ name: "Digits", dir: "H", gap: "space/2", cross: "center", css: "k-otp", cssCheck: ["gap"] }, row),
+          T(p.State === "Error" ? "کد وارد شده درست نیست." : "کد ۶ رقمی به ۰۹۱۲ ۳۴۵ ۶۷۸۹ ارسال شد.", { style: "Tight sm/Regular", color: p.State === "Error" ? "text-error" : "text-tertiary" }),
         ]);
       },
       cols: 4,
@@ -381,27 +412,30 @@ function buildForms() {
       axes: { State: ["Default", "Drag over", "Uploading"] },
       build: (p) => {
         const drag = p.State === "Drag over";
-        const zone = F({ name: "Dropzone", dir: "V", gap: "space/3", p: "space/6", w: "fill", cross: "center", radius: "radius/xl", fill: drag ? "bg-brand-subtle" : "bg-primary", stroke: drag ? "border-brand" : "border-secondary", sw: drag ? 2 : 1, dash: drag ? [6, 4] : undefined }, [
-          F({ name: "Featured icon", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/md", fill: "bg-elevated", stroke: "border-secondary", shadow: "Shadow/xs" }, [I("upload", 20, drag ? "text-brand" : "text-secondary")]),
-          F({ dir: "H", gap: "space/1" }, [T("برای آپلود کلیک کنید", { style: "Text sm/Semibold", color: "text-brand" }), T("یا فایل را اینجا بکشید", { style: "Text sm/Regular", color: "text-tertiary" })]),
-          T("PNG، JPG یا PDF — حداکثر ۱۰ مگابایت", { style: "Text xs/Regular", color: "text-tertiary", name: "Hint" }),
-        ]);
-        const fileRow = (name, size, pct) => F({ name: "File", dir: "H", gap: "space/3", p: "space/4", w: "fill", cross: "start", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary" }, [
-          F({ dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/md", fill: "bg-brand-subtle" }, [I("file", 20, "text-brand")]),
-          F({ dir: "V", gap: "space/1", grow: true }, [
-            T(name, { style: "Text sm/Medium", color: "text-primary", ltr: true }),
-            T(size, { style: "Text sm/Regular", color: "text-tertiary" }),
-            F({ dir: "H", gap: "space/3", w: "fill", cross: "center" }, [
-              F({ name: "Progress", dir: "H", grow: true, h: 8, radius: "radius/full", fill: "bg-tertiary", clip: true }, [R({ w: 260 * pct, h: 8, radius: "radius/full", fill: pct === 1 ? "text-success" : "bg-brand", name: "Value" })]),
-              T(fa(Math.round(pct * 100)) + "٪", { style: "Text sm/Medium", color: "text-secondary" }),
-            ]),
+        // k-dropzone: فاصلهٔ ۳۲/۲۴، حاشیهٔ خط‌چین border-input؛ هنگام کشیدن خط پیوسته و پس‌زمینهٔ برند
+        const zone = F({ name: "Dropzone", dir: "V", gap: "space/2", py: "space/8", px: "space/6", w: "fill", cross: "center", radius: "radius/xl", fill: drag ? "bg-brand-subtle" : "bg-primary", stroke: drag ? "border-brand" : "border-input", dash: drag ? undefined : [4, 4],
+          css: drag ? undefined : "k-dropzone", cssCheck: ["radius", "gap", "bg", "border"] }, [
+          F({ name: "Icon", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-primary", shadow: "Button", css: "k-dropzone__icon" }, [I("upload", 20, "text-secondary")]),
+          F({ name: "Title", dir: "H", gap: "space/1" }, [
+            T("انتخاب فایل", { style: "Text sm/Semibold", color: "text-brand", decoration: "UNDERLINE", name: "Browse" }),
+            T("یا فایل را اینجا رها کنید", { style: "Text sm/Regular", color: "text-secondary", name: "Drop" }),
           ]),
-          I(pct === 1 ? "success" : "trash", 18, pct === 1 ? "text-success" : "text-quaternary"),
+          T("PNG، JPG یا PDF؛ هر فایل حداکثر ۱۰ مگابایت", { style: "Text xs/Regular", color: "text-tertiary", name: "Hint", css: "k-dropzone__hint" }),
         ]);
-        return F({ name: "File upload", dir: "V", gap: "space/3", w: 420 }, [
+        // k-file: کارت با آیکون پسوند، نام، اندازه و نوار پیشرفت
+        const fileRow = (name, ext, meta, pct) => F({ name: "File", dir: "H", gap: "space/3", p: "space/4", w: "fill", cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Surface" }, [
+          F({ name: "Ext", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/md", fill: "bg-brand-subtle" }, [T(ext, { style: "Text xs/Bold", color: "text-brand", size: 10, weight: "bold", leading: 1.2, ltr: true })]),
+          F({ dir: "V", gap: "space/1", grow: true }, [
+            T(name, { style: "Text sm/Medium", color: "text-primary", ltr: true, align: "end", w: "fill" }),
+            T(meta, { style: "Text xs/Regular", color: "text-tertiary" }),
+            pct < 1 && F({ name: "Progress", dir: "H", w: "fill", h: 4, radius: "radius/full", fill: "bg-tertiary", clip: true }, [R({ w: 180 * pct, h: 4, radius: "radius/full", fill: "bg-brand", name: "Value" })]),
+          ]),
+          button({ variant: "Tertiary", size: "sm", iconOnly: "trash" }),
+        ]);
+        return F({ name: "File upload", dir: "V", gap: "space/4", w: 420 }, [
           zone,
-          p.State === "Uploading" && fileRow("brand-guide.pdf", "۲٫۴ مگابایت", 0.6),
-          p.State === "Uploading" && fileRow("logo.png", "۸۴۰ کیلوبایت", 1),
+          p.State === "Uploading" && fileRow("brand-guide.pdf", "PDF", "۲٫۴ مگابایت · ۶۰٪", 0.6),
+          p.State === "Uploading" && fileRow("logo.png", "PNG", "۸۴۰ کیلوبایت · بارگذاری شد", 1),
         ]);
       },
       docs: "file-upload",
@@ -419,7 +453,7 @@ function buildForms() {
           if (on) for (const n of st.findAll((x) => "fills" in x && x.type === "VECTOR")) n.fills = [paint("zafaran/400")];
           return st;
         });
-        return F({ name: "Rating", dir: "H", gap: 2, cross: "center" }, [...stars, T(fa(p.Value) + " از ۵", { style: "Text sm/Regular", color: "text-tertiary" })]);
+        return F({ name: "Rating", dir: "H", gap: 2, cross: "center", css: "k-rating", cssCheck: ["gap"] }, [...stars, T(fa(p.Value), { style: "Text sm/Semibold", color: "text-secondary", name: "Value", css: "k-rating__value" })]);
       },
       cols: 6,
       docs: "rating",
@@ -453,11 +487,11 @@ function buildForms() {
         return F({ name: "Color picker", dir: "V", gap: "space/3", p: "space/4", w: 280, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
           T("رنگ برند", { style: "Text sm/Semibold", color: "text-primary" }),
           F({ name: "Swatches", dir: "H", wrap: true, gap: 8, rowGap: 8, w: "fill" }, scales.flatMap((s) => ["400", "600"].map((st) =>
-            R({ ellipse: true, w: 28, h: 28, fill: `${s}/${st}`, stroke: s === "firoozeh" && st === "600" ? "text-primary" : undefined, sw: 2, name: `${s}-${st}` }),
+            R({ ellipse: true, w: 32, h: 32, fill: `${s}/${st}`, stroke: s === "firoozeh" && st === "600" ? "text-primary" : undefined, sw: 2, name: `${s}-${st}`, shadow: "Shadow/xs" }),
           ))),
           F({ name: "Spectrum", dir: "H", w: "fill", h: 120, radius: "radius/md", fill: "firoozeh/500" }),
           F({ dir: "H", gap: "space/2", w: "fill" }, [
-            R({ w: 40, h: 40, radius: "radius/md", fill: "firoozeh/600", name: "Preview" }),
+            R({ w: 40, h: 40, radius: "radius/md", fill: "firoozeh/600", name: "Preview", shadow: "Shadow/xs", css: "k-color__preview", cssCheck: ["radius", "bg"] }),
             inputBox({ text: "#0B8077", ltr: true }),
           ]),
         ]);
@@ -470,7 +504,7 @@ function buildForms() {
     componentSet(h, "Inline edit", {
       axes: { State: ["View", "Edit"] },
       build: (p) => p.State === "View"
-        ? F({ name: "Inline edit", dir: "H", gap: "space/2", px: "space/2", h: 36, cross: "center", radius: "radius/md" }, [T("گزارش فروش پاییز", { style: "Text md/Semibold", color: "text-primary", name: "Value" }), I("edit", 16, "text-quaternary")])
+        ? F({ name: "Inline edit", dir: "H", gap: "space/1.5", px: "space/2", py: "space/1", cross: "center", radius: "radius/md", fill: "bg-hover", css: "k-inline-edit__view" }, [T("گزارش فروش پاییز", { style: "Text md/Regular", color: "text-primary", name: "Value" }), I("edit", 16, "text-quaternary")])
         : F({ name: "Inline edit", dir: "H", gap: "space/1", w: 320, cross: "center" }, [
             inputBox({ state: "Focus", text: "گزارش فروش پاییز" }),
             button({ variant: "Primary", size: "sm", iconOnly: "check" }),
@@ -507,10 +541,12 @@ function buildForms() {
 
   safe("MonthPicker", () => section(root, "Month picker · انتخاب ماه", "انتخاب ماه و سال شمسی.", (h) => {
     componentSet(h, "Month picker", {
-      build: () => F({ name: "Month picker", dir: "V", gap: "space/3", p: "space/4", w: 300, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
-        F({ dir: "H", w: "fill", align: "between", cross: "center" }, [button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-right" }), T("۱۴۰۵", { style: "Text md/Semibold" }), button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-left" })]),
-        F({ dir: "H", wrap: true, gap: 6, rowGap: 6, w: "fill" }, TOKENS.calendar.months.map((m, i) =>
-          F({ name: "Month", dir: "H", w: 84, h: 40, align: "center", cross: "center", radius: "radius/md", fill: i === 7 ? "bg-brand" : undefined, stroke: i === 7 ? undefined : "border-secondary" }, [T(m, { style: "Text sm/Medium", color: i === 7 ? "text-on-brand" : "text-secondary", align: "center" })]),
+      // k-monthpicker: سربرگ ۳۶، شبکهٔ ۴ ستونی با فاصلهٔ ۴، هر ماه ۳۲ پیکسل
+      build: () => F({ name: "Month picker", dir: "V", gap: "space/3", p: "space/4", w: 320, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
+        F({ name: "Header", dir: "H", gap: "space/2", w: "fill", h: 36, align: "between", cross: "center", css: "k-monthpicker__header", cssCheck: ["gap", "h"] }, [button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-right" }), T("۱۴۰۵", { style: "Text md/Semibold", color: "text-primary", css: "k-monthpicker__year" }), button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-left" })]),
+        F({ name: "Grid", dir: "H", wrap: true, gap: "space/1", rowGap: "space/1", w: "fill" }, TOKENS.calendar.months.map((m, i) =>
+          F({ name: "Month", dir: "H", w: 69, h: 32, align: "center", cross: "center", radius: "radius/md", fill: i === 7 ? "bg-brand" : undefined, css: i === 0 ? "k-monthpicker__month" : undefined, cssCheck: ["radius", "bg", "h"] }, [T(m, { style: i === 7 ? "Text xs/Semibold" : "Text xs/Medium", color: i === 7 ? "text-on-brand" : "text-secondary", align: "center", css: i === 0 ? "k-monthpicker__month" : undefined }),
+          ]),
         )),
       ]),
       docs: "month-picker",

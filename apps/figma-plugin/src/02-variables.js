@@ -143,6 +143,10 @@ async function buildVariables() {
       S.vars[`font/line-height/${kind}-${k}`] = lh;
     }
   }
+  // خط ثابت متن کنار چک‌باکس، رادیو و سوییچ (1.25rem در CSS)
+  const ctl = await getVariable(typo.c, "font/line-height/control", "FLOAT", ["LINE_HEIGHT"]);
+  for (const [mode, f] of Object.entries(scales)) setVal(ctl, typo.ids, mode, Math.round(20 * f));
+  S.vars["font/line-height/control"] = ctl;
 
   await buildEffectVariables();
 }

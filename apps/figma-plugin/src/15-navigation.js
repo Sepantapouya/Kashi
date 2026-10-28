@@ -1,11 +1,12 @@
 // ناوبری: تب، مسیر، صفحه‌بندی، مراحل، منوی کناری، منو و جستجوی فرمان
 
 function menuPanel(items, { w = 240 } = {}) {
-  return F({ name: "Menu", dir: "V", gap: 1, p: "space/1.5", w, radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, items.map((it) => {
+  return F({ name: "Menu", dir: "V", gap: 0, p: "space/1.5", w, radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover", css: "k-menu", cssCheck: ["pad", "radius", "bg", "border"] }, items.map((it) => {
     if (it === "-") return F({ name: "Separator", dir: "H", w: "fill", py: "space/1" }, [R({ w: 10, h: 1, fill: "border-secondary", fillW: true, name: "Line" })]);
     if (it.label && it.heading) return F({ name: "Group label", dir: "H", px: 10, pt: "space/2", pb: "space/1", w: "fill" }, [T(it.label, { style: "Text xs/Medium", color: "text-tertiary" })]);
     const fg = it.danger ? "text-error" : it.disabled ? "text-quaternary" : it.active ? "text-primary" : "text-secondary";
-    return F({ name: "Menu item", dir: "H", gap: "space/2", h: "menu/item-height", px: 10, w: "fill", cross: "center", radius: "radius/md", fill: it.active ? (it.danger ? "bg-error-subtle" : "bg-hover") : undefined }, [
+    return F({ name: "Menu item", dir: "H", gap: "space/2", h: "menu/item-height", px: 10, w: "fill", cross: "center", radius: "radius/md", fill: it.active ? (it.danger ? "bg-error-subtle" : "bg-hover") : undefined,
+      css: it.active ? undefined : it.danger ? "k-menu__item k-menu__item--danger" : "k-menu__item", cssCheck: ["padx", "radius", "gap", "bg", "h"] }, [
       it.checked !== undefined && F({ dir: "H", w: 18, align: "center" }, [it.checked ? I("check", 16, "text-brand") : R({ w: 16, h: 16, name: "Empty" })]),
       it.icon && I(it.icon, 18, it.danger ? "text-error" : "text-tertiary"),
       T(it.label, { style: "Text sm/Medium", color: fg, grow: true }),
@@ -28,10 +29,11 @@ function buildNavigation() {
           const on = i === 0;
           if (p.Variant === "Line") {
             return F({ name: "Tab", dir: vertical ? "H" : "V", gap: 0, h: vertical ? 40 : undefined, w: vertical ? "fill" : undefined, cross: vertical ? "center" : "center", align: vertical ? "between" : "start" }, vertical
-              ? [F({ dir: "H", gap: "space/2", ps: "space/3", cross: "center", grow: true }, [T(label, { style: "Text sm/Semibold", color: on ? "text-brand" : "text-tertiary", name: "Label" })]), R({ w: 2, h: 40, fill: on ? "border-brand" : "border-secondary", name: "Indicator" })]
-              : [F({ dir: "H", gap: "space/2", h: 38, px: "space/1", cross: "center" }, [T(label, { style: "Text sm/Semibold", color: on ? "text-brand" : "text-tertiary", name: "Label" }), i === 1 && badge({ tone: on ? "Brand" : "Neutral", size: "sm", label: "۱۲", dot: false })]), R({ w: 10, h: 2, fill: on ? "border-brand" : undefined, fillW: true, name: "Indicator" })]);
+              ? [F({ dir: "H", gap: "space/2", ps: "space/3", cross: "center", grow: true }, [T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-tertiary", name: "Label" })]), R({ w: 2, h: 40, fill: on ? "border-brand" : "border-secondary", name: "Indicator" })]
+              : [F({ dir: "H", gap: "space/2", h: 38, px: "space/1", cross: "center", css: on ? undefined : "k-tabs__tab", cssCheck: ["padx", "gap"] }, [T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-tertiary", name: "Label" }), i === 1 && badge({ tone: on ? "Brand" : "Neutral", size: "sm", label: "۱۲", dot: false })]), R({ w: 10, h: 2, radius: 2, fill: on ? "border-brand" : undefined, fillW: true, name: "Indicator", css: on ? "k-tabs__indicator" : undefined, cssCheck: ["bg", "h"] })]);
           }
-          return F({ name: "Tab", dir: "H", gap: "space/2", h: p.Variant === "Segmented" ? 34 : "tab/height", px: "space/3", w: vertical ? "fill" : undefined, cross: "center", radius: "radius/md", fill: on ? (p.Variant === "Pill" ? "bg-brand-subtle" : "bg-elevated") : undefined, shadow: on && p.Variant === "Segmented" ? "Shadow/sm" : undefined }, [
+          // سگمنت: حداقل ۳۶ پیکسل، تب انتخاب‌شده روی bg-elevated با سایهٔ sm و خط روشن
+          return F({ name: "Tab", dir: "H", gap: "space/2", h: p.Variant === "Segmented" ? 36 : "tab/height", px: "space/3", w: vertical ? "fill" : undefined, cross: "center", radius: "radius/md", fill: on ? (p.Variant === "Pill" ? "bg-brand-subtle" : "bg-elevated") : undefined, shadow: on && p.Variant === "Segmented" ? ["Shadow/sm", "highlight-only"] : undefined }, [
             T(label, { style: "Text sm/Semibold", color: on ? (p.Variant === "Pill" ? "text-brand" : "text-primary") : "text-tertiary", name: "Label" }),
           ]);
         };
@@ -40,6 +42,7 @@ function buildNavigation() {
           p: p.Variant === "Segmented" ? 3 : undefined, radius: p.Variant === "Segmented" ? 11 : undefined,
           fill: p.Variant === "Segmented" ? "bg-secondary" : undefined, stroke: p.Variant === "Segmented" ? "border-secondary" : p.Variant === "Line" && !vertical ? "border-secondary" : undefined,
           sides: p.Variant === "Line" && !vertical ? [0, 0, 1, 0] : undefined,
+          css: p.Variant === "Segmented" && !vertical ? "k-tabs--segmented .k-tabs__list" : undefined, cssCheck: ["pad", "radius", "bg", "border"],
         }, labels.map(tab));
         return list;
       },
@@ -57,8 +60,10 @@ function buildNavigation() {
         items.forEach((label, i) => {
           if (i) kids.push(p.Separator === "Slash" ? T("/", { style: "Text md/Regular", color: "border-primary" }) : I("chevron-left", 16, "border-primary"));
           const last = i === items.length - 1;
-          kids.push(F({ name: "Crumb", dir: "H", gap: "space/1.5", px: i === 0 ? 6 : 8, h: 28, cross: "center", radius: "radius/md", fill: last ? "bg-active" : undefined }, [
-            i === 0 ? I("home", 18, "text-tertiary") : T(label, { style: "Text sm/Medium", color: last ? "text-secondary" : "text-tertiary" }),
+          // k-breadcrumb__link: ۴/۸ (آیکون ۴/۶)، گوشهٔ ۸، متن Semibold؛ صفحهٔ فعلی bg-active
+          kids.push(F({ name: "Crumb", dir: "H", gap: "space/1.5", px: i === 0 ? 6 : 8, py: 4, h: 28, cross: "center", radius: "radius/md", fill: last ? "bg-active" : undefined,
+            css: last ? undefined : i === 0 ? "k-breadcrumb__link k-breadcrumb__link--icon" : "k-breadcrumb__link", cssCheck: ["pad", "radius", "gap", "bg", "h"] }, [
+            i === 0 ? I("home", 18, "text-tertiary") : T(label, { style: "Tight sm/Semibold", color: last ? "text-primary" : "text-tertiary", css: last ? undefined : "k-breadcrumb__text" }),
           ]));
         });
         return F({ name: "Breadcrumb", dir: "H", gap: "space/1", cross: "center" }, kids);
@@ -71,9 +76,9 @@ function buildNavigation() {
     componentSet(h, "Pagination", {
       axes: { Type: ["Default", "Compact", "With tools"] },
       build: (p) => {
-        const page = (n, cur) => F({ name: "Page", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/md", fill: cur ? "bg-active" : undefined }, [T(n, { style: cur ? "Text sm/Semibold" : "Text sm/Medium", color: cur ? "text-primary" : "text-tertiary", align: "center" })]);
+        const page = (n, cur) => F({ name: "Page", dir: "H", w: 40, h: 40, px: n === "…" ? 0 : 8, align: "center", cross: "center", radius: "radius/md", fill: cur ? "bg-active" : undefined, css: cur || n === "…" ? undefined : "k-pagination__page", cssCheck: ["padx", "radius", "bg"] }, [T(n, { style: cur ? "Text sm/Semibold" : "Text sm/Medium", color: cur ? "text-primary" : n === "…" ? "text-quaternary" : "text-tertiary", align: "center" })]);
         if (p.Type === "Compact") return F({ name: "Pagination", dir: "H", gap: "space/3", cross: "center" }, [button({ variant: "Secondary", size: "sm", iconOnly: "arrow-right" }), T("صفحهٔ ۳ از ۱۰", { style: "Text sm/Medium", color: "text-secondary" }), button({ variant: "Secondary", size: "sm", iconOnly: "arrow-left" })]);
-        const row = F({ name: "Pagination", dir: "H", gap: "space/3", w: 720, align: "between", cross: "center", pt: "space/3", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
+        const row = F({ name: "Pagination", dir: "H", gap: "space/3", w: 720, align: "between", cross: "center" }, [
           button({ variant: "Secondary", size: "sm", label: "قبلی", iconStart: "arrow-right" }),
           F({ name: "Pages", dir: "H", gap: 2 }, [page("۱"), page("۲"), page("۳", true), page("…"), page("۸"), page("۹"), page("۱۰")]),
           button({ variant: "Secondary", size: "sm", label: "بعدی", iconEnd: "arrow-left" }),
@@ -81,7 +86,7 @@ function buildNavigation() {
         if (p.Type === "Default") return row;
         return F({ name: "Pagination", dir: "V", gap: "space/3", w: 720 }, [
           row,
-          F({ name: "Tools", dir: "H", gap: "space/4", w: "fill", cross: "center" }, [
+          F({ name: "Tools", dir: "H", gap: "space/4", w: "fill", cross: "center", pt: "space/3", stroke: "border-secondary", sides: [1, 0, 0, 0], css: "k-pagination__tools", cssCheck: ["pad", "gap", "border"] }, [
             F({ dir: "H", gap: "space/2", cross: "center" }, [T("نمایش", { style: "Text sm/Regular", color: "text-tertiary" }), inputBox({ size: "sm", text: "۲۰", w: 80, end: [I("chevron-down", 16, "text-tertiary")] }), T("در هر صفحه", { style: "Text sm/Regular", color: "text-tertiary" })]),
             F({ dir: "H", gap: "space/2", cross: "center" }, [T("برو به صفحه", { style: "Text sm/Regular", color: "text-tertiary" }), inputBox({ size: "sm", text: "۳", w: 72 })]),
             Spacer(),
@@ -96,10 +101,12 @@ function buildNavigation() {
 
   safe("Stepper", () => section(root, "Stepper · مراحل", "مراحل افقی یا عمودی با وضعیت تمام‌شده، فعلی و آینده.", (h) => {
     const steps = [["اطلاعات حساب", "نام و ایمیل"], ["آدرس", "محل تحویل"], ["پرداخت", "درگاه بانکی"], ["تأیید", "بازبینی سفارش"]];
+    // k-steps__marker: ۳۲ پیکسل با حاشیهٔ ۲؛ مرحلهٔ تمام‌شده تیک، فعلی شماره با حلقهٔ برند، بعدی شمارهٔ کم‌رنگ
     const marker = (i, cur) => {
       const done = i < cur, now = i === cur;
-      return F({ name: "Marker", dir: "H", w: 32, h: 32, align: "center", cross: "center", radius: "radius/full", fill: done ? "bg-brand" : now ? "bg-brand-subtle" : "bg-primary", stroke: done ? "bg-brand" : now ? "border-brand" : "border-secondary", sw: 2, shadow: now ? "Focus ring/brand" : undefined }, [
-        done ? I("check", 16, "text-on-brand") : now ? R({ ellipse: true, w: 10, h: 10, fill: "bg-brand", name: "Dot" }) : R({ ellipse: true, w: 10, h: 10, fill: "border-secondary", name: "Dot" }),
+      return F({ name: "Marker", dir: "H", w: 32, h: 32, align: "center", cross: "center", radius: "radius/full", fill: done ? "bg-brand" : "bg-primary", stroke: done ? "bg-brand" : now ? "border-brand" : "border-secondary", sw: 2, shadow: now ? "Focus ring/brand" : undefined,
+        css: done ? "k-steps__marker" : undefined, cssCheck: ["radius", "bg", "border", "h", "w"] }, [
+        done ? I("check", 16, "text-on-brand") : T(fa(i + 1), { style: "Text sm/Semibold", color: now ? "text-brand" : "text-tertiary", align: "center" }),
       ]);
     };
     componentSet(h, "Stepper", {
@@ -114,15 +121,15 @@ function buildNavigation() {
                 marker(i, cur),
                 R({ w: 10, h: 2, fill: i === steps.length - 1 ? undefined : i < cur ? "bg-brand" : "border-secondary", grow: true, name: "Line" }),
               ]),
-              T(t, { style: "Text sm/Semibold", color: i === cur ? "text-brand" : "text-secondary", align: "center" }),
-              T(d, { style: "Text xs/Regular", color: "text-tertiary", align: "center" }),
+              T(t, { style: "Text sm/Semibold", color: i === cur ? "text-brand" : i > cur ? "text-tertiary" : "text-secondary", align: "center", css: i < cur ? "k-steps__title" : undefined }),
+              T(d, { style: "Text xs/Regular", color: "text-tertiary", align: "center", css: "k-steps__description" }),
             ]),
           ));
         }
         return F({ name: "Stepper", dir: "V", gap: 0, w: 280 }, steps.map(([t, d], i) =>
           F({ name: "Step", dir: "H", gap: "space/3", w: "fill", cross: "start" }, [
             F({ dir: "V", gap: 4, cross: "center" }, [marker(i, cur), i < steps.length - 1 && R({ w: 2, h: 28, radius: 1, fill: i < cur ? "bg-brand" : "border-secondary", name: "Line" })]),
-            F({ dir: "V", gap: 0, pt: 4 }, [T(t, { style: "Text sm/Semibold", color: i === cur ? "text-brand" : "text-secondary" }), T(d, { style: "Text sm/Regular", color: "text-tertiary" })]),
+            F({ dir: "V", gap: 0, pt: 4 }, [T(t, { style: "Text sm/Semibold", color: i === cur ? "text-brand" : i > cur ? "text-tertiary" : "text-secondary" }), T(d, { style: "Text xs/Regular", color: "text-tertiary" })]),
           ]),
         ));
       },
@@ -137,7 +144,8 @@ function buildNavigation() {
       build: (p) => {
         const collapsed = p.State === "Collapsed";
         const items = [["home", "داشبورد", true], ["chart", "گزارش‌ها"], ["users", "مشتریان", false, "۱۲"], ["credit-card", "پرداخت‌ها"], ["folder", "پروژه‌ها"], ["settings", "تنظیمات"]];
-        const item = ([icon, label, on, count]) => F({ name: "Nav item", dir: "H", gap: "space/3", h: 40, px: collapsed ? 0 : "space/3", w: collapsed ? 40 : "fill", align: collapsed ? "center" : "start", cross: "center", radius: "radius/md", fill: on ? "bg-active" : undefined }, [
+        const item = ([icon, label, on, count]) => F({ name: "Nav item", dir: "H", gap: "space/3", h: 40, px: collapsed ? 0 : "space/3", w: collapsed ? 40 : "fill", align: collapsed ? "center" : "start", cross: "center", radius: "radius/md", fill: on ? "bg-active" : undefined,
+          css: on && !collapsed ? "k-sidenav__item" : undefined, cssCheck: ["padx", "radius", "gap", "bg", "h"] }, [
           I(icon, 20, on ? "text-primary" : "text-tertiary"),
           !collapsed && T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-secondary", grow: true }),
           !collapsed && count && badge({ tone: "Neutral", size: "sm", label: count, dot: false }),
@@ -220,12 +228,12 @@ function buildNavigation() {
       axes: { Orientation: ["Horizontal", "Vertical"] },
       build: (p) => {
         const hz = p.Orientation === "Horizontal";
-        const pane = (label) => F({ name: "Pane", dir: "V", grow: true, align: "center", cross: "center", fill: "bg-secondary", w: hz ? undefined : "fill", h: hz ? "fill" : undefined }, [T(label, { style: "Text sm/Medium", color: "text-tertiary" })]);
-        return F({ name: "Splitter", dir: hz ? "H" : "V", gap: 0, w: 480, h: 220, radius: "radius/xl", stroke: "border-secondary", clip: true }, [
-          pane("فهرست"),
-          F({ name: "Handle", dir: hz ? "V" : "H", w: hz ? 9 : "fill", h: hz ? "fill" : 9, align: "center", cross: "center", fill: "bg-primary", stroke: "border-secondary", sides: hz ? [0, 1, 0, 1] : [1, 0, 1, 0] }, [R({ w: hz ? 3 : 24, h: hz ? 24 : 3, radius: "radius/full", fill: "border-primary", name: "Grip" })]),
-          pane("جزئیات"),
+        // k-splitter: خط ۱ پیکسلی با دستگیرهٔ ۶×۳۲ وسط آن
+        const pane = (label) => F({ name: "Pane", dir: "V", grow: true, p: "space/2", align: "center", cross: "center", w: hz ? undefined : "fill", h: hz ? "fill" : undefined, css: "k-splitter__pane", cssCheck: ["pad"] }, [T(label, { style: "Text sm/Medium", color: "text-tertiary" })]);
+        const handle = F({ name: "Handle", dir: hz ? "V" : "H", w: hz ? 1 : "fill", h: hz ? "fill" : 1, align: "center", cross: "center", fill: "border-secondary", css: "k-splitter__handle", cssCheck: ["bg"] }, [
+          R({ w: hz ? 6 : 32, h: hz ? 32 : 6, radius: "radius/full", fill: "bg-elevated", stroke: "border-primary", name: "Grip" }),
         ]);
+        return F({ name: "Splitter", dir: hz ? "H" : "V", gap: 0, w: 480, h: 220, radius: "radius/xl", stroke: "border-secondary", clip: true, css: "k-splitter" }, [pane("فهرست"), handle, pane("جزئیات")]);
       },
       docs: "splitter",
     });
