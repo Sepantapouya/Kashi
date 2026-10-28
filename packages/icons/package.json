@@ -1,6 +1,6 @@
 {
   "name": "@kashi-ui/icons",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "آیکون‌های خطی کاشی؛ SVG، کامپوننت React و اسپرایت",
   "type": "module",
   "main": "./dist/index.js",
