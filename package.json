@@ -6,13 +6,14 @@
     "packages/tokens",
     "packages/persian",
     "packages/bank-logos",
+    "packages/icons",
     "packages/css",
     "packages/react",
     "apps/docs"
   ],
   "scripts": {
-    "build": "npm run build -w @kashi-ui/tokens && npm run build -w @kashi-ui/persian && npm run build -w @kashi-ui/bank-logos && npm run build -w @kashi-ui/css && npm run build -w @kashi-ui/react",
-    "test": "npm test -w @kashi-ui/tokens && npm test -w @kashi-ui/persian && npm test -w @kashi-ui/react",
+    "build": "npm run build -w @kashi-ui/tokens && npm run build -w @kashi-ui/persian && npm run build -w @kashi-ui/bank-logos && npm run build -w @kashi-ui/icons && npm run build -w @kashi-ui/css && npm run build -w @kashi-ui/react",
+    "test": "npm test -w @kashi-ui/tokens && npm test -w @kashi-ui/persian && npm test -w @kashi-ui/icons && npm test -w @kashi-ui/react",
     "dev": "npx --yes serve . -l 4321",
     "docs": "npm run dev -w @kashi-ui/docs",
     "docs:build": "npm run build && npm run build -w @kashi-ui/docs",

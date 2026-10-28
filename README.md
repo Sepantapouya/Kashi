@@ -11,7 +11,8 @@
 | `@kashi-ui/tokens` | رنگ، فاصله، فونت و… به شکل CSS Variables، JSON و JS |
 | `@kashi-ui/css` | استایل کامپوننت‌ها با CSS خالص — برای هر فریم‌ورکی |
 | `@kashi-ui/persian` | تاریخ شمسی، ارقام فارسی، اعتبارسنجی کد ملی و کارت؛ بدون وابستگی |
-| `@kashi-ui/bank-logos` | لوگوی SVG ۳۱ بانک ایران (CC0) |
+| `@kashi-ui/bank-logos` | لوگوی SVG ۴۰ بانک و ۱۰ درگاه پرداخت ایران (CC0) |
+| `@kashi-ui/icons` | ۷۰ آیکون خطی کاشی؛ React، SVG و اسپرایت |
 | `@kashi-ui/react` | کامپوننت‌های React |
 
 ## کامپوننت‌ها

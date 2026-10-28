@@ -12,6 +12,7 @@
     "@astrojs/mdx": "^8.1.1",
     "@astrojs/react": "^7.1.1",
     "@kashi-ui/bank-logos": "*",
+    "@kashi-ui/icons": "*",
     "@kashi-ui/css": "*",
     "@kashi-ui/persian": "*",
     "@kashi-ui/react": "*",

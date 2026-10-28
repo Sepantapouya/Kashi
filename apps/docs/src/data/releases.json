@@ -1,12 +1,29 @@
 {
- "generated": "2026-10-29T00:10:33+03:30",
+ "generated": "2026-10-29T00:26:10+03:30",
  "totals": {
-  "commits": 44,
+  "commits": 45,
   "versions": 16,
-  "added": 54270,
+  "added": 55611,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "701b0c86765c99b4fdb3773d5b32ee17e45415e1",
+   "short": "701b0c8",
+   "date": "2026-10-29T00:26:10+03:30",
+   "author": "sepantapouya",
+   "subject": "Docs: versions page built from git history and changelogs",
+   "details": [
+    "scripts/releases.mjs groups every commit under the release that shipped",
+    "it (the next version bump), adds the changelog notes of all packages and",
+    "lists commits after the latest release as unreleased. It runs before dev",
+    "and build; on shallow clones (Vercel, CI) it keeps the committed data.",
+    "Linked from the footer and the docs sidebar."
+   ],
+   "files": 6,
+   "added": 1341,
+   "removed": 4
+  },
   {
    "sha": "9e7c320d915a7896e1a200593b1b57138ee7d032",
    "short": "9e7c320",
