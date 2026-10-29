@@ -1,6 +1,6 @@
 // آیکون‌ها (از @kashi-ui/icons) و لوگوی بانک‌ها
 
-// ICONS و ICON_TITLES را build.mjs از packages/icons/src/icons.js می‌گذارد
+// ICONS، ICON_TITLES، ICON_CATEGORIES و ICON_CATEGORY را build.mjs از packages/icons/src/icons.js می‌گذارد
 
 const svgOf = (inner, color = "#000") =>
   `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
@@ -8,29 +8,48 @@ const svgOf = (inner, color = "#000") =>
 /** صفحه‌های آیکون و لوگو؛ هر کدام کامپوننت با کلید ثابت تا در به‌روزرسانی‌ها instance ها وصل بمانند */
 function buildAssets() {
   const root = kitPage("🧩", "Assets", "آیکون‌ها و لوگوها", "");
-  section(root, "Icons · آیکون‌ها", `${fa(Object.keys(ICONS).length)} آیکون ۲۰×۲۰ با خط ۱٫۵، هم‌شکل آیکون‌های داخلی کاشی. در طرح‌ها با Instance swap عوض می‌شوند.`, buildIcons);
+  section(root, "Icons · آیکون‌ها", `${fa(Object.keys(ICONS).length)} آیکون ۲۰×۲۰ با خط ۱٫۵ در ${fa(Object.keys(ICON_CATEGORIES).length)} دسته، هم‌شکل آیکون‌های داخلی کاشی. در پنل Assets هم پوشه‌بندی شده‌اند و در طرح‌ها با Instance swap عوض می‌شوند.`, buildIcons, { stack: true });
   section(root, "Bank logos · لوگوی بانک‌ها", `${fa(BANKS.length)} لوگوی بانک و درگاه پرداخت از @kashi-ui/bank-logos.`, buildBankLogos);
 }
 
+/** هر دسته یک بلوک با عنوان و شبکهٔ خودش؛ نام کامپوننت «Icon / دسته / نام» تا پنل Assets هم پوشه‌بندی شود */
 function buildIcons(holder) {
-  for (const [name, inner] of Object.entries(ICONS)) {
-    const node = figma.createNodeFromSvg(svgOf(inner));
-    node.name = `Icon / ${name}`;
-    const comp = upsertComponent(`Icon / ${name}`, node);
-    comp.name = `Icon / ${name}`;
-    comp.fills = [];
-    comp.clipsContent = false;
-    for (const n of comp.findAll(() => true)) {
-      if ("constraints" in n) n.constraints = { horizontal: "SCALE", vertical: "SCALE" };
-      if ("strokes" in n && n.strokes.length) n.strokes = [paint("text-secondary")];
-    }
-    comp.description = `${ICON_TITLES[name]} — ${name} · @kashi-ui/icons`;
-    add(holder, F({ name, dir: "V", gap: 8, p: 12, cross: "center", w: 96, radius: "radius/md", stroke: "border-secondary", fill: "bg-secondary" }, [
-      comp,
-      T(name, { style: "Text xs/Regular", color: "text-tertiary", align: "center", ltr: true }),
+  const byCat = {};
+  for (const name of Object.keys(ICONS)) (byCat[ICON_CATEGORY[name]] = byCat[ICON_CATEGORY[name]] || []).push(name);
+  for (const [cat, title] of Object.entries(ICON_CATEGORIES)) {
+    const names = byCat[cat];
+    if (!names) continue;
+    const grid = F({ name: "Icons", dir: "H", wrap: true, gap: 12, rowGap: 12, w: "fill" });
+    add(holder, F({ name: cat, dir: "V", gap: 16, w: "fill", pb: 32, stroke: "border-secondary", sides: [0, 0, 1, 0] }, [
+      F({ name: "Title", dir: "H", gap: 12, cross: "center" }, [
+        T(title, { style: "Text xl/Semibold", color: "text-primary" }),
+        T(`${fa(names.length)} آیکون`, { style: "Text sm/Regular", color: "text-tertiary" }),
+        T(cat, { style: "Text sm/Regular", color: "text-quaternary", ltr: true }),
+      ]),
+      grid,
     ]));
-    S.icons[name] = comp;
+    for (const name of names) iconCell(grid, name, `Icon / ${title} / ${name}`);
   }
+}
+
+function iconCell(grid, name, label) {
+  const node = figma.createNodeFromSvg(svgOf(ICONS[name]));
+  node.name = label;
+  // کلید بدون دسته می‌ماند تا فایل‌هایی که با نسخهٔ قبلی ساخته شده‌اند درجا به‌روز شوند
+  const comp = upsertComponent(`Icon / ${name}`, node);
+  comp.name = label;
+  comp.fills = [];
+  comp.clipsContent = false;
+  for (const n of comp.findAll(() => true)) {
+    if ("constraints" in n) n.constraints = { horizontal: "SCALE", vertical: "SCALE" };
+    if ("strokes" in n && n.strokes.length) n.strokes = [paint("text-secondary")];
+  }
+  comp.description = `${ICON_TITLES[name]} — ${name} · @kashi-ui/icons`;
+  add(grid, F({ name, dir: "V", gap: 8, p: 12, cross: "center", w: 96, radius: "radius/md", stroke: "border-secondary", fill: "bg-secondary" }, [
+    comp,
+    T(name, { style: "Text xs/Regular", color: "text-tertiary", align: "center", ltr: true }),
+  ]));
+  S.icons[name] = comp;
 }
 
 /** نمونهٔ آیکون با اندازه و رنگ دلخواه */

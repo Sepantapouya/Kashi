@@ -145,7 +145,11 @@ assert.ok(label.componentPropertyReferences && label.componentPropertyReferences
 const variant = buttonSet.children[5];
 const variantId = variant.id;
 const propKeys = Object.keys(buttonSet.componentPropertyDefinitions).sort().join();
-const icon = full.figma.root.findAll((n) => n.type === "COMPONENT" && n.name === "Icon / plus")[0];
+const icon = full.figma.root.findAll((n) => n.type === "COMPONENT" && n.name.endsWith(" / plus") && n.name.startsWith("Icon / "))[0];
+// آیکون‌ها در بلوک دستهٔ خودشان چیده می‌شوند و نامشان پوشهٔ دسته را دارد
+assert.equal(icon.parent.parent.name, "Icons");
+assert.equal(icon.parent.parent.parent.name, "actions");
+assert.match(icon.name, /^Icon \/ [^/]+ \/ plus$/);
 const userPage = full.figma.root.children.find((p) => p.name === "Page 1");
 const instance = variant.createInstance();
 userPage.appendChild(instance);
@@ -163,7 +167,7 @@ assert.ok(buttonSet.children.some((c) => c.id === variantId), "variant updated i
 assert.equal(instance.mainComponent.id, variantId);
 assert.ok(!instance.mainComponent.removed, "instance still linked to a live component");
 assert.equal(Object.keys(buttonSet.componentPropertyDefinitions).sort().join(), propKeys, "property keys kept");
-assert.ok(!icon.removed && full.figma.root.findAll((n) => n.name === "Icon / plus").filter((n) => n.type === "COMPONENT").length === 1, "icon reused");
+assert.ok(!icon.removed && full.figma.root.findAll((n) => n.name.startsWith("Icon / ") && n.name.endsWith(" / plus")).filter((n) => n.type === "COMPONENT").length === 1, "icon reused");
 assert.ok(full.figma.root.children.find((p) => p.getPluginData("kashi-page") === "feedback/alert"), "deleted page recreated");
 assert.equal(full.figma.root.findAll((n) => n.type === "COMPONENT_SET" && n.name === "Button").length, 1, "no duplicate sets");
 assert.ok(full.figma.root.children.includes(userPage) && userPage.children.includes(instance), "user page untouched");
