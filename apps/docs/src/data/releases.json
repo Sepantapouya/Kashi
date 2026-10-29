@@ -1,12 +1,36 @@
 {
- "generated": "2026-10-29T13:03:15+03:30",
+ "generated": "2026-10-29T13:09:02+03:30",
  "totals": {
-  "commits": 91,
+  "commits": 92,
   "versions": 17,
-  "added": 60805,
+  "added": 61136,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "22726455465a2fe463144f40be0f49f6b97d4e78",
+   "short": "2272645",
+   "date": "2026-10-29T13:09:02+03:30",
+   "author": "sepantapouya",
+   "subject": "Docs: enterprise homepage hero with motion and micro-interactions",
+   "details": [
+    "New centered hero: aurora light, a kashi (khatam) tile pattern that",
+    "lights up under the pointer, a headline whose last word rotates through",
+    "organisation, bank, store, startup and government, a badge linking to",
+    "the icon set, factual version/licence/a11y pills, and a metrics strip",
+    "that counts up on view. The product mock tilts slightly in 3D, has a",
+    "light beam running round its border and Persian-feature chips floating",
+    "around it (Jalali date, IBAN, plate, contrast).",
+    "Across the page: a scroll progress bar, blurred reveal on scroll,",
+    "pointer spotlight on cards, a marquee for the tech stack, a shine on",
+    "the main button and a staggered pop when the icon style changes. All",
+    "motion is off under prefers-reduced-motion, and pointer effects only",
+    "run on fine pointers."
+   ],
+   "files": 2,
+   "added": 331,
+   "removed": 101
+  },
   {
    "sha": "26b29ce27679452b1755c1deeada1557c2da3568",
    "short": "26b29ce",
