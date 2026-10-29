@@ -1,130 +1,293 @@
 {
- "generated": "2026-10-29T00:26:10+03:30",
+ "generated": "2026-10-29T11:07:51+03:30",
  "totals": {
-  "commits": 45,
-  "versions": 16,
-  "added": 55611,
+  "commits": 56,
+  "versions": 17,
+  "added": 57137,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
   {
-   "sha": "701b0c86765c99b4fdb3773d5b32ee17e45415e1",
-   "short": "701b0c8",
-   "date": "2026-10-29T00:26:10+03:30",
+   "sha": "44a3fc8f3dd372b3ccd58c254298ed0edddff69f",
+   "short": "44a3fc8",
+   "date": "2026-10-29T11:07:51+03:30",
    "author": "sepantapouya",
-   "subject": "Docs: versions page built from git history and changelogs",
+   "subject": "Docs: draw inline icons from @kashi-ui/icons",
    "details": [
-    "scripts/releases.mjs groups every commit under the release that shipped",
-    "it (the next version bump), adds the changelog notes of all packages and",
-    "lists commits after the latest release as unreleased. It runs before dev",
-    "and build; on shallow clones (Vercel, CI) it keeps the committed data.",
-    "Linked from the footer and the docs sidebar."
+    "Header, code blocks, install box, gallery, hero panel, previews, demos and",
+    "site search used hand-drawn copies with the old 1.7 stroke. They now",
+    "render the package icons, so they follow the new soft style and stay in",
+    "sync with it."
    ],
-   "files": 6,
-   "added": 1341,
-   "removed": 4
+   "files": 9,
+   "added": 68,
+   "removed": 65
   },
   {
-   "sha": "9e7c320d915a7896e1a200593b1b57138ee7d032",
-   "short": "9e7c320",
-   "date": "2026-10-29T00:10:33+03:30",
+   "sha": "27743d4c7aa6a06d5fdf5b90d63445b37443c4bc",
+   "short": "27743d4",
+   "date": "2026-10-29T11:03:34+03:30",
    "author": "sepantapouya",
-   "subject": "Figma plugin: match every component to the live CSS",
-   "details": [
-    "Every Figma part is tagged with its CSS class and compared with real",
-    "browser measurements (test/css-metrics.json): padding, radius, gap,",
-    "background, border and text colour, font size and weight, height.",
-    "268 classes / 1722 parts match with zero differences.",
-    "Rebuilt to the CSS: field labels/hints (1.35 line height), check text",
-    "(20px), options, tag input, number steps, OTP slots, dropzone and file",
-    "rows, calendar, month picker, segmented, alert icon rings, banner,",
-    "meter, empty state, popover, tour, dialog halo, stat card, table,",
-    "accordion, timeline, tree, kbd, tabs, breadcrumb, stepper numbers,",
-    "splitter, plate proportions, bank card gradient, bank badge in fields,",
-    "money, receipt, date tile and countdown."
-   ],
-   "files": 17,
-   "added": 14550,
-   "removed": 545
-  },
-  {
-   "sha": "a22c4b1bb51c6a574b6392b7218755cd140f6c77",
-   "short": "a22c4b1",
-   "date": "2026-10-28T23:07:52+03:30",
-   "author": "sepantapouya",
-   "subject": "Docs header: add Figma plugin and compare links",
-   "details": [],
-   "files": 1,
-   "added": 3,
-   "removed": 1
-  },
-  {
-   "sha": "bfde2607fa72cbc4ad8a3060a382f6a71d78cd64",
-   "short": "bfde260",
-   "date": "2026-10-28T23:05:02+03:30",
-   "author": "sepantapouya",
-   "subject": "Figma plugin v2: one page per component, variables only, in-place updates",
-   "details": [
-    "- Every component on its own page, grouped with page dividers",
-    "- No text or effect styles: text binds to typography variables and every",
-    "shadow layer binds to theme variables (colour, offset, blur, spread)",
-    "- Re-running in the same file updates components in place (same node ids),",
-    "adds new ones and keeps instances and text overrides linked",
-    "- Variants laid out in a labelled grid (state columns, variant/size rows)",
-    "- Matches measured CSS: badge heights, alert/card surfaces, checkbox and chip",
-    "shadows, dialog shadow, tooltip height; 61 parity checks in the test",
-    "- Fixes palette overflow, URL field, combobox two-line options, docs links",
-    "- Author photo on the cover; downloadable zip and a Figma plugin docs page"
-   ],
-   "files": 25,
-   "added": 1393,
-   "removed": 636
-  },
-  {
-   "sha": "81a7c41caad23c3e0d18f48ba44e97ddb0bc267b",
-   "short": "81a7c41",
-   "date": "2026-10-28T22:44:41+03:30",
-   "author": "sepantapouya",
-   "subject": "Figma plugin: make the source manifest importable too",
+   "subject": "Icons: changeset and rebuilt Figma plugin for the soft style",
    "details": [],
    "files": 3,
-   "added": 13,
-   "removed": 5
+   "added": 8,
+   "removed": 3
   },
   {
-   "sha": "97f2aeb45a036589e47bee4cfe20a9fbde86e1f9",
-   "short": "97f2aeb",
-   "date": "2026-10-28T22:22:41+03:30",
+   "sha": "5520175845a0b85b1383596b4c036f1880c42ba4",
+   "short": "5520175",
+   "date": "2026-10-29T11:03:24+03:30",
    "author": "sepantapouya",
-   "subject": "Add Kashi UI Kit Figma plugin",
+   "subject": "Icons: redraw commerce, identity and remaining interface icons",
    "details": [
-    "Builds Kashi in Figma from the real tokens: ~200 variables (theme, radius,",
-    "density, spacing, typography modes), 44 text styles, effect styles, 70 icons,",
-    "50 bank logos and 73 RTL component sets with ~726 variants. Tested in a strict",
-    "mock of the Figma plugin API (npm run figma:test), also run in CI."
+    "Rounded cart, tag and receipt; squircle inbox, id card, keyboard and",
+    "sidebar; softer plane, building, car and command."
    ],
-   "files": 25,
-   "added": 6656,
-   "removed": 1
+   "files": 1,
+   "added": 12,
+   "removed": 12
   },
   {
-   "sha": "b26f30061c692b666677f33fc614d00ca5011a29",
-   "short": "b26f300",
-   "date": "2026-10-27T22:05:03+03:30",
-   "author": "Sepanta Pouya",
-   "subject": "Merge Persian field pages into one PersianInput page",
+   "sha": "8b16945095366bb46231c5d34dc111b929057c36",
+   "short": "8b16945",
+   "date": "2026-10-29T11:02:53+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: redraw navigation, files and interface icons in the soft style",
    "details": [
-    "PersianInput gains time and plate kinds, covering eleven field types.",
-    "The separate docs pages for each field are folded into sections of",
-    "the PersianInput page, and their old URLs redirect to the matching",
-    "section. The menu and Persian gallery list the merged field once."
+    "Softer pin, link, refresh, logout, folder and shield; squircle image and",
+    "grid; short sun rays, rounded moon tips, a curved two-star sparkle."
    ],
-   "files": 23,
-   "added": 529,
-   "removed": 579
+   "files": 1,
+   "added": 14,
+   "removed": 14
+  },
+  {
+   "sha": "1f476e84efebb5f66ef89908d08a2d5fb192e819",
+   "short": "1f476e8",
+   "date": "2026-10-29T11:02:19+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: redraw dots, star, heart and finance icons in the soft style",
+   "details": [
+    "Rounded-tip star, fuller heart, squircle card, wallet with a pocket,",
+    "chart bars inside a frame, and a softer bank roof."
+   ],
+   "files": 1,
+   "added": 9,
+   "removed": 9
+  },
+  {
+   "sha": "949312dc40f647494323fd1ff3c3a17711109dc5",
+   "short": "949312d",
+   "date": "2026-10-29T11:01:58+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: redraw calendar through filter in the soft style",
+   "details": [
+    "Squircle frames for calendar, mail, phone, lock and copy; closed soft",
+    "bodies for user and users; rounded house, bell, handset, file, trash,",
+    "pencil and funnel."
+   ],
+   "files": 1,
+   "added": 20,
+   "removed": 20
+  },
+  {
+   "sha": "751d85dd06cf4d93f775cc1b1f0ad36a9b95de8e",
+   "short": "751d85d",
+   "date": "2026-10-29T11:01:19+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: softer style, stroke 1.5; redraw status, actions and arrows",
+   "details": [
+    "Add a squircle helper (continuous corners) for container shapes and lower",
+    "the default stroke from 1.7 to 1.5. Redraw info, success, warning, error,",
+    "close, check, chevrons, arrows, search, plus and minus."
+   ],
+   "files": 5,
+   "added": 36,
+   "removed": 26
+  },
+  {
+   "sha": "66c7807f2943f59ec3b94322b1581c2d20c4460a",
+   "short": "66c7807",
+   "date": "2026-10-29T10:36:59+03:30",
+   "author": "sepantapouya",
+   "subject": "Docs: enterprise redesign of the homepage, header and footer",
+   "details": [
+    "Start-aligned hero with a spec sheet, package architecture diagram,",
+    "tabbed feature explorer with live demos, quality/CI section, comparison",
+    "table, and a calmer header and footer. Tabs now also move with Up/Down."
+   ],
+   "files": 4,
+   "added": 626,
+   "removed": 517
   }
  ],
  "versions": [
+  {
+   "version": "0.16.0",
+   "date": "2026-10-29T00:54:45+03:30",
+   "releaseCommit": "955b5ad",
+   "commits": [
+    {
+     "sha": "955b5ad698845a3dd46bb6057436445741b1b735",
+     "short": "955b5ad",
+     "date": "2026-10-29T00:54:45+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 0.16.0: @kashi-ui/icons",
+     "details": [],
+     "files": 16,
+     "added": 54,
+     "removed": 26
+    },
+    {
+     "sha": "c1d80de35155c35766078177ac53599ee6b77e2a",
+     "short": "c1d80de",
+     "date": "2026-10-29T00:42:05+03:30",
+     "author": "sepantapouya",
+     "subject": "Docs header: add Icons; collapse nav into the menu below 64rem",
+     "details": [],
+     "files": 2,
+     "added": 8,
+     "removed": 1
+    },
+    {
+     "sha": "03340e1ef9894be92bd7f732e829534db86f506c",
+     "short": "03340e1",
+     "date": "2026-10-29T00:38:25+03:30",
+     "author": "sepantapouya",
+     "subject": "Add @kashi-ui/icons and an icons page",
+     "details": [
+      "New package with the 70 Kashi line icons (20x20 grid, 1.7 stroke), Persian",
+      "names and keywords in 11 categories: a React component per icon plus",
+      "<Icon name>, framework-free iconSvg()/searchIcons(), single SVG files and",
+      "a sprite. The Figma plugin now builds its icons from the same source.",
+      "/docs/icons/ lists every icon with search (Persian, English, Arabic",
+      "letters normalized), category filters and per-icon usage for React,",
+      "HTML, sprite, JavaScript, SVG file and Figma."
+     ],
+     "files": 23,
+     "added": 671,
+     "removed": 259
+    },
+    {
+     "sha": "701b0c86765c99b4fdb3773d5b32ee17e45415e1",
+     "short": "701b0c8",
+     "date": "2026-10-29T00:26:10+03:30",
+     "author": "sepantapouya",
+     "subject": "Docs: versions page built from git history and changelogs",
+     "details": [
+      "scripts/releases.mjs groups every commit under the release that shipped",
+      "it (the next version bump), adds the changelog notes of all packages and",
+      "lists commits after the latest release as unreleased. It runs before dev",
+      "and build; on shallow clones (Vercel, CI) it keeps the committed data.",
+      "Linked from the footer and the docs sidebar."
+     ],
+     "files": 6,
+     "added": 1341,
+     "removed": 4
+    },
+    {
+     "sha": "9e7c320d915a7896e1a200593b1b57138ee7d032",
+     "short": "9e7c320",
+     "date": "2026-10-29T00:10:33+03:30",
+     "author": "sepantapouya",
+     "subject": "Figma plugin: match every component to the live CSS",
+     "details": [
+      "Every Figma part is tagged with its CSS class and compared with real",
+      "browser measurements (test/css-metrics.json): padding, radius, gap,",
+      "background, border and text colour, font size and weight, height.",
+      "268 classes / 1722 parts match with zero differences.",
+      "Rebuilt to the CSS: field labels/hints (1.35 line height), check text",
+      "(20px), options, tag input, number steps, OTP slots, dropzone and file",
+      "rows, calendar, month picker, segmented, alert icon rings, banner,",
+      "meter, empty state, popover, tour, dialog halo, stat card, table,",
+      "accordion, timeline, tree, kbd, tabs, breadcrumb, stepper numbers,",
+      "splitter, plate proportions, bank card gradient, bank badge in fields,",
+      "money, receipt, date tile and countdown."
+     ],
+     "files": 17,
+     "added": 14550,
+     "removed": 545
+    },
+    {
+     "sha": "a22c4b1bb51c6a574b6392b7218755cd140f6c77",
+     "short": "a22c4b1",
+     "date": "2026-10-28T23:07:52+03:30",
+     "author": "sepantapouya",
+     "subject": "Docs header: add Figma plugin and compare links",
+     "details": [],
+     "files": 1,
+     "added": 3,
+     "removed": 1
+    },
+    {
+     "sha": "bfde2607fa72cbc4ad8a3060a382f6a71d78cd64",
+     "short": "bfde260",
+     "date": "2026-10-28T23:05:02+03:30",
+     "author": "sepantapouya",
+     "subject": "Figma plugin v2: one page per component, variables only, in-place updates",
+     "details": [
+      "- Every component on its own page, grouped with page dividers",
+      "- No text or effect styles: text binds to typography variables and every",
+      "shadow layer binds to theme variables (colour, offset, blur, spread)",
+      "- Re-running in the same file updates components in place (same node ids),",
+      "adds new ones and keeps instances and text overrides linked",
+      "- Variants laid out in a labelled grid (state columns, variant/size rows)",
+      "- Matches measured CSS: badge heights, alert/card surfaces, checkbox and chip",
+      "shadows, dialog shadow, tooltip height; 61 parity checks in the test",
+      "- Fixes palette overflow, URL field, combobox two-line options, docs links",
+      "- Author photo on the cover; downloadable zip and a Figma plugin docs page"
+     ],
+     "files": 25,
+     "added": 1393,
+     "removed": 636
+    },
+    {
+     "sha": "81a7c41caad23c3e0d18f48ba44e97ddb0bc267b",
+     "short": "81a7c41",
+     "date": "2026-10-28T22:44:41+03:30",
+     "author": "sepantapouya",
+     "subject": "Figma plugin: make the source manifest importable too",
+     "details": [],
+     "files": 3,
+     "added": 13,
+     "removed": 5
+    },
+    {
+     "sha": "97f2aeb45a036589e47bee4cfe20a9fbde86e1f9",
+     "short": "97f2aeb",
+     "date": "2026-10-28T22:22:41+03:30",
+     "author": "sepantapouya",
+     "subject": "Add Kashi UI Kit Figma plugin",
+     "details": [
+      "Builds Kashi in Figma from the real tokens: ~200 variables (theme, radius,",
+      "density, spacing, typography modes), 44 text styles, effect styles, 70 icons,",
+      "50 bank logos and 73 RTL component sets with ~726 variants. Tested in a strict",
+      "mock of the Figma plugin API (npm run figma:test), also run in CI."
+     ],
+     "files": 25,
+     "added": 6656,
+     "removed": 1
+    },
+    {
+     "sha": "b26f30061c692b666677f33fc614d00ca5011a29",
+     "short": "b26f300",
+     "date": "2026-10-27T22:05:03+03:30",
+     "author": "Sepanta Pouya",
+     "subject": "Merge Persian field pages into one PersianInput page",
+     "details": [
+      "PersianInput gains time and plate kinds, covering eleven field types.",
+      "The separate docs pages for each field are folded into sections of",
+      "the PersianInput page, and their old URLs redirect to the matching",
+      "section. The menu and Persian gallery list the merged field once."
+     ],
+     "files": 23,
+     "added": 529,
+     "removed": 579
+    }
+   ],
+   "notes": []
+  },
   {
    "version": "0.15.0",
    "date": "2026-10-27T21:44:51+03:30",

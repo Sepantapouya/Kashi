@@ -1,0 +1,56 @@
+---
+// یک صفحه برای هر آیکون: /docs/icons/<name>/
+import Docs from "../../../layouts/Docs.astro";
+import { IconDetail } from "../../../components/IconDetail";
+import { categories, icons, iconSvg, type IconName } from "@kashi-ui/icons";
+
+export function getStaticPaths() {
+  return Object.keys(icons).map((name) => ({ params: { name } }));
+}
+
+const name = Astro.params.name as IconName;
+const icon = icons[name];
+const names = Object.keys(icons) as IconName[];
+const i = names.indexOf(name);
+const prev = names[i - 1];
+const next = names[i + 1];
+const related = names.filter((n) => n !== name && icons[n].category === icon.category);
+const category = categories[icon.category as keyof typeof categories];
+---
+<Docs title={`${icon.title} · آیکون ${name}`} description={`آیکون «${icon.title}» از دستهٔ ${category} در @kashi-ui/icons؛ کد React و HTML، اسپرایت، فیگما و دانلود SVG.`}>
+  <p class="ip-back"><a href="/docs/icons/">همهٔ آیکون‌ها</a> / <a href={`/docs/icons/#${icon.category}`}>{category}</a></p>
+
+  <IconDetail client:load name={name} />
+
+  {related.length > 0 && (
+    <section class="ip-related">
+      <h2>دیگر آیکون‌های «{category}»</h2>
+      <ul class="ib-grid" role="list">
+        {related.map((n) => (
+          <li>
+            <a class="ib-cell" href={`/docs/icons/${n}/`}>
+              <span class="ib-cell__art" set:html={iconSvg(n, { size: 24 })} />
+              <span class="ib-cell__title">{icons[n].title}</span>
+              <span class="ib-cell__name" dir="ltr">{n}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <nav class="pager" aria-label="آیکون‌های مجاور">
+    {prev ? <a class="pager__link" href={`/docs/icons/${prev}/`} rel="prev"><span>قبلی</span>{icons[prev].title}</a> : <span />}
+    {next && <a class="pager__link pager__link--next" href={`/docs/icons/${next}/`} rel="next"><span>بعدی</span>{icons[next].title}</a>}
+  </nav>
+</Docs>
+
+<style>
+  .ip-back { margin: 0 0 var(--k-space-4); color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .ip-back a { color: var(--k-text-secondary); text-decoration: none; }
+  .ip-back a:hover { color: var(--k-text-primary); }
+  .ip-related { margin-block-start: var(--k-space-8); }
+  .ip-related h2 { margin-block-end: var(--k-space-3); font-size: var(--k-text-lg); }
+  .ip-related :global(.ib-cell__art svg) { inline-size: 24px; block-size: 24px; }
+  .pager { margin-block-start: var(--k-space-8); }
+</style>
