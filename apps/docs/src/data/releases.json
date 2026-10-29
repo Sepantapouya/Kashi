@@ -1,12 +1,123 @@
 {
- "generated": "2026-10-29T11:45:28+03:30",
+ "generated": "2026-10-29T12:04:16+03:30",
  "totals": {
-  "commits": 67,
+  "commits": 73,
   "versions": 17,
-  "added": 58691,
+  "added": 59036,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "139a9b1bc07d20ad878be953129b05057a4d8c3a",
+   "short": "139a9b1",
+   "date": "2026-10-29T12:04:16+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 5/20 — file types, folders, security, layout controls",
+   "details": [
+    "file audio/video/sheet/slides/json/export/import, folder-shared/zip,",
+    "folders, newspaper, notes, library, cabinet, shield-off, spy, otp,",
+    "eye-scan, certificate, virus, firewall, siren, cog, bell/mail/chat-dot,",
+    "apps, filter-lines, sort asc/desc, list plus/minus, view-list,",
+    "columns-3, rows, sidebar-left, panel bottom/top, cursor-click, baby,",
+    "ear, heart-broken, verified, medal, target-arrow, battery low/full,",
+    "star-half, bell-snooze and chat-smile.",
+    "Component names now keep digits (columns-3 → IconColumns3)."
+   ],
+   "files": 2,
+   "added": 51,
+   "removed": 1
+  },
+  {
+   "sha": "e49465338c40ed0355bd6e73c806b66365e35181",
+   "short": "e494653",
+   "date": "2026-10-29T11:59:00+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 4/20 — payments, Iranian culture, nature, food, sports",
+   "details": [
+    "atm, pos, cash-stack, hand-coin, currency-exchange, invest, tax, cheque,",
+    "gold, stock, coupon, delivery, refund, scan-barcode, contactless,",
+    "tea-glass, carpet, pomegranate, fish, tulip, partly-cloudy, fog,",
+    "rainbow, tornado, flower, cactus, sprout, waves, tree-pine, earth,",
+    "pizza, burger, ice-cream, apple, cookie, soda, chef-hat, bowl, carrot,",
+    "egg, basketball, tennis-ball, run, swim, golf, dice, puzzle,",
+    "playing-cards, whistle and chess."
+   ],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "d973e0ba8da24d9c55c000b4c726b1cbedd07a99",
+   "short": "d973e0b",
+   "date": "2026-10-29T11:55:09+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 3/20 — media controls, text editing, devices, UI elements",
+   "details": [
+    "fast-forward, rewind, play/pause/stop circles, volume-low, disc,",
+    "equalizer, waveform, clapperboard, subtitles, cast, picture-in-picture,",
+    "aspect-ratio, align-justify, indent, outdent, text-size, paragraph,",
+    "highlighter, pen, eraser, paint-roller, text-cursor, super/subscript,",
+    "word-wrap, line-height, cctv, usb, sd-card, router, projector,",
+    "phone-vibrate, joystick, flashlight, pc-tower, remote, input-field,",
+    "dropdown-field, tooltip, modal, bottom-sheet, tabs-ui, accordion,",
+    "pagination, breadcrumb, progress-bar, stepper, carousel and toast."
+   ],
+   "files": 1,
+   "added": 51,
+   "removed": 0
+  },
+  {
+   "sha": "547bd64e477dbd0449cf3af8e4dee65789653070",
+   "short": "547bd64",
+   "date": "2026-10-29T11:52:10+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 2/20 — faces, people, calls, work, dev and charts",
+   "details": [
+    "sad, neutral, laugh, wink, angry, user-minus/x, users-group, user-voice,",
+    "hand, send-horizontal, newsletter, phone incoming/outgoing/missed,",
+    "mailbox, signal, antenna, podcast, headset, lifebuoy, chat-off,",
+    "presentation, file-signature, invoice, stamp, signature, id-badge,",
+    "org-chart, workflow, git branch/commit/merge/pull-request, terminal,",
+    "braces, webhook, bot, flask, clipboard-list, task, folder-tree, donut,",
+    "scatter, area and candle charts, calendar-day/off, gift-card, basket."
+   ],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "2b9c31e01c1b0d3ff4b4f9a74b3bfaf622740454",
+   "short": "2b9c31e",
+   "date": "2026-10-29T11:48:49+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 1/20 — framed arrows, places, transport, framed controls",
+   "details": [
+    "Circle and square arrows and chevrons, carets, corner arrows, two-way",
+    "arrows, diagonal maximize/minimize, sync, arrow-to-top/bottom, route,",
+    "directions, apartment, hospital, school, factory, tent, elevator,",
+    "stairs, ship, taxi, walk, traffic-light, plus/minus/x/more squares,",
+    "info/alert/question squares, grid-plus, octagon and octagon-alert."
+   ],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "1e13ccdadf43389c3a2c42b13d9989ca0cdeb7e6",
+   "short": "1e13ccd",
+   "date": "2026-10-29T11:46:22+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: 14 more composite bases; 1186 icons in total",
+   "details": [
+    "chat-square, messages, printer, watch, headphones, battery, wifi, flag,",
+    "lightbulb, package, ticket, key, folder-open and files now take the 14",
+    "corner badges too. Update icon counts in READMEs and docs, add a",
+    "changeset, rebuild the Figma plugin."
+   ],
+   "files": 10,
+   "added": 93,
+   "removed": 10
+  },
   {
    "sha": "d52a923002009d39d3b5b4f3627b38940859ddd7",
    "short": "d52a923",
