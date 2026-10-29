@@ -26,16 +26,12 @@ code, pre, kbd {
   position: sticky;
   inset-block-start: 0;
   z-index: var(--k-z-sticky);
-  border-block-end: 1px solid transparent;
-  background: color-mix(in srgb, var(--k-bg-primary) 60%, transparent);
-  backdrop-filter: blur(14px) saturate(1.4);
-  transition: border-color var(--k-duration-normal), background-color var(--k-duration-normal), box-shadow var(--k-duration-normal);
+  border-block-end: 1px solid var(--k-border-secondary);
+  background: color-mix(in srgb, var(--k-bg-primary) 94%, transparent);
+  backdrop-filter: blur(10px);
+  transition: box-shadow var(--k-duration-normal);
 }
-.site-header[data-scrolled] {
-  border-block-end-color: var(--k-border-secondary);
-  background: color-mix(in srgb, var(--k-bg-primary) 82%, transparent);
-  box-shadow: 0 8px 24px -12px rgb(0 0 0 / 0.35);
-}
+.site-header[data-scrolled] { box-shadow: 0 1px 0 var(--k-border-secondary), 0 6px 16px -10px rgb(0 0 0 / 0.3); }
 .site-header__inner {
   display: flex;
   align-items: center;
@@ -105,7 +101,7 @@ code, pre, kbd {
   margin-inline-end: var(--k-space-2);
   padding-inline: var(--k-space-3) var(--k-space-1_5);
   border: 1px solid var(--k-border-secondary);
-  border-radius: var(--k-radius-lg);
+  border-radius: var(--k-radius-md);
   background: var(--k-bg-secondary);
   color: var(--k-text-tertiary);
   font: inherit;
@@ -479,7 +475,7 @@ code, pre, kbd {
   display: flex;
   flex-wrap: wrap;
   gap: var(--k-space-8) clamp(2rem, 7vw, 5rem);
-  max-inline-size: 76rem;
+  max-inline-size: 80rem;
   margin-inline: auto;
 }
 .site-footer__brand { margin-inline-end: auto; max-inline-size: 20rem; }
@@ -501,7 +497,7 @@ code, pre, kbd {
 .site-footer .credit:hover { border-color: var(--k-border-primary); color: var(--k-text-primary); }
 .site-footer .credit img { inline-size: 1.75rem; block-size: 1.75rem; border-radius: 50%; object-fit: cover; }
 .site-footer .credit strong { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
-.site-footer__title { margin: 0 0 var(--k-space-4); color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+.site-footer__title { margin: 0 0 var(--k-space-4); color: var(--k-text-primary); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
 .site-footer ul { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--k-space-2_5, 0.625rem); }
 .site-footer a:not(.brand, .credit) { color: var(--k-text-tertiary); text-decoration: none; transition: color var(--k-duration-fast); }
 .site-footer a:not(.brand, .credit):hover { color: var(--k-text-primary); }
@@ -513,22 +509,9 @@ code, pre, kbd {
   border-block-start: 1px solid var(--k-border-secondary);
   font-size: var(--k-text-xs);
 }
-/* واژهٔ بزرگ «کاشی» در پس‌زمینهٔ پانویس */
-.site-footer__word {
-  position: absolute;
-  inset-block-end: -0.28em;
-  inset-inline-start: 50%;
-  translate: 50% 0;
-  z-index: 0;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--k-border-secondary);
-  font-size: clamp(8rem, 26vw, 22rem);
-  font-weight: var(--k-weight-black);
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
-}
+.site-footer__status { display: inline-flex; align-items: center; gap: var(--k-space-2); }
+.site-footer__status bdi { font-family: var(--k-font-mono); }
+.site-footer__dot { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background: var(--k-text-success); }
 .site-footer__inner, .site-footer__legal { position: relative; z-index: 1; }
 
 /* خروجی زندهٔ نمونه‌های تعاملی */

@@ -97,7 +97,8 @@ const fullTitle = title ? `${title} · کاشی` : "کاشی — دیزاین‌
           tab.addEventListener("keydown", (e) => {
             // در RTL «چپ» یعنی تب بعدی
             const rtl = getComputedStyle(tab).direction === "rtl";
-            const step = { ArrowLeft: rtl ? 1 : -1, ArrowRight: rtl ? -1 : 1 }[e.key];
+            // فهرست عمودی (aria-orientation) با بالا و پایین هم جابه‌جا می‌شود
+            const step = { ArrowLeft: rtl ? 1 : -1, ArrowRight: rtl ? -1 : 1, ArrowUp: -1, ArrowDown: 1 }[e.key];
             if (step) select(tabs[(i + step + tabs.length) % tabs.length]);
             else if (e.key === "Home") select(tabs[0]);
             else if (e.key === "End") select(tabs[tabs.length - 1]);
