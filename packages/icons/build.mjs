@@ -8,7 +8,7 @@ import { mkdirSync, writeFileSync, rmSync, copyFileSync } from "node:fs";
 import { icons, categories } from "./src/icons.js";
 import { renderBody, variants } from "./src/render.js";
 
-const pascal = (name) => "Icon" + name.replace(/(^|-)([a-z])/g, (_, __, c) => c.toUpperCase());
+const pascal = (name) => "Icon" + name.replace(/(^|-)([a-z0-9])/g, (_, __, c) => c.toUpperCase());
 const names = Object.keys(icons);
 const attrs = 'xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"';
 
