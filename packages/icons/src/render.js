@@ -56,8 +56,14 @@ const twoToneOpen = (units) => (units.length < 2 ? units.join("") : faint(units.
  * uid برای شناسهٔ ماسک‌های سبک bold است و باید در صفحه یکتا باشد؛ sw ضخامت خط است.
  */
 export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}) {
+  // جابه‌جایی کل آیکون برای هم‌مرکز شدن؛ همهٔ سبک‌ها با هم جابه‌جا می‌شوند
+  const shift = /^<g data-shift="([^"]+)">([\s\S]*)<\/g>$/.exec(body);
+  if (shift) {
+    const [dx, dy] = shift[1].split(" ");
+    return `<g transform="translate(${dx} ${dy})">${renderBody(shift[2], variant, { uid, sw })}</g>`;
+  }
   // آیکون ترکیبی: پایه داخل <g data-cut> و نشان گوشه بعد از آن؛ زیر نشان از پایه بریده می‌شود
-  const cut = /^<g data-cut="([^"]+)">([\s\S]*?)<\/g>([\s\S]*)$/.exec(body);
+  const cut = /^<g data-cut="([^"]+)">([\s\S]*)<\/g>([^<]*(?:<(?!\/g>)[^<]*)*)$/.exec(body);
   if (cut) {
     const [cx, cy, r] = cut[1].split(" ");
     return `<defs><mask id="${uid}-c" ${box}>${bg}<circle cx="${cx}" cy="${cy}" r="${r}" fill="#000" stroke="none"/></mask></defs>`

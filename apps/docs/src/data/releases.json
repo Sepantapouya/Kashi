@@ -1,12 +1,30 @@
 {
- "generated": "2026-10-29T13:34:37+03:30",
+ "generated": "2026-10-29T13:37:09+03:30",
  "totals": {
-  "commits": 93,
+  "commits": 94,
   "versions": 17,
-  "added": 61179,
+  "added": 61288,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "304f35f3da65c5e1fd21075853a63691b1fd90c2",
+   "short": "304f35f",
+   "date": "2026-10-29T13:37:09+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: prune meaningless composites; 1699 icons",
+   "details": [
+    "Composites now come from an explicit list of sensible badges per base",
+    "instead of every badge on every base: gift keeps clock, check and star",
+    "but loses search and sync, heart keeps only plus/minus/check/x, file",
+    "keeps all fourteen. 511 low-value composites go, 375 remain, so they",
+    "make up about 22% of the set. Counts in READMEs and docs, a changeset",
+    "and the Figma plugin are updated."
+   ],
+   "files": 11,
+   "added": 109,
+   "removed": 24
+  },
   {
    "sha": "42638b93b3ba96fe74921850bb223d1a6051b015",
    "short": "42638b9",
