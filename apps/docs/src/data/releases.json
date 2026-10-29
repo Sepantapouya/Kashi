@@ -1,12 +1,39 @@
 {
- "generated": "2026-10-29T15:13:53+03:30",
+ "generated": "2026-10-29T15:26:51+03:30",
  "totals": {
-  "commits": 114,
+  "commits": 116,
   "versions": 18,
-  "added": 63381,
+  "added": 63537,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "de593e7c068f1c0c2a59b0ae6f975b489be97fea",
+   "short": "de593e7",
+   "date": "2026-10-29T15:26:51+03:30",
+   "author": "sepantapouya",
+   "subject": "icons: add 50 hand-drawn icons (sports, toys, stationery, electronics)",
+   "details": [],
+   "files": 3,
+   "added": 53,
+   "removed": 3
+  },
+  {
+   "sha": "4594f91faca2fe246d1e797483db76146fb9b789",
+   "short": "4594f91",
+   "date": "2026-10-29T15:23:15+03:30",
+   "author": "sepantapouya",
+   "subject": "figma: lay out icons by category, folder them in Assets",
+   "details": [
+    "Each category gets its own titled block and grid on the Icons page,",
+    "and components are named Icon / <category> / <name> so the Assets",
+    "panel groups them. The stable key is unchanged, so files built with",
+    "the previous version update in place."
+   ],
+   "files": 9,
+   "added": 103,
+   "removed": 45
+  },
   {
    "sha": "1dfd36efc66f4db603bb635ba98215984a6b305d",
    "short": "1dfd36e",

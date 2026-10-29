@@ -1,6 +1,6 @@
 {
   "name": "@kashi-ui/bank-logos",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "لوگوی SVG بانک‌های ایران برای کاشی",
   "type": "module",
   "main": "./dist/index.js",

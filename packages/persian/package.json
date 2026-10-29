@@ -1,6 +1,6 @@
 {
   "name": "@kashi-ui/persian",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "ابزارهای فارسی کاشی: تاریخ شمسی، اعتبارسنجی کد ملی و شماره کارت، ارقام فارسی",
   "type": "module",
   "main": "./dist/index.js",
