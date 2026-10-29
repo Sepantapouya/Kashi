@@ -1,12 +1,44 @@
 {
- "generated": "2026-10-29T13:49:43+03:30",
+ "generated": "2026-10-29T14:14:07+03:30",
  "totals": {
-  "commits": 96,
+  "commits": 98,
   "versions": 17,
-  "added": 61395,
+  "added": 61554,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "668d0b0ce4fca43ae8e0da1a90e0b652a1d1c941",
+   "short": "668d0b0",
+   "date": "2026-10-29T14:14:07+03:30",
+   "author": "sepantapouya",
+   "subject": "icons: add 50 hand-drawn icons (batch 1 of next 100)",
+   "details": [],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "3b75935defa53906c43a6ec070518ed71f0c6f15",
+   "short": "3b75935",
+   "date": "2026-10-29T13:53:58+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: 50 more new icons; 1799 in total",
+   "details": [
+    "beacon, trash-restore, segmented, card-ui, hand-pointer, sms, family,",
+    "user-tie, budget, cart-full, kpi, deadline, keyhole, flash-off, selfie,",
+    "text-color, clear-format, blend, brush, symmetry, logs, brackets,",
+    "git-compare, power-bank, cable, license-plate, roundabout, bazaar,",
+    "cinema, warehouse, bamboo, nest, snack-bag, tea-bag, blood-pressure,",
+    "racing-flag, party-hat, hot-air-balloon, mic-vintage, chess-king,",
+    "launch, plug-off, crane, wash-cold, dry-flat, toilet-brush,",
+    "air-purifier, love-struck, thinking and calendar-heart. sun-rain no",
+    "longer crosses the frame. Counts, changeset and Figma plugin updated."
+   ],
+   "files": 10,
+   "added": 109,
+   "removed": 11
+  },
   {
    "sha": "b9d22beb6f029e92f3ca612b15b26783124b3d1b",
    "short": "b9d22be",
