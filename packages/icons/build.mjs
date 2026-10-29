@@ -3,10 +3,10 @@
 //   dist/react.js      یک کامپوننت React برای هر آیکون (IconSearch، ...) و <Icon name>
 //   dist/render.js     ساخت شش سبک (light، bold، bulk، two-tone، broken، curved) از طرح خطی
 //   dist/svg/*.svg     فایل جدا برای هر آیکون؛ سبک‌های دیگر در dist/svg/<variant>/
-//   dist/sprite.svg    همهٔ آیکون‌ها و سبک‌ها به شکل <symbol> برای <use href>
+//   dist/sprite.svg    همهٔ آیکون‌ها به شکل <symbol> برای <use href>؛ سبک‌های دیگر در dist/sprite-<variant>.svg
 import { mkdirSync, writeFileSync, rmSync, copyFileSync } from "node:fs";
 import { icons, categories } from "./src/icons.js";
-import { renderBody, plain, variants } from "./src/render.js";
+import { renderBody, variants } from "./src/render.js";
 
 const pascal = (name) => "Icon" + name.replace(/(^|-)([a-z])/g, (_, __, c) => c.toUpperCase());
 const names = Object.keys(icons);
@@ -141,11 +141,13 @@ export declare const Icon: ForwardRefExoticComponent<IconProps & { name: IconNam
 `);
 
 for (const n of names) {
-  writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${plain(icons[n].body)}</svg>\n`);
+  writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(icons[n].body, "light", { uid: `k-${n}` })}</svg>\n`);
   for (const v of variants.slice(1)) writeFileSync(`dist/svg/${v}/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(icons[n].body, v, { uid: `k-${n}` })}</svg>\n`);
 }
-writeFileSync(
-  "dist/sprite.svg",
-  `<svg xmlns="http://www.w3.org/2000/svg" style="display:none">\n${names.flatMap((n) => variants.map((v) => `<symbol id="k-${n}${v === "light" ? "" : `--${v}`}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${renderBody(icons[n].body, v, { uid: `k-${n}-${v}` })}</symbol>`)).join("\n")}\n</svg>\n`,
-);
+for (const v of variants) {
+  writeFileSync(
+    `dist/sprite${v === "light" ? "" : `-${v}`}.svg`,
+    `<svg xmlns="http://www.w3.org/2000/svg" style="display:none">\n${names.map((n) => `<symbol id="k-${n}${v === "light" ? "" : `--${v}`}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${renderBody(icons[n].body, v, { uid: `k-${n}-${v}` })}</symbol>`).join("\n")}\n</svg>\n`,
+  );
+}
 console.log(`icons: ${names.length} icons × ${variants.length} variants in ${Object.keys(categories).length} categories`);

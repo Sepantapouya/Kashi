@@ -70,7 +70,7 @@ export function IconDetail({ name }: { name: IconName }) {
         </TabList>
         <TabPanel value="react"><Code code={`import { ${icon.component} } from "@kashi-ui/icons/react";\n\n<${icon.component}${sw} />\n<${icon.component} size={24} title="${icon.title}" />\n\n// یا با نام\nimport { Icon } from "@kashi-ui/icons/react";\n<Icon name="${name}"${vp} />`} /></TabPanel>
         <TabPanel value="html"><Code code={svgCode} /></TabPanel>
-        <TabPanel value="sprite"><Code code={`<svg width="20" height="20" aria-hidden="true">\n  <use href="/sprite.svg#k-${name}${variant === "light" ? "" : `--${variant}`}" />\n</svg>\n\n<!-- فایل جدا: @kashi-ui/icons/svg/${variant === "light" ? "" : `${variant}/`}${name}.svg -->`} /></TabPanel>
+        <TabPanel value="sprite"><Code code={`<svg width="20" height="20" aria-hidden="true">\n  <use href="/sprite${variant === "light" ? "" : `-${variant}`}.svg#k-${name}${variant === "light" ? "" : `--${variant}`}" />\n</svg>\n\n<!-- فایل جدا: @kashi-ui/icons/svg/${variant === "light" ? "" : `${variant}/`}${name}.svg -->`} /></TabPanel>
         <TabPanel value="js"><Code code={`import { iconSvg } from "@kashi-ui/icons";\n\nel.innerHTML = iconSvg("${name}", { size: 24${stroke === 1.5 ? "" : `, strokeWidth: ${stroke}`}${variant === "light" ? "" : `, variant: "${variant}"`} });`} /></TabPanel>
         <TabPanel value="figma"><Code code={`Icon / ${name}`} /></TabPanel>
       </Tabs>

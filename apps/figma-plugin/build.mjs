@@ -5,6 +5,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { palette, space, radius, font, shadow, themes } from "../../packages/tokens/src/tokens.js";
 import { icons as ICON_SOURCE } from "../../packages/icons/src/icons.js";
+import { renderBody } from "../../packages/icons/src/render.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "../..");
@@ -160,7 +161,7 @@ const code = [
   `const TOKENS = ${JSON.stringify(TOKENS)};`,
   `const BANKS = ${JSON.stringify(banks)};`,
   // آیکون‌ها از همان منبع @kashi-ui/icons؛ فیگما و کد همیشه یک شکل دارند
-  `const ICONS = ${JSON.stringify(Object.fromEntries(Object.entries(ICON_SOURCE).map(([n, i]) => [n, i.body.replace(/ data-sq="[^"]*"/g, "")])))};`,
+  `const ICONS = ${JSON.stringify(Object.fromEntries(Object.entries(ICON_SOURCE).map(([n, i]) => [n, renderBody(i.body, "light", { uid: `k-${n}` })])))};`,
   `const ICON_TITLES = ${JSON.stringify(Object.fromEntries(Object.entries(ICON_SOURCE).map(([n, i]) => [n, i.title])))};`,
   `const AUTHOR_PHOTO = ${JSON.stringify(readFileSync(join(root, "apps/docs/public/images/sepanta-pouya.jpg")).toString("base64"))};`,
   ...parts.map((f) => `// ---- ${f}\n${readFileSync(join(srcDir, f), "utf8")}`),

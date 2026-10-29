@@ -43,6 +43,9 @@ function parts(body, curved) {
   return { shape, detail };
 }
 
+const box = 'maskUnits="userSpaceOnUse" x="-2" y="-2" width="24" height="24"';
+const bg = '<rect x="-2" y="-2" width="24" height="24" fill="#fff"/>';
+
 const faint = (s) => (s ? `<g opacity="0.4">${s}</g>` : "");
 
 /** چند خط باز بدون شکل بسته (فلش، ضربدر، منو): خط آخر پررنگ و بقیه کم‌رنگ */
@@ -53,6 +56,13 @@ const twoToneOpen = (units) => (units.length < 2 ? units.join("") : faint(units.
  * uid برای شناسهٔ ماسک‌های سبک bold است و باید در صفحه یکتا باشد؛ sw ضخامت خط است.
  */
 export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}) {
+  // آیکون ترکیبی: پایه داخل <g data-cut> و نشان گوشه بعد از آن؛ زیر نشان از پایه بریده می‌شود
+  const cut = /^<g data-cut="([^"]+)">([\s\S]*?)<\/g>([\s\S]*)$/.exec(body);
+  if (cut) {
+    const [cx, cy, r] = cut[1].split(" ");
+    return `<defs><mask id="${uid}-c" ${box}>${bg}<circle cx="${cx}" cy="${cy}" r="${r}" fill="#000" stroke="none"/></mask></defs>`
+      + `<g mask="url(#${uid}-c)">${renderBody(cut[2], variant, { uid: `${uid}b`, sw })}</g>${renderBody(cut[3], variant, { uid: `${uid}g`, sw })}`;
+  }
   if (variant === "light" || !variants.includes(variant)) return plain(body);
   const { shape, detail } = parts(body, variant === "curved");
   const S = shape.join(""), D = detail.join("");
@@ -62,8 +72,6 @@ export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}
     case "bold": {
       if (!S) return `<g stroke-width="${n(sw * 1.4)}">${D}</g>`;
       if (!D) return `<g fill="currentColor">${S}</g>`;
-      const box = 'maskUnits="userSpaceOnUse" x="-2" y="-2" width="24" height="24"';
-      const bg = '<rect x="-2" y="-2" width="24" height="24" fill="#fff"/>';
       // جزئیات داخل شکل پر سوراخ می‌شوند و بیرون آن عادی کشیده می‌شوند
       const holes = D.replace(/<circle\b/g, '<circle fill="#000"');
       return `<defs><mask id="${uid}-a" ${box}>${bg}<g stroke="#000">${holes}</g></mask><mask id="${uid}-b" ${box}>${bg}<g fill="#000" stroke="#000">${S}</g></mask></defs>`

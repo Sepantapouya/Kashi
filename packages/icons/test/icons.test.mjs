@@ -62,7 +62,7 @@ test("every icon renders in all six variants", async () => {
   assert.notEqual(a.match(/mask id="([^"]+)"/)[1], b.match(/mask id="([^"]+)"/)[1], "mask ids are unique");
   const html = renderToStaticMarkup(createElement(R.IconHome, { variant: "bulk" }));
   assert.match(html, /data-variant="bulk"/);
-  const sprite = readFileSync(new URL("../dist/sprite.svg", import.meta.url), "utf8");
-  assert.ok(sprite.includes('id="k-home--bold"'));
+  const bold = readFileSync(new URL("../dist/sprite-bold.svg", import.meta.url), "utf8");
+  assert.ok(bold.includes('id="k-home--bold"'));
   assert.equal(readdirSync(new URL("../dist/svg/curved/", import.meta.url)).length, iconNames.length);
 });

@@ -10,6 +10,7 @@
     "./react": { "types": "./dist/react.d.ts", "default": "./dist/react.js" },
     "./svg/*": "./dist/svg/*",
     "./sprite.svg": "./dist/sprite.svg",
+    "./sprite-*.svg": "./dist/sprite-*.svg",
     "./package.json": "./package.json"
   },
   "files": ["dist", "README.md", "LICENSE"],

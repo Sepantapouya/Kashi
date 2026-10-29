@@ -206,3 +206,52 @@ export const icons = {
   "shopping-bag": { title: "کیسهٔ خرید", category: "finance", keywords: ["خرید", "سفارش", "فروشگاه", "bag", "shopping", "order"], body: '<path d="M4.4 7.4c.1-1 .9-1.65 1.9-1.65h7.4c1 0 1.8.65 1.9 1.65l.75 7.15c.15 1.5-1 2.7-2.5 2.7H6.15c-1.5 0-2.65-1.2-2.5-2.7Z"/><path d="M7.25 8V5.5a2.75 2.75 0 0 1 5.5 0V8"/>' },
   "store": { title: "فروشگاه", category: "finance", keywords: ["مغازه", "کسب‌وکار", "شعبه", "store", "shop"], body: '<path d="M3 7.5 4.3 3.95c.15-.45.6-.7 1.05-.7h9.3c.45 0 .9.25 1.05.7L17 7.5c0 1.25-1 2.25-2.35 2.25-1.25 0-2.3-1-2.3-2.25 0 1.25-1.05 2.25-2.35 2.25S7.65 8.75 7.65 7.5c0 1.25-1.05 2.25-2.3 2.25C4 9.75 3 8.75 3 7.5Z"/><path d="M4.25 9.6V15c0 1.4.85 2.25 2.25 2.25h7c1.4 0 2.25-.85 2.25-2.25V9.6M8.25 17.25V14c0-.7.55-1.25 1.25-1.25h1c.7 0 1.25.55 1.25 1.25v3.25"/>' },
 };
+
+// ───── آیکون‌های ترکیبی: یک آیکون پایه با نشانی کوچک در گوشهٔ پایین (مثل folder-check)
+// زیر نشان دایره‌ای از پایه بریده می‌شود تا دو شکل به هم نچسبند؛ هر ترکیب خودکار شش سبک دارد.
+
+/** ستارهٔ کوچک با پنج پَر، برای نشان star */
+const star = (cx, cy, R, r) => "M" + Array.from({ length: 10 }, (_, i) => {
+  const a = -Math.PI / 2 + (i * Math.PI) / 5, d = i % 2 ? r : R;
+  return `${n(cx + d * Math.cos(a))} ${n(cy + d * Math.sin(a))}`;
+}).join("L") + "Z";
+const n = (v) => +v.toFixed(2);
+
+const badges = {
+  plus: { title: (t) => `افزودن ${t}`, keywords: ["افزودن", "جدید", "add", "new"], body: '<path d="M15 12.5v5M12.5 15h5"/>' },
+  minus: { title: (t) => `کم کردن ${t}`, keywords: ["کم", "کاهش", "remove", "minus"], body: '<path d="M12.5 15h5"/>' },
+  check: { title: (t) => `${t} تأییدشده`, keywords: ["تأیید", "انجام", "done", "check", "ok"], body: '<path d="m12.6 15.1 1.6 1.6 3.2-3.3"/>' },
+  x: { title: (t) => `حذف ${t}`, keywords: ["حذف", "لغو", "delete", "remove", "cancel"], body: '<path d="m13.1 13.1 3.8 3.8M16.9 13.1l-3.8 3.8"/>' },
+  alert: { title: (t) => `هشدار ${t}`, keywords: ["هشدار", "خطا", "alert", "warning", "error"], body: '<path d="M15 12.4v2.9M15 17.6v.01"/>' },
+  info: { title: (t) => `اطلاعات ${t}`, keywords: ["اطلاعات", "جزئیات", "info", "details"], body: '<path d="M15 14.4v3.2M15 12.4v.01"/>' },
+  up: { title: (t) => `آپلود ${t}`, keywords: ["آپلود", "ارسال", "upload", "send"], body: '<path d="M15 17.6v-5M12.9 14.6l2.1-2.1 2.1 2.1"/>' },
+  down: { title: (t) => `دانلود ${t}`, keywords: ["دانلود", "دریافت", "download", "save"], body: '<path d="M15 12.4v5M12.9 15.4l2.1 2.1 2.1-2.1"/>' },
+  lock: { title: (t) => `${t} قفل‌شده`, keywords: ["قفل", "خصوصی", "امن", "lock", "private", "secure"], body: '<path d="M12.4 15.9c0-.75.55-1.3 1.3-1.3h2.6c.75 0 1.3.55 1.3 1.3v1c0 .75-.55 1.3-1.3 1.3h-2.6c-.75 0-1.3-.55-1.3-1.3Z"/><path d="M13.6 14.6v-.9a1.4 1.4 0 0 1 2.8 0v.9"/>' },
+  star: { title: (t) => `${t} ویژه`, keywords: ["ویژه", "ستاره", "منتخب", "star", "featured", "favorite"], body: `<path d="${star(15, 15.2, 3.1, 1.35)}"/>` },
+  clock: { title: (t) => `${t} زمان‌دار`, keywords: ["زمان", "برنامه", "انتظار", "time", "schedule", "pending"], body: '<circle cx="15" cy="15" r="2.9"/><path d="M15 13.65v1.45l.95.65"/>' },
+  search: { title: (t) => `جستجوی ${t}`, keywords: ["جستجو", "یافتن", "search", "find"], body: '<circle cx="14.6" cy="14.6" r="2.15"/><path d="m16.25 16.25 1.35 1.35"/>' },
+  edit: { title: (t) => `ویرایش ${t}`, keywords: ["ویرایش", "تغییر", "edit", "change"], body: '<path d="m16.5 12.4 1.1 1.1-3.75 3.75-1.55.35.35-1.55Z"/>' },
+  sync: { title: (t) => `همگام‌سازی ${t}`, keywords: ["همگام", "به‌روزرسانی", "sync", "refresh", "update"], body: '<path d="M17.6 15a2.6 2.6 0 1 1-.8-1.85M17.75 12.4v1.4h-1.4"/>' },
+};
+
+const bases = [
+  "user", "users", "file", "folder", "calendar", "mail", "chat", "bell", "image", "video",
+  "camera", "mic", "music", "home", "building", "store", "cart", "shopping-bag", "wallet", "credit-card",
+  "bank", "receipt", "tag", "gift", "bookmark", "heart", "shield", "phone", "monitor", "laptop",
+  "tablet", "database", "server", "cloud", "map-pin", "map", "globe", "link", "clipboard", "book",
+  "archive", "inbox", "layers", "layout", "id-card", "car", "truck", "briefcase", "key-card", "document",
+].filter((b) => icons[b]);
+
+for (const base of bases) {
+  for (const [key, badge] of Object.entries(badges)) {
+    const name = `${base}-${key}`;
+    if (icons[name]) continue;
+    const i = icons[base];
+    icons[name] = {
+      title: badge.title(i.title),
+      category: i.category,
+      keywords: [...new Set([...i.keywords, ...badge.keywords])],
+      body: `<g data-cut="15 15 4.6">${i.body}</g>${badge.body}`,
+    };
+  }
+}

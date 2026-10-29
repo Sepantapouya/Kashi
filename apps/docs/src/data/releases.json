@@ -1,12 +1,40 @@
 {
- "generated": "2026-10-29T11:27:18+03:30",
+ "generated": "2026-10-29T11:29:20+03:30",
  "totals": {
-  "commits": 61,
+  "commits": 63,
   "versions": 17,
-  "added": 58336,
+  "added": 58431,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "8a1ec9308b0f4066641f4fca150dfdb30108c2ae",
+   "short": "8a1ec93",
+   "date": "2026-10-29T11:29:20+03:30",
+   "author": "sepantapouya",
+   "subject": "Figma plugin download: rebuild with 174 icons",
+   "details": [],
+   "files": 1,
+   "added": 0,
+   "removed": 0
+  },
+  {
+   "sha": "1db647c562a76c3b0cfb536509a1eaee683727f6",
+   "short": "1db647c",
+   "date": "2026-10-29T11:29:02+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: add 24 time, weather, navigation and finance icons; 174 in total",
+   "details": [
+    "calendar-check, alarm, hourglass, timer, history, rain, snow, storm,",
+    "thermometer, umbrella, wind, droplet, compass, navigation, map, plane,",
+    "truck, coin, gem, calculator, trending-up, pie-chart, shopping-bag,",
+    "store. Update icon counts in READMEs and docs, document variants in the",
+    "package README, add a changeset and rebuild the Figma plugin."
+   ],
+   "files": 9,
+   "added": 95,
+   "removed": 11
+  },
   {
    "sha": "326d21def6cd15c8173c394cd8bea4339717fc3c",
    "short": "326d21d",
