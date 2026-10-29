@@ -391,6 +391,8 @@ const bases = [
   "bank", "receipt", "tag", "gift", "bookmark", "heart", "shield", "phone", "monitor", "laptop",
   "tablet", "database", "server", "cloud", "map-pin", "map", "globe", "link", "clipboard", "book",
   "archive", "inbox", "layers", "layout", "id-card", "car", "truck", "briefcase", "key-card", "document",
+  "chat-square", "messages", "printer", "watch", "headphones", "battery", "wifi", "flag", "lightbulb", "package",
+  "ticket", "key", "folder-open", "files",
 ].filter((b) => icons[b]);
 
 for (const base of bases) {

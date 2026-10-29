@@ -1,12 +1,88 @@
 {
- "generated": "2026-10-29T11:29:20+03:30",
+ "generated": "2026-10-29T11:45:28+03:30",
  "totals": {
-  "commits": 63,
+  "commits": 67,
   "versions": 17,
-  "added": 58431,
+  "added": 58691,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "d52a923002009d39d3b5b4f3627b38940859ddd7",
+   "short": "d52a923",
+   "date": "2026-10-29T11:45:28+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-draw 50 lifestyle, health, nature and \"off\" icons",
+   "details": [
+    "Adds the lifestyle category with heart-pulse, pill, first-aid,",
+    "stethoscope, graduation-cap, notebook, trophy, dumbbell, football,",
+    "coffee, utensils, cake, leaf, tree, mountain, paw, bed, lamp, door,",
+    "shirt, glasses and party; plus language, accessibility, infinity,",
+    "shapes, cube, focus, crosshair, ban, bell-off/ring, cloud/wifi/mic/",
+    "video/camera/phone/link/location/image-off, radio-device, magnet,",
+    "moon-stars, snowflake, flame, heading, strikethrough, images and",
+    "battery-charging."
+   ],
+   "files": 1,
+   "added": 51,
+   "removed": 0
+  },
+  {
+   "sha": "9f2eb2897cac507334d9ce45052330ef6cdeccba",
+   "short": "9f2eb28",
+   "date": "2026-10-29T11:42:09+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-draw 50 security, finance, files, media, devices and transport icons",
+   "details": [
+    "key, unlock, fingerprint, password, face-id, bug, safe, banknote, coins,",
+    "barcode, discount, trending-down, chart-line, bar-chart, piggy-bank,",
+    "scale, ticket, package, calendar-week, schedule, sunrise, sunset,",
+    "file-text/image/zip/chart, files, folder-open, sticky-note, skip next and",
+    "previous, stop, record, film, playlist, speaker, cpu, gamepad, tv, plug,",
+    "hard-drive, bus, bicycle, train, fuel, parking, signpost, anchor, rocket",
+    "and target."
+   ],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "8b3ce9e55a7cd10c25a4c0b790d8ca413510b55a",
+   "short": "8b3ce9e",
+   "date": "2026-10-29T11:38:23+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-draw 50 arrows, actions, interface and communication icons",
+   "details": [
+    "Diagonal arrows, double chevrons, swap, move, enter, shuffle, repeat,",
+    "rotate, minimize, login, scissors, hash, thumbs up/down, reply, forward,",
+    "cursor, magic-wand, ruler, basic shapes, checkbox, radio, toggle-off,",
+    "columns, table, kanban, window, dashboard, vertical sliders, mail-open,",
+    "messages, rss, broadcast, phone-call, voicemail, chat-square,",
+    "user-circle, user-square and contact-book."
+   ],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "3eda2f8d986700aa94326f4efd8a576dc72ddf37",
+   "short": "3eda2f8",
+   "date": "2026-10-29T11:35:05+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: compose 666 badge icons from 48 bases and 14 badges",
+   "details": [
+    "A composite places a small badge (plus, minus, check, x, alert, info,",
+    "up, down, lock, star, clock, search, edit, sync) in the bottom corner of",
+    "a base icon such as folder or calendar, and a mask cuts the base away",
+    "under the badge. The renderer handles composites in every variant, so",
+    "folder-check, file-lock, calendar-x and the rest come in all six",
+    "styles. Sprites are now one file per variant (sprite-bold.svg, ...) to",
+    "keep each one small."
+   ],
+   "files": 12,
+   "added": 109,
+   "removed": 20
+  },
   {
    "sha": "8a1ec9308b0f4066641f4fca150dfdb30108c2ae",
    "short": "8a1ec93",
