@@ -2,16 +2,16 @@
 import { useState } from "react";
 import { Avatar, Badge, Button, ChipGroup, SegmentedControl, SideNav, StatCard, StatGrid } from "@kashi-ui/react";
 import { formatNumber } from "@kashi-ui/persian";
+import { Icon } from "@kashi-ui/icons/react";
+import type { IconName } from "@kashi-ui/icons";
 
-const I = ({ d }: { d: string }) => (
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>
-);
-const home = "M3.5 9 10 3.5 16.5 9v7a1 1 0 0 1-1 1h-3v-5h-5v5h-3a1 1 0 0 1-1-1Z";
-const chart = "M3.5 16.5h13M6 13V9m4 4V5.5m4 7.5v-3";
-const users = "M7.5 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2.5 16.5a5 5 0 0 1 10 0M13 4.3a3 3 0 0 1 0 5.4M15 12.2a5 5 0 0 1 2.5 4.3";
-const inbox = "M2.5 11 5 4.5h10l2.5 6.5v4.5a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1ZM2.5 11h4l1 2h5l1-2h4";
-const gear = "M10 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2";
-const wallet = "M2.5 5h15v11h-15ZM13 10.5h4.5";
+const I = ({ d }: { d: IconName }) => <Icon name={d} />;
+const home = "home";
+const chart = "chart";
+const users = "users";
+const inbox = "inbox";
+const gear = "settings";
+const wallet = "wallet";
 
 const Spark = ({ points, tone = "brand" }: { points: number[]; tone?: "brand" | "error" }) => {
   const max = Math.max(...points), min = Math.min(...points);

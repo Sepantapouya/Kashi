@@ -1,4 +1,5 @@
 ---
+import { iconSvg } from "@kashi-ui/icons";
 // دستور نصب با دکمهٔ کپی
 interface Props { command?: string }
 const { command = "npm i @kashi-ui/react @kashi-ui/css" } = Astro.props;
@@ -7,6 +8,6 @@ const { command = "npm i @kashi-ui/react @kashi-ui/css" } = Astro.props;
   <span class="install__prompt" aria-hidden="true">$</span>
   <code class="install__cmd">{command}</code>
   <button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm copy-btn" aria-label="کپی دستور نصب" data-copy={command}>
-    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2" /><path d="M13 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" /></svg>
+    <Fragment set:html={iconSvg("copy")} />
   </button>
 </div>

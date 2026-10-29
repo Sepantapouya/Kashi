@@ -1,4 +1,5 @@
 ---
+import { iconSvg } from "@kashi-ui/icons";
 // فهرست کامپوننت‌ها با پیش‌نمایش زنده؛ کلیک روی هر کارت صفحهٔ آن را باز می‌کند
 import Base from "../layouts/Base.astro";
 import Header from "./Header.astro";
@@ -57,7 +58,7 @@ const persian = mode === "persian";
       {!persian && (
         <div class="gallery__tools" data-enter style="--d: 3">
           <label class="gallery__search k-input">
-            <span class="k-input__addon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="9" r="5.5" /><path d="m13.5 13.5 3 3" /></svg></span>
+            <span class="k-input__addon"><Fragment set:html={iconSvg("search")} /></span>
             <span class="k-sr-only">جستجوی کامپوننت</span>
             <input class="k-input__control" type="search" placeholder="جستجو، مثلاً «جدول» یا «منو»" data-gallery-search autocomplete="off" />
           </label>

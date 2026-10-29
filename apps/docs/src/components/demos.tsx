@@ -14,6 +14,8 @@ import { ActivityHeatmap, BarChart, BarList, ContextMenu, InlineEdit, LineChart,
 import { toISODate as isoDate } from "@kashi-ui/persian";
 import { Carousel, ColorPicker, Meter, MultiSelect, Splitter, Tour } from "@kashi-ui/react";
 import { getIranHoliday } from "@kashi-ui/persian";
+import { Icon as KashiIcon } from "@kashi-ui/icons/react";
+import type { IconName } from "@kashi-ui/icons";
 
 export const ButtonIcons = () => (
   <>
@@ -247,22 +249,20 @@ export const AvatarGroupDemo = () => (
 
 // ───── دستهٔ سوم کامپوننت‌ها
 
-const Icon = ({ d }: { d: string }) => (
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>
-);
+const Icon = ({ d }: { d: IconName }) => <KashiIcon name={d} />;
 const I = {
-  edit: "M4 16h3l8.5-8.5a2.1 2.1 0 0 0-3-3L4 13v3Z",
-  copy: "M7 7h9v9H7zM4 13V4h9",
-  archive: "M3 5h14v3H3zM4.5 8v8h11V8M8 11h4",
-  trash: "M3.5 5.5h13M8 5.5V4h4v1.5M5 5.5l.8 10.2a1.5 1.5 0 0 0 1.5 1.3h5.4a1.5 1.5 0 0 0 1.5-1.3L15 5.5",
-  dots: "M4 10h.01M10 10h.01M16 10h.01",
-  folder: "M3 6.5A1.5 1.5 0 0 1 4.5 5H8l1.5 2h6A1.5 1.5 0 0 1 17 8.5v6a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 14.5v-8Z",
-  home: "M3.5 9 10 3.5 16.5 9v7a1 1 0 0 1-1 1h-3.5v-5h-4v5H4.5a1 1 0 0 1-1-1V9Z",
-};
+  edit: "edit",
+  copy: "copy",
+  archive: "inbox",
+  trash: "trash",
+  dots: "more",
+  folder: "folder",
+  home: "home",
+} as const;
 
 export const MenuDemo = () => (
   <>
-    <DropdownMenu trigger={<Button iconEnd={<Icon d="m6 8 4 4 4-4" />}>گزینه‌ها</Button>}>
+    <DropdownMenu trigger={<Button iconEnd={<Icon d="chevron-down" />}>گزینه‌ها</Button>}>
       <MenuLabel>پروژه</MenuLabel>
       <MenuItem icon={<Icon d={I.edit} />} shortcut="Ctrl+E" onSelect={() => toast("ویرایش")}>ویرایش</MenuItem>
       <MenuItem icon={<Icon d={I.copy} />} shortcut="Ctrl+D" onSelect={() => toast("کپی شد")}>کپی</MenuItem>
@@ -573,7 +573,7 @@ export const MenuCheckDemo = () => {
   const [cols, setCols] = useState({ date: true, status: true, amount: false });
   const toggle = (k: keyof typeof cols) => setCols({ ...cols, [k]: !cols[k] });
   return (
-    <DropdownMenu trigger={<Button iconEnd={<Icon d="m6 8 4 4 4-4" />}>ستون‌ها</Button>}>
+    <DropdownMenu trigger={<Button iconEnd={<Icon d="chevron-down" />}>ستون‌ها</Button>}>
       <MenuLabel>نمایش ستون</MenuLabel>
       <MenuItem checked={cols.date} onSelect={() => toggle("date")}>تاریخ</MenuItem>
       <MenuItem checked={cols.status} onSelect={() => toggle("status")}>وضعیت</MenuItem>
@@ -803,8 +803,8 @@ export const SideNavDemo = () => {
 
 // ───── نسخهٔ ۰٫۱۰ ─────
 
-const ListIcon = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" aria-hidden="true"><path d="M7 5h10M7 10h10M7 15h10M3 5h.01M3 10h.01M3 15h.01" /></svg>;
-const GridIcon = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinejoin="round" aria-hidden="true"><rect x="3" y="3" width="6" height="6" rx="1.5" /><rect x="11" y="3" width="6" height="6" rx="1.5" /><rect x="3" y="11" width="6" height="6" rx="1.5" /><rect x="11" y="11" width="6" height="6" rx="1.5" /></svg>;
+const ListIcon = () => <KashiIcon name="list" />;
+const GridIcon = () => <KashiIcon name="grid" />;
 
 export const SegmentedDemo = () => {
   const [view, setView] = useState("list");
@@ -848,8 +848,8 @@ export const BannerDemo = () => {
     </div>
   );
 };
-const InfoIcon = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5" /><path d="M10 9v5M10 6.5h.01" /></svg>;
-const WarnIcon = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M10 3 2.5 16.5h15Z" /><path d="M10 8v4M10 14.5h.01" /></svg>;
+const InfoIcon = () => <KashiIcon name="info" />;
+const WarnIcon = () => <KashiIcon name="warning" />;
 
 export const RatingDemo = () => {
   const [v, setV] = useState(0);
@@ -894,8 +894,8 @@ export const PlateDemo = () => {
 
 // ───── ادامهٔ ۰٫۱۰ ─────
 
-const FolderIcon = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinejoin="round" aria-hidden="true"><path d="M2.5 5.5a1 1 0 0 1 1-1h4l2 2h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1Z" /></svg>;
-const FileIcon = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinejoin="round" aria-hidden="true"><path d="M5 2.5h6l4 4v11H5Z" /><path d="M11 2.5v4h4" /></svg>;
+const FolderIcon = () => <KashiIcon name="folder" />;
+const FileIcon = () => <KashiIcon name="file" />;
 
 const files: TreeNode[] = [
   { id: "docs", label: "اسناد", icon: <FolderIcon />, meta: "۳ پوشه", children: [

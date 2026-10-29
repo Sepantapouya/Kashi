@@ -1,5 +1,7 @@
 // پیش‌نمایش کوچک هر کامپوننت در صفحهٔ فهرست؛ فقط نمایشی (inert)، بدون hydrate
 import type { ReactNode } from "react";
+import { Icon } from "@kashi-ui/icons/react";
+import type { IconName } from "@kashi-ui/icons";
 import {
   Accordion, AccordionItem, Alert, Avatar, AvatarGroup, Badge, Banner, Breadcrumb, Button, ButtonGroup, Calendar, Card, CardBody, CardDescription,
   CardHeader, CardTitle, CardNumberInput, BarChart, ActivityHeatmap, Meter, Checkbox, ChipGroup, Countdown, Divider, EmptyState, IbanInput, Input, Kbd, MobileInput, NationalIdInput,
@@ -8,8 +10,8 @@ import {
   SegmentedControl, Select, Skeleton, Slider, StatCard, Stepper, Switch, Tab, TabList, Tabs, TagInput, Textarea, Timeline,
 } from "@kashi-ui/react";
 
-const I = ({ d }: { d: string }) => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={d} /></svg>;
-const folder = "M2.5 5.5a1 1 0 0 1 1-1h4l2 2h7a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1Z";
+const I = ({ d }: { d: IconName }) => <Icon name={d} />;
+const folder = "folder";
 const Box = ({ children, cls = "" }: { children: ReactNode; cls?: string }) => <div className={`pv ${cls}`}>{children}</div>;
 
 const menu = (
@@ -47,20 +49,20 @@ export const previews: Record<string, ReactNode> = {
   "empty-state": <Box><EmptyState icon={<I d={folder} />} title="هنوز پروژه‌ای ندارید" className="pv-empty" /></Box>,
   divider: <Box cls="pv--col pv--field"><span className="pv-muted">بخش اول</span><Divider label="یا" /><span className="pv-muted">بخش دوم</span></Box>,
   combobox: <Box cls="pv--field"><div className="k-input"><input className="k-input__control" defaultValue="اصف" readOnly /></div><ul className="k-listbox k-listbox--inline pv-list"><li className="k-option" data-active=""><span className="k-option__body"><span><mark>اصف</mark>هان</span></span></li></ul></Box>,
-  "command-palette": <Box cls="pv--field"><div className="pv-cmd"><div className="pv-cmd__search"><I d="M9 14.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11ZM13.5 13.5l3 3" /><span>جستجوی دستور…</span><Kbd>⌘K</Kbd></div><div className="pv-cmd__item" data-active="">داشبورد</div><div className="pv-cmd__item">تنظیمات</div></div></Box>,
+  "command-palette": <Box cls="pv--field"><div className="pv-cmd"><div className="pv-cmd__search"><I d="search" /><span>جستجوی دستور…</span><Kbd>⌘K</Kbd></div><div className="pv-cmd__item" data-active="">داشبورد</div><div className="pv-cmd__item">تنظیمات</div></div></Box>,
   "tag-input": <Box cls="pv--field"><TagInput aria-label="برچسب" defaultValue={["طراحی", "React"]} /></Box>,
-  "file-upload": <Box cls="pv--field"><div className="k-dropzone pv-drop"><span className="k-dropzone__icon"><I d="M10 13V4m0 0L6.5 7.5M10 4l3.5 3.5M4 13v2a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-2" /></span><span className="k-dropzone__title">فایل را اینجا رها کنید</span></div></Box>,
+  "file-upload": <Box cls="pv--field"><div className="k-dropzone pv-drop"><span className="k-dropzone__icon"><I d="upload" /></span><span className="k-dropzone__title">فایل را اینجا رها کنید</span></div></Box>,
   slider: <Box cls="pv--field"><Slider label="قیمت" defaultValue={[20, 70]} /></Box>,
   "number-input": <Box cls="pv--field"><NumberInput aria-label="تعداد" defaultValue={2} min={1} unit="نفر" /></Box>,
   popover: <Box><div className="pv-pop"><Button size="sm">فیلتر</Button><div className="k-popover pv-static"><p className="k-popover__title">فیلترها</p><Checkbox label="پرداخت‌شده" defaultChecked /></div></div></Box>,
   "stat-card": <Box cls="pv--field"><StatCard label="فروش" value="۱۸۴٫۵" unit="میلیون" change={12.4} /></Box>,
   timeline: <Box cls="pv--field"><Timeline items={[{ title: "سفارش تأیید شد", time: "۵ دقیقه پیش", tone: "success" }, { title: "پرداخت انجام شد", time: "دیروز" }]} /></Box>,
-  "side-nav": <Box cls="pv--field"><nav className="k-sidenav pv-sidenav" aria-hidden="true"><ul className="k-sidenav__group"><li><span className="k-sidenav__item" aria-current="page"><I d="M3.5 9 10 3.5 16.5 9v7h-13Z" /><span className="k-sidenav__text">داشبورد</span></span></li><li><span className="k-sidenav__item"><I d="M3.5 16.5h13M6 13V9m4 4V5.5m4 7.5v-3" /><span className="k-sidenav__text">گزارش‌ها</span></span></li></ul></nav></Box>,
+  "side-nav": <Box cls="pv--field"><nav className="k-sidenav pv-sidenav" aria-hidden="true"><ul className="k-sidenav__group"><li><span className="k-sidenav__item" aria-current="page"><I d="home" /><span className="k-sidenav__text">داشبورد</span></span></li><li><span className="k-sidenav__item"><I d="chart" /><span className="k-sidenav__text">گزارش‌ها</span></span></li></ul></nav></Box>,
   "segmented-control": <Box><SegmentedControl aria-label="نما" defaultValue="b" options={[{ value: "a", label: "روز" }, { value: "b", label: "هفته" }, { value: "c", label: "ماه" }]} /></Box>,
-  "copy-button": <Box><Button size="sm" iconStart={<I d="M7 7h10v10H7ZM13 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />}>کپی</Button><Badge tone="success">کپی شد</Badge></Box>,
+  "copy-button": <Box><Button size="sm" iconStart={<I d="copy" />}>کپی</Button><Badge tone="success">کپی شد</Badge></Box>,
   banner: <Box cls="pv--field"><Banner tone="brand">نسخهٔ تازه منتشر شد.</Banner></Box>,
   rating: <Box><Rating value={4.5} readOnly showValue /></Box>,
-  "tree-view": <Box cls="pv--field"><ul className="k-tree" role="presentation"><li className="k-tree__item" aria-expanded="true"><div className="k-tree__row"><span className="k-tree__toggle"><I d="m8 5 5 5-5 5" /></span><span className="k-tree__icon"><I d={folder} /></span><span className="k-tree__label">اسناد</span></div><ul role="presentation" className="pv-tree-sub"><li className="k-tree__item" aria-selected="true"><div className="k-tree__row"><span className="k-tree__spacer" /><span className="k-tree__label">قرارداد.pdf</span></div></li></ul></li></ul></Box>,
+  "tree-view": <Box cls="pv--field"><ul className="k-tree" role="presentation"><li className="k-tree__item" aria-expanded="true"><div className="k-tree__row"><span className="k-tree__toggle"><I d="chevron-right" /></span><span className="k-tree__icon"><I d={folder} /></span><span className="k-tree__label">اسناد</span></div><ul role="presentation" className="pv-tree-sub"><li className="k-tree__item" aria-selected="true"><div className="k-tree__row"><span className="k-tree__spacer" /><span className="k-tree__label">قرارداد.pdf</span></div></li></ul></li></ul></Box>,
   "button-group": <Box><ButtonGroup aria-label="نما"><Button aria-pressed>روز</Button><Button>هفته</Button><Button>ماه</Button></ButtonGroup></Box>,
   chips: <Box><ChipGroup aria-label="وضعیت" defaultValue={["a"]} options={[{ value: "a", label: "پرداخت‌شده", count: 12 }, { value: "b", label: "لغوشده" }]} /></Box>,
   "password-strength": <Box cls="pv--field"><PasswordStrength password="Kashi20" showRules={false} /></Box>,
@@ -96,11 +98,11 @@ export const previews: Record<string, ReactNode> = {
   tour: <Box><div className="pv-tour"><span className="pv-tour__spot"><Button size="sm">خروجی اکسل</Button></span><div className="k-tour__card pv-static"><span className="k-tour__step">مرحلهٔ ۲ از ۳</span><p className="k-tour__title">خروجی اکسل</p></div></div></Box>,
   splitter: <Box cls="pv--field"><div className="k-splitter" style={{ blockSize: "6rem" }}><div className="k-splitter__pane" style={{ inlineSize: "40%", padding: 8 }}><span className="pv-muted">فهرست</span></div><div className="k-splitter__handle" /><div className="k-splitter__pane" style={{ padding: 8 }}><span className="pv-muted">پیش‌نمایش</span></div></div></Box>,
   "multi-select": <Box cls="pv--field"><div className="k-tag-input"><span className="k-badge k-badge--brand">سارا محمدی</span><span className="k-badge k-badge--brand">علی رضایی</span></div><ul className="k-listbox k-listbox--inline pv-list k-multiselect"><li className="k-option" data-active=""><span className="k-multiselect__box" /><span className="k-option__body"><span>مینا احمدی</span></span></li></ul></Box>,
-  "inline-edit": <Box><span className="k-inline-edit"><span className="k-inline-edit__view pv-ie"><strong>بازطراحی فروشگاه</strong><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m13.5 3.5 3 3L7 16H4v-3Z" /></svg></span></span></Box>,
+  "inline-edit": <Box><span className="k-inline-edit"><span className="k-inline-edit__view pv-ie"><strong>بازطراحی فروشگاه</strong><I d="edit" /></span></span></Box>,
   landline: <Box cls="pv--field"><Input aria-label="تلفن" defaultValue="۰۲۱ ۸۸۷۷ ۶۶۵۵" dir="ltr" addonEnd={<span className="k-input__meta">تهران</span>} /></Box>,
 };
 
-const BankIcon = () => <I d="M3 8h14L10 3.5 3 8ZM4.5 8v6.5M8 8v6.5M12 8v6.5M15.5 8v6.5M3 16.5h14" />;
+const BankIcon = () => <I d="bank" />;
 
 /** پیش‌نمایش با نام صفحه؛ Astro عنصر React داخل شیء را رندر نمی‌کند، پس از این کامپوننت استفاده می‌شود */
 export default function Preview({ slug, title }: { slug: string; title: string }) {
