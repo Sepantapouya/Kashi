@@ -1,12 +1,347 @@
 {
- "generated": "2026-10-29T12:04:16+03:30",
+ "generated": "2026-10-29T13:00:00+03:30",
  "totals": {
-  "commits": 73,
+  "commits": 89,
   "versions": 17,
-  "added": 59036,
+  "added": 60351,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "07dc7db3c5c872db3bbeb3e895c9593bcc3bb0e0",
+   "short": "07dc7db",
+   "date": "2026-10-29T13:00:00+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 20/20 — the 1000th hand-drawn icon",
+   "details": [
+    "check-double, x-octagon, alert-diamond, help-dashed, fat arrows,",
+    "scrollbar, theme-toggle, menu-dropdown, kbd, file-report,",
+    "file-attachment, picture-frame, instant-photo, screen-record,",
+    "screenshot, mail-attachment, speech-to-text, post-office, stadium,",
+    "castle, lighthouse, golabpash, kashi-tile, heatwave, x-ray, fishing,",
+    "dart, slide, cartridge, electric-meter, eco-bulb, bullet-train, fork,",
+    "chopsticks, branch, moon-phase, music-library, two-factor,",
+    "soap-dispenser, bathrobe, mummy, fangs, fireplace, sleigh, seed-bag",
+    "and beehive."
+   ],
+   "files": 1,
+   "added": 49,
+   "removed": 0
+  },
+  {
+   "sha": "37af4ade8fb2f712c498619481c2660f2f93de14",
+   "short": "37af4ad",
+   "date": "2026-10-29T12:56:35+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 19/20 — Iranian fintech, calligraphy, dev, food, kids",
+   "details": [
+    "card-to-card, qr-pay, installment, credit-score, statement, deposit,",
+    "withdraw, cashback, wishlist, compare, size-guide, order-tracking,",
+    "pickup-point, bus-stop, road-barrier, car-key, earthquake, flood,",
+    "e-reader, pen-tablet, git-fork, binary, api, sitemap, live-stream,",
+    "community, remote-work, strategy, salad, fried-egg, cupcake, popcorn,",
+    "lollipop, landscape, desert, police-badge, sidebar collapse/expand,",
+    "lasso, qalam, inkwell, persian-star (khatam), treasure-map, bomb,",
+    "constellation, black-hole, turntable, diaper, crib and chandelier."
+   ],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "561dabe73a971db37ceb2c32750ca6928e0abc4d",
+   "short": "561dabe",
+   "date": "2026-10-29T12:53:17+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 18/20 — Persian instruments, RTL layout, health, sports, kitchen",
+   "details": [
+    "ney, setar, tonbak, language-switch, mirror-layout, island, visa,",
+    "service-bell, projector-screen, drafting-compass, protractor,",
+    "e-learning, hospital-bed, lungs, sleep, water-glass, medical-cross,",
+    "surfboard, jersey, goal-net, racket, scoreboard, notes, sheet-music,",
+    "fox, rodent, pig, chicken, sheep, rose, rock, forest, seashell, ladle,",
+    "coffee-maker, spatula, jar, watch-round, action-camera, trackpad,",
+    "satellite-dish, gift-open, wedding-rings, key-card (now also a composite",
+    "base), passkey, gantt, money-transfer, contact-form, cloud-wind and",
+    "recurring."
+   ],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "7ded5b120ffa93282679b8e23cabbd71ad46b60f",
+   "short": "7ded5b1",
+   "date": "2026-10-29T12:49:45+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 17/20 — Iranian category, RTL/LTR text, math, laundry care",
+   "details": [
+    "New persian category gathers tar, daf, carpet, tea-glass, samovar,",
+    "sabzeh, divan, fishbowl, painted-egg, pomegranate, rice-plate, kebab,",
+    "squat-toilet, aftabe and toilet-hose, plus new windcatcher, azadi-tower,",
+    "santur, kamancheh, qalyan, sangak, garlic, bottle, hyacinth, nuts-bowl,",
+    "dome, arch, meel, clay-jug, pistachio and saffron.",
+    "Also text-rtl and text-ltr, spell-check, plus-minus, divide, equals,",
+    "not-equal, pi, sigma, function, web-page (now a composite base),",
+    "website-code, bleach, no-bleach, hand-wash-care, drip-dry, no-iron,",
+    "scan-location, road-sign, resize, meteor-shower, trademark, pickup,",
+    "film-reel, return-guarantee, journey, send-love, potato, plum,",
+    "game-buttons, game-win, underwear, heart-face and socket-charge."
+   ],
+   "files": 1,
+   "added": 67,
+   "removed": 16
+  },
+  {
+   "sha": "5125655213b7205d47521b89a7f126fbb4c2874c",
+   "short": "5125655",
+   "date": "2026-10-29T12:46:18+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 16/20 — smart home, arrows, shapes, samovar and teapot",
+   "details": [
+    "New smart-home category: smart-home, smart-bulb, thermostat,",
+    "smart-lock, smart-plug, robot-vacuum, motion-sensor. Also u-turn,",
+    "arrows-in/out, merge, split, rotate-360, square/circle dashed, sphere,",
+    "cylinder, cone, pentagon, stopwatch-play, timer-off, alarm-off,",
+    "clock-fast, share-up, message-circle(-dots), phone-forward, sort-az,",
+    "search-filter, masonry, folder-code/image, book-bookmark, card-stack,",
+    "split-bill, salary, teapot, samovar, basketball-hoop, brick,",
+    "beach-ball, timesheet, gingerbread, fire-extinguisher, ladder,",
+    "hourglass start/end, battery-empty, signal-low and wifi-low."
+   ],
+   "files": 1,
+   "added": 51,
+   "removed": 0
+  },
+  {
+   "sha": "58bcd0edaaac1f113b7e4fa6d65fb26958690e93",
+   "short": "58bcd0e",
+   "date": "2026-10-29T12:43:11+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 15/20 — AI, currencies, Persian translate; fix digits ۲ ۳ ۶",
+   "details": [
+    "AI icons with a sparkle badge (ai-text, ai-image, ai-chat, ai-search,",
+    "ai-generate, ai-voice), translate-fa, upside-down, tired, tears-of-joy,",
+    "happy/sad-date, chocolate, hotdog, rice-plate, pear, strawberry,",
+    "sandwich, dollar, euro, pound, yen, rial, airpods-case, retro-tv,",
+    "mouse-buttons, foldable-phone, usb-drive, autofit width/height, flip",
+    "horizontal/vertical, uppercase, typeface, unarchive, sticker, pinboard,",
+    "vip-ticket, shop-sign, shooting-star, pet-bowl, pet-carrier, tide,",
+    "no-drinking-water, diploma, retouch, scan-object, hoodie and shorts.",
+    "Digits ۲ and ۳ now rise from a stem and turn right at the top with one",
+    "and two bumps, and ۶ is a top hook with a stroke falling to the left,",
+    "instead of the symmetric Y shapes that read wrong."
+   ],
+   "files": 1,
+   "added": 52,
+   "removed": 3
+  },
+  {
+   "sha": "79c78e8c7a1a41ab3c6996e86e1c680a887322bf",
+   "short": "79c78e8",
+   "date": "2026-10-29T12:38:54+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 14/20 — bathroom ideas, laundry, Persian digits, smoking, Christmas",
+   "details": [
+    "Ideas from the concepts in Iconly's Bath & WC set (drawn in Kashi's own",
+    "style): six poop emoji moods, toilet-seat top view, folded, rolled and",
+    "happy towels, and the Iranian toilet-hose.",
+    "New categories: laundry (washing-machine, laundry-basket and iron move",
+    "here; wash, no-wash, tumble-dry, dry-clean care symbols), numbers",
+    "(Persian digits ۰ to ۹ in a frame), smoking (cigarette, no-smoking,",
+    "lighter, pipe, vape, ashtray) and christmas (tree, santa-hat, ornament,",
+    "snowman, candy-cane, wreath, snow-globe).",
+    "Also world-time, vpn, multitasking, voice-recognition, radical,",
+    "user-scan, cable-car, garbage-truck, van, treadmill, soccer-field and",
+    "crosswalk."
+   ],
+   "files": 1,
+   "added": 57,
+   "removed": 3
+  },
+  {
+   "sha": "7f30186e1076ddca3775ad30ef90d9859fba8652",
+   "short": "7f30186",
+   "date": "2026-10-29T12:34:11+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 13/20 — fashion, beauty, kids, legal, real estate",
+   "details": [
+    "New categories: fashion (shirt, glasses, ring, hanger move here; shoe,",
+    "high-heel, dress, hat, cap, tie, handbag, sunglasses, jacket, socks,",
+    "bow-tie), beauty (lipstick, nail-polish, perfume, makeup-brush,",
+    "cream-jar, barber-pole, lotus), kids (baby moves here; stroller,",
+    "pacifier, baby-bottle, toy-blocks, teddy-bear, rattle, kite, crayon,",
+    "swing), legal (scale moves here; gavel, handcuffs, copyright) and real",
+    "estate (house-key, for-sale-sign, floor-plan, area-size, villa,",
+    "mortgage, house). Also handshake, goal, roadmap, frog, penguin, clover,",
+    "volcano, pepper, cheese and object align/distribute/group tools."
+   ],
+   "files": 1,
+   "added": 61,
+   "removed": 6
+  },
+  {
+   "sha": "a46e9e05b9e883b54e512ff0d6ea98772c631ee2",
+   "short": "a46e9e0",
+   "date": "2026-10-29T12:30:52+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 12/20 — gaming, agriculture, space, energy",
+   "details": [
+    "New categories: gaming (gamepad, joystick, game-console, dice, chess,",
+    "playing-cards and puzzle move here; plus sword, treasure-chest,",
+    "level-up, dice-d20, medal-first, leaderboard, arcade, heart-pixel),",
+    "agriculture (wheat, tractor, barn, watering-can, fence, greenhouse,",
+    "cow, sprinkler), space (rocket, planet and comet move here; plus",
+    "satellite, astronaut, ufo, galaxy, alien, orbit) and energy",
+    "(solar-panel, wind-turbine, radiation, oil-barrel, pylon, leaf-bolt,",
+    "gas-cylinder, power-plant, dam). Also sparkles, review, slider,",
+    "range-slider, badge-pill, chip, color-swatch, skeleton, dropzone,",
+    "noodles, donut, honey-jar, citrus, grapes, skateboard, boxing-glove,",
+    "hiking, yoga and kettlebell."
+   ],
+   "files": 1,
+   "added": 64,
+   "removed": 10
+  },
+  {
+   "sha": "c0bc231844d2a6be8f46c1073bafa8e324221c16",
+   "short": "c0bc231",
+   "date": "2026-10-29T12:27:11+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 11/20 — shopping, people, security, messages, file types",
+   "details": [
+    "box-open, return-box, shipping-fast, store-online, cash-register, label,",
+    "trolley, tag-percent, best-seller, sale; user-heart, user-switch,",
+    "elderly, worker, student, doctor, teacher, user-settings, raise-hand;",
+    "lock-circle, shield-user, shield-star, secure-payment, password-reset,",
+    "privacy, lock-keyhole, keypad; chat-voice/image/heart, envelope-letter,",
+    "walkie-talkie, fax; file-doc/pdf/cloud/question/user/shield/diff,",
+    "folder-heart; camera-rotate, aperture, video-library, volume-plus/minus,",
+    "repeat-one, pen-tool, vector and command-palette."
+   ],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "826f6b17a4c1eaf356a2752cf4a4d4bfb9b9e2e5",
+   "short": "826f6b1",
+   "date": "2026-10-29T12:23:53+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 10/20 — weather, transport, devices, location, charts",
+   "details": [
+    "drizzle, hail, moon-cloud, thermometer high/low, humidity, windsock,",
+    "hurricane, sun-dim, comet; motorcycle, scooter, metro, tram, helicopter,",
+    "sailboat, ev-charger, tire, steering-wheel, ambulance, plane",
+    "takeoff/landing; smart-speaker, vr-headset, drone, earbuds, webcam,",
+    "game-console, sim-card, cassette, devices-pair, printer-3d; locate,",
+    "pin-area, distance, museum, radar, compass-rose, geofence, footprints;",
+    "chart-growth, funnel-chart, chart-radar, chart-pyramid,",
+    "chart-waterfall, meter, histogram, chart-combo, analytics, chart-bubble."
+   ],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "03ce5f035c9a537b5ebda9b33a99baa333979393",
+   "short": "03ce5f0",
+   "date": "2026-10-29T12:20:34+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 9/20 — music, office, events, science, social",
+   "details": [
+    "New categories: music (guitar, piano, drum, note, tar, daf,",
+    "microphone-stage, metronome, trumpet, vinyl), office (stapler, desk,",
+    "desk-lamp, shredder, binder, inbox-tray, business-card, meeting,",
+    "office-chair), events (balloon, firework, garland, masquerade, sabzeh,",
+    "divan, fishbowl, painted-egg), science (atom, test-tube, telescope,",
+    "petri-dish, beaker, molecule) and social (story-ring, repost,",
+    "add-reaction, poll). Also brain, spinner, drag-handle, pin-off,",
+    "eye-dropper, contrast, frame, grid-3x3, notification-square,",
+    "chat-question, chat-alert, inbox-full and megaphone-off."
+   ],
+   "files": 1,
+   "added": 55,
+   "removed": 0
+  },
+  {
+   "sha": "1d77f8e93a5a9a477b076edde4519d48ce4477a3",
+   "short": "1d77f8e",
+   "date": "2026-10-29T12:17:15+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 8/20 — tools, kitchen, travel, animals; Iranian toilet",
+   "details": [
+    "New categories tools, kitchen, travel and animals: hammer, wrench,",
+    "screwdriver, screw, toolbox, drill, tape-measure, paint-brush, level,",
+    "nut, shovel, traffic-cone, hard-hat, axe; frying-pan, cooking-pot,",
+    "kettle, knife, spoon, whisk, rolling-pin, oven, microwave, blender,",
+    "mug, plate, toaster, salt-shaker, cutting-board; suitcase, luggage,",
+    "passport, boarding-pass, beach-umbrella, palm-tree, campfire, road,",
+    "bridge, binoculars, tower, hotel; bird, butterfly, bee, turtle, snail,",
+    "rabbit, dog, ladybug, whale. Bathroom gains squat-toilet and aftabe."
+   ],
+   "files": 1,
+   "added": 56,
+   "removed": 0
+  },
+  {
+   "sha": "61bce654aed397514a6e31b78b61d61da07c52d6",
+   "short": "61bce65",
+   "date": "2026-10-29T12:13:21+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 7/20 — new bathroom and Halloween categories",
+   "details": [
+    "bathroom (bathtub and shower move here): toilet, sink, faucet,",
+    "toothbrush, toothpaste, towel, soap, toilet-paper, mirror, comb, razor,",
+    "hair-dryer, bathroom-scale, plunger, shampoo, wc, hand-wash, bucket,",
+    "rubber-duck, bath-bubbles, drain, sponge.",
+    "halloween: pumpkin, ghost, bat, skull, witch-hat, cauldron, spider,",
+    "spider-web, candy, tombstone, coffin, eyeball, full-moon, cat, potion,",
+    "candy-corn, lantern, haunted-house, crystal-ball, owl.",
+    "home: doorbell, light-switch, socket, curtains, vacuum, iron,",
+    "laundry-basket, wardrobe."
+   ],
+   "files": 1,
+   "added": 54,
+   "removed": 2
+  },
+  {
+   "sha": "257c6734056d8f7efa0a4252e5464638a8731f32",
+   "short": "257c673",
+   "date": "2026-10-29T12:11:29+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: hand-drawn set 6/20 — education, health, emoji, home, food, sports",
+   "details": [
+    "Fills the thin categories: book-open, pencil, backpack, chalkboard,",
+    "alphabet, exam, microscope, globe-stand, abacus, math; ecg, syringe,",
+    "bandage, tooth, dna, wheelchair, blood-drop, face-mask, activity,",
+    "pill-bottle; surprised, sleepy, crying, tongue, confused, dizzy, cool;",
+    "sofa, chair, bathtub, shower, washing-machine, fridge, plant-pot,",
+    "hanger, broom, ring, candle, air-conditioner; watermelon, bread, milk,",
+    "cherry, kebab; bowling, ping-pong, volleyball; feather, mushroom,",
+    "planet. notebook moves to education."
+   ],
+   "files": 1,
+   "added": 51,
+   "removed": 1
+  },
+  {
+   "sha": "86340f8067ed5041d6b00509742e250010b965cc",
+   "short": "86340f8",
+   "date": "2026-10-29T12:05:57+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: split 16 broad categories into 42 finer ones",
+   "details": [
+    "Like Iconly, each category now groups icons that clearly belong",
+    "together: arrows, directional actions and chevrons; banking, shopping",
+    "and charts; messages, notifications and calls; files, folders and",
+    "documents; media, audio and camera; food, sports, health, education and",
+    "home. Every icon is assigned explicitly; composites follow their base."
+   ],
+   "files": 5,
+   "added": 498,
+   "removed": 356
+  },
   {
    "sha": "139a9b1bc07d20ad878be953129b05057a4d8c3a",
    "short": "139a9b1",
