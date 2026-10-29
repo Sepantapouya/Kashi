@@ -1,12 +1,31 @@
 {
- "generated": "2026-10-29T13:09:02+03:30",
+ "generated": "2026-10-29T13:34:37+03:30",
  "totals": {
-  "commits": 92,
+  "commits": 93,
   "versions": 17,
-  "added": 61136,
+  "added": 61179,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "42638b93b3ba96fe74921850bb223d1a6051b015",
+   "short": "42638b9",
+   "date": "2026-10-29T13:34:37+03:30",
+   "author": "sepantapouya",
+   "subject": "Docs: calmer, higher-contrast homepage hero",
+   "details": [
+    "Drop the rotating headline word (its width changes made the line jump",
+    "and the gradient text flicker), the coloured aurora and the pointer-lit",
+    "tile pattern, and the light beam around the product frame. The hero",
+    "now sits on a faint neutral grid, the accent is a solid brand colour,",
+    "and the badge, metrics and chips use opaque surfaces so text and the",
+    "product mock keep full contrast. Count-up, tilt, spotlight, marquee",
+    "and reveal motion stay."
+   ],
+   "files": 2,
+   "added": 43,
+   "removed": 82
+  },
   {
    "sha": "22726455465a2fe463144f40be0f49f6b97d4e78",
    "short": "2272645",

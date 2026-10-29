@@ -1438,21 +1438,82 @@ const badges = {
   sync: { title: (t) => `همگام‌سازی ${t}`, keywords: ["همگام", "به‌روزرسانی", "sync", "refresh", "update"], body: '<path d="M17.6 15a2.6 2.6 0 1 1-.8-1.85M17.75 12.4v1.4h-1.4"/>' },
 };
 
-const bases = [
-  "user", "users", "file", "folder", "calendar", "mail", "chat", "bell", "image", "video",
-  "camera", "mic", "music", "home", "building", "store", "cart", "shopping-bag", "wallet", "credit-card",
-  "bank", "receipt", "tag", "gift", "bookmark", "heart", "shield", "phone", "monitor", "laptop",
-  "tablet", "database", "server", "cloud", "map-pin", "map", "globe", "link", "clipboard", "book",
-  "archive", "inbox", "layers", "layout", "id-card", "car", "truck", "briefcase", "key-card", "document",
-  "chat-square", "messages", "printer", "watch", "headphones", "battery", "wifi", "flag", "lightbulb", "package",
-  "ticket", "key", "folder-open", "files", "web-page",
-].filter((b) => icons[b]);
+/** برای هر آیکون پایه فقط نشان‌هایی که کنارش معنا دارند (مثلاً gift-clock آری، gift-search نه) */
+const all = Object.keys(badges).join(" ");
+const composites = {
+  "user": "plus minus check x lock star search edit",
+  "users": "plus minus check x lock search",
+  "file": all,
+  "folder": "plus minus check x lock star up down search sync edit",
+  "calendar": "plus minus check x clock star search edit alert",
+  "mail": "plus check x alert up down lock star clock search edit",
+  "chat": "plus check x alert lock clock search edit",
+  "bell": "plus minus check x alert clock",
+  "image": "plus check x up down lock star search edit sync",
+  "video": "plus check x up down lock star clock",
+  "camera": "plus x alert lock",
+  "mic": "plus check x lock",
+  "music": "plus x star up down",
+  "home": "plus check x lock star search edit alert",
+  "building": "plus check x lock star search info",
+  "store": "plus check x star search lock clock",
+  "cart": "plus minus check x alert clock",
+  "shopping-bag": "plus minus check x clock star",
+  "wallet": "plus minus check x lock up down sync alert clock",
+  "credit-card": "plus minus check x lock alert edit sync",
+  "bank": "plus check x lock info",
+  "receipt": "plus check x alert clock search down",
+  "tag": "plus minus check x edit star",
+  "gift": "plus check x clock star",
+  "bookmark": "plus minus check x star",
+  "heart": "plus minus check x",
+  "shield": "plus check x alert info lock star",
+  "phone": "plus check x lock alert clock",
+  "monitor": "plus check x lock alert sync",
+  "laptop": "plus check x lock alert sync",
+  "tablet": "check x lock",
+  "database": "plus minus check x lock search up down sync alert",
+  "server": "plus minus check x lock alert sync",
+  "cloud": "plus check x lock up down sync alert",
+  "map-pin": "plus minus check x star search edit",
+  "map": "plus check x search",
+  "globe": "check x lock search",
+  "link": "plus check x lock edit",
+  "clipboard": "plus check x edit search",
+  "book": "plus check x star lock search",
+  "archive": "plus x up down lock",
+  "inbox": "plus check x up down alert",
+  "layers": "plus minus check x lock",
+  "layout": "plus check x edit",
+  "id-card": "plus check x lock edit alert",
+  "car": "plus check x lock clock search",
+  "truck": "plus check x clock search alert",
+  "briefcase": "plus check x lock clock star",
+  "chat-square": "plus check x alert edit lock",
+  "messages": "plus check x lock",
+  "printer": "check x alert clock",
+  "watch": "check x alert clock",
+  "headphones": "check x",
+  "battery": "check x alert",
+  "wifi": "check x lock alert",
+  "flag": "plus check x",
+  "lightbulb": "plus check star",
+  "package": "plus check x clock search alert up down",
+  "ticket": "plus check x star clock",
+  "key": "plus check x",
+  "folder-open": "plus check x",
+  "files": "plus check x up down search",
+  "web-page": "plus check x lock search edit alert sync",
+  "key-card": "check x lock",
+};
 
-for (const base of bases) {
-  for (const [key, badge] of Object.entries(badges)) {
+for (const [base, list] of Object.entries(composites)) {
+  const i = icons[base];
+  if (!i) continue;
+  for (const key of list.split(" ")) {
     const name = `${base}-${key}`;
-    if (icons[name]) continue;
-    const i = icons[base];
+    const badge = badges[key];
+    if (icons[name] || !badge) continue;
     icons[name] = {
       title: badge.title(i.title),
       category: i.category,
