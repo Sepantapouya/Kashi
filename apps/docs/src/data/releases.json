@@ -1,12 +1,45 @@
 {
- "generated": "2026-10-29T14:43:10+03:30",
+ "generated": "2026-10-29T14:54:26+03:30",
  "totals": {
-  "commits": 106,
+  "commits": 109,
   "versions": 17,
-  "added": 61908,
+  "added": 62056,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "878c17c1f3cb66591be04f4b164d0f039a2fb7c8",
+   "short": "878c17c",
+   "date": "2026-10-29T14:54:26+03:30",
+   "author": "sepantapouya",
+   "subject": "icons: add 51 hand-drawn icons (vehicles, tools, buildings, music, nature)",
+   "details": [],
+   "files": 1,
+   "added": 51,
+   "removed": 0
+  },
+  {
+   "sha": "a7d07a108441012bdcc83edc5b9fc4053c0640fd",
+   "short": "a7d07a1",
+   "date": "2026-10-29T14:49:27+03:30",
+   "author": "sepantapouya",
+   "subject": "icons: add 49 hand-drawn icons (animals, farm, food)",
+   "details": [],
+   "files": 1,
+   "added": 49,
+   "removed": 0
+  },
+  {
+   "sha": "240cbed18358eb3e97c6a9883e39c055c30ecc49",
+   "short": "240cbed",
+   "date": "2026-10-29T14:43:25+03:30",
+   "author": "sepantapouya",
+   "subject": "docs: icon count 1999, changeset",
+   "details": [],
+   "files": 9,
+   "added": 48,
+   "removed": 10
+  },
   {
    "sha": "ad1c59b37049a5caa34b53a11f7a5b58df125cb4",
    "short": "ad1c59b",
