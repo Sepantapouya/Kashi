@@ -1,12 +1,67 @@
 {
- "generated": "2026-10-29T14:14:07+03:30",
+ "generated": "2026-10-29T14:27:03+03:30",
  "totals": {
-  "commits": 98,
+  "commits": 103,
   "versions": 17,
-  "added": 61554,
+  "added": 61686,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "c74224037744a7f64c3926863ffc9cdcc8fc9132",
+   "short": "c742240",
+   "date": "2026-10-29T14:27:03+03:30",
+   "author": "sepantapouya",
+   "subject": "icons: spell out PDF on file-pdf",
+   "details": [],
+   "files": 2,
+   "added": 2,
+   "removed": 2
+  },
+  {
+   "sha": "6b24aa3b1afeff11162080d176ce65f30cd0146b",
+   "short": "6b24aa3",
+   "date": "2026-10-29T14:26:17+03:30",
+   "author": "sepantapouya",
+   "subject": "icons: redraw iron, pipe, currency-exchange",
+   "details": [],
+   "files": 2,
+   "added": 4,
+   "removed": 4
+  },
+  {
+   "sha": "69af0354abb0d79f66ec324e32a2753b3f678a24",
+   "short": "69af035",
+   "date": "2026-10-29T14:25:05+03:30",
+   "author": "sepantapouya",
+   "subject": "icons: redraw passport-stamp, satellite, sprinkler, trowel",
+   "details": [],
+   "files": 2,
+   "added": 5,
+   "removed": 5
+  },
+  {
+   "sha": "c98add9908e4eaf18cc562a29f42e69666c61543",
+   "short": "c98add9",
+   "date": "2026-10-29T14:22:19+03:30",
+   "author": "sepantapouya",
+   "subject": "icons: redraw 16 icons to look like the real objects (haftsin, dizi, persian-garden, ...)",
+   "details": [],
+   "files": 4,
+   "added": 24,
+   "removed": 19
+  },
+  {
+   "sha": "4c3a379d0b12a04f7d1062571329331912c02db9",
+   "short": "4c3a379",
+   "date": "2026-10-29T14:17:41+03:30",
+   "author": "sepantapouya",
+   "subject": "icons: add 50 more hand-drawn icons (1899 total), update counts",
+   "details": [],
+   "files": 10,
+   "added": 97,
+   "removed": 10
+  },
   {
    "sha": "668d0b0ce4fca43ae8e0da1a90e0b652a1d1c941",
    "short": "668d0b0",
