@@ -1,12 +1,23 @@
 {
- "generated": "2026-10-29T13:00:00+03:30",
+ "generated": "2026-10-29T13:00:32+03:30",
  "totals": {
-  "commits": 89,
+  "commits": 90,
   "versions": 17,
-  "added": 60351,
+  "added": 60701,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "71751aa265ddf30ab9df92a6eee8d35ad1725808",
+   "short": "71751aa",
+   "date": "2026-10-29T13:00:32+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: 2210 icons — update counts, changeset, Figma plugin",
+   "details": [],
+   "files": 9,
+   "added": 350,
+   "removed": 10
+  },
   {
    "sha": "07dc7db3c5c872db3bbeb3e895c9593bcc3bb0e0",
    "short": "07dc7db",

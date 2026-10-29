@@ -9,6 +9,7 @@ import { BentoCalendar, BentoDirection, BentoPlate } from "../components/HomeBen
 import { nav } from "../data/nav";
 import { author } from "../data/author";
 import * as tokens from "@kashi-ui/tokens";
+import { icons, iconSvg, categories, variants } from "@kashi-ui/icons";
 import pkg from "@kashi-ui/react/package.json";
 
 const fa = (n: number | string) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
@@ -113,6 +114,17 @@ const steps = [
   { n: "۰۲", title: "یک خط CSS", text: "استایل‌ها در Cascade Layer هستند، پس CSS خودتان همیشه برنده است.", code: 'import "@kashi-ui/css";' },
   { n: "۰۳", title: "بسازید", text: "برچسب‌ها، پیام‌ها و ارقام از پیش فارسی‌اند؛ دسترس‌پذیری هم.", code: '<DatePicker label="تاریخ تولد" />' },
 ];
+
+// بخش آیکون‌ها: نمونه‌ها در هر شش سبک رندر می‌شوند و دکمه‌ها فقط نمایششان را عوض می‌کنند
+const iconShowcase = [
+  "home", "search", "wallet", "credit-card", "calendar", "chat", "bell", "user",
+  "shopping-bag", "chart-line", "shield", "lock", "camera", "music", "heart", "star",
+  "sparkles", "ai-chat", "rocket", "coffee", "samovar", "windcatcher", "tar", "sangak",
+  "pomegranate", "kashi-tile", "persian-star", "rial", "card-to-card", "text-rtl", "translate-fa", "azadi-tower",
+].filter((n) => icons[n]);
+const variantLabels = { light: "خطی", bold: "توپر", bulk: "حجمی", "two-tone": "دورنگ", broken: "شکسته", curved: "منحنی" };
+const iconCount = Object.keys(icons).length;
+const iconCategoryCount = Object.keys(categories).length;
 ---
 <Base>
   <a class="announce" href={newItems[0]?.href ?? "/docs/changelog/"}>
@@ -295,12 +307,53 @@ const steps = [
       </div>
     </section>
 
-    <!-- ───── ۰۳ کیفیت و حاکمیت ───── -->
-    <section class="band" aria-labelledby="quality-title">
+    <!-- ───── ۰۳ آیکون‌ها ───── -->
+    <section class="band" aria-labelledby="icons-title">
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۳</span>کیفیت و نگه‌داری</p>
+            <p class="kicker"><span class="kicker__n">۰۳</span>آیکون‌ها</p>
+            <h2 id="icons-title">{fa(iconCount)} آیکون، شش سبک، یک زبان بصری</h2>
+          </div>
+          <p class="band__lead">از فلش و فرم تا سماور و بادگیر؛ همه روی شبکهٔ ۲۰×۲۰ و با همان گوشه‌های نرم کامپوننت‌ها. هر آیکون در شش سبک هست و با یک prop عوض می‌شود.</p>
+        </header>
+
+        <div class="iconset" data-reveal>
+          <div class="iconset__styles" role="group" aria-label="سبک آیکون">
+            {variants.map((v, i) => (
+              <button type="button" class="iconset__style" data-variant={v} aria-pressed={i === 0 ? "true" : "false"}>{variantLabels[v]}</button>
+            ))}
+          </div>
+          <ul class="iconset__grid" role="list">
+            {iconShowcase.map((n) => (
+              <li>
+                <a class="iconset__cell" href={`/docs/icons/${n}/`} aria-label={icons[n].title} title={icons[n].title}>
+                  {variants.map((v, i) => <span class="iconset__glyph" data-v={v} hidden={i !== 0} set:html={iconSvg(n, { size: 24, variant: v })} />)}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div class="iconset__foot">
+            <dl class="iconset__stats">
+              <div><dt>آیکون</dt><dd>{fa(iconCount)}</dd></div>
+              <div><dt>سبک</dt><dd>{fa(variants.length)}</dd></div>
+              <div><dt>دسته</dt><dd>{fa(iconCategoryCount)}</dd></div>
+            </dl>
+            <div class="iconset__links">
+              <a class="text-link" href="/docs/icons/category/persian/">آیکون‌های ایرانی <span aria-hidden="true">←</span></a>
+              <a class="text-link" href="/docs/icons/">همهٔ آیکون‌ها <span aria-hidden="true">←</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───── ۰۴ کیفیت و حاکمیت ───── -->
+    <section class="band band--alt" aria-labelledby="quality-title">
+      <div class="wrap">
+        <header class="band__head" data-reveal>
+          <div>
+            <p class="kicker"><span class="kicker__n">۰۴</span>کیفیت و نگه‌داری</p>
             <h2 id="quality-title">کیفیت در فرایند ساخت، نه در وعده</h2>
           </div>
           <p class="band__lead">هر تغییر در کاشی از یک مسیر خودکار می‌گذرد. چیزی که این مسیر را رد نکند، به دست تیم شما نمی‌رسد.</p>
@@ -343,11 +396,11 @@ const steps = [
     </section>
 
     <!-- ───── ۰۴ مقایسه ───── -->
-    <section class="band band--alt" aria-labelledby="vs-title">
+    <section class="band" aria-labelledby="vs-title">
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۴</span>مقایسه</p>
+            <p class="kicker"><span class="kicker__n">۰۵</span>مقایسه</p>
             <h2 id="vs-title">کاشی در کنار دیزاین‌سیستم‌های جهانی</h2>
           </div>
           <p class="band__lead">بر اساس مستندات عمومی هر پروژه؛ با صداقت دربارهٔ جایی که کاشی بهترین انتخاب نیست.</p>
@@ -390,11 +443,11 @@ const steps = [
     </section>
 
     <!-- ───── ۰۵ شروع ───── -->
-    <section class="band" aria-labelledby="steps-title">
+    <section class="band band--alt" aria-labelledby="steps-title">
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۵</span>شروع</p>
+            <p class="kicker"><span class="kicker__n">۰۶</span>شروع</p>
             <h2 id="steps-title">سه قدم تا اولین صفحه</h2>
           </div>
           <p class="band__lead">بدون پیکربندی، بدون افزونهٔ RTL و بدون بستهٔ تاریخ جداگانه.</p>
@@ -413,7 +466,7 @@ const steps = [
     </section>
 
     <!-- ───── نگه‌دارنده و حمایت ───── -->
-    <section class="band band--alt" aria-label="نگه‌دارنده و حمایت">
+    <section class="band" aria-label="نگه‌دارنده و حمایت">
       <div class="wrap people">
         <article class="author" data-reveal aria-labelledby="author-title">
           <img class="author__photo" src={author.photo} alt={`عکس ${author.name}`} width="400" height="400" loading="lazy" decoding="async" />
@@ -581,6 +634,26 @@ const steps = [
   /* ───── بخش‌ها ───── */
   .band { padding-block: clamp(4.5rem, 9vw, 7rem); border-block-end: 1px solid var(--k-border-secondary); }
   .band--alt { background: var(--k-bg-secondary); }
+
+  /* بخش آیکون‌ها */
+  .iconset { overflow: hidden; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); }
+  .iconset__styles { display: flex; flex-wrap: wrap; gap: var(--k-space-1); padding: var(--k-space-3); border-block-end: 1px solid var(--k-border-secondary); }
+  .iconset__style { padding: var(--k-space-1) var(--k-space-3); border: 1px solid transparent; border-radius: var(--k-radius-full); background: none; color: var(--k-text-secondary); font: inherit; font-size: var(--k-text-sm); cursor: pointer; }
+  .iconset__style:hover { color: var(--k-text-primary); }
+  .iconset__style[aria-pressed="true"] { border-color: var(--k-border-primary); background: var(--k-bg-primary); box-shadow: var(--k-shadow-xs); color: var(--k-text-primary); }
+  .iconset__style:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: 2px; }
+  .iconset__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(3.5rem, 1fr)); margin: 0; padding: var(--k-space-3); list-style: none; }
+  .iconset__cell { display: grid; place-items: center; aspect-ratio: 1; border-radius: var(--k-radius-lg); color: var(--k-text-primary); transition: background-color var(--k-duration-fast), color var(--k-duration-fast); }
+  .iconset__cell:hover { background: var(--k-bg-hover); color: var(--k-text-brand); }
+  .iconset__cell:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: -2px; }
+  .iconset__glyph { display: grid; }
+  .iconset__glyph[hidden] { display: none; }
+  .iconset__glyph :global(svg) { inline-size: 1.5rem; block-size: 1.5rem; }
+  .iconset__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--k-space-4); padding: var(--k-space-4) var(--k-space-5); border-block-start: 1px solid var(--k-border-secondary); }
+  .iconset__stats { display: flex; gap: var(--k-space-6); margin: 0; }
+  .iconset__stats dt { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .iconset__stats dd { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-lg); font-weight: var(--k-weight-semibold); }
+  .iconset__links { display: flex; flex-wrap: wrap; gap: var(--k-space-5); }
   .band__head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--k-space-4) clamp(2rem, 6vw, 5rem); align-items: end; margin-block-end: clamp(2.5rem, 5vw, 3.5rem); }
   .band__head h2 { margin: var(--k-space-3) 0 0; color: var(--k-text-primary); font-size: clamp(var(--k-text-2xl), 3.4vw, 2.5rem); font-weight: var(--k-weight-bold); line-height: 1.35; text-wrap: balance; }
   .band__lead { margin: 0; color: var(--k-text-tertiary); line-height: 1.95; text-wrap: pretty; }
@@ -808,4 +881,13 @@ const steps = [
       buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
     }),
   );
+</script>
+
+<script>
+  // تعویض سبک در بخش آیکون‌ها؛ همهٔ سبک‌ها از پیش رندر شده‌اند
+  const iconStyles = document.querySelectorAll<HTMLButtonElement>(".iconset__style");
+  iconStyles.forEach((btn) => btn.addEventListener("click", () => {
+    iconStyles.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+    document.querySelectorAll<HTMLElement>(".iconset__glyph").forEach((g) => { g.hidden = g.dataset.v !== btn.dataset.variant; });
+  }));
 </script>
