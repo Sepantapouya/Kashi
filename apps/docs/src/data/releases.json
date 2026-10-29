@@ -1,12 +1,55 @@
 {
- "generated": "2026-10-29T13:37:09+03:30",
+ "generated": "2026-10-29T13:49:43+03:30",
  "totals": {
-  "commits": 94,
+  "commits": 96,
   "versions": 17,
-  "added": 61288,
+  "added": 61395,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "b9d22beb6f029e92f3ca612b15b26783124b3d1b",
+   "short": "b9d22be",
+   "date": "2026-10-29T13:49:43+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: 50 new icons — boteh, Persepolis, dev and design tools, UI",
+   "details": [
+    "info-hexagon, pennant, select-all, deselect, expand/collapse-vertical,",
+    "quote-bubble, phone-hold, video-call, money-bag, scan-receipt, card-chip,",
+    "phone-landscape, boombox, gpu, ram, cloud-code, regex, variable,",
+    "markdown, gradient, corner-radius, paint-bucket, set-square, car-front,",
+    "airport, acorn, blossom, sun-rain, leaves, ice-pop, cucumber,",
+    "pomegranate-seeds, boteh, dates, baklava, persepolis, eye-chart,",
+    "dropper, jump-rope, pinwheel, timeline, slider-vertical, dock,",
+    "split-screen, clock-check, user-admin, key-vintage, card-ace, music-off."
+   ],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "d2edd9c0db67fcea85959c212a95fc9b37d90f20",
+   "short": "d2edd9c",
+   "date": "2026-10-29T13:44:48+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: audit fixes — clipping, duplicates, centring, ambiguous shapes",
+   "details": [
+    "An automated pass rasterised every icon and checked clipping, centre of",
+    "mass, ink weight, bold rendering and duplicates.",
+    "- podcast, fog and police-badge no longer cross the frame",
+    "- cog becomes a real eight-tooth gear (it matched nut), bleach gains the",
+    "standard diagonal lines (it matched triangle)",
+    "- a shift() helper moves a whole icon in every variant; high-heel, gold,",
+    "skateboard, garland, bat, shoe, service-bell, rice-plate, bridge,",
+    "fireplace, histogram, chart-waterfall, bar-chart and fog are now centred",
+    "- ping-pong, cutting-board and ney are redrawn so they no longer read as",
+    "search, battery and ruler",
+    "The composite matcher now takes the last </g>, so shifted bases compose."
+   ],
+   "files": 6,
+   "added": 57,
+   "removed": 26
+  },
   {
    "sha": "304f35f3da65c5e1fd21075853a63691b1fd90c2",
    "short": "304f35f",
