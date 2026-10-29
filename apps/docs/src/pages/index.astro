@@ -125,6 +125,21 @@ const iconShowcase = [
 const variantLabels = { light: "خطی", bold: "توپر", bulk: "حجمی", "two-tone": "دورنگ", broken: "شکسته", curved: "منحنی" };
 const iconCount = Object.keys(icons).length;
 const iconCategoryCount = Object.keys(categories).length;
+
+// هیرو: واژه‌های چرخان، عددهای کلیدی و تراشه‌های شناور کنار نمای محصول
+const rotatorWords = ["بانک", "فروشگاه", "استارتاپ", "دولت"];
+const metrics = [
+  { label: "کامپوننت", value: componentCount },
+  { label: "آیکون در شش سبک", value: iconCount },
+  { label: "توکن طراحی", value: tokenCount },
+  { label: "جفت‌رنگ AA", value: 82, suffix: "٪۱۰۰" },
+];
+const chips = [
+  { icon: "calendar", label: "تقویم شمسی", value: "پنجشنبه ۷ آبان ۱۴۰۵" },
+  { icon: "bank", label: "شبا معتبر", value: "IR06 0170 0000 …", ltr: true },
+  { icon: "car", label: "پلاک خودرو", value: "۱۲ ب ۳۴۵ — ۶۷" },
+  { icon: "contrast", label: "کنتراست", value: "WCAG 2.2 AA", ltr: true },
+];
 ---
 <Base>
   <a class="announce" href={newItems[0]?.href ?? "/docs/changelog/"}>
@@ -135,57 +150,71 @@ const iconCategoryCount = Object.keys(categories).length;
   <Header />
   <main id="main" tabindex="-1" class="home">
     <!-- ───── هیرو ───── -->
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__grid" aria-hidden="true"></div>
-      <div class="wrap hero__layout">
-        <div class="hero__copy">
-          <p class="hero__eyebrow" data-enter style="--d: 0">
-            <Logo size={16} />
-            دیزاین‌سیستم متن‌باز برای تیم‌های محصول
-          </p>
-          <h1 id="hero-title" class="hero__title" data-enter style="--d: 1">
-            زیرساخت طراحی محصولات فارسی،{" "}
-            <span class="hero__accent">در مقیاس سازمان.</span>
-          </h1>
-          <p class="hero__lead" data-enter style="--d: 2">
-            کامپوننت‌ها، توکن‌ها و الگوهای راست‌به‌چپ و دسترس‌پذیر، به‌همراه ابزارهایی که فقط یک محصول ایرانی لازم دارد: تقویم شمسی، کد ملی، شبا، پلاک و بیشتر.
-          </p>
-          <div class="hero__actions" data-enter style="--d: 3">
-            <a class="k-btn k-btn--primary k-btn--lg" href="/docs/">
-              شروع کنید
-              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-k-mirror=""><path d="M4 10h12m-5-5 5 5-5 5" /></svg>
-            </a>
-            <a class="k-btn k-btn--secondary k-btn--lg" href="/docs/components/">مرور کامپوننت‌ها</a>
-          </div>
-          <div class="hero__install" data-enter style="--d: 4"><Install /></div>
-        </div>
-
-        <aside class="spec" aria-labelledby="spec-title" data-enter style="--d: 3">
-          <div class="spec__head">
-            <h2 id="spec-title" class="spec__title">مشخصات فنی</h2>
-            <span class="spec__status"><span class="spec__dot" aria-hidden="true"></span>پایدار</span>
-          </div>
-          <dl class="spec__list">
-            {facts.map((f) => (
-              <div class="spec__row">
-                <dt>{f.label}</dt>
-                <dd dir={f.ltr ? "ltr" : undefined}>{f.value}</dd>
-              </div>
-            ))}
-          </dl>
-          <a class="spec__link" href="/docs/changelog/">تاریخچهٔ نسخه‌ها <span aria-hidden="true">←</span></a>
-        </aside>
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <section class="hero" aria-labelledby="hero-title" data-hero>
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__aurora"><i></i><i></i><i></i></div>
+        <div class="hero__tiles"></div>
+        <div class="hero__tiles hero__tiles--lit"></div>
       </div>
 
-      <!-- نمای محصول -->
+      <div class="wrap hero__center">
+        <a class="hero__badge" href="/docs/icons/" data-enter style="--d: 0">
+          <span class="hero__badge-tag">تازه</span>
+          {fa(iconCount)} آیکون در شش سبک
+          <span aria-hidden="true">←</span>
+        </a>
+        <h1 id="hero-title" class="hero__title" data-enter style="--d: 1">
+          زیرساخت طراحی محصولات فارسی،{" "}
+          <span class="hero__accent">در مقیاس <span class="rotator"><span class="rotator__word is-on">سازمان.</span>{rotatorWords.map((w) => <span class="rotator__word" aria-hidden="true">{w}.</span>)}</span></span>
+        </h1>
+        <p class="hero__lead" data-enter style="--d: 2">
+          کامپوننت‌ها، توکن‌ها و الگوهای راست‌به‌چپ و دسترس‌پذیر، به‌همراه ابزارهایی که فقط یک محصول ایرانی لازم دارد: تقویم شمسی، کد ملی، شبا، پلاک و بیشتر.
+        </p>
+        <div class="hero__actions" data-enter style="--d: 3">
+          <a class="k-btn k-btn--primary k-btn--lg hero__cta" href="/docs/">
+            شروع کنید
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-k-mirror=""><path d="M4 10h12m-5-5 5 5-5 5" /></svg>
+          </a>
+          <a class="k-btn k-btn--secondary k-btn--lg" href="/docs/components/">مرور کامپوننت‌ها</a>
+        </div>
+        <div class="hero__install" data-enter style="--d: 4"><Install /></div>
+        <ul class="hero__facts" role="list" data-enter style="--d: 5">
+          {facts.filter((x) => x.ltr).map((x) => <li><span>{x.label}</span><b dir="ltr">{x.value}</b></li>)}
+        </ul>
+      </div>
+
+      <!-- عددها با شمارش زنده -->
       <div class="wrap">
-        <figure class="product" data-enter style="--d: 5" aria-label="نمونهٔ پنل مدیریت ساخته‌شده با کاشی">
-          <div class="product__bar" aria-hidden="true">
-            <span class="product__dots"><i></i><i></i><i></i></span>
-            <span class="product__url" dir="ltr">naroon.shop/dashboard</span>
-          </div>
-          <HeroApp client:visible />
-        </figure>
+        <dl class="metrics" data-enter style="--d: 6">
+          {metrics.map((m) => (
+            <div class="metrics__item">
+              <dt>{m.label}</dt>
+              <dd><span data-count={m.value}>{fa(m.value)}</span>{m.suffix && <small>{m.suffix}</small>}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <!-- نمای محصول با تراشه‌های شناور -->
+      <div class="wrap">
+        <div class="stage" data-enter style="--d: 7">
+          <ul class="chips" role="list" aria-label="نمونه‌ای از قابلیت‌های فارسی">
+            {chips.map((c, k) => (
+              <li class={`chip chip--${k + 1}`}>
+                <span class="chip__icon" set:html={iconSvg(c.icon, { size: 18 })} />
+                <span><small>{c.label}</small><b dir={c.ltr ? "ltr" : undefined}>{c.value}</b></span>
+              </li>
+            ))}
+          </ul>
+          <figure class="product" data-tilt aria-label="نمونهٔ پنل مدیریت ساخته‌شده با کاشی">
+            <div class="product__bar" aria-hidden="true">
+              <span class="product__dots"><i></i><i></i><i></i></span>
+              <span class="product__url" dir="ltr">naroon.shop/dashboard</span>
+            </div>
+            <HeroApp client:visible />
+          </figure>
+        </div>
         <p class="product__caption">پنل بالا یک نمونهٔ زنده است و فقط با کامپوننت‌های کاشی ساخته شده؛ فیلترها و بازهٔ زمانی کار می‌کنند.</p>
       </div>
     </section>
@@ -194,9 +223,14 @@ const iconCategoryCount = Object.keys(categories).length;
     <section class="stack" aria-labelledby="stack-title">
       <div class="wrap stack__inner">
         <h2 id="stack-title" class="stack__title">هماهنگ با پشتهٔ فنی تیم شما</h2>
-        <ul class="stack__list" role="list">
-          {stacks.map((s) => <li dir="ltr">{s}</li>)}
-        </ul>
+        <div class="marquee">
+          <ul class="stack__list" role="list">
+            {stacks.map((s) => <li dir="ltr">{s}</li>)}
+          </ul>
+          <ul class="stack__list" role="list" aria-hidden="true">
+            {stacks.map((s) => <li dir="ltr">{s}</li>)}
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -325,8 +359,8 @@ const iconCategoryCount = Object.keys(categories).length;
             ))}
           </div>
           <ul class="iconset__grid" role="list">
-            {iconShowcase.map((n) => (
-              <li>
+            {iconShowcase.map((n, k) => (
+              <li style={`--i: ${k}`}>
                 <a class="iconset__cell" href={`/docs/icons/${n}/`} aria-label={icons[n].title} title={icons[n].title}>
                   {variants.map((v, i) => <span class="iconset__glyph" data-v={v} hidden={i !== 0} set:html={iconSvg(n, { size: 24, variant: v })} />)}
                 </a>
@@ -543,54 +577,11 @@ const iconCategoryCount = Object.keys(categories).length;
 
   /* ───── هیرو ───── */
   .hero { position: relative; isolation: isolate; padding-block: clamp(3.5rem, 7vw, 6rem) clamp(3rem, 6vw, 5rem); border-block-end: 1px solid var(--k-border-secondary); }
-  .hero__grid {
-    position: absolute; inset: 0 0 auto; block-size: 44rem; z-index: -1; pointer-events: none;
-    background:
-      linear-gradient(var(--k-border-secondary) 1px, transparent 1px) 0 0 / 4rem 4rem,
-      linear-gradient(90deg, var(--k-border-secondary) 1px, transparent 1px) 0 0 / 4rem 4rem;
-    opacity: 0.55;
-    mask-image: radial-gradient(ellipse 70% 80% at 70% 0%, #000 10%, transparent 70%);
-  }
-  .hero__layout { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: clamp(2rem, 6vw, 5rem); align-items: start; }
-  .hero__eyebrow {
-    display: inline-flex; align-items: center; gap: var(--k-space-2); margin: 0;
-    padding: var(--k-space-1) var(--k-space-3);
-    border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md);
-    background: var(--k-bg-primary);
-    color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium);
-  }
-  .hero__title {
-    max-inline-size: 22ch;
-    margin-block: var(--k-space-6) var(--k-space-5);
-    color: var(--k-text-primary);
-    font-size: clamp(2.25rem, 5.2vw, 3.75rem);
-    font-weight: var(--k-weight-bold);
-    line-height: 1.3;
-    text-wrap: balance;
-  }
-  .hero__accent { color: var(--k-text-brand); }
-  .hero__lead { max-inline-size: 38rem; margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-lg); line-height: 1.95; text-wrap: pretty; }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--k-space-3); margin-block-start: var(--k-space-8); }
-  .hero__install { max-inline-size: 26rem; margin-block-start: var(--k-space-4); }
 
-  /* برگهٔ مشخصات */
-  .spec { margin-block-start: var(--k-space-2); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary); box-shadow: var(--k-shadow-sm); }
-  .spec__head { display: flex; align-items: center; justify-content: space-between; padding: var(--k-space-4) var(--k-space-5); border-block-end: 1px solid var(--k-border-secondary); }
-  .spec__title { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
-  .spec__status { display: inline-flex; align-items: center; gap: var(--k-space-2); color: var(--k-text-success); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
-  .spec__dot { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 25%, transparent); }
-  .spec__list { margin: 0; padding: var(--k-space-1) var(--k-space-5); }
-  .spec__row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--k-space-4); padding-block: var(--k-space-3); border-block-end: 1px dashed var(--k-border-secondary); }
-  .spec__row:last-child { border-block-end: 0; }
-  .spec__row dt { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
-  .spec__row dd { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
-  .spec__row dd[dir="ltr"] { font-family: var(--k-font-mono); font-size: 0.8125rem; }
-  .spec__link { display: flex; justify-content: space-between; padding: var(--k-space-3) var(--k-space-5); border-block-start: 1px solid var(--k-border-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); text-decoration: none; }
-  .spec__link:hover { background: var(--k-bg-hover); }
 
   /* نمای محصول */
   .product {
-    margin: clamp(3rem, 6vw, 4.5rem) 0 0;
+    position: relative; margin: 0;
     border: 1px solid var(--k-border-primary);
     border-radius: var(--k-radius-lg);
     background: var(--k-bg-secondary);
@@ -624,6 +615,147 @@ const iconCategoryCount = Object.keys(categories).length;
   .product :global(.k-chip) { block-size: 1.75rem; font-size: var(--k-text-xs); }
 
   /* ───── سازگاری ───── */
+
+  /* ───── هیرو ───── */
+  .hero { overflow: clip; padding-block: clamp(4rem, 9vw, 7rem) clamp(3rem, 6vw, 5rem); }
+  .hero__bg { position: absolute; inset: 0 0 auto; block-size: 52rem; z-index: -1; pointer-events: none; }
+  .hero__aurora { position: absolute; inset: 0; filter: blur(64px); opacity: 0.5; }
+  .hero__aurora i { position: absolute; border-radius: 50%; }
+  .hero__aurora i:nth-child(1) { inset-block-start: -8rem; inset-inline-start: 18%; inline-size: 34rem; block-size: 22rem; background: var(--k-brand-500); opacity: 0.55; }
+  .hero__aurora i:nth-child(2) { inset-block-start: 4rem; inset-inline-end: 8%; inline-size: 26rem; block-size: 20rem; background: var(--k-brand-300, var(--k-brand-400)); opacity: 0.35; }
+  .hero__aurora i:nth-child(3) { inset-block-start: 12rem; inset-inline-start: 38%; inline-size: 22rem; block-size: 16rem; background: var(--k-brand-700); opacity: 0.4; }
+  /* نقش خاتم کاشی؛ رنگش از توکن می‌آید و با نشانگر روشن می‌شود */
+  .hero__tiles {
+    position: absolute; inset: 0;
+    background: var(--k-text-quaternary);
+    --tile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cpath d='M28 10l5.9 8 8.5-2.1-2.1 8.5L48 28l-8 5.9 2.1 8.5-8.5-2.1L28 48l-5.9-8-8.5 2.1 2.1-8.5L8 28l8-5.9-2.1-8.5 8.5 2.1Z' fill='none' stroke='%23000' stroke-width='1.3'/%3E%3C/svg%3E");
+    -webkit-mask: var(--tile) 0 0 / 56px 56px, radial-gradient(ellipse 60% 70% at 50% 0%, #000 15%, transparent 72%);
+    -webkit-mask-composite: source-in;
+    mask: var(--tile) 0 0 / 56px 56px, radial-gradient(ellipse 60% 70% at 50% 0%, #000 15%, transparent 72%);
+    mask-composite: intersect;
+    opacity: 0.45;
+  }
+  .hero__tiles--lit {
+    background: var(--k-text-brand);
+    -webkit-mask: var(--tile) 0 0 / 56px 56px, radial-gradient(14rem circle at var(--mx, 50%) var(--my, -20rem), #000, transparent 70%);
+    -webkit-mask-composite: source-in;
+    mask: var(--tile) 0 0 / 56px 56px, radial-gradient(14rem circle at var(--mx, 50%) var(--my, -20rem), #000, transparent 70%);
+    mask-composite: intersect;
+    opacity: 0.9;
+  }
+  .hero__center { display: grid; justify-items: center; text-align: center; }
+  .hero__center > * { max-inline-size: 100%; min-inline-size: 0; }
+  .hero__badge {
+    display: inline-flex; align-items: center; gap: var(--k-space-2);
+    padding: 0.3rem var(--k-space-3) 0.3rem 0.3rem;
+    border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full);
+    background: color-mix(in srgb, var(--k-bg-primary) 75%, transparent); backdrop-filter: blur(8px);
+    color: var(--k-text-secondary); font-size: var(--k-text-sm); text-decoration: none;
+    transition: border-color var(--k-duration-fast), color var(--k-duration-fast);
+  }
+  .hero__badge:hover { border-color: var(--k-border-brand); color: var(--k-text-primary); }
+  .hero__badge-tag { padding: 0.125rem 0.625rem; border-radius: var(--k-radius-full); background: var(--k-bg-brand); color: var(--k-text-on-brand, #fff); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+  .hero__title {
+    max-inline-size: 18ch;
+    margin-block: var(--k-space-6) var(--k-space-5);
+    color: var(--k-text-primary);
+    font-size: clamp(2.4rem, 6.2vw, 4.5rem);
+    font-weight: var(--k-weight-bold);
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .hero__accent {
+    background: linear-gradient(100deg, var(--k-brand-400), var(--k-text-brand) 45%, var(--k-brand-700));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .rotator { display: inline-grid; justify-items: start; vertical-align: bottom; }
+  .rotator__word { grid-area: 1 / 1; opacity: 0; translate: 0 0.6em; }
+  .rotator__word.is-on { opacity: 1; translate: none; }
+  .hero__lead { inline-size: min(100%, 40rem); max-inline-size: 40rem; margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-lg); line-height: 1.95; text-wrap: pretty; }
+  .hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--k-space-3); margin-block-start: var(--k-space-8); }
+  .hero__cta { position: relative; overflow: hidden; }
+  .hero__cta::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.35) 50%, transparent 70%); translate: 120% 0; pointer-events: none; }
+  .hero__install { inline-size: min(100%, 26rem); margin-block-start: var(--k-space-4); text-align: start; }
+  .hero__facts { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--k-space-2); margin: var(--k-space-5) 0 0; padding: 0; list-style: none; }
+  .hero__facts li { display: inline-flex; gap: var(--k-space-2); padding: 0.2rem var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .hero__facts b { color: var(--k-text-primary); font-family: var(--k-font-mono); font-weight: var(--k-weight-semibold); }
+
+  .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: clamp(3rem, 6vw, 4.5rem) 0 0; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: color-mix(in srgb, var(--k-bg-primary) 80%, transparent); backdrop-filter: blur(10px); }
+  .metrics__item { padding: var(--k-space-5) var(--k-space-6); }
+  .metrics__item + .metrics__item { border-inline-start: 1px solid var(--k-border-secondary); }
+  .metrics dt { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .metrics dd { display: flex; align-items: baseline; gap: var(--k-space-2); margin: var(--k-space-1) 0 0; color: var(--k-text-primary); font-size: clamp(var(--k-text-2xl), 3vw, 2.25rem); font-weight: var(--k-weight-bold); font-variant-numeric: tabular-nums; }
+  .metrics small { color: var(--k-text-success); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+
+  .stage { position: relative; margin-block-start: clamp(2.5rem, 5vw, 3.5rem); perspective: 1800px; }
+  .product { transform-style: preserve-3d; transition: transform 0.4s var(--k-ease-standard), box-shadow 0.4s; will-change: transform; }
+  .product::before { content: ""; position: absolute; inset: -1px; z-index: 2; border-radius: inherit; padding: 1px; pointer-events: none;
+    background: conic-gradient(from var(--beam, 0deg), transparent 0 80%, var(--k-text-brand) 88%, transparent 96%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+  .chips { position: absolute; inset: 0; z-index: 3; margin: 0; padding: 0; list-style: none; pointer-events: none; }
+  .chip { position: absolute; display: flex; align-items: center; gap: var(--k-space-2); padding: var(--k-space-2) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: color-mix(in srgb, var(--k-bg-elevated) 88%, transparent); backdrop-filter: blur(10px); box-shadow: var(--k-shadow-lg); text-align: start; white-space: nowrap; }
+  .chip small { display: block; color: var(--k-text-tertiary); font-size: 0.6875rem; }
+  .chip b { display: block; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .chip__icon { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: var(--k-radius-md); background: var(--k-bg-brand-subtle, var(--k-bg-secondary)); color: var(--k-text-brand); }
+  .chip--1 { inset-block-start: -1.5rem; inset-inline-start: -1.5rem; }
+  .chip--2 { inset-block-start: 22%; inset-inline-end: -2.25rem; }
+  .chip--3 { inset-block-end: 20%; inset-inline-start: -2.5rem; }
+  .chip--4 { inset-block-end: -1.25rem; inset-inline-end: 12%; }
+
+  /* نوار پیشرفت خواندن */
+  .scroll-progress { position: fixed; inset: 0 0 auto; z-index: 60; block-size: 2px; background: var(--k-text-brand); transform-origin: 100% 50%; scale: 0 1; pointer-events: none; }
+
+  /* نوار فناوری‌ها: مارکی بی‌پایان */
+  .marquee { display: flex; flex: 1; gap: var(--k-space-10); overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+  .marquee .stack__list { flex: none; flex-wrap: nowrap; justify-content: flex-start; min-inline-size: max-content; gap: var(--k-space-10); }
+
+  /* کارت‌های نورافکن */
+  :global(.spot) { position: relative; }
+  :global(.spot)::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    background: radial-gradient(22rem circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--k-text-brand) 9%, transparent), transparent 60%); }
+  :global(.spot):hover::after { opacity: 1; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) [data-reveal] { filter: blur(4px); transition: opacity 0.7s var(--k-ease-standard), translate 0.7s var(--k-ease-standard), filter 0.7s var(--k-ease-standard); }
+    :global(.js) [data-reveal].is-in { filter: none; }
+    .hero__aurora i { animation: drift 18s ease-in-out infinite alternate; }
+    .hero__aurora i:nth-child(2) { animation-duration: 22s; animation-direction: alternate-reverse; }
+    .hero__aurora i:nth-child(3) { animation-duration: 26s; }
+    .rotator__word { transition: opacity 0.5s var(--k-ease-standard), translate 0.5s var(--k-ease-standard); }
+    .rotator__word.is-out { opacity: 0; translate: 0 -0.6em; }
+    .hero__cta:hover::after { translate: -120% 0; transition: translate 0.8s var(--k-ease-standard); }
+    .chip { animation: float 6s ease-in-out infinite; }
+    .chip--2 { animation-delay: -1.5s; } .chip--3 { animation-delay: -3s; } .chip--4 { animation-delay: -4.5s; }
+    .product::before { animation: beam 7s linear infinite; }
+    .marquee .stack__list { animation: marquee 32s linear infinite; }
+    .marquee:hover .stack__list { animation-play-state: paused; }
+    .iconset__grid.is-swapping .iconset__glyph:not([hidden]) { animation: pop 0.45s var(--k-ease-standard) both; animation-delay: calc(var(--i, 0) * 14ms); }
+    .iconset__cell:hover :global(svg) { scale: 1.15; }
+    .iconset__glyph :global(svg) { transition: scale 0.2s var(--k-ease-standard); }
+    @supports (animation-timeline: scroll()) {
+      .scroll-progress { animation: progress linear both; animation-timeline: scroll(root); }
+    }
+  }
+  @property --beam { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+  @keyframes beam { to { --beam: 360deg; } }
+  @keyframes drift { 50% { translate: 3rem 1.5rem; scale: 1.08; } 100% { translate: -2rem 2.5rem; scale: 0.95; } }
+  @keyframes float { 50% { translate: 0 -0.5rem; } }
+  @keyframes marquee { to { translate: calc(100% + var(--k-space-10)) 0; } }
+  @keyframes pop { from { opacity: 0; scale: 0.6; } }
+  @keyframes progress { to { scale: 1 1; } }
+  @media (max-width: 64rem) {
+    .chip--2, .chip--3 { display: none; }
+    .chip--1 { inset-inline-start: 0.5rem; }
+    .chip--4 { inset-inline-end: 0.5rem; }
+  }
+  @media (max-width: 40rem) {
+    .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .metrics__item:nth-child(3) { border-inline-start: 0; }
+    .metrics__item:nth-child(n + 3) { border-block-start: 1px solid var(--k-border-secondary); }
+    .chips { display: none; }
+  }
+
   .stack { border-block-end: 1px solid var(--k-border-secondary); }
   .stack__inner { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-4) var(--k-space-10); padding-block: var(--k-space-8); }
   .stack__title { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); }
@@ -821,8 +953,7 @@ const iconCategoryCount = Object.keys(categories).length;
 
   /* ───── واکنش‌گرا ───── */
   @media (max-width: 64rem) {
-    .hero__layout, .arch, .quality, .people { grid-template-columns: minmax(0, 1fr); }
-    .spec { max-inline-size: 32rem; }
+    .arch, .quality, .people { grid-template-columns: minmax(0, 1fr); }
     .ci { position: static; }
     .product :global(.app) { grid-template-columns: minmax(0, 1fr); }
     .product :global(.app__nav) { display: none; }
@@ -889,5 +1020,87 @@ const iconCategoryCount = Object.keys(categories).length;
   iconStyles.forEach((btn) => btn.addEventListener("click", () => {
     iconStyles.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
     document.querySelectorAll<HTMLElement>(".iconset__glyph").forEach((g) => { g.hidden = g.dataset.v !== btn.dataset.variant; });
+  }));
+</script>
+
+<script>
+  // موشن هیرو و ریزتعامل‌ها؛ با prefers-reduced-motion همه خاموش می‌شوند
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fine = matchMedia("(pointer: fine)").matches;
+  const faNum = (n: number) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+
+  // واژهٔ چرخان تیتر
+  const words = [...document.querySelectorAll<HTMLElement>(".rotator__word")];
+  if (!calm && words.length > 1) {
+    let at = 0;
+    setInterval(() => {
+      const prev = words[at];
+      at = (at + 1) % words.length;
+      prev.classList.remove("is-on");
+      prev.classList.add("is-out");
+      words[at].classList.remove("is-out");
+      words[at].classList.add("is-on");
+      setTimeout(() => prev.classList.remove("is-out"), 600);
+    }, 2600);
+  }
+
+  // شمارش عددها وقتی دیده می‌شوند
+  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
+  const countIo = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      countIo.unobserve(e.target);
+      const el = e.target as HTMLElement;
+      const end = Number(el.dataset.count);
+      if (calm) continue;
+      const t0 = performance.now();
+      const step = (now: number) => {
+        const p = Math.min(1, (now - t0) / 1400);
+        el.textContent = faNum(Math.round(end * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+  }, { threshold: 0.6 });
+  counters.forEach((c) => countIo.observe(c));
+
+  if (!calm && fine) {
+    // نقش کاشی زیر نشانگر روشن می‌شود
+    const hero = document.querySelector<HTMLElement>("[data-hero]");
+    const lit = hero?.querySelector<HTMLElement>(".hero__tiles--lit");
+    hero?.addEventListener("pointermove", (e) => {
+      const r = hero.getBoundingClientRect();
+      lit?.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      lit?.style.setProperty("--my", `${e.clientY - r.top}px`);
+    });
+
+    // نمای محصول با کج شدن سه‌بعدی کم
+    const tilt = document.querySelector<HTMLElement>("[data-tilt]");
+    tilt?.addEventListener("pointermove", (e) => {
+      const r = tilt.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      tilt.style.transform = `rotateX(${(-y * 4).toFixed(2)}deg) rotateY(${(x * 5).toFixed(2)}deg)`;
+    });
+    tilt?.addEventListener("pointerleave", () => { tilt.style.transform = ""; });
+
+    // نورافکن روی کارت‌ها
+    document.querySelectorAll<HTMLElement>(".quality__item, .step, .vs, .arch, .explorer, .iconset, .author, .support, .metrics").forEach((card) => {
+      card.classList.add("spot");
+      card.addEventListener("pointermove", (e) => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        card.style.setProperty("--my", `${e.clientY - r.top}px`);
+      });
+    });
+  }
+
+  // موج کوچک هنگام تعویض سبک آیکون‌ها
+  const iconGrid = document.querySelector<HTMLElement>(".iconset__grid");
+  document.querySelectorAll(".iconset__style").forEach((b) => b.addEventListener("click", () => {
+    if (!iconGrid) return;
+    iconGrid.classList.remove("is-swapping");
+    void iconGrid.offsetWidth;
+    iconGrid.classList.add("is-swapping");
   }));
 </script>

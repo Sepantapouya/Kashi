@@ -1,12 +1,29 @@
 {
- "generated": "2026-10-29T13:00:32+03:30",
+ "generated": "2026-10-29T13:03:15+03:30",
  "totals": {
-  "commits": 90,
+  "commits": 91,
   "versions": 17,
-  "added": 60701,
+  "added": 60805,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "26b29ce27679452b1755c1deeada1557c2da3568",
+   "short": "26b29ce",
+   "date": "2026-10-29T13:03:15+03:30",
+   "author": "sepantapouya",
+   "subject": "Docs: add an icons section to the homepage",
+   "details": [
+    "New section ۰۳ after features: 32 sample icons (including the Iranian",
+    "set) pre-rendered in all six styles with a style switcher, live counts",
+    "of icons, styles and categories, and links to the icon catalog and the",
+    "Iranian category. Later sections are renumbered and keep alternating",
+    "backgrounds."
+   ],
+   "files": 2,
+   "added": 104,
+   "removed": 11
+  },
   {
    "sha": "71751aa265ddf30ab9df92a6eee8d35ad1725808",
    "short": "71751aa",
