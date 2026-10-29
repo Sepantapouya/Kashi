@@ -160,7 +160,7 @@ const code = [
   `const TOKENS = ${JSON.stringify(TOKENS)};`,
   `const BANKS = ${JSON.stringify(banks)};`,
   // آیکون‌ها از همان منبع @kashi-ui/icons؛ فیگما و کد همیشه یک شکل دارند
-  `const ICONS = ${JSON.stringify(Object.fromEntries(Object.entries(ICON_SOURCE).map(([n, i]) => [n, i.body])))};`,
+  `const ICONS = ${JSON.stringify(Object.fromEntries(Object.entries(ICON_SOURCE).map(([n, i]) => [n, i.body.replace(/ data-sq="[^"]*"/g, "")])))};`,
   `const ICON_TITLES = ${JSON.stringify(Object.fromEntries(Object.entries(ICON_SOURCE).map(([n, i]) => [n, i.title])))};`,
   `const AUTHOR_PHOTO = ${JSON.stringify(readFileSync(join(root, "apps/docs/public/images/sepanta-pouya.jpg")).toString("base64"))};`,
   ...parts.map((f) => `// ---- ${f}\n${readFileSync(join(srcDir, f), "utf8")}`),

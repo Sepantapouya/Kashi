@@ -44,8 +44,25 @@ test("search works in Persian and English, Arabic letters normalized", () => {
 });
 
 test("svg files and sprite contain every icon", () => {
-  const files = readdirSync(new URL("../dist/svg/", import.meta.url));
+  const files = readdirSync(new URL("../dist/svg/", import.meta.url)).filter((f) => f.endsWith(".svg"));
   assert.equal(files.length, iconNames.length);
   const sprite = readFileSync(new URL("../dist/sprite.svg", import.meta.url), "utf8");
   for (const n of iconNames) assert.ok(sprite.includes(`id="k-${n}"`), n);
+});
+
+test("every icon renders in all six variants", async () => {
+  const { variants } = await import("../dist/index.js");
+  assert.deepEqual(variants, ["light", "bold", "bulk", "two-tone", "broken", "curved"]);
+  for (const n of iconNames) for (const v of variants) {
+    const svg = iconSvg(n, { variant: v });
+    assert.match(svg, /<(path|circle)\b/, `${n} ${v}`);
+    assert.doesNotMatch(svg, /data-sq/, `${n} ${v} marker`);
+  }
+  const a = iconSvg("calendar", { variant: "bold" }), b = iconSvg("calendar", { variant: "bold" });
+  assert.notEqual(a.match(/mask id="([^"]+)"/)[1], b.match(/mask id="([^"]+)"/)[1], "mask ids are unique");
+  const html = renderToStaticMarkup(createElement(R.IconHome, { variant: "bulk" }));
+  assert.match(html, /data-variant="bulk"/);
+  const sprite = readFileSync(new URL("../dist/sprite.svg", import.meta.url), "utf8");
+  assert.ok(sprite.includes('id="k-home--bold"'));
+  assert.equal(readdirSync(new URL("../dist/svg/curved/", import.meta.url)).length, iconNames.length);
 });

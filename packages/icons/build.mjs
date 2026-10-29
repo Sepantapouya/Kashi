@@ -1,10 +1,12 @@
 // از src/icons.js خروجی‌های پکیج را می‌سازد:
 //   dist/index.js      داده‌ها و iconSvg() بدون وابستگی به فریم‌ورک
 //   dist/react.js      یک کامپوننت React برای هر آیکون (IconSearch، ...) و <Icon name>
-//   dist/svg/*.svg     فایل جدا برای هر آیکون
-//   dist/sprite.svg    همهٔ آیکون‌ها به شکل <symbol> برای <use href>
-import { mkdirSync, writeFileSync, rmSync } from "node:fs";
+//   dist/render.js     ساخت شش سبک (light، bold، bulk، two-tone، broken، curved) از طرح خطی
+//   dist/svg/*.svg     فایل جدا برای هر آیکون؛ سبک‌های دیگر در dist/svg/<variant>/
+//   dist/sprite.svg    همهٔ آیکون‌ها و سبک‌ها به شکل <symbol> برای <use href>
+import { mkdirSync, writeFileSync, rmSync, copyFileSync } from "node:fs";
 import { icons, categories } from "./src/icons.js";
+import { renderBody, plain, variants } from "./src/render.js";
 
 const pascal = (name) => "Icon" + name.replace(/(^|-)([a-z])/g, (_, __, c) => c.toUpperCase());
 const names = Object.keys(icons);
@@ -23,24 +25,30 @@ for (const n of names) {
 
 rmSync("dist", { recursive: true, force: true });
 mkdirSync("dist/svg", { recursive: true });
+for (const v of variants.slice(1)) mkdirSync(`dist/svg/${v}`, { recursive: true });
+copyFileSync("src/render.js", "dist/render.js");
 
 const data = Object.fromEntries(names.map((n) => [n, Object.assign({ component: pascal(n) }, icons[n])]));
 
 writeFileSync("dist/index.js", `// @kashi-ui/icons — این فایل خودکار ساخته شده است
+import { renderBody, variants } from "./render.js";
 export const categories = ${JSON.stringify(categories)};
 export const icons = ${JSON.stringify(data)};
 export const iconNames = Object.keys(icons);
+export { variants };
+
+let uid = 0;
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 
 /** کد SVG یک آیکون؛ بدون title برای صفحه‌خوان پنهان است */
-export function iconSvg(name, { size = 20, strokeWidth = 1.5, title, className, mirror = false } = {}) {
+export function iconSvg(name, { size = 20, strokeWidth = 1.5, title, className, mirror = false, variant = "light" } = {}) {
   const icon = icons[name];
   if (!icon) return null;
   const a11y = title ? \` role="img" aria-label="\${esc(title)}"\` : ' aria-hidden="true"';
   const cls = className ? \` class="\${esc(className)}"\` : "";
   const flip = mirror ? ' style="transform:scaleX(-1)"' : "";
-  return \`<svg xmlns="http://www.w3.org/2000/svg" width="\${size}" height="\${size}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="\${strokeWidth}" stroke-linecap="round" stroke-linejoin="round"\${cls}\${a11y}\${flip} data-kashi-icon="\${name}">\${title ? \`<title>\${esc(title)}</title>\` : ""}\${icon.body}</svg>\`;
+  return \`<svg xmlns="http://www.w3.org/2000/svg" width="\${size}" height="\${size}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="\${strokeWidth}" stroke-linecap="round" stroke-linejoin="round"\${cls}\${a11y}\${flip} data-kashi-icon="\${name}"\${variant === "light" ? "" : \` data-variant="\${variant}"\`}>\${title ? \`<title>\${esc(title)}</title>\` : ""}\${renderBody(icon.body, variant, { uid: \`k\${++uid}\`, sw: strokeWidth })}</svg>\`;
 }
 
 /** جستجوی فارسی و انگلیسی در نام، عنوان و کلیدواژه‌ها */
@@ -61,18 +69,22 @@ export interface IconData { title: string; category: IconCategory; keywords: str
 export declare const categories: Record<IconCategory, string>;
 export declare const icons: Record<IconName, IconData>;
 export declare const iconNames: IconName[];
-export interface IconSvgOptions { size?: number | string; strokeWidth?: number; title?: string; className?: string; mirror?: boolean }
+export type IconVariant = ${variants.map((v) => JSON.stringify(v)).join(" | ")};
+export declare const variants: IconVariant[];
+export interface IconSvgOptions { size?: number | string; strokeWidth?: number; title?: string; className?: string; mirror?: boolean; variant?: IconVariant }
 export declare function iconSvg(name: IconName | (string & {}), options?: IconSvgOptions): string | null;
 export declare function searchIcons(query: string): IconName[];
 `);
 
 writeFileSync("dist/react.js", `// @kashi-ui/icons/react — این فایل خودکار ساخته شده است
-import { createElement, forwardRef } from "react";
+import { createElement, forwardRef, useId } from "react";
 import { icons } from "./index.js";
+import { renderBody } from "./render.js";
 
 function create(name, displayName) {
-  const body = { __html: icons[name].body };
-  const C = forwardRef(function KashiIcon({ size = 20, strokeWidth = 1.5, title, mirror = false, style, ...rest }, ref) {
+  const C = forwardRef(function KashiIcon({ size = 20, strokeWidth = 1.5, title, mirror = false, variant = "light", style, ...rest }, ref) {
+    const uid = "k" + useId().replace(/[^a-zA-Z0-9]/g, "");
+    const body = { __html: renderBody(icons[name].body, variant, { uid, sw: strokeWidth }) };
     return createElement("svg", Object.assign({
       ref,
       xmlns: "http://www.w3.org/2000/svg",
@@ -89,6 +101,7 @@ function create(name, displayName) {
       "aria-hidden": title ? undefined : true,
       focusable: "false",
       "data-kashi-icon": name,
+      "data-variant": variant === "light" ? undefined : variant,
       style: mirror ? Object.assign({ transform: "scaleX(-1)" }, style) : style,
     }, rest, { dangerouslySetInnerHTML: body }));
   });
@@ -109,7 +122,7 @@ Icon.displayName = "Icon";
 `);
 
 writeFileSync("dist/react.d.ts", `import type { ForwardRefExoticComponent, RefAttributes, SVGProps } from "react";
-import type { IconName } from "./index.js";
+import type { IconName, IconVariant } from "./index.js";
 export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "ref"> {
   /** اندازه به پیکسل یا هر واحد CSS @default 20 */
   size?: number | string;
@@ -119,15 +132,20 @@ export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "ref"> {
   title?: string;
   /** قرینهٔ افقی؛ برای فلش‌ها در طرح‌های دوجهته */
   mirror?: boolean;
+  /** سبک آیکون @default "light" */
+  variant?: IconVariant;
 }
 export type KashiIcon = ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>;
 ${names.map((n) => `export declare const ${pascal(n)}: KashiIcon;`).join("\n")}
 export declare const Icon: ForwardRefExoticComponent<IconProps & { name: IconName } & RefAttributes<SVGSVGElement>>;
 `);
 
-for (const n of names) writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${icons[n].body}</svg>\n`);
+for (const n of names) {
+  writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${plain(icons[n].body)}</svg>\n`);
+  for (const v of variants.slice(1)) writeFileSync(`dist/svg/${v}/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(icons[n].body, v, { uid: `k-${n}` })}</svg>\n`);
+}
 writeFileSync(
   "dist/sprite.svg",
-  `<svg xmlns="http://www.w3.org/2000/svg" style="display:none">\n${names.map((n) => `<symbol id="k-${n}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${icons[n].body}</symbol>`).join("\n")}\n</svg>\n`,
+  `<svg xmlns="http://www.w3.org/2000/svg" style="display:none">\n${names.flatMap((n) => variants.map((v) => `<symbol id="k-${n}${v === "light" ? "" : `--${v}`}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${renderBody(icons[n].body, v, { uid: `k-${n}-${v}` })}</symbol>`)).join("\n")}\n</svg>\n`,
 );
-console.log(`icons: ${names.length} icons in ${Object.keys(categories).length} categories`);
+console.log(`icons: ${names.length} icons × ${variants.length} variants in ${Object.keys(categories).length} categories`);
