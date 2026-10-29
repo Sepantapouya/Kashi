@@ -1,0 +1,427 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import { icons, categories, iconSvg } from "@kashi-ui/icons";
+import { toFaDigits } from "@kashi-ui/persian";
+import { author } from "../../data/author";
+import pkg from "../../../../../packages/react/package.json";
+
+// عددهای کیت؛ تعداد آیکون‌ها و نسخه از خود پکیج‌ها می‌آید تا با هر انتشار به‌روز بماند
+const fa = (n: number) => toFaDigits(n.toLocaleString("en-US").replace(/,/g, "٬"));
+const iconCount = Object.keys(icons).length;
+const catCount = Object.keys(categories).length;
+const ic = (name: string, size = 20) => iconSvg(name, { size }) ?? "";
+const zip = "/downloads/kashi-figma-plugin.zip";
+
+const stats: [string, string][] = [
+  [fa(272), "متغیر"],
+  [fa(73), "کامپوننت"],
+  [fa(733), "حالت (variant)"],
+  [fa(iconCount), "آیکون"],
+];
+
+const features: [string, string, string][] = [
+  ["variable", "همه‌چیز Variable", "رنگ، فاصله، گردی، فونت و حتی هر لایهٔ سایه متغیر است؛ بدون حتی یک Style. یک متغیر را عوض کنید، کل کیت عوض می‌شود."],
+  ["grid", "هر کامپوننت، یک صفحه", "بیش از ۷۰ کامپوننت، هر کدام با همهٔ حالت‌هایش در جدولی مرتب با برچسب ردیف و ستون."],
+  ["ruler", "پیکسل‌به‌پیکسل با کد", "بیش از ۱۷۰۰ بخش با CSS واقعی کاشی اندازه‌گیری شده‌اند؛ صفر اختلاف، و تست خودکار نمی‌گذارد فاصله بگیرند."],
+  ["globe", "فارسی از روز اول", "راست‌به‌چپ کامل، کارت بانکی با لوگوی ۵۰ بانک، شبا، کد ملی، پلاک، مبلغ و تقویم شمسی با تعطیلات."],
+  ["sparkle", `${fa(iconCount)} آیکون`, `در ${fa(catCount)} دسته و پوشه‌بندی‌شده در پنل Assets؛ همان آیکون‌هایی که در کد هست، با همان شکل.`],
+  ["refresh", "به‌روزرسانی درجا", "نسخهٔ جدید را در همان فایل اجرا کنید؛ کامپوننت‌ها درجا به‌روز می‌شوند و instance های طرح‌هایتان وصل می‌مانند."],
+];
+
+const pages: [string, string][] = [
+  ["📕", "Kashi UI Kit"],
+  ["🎨", "Colors · Typography · Spacing · Radius · Shadows"],
+  ["🧩", "Icons · Bank logos"],
+  ["🔘", "Button · Icon button · Button group · …"],
+  ["📝", "Input · Select · Checkbox · Date picker · …"],
+  ["🇮🇷", "Card number · IBAN · Plate · Receipt · …"],
+  ["💬", "Alert · Toast · Dialog · Tooltip · …"],
+  ["📊", "Badge · Avatar · Card · Table · …"],
+  ["🧭", "Tabs · Breadcrumb · Pagination · …"],
+];
+
+const faq: [string, string][] = [
+  ["در نسخهٔ مرورگر فیگما کار می‌کند؟", "نه. فیگما پلاگین‌هایی را که روی کامپیوتر خودتان هستند فقط در اپ دسکتاپ اجرا می‌کند. فایلی که ساخته می‌شود را بعداً در مرورگر هم باز کنید، مشکلی ندارد."],
+  ["با پلن رایگان فیگما چه فرقی دارد؟", "پلن رایگان برای هر مجموعهٔ متغیر فقط یک mode اجازه می‌دهد. پلاگین در این حالت فقط تمی را که انتخاب کرده‌اید (تیره یا روشن) می‌سازد و بقیهٔ mode ها را رد می‌کند؛ همه‌چیز دیگر کامل است."],
+  ["فونت پولی خودم را می‌توانم بگذارم؟", "بله. نام فونتی را که روی سیستم نصب است در پنل پلاگین بنویسید، یا متغیر font/family/sans را عوض کنید. وزن‌هایی که فونت ندارد به نزدیک‌ترین وزن می‌افتند."],
+  ["اگر یک صفحهٔ کیت را پاک کنم یا صفحهٔ خودم را اضافه کنم؟", "صفحه‌های خودتان دست نمی‌خورند و بعد از صفحه‌های کیت می‌مانند. صفحهٔ کیتی که پاک شده باشد، در اجرای بعدی دوباره ساخته می‌شود."],
+  ["برای همهٔ تیم چطور در دسترس بگذارم؟", "فایل را از پنل Assets فیگما Publish کنید تا کتابخانهٔ کاشی در همهٔ فایل‌های تیم باشد. با هر نسخهٔ جدید، پلاگین را در همان فایل اجرا و دوباره Publish کنید."],
+];
+
+const headings = [
+  { depth: 2, slug: "features", text: "چه چیزهایی می‌گیرید" },
+  { depth: 2, slug: "install", text: "نصب و اجرا" },
+  { depth: 2, slug: "update", text: "به‌روزرسانی با نسخه‌های جدید" },
+  { depth: 2, slug: "customize", text: "سفارشی‌سازی" },
+  { depth: 2, slug: "pages", text: "ساختار فایل" },
+  { depth: 2, slug: "to-code", text: "از فیگما تا کد" },
+  { depth: 2, slug: "faq", text: "پرسش‌های رایج" },
+];
+---
+<Docs title="پلاگین فیگما" description="کل کاشی را با یک کلیک در فایل فیگمای خودتان بسازید و با هر نسخهٔ جدید به‌روزش کنید." headings={headings}>
+  <!-- ── معرفی ─────────────────────────────────────────────── -->
+  <section class="fg-hero" aria-label="معرفی">
+    <div class="fg-hero__copy">
+      <span class="k-badge k-badge--brand k-badge--sm">رایگان و متن‌باز · MIT</span>
+      <p class="fg-hero__title">کل دیزاین‌سیستم کاشی، با یک کلیک در فیگما</p>
+      <p class="fg-hero__text">پلاگین <strong>Kashi UI Kit</strong> رنگ‌ها، فونت، فاصله‌ها و همهٔ کامپوننت‌ها را مستقیم از روی کد کاشی می‌سازد؛ آنچه طراح در فیگما می‌بیند همان است که برنامه‌نویس در کد می‌سازد.</p>
+      <div class="fg-hero__actions">
+        <a class="k-btn k-btn--primary k-btn--lg" href={zip} download><span set:html={ic("download")} />دانلود پلاگین</a>
+        <a class="k-btn k-btn--secondary k-btn--lg" href="#install">راهنمای نصب</a>
+      </div>
+      <p class="fg-hero__meta"><span dir="ltr">v{pkg.version}</span> · برای اپ دسکتاپ فیگما · حدود یک دقیقه ساخت</p>
+    </div>
+
+    <div class="fg-mock" aria-hidden="true">
+      <div class="fg-mock__window">
+        <div class="fg-mock__bar"><i></i><i></i><i></i><span>Kashi UI Kit</span></div>
+        <div class="fg-mock__body">
+          <ul class="fg-mock__pages">
+            <li>📕 Kashi UI Kit</li><li class="sep"></li><li>🎨 Colors</li><li>🧩 Icons</li><li class="sep"></li>
+            <li class="on">🔘 Button</li><li>📝 Input</li><li>🇮🇷 Card number</li><li>💬 Alert</li>
+          </ul>
+          <div class="fg-mock__canvas">
+            <div class="fg-mock__set">
+              {["primary", "secondary", "tertiary"].map((v) => (
+                <div class="fg-mock__row">{["sm", "md", "lg"].map((s) => <span class={`k-btn k-btn--${v} k-btn--${s}`}>ثبت</span>)}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fg-mock__panel">
+        <div class="fg-mock__head"><span class="fg-mock__logo" />Kashi UI Kit</div>
+        <div class="fg-mock__field"><span class="fg-mock__check" />متغیرها و استایل‌ها</div>
+        <div class="fg-mock__field"><span class="fg-mock__check" />صفحه‌های کامپوننت</div>
+        <div class="fg-mock__btn">ساخت کیت</div>
+        <div class="fg-mock__progress"><i /></div>
+        <div class="fg-mock__done">انجام شد: {fa(73)} کامپوننت، {fa(733)} variant</div>
+      </div>
+    </div>
+  </section>
+
+  <dl class="fg-stats">
+    {stats.map(([n, l]) => <div><dt>{l}</dt><dd>{n}</dd></div>)}
+  </dl>
+
+  <!-- ── ویژگی‌ها ──────────────────────────────────────────── -->
+  <h2 id="features">چه چیزهایی می‌گیرید</h2>
+  <ul class="fg-features" role="list">
+    {features.map(([icon, title, text]) => (
+      <li>
+        <span class="fg-features__icon" set:html={ic(icon, 22)} />
+        <strong>{title}</strong>
+        <p>{text}</p>
+      </li>
+    ))}
+  </ul>
+
+  <!-- ── نصب ──────────────────────────────────────────────── -->
+  <h2 id="install">نصب و اجرا</h2>
+  <p>نصب فقط یک بار لازم است. پلاگین در <strong>اپ دسکتاپ</strong> فیگما اجرا می‌شود.</p>
+  <ol class="fg-steps" role="list">
+    <li>
+      <span class="fg-steps__n">۱</span>
+      <div>
+        <strong>دانلود</strong>
+        <p>فایل zip پلاگین را دانلود و از حالت فشرده خارج کنید.</p>
+        <a class="k-btn k-btn--secondary k-btn--sm" href={zip} download><span set:html={ic("download", 16)} />kashi-figma-plugin.zip</a>
+      </div>
+    </li>
+    <li>
+      <span class="fg-steps__n">۲</span>
+      <div>
+        <strong>وارد کردن در فیگما</strong>
+        <p>در فیگما از منوی بالا بروید به:</p>
+        <p class="fg-path" dir="ltr"><kbd class="k-kbd">Plugins</kbd><span>›</span><kbd class="k-kbd">Development</kbd><span>›</span><kbd class="k-kbd">Import plugin from manifest…</kbd></p>
+        <p>و فایل <code>manifest.json</code> را از پوشهٔ دانلودشده انتخاب کنید.</p>
+      </div>
+    </li>
+    <li>
+      <span class="fg-steps__n">۳</span>
+      <div>
+        <strong>ساخت کیت</strong>
+        <p>از <span dir="ltr"><kbd class="k-kbd">Plugins</kbd> › <kbd class="k-kbd">Development</kbd> › <kbd class="k-kbd">Kashi UI Kit</kbd></span> پلاگین را باز کنید، تم و فونت را انتخاب کنید و «ساخت کیت» را بزنید.</p>
+      </div>
+    </li>
+  </ol>
+  <div class="k-alert k-alert--info k-alert--sm">
+    <span class="k-alert__icon" set:html={ic("info", 16)} />
+    <div class="k-alert__content"><p class="k-alert__description">برای استفاده در فایل‌های دیگر تیم، فایل را از پنل Assets فیگما <strong>Publish</strong> کنید تا کتابخانهٔ کاشی همه‌جا در دسترس باشد.</p></div>
+  </div>
+
+  <!-- ── به‌روزرسانی ──────────────────────────────────────── -->
+  <h2 id="update">به‌روزرسانی با نسخه‌های جدید</h2>
+  <p>برای هر نسخهٔ جدید فایل تازه نسازید: پلاگین جدید را دانلود کنید و در <strong>همان فایل</strong> اجرا کنید. پنل پلاگین نسخهٔ نصب‌شده را نشان می‌دهد و در پایان می‌گوید چند مورد اضافه و چند مورد به‌روز شد.</p>
+  <div class="fg-update">
+    <div class="fg-update__main">
+      <span class="fg-update__label" dir="ltr">❖ Button · main</span>
+      <span class="k-btn k-btn--primary">پرداخت امن</span>
+      <span class="fg-update__tag">به‌روز شد</span>
+    </div>
+    <div class="fg-update__links" aria-hidden="true">{[0, 1, 2].map(() => <i />)}</div>
+    <ul class="fg-update__instances" role="list" aria-label="instance ها در طرح‌های شما">
+      {["سبد خرید", "کیف پول", "اشتراک"].map((p) => (
+        <li><span>صفحهٔ {p}</span><span class="k-btn k-btn--primary k-btn--sm">پرداخت امن</span></li>
+      ))}
+    </ul>
+  </div>
+  <ul class="fg-checks" role="list">
+    {[
+      "کامپوننت‌های تازه صفحهٔ خودشان را می‌گیرند و سر جایشان در فهرست صفحه‌ها می‌نشینند.",
+      "کامپوننت‌هایی که در کد بهتر شده‌اند درجا عوض می‌شوند؛ instance ها وصل می‌مانند و تغییر را خودکار می‌گیرند.",
+      "متن‌هایی که از پنل Properties عوض کرده‌اید (مثل متن دکمه) حفظ می‌شوند.",
+      "صفحه‌های خودتان دست نمی‌خورند و صفحهٔ کیتی که پاک شده باشد دوباره ساخته می‌شود.",
+    ].map((t) => <li><span set:html={ic("check", 16)} />{t}</li>)}
+  </ul>
+  <p class="fg-note">فقط رنگ یا فونت را می‌خواهید به‌روز کنید؟ تیک «صفحه‌های کامپوننت» را بردارید تا فقط متغیرها در چند ثانیه به‌روز شوند.</p>
+
+  <!-- ── سفارشی‌سازی ─────────────────────────────────────── -->
+  <h2 id="customize">سفارشی‌سازی</h2>
+  <div class="fg-custom">
+    <article>
+      <div class="fg-custom__art fg-art-theme" aria-hidden="true"><span /><span /></div>
+      <strong>تم تیره و روشن</strong>
+      <p>یک فریم یا کل صفحه را انتخاب کنید و در بخش Appearance، مجموعهٔ <code>Kashi · Theme</code> را روی Dark یا Light بگذارید.</p>
+    </article>
+    <article>
+      <div class="fg-custom__art fg-art-brand" aria-hidden="true">{["#0b8077", "#2740ed", "#dd5e02", "#e51d2a", "#518b25"].map((c) => <i style={`background:${c}`} />)}</div>
+      <strong>رنگ برند</strong>
+      <p>در <code>Kashi · Primitives</code> متغیرهای <code>color/brand/*</code> را به رنگ دیگری از پالت وصل کنید؛ دکمه‌ها، فیلدها و فوکوس‌ها با هم عوض می‌شوند.</p>
+    </article>
+    <article>
+      <div class="fg-custom__art fg-art-font" aria-hidden="true"><span>آ</span><span>ب</span><span>پ</span></div>
+      <strong>فونت دلخواه، حتی پولی</strong>
+      <p>نام فونت نصب‌شده را در پنل پلاگین بنویسید یا <code>font/family/sans</code> را عوض کنید. اگر پیدا نشود، وزیرمتن جایش می‌نشیند.</p>
+    </article>
+    <article>
+      <div class="fg-custom__art fg-art-radius" aria-hidden="true"><i style="border-radius:0" /><i style="border-radius:6px" /><i style="border-radius:12px" /><i style="border-radius:22px" /></div>
+      <strong>گردی، تراکم و اندازهٔ متن</strong>
+      <p>گردی گوشه‌ها از Sharp تا Round، تراکم Compact و Comfortable و اندازهٔ متن، هر کدام یک mode در مجموعهٔ خودش؛ همان پیچ‌هایی که در CSS کاشی هست.</p>
+    </article>
+  </div>
+
+  <!-- ── ساختار فایل ─────────────────────────────────────── -->
+  <h2 id="pages">ساختار فایل</h2>
+  <p>صفحه‌ها در فیگما گروه‌بندی شده‌اند و بین هر گروه یک جداکننده است. آیکون‌ها در پنل Assets هم بر اساس {fa(catCount)} دسته پوشه‌بندی شده‌اند.</p>
+  <ol class="fg-tree" role="list" dir="ltr">
+    {pages.map(([e, t], i) => (
+      <li class={i === 0 ? "cover" : undefined}><span class="fg-tree__e">{e}</span>{t}</li>
+    ))}
+  </ol>
+
+  <!-- ── از فیگما تا کد ──────────────────────────────────── -->
+  <h2 id="to-code">از فیگما تا کد</h2>
+  <p>نام کامپوننت‌ها و ویژگی‌ها همان prop های React است و هر کامپوننت در فیگما لینک Documentation به صفحهٔ خودش در همین سایت دارد.</p>
+  <div class="k-table-wrap">
+    <table class="k-table">
+      <thead><tr><th>فیگما</th><th>کد</th></tr></thead>
+      <tbody>
+        {[
+          ["Button → Variant=Primary, Size=md", '<Button variant="primary" size="md">'],
+          ["Badge → Tone=Success, Variant=Soft", '<Badge tone="success" variant="soft">'],
+          ["Input → Size=lg, State=Error", '<Input size="lg" error="…">'],
+          [`Icon / ${categories[icons["credit-card"].category as keyof typeof categories]} / credit-card`, '<IconCreditCard />'],
+          ["bg/brand (Variable)", "var(--k-bg-brand)"],
+          ["space/4 (Variable)", "var(--k-space-4)"],
+        ].map(([a, b]) => <tr><td><bdi dir="ltr">{a}</bdi></td><td><code dir="ltr">{b}</code></td></tr>)}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── پرسش‌ها ─────────────────────────────────────────── -->
+  <h2 id="faq">پرسش‌های رایج</h2>
+  <div class="fg-faq">
+    {faq.map(([q, a], i) => (
+      <details open={i === 0}>
+        <summary>{q}<span set:html={ic("chevron-down", 18)} /></summary>
+        <p>{a}</p>
+      </details>
+    ))}
+  </div>
+
+  <!-- ── دعوت ───────────────────────────────────────────── -->
+  <section class="fg-cta" aria-label="دانلود">
+    <div>
+      <p class="fg-cta__title">آمادهٔ شروع هستید؟</p>
+      <p>پلاگین رایگان است و کدش در GitHub باز است. پیشنهاد و گزارش مشکل را هم همان‌جا بنویسید.</p>
+    </div>
+    <div class="fg-cta__actions">
+      <a class="k-btn k-btn--primary k-btn--lg" href={zip} download><span set:html={ic("download")} />دانلود پلاگین</a>
+      <a class="k-btn k-btn--secondary k-btn--lg" href={`${author.repo}/tree/main/apps/figma-plugin`} target="_blank" rel="noopener">کد پلاگین<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+    </div>
+  </section>
+</Docs>
+
+<style>
+  /* ── معرفی ── */
+  .fg-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: var(--k-space-6);
+    align-items: center;
+    margin-block: var(--k-space-2) var(--k-space-5);
+    padding: var(--k-space-8) var(--k-space-6);
+    overflow: hidden;
+    border: 1px solid var(--k-border-secondary);
+    border-radius: var(--k-radius-2xl);
+    background:
+      radial-gradient(120% 120% at 100% 0%, color-mix(in srgb, var(--k-brand-500) 16%, transparent), transparent 55%),
+      radial-gradient(90% 90% at 0% 100%, color-mix(in srgb, var(--k-lajvard-500) 10%, transparent), transparent 60%),
+      var(--k-bg-elevated);
+    box-shadow: var(--k-shadow-sm), var(--k-highlight);
+  }
+  .fg-hero__copy { display: grid; justify-items: start; gap: var(--k-space-3); }
+  .fg-hero__title { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-3xl); font-weight: var(--k-weight-bold); line-height: 1.35; text-wrap: balance; }
+  .fg-hero__text { margin: 0; color: var(--k-text-secondary); line-height: 1.9; }
+  .fg-hero__actions { display: flex; flex-wrap: wrap; gap: var(--k-space-3); margin-block-start: var(--k-space-2); }
+  .fg-hero__actions :global(svg), .fg-cta :global(svg), .fg-steps :global(.k-btn svg) { inline-size: 1.15em; block-size: 1.15em; }
+  .fg-hero__meta { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+
+  /* نمونهٔ پنجرهٔ فیگما و پنل پلاگین */
+  .fg-mock { position: relative; min-block-size: 18rem; direction: ltr; }
+  .fg-mock__window { overflow: hidden; border: 1px solid #3a3a3a; border-radius: 12px; background: #1a1a1a; box-shadow: 0 30px 60px -25px rgb(0 0 0 / 0.7); }
+  .fg-mock__bar { display: flex; align-items: center; gap: 5px; padding: 8px 10px; background: #2c2c2c; border-block-end: 1px solid #3a3a3a; color: #a3a3a3; font-size: 11px; }
+  .fg-mock__bar i { inline-size: 8px; block-size: 8px; border-radius: 50%; background: #ff5f57; }
+  .fg-mock__bar i:nth-child(2) { background: #febc2e; }
+  .fg-mock__bar i:nth-child(3) { background: #28c840; }
+  .fg-mock__bar span { margin-inline: auto; }
+  .fg-mock__body { display: grid; grid-template-columns: 8.5rem 1fr; min-block-size: 15rem; }
+  .fg-mock__pages { margin: 0; padding: 8px 0; list-style: none; border-inline-end: 1px solid #3a3a3a; background: #1e1e1e; color: #d9d9d9; font-size: 11px; }
+  .fg-mock__pages li { padding: 3px 10px; white-space: nowrap; }
+  .fg-mock__pages li.sep { block-size: 1px; margin: 4px 10px; padding: 0; background: #3a3a3a; }
+  .fg-mock__pages li.on { background: rgb(13 153 255 / 0.2); color: #fff; }
+  .fg-mock__canvas { display: grid; place-items: start end; padding: 14px; background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px); background-size: 14px 14px; }
+  .fg-mock__set { display: grid; gap: 8px; padding: 12px; border: 1px dashed #9747ff; border-radius: 8px; direction: rtl; background: var(--k-bg-secondary); zoom: 0.8; }
+  .fg-mock__row { display: flex; gap: 8px; align-items: center; }
+  .fg-mock__panel {
+    /* گوشهٔ پایین چپ، روی فهرست صفحه‌ها؛ پنل خودش راست‌به‌چپ است پس جهت فیزیکی می‌دهیم */
+    position: absolute;
+    bottom: -1.5rem;
+    left: -1rem;
+    display: grid;
+    gap: 8px;
+    inline-size: 11.5rem;
+    padding: 12px;
+    border: 1px solid #444;
+    border-radius: 12px;
+    background: #2c2c2c;
+    box-shadow: 0 24px 48px -16px rgb(0 0 0 / 0.75);
+    color: #e6e6e6;
+    font-size: 12px;
+    direction: rtl;
+  }
+  .fg-mock__head { display: flex; align-items: center; gap: 6px; color: #fff; font-weight: 600; }
+  .fg-mock__logo { inline-size: 14px; block-size: 14px; border-radius: 4px; background: var(--k-brand-600); }
+  .fg-mock__field { display: flex; align-items: center; gap: 6px; }
+  .fg-mock__check { inline-size: 12px; block-size: 12px; border-radius: 3px; background: #0d99ff; }
+  .fg-mock__btn { padding: 7px; border-radius: 7px; background: var(--k-brand-600); color: #fff; font-weight: 600; text-align: center; }
+  .fg-mock__progress { block-size: 4px; overflow: hidden; border-radius: 2px; background: #1e1e1e; }
+  .fg-mock__progress i { display: block; inline-size: 100%; block-size: 100%; background: var(--k-brand-400); transform-origin: right; }
+  .fg-mock__done { color: var(--k-brand-300); font-size: 11px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .fg-mock__progress i { animation: fg-fill 3.2s var(--k-ease-standard) infinite; }
+    .fg-mock__done { animation: fg-done 3.2s step-end infinite; }
+  }
+  @keyframes fg-fill { 0% { transform: scaleX(0); } 70%, 100% { transform: scaleX(1); } }
+  @keyframes fg-done { 0% { opacity: 0; } 70% { opacity: 1; } }
+
+  /* ── عددها ── */
+  .fg-stats { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 0 var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); }
+  .fg-stats div { padding: var(--k-space-4) var(--k-space-5); }
+  .fg-stats div + div { border-inline-start: 1px solid var(--k-border-secondary); }
+  .fg-stats dt { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .fg-stats dd { margin: var(--k-space-1) 0 0; color: var(--k-text-primary); font-size: var(--k-text-2xl); font-weight: var(--k-weight-bold); line-height: 1.2; }
+
+  /* ── ویژگی‌ها ── */
+  .fg-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--k-space-3); margin: var(--k-space-5) 0; padding: 0; list-style: none; }
+  .fg-features li, .fg-steps li, .fg-checks li, .fg-tree li, .fg-update__instances li { margin: 0; }
+  .fg-features li { padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); transition: border-color var(--k-duration-fast), transform var(--k-duration-fast); }
+  .fg-features li:hover { border-color: var(--k-border-primary); }
+  .fg-features__icon { display: inline-grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; margin-block-end: var(--k-space-3); border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); color: var(--k-text-brand); box-shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic); }
+  .fg-features strong { display: block; color: var(--k-text-primary); font-size: var(--k-text-md); }
+  .fg-features p { margin: var(--k-space-1) 0 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.8; }
+
+  /* ── نصب ── */
+  .fg-steps { display: grid; gap: var(--k-space-3); margin: var(--k-space-5) 0; padding: 0; list-style: none; counter-reset: none; }
+  .fg-steps li { display: grid; grid-template-columns: auto 1fr; gap: var(--k-space-4); padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); }
+  .fg-steps__n { display: grid; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border-radius: 50%; background: var(--k-bg-brand-subtle); color: var(--k-text-brand); font-weight: var(--k-weight-bold); }
+  .fg-steps strong { color: var(--k-text-primary); }
+  .fg-steps p { margin: var(--k-space-1) 0 var(--k-space-2); color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+  .fg-path { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-1_5); justify-content: flex-end; }
+  .fg-path span { color: var(--k-text-quaternary); }
+
+  /* ── به‌روزرسانی ── */
+  .fg-update { display: grid; grid-template-columns: auto auto 1fr; gap: var(--k-space-5); align-items: center; margin: var(--k-space-5) 0; padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-secondary); }
+  .fg-update__main { position: relative; display: grid; justify-items: center; gap: var(--k-space-2); padding: var(--k-space-4) var(--k-space-5); border: 1.5px dashed #9747ff; border-radius: var(--k-radius-lg); background: var(--k-bg-primary); }
+  .fg-update__label { color: #9747ff; font-size: var(--k-text-xs); }
+  .fg-update__tag { position: absolute; inset-block-start: -0.7rem; inset-inline-start: -0.7rem; padding: 1px 8px; border-radius: var(--k-radius-full); background: var(--k-bg-brand); color: var(--k-text-on-brand); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+  .fg-update__links { display: flex; gap: 6px; }
+  .fg-update__links i { inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--k-border-brand); opacity: 0.35; }
+  @media (prefers-reduced-motion: no-preference) {
+    .fg-update__links i { animation: fg-flow 1.4s infinite; }
+    .fg-update__links i:nth-child(2) { animation-delay: 0.2s; }
+    .fg-update__links i:nth-child(3) { animation-delay: 0.4s; }
+  }
+  @keyframes fg-flow { 0%, 100% { opacity: 0.3; } 40% { opacity: 1; } }
+  .fg-update__instances { display: grid; gap: var(--k-space-2); margin: 0; padding: 0; list-style: none; }
+  .fg-update__instances li { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-3); padding: var(--k-space-2) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-elevated); color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+  .fg-checks { display: grid; gap: var(--k-space-2); margin: var(--k-space-4) 0; padding: 0; list-style: none; }
+  .fg-checks li { display: flex; gap: var(--k-space-2); color: var(--k-text-secondary); }
+  .fg-checks li span { flex-shrink: 0; margin-block-start: 0.3em; color: var(--k-text-success); }
+  .fg-note { padding: var(--k-space-3) var(--k-space-4); border-inline-start: 3px solid var(--k-border-brand); border-radius: var(--k-radius-sm); background: var(--k-bg-brand-subtle); color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+
+  /* ── سفارشی‌سازی ── */
+  .fg-custom { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--k-space-3); margin: var(--k-space-5) 0; }
+  .fg-custom article { padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); }
+  .fg-custom strong { display: block; color: var(--k-text-primary); }
+  .fg-custom p { margin: var(--k-space-1) 0 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.8; }
+  .fg-custom__art { display: flex; align-items: center; justify-content: center; gap: var(--k-space-2); block-size: 5rem; margin-block-end: var(--k-space-4); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary); }
+  .fg-art-theme span { inline-size: 4.5rem; block-size: 3rem; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: #09090b; }
+  .fg-art-theme span + span { background: #ffffff; }
+  .fg-art-brand i { inline-size: 1.75rem; block-size: 1.75rem; border-radius: 50%; box-shadow: var(--k-shadow-xs); }
+  .fg-art-brand i:first-child { outline: 2px solid var(--k-text-primary); outline-offset: 2px; }
+  .fg-art-font span { color: var(--k-text-primary); font-size: 2rem; font-weight: 300; }
+  .fg-art-font span:nth-child(2) { font-weight: 600; }
+  .fg-art-font span:nth-child(3) { font-weight: 900; color: var(--k-text-brand); }
+  .fg-art-radius i { inline-size: 2.5rem; block-size: 2.5rem; border: 2px solid var(--k-border-brand); background: var(--k-bg-brand-subtle); }
+
+  /* ── ساختار فایل ── */
+  .fg-tree { display: grid; gap: 0; margin: var(--k-space-5) 0; padding: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); list-style: none; font-size: var(--k-text-sm); }
+  .fg-tree li { display: flex; align-items: center; gap: var(--k-space-3); padding: var(--k-space-2) var(--k-space-3); border-radius: var(--k-radius-md); color: var(--k-text-secondary); }
+  .fg-tree li + li { border-block-start: 1px dashed var(--k-border-secondary); }
+  .fg-tree li.cover { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+  .fg-tree__e { inline-size: 1.5rem; text-align: center; }
+
+  /* ── پرسش‌ها ── */
+  .fg-faq { margin: var(--k-space-5) 0; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); }
+  .fg-faq details + details { border-block-start: 1px solid var(--k-border-secondary); }
+  .fg-faq summary { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-4); padding: var(--k-space-4) var(--k-space-5); color: var(--k-text-primary); font-weight: var(--k-weight-semibold); cursor: pointer; list-style: none; }
+  .fg-faq summary::-webkit-details-marker { display: none; }
+  .fg-faq summary span { display: inline-grid; color: var(--k-text-tertiary); transition: transform var(--k-duration-fast); }
+  .fg-faq details[open] summary span { transform: rotate(180deg); }
+  .fg-faq summary:focus-visible { outline: 2px solid transparent; border-radius: var(--k-radius-xl); box-shadow: var(--k-ring-brand); }
+  .fg-faq p { margin: 0; padding: 0 var(--k-space-5) var(--k-space-5); color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.9; }
+
+  /* ── دعوت ── */
+  .fg-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--k-space-5); margin-block-start: var(--k-space-10); padding: var(--k-space-6); border: 1px solid var(--k-border-brand); border-radius: var(--k-radius-2xl); background: radial-gradient(100% 140% at 100% 0%, color-mix(in srgb, var(--k-brand-500) 18%, transparent), transparent 60%), var(--k-bg-elevated); }
+  .fg-cta__title { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-xl); font-weight: var(--k-weight-bold); }
+  .fg-cta p:not(.fg-cta__title) { margin: var(--k-space-1) 0 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .fg-cta__actions { display: flex; flex-wrap: wrap; gap: var(--k-space-3); }
+
+  @media (max-width: 52rem) {
+    .fg-hero { grid-template-columns: 1fr; padding: var(--k-space-6) var(--k-space-5); }
+    .fg-mock { margin-inline-end: var(--k-space-3); }
+    .fg-update { grid-template-columns: 1fr; justify-items: center; }
+    .fg-update__links { transform: rotate(90deg); }
+    .fg-update__instances { inline-size: 100%; }
+  }
+  @media (max-width: 36rem) {
+    .fg-stats { grid-template-columns: repeat(2, 1fr); }
+    .fg-stats div:nth-child(3) { border-inline-start: 0; }
+    .fg-stats div:nth-child(n + 3) { border-block-start: 1px solid var(--k-border-secondary); }
+    .fg-custom { grid-template-columns: 1fr; }
+    .fg-hero__title { font-size: var(--k-text-2xl); }
+    .fg-mock__body { grid-template-columns: 6.5rem 1fr; }
+  }
+</style>
