@@ -1,10 +1,10 @@
 ---
-layout: ../../layouts/Docs.astro
-title: آیکون‌های کاشی
+layout: ../../../layouts/Docs.astro
+title: راهنمای آیکون‌ها
 description: ۷۰ آیکون خطی نرم با گوشه‌های پیوسته، هم‌خانواده با کامپوننت‌های کاشی؛ برای React، HTML، هر فریم‌ورک دیگر و فیگما.
 ---
-import Install from "../../components/Install.astro";
-import { IconBrowser, IconPrinciples, IconSpecs } from "../../components/IconBrowser";
+import Install from "../../../components/Install.astro";
+import { IconPrinciples, IconSpecs } from "../../../components/IconBrowser";
 
 <IconSpecs />
 
@@ -12,11 +12,22 @@ import { IconBrowser, IconPrinciples, IconSpecs } from "../../components/IconBro
 
 <Install command="npm i @kashi-ui/icons" />
 
-## همهٔ آیکون‌ها
+همهٔ آیکون‌ها را دسته به دسته در [فهرست آیکون‌ها](/docs/icons/) ببینید.
 
-اندازه و ضخامت خط را از نوار بالا عوض کنید تا آیکون‌ها را همان‌طور که در طرح شما دیده می‌شوند ببینید. روی هر آیکون بزنید تا شبکهٔ طراحی، کد React و HTML و دانلود SVG همان آیکون را با همین تنظیمات ببینید. جستجو فارسی و انگلیسی را می‌فهمد و «ي/ك» عربی را هم با «ی/ک» یکی می‌داند؛ با کلید <kbd>/</kbd> مستقیم به جستجو بروید.
+## شش سبک
 
-<IconBrowser client:load />
+هر آیکون در شش سبک هست و همه از یک طرح خطی ساخته می‌شوند: `light` (خطی، پیش‌فرض)، `bold` (توپر)، `bulk` (حجمی)، `two-tone` (دورنگ)، `broken` (شکسته) و `curved` (منحنی).
+
+```tsx
+<IconWallet variant="bold" />
+<Icon name="calendar" variant="bulk" />
+```
+
+```js
+iconSvg("heart", { variant: "two-tone" });
+```
+
+در اسپرایت هر سبک شناسهٔ خودش را دارد (`#k-home--bold`) و فایل‌های جدا در `@kashi-ui/icons/svg/<variant>/<name>.svg` هستند. سبک `bold` جزئیات را با ماسک SVG از دل شکل سوراخ می‌کند؛ هر نمونه شناسهٔ ماسک یکتای خودش را می‌گیرد.
 
 ## اصول طراحی
 
@@ -95,7 +106,7 @@ import { IconPlus, IconSearch } from "@kashi-ui/icons/react";
 
 ## راست‌به‌چپ
 
-آیکون‌ها به‌طور پیش‌فرض قرینه نمی‌شوند؛ `arrow-left` همیشه به چپ اشاره می‌کند. در رابط فارسی، «بعدی» و «ادامه» یعنی فلش چپ و «بازگشت» یعنی فلش راست. شش آیکون جهت‌دار (فلش‌ها، شورون‌های چپ و راست، ارسال و خروج) در فهرست بالا با نشان «جهت‌دار» مشخص‌اند. اگر طرح شما هم راست‌به‌چپ و هم چپ‌به‌راست است، با `mirror` قرینه‌شان کنید.
+آیکون‌ها به‌طور پیش‌فرض قرینه نمی‌شوند؛ `arrow-left` همیشه به چپ اشاره می‌کند. در رابط فارسی، «بعدی» و «ادامه» یعنی فلش چپ و «بازگشت» یعنی فلش راست. شش آیکون جهت‌دار (فلش‌ها، شورون‌های چپ و راست، ارسال و خروج) در صفحهٔ هر آیکون با نشان «جهت‌دار» مشخص‌اند. اگر طرح شما هم راست‌به‌چپ و هم چپ‌به‌راست است، با `mirror` قرینه‌شان کنید.
 
 ## فیگما
 

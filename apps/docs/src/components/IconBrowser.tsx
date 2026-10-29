@@ -1,15 +1,15 @@
-// مرورگر آیکون‌های کاشی: جستجو، دسته‌بندی و پیش‌نمایش زنده با اندازه و ضخامت دلخواه؛ هر کارت به صفحهٔ همان آیکون می‌رود
-import { useEffect, useMemo, useRef, useState } from "react";
-import { ChipGroup, EmptyState, Input, Kbd, SegmentedControl, Slider } from "@kashi-ui/react";
+// مرورگر یک دستهٔ آیکون، به‌علاوهٔ نوار مشخصات و اصول طراحی برای صفحهٔ راهنما
+import { useRef, useState } from "react";
+import { EmptyState, Input, Kbd, SegmentedControl, Slider } from "@kashi-ui/react";
+import { IconGrid } from "./IconCatalog";
+import { VariantPicker, fa, useSlash, useVariant } from "./iconShared";
 import { categories, icons, searchIcons, type IconName } from "@kashi-ui/icons";
 import { Icon } from "@kashi-ui/icons/react";
-import { toFaDigits } from "@kashi-ui/persian";
 import "../styles/icons.css";
 
 type Category = keyof typeof categories;
 const all = Object.keys(icons) as IconName[];
 const catKeys = Object.keys(categories) as Category[];
-const fa = (n: number) => toFaDigits(String(n).replace(".", "٫"));
 
 /** نوار مشخصات بالای صفحه: نمونهٔ آیکون‌ها و اعداد کلیدی */
 const showcase: IconName[] = ["home", "search", "calendar", "user", "bell", "wallet", "credit-card", "chart", "lock", "mail", "heart", "sparkle", "folder", "settings", "trash", "send"];
@@ -56,52 +56,27 @@ export function IconPrinciples() {
 
 const sizes = [16, 20, 24, 32];
 
-export function IconBrowser() {
+/** صفحهٔ یک دسته: جستجو در همان دسته و پیش‌نمایش زنده با سبک، اندازه و ضخامت دلخواه */
+export function IconBrowser({ category }: { category: Category }) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<string[]>(["all"]);
+  const [variant, setVariant] = useVariant();
   const [size, setSize] = useState("24");
   const [stroke, setStroke] = useState(1.5);
   const searchRef = useRef<HTMLInputElement>(null);
+  useSlash(searchRef);
 
-  // «/» جستجو را فعال می‌کند، مثل بیشتر مرورگرهای آیکون
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      const t = e.target as HTMLElement;
-      if (e.key === "/" && !/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) && !t.isContentEditable) {
-        e.preventDefault();
-        searchRef.current?.focus();
-      }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, []);
-
-  const hits = useMemo(() => new Set(searchIcons(query)), [query]);
-  const cat = category[0] && category[0] !== "all" ? (category[0] as Category) : null;
-  const found = all.filter((n) => hits.has(n) && (!cat || icons[n].category === cat));
-
-  const counts: Record<string, number> = {};
-  for (const n of all) if (hits.has(n)) counts[icons[n].category] = (counts[icons[n].category] || 0) + 1;
-  const options = [
-    { value: "all", label: "همه", count: hits.size },
-    ...catKeys.map((c) => ({ value: c, label: categories[c], count: counts[c] || 0 })),
-  ];
-
-  // بدون جستجو و فیلتر، آیکون‌ها زیر عنوان دسته‌شان می‌آیند
-  const groups: [Category | null, IconName[]][] = !query && !cat
-    ? catKeys.map((c) => [c, found.filter((n) => icons[n].category === c)] as [Category, IconName[]]).filter(([, l]) => l.length)
-    : [[null, found]];
-
-  const px = Number(size);
+  const inCat = all.filter((n) => icons[n].category === category);
+  const hits = new Set(searchIcons(query));
+  const found = inCat.filter((n) => hits.has(n));
 
   return (
-    <div className="ib" style={{ "--ib-size": `${px}px` } as React.CSSProperties}>
+    <div className="ib">
       <div className="ib-bar">
         <div className="ib-bar__search">
           <Input
             ref={searchRef}
-            aria-label="جستجوی آیکون"
-            placeholder={`جستجو در ${fa(all.length)} آیکون: «حذف»، «کارت»، «search»…`}
+            aria-label={`جستجو در ${categories[category]}`}
+            placeholder={`جستجو در ${fa(inCat.length)} آیکون «${categories[category]}»…`}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             clearable
@@ -111,13 +86,10 @@ export function IconBrowser() {
           />
         </div>
         <div className="ib-bar__controls">
+          <VariantPicker value={variant} onChange={setVariant} />
           <SegmentedControl size="sm" aria-label="اندازهٔ پیش‌نمایش" options={sizes.map((s) => ({ value: String(s), label: fa(s) }))} value={size} onChange={setSize} />
           <Slider className="ib-bar__stroke" label="ضخامت" min={1} max={2.25} step={0.25} value={stroke} onChange={setStroke} showValue format={fa} />
         </div>
-      </div>
-
-      <div className="ib-filter">
-        <ChipGroup aria-label="دسته‌بندی" single options={options} value={category} onChange={(v) => setCategory(v.length ? v : ["all"])} />
       </div>
 
       <p className="ib-count" aria-live="polite">
@@ -125,26 +97,10 @@ export function IconBrowser() {
       </p>
 
       {found.length === 0 ? (
-        <EmptyState title="آیکونی پیدا نشد" description={`برای «${query}» نتیجه‌ای نبود. با کلمهٔ دیگری، فارسی یا انگلیسی، جستجو کنید.`} />
+        <EmptyState title="آیکونی پیدا نشد" description={`در این دسته برای «${query}» نتیجه‌ای نبود.`} />
       ) : (
-        groups.map(([key, list]) => (
-          <section key={key ?? "all"} id={key ?? undefined} className="ib-group" aria-label={key ? categories[key] : undefined}>
-            {key && <h3 className="ib-group__title">{categories[key]}<span>{fa(list.length)}</span><a href={`#${key}`} aria-hidden="true" tabIndex={-1}>#</a></h3>}
-            <ul className="ib-grid" role="list">
-              {list.map((n) => (
-                <li key={n}>
-                  <a className="ib-cell" href={`/docs/icons/${n}/`} aria-label={`${icons[n].title} (${n})`}>
-                    <span className="ib-cell__art"><Icon name={n} size={px} strokeWidth={stroke} /></span>
-                    <span className="ib-cell__title">{icons[n].title}</span>
-                    <span className="ib-cell__name" dir="ltr">{n}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
+        <IconGrid names={found} variant={variant} size={Number(size)} stroke={stroke} />
       )}
-
     </div>
   );
 }

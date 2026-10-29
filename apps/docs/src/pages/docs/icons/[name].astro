@@ -18,7 +18,7 @@ const related = names.filter((n) => n !== name && icons[n].category === icon.cat
 const category = categories[icon.category as keyof typeof categories];
 ---
 <Docs title={`${icon.title} · آیکون ${name}`} description={`آیکون «${icon.title}» از دستهٔ ${category} در @kashi-ui/icons؛ کد React و HTML، اسپرایت، فیگما و دانلود SVG.`}>
-  <p class="ip-back"><a href="/docs/icons/">همهٔ آیکون‌ها</a> / <a href={`/docs/icons/#${icon.category}`}>{category}</a></p>
+  <p class="ip-back"><a href="/docs/icons/">همهٔ آیکون‌ها</a> / <a href={`/docs/icons/category/${icon.category}/`}>{category}</a></p>
 
   <IconDetail client:load name={name} />
 

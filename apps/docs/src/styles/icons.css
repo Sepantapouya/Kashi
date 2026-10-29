@@ -104,6 +104,7 @@
   background: var(--k-bg-elevated);
   color: var(--k-text-secondary);
   font: inherit;
+  text-decoration: none;
   cursor: pointer;
   transition: border-color var(--k-duration-fast), background-color var(--k-duration-fast), color var(--k-duration-fast), transform var(--k-duration-fast);
 }
@@ -167,3 +168,18 @@
 .ib-code { position: relative; margin-block-start: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary); }
 .ib-code pre { margin: 0; padding: var(--k-space-3) var(--k-space-4); padding-inline-end: 3rem; overflow-x: auto; color: var(--k-text-primary); font-family: var(--k-font-mono); font-size: var(--k-text-xs); line-height: 1.7; text-align: left; white-space: pre-wrap; word-break: break-all; }
 .ib-code .k-copy, .ib-code > button { position: absolute; inset-block-start: var(--k-space-2); inset-inline-start: var(--k-space-2); }
+
+/* فهرست دسته‌ها در /docs/icons/ */
+.ic { margin-block: var(--k-space-4) var(--k-space-8); }
+.ic-cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); gap: 0; margin: var(--k-space-5) 0 0; padding: 0; list-style: none; border-block-start: 1px solid var(--k-border-secondary); border-inline-start: 1px solid var(--k-border-secondary); }
+.ic-cats li { border-block-end: 1px solid var(--k-border-secondary); border-inline-end: 1px solid var(--k-border-secondary); }
+.ic-cat { display: grid; gap: var(--k-space-4); block-size: 100%; padding: var(--k-space-4) var(--k-space-4) var(--k-space-3); color: var(--k-text-primary); text-decoration: none; transition: background-color var(--k-duration-fast); }
+.ic-cat:hover { background: var(--k-bg-hover); }
+.ic-cat:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: -2px; }
+.ic-cat__preview { display: grid; grid-template-columns: repeat(5, 1fr); grid-auto-rows: 2.75rem; place-items: center; min-block-size: 8.25rem; align-content: start; }
+.ic-cat__foot { display: flex; align-items: end; justify-content: space-between; gap: var(--k-space-2); }
+.ic-cat__title { display: block; font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+.ic-cat__count { display: block; margin-block-start: 0.125rem; color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.ic-cat__view { display: inline-flex; align-items: center; gap: var(--k-space-1); padding: var(--k-space-1) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-xs); color: var(--k-text-secondary); font-size: var(--k-text-xs); opacity: 0; transition: opacity var(--k-duration-fast); }
+.ic-cat:hover .ic-cat__view, .ic-cat:focus-visible .ic-cat__view { opacity: 1; }
+@media (hover: none) { .ic-cat__view { opacity: 1; } }

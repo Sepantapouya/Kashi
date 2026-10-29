@@ -1,12 +1,46 @@
 {
- "generated": "2026-10-29T11:07:51+03:30",
+ "generated": "2026-10-29T11:18:15+03:30",
  "totals": {
-  "commits": 56,
+  "commits": 58,
   "versions": 17,
-  "added": 57137,
+  "added": 57942,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "2ac47443951a6ae365a65e3d34b6c465192c57a2",
+   "short": "2ac4744",
+   "date": "2026-10-29T11:18:15+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: six variants built from the linear drawing",
+   "details": [
+    "light, bold, bulk, two-tone, broken and curved. The build splits each",
+    "icon into closed shapes and details: bold fills shapes and cuts details",
+    "out with a mask, bulk fills shapes faintly, two-tone fades details,",
+    "broken opens a gap in each shape, curved rounds squircle frames further.",
+    "Exposed as the variant prop, iconSvg option, sprite ids and svg/<variant>/."
+   ],
+   "files": 7,
+   "added": 142,
+   "removed": 24
+  },
+  {
+   "sha": "7663666429788a0f354c453aa510d7fc7290fde1",
+   "short": "7663666",
+   "date": "2026-10-29T11:14:12+03:30",
+   "author": "sepantapouya",
+   "subject": "Docs: redesign the icons page and give every icon its own page",
+   "details": [
+    "The icons page gets a spec strip, design principles, a sticky toolbar",
+    "with live size and stroke controls, and grid sections per category with",
+    "anchors. Each card links to /docs/icons/<name>/, which shows the icon on",
+    "its design grid, sizes, stroke control, copy and download, usage tabs,",
+    "related icons and prev/next links."
+   ],
+   "files": 6,
+   "added": 663,
+   "removed": 191
+  },
   {
    "sha": "44a3fc8f3dd372b3ccd58c254298ed0edddff69f",
    "short": "44a3fc8",

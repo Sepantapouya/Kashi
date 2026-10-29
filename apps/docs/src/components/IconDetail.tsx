@@ -3,11 +3,10 @@ import { useState } from "react";
 import { Badge, CopyButton, Slider, Tab, TabList, TabPanel, Tabs } from "@kashi-ui/react";
 import { categories, icons, iconSvg, type IconName } from "@kashi-ui/icons";
 import { Icon } from "@kashi-ui/icons/react";
-import { toFaDigits } from "@kashi-ui/persian";
+import { VariantPicker, fa, useVariant } from "./iconShared";
 import "../styles/icons.css";
 
 type Category = keyof typeof categories;
-const fa = (n: number) => toFaDigits(String(n).replace(".", "٫"));
 
 function Code({ code }: { code: string }) {
   return (
@@ -20,15 +19,17 @@ function Code({ code }: { code: string }) {
 
 export function IconDetail({ name }: { name: IconName }) {
   const [stroke, setStroke] = useState(1.5);
+  const [variant, setVariant] = useVariant();
+  const vp = variant === "light" ? "" : ` variant="${variant}"`;
   const icon = icons[name];
-  const sw = stroke === 1.5 ? "" : ` strokeWidth={${stroke}}`;
-  const svgCode = iconSvg(name, { size: 24, strokeWidth: stroke }) ?? "";
+  const sw = (stroke === 1.5 ? "" : ` strokeWidth={${stroke}}`) + vp;
+  const svgCode = iconSvg(name, { size: 24, strokeWidth: stroke, variant }) ?? "";
 
   return (
     <div className="ib-detail">
       <div className="ib-inspect">
         <div className="ib-stage" aria-hidden="true">
-          <Icon name={name} size={160} strokeWidth={stroke} />
+          <Icon name={name} size={160} strokeWidth={stroke} variant={variant} />
         </div>
         <div className="ib-meta">
           <div className="ib-meta__tags">
@@ -36,11 +37,12 @@ export function IconDetail({ name }: { name: IconName }) {
             <Badge size="sm" tone="brand"><span dir="ltr">{icon.component}</span></Badge>
             {icon.directional && <Badge tone="warning" size="sm">جهت‌دار</Badge>}
           </div>
+          <VariantPicker value={variant} onChange={setVariant} />
           <Slider label="ضخامت خط" min={1} max={2.25} step={0.25} value={stroke} onChange={setStroke} showValue format={fa} />
           <div className="ib-sizes" aria-label="اندازه‌ها">
             {[16, 20, 24, 32, 48].map((s) => (
               <figure key={s}>
-                <Icon name={name} size={s} strokeWidth={stroke} />
+                <Icon name={name} size={s} strokeWidth={stroke} variant={variant} />
                 <figcaption>{fa(s)}</figcaption>
               </figure>
             ))}
@@ -49,7 +51,7 @@ export function IconDetail({ name }: { name: IconName }) {
           <div className="ib-actions">
             <CopyButton value={svgCode} size="sm" labels={{ copy: "کپی SVG", copied: "کپی شد" }} />
             <CopyButton value={`<${icon.component}${sw} />`} size="sm" labels={{ copy: "کپی JSX", copied: "کپی شد" }} />
-            <a className="k-btn k-btn--secondary k-btn--sm" href={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgCode)}`} download={`${name}.svg`}>
+            <a className="k-btn k-btn--secondary k-btn--sm" href={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgCode)}`} download={`${name}${variant === "light" ? "" : `-${variant}`}.svg`}>
               <Icon name="download" />دانلود SVG
             </a>
           </div>
@@ -66,10 +68,10 @@ export function IconDetail({ name }: { name: IconName }) {
           <Tab value="js">JavaScript</Tab>
           <Tab value="figma">فیگما</Tab>
         </TabList>
-        <TabPanel value="react"><Code code={`import { ${icon.component} } from "@kashi-ui/icons/react";\n\n<${icon.component}${sw} />\n<${icon.component} size={24} title="${icon.title}" />\n\n// یا با نام\nimport { Icon } from "@kashi-ui/icons/react";\n<Icon name="${name}" />`} /></TabPanel>
+        <TabPanel value="react"><Code code={`import { ${icon.component} } from "@kashi-ui/icons/react";\n\n<${icon.component}${sw} />\n<${icon.component} size={24} title="${icon.title}" />\n\n// یا با نام\nimport { Icon } from "@kashi-ui/icons/react";\n<Icon name="${name}"${vp} />`} /></TabPanel>
         <TabPanel value="html"><Code code={svgCode} /></TabPanel>
-        <TabPanel value="sprite"><Code code={`<svg width="20" height="20" aria-hidden="true">\n  <use href="/sprite.svg#k-${name}" />\n</svg>\n\n<!-- فایل جدا: @kashi-ui/icons/svg/${name}.svg -->`} /></TabPanel>
-        <TabPanel value="js"><Code code={`import { iconSvg } from "@kashi-ui/icons";\n\nel.innerHTML = iconSvg("${name}", { size: 24${stroke === 1.5 ? "" : `, strokeWidth: ${stroke}`} });`} /></TabPanel>
+        <TabPanel value="sprite"><Code code={`<svg width="20" height="20" aria-hidden="true">\n  <use href="/sprite.svg#k-${name}${variant === "light" ? "" : `--${variant}`}" />\n</svg>\n\n<!-- فایل جدا: @kashi-ui/icons/svg/${variant === "light" ? "" : `${variant}/`}${name}.svg -->`} /></TabPanel>
+        <TabPanel value="js"><Code code={`import { iconSvg } from "@kashi-ui/icons";\n\nel.innerHTML = iconSvg("${name}", { size: 24${stroke === 1.5 ? "" : `, strokeWidth: ${stroke}`}${variant === "light" ? "" : `, variant: "${variant}"`} });`} /></TabPanel>
         <TabPanel value="figma"><Code code={`Icon / ${name}`} /></TabPanel>
       </Tabs>
     </div>

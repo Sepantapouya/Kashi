@@ -1,0 +1,20 @@
+---
+// فهرست آیکون‌ها: فقط کارت دسته‌ها؛ هر کارت به صفحهٔ همان دسته می‌رود
+import Docs from "../../../layouts/Docs.astro";
+import { IconCatalog } from "../../../components/IconCatalog";
+import { icons, categories, variants } from "@kashi-ui/icons";
+import { toFaDigits } from "@kashi-ui/persian";
+
+const count = toFaDigits(String(Object.keys(icons).length));
+---
+<Docs title="آیکون‌های کاشی" description={`${count} آیکون در ${toFaDigits(String(Object.keys(categories).length))} دسته و ${toFaDigits(String(variants.length))} سبک؛ برای React، HTML، هر فریم‌ورک دیگر و فیگما.`}>
+  <p class="icx-lead">
+    یک دسته را باز کنید تا همهٔ آیکون‌هایش را با سبک، اندازه و ضخامت دلخواه ببینید.
+    <a href="/docs/icons/usage/">راهنمای نصب و استفاده</a>
+  </p>
+  <IconCatalog client:load />
+</Docs>
+
+<style>
+  .icx-lead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--k-space-2); margin: 0; color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+</style>

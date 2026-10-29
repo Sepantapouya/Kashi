@@ -1,0 +1,33 @@
+---
+// صفحهٔ هر دسته: /docs/icons/category/<key>/
+import Docs from "../../../../layouts/Docs.astro";
+import { IconBrowser } from "../../../../components/IconBrowser";
+import { categories, icons } from "@kashi-ui/icons";
+import { toFaDigits } from "@kashi-ui/persian";
+
+type Category = keyof typeof categories;
+export function getStaticPaths() {
+  return Object.keys(categories).map((cat) => ({ params: { cat } }));
+}
+const cat = Astro.params.cat as Category;
+const keys = Object.keys(categories) as Category[];
+const i = keys.indexOf(cat);
+const prev = keys[i - 1];
+const next = keys[i + 1];
+const count = Object.values(icons).filter((x) => x.category === cat).length;
+---
+<Docs title={`آیکون‌های ${categories[cat]}`} description={`${toFaDigits(String(count))} آیکون در دستهٔ «${categories[cat]}»؛ روی هر آیکون بزنید تا کد و دانلودش را ببینید.`}>
+  <p class="ip-back"><a href="/docs/icons/">همهٔ دسته‌ها</a> / {categories[cat]}</p>
+  <IconBrowser client:load category={cat} />
+  <nav class="pager" aria-label="دسته‌های مجاور">
+    {prev ? <a class="pager__link" href={`/docs/icons/category/${prev}/`} rel="prev"><span>قبلی</span>{categories[prev]}</a> : <span />}
+    {next && <a class="pager__link pager__link--next" href={`/docs/icons/category/${next}/`} rel="next"><span>بعدی</span>{categories[next]}</a>}
+  </nav>
+</Docs>
+
+<style>
+  .ip-back { margin: 0 0 var(--k-space-2); color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .ip-back a { color: var(--k-text-secondary); text-decoration: none; }
+  .ip-back a:hover { color: var(--k-text-primary); }
+  .pager { margin-block-start: var(--k-space-8); }
+</style>
