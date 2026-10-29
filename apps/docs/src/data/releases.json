@@ -1,12 +1,23 @@
 {
- "generated": "2026-10-29T14:54:26+03:30",
+ "generated": "2026-10-29T14:54:51+03:30",
  "totals": {
-  "commits": 109,
+  "commits": 110,
   "versions": 17,
-  "added": 62056,
+  "added": 62104,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "b5807c21d71a1ef00afbf356af63b9b4dcef0edb",
+   "short": "b5807c2",
+   "date": "2026-10-29T14:54:51+03:30",
+   "author": "sepantapouya",
+   "subject": "docs: icon count 2099, changeset",
+   "details": [],
+   "files": 9,
+   "added": 48,
+   "removed": 10
+  },
   {
    "sha": "878c17c1f3cb66591be04f4b164d0f039a2fb7c8",
    "short": "878c17c",
