@@ -1,12 +1,45 @@
 {
- "generated": "2026-10-29T14:27:03+03:30",
+ "generated": "2026-10-29T14:43:10+03:30",
  "totals": {
-  "commits": 103,
+  "commits": 106,
   "versions": 17,
-  "added": 61686,
+  "added": 61908,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "ad1c59b37049a5caa34b53a11f7a5b58df125cb4",
+   "short": "ad1c59b",
+   "date": "2026-10-29T14:43:10+03:30",
+   "author": "sepantapouya",
+   "subject": "icons: add 50 hand-drawn icons (animals, sports, tech, music, kids)",
+   "details": [],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "fbd0ccdf45af657eae358a351ceba2c0711f3893",
+   "short": "fbd0ccd",
+   "date": "2026-10-29T14:37:12+03:30",
+   "author": "sepantapouya",
+   "subject": "icons: add 50 hand-drawn icons (food, kitchen, fashion, health, persian)",
+   "details": [],
+   "files": 1,
+   "added": 50,
+   "removed": 0
+  },
+  {
+   "sha": "2396a2a717665ce4a3bb5832e337a80d470b212a",
+   "short": "2396a2a",
+   "date": "2026-10-29T14:29:12+03:30",
+   "author": "sepantapouya",
+   "subject": "icons: smarter two-tone split (fade inner details, keep silhouette dark)",
+   "details": [],
+   "files": 5,
+   "added": 122,
+   "removed": 7
+  },
   {
    "sha": "c74224037744a7f64c3926863ffc9cdcc8fc9132",
    "short": "c742240",
