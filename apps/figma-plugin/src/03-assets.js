@@ -3,12 +3,12 @@
 // ICONS و ICON_TITLES را build.mjs از packages/icons/src/icons.js می‌گذارد
 
 const svgOf = (inner, color = "#000") =>
-  `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="${color}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
+  `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${inner}</svg>`;
 
 /** صفحه‌های آیکون و لوگو؛ هر کدام کامپوننت با کلید ثابت تا در به‌روزرسانی‌ها instance ها وصل بمانند */
 function buildAssets() {
   const root = kitPage("🧩", "Assets", "آیکون‌ها و لوگوها", "");
-  section(root, "Icons · آیکون‌ها", `${fa(Object.keys(ICONS).length)} آیکون ۲۰×۲۰ با خط ۱٫۷، هم‌شکل آیکون‌های داخلی کاشی. در طرح‌ها با Instance swap عوض می‌شوند.`, buildIcons);
+  section(root, "Icons · آیکون‌ها", `${fa(Object.keys(ICONS).length)} آیکون ۲۰×۲۰ با خط ۱٫۵، هم‌شکل آیکون‌های داخلی کاشی. در طرح‌ها با Instance swap عوض می‌شوند.`, buildIcons);
   section(root, "Bank logos · لوگوی بانک‌ها", `${fa(BANKS.length)} لوگوی بانک و درگاه پرداخت از @kashi-ui/bank-logos.`, buildBankLogos);
 }
 

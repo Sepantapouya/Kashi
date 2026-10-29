@@ -1,6 +1,6 @@
 # @kashi-ui/icons
 
-۷۰ آیکون خطی کاشی روی شبکهٔ ۲۰×۲۰ با خط ۱٫۷؛ برای React، HTML و هر فریم‌ورک دیگر. فهرست کامل و نحوهٔ استفادهٔ هر آیکون: https://kashi.sepantapouya.com/docs/icons/
+۷۰ آیکون خطی کاشی روی شبکهٔ ۲۰×۲۰ با خط ۱٫۵؛ برای React، HTML و هر فریم‌ورک دیگر. فهرست کامل و نحوهٔ استفادهٔ هر آیکون: https://kashi.sepantapouya.com/docs/icons/
 
 ```bash
 npm i @kashi-ui/icons

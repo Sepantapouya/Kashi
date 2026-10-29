@@ -1,5 +1,15 @@
 // منبع واحد آیکون‌های کاشی؛ هم پکیج npm و هم پلاگین فیگما از همین فایل ساخته می‌شوند.
-// همه روی شبکهٔ ۲۰×۲۰ با خط ۱٫۷ و سر و گوشهٔ گرد کشیده شده‌اند.
+// همه روی شبکهٔ ۲۰×۲۰ با خط ۱٫۵ و سر و گوشهٔ گرد کشیده شده‌اند.
+// زبان بصری: قاب‌ها گوشهٔ پیوسته (squircle) دارند نه rx ساده، خط‌های داخلی کوتاه‌اند و از لبهٔ قاب فاصله می‌گیرند،
+// آدم‌ها شکل بستهٔ نرم‌اند و جزئیات ریز با نقطه نشان داده می‌شوند.
+
+const n = (v) => +v.toFixed(2);
+
+/** مستطیل با گوشهٔ پیوسته؛ نقطه‌های کنترل نزدیک گوشه‌اند تا انحنا نرم‌تر از کمان دایره باشد */
+const sq = (x, y, w, h, r) => {
+  const k = r * 0.2, X = x + w, Y = y + h;
+  return `<path d="M${n(x + r)} ${y}H${n(X - r)}C${n(X - k)} ${y} ${X} ${n(y + k)} ${X} ${n(y + r)}V${n(Y - r)}C${X} ${n(Y - k)} ${n(X - k)} ${Y} ${n(X - r)} ${Y}H${n(x + r)}C${n(x + k)} ${Y} ${x} ${n(Y - k)} ${x} ${n(Y - r)}V${n(y + r)}C${x} ${n(y + k)} ${n(x + k)} ${y} ${n(x + r)} ${y}Z"/>`;
+};
 
 /** دسته‌ها به ترتیب نمایش در مستندات */
 export const categories = {
@@ -20,21 +30,21 @@ export const categories = {
  * name: { body: محتوای داخل <svg>، title: نام فارسی، keywords: برای جستجو، category، directional: فلش‌هایی که در راست‌به‌چپ معنا عوض می‌کنند }
  */
 export const icons = {
-  "info": { title: "اطلاعات", category: "status", keywords: ["راهنما", "توضیح", "information", "help"], body: "<circle cx=\"10\" cy=\"10\" r=\"7.5\"/><path d=\"M10 13.5V9.5M10 6.5h.01\"/>" },
-  "success": { title: "موفق", category: "status", keywords: ["تیک", "تایید", "درست", "انجام", "شد", "check", "ok", "done"], body: "<circle cx=\"10\" cy=\"10\" r=\"7.5\"/><path d=\"m6.75 10 2.25 2.25 4.25-4.5\"/>" },
-  "warning": { title: "هشدار", category: "status", keywords: ["اخطار", "خطر", "توجه", "alert", "caution"], body: "<path d=\"M8.6 3.4 2.4 14a1.6 1.6 0 0 0 1.4 2.4h12.4a1.6 1.6 0 0 0 1.4-2.4L11.4 3.4a1.6 1.6 0 0 0-2.8 0Z\"/><path d=\"M10 7.5v3.25M10 13.5h.01\"/>" },
-  "error": { title: "خطا", category: "status", keywords: ["اشتباه", "ناموفق", "مشکل", "danger", "fail"], body: "<circle cx=\"10\" cy=\"10\" r=\"7.5\"/><path d=\"M10 6.5v4M10 13.5h.01\"/>" },
-  "close": { title: "بستن", category: "actions", keywords: ["ضربدر", "حذف", "لغو", "x", "cancel", "dismiss"], body: "<path d=\"m5 5 10 10M15 5 5 15\"/>" },
-  "check": { title: "تیک", category: "actions", keywords: ["تایید", "درست", "انتخاب", "done", "ok"], body: "<path d=\"m4.5 10.5 3.5 3.5 7.5-8\"/>" },
-  "chevron-down": { title: "پایین", category: "arrows", keywords: ["باز", "کردن", "فهرست", "کشویی", "expand"], body: "<path d=\"m6 8 4 4 4-4\"/>" },
-  "chevron-up": { title: "بالا", category: "arrows", keywords: ["بستن", "جمع", "کردن", "collapse"], body: "<path d=\"m6 12 4-4 4 4\"/>" },
-  "chevron-left": { title: "چپ", category: "arrows", keywords: ["بعدی", "در", "راست‌به‌چپ", "قبلی", "next", "back"], directional: true, body: "<path d=\"m12 6-4 4 4 4\"/>" },
-  "chevron-right": { title: "راست", category: "arrows", keywords: ["قبلی", "در", "راست‌به‌چپ", "previous", "forward"], directional: true, body: "<path d=\"m8 6 4 4-4 4\"/>" },
-  "arrow-left": { title: "فلش چپ", category: "arrows", keywords: ["بعدی", "ادامه", "رفتن", "next"], directional: true, body: "<path d=\"M16 10H4M8.5 5.5 4 10l4.5 4.5\"/>" },
-  "arrow-right": { title: "فلش راست", category: "arrows", keywords: ["قبلی", "بازگشت", "back", "previous"], directional: true, body: "<path d=\"M4 10h12M11.5 5.5 16 10l-4.5 4.5\"/>" },
-  "search": { title: "جستجو", category: "actions", keywords: ["پیدا", "کردن", "ذره‌بین", "find", "magnifier"], body: "<circle cx=\"9\" cy=\"9\" r=\"5.5\"/><path d=\"m13 13 3.5 3.5\"/>" },
-  "plus": { title: "افزودن", category: "actions", keywords: ["جدید", "اضافه", "به‌علاوه", "add", "new", "create"], body: "<path d=\"M10 4.5v11M4.5 10h11\"/>" },
-  "minus": { title: "کم کردن", category: "actions", keywords: ["منها", "کاهش", "remove", "subtract"], body: "<path d=\"M4.5 10h11\"/>" },
+  "info": { title: "اطلاعات", category: "status", keywords: ["راهنما", "توضیح", "information", "help"], body: "<circle cx=\"10\" cy=\"10\" r=\"7.5\"/><path d=\"M10 13.4V9.6M10 6.6v.01\"/>" },
+  "success": { title: "موفق", category: "status", keywords: ["تیک", "تایید", "درست", "انجام", "شد", "check", "ok", "done"], body: "<circle cx=\"10\" cy=\"10\" r=\"7.5\"/><path d=\"m7.1 10.1 1.95 1.95 3.85-3.9\"/>" },
+  "warning": { title: "هشدار", category: "status", keywords: ["اخطار", "خطر", "توجه", "alert", "caution"], body: "<path d=\"M8.33 3.9c.74-1.3 2.6-1.3 3.34 0l5.6 9.75c.74 1.3-.2 2.85-1.67 2.85H4.4c-1.48 0-2.41-1.56-1.67-2.85Z\"/><path d=\"M10 7.9v3.1M10 13.6v.01\"/>" },
+  "error": { title: "خطا", category: "status", keywords: ["اشتباه", "ناموفق", "مشکل", "danger", "fail"], body: "<circle cx=\"10\" cy=\"10\" r=\"7.5\"/><path d=\"M10 6.4v4.1M10 13.4v.01\"/>" },
+  "close": { title: "بستن", category: "actions", keywords: ["ضربدر", "حذف", "لغو", "x", "cancel", "dismiss"], body: "<path d=\"m5.5 5.5 9 9M14.5 5.5l-9 9\"/>" },
+  "check": { title: "تیک", category: "actions", keywords: ["تایید", "درست", "انتخاب", "done", "ok"], body: "<path d=\"m4.75 10.4 3.4 3.35 7.1-7.5\"/>" },
+  "chevron-down": { title: "پایین", category: "arrows", keywords: ["باز", "کردن", "فهرست", "کشویی", "expand"], body: "<path d=\"m5 7.75 5 4.5 5-4.5\"/>" },
+  "chevron-up": { title: "بالا", category: "arrows", keywords: ["بستن", "جمع", "کردن", "collapse"], body: "<path d=\"m5 12.25 5-4.5 5 4.5\"/>" },
+  "chevron-left": { title: "چپ", category: "arrows", keywords: ["بعدی", "در", "راست‌به‌چپ", "قبلی", "next", "back"], directional: true, body: "<path d=\"M12.25 5 7.75 10l4.5 5\"/>" },
+  "chevron-right": { title: "راست", category: "arrows", keywords: ["قبلی", "در", "راست‌به‌چپ", "previous", "forward"], directional: true, body: "<path d=\"m7.75 5 4.5 5-4.5 5\"/>" },
+  "arrow-left": { title: "فلش چپ", category: "arrows", keywords: ["بعدی", "ادامه", "رفتن", "next"], directional: true, body: "<path d=\"M16.25 10H3.75M8.8 4.95 3.75 10l5.05 5.05\"/>" },
+  "arrow-right": { title: "فلش راست", category: "arrows", keywords: ["قبلی", "بازگشت", "back", "previous"], directional: true, body: "<path d=\"M3.75 10h12.5M11.2 4.95 16.25 10l-5.05 5.05\"/>" },
+  "search": { title: "جستجو", category: "actions", keywords: ["پیدا", "کردن", "ذره‌بین", "find", "magnifier"], body: "<circle cx=\"9.1\" cy=\"9.1\" r=\"6.2\"/><path d=\"m14.9 14.9 2.3 2.3\"/>" },
+  "plus": { title: "افزودن", category: "actions", keywords: ["جدید", "اضافه", "به‌علاوه", "add", "new", "create"], body: "<path d=\"M10 5v10M5 10h10\"/>" },
+  "minus": { title: "کم کردن", category: "actions", keywords: ["منها", "کاهش", "remove", "subtract"], body: "<path d=\"M5 10h10\"/>" },
   "calendar": { title: "تقویم", category: "time", keywords: ["تاریخ", "روز", "برنامه", "date", "schedule"], body: "<rect x=\"3\" y=\"4\" width=\"14\" height=\"13\" rx=\"2.5\"/><path d=\"M3 8.5h14M7 2.5v3M13 2.5v3\"/>" },
   "clock": { title: "ساعت", category: "time", keywords: ["زمان", "وقت", "time", "duration"], body: "<circle cx=\"10\" cy=\"10\" r=\"7.5\"/><path d=\"M10 6v4l2.5 2\"/>" },
   "user": { title: "کاربر", category: "people", keywords: ["حساب", "پروفایل", "شخص", "account", "profile", "person"], body: "<circle cx=\"10\" cy=\"7\" r=\"3.25\"/><path d=\"M3.75 17c.8-3 3.3-4.75 6.25-4.75s5.45 1.75 6.25 4.75\"/>" },

@@ -8,7 +8,7 @@ import { icons, categories } from "./src/icons.js";
 
 const pascal = (name) => "Icon" + name.replace(/(^|-)([a-z])/g, (_, __, c) => c.toUpperCase());
 const names = Object.keys(icons);
-const attrs = 'xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"';
+const attrs = 'xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"';
 
 // ---- بررسی
 const seen = new Set();
@@ -34,7 +34,7 @@ export const iconNames = Object.keys(icons);
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 
 /** کد SVG یک آیکون؛ بدون title برای صفحه‌خوان پنهان است */
-export function iconSvg(name, { size = 20, strokeWidth = 1.7, title, className, mirror = false } = {}) {
+export function iconSvg(name, { size = 20, strokeWidth = 1.5, title, className, mirror = false } = {}) {
   const icon = icons[name];
   if (!icon) return null;
   const a11y = title ? \` role="img" aria-label="\${esc(title)}"\` : ' aria-hidden="true"';
@@ -72,7 +72,7 @@ import { icons } from "./index.js";
 
 function create(name, displayName) {
   const body = { __html: icons[name].body };
-  const C = forwardRef(function KashiIcon({ size = 20, strokeWidth = 1.7, title, mirror = false, style, ...rest }, ref) {
+  const C = forwardRef(function KashiIcon({ size = 20, strokeWidth = 1.5, title, mirror = false, style, ...rest }, ref) {
     return createElement("svg", Object.assign({
       ref,
       xmlns: "http://www.w3.org/2000/svg",
@@ -113,7 +113,7 @@ import type { IconName } from "./index.js";
 export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "ref"> {
   /** اندازه به پیکسل یا هر واحد CSS @default 20 */
   size?: number | string;
-  /** ضخامت خط @default 1.7 */
+  /** ضخامت خط @default 1.5 */
   strokeWidth?: number;
   /** متن برای صفحه‌خوان؛ بدون آن آیکون تزئینی و پنهان است */
   title?: string;
@@ -128,6 +128,6 @@ export declare const Icon: ForwardRefExoticComponent<IconProps & { name: IconNam
 for (const n of names) writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${icons[n].body}</svg>\n`);
 writeFileSync(
   "dist/sprite.svg",
-  `<svg xmlns="http://www.w3.org/2000/svg" style="display:none">\n${names.map((n) => `<symbol id="k-${n}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${icons[n].body}</symbol>`).join("\n")}\n</svg>\n`,
+  `<svg xmlns="http://www.w3.org/2000/svg" style="display:none">\n${names.map((n) => `<symbol id="k-${n}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${icons[n].body}</symbol>`).join("\n")}\n</svg>\n`,
 );
 console.log(`icons: ${names.length} icons in ${Object.keys(categories).length} categories`);
