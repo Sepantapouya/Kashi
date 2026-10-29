@@ -1,12 +1,65 @@
 {
- "generated": "2026-10-29T11:18:15+03:30",
+ "generated": "2026-10-29T11:27:18+03:30",
  "totals": {
-  "commits": 58,
+  "commits": 61,
   "versions": 17,
-  "added": 57942,
+  "added": 58336,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "326d21def6cd15c8173c394cd8bea4339717fc3c",
+   "short": "326d21d",
+   "date": "2026-10-29T11:27:18+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: add 40 files, editor, devices and interface icons",
+   "details": [
+    "file-plus/check/download/code, folder-plus, archive, clipboard, book,",
+    "printer, bold, italic, underline, align-right/left/center, list-ordered,",
+    "quote, code, type, crop, monitor, laptop, tablet, watch, wifi, bluetooth,",
+    "battery, mouse, database, server, layers, layout, toggle, palette,",
+    "qr-code, scan, loader, pin, cloud, cloud-upload."
+   ],
+   "files": 1,
+   "added": 40,
+   "removed": 0
+  },
+  {
+   "sha": "e1d1632741fa2646d6a5d0e02fc4290d91a0a6a1",
+   "short": "e1d1632",
+   "date": "2026-10-29T11:25:57+03:30",
+   "author": "sepantapouya",
+   "subject": "Icons: add 40 icons and media, editor, devices, weather categories",
+   "details": [
+    "question, x-circle, plus/minus-circle, bookmark, share, save, undo, redo,",
+    "arrow-up/down, external-link, expand, sort, zoom-in/out, flag, lightning,",
+    "power, lightbulb, chat, at-sign, megaphone, video, mic, camera, play,",
+    "pause, music, volume, volume-off, headphones, user-plus, user-check,",
+    "smile, briefcase, award, crown, gift, paperclip."
+   ],
+   "files": 1,
+   "added": 44,
+   "removed": 0
+  },
+  {
+   "sha": "1ee33eddd1887730835a8426cd88879e3202c377",
+   "short": "1ee33ed",
+   "date": "2026-10-29T11:21:23+03:30",
+   "author": "sepantapouya",
+   "subject": "Docs: icons page lists categories; each opens its own page",
+   "details": [
+    "/docs/icons/ now shows only category cards with a preview of their",
+    "icons, plus search and a style picker. Each card opens",
+    "/docs/icons/category/<key>/ with search, style, size and stroke",
+    "controls; icon cards open /docs/icons/<name>/, which also gets the style",
+    "picker. The chosen style travels in ?v=. The install and usage guide",
+    "moves to /docs/icons/usage/ and documents the six styles. Card links no",
+    "longer get the prose underline."
+   ],
+   "files": 11,
+   "added": 310,
+   "removed": 84
+  },
   {
    "sha": "2ac47443951a6ae365a65e3d34b6c465192c57a2",
    "short": "2ac4744",
