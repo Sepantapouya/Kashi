@@ -51,14 +51,24 @@ export function iconSvg(name, { size = 20, strokeWidth = 1.5, title, className, 
   return \`<svg xmlns="http://www.w3.org/2000/svg" width="\${size}" height="\${size}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="\${strokeWidth}" stroke-linecap="round" stroke-linejoin="round"\${cls}\${a11y}\${flip} data-kashi-icon="\${name}"\${variant === "light" ? "" : \` data-variant="\${variant}"\`}>\${title ? \`<title>\${esc(title)}</title>\` : ""}\${renderBody(icon.body, variant, { uid: \`k\${++uid}\`, sw: strokeWidth })}</svg>\`;
 }
 
+/**
+ * متن جستجو یکدست می‌شود: فاصله، نیم‌فاصله، خط تیره و کشیده حذف، حروف عربی و اعراب و همزهٔ روی «ه» یکی و ارقام لاتین؛
+ * پس «سی و سه پل»، «سی‌وسه‌پل» و «سی‌و سه پل» یکی‌اند و «arrow left» هم arrow-left را پیدا می‌کند
+ */
+const fold = (s) => String(s || "").toLowerCase()
+  .replace(/[يى]/g, "ی").replace(/ك/g, "ک").replace(/[ةۀ]/g, "ه").replace(/[آأإٱ]/g, "ا").replace(/ؤ/g, "و")
+  .replace(/[ً-ٰٟ]/g, "")
+  .replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+  .replace(/[\\s‌‍ـ_\\-.،,]/g, "");
+
+let index;
+
 /** جستجوی فارسی و انگلیسی در نام، عنوان و کلیدواژه‌ها */
 export function searchIcons(query) {
-  const q = String(query || "").trim().toLowerCase().replace(/ي/g, "ی").replace(/ك/g, "ک");
+  const q = fold(query);
   if (!q) return iconNames;
-  return iconNames.filter((n) => {
-    const i = icons[n];
-    return [n, i.title, ...i.keywords].some((t) => t.toLowerCase().includes(q));
-  });
+  index ??= iconNames.map((n) => [n, [n, icons[n].title, ...icons[n].keywords].map(fold)]);
+  return index.filter(([, words]) => words.some((t) => t.includes(q))).map(([n]) => n);
 }
 `);
 

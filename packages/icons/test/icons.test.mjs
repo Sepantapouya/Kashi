@@ -41,6 +41,9 @@ test("search works in Persian and English, Arabic letters normalized", () => {
   assert.ok(searchIcons("trash").includes("trash"));
   assert.ok(searchIcons("كارت").includes("credit-card"));
   assert.equal(searchIcons("").length, iconNames.length);
+  for (const q of ["سی و سه پل", "سی‌و‌سه پل", "سی‌و سه پل", "سیوسه‌پل"]) assert.ok(searchIcons(q).includes("si-o-se-pol"), q);
+  assert.ok(searchIcons("arrow left").includes("arrow-left"));
+  assert.ok(searchIcons("اب انبار").includes("ab-anbar"));
 });
 
 test("svg files and sprite contain every icon", () => {
