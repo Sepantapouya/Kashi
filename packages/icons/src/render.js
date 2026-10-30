@@ -131,12 +131,30 @@ export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}
     case "curved":
       return S + D;
     case "bold": {
-      if (!S) return `<g stroke-width="${n(sw * 1.4)}">${D}</g>`;
-      if (!D) return `<g fill="currentColor">${S}</g>`;
-      // جزئیات داخل شکل پر سوراخ می‌شوند و بیرون آن عادی کشیده می‌شوند
-      const holes = D.replace(/<circle\b/g, '<circle fill="#000"');
-      return `<defs><mask id="${uid}-a" ${box}>${bg}<g stroke="#000">${holes}</g></mask><mask id="${uid}-b" ${box}>${bg}<g fill="#000" stroke="#000">${S}</g></mask></defs>`
-        + `<g fill="currentColor" mask="url(#${uid}-a)">${S}</g><g mask="url(#${uid}-b)">${D}</g>`;
+      const heavy = (els) => (els.length ? `<g stroke-width="${n(sw * 1.4)}">${els.join("").replace(/<circle\b/g, '<circle fill="currentColor"')}</g>` : "");
+      if (!S) return heavy(detail);
+      // فقط جزئیاتی که کامل داخل شکل‌اند سوراخ می‌شوند؛ بقیه هم‌وزن شکل پر و بی‌برش کشیده می‌شوند
+      // تا جای اتصالشان به شکل شکاف سفید نیفتد
+      const boxes = shape.map((s) => bbox(geom(s).pts));
+      const inside = (el) => {
+        const [x0, y0, x1, y1] = bbox(geom(el).pts);
+        return boxes.some((b) => x0 >= b[0] - 0.75 && y0 >= b[1] - 0.75 && x1 <= b[2] + 0.75 && y1 <= b[3] + 0.75);
+      };
+      const inner = detail.filter(inside), outer = detail.filter((d) => !inside(d));
+      // خطی که از شکل رد می‌شود (روبان کادو، خط ممنوع) با فاصله‌ای دورش از شکل جدا می‌شود؛
+      // خطی که فقط به لبهٔ شکل می‌رسد (سقف خودرو) بی‌فاصله به آن می‌چسبد
+      const crossing = outer.filter((el) => {
+        // نقطه‌ها روی پاره‌خط‌ها هم پخش می‌شوند تا خط صافی که فقط دو سرش روی لبه است هم سنجیده شود
+        const pts = geom(el).pts.flatMap(([x, y], i, a) => i ? [1, 2, 3, 4].map((t) => [a[i - 1][0] + (x - a[i - 1][0]) * t / 4, a[i - 1][1] + (y - a[i - 1][1]) * t / 4]) : [[x, y]]);
+        const deep = pts.filter(([x, y]) => boxes.some((b) => x > b[0] + 1 && y > b[1] + 1 && x < b[2] - 1 && y < b[3] - 1));
+        return deep.length >= Math.max(2, pts.length * 0.4);
+      });
+      const holes = inner.join("").replace(/<circle\b/g, '<circle fill="#000"')
+        + (crossing.length ? `<g stroke-width="${n(sw * 1.4 + 1.5)}">${crossing.join("").replace(/<circle\b/g, '<circle fill="#000"')}</g>` : "");
+      const fill = holes
+        ? `<defs><mask id="${uid}-a" ${box}>${bg}<g stroke="#000">${holes}</g></mask></defs><g fill="currentColor" mask="url(#${uid}-a)">${S}</g>`
+        : `<g fill="currentColor">${S}</g>`;
+      return fill + heavy(outer);
     }
     case "bulk":
       if (!S) return twoToneOpen(detail);
