@@ -19,8 +19,9 @@
   inline-size: 100%;
   margin: 0;
   background: none;
-  pointer-events: none;
 }
+/* در حالت بازه دو ورودی روی هم‌اند؛ فقط دستگیره‌ها کلیک بگیرند تا ورودی رویی جلوی دیگری را نگیرد */
+.k-slider[data-range] .k-slider__input { pointer-events: none; }
 .k-slider__input::-webkit-slider-thumb {
   -webkit-appearance: none;
   inline-size: var(--_thumb);
