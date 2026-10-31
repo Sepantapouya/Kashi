@@ -89,7 +89,7 @@ function buildFeedback() {
     });
   }));
 
-  safe("Toast", () => section(root, "Toast · اعلان شناور", "با نوار زمان و دکمهٔ واگرد.", (h) => {
+  safe("Toast", () => section(root, "Toast · توست", "با نوار زمان و دکمهٔ واگرد.", (h) => {
     componentSet(h, "Toast", {
       axes: { Tone: ["Neutral", "Success", "Error", "Warning", "Info", "Loading"] },
       build: (p) => {
@@ -144,7 +144,7 @@ function buildFeedback() {
     componentSet(h, "Spinner", { axes: { Size: ["sm", "md", "lg"] }, build: (p) => spinner({ sm: 16, md: 24, lg: 40 }[p.Size]), docs: "progress" });
   }));
 
-  safe("Meter", () => section(root, "Meter · سنجه", "مقدار در یک بازهٔ شناخته‌شده، مثل فضای ذخیره‌سازی؛ با رنگ و متن وضعیت.", (h) => {
+  safe("Meter", () => section(root, "Meter · گیج", "مقدار در یک بازهٔ شناخته‌شده، مثل فضای ذخیره‌سازی؛ با رنگ و متن وضعیت.", (h) => {
     componentSet(h, "Meter", {
       axes: { Level: ["Low", "Medium", "High"] },
       build: (p) => {
@@ -164,7 +164,7 @@ function buildFeedback() {
     });
   }));
 
-  safe("Skeleton", () => section(root, "Skeleton · اسکلت بارگذاری", "جای‌نگهدار هنگام بارگذاری؛ با prefers-reduced-motion انیمیشن نمی‌گیرد.", (h) => {
+  safe("Skeleton", () => section(root, "Skeleton · اسکلتون", "جای‌نگهدار هنگام بارگذاری؛ با prefers-reduced-motion انیمیشن نمی‌گیرد.", (h) => {
     componentSet(h, "Skeleton", {
       axes: { Type: ["Text", "Media", "Card"] },
       build: (p) => {
@@ -194,7 +194,7 @@ function buildFeedback() {
     });
   }));
 
-  safe("Tooltip", () => section(root, "Tooltip · راهنمای کوتاه", "چهار جهت؛ با فوکوس کیبورد هم باز می‌شود و با Esc بسته.", (h) => {
+  safe("Tooltip", () => section(root, "Tooltip · تولتیپ", "چهار جهت؛ با فوکوس کیبورد هم باز می‌شود و با Esc بسته.", (h) => {
     componentSet(h, "Tooltip", {
       axes: { Placement: ["Top", "Bottom", "Start", "End"], Style: ["Short", "Rich"] },
       build: (p) => {
@@ -215,7 +215,7 @@ function buildFeedback() {
     });
   }));
 
-  safe("Popover", () => section(root, "Popover · پنجرهٔ کوچک", "محتوای تعاملی کنار یک دکمه؛ فوکوس داخل آن به دام می‌افتد.", (h) => {
+  safe("Popover", () => section(root, "Popover · پاپ‌اور", "محتوای تعاملی کنار یک دکمه؛ فوکوس داخل آن به دام می‌افتد.", (h) => {
     componentSet(h, "Popover", {
       // k-popover: عرض ۳۲۰، فاصلهٔ ۱۶، گوشهٔ ۱۶
       build: () => F({ name: "Popover", dir: "V", gap: 0, p: "space/4", w: 320, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover", css: "k-popover" }, [
@@ -271,7 +271,7 @@ function buildFeedback() {
     });
   }));
 
-  safe("Tour", () => section(root, "Tour · راهنمای قدم‌به‌قدم", "معرفی بخش‌های محصول به کاربر تازه.", (h) => {
+  safe("Tour", () => section(root, "Tour · تور معرفی", "معرفی بخش‌های محصول به کاربر تازه.", (h) => {
     componentSet(h, "Tour step", {
       axes: { Step: ["1", "2", "3"] },
       // k-tour__card: عرض ۳۲۰، فاصلهٔ ۱۶/۲۰، نوار پیشرفت ۱۶×۳

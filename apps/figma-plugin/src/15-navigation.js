@@ -19,7 +19,7 @@ function menuPanel(items, { w = 240 } = {}) {
 function buildNavigation() {
   const root = kitPage("🧭", "Navigation", "ناوبری", "تب، مسیر صفحه، صفحه‌بندی، مراحل، منوی کناری، منوی کشویی و جستجوی فرمان (⌘K).");
 
-  safe("Tabs", () => section(root, "Tabs · تب", "سه سبک خطی، قرصی و بخش‌بندی؛ افقی یا عمودی.", (h) => {
+  safe("Tabs", () => section(root, "Tabs · تب‌ها", "سه سبک خطی، قرصی و بخش‌بندی؛ افقی یا عمودی.", (h) => {
     const labels = ["نمای کلی", "تراکنش‌ها", "گزارش‌ها", "تنظیمات"];
     componentSet(h, "Tabs", {
       axes: { Variant: ["Line", "Pill", "Segmented"], Orientation: ["Horizontal", "Vertical"] },
@@ -51,7 +51,7 @@ function buildNavigation() {
     });
   }));
 
-  safe("Breadcrumb", () => section(root, "Breadcrumb · مسیر صفحه", "با آیکون خانه، جداکنندهٔ فلش یا اسلش و جمع شدن مسیرهای طولانی.", (h) => {
+  safe("Breadcrumb", () => section(root, "Breadcrumb · بردکرامب", "با آیکون خانه، جداکنندهٔ فلش یا اسلش و جمع شدن مسیرهای طولانی.", (h) => {
     componentSet(h, "Breadcrumb", {
       axes: { Separator: ["Chevron", "Slash"], Collapsed: ["No", "Yes"] },
       build: (p) => {
@@ -99,7 +99,7 @@ function buildNavigation() {
     });
   }));
 
-  safe("Stepper", () => section(root, "Stepper · مراحل", "مراحل افقی یا عمودی با وضعیت تمام‌شده، فعلی و آینده.", (h) => {
+  safe("Stepper", () => section(root, "Stepper · استپر", "مراحل افقی یا عمودی با وضعیت تمام‌شده، فعلی و آینده.", (h) => {
     const steps = [["اطلاعات حساب", "نام و ایمیل"], ["آدرس", "محل تحویل"], ["پرداخت", "درگاه بانکی"], ["تأیید", "بازبینی سفارش"]];
     // k-steps__marker: ۳۲ پیکسل با حاشیهٔ ۲؛ مرحلهٔ تمام‌شده تیک، فعلی شماره با حلقهٔ برند، بعدی شمارهٔ کم‌رنگ
     const marker = (i, cur) => {
@@ -223,7 +223,7 @@ function buildNavigation() {
     });
   }));
 
-  safe("Splitter", () => section(root, "Splitter · تقسیم‌کننده", "دو پنل با دستگیرهٔ قابل کشیدن (با کیبورد هم).", (h) => {
+  safe("Splitter", () => section(root, "Splitter · اسپلیتر", "دو پنل با دستگیرهٔ قابل کشیدن (با کیبورد هم).", (h) => {
     componentSet(h, "Splitter", {
       axes: { Orientation: ["Horizontal", "Vertical"] },
       build: (p) => {

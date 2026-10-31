@@ -28,7 +28,7 @@ export interface SliderProps<V extends Val = Val> {
   labels?: { from?: string; to?: string; separator?: string };
 }
 
-/** لغزنده روی <input type="range"> بومی؛ با آرایهٔ دوتایی، بازه با دو دستگیره */
+/** اسلایدر روی <input type="range"> بومی؛ با آرایهٔ دوتایی، بازه با دو دستگیره */
 export function Slider<V extends Val>({
   label, value, defaultValue, onChange, min = 0, max = 100, step = 1, showValue = true,
   format = (n) => formatNumber(n), marks, disabled, name, className, labels = {},

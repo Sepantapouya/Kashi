@@ -1497,7 +1497,7 @@ function buildForms() {
   }));
 
   const cities = ["تهران", "اصفهان", "شیراز", "تبریز", "مشهد"];
-  safe("Select", () => section(root, "Select · انتخاب", "فهرست کشویی ساده؛ حالت Open پنل گزینه‌ها را هم نشان می‌دهد.", (h) => {
+  safe("Select", () => section(root, "Select · سلکت", "فهرست کشویی ساده؛ حالت Open پنل گزینه‌ها را هم نشان می‌دهد.", (h) => {
     componentSet(h, "Select", {
       axes: { Size: ["sm", "md", "lg"], State: ["Default", "Open", "Error", "Disabled"] },
       build: (p) => {
@@ -1516,7 +1516,7 @@ function buildForms() {
     });
   }));
 
-  safe("Combobox", () => section(root, "Combobox · جستجو و انتخاب", "جستجو «علي» و «علی» را یکی می‌داند و بخش منطبق را برجسته می‌کند.", (h) => {
+  safe("Combobox", () => section(root, "Combobox · کامبوباکس", "جستجو «علي» و «علی» را یکی می‌داند و بخش منطبق را برجسته می‌کند.", (h) => {
     componentSet(h, "Combobox", {
       axes: { State: ["Default", "Typing", "Empty"] },
       build: (p) => {
@@ -2237,7 +2237,7 @@ function buildFeedback() {
     });
   }));
 
-  safe("Toast", () => section(root, "Toast · اعلان شناور", "با نوار زمان و دکمهٔ واگرد.", (h) => {
+  safe("Toast", () => section(root, "Toast · توست", "با نوار زمان و دکمهٔ واگرد.", (h) => {
     componentSet(h, "Toast", {
       axes: { Tone: ["Neutral", "Success", "Error", "Warning", "Info", "Loading"] },
       build: (p) => {
@@ -2292,7 +2292,7 @@ function buildFeedback() {
     componentSet(h, "Spinner", { axes: { Size: ["sm", "md", "lg"] }, build: (p) => spinner({ sm: 16, md: 24, lg: 40 }[p.Size]), docs: "progress" });
   }));
 
-  safe("Meter", () => section(root, "Meter · سنجه", "مقدار در یک بازهٔ شناخته‌شده، مثل فضای ذخیره‌سازی؛ با رنگ و متن وضعیت.", (h) => {
+  safe("Meter", () => section(root, "Meter · گیج", "مقدار در یک بازهٔ شناخته‌شده، مثل فضای ذخیره‌سازی؛ با رنگ و متن وضعیت.", (h) => {
     componentSet(h, "Meter", {
       axes: { Level: ["Low", "Medium", "High"] },
       build: (p) => {
@@ -2312,7 +2312,7 @@ function buildFeedback() {
     });
   }));
 
-  safe("Skeleton", () => section(root, "Skeleton · اسکلت بارگذاری", "جای‌نگهدار هنگام بارگذاری؛ با prefers-reduced-motion انیمیشن نمی‌گیرد.", (h) => {
+  safe("Skeleton", () => section(root, "Skeleton · اسکلتون", "جای‌نگهدار هنگام بارگذاری؛ با prefers-reduced-motion انیمیشن نمی‌گیرد.", (h) => {
     componentSet(h, "Skeleton", {
       axes: { Type: ["Text", "Media", "Card"] },
       build: (p) => {
@@ -2342,7 +2342,7 @@ function buildFeedback() {
     });
   }));
 
-  safe("Tooltip", () => section(root, "Tooltip · راهنمای کوتاه", "چهار جهت؛ با فوکوس کیبورد هم باز می‌شود و با Esc بسته.", (h) => {
+  safe("Tooltip", () => section(root, "Tooltip · تولتیپ", "چهار جهت؛ با فوکوس کیبورد هم باز می‌شود و با Esc بسته.", (h) => {
     componentSet(h, "Tooltip", {
       axes: { Placement: ["Top", "Bottom", "Start", "End"], Style: ["Short", "Rich"] },
       build: (p) => {
@@ -2363,7 +2363,7 @@ function buildFeedback() {
     });
   }));
 
-  safe("Popover", () => section(root, "Popover · پنجرهٔ کوچک", "محتوای تعاملی کنار یک دکمه؛ فوکوس داخل آن به دام می‌افتد.", (h) => {
+  safe("Popover", () => section(root, "Popover · پاپ‌اور", "محتوای تعاملی کنار یک دکمه؛ فوکوس داخل آن به دام می‌افتد.", (h) => {
     componentSet(h, "Popover", {
       // k-popover: عرض ۳۲۰، فاصلهٔ ۱۶، گوشهٔ ۱۶
       build: () => F({ name: "Popover", dir: "V", gap: 0, p: "space/4", w: 320, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover", css: "k-popover" }, [
@@ -2419,7 +2419,7 @@ function buildFeedback() {
     });
   }));
 
-  safe("Tour", () => section(root, "Tour · راهنمای قدم‌به‌قدم", "معرفی بخش‌های محصول به کاربر تازه.", (h) => {
+  safe("Tour", () => section(root, "Tour · تور معرفی", "معرفی بخش‌های محصول به کاربر تازه.", (h) => {
     componentSet(h, "Tour step", {
       axes: { Step: ["1", "2", "3"] },
       // k-tour__card: عرض ۳۲۰، فاصلهٔ ۱۶/۲۰، نوار پیشرفت ۱۶×۳
@@ -2514,7 +2514,7 @@ function card({ variant = "Default", padding = "md", title = "گزارش ماه�
 function buildData() {
   const root = kitPage("📊", "Data display", "نمایش داده", "نشان، آواتار، کارت، آمار، جدول، خط زمان، درخت، آکاردئون و نمودار.");
 
-  safe("Badge", () => section(root, "Badge · نشان", "شش لحن × سه سبک × سه اندازه؛ نقطه قابل خاموش شدن است.", (h) => {
+  safe("Badge", () => section(root, "Badge · بج", "شش لحن × سه سبک × سه اندازه؛ نقطه قابل خاموش شدن است.", (h) => {
     componentSet(h, "Badge", {
       axes: { Tone: Object.keys(BADGE_TONES), Variant: ["Soft", "Solid", "Outline"], Size: ["sm", "md", "lg"] },
       build: (p) => badge({ tone: p.Tone, variant: p.Variant, size: p.Size, label: { Neutral: "پیش‌نویس", Brand: "جدید", Info: "در حال بررسی", Success: "فعال", Warning: "در انتظار", Error: "لغو شده" }[p.Tone] }),
@@ -2526,7 +2526,7 @@ function buildData() {
     });
   }));
 
-  safe("Chip", () => section(root, "Chip · تراشه", "فیلترهای قابل انتخاب، با شمارنده.", (h) => {
+  safe("Chip", () => section(root, "Chip · چیپ", "فیلترهای قابل انتخاب، با شمارنده.", (h) => {
     componentSet(h, "Chip", {
       axes: { Selected: ["Off", "On"], State: ["Default", "Hover", "Disabled"] },
       build: (p) => {
@@ -2676,7 +2676,7 @@ function buildData() {
     });
   }));
 
-  safe("Timeline", () => section(root, "Timeline · خط زمان", "رویدادها به ترتیب زمان با زمان نسبی فارسی («۵ دقیقه پیش»).", (h) => {
+  safe("Timeline", () => section(root, "Timeline · تایم‌لاین", "رویدادها به ترتیب زمان با زمان نسبی فارسی («۵ دقیقه پیش»).", (h) => {
     componentSet(h, "Timeline", {
       build: () => {
         const items = [["سفارش ثبت شد", "۲ ساعت پیش", "cart", "Brand"], ["پرداخت تأیید شد", "۱ ساعت پیش", "credit-card", "Success"], ["در حال ارسال", "۱۵ دقیقه پیش", "send", "Info"], ["تحویل", "در انتظار", "home", null]];
@@ -2793,7 +2793,7 @@ function buildData() {
     });
   }));
 
-  safe("Carousel", () => section(root, "Carousel · اسلایدر تصویر", "با دکمه‌ها و نقطه‌های راهنما؛ با کیبورد هم کار می‌کند.", (h) => {
+  safe("Carousel", () => section(root, "Carousel · کاروسل", "با دکمه‌ها و نقطه‌های راهنما؛ با کیبورد هم کار می‌کند.", (h) => {
     componentSet(h, "Carousel", {
       build: () => F({ name: "Carousel", dir: "V", gap: "space/3", w: 480, cross: "center" }, [
         F({ name: "Viewport", dir: "H", w: "fill", h: 240, radius: "radius/xl", fill: "firoozeh/800", align: "between", cross: "center", px: "space/4" }, [
@@ -2830,7 +2830,7 @@ function menuPanel(items, { w = 240 } = {}) {
 function buildNavigation() {
   const root = kitPage("🧭", "Navigation", "ناوبری", "تب، مسیر صفحه، صفحه‌بندی، مراحل، منوی کناری، منوی کشویی و جستجوی فرمان (⌘K).");
 
-  safe("Tabs", () => section(root, "Tabs · تب", "سه سبک خطی، قرصی و بخش‌بندی؛ افقی یا عمودی.", (h) => {
+  safe("Tabs", () => section(root, "Tabs · تب‌ها", "سه سبک خطی، قرصی و بخش‌بندی؛ افقی یا عمودی.", (h) => {
     const labels = ["نمای کلی", "تراکنش‌ها", "گزارش‌ها", "تنظیمات"];
     componentSet(h, "Tabs", {
       axes: { Variant: ["Line", "Pill", "Segmented"], Orientation: ["Horizontal", "Vertical"] },
@@ -2862,7 +2862,7 @@ function buildNavigation() {
     });
   }));
 
-  safe("Breadcrumb", () => section(root, "Breadcrumb · مسیر صفحه", "با آیکون خانه، جداکنندهٔ فلش یا اسلش و جمع شدن مسیرهای طولانی.", (h) => {
+  safe("Breadcrumb", () => section(root, "Breadcrumb · بردکرامب", "با آیکون خانه، جداکنندهٔ فلش یا اسلش و جمع شدن مسیرهای طولانی.", (h) => {
     componentSet(h, "Breadcrumb", {
       axes: { Separator: ["Chevron", "Slash"], Collapsed: ["No", "Yes"] },
       build: (p) => {
@@ -2910,7 +2910,7 @@ function buildNavigation() {
     });
   }));
 
-  safe("Stepper", () => section(root, "Stepper · مراحل", "مراحل افقی یا عمودی با وضعیت تمام‌شده، فعلی و آینده.", (h) => {
+  safe("Stepper", () => section(root, "Stepper · استپر", "مراحل افقی یا عمودی با وضعیت تمام‌شده، فعلی و آینده.", (h) => {
     const steps = [["اطلاعات حساب", "نام و ایمیل"], ["آدرس", "محل تحویل"], ["پرداخت", "درگاه بانکی"], ["تأیید", "بازبینی سفارش"]];
     // k-steps__marker: ۳۲ پیکسل با حاشیهٔ ۲؛ مرحلهٔ تمام‌شده تیک، فعلی شماره با حلقهٔ برند، بعدی شمارهٔ کم‌رنگ
     const marker = (i, cur) => {
@@ -3034,7 +3034,7 @@ function buildNavigation() {
     });
   }));
 
-  safe("Splitter", () => section(root, "Splitter · تقسیم‌کننده", "دو پنل با دستگیرهٔ قابل کشیدن (با کیبورد هم).", (h) => {
+  safe("Splitter", () => section(root, "Splitter · اسپلیتر", "دو پنل با دستگیرهٔ قابل کشیدن (با کیبورد هم).", (h) => {
     componentSet(h, "Splitter", {
       axes: { Orientation: ["Horizontal", "Vertical"] },
       build: (p) => {

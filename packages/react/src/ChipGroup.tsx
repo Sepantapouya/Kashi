@@ -27,7 +27,7 @@ const Check = () => (
   <svg className="k-chip__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m5 10.5 3.2 3L15 7" /></svg>
 );
 
-/** تراشه‌های فیلتر روشن و خاموش‌شونده، مثل دسته‌بندی‌ها یا وضعیت سفارش */
+/** چیپ‌های فیلتر روشن و خاموش‌شونده، مثل دسته‌بندی‌ها یا وضعیت سفارش */
 export function ChipGroup({ options, value, defaultValue = [], onChange, single, "aria-label": ariaLabel, className }: ChipGroupProps) {
   const [inner, setInner] = useState(defaultValue);
   const current = value ?? inner;

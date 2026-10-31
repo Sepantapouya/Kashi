@@ -1,6 +1,6 @@
 ---
 layout: ../../../layouts/Docs.astro
-title: تراشهٔ فیلتر
+title: چیپس
 description: فیلترهای روشن و خاموش‌شونده با تعداد نتیجه، بالای فهرست یا جدول.
 ---
 import Demo from "../../../components/Demo.astro";
@@ -22,8 +22,8 @@ import { ChipGroup } from "@kashi-ui/react";
 </Demo>
 
 <Props rows={[
-  ["options", "{ value, label, icon?, count?, disabled? }[]", "", "تراشه‌ها"],
-  ["value / defaultValue", "string[]", "[]", "تراشه‌های روشن"],
+  ["options", "{ value, label, icon?, count?, disabled? }[]", "", "چیپ‌ها"],
+  ["value / defaultValue", "string[]", "[]", "چیپ‌های روشن"],
   ["onChange", "(value: string[]) => void", "", ""],
   ["single", "boolean", "false", "فقط یکی روشن؛ کلیک دوباره خاموشش می‌کند"],
   ["aria-label", "string", "", "نام گروه"],
@@ -31,4 +31,4 @@ import { ChipGroup } from "@kashi-ui/react";
 
 ## دسترس‌پذیری
 
-هر تراشه یک دکمه با `aria-pressed` است. حالت روشن با تیک، رنگ و حاشیه نشان داده می‌شود، نه فقط رنگ.
+هر چیپ یک دکمه با `aria-pressed` است. حالت روشن با تیک، رنگ و حاشیه نشان داده می‌شود، نه فقط رنگ.

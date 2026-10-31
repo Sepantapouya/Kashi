@@ -72,7 +72,7 @@ function card({ variant = "Default", padding = "md", title = "گزارش ماه�
 function buildData() {
   const root = kitPage("📊", "Data display", "نمایش داده", "نشان، آواتار، کارت، آمار، جدول، خط زمان، درخت، آکاردئون و نمودار.");
 
-  safe("Badge", () => section(root, "Badge · نشان", "شش لحن × سه سبک × سه اندازه؛ نقطه قابل خاموش شدن است.", (h) => {
+  safe("Badge", () => section(root, "Badge · بج", "شش لحن × سه سبک × سه اندازه؛ نقطه قابل خاموش شدن است.", (h) => {
     componentSet(h, "Badge", {
       axes: { Tone: Object.keys(BADGE_TONES), Variant: ["Soft", "Solid", "Outline"], Size: ["sm", "md", "lg"] },
       build: (p) => badge({ tone: p.Tone, variant: p.Variant, size: p.Size, label: { Neutral: "پیش‌نویس", Brand: "جدید", Info: "در حال بررسی", Success: "فعال", Warning: "در انتظار", Error: "لغو شده" }[p.Tone] }),
@@ -84,7 +84,7 @@ function buildData() {
     });
   }));
 
-  safe("Chip", () => section(root, "Chip · تراشه", "فیلترهای قابل انتخاب، با شمارنده.", (h) => {
+  safe("Chip", () => section(root, "Chip · چیپ", "فیلترهای قابل انتخاب، با شمارنده.", (h) => {
     componentSet(h, "Chip", {
       axes: { Selected: ["Off", "On"], State: ["Default", "Hover", "Disabled"] },
       build: (p) => {
@@ -234,7 +234,7 @@ function buildData() {
     });
   }));
 
-  safe("Timeline", () => section(root, "Timeline · خط زمان", "رویدادها به ترتیب زمان با زمان نسبی فارسی («۵ دقیقه پیش»).", (h) => {
+  safe("Timeline", () => section(root, "Timeline · تایم‌لاین", "رویدادها به ترتیب زمان با زمان نسبی فارسی («۵ دقیقه پیش»).", (h) => {
     componentSet(h, "Timeline", {
       build: () => {
         const items = [["سفارش ثبت شد", "۲ ساعت پیش", "cart", "Brand"], ["پرداخت تأیید شد", "۱ ساعت پیش", "credit-card", "Success"], ["در حال ارسال", "۱۵ دقیقه پیش", "send", "Info"], ["تحویل", "در انتظار", "home", null]];
@@ -351,7 +351,7 @@ function buildData() {
     });
   }));
 
-  safe("Carousel", () => section(root, "Carousel · اسلایدر تصویر", "با دکمه‌ها و نقطه‌های راهنما؛ با کیبورد هم کار می‌کند.", (h) => {
+  safe("Carousel", () => section(root, "Carousel · کاروسل", "با دکمه‌ها و نقطه‌های راهنما؛ با کیبورد هم کار می‌کند.", (h) => {
     componentSet(h, "Carousel", {
       build: () => F({ name: "Carousel", dir: "V", gap: "space/3", w: 480, cross: "center" }, [
         F({ name: "Viewport", dir: "H", w: "fill", h: 240, radius: "radius/xl", fill: "firoozeh/800", align: "between", cross: "center", px: "space/4" }, [

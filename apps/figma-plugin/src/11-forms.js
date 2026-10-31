@@ -231,7 +231,7 @@ function buildForms() {
   }));
 
   const cities = ["تهران", "اصفهان", "شیراز", "تبریز", "مشهد"];
-  safe("Select", () => section(root, "Select · انتخاب", "فهرست کشویی ساده؛ حالت Open پنل گزینه‌ها را هم نشان می‌دهد.", (h) => {
+  safe("Select", () => section(root, "Select · سلکت", "فهرست کشویی ساده؛ حالت Open پنل گزینه‌ها را هم نشان می‌دهد.", (h) => {
     componentSet(h, "Select", {
       axes: { Size: ["sm", "md", "lg"], State: ["Default", "Open", "Error", "Disabled"] },
       build: (p) => {
@@ -250,7 +250,7 @@ function buildForms() {
     });
   }));
 
-  safe("Combobox", () => section(root, "Combobox · جستجو و انتخاب", "جستجو «علي» و «علی» را یکی می‌داند و بخش منطبق را برجسته می‌کند.", (h) => {
+  safe("Combobox", () => section(root, "Combobox · کامبوباکس", "جستجو «علي» و «علی» را یکی می‌داند و بخش منطبق را برجسته می‌کند.", (h) => {
     componentSet(h, "Combobox", {
       axes: { State: ["Default", "Typing", "Empty"] },
       build: (p) => {

@@ -1,4 +1,4 @@
-/* لغزنده (Slider) — روی <input type="range"> بومی */
+/* اسلایدر (Slider) — روی <input type="range"> بومی */
 .k-slider { display: grid; gap: var(--k-space-2); }
 .k-slider__head { display: flex; justify-content: space-between; gap: var(--k-space-3); font-size: var(--k-text-sm); }
 .k-slider__value { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }

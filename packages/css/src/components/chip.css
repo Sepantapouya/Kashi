@@ -1,4 +1,4 @@
-/* تراشه‌های فیلتر (Chips) — دکمه‌های aria-pressed
+/* چیپ‌های فیلتر (Chips) — دکمه‌های aria-pressed
  * <div class="k-chips" role="group" aria-label="دسته‌بندی"><button class="k-chip" aria-pressed="true">…</button></div>
  */
 .k-chips { display: flex; flex-wrap: wrap; gap: var(--k-space-2); }

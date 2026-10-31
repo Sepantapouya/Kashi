@@ -1,6 +1,6 @@
 ---
 layout: ../../../layouts/Docs.astro
-title: اسلایدر
+title: کاروسل
 description: نمایش چند کارت یا تصویر در یک ردیف قابل‌پیمایش، مثل محصولات پیشنهادی.
 ---
 import Demo from "../../../components/Demo.astro";
@@ -23,7 +23,7 @@ import { Carousel } from "@kashi-ui/react";
 
 <Props rows={[
   ["children", "ReactNode", "", "هر فرزند یک اسلاید"],
-  ["label", "string", "", "نام اسلایدر (الزامی)"],
+  ["label", "string", "", "نام کاروسل (الزامی)"],
   ["perView", "number", "1", "تعداد اسلاید در هر نما؛ یا متغیر --k-carousel-per-view"],
   ["dots", "boolean", "true", "نقطه‌های پیمایش"],
   ["labels", "{ prev?, next?, slide? }", "", "متن دکمه‌ها و نام اسلایدها"],
