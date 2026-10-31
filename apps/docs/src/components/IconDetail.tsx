@@ -18,7 +18,7 @@ function Code({ code }: { code: string }) {
 }
 
 export function IconDetail({ name }: { name: IconName }) {
-  const [stroke, setStroke] = useState(1.5);
+  const [stroke, setStroke] = useState(1);
   const [variant, setVariant] = useVariant();
   const vp = variant === "light" ? "" : ` variant="${variant}"`;
   const icon = icons[name];
