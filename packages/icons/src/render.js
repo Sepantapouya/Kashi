@@ -160,6 +160,9 @@ function probe(shapeEl, [px, py]) {
   return { inside, dist };
 }
 
+/** شکل‌هایی که کامل داخل شکل دیگری‌اند */
+const nestedIn = (shape) => shape.filter((s) => shape.some((t) => t !== s && samples(s).every((pt) => probe(t, pt).inside)));
+
 /**
  * جای هر جزئیات نسبت به شکل‌ها:
  * inner کامل داخل یک شکل (یا روی لبه‌اش)، crossing بخش زیادی‌اش در عمق شکل است ولی بیرون هم می‌رود، outer بقیه
@@ -230,7 +233,7 @@ export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}
       // تا جای اتصالشان به شکل شکاف سفید نیفتد. خطی که از شکل رد می‌شود (روبان کادو، خط ممنوع) با فاصله‌ای
       // دورش از شکل جدا می‌شود؛ خطی که فقط به لبهٔ شکل می‌رسد (سقف خودرو) بی‌فاصله به آن می‌چسبد
       // شکلی که کامل داخل شکل دیگری است (دایرهٔ ضبط داخل قاب) فقط دورش بریده می‌شود تا در توپر گم نشود
-      const nested = shape.filter((s) => shape.some((t) => t !== s && samples(s).every((pt) => probe(t, pt).inside)));
+      const nested = nestedIn(shape);
       const top = shape.filter((s) => !nested.includes(s));
       const { inner, crossing } = classify(top, detail), outer = detail.filter((d) => !inner.includes(d));
       const holes = nested.join("") + inner.join("").replace(/<circle\b/g, '<circle fill="#000"')
@@ -242,11 +245,13 @@ export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}
     }
     case "bulk": {
       if (!S) return twoToneOpen(detail);
+      // شکلِ داخل شکل دیگر (سپر روی ساختمان، دکمهٔ پخش) در سایهٔ کم‌رنگ گم نشود و دورش کشیده شود
+      const inset = nestedIn(shape).join("");
       // خطی که از شکل رد می‌شود (خط ممنوع) دورش از سایهٔ کم‌رنگ هم بریده می‌شود تا خوانا بماند
       const { crossing } = classify(shape, detail);
-      if (!crossing.length) return `<g fill="currentColor" stroke="none" opacity="0.4">${S}</g>` + (D || S);
+      if (!crossing.length) return `<g fill="currentColor" stroke="none" opacity="0.4">${S}</g>` + (D ? D + inset : S);
       return `<defs><mask id="${uid}-a" ${box}>${bg}<g stroke="#000" stroke-width="${n(sw + 1.5)}">${crossing.join("")}</g></mask></defs>`
-        + `<g fill="currentColor" stroke="none" opacity="0.4" mask="url(#${uid}-a)">${S}</g>` + D;
+        + `<g fill="currentColor" stroke="none" opacity="0.4" mask="url(#${uid}-a)">${S}</g>` + D + inset;
     }
     case "two-tone":
       if (!S) return twoToneOpen(detail);
