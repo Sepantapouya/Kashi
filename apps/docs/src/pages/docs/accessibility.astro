@@ -1,0 +1,477 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import { iconSvg } from "@kashi-ui/icons";
+import { palette, themes } from "@kashi-ui/tokens";
+import { toFaDigits } from "@kashi-ui/persian";
+
+const fa = (n: number | string) => toFaDigits(String(n));
+const ic = (name: string, size = 20) => iconSvg(name, { size }) ?? "";
+
+// ── کنتراست واقعی توکن‌ها؛ همان محاسبهٔ packages/tokens/contrast.mjs که بیلد را نگه می‌دارد
+type Theme = Record<string, string>;
+const hex = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const lin = (c: number) => ((c /= 255) <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+const lum = ([r, g, b]: number[]) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+const ratio = (a: number[], b: number[]) => {
+  const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m);
+  return (x + 0.05) / (y + 0.05);
+};
+const over = (fg: number[], a: number, bg: number[]) => fg.map((c, i) => Math.round(c * a + bg[i] * (1 - a)));
+function resolve(theme: Theme, value: string, backdrop: number[]): number[] {
+  let m;
+  if ((m = value.match(/^var\(--k-([a-z]+)-(\d+)\)$/))) {
+    const scale = m[1] === "brand" ? "firoozeh" : m[1];
+    return hex((palette as Record<string, Record<string, string>>)[scale][m[2]]);
+  }
+  if ((m = value.match(/^var\(--k-([a-z-]+)\)$/))) return resolve(theme, theme[m[1]], backdrop);
+  if ((m = value.match(/^rgb\((\d+) (\d+) (\d+) \/ ([\d.]+)\)$/))) return over([+m[1], +m[2], +m[3]], +m[4], backdrop);
+  if ((m = value.match(/^color-mix\(in srgb, (var\([^)]+\)) (\d+)%, transparent\)$/)))
+    return over(resolve(theme, m[1], backdrop), +m[2] / 100, backdrop);
+  throw new Error(`cannot resolve ${value}`);
+}
+const rgb = (c: number[]) => `rgb(${c.join(" ")})`;
+
+const samples: [string, string, string, number][] = [
+  ["متن اصلی", "text-primary", "bg-primary", 4.5],
+  ["متن دوم", "text-secondary", "bg-primary", 4.5],
+  ["متن کم‌رنگ", "text-tertiary", "bg-primary", 4.5],
+  ["لینک و برند", "text-brand", "bg-primary", 4.5],
+  ["دکمهٔ اصلی", "text-on-brand", "bg-brand", 4.5],
+  ["حاشیهٔ فیلد", "border-input", "bg-primary", 3],
+];
+const panels = (["light", "dark"] as const).map((name) => {
+  const theme = themes[name] as Theme;
+  const base = resolve(theme, theme["bg-primary"], [0, 0, 0]);
+  const rows = samples.map(([label, fg, bg, min]) => {
+    const b = resolve(theme, theme[bg], base);
+    const f = resolve(theme, theme[fg], b);
+    const r = ratio(f, b);
+    const level = min === 3 ? "رابط" : r >= 7 ? "AAA" : "AA";
+    return { label, fg: rgb(f), bg: rgb(b), r: fa(r.toFixed(1)).replace(".", "٫"), min: fa(min).replace(".", "٫"), level, border: min === 3 };
+  });
+  return { name, title: name === "light" ? "تم روشن" : "تم تیره", page: rgb(base), rows };
+});
+
+// عددها از خود کد شمرده می‌شوند تا با هر نسخه درست بمانند
+const cssDir = path.resolve(process.cwd(), "../../packages/css/src/components");
+const cssFiles = fs.existsSync(cssDir) ? fs.readdirSync(cssDir).filter((f) => f.endsWith(".css")) : [];
+const withForced = cssFiles.filter((f) => fs.readFileSync(path.join(cssDir, f), "utf8").includes("forced-colors")).length;
+const contrastPairs = 82;
+
+const stats: [string, string][] = [
+  [fa(contrastPairs), "جفت رنگ در هر بیلد بررسی می‌شود"],
+  [`${fa(4)} px`, "حلقهٔ فوکوس، فقط با کیبورد"],
+  [`${fa(24)} px`, "کمترین ارتفاع دکمه"],
+  [fa(withForced || 35), "فایل استایل با حالت کنتراست بالا"],
+];
+
+const keys: [string[][], string, string][] = [
+  [[["Tab"], ["Shift", "Tab"]], "جابه‌جایی بین کنترل‌ها", "همه‌جا؛ حلقهٔ فوکوس فقط وقتی دیده می‌شود که با کیبورد کار می‌کنید."],
+  [[["Enter"], ["Space"]], "فعال کردن", "دکمه، چک‌باکس، سوییچ و رادیو؛ همه روی عنصر بومی، پس بی‌کد اضافه کار می‌کنند."],
+  [[["Esc"]], "بستن", "دیالوگ، منو، پاپ‌اور، تولتیپ، انتخابگر تاریخ، کومبوباکس، تور و ویرایش درجا."],
+  [[["←"], ["→"], ["↑"], ["↓"]], "حرکت در گزینه‌ها", "تب‌ها، منوها، تقویم، کومبوباکس، درخت، کاروسل، پالت فرمان، ورودی عدد و زمان."],
+  [[["Home"], ["End"]], "اول و آخر فهرست", "منو، کومبوباکس، درخت، کاروسل، پالت فرمان و جداکننده."],
+];
+
+const yours: { icon: string; title: string; text: string; code?: string; warn?: string }[] = [
+  {
+    icon: "speaker",
+    title: "دکمهٔ فقط‌آیکون را نام بگذارید",
+    text: "صفحه‌خوان آیکون را نمی‌بیند. اگر aria-label را فراموش کنید، در حالت توسعه این هشدار را در کنسول می‌گیرید:",
+    warn: "بدون aria-label برای صفحه‌خوان‌ها بی‌نام است.",
+    code: `<Button iconOnly aria-label="حذف">\n  <TrashIcon />\n</Button>`,
+  },
+  {
+    icon: "ruler",
+    title: "سطح عنوان‌ها را با صفحه هماهنگ کنید",
+    text: "CardTitle به‌طور پیش‌فرض h3 است. اگر در صفحهٔ شما جای h2 نشسته، با as عوضش کنید تا ساختار صفحه برای صفحه‌خوان درست بماند.",
+    code: `<CardTitle as="h2">\n  سفارش‌های امروز\n</CardTitle>`,
+  },
+  {
+    icon: "palette",
+    title: "رنگ برند خودتان را بسنجید",
+    text: "طیفی که createTheme() از رنگ برند شما می‌سازد در بیلد کاشی بررسی نمی‌شود. کنتراست متن روی آن را با ابزاری مثل WebAIM Contrast Checker کنترل کنید.",
+  },
+  {
+    icon: "info",
+    title: "پیام خطا را کامل بنویسید",
+    text: "به‌جای «ورودی نامعتبر» بگویید چه چیزی اشتباه است و چطور درستش کنند: «شمارهٔ کارت ۱۶ رقم است؛ ۱۵ رقم وارد شده.»",
+  },
+];
+
+const checklist = [
+  "کل صفحه را فقط با Tab و Shift+Tab بگردید؛ ترتیب فوکوس منطقی است و هیچ‌جا گیر نمی‌کنید.",
+  "صفحه را تا ۲۰۰٪ بزرگ کنید؛ چیزی بریده نمی‌شود و اسکرول افقی پیدا نمی‌شود.",
+  "با VoiceOver یا NVDA فرم اصلی را پر کنید؛ هر فیلد نام و خطای خودش را می‌خواند.",
+  "در DevTools حالت forced-colors را شبیه‌سازی کنید؛ مرز کنترل‌ها و حالت انتخاب هنوز دیده می‌شود.",
+  "کاهش حرکت را روشن کنید؛ هیچ انیمیشنی برای فهم صفحه لازم نیست.",
+];
+
+const headings = [
+  { depth: 2, slug: "automatic", text: "آنچه خودکار بررسی می‌شود" },
+  { depth: 2, slug: "built-in", text: "آنچه در کامپوننت‌ها ساخته شده" },
+  { depth: 2, slug: "keyboard", text: "نقشهٔ کیبورد" },
+  { depth: 2, slug: "yours", text: "مسئولیت شما" },
+  { depth: 2, slug: "checklist", text: "پیش از انتشار" },
+  { depth: 2, slug: "report", text: "گزارش مشکل" },
+];
+const issue = "https://github.com/Sepantapouya/Kashi/issues/new?labels=a11y";
+---
+<Docs title="دسترس‌پذیری" description="کاشی چه چیزی را تضمین می‌کند، چطور آن را می‌سنجد و چه بخشی بر عهدهٔ شماست." headings={headings}>
+  <!-- ── معرفی ─────────────────────────────────────────────── -->
+  <section class="ax-hero" aria-label="معرفی">
+    <div class="ax-hero__copy">
+      <span class="k-badge k-badge--brand k-badge--sm" dir="ltr">WCAG 2.2 · AA</span>
+      <p class="ax-hero__title">دسترس‌پذیری از پایه، نه وصله‌ای در آخر کار</p>
+      <p class="ax-hero__text">کنترل‌های کاشی روی عنصرهای بومی مرورگر ساخته شده‌اند، کنتراست رنگ‌ها در هر بیلد اندازه گرفته می‌شود و اگر یک جفت رد شود، نسخه‌ای منتشر نمی‌شود. بخش کوچکی می‌ماند که فقط شما می‌توانید درستش کنید؛ آن را هم پایین همین صفحه آورده‌ایم.</p>
+      <div class="ax-hero__actions">
+        <a class="k-btn k-btn--primary k-btn--lg" href="#yours">مسئولیت شما</a>
+        <a class="k-btn k-btn--secondary k-btn--lg" href="#keyboard"><span set:html={ic("keyboard")} />نقشهٔ کیبورد</a>
+      </div>
+    </div>
+
+    <!-- نمونهٔ فرم: فوکوس کیبورد بین فیلد و دکمه جابه‌جا می‌شود و صفحه‌خوان آن را می‌خواند -->
+    <div class="ax-demo" aria-hidden="true">
+      <div class="ax-demo__card">
+        <p class="ax-demo__title">ورود به حساب</p>
+        <div class="ax-demo__field ax-step ax-step--1">
+          <span class="ax-demo__label">شمارهٔ موبایل</span>
+          <span class="ax-demo__input" dir="ltr">0912 345 6789</span>
+        </div>
+        <label class="ax-demo__check ax-step ax-step--2"><span class="ax-demo__box">{<Fragment set:html={ic("check", 12)} />}</span>مرا به خاطر بسپار</label>
+        <span class="ax-demo__btn ax-step ax-step--3">دریافت کد</span>
+      </div>
+      <div class="ax-demo__sr">
+        <span class="ax-demo__sr-icon" set:html={ic("speaker", 14)} />
+        <span class="ax-demo__says">
+          <span class="ax-demo__say ax-say--1">شمارهٔ موبایل، فیلد متنی</span>
+          <span class="ax-demo__say ax-say--2">مرا به خاطر بسپار، چک‌باکس، انتخاب‌شده</span>
+          <span class="ax-demo__say ax-say--3">دریافت کد، دکمه</span>
+        </span>
+      </div>
+      <kbd class="k-kbd ax-demo__tab" dir="ltr">Tab ⇥</kbd>
+    </div>
+  </section>
+
+  <dl class="ax-stats">
+    {stats.map(([n, l]) => <div><dt>{l}</dt><dd dir="ltr">{n}</dd></div>)}
+  </dl>
+
+  <!-- ── خودکار ──────────────────────────────────────────── -->
+  <h2 id="automatic">آنچه خودکار بررسی می‌شود</h2>
+  <p>پیش از ساخت پکیج توکن‌ها، کنتراست {fa(contrastPairs / 2)} جفت متن و پس‌زمینه در <strong>هر دو تم</strong> محاسبه می‌شود: متن دست‌کم <strong>{fa("4.5").replace(".", "٫")} به ۱</strong> و حاشیهٔ فیلد، چک‌باکس و سوییچ دست‌کم <strong>۳ به ۱</strong> (معیار 1.4.11). عددهای زیر از همان محاسبه آمده‌اند، نه از یک جدول دستی.</p>
+
+  <div class="ax-contrast">
+    {panels.map((pnl) => (
+      <section class="ax-contrast__panel" style={`--_page:${pnl.page}`} aria-label={pnl.title}>
+        <p class="ax-contrast__head"><span set:html={ic(pnl.name === "light" ? "sun" : "moon", 16)} />{pnl.title}</p>
+        <ul role="list">
+          {pnl.rows.map((r) => (
+            <li>
+              <span class="ax-contrast__swatch" style={`background:${r.bg};color:${r.fg}`}>
+                {r.border ? <i style={`border-color:${r.fg}`} /> : "آب"}
+              </span>
+              <span class="ax-contrast__label">{r.label}<small>حداقل {r.min} به ۱</small></span>
+              <span class="ax-contrast__ratio"><b dir="ltr">{r.r}:۱</b><em>{r.level}</em></span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+
+  <div class="ax-gate">
+    <div class="ax-gate__term" dir="ltr" aria-label="خروجی بیلد">
+      <span><i>$</i> npm run build -w @kashi-ui/tokens</span>
+      <span class="ok">contrast: {contrastPairs} pairs pass WCAG AA</span>
+    </div>
+    <p>اگر حتی یک جفت زیر حد باشد، بیلد با نام آن جفت و نسبتش متوقف می‌شود؛ رنگی که کنتراست کافی ندارد هیچ‌وقت به دست شما نمی‌رسد.</p>
+  </div>
+
+  <p>کنار کنتراست، تست‌های خودکار ساختار ARIA را هم نگه می‌دارند: برچسب، راهنما و پیام خطا به فیلد وصل‌اند، سوییچ نقش <code>switch</code> دارد، هشدار <code>role="alert"</code> دارد و دکمهٔ بستنش نام دارد، و دکمهٔ در حال بارگذاری فوکوس را از دست نمی‌دهد.</p>
+
+  <!-- ── در کامپوننت‌ها ─────────────────────────────────── -->
+  <h2 id="built-in">آنچه در کامپوننت‌ها ساخته شده</h2>
+  <p>این‌ها را لازم نیست روشن کنید؛ با نصب کاشی همراه کامپوننت‌ها می‌آیند. نمونه‌ها زنده‌اند و با تنظیمات سیستم شما رفتار می‌کنند.</p>
+
+  <div class="ax-cards">
+    <article>
+      <div class="ax-art ax-art--focus">
+        <button type="button" class="k-btn k-btn--secondary k-btn--sm">انصراف</button>
+        <button type="button" class="k-btn k-btn--primary k-btn--sm">ذخیره</button>
+      </div>
+      <strong>فوکوس کیبورد</strong>
+      <p>حلقهٔ ۴ پیکسلی روی همهٔ کنترل‌ها، فقط با <code>:focus-visible</code>؛ با موس دیده نمی‌شود، با کیبورد هیچ‌وقت گم نمی‌شود. روی این دو دکمه Tab بزنید.</p>
+    </article>
+    <article>
+      <div class="ax-art ax-art--native">
+        <label class="k-check"><input type="checkbox" class="k-checkbox" checked /><span class="k-check__text"><span class="k-check__label">خبرنامه</span></span></label>
+        <label class="ax-art__switch"><input type="checkbox" role="switch" class="k-switch" checked />اعلان‌ها</label>
+      </div>
+      <strong>کنترل‌های بومی</strong>
+      <p>چک‌باکس، سوییچ و رادیو روی <code>&lt;input&gt;</code> واقعی ساخته شده‌اند و دیالوگ روی <code>&lt;dialog&gt;</code> بومی؛ کیبورد، فرم و صفحه‌خوان بی‌کد اضافه کار می‌کنند.</p>
+    </article>
+    <article>
+      <div class="ax-art ax-art--forced" aria-hidden="true">
+        <span class="ax-forced__btn">ذخیره</span>
+        <span class="ax-forced__box" set:html={ic("check", 12)} />
+        <span class="ax-forced__link">لینک</span>
+      </div>
+      <strong>کنتراست بالای ویندوز</strong>
+      <p>در حالت <code>forced-colors</code> رنگ‌های سیستم جای رنگ‌های کاشی می‌نشینند و چک‌باکس و سوییچ به کنترل بومی برمی‌گردند تا حالت انتخاب گم نشود.</p>
+    </article>
+    <article>
+      <div class="ax-art ax-art--more" aria-hidden="true">
+        <span><small>عادی</small><em class="soft">متن کم‌رنگ</em></span>
+        <span set:html={ic("arrow-left", 16)} />
+        <span><small>کنتراست بیشتر</small><em>متن کم‌رنگ</em></span>
+      </div>
+      <strong>کنتراست بیشتر</strong>
+      <p>اگر کاربر در سیستم کنتراست بیشتر خواسته باشد (<code>prefers-contrast: more</code>)، متن کم‌رنگ و حاشیه‌ها خودکار یک پله پررنگ‌تر می‌شوند.</p>
+    </article>
+    <article>
+      <div class="ax-art ax-art--motion" aria-hidden="true">
+        <span class="ax-motion__track"><i /></span>
+        <span class="ax-motion__state" data-on="در حال حرکت" data-off="متوقف؛ کاهش حرکت روشن است" />
+      </div>
+      <strong>کاهش حرکت</strong>
+      <p>با <code>prefers-reduced-motion</code> انیمیشن‌ها و ترنزیشن‌ها عملاً صفر می‌شوند. اگر کاهش حرکت در سیستم شما روشن باشد، نوار بالا ایستاده است.</p>
+    </article>
+    <article>
+      <div class="ax-art ax-art--target" aria-hidden="true">
+        <span class="ax-target"><span class="k-btn k-btn--tertiary k-btn--icon k-btn--sm" set:html={ic("close", 16)} /></span>
+        <span class="ax-target__dim" dir="ltr">≥ 24 × 24</span>
+      </div>
+      <strong>ناحیهٔ لمس</strong>
+      <p>هیچ دکمه‌ای، حتی کوچک‌ترین دکمهٔ آیکونی، کوتاه‌تر از ۲۴ پیکسل نیست (معیار 2.5.8)؛ انگشت و موس به اندازهٔ کافی جا دارند.</p>
+    </article>
+  </div>
+
+  <!-- ── کیبورد ──────────────────────────────────────────── -->
+  <h2 id="keyboard">نقشهٔ کیبورد</h2>
+  <p>کامپوننت‌ها همان کلیدهایی را می‌فهمند که کاربر از سیستم‌عامل انتظار دارد. در صفحه‌های راست‌به‌چپ، جهت فلش‌ها هم با جهت صفحه می‌چرخد.</p>
+  <ul class="ax-keys" role="list">
+    {keys.map(([k, title, where]) => (
+      <li>
+        <span class="ax-keys__k" dir="ltr">{k.map((combo) => <span class="ax-keys__combo">{combo.map((x, i) => <>{i > 0 && <i>+</i>}<kbd class="k-kbd">{x}</kbd></>)}</span>)}</span>
+        <span class="ax-keys__t"><strong>{title}</strong><span>{where}</span></span>
+      </li>
+    ))}
+  </ul>
+  <p class="ax-note">برای کاربران کیبورد، کلاس <code>k-skip-link</code> لینک «رفتن به محتوای اصلی» را می‌سازد که فقط با اولین Tab ظاهر می‌شود؛ همین سایت هم از آن استفاده می‌کند.</p>
+
+  <!-- ── مسئولیت شما ─────────────────────────────────────── -->
+  <h2 id="yours">مسئولیت شما</h2>
+  <p>هیچ دیزاین‌سیستمی نمی‌تواند همه‌چیز را تضمین کند. این چهار مورد به نحوهٔ استفادهٔ شما بستگی دارد:</p>
+  <div class="ax-yours">
+    {yours.map((y) => (
+      <article>
+        <span class="ax-yours__icon" set:html={ic(y.icon, 20)} />
+        <strong>{y.title}</strong>
+        <p>{y.text}</p>
+        {y.warn && <p class="ax-yours__warn"><span set:html={ic("info", 14)} /><code><bdi dir="ltr">[kashi] &lt;Button iconOnly&gt;</bdi> {y.warn}</code></p>}
+        {y.code && <CodeBlock code={y.code} />}
+      </article>
+    ))}
+  </div>
+
+  <!-- ── چک‌لیست ─────────────────────────────────────────── -->
+  <h2 id="checklist">پیش از انتشار</h2>
+  <p>پنج دقیقه آزمون دستی، بیشتر مشکل‌هایی را می‌گیرد که هیچ تست خودکاری نمی‌بیند. موردهایی را که انجام داده‌اید تیک بزنید:</p>
+  <ul class="ax-list" role="list">
+    {checklist.map((c) => (
+      <li><label class="k-check"><input type="checkbox" class="k-checkbox" /><span class="k-check__text"><span class="k-check__label">{c}</span></span></label></li>
+    ))}
+  </ul>
+
+  <!-- ── گزارش ───────────────────────────────────────────── -->
+  <h2 id="report">گزارش مشکل</h2>
+  <div class="ax-report">
+    <span class="ax-report__icon" set:html={ic("accessibility", 28)} />
+    <div>
+      <strong>جایی از کاشی برای کسی کار نمی‌کند؟</strong>
+      <p>مشکل را با برچسب <code>a11y</code> در مخزن گزارش کنید. این گزارش‌ها جلوتر از بقیه بررسی می‌شوند.</p>
+    </div>
+    <a class="k-btn k-btn--primary" href={issue} target="_blank" rel="noopener">ثبت گزارش<span class="k-sr-only"> (در پنجرهٔ تازه)</span></a>
+  </div>
+</Docs>
+
+<style>
+  /* ── معرفی ── */
+  .ax-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--k-space-6);
+    align-items: center;
+    margin-block: var(--k-space-2) var(--k-space-5);
+    padding: var(--k-space-8) var(--k-space-6);
+    overflow: hidden;
+    border: 1px solid var(--k-border-secondary);
+    border-radius: var(--k-radius-2xl);
+    background:
+      radial-gradient(120% 120% at 100% 0%, color-mix(in srgb, var(--k-brand-500) 16%, transparent), transparent 55%),
+      radial-gradient(90% 90% at 0% 100%, color-mix(in srgb, var(--k-lajvard-500) 10%, transparent), transparent 60%),
+      var(--k-bg-elevated);
+    box-shadow: var(--k-shadow-sm), var(--k-highlight);
+  }
+  .ax-hero__copy { display: grid; justify-items: start; gap: var(--k-space-3); }
+  .ax-hero__title { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-3xl); font-weight: var(--k-weight-bold); line-height: 1.35; text-wrap: balance; }
+  .ax-hero__text { margin: 0; color: var(--k-text-secondary); line-height: 1.9; }
+  .ax-hero__actions { display: flex; flex-wrap: wrap; gap: var(--k-space-3); margin-block-start: var(--k-space-2); }
+  .ax-hero__actions :global(svg) { inline-size: 1.15em; block-size: 1.15em; }
+
+  /* نمونهٔ فرم با فوکوس متحرک */
+  .ax-demo { position: relative; display: grid; gap: var(--k-space-3); justify-items: center; padding-block: var(--k-space-4); }
+  .ax-demo__card { display: grid; gap: var(--k-space-3); inline-size: min(100%, 17rem); padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); box-shadow: var(--k-shadow-lg); }
+  .ax-demo__title { margin: 0; color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+  .ax-demo__field { display: grid; gap: var(--k-space-1); }
+  .ax-demo__label { color: var(--k-text-secondary); font-size: var(--k-text-xs); }
+  .ax-demo__input { padding: var(--k-space-2) var(--k-space-3); border: 1px solid var(--k-border-input); border-radius: var(--k-radius-md); color: var(--k-text-primary); font-size: var(--k-text-sm); text-align: start; }
+  .ax-demo__check { display: flex; align-items: center; gap: var(--k-space-2); color: var(--k-text-secondary); font-size: var(--k-text-sm); border-radius: var(--k-radius-sm); }
+  .ax-demo__box { display: grid; place-items: center; inline-size: 1.125rem; block-size: 1.125rem; border-radius: 0.3125rem; background: var(--k-bg-brand); color: var(--k-text-on-brand); }
+  .ax-demo__btn { padding: var(--k-space-2); border-radius: var(--k-radius-md); background: var(--k-bg-brand); color: var(--k-text-on-brand); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); text-align: center; }
+  .ax-step { transition: box-shadow var(--k-duration-fast); }
+  .ax-demo__field.ax-step .ax-demo__input, .ax-demo__check, .ax-demo__btn { box-shadow: 0 0 0 0 transparent; }
+  .ax-demo__sr { display: flex; align-items: center; gap: var(--k-space-2); min-block-size: 2.25rem; padding: var(--k-space-2) var(--k-space-3); border-radius: var(--k-radius-full); background: var(--k-bg-inverse, #18181b); color: var(--k-text-inverse, #fafafa); font-size: var(--k-text-xs); box-shadow: var(--k-shadow-md); }
+  .ax-demo__sr-icon { display: inline-grid; color: var(--k-brand-300); }
+  .ax-demo__says { display: grid; }
+  .ax-demo__say { grid-area: 1 / 1; opacity: 0; white-space: nowrap; }
+  .ax-demo__tab { position: absolute; inset-block-start: var(--k-space-2); inset-inline-end: 0; box-shadow: var(--k-shadow-sm); }
+
+  /* حالت ایستا (و کاهش حرکت): فوکوس روی دکمه می‌ماند */
+  .ax-step--3 { box-shadow: var(--k-ring-brand); }
+  .ax-say--3 { opacity: 1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .ax-step--3 { box-shadow: none; }
+    .ax-say--3 { opacity: 0; }
+    .ax-demo__field.ax-step--1 .ax-demo__input { animation: ax-ring1 6s infinite; }
+    .ax-step--2 { animation: ax-ring2 6s infinite; }
+    .ax-step--3 { animation: ax-ring3 6s infinite; }
+    .ax-say--1 { animation: ax-say1 6s step-end infinite; }
+    .ax-say--2 { animation: ax-say2 6s step-end infinite; }
+    .ax-say--3 { animation: ax-say3 6s step-end infinite; }
+    .ax-demo__tab { animation: ax-tab 2s var(--k-ease-standard) infinite; }
+  }
+  @keyframes ax-ring1 { 0%, 30% { box-shadow: var(--k-ring-brand); border-color: var(--k-border-brand); } 33%, 100% { box-shadow: none; } }
+  @keyframes ax-ring2 { 0%, 33% { box-shadow: none; } 36%, 63% { box-shadow: var(--k-ring-brand); } 66%, 100% { box-shadow: none; } }
+  @keyframes ax-ring3 { 0%, 66% { box-shadow: none; } 69%, 97% { box-shadow: var(--k-ring-brand); } 100% { box-shadow: none; } }
+  @keyframes ax-say1 { 0% { opacity: 1; } 33.3% { opacity: 0; } }
+  @keyframes ax-say2 { 0% { opacity: 0; } 33.3% { opacity: 1; } 66.6% { opacity: 0; } }
+  @keyframes ax-say3 { 0% { opacity: 0; } 66.6% { opacity: 1; } }
+  @keyframes ax-tab { 0%, 100% { translate: 0 0; } 15% { translate: 0 2px; } 30% { translate: 0 0; } }
+
+  /* ── عددها ── */
+  .ax-stats { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 0 var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); }
+  .ax-stats div { padding: var(--k-space-4) var(--k-space-5); }
+  .ax-stats div + div { border-inline-start: 1px solid var(--k-border-secondary); }
+  .ax-stats dt { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .ax-stats dd { margin: var(--k-space-1) 0 0; color: var(--k-text-primary); font-size: var(--k-text-2xl); font-weight: var(--k-weight-bold); line-height: 1.2; text-align: end; }
+
+  /* ── کنتراست ── */
+  .ax-contrast { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--k-space-3); margin: var(--k-space-5) 0; }
+  .ax-contrast__panel { padding: var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); }
+  .ax-contrast__head { display: flex; align-items: center; gap: var(--k-space-2); margin: 0 0 var(--k-space-3); color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+  .ax-contrast__head :global(svg) { color: var(--k-text-tertiary); }
+  .ax-contrast ul { display: grid; gap: var(--k-space-1); margin: 0; padding: 0; list-style: none; }
+  .ax-contrast li { display: grid; grid-template-columns: auto 1fr auto; gap: var(--k-space-3); align-items: center; margin: 0; padding: var(--k-space-2); border-radius: var(--k-radius-md); }
+  .ax-contrast li:hover { background: var(--k-bg-secondary); }
+  .ax-contrast__swatch { display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.25rem; border-radius: var(--k-radius-md); outline: 1px solid color-mix(in srgb, var(--k-text-primary) 10%, transparent); font-size: var(--k-text-md); font-weight: var(--k-weight-bold); }
+  .ax-contrast__swatch i { inline-size: 1.5rem; block-size: 1rem; border: 1.5px solid; border-radius: 4px; }
+  .ax-contrast__label { display: grid; color: var(--k-text-primary); font-size: var(--k-text-sm); }
+  .ax-contrast__label small { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .ax-contrast__ratio { display: flex; align-items: center; gap: var(--k-space-2); }
+  .ax-contrast__ratio b { color: var(--k-text-primary); font-variant-numeric: tabular-nums; }
+  .ax-contrast__ratio em { padding: 0 var(--k-space-1_5); border-radius: var(--k-radius-full); background: var(--k-bg-success-subtle); color: var(--k-text-success); font-size: var(--k-text-xs); font-style: normal; font-weight: var(--k-weight-semibold); }
+
+  .ax-gate { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--k-space-5); align-items: center; margin: var(--k-space-4) 0 var(--k-space-5); padding: var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-secondary); }
+  .ax-gate p { margin: 0; color: var(--k-text-secondary); font-size: var(--k-text-sm); line-height: 1.9; }
+  .ax-gate__term { display: grid; gap: var(--k-space-1); padding: var(--k-space-3) var(--k-space-4); border-radius: var(--k-radius-lg); background: #0b0b0d; color: #d4d4d8; font-family: var(--k-font-mono, ui-monospace, monospace); font-size: var(--k-text-xs); text-align: left; }
+  .ax-gate__term i { color: #71717a; font-style: normal; }
+  .ax-gate__term .ok { color: #4ade80; }
+
+  /* ── کارت‌های کامپوننت ── */
+  .ax-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--k-space-3); margin: var(--k-space-5) 0; }
+  .ax-cards article { padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); }
+  .ax-cards strong { display: block; color: var(--k-text-primary); }
+  .ax-cards code { white-space: nowrap; }
+  .ax-cards p { margin: var(--k-space-1) 0 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.8; }
+  .ax-art { display: flex; align-items: center; justify-content: center; gap: var(--k-space-3); block-size: 5.5rem; margin-block-end: var(--k-space-4); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary); }
+  .ax-art--native { flex-direction: column; gap: var(--k-space-2); align-items: flex-start; padding-inline: var(--k-space-6); }
+  .ax-art__switch { display: inline-flex; align-items: center; gap: var(--k-space-2); color: var(--k-text-primary); font-size: var(--k-text-sm); }
+
+  .ax-art--forced { background: #000; outline: 1px solid var(--k-border-secondary); }
+  .ax-forced__btn { padding: 4px 14px; border: 2px solid #fff; border-radius: 6px; color: #fff; font-size: var(--k-text-sm); }
+  .ax-forced__box { display: grid; place-items: center; inline-size: 18px; block-size: 18px; background: #1aebff; color: #000; }
+  .ax-forced__link { color: #ffff00; font-size: var(--k-text-sm); text-decoration: underline; }
+
+  .ax-art--more span { display: grid; gap: 2px; justify-items: center; color: var(--k-text-tertiary); }
+  .ax-art--more small { font-size: var(--k-text-xs); }
+  .ax-art--more em { font-style: normal; font-weight: var(--k-weight-semibold); color: var(--k-text-secondary); }
+  .ax-art--more em.soft { color: var(--k-text-quaternary, var(--k-text-tertiary)); }
+
+  .ax-art--motion { flex-direction: column; gap: var(--k-space-2); }
+  .ax-motion__track { position: relative; inline-size: 70%; block-size: 6px; overflow: hidden; border-radius: 3px; background: var(--k-bg-tertiary); }
+  .ax-motion__track i { position: absolute; inset-block: 0; inset-inline-start: 0; inline-size: 35%; border-radius: 3px; background: var(--k-bg-brand); }
+  .ax-motion__state { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .ax-motion__state::after { content: attr(data-off); }
+  @media (prefers-reduced-motion: no-preference) {
+    .ax-motion__track i { animation: ax-slide 1.8s var(--k-ease-standard) infinite alternate; }
+    .ax-motion__state::after { content: attr(data-on); }
+  }
+  @keyframes ax-slide { to { inset-inline-start: 65%; } }
+
+  .ax-art--target { gap: var(--k-space-4); }
+  .ax-target { padding: 4px; border: 1.5px dashed var(--k-border-brand); border-radius: var(--k-radius-md); }
+  .ax-target :global(svg) { inline-size: 16px; block-size: 16px; }
+  .ax-target__dim { color: var(--k-text-brand); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+
+  /* ── کیبورد ── */
+  .ax-keys { display: grid; margin: var(--k-space-5) 0; padding: 0; list-style: none; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); }
+  .ax-keys li { display: grid; grid-template-columns: 10rem 1fr; gap: var(--k-space-4); align-items: center; margin: 0; padding: var(--k-space-3) var(--k-space-5); }
+  .ax-keys li + li { border-block-start: 1px solid var(--k-border-secondary); }
+  .ax-keys__k { display: flex; flex-wrap: wrap; gap: var(--k-space-2); justify-content: flex-end; }
+  .ax-keys__combo { display: inline-flex; align-items: center; gap: 3px; }
+  .ax-keys__combo i { color: var(--k-text-quaternary, var(--k-text-tertiary)); font-style: normal; font-size: var(--k-text-xs); }
+  .ax-keys__t { display: grid; gap: 2px; }
+  .ax-keys__t strong { color: var(--k-text-primary); font-size: var(--k-text-sm); }
+  .ax-keys__t span { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .ax-note { padding: var(--k-space-3) var(--k-space-4); border-inline-start: 3px solid var(--k-border-brand); border-radius: var(--k-radius-sm); background: var(--k-bg-brand-subtle); color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+
+  /* ── مسئولیت شما ── */
+  .ax-yours { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-3); margin: var(--k-space-5) 0; }
+  .ax-yours article { min-inline-size: 0; display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; gap: var(--k-space-1); padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); }
+  .ax-yours__icon { display: inline-grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; margin-block-end: var(--k-space-2); border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); color: var(--k-text-brand); box-shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic); }
+  .ax-yours strong { color: var(--k-text-primary); }
+  .ax-yours p { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.8; }
+  .ax-yours__warn { display: flex; gap: var(--k-space-2); align-items: flex-start; margin-block-start: var(--k-space-2) !important; padding: var(--k-space-2) var(--k-space-3); border-radius: var(--k-radius-md); background: var(--k-bg-warning-subtle); color: var(--k-text-warning) !important; }
+  .ax-yours__warn :global(svg) { flex-shrink: 0; margin-block-start: 0.2em; }
+  .ax-yours__warn code { direction: rtl; border: 0; padding: 0; background: none; color: inherit; font-size: var(--k-text-xs); line-height: 1.8; }
+  .ax-yours :global(.codeblock) { margin: var(--k-space-2) 0 0; max-inline-size: 100%; }
+  .ax-yours :global(.copy-btn) { display: none; }
+
+  /* ── چک‌لیست ── */
+  .ax-list { display: grid; gap: var(--k-space-2); margin: var(--k-space-4) 0 var(--k-space-5); padding: var(--k-space-4) var(--k-space-5); list-style: none; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); }
+  .ax-list li { margin: 0; }
+  .ax-list .k-check__label { color: var(--k-text-secondary); font-weight: var(--k-weight-regular, 400); line-height: 1.8; }
+  .ax-list input:checked + .k-check__text .k-check__label { color: var(--k-text-tertiary); text-decoration: line-through; }
+
+  /* ── گزارش ── */
+  .ax-report { display: grid; grid-template-columns: auto 1fr auto; gap: var(--k-space-4); align-items: center; margin: var(--k-space-4) 0; padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: radial-gradient(100% 140% at 100% 0%, color-mix(in srgb, var(--k-brand-500) 12%, transparent), transparent 60%), var(--k-bg-elevated); }
+  .ax-report__icon { display: grid; place-items: center; inline-size: 3.25rem; block-size: 3.25rem; border-radius: 50%; background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+  .ax-report strong { color: var(--k-text-primary); }
+  .ax-report p { margin: var(--k-space-1) 0 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+
+  @media (max-width: 52rem) {
+    .ax-hero, .ax-gate, .ax-contrast, .ax-yours { grid-template-columns: minmax(0, 1fr); }
+    .ax-hero { padding: var(--k-space-6) var(--k-space-5); }
+    .ax-stats { grid-template-columns: repeat(2, 1fr); }
+    .ax-stats div:nth-child(3) { border-inline-start: 0; }
+    .ax-stats div:nth-child(n + 3) { border-block-start: 1px solid var(--k-border-secondary); }
+    .ax-keys li { grid-template-columns: 1fr; gap: var(--k-space-2); }
+    .ax-keys__k { justify-content: flex-start; }
+    .ax-report { grid-template-columns: 1fr; justify-items: start; }
+  }
+</style>
