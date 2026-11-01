@@ -1,0 +1,270 @@
+---
+// بخش‌های طراحی‌شدهٔ صفحهٔ Tailwind؛ داده‌ها از خود پکیج @kashi-ui/tailwind می‌آید تا با هر نسخه درست بماند.
+// متن راهنما در خود MDX است تا سرور MCP و llms.txt هم آن را داشته باشند.
+import tw from "@kashi-ui/tailwind/tokens.json";
+import twPkg from "../../../../packages/tailwind/package.json";
+import { iconSvg } from "@kashi-ui/icons";
+import { toFaDigits } from "@kashi-ui/persian";
+
+interface Props { part: "hero" | "order" | "swatches" | "palettes" | "shapes" }
+const { part } = Astro.props;
+const fa = (n: number) => toFaDigits(String(n));
+const ic = (name: string, size = 16) => iconSvg(name, { size }) ?? "";
+
+const semanticCount = tw.semantic.bg.length + tw.semantic.text.length + tw.semantic.border.length;
+const PALETTE_FA: Record<string, string> = { brand: "برند", firoozeh: "فیروزه", lajvard: "لاجورد", zafaran: "زعفران", anar: "انار", pesteh: "پسته", shab: "شب" };
+const palettes = Object.entries(tw.palette as Record<string, string[]>).sort(([a], [b]) => (a === "brand" ? -1 : b === "brand" ? 1 : 0));
+// پله‌های استاندارد ۵۰ تا ۹۵۰؛ طیف «شب» چند پلهٔ اضافه برای پس‌زمینهٔ تیره دارد که در جدول نمی‌آید
+const steps = palettes[0][1];
+---
+{part === "hero" && (
+  <section class="tw-hero" aria-label="معرفی">
+    <div class="tw-hero__glow" aria-hidden="true"></div>
+    <div class="tw-hero__copy">
+      <span class="tw-eyebrow"><span class="tw-eyebrow__mark" aria-hidden="true">~</span>پکیج تازه · <bdi dir="ltr">v{twPkg.version}</bdi></span>
+      <p class="tw-hero__title">توکن‌های کاشی، <span>به زبان Tailwind.</span></p>
+      <p class="tw-hero__text">رنگ‌ها، فونت، گردی و سایه‌های کاشی به‌شکل کلاس‌های آشنای Tailwind؛ همگام با تم تیره و روشن و رنگ برند شما، بدون حتی یک رنگ کپی‌شده.</p>
+      <div class="tw-cmd" dir="ltr">
+        <span aria-hidden="true">$</span>
+        <code>npm i @kashi-ui/tailwind</code>
+        <button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm tw-copy" aria-label="کپی دستور" data-copy="npm i @kashi-ui/tailwind" set:html={ic("copy", 18)} />
+      </div>
+      <ul class="tw-chips" role="list">
+        <li><span set:html={ic("check", 14)} />Tailwind 4 با یک خط CSS</li>
+        <li><span set:html={ic("check", 14)} />Tailwind 3 با پریست</li>
+        <li><span set:html={ic("check", 14)} />کامپوننت‌ها بدون تغییر</li>
+      </ul>
+    </div>
+
+    <div class="tw-compare">
+      <div class="tw-compare__row tw-compare__row--before">
+        <span class="tw-compare__label">بدون پریست</span>
+        <code dir="ltr">bg-[var(--k-bg-secondary)] p-4 rounded-[var(--k-radius-lg)] border-[var(--k-border-brand)]</code>
+      </div>
+      <div class="tw-compare__row tw-compare__row--after">
+        <span class="tw-compare__label">با پریست</span>
+        <code dir="ltr"><b>bg-secondary</b> p-4 <b>rounded-lg</b> border <b>border-brand</b></code>
+      </div>
+      <div class="tw-preview" aria-label="پیش‌نمایش زنده با رنگ‌های کاشی">
+        <div class="tw-preview__card">
+          <div class="tw-preview__head">
+            <span class="tw-preview__icon" set:html={ic("shopping-bag", 18)} />
+            <div><b>سفارش‌های امروز</b><small>۱۲ سفارش تازه</small></div>
+            <span class="k-badge k-badge--success k-badge--sm">+۸٪</span>
+          </div>
+          <div class="tw-preview__bar"><i></i></div>
+          <div class="tw-preview__foot">
+            <span class="k-btn k-btn--primary k-btn--sm">مشاهده</span>
+            <span class="k-btn k-btn--secondary k-btn--sm">گزارش</span>
+          </div>
+        </div>
+        <p class="tw-preview__note"><span aria-hidden="true">◐</span> پیش‌نمایش زنده؛ تم سایت را از بالای صفحه عوض کنید</p>
+      </div>
+    </div>
+
+    <dl class="tw-stats">
+      <div><dt>رنگ معنایی</dt><dd>{fa(semanticCount)}</dd></div>
+      <div><dt>طیف رنگ</dt><dd>{fa(palettes.length)}</dd></div>
+      <div><dt>نسخهٔ Tailwind</dt><dd><bdi dir="ltr">3 · 4</bdi></dd></div>
+      <div><dt>رنگ کپی‌شده</dt><dd>{fa(0)}</dd></div>
+    </dl>
+  </section>
+)}
+
+{part === "order" && (
+  <figure class="tw-order" aria-label="ترتیب import و لایه‌های CSS">
+    <figcaption class="tw-layers">
+      <span class="tw-layers__title">نتیجهٔ این ترتیب: اولویت لایه‌های CSS، از کم به زیاد</span>
+      <span class="tw-layers__row" dir="ltr">
+        <i>theme</i><i>base</i><i class="is-kashi">kashi</i><i>components</i><i class="is-win">utilities</i>
+      </span>
+      <span class="tw-layers__hint">کلاس‌های Tailwind (utilities) آخرند و همیشه برنده‌اند؛ پس <code dir="ltr">&lt;Button className="rounded-none"&gt;</code> واقعاً گوشه‌ها را تیز می‌کند.</span>
+    </figcaption>
+  </figure>
+)}
+
+{part === "swatches" && (
+  <div class="tw-sw">
+    <section aria-label="پس‌زمینه">
+      <h4>پس‌زمینه <code dir="ltr">bg-*</code></h4>
+      <ul role="list" class="tw-sw__grid">
+        {tw.semantic.bg.map((n) => (
+          <li><button type="button" class="tw-sw__tile" data-copy={`bg-${n}`} title={`کپی bg-${n}`}><span class="tw-sw__chip" style={`background: var(--k-bg-${n})`}></span><code dir="ltr">bg-{n}</code></button></li>
+        ))}
+      </ul>
+    </section>
+    <section aria-label="متن">
+      <h4>متن <code dir="ltr">text-*</code></h4>
+      <ul role="list" class="tw-sw__grid">
+        {tw.semantic.text.map((n) => (
+          <li><button type="button" class="tw-sw__tile" data-copy={`text-${n}`} title={`کپی text-${n}`}><span class="tw-sw__chip tw-sw__chip--text" style={`color: var(--k-text-${n}); background: ${n.startsWith("on-") ? `var(--k-bg-${n.slice(3)})` : "var(--k-bg-primary)"}`}>کاشی</span><code dir="ltr">text-{n}</code></button></li>
+        ))}
+      </ul>
+    </section>
+    <section aria-label="حاشیه">
+      <h4>حاشیه <code dir="ltr">border-*</code></h4>
+      <ul role="list" class="tw-sw__grid">
+        {tw.semantic.border.map((n) => (
+          <li><button type="button" class="tw-sw__tile" data-copy={`border-${n}`} title={`کپی border-${n}`}><span class="tw-sw__chip tw-sw__chip--border" style={`border-color: var(--k-border-${n})`}></span><code dir="ltr">border-{n}</code></button></li>
+        ))}
+      </ul>
+    </section>
+    <p class="tw-sw__note">روی هر نمونه بزنید تا نام کلاس کپی شود. رنگ‌ها زنده‌اند و با تم سایت عوض می‌شوند.</p>
+  </div>
+)}
+
+{part === "palettes" && (
+  <div class="tw-pal" role="table" aria-label="طیف رنگ‌ها">
+    <div class="tw-pal__row tw-pal__row--head" role="row">
+      <span role="columnheader"></span>
+      {steps.map((s) => <span role="columnheader" class="tw-pal__step">{fa(Number(s))}</span>)}
+    </div>
+    {palettes.map(([name, list]) => (
+      <div class="tw-pal__row" role="row">
+        <span role="rowheader" class="tw-pal__name"><b>{PALETTE_FA[name] ?? name}</b><code dir="ltr">{name}</code></span>
+        {list.filter((s) => steps.includes(s)).map((s) => (
+          <button type="button" role="cell" class="tw-pal__cell" style={`background: var(--k-${name}-${s})`} data-copy={`bg-${name}-${s}`} title={`bg-${name}-${s}`} aria-label={`کپی bg-${name}-${s}`}></button>
+        ))}
+      </div>
+    ))}
+  </div>
+)}
+
+{part === "shapes" && (
+  <div class="tw-shapes">
+    <section aria-label="گردی گوشه">
+      <h4>گردی گوشه <code dir="ltr">rounded-*</code></h4>
+      <ul role="list">
+        {tw.radius.map((r) => <li><span class="tw-shapes__box" style={`border-radius: var(--k-radius-${r})`}></span><code dir="ltr">rounded-{r}</code></li>)}
+      </ul>
+    </section>
+    <section aria-label="سایه">
+      <h4>سایه <code dir="ltr">shadow-*</code></h4>
+      <ul role="list">
+        {tw.shadow.map((s) => <li><span class="tw-shapes__box tw-shapes__box--shadow" style={`box-shadow: var(--k-shadow-${s})`}></span><code dir="ltr">shadow-{s}</code></li>)}
+      </ul>
+    </section>
+  </div>
+)}
+
+<style>
+  code { font-size: 0.8em; }
+  .tw-copy { flex: none; }
+  .tw-copy[data-copied] { color: var(--k-text-success); }
+
+  /* ───── هیرو ───── */
+  .tw-hero {
+    position: relative; isolation: isolate; overflow: clip;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--k-space-8); align-items: center;
+    margin-block: var(--k-space-2) var(--k-space-8); padding: clamp(1.5rem, 3.5vw, 2.5rem) clamp(1.25rem, 3vw, 2.25rem) 0;
+    border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-2xl, var(--k-radius-xl));
+    background: radial-gradient(circle at 1px 1px, var(--k-border-secondary) 1px, transparent 0) 0 0 / 1.25rem 1.25rem, var(--k-bg-secondary);
+  }
+  .tw-hero__glow { position: absolute; inset: -35% auto auto -15%; z-index: -1; inline-size: 34rem; block-size: 26rem; pointer-events: none;
+    background: radial-gradient(closest-side, color-mix(in srgb, #38bdf8 18%, transparent), transparent), radial-gradient(closest-side at 70% 70%, color-mix(in srgb, var(--k-text-brand) 18%, transparent), transparent); filter: blur(6px); }
+  .tw-eyebrow { display: inline-flex; align-items: center; gap: var(--k-space-2); padding: 0.25rem var(--k-space-3) 0.25rem 0.25rem; border: 1px solid color-mix(in srgb, #38bdf8 45%, var(--k-border-secondary)); border-radius: var(--k-radius-full); background: var(--k-bg-primary); color: var(--k-text-secondary); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+  .tw-eyebrow__mark { display: grid; place-items: center; inline-size: 1.25rem; block-size: 1.25rem; border-radius: 50%; background: linear-gradient(135deg, #38bdf8, var(--k-text-brand)); color: #fff; font: 700 0.875rem/1 var(--k-font-mono); }
+  .tw-eyebrow bdi { font-family: var(--k-font-mono); color: var(--k-text-tertiary); }
+  .tw-hero__title { margin: var(--k-space-4) 0 var(--k-space-3); color: var(--k-text-primary); font-size: clamp(1.6rem, 2.8vw, 2.25rem); font-weight: var(--k-weight-bold); line-height: 1.4; text-wrap: balance; }
+  .tw-hero__title span { background: linear-gradient(90deg, #38bdf8, var(--k-text-brand)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tw-hero__text { margin: 0; color: var(--k-text-tertiary); line-height: 1.95; }
+  .tw-cmd { display: flex; align-items: center; gap: var(--k-space-2); margin-block-start: var(--k-space-6); padding: var(--k-space-1) var(--k-space-1) var(--k-space-1) var(--k-space-4); border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); box-shadow: var(--k-shadow-sm); font: 600 0.875rem var(--k-font-mono); }
+  .tw-cmd > span { color: var(--k-text-brand); }
+  .tw-cmd code { flex: 1; min-inline-size: 0; padding: 0; border: 0; background: none; color: var(--k-text-primary); font-size: inherit; }
+  .tw-chips { display: flex; flex-wrap: wrap; gap: var(--k-space-2) var(--k-space-4); margin: var(--k-space-4) 0 0; padding: 0; list-style: none; color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+  .tw-chips li { display: inline-flex; align-items: center; gap: var(--k-space-1_5, 6px); margin: 0; }
+  .tw-chips span { display: grid; color: var(--k-text-success); }
+
+  .tw-compare { display: grid; gap: var(--k-space-2); }
+  .tw-compare__row { display: grid; gap: var(--k-space-1); padding: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); }
+  .tw-compare__label { font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+  .tw-compare__row--before .tw-compare__label { color: var(--k-text-error); }
+  .tw-compare__row--after { border-color: color-mix(in srgb, var(--k-text-success) 45%, var(--k-border-secondary)); }
+  .tw-compare__row--after .tw-compare__label { color: var(--k-text-success); }
+  .tw-compare code { padding: 0; border: 0; background: none; font-size: 0.75rem; line-height: 1.8; text-align: left; overflow-wrap: anywhere; }
+  .tw-compare__row--before code { color: var(--k-text-quaternary); text-decoration: line-through color-mix(in srgb, var(--k-text-error) 60%, transparent); }
+  .tw-compare__row--after code { color: var(--k-text-secondary); }
+  .tw-compare__row--after b { color: var(--k-text-brand); font-weight: var(--k-weight-semibold); }
+
+  .tw-preview { margin-block-start: var(--k-space-2); }
+  .tw-preview__card { display: grid; gap: var(--k-space-3); padding: var(--k-space-4); border: 1px solid var(--k-border-brand); border-radius: var(--k-radius-lg); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-md); }
+  .tw-preview__head { display: flex; align-items: center; gap: var(--k-space-3); }
+  .tw-preview__head > div { flex: 1; display: grid; }
+  .tw-preview__head b { color: var(--k-text-primary); font-size: var(--k-text-sm); }
+  .tw-preview__head small { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .tw-preview__icon { display: grid; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border-radius: var(--k-radius-md); background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+  .tw-preview__bar { block-size: 6px; border-radius: var(--k-radius-full); background: var(--k-bg-tertiary); overflow: hidden; }
+  .tw-preview__bar i { display: block; inline-size: 68%; block-size: 100%; border-radius: inherit; background: var(--k-bg-brand); }
+  .tw-preview__foot { display: flex; gap: var(--k-space-2); }
+  .tw-preview__note { margin: var(--k-space-2) 0 0; color: var(--k-text-quaternary); font-size: var(--k-text-xs); }
+
+  .tw-stats { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: var(--k-space-2) calc(clamp(1.25rem, 3vw, 2.25rem) * -1) 0; border-block-start: 1px solid var(--k-border-secondary); background: var(--k-bg-primary); }
+  .tw-stats > div { padding: var(--k-space-4) var(--k-space-5); }
+  .tw-stats > div + div { border-inline-start: 1px solid var(--k-border-secondary); }
+  .tw-stats dt { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .tw-stats dd { margin: var(--k-space-1) 0 0; color: var(--k-text-primary); font-size: var(--k-text-2xl); font-weight: var(--k-weight-bold); letter-spacing: -0.02em; }
+
+  /* ───── ترتیب import ───── */
+  .tw-order { display: grid; gap: var(--k-space-4); margin: var(--k-space-2) 0 var(--k-space-4); padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-secondary); }
+  .tw-layers { display: grid; gap: var(--k-space-2); }
+  .tw-layers__title { color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .tw-layers__row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+  .tw-layers__row i { position: relative; padding: var(--k-space-2) 0; border-radius: var(--k-radius-sm); background: var(--k-bg-tertiary); color: var(--k-text-tertiary); font: 600 0.75rem var(--k-font-mono); font-style: normal; text-align: center; }
+  .tw-layers__row i.is-kashi { background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+  .tw-layers__row i.is-win { background: linear-gradient(90deg, #38bdf8, var(--k-bg-brand)); color: #fff; }
+  .tw-layers__hint { color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.9; }
+
+  /* ───── نمونه‌رنگ‌ها ───── */
+  .tw-sw { display: grid; gap: var(--k-space-5); margin: var(--k-space-4) 0; }
+  .tw-sw h4, .tw-shapes h4 { display: flex; align-items: center; gap: var(--k-space-2); margin: 0 0 var(--k-space-3); color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .tw-sw h4 code, .tw-shapes h4 code { color: var(--k-text-tertiary); }
+  .tw-sw__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr)); gap: var(--k-space-2); margin: 0; padding: 0; list-style: none; }
+  .tw-sw__grid li { margin: 0; }
+  .tw-sw__tile { display: grid; gap: var(--k-space-2); inline-size: 100%; padding: var(--k-space-2); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); color: inherit; font: inherit; text-align: start; cursor: pointer; transition: border-color var(--k-duration-fast); }
+  .tw-sw__tile:hover { border-color: var(--k-border-brand); }
+  .tw-sw__tile:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+  .tw-sw__tile[data-copied] code { color: var(--k-text-success); }
+  .tw-sw__chip { display: grid; place-items: center; block-size: 2.75rem; border-radius: var(--k-radius-sm); box-shadow: inset 0 0 0 1px var(--k-border-secondary); }
+  .tw-sw__chip--text { font-size: var(--k-text-md); font-weight: var(--k-weight-bold); }
+  .tw-sw__chip--border { border: 2px solid; box-shadow: none; background: var(--k-bg-secondary); }
+  .tw-sw__tile code { padding: 0; border: 0; background: none; color: var(--k-text-secondary); font-size: 0.75rem; }
+  .tw-sw__note { margin: 0; color: var(--k-text-quaternary); font-size: var(--k-text-xs); }
+
+  /* ───── طیف‌ها ───── */
+  .tw-pal { display: grid; gap: 6px; margin: var(--k-space-4) 0; padding: var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); overflow-x: auto; }
+  .tw-pal__row { display: grid; grid-template-columns: 6.5rem repeat(11, minmax(1.75rem, 1fr)); align-items: center; gap: 4px; min-inline-size: 30rem; direction: ltr; }
+  .tw-pal__row--head span { color: var(--k-text-quaternary); font-size: 0.6875rem; text-align: center; }
+  .tw-pal__name { display: grid; direction: rtl; text-align: start; }
+  .tw-pal__name b { color: var(--k-text-primary); font-size: var(--k-text-sm); }
+  .tw-pal__name code { padding: 0; border: 0; background: none; color: var(--k-text-tertiary); font-size: 0.6875rem; }
+  .tw-pal__cell { block-size: 2.25rem; border: 0; border-radius: var(--k-radius-sm); box-shadow: inset 0 0 0 1px color-mix(in srgb, #000 10%, transparent); cursor: pointer; transition: transform var(--k-duration-fast); }
+  .tw-pal__cell:hover { transform: scale(1.12); position: relative; z-index: 1; }
+  .tw-pal__cell:focus-visible { outline: 2px solid var(--k-text-primary); outline-offset: 2px; }
+  .tw-pal__cell[data-copied] { outline: 2px solid var(--k-text-success); outline-offset: 2px; }
+
+  /* ───── گردی و سایه ───── */
+  .tw-shapes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-4); margin: var(--k-space-4) 0; }
+  .tw-shapes section { padding: var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-secondary); }
+  .tw-shapes ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.25rem, 1fr)); gap: var(--k-space-4) var(--k-space-3); margin: 0; padding: 0; list-style: none; }
+  .tw-shapes li { display: grid; justify-items: center; gap: var(--k-space-2); margin: 0; }
+  .tw-shapes__box { inline-size: 3.5rem; block-size: 3.5rem; border: 1px solid var(--k-border-brand); background: var(--k-bg-brand-subtle); }
+  .tw-shapes__box--shadow { border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-elevated); }
+  .tw-shapes section:last-child { background: var(--k-bg-primary); }
+  .tw-shapes code { padding: 0; border: 0; background: none; color: var(--k-text-tertiary); font-size: 0.625rem; white-space: nowrap; }
+
+  @media (max-width: 60rem) {
+    .tw-hero { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 40rem) {
+    .tw-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tw-stats > div:nth-child(3) { border-inline-start: 0; }
+    .tw-stats > div:nth-child(n + 3) { border-block-start: 1px solid var(--k-border-secondary); }
+    .tw-shapes { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
+
+<style is:global>
+  .tw-more { margin: var(--k-space-3) 0 var(--k-space-6); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-secondary); }
+  .tw-more > summary { padding: var(--k-space-3) var(--k-space-4); color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); cursor: pointer; }
+  .tw-more > p { margin: 0; padding: 0 var(--k-space-4) var(--k-space-4); line-height: 2.2; }
+</style>

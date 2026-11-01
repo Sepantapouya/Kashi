@@ -3,8 +3,11 @@ layout: ../../layouts/Docs.astro
 title: Tailwind
 description: رنگ‌ها، فونت، گردی گوشه و سایه‌های کاشی به‌شکل کلاس‌های Tailwind؛ همگام با تم تیره و روشن و رنگ برند شما.
 ---
+import TwKit from "../../components/TwKit.astro";
 
-با پریست `@kashi-ui/tailwind`، توکن‌های کاشی در پروژهٔ Tailwind شما به‌شکل کلاس‌های آشنا در دسترس‌اند. کامپوننت‌های کاشی همان‌طور که هستند کار می‌کنند و برای بخش‌های دلخواه صفحه، به‌جای `bg-[var(--k-bg-secondary)]` می‌نویسید `bg-secondary`.
+<TwKit part="hero" />
+
+با پریست `@kashi-ui/tailwind`، توکن‌های کاشی در پروژهٔ Tailwind شما به‌شکل کلاس‌های آشنا در دسترس‌اند. کامپوننت‌های کاشی همان‌طور که هستند کار می‌کنند و برای بخش‌های دلخواه صفحه، به‌جای `bg-[var(--k-bg-secondary)]` می‌نویسید `bg-secondary`:
 
 ```tsx
 <div className="bg-secondary border border-brand rounded-lg shadow-md p-4">
@@ -14,7 +17,7 @@ description: رنگ‌ها، فونت، گردی گوشه و سایه‌های �
 </div>
 ```
 
-کلاس‌ها کپی رنگ‌ها نیستند؛ همه به همان متغیرهای کاشی (`var(--k-…)`) اشاره می‌کنند. پس تم تیره و روشن، رنگ برندی که با `createTheme` ساخته‌اید و هر نسخهٔ جدید کاشی، بدون هیچ کاری روی کلاس‌های Tailwind هم اعمال می‌شود. ساختار کاشی هم هیچ تغییری نمی‌کند؛ این پکیج فقط یک پل است.
+کلاس‌ها کپی رنگ‌ها نیستند؛ همه به همان متغیرهای کاشی (`var(--k-…)`) اشاره می‌کنند. پس تم تیره و روشن، رنگ برندی که با `createTheme` ساخته‌اید و هر نسخهٔ جدید کاشی، بدون هیچ کاری روی کلاس‌های Tailwind هم اعمال می‌شود. ساختار کاشی هم تغییری نمی‌کند؛ این پکیج فقط یک پل است.
 
 ## نصب
 
@@ -24,7 +27,7 @@ npm i @kashi-ui/react @kashi-ui/css @kashi-ui/tailwind
 
 ### Tailwind 4
 
-در فایل CSS اصلی پروژه (مثلاً `app/globals.css`):
+در فایل CSS اصلی پروژه (مثلاً `app/globals.css`) این سه خط را **به همین ترتیب** بگذارید:
 
 ```css
 @import "@kashi-ui/tailwind";
@@ -32,11 +35,13 @@ npm i @kashi-ui/react @kashi-ui/css @kashi-ui/tailwind
 @import "@kashi-ui/css";
 ```
 
-> **ترتیب مهم است:** `@kashi-ui/tailwind` باید **اول** بیاید. این فایل ترتیب لایه‌های CSS را تعیین می‌کند تا کلاس‌های Tailwind همیشه بر استایل کامپوننت‌های کاشی برنده باشند؛ مثلاً `<Button className="rounded-none">` واقعاً گوشه‌ها را تیز کند. با ترتیب دیگر، استایل کاشی برنده می‌شود.
+<TwKit part="order" />
+
+> **ترتیب مهم است:** `@kashi-ui/tailwind` باید اول بیاید تا ترتیب لایه‌های CSS را تعیین کند و کلاس‌های Tailwind همیشه بر استایل کامپوننت‌های کاشی برنده باشند. با ترتیب دیگر، استایل کاشی برنده می‌شود و مثلاً `rounded-none` روی دکمه اثر نمی‌کند.
 
 ### Tailwind 3
 
-در `tailwind.config.js` پریست را اضافه کنید و CSS کاشی را مثل همیشه وارد کنید:
+در `tailwind.config.js` پریست را اضافه کنید و CSS کاشی را مثل همیشه وارد کنید. در Tailwind 3 کلاس‌ها بیرون از لایه‌ها ساخته می‌شوند و خودبه‌خود بر کاشی برنده‌اند:
 
 ```js
 module.exports = {
@@ -55,32 +60,37 @@ import "@kashi-ui/css";
 
 همان نام‌های توکن‌های کاشی، بدون پیشوند. این‌ها با تم تیره و روشن عوض می‌شوند و برای بیشتر رابط کاربری کافی‌اند.
 
-| کلاس | نمونه‌ها |
-|---|---|
-| `bg-*` | `bg-primary` · `bg-secondary` · `bg-tertiary` · `bg-elevated` · `bg-hover` · `bg-active` · `bg-brand` · `bg-brand-subtle` · `bg-success-subtle` · `bg-error-subtle` · `bg-warning-subtle` · `bg-info-subtle` |
-| `text-*` | `text-primary` · `text-secondary` · `text-tertiary` · `text-quaternary` · `text-brand` · `text-on-brand` · `text-success` · `text-error` · `text-warning` · `text-info` |
-| `border-*` | `border-primary` · `border-secondary` · `border-brand` · `border-error` · `border-input` |
+<TwKit part="swatches" />
 
-همهٔ حالت‌های Tailwind هم کار می‌کنند: `hover:bg-hover`، `focus:border-brand`، `md:bg-secondary`.
+<details class="tw-more">
+<summary>فهرست متنی همهٔ رنگ‌های معنایی</summary>
+
+پس‌زمینه `bg-primary`، `bg-secondary`، `bg-tertiary`، `bg-elevated`، `bg-hover`، `bg-active`، `bg-brand`، `bg-brand-hover`، `bg-brand-subtle`، `bg-error`، `bg-error-hover`، `bg-error-subtle`، `bg-warning-subtle`، `bg-success-subtle` و `bg-info-subtle`؛ متن `text-primary`، `text-secondary`، `text-tertiary`، `text-quaternary`، `text-on-brand`، `text-on-error`، `text-brand`، `text-error`، `text-warning`، `text-success` و `text-info`؛ حاشیه `border-primary`، `border-secondary`، `border-brand`، `border-input` و `border-error`. همهٔ حالت‌های Tailwind هم کار می‌کنند: `hover:bg-hover`، `focus:border-brand`، `md:bg-secondary`.
+
+</details>
 
 ### طیف رنگ‌ها
 
-طیف برند و رنگ‌های ایرانی کاشی، از ۵۰ تا ۹۵۰، با پشتیبانی از شفافیت (`bg-brand-500/50`):
+طیف برند و رنگ‌های ایرانی کاشی، از ۵۰ تا ۹۵۰، با پشتیبانی از شفافیت مثل `bg-brand-500/50`. روی هر خانه بزنید تا کلاسش کپی شود:
 
-| طیف | نمونه |
-|---|---|
-| `brand` | `bg-brand-500` · `text-brand-700`؛ همان رنگی که `createTheme` می‌سازد |
-| `firoozeh` (فیروزه) · `lajvard` (لاجورد) · `zafaran` (زعفران) · `anar` (انار) · `pesteh` (پسته) · `shab` (شب) | `bg-firoozeh-100` · `text-anar-600` · `border-lajvard-300` |
+<TwKit part="palettes" />
 
-### گردی، سایه و متن
+نام طیف‌ها: `brand` (همان رنگی که `createTheme` می‌سازد)، `firoozeh` (فیروزه)، `lajvard` (لاجورد)، `zafaran` (زعفران)، `anar` (انار)، `pesteh` (پسته) و `shab` (شب)؛ مثل `bg-firoozeh-100`، `text-anar-600` یا `border-lajvard-300`.
+
+### گردی و سایه
+
+<TwKit part="shapes" />
+
+ضریب گردی کاشی (`--k-radius-factor`) روی همهٔ `rounded-*` ها اعمال می‌شود.
+
+### متن، لایه و حرکت
 
 | گروه | کلاس‌ها |
 |---|---|
-| گردی گوشه | `rounded-sm` · `rounded-md` · `rounded-lg` · `rounded-xl` · `rounded-2xl` · `rounded-full`؛ ضریب `--k-radius-factor` روی همه اعمال می‌شود |
-| سایه | `shadow-xs` تا `shadow-2xl` و `shadow-skeuomorphic` |
 | فونت | `font-sans` (وزیرمتن یا فونت شما) · `font-display` · `font-mono` |
 | اندازهٔ متن | `text-xs` تا `text-6xl`، با ضریب `--k-text-scale` |
-| وزن و ارتفاع خط | `font-regular` تا `font-black` · `leading-tight` · `leading-normal` · `leading-relaxed` |
+| وزن | `font-light` · `font-regular` · `font-medium` · `font-semibold` · `font-bold` · `font-black` |
+| ارتفاع خط | `leading-tight` · `leading-normal` · `leading-relaxed` |
 | لایه | `z-dropdown` · `z-sticky` · `z-overlay` · `z-modal` · `z-toast` |
 | حرکت | `ease-standard` · `ease-emphasized` |
 

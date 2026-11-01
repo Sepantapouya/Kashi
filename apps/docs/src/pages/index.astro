@@ -148,12 +148,12 @@ const system = [
 ];
 
 const standards = [
-  { icon: ICON.contrast, title: "WCAG 2.2 AA", text: "کنتراست در هر بیلد بررسی می‌شود" },
-  { icon: ICON.tag, title: "SemVer", text: "Changesets و یادداشت انتشار" },
-  { icon: ICON.scale, title: "MIT", text: "استفادهٔ تجاری بدون محدودیت" },
-  { icon: ICON.layers, title: "React · Tailwind · CSS", text: "Next.js، Vite، Remix و HTML خالص" },
-  { icon: ICON.branch, title: "CI روی هر تغییر", text: "بیلد، تست و بررسی پکیج‌ها" },
-  { icon: ICON.figma, title: "Figma", text: "کیت هم‌خوان با کد" },
+  { icon: ICON.contrast, title: "WCAG 2.2 AA", text: "کنتراست در هر بیلد" },
+  { icon: ICON.tag, title: "SemVer", text: "یادداشت برای هر نسخه" },
+  { icon: ICON.scale, title: "MIT", text: "رایگان، حتی تجاری" },
+  { icon: ICON.layers, title: "React · Tailwind", text: "و HTML و CSS خالص" },
+  { icon: ICON.branch, title: "CI خودکار", text: "تست روی هر تغییر" },
+  { icon: ICON.figma, title: "Figma", text: "هم‌خوان با کد" },
 ];
 
 const enterprise = [
@@ -298,7 +298,7 @@ const chips = [
     <!-- ───── استانداردها ───── -->
     <section class="standards" aria-labelledby="standards-title">
       <div class="wrap">
-        <h2 id="standards-title" class="k-sr-only">استانداردها و تضمین‌ها</h2>
+        <h2 id="standards-title" class="standards__title">با هر نسخهٔ کاشی، این‌ها تضمین است</h2>
         <ul class="standards__list" role="list">
           {standards.map((x) => (
             <li>
@@ -877,14 +877,25 @@ const chips = [
   .sysmap__foot bdi { font-family: var(--k-font-mono); }
 
   /* نوار استانداردها */
-  .standards { border-block-end: 1px solid var(--k-border-secondary); background: var(--k-bg-secondary); }
-  .standards__list { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
-  .standards__list li { display: flex; align-items: center; gap: var(--k-space-3); padding: var(--k-space-6) var(--k-space-4); min-inline-size: 0; }
+  .standards { padding-block: clamp(2.5rem, 5vw, 3.5rem); border-block-end: 1px solid var(--k-border-secondary); }
+  .standards__title { margin: 0 0 var(--k-space-5); color: var(--k-text-tertiary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); text-align: center; }
+  .standards__list {
+    position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; overflow: clip;
+    border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl);
+    background: linear-gradient(180deg, var(--k-bg-secondary), var(--k-bg-primary));
+    box-shadow: var(--k-shadow-xs), var(--k-highlight, none);
+  }
+  /* خط نورانی بالای پنل */
+  .standards__list::before { content: ""; position: absolute; inset: 0 15% auto; block-size: 1px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--k-text-brand) 60%, transparent), transparent); }
+  .standards__list li { display: grid; justify-items: center; align-content: start; gap: var(--k-space-1); padding: var(--k-space-6) var(--k-space-3) var(--k-space-5); min-inline-size: 0; text-align: center; transition: background-color var(--k-duration-fast); }
   .standards__list li + li { border-inline-start: 1px solid var(--k-border-secondary); }
-  .standards__icon { display: grid; flex: none; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); color: var(--k-text-brand); }
-  .standards__icon svg { inline-size: 1.125rem; block-size: 1.125rem; }
-  .standards__list b { display: block; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); white-space: nowrap; }
-  .standards__list small { display: block; color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.6; }
+  .standards__list li:hover { background: color-mix(in srgb, var(--k-text-brand) 5%, transparent); }
+  .standards__icon { display: grid; flex: none; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; margin-block-end: var(--k-space-2); border: 1px solid color-mix(in srgb, var(--k-text-brand) 30%, var(--k-border-secondary)); border-radius: var(--k-radius-lg); background: var(--k-bg-brand-subtle); color: var(--k-text-brand); transition: transform var(--k-duration-normal) var(--k-ease-standard); }
+  .standards__list li:hover .standards__icon { transform: translateY(-2px); }
+  .standards__icon svg { inline-size: 1.25rem; block-size: 1.25rem; }
+  .standards__list li > span:last-child { display: grid; gap: 2px; max-inline-size: 100%; }
+  .standards__list b { display: block; color: var(--k-text-primary); font-size: var(--k-text-md); font-weight: var(--k-weight-bold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .standards__list small { display: block; color: var(--k-text-tertiary); font-size: var(--k-text-xs); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
   .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: clamp(3rem, 6vw, 4.5rem) 0 0; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); box-shadow: var(--k-shadow-xs); }
   .metrics__item { padding: var(--k-space-5) var(--k-space-6); }
