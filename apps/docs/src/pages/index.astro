@@ -517,6 +517,12 @@ const chips = [
           <h2 id="support-title">کاشی رایگان است، اما ساختنش هزینه دارد</h2>
           <p>طراحی، کدنویسی، تست دسترس‌پذیری و نگه‌داری مداوم کاشی با هزینهٔ شخصی انجام می‌شود. اگر کاشی به کار تیمتان آمده، با حمایت مالی به ادامهٔ آن کمک کنید.</p>
           <p class="support__how">برای حمایت، در تلگرام به <bdi dir="ltr">@{author.telegram.handle}</bdi> پیام بدهید.</p>
+          <dl class="ghstats" aria-label="آمار زندهٔ مخزن در GitHub">
+            <div><dt>ستاره</dt><dd data-gh-wait><span data-gh="stars">—</span></dd></div>
+            <div><dt>کلون از ابتدا</dt><dd data-gh-wait><span data-gh="clones">—</span></dd></div>
+            <div><dt>کلون‌کنندهٔ یکتا، ۱۴ روز</dt><dd data-gh-wait><span data-gh="uniques">—</span></dd></div>
+          </dl>
+          <p class="ghstats__note"><span class="ghstats__live" aria-hidden="true"></span> زنده از GitHub، هر ساعت به‌روز می‌شود · <span data-gh="updated">در حال دریافت…</span></p>
           <div class="support__actions">
             <a class="k-btn k-btn--primary" href={author.telegram.href} target="_blank" rel="noopener">پیام در تلگرام<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
             <a class="k-btn k-btn--secondary" href={author.repo} target="_blank" rel="noopener">ستاره در GitHub<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
@@ -903,6 +909,14 @@ const chips = [
   .author__links a:hover { color: var(--k-text-primary); text-decoration: underline; }
   .support__how { color: var(--k-text-secondary) !important; }
   .support__how bdi { color: var(--k-text-brand); font-family: var(--k-font-mono); }
+  .ghstats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--k-space-3); margin: var(--k-space-6) 0 0; }
+  .ghstats > div { padding: var(--k-space-3) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-secondary); }
+  .ghstats dt { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .ghstats dd { margin: var(--k-space-1) 0 0; color: var(--k-text-primary); font-size: var(--k-text-xl); font-weight: var(--k-weight-bold); font-variant-numeric: tabular-nums; }
+  .ghstats dd[data-gh-wait] { color: var(--k-text-quaternary); }
+  .ghstats__note { display: flex; align-items: center; gap: var(--k-space-2); margin: var(--k-space-3) 0 0 !important; font-size: var(--k-text-xs) !important; }
+  .ghstats__live { inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--k-text-success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--k-text-success) 25%, transparent); }
+  @media (max-width: 30rem) { .ghstats { grid-template-columns: minmax(0, 1fr); } }
   .support__actions { display: flex; flex-wrap: wrap; gap: var(--k-space-2); margin-block-start: var(--k-space-6); }
 
   /* ───── دعوت به عمل ───── */

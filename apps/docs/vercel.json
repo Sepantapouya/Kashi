@@ -3,5 +3,6 @@
   "installCommand": "npm ci --prefix ../..",
   "buildCommand": "npm run docs:build",
   "outputDirectory": "dist",
-  "trailingSlash": true
+  "trailingSlash": true,
+  "git": { "deploymentEnabled": { "stats": false } }
 }

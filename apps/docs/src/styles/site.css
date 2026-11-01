@@ -87,6 +87,12 @@ code, pre, kbd {
   background: var(--k-border-brand);
 }
 .site-header__end { margin-inline-start: auto; display: flex; align-items: center; gap: var(--k-space-1); }
+/* دکمهٔ GitHub با تعداد ستاره‌های زنده؛ تا رسیدن عدد فقط آیکون دیده می‌شود */
+.gh-btn { gap: 6px; padding-inline: 10px; min-inline-size: 2.5rem; justify-content: center; }
+.gh-btn > svg { inline-size: 1.125rem; block-size: 1.125rem; }
+.gh-btn__stars { display: inline-flex; align-items: center; gap: 3px; font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); font-variant-numeric: tabular-nums; color: var(--k-text-secondary); }
+.gh-btn__stars svg { inline-size: 0.8rem; block-size: 0.8rem; color: #e3b341; }
+.gh-btn__stars[data-gh-wait] { display: none; }
 .menu-btn { display: none; }
 .install-btn { margin-inline-start: var(--k-space-1); }
 @media (max-width: 26rem) { .install-btn { display: none; } }

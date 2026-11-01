@@ -1,0 +1,42 @@
+name: GitHub stats
+
+# هر ساعت آمار ستاره و کلون را در شاخهٔ stats (فقط یک فایل stats.json) می‌نویسد؛ سایت همان را زنده می‌خواند
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stats
+  cancel-in-progress: false
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: .github/scripts
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - name: Previous stats
+        run: git fetch --depth=1 origin stats && git show origin/stats:stats.json > stats.json || echo "first run"
+      - name: Collect
+        run: node .github/scripts/github-stats.mjs stats.json
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TRAFFIC_TOKEN: ${{ secrets.TRAFFIC_TOKEN }}
+      # شاخه همیشه یک کامیت دارد تا تاریخچه شلوغ نشود
+      - name: Publish to stats branch
+        run: |
+          mkdir out && cp stats.json out/ && cd out
+          git init -q -b stats
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add stats.json
+          git commit -qm "stats: $(date -u +%FT%TZ)"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" stats
