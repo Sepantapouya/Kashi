@@ -40,8 +40,6 @@ const ICON = {
   scale: "M10 3v14M5 17h10M3 7h14M5 7l-2.5 5a2.5 2.5 0 0 0 5 0L5 7Zm10 0-2.5 5a2.5 2.5 0 0 0 5 0L15 7Z",
 };
 
-const stacks = ["React", "TypeScript", "HTML", "Vue", "Svelte", "Angular", "Astro", "Figma"];
-
 const layers = [
   { tier: "طراحی", name: "Kashi UI Kit", kind: "پلاگین فیگما", text: "حدود ۲۷۰ Variable و بیش از ۷۰ کامپوننت، مستقیم از روی همین کد.", href: "/docs/figma/" },
   { tier: "پایه", name: "@kashi-ui/tokens", kind: "CSS · JSON · JS", text: "رنگ، فاصله، تایپوگرافی و سایه؛ یک منبع حقیقت برای طراحی و کد.", href: "/docs/theming/" },
@@ -136,6 +134,49 @@ const ghLive = [
   { key: "", label: "نسخهٔ منتشرشده", value: releases.totals.versions },
 ];
 
+// نقشهٔ اکوسیستم کنار هیرو؛ همهٔ پکیج‌ها با یک شمارهٔ نسخه منتشر می‌شوند
+const system = [
+  { name: "@kashi-ui/react", role: "کامپوننت‌های React با TypeScript", href: "/docs/components/" },
+  { name: "@kashi-ui/css", role: "استایل برای هر فریم‌ورک", href: "/docs/installation/" },
+  { name: "@kashi-ui/tokens", role: "توکن‌های طراحی و تم‌ساز", href: "/docs/theming/" },
+  { name: "@kashi-ui/persian", role: "تاریخ شمسی و اعتبارسنجی", href: "/docs/persian/utilities/" },
+  { name: "@kashi-ui/icons", role: `${fa(iconCount)} آیکون در شش سبک`, href: "/docs/icons/" },
+  { name: "@kashi-ui/bank-logos", role: "لوگوی بانک‌ها و درگاه‌ها", href: "/docs/persian/bank-logos/" },
+];
+
+const standards = [
+  { icon: ICON.contrast, title: "WCAG 2.2 AA", text: "کنتراست در هر بیلد بررسی می‌شود" },
+  { icon: ICON.tag, title: "SemVer", text: "Changesets و یادداشت انتشار" },
+  { icon: ICON.scale, title: "MIT", text: "استفادهٔ تجاری بدون محدودیت" },
+  { icon: ICON.layers, title: "React 18+ · CSS", text: "Next.js، Vite، Remix و HTML خالص" },
+  { icon: ICON.branch, title: "CI روی هر تغییر", text: "بیلد، تست و بررسی پکیج‌ها" },
+  { icon: ICON.figma, title: "Figma", text: "کیت هم‌خوان با کد" },
+];
+
+const enterprise = [
+  { icon: ICON.contrast, title: "چندبرندی با یک کتابخانه", text: "هر محصول یا زیربرند رنگ و شعاع خودش را با createTheme می‌گیرد؛ کامپوننت‌ها یکی می‌مانند و به‌روزرسانی یک‌جا انجام می‌شود." },
+  { icon: ICON.layers, title: "مهاجرت تدریجی، بدون بازنویسی", text: "استایل‌ها در Cascade Layer هستند و CSS فعلی شما همیشه برنده است؛ می‌شود صفحه‌به‌صفحه و پکیج‌به‌پکیج جلو رفت." },
+  { icon: ICON.branch, title: "یک زبان طراحی برای همهٔ پشته‌ها", text: "تیم‌های React از کامپوننت‌ها استفاده می‌کنند و بقیه از همان CSS و توکن‌ها؛ وب، پنل داخلی و سایت معرفی یک‌شکل می‌شوند." },
+  { icon: ICON.tag, title: "نگه‌داری شفاف و بلندمدت", text: "نسخه‌گذاری معنایی، یادداشت انتشار برای هر تغییر و تاریخچهٔ کامل نسخه‌ها؛ تغییر ناسازگار همیشه اعلام می‌شود." },
+  { icon: ICON.figma, title: "طراحی و کد از یک منبع", text: "کیت فیگما مستقیم از روی همین کد ساخته و با CSS زنده مقایسه می‌شود؛ تحویل طرح به توسعه بدون ترجمه." },
+  { icon: ICON.shield, title: "پشتیبانی مستقیم", text: "برای ارزیابی، راه‌اندازی یا سفارشی‌سازی در سازمانتان، مستقیم با نگه‌دارندهٔ کاشی در تماس باشید." },
+];
+const adoption = [
+  { title: "ارزیابی", text: "نصب در یک صفحهٔ آزمایشی و بررسی با تیم طراحی و توسعه." },
+  { title: "پایلوت", text: "ساخت یک بخش واقعی محصول با کامپوننت‌های کاشی." },
+  { title: "تم سازمان", text: "رنگ برند با createTheme و همان تم در کیت فیگما." },
+  { title: "گسترش", text: "مهاجرت تدریجی بقیهٔ محصول، بدون توقف توسعه." },
+];
+
+const faq = [
+  ["استفاده از کاشی در محصول تجاری آزاد است؟", "بله. کاشی با لایسنس MIT منتشر می‌شود و استفادهٔ تجاری و داخلی، تغییر و توزیع آن بدون محدودیت آزاد است. لوگوی بانک‌ها با CC0 و فونت وزیرمتن با OFL منتشر شده‌اند."],
+  ["تغییرات ناسازگار چطور اعلام می‌شود؟", "همهٔ پکیج‌ها با نسخه‌گذاری معنایی (SemVer) و Changesets منتشر می‌شوند و هر نسخه یادداشت انتشار دارد. تاریخچهٔ کامل در صفحهٔ نسخه‌ها هست."],
+  ["بدون React هم می‌شود از کاشی استفاده کرد؟", "بله. استایل همهٔ کامپوننت‌ها در @kashi-ui/css با CSS خالص است و توکن‌ها به شکل CSS Variables، JSON و JS در دسترس‌اند؛ پس در Vue، Svelte، Angular یا HTML ساده هم کار می‌کند."],
+  ["با Next.js و ابزارهای فعلی ما سازگار است؟", "کامپوننت‌ها با React نسخهٔ ۱۸ و بالاتر کار می‌کنند و با Next.js، Vite و Remix سازگارند. استایل‌ها در Cascade Layer هستند و با CSS فعلی پروژه تداخل نمی‌کنند."],
+  ["می‌توانیم برند خودمان را اعمال کنیم؟", "بله. با یک رنگ، createTheme طیف یازده‌پله‌ای برند را می‌سازد و همهٔ کامپوننت‌ها هماهنگ می‌شوند. شعاع گوشه‌ها، تراکم و فونت هم قابل تنظیم است و همین تم در کیت فیگما هم اعمال می‌شود."],
+  ["برای راه‌اندازی در سازمان پشتیبانی دارید؟", "گزارش مشکل و پیشنهاد در GitHub بررسی می‌شود. برای ارزیابی، راه‌اندازی یا سفارشی‌سازی سازمانی، در تلگرام مستقیم با نگه‌دارندهٔ کاشی صحبت کنید."],
+];
+
 const chips = [
   { icon: "calendar", label: "تقویم شمسی", value: "پنجشنبه ۷ آبان ۱۴۰۵" },
   { icon: "bank", label: "شبا معتبر", value: "IR06 0170 0000 …", ltr: true },
@@ -157,36 +198,63 @@ const chips = [
       <div class="hero__bg" aria-hidden="true"></div>
       <div class="hero__glow" aria-hidden="true"></div>
 
-      <div class="wrap hero__center">
-        <a class="hero__badge" href="/docs/icons/" data-enter style="--d: 0">
-          <span class="hero__badge-tag">تازه</span>
-          {fa(iconCount)} آیکون در شش سبک
-          <span aria-hidden="true">←</span>
-        </a>
-        <h1 id="hero-title" class="hero__title" data-enter style="--d: 1">
-          دیزاین‌سیستم محصولات فارسی،{" "}
-          <span class="hero__accent">از فیگما تا کد.</span>
-        </h1>
-        <p class="hero__lead" data-enter style="--d: 2">
-          کامپوننت‌ها، توکن‌ها و الگوهای راست‌به‌چپ و دسترس‌پذیر، به‌همراه ابزارهایی که فقط یک محصول ایرانی لازم دارد: تقویم شمسی، کد ملی، شبا، پلاک و بیشتر.
-        </p>
-        <div class="hero__actions" data-enter style="--d: 3">
-          <a class="k-btn k-btn--primary k-btn--lg hero__cta" href="/docs/">
-            شروع کنید
-            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-k-mirror=""><path d="M4 10h12m-5-5 5 5-5 5" /></svg>
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <a class="hero__badge" href="/docs/changelog/" data-enter style="--d: 0">
+            <span class="hero__badge-tag" dir="ltr">v{pkg.version}</span>
+            دیزاین‌سیستم سازمانی برای محصولات فارسی
+            <span aria-hidden="true">←</span>
           </a>
-          <a class="k-btn k-btn--secondary k-btn--lg" href="/docs/components/">مرور کامپوننت‌ها</a>
+          <h1 id="hero-title" class="hero__title" data-enter style="--d: 1">
+            زیرساخت طراحی یکپارچه برای{" "}
+            <span class="hero__accent">محصولات فارسی.</span>
+          </h1>
+          <p class="hero__lead" data-enter style="--d: 2">
+            کامپوننت‌ها، توکن‌ها و کیت فیگمای راست‌به‌چپ و دسترس‌پذیر، از یک منبع. همراه با ابزارهایی که فقط یک محصول ایرانی لازم دارد: تقویم شمسی، کد ملی، شبا و پلاک.
+          </p>
+          <div class="hero__actions" data-enter style="--d: 3">
+            <a class="k-btn k-btn--primary k-btn--lg hero__cta" href="/docs/">
+              شروع کنید
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-k-mirror=""><path d="M4 10h12m-5-5 5 5-5 5" /></svg>
+            </a>
+            <a class="k-btn k-btn--secondary k-btn--lg" href="#enterprise-title">برای سازمان‌ها</a>
+          </div>
+          <div class="hero__install" data-enter style="--d: 4"><Install /></div>
+          <div class="proof" data-enter style="--d: 5">
+            <a class="proof__gh" href={author.repo} target="_blank" rel="noopener">
+              <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+              <span><b data-gh="stars">{gh ? faNum(gh.stars) : "—"}</b> ستاره</span>
+              <span class="k-sr-only"> (در پنجرهٔ جدید)</span>
+            </a>
+            <span class="proof__item" data-gh-wait={gh?.clones?.total ? undefined : ""}><span class="proof__dot" aria-hidden="true"></span><b data-gh="clones">{gh?.clones?.total ? faNum(gh.clones.total) : "—"}</b> کلون از GitHub</span>
+          </div>
         </div>
-        <div class="hero__install" data-enter style="--d: 4"><Install /></div>
-        <div class="proof" data-enter style="--d: 5">
-          <a class="proof__gh" href={author.repo} target="_blank" rel="noopener">
-            <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-            <span><b data-gh="stars">{gh ? faNum(gh.stars) : "—"}</b> ستاره</span>
-            <span class="k-sr-only"> (در پنجرهٔ جدید)</span>
-          </a>
-          <span class="proof__item" data-gh-wait={gh?.clones?.total ? undefined : ""}><span class="proof__dot" aria-hidden="true"></span><b data-gh="clones">{gh?.clones?.total ? faNum(gh.clones.total) : "—"}</b> کلون از GitHub</span>
-          <span class="proof__item"><bdi class="proof__mono" dir="ltr">v{pkg.version} · MIT · WCAG 2.2 AA</bdi></span>
-        </div>
+
+        <aside class="sysmap" data-enter style="--d: 3" aria-labelledby="sysmap-title">
+          <header class="sysmap__head">
+            <span id="sysmap-title" class="sysmap__title">اکوسیستم کاشی</span>
+            <span class="sysmap__status"><span class="proof__dot" aria-hidden="true"></span>پایدار</span>
+          </header>
+          <ul class="sysmap__list" role="list">
+            {system.map((m) => (
+              <li>
+                <a class="sysmap__row" href={m.href}>
+                  <code dir="ltr">{m.name}</code>
+                  <span class="sysmap__role">{m.role}</span>
+                  <span class="sysmap__ver" dir="ltr">{pkg.version}</span>
+                </a>
+              </li>
+            ))}
+            <li>
+              <a class="sysmap__row" href="/docs/figma/">
+                <code dir="ltr">Kashi UI Kit</code>
+                <span class="sysmap__role">کیت و پلاگین فیگما</span>
+                <span class="sysmap__ver">Figma</span>
+              </a>
+            </li>
+          </ul>
+          <footer class="sysmap__foot">همهٔ پکیج‌ها با یک شمارهٔ نسخه منتشر می‌شوند · <bdi dir="ltr">SemVer · MIT</bdi></footer>
+        </aside>
       </div>
 
       <!-- عددها با شمارش زنده -->
@@ -224,18 +292,18 @@ const chips = [
       </div>
     </section>
 
-    <!-- ───── سازگاری ───── -->
-    <section class="stack" aria-labelledby="stack-title">
-      <div class="wrap stack__inner">
-        <h2 id="stack-title" class="stack__title">هماهنگ با پشتهٔ فنی تیم شما</h2>
-        <div class="marquee">
-          <ul class="stack__list" role="list">
-            {stacks.map((s) => <li dir="ltr">{s}</li>)}
-          </ul>
-          <ul class="stack__list" role="list" aria-hidden="true">
-            {stacks.map((s) => <li dir="ltr">{s}</li>)}
-          </ul>
-        </div>
+    <!-- ───── استانداردها ───── -->
+    <section class="standards" aria-labelledby="standards-title">
+      <div class="wrap">
+        <h2 id="standards-title" class="k-sr-only">استانداردها و تضمین‌ها</h2>
+        <ul class="standards__list" role="list">
+          {standards.map((x) => (
+            <li>
+              <span class="standards__icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={x.icon} /></svg></span>
+              <span><b dir="auto">{x.title}</b><small>{x.text}</small></span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
 
@@ -380,12 +448,52 @@ const chips = [
       </div>
     </section>
 
-    <!-- ───── ۰۴ کیفیت ───── -->
-    <section class="band band--alt" aria-labelledby="quality-title">
+    <!-- ───── ۰۴ برای سازمان‌ها ───── -->
+    <section class="band band--alt enterprise" aria-labelledby="enterprise-title">
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۴</span>کیفیت و نگه‌داری</p>
+            <p class="kicker"><span class="kicker__n">۰۴</span>برای سازمان‌ها</p>
+            <h2 id="enterprise-title">برای تیم‌هایی که در مقیاس می‌سازند</h2>
+          </div>
+          <p class="band__lead">چند محصول، چند تیم و یک زبان طراحی. کاشی طوری ساخته شده که بدون بازنویسی وارد محصول فعلی شود و سال‌ها قابل نگه‌داری بماند.</p>
+        </header>
+
+        <div class="ent">
+          <ul class="ent__grid" role="list">
+            {enterprise.map((x, i) => (
+              <li class="ent__item" data-reveal style={`--i: ${i}`}>
+                <span class="quality__icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d={x.icon} /></svg></span>
+                <h3>{x.title}</h3>
+                <p>{x.text}</p>
+              </li>
+            ))}
+          </ul>
+
+          <aside class="adopt" data-reveal aria-labelledby="adopt-title">
+            <p class="adopt__kicker">مسیر پیشنهادی</p>
+            <h3 id="adopt-title">پیاده‌سازی در سازمان، در چهار گام</h3>
+            <ol class="adopt__steps" role="list">
+              {adoption.map((a, i) => (
+                <li>
+                  <span class="adopt__n" aria-hidden="true">{fa(i + 1)}</span>
+                  <span><b>{a.title}</b><small>{a.text}</small></span>
+                </li>
+              ))}
+            </ol>
+            <a class="k-btn k-btn--primary adopt__cta" href={author.telegram.href} target="_blank" rel="noopener">گفتگو دربارهٔ استفادهٔ سازمانی<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+            <p class="adopt__note">پاسخ مستقیم از نگه‌دارندهٔ کاشی در تلگرام</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───── ۰۵ کیفیت ───── -->
+    <section class="band" aria-labelledby="quality-title">
+      <div class="wrap">
+        <header class="band__head" data-reveal>
+          <div>
+            <p class="kicker"><span class="kicker__n">۰۵</span>کیفیت و نگه‌داری</p>
             <h2 id="quality-title">کیفیت در فرایند ساخت، نه در وعده</h2>
           </div>
           <p class="band__lead">هر تغییر در کاشی از یک مسیر خودکار می‌گذرد. چیزی که این مسیر را رد نکند، به دست تیم شما نمی‌رسد.</p>
@@ -427,12 +535,12 @@ const chips = [
       </div>
     </section>
 
-    <!-- ───── ۰۵ مقایسه ───── -->
-    <section class="band" aria-labelledby="vs-title">
+    <!-- ───── ۰۶ مقایسه ───── -->
+    <section class="band band--alt" aria-labelledby="vs-title">
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۵</span>مقایسه</p>
+            <p class="kicker"><span class="kicker__n">۰۶</span>مقایسه</p>
             <h2 id="vs-title">کاشی در کنار دیزاین‌سیستم‌های جهانی</h2>
           </div>
           <p class="band__lead">بر اساس مستندات عمومی هر پروژه؛ با صداقت دربارهٔ جایی که کاشی بهترین انتخاب نیست.</p>
@@ -474,12 +582,12 @@ const chips = [
       </div>
     </section>
 
-    <!-- ───── ۰۶ متن‌باز ───── -->
-    <section class="band band--alt community" aria-labelledby="community-title">
+    <!-- ───── ۰۷ متن‌باز ───── -->
+    <section class="band community" aria-labelledby="community-title">
       <div class="wrap">
         <header class="band__head band__head--center" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۶</span>متن‌باز</p>
+            <p class="kicker"><span class="kicker__n">۰۷</span>متن‌باز</p>
             <h2 id="community-title">ساخته‌شده در فضای باز، با همراهی شما</h2>
           </div>
           <p class="band__lead">کد، نقشهٔ راه و همهٔ تصمیم‌ها در GitHub است. عددهای زیر زنده از خود GitHub می‌آیند و هر ساعت به‌روز می‌شوند.</p>
@@ -534,6 +642,25 @@ const chips = [
       </div>
     </section>
 
+    <!-- ───── پرسش‌های رایج ───── -->
+    <section class="band band--alt" aria-labelledby="faq-title">
+      <div class="wrap faq">
+        <header class="faq__head" data-reveal>
+          <p class="kicker"><span class="kicker__n">۰۸</span>پرسش‌های رایج</p>
+          <h2 id="faq-title">پیش از انتخاب کاشی</h2>
+          <p class="band__lead">پاسخ پرسش‌هایی که تیم‌ها معمولاً پیش از استفاده می‌پرسند. پرسش دیگری دارید؟ <a href={author.telegram.href} target="_blank" rel="noopener">در تلگرام بپرسید<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>.</p>
+        </header>
+        <div class="faq__list" data-reveal>
+          {faq.map(([q, a], i) => (
+            <details class="faq__item" open={i === 0}>
+              <summary>{q}<span class="faq__chev" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 5 5 5-5" /></svg></span></summary>
+              <p>{a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <!-- ───── شروع و دعوت به عمل ───── -->
     <section class="cta" aria-labelledby="cta-title">
       <div class="wrap">
@@ -547,7 +674,7 @@ const chips = [
             </div>
             <div class="cta__actions">
               <a class="k-btn k-btn--primary k-btn--lg" href="/docs/installation/">راهنمای نصب</a>
-              <a class="k-btn k-btn--secondary k-btn--lg" href={author.repo} target="_blank" rel="noopener">مشاهده در GitHub<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+              <a class="k-btn k-btn--secondary k-btn--lg" href={author.telegram.href} target="_blank" rel="noopener">گفتگو برای سازمان‌ها<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
             </div>
           </div>
           <ol class="steps" role="list">
@@ -654,8 +781,9 @@ const chips = [
       radial-gradient(24rem 14rem at 78% 55%, color-mix(in srgb, #3d5ef8 10%, transparent), transparent 70%);
     filter: blur(8px);
   }
-  .hero__center { display: grid; justify-items: center; text-align: center; }
-  .hero__center > * { max-inline-size: 100%; min-inline-size: 0; }
+  .hero__grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .hero__copy { display: grid; justify-items: start; min-inline-size: 0; }
+  .hero__copy > * { max-inline-size: 100%; min-inline-size: 0; }
   .hero__badge {
     display: inline-flex; align-items: center; gap: var(--k-space-2);
     padding: 0.3rem var(--k-space-3) 0.3rem 0.3rem;
@@ -667,10 +795,10 @@ const chips = [
   .hero__badge:hover { border-color: var(--k-border-brand); color: var(--k-text-primary); }
   .hero__badge-tag { padding: 0.125rem 0.625rem; border-radius: var(--k-radius-full); background: var(--k-bg-brand); color: var(--k-text-on-brand, #fff); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
   .hero__title {
-    max-inline-size: 18ch;
+    max-inline-size: 16ch;
     margin-block: var(--k-space-6) var(--k-space-5);
     color: var(--k-text-primary);
-    font-size: clamp(2.4rem, 6.2vw, 4.5rem);
+    font-size: clamp(2.25rem, 4.6vw, 3.75rem);
     font-weight: var(--k-weight-bold);
     line-height: 1.22;
     letter-spacing: -0.01em;
@@ -678,11 +806,11 @@ const chips = [
   }
   .hero__accent { color: var(--k-text-brand); }
   .hero__lead { inline-size: min(100%, 40rem); max-inline-size: 40rem; margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-lg); line-height: 1.95; text-wrap: pretty; }
-  .hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--k-space-3); margin-block-start: var(--k-space-8); }
+  .hero__actions { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--k-space-3); margin-block-start: var(--k-space-7, 1.75rem); }
   .hero__cta { position: relative; overflow: hidden; }
   .hero__cta::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.35) 50%, transparent 70%); translate: 120% 0; pointer-events: none; }
   .hero__install { inline-size: min(100%, 26rem); margin-block-start: var(--k-space-4); text-align: start; }
-  .proof { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--k-space-2) var(--k-space-5); margin-block-start: var(--k-space-6); color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .proof { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: var(--k-space-2) var(--k-space-5); margin-block-start: var(--k-space-6); color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
   .proof b { color: var(--k-text-primary); font-weight: var(--k-weight-bold); font-variant-numeric: tabular-nums; }
   .proof__gh { display: inline-flex; align-items: center; gap: var(--k-space-2); padding: 0.35rem var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); background: var(--k-bg-primary); color: inherit; text-decoration: none; transition: border-color var(--k-duration-fast); }
   .proof__gh:hover { border-color: var(--k-border-brand); }
@@ -693,6 +821,31 @@ const chips = [
   .proof__item + .proof__item::before, .proof__gh + .proof__item::before { content: ""; inline-size: 1px; block-size: 1rem; margin-inline-end: var(--k-space-3); background: var(--k-border-primary); }
   .proof__mono { font-family: var(--k-font-mono); font-size: var(--k-text-xs); }
   .proof__dot { inline-size: 7px; block-size: 7px; border-radius: 50%; background: var(--k-text-success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--k-text-success) 22%, transparent); }
+
+  /* نقشهٔ اکوسیستم کنار هیرو */
+  .sysmap { border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-xl); background: color-mix(in srgb, var(--k-bg-primary) 88%, transparent); box-shadow: var(--k-shadow-xl); backdrop-filter: blur(8px); overflow: clip; }
+  .sysmap__head { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-3); padding: var(--k-space-4) var(--k-space-5); border-block-end: 1px solid var(--k-border-secondary); }
+  .sysmap__title { color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .sysmap__status { display: inline-flex; align-items: center; gap: var(--k-space-2); padding: 0.125rem var(--k-space-2); border-radius: var(--k-radius-full); background: var(--k-bg-success-subtle); color: var(--k-text-success); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+  .sysmap__list { margin: 0; padding: var(--k-space-2); list-style: none; }
+  .sysmap__row { display: grid; grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto; align-items: center; gap: var(--k-space-3); padding: var(--k-space-2_5, 0.625rem) var(--k-space-3); border-radius: var(--k-radius-md); color: inherit; text-decoration: none; transition: background-color var(--k-duration-fast); }
+  .sysmap__row:hover { background: var(--k-bg-hover); }
+  .sysmap__row:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+  .sysmap__row code { color: var(--k-text-primary); font-size: 0.8125rem; font-weight: var(--k-weight-semibold); white-space: nowrap; }
+  .sysmap__role { overflow: hidden; color: var(--k-text-tertiary); font-size: var(--k-text-xs); white-space: nowrap; text-overflow: ellipsis; }
+  .sysmap__ver { padding: 0 var(--k-space-2); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-sm); color: var(--k-text-tertiary); font: 0.6875rem var(--k-font-mono); }
+  .sysmap__foot { padding: var(--k-space-3) var(--k-space-5); border-block-start: 1px solid var(--k-border-secondary); background: var(--k-bg-secondary); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .sysmap__foot bdi { font-family: var(--k-font-mono); }
+
+  /* نوار استانداردها */
+  .standards { border-block-end: 1px solid var(--k-border-secondary); background: var(--k-bg-secondary); }
+  .standards__list { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+  .standards__list li { display: flex; align-items: center; gap: var(--k-space-3); padding: var(--k-space-6) var(--k-space-4); min-inline-size: 0; }
+  .standards__list li + li { border-inline-start: 1px solid var(--k-border-secondary); }
+  .standards__icon { display: grid; flex: none; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); color: var(--k-text-brand); }
+  .standards__icon svg { inline-size: 1.125rem; block-size: 1.125rem; }
+  .standards__list b { display: block; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); white-space: nowrap; }
+  .standards__list small { display: block; color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.6; }
 
   .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: clamp(3rem, 6vw, 4.5rem) 0 0; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); box-shadow: var(--k-shadow-xs); }
   .metrics__item { padding: var(--k-space-5) var(--k-space-6); }
@@ -716,9 +869,6 @@ const chips = [
   /* نوار پیشرفت خواندن */
   .scroll-progress { position: fixed; inset: 0 0 auto; z-index: 60; block-size: 2px; background: var(--k-text-brand); transform-origin: 100% 50%; scale: 0 1; pointer-events: none; }
 
-  /* نوار فناوری‌ها: مارکی بی‌پایان */
-  .marquee { display: flex; flex: 1; gap: var(--k-space-10); overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-  .marquee .stack__list { flex: none; flex-wrap: nowrap; justify-content: flex-start; min-inline-size: max-content; gap: var(--k-space-10); }
 
   /* کارت‌های نورافکن */
   :global(.spot) { position: relative; }
@@ -732,8 +882,6 @@ const chips = [
     .hero__cta:hover::after { translate: -120% 0; transition: translate 0.8s var(--k-ease-standard); }
     .chip { animation: float 6s ease-in-out infinite; }
     .chip--2 { animation-delay: -1.5s; } .chip--3 { animation-delay: -3s; } .chip--4 { animation-delay: -4.5s; }
-    .marquee .stack__list { animation: marquee 32s linear infinite; }
-    .marquee:hover .stack__list { animation-play-state: paused; }
     .iconset__grid.is-swapping .iconset__glyph:not([hidden]) { animation: pop 0.45s var(--k-ease-standard) both; animation-delay: calc(var(--i, 0) * 14ms); }
     .iconset__cell:hover :global(svg) { scale: 1.15; }
     .iconset__glyph :global(svg) { transition: scale 0.2s var(--k-ease-standard); }
@@ -742,7 +890,6 @@ const chips = [
     }
   }
   @keyframes float { 50% { translate: 0 -0.5rem; } }
-  @keyframes marquee { to { translate: calc(100% + var(--k-space-10)) 0; } }
   @keyframes pop { from { opacity: 0; scale: 0.6; } }
   @keyframes progress { to { scale: 1 1; } }
   @media (max-width: 64rem) {
@@ -757,12 +904,6 @@ const chips = [
     .chips { display: none; }
   }
 
-  .stack { border-block-end: 1px solid var(--k-border-secondary); }
-  .stack__inner { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-4) var(--k-space-10); padding-block: var(--k-space-8); }
-  .stack__title { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); }
-  .stack__list { display: flex; flex-wrap: wrap; flex: 1; justify-content: space-between; gap: var(--k-space-4) var(--k-space-8); margin: 0; padding: 0; list-style: none; }
-  .stack__list li { color: var(--k-text-quaternary); font-size: var(--k-text-lg); font-weight: var(--k-weight-bold); letter-spacing: -0.01em; transition: color var(--k-duration-fast); }
-  .stack__list li:hover { color: var(--k-text-primary); }
 
   /* ───── بخش‌ها ───── */
   .band { padding-block: clamp(4.5rem, 9vw, 7rem); border-block-end: 1px solid var(--k-border-secondary); }
@@ -880,6 +1021,38 @@ const chips = [
   .tok-s { color: var(--k-text-warning); transition: color var(--k-duration-normal); }
   .tok-n { color: var(--k-text-info); }
 
+  /* ───── برای سازمان‌ها ───── */
+  .ent { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: var(--k-space-6); align-items: start; }
+  .ent__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-4); margin: 0; padding: 0; list-style: none; }
+  .ent__item { padding: var(--k-space-6); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); }
+  .ent__item h3 { margin: var(--k-space-4) 0 var(--k-space-2); color: var(--k-text-primary); font-size: var(--k-text-md); font-weight: var(--k-weight-semibold); }
+  .ent__item p { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.9; }
+  .adopt { position: sticky; inset-block-start: calc(var(--header-h) + 1.5rem); display: grid; gap: var(--k-space-3); padding: clamp(1.5rem, 3vw, 2rem); border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); box-shadow: var(--k-shadow-lg); }
+  .adopt__kicker { margin: 0; color: var(--k-text-brand); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+  .adopt h3 { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-lg); font-weight: var(--k-weight-bold); line-height: 1.5; }
+  .adopt__steps { position: relative; display: grid; gap: var(--k-space-4); margin: var(--k-space-3) 0 var(--k-space-2); padding: 0; list-style: none; }
+  .adopt__steps::before { content: ""; position: absolute; inset-block: 0.75rem; inset-inline-start: 0.8125rem; inline-size: 1px; background: var(--k-border-primary); }
+  .adopt__steps li { position: relative; display: flex; gap: var(--k-space-3); }
+  .adopt__n { display: grid; flex: none; place-items: center; inline-size: 1.75rem; block-size: 1.75rem; border: 1px solid var(--k-border-brand); border-radius: 50%; background: var(--k-bg-primary); color: var(--k-text-brand); font-size: var(--k-text-xs); font-weight: var(--k-weight-bold); }
+  .adopt__steps b { display: block; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .adopt__steps small { display: block; color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.8; }
+  .adopt__cta { justify-content: center; }
+  .adopt__note { margin: 0; color: var(--k-text-quaternary); font-size: var(--k-text-xs); text-align: center; }
+
+  /* ───── پرسش‌های رایج ───── */
+  .faq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+  .faq__head h2 { margin: var(--k-space-3) 0 var(--k-space-4); color: var(--k-text-primary); font-size: clamp(var(--k-text-2xl), 3.4vw, 2.5rem); font-weight: var(--k-weight-bold); line-height: 1.35; }
+  .faq__list { border-block-start: 1px solid var(--k-border-secondary); }
+  .faq__item { border-block-end: 1px solid var(--k-border-secondary); }
+  .faq__item summary { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-4); padding: var(--k-space-5) 0; color: var(--k-text-primary); font-weight: var(--k-weight-semibold); cursor: pointer; list-style: none; }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary:hover { color: var(--k-text-brand); }
+  .faq__item summary:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); border-radius: var(--k-radius-sm); }
+  .faq__chev { display: grid; flex: none; place-items: center; inline-size: 1.75rem; block-size: 1.75rem; border: 1px solid var(--k-border-secondary); border-radius: 50%; color: var(--k-text-tertiary); transition: rotate var(--k-duration-normal) var(--k-ease-standard); }
+  .faq__chev svg { inline-size: 1rem; block-size: 1rem; }
+  .faq__item[open] .faq__chev { rotate: 180deg; color: var(--k-text-brand); }
+  .faq__item p { margin: 0; padding-block-end: var(--k-space-5); color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 2; }
+
   /* ───── کیفیت ───── */
   .quality { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--k-space-6); align-items: start; }
   .quality__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; border-block-start: 1px solid var(--k-border-secondary); border-inline-start: 1px solid var(--k-border-secondary); }
@@ -989,7 +1162,11 @@ const chips = [
 
   /* ───── واکنش‌گرا ───── */
   @media (max-width: 64rem) {
-    .arch, .quality, .people { grid-template-columns: minmax(0, 1fr); }
+    .arch, .quality, .people, .ent, .faq, .hero__grid { grid-template-columns: minmax(0, 1fr); }
+    .adopt { position: static; }
+    .standards__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .standards__list li:nth-child(4) { border-inline-start: 0; }
+    .standards__list li:nth-child(n + 4) { border-block-start: 1px solid var(--k-border-secondary); }
     .ci { position: static; }
     .product :global(.app) { grid-template-columns: minmax(0, 1fr); }
     .product :global(.app__nav) { display: none; }
@@ -1000,13 +1177,18 @@ const chips = [
   }
   @media (max-width: 48rem) {
     .band__head { grid-template-columns: minmax(0, 1fr); }
-    .quality__grid { grid-template-columns: minmax(0, 1fr); }
+    .quality__grid, .ent__grid { grid-template-columns: minmax(0, 1fr); }
+    .standards__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .standards__list li:nth-child(n) { border-inline-start: 0; border-block-start: 1px solid var(--k-border-secondary); }
+    .standards__list li:nth-child(even) { border-inline-start: 1px solid var(--k-border-secondary); }
+    .standards__list li:nth-child(-n + 2) { border-block-start: 0; }
+    .standards__list li { padding: var(--k-space-4) var(--k-space-3); }
+    .sysmap__role { display: none; }
     .steps { grid-template-columns: minmax(0, 1fr); }
     .bento > .tile { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr); }
     .step + .step { border-inline-start: 0; border-block-start: 1px solid var(--k-border-secondary); }
     .arch__layer { grid-template-columns: minmax(0, 1fr); gap: var(--k-space-1); }
     .arch__layer:not(:last-child)::after { display: none; }
-    .stack__list { justify-content: flex-start; }
     .author { grid-template-columns: minmax(0, 1fr); }
     .product :global(.app__stats) { grid-template-columns: minmax(0, 1fr); }
     .product :global(.app__table) :is(th, td):nth-child(2) { display: none; }
@@ -1097,7 +1279,7 @@ const chips = [
     tilt?.addEventListener("pointerleave", () => { tilt.style.transform = ""; });
 
     // نورافکن روی کارت‌ها
-    document.querySelectorAll<HTMLElement>(".quality__item, .step, .vs, .arch, .tile, .iconset, .author, .support, .metrics, .live").forEach((card) => {
+    document.querySelectorAll<HTMLElement>(".quality__item, .ent__item, .step, .vs, .arch, .tile, .iconset, .author, .support, .metrics, .live, .adopt").forEach((card) => {
       card.classList.add("spot");
       card.addEventListener("pointermove", (e) => {
         const r = card.getBoundingClientRect();
