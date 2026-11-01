@@ -53,16 +53,6 @@ code, pre, kbd {
 .brand .logo-mark { transition: rotate 0.6s var(--k-ease-emphasized); }
 .brand:hover .logo-mark { rotate: 45deg; }
 .brand__name { font-size: var(--k-text-xl); font-weight: var(--k-weight-black); }
-.version {
-  padding: 0.125rem 0.5rem;
-  border: 1px solid var(--k-border-secondary);
-  border-radius: var(--k-radius-full);
-  color: var(--k-text-tertiary);
-  font: 600 0.7rem var(--k-font-mono);
-  text-decoration: none;
-  transition: color var(--k-duration-fast), border-color var(--k-duration-fast);
-}
-.version:hover { border-color: var(--k-border-primary); color: var(--k-text-primary); }
 .site-nav { display: flex; gap: 2px; margin-inline-start: var(--k-space-5); }
 .site-nav a {
   position: relative;
@@ -86,6 +76,37 @@ code, pre, kbd {
   border-radius: 2px;
   background: var(--k-border-brand);
 }
+/* منوی ابزارها در سربرگ */
+.nav-menu { position: relative; }
+.nav-menu__btn {
+  position: relative; display: inline-flex; align-items: center; gap: 4px;
+  padding: var(--k-space-2) var(--k-space-3); border: 0; border-radius: var(--k-radius-md); background: none;
+  color: var(--k-text-tertiary); font: inherit; font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); cursor: pointer;
+  transition: color var(--k-duration-fast), background-color var(--k-duration-fast);
+}
+.nav-menu__btn:hover, .nav-menu__btn[aria-expanded="true"] { color: var(--k-text-primary); background: var(--k-bg-hover); }
+.nav-menu__btn:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.nav-menu__btn[data-active] { color: var(--k-text-primary); }
+.nav-menu__btn[data-active]::after { content: ""; position: absolute; inset-inline: var(--k-space-3); inset-block-end: calc((var(--header-h) - 2.25rem) / -2); block-size: 2px; border-radius: 2px; background: var(--k-border-brand); }
+.nav-menu__chev { transition: rotate var(--k-duration-normal) var(--k-ease-standard); }
+.nav-menu__btn[aria-expanded="true"] .nav-menu__chev { rotate: 180deg; }
+.nav-menu__panel {
+  position: absolute; inset-block-start: calc(100% + 0.5rem); inset-inline-start: 0; z-index: 10;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; inline-size: 38rem; max-inline-size: calc(100vw - 2rem); padding: var(--k-space-2);
+  border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-xl);
+}
+.nav-menu__panel[hidden] { display: none; }
+@media (prefers-reduced-motion: no-preference) { .nav-menu__panel:not([hidden]) { animation: nav-in 0.16s var(--k-ease-standard); } }
+@keyframes nav-in { from { opacity: 0; translate: 0 -4px; } }
+/* white-space: پیوندهای .site-nav یک‌خطی‌اند؛ توضیح ابزارها باید بشکند */
+.nav-menu__item { display: flex; align-items: flex-start; gap: var(--k-space-3); min-inline-size: 0; padding: var(--k-space-3); white-space: normal; border-radius: var(--k-radius-lg); color: inherit; text-decoration: none; transition: background-color var(--k-duration-fast); }
+.nav-menu__item:hover, .nav-menu__item:focus-visible { background: var(--k-bg-hover); outline: none; }
+.nav-menu__item:focus-visible { box-shadow: inset 0 0 0 2px var(--k-border-brand); }
+.nav-menu__item[aria-current="page"] { background: var(--k-bg-brand-subtle); }
+.nav-menu__icon { display: grid; flex: none; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); color: var(--k-text-brand); }
+.nav-menu__body { display: grid; gap: 2px; min-inline-size: 0; }
+.nav-menu__body b { color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+.nav-menu__body small { color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.6; }
 .site-header__end { margin-inline-start: auto; display: flex; align-items: center; gap: var(--k-space-1); }
 /* دکمهٔ GitHub با تعداد ستاره‌های زنده؛ تا رسیدن عدد فقط آیکون دیده می‌شود */
 .gh-btn { gap: 6px; padding-inline: 10px; min-inline-size: 2.5rem; justify-content: center; }
@@ -251,8 +272,8 @@ code, pre, kbd {
   .search-btn { inline-size: 2.25rem; padding: 0; justify-content: center; margin-inline-end: 0; border-color: transparent; background: none; box-shadow: none; }
   .search-btn__text, .search-btn__kbd { display: none; }
 }
-/* هفت پیوند سربرگ زیر این عرض جا نمی‌شوند؛ به منوی کشویی می‌روند */
-@media (max-width: 64rem) {
+/* پیوندهای سربرگ زیر این عرض جا نمی‌شوند؛ به منوی کشویی می‌روند */
+@media (max-width: 52rem) {
   .menu-btn { display: inline-flex; }
   .site-nav { display: none; }
 }
@@ -261,7 +282,6 @@ code, pre, kbd {
   .docs__sidebar { display: none; }
   .menu-btn { display: inline-flex; }
   .site-nav { display: none; }
-  .version { display: none; }
   .docs__main { padding-block-start: var(--k-space-6); }
 }
 

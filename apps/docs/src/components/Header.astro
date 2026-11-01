@@ -1,22 +1,25 @@
 ---
 import { iconSvg } from "@kashi-ui/icons";
 import Logo from "./Logo.astro";
-import pkg from "@kashi-ui/react/package.json";
 import { author } from "../data/author";
 import Sidebar from "./Sidebar.astro";
 import SiteSearch from "./SiteSearch";
 
 const path = Astro.url.pathname;
+// پیوندهای اصلی کم و ثابت؛ ابزارها در یک منوی کشویی تا سربرگ شلوغ نشود
 const links = [
-  { href: "/docs/", label: "مستندات", match: (p: string) => p.startsWith("/docs/") && !/^\/docs\/(components|persian|theming|icons|figma|ai|compare)\//.test(p) },
+  { href: "/docs/", label: "مستندات", match: (p: string) => p.startsWith("/docs/") && !/^\/docs\/(components|persian|theming|icons|figma|ai|tailwind)\//.test(p) },
   { href: "/docs/components/", label: "کامپوننت‌ها", match: (p: string) => p.startsWith("/docs/components/") },
   { href: "/docs/persian/", label: "فارسی", match: (p: string) => p.startsWith("/docs/persian/") },
-  { href: "/docs/theming/", label: "تم‌ساز", match: (p: string) => p.startsWith("/docs/theming/") },
   { href: "/docs/icons/", label: "آیکون‌ها", match: (p: string) => p.startsWith("/docs/icons/") },
-  { href: "/docs/figma/", label: "پلاگین فیگما", match: (p: string) => p.startsWith("/docs/figma/") },
-  { href: "/docs/ai/", label: "MCP", match: (p: string) => p.startsWith("/docs/ai/") },
-  { href: "/docs/compare/", label: "مقایسه", match: (p: string) => p.startsWith("/docs/compare/") },
 ];
+const tools = [
+  { href: "/docs/theming/", icon: "palette", label: "تم‌ساز", text: "رنگ برند، گردی و تراکم را زنده بسازید" },
+  { href: "/docs/tailwind/", icon: "wind", label: "Tailwind", text: "توکن‌های کاشی به‌شکل کلاس‌های Tailwind" },
+  { href: "/docs/figma/", icon: "pen-tool", label: "پلاگین فیگما", text: "کل کیت با یک کلیک در فایل شما" },
+  { href: "/docs/ai/", icon: "ai-chat", label: "سرور MCP", text: "کاشی در دستیار هوش مصنوعی شما" },
+];
+const toolActive = tools.some((t) => path.startsWith(t.href));
 ---
 <header class="site-header">
   <div class="site-header__inner">
@@ -27,12 +30,25 @@ const links = [
       <Logo />
       <span class="brand__name" aria-hidden="true">کاشی</span>
     </a>
-    <a class="version" href={`${author.repo}/releases`} target="_blank" rel="noopener" dir="ltr">v{pkg.version}<span class="k-sr-only"> (یادداشت‌های انتشار، در پنجرهٔ جدید)</span></a>
 
     <nav class="site-nav" aria-label="اصلی">
       {links.map((l) => (
         <a href={l.href} aria-current={l.match(path) ? "page" : undefined}>{l.label}</a>
       ))}
+      <div class="nav-menu" data-nav-menu>
+        <button type="button" class="nav-menu__btn" aria-expanded="false" aria-controls="tools-menu" data-active={toolActive ? "" : undefined}>
+          ابزارها
+          <Fragment set:html={iconSvg("chevron-down", { size: 16, className: "nav-menu__chev" })} />
+        </button>
+        <div class="nav-menu__panel" id="tools-menu" hidden>
+          {tools.map((t) => (
+            <a class="nav-menu__item" href={t.href} aria-current={path.startsWith(t.href) ? "page" : undefined}>
+              <span class="nav-menu__icon" set:html={iconSvg(t.icon, { size: 20 })} />
+              <span class="nav-menu__body"><b>{t.label}</b><small>{t.text}</small></span>
+            </a>
+          ))}
+        </div>
+      </div>
     </nav>
 
     <div class="site-header__end">
@@ -65,4 +81,34 @@ const links = [
 
 <script>
   import "../scripts/github-stats";
+
+  // منوی «ابزارها»: کلیک یا Enter باز می‌کند؛ Escape، کلیک بیرون یا رفتن فوکوس می‌بندد
+  document.querySelectorAll<HTMLElement>("[data-nav-menu]").forEach((root) => {
+    const btn = root.querySelector<HTMLButtonElement>(".nav-menu__btn")!;
+    const panel = root.querySelector<HTMLElement>(".nav-menu__panel")!;
+    const items = () => [...panel.querySelectorAll<HTMLAnchorElement>("a")];
+    const set = (open: boolean) => {
+      btn.setAttribute("aria-expanded", String(open));
+      panel.hidden = !open;
+    };
+    btn.addEventListener("click", () => set(panel.hidden));
+    btn.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown") { e.preventDefault(); set(true); items()[0]?.focus(); }
+    });
+    panel.addEventListener("keydown", (e) => {
+      const list = items();
+      const i = list.indexOf(document.activeElement as HTMLAnchorElement);
+      if (e.key === "ArrowDown") { e.preventDefault(); list[(i + 1) % list.length].focus(); }
+      if (e.key === "ArrowUp") { e.preventDefault(); list[(i - 1 + list.length) % list.length].focus(); }
+    });
+    root.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !panel.hidden) { set(false); btn.focus(); }
+    });
+    root.addEventListener("focusout", (e) => {
+      if (!root.contains(e.relatedTarget as Node)) set(false);
+    });
+    document.addEventListener("pointerdown", (e) => {
+      if (!root.contains(e.target as Node)) set(false);
+    });
+  });
 </script>
