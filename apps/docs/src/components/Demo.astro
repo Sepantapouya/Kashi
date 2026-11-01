@@ -3,7 +3,7 @@
 // HTML مستقیم از خروجی همان کامپوننت React ساخته می‌شود، پس همیشه با کد هم‌خوان است.
 import CodeBlock from "./CodeBlock.astro";
 import { formatHtml } from "../lib/format-html";
-import { stackblitzProject } from "../lib/stackblitz";
+import { stackblitzProject, demoProject, exampleProject } from "../lib/stackblitz";
 
 interface Props {
   /** کد React نمایش‌داده‌شده */
@@ -15,13 +15,20 @@ interface Props {
   label?: string;
   /** تب HTML؛ برای نمونه‌های تعاملی که با JavaScript کار می‌کنند خاموش کنید */
   html?: boolean;
+  /** نام کامپوننت پیش‌نمایش در demos.tsx برای StackBlitz، وقتی پیش‌نمایش فقط سمت سرور رندر می‌شود */
+  example?: string;
+  exampleProps?: Record<string, string | number | boolean>;
+  /** کد JSX کامل و اجراشدنی برای StackBlitz، وقتی کد نمایشی خلاصه است */
+  play?: string;
 }
-const { code, align = "center", column = false, label = "نمونه", html: showHtml = true } = Astro.props;
+const { code, align = "center", column = false, label = "نمونه", html: showHtml = true, example, exampleProps = {}, play } = Astro.props;
 const html = await Astro.slots.render("default");
 const id = `demo-${Math.random().toString(36).slice(2, 8)}`;
 // نام صفحه برای عنوان پروژه، مثل «button»
 const page = Astro.url.pathname.split("/").filter(Boolean).pop() ?? "kashi";
-const blitz = stackblitzProject(code, `${page} · ${label}`);
+// کد کوتاه اگر خودش اجرا می‌شود؛ وگرنه کد کامل پیش‌نمایش زنده
+const title = `${page} · ${label}`;
+const blitz = stackblitzProject(play ?? code, title) ?? demoProject(html, title) ?? (example ? exampleProject(example, exampleProps, title) : null);
 ---
 <figure class="demo">
   <div class:list={["demo__preview", `demo__preview--${align}`, { "demo__preview--column": column }]} role="group" aria-label={label} set:html={html} />
@@ -31,7 +38,7 @@ const blitz = stackblitzProject(code, `${page} · ${label}`);
       {showHtml && <button role="tab" type="button" id={`${id}-t2`} aria-controls={`${id}-p2`} aria-selected={code ? "false" : "true"} tabindex={code ? -1 : undefined}>HTML</button>}
     </div>
     {blitz && (
-      <form class="demo__blitz" method="post" action="https://stackblitz.com/run?file=src/App.jsx" target="_blank">
+      <form class="demo__blitz" method="post" action="https://stackblitz.com/run?file=src/App.tsx" target="_blank">
         <input type="hidden" name="project[title]" value={blitz.title} />
         <input type="hidden" name="project[description]" value="نمونهٔ کاشی، دیزاین‌سیستم فارسی — kashi.sepantapouya.com" />
         <input type="hidden" name="project[template]" value="node" />

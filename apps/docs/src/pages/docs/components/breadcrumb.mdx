@@ -15,7 +15,7 @@ import { Breadcrumb } from "@kashi-ui/react";
 
 خانه فقط با آیکون نمایش داده می‌شود و برچسبش برای صفحه‌خوان می‌ماند.
 
-<Demo code={`<Breadcrumb items={[
+<Demo example="BreadcrumbDemo" code={`<Breadcrumb items={[
   { label: "خانه", href: "/", icon: <HomeIcon />, hideLabel: true },
   { label: "تنظیمات", href: "/settings" },
   { label: "امنیت" },
@@ -39,7 +39,7 @@ import { Breadcrumb } from "@kashi-ui/react";
 
 ## جداکنندهٔ «/»
 
-<Demo code={`<Breadcrumb separator="slash" items={[…]} />`}>
+<Demo example="BreadcrumbDemo" exampleProps={{"variant": "slash"}} code={`<Breadcrumb separator="slash" items={[…]} />`}>
   <BreadcrumbDemo variant="slash" />
 </Demo>
 

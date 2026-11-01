@@ -3,13 +3,15 @@ import { formatNumber } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
 
 type Val = number | [number, number];
+/** نوع مقدار فقط از value/defaultValue حدس زده شود، نه از onChange؛ وگرنه setState (که تابع هم می‌پذیرد) خطای نوع می‌دهد. با همهٔ نسخه‌های TypeScript کار می‌کند */
+type NoInferVal<T> = [T][T extends unknown ? 0 : never];
 
 export interface SliderProps<V extends Val = Val> {
   label?: ReactNode;
   /** یک عدد، یا [از، تا] برای بازه */
   value?: V;
   defaultValue?: V;
-  onChange?: (value: V) => void;
+  onChange?: (value: NoInferVal<V>) => void;
   /** @default 0 */
   min?: number;
   /** @default 100 */

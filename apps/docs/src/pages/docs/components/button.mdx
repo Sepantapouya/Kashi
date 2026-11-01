@@ -47,7 +47,7 @@ import { Button } from "@kashi-ui/react";
 
 `iconStart` در RTL سمت راست و `iconEnd` سمت چپ قرار می‌گیرد. آیکون‌های جهت‌دار مثل فلش را با `data-k-mirror` علامت بزنید تا در RTL آینه شوند.
 
-<Demo code={`<Button variant="primary" iconStart={<PlusIcon />}>پروژهٔ جدید</Button>
+<Demo example="ButtonIcons" code={`<Button variant="primary" iconStart={<PlusIcon />}>پروژهٔ جدید</Button>
 <Button iconEnd={<ArrowIcon />}>ادامه</Button>
 <Button iconOnly aria-label="جستجو"><SearchIcon /></Button>
 <Button variant="danger-secondary" iconOnly aria-label="حذف"><TrashIcon /></Button>`}>
@@ -66,7 +66,7 @@ import { Button } from "@kashi-ui/react";
 
 با `href` دکمه یک لینک واقعی (`<a>`) می‌شود؛ با `as` می‌توانید کامپوننت لینک روتر خود را بدهید، مثل `as={Link}` در Next.js.
 
-<Demo code={`<Button variant="primary" shape="pill">کاملاً گرد</Button>
+<Demo example="ButtonExtrasDemo" code={`<Button variant="primary" shape="pill">کاملاً گرد</Button>
 <Button shape="square">گوشهٔ کم</Button>
 <Button size="xs">خیلی کوچک</Button>
 <Button href="/docs" variant="link">دکمهٔ لینکی</Button>
