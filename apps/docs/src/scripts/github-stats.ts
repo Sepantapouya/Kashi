@@ -1,16 +1,9 @@
 // آمار زندهٔ مخزن: GitHub Action هر ساعت stats.json را در شاخهٔ stats می‌نویسد و این‌جا خوانده می‌شود.
-// هر عنصری با data-gh="stars|forks|clones|uniques|updated" پر و از حالت انتظار خارج می‌شود.
+// هر عنصری با data-gh="stars|forks|clones|uniques|updated" پر می‌شود و [data-gh-chart] نمودار کلون روزانه را می‌گیرد.
+import { STATS_URL, clonesChart, faNum as fa, type GithubStats } from "../data/github-stats";
+
 const REPO = "Sepantapouya/Kashi";
 const KEY = "kashi-gh-stats";
-
-interface Stats {
-  updated: string;
-  stars: number;
-  forks: number;
-  clones?: { total: number; since: string | null; last14: { count: number; uniques: number } | null };
-}
-
-const fa = (n: number) => n.toLocaleString("fa-IR");
 
 function ago(iso: string) {
   const min = Math.max(0, Math.round((Date.now() - Date.parse(iso)) / 60000));
@@ -20,18 +13,18 @@ function ago(iso: string) {
   return h < 24 ? `${fa(h)} ساعت پیش` : `${fa(Math.round(h / 24))} روز پیش`;
 }
 
-async function load(): Promise<Stats | null> {
+async function load(): Promise<GithubStats | null> {
   try {
     const cached = JSON.parse(sessionStorage.getItem(KEY) || "null");
     if (cached && Date.now() - cached.at < 10 * 60000) return cached.stats;
   } catch { /* حافظهٔ مرورگر در دسترس نیست */ }
   // نشانی هر ساعت عوض می‌شود تا کش CDN گیت‌هاب عدد کهنه ندهد
   const hour = Math.floor(Date.now() / 3600000);
-  let stats: Stats | null = null;
+  let stats: GithubStats | null = null;
   try {
-    const r = await fetch(`https://raw.githubusercontent.com/${REPO}/stats/stats.json?h=${hour}`);
+    const r = await fetch(`${STATS_URL}?h=${hour}`);
     if (r.ok) stats = await r.json();
-  } catch { /* شاخهٔ stats هنوز ساخته نشده */ }
+  } catch { /* شاخهٔ stats در دسترس نیست */ }
   if (!stats) {
     // پشتیبان: ستاره و فورک مستقیم از API عمومی گیت‌هاب
     try {
@@ -49,7 +42,8 @@ async function load(): Promise<Stats | null> {
 }
 
 const els = document.querySelectorAll<HTMLElement>("[data-gh]");
-if (els.length) {
+const charts = document.querySelectorAll<HTMLElement>("[data-gh-chart]");
+if (els.length || charts.length) {
   load().then((s) => {
     if (!s) return;
     const c = s.clones;
@@ -66,5 +60,7 @@ if (els.length) {
       el.textContent = v;
       el.closest<HTMLElement>("[data-gh-wait]")?.removeAttribute("data-gh-wait");
     }
+    const svg = c ? clonesChart(c.daily) : "";
+    if (svg) for (const el of charts) el.innerHTML = svg;
   });
 }
