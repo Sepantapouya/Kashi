@@ -142,6 +142,7 @@ const system = [
   { name: "@kashi-ui/persian", role: "تاریخ شمسی و اعتبارسنجی", href: "/docs/persian/utilities/" },
   { name: "@kashi-ui/icons", role: `${fa(iconCount)} آیکون در شش سبک`, href: "/docs/icons/" },
   { name: "@kashi-ui/bank-logos", role: "لوگوی بانک‌ها و درگاه‌ها", href: "/docs/persian/bank-logos/" },
+  { name: "@kashi-ui/mcp", role: "سرور MCP برای دستیار هوش مصنوعی", href: "/docs/ai/" },
 ];
 
 const standards = [
@@ -185,10 +186,10 @@ const chips = [
 ];
 ---
 <Base>
-  <a class="announce" href={newItems[0]?.href ?? "/docs/changelog/"}>
+  <a class="announce" href="/docs/ai/">
     <span class="announce__tag">نسخهٔ {version}</span>
-    <span class="announce__text">{fa(newItems.length)} کامپوننت و ابزار تازه، از جمله پکیج آیکون‌ها</span>
-    <span class="announce__more">یادداشت انتشار <span aria-hidden="true">←</span></span>
+    <span class="announce__text">تازه: سرور MCP کاشی برای Claude، Cursor و Copilot</span>
+    <span class="announce__more">راهنمای MCP <span aria-hidden="true">←</span></span>
   </a>
   <Header />
   <main id="main" tabindex="-1" class="home">
@@ -200,9 +201,9 @@ const chips = [
 
       <div class="wrap hero__grid">
         <div class="hero__copy">
-          <a class="hero__badge" href="/docs/changelog/" data-enter style="--d: 0">
-            <span class="hero__badge-tag" dir="ltr">v{pkg.version}</span>
-            دیزاین‌سیستم سازمانی برای محصولات فارسی
+          <a class="hero__badge" href="/docs/ai/" data-enter style="--d: 0">
+            <span class="hero__badge-tag">تازه</span>
+            سرور MCP برای دستیارهای هوش مصنوعی
             <span aria-hidden="true">←</span>
           </a>
           <h1 id="hero-title" class="hero__title" data-enter style="--d: 1">
@@ -367,12 +368,48 @@ const chips = [
       </div>
     </section>
 
-    <!-- ───── ۰۲ آیکون‌ها ───── -->
-    <section class="band band--alt" aria-labelledby="icons-title">
+    <!-- ───── ۰۲ هوش مصنوعی ───── -->
+    <section class="band band--alt aiband" aria-labelledby="ai-title">
+      <div class="wrap aiband__grid">
+        <div class="aiband__copy" data-reveal>
+          <p class="kicker"><span class="kicker__n">۰۲</span>هوش مصنوعی</p>
+          <h2 id="ai-title">کاشی در دستیار هوش مصنوعی شما</h2>
+          <p class="band__lead">Claude، Cursor و Copilot با سرور MCP کاشی مستندات هر کامپوننت، {fa(iconCount)} آیکون، توکن‌ها و ابزارهای فارسی را مستقیم می‌خوانند و کدی می‌نویسند که همان بار اول اجرا می‌شود؛ بدون حدس زدن prop ها.</p>
+          <ul class="aiband__points" role="list">
+            <li><span set:html={iconSvg("check", { size: 16 })} />روی کامپیوتر خودتان اجرا می‌شود؛ بدون کلید API</li>
+            <li><span set:html={iconSvg("check", { size: 16 })} />همان مستندات سایت، با هر نسخه به‌روز</li>
+            <li><span set:html={iconSvg("check", { size: 16 })} />کد ملی، شبا، تاریخ شمسی و تم برند هم به‌عنوان ابزار</li>
+          </ul>
+          <div class="aiband__cmd" dir="ltr">
+            <span aria-hidden="true">$</span>
+            <code>claude mcp add kashi -- npx -y @kashi-ui/mcp</code>
+            <button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm aiband__copy-btn" aria-label="کپی دستور" data-copy="claude mcp add kashi -- npx -y @kashi-ui/mcp" set:html={iconSvg("copy")} />
+          </div>
+          <a class="text-link" href="/docs/ai/">راهنمای Cursor، VS Code و بقیه <span aria-hidden="true">←</span></a>
+        </div>
+
+        <div class="aiband__chat" data-reveal aria-hidden="true">
+          <div class="aiband__bar"><i></i><i></i><i></i><span>Cursor · checkout</span></div>
+          <div class="aiband__body">
+            <p class="aiband__user">صفحهٔ پرداخت با شماره کارت و شبا بساز</p>
+            <ul class="aiband__calls">
+              <li><b>kashi</b><code>get_docs</code><span>persian/input</span><em set:html={iconSvg("check", { size: 14 })} /></li>
+              <li><b>kashi</b><code>persian</code><span>validate_iban</span><em set:html={iconSvg("check", { size: 14 })} /></li>
+            </ul>
+            <pre dir="ltr"><span class="c-t">&lt;PersianInput</span> <span class="c-a">kind</span>=<span class="c-s">"card"</span> /&gt;
+<span class="c-t">&lt;PersianInput</span> <span class="c-a">kind</span>=<span class="c-s">"iban"</span> /&gt;
+<span class="c-t">&lt;Button</span> <span class="c-a">variant</span>=<span class="c-s">"primary"</span>&gt;پرداخت<span class="c-t">&lt;/Button&gt;</span></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───── ۰۳ آیکون‌ها ───── -->
+    <section class="band" aria-labelledby="icons-title">
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۲</span>آیکون‌ها</p>
+            <p class="kicker"><span class="kicker__n">۰۳</span>آیکون‌ها</p>
             <h2 id="icons-title">{fa(iconCount)} آیکون، شش سبک، یک زبان بصری</h2>
           </div>
           <p class="band__lead">از فلش و فرم تا سماور و بادگیر؛ همه روی شبکهٔ ۲۰×۲۰ و با همان گوشه‌های نرم کامپوننت‌ها. هر آیکون در شش سبک هست و با یک prop عوض می‌شود.</p>
@@ -408,12 +445,12 @@ const chips = [
       </div>
     </section>
 
-    <!-- ───── ۰۳ پلتفرم ───── -->
-    <section class="band" aria-labelledby="platform-title">
+    <!-- ───── ۰۴ پلتفرم ───── -->
+    <section class="band band--alt" aria-labelledby="platform-title">
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۳</span>پلتفرم</p>
+            <p class="kicker"><span class="kicker__n">۰۴</span>پلتفرم</p>
             <h2 id="platform-title">یک پلتفرم، از فیگما تا تولید</h2>
           </div>
           <p class="band__lead">کاشی لایه‌لایه ساخته شده: هر تیم فقط همان بخشی را برمی‌دارد که لازم دارد، و همه از یک منبع توکن تغذیه می‌شوند.</p>
@@ -448,12 +485,12 @@ const chips = [
       </div>
     </section>
 
-    <!-- ───── ۰۴ برای سازمان‌ها ───── -->
-    <section class="band band--alt enterprise" aria-labelledby="enterprise-title">
+    <!-- ───── ۰۵ برای سازمان‌ها ───── -->
+    <section class="band enterprise" aria-labelledby="enterprise-title">
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۴</span>برای سازمان‌ها</p>
+            <p class="kicker"><span class="kicker__n">۰۵</span>برای سازمان‌ها</p>
             <h2 id="enterprise-title">برای تیم‌هایی که در مقیاس می‌سازند</h2>
           </div>
           <p class="band__lead">چند محصول، چند تیم و یک زبان طراحی. کاشی طوری ساخته شده که بدون بازنویسی وارد محصول فعلی شود و سال‌ها قابل نگه‌داری بماند.</p>
@@ -488,12 +525,12 @@ const chips = [
       </div>
     </section>
 
-    <!-- ───── ۰۵ کیفیت ───── -->
-    <section class="band" aria-labelledby="quality-title">
+    <!-- ───── ۰۶ کیفیت ───── -->
+    <section class="band band--alt" aria-labelledby="quality-title">
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۵</span>کیفیت و نگه‌داری</p>
+            <p class="kicker"><span class="kicker__n">۰۶</span>کیفیت و نگه‌داری</p>
             <h2 id="quality-title">کیفیت در فرایند ساخت، نه در وعده</h2>
           </div>
           <p class="band__lead">هر تغییر در کاشی از یک مسیر خودکار می‌گذرد. چیزی که این مسیر را رد نکند، به دست تیم شما نمی‌رسد.</p>
@@ -535,12 +572,12 @@ const chips = [
       </div>
     </section>
 
-    <!-- ───── ۰۶ مقایسه ───── -->
-    <section class="band band--alt" aria-labelledby="vs-title">
+    <!-- ───── ۰۷ مقایسه ───── -->
+    <section class="band" aria-labelledby="vs-title">
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۶</span>مقایسه</p>
+            <p class="kicker"><span class="kicker__n">۰۷</span>مقایسه</p>
             <h2 id="vs-title">کاشی در کنار دیزاین‌سیستم‌های جهانی</h2>
           </div>
           <p class="band__lead">بر اساس مستندات عمومی هر پروژه؛ با صداقت دربارهٔ جایی که کاشی بهترین انتخاب نیست.</p>
@@ -582,12 +619,12 @@ const chips = [
       </div>
     </section>
 
-    <!-- ───── ۰۷ متن‌باز ───── -->
-    <section class="band community" aria-labelledby="community-title">
+    <!-- ───── ۰۸ متن‌باز ───── -->
+    <section class="band band--alt community" aria-labelledby="community-title">
       <div class="wrap">
         <header class="band__head band__head--center" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۷</span>متن‌باز</p>
+            <p class="kicker"><span class="kicker__n">۰۸</span>متن‌باز</p>
             <h2 id="community-title">ساخته‌شده در فضای باز، با همراهی شما</h2>
           </div>
           <p class="band__lead">کد، نقشهٔ راه و همهٔ تصمیم‌ها در GitHub است. عددهای زیر زنده از خود GitHub می‌آیند و هر ساعت به‌روز می‌شوند.</p>
@@ -643,10 +680,10 @@ const chips = [
     </section>
 
     <!-- ───── پرسش‌های رایج ───── -->
-    <section class="band band--alt" aria-labelledby="faq-title">
+    <section class="band" aria-labelledby="faq-title">
       <div class="wrap faq">
         <header class="faq__head" data-reveal>
-          <p class="kicker"><span class="kicker__n">۰۸</span>پرسش‌های رایج</p>
+          <p class="kicker"><span class="kicker__n">۰۹</span>پرسش‌های رایج</p>
           <h2 id="faq-title">پیش از انتخاب کاشی</h2>
           <p class="band__lead">پاسخ پرسش‌هایی که تیم‌ها معمولاً پیش از استفاده می‌پرسند. پرسش دیگری دارید؟ <a href={author.telegram.href} target="_blank" rel="noopener">در تلگرام بپرسید<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>.</p>
         </header>
@@ -1021,6 +1058,32 @@ const chips = [
   .tok-s { color: var(--k-text-warning); transition: color var(--k-duration-normal); }
   .tok-n { color: var(--k-text-info); }
 
+  /* ───── هوش مصنوعی ───── */
+  .aiband__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .aiband__copy h2 { margin: var(--k-space-3) 0 var(--k-space-4); color: var(--k-text-primary); font-size: clamp(var(--k-text-2xl), 3.4vw, 2.5rem); font-weight: var(--k-weight-bold); line-height: 1.35; text-wrap: balance; }
+  .aiband__points { display: grid; gap: var(--k-space-2); margin: var(--k-space-5) 0 0; padding: 0; list-style: none; color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+  .aiband__points li { display: flex; align-items: center; gap: var(--k-space-2); }
+  .aiband__points span { display: grid; place-items: center; inline-size: 1.25rem; block-size: 1.25rem; border-radius: 50%; background: var(--k-bg-success-subtle); color: var(--k-text-success); }
+  .aiband__cmd { display: flex; align-items: center; gap: var(--k-space-2); margin: var(--k-space-6) 0 var(--k-space-4); padding: var(--k-space-1) var(--k-space-1) var(--k-space-1) var(--k-space-4); border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); box-shadow: var(--k-shadow-xs); font: 0.8125rem var(--k-font-mono); }
+  .aiband__cmd > span { color: var(--k-text-brand); }
+  .aiband__cmd code { flex: 1; min-inline-size: 0; overflow-x: auto; color: var(--k-text-primary); white-space: nowrap; scrollbar-width: none; }
+  .aiband__copy-btn { flex: none; }
+  .aiband__copy-btn[data-copied] { color: var(--k-text-success); }
+  .aiband__chat { overflow: clip; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); box-shadow: var(--k-shadow-xl); }
+  .aiband__bar { display: flex; align-items: center; gap: 6px; padding: var(--k-space-2) var(--k-space-4); border-block-end: 1px solid var(--k-border-secondary); direction: ltr; }
+  .aiband__bar i { inline-size: 9px; block-size: 9px; border-radius: 50%; background: var(--k-border-primary); }
+  .aiband__bar span { margin-inline-start: auto; color: var(--k-text-quaternary); font: 0.6875rem var(--k-font-mono); }
+  .aiband__body { display: grid; gap: var(--k-space-3); padding: var(--k-space-5); }
+  .aiband__user { justify-self: start; margin: 0; padding: var(--k-space-2) var(--k-space-3); border-radius: var(--k-radius-md) var(--k-radius-md) var(--k-radius-md) 3px; background: var(--k-bg-brand); color: var(--k-text-on-brand, #fff); font-size: var(--k-text-sm); }
+  .aiband__calls { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; direction: ltr; }
+  .aiband__calls li { display: flex; align-items: center; gap: var(--k-space-2); padding: 6px var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-sm); background: var(--k-bg-secondary); font-size: 0.75rem; }
+  .aiband__calls b { padding: 0 6px; border-radius: 4px; background: color-mix(in srgb, var(--k-text-brand) 16%, transparent); color: var(--k-text-brand); font: 600 0.6875rem var(--k-font-mono); }
+  .aiband__calls code { color: var(--k-text-primary); font-size: 0.75rem; }
+  .aiband__calls span { color: var(--k-text-tertiary); }
+  .aiband__calls em { display: grid; margin-inline-start: auto; color: var(--k-text-success); }
+  .aiband__body pre { margin: 0; padding: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-sm); background: var(--k-bg-secondary); color: var(--k-text-secondary); font: 0.8125rem/1.9 var(--k-font-mono); text-align: left; overflow-x: auto; }
+  .c-t { color: var(--k-text-info); } .c-a { color: var(--k-text-tertiary); } .c-s { color: var(--k-text-warning); }
+
   /* ───── برای سازمان‌ها ───── */
   .ent { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: var(--k-space-6); align-items: start; }
   .ent__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-4); margin: 0; padding: 0; list-style: none; }
@@ -1162,7 +1225,7 @@ const chips = [
 
   /* ───── واکنش‌گرا ───── */
   @media (max-width: 64rem) {
-    .arch, .quality, .people, .ent, .faq, .hero__grid { grid-template-columns: minmax(0, 1fr); }
+    .arch, .quality, .people, .ent, .faq, .hero__grid, .aiband__grid { grid-template-columns: minmax(0, 1fr); }
     .adopt { position: static; }
     .standards__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .standards__list li:nth-child(4) { border-inline-start: 0; }
