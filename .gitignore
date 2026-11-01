@@ -1,6 +1,8 @@
 .DS_Store
 .astro
-.claude
+# تنظیمات شخصی Claude بیرون می‌ماند؛ اسکیل‌های پروژه (مثل kashi-design) با مخزن همراه‌اند
+.claude/*
+!.claude/skills/
 apps/docs/dist
 dist
 node_modules

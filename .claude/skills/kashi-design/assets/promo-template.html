@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fa" dir="rtl"><head><meta charset="utf-8"/>
+<!-- قالب تصویر معرفی کاشی؛ ۱۲۸۰×۷۲۰ با مقیاس ۲. Vazirmatn.woff2 را کنار همین فایل بگذارید. راهنما: SKILL.md بخش ۵ -->
+<style>
+@font-face { font-family: "Vazirmatn"; src: url(Vazirmatn.woff2) format("woff2"); font-weight: 100 900; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1280px; height: 720px; overflow: hidden; }
+body { position: relative; font-family: "Vazirmatn", sans-serif; color: #f2f4f5;
+  background: radial-gradient(640px 460px at 90% 4%, rgba(13,128,119,.40), transparent 70%), radial-gradient(620px 420px at 22% 104%, rgba(56,189,248,.26), transparent 70%), #0a0c0f; }
+.pattern { position: absolute; inset: 0; opacity: .05; }
+.brand { position: absolute; top: 64px; right: 72px; display: flex; align-items: center; gap: 14px; font-size: 32px; font-weight: 800; }
+.brand svg { width: 48px; height: 48px; }
+.copy { position: absolute; top: 170px; right: 72px; width: 520px; }
+.pill { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px 5px 6px; border: 1px solid #1f3d4a; border-radius: 999px; background: #0e1417; font-size: 14px; color: #c9cfd4; }
+.pill b { padding: 2px 10px; border-radius: 999px; background: linear-gradient(90deg, #38bdf8, #0d8077); color: #fff; font-size: 12px; }
+.pill code { font-family: Menlo, monospace; font-size: 13px; color: #7dd3fc; direction: ltr; }
+h1 { margin-top: 18px; font-size: 52px; line-height: 1.28; font-weight: 800; }
+h1 .grad { background: linear-gradient(90deg, #38bdf8, #2fd3c0); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lead { margin-top: 18px; font-size: 18px; line-height: 1.95; color: #a9b1b8; }
+.cmd { margin-top: 24px; display: flex; align-items: center; gap: 10px; padding: 12px 16px; border: 1px solid #2a3036; border-radius: 12px; background: #0f1215; direction: ltr; font: 600 16px Menlo, monospace; color: #e6eaed; width: fit-content; }
+.cmd span { color: #3fd5c2; }
+.ticks { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; color: #c9cfd4; }
+.ticks span { display: inline-flex; align-items: center; gap: 6px; }
+.ticks i { display: grid; color: #2fd38a; font-style: normal; }
+.foot { position: absolute; bottom: 52px; right: 72px; display: flex; align-items: center; gap: 22px; }
+.handle { padding: 8px 14px; border-radius: 10px; background: #0d6e66; font: 700 17px/1 Menlo, monospace; color: #fff; direction: ltr; }
+.url { font: 600 17px/1 Menlo, monospace; color: #3fd5c2; direction: ltr; }
+
+.col { position: absolute; top: 52px; left: 60px; width: 590px; display: grid; gap: 12px; }
+.card { border: 1px solid #252a30; border-radius: 16px; background: rgba(14,17,21,.95); box-shadow: 0 24px 60px rgba(0,0,0,.5); }
+.row { padding: 14px 18px; }
+.row + .row { border-top: 1px solid #22272d; }
+.label { font-size: 13px; font-weight: 700; }
+.bad .label { color: #f87171; } .good .label { color: #4ade80; }
+.row code { display: block; margin-top: 6px; font: 14px/1.75 Menlo, monospace; direction: ltr; text-align: left; }
+.bad code { color: #5d666e; text-decoration: line-through rgba(248,113,113,.6); }
+.good code { color: #c9cfd4; } .good code b { color: #3fd5c2; font-weight: 700; }
+.preview { padding: 15px 18px; border-color: #0f8f84; }
+.pv-head { display: flex; align-items: center; gap: 12px; }
+.pv-icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: rgba(15,168,155,.15); color: #3fd5c2; }
+.pv-head div { flex: 1; } .pv-head b { display: block; font-size: 16px; } .pv-head small { color: #8a939b; font-size: 13px; }
+.badge { padding: 3px 10px; border-radius: 999px; background: rgba(47,211,138,.14); color: #4ade80; font-size: 13px; font-weight: 700; }
+.bar { margin-top: 14px; height: 7px; border-radius: 999px; background: #1f252b; overflow: hidden; } .bar i { display: block; width: 68%; height: 100%; background: #0fa89b; border-radius: inherit; }
+.btns { margin-top: 14px; display: flex; gap: 8px; }
+.btns span { padding: 7px 16px; border-radius: 9px; font-size: 14px; font-weight: 700; }
+.btns .p { background: #0b8077; color: #fff; } .btns .s { border: 1px solid #343b42; color: #d6dbe0; }
+.pv-code { margin-top: 12px; font: 12.5px Menlo, monospace; color: #6f7880; direction: ltr; text-align: left; }
+.pv-code b { color: #7dd3fc; font-weight: 600; }
+.pal { padding: 13px 18px; display: grid; gap: 5px; }
+.pal-row { display: grid; grid-template-columns: 62px repeat(5, 1fr); gap: 6px; align-items: center; }
+.pal-row span { font-size: 13px; color: #aab2b9; font-weight: 600; }
+.pal-row i { height: 17px; border-radius: 5px; }
+.pal-cap { display: flex; justify-content: space-between; font: 12px Menlo, monospace; color: #6f7880; }
+.col { position: absolute; top: 120px; left: 80px; width: 540px; display: grid; gap: 28px; }
+.cmp { padding: 8px 0; }
+.cmp .row { padding: 18px 28px; border: 0 !important; }
+.cmp .label { font-size: 15px; }
+.cmp code { margin-top: 10px; font: 22px/1.7 Menlo, monospace; }
+.arrow { text-align: center; color: #3fd5c2; font-size: 26px; line-height: 1; }
+.dots { display: flex; justify-content: space-between; padding: 0 12px; }
+.dots span { display: grid; justify-items: center; gap: 10px; font-size: 14px; color: #aab2b9; font-weight: 600; }
+.dots i { width: 46px; height: 46px; border-radius: 50%; box-shadow: 0 0 0 4px rgba(255,255,255,.04), 0 10px 24px rgba(0,0,0,.4); }
+</style></head><body>
+<svg class="pattern" width="1280" height="720" aria-hidden="true"><defs><pattern id="p" width="96" height="96" patternUnits="userSpaceOnUse"><path transform="translate(18 18) scale(1.9)" fill="none" stroke="#fff" stroke-width="0.6" d="M16 1 11.6 5.4H5.4v6.2L1 16l4.4 4.4v6.2h6.2L16 31l4.4-4.4h6.2v-6.2L31 16l-4.4-4.4V5.4h-6.2Z"/></pattern></defs><rect width="1280" height="720" fill="url(#p)"/></svg>
+
+<div class="brand"><svg viewBox="0 0 32 32"><path fill="#0a6b65" d="M16 1 11.61 5.39H5.39v6.22L1 16l4.39 4.39v6.22h6.22L16 31l4.39-4.39h6.22v-6.22L31 16l-4.39-4.39V5.39h-6.22Z"/><path fill="#8ce9df" d="m16 8.8-2.11 2.11h-2.98v2.98L8.8 16l2.11 2.11v2.98h2.98L16 23.2l2.11-2.11h2.98v-2.98L23.2 16l-2.11-2.11v-2.98h-2.98Z"/></svg>کاشی</div>
+
+<div class="copy">
+  <span class="pill"><b>تازه</b><code>@kashi-ui/tailwind</code></span>
+  <h1>کاشی، حالا<br/>با <span class="grad">Tailwind</span></h1>
+  <p class="lead">رنگ‌ها، فونت، گردی و سایه‌های کاشی به‌شکل کلاس‌های آشنای Tailwind؛ همگام با تم تیره و روشن و رنگ برند شما، بدون حتی یک رنگ کپی‌شده.</p>
+  <div class="cmd"><span>$</span>npm i @kashi-ui/tailwind</div>
+</div>
+
+<div class="foot"><span class="handle">@sepantapouya_ux</span><span class="url">kashi.sepantapouya.com/docs/tailwind</span></div>
+
+<div class="col">
+  <div class="card cmp">
+    <div class="row bad"><span class="label">قبل</span><code>bg-[var(--k-bg-secondary)]<br/>rounded-[var(--k-radius-lg)]</code></div>
+    <div class="arrow">↓</div>
+    <div class="row good"><span class="label">با پریست کاشی</span><code><b>bg-secondary</b><br/><b>rounded-lg</b></code></div>
+  </div>
+  <div class="dots">
+    <span><i style="background:#0fa89b"></i>فیروزه</span>
+    <span><i style="background:#3d5ef8"></i>لاجورد</span>
+    <span><i style="background:#f98307"></i>زعفران</span>
+    <span><i style="background:#f83b47"></i>انار</span>
+    <span><i style="background:#6aae33"></i>پسته</span>
+    <span><i style="background:#687491"></i>شب</span>
+  </div>
+</div>
+</body></html>
