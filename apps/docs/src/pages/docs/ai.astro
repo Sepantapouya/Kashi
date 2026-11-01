@@ -14,6 +14,7 @@ const ic = (name: string, size = 20) => iconSvg(name, { size }) ?? "";
 const docCount = collectDocs(`${process.cwd()}/src/pages/docs`, nav).length;
 const iconCount = Object.keys(icons).length;
 const npx = "npx -y @kashi-ui/mcp";
+const claudeCmd = `claude mcp add kashi -- ${npx}`;
 
 const stats: [string, string][] = [
   [fa(8), "ابزار برای دستیار"],
@@ -22,24 +23,32 @@ const stats: [string, string][] = [
   [fa(0), "کلید API و سرور"],
 ];
 
+const clientNames = ["Claude Code", "Cursor", "VS Code", "Windsurf", "Claude Desktop", "Zed"];
+
 const json = (key: string) => JSON.stringify({ [key]: { kashi: { command: "npx", args: ["-y", "@kashi-ui/mcp"] } } }, null, 2);
 const clients = [
-  { id: "claude-code", name: "Claude Code", where: "در ترمینال پروژه اجرا کنید:", code: `claude mcp add kashi -- ${npx}`, lang: "bash" },
+  { id: "claude-code", name: "Claude Code", where: "در ترمینال، داخل پوشهٔ پروژه:", code: claudeCmd, lang: "bash" },
   { id: "cursor", name: "Cursor", where: "فایل .cursor/mcp.json در ریشهٔ پروژه:", code: json("mcpServers"), lang: "json" },
   { id: "vscode", name: "VS Code", where: "فایل .vscode/mcp.json برای GitHub Copilot:", code: json("servers"), lang: "json" },
   { id: "claude-desktop", name: "Claude Desktop", where: "Settings › Developer › Edit Config، فایل claude_desktop_config.json:", code: json("mcpServers"), lang: "json" },
   { id: "windsurf", name: "Windsurf", where: "فایل ~/.codeium/windsurf/mcp_config.json:", code: json("mcpServers"), lang: "json" },
 ];
 
-const tools: [string, string, string, string][] = [
-  ["book-open", "kashi_get_docs", "مستندات کامل یک کامپوننت", "prop ها، نمونهٔ React و HTML، متغیرهای CSS و نکته‌های دسترس‌پذیری"],
-  ["search", "kashi_search_docs", "جستجو در مستندات", "به فارسی یا انگلیسی: «شبا»، «modal»، «جدول با مرتب‌سازی»"],
-  ["file-text", "kashi_list_docs", "فهرست همهٔ صفحه‌ها", "کامپوننت‌ها، فیلدهای فارسی و راهنماها با یک خط توضیح"],
-  ["sparkles", "kashi_search_icons", "جستجوی آیکون", `بین ${fa(iconCount)} آیکون با نام فارسی یا انگلیسی`],
-  ["grid", "kashi_get_icon", "کد آیکون", "کامپوننت React یا SVG خام در هر شش سبک"],
-  ["color-swatch", "kashi_get_tokens", "توکن‌های طراحی", "رنگ، فاصله، سایه و متغیرهای معنایی تم تیره و روشن"],
-  ["palette", "kashi_create_theme", "ساخت تم برند", "یک رنگ بدهید؛ CSS طیف یازده‌پله‌ای و همهٔ کامپوننت‌ها"],
-  ["id-card", "kashi_persian", "ابزارهای فارسی", "کد ملی، شبا با نام بانک، کارت، موبایل، تبدیل تاریخ و عدد به حروف"],
+const toolGroups: { title: string; icon: string; tools: [string, string, string][] }[] = [
+  { title: "مستندات", icon: "book-open", tools: [
+    ["kashi_get_docs", "مستندات کامل یک کامپوننت", "prop ها، نمونهٔ React و HTML، متغیرهای CSS و دسترس‌پذیری"],
+    ["kashi_search_docs", "جستجو در مستندات", "فارسی یا انگلیسی: «شبا»، «modal»، «جدول»"],
+    ["kashi_list_docs", "فهرست همهٔ صفحه‌ها", "کامپوننت‌ها، فیلدهای فارسی و راهنماها"],
+  ] },
+  { title: "آیکون و طراحی", icon: "palette", tools: [
+    ["kashi_search_icons", "جستجوی آیکون", `بین ${fa(iconCount)} آیکون با نام فارسی یا انگلیسی`],
+    ["kashi_get_icon", "کد آیکون", "کامپوننت React یا SVG در هر شش سبک"],
+    ["kashi_get_tokens", "توکن‌های طراحی", "رنگ، فاصله، سایه و متغیرهای تم"],
+    ["kashi_create_theme", "ساخت تم برند", "یک رنگ بدهید، CSS کامل تم بگیرید"],
+  ] },
+  { title: "ابزارهای فارسی", icon: "id-card", tools: [
+    ["kashi_persian", "اعتبارسنجی و تبدیل", "کد ملی، شبا و کارت با نام بانک، موبایل با اپراتور، تاریخ شمسی، عدد به حروف"],
+  ] },
 ];
 
 const prompts = [
@@ -59,7 +68,8 @@ const faq: [string, string][] = [
 ];
 
 const headings = [
-  { depth: 2, slug: "install", text: "نصب در دستیار" },
+  { depth: 2, slug: "why", text: "چرا MCP" },
+  { depth: 2, slug: "install", text: "نصب در سه قدم" },
   { depth: 2, slug: "tools", text: "ابزارها" },
   { depth: 2, slug: "prompts", text: "چه بپرسیم" },
   { depth: 2, slug: "llms", text: "llms.txt" },
@@ -68,35 +78,46 @@ const headings = [
 ---
 <Docs title="استفاده با هوش مصنوعی" description="سرور MCP کاشی دستیارهای هوش مصنوعی را مستقیم به مستندات، آیکون‌ها، توکن‌ها و ابزارهای فارسی کاشی وصل می‌کند." headings={headings}>
 
+  <!-- ───── هیرو ───── -->
   <section class="ai-hero" aria-label="معرفی">
+    <div class="ai-hero__glow" aria-hidden="true"></div>
     <div class="ai-hero__copy">
-      <span class="ai-hero__eyebrow"><span set:html={ic("ai-chat", 16)} />سرور MCP کاشی</span>
-      <p class="ai-hero__title">دستیار هوش مصنوعی‌تان، کاشی را از نزدیک می‌شناسد</p>
-      <p class="ai-hero__text">Claude، Cursor و Copilot دیگر prop های کاشی را حدس نمی‌زنند. <strong><bdi dir="ltr">@kashi-ui/mcp</bdi></strong> مستندات هر کامپوننت، {fa(iconCount)} آیکون، توکن‌ها و ابزارهای فارسی را مستقیم در اختیارشان می‌گذارد تا کدی بنویسند که همان بار اول اجرا شود.</p>
-      <div class="ai-hero__cmd">
-        <code dir="ltr"><span aria-hidden="true">$</span> claude mcp add kashi -- {npx}</code>
-        <button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm ai-copy" aria-label="کپی دستور" data-copy={`claude mcp add kashi -- ${npx}`} set:html={ic("copy")} />
+      <span class="ai-eyebrow"><span class="ai-eyebrow__dot" aria-hidden="true"></span>سرور MCP کاشی · <bdi dir="ltr">v{mcpPkg.version}</bdi></span>
+      <p class="ai-hero__title">دستیار هوش مصنوعی‌تان، <span>کاشی را از نزدیک می‌شناسد.</span></p>
+      <p class="ai-hero__text">Claude، Cursor و Copilot دیگر prop های کاشی را حدس نمی‌زنند. <bdi class="ai-mono" dir="ltr">@kashi-ui/mcp</bdi> مستندات هر کامپوننت، {fa(iconCount)} آیکون، توکن‌ها و ابزارهای فارسی را در اختیارشان می‌گذارد تا کدی بنویسند که همان بار اول اجرا شود.</p>
+      <div class="ai-cmd">
+        <span class="ai-cmd__prompt" aria-hidden="true">$</span>
+        <code dir="ltr">{claudeCmd}</code>
+        <button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm ai-copy" aria-label="کپی دستور" data-copy={claudeCmd} set:html={ic("copy")} />
       </div>
-      <p class="ai-hero__meta"><span dir="ltr">v{mcpPkg.version}</span> · رایگان و متن‌باز · روی کامپیوتر خودتان اجرا می‌شود</p>
+      <div class="ai-hero__links">
+        <a class="text-link" href="#install">تنظیمات Cursor، VS Code و بقیه <span aria-hidden="true">←</span></a>
+        <a class="text-link" href="https://www.npmjs.com/package/@kashi-ui/mcp" target="_blank" rel="noopener">npm<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+      </div>
     </div>
 
     <div class="ai-chat" aria-hidden="true">
       <div class="ai-chat__bar"><i></i><i></i><i></i><span>Claude Code · my-shop</span></div>
       <div class="ai-chat__body">
-        <p class="ai-chat__user">یک فرم ثبت‌نام با کد ملی و تاریخ تولد شمسی بساز</p>
+        <p class="ai-chat__user" style="--s: 0">یک فرم ثبت‌نام با کد ملی و تاریخ تولد شمسی بساز</p>
         <ul class="ai-chat__calls">
-          <li><span class="ai-chat__tool">kashi</span><code>get_docs</code><span>NationalIdInput</span><b>✓</b></li>
-          <li><span class="ai-chat__tool">kashi</span><code>get_docs</code><span>DatePicker</span><b>✓</b></li>
-          <li><span class="ai-chat__tool">kashi</span><code>search_icons</code><span>«کاربر»</span><b>✓</b></li>
+          <li style="--s: 1"><span class="ai-chat__tool">kashi</span><code>get_docs</code><span>NationalIdInput</span><b set:html={ic("check", 14)} /></li>
+          <li style="--s: 2"><span class="ai-chat__tool">kashi</span><code>get_docs</code><span>DatePicker</span><b set:html={ic("check", 14)} /></li>
+          <li style="--s: 3"><span class="ai-chat__tool">kashi</span><code>search_icons</code><span>«کاربر»</span><b set:html={ic("check", 14)} /></li>
         </ul>
-        <pre class="ai-chat__code" dir="ltr"><span class="t-k">import</span> {"{"} <span class="t-c">NationalIdInput</span>, <span class="t-c">DatePicker</span>, <span class="t-c">Button</span> {"}"}
+        <pre class="ai-chat__code" style="--s: 4" dir="ltr"><span class="t-k">import</span> {"{"} <span class="t-c">NationalIdInput</span>, <span class="t-c">DatePicker</span>, <span class="t-c">Button</span> {"}"}
   <span class="t-k">from</span> <span class="t-s">"@kashi-ui/react"</span>;
 
 &lt;<span class="t-c">NationalIdInput</span> <span class="t-a">label</span>=<span class="t-s">"کد ملی"</span> <span class="t-a">required</span> /&gt;
 &lt;<span class="t-c">DatePicker</span> <span class="t-a">label</span>=<span class="t-s">"تاریخ تولد"</span> /&gt;
 &lt;<span class="t-c">Button</span> <span class="t-a">variant</span>=<span class="t-s">"primary"</span>&gt;ثبت‌نام&lt;/<span class="t-c">Button</span>&gt;</pre>
-        <p class="ai-chat__ok"><span set:html={ic("check", 14)} />prop ها از مستندات کاشی خوانده شد</p>
+        <p class="ai-chat__ok" style="--s: 5"><span set:html={ic("check", 14)} />prop ها از مستندات کاشی خوانده شد</p>
       </div>
+    </div>
+
+    <div class="ai-hero__foot">
+      <span>کار می‌کند با</span>
+      <ul role="list">{clientNames.map((c) => <li dir="ltr">{c}</li>)}</ul>
     </div>
   </section>
 
@@ -104,61 +125,135 @@ const headings = [
     {stats.map(([n, l]) => <div><dt>{l}</dt><dd>{n}</dd></div>)}
   </dl>
 
-  <h2 id="install">نصب در دستیار</h2>
-  <p>کاشی یک سرور MCP محلی است که با <code>npx</code> اجرا می‌شود؛ نصب جداگانه، کلید API یا سرور لازم ندارد. دستیار خودتان را انتخاب کنید:</p>
-
-  <div class="ai-tabs" data-ai-tabs>
-    <div class="ai-tabs__list" role="tablist" aria-label="دستیار">
-      {clients.map((c, i) => (
-        <button type="button" role="tab" id={`t-${c.id}`} aria-controls={`p-${c.id}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1}>{c.name}</button>
-      ))}
-    </div>
-    {clients.map((c, i) => (
-      <div class="ai-tabs__panel" role="tabpanel" id={`p-${c.id}`} aria-labelledby={`t-${c.id}`} hidden={i !== 0}>
-        <p dir="auto">{c.where}</p>
-        <CodeBlock code={c.code} lang={c.lang} />
-      </div>
-    ))}
+  <!-- ───── چرا ───── -->
+  <h2 id="why">چرا MCP</h2>
+  <p>کاشی جدید است و مدل‌های زبانی تقریباً چیزی دربارهٔ آن نمی‌دانند؛ بی‌اطلاع، prop هایی می‌سازند که وجود ندارند. با MCP، دستیار پیش از نوشتن از خود کاشی می‌پرسد.</p>
+  <div class="ai-vs">
+    <figure class="ai-vs__card ai-vs__card--bad">
+      <figcaption><span class="ai-vs__badge">بدون MCP</span>دستیار حدس می‌زند</figcaption>
+      <pre dir="ltr">&lt;<span class="t-c">DatePicker</span>
+  <span class="ai-vs__x">calendar="jalali"</span>
+  <span class="ai-vs__x">format="jYYYY/jMM/jDD"</span>
+  <span class="ai-vs__x">onDateSelect</span>=&#123;setDate&#125;
+/&gt;</pre>
+      <p>سه prop ساختگی؛ کد اجرا نمی‌شود یا بی‌صدا کار نمی‌کند.</p>
+    </figure>
+    <figure class="ai-vs__card ai-vs__card--good">
+      <figcaption><span class="ai-vs__badge">با MCP کاشی</span>دستیار مستندات را می‌خواند</figcaption>
+      <pre dir="ltr">&lt;<span class="t-c">DatePicker</span>
+  <span class="t-a">label</span>=<span class="t-s">"تاریخ تولد"</span>
+  <span class="t-a">max</span>=&#123;new Date()&#125;
+  <span class="t-a">onChange</span>=&#123;setDate&#125;
+/&gt;</pre>
+      <p>همان prop هایی که در جدول ویژگی‌های کامپوننت آمده؛ شمسی به‌طور پیش‌فرض.</p>
+    </figure>
   </div>
-  <p class="ai-note">بعد از افزودن، دستیار را دوباره باز کنید. برای امتحان بپرسید: «با ابزار kashi، prop های DatePicker چیست؟»</p>
 
+  <figure class="ai-flow" aria-label="روند کار: دستیار شما از سرور MCP کاشی که روی کامپیوتر خودتان اجرا می‌شود می‌پرسد">
+    <div class="ai-flow__node">
+      <span class="ai-flow__icon" set:html={ic("ai-chat", 22)} />
+      <b>دستیار شما</b>
+      <small>Claude، Cursor، Copilot</small>
+    </div>
+    <div class="ai-flow__link" aria-hidden="true"><span>پرسش</span><i></i><span>پاسخ دقیق</span></div>
+    <div class="ai-flow__node ai-flow__node--kashi">
+      <span class="ai-flow__icon" set:html={ic("persian-star", 22)} />
+      <b>سرور MCP کاشی</b>
+      <small>روی کامپیوتر خودتان</small>
+    </div>
+    <div class="ai-flow__link" aria-hidden="true"><span>داخل پکیج</span><i></i><span>بدون اینترنت</span></div>
+    <div class="ai-flow__node">
+      <span class="ai-flow__icon" set:html={ic("layers", 22)} />
+      <b>دانش کاشی</b>
+      <small>مستندات، آیکون، توکن، ابزار فارسی</small>
+    </div>
+  </figure>
+
+  <!-- ───── نصب ───── -->
+  <h2 id="install">نصب در سه قدم</h2>
+  <ol class="ai-steps" role="list">
+    <li>
+      <span class="ai-steps__n" aria-hidden="true">۱</span>
+      <div class="ai-steps__body">
+        <h3>سرور را به دستیارتان اضافه کنید</h3>
+        <div class="ai-tabs" data-ai-tabs>
+          <div class="ai-tabs__list" role="tablist" aria-label="دستیار">
+            {clients.map((c, i) => (
+              <button type="button" role="tab" id={`t-${c.id}`} aria-controls={`p-${c.id}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1}>{c.name}</button>
+            ))}
+          </div>
+          {clients.map((c, i) => (
+            <div class="ai-tabs__panel" role="tabpanel" id={`p-${c.id}`} aria-labelledby={`t-${c.id}`} hidden={i !== 0}>
+              <p dir="auto">{c.where}</p>
+              <CodeBlock code={c.code} lang={c.lang} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </li>
+    <li>
+      <span class="ai-steps__n" aria-hidden="true">۲</span>
+      <div class="ai-steps__body">
+        <h3>دستیار را دوباره باز کنید</h3>
+        <p>ابزارهای kashi در فهرست ابزارها دیده می‌شوند؛ در Claude Code با دستور <code dir="ltr">/mcp</code> وضعیتش را ببینید.</p>
+      </div>
+    </li>
+    <li>
+      <span class="ai-steps__n" aria-hidden="true">۳</span>
+      <div class="ai-steps__body">
+        <h3>به زبان خودتان بخواهید</h3>
+        <p>مثلاً: «با کاشی یک فرم ورود با موبایل و کد تأیید بساز.» دستیار خودش مستندات را می‌خواند.</p>
+      </div>
+    </li>
+  </ol>
+
+  <!-- ───── ابزارها ───── -->
   <h2 id="tools">ابزارها</h2>
   <p>دستیار خودش تصمیم می‌گیرد کدام ابزار را صدا بزند؛ لازم نیست اسمشان را بدانید.</p>
-  <ul class="ai-tools" role="list">
-    {tools.map(([icon, name, title, text]) => (
-      <li>
-        <span class="ai-tools__icon" set:html={ic(icon, 20)} />
-        <div>
-          <code dir="ltr">{name}</code>
-          <h3>{title}</h3>
-          <p>{text}</p>
-        </div>
-      </li>
+  <div class="ai-groups">
+    {toolGroups.map((g) => (
+      <section class="ai-group" aria-label={g.title}>
+        <header><span set:html={ic(g.icon, 18)} />{g.title}</header>
+        <ul role="list">
+          {g.tools.map(([name, title, text]) => (
+            <li>
+              <code dir="ltr">{name}</code>
+              <b>{title}</b>
+              <span>{text}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
     ))}
-  </ul>
+  </div>
   <p class="ai-note">همهٔ صفحه‌های مستندات به شکل resource هم در دسترس‌اند (<code dir="ltr">kashi://docs/…</code>) تا در دستیارهایی که این امکان را دارند، به گفتگو ضمیمه شوند.</p>
 
+  <!-- ───── پرسش‌ها ───── -->
   <h2 id="prompts">چه بپرسیم</h2>
-  <p>به زبان خودتان بنویسید؛ دستیار با ابزارهای کاشی بقیه را پیدا می‌کند.</p>
+  <p>یکی را کپی کنید و در دستیارتان امتحان کنید.</p>
   <ul class="ai-prompts" role="list">
     {prompts.map((p) => (
-      <li><span set:html={ic("ai-chat", 18)} /><span>{p}</span><button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm ai-copy" aria-label="کپی متن" data-copy={p} set:html={ic("copy")} /></li>
+      <li><span class="ai-prompts__icon" set:html={ic("ai-chat", 18)} /><span>{p}</span><button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm ai-copy" aria-label="کپی متن" data-copy={p} set:html={ic("copy")} /></li>
     ))}
   </ul>
 
+  <!-- ───── llms.txt ───── -->
   <h2 id="llms">llms.txt</h2>
   <p>برای دستیارهایی که MCP ندارند، همین مستندات به شکل متن ساده و طبق استاندارد <a href="https://llmstxt.org" target="_blank" rel="noopener">llms.txt<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a> روی سایت هست:</p>
   <div class="ai-files">
     <a class="ai-file" href="/llms.txt">
       <span class="ai-file__icon" set:html={ic("file-text", 22)} />
       <span><code dir="ltr">/llms.txt</code><small>فهرست همهٔ صفحه‌ها با یک خط توضیح</small></span>
+      <span class="ai-file__arrow" aria-hidden="true">←</span>
     </a>
     <a class="ai-file" href="/llms-full.txt">
       <span class="ai-file__icon" set:html={ic("book-open", 22)} />
       <span><code dir="ltr">/llms-full.txt</code><small>کل مستندات در یک فایل، برای ضمیمه کردن به گفتگو</small></span>
+      <span class="ai-file__arrow" aria-hidden="true">←</span>
     </a>
   </div>
 
+  <!-- ───── پرسش‌های رایج ───── -->
   <h2 id="faq">پرسش‌های رایج</h2>
   <div class="ai-faq">
     {faq.map(([q, a], i) => (
@@ -171,51 +266,106 @@ const headings = [
 </Docs>
 
 <style>
-  /* ───── هیرو ───── */
-  .ai-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--k-space-8); align-items: center; margin-block: var(--k-space-2) var(--k-space-8); padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl);
-    background: radial-gradient(28rem 16rem at 12% 0%, color-mix(in srgb, var(--k-text-brand) 12%, transparent), transparent 70%), var(--k-bg-secondary); }
-  .ai-hero__eyebrow { display: inline-flex; align-items: center; gap: var(--k-space-2); padding: 0.2rem var(--k-space-3); border: 1px solid var(--k-border-brand); border-radius: var(--k-radius-full); color: var(--k-text-brand); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
-  .ai-hero__eyebrow :global(svg) { inline-size: 1rem; block-size: 1rem; }
-  .ai-hero__title { margin: var(--k-space-4) 0 var(--k-space-3); color: var(--k-text-primary); font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: var(--k-weight-bold); line-height: 1.45; text-wrap: balance; }
-  .ai-hero__text { margin: 0; color: var(--k-text-tertiary); line-height: 1.95; }
-  .ai-hero__text strong { color: var(--k-text-primary); font-family: var(--k-font-mono); font-size: 0.9em; font-weight: var(--k-weight-semibold); }
-  .ai-hero__cmd { display: flex; align-items: center; gap: var(--k-space-2); margin-block-start: var(--k-space-6); padding: var(--k-space-1) var(--k-space-1) var(--k-space-1) var(--k-space-4); border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); box-shadow: var(--k-shadow-xs); }
-  .ai-hero__cmd code { flex: 1; min-inline-size: 0; overflow-x: auto; color: var(--k-text-primary); font-size: 0.8125rem; white-space: nowrap; background: none; border: 0; padding: 0; scrollbar-width: none; }
-  .ai-hero__cmd code span { color: var(--k-text-brand); margin-inline-end: 0.5ch; }
-  /* دکمهٔ کپی کنار متن، نه شناور مثل بلوک کد */
+  .ai-mono { font-family: var(--k-font-mono); font-size: 0.9em; font-weight: var(--k-weight-semibold); color: var(--k-text-primary); }
+  .t-k { color: var(--k-text-brand); } .t-c { color: var(--k-text-info); } .t-s { color: var(--k-text-warning); } .t-a { color: var(--k-text-tertiary); }
   .ai-copy { flex: none; }
   .ai-copy[data-copied] { color: var(--k-text-success); }
-  .ai-hero__meta { margin: var(--k-space-3) 0 0; color: var(--k-text-quaternary); font-size: var(--k-text-xs); }
+  .text-link { display: inline-flex; gap: var(--k-space-1); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); text-decoration: none; }
+  .text-link:hover { text-decoration: underline; }
 
-  /* پنجرهٔ گفتگوی نمونه */
-  .ai-chat { overflow: clip; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); box-shadow: var(--k-shadow-xl); }
+  /* ───── هیرو ───── */
+  .ai-hero {
+    position: relative; isolation: isolate; overflow: clip;
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--k-space-8) var(--k-space-8); align-items: center;
+    margin-block: var(--k-space-2) var(--k-space-6); padding: clamp(1.5rem, 3.5vw, 2.5rem) clamp(1.25rem, 3vw, 2.25rem) var(--k-space-5);
+    border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-2xl, var(--k-radius-xl));
+    background:
+      linear-gradient(var(--k-border-secondary) 1px, transparent 1px) 0 0 / 2rem 2rem,
+      linear-gradient(90deg, var(--k-border-secondary) 1px, transparent 1px) 0 0 / 2rem 2rem,
+      var(--k-bg-secondary);
+  }
+  .ai-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, transparent, var(--k-bg-secondary) 85%); }
+  .ai-hero__glow { position: absolute; inset: -30% -20% auto auto; z-index: -1; inline-size: 34rem; block-size: 26rem; pointer-events: none;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--k-text-brand) 22%, transparent), transparent), radial-gradient(closest-side at 20% 80%, color-mix(in srgb, #3d5ef8 14%, transparent), transparent); filter: blur(6px); }
+  .ai-eyebrow { display: inline-flex; align-items: center; gap: var(--k-space-2); padding: 0.25rem var(--k-space-3); border: 1px solid var(--k-border-brand); border-radius: var(--k-radius-full); background: var(--k-bg-primary); color: var(--k-text-brand); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+  .ai-eyebrow bdi { font-family: var(--k-font-mono); color: var(--k-text-tertiary); }
+  .ai-eyebrow__dot { inline-size: 7px; block-size: 7px; border-radius: 50%; background: var(--k-text-success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--k-text-success) 22%, transparent); }
+  .ai-hero__title { margin: var(--k-space-4) 0 var(--k-space-3); color: var(--k-text-primary); font-size: clamp(1.6rem, 2.8vw, 2.25rem); font-weight: var(--k-weight-bold); line-height: 1.4; text-wrap: balance; }
+  .ai-hero__title span { background: linear-gradient(90deg, var(--k-text-brand), color-mix(in srgb, var(--k-text-brand) 45%, #3d8bf0)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .ai-hero__text { margin: 0; color: var(--k-text-tertiary); line-height: 1.95; }
+  .ai-cmd { display: flex; align-items: center; gap: var(--k-space-2); margin-block-start: var(--k-space-6); padding: var(--k-space-1) var(--k-space-1) var(--k-space-1) var(--k-space-4); border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); box-shadow: var(--k-shadow-sm); direction: ltr; }
+  .ai-cmd__prompt { color: var(--k-text-brand); font: 600 0.8125rem var(--k-font-mono); }
+  .ai-cmd code { flex: 1; min-inline-size: 0; overflow-x: auto; padding: 0; border: 0; background: none; color: var(--k-text-primary); font-size: 0.8125rem; white-space: nowrap; scrollbar-width: none; }
+  .ai-hero__links { display: flex; flex-wrap: wrap; gap: var(--k-space-2) var(--k-space-5); margin-block-start: var(--k-space-4); }
+  .ai-hero__foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-2) var(--k-space-4); padding-block-start: var(--k-space-4); border-block-start: 1px solid var(--k-border-secondary); color: var(--k-text-quaternary); font-size: var(--k-text-xs); }
+  .ai-hero__foot ul { display: flex; flex-wrap: wrap; gap: var(--k-space-2); margin: 0; padding: 0; list-style: none; }
+  .ai-hero__foot li { margin: 0; padding: 0.125rem var(--k-space-2_5, 0.625rem); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); background: var(--k-bg-primary); color: var(--k-text-secondary); font-weight: var(--k-weight-semibold); }
+
+  /* گفتگوی نمونه؛ هر بخش با تأخیر ظاهر می‌شود */
+  .ai-chat { overflow: clip; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); box-shadow: var(--k-shadow-2xl, var(--k-shadow-xl)); }
   .ai-chat__bar { display: flex; align-items: center; gap: 6px; padding: var(--k-space-2) var(--k-space-3); border-block-end: 1px solid var(--k-border-secondary); direction: ltr; }
   .ai-chat__bar i { inline-size: 9px; block-size: 9px; border-radius: 50%; background: var(--k-border-primary); }
   .ai-chat__bar span { margin-inline-start: auto; color: var(--k-text-quaternary); font: 0.6875rem var(--k-font-mono); }
   .ai-chat__body { display: grid; gap: var(--k-space-3); padding: var(--k-space-4); }
-  .ai-chat__user { justify-self: start; max-inline-size: 90%; margin: 0; padding: var(--k-space-2) var(--k-space-3); border-radius: var(--k-radius-md) var(--k-radius-md) var(--k-radius-md) var(--k-radius-xs, 2px); background: var(--k-bg-brand); color: var(--k-text-on-brand, #fff); font-size: var(--k-text-sm); line-height: 1.8; }
+  .ai-chat__user { justify-self: start; max-inline-size: 90%; margin: 0; padding: var(--k-space-2) var(--k-space-3); border-radius: var(--k-radius-md) var(--k-radius-md) var(--k-radius-md) 3px; background: var(--k-bg-brand); color: var(--k-text-on-brand, #fff); font-size: var(--k-text-sm); line-height: 1.8; }
   .ai-chat__calls { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; direction: ltr; }
-  .ai-chat__calls li { display: flex; align-items: center; gap: var(--k-space-2); padding: 6px var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-sm); background: var(--k-bg-secondary); font-size: 0.75rem; }
+  .ai-chat__calls li { display: flex; align-items: center; gap: var(--k-space-2); margin: 0; padding: 6px var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-sm); background: var(--k-bg-secondary); font-size: 0.75rem; }
   .ai-chat__tool { padding: 0 6px; border-radius: 4px; background: color-mix(in srgb, var(--k-text-brand) 16%, transparent); color: var(--k-text-brand); font: 600 0.6875rem var(--k-font-mono); }
-  .ai-chat__calls code { color: var(--k-text-primary); font-size: 0.75rem; background: none; border: 0; padding: 0; }
+  .ai-chat__calls code { padding: 0; border: 0; background: none; color: var(--k-text-primary); font-size: 0.75rem; }
   .ai-chat__calls span:not(.ai-chat__tool) { color: var(--k-text-tertiary); }
-  .ai-chat__calls b { margin-inline-start: auto; color: var(--k-text-success); font-weight: var(--k-weight-bold); }
+  .ai-chat__calls b { display: grid; margin-inline-start: auto; color: var(--k-text-success); }
   .ai-chat__code { margin: 0; padding: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-sm); background: var(--k-bg-secondary); color: var(--k-text-secondary); font: 0.75rem/1.8 var(--k-font-mono); text-align: left; white-space: pre; overflow-x: auto; }
-  .t-k { color: var(--k-text-brand); } .t-c { color: var(--k-text-info); } .t-s { color: var(--k-text-warning); } .t-a { color: var(--k-text-tertiary); }
   .ai-chat__ok { display: flex; align-items: center; gap: var(--k-space-1); margin: 0; color: var(--k-text-success); font-size: var(--k-text-xs); }
-  .ai-chat__ok :global(svg) { inline-size: 0.875rem; block-size: 0.875rem; }
+  @media (prefers-reduced-motion: no-preference) {
+    .ai-chat [style*="--s"] { animation: ai-in 0.45s var(--k-ease-standard) both; animation-delay: calc(0.35s + var(--s) * 0.45s); }
+    .ai-eyebrow__dot { animation: ai-pulse 2s ease-in-out infinite; }
+  }
+  @keyframes ai-in { from { opacity: 0; translate: 0 0.4rem; } }
+  @keyframes ai-pulse { 50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--k-text-success) 0%, transparent); } }
 
   /* عددها */
-  .ai-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0 0 var(--k-space-10); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); }
+  .ai-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0 0 var(--k-space-10); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); }
   .ai-stats > div { padding: var(--k-space-4) var(--k-space-5); }
   .ai-stats > div + div { border-inline-start: 1px solid var(--k-border-secondary); }
   .ai-stats dt { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
   .ai-stats dd { margin: var(--k-space-1) 0 0; color: var(--k-text-primary); font-size: var(--k-text-2xl); font-weight: var(--k-weight-bold); letter-spacing: -0.02em; }
 
-  /* زبانه‌های دستیار */
-  .ai-tabs { margin-block: var(--k-space-4) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); overflow: clip; }
+  /* با و بدون MCP */
+  .ai-vs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-3); margin-block: var(--k-space-4); }
+  .ai-vs__card { margin: 0; padding: var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); }
+  .ai-vs__card--good { border-color: color-mix(in srgb, var(--k-text-success) 45%, var(--k-border-secondary)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--k-text-success) 10%, transparent); }
+  .ai-vs__card figcaption { display: flex; align-items: center; gap: var(--k-space-2); color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .ai-vs__badge { padding: 0.0625rem var(--k-space-2); border-radius: var(--k-radius-full); font-size: var(--k-text-xs); }
+  .ai-vs__card--bad .ai-vs__badge { background: var(--k-bg-error-subtle, color-mix(in srgb, var(--k-text-error) 14%, transparent)); color: var(--k-text-error); }
+  .ai-vs__card--good .ai-vs__badge { background: var(--k-bg-success-subtle); color: var(--k-text-success); }
+  .ai-vs__card pre { margin: var(--k-space-3) 0; padding: var(--k-space-3); border-radius: var(--k-radius-sm); background: var(--k-bg-secondary); color: var(--k-text-secondary); font: 0.8125rem/1.9 var(--k-font-mono); text-align: left; overflow-x: auto; }
+  .ai-vs__x { color: var(--k-text-error); text-decoration: line-through wavy color-mix(in srgb, var(--k-text-error) 70%, transparent); text-underline-offset: 3px; }
+  .ai-vs__card p { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.8; }
+
+  /* روند کار */
+  .ai-flow { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: var(--k-space-2); margin: var(--k-space-5) 0 0; padding: var(--k-space-5); border: 1px dashed var(--k-border-primary); border-radius: var(--k-radius-xl); }
+  .ai-flow__node { display: grid; justify-items: center; gap: var(--k-space-1); padding: var(--k-space-4) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); text-align: center; }
+  .ai-flow__node--kashi { border-color: var(--k-border-brand); box-shadow: var(--k-shadow-md), 0 0 0 3px color-mix(in srgb, var(--k-text-brand) 12%, transparent); }
+  .ai-flow__icon { display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; margin-block-end: var(--k-space-1); border-radius: var(--k-radius-md); background: color-mix(in srgb, var(--k-text-brand) 12%, transparent); color: var(--k-text-brand); }
+  .ai-flow__node b { color: var(--k-text-primary); font-size: var(--k-text-sm); }
+  .ai-flow__node small { color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.6; }
+  .ai-flow__link { display: grid; justify-items: center; gap: 4px; min-inline-size: 4.5rem; color: var(--k-text-quaternary); font-size: 0.6875rem; }
+  .ai-flow__link i { position: relative; inline-size: 100%; block-size: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--k-border-primary), var(--k-text-brand), var(--k-border-primary)); }
+  /* نقطهٔ در حال حرکت روی خط؛ رفت‌وبرگشت پرسش و پاسخ */
+  .ai-flow__link i::after { content: ""; position: absolute; inset-block-start: -3px; inset-inline-start: calc(50% - 4px); inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--k-text-brand); box-shadow: 0 0 0 3px color-mix(in srgb, var(--k-text-brand) 22%, transparent); }
+  @media (prefers-reduced-motion: no-preference) { .ai-flow__link i::after { animation: ai-travel 2.4s ease-in-out infinite alternate; } }
+  @keyframes ai-travel { from { inset-inline-start: -4px; } to { inset-inline-start: calc(100% - 4px); } }
+
+  /* نصب */
+  .ai-steps { position: relative; display: grid; gap: var(--k-space-6); margin: var(--k-space-5) 0 0; padding: 0; list-style: none; }
+  .ai-steps::before { content: ""; position: absolute; inset-block: 1rem 1rem; inset-inline-start: 0.9375rem; inline-size: 1px; background: linear-gradient(var(--k-border-brand), var(--k-border-secondary)); }
+  .ai-steps > li { position: relative; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: var(--k-space-4); margin: 0; }
+  .ai-steps__n { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border: 1px solid var(--k-border-brand); border-radius: 50%; background: var(--k-bg-primary); color: var(--k-text-brand); font-size: var(--k-text-sm); font-weight: var(--k-weight-bold); }
+  .ai-steps h3 { margin: 0.25rem 0 var(--k-space-2); color: var(--k-text-primary); font-size: var(--k-text-md); font-weight: var(--k-weight-semibold); }
+  .ai-steps__body > p { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.9; }
+  .ai-tabs { margin-block-start: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); overflow: clip; }
   .ai-tabs__list { display: flex; gap: var(--k-space-1); padding: var(--k-space-2); overflow-x: auto; border-block-end: 1px solid var(--k-border-secondary); background: var(--k-bg-secondary); scrollbar-width: none; }
-  .ai-tabs__list button { flex: none; padding: var(--k-space-1_5, 0.375rem) var(--k-space-3); border: 1px solid transparent; border-radius: var(--k-radius-md); background: none; color: var(--k-text-tertiary); font: inherit; font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); cursor: pointer; direction: ltr; }
+  .ai-tabs__list button { flex: none; padding: 0.375rem var(--k-space-3); border: 1px solid transparent; border-radius: var(--k-radius-md); background: none; color: var(--k-text-tertiary); font: inherit; font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); cursor: pointer; direction: ltr; }
   .ai-tabs__list button:hover { color: var(--k-text-primary); }
   .ai-tabs__list button[aria-selected="true"] { border-color: var(--k-border-primary); background: var(--k-bg-primary); box-shadow: var(--k-shadow-xs); color: var(--k-text-primary); }
   .ai-tabs__list button:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
@@ -224,22 +374,24 @@ const headings = [
   .ai-tabs__panel :global(.codeblock) { margin: 0; }
   .ai-note { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
 
-  /* ابزارها */
-  .ai-tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-3); margin: var(--k-space-4) 0 var(--k-space-3); padding: 0; list-style: none; }
-  .ai-tools li { display: flex; gap: var(--k-space-3); margin: 0; padding: var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); transition: border-color var(--k-duration-fast); }
-  .ai-tools li:hover { border-color: var(--k-border-primary); }
-  .ai-tools__icon { display: grid; flex: none; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: var(--k-bg-secondary); color: var(--k-text-brand); }
-  .ai-tools__icon :global(svg) { inline-size: 1.125rem; block-size: 1.125rem; }
-  .ai-tools code { color: var(--k-text-brand); font-size: 0.75rem; background: none; border: 0; padding: 0; }
-  .ai-tools h3 { margin: var(--k-space-1) 0 0; color: var(--k-text-primary); font-size: var(--k-text-md); font-weight: var(--k-weight-semibold); }
-  .ai-tools p { margin: var(--k-space-1) 0 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.8; }
+  /* ابزارها در سه گروه */
+  .ai-groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--k-space-3); margin: var(--k-space-4) 0 var(--k-space-3); }
+  .ai-group { overflow: clip; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); }
+  .ai-group header { display: flex; align-items: center; gap: var(--k-space-2); padding: var(--k-space-3) var(--k-space-4); border-block-end: 1px solid var(--k-border-secondary); background: var(--k-bg-secondary); color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .ai-group header :global(svg) { color: var(--k-text-brand); }
+  .ai-group ul { margin: 0; padding: 0; list-style: none; }
+  .ai-group li { display: grid; gap: 2px; margin: 0; padding: var(--k-space-3) var(--k-space-4); }
+  .ai-group li + li { border-block-start: 1px solid var(--k-border-secondary); }
+  .ai-group code { justify-self: start; padding: 0; border: 0; background: none; color: var(--k-text-brand); font-size: 0.75rem; }
+  .ai-group b { color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .ai-group li > span { color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.8; }
 
-  /* نمونهٔ پرسش‌ها */
+  /* پرسش‌های نمونه */
   .ai-prompts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-2); margin: var(--k-space-4) 0 0; padding: 0; list-style: none; }
-  .ai-prompts li { display: flex; align-items: center; gap: var(--k-space-3); margin: 0; padding: var(--k-space-3) var(--k-space-2) var(--k-space-3) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); background: var(--k-bg-secondary); color: var(--k-text-secondary); font-size: var(--k-text-sm); line-height: 1.7; }
-  .ai-prompts li > span:first-child { display: grid; flex: none; color: var(--k-text-brand); }
+  .ai-prompts li { display: flex; align-items: center; gap: var(--k-space-3); margin: 0; padding: var(--k-space-2) var(--k-space-2) var(--k-space-2) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); color: var(--k-text-secondary); font-size: var(--k-text-sm); line-height: 1.7; transition: border-color var(--k-duration-fast); }
+  .ai-prompts li:hover { border-color: var(--k-border-brand); }
+  .ai-prompts__icon { display: grid; flex: none; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: var(--k-radius-md); background: color-mix(in srgb, var(--k-text-brand) 12%, transparent); color: var(--k-text-brand); }
   .ai-prompts li > span:nth-child(2) { flex: 1; }
-  .ai-prompts li :global(svg) { inline-size: 1.125rem; block-size: 1.125rem; }
 
   /* فایل‌های llms */
   .ai-files { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-3); margin-block-start: var(--k-space-4); }
@@ -247,10 +399,12 @@ const headings = [
   .ai-file:hover { border-color: var(--k-border-brand); }
   .ai-file:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
   .ai-file__icon { display: grid; flex: none; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; border-radius: var(--k-radius-md); background: color-mix(in srgb, var(--k-text-brand) 12%, transparent); color: var(--k-text-brand); }
-  .ai-file code { display: block; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); background: none; border: 0; padding: 0; }
+  .ai-file code { display: block; padding: 0; border: 0; background: none; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
   .ai-file small { display: block; color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .ai-file__arrow { margin-inline-start: auto; color: var(--k-text-quaternary); transition: color var(--k-duration-fast), translate var(--k-duration-fast); }
+  .ai-file:hover .ai-file__arrow { color: var(--k-text-brand); translate: -3px 0; }
 
-  /* پرسش‌ها */
+  /* پرسش‌های رایج */
   .ai-faq { border-block-start: 1px solid var(--k-border-secondary); }
   .ai-faq details { border-block-end: 1px solid var(--k-border-secondary); }
   .ai-faq summary { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-4); padding: var(--k-space-4) 0; color: var(--k-text-primary); font-weight: var(--k-weight-semibold); cursor: pointer; list-style: none; }
@@ -261,15 +415,19 @@ const headings = [
   .ai-faq summary:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); border-radius: var(--k-radius-sm); }
   .ai-faq details p { margin: 0 0 var(--k-space-4); color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.95; }
 
-  @media (max-width: 60rem) {
+  @media (max-width: 64rem) {
     .ai-hero { grid-template-columns: minmax(0, 1fr); }
+    .ai-groups { grid-template-columns: minmax(0, 1fr); }
   }
-  @media (max-width: 40rem) {
+  @media (max-width: 44rem) {
+    .ai-vs, .ai-prompts, .ai-files { grid-template-columns: minmax(0, 1fr); }
+    .ai-flow { grid-template-columns: minmax(0, 1fr); }
+    .ai-flow__link { grid-auto-flow: column; justify-content: center; gap: var(--k-space-2); }
+    .ai-flow__link i { inline-size: 2px; block-size: 1.5rem; background: linear-gradient(var(--k-border-primary), var(--k-text-brand)); }
+    .ai-flow__link i::after { display: none; }
     .ai-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .ai-stats > div:nth-child(3) { border-inline-start: 0; }
     .ai-stats > div:nth-child(n + 3) { border-block-start: 1px solid var(--k-border-secondary); }
-    .ai-tools, .ai-prompts, .ai-files { grid-template-columns: minmax(0, 1fr); }
-    .ai-prompts li { border-radius: var(--k-radius-lg); }
   }
 </style>
 

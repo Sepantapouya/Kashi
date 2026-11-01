@@ -5,6 +5,3 @@ apps/docs/dist
 dist
 node_modules
 
-# ساخته‌شده از مستندات موقع بیلد
-apps/docs/public/llms.txt
-apps/docs/public/llms-full.txt

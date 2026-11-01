@@ -131,6 +131,8 @@ export function collectDocs(root, nav, site = "https://kashi.sepantapouya.com") 
     const href = rel ? `/docs/${rel}/` : "/docs/";
     const d = readDoc(file);
     const n = groupOf[href];
-    return { slug: rel || "intro", url: site + href, title: d.title || (n && n.title) || rel, description: d.description, group: n ? n.group : "", components: d.components, markdown: d.markdown };
+    // راهنماها هم نمونه‌کد دارند (Button در صفحهٔ نصب)؛ فقط صفحه‌های کامپوننت کامپوننت معرفی می‌کنند
+    const components = /^(components|persian)\//.test(rel) ? d.components : [];
+    return { slug: rel || "intro", url: site + href, title: d.title || (n && n.title) || rel, description: d.description, group: n ? n.group : "", components, markdown: d.markdown };
   });
 }
