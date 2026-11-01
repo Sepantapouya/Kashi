@@ -482,7 +482,7 @@ const chips = [
               ))}
             </ol>
             <a class="k-btn k-btn--primary adopt__cta" href={author.telegram.href} target="_blank" rel="noopener">گفتگو دربارهٔ استفادهٔ سازمانی<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
-            <p class="adopt__note">پاسخ مستقیم از نگه‌دارندهٔ کاشی در تلگرام</p>
+            <a class="text-link adopt__more" href="/enterprise/">خدمات سازمانی و اسپانسری <span aria-hidden="true">←</span></a>
           </aside>
         </div>
       </div>
@@ -635,7 +635,7 @@ const chips = [
           <p class="support__how">برای حمایت، در تلگرام به <bdi dir="ltr">@{author.telegram.handle}</bdi> پیام بدهید.</p>
           <div class="support__actions">
             <a class="k-btn k-btn--primary" href={author.telegram.href} target="_blank" rel="noopener">پیام در تلگرام<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
-            <a class="k-btn k-btn--secondary" href={author.repo} target="_blank" rel="noopener">ستاره در GitHub<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+            <a class="k-btn k-btn--secondary" href="/enterprise/#sponsor-title">اسپانسر کاشی شوید</a>
           </div>
         </article>
       </div>
@@ -674,7 +674,7 @@ const chips = [
             </div>
             <div class="cta__actions">
               <a class="k-btn k-btn--primary k-btn--lg" href="/docs/installation/">راهنمای نصب</a>
-              <a class="k-btn k-btn--secondary k-btn--lg" href={author.telegram.href} target="_blank" rel="noopener">گفتگو برای سازمان‌ها<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+              <a class="k-btn k-btn--secondary k-btn--lg" href="/enterprise/">خدمات سازمانی</a>
             </div>
           </div>
           <ol class="steps" role="list">
@@ -1037,7 +1037,7 @@ const chips = [
   .adopt__steps b { display: block; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
   .adopt__steps small { display: block; color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.8; }
   .adopt__cta { justify-content: center; }
-  .adopt__note { margin: 0; color: var(--k-text-quaternary); font-size: var(--k-text-xs); text-align: center; }
+  .adopt__more { justify-self: center; }
 
   /* ───── پرسش‌های رایج ───── */
   .faq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }

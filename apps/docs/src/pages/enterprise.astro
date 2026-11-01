@@ -1,0 +1,249 @@
+---
+// خدمات سازمانی و اسپانسری کاشی؛ قیمت‌ها توافقی‌اند و درخواست از تلگرام ثبت می‌شود
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { author } from "../data/author";
+import { fetchStats, faNum } from "../data/github-stats";
+import { iconSvg } from "@kashi-ui/icons";
+
+const gh = await fetchStats();
+const tg = author.telegram.href;
+
+const CHECK = "m5 10.5 3.2 3L15 7";
+
+const services = [
+  {
+    icon: "rocket",
+    title: "راه‌اندازی و مهاجرت",
+    lead: "کاشی را بدون توقف توسعه وارد محصول فعلی‌تان می‌کنیم.",
+    items: ["بررسی محصول و برنامهٔ مهاجرت تدریجی", "ساخت تم اختصاصی سازمان با رنگ، فونت و شعاع برند", "همان تم در کیت فیگمای تیم طراحی", "همراهی تیم توسعه در پیاده‌سازی بخش‌های اول"],
+    cta: "درخواست پیشنهاد قیمت",
+  },
+  {
+    icon: "presentation",
+    title: "کارگاه آموزشی",
+    lead: "برای تیم‌های طراحی و توسعه، حضوری یا آنلاین.",
+    items: ["کار با کامپوننت‌ها، توکن‌ها و تم‌سازی", "طراحی راست‌به‌چپ و دسترس‌پذیر در عمل", "گردش کار مشترک فیگما و کد", "ساخت و نگه‌داری دیزاین‌سیستم در سازمان"],
+    cta: "هماهنگی کارگاه",
+  },
+  {
+    icon: "headset",
+    title: "پشتیبانی سالانه (SLA)",
+    lead: "قرارداد سالانه با زمان پاسخ‌گویی تضمین‌شده.",
+    items: ["کانال ارتباطی مستقیم با نگه‌دارندهٔ کاشی", "زمان پاسخ‌گویی مشخص در قرارداد", "اولویت در بررسی و رفع مشکل‌ها", "مشاوره برای به‌روزرسانی نسخه‌ها و معماری"],
+    cta: "دریافت شرایط قرارداد",
+    featured: true,
+  },
+];
+
+const process = [
+  { title: "تماس", text: "در تلگرام نیاز تیمتان را کوتاه بنویسید." },
+  { title: "بررسی", text: "یک جلسهٔ کوتاه برای شناخت محصول و دامنهٔ کار." },
+  { title: "پیشنهاد", text: "دامنه، زمان‌بندی و هزینه به شکل مکتوب." },
+  { title: "اجرا", text: "شروع کار و گزارش منظم پیشرفت." },
+];
+
+const tiers = [
+  {
+    name: "اسپانسر اصلی",
+    note: "برای برندهایی که می‌خواهند کنار کاشی دیده شوند",
+    perks: ["لوگوی بزرگ در صفحهٔ اصلی سایت", "لوگوی بزرگ در README گیت‌هاب", "معرفی در یادداشت انتشار نسخه‌ها", "همهٔ امتیازهای سطح‌های دیگر"],
+    featured: true,
+  },
+  {
+    name: "اسپانسر",
+    note: "برای شرکت‌هایی که از کاشی استفاده می‌کنند",
+    perks: ["لوگو در بخش اسپانسرهای سایت", "لوگو در README گیت‌هاب", "لینک به سایت شما"],
+  },
+  {
+    name: "حامی",
+    note: "برای تیم‌های کوچک و افراد",
+    perks: ["نام در بخش حامیان سایت", "نام در README گیت‌هاب", "قدردانی در کانال کاشی"],
+  },
+];
+---
+<Base title="کاشی برای سازمان‌ها" description="خدمات سازمانی کاشی: راه‌اندازی و مهاجرت، کارگاه آموزشی، پشتیبانی سالانه با SLA و اسپانسری رسمی.">
+  <Header />
+  <main id="main" tabindex="-1" class="ent-page">
+    <section class="ep-hero" aria-labelledby="ep-title">
+      <div class="ep-hero__bg" aria-hidden="true"></div>
+      <div class="wrap">
+        <p class="kicker">کاشی برای سازمان‌ها</p>
+        <h1 id="ep-title">کاشی رایگان است؛<br /><span>همراهی ما برای سازمان شما.</span></h1>
+        <p class="ep-lead">کتابخانه برای همیشه رایگان و MIT می‌ماند. اگر تیمتان برای راه‌اندازی، آموزش یا پشتیبانی تضمین‌شده به کمک نیاز دارد، یا می‌خواهید برندتان کنار کاشی دیده شود، این‌جا شروع کنید.</p>
+        <div class="ep-actions">
+          <a class="k-btn k-btn--primary k-btn--lg" href={tg} target="_blank" rel="noopener">درخواست مشاوره<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+          <a class="k-btn k-btn--secondary k-btn--lg" href="#sponsor-title">اسپانسر کاشی شوید</a>
+        </div>
+        <p class="ep-promise"><span class="ep-dot" aria-hidden="true"></span>قول ما: هر چیزی که امروز در کاشی رایگان است، برای همیشه رایگان و متن‌باز می‌ماند.</p>
+      </div>
+    </section>
+
+    <section class="ep-band" aria-labelledby="services-title">
+      <div class="wrap">
+        <header class="ep-head">
+          <p class="kicker">خدمات سازمانی</p>
+          <h2 id="services-title">از اولین صفحه تا نگه‌داری بلندمدت</h2>
+          <p>هزینهٔ هر خدمت بر اساس اندازهٔ تیم و دامنهٔ کار تعیین می‌شود. پیشنهاد قیمت مکتوب و بدون تعهد است.</p>
+        </header>
+        <ul class="services" role="list">
+          {services.map((s) => (
+            <li class:list={["svc", { "svc--featured": s.featured }]}>
+              {s.featured && <span class="svc__tag">پیشنهاد برای سازمان‌ها</span>}
+              <span class="svc__icon" aria-hidden="true" set:html={iconSvg(s.icon, { size: 20 })} />
+              <h3>{s.title}</h3>
+              <p class="svc__lead">{s.lead}</p>
+              <ul class="svc__list" role="list">
+                {s.items.map((it) => (
+                  <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={CHECK} /></svg>{it}</li>
+                ))}
+              </ul>
+              <div class="svc__foot">
+                <span class="svc__price">قیمت توافقی</span>
+                <a class:list={["k-btn", s.featured ? "k-btn--primary" : "k-btn--secondary"]} href={tg} target="_blank" rel="noopener">{s.cta}<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <ol class="process" role="list" aria-label="روند همکاری">
+          {process.map((p, i) => (
+            <li>
+              <span class="process__n" aria-hidden="true">{faNum(i + 1)}</span>
+              <b>{p.title}</b>
+              <span>{p.text}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="ep-band ep-band--alt" aria-labelledby="sponsor-title">
+      <div class="wrap">
+        <header class="ep-head">
+          <p class="kicker">اسپانسری</p>
+          <h2 id="sponsor-title">اسپانسر رسمی کاشی شوید</h2>
+          <p>کاشی را طراح‌ها و برنامه‌نویس‌های محصولات فارسی هر روز می‌بینند. حمایت شما نگه‌داری و توسعهٔ کاشی را ممکن می‌کند و برندتان را جلوی همین مخاطب می‌گذارد. برای درگاه‌های پرداخت و بانک‌ها که کاشی همین حالا لوگو و ابزار کارت و شبایشان را دارد، انتخابی طبیعی است.</p>
+        </header>
+
+        <dl class="reach" aria-label="دیده‌شدن کاشی، زنده از GitHub">
+          <div><dt>ستاره در GitHub</dt><dd><span data-gh="stars">{gh ? faNum(gh.stars) : "—"}</span></dd></div>
+          <div><dt>کلون از ابتدا</dt><dd><span data-gh="clones">{gh?.clones?.total ? faNum(gh.clones.total) : "—"}</span></dd></div>
+          <div><dt>کلون‌کنندهٔ یکتا، ۱۴ روز</dt><dd><span data-gh="uniques">{gh?.clones?.last14 ? faNum(gh.clones.last14.uniques) : "—"}</span></dd></div>
+        </dl>
+
+        <ul class="tiers" role="list">
+          {tiers.map((t) => (
+            <li class:list={["tier", { "tier--featured": t.featured }]}>
+              <h3>{t.name}</h3>
+              <p class="tier__note">{t.note}</p>
+              <ul role="list">
+                {t.perks.map((p) => <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={CHECK} /></svg>{p}</li>)}
+              </ul>
+              <a class:list={["k-btn", t.featured ? "k-btn--primary" : "k-btn--secondary"]} href={tg} target="_blank" rel="noopener">گفتگو دربارهٔ این سطح<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+            </li>
+          ))}
+        </ul>
+
+        <div class="slots" aria-label="اسپانسرهای کاشی">
+          <p class="slots__title">اسپانسرهای کاشی</p>
+          <div class="slots__row">
+            <a class="slot" href={tg} target="_blank" rel="noopener">جای لوگوی شما<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+            <a class="slot" href={tg} target="_blank" rel="noopener">جای لوگوی شما<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+            <a class="slot" href={tg} target="_blank" rel="noopener">جای لوگوی شما<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ep-cta" aria-labelledby="ep-cta-title">
+      <div class="wrap ep-cta__inner">
+        <div>
+          <h2 id="ep-cta-title">دربارهٔ نیاز تیمتان صحبت کنیم</h2>
+          <p>پاسخ مستقیم از {author.name}، نگه‌دارندهٔ کاشی، در تلگرام: <bdi dir="ltr">@{author.telegram.handle}</bdi></p>
+        </div>
+        <a class="k-btn k-btn--primary k-btn--lg" href={tg} target="_blank" rel="noopener">پیام در تلگرام<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .ent-page { --max: 72rem; overflow-x: clip; }
+  .wrap { max-inline-size: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+  .kicker { margin: 0; color: var(--k-text-brand); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+
+  .ep-hero { position: relative; isolation: isolate; padding-block: clamp(4rem, 9vw, 6.5rem) clamp(3rem, 6vw, 4.5rem); border-block-end: 1px solid var(--k-border-secondary); }
+  .ep-hero__bg { position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(36rem 20rem at 85% 0%, color-mix(in srgb, var(--k-text-brand) 16%, transparent), transparent 70%),
+      linear-gradient(var(--k-border-secondary) 1px, transparent 1px) 0 0 / 3.5rem 3.5rem,
+      linear-gradient(90deg, var(--k-border-secondary) 1px, transparent 1px) 0 0 / 3.5rem 3.5rem;
+    -webkit-mask-image: radial-gradient(ellipse 70% 80% at 70% 0%, #000 30%, transparent 80%); mask-image: radial-gradient(ellipse 70% 80% at 70% 0%, #000 30%, transparent 80%); opacity: 0.8; }
+  .ep-hero h1 { max-inline-size: 22ch; margin: var(--k-space-4) 0 var(--k-space-5); color: var(--k-text-primary); font-size: clamp(2.1rem, 4.6vw, 3.5rem); font-weight: var(--k-weight-bold); line-height: 1.3; text-wrap: balance; }
+  .ep-hero h1 span { color: var(--k-text-brand); }
+  .ep-lead { max-inline-size: 44rem; margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-lg); line-height: 1.95; }
+  .ep-actions { display: flex; flex-wrap: wrap; gap: var(--k-space-3); margin-block-start: var(--k-space-8); }
+  .ep-promise { display: inline-flex; align-items: center; gap: var(--k-space-2); margin: var(--k-space-6) 0 0; padding: var(--k-space-2) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); background: var(--k-bg-primary); color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+  .ep-dot { flex: none; inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--k-text-success); box-shadow: 0 0 0 3px color-mix(in srgb, var(--k-text-success) 25%, transparent); }
+
+  .ep-band { padding-block: clamp(4rem, 8vw, 6rem); border-block-end: 1px solid var(--k-border-secondary); }
+  .ep-band--alt { background: var(--k-bg-secondary); }
+  .ep-head { max-inline-size: 46rem; margin-block-end: clamp(2rem, 5vw, 3rem); }
+  .ep-head h2 { margin: var(--k-space-3) 0; color: var(--k-text-primary); font-size: clamp(var(--k-text-2xl), 3.4vw, 2.5rem); font-weight: var(--k-weight-bold); line-height: 1.35; }
+  .ep-head > p:not(.kicker) { margin: 0; color: var(--k-text-tertiary); line-height: 1.95; }
+
+  .services, .tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--k-space-4); margin: 0; padding: 0; list-style: none; }
+  .svc, .tier { position: relative; display: flex; flex-direction: column; gap: var(--k-space-3); padding: clamp(1.5rem, 3vw, 2rem); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); }
+  .svc--featured, .tier--featured { border-color: var(--k-border-brand); box-shadow: var(--k-shadow-lg), 0 0 0 1px var(--k-border-brand); }
+  .svc__tag { position: absolute; inset-block-start: -0.75rem; inset-inline-start: var(--k-space-6); padding: 0.125rem var(--k-space-3); border-radius: var(--k-radius-full); background: var(--k-bg-brand); color: var(--k-text-on-brand, #fff); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+  .svc__icon { display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: var(--k-bg-secondary); color: var(--k-text-brand); }
+  .svc__icon :global(svg) { inline-size: 1.25rem; block-size: 1.25rem; }
+  .svc h3, .tier h3 { margin: var(--k-space-2) 0 0; color: var(--k-text-primary); font-size: var(--k-text-lg); font-weight: var(--k-weight-bold); }
+  .svc__lead, .tier__note { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.8; }
+  .svc__list, .tier ul { display: grid; gap: var(--k-space-2); margin: var(--k-space-2) 0 0; padding: var(--k-space-4) 0 0; border-block-start: 1px solid var(--k-border-secondary); list-style: none; }
+  .svc__list li, .tier li { display: flex; gap: var(--k-space-2); color: var(--k-text-secondary); font-size: var(--k-text-sm); line-height: 1.7; }
+  .svc__list svg, .tier li svg { flex: none; inline-size: 1rem; block-size: 1rem; margin-block-start: 0.2rem; color: var(--k-text-success); }
+  .svc__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--k-space-3); margin-block-start: auto; padding-block-start: var(--k-space-5); }
+  .svc__price { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+  .tier .k-btn { margin-block-start: auto; justify-content: center; }
+  .tier ul { margin-block-end: var(--k-space-4); }
+
+  .process { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--k-space-4); margin: clamp(2rem, 4vw, 3rem) 0 0; padding: var(--k-space-6); border: 1px dashed var(--k-border-primary); border-radius: var(--k-radius-xl); list-style: none; }
+  .process li { display: grid; gap: var(--k-space-1); align-content: start; }
+  .process__n { display: grid; place-items: center; inline-size: 1.75rem; block-size: 1.75rem; margin-block-end: var(--k-space-2); border: 1px solid var(--k-border-brand); border-radius: 50%; color: var(--k-text-brand); font-size: var(--k-text-xs); font-weight: var(--k-weight-bold); }
+  .process b { color: var(--k-text-primary); font-size: var(--k-text-sm); }
+  .process li > span:last-child { color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.8; }
+
+  .reach { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 var(--k-space-6); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); }
+  .reach > div { padding: var(--k-space-5) var(--k-space-6); }
+  .reach > div + div { border-inline-start: 1px solid var(--k-border-secondary); }
+  .reach dt { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .reach dd { margin: var(--k-space-1) 0 0; color: var(--k-text-primary); font-size: clamp(1.75rem, 3.5vw, 2.25rem); font-weight: var(--k-weight-bold); letter-spacing: -0.02em; }
+
+  .slots { margin-block-start: clamp(2rem, 4vw, 3rem); text-align: center; }
+  .slots__title { margin: 0 0 var(--k-space-4); color: var(--k-text-quaternary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .slots__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--k-space-4); }
+  .slot { display: grid; place-items: center; min-block-size: 5.5rem; border: 1px dashed var(--k-border-primary); border-radius: var(--k-radius-lg); color: var(--k-text-quaternary); font-size: var(--k-text-sm); text-decoration: none; transition: border-color var(--k-duration-fast), color var(--k-duration-fast); }
+  .slot:hover { border-color: var(--k-border-brand); color: var(--k-text-brand); }
+  .slot:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+
+  .ep-cta { padding-block: clamp(3.5rem, 7vw, 5rem); }
+  .ep-cta__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--k-space-6); }
+  .ep-cta h2 { margin: 0; color: var(--k-text-primary); font-size: clamp(var(--k-text-xl), 3vw, 2rem); font-weight: var(--k-weight-bold); }
+  .ep-cta p { margin: var(--k-space-2) 0 0; color: var(--k-text-tertiary); }
+  .ep-cta bdi { color: var(--k-text-brand); font-family: var(--k-font-mono); }
+
+  @media (max-width: 56rem) {
+    .services, .tiers { grid-template-columns: minmax(0, 1fr); }
+    .process { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .svc--featured, .tier--featured { order: -1; }
+  }
+  @media (max-width: 36rem) {
+    .reach { grid-template-columns: minmax(0, 1fr); }
+    .reach > div + div { border-inline-start: 0; border-block-start: 1px solid var(--k-border-secondary); }
+    .slots__row { grid-template-columns: minmax(0, 1fr); }
+    .process { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
