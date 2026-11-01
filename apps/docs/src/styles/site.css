@@ -393,7 +393,18 @@ code, pre, kbd {
 .demo__preview--stretch > * { flex: 1 1 18rem; }
 .demo__preview--column { flex-direction: column; align-items: stretch; }
 .demo__preview--column.demo__preview--center { align-items: center; }
-.demo__code { border-block-start: 1px solid var(--k-border-secondary); background: var(--code-bg); }
+.demo__code { position: relative; border-block-start: 1px solid var(--k-border-secondary); background: var(--code-bg); }
+/* دکمهٔ StackBlitz در همان ردیف تب‌ها، سمت مقابل React/HTML (نوار کد چپ‌به‌راست است) */
+.demo__blitz { position: absolute; inset-block-start: 0.4rem; right: var(--k-space-3); margin: 0; }
+.demo__blitz-btn {
+  display: inline-flex; align-items: center; gap: 6px; padding: 0.3rem 0.65rem; direction: ltr;
+  border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); background: var(--k-bg-primary);
+  color: var(--k-text-secondary); font: inherit; font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); cursor: pointer;
+  transition: color var(--k-duration-fast), border-color var(--k-duration-fast);
+}
+.demo__blitz-btn svg { inline-size: 0.875rem; block-size: 0.875rem; color: #1389fd; }
+.demo__blitz-btn:hover { border-color: #1389fd; color: var(--k-text-primary); }
+.demo__blitz-btn:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
 .demo__tabs {
   display: flex;
   gap: var(--k-space-1);

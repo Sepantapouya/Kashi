@@ -3,6 +3,7 @@
 // HTML مستقیم از خروجی همان کامپوننت React ساخته می‌شود، پس همیشه با کد هم‌خوان است.
 import CodeBlock from "./CodeBlock.astro";
 import { formatHtml } from "../lib/format-html";
+import { stackblitzProject } from "../lib/stackblitz";
 
 interface Props {
   /** کد React نمایش‌داده‌شده */
@@ -18,6 +19,9 @@ interface Props {
 const { code, align = "center", column = false, label = "نمونه", html: showHtml = true } = Astro.props;
 const html = await Astro.slots.render("default");
 const id = `demo-${Math.random().toString(36).slice(2, 8)}`;
+// نام صفحه برای عنوان پروژه، مثل «button»
+const page = Astro.url.pathname.split("/").filter(Boolean).pop() ?? "kashi";
+const blitz = stackblitzProject(code, `${page} · ${label}`);
 ---
 <figure class="demo">
   <div class:list={["demo__preview", `demo__preview--${align}`, { "demo__preview--column": column }]} role="group" aria-label={label} set:html={html} />
@@ -26,6 +30,19 @@ const id = `demo-${Math.random().toString(36).slice(2, 8)}`;
       {code && <button role="tab" type="button" id={`${id}-t1`} aria-controls={`${id}-p1`} aria-selected="true">React</button>}
       {showHtml && <button role="tab" type="button" id={`${id}-t2`} aria-controls={`${id}-p2`} aria-selected={code ? "false" : "true"} tabindex={code ? -1 : undefined}>HTML</button>}
     </div>
+    {blitz && (
+      <form class="demo__blitz" method="post" action="https://stackblitz.com/run?file=src/App.jsx" target="_blank">
+        <input type="hidden" name="project[title]" value={blitz.title} />
+        <input type="hidden" name="project[description]" value="نمونهٔ کاشی، دیزاین‌سیستم فارسی — kashi.sepantapouya.com" />
+        <input type="hidden" name="project[template]" value="node" />
+        {Object.entries(blitz.files).map(([path, content]) => <input type="hidden" name={`project[files][${path}]`} value={content} />)}
+        <button type="submit" class="demo__blitz-btn">
+          <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M11.6 1.8 3.9 11.2c-.4.5 0 1.3.7 1.3h4.2l-1.1 5.6c-.1.7.8 1.1 1.2.5l7.2-9.4c.4-.5 0-1.3-.6-1.3h-4l1.4-5.4c.2-.7-.7-1.2-1.3-.7Z"/></svg>
+          StackBlitz
+          <span class="k-sr-only"> — باز کردن همین نمونه برای ویرایش آنلاین (در پنجرهٔ جدید)</span>
+        </button>
+      </form>
+    )}
     {code && <div role="tabpanel" id={`${id}-p1`} aria-labelledby={`${id}-t1`}><CodeBlock code={code} lang="tsx" /></div>}
     {showHtml && <div role="tabpanel" id={`${id}-p2`} aria-labelledby={`${id}-t2`} hidden={code ? true : undefined}><CodeBlock code={formatHtml(html)} lang="html" /></div>}
   </div>
