@@ -1,0 +1,299 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import { icons, iconSvg } from "@kashi-ui/icons";
+import { toFaDigits } from "@kashi-ui/persian";
+import mcpPkg from "../../../../../packages/mcp/package.json";
+import { collectDocs } from "../../../../../packages/mcp/src/docs-to-md.mjs";
+import { nav } from "../../data/nav";
+
+// عددهای سرور از همان منبعی می‌آید که پکیج MCP می‌سازد
+const fa = (n: number) => toFaDigits(n.toLocaleString("en-US").replace(/,/g, "٬"));
+const ic = (name: string, size = 20) => iconSvg(name, { size }) ?? "";
+// بیلد و dev از پوشهٔ apps/docs اجرا می‌شوند
+const docCount = collectDocs(`${process.cwd()}/src/pages/docs`, nav).length;
+const iconCount = Object.keys(icons).length;
+const npx = "npx -y @kashi-ui/mcp";
+
+const stats: [string, string][] = [
+  [fa(8), "ابزار برای دستیار"],
+  [fa(docCount), "صفحهٔ مستندات"],
+  [fa(iconCount), "آیکون قابل جستجو"],
+  [fa(0), "کلید API و سرور"],
+];
+
+const json = (key: string) => JSON.stringify({ [key]: { kashi: { command: "npx", args: ["-y", "@kashi-ui/mcp"] } } }, null, 2);
+const clients = [
+  { id: "claude-code", name: "Claude Code", where: "در ترمینال پروژه اجرا کنید:", code: `claude mcp add kashi -- ${npx}`, lang: "bash" },
+  { id: "cursor", name: "Cursor", where: "فایل .cursor/mcp.json در ریشهٔ پروژه:", code: json("mcpServers"), lang: "json" },
+  { id: "vscode", name: "VS Code", where: "فایل .vscode/mcp.json برای GitHub Copilot:", code: json("servers"), lang: "json" },
+  { id: "claude-desktop", name: "Claude Desktop", where: "Settings › Developer › Edit Config، فایل claude_desktop_config.json:", code: json("mcpServers"), lang: "json" },
+  { id: "windsurf", name: "Windsurf", where: "فایل ~/.codeium/windsurf/mcp_config.json:", code: json("mcpServers"), lang: "json" },
+];
+
+const tools: [string, string, string, string][] = [
+  ["book-open", "kashi_get_docs", "مستندات کامل یک کامپوننت", "prop ها، نمونهٔ React و HTML، متغیرهای CSS و نکته‌های دسترس‌پذیری"],
+  ["search", "kashi_search_docs", "جستجو در مستندات", "به فارسی یا انگلیسی: «شبا»، «modal»، «جدول با مرتب‌سازی»"],
+  ["file-text", "kashi_list_docs", "فهرست همهٔ صفحه‌ها", "کامپوننت‌ها، فیلدهای فارسی و راهنماها با یک خط توضیح"],
+  ["sparkles", "kashi_search_icons", "جستجوی آیکون", `بین ${fa(iconCount)} آیکون با نام فارسی یا انگلیسی`],
+  ["grid", "kashi_get_icon", "کد آیکون", "کامپوننت React یا SVG خام در هر شش سبک"],
+  ["color-swatch", "kashi_get_tokens", "توکن‌های طراحی", "رنگ، فاصله، سایه و متغیرهای معنایی تم تیره و روشن"],
+  ["palette", "kashi_create_theme", "ساخت تم برند", "یک رنگ بدهید؛ CSS طیف یازده‌پله‌ای و همهٔ کامپوننت‌ها"],
+  ["id-card", "kashi_persian", "ابزارهای فارسی", "کد ملی، شبا با نام بانک، کارت، موبایل، تبدیل تاریخ و عدد به حروف"],
+];
+
+const prompts = [
+  "یک فرم ثبت‌نام با کد ملی، موبایل و تاریخ تولد شمسی با کاشی بساز.",
+  "صفحهٔ پرداخت با شماره کارت، شبا و مبلغ به حروف درست کن.",
+  "داشبورد فروش با کارت آمار، جدول سفارش‌ها و نمودار ماهانه.",
+  "تم برند ما با رنگ ‎#3d5ef8 و گوشه‌های گردتر را بساز.",
+  "برای دکمهٔ «افزودن به سبد» یک آیکون مناسب پیدا کن.",
+  "این کد ملی و شبا معتبرند؟ داده‌های تستی درست هم بساز.",
+];
+
+const faq: [string, string][] = [
+  ["کلید API یا حساب کاربری لازم دارد؟", "نه. سرور روی کامپیوتر خودتان با npx اجرا می‌شود و همهٔ مستندات داخل خود پکیج است. چیزی به جایی فرستاده نمی‌شود و بعد از نصب بدون اینترنت هم کار می‌کند."],
+  ["مستندات سرور با سایت فرق دارد؟", "نه. متن سرور از همین صفحه‌های سایت ساخته می‌شود و با هر نسخهٔ کاشی منتشر می‌شود. دستور npx -y همیشه آخرین نسخه را اجرا می‌کند."],
+  ["کدام دستیارها پشتیبانی می‌شوند؟", "هر ابزاری که MCP را پشتیبانی کند: Claude Code، Claude Desktop، Cursor، VS Code با Copilot، Windsurf، Zed و بقیه. تنظیمات همه یک دستور است: npx -y @kashi-ui/mcp."],
+  ["دستیار من MCP ندارد؛ چه کنم؟", "از llms.txt استفاده کنید. نشانی kashi.sepantapouya.com/llms-full.txt کل مستندات را در یک فایل متنی دارد که می‌شود به گفتگو داد یا دستیار خودش بخواند."],
+];
+
+const headings = [
+  { depth: 2, slug: "install", text: "نصب در دستیار" },
+  { depth: 2, slug: "tools", text: "ابزارها" },
+  { depth: 2, slug: "prompts", text: "چه بپرسیم" },
+  { depth: 2, slug: "llms", text: "llms.txt" },
+  { depth: 2, slug: "faq", text: "پرسش‌های رایج" },
+];
+---
+<Docs title="استفاده با هوش مصنوعی" description="سرور MCP کاشی دستیارهای هوش مصنوعی را مستقیم به مستندات، آیکون‌ها، توکن‌ها و ابزارهای فارسی کاشی وصل می‌کند." headings={headings}>
+
+  <section class="ai-hero" aria-label="معرفی">
+    <div class="ai-hero__copy">
+      <span class="ai-hero__eyebrow"><span set:html={ic("ai-chat", 16)} />سرور MCP کاشی</span>
+      <p class="ai-hero__title">دستیار هوش مصنوعی‌تان، کاشی را از نزدیک می‌شناسد</p>
+      <p class="ai-hero__text">Claude، Cursor و Copilot دیگر prop های کاشی را حدس نمی‌زنند. <strong><bdi dir="ltr">@kashi-ui/mcp</bdi></strong> مستندات هر کامپوننت، {fa(iconCount)} آیکون، توکن‌ها و ابزارهای فارسی را مستقیم در اختیارشان می‌گذارد تا کدی بنویسند که همان بار اول اجرا شود.</p>
+      <div class="ai-hero__cmd">
+        <code dir="ltr"><span aria-hidden="true">$</span> claude mcp add kashi -- {npx}</code>
+        <button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm ai-copy" aria-label="کپی دستور" data-copy={`claude mcp add kashi -- ${npx}`} set:html={ic("copy")} />
+      </div>
+      <p class="ai-hero__meta"><span dir="ltr">v{mcpPkg.version}</span> · رایگان و متن‌باز · روی کامپیوتر خودتان اجرا می‌شود</p>
+    </div>
+
+    <div class="ai-chat" aria-hidden="true">
+      <div class="ai-chat__bar"><i></i><i></i><i></i><span>Claude Code · my-shop</span></div>
+      <div class="ai-chat__body">
+        <p class="ai-chat__user">یک فرم ثبت‌نام با کد ملی و تاریخ تولد شمسی بساز</p>
+        <ul class="ai-chat__calls">
+          <li><span class="ai-chat__tool">kashi</span><code>get_docs</code><span>NationalIdInput</span><b>✓</b></li>
+          <li><span class="ai-chat__tool">kashi</span><code>get_docs</code><span>DatePicker</span><b>✓</b></li>
+          <li><span class="ai-chat__tool">kashi</span><code>search_icons</code><span>«کاربر»</span><b>✓</b></li>
+        </ul>
+        <pre class="ai-chat__code" dir="ltr"><span class="t-k">import</span> {"{"} <span class="t-c">NationalIdInput</span>, <span class="t-c">DatePicker</span>, <span class="t-c">Button</span> {"}"}
+  <span class="t-k">from</span> <span class="t-s">"@kashi-ui/react"</span>;
+
+&lt;<span class="t-c">NationalIdInput</span> <span class="t-a">label</span>=<span class="t-s">"کد ملی"</span> <span class="t-a">required</span> /&gt;
+&lt;<span class="t-c">DatePicker</span> <span class="t-a">label</span>=<span class="t-s">"تاریخ تولد"</span> /&gt;
+&lt;<span class="t-c">Button</span> <span class="t-a">variant</span>=<span class="t-s">"primary"</span>&gt;ثبت‌نام&lt;/<span class="t-c">Button</span>&gt;</pre>
+        <p class="ai-chat__ok"><span set:html={ic("check", 14)} />prop ها از مستندات کاشی خوانده شد</p>
+      </div>
+    </div>
+  </section>
+
+  <dl class="ai-stats">
+    {stats.map(([n, l]) => <div><dt>{l}</dt><dd>{n}</dd></div>)}
+  </dl>
+
+  <h2 id="install">نصب در دستیار</h2>
+  <p>کاشی یک سرور MCP محلی است که با <code>npx</code> اجرا می‌شود؛ نصب جداگانه، کلید API یا سرور لازم ندارد. دستیار خودتان را انتخاب کنید:</p>
+
+  <div class="ai-tabs" data-ai-tabs>
+    <div class="ai-tabs__list" role="tablist" aria-label="دستیار">
+      {clients.map((c, i) => (
+        <button type="button" role="tab" id={`t-${c.id}`} aria-controls={`p-${c.id}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1}>{c.name}</button>
+      ))}
+    </div>
+    {clients.map((c, i) => (
+      <div class="ai-tabs__panel" role="tabpanel" id={`p-${c.id}`} aria-labelledby={`t-${c.id}`} hidden={i !== 0}>
+        <p dir="auto">{c.where}</p>
+        <CodeBlock code={c.code} lang={c.lang} />
+      </div>
+    ))}
+  </div>
+  <p class="ai-note">بعد از افزودن، دستیار را دوباره باز کنید. برای امتحان بپرسید: «با ابزار kashi، prop های DatePicker چیست؟»</p>
+
+  <h2 id="tools">ابزارها</h2>
+  <p>دستیار خودش تصمیم می‌گیرد کدام ابزار را صدا بزند؛ لازم نیست اسمشان را بدانید.</p>
+  <ul class="ai-tools" role="list">
+    {tools.map(([icon, name, title, text]) => (
+      <li>
+        <span class="ai-tools__icon" set:html={ic(icon, 20)} />
+        <div>
+          <code dir="ltr">{name}</code>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </div>
+      </li>
+    ))}
+  </ul>
+  <p class="ai-note">همهٔ صفحه‌های مستندات به شکل resource هم در دسترس‌اند (<code dir="ltr">kashi://docs/…</code>) تا در دستیارهایی که این امکان را دارند، به گفتگو ضمیمه شوند.</p>
+
+  <h2 id="prompts">چه بپرسیم</h2>
+  <p>به زبان خودتان بنویسید؛ دستیار با ابزارهای کاشی بقیه را پیدا می‌کند.</p>
+  <ul class="ai-prompts" role="list">
+    {prompts.map((p) => (
+      <li><span set:html={ic("ai-chat", 18)} /><span>{p}</span><button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm ai-copy" aria-label="کپی متن" data-copy={p} set:html={ic("copy")} /></li>
+    ))}
+  </ul>
+
+  <h2 id="llms">llms.txt</h2>
+  <p>برای دستیارهایی که MCP ندارند، همین مستندات به شکل متن ساده و طبق استاندارد <a href="https://llmstxt.org" target="_blank" rel="noopener">llms.txt<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a> روی سایت هست:</p>
+  <div class="ai-files">
+    <a class="ai-file" href="/llms.txt">
+      <span class="ai-file__icon" set:html={ic("file-text", 22)} />
+      <span><code dir="ltr">/llms.txt</code><small>فهرست همهٔ صفحه‌ها با یک خط توضیح</small></span>
+    </a>
+    <a class="ai-file" href="/llms-full.txt">
+      <span class="ai-file__icon" set:html={ic("book-open", 22)} />
+      <span><code dir="ltr">/llms-full.txt</code><small>کل مستندات در یک فایل، برای ضمیمه کردن به گفتگو</small></span>
+    </a>
+  </div>
+
+  <h2 id="faq">پرسش‌های رایج</h2>
+  <div class="ai-faq">
+    {faq.map(([q, a], i) => (
+      <details open={i === 0}>
+        <summary>{q}</summary>
+        <p>{a}</p>
+      </details>
+    ))}
+  </div>
+</Docs>
+
+<style>
+  /* ───── هیرو ───── */
+  .ai-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--k-space-8); align-items: center; margin-block: var(--k-space-2) var(--k-space-8); padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl);
+    background: radial-gradient(28rem 16rem at 12% 0%, color-mix(in srgb, var(--k-text-brand) 12%, transparent), transparent 70%), var(--k-bg-secondary); }
+  .ai-hero__eyebrow { display: inline-flex; align-items: center; gap: var(--k-space-2); padding: 0.2rem var(--k-space-3); border: 1px solid var(--k-border-brand); border-radius: var(--k-radius-full); color: var(--k-text-brand); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+  .ai-hero__eyebrow :global(svg) { inline-size: 1rem; block-size: 1rem; }
+  .ai-hero__title { margin: var(--k-space-4) 0 var(--k-space-3); color: var(--k-text-primary); font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: var(--k-weight-bold); line-height: 1.45; text-wrap: balance; }
+  .ai-hero__text { margin: 0; color: var(--k-text-tertiary); line-height: 1.95; }
+  .ai-hero__text strong { color: var(--k-text-primary); font-family: var(--k-font-mono); font-size: 0.9em; font-weight: var(--k-weight-semibold); }
+  .ai-hero__cmd { display: flex; align-items: center; gap: var(--k-space-2); margin-block-start: var(--k-space-6); padding: var(--k-space-1) var(--k-space-1) var(--k-space-1) var(--k-space-4); border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); box-shadow: var(--k-shadow-xs); }
+  .ai-hero__cmd code { flex: 1; min-inline-size: 0; overflow-x: auto; color: var(--k-text-primary); font-size: 0.8125rem; white-space: nowrap; background: none; border: 0; padding: 0; scrollbar-width: none; }
+  .ai-hero__cmd code span { color: var(--k-text-brand); margin-inline-end: 0.5ch; }
+  /* دکمهٔ کپی کنار متن، نه شناور مثل بلوک کد */
+  .ai-copy { flex: none; }
+  .ai-copy[data-copied] { color: var(--k-text-success); }
+  .ai-hero__meta { margin: var(--k-space-3) 0 0; color: var(--k-text-quaternary); font-size: var(--k-text-xs); }
+
+  /* پنجرهٔ گفتگوی نمونه */
+  .ai-chat { overflow: clip; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); box-shadow: var(--k-shadow-xl); }
+  .ai-chat__bar { display: flex; align-items: center; gap: 6px; padding: var(--k-space-2) var(--k-space-3); border-block-end: 1px solid var(--k-border-secondary); direction: ltr; }
+  .ai-chat__bar i { inline-size: 9px; block-size: 9px; border-radius: 50%; background: var(--k-border-primary); }
+  .ai-chat__bar span { margin-inline-start: auto; color: var(--k-text-quaternary); font: 0.6875rem var(--k-font-mono); }
+  .ai-chat__body { display: grid; gap: var(--k-space-3); padding: var(--k-space-4); }
+  .ai-chat__user { justify-self: start; max-inline-size: 90%; margin: 0; padding: var(--k-space-2) var(--k-space-3); border-radius: var(--k-radius-md) var(--k-radius-md) var(--k-radius-md) var(--k-radius-xs, 2px); background: var(--k-bg-brand); color: var(--k-text-on-brand, #fff); font-size: var(--k-text-sm); line-height: 1.8; }
+  .ai-chat__calls { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; direction: ltr; }
+  .ai-chat__calls li { display: flex; align-items: center; gap: var(--k-space-2); padding: 6px var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-sm); background: var(--k-bg-secondary); font-size: 0.75rem; }
+  .ai-chat__tool { padding: 0 6px; border-radius: 4px; background: color-mix(in srgb, var(--k-text-brand) 16%, transparent); color: var(--k-text-brand); font: 600 0.6875rem var(--k-font-mono); }
+  .ai-chat__calls code { color: var(--k-text-primary); font-size: 0.75rem; background: none; border: 0; padding: 0; }
+  .ai-chat__calls span:not(.ai-chat__tool) { color: var(--k-text-tertiary); }
+  .ai-chat__calls b { margin-inline-start: auto; color: var(--k-text-success); font-weight: var(--k-weight-bold); }
+  .ai-chat__code { margin: 0; padding: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-sm); background: var(--k-bg-secondary); color: var(--k-text-secondary); font: 0.75rem/1.8 var(--k-font-mono); text-align: left; white-space: pre; overflow-x: auto; }
+  .t-k { color: var(--k-text-brand); } .t-c { color: var(--k-text-info); } .t-s { color: var(--k-text-warning); } .t-a { color: var(--k-text-tertiary); }
+  .ai-chat__ok { display: flex; align-items: center; gap: var(--k-space-1); margin: 0; color: var(--k-text-success); font-size: var(--k-text-xs); }
+  .ai-chat__ok :global(svg) { inline-size: 0.875rem; block-size: 0.875rem; }
+
+  /* عددها */
+  .ai-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0 0 var(--k-space-10); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); }
+  .ai-stats > div { padding: var(--k-space-4) var(--k-space-5); }
+  .ai-stats > div + div { border-inline-start: 1px solid var(--k-border-secondary); }
+  .ai-stats dt { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .ai-stats dd { margin: var(--k-space-1) 0 0; color: var(--k-text-primary); font-size: var(--k-text-2xl); font-weight: var(--k-weight-bold); letter-spacing: -0.02em; }
+
+  /* زبانه‌های دستیار */
+  .ai-tabs { margin-block: var(--k-space-4) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); overflow: clip; }
+  .ai-tabs__list { display: flex; gap: var(--k-space-1); padding: var(--k-space-2); overflow-x: auto; border-block-end: 1px solid var(--k-border-secondary); background: var(--k-bg-secondary); scrollbar-width: none; }
+  .ai-tabs__list button { flex: none; padding: var(--k-space-1_5, 0.375rem) var(--k-space-3); border: 1px solid transparent; border-radius: var(--k-radius-md); background: none; color: var(--k-text-tertiary); font: inherit; font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); cursor: pointer; direction: ltr; }
+  .ai-tabs__list button:hover { color: var(--k-text-primary); }
+  .ai-tabs__list button[aria-selected="true"] { border-color: var(--k-border-primary); background: var(--k-bg-primary); box-shadow: var(--k-shadow-xs); color: var(--k-text-primary); }
+  .ai-tabs__list button:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+  .ai-tabs__panel { padding: var(--k-space-4); }
+  .ai-tabs__panel > p { margin: 0 0 var(--k-space-3); color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+  .ai-tabs__panel :global(.codeblock) { margin: 0; }
+  .ai-note { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+
+  /* ابزارها */
+  .ai-tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-3); margin: var(--k-space-4) 0 var(--k-space-3); padding: 0; list-style: none; }
+  .ai-tools li { display: flex; gap: var(--k-space-3); margin: 0; padding: var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); transition: border-color var(--k-duration-fast); }
+  .ai-tools li:hover { border-color: var(--k-border-primary); }
+  .ai-tools__icon { display: grid; flex: none; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: var(--k-bg-secondary); color: var(--k-text-brand); }
+  .ai-tools__icon :global(svg) { inline-size: 1.125rem; block-size: 1.125rem; }
+  .ai-tools code { color: var(--k-text-brand); font-size: 0.75rem; background: none; border: 0; padding: 0; }
+  .ai-tools h3 { margin: var(--k-space-1) 0 0; color: var(--k-text-primary); font-size: var(--k-text-md); font-weight: var(--k-weight-semibold); }
+  .ai-tools p { margin: var(--k-space-1) 0 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.8; }
+
+  /* نمونهٔ پرسش‌ها */
+  .ai-prompts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-2); margin: var(--k-space-4) 0 0; padding: 0; list-style: none; }
+  .ai-prompts li { display: flex; align-items: center; gap: var(--k-space-3); margin: 0; padding: var(--k-space-3) var(--k-space-2) var(--k-space-3) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); background: var(--k-bg-secondary); color: var(--k-text-secondary); font-size: var(--k-text-sm); line-height: 1.7; }
+  .ai-prompts li > span:first-child { display: grid; flex: none; color: var(--k-text-brand); }
+  .ai-prompts li > span:nth-child(2) { flex: 1; }
+  .ai-prompts li :global(svg) { inline-size: 1.125rem; block-size: 1.125rem; }
+
+  /* فایل‌های llms */
+  .ai-files { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-3); margin-block-start: var(--k-space-4); }
+  .ai-file { display: flex; align-items: center; gap: var(--k-space-3); padding: var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); color: inherit; text-decoration: none; transition: border-color var(--k-duration-fast); }
+  .ai-file:hover { border-color: var(--k-border-brand); }
+  .ai-file:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+  .ai-file__icon { display: grid; flex: none; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; border-radius: var(--k-radius-md); background: color-mix(in srgb, var(--k-text-brand) 12%, transparent); color: var(--k-text-brand); }
+  .ai-file code { display: block; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); background: none; border: 0; padding: 0; }
+  .ai-file small { display: block; color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+
+  /* پرسش‌ها */
+  .ai-faq { border-block-start: 1px solid var(--k-border-secondary); }
+  .ai-faq details { border-block-end: 1px solid var(--k-border-secondary); }
+  .ai-faq summary { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-4); padding: var(--k-space-4) 0; color: var(--k-text-primary); font-weight: var(--k-weight-semibold); cursor: pointer; list-style: none; }
+  .ai-faq summary::-webkit-details-marker { display: none; }
+  .ai-faq summary::after { content: ""; flex: none; inline-size: 0.5rem; block-size: 0.5rem; margin-inline-end: 0.25rem; border-block-end: 1.5px solid var(--k-text-tertiary); border-inline-end: 1.5px solid var(--k-text-tertiary); rotate: 45deg; translate: 0 -0.125rem; transition: rotate var(--k-duration-normal) var(--k-ease-standard); }
+  .ai-faq details[open] summary::after { rotate: 225deg; translate: 0 0.125rem; border-color: var(--k-text-brand); }
+  .ai-faq summary:hover { color: var(--k-text-brand); }
+  .ai-faq summary:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); border-radius: var(--k-radius-sm); }
+  .ai-faq details p { margin: 0 0 var(--k-space-4); color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.95; }
+
+  @media (max-width: 60rem) {
+    .ai-hero { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 40rem) {
+    .ai-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ai-stats > div:nth-child(3) { border-inline-start: 0; }
+    .ai-stats > div:nth-child(n + 3) { border-block-start: 1px solid var(--k-border-secondary); }
+    .ai-tools, .ai-prompts, .ai-files { grid-template-columns: minmax(0, 1fr); }
+    .ai-prompts li { border-radius: var(--k-radius-lg); }
+  }
+</style>
+
+<script>
+  // زبانه‌های دستیار با کلیدهای جهت‌دار؛ در RTL فلش چپ یعنی زبانهٔ بعدی
+  document.querySelectorAll<HTMLElement>("[data-ai-tabs]").forEach((root) => {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const select = (t: HTMLButtonElement) => {
+      for (const x of tabs) {
+        const on = x === t;
+        x.setAttribute("aria-selected", String(on));
+        x.tabIndex = on ? 0 : -1;
+        root.querySelector<HTMLElement>(`#${x.getAttribute("aria-controls")}`)!.hidden = !on;
+      }
+      t.focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener("click", () => select(t));
+      t.addEventListener("keydown", (e) => {
+        const step = { ArrowLeft: 1, ArrowRight: -1, Home: -i, End: tabs.length - 1 - i }[e.key];
+        if (step === undefined) return;
+        e.preventDefault();
+        select(tabs[(i + step + tabs.length) % tabs.length]);
+      });
+    });
+  });
+</script>

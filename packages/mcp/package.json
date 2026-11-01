@@ -1,0 +1,33 @@
+{
+  "name": "@kashi-ui/mcp",
+  "version": "0.19.0",
+  "description": "سرور MCP کاشی: مستندات کامپوننت‌ها، آیکون‌ها، توکن‌ها و ابزارهای فارسی برای Claude، Cursor و دیگر دستیارهای هوش مصنوعی",
+  "type": "module",
+  "bin": { "kashi-mcp": "./dist/server.js" },
+  "exports": {
+    ".": "./dist/server.js",
+    "./docs.json": "./dist/docs.json",
+    "./docs-to-md": "./dist/docs-to-md.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@kashi-ui/icons": "^0.19.0",
+    "@kashi-ui/persian": "^0.19.0",
+    "@kashi-ui/tokens": "^0.19.0",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^3.25.0"
+  },
+  "publishConfig": { "access": "public" },
+  "keywords": ["mcp", "model-context-protocol", "claude", "cursor", "ai", "design-system", "persian", "rtl", "kashi"],
+  "repository": { "type": "git", "url": "git+https://github.com/Sepantapouya/Kashi.git", "directory": "packages/mcp" },
+  "homepage": "https://kashi.sepantapouya.com/docs/ai/",
+  "bugs": "https://github.com/Sepantapouya/Kashi/issues",
+  "author": "Sepanta Pouya (https://sepantapouya.com)",
+  "license": "MIT",
+  "engines": { "node": ">=18" }
+}

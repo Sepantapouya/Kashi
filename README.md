@@ -22,6 +22,7 @@
 | `@kashi-ui/bank-logos` | لوگوی SVG ۴۰ بانک و ۱۰ درگاه پرداخت ایران (CC0) |
 | `@kashi-ui/icons` | ۴۵۰۰ آیکون کاشی در شش سبک؛ React، SVG و اسپرایت |
 | `@kashi-ui/react` | کامپوننت‌های React |
+| `@kashi-ui/mcp` | سرور MCP برای Claude، Cursor و دیگر دستیارهای هوش مصنوعی |
 
 ## کامپوننت‌ها
 
@@ -48,6 +49,16 @@ import { Button } from "@kashi-ui/react";
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">
 <button class="k-btn k-btn--primary">ثبت‌نام</button>
 ```
+
+## استفاده با هوش مصنوعی
+
+سرور MCP کاشی دستیارهای هوش مصنوعی را به مستندات، آیکون‌ها، توکن‌ها و ابزارهای فارسی کاشی وصل می‌کند:
+
+```bash
+claude mcp add kashi -- npx -y @kashi-ui/mcp
+```
+
+تنظیمات Cursor، VS Code و بقیه: [kashi.sepantapouya.com/docs/ai](https://kashi.sepantapouya.com/docs/ai/) · کل مستندات برای مدل‌های زبانی: [llms-full.txt](https://kashi.sepantapouya.com/llms-full.txt)
 
 ## فیگما
 

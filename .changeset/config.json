@@ -12,7 +12,8 @@
       "@kashi-ui/bank-logos",
       "@kashi-ui/icons",
       "@kashi-ui/css",
-      "@kashi-ui/react"
+      "@kashi-ui/react",
+      "@kashi-ui/mcp"
     ]
   ],
   "ignore": [
