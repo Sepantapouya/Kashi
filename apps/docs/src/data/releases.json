@@ -1,425 +1,470 @@
 {
- "generated": "2026-11-01T12:35:05+03:30",
+ "generated": "2026-11-01T14:53:45+03:30",
  "totals": {
-  "commits": 151,
-  "versions": 19,
-  "added": 67543,
+  "commits": 153,
+  "versions": 20,
+  "added": 68661,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
   {
-   "sha": "3d1d3d522d716721fe40b30d1d0735a282948252",
-   "short": "3d1d3d5",
-   "date": "2026-11-01T12:35:05+03:30",
+   "sha": "b8f93bba3e27ae00e72f75e44e6e744e68e3ee23",
+   "short": "b8f93bb",
+   "date": "2026-11-01T14:53:45+03:30",
    "author": "sepantapouya",
-   "subject": "docs(site): redesign the accessibility page",
-   "details": [],
-   "files": 2,
-   "added": 477,
-   "removed": 47
-  },
-  {
-   "sha": "35afc700cbde4288b3260379cc424dd1d28e9f07",
-   "short": "35afc70",
-   "date": "2026-11-01T12:26:01+03:30",
-   "author": "sepantapouya",
-   "subject": "feat(icons): 100 new icons — 4500 total",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "a732c316a22605f2e4abf93f27757ea42a475d34",
-   "short": "a732c31",
-   "date": "2026-11-01T12:15:57+03:30",
-   "author": "sepantapouya",
-   "subject": "feat(icons): 100 new icons — 4400 total",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "e3250020b1053192a207b388d8d9a0c8727187b8",
-   "short": "e325002",
-   "date": "2026-11-01T12:05:36+03:30",
-   "author": "sepantapouya",
-   "subject": "feat(icons): 100 new icons — 4300 total",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "cf377ae29d4e3b53743d34007f6e7655e0937dbf",
-   "short": "cf377ae",
-   "date": "2026-11-01T11:53:25+03:30",
-   "author": "sepantapouya",
-   "subject": "feat(icons): 100 new icons — 4200 total",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "cd97ed2b0c00be76088239d13637c5ca7784af94",
-   "short": "cd97ed2",
-   "date": "2026-11-01T11:42:11+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 100 icons (88 hand-drawn, 12 badge composites); icon count 4100",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "05b92ff8082a3687480c451eef144043371b5f7a",
-   "short": "05b92ff",
-   "date": "2026-11-01T11:33:53+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 292 icons across categories (259 hand-drawn, 33 badge composites); icon count 4000",
-   "details": [],
-   "files": 8,
-   "added": 304,
-   "removed": 7
-  },
-  {
-   "sha": "5c9711db30ea8dfa76fe9a18690415a1fe106106",
-   "short": "5c9711d",
-   "date": "2026-11-01T11:03:06+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 100 hand-drawn icons (calendar family, clocks, alarms, watches, hourglasses, cards and chips); icon count 3708",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "58aa23be2552fcaf1f2015ad158470d025d8e678",
-   "short": "58aa23b",
-   "date": "2026-11-01T00:30:15+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: complete the chess family (black pieces, castling, promotion; chess becomes a board); icon count 3608",
-   "details": [],
-   "files": 8,
-   "added": 21,
-   "removed": 8
-  },
-  {
-   "sha": "2e20f4188074be439bf0042a287e7f3ad6725341",
-   "short": "2e20f41",
-   "date": "2026-11-01T00:16:51+03:30",
-   "author": "sepantapouya",
-   "subject": "fix(css): let a single-thumb slider take clicks on its track",
+   "subject": "figma plugin: icon export options (styles, stroke), embedded panel font, wrap long icon names",
    "details": [
-    "pointer-events: none on the input is only needed when two range inputs",
-    "overlap; it now applies to [data-range] sliders only."
-   ],
-   "files": 2,
-   "added": 7,
-   "removed": 1
-  },
-  {
-   "sha": "d43fe3d6b1520c09c660b561479c6e600957117a",
-   "short": "d43fe3d",
-   "date": "2026-11-01T00:16:51+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: redraw chess-knight as a horse head with ear, mane, eye and snout",
-   "details": [],
-   "files": 3,
-   "added": 2,
-   "removed": 2
-  },
-  {
-   "sha": "8d3a4386897c9221b2dcfbe3b13bed0000d7f70b",
-   "short": "8d3a438",
-   "date": "2026-10-31T23:36:15+03:30",
-   "author": "sepantapouya",
-   "subject": "docs: open the icon detail page at stroke width 1",
-   "details": [],
-   "files": 1,
-   "added": 1,
-   "removed": 1
-  },
-  {
-   "sha": "f9e958aa9cd25b1c94812ed8eaa9f3626bad9c62",
-   "short": "f9e958a",
-   "date": "2026-10-31T23:31:49+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 151 hand-drawn icons (dice, chess, gamepads, controller buttons, sticks, retro and game UI, cards, persian folk games, laundry); icon count 3600",
-   "details": [],
-   "files": 8,
-   "added": 163,
-   "removed": 7
-  },
-  {
-   "sha": "e52b311fa62c60acc23d16d57526fb14cd60299e",
-   "short": "e52b311",
-   "date": "2026-10-31T23:03:26+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 100 hand-drawn icons (plain persian letters and digits, laundry care, tabletop games, scoreboards, tetris, consoles and gamepad states); icon count 3449",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "51b9685c017ed703b76f10d76d0cbc5aa2477959",
-   "short": "51b9685",
-   "date": "2026-10-31T22:53:52+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: redraw statue-of-liberty (flame torch, three-point crown, slimmer robe on a plinth)",
-   "details": [],
-   "files": 3,
-   "added": 2,
-   "removed": 2
-  },
-  {
-   "sha": "a5a5503385700eabad08ea2a55fd0ddc2f9fed8d",
-   "short": "a5a5503",
-   "date": "2026-10-31T22:38:45+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: review the whole set and redraw 122 weak icons",
-   "details": [
-    "Icons that read as something else (airport, treehouse, shopping-mall,",
-    "naqareh, mashk, gaz, korsi, qalyan, giraffe, zebra, camel, whale, yoga),",
-    "icons that broke in bold (star-half, gold, muffin-tin, pill-pack,",
-    "wedding-rings, dominoes, dice-pair), and family consistency for people,",
-    "hands and hourglasses. Only bodies change; names, titles and keywords",
-    "stay as they were."
-   ],
-   "files": 4,
-   "added": 128,
-   "removed": 123
-  },
-  {
-   "sha": "74a54424c91848c0f33d5296b4c76521819cd9cf",
-   "short": "74a5442",
-   "date": "2026-10-31T22:10:42+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add farsi word icons, stacked in two lines; icon count 3349",
-   "details": [],
-   "files": 8,
-   "added": 14,
-   "removed": 7
-  },
-  {
-   "sha": "33011a9731ff50cd25f23dfc52013713b7b69daa",
-   "short": "33011a9",
-   "date": "2026-10-31T22:05:39+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 147 hand-drawn icons (scripts, laundry care, games, plain latin and circled greek letters); icon count 3347",
-   "details": [],
-   "files": 8,
-   "added": 159,
-   "removed": 7
-  },
-  {
-   "sha": "e4c9201ccc5c6e0c30691b3c77ecae54669ce968",
-   "short": "e4c9201",
-   "date": "2026-10-31T21:53:46+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 100 hand-drawn icons (persian, latin and greek letters, translate); icon count 3200",
-   "details": [
-    "New categories: persian-letters (alef to ye in the digits' frame),",
-    "latin-letters (A to Z and & in a circle) and greek."
-   ],
-   "files": 8,
-   "added": 116,
-   "removed": 8
-  },
-  {
-   "sha": "140afd8dbaaf6cb8f73df602c3ccbeded4142a6f",
-   "short": "140afd8",
-   "date": "2026-10-31T21:41:25+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 100 hand-drawn icons (smoking, phones and tablets, coffee, car parts, pets, photo, cleaning, baking, persian); icon count 3100",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "6859e4b37c84dcfbdb57553dd102cb9de0c17c05",
-   "short": "6859e4b",
-   "date": "2026-10-31T21:16:38+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 100 hand-drawn icons (persian heritage, animals, food, home, devices, tools); icon count 3000",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "d18cd7656e3e60521e56b0ab47809a90c074183a",
-   "short": "d18cd76",
-   "date": "2026-10-31T13:02:52+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 100 hand-drawn icons (persian heritage, landmarks, vehicles, nature, home); icon count 2900",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "4dccd68c56e7c950fecd9b52b0c9f3636f907a45",
-   "short": "4dccd68",
-   "date": "2026-10-31T12:18:03+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: redraw 16 icons, mostly persian (azadi tower, estekan, samovar, tonbak)",
-   "details": [],
-   "files": 4,
-   "added": 22,
-   "removed": 17
-  },
-  {
-   "sha": "36b77c1b2e407b4e43ff622787bbb45768e9fa2d",
-   "short": "36b77c1",
-   "date": "2026-10-31T11:51:57+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: redraw 23 hard-to-read icons",
-   "details": [],
-   "files": 4,
-   "added": 29,
-   "removed": 24
-  },
-  {
-   "sha": "ba3a179e5ba4b64d6002508c8969051610cabbc7",
-   "short": "ba3a179",
-   "date": "2026-10-31T11:42:59+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 100 hand-drawn icons (persian food and heritage, landmarks, home, devices, ui); icon count 2800",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "a37146d7f92ec6141309a195d9c2b4341e7d0449",
-   "short": "a37146d",
-   "date": "2026-10-31T11:31:58+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 100 hand-drawn icons (persian heritage, world landmarks, chess, vehicles, tools); icon count 2700",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "4cb020e3d001205678de37b17010ad168b272d0d",
-   "short": "4cb020e",
-   "date": "2026-10-31T11:18:45+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 101 hand-drawn icons (persian heritage, social, landmarks, sewing, tools); icon count 2600",
-   "details": [],
-   "files": 8,
-   "added": 113,
-   "removed": 7
-  },
-  {
-   "sha": "fe98d2894e484c656f2946cb2f59a20504fd3bad",
-   "short": "fe98d28",
-   "date": "2026-10-31T11:11:59+03:30",
-   "author": "sepantapouya",
-   "subject": "docs: everyday Persian names for components",
-   "details": [
-    "Replace literal translations (لغزنده، تراشهٔ فیلتر، اعلان کوتاه…) with the",
-    "terms Iranian developers actually use (اسلایدر، چیپس، توست، تولتیپ،",
-    "دراپ‌داون…) in the docs nav, page titles, gallery and Figma plugin."
-   ],
-   "files": 42,
-   "added": 106,
-   "removed": 106
-  },
-  {
-   "sha": "a07370316f93af84fead4be41fb209833e6c3881",
-   "short": "a073703",
-   "date": "2026-10-31T11:00:57+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 100 hand-drawn icons (persian landmarks, buildings, vehicles, pets); icon count 2499",
-   "details": [
-    "Bulk style now outlines shapes nested inside another shape so they no",
-    "longer vanish in the faint fill."
+    "- Panel asks whether to build the full icon pages, which of the 6 styles",
+    "(one or several, each on its own page) and stroke weight (default 1)",
+    "- Vazirmatn embedded in the panel so it no longer falls back to Tahoma",
+    "- Icon names break on hyphens into two lines inside a wider cell",
+    "- Kit components keep the code's 1.5 stroke whatever the library stroke is"
    ],
    "files": 9,
-   "added": 120,
-   "removed": 10
-  },
-  {
-   "sha": "df2210f5e5def747211c012c096903f345b31bd9",
-   "short": "df2210f",
-   "date": "2026-10-31T00:26:16+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: shape-aware styles, spacing-insensitive search, redraw three icons",
-   "details": [
-    "Bold, two-tone and bulk now test detail lines against the real shape",
-    "outline instead of its bounding box, so arrows, holes and faces no longer",
-    "vanish; nested shapes are cut as rings in bold; bulk cuts a gap around",
-    "crossing slashes; broken also breaks the main curve of open icons; badges",
-    "stay solid in two-tone and bulk. Search folds spaces, ZWNJ, diacritics",
-    "and Arabic letter forms. Vacuum, treadmill and giraffe redrawn."
-   ],
-   "files": 7,
-   "added": 179,
-   "removed": 60
-  },
-  {
-   "sha": "da51c2a8ccdae8d9e1881ea9242e2f867c066578",
-   "short": "da51c2a",
-   "date": "2026-10-30T16:08:07+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 100 hand-drawn icons (persian, kids, tools, kitchen, space, health); icon count 2399, changeset",
-   "details": [],
-   "files": 8,
-   "added": 112,
-   "removed": 7
-  },
-  {
-   "sha": "03b8476001c3d42b631d25c7aad01dc6f030d296",
-   "short": "03b8476",
-   "date": "2026-10-30T15:57:17+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: add 50 hand-drawn icons (persian, events, communication, energy, gaming)",
-   "details": [],
-   "files": 3,
-   "added": 53,
-   "removed": 3
-  },
-  {
-   "sha": "fb0d6f9f148fcde9444ea2a7cc221ae800d3590e",
-   "short": "fb0d6f9",
-   "date": "2026-10-30T15:43:52+03:30",
-   "author": "sepantapouya",
-   "subject": "icons: cleaner bold style (no seams, even weight, gaps around crossing lines)",
-   "details": [
-    "Only details fully inside a shape are knocked out; details that touch or",
-    "leave the shape are drawn at the bold weight without masking, so joins",
-    "no longer show white nicks. Lines that pass through a shape get a clean",
-    "gap, and small circles outside shapes are filled."
-   ],
-   "files": 1,
-   "added": 24,
-   "removed": 6
-  },
-  {
-   "sha": "e749368b8564f5433ae398c57dc38f188a159e89",
-   "short": "e749368",
-   "date": "2026-10-29T16:35:48+03:30",
-   "author": "sepantapouya",
-   "subject": "Docs: redesign the Figma plugin page",
-   "details": [
-    "Hero with a plugin mock, key numbers, feature cards, step-by-step",
-    "install, an update diagram, customisation cards with small visuals,",
-    "file structure, Figma-to-code table, FAQ and a closing call to action.",
-    "Icon count and version come from the packages so the page stays current."
-   ],
-   "files": 2,
-   "added": 427,
-   "removed": 132
+   "added": 561,
+   "removed": 50
   }
  ],
  "versions": [
+  {
+   "version": "0.19.0",
+   "date": "2026-11-01T14:33:30+03:30",
+   "releaseCommit": "7534a02",
+   "commits": [
+    {
+     "sha": "7534a02aa4adff234258e159ece46d595e9221d9",
+     "short": "7534a02",
+     "date": "2026-11-01T14:33:30+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 0.19.0: 4500 icons, slider track click",
+     "details": [],
+     "files": 42,
+     "added": 557,
+     "removed": 196
+    },
+    {
+     "sha": "3d1d3d522d716721fe40b30d1d0735a282948252",
+     "short": "3d1d3d5",
+     "date": "2026-11-01T12:35:05+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): redesign the accessibility page",
+     "details": [],
+     "files": 2,
+     "added": 477,
+     "removed": 47
+    },
+    {
+     "sha": "35afc700cbde4288b3260379cc424dd1d28e9f07",
+     "short": "35afc70",
+     "date": "2026-11-01T12:26:01+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): 100 new icons — 4500 total",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "a732c316a22605f2e4abf93f27757ea42a475d34",
+     "short": "a732c31",
+     "date": "2026-11-01T12:15:57+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): 100 new icons — 4400 total",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "e3250020b1053192a207b388d8d9a0c8727187b8",
+     "short": "e325002",
+     "date": "2026-11-01T12:05:36+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): 100 new icons — 4300 total",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "cf377ae29d4e3b53743d34007f6e7655e0937dbf",
+     "short": "cf377ae",
+     "date": "2026-11-01T11:53:25+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): 100 new icons — 4200 total",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "cd97ed2b0c00be76088239d13637c5ca7784af94",
+     "short": "cd97ed2",
+     "date": "2026-11-01T11:42:11+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 100 icons (88 hand-drawn, 12 badge composites); icon count 4100",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "05b92ff8082a3687480c451eef144043371b5f7a",
+     "short": "05b92ff",
+     "date": "2026-11-01T11:33:53+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 292 icons across categories (259 hand-drawn, 33 badge composites); icon count 4000",
+     "details": [],
+     "files": 8,
+     "added": 304,
+     "removed": 7
+    },
+    {
+     "sha": "5c9711db30ea8dfa76fe9a18690415a1fe106106",
+     "short": "5c9711d",
+     "date": "2026-11-01T11:03:06+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 100 hand-drawn icons (calendar family, clocks, alarms, watches, hourglasses, cards and chips); icon count 3708",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "58aa23be2552fcaf1f2015ad158470d025d8e678",
+     "short": "58aa23b",
+     "date": "2026-11-01T00:30:15+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: complete the chess family (black pieces, castling, promotion; chess becomes a board); icon count 3608",
+     "details": [],
+     "files": 8,
+     "added": 21,
+     "removed": 8
+    },
+    {
+     "sha": "2e20f4188074be439bf0042a287e7f3ad6725341",
+     "short": "2e20f41",
+     "date": "2026-11-01T00:16:51+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(css): let a single-thumb slider take clicks on its track",
+     "details": [
+      "pointer-events: none on the input is only needed when two range inputs",
+      "overlap; it now applies to [data-range] sliders only."
+     ],
+     "files": 2,
+     "added": 7,
+     "removed": 1
+    },
+    {
+     "sha": "d43fe3d6b1520c09c660b561479c6e600957117a",
+     "short": "d43fe3d",
+     "date": "2026-11-01T00:16:51+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: redraw chess-knight as a horse head with ear, mane, eye and snout",
+     "details": [],
+     "files": 3,
+     "added": 2,
+     "removed": 2
+    },
+    {
+     "sha": "8d3a4386897c9221b2dcfbe3b13bed0000d7f70b",
+     "short": "8d3a438",
+     "date": "2026-10-31T23:36:15+03:30",
+     "author": "sepantapouya",
+     "subject": "docs: open the icon detail page at stroke width 1",
+     "details": [],
+     "files": 1,
+     "added": 1,
+     "removed": 1
+    },
+    {
+     "sha": "f9e958aa9cd25b1c94812ed8eaa9f3626bad9c62",
+     "short": "f9e958a",
+     "date": "2026-10-31T23:31:49+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 151 hand-drawn icons (dice, chess, gamepads, controller buttons, sticks, retro and game UI, cards, persian folk games, laundry); icon count 3600",
+     "details": [],
+     "files": 8,
+     "added": 163,
+     "removed": 7
+    },
+    {
+     "sha": "e52b311fa62c60acc23d16d57526fb14cd60299e",
+     "short": "e52b311",
+     "date": "2026-10-31T23:03:26+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 100 hand-drawn icons (plain persian letters and digits, laundry care, tabletop games, scoreboards, tetris, consoles and gamepad states); icon count 3449",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "51b9685c017ed703b76f10d76d0cbc5aa2477959",
+     "short": "51b9685",
+     "date": "2026-10-31T22:53:52+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: redraw statue-of-liberty (flame torch, three-point crown, slimmer robe on a plinth)",
+     "details": [],
+     "files": 3,
+     "added": 2,
+     "removed": 2
+    },
+    {
+     "sha": "a5a5503385700eabad08ea2a55fd0ddc2f9fed8d",
+     "short": "a5a5503",
+     "date": "2026-10-31T22:38:45+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: review the whole set and redraw 122 weak icons",
+     "details": [
+      "Icons that read as something else (airport, treehouse, shopping-mall,",
+      "naqareh, mashk, gaz, korsi, qalyan, giraffe, zebra, camel, whale, yoga),",
+      "icons that broke in bold (star-half, gold, muffin-tin, pill-pack,",
+      "wedding-rings, dominoes, dice-pair), and family consistency for people,",
+      "hands and hourglasses. Only bodies change; names, titles and keywords",
+      "stay as they were."
+     ],
+     "files": 4,
+     "added": 128,
+     "removed": 123
+    },
+    {
+     "sha": "74a54424c91848c0f33d5296b4c76521819cd9cf",
+     "short": "74a5442",
+     "date": "2026-10-31T22:10:42+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add farsi word icons, stacked in two lines; icon count 3349",
+     "details": [],
+     "files": 8,
+     "added": 14,
+     "removed": 7
+    },
+    {
+     "sha": "33011a9731ff50cd25f23dfc52013713b7b69daa",
+     "short": "33011a9",
+     "date": "2026-10-31T22:05:39+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 147 hand-drawn icons (scripts, laundry care, games, plain latin and circled greek letters); icon count 3347",
+     "details": [],
+     "files": 8,
+     "added": 159,
+     "removed": 7
+    },
+    {
+     "sha": "e4c9201ccc5c6e0c30691b3c77ecae54669ce968",
+     "short": "e4c9201",
+     "date": "2026-10-31T21:53:46+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 100 hand-drawn icons (persian, latin and greek letters, translate); icon count 3200",
+     "details": [
+      "New categories: persian-letters (alef to ye in the digits' frame),",
+      "latin-letters (A to Z and & in a circle) and greek."
+     ],
+     "files": 8,
+     "added": 116,
+     "removed": 8
+    },
+    {
+     "sha": "140afd8dbaaf6cb8f73df602c3ccbeded4142a6f",
+     "short": "140afd8",
+     "date": "2026-10-31T21:41:25+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 100 hand-drawn icons (smoking, phones and tablets, coffee, car parts, pets, photo, cleaning, baking, persian); icon count 3100",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "6859e4b37c84dcfbdb57553dd102cb9de0c17c05",
+     "short": "6859e4b",
+     "date": "2026-10-31T21:16:38+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 100 hand-drawn icons (persian heritage, animals, food, home, devices, tools); icon count 3000",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "d18cd7656e3e60521e56b0ab47809a90c074183a",
+     "short": "d18cd76",
+     "date": "2026-10-31T13:02:52+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 100 hand-drawn icons (persian heritage, landmarks, vehicles, nature, home); icon count 2900",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "4dccd68c56e7c950fecd9b52b0c9f3636f907a45",
+     "short": "4dccd68",
+     "date": "2026-10-31T12:18:03+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: redraw 16 icons, mostly persian (azadi tower, estekan, samovar, tonbak)",
+     "details": [],
+     "files": 4,
+     "added": 22,
+     "removed": 17
+    },
+    {
+     "sha": "36b77c1b2e407b4e43ff622787bbb45768e9fa2d",
+     "short": "36b77c1",
+     "date": "2026-10-31T11:51:57+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: redraw 23 hard-to-read icons",
+     "details": [],
+     "files": 4,
+     "added": 29,
+     "removed": 24
+    },
+    {
+     "sha": "ba3a179e5ba4b64d6002508c8969051610cabbc7",
+     "short": "ba3a179",
+     "date": "2026-10-31T11:42:59+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 100 hand-drawn icons (persian food and heritage, landmarks, home, devices, ui); icon count 2800",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "a37146d7f92ec6141309a195d9c2b4341e7d0449",
+     "short": "a37146d",
+     "date": "2026-10-31T11:31:58+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 100 hand-drawn icons (persian heritage, world landmarks, chess, vehicles, tools); icon count 2700",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "4cb020e3d001205678de37b17010ad168b272d0d",
+     "short": "4cb020e",
+     "date": "2026-10-31T11:18:45+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 101 hand-drawn icons (persian heritage, social, landmarks, sewing, tools); icon count 2600",
+     "details": [],
+     "files": 8,
+     "added": 113,
+     "removed": 7
+    },
+    {
+     "sha": "fe98d2894e484c656f2946cb2f59a20504fd3bad",
+     "short": "fe98d28",
+     "date": "2026-10-31T11:11:59+03:30",
+     "author": "sepantapouya",
+     "subject": "docs: everyday Persian names for components",
+     "details": [
+      "Replace literal translations (لغزنده، تراشهٔ فیلتر، اعلان کوتاه…) with the",
+      "terms Iranian developers actually use (اسلایدر، چیپس، توست، تولتیپ،",
+      "دراپ‌داون…) in the docs nav, page titles, gallery and Figma plugin."
+     ],
+     "files": 42,
+     "added": 106,
+     "removed": 106
+    },
+    {
+     "sha": "a07370316f93af84fead4be41fb209833e6c3881",
+     "short": "a073703",
+     "date": "2026-10-31T11:00:57+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 100 hand-drawn icons (persian landmarks, buildings, vehicles, pets); icon count 2499",
+     "details": [
+      "Bulk style now outlines shapes nested inside another shape so they no",
+      "longer vanish in the faint fill."
+     ],
+     "files": 9,
+     "added": 120,
+     "removed": 10
+    },
+    {
+     "sha": "df2210f5e5def747211c012c096903f345b31bd9",
+     "short": "df2210f",
+     "date": "2026-10-31T00:26:16+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: shape-aware styles, spacing-insensitive search, redraw three icons",
+     "details": [
+      "Bold, two-tone and bulk now test detail lines against the real shape",
+      "outline instead of its bounding box, so arrows, holes and faces no longer",
+      "vanish; nested shapes are cut as rings in bold; bulk cuts a gap around",
+      "crossing slashes; broken also breaks the main curve of open icons; badges",
+      "stay solid in two-tone and bulk. Search folds spaces, ZWNJ, diacritics",
+      "and Arabic letter forms. Vacuum, treadmill and giraffe redrawn."
+     ],
+     "files": 7,
+     "added": 179,
+     "removed": 60
+    },
+    {
+     "sha": "da51c2a8ccdae8d9e1881ea9242e2f867c066578",
+     "short": "da51c2a",
+     "date": "2026-10-30T16:08:07+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 100 hand-drawn icons (persian, kids, tools, kitchen, space, health); icon count 2399, changeset",
+     "details": [],
+     "files": 8,
+     "added": 112,
+     "removed": 7
+    },
+    {
+     "sha": "03b8476001c3d42b631d25c7aad01dc6f030d296",
+     "short": "03b8476",
+     "date": "2026-10-30T15:57:17+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: add 50 hand-drawn icons (persian, events, communication, energy, gaming)",
+     "details": [],
+     "files": 3,
+     "added": 53,
+     "removed": 3
+    },
+    {
+     "sha": "fb0d6f9f148fcde9444ea2a7cc221ae800d3590e",
+     "short": "fb0d6f9",
+     "date": "2026-10-30T15:43:52+03:30",
+     "author": "sepantapouya",
+     "subject": "icons: cleaner bold style (no seams, even weight, gaps around crossing lines)",
+     "details": [
+      "Only details fully inside a shape are knocked out; details that touch or",
+      "leave the shape are drawn at the bold weight without masking, so joins",
+      "no longer show white nicks. Lines that pass through a shape get a clean",
+      "gap, and small circles outside shapes are filled."
+     ],
+     "files": 1,
+     "added": 24,
+     "removed": 6
+    },
+    {
+     "sha": "e749368b8564f5433ae398c57dc38f188a159e89",
+     "short": "e749368",
+     "date": "2026-10-29T16:35:48+03:30",
+     "author": "sepantapouya",
+     "subject": "Docs: redesign the Figma plugin page",
+     "details": [
+      "Hero with a plugin mock, key numbers, feature cards, step-by-step",
+      "install, an update diagram, customisation cards with small visuals,",
+      "file structure, Figma-to-code table, FAQ and a closing call to action.",
+      "Icon count and version come from the packages so the page stays current."
+     ],
+     "files": 2,
+     "added": 427,
+     "removed": 132
+    }
+   ],
+   "notes": [
+    {
+     "kind": "patch",
+     "text": "اسلایدر تک‌دستگیره با کلیک روی نوار هم مقدار می‌گیرد؛ پیش‌تر فقط کشیدن خود دستگیره کار می‌کرد. محدودیت کلیک فقط برای اسلایدر بازه (دو دستگیره) می‌ماند.",
+     "sub": [],
+     "packages": [
+      "css"
+     ]
+    }
+   ]
+  },
   {
    "version": "0.18.0",
    "date": "2026-10-29T16:26:58+03:30",

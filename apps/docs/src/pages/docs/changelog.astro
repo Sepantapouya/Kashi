@@ -41,7 +41,7 @@ const removed = [...unreleased, ...versions.flatMap((v) => v.commits)].reduce((a
     <div><dt>آغاز پروژه</dt><dd class="rl-stats__date">{day(totals.first)}</dd></div>
   </dl>
   <p class="rl-lead">
-    هر نسخه روی npm با همین شماره منتشر شده و هر پنج پکیج (<code dir="ltr">@kashi-ui/react</code>، <code dir="ltr">css</code>، <code dir="ltr">persian</code>، <code dir="ltr">tokens</code> و <code dir="ltr">bank-logos</code>) با هم نسخه می‌گیرند. فهرست کامیت‌های هر نسخه از تاریخچهٔ گیت ساخته می‌شود و کامل در <a href={`${author.repo}/commits/main`} target="_blank" rel="noopener">GitHub</a> هم هست.
+    هر نسخه روی npm با همین شماره منتشر شده و هر شش پکیج (<code dir="ltr">@kashi-ui/react</code>، <code dir="ltr">css</code>، <code dir="ltr">persian</code>، <code dir="ltr">tokens</code>، <code dir="ltr">icons</code> و <code dir="ltr">bank-logos</code>) با هم نسخه می‌گیرند. فهرست کامیت‌های هر نسخه از تاریخچهٔ گیت ساخته می‌شود و کامل در <a href={`${author.repo}/commits/main`} target="_blank" rel="noopener">GitHub</a> هم هست.
   </p>
 
   {unreleased.length > 0 && (
@@ -77,6 +77,7 @@ const removed = [...unreleased, ...versions.flatMap((v) => v.commits)].reduce((a
         <div class="rl-title">
           <h2 id={slug(v.version)}><span dir="ltr">v{v.version}</span></h2>
           {i === 0 && <span class="k-badge k-badge--brand k-badge--sm">آخرین نسخه</span>}
+          {i === 0 && <span class="k-badge k-badge--success k-badge--sm">منتشر شده روی npm</span>}
           <span class="k-badge k-badge--sm">{kindOf(v.version, i)}</span>
         </div>
         <p class="rl-meta">
