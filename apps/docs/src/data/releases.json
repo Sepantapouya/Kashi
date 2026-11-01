@@ -1,28 +1,109 @@
 {
- "generated": "2026-11-01T16:25:57+03:30",
+ "generated": "2026-11-01T22:58:39+03:30",
  "totals": {
-  "commits": 165,
-  "versions": 21,
-  "added": 72688,
+  "commits": 169,
+  "versions": 22,
+  "added": 73553,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [],
  "versions": [
   {
-   "version": "0.20.0",
-   "date": "2026-11-01T16:25:57+03:30",
-   "releaseCommit": "bace7a4",
+   "version": "0.21.0",
+   "date": "2026-11-01T22:58:39+03:30",
+   "releaseCommit": "59a0416",
    "commits": [
     {
-     "sha": "bace7a404489d1d89d12763a31b137e882a61bd7",
-     "short": "bace7a4",
+     "sha": "59a04168a192de767f7f41be4a7eb5c84ddc2d7d",
+     "short": "59a0416",
+     "date": "2026-11-01T22:58:39+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 0.21.0: Tailwind preset",
+     "details": [],
+     "files": 18,
+     "added": 85,
+     "removed": 38
+    },
+    {
+     "sha": "c1e1496b774c02038a4996ad1b779ed94fbaee58",
+     "short": "c1e1496",
+     "date": "2026-11-01T22:48:55+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(tailwind): Tailwind 3 and 4 preset",
+     "details": [
+      "- New @kashi-ui/tailwind package generated from Kashi's tokens.css:",
+      "semantic colors (bg-secondary, text-tertiary, border-brand), the",
+      "brand and Persian palettes, fonts, text sizes, radii, shadows, z-index",
+      "and easing as Tailwind classes, all pointing at var(--k-*) so dark and",
+      "light themes and createTheme carry over",
+      "- Layer order puts Tailwind utilities above Kashi components; dark: and",
+      "light: variants follow data-theme",
+      "- Tests compile real Tailwind 4 output; a browser check confirmed",
+      "rounded-none overrides k-btn and theme switching",
+      "- Docs page /docs/tailwind/, installation section, nav, footer,",
+      "homepage (announcement, package map, standards, platform, FAQ),",
+      "README, MCP instructions and llms.txt"
+     ],
+     "files": 18,
+     "added": 463,
+     "removed": 11
+    },
+    {
+     "sha": "7079d40f2a5ce42c053da692aebedb5da5498001",
+     "short": "7079d40",
+     "date": "2026-11-01T17:06:14+03:30",
+     "author": "sepantapouya",
+     "subject": "ci(stats): refresh every 30 minutes and on every push to main",
+     "details": [
+      "GitHub skipped the hourly scheduled runs; off-peak minutes plus a push",
+      "trigger keep the live stats fresh."
+     ],
+     "files": 1,
+     "added": 6,
+     "removed": 2
+    },
+    {
+     "sha": "92848d02f1b8d0d9d47faa51422014bacfb3251f",
+     "short": "92848d0",
+     "date": "2026-11-01T16:31:01+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): MCP on the homepage",
+     "details": [
+      "- Announcement bar and hero badge point to the new MCP guide",
+      "- @kashi-ui/mcp in the hero package map",
+      "- New 'AI assistants' section with a chat example and the install command"
+     ],
+     "files": 1,
+     "added": 90,
+     "removed": 27
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "پکیج تازهٔ `@kashi-ui/tailwind`: پریست Tailwind 3 و 4 که رنگ‌های معنایی (`bg-secondary`، `text-tertiary`، `border-brand`)، طیف رنگ‌های کاشی، فونت، اندازهٔ متن، گردی گوشه و سایه‌ها را به‌شکل کلاس‌های Tailwind می‌دهد. همهٔ کلاس‌ها به متغیرهای کاشی اشاره می‌کنند و با تم تیره و روشن و `createTheme` همگام می‌مانند. ترتیب لایه‌ها طوری است که کلاس‌های Tailwind بر استایل کامپوننت‌ها برنده باشند.",
+     "sub": [],
+     "packages": [
+      "react"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.20.0",
+   "date": "2026-11-01T16:25:57+03:30",
+   "releaseCommit": "dedb577",
+   "commits": [
+    {
+     "sha": "dedb5772f6a65602f876d1dafb16a56d9475aaf8",
+     "short": "dedb577",
      "date": "2026-11-01T16:25:57+03:30",
      "author": "sepantapouya",
      "subject": "Release 0.20.0: Kashi MCP server",
      "details": [],
-     "files": 16,
-     "added": 75,
-     "removed": 34
+     "files": 17,
+     "added": 296,
+     "removed": 56
     },
     {
      "sha": "17e16798c2e72aadcdc1e9d2c1b31acf8c04e7db",
