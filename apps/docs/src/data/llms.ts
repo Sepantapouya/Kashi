@@ -8,7 +8,7 @@ const intro = `# Kashi (کاشی)
 
 > Kashi is an open-source, RTL-first Persian design system: accessible React components (@kashi-ui/react), framework-agnostic CSS (@kashi-ui/css), design tokens, 4500 icons in six styles and Persian utilities such as Jalali dates and national ID, IBAN and card validation. MIT licensed.
 
-Setup: \`npm i @kashi-ui/react @kashi-ui/css\`, import "@kashi-ui/css" once at the app root and set \`<html lang="fa" dir="rtl">\`. Without React, use the \`k-*\` CSS classes from each page's HTML example.
+Setup: \`npm i @kashi-ui/react @kashi-ui/css\`, import "@kashi-ui/css" once at the app root and set \`<html lang="fa" dir="rtl">\`. Without React, use the \`k-*\` CSS classes from each page's HTML example. In Tailwind projects, \`@kashi-ui/tailwind\` exposes the same tokens as classes (\`bg-secondary\`, \`border-brand\`, \`rounded-lg\`).
 
 For coding assistants, the Kashi MCP server gives the same docs plus icon search, tokens and Persian utilities as tools: \`npx -y @kashi-ui/mcp\` (${site}/docs/ai/).
 `;

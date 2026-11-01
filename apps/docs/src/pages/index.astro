@@ -50,6 +50,7 @@ const modules = [
   { name: "@kashi-ui/persian", kind: "بدون وابستگی", text: "تاریخ شمسی، ارقام فارسی و اعتبارسنجی کد ملی، کارت و شبا.", href: "/docs/persian/utilities/" },
   { name: "@kashi-ui/icons", kind: "React · SVG", text: "۴۵۰۰ آیکون در شش سبک، هماهنگ با زبان بصری کاشی.", href: "/docs/icons/" },
   { name: "@kashi-ui/bank-logos", kind: "CC0", text: "لوگوی SVG ‏۴۰ بانک و ۱۰ درگاه پرداخت ایران.", href: "/docs/persian/bank-logos/" },
+  { name: "@kashi-ui/tailwind", kind: "Tailwind 3 · 4", text: "رنگ‌ها، فونت، گردی و سایه‌های کاشی به‌شکل کلاس‌های Tailwind، همگام با تم.", href: "/docs/tailwind/" },
 ];
 
 const features = [
@@ -142,6 +143,7 @@ const system = [
   { name: "@kashi-ui/persian", role: "تاریخ شمسی و اعتبارسنجی", href: "/docs/persian/utilities/" },
   { name: "@kashi-ui/icons", role: `${fa(iconCount)} آیکون در شش سبک`, href: "/docs/icons/" },
   { name: "@kashi-ui/bank-logos", role: "لوگوی بانک‌ها و درگاه‌ها", href: "/docs/persian/bank-logos/" },
+  { name: "@kashi-ui/tailwind", role: "پریست Tailwind، همگام با تم", href: "/docs/tailwind/" },
   { name: "@kashi-ui/mcp", role: "سرور MCP برای دستیار هوش مصنوعی", href: "/docs/ai/" },
 ];
 
@@ -149,7 +151,7 @@ const standards = [
   { icon: ICON.contrast, title: "WCAG 2.2 AA", text: "کنتراست در هر بیلد بررسی می‌شود" },
   { icon: ICON.tag, title: "SemVer", text: "Changesets و یادداشت انتشار" },
   { icon: ICON.scale, title: "MIT", text: "استفادهٔ تجاری بدون محدودیت" },
-  { icon: ICON.layers, title: "React 18+ · CSS", text: "Next.js، Vite، Remix و HTML خالص" },
+  { icon: ICON.layers, title: "React · Tailwind · CSS", text: "Next.js، Vite، Remix و HTML خالص" },
   { icon: ICON.branch, title: "CI روی هر تغییر", text: "بیلد، تست و بررسی پکیج‌ها" },
   { icon: ICON.figma, title: "Figma", text: "کیت هم‌خوان با کد" },
 ];
@@ -173,7 +175,7 @@ const faq = [
   ["استفاده از کاشی در محصول تجاری آزاد است؟", "بله. کاشی با لایسنس MIT منتشر می‌شود و استفادهٔ تجاری و داخلی، تغییر و توزیع آن بدون محدودیت آزاد است. لوگوی بانک‌ها با CC0 و فونت وزیرمتن با OFL منتشر شده‌اند."],
   ["تغییرات ناسازگار چطور اعلام می‌شود؟", "همهٔ پکیج‌ها با نسخه‌گذاری معنایی (SemVer) و Changesets منتشر می‌شوند و هر نسخه یادداشت انتشار دارد. تاریخچهٔ کامل در صفحهٔ نسخه‌ها هست."],
   ["بدون React هم می‌شود از کاشی استفاده کرد؟", "بله. استایل همهٔ کامپوننت‌ها در @kashi-ui/css با CSS خالص است و توکن‌ها به شکل CSS Variables، JSON و JS در دسترس‌اند؛ پس در Vue، Svelte، Angular یا HTML ساده هم کار می‌کند."],
-  ["با Next.js و ابزارهای فعلی ما سازگار است؟", "کامپوننت‌ها با React نسخهٔ ۱۸ و بالاتر کار می‌کنند و با Next.js، Vite و Remix سازگارند. استایل‌ها در Cascade Layer هستند و با CSS فعلی پروژه تداخل نمی‌کنند."],
+  ["با Next.js و ابزارهای فعلی ما سازگار است؟", "کامپوننت‌ها با React نسخهٔ ۱۸ و بالاتر کار می‌کنند و با Next.js، Vite و Remix سازگارند. استایل‌ها در Cascade Layer هستند و با CSS فعلی پروژه تداخل نمی‌کنند. اگر Tailwind دارید، پریست @kashi-ui/tailwind رنگ‌ها و توکن‌های کاشی را به‌شکل کلاس‌های Tailwind در اختیارتان می‌گذارد."],
   ["می‌توانیم برند خودمان را اعمال کنیم؟", "بله. با یک رنگ، createTheme طیف یازده‌پله‌ای برند را می‌سازد و همهٔ کامپوننت‌ها هماهنگ می‌شوند. شعاع گوشه‌ها، تراکم و فونت هم قابل تنظیم است و همین تم در کیت فیگما هم اعمال می‌شود."],
   ["برای راه‌اندازی در سازمان پشتیبانی دارید؟", "گزارش مشکل و پیشنهاد در GitHub بررسی می‌شود. برای ارزیابی، راه‌اندازی یا سفارشی‌سازی سازمانی، در تلگرام مستقیم با نگه‌دارندهٔ کاشی صحبت کنید."],
 ];
@@ -186,10 +188,10 @@ const chips = [
 ];
 ---
 <Base>
-  <a class="announce" href="/docs/ai/">
-    <span class="announce__tag">نسخهٔ {version}</span>
-    <span class="announce__text">تازه: سرور MCP کاشی برای Claude، Cursor و Copilot</span>
-    <span class="announce__more">راهنمای MCP <span aria-hidden="true">←</span></span>
+  <a class="announce" href="/docs/tailwind/">
+    <span class="announce__tag">تازه</span>
+    <span class="announce__text">پریست Tailwind کاشی: bg-brand، rounded-lg و همهٔ توکن‌ها، همگام با تم</span>
+    <span class="announce__more">راهنمای Tailwind <span aria-hidden="true">←</span></span>
   </a>
   <Header />
   <main id="main" tabindex="-1" class="home">

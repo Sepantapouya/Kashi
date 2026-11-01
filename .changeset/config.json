@@ -13,7 +13,8 @@
       "@kashi-ui/icons",
       "@kashi-ui/css",
       "@kashi-ui/react",
-      "@kashi-ui/mcp"
+      "@kashi-ui/mcp",
+      "@kashi-ui/tailwind"
     ]
   ],
   "ignore": [

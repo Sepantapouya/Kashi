@@ -22,6 +22,7 @@
 | `@kashi-ui/bank-logos` | لوگوی SVG ۴۰ بانک و ۱۰ درگاه پرداخت ایران (CC0) |
 | `@kashi-ui/icons` | ۴۵۰۰ آیکون کاشی در شش سبک؛ React، SVG و اسپرایت |
 | `@kashi-ui/react` | کامپوننت‌های React |
+| `@kashi-ui/tailwind` | پریست Tailwind 3 و 4: توکن‌های کاشی به‌شکل کلاس‌های Tailwind، همگام با تم |
 | `@kashi-ui/mcp` | سرور MCP برای Claude، Cursor و دیگر دستیارهای هوش مصنوعی |
 
 ## کامپوننت‌ها
@@ -49,6 +50,20 @@ import { Button } from "@kashi-ui/react";
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">
 <button class="k-btn k-btn--primary">ثبت‌نام</button>
 ```
+
+## Tailwind
+
+```bash
+npm i @kashi-ui/tailwind
+```
+
+```css
+@import "@kashi-ui/tailwind"; /* اول بیاید تا کلاس‌های Tailwind بر کامپوننت‌ها برنده باشند */
+@import "tailwindcss";
+@import "@kashi-ui/css";
+```
+
+حالا `bg-brand`، `text-secondary`، `border-brand`، `rounded-lg` و `shadow-md` همان توکن‌های کاشی‌اند و با تم تیره و روشن و `createTheme` عوض می‌شوند. راهنما و Tailwind 3: [kashi.sepantapouya.com/docs/tailwind](https://kashi.sepantapouya.com/docs/tailwind/)
 
 ## استفاده با هوش مصنوعی
 

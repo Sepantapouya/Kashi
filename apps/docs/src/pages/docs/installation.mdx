@@ -34,6 +34,22 @@ export function Example() {
 
 کاشی با React نسخهٔ ۱۸ و بالاتر کار می‌کند و با Next.js، Vite و Remix سازگار است.
 
+## Tailwind
+
+اگر پروژه‌تان Tailwind دارد، پریست کاشی را هم نصب کنید تا رنگ‌ها، فونت، گردی و سایه‌های کاشی به‌شکل کلاس‌های Tailwind (`bg-brand`، `rounded-lg`، `text-secondary`) در دسترس باشند و با تم تیره و روشن همگام بمانند:
+
+```bash
+npm i @kashi-ui/tailwind
+```
+
+```css
+@import "@kashi-ui/tailwind";
+@import "tailwindcss";
+@import "@kashi-ui/css";
+```
+
+راهنمای کامل، فهرست کلاس‌ها و تنظیم Tailwind 3: [Tailwind](/docs/tailwind/)
+
 ## HTML و فریم‌ورک‌های دیگر
 
 برای Vue، Svelte، Angular یا HTML ساده، فقط پکیج CSS لازم است:

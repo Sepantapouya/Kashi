@@ -37,6 +37,7 @@ test("docs: list, get by component name and slug, helpful miss", async () => {
 
   assert.match((await call("kashi_get_docs", { name: "persian/input" })).text, /NationalIdInput|کد ملی/);
   assert.match((await call("kashi_get_docs", { name: "installation" })).text, /npm i @kashi-ui\/react @kashi-ui\/css/);
+  assert.match((await call("kashi_get_docs", { name: "tailwind" })).text, /@import "@kashi-ui\/tailwind";\n@import "tailwindcss";/);
 
   const miss = await call("kashi_get_docs", { name: "datepickr" });
   assert.equal(miss.isError, true);
