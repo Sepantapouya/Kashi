@@ -1,31 +1,230 @@
 {
- "generated": "2026-11-01T14:53:45+03:30",
+ "generated": "2026-11-01T16:25:57+03:30",
  "totals": {
-  "commits": 153,
-  "versions": 20,
-  "added": 68661,
+  "commits": 165,
+  "versions": 21,
+  "added": 72688,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [
-  {
-   "sha": "b8f93bba3e27ae00e72f75e44e6e744e68e3ee23",
-   "short": "b8f93bb",
-   "date": "2026-11-01T14:53:45+03:30",
-   "author": "sepantapouya",
-   "subject": "figma plugin: icon export options (styles, stroke), embedded panel font, wrap long icon names",
-   "details": [
-    "- Panel asks whether to build the full icon pages, which of the 6 styles",
-    "(one or several, each on its own page) and stroke weight (default 1)",
-    "- Vazirmatn embedded in the panel so it no longer falls back to Tahoma",
-    "- Icon names break on hyphens into two lines inside a wider cell",
-    "- Kit components keep the code's 1.5 stroke whatever the library stroke is"
-   ],
-   "files": 9,
-   "added": 561,
-   "removed": 50
-  }
- ],
+ "unreleased": [],
  "versions": [
+  {
+   "version": "0.20.0",
+   "date": "2026-11-01T16:25:57+03:30",
+   "releaseCommit": "bace7a4",
+   "commits": [
+    {
+     "sha": "bace7a404489d1d89d12763a31b137e882a61bd7",
+     "short": "bace7a4",
+     "date": "2026-11-01T16:25:57+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 0.20.0: Kashi MCP server",
+     "details": [],
+     "files": 16,
+     "added": 75,
+     "removed": 34
+    },
+    {
+     "sha": "17e16798c2e72aadcdc1e9d2c1b31acf8c04e7db",
+     "short": "17e1679",
+     "date": "2026-11-01T16:25:57+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): redesign the AI page; serve llms.txt as UTF-8",
+     "details": [
+      "- /docs/ai/: animated chat, with/without MCP comparison, how-it-works",
+      "diagram, three-step setup, tools grouped by category",
+      "- llms.txt and llms-full.txt are Astro endpoints with charset=utf-8, so",
+      "Persian text reads correctly in the dev server and every browser",
+      "- Guide pages no longer list components (Installation showed Button)"
+     ],
+     "files": 8,
+     "added": 300,
+     "removed": 134
+    },
+    {
+     "sha": "d74279021400b72111606ef8654e75346cecb377",
+     "short": "d742790",
+     "date": "2026-11-01T16:16:56+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): MCP link in the header",
+     "details": [],
+     "files": 1,
+     "added": 2,
+     "removed": 1
+    },
+    {
+     "sha": "b5d32bb2e409887592908e1f0adbb3a085acf7bf",
+     "short": "b5d32bb",
+     "date": "2026-11-01T16:15:53+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(mcp): Kashi MCP server and llms.txt for AI assistants",
+     "details": [
+      "- New @kashi-ui/mcp package (npx -y @kashi-ui/mcp): 8 tools for docs,",
+      "docs search, icons, tokens, brand themes and Persian utilities, plus",
+      "every docs page as a kashi://docs resource. Docs are bundled at build",
+      "time from the site's MDX, so the server works offline with no API key",
+      "- Shared MDX-to-Markdown converter also generates /llms.txt and",
+      "/llms-full.txt on the docs site",
+      "- New designed docs page /docs/ai/ with per-client setup tabs",
+      "- Tests drive the server through a real MCP client; added to the fixed",
+      "release group"
+     ],
+     "files": 17,
+     "added": 2187,
+     "removed": 10
+    },
+    {
+     "sha": "6e60f92e550f240d3aadd0c08a309faf1fe8edb9",
+     "short": "6e60f92",
+     "date": "2026-11-01T15:57:20+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): remove the enterprise services page for now",
+     "details": [
+      "Reverts 830c984: drops /enterprise/, its homepage and footer links and the",
+      "README sponsors section. The page stays in history to bring back later."
+     ],
+     "files": 4,
+     "added": 5,
+     "removed": 267
+    },
+    {
+     "sha": "830c984f449287d83047100395cebd9aa23faadc",
+     "short": "830c984",
+     "date": "2026-11-01T15:51:16+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): enterprise services and sponsorship page",
+     "details": [
+      "- /enterprise/: onboarding and migration with a custom theme, team",
+      "workshops and an annual support contract with SLA; quotes on request",
+      "- Official sponsorship tiers with live GitHub reach and open logo slots",
+      "- Public promise that everything free today stays free and MIT",
+      "- Linked from the homepage, footer and a new README section"
+     ],
+     "files": 4,
+     "added": 267,
+     "removed": 5
+    },
+    {
+     "sha": "840ad5a7044cf1989b850d0a045e348a02e013e6",
+     "short": "840ad5a",
+     "date": "2026-11-01T15:43:47+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): enterprise-focused homepage",
+     "details": [
+      "- Split hero with a live map of the Kashi packages and their version",
+      "- Standards bar (WCAG 2.2 AA, SemVer, MIT, frameworks, CI, Figma)",
+      "replaces the tech marquee",
+      "- New 'for organizations' section: multi-brand theming, gradual adoption,",
+      "long-term maintenance, direct support and a four-step adoption path",
+      "- New FAQ for teams evaluating Kashi",
+      "- Final CTA offers a separate path for organizations"
+     ],
+     "files": 1,
+     "added": 256,
+     "removed": 74
+    },
+    {
+     "sha": "49cb223e75a835c8d36f6caf32879c10fead4113",
+     "short": "49cb223",
+     "date": "2026-11-01T15:40:00+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(readme): live badges for stars, clones, unique cloners and downloads",
+     "details": [
+      "Clone badges read the hourly stats.json on the stats branch through shields.io."
+     ],
+     "files": 1,
+     "added": 8,
+     "removed": 0
+    },
+    {
+     "sha": "eafca4f412176e0abffea969723159e5f5d90432",
+     "short": "eafca4f",
+     "date": "2026-11-01T15:35:21+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): tighter digit spacing in homepage stats",
+     "details": [],
+     "files": 1,
+     "added": 3,
+     "removed": 3
+    },
+    {
+     "sha": "32d286bb2121f9dde263f60b698c6e8853cbac8b",
+     "short": "32d286b",
+     "date": "2026-11-01T15:34:49+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): redesign the homepage around live GitHub stats",
+     "details": [
+      "- Hero: new headline and a live proof line (stars, clones, version)",
+      "- Features: bento grid with every live demo visible instead of tabs",
+      "- New open-source section with live stars, clones, unique cloners,",
+      "release count and a daily clones chart, refreshed hourly",
+      "- Stats are fetched at build time too, so numbers show before JS",
+      "- Sections reordered; the three steps now live inside the final CTA"
+     ],
+     "files": 3,
+     "added": 278,
+     "removed": 175
+    },
+    {
+     "sha": "67f3f1f6c186ac5cfccae77f0082c038071c423a",
+     "short": "67f3f1f",
+     "date": "2026-11-01T15:20:13+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): live GitHub stars and clones, refreshed hourly",
+     "details": [
+      "- Hourly GitHub Action writes stats.json to a single-commit stats branch;",
+      "clones are kept per day so the all-time total survives GitHub's 14-day window",
+      "- Header GitHub button shows the live star count on every page",
+      "- Homepage shows stars, all-time clones and 14-day unique cloners",
+      "- Vercel skips deploys for the stats branch"
+     ],
+     "files": 8,
+     "added": 190,
+     "removed": 3
+    },
+    {
+     "sha": "ad2f60e1303fb4cc122e63db78ffd52a4e3492ab",
+     "short": "ad2f60e",
+     "date": "2026-11-01T15:11:42+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): show 0.19.0 as released on npm",
+     "details": [
+      "releases.json was generated before the 0.19.0 release, so the site listed",
+      "the whole release as unpublished. Also count icons among the versioned packages."
+     ],
+     "files": 2,
+     "added": 456,
+     "removed": 410
+    },
+    {
+     "sha": "b8f93bba3e27ae00e72f75e44e6e744e68e3ee23",
+     "short": "b8f93bb",
+     "date": "2026-11-01T14:53:45+03:30",
+     "author": "sepantapouya",
+     "subject": "figma plugin: icon export options (styles, stroke), embedded panel font, wrap long icon names",
+     "details": [
+      "- Panel asks whether to build the full icon pages, which of the 6 styles",
+      "(one or several, each on its own page) and stroke weight (default 1)",
+      "- Vazirmatn embedded in the panel so it no longer falls back to Tahoma",
+      "- Icon names break on hyphens into two lines inside a wider cell",
+      "- Kit components keep the code's 1.5 stroke whatever the library stroke is"
+     ],
+     "files": 9,
+     "added": 561,
+     "removed": 50
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "پکیج تازهٔ `@kashi-ui/mcp`: سرور MCP کاشی برای Claude، Cursor، VS Code و دیگر دستیارهای هوش مصنوعی. مستندات هر کامپوننت، جستجوی ۴۵۰۰ آیکون، توکن‌ها، ساخت تم برند و ابزارهای فارسی (کد ملی، شبا، کارت، تاریخ شمسی) را در اختیار دستیار می‌گذارد تا کد را از روی prop های واقعی بنویسد. سایت مستندات هم llms.txt و llms-full.txt دارد.",
+     "sub": [],
+     "packages": [
+      "react"
+     ]
+    }
+   ]
+  },
   {
    "version": "0.19.0",
    "date": "2026-11-01T14:33:30+03:30",
