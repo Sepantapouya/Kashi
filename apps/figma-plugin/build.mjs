@@ -5,7 +5,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { palette, space, radius, font, shadow, themes } from "../../packages/tokens/src/tokens.js";
 import { icons as ICON_SOURCE, categories as ICON_CATEGORIES } from "../../packages/icons/src/icons.js";
-import { renderBody } from "../../packages/icons/src/render.js";
+import { renderBody, variants as ICON_VARIANTS } from "../../packages/icons/src/render.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "../..");
@@ -155,13 +155,27 @@ const TOKENS = {
 // ---------- کنار هم گذاشتن ----------
 const srcDir = join(here, "src");
 const parts = readdirSync(srcDir).filter((f) => f.endsWith(".js")).sort();
+
+// موتور سبک‌های آیکون (@kashi-ui/icons/src/render.js) داخل پلاگین اجرا می‌شود تا شش سبک و هر ضخامتی
+// در خود فیگما ساخته شود؛ export ها برداشته و ?.[ به شکل قدیمی‌تر نوشته می‌شود
+const renderSrc = readFileSync(join(root, "packages/icons/src/render.js"), "utf8")
+  .replace(/^export /gm, "")
+  // «x.exec(y)?.[1]» به «(x.exec(y) || [])[1]»؛ x یک regex یا new RegExp(...) در همان خط است
+  .replace(/((?:\/(?:\\.|[^/\n])+\/|new RegExp\([^\n]*?\))\.exec\([^()]*\))\?\.\[(\d)\]/g, "($1 || [])[$2]");
+if (/\?\.|\?\?/.test(renderSrc.replace(/\/\/.*$/gm, ""))) throw new Error("render.js has syntax the plugin sandbox may not run");
+
+// آیکون‌هایی که خود کامپوننت‌های کیت به کار می‌برند؛ وقتی صفحهٔ آیکون‌ها ساخته نمی‌شود فقط همین‌ها ساخته می‌شوند
+const srcAll = parts.map((f) => readFileSync(join(srcDir, f), "utf8")).join("\n");
+const usedIcons = Object.keys(ICON_SOURCE).filter((n) => new RegExp(`["'\`]${n}["'\`]`).test(srcAll));
 const code = [
   "// Kashi UI Kit — این فایل خودکار ساخته شده است؛ src/ را ویرایش کنید و npm run figma:build بزنید",
   "(function () {",
   `const TOKENS = ${JSON.stringify(TOKENS)};`,
   `const BANKS = ${JSON.stringify(banks)};`,
   // آیکون‌ها از همان منبع @kashi-ui/icons؛ فیگما و کد همیشه یک شکل دارند
-  `const ICONS = ${JSON.stringify(Object.fromEntries(Object.entries(ICON_SOURCE).map(([n, i]) => [n, renderBody(i.body, "light", { uid: `k-${n}` })])))};`,
+  `const ICONS = ${JSON.stringify(Object.fromEntries(Object.entries(ICON_SOURCE).map(([n, i]) => [n, i.body])))};`,
+  `const ICON_USED = ${JSON.stringify(usedIcons)};`,
+  `const ICON_RENDER = (function () {\n${renderSrc}\nreturn { renderBody, variants };\n})();`,
   `const ICON_TITLES = ${JSON.stringify(Object.fromEntries(Object.entries(ICON_SOURCE).map(([n, i]) => [n, i.title])))};`,
   // دسته‌ها به همان ترتیب صفحهٔ آیکون‌های سایت
   `const ICON_CATEGORIES = ${JSON.stringify(ICON_CATEGORIES)};`,
@@ -179,7 +193,14 @@ if (modern) throw new Error(`unsupported syntax in src/: "${body.slice(modern.in
 const out = join(here, "plugin");
 mkdirSync(out, { recursive: true });
 writeFileSync(join(out, "code.js"), code);
-copyFileSync(join(here, "src/ui.html"), join(out, "ui.html"));
+// پنل پلاگین: فونت وزیرمتن جاسازی می‌شود (فیگما فونت سیستم را به iframe نمی‌دهد) و پیش‌نمایش شش سبک
+const fontB64 = readFileSync(join(root, "packages/css/dist/fonts/Vazirmatn.woff2")).toString("base64");
+const previewIcon = ICON_SOURCE["heart"] ? "heart" : Object.keys(ICON_SOURCE)[0];
+const previews = Object.fromEntries(ICON_VARIANTS.map((v) => [v, `<svg viewBox="0 0 20 20" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${renderBody(ICON_SOURCE[previewIcon].body, v, { uid: `p-${v}` })}</svg>`]));
+const ui = readFileSync(join(here, "src/ui.html"), "utf8")
+  .replace("/*KASHI_FONT*/", `@font-face { font-family: "Vazirmatn"; src: url(data:font/woff2;base64,${fontB64}) format("woff2"); font-weight: 100 900; font-display: block; }`)
+  .replace("/*KASHI_PREVIEWS*/", `const PREVIEWS = ${JSON.stringify(previews)}; const ICON_TOTAL = ${Object.keys(ICON_SOURCE).length};`);
+writeFileSync(join(out, "ui.html"), ui);
 // هر دو manifest کار می‌کنند: ریشه به plugin/ اشاره می‌کند و این یکی به فایل‌های کنار خودش
 const manifest = JSON.parse(readFileSync(join(here, "manifest.json"), "utf8"));
 writeFileSync(join(out, "manifest.json"), JSON.stringify(Object.assign(manifest, { main: "code.js", ui: "ui.html" }), null, 2) + "\n");

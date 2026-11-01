@@ -179,4 +179,36 @@ assert.equal(full.figma._collections.find((c) => c.name === "Kashi · Theme").mo
 // ۲. پلن رایگان (یک mode) و فونت ناموجود → جایگزین Inter
 await runPlugin("free plan + missing font", { fonts: INTER, maxModes: 1, msg: { components: true, theme: "light", font: "IRANSans" } });
 
+// ۳. آیکون‌ها با چند سبک و ضخامت ۲؛ بعد خاموش کردن صفحهٔ آیکون‌ها
+const multi = await runPlugin("icons bold+broken, stroke 2", { fonts: VAZIR, maxModes: 4, msg: { components: true, theme: "dark", font: "Vazirmatn", exportIcons: true, iconStyles: ["light", "bold", "broken"], iconStroke: 2 } });
+const ids = multi.figma.root.children.map((p) => p.getPluginData("kashi-page"));
+const iconPages = multi.figma.root.children.filter((p) => /^🧩 Icons/.test(p.name)).map((p) => p.name);
+console.log("  icon pages:", iconPages.join(" | "));
+assert.equal(iconPages.length, 3, "one page per chosen style");
+const comps = (fig, re) => fig.root.findAll((n) => n.type === "COMPONENT" && re.test(n.name));
+const total = comps(multi.figma, /^Icon \/ Light \//).length;
+assert.ok(total > 4000, `all light icons built, got ${total}`);
+assert.equal(comps(multi.figma, /^Icon \/ Bold \//).length, total, "bold set complete");
+assert.equal(comps(multi.figma, /^Icon \/ Broken \//).length, total, "broken set complete");
+const libIcon = comps(multi.figma, /^Icon \/ Light \/ .* \/ plus$/)[0];
+assert.equal(libIcon.findAll((n) => n.type === "VECTOR")[0].strokeWeight, 2, "library uses chosen stroke");
+// داخل کامپوننت‌ها ضخامت مثل کد ۱٫۵ می‌ماند
+const used = multi.figma.root.findAll((n) => n.type === "INSTANCE" && n.mainComponent === libIcon && n.parent && n.parent.type !== "COMPONENT");
+assert.ok(used.length, "kit uses plus icon");
+for (const u of used) for (const v of u.findAll((n) => n.type === "VECTOR")) assert.equal(v.strokeWeight, 1.5, "instance stroke normalised to 1.5");
+// برچسب نام آیکون حداکثر دو خط و در عرض کارت
+const nameLabel = libIcon.parent.children.find((n) => n.name === "Name");
+assert.equal(nameLabel.maxLines, 2);
+assert.equal(nameLabel.textTruncation, "ENDING");
+assert.ok(ids.length);
+// خاموش کردن: صفحه‌های Bold/Broken حذف و فقط آیکون‌های لازم کیت می‌مانند
+await multi.figma.ui.onmessage({ type: "build", components: true, theme: "dark", font: "Vazirmatn", exportIcons: false, iconStyles: ["light"], iconStroke: 1 });
+const off = multi.figma._messages.filter((m) => m.type === "done").pop().summary;
+assert.equal(off.errors.length, 0, off.errors.join(" | "));
+assert.equal(multi.figma.root.children.filter((p) => /^🧩 Icons/.test(p.name)).length, 1, "extra style pages removed");
+const kept = multi.figma.root.findAll((n) => n.type === "COMPONENT" && n.name.startsWith("Icon / ")).length;
+console.log(`  icons off: ${kept} icons kept for the kit`);
+assert.ok(kept > 20 && kept < 400, `only kit icons kept, got ${kept}`);
+assert.ok(!libIcon.removed, "plus icon component kept in place");
+
 console.log("✓ figma plugin OK");

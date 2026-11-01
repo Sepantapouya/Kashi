@@ -41,6 +41,7 @@ async function removeLegacyPages() {
 async function run(opts) {
   const started = Date.now();
   S.theme = opts.theme === "light" ? "light" : "dark";
+  S.opts = opts;
   S.errors = [];
   S.stats = { variables: 0, components: 0, sets: 0, pages: 0, added: 0, updated: 0 };
 
@@ -106,7 +107,7 @@ async function run(opts) {
   figma.notify(`کاشی ${TOKENS.version}: ${S.stats.added} مورد جدید، ${S.stats.updated} مورد به‌روز شد`);
 }
 
-figma.showUI(__html__, { width: 380, height: 600, themeColors: true, title: "Kashi UI Kit" });
+figma.showUI(__html__, { width: 380, height: 720, themeColors: true, title: "Kashi UI Kit" });
 figma.ui.postMessage({ type: "init", version: TOKENS.version, font: TOKENS.font.family, installed: figma.root.getPluginData("kashi-version") });
 figma.ui.onmessage = async (msg) => {
   if (msg.type === "build") {

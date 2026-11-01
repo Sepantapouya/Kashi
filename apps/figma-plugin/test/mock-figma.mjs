@@ -232,6 +232,8 @@ function svgNode(svg) {
     const v = make("VECTOR");
     v.strokes = svg.includes("stroke=") ? [{ type: "SOLID", color: { r: 0, g: 0, b: 0 } }] : [];
     v.fills = [];
+    const sw = /stroke-width="([\d.]+)"/.exec(svg);
+    if (sw) v.strokeWeight = Number(sw[1]);
     f.appendChild(v);
   }
   return f;
