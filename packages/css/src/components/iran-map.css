@@ -1,0 +1,30 @@
+/* نقشهٔ استان‌های ایران — نقشهٔ رنگی با طیف برند و انتخاب استان */
+.k-iran-map { position: relative; display: grid; gap: var(--k-space-3); margin: 0; inline-size: 100%; font-size: var(--k-text-xs); }
+.k-iran-map__canvas { position: relative; block-size: 0; }
+.k-iran-map__svg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; overflow: visible; }
+.k-iran-map__province {
+  fill: var(--k-iran-map-empty, var(--k-bg-tertiary));
+  stroke: var(--k-iran-map-border, var(--k-bg-primary));
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  transition: fill var(--k-duration-fast), opacity var(--k-duration-fast);
+}
+.k-iran-map__province[data-l] { fill: color-mix(in srgb, var(--k-bg-brand) var(--_p, 60%), var(--k-bg-tertiary)); }
+.k-iran-map__province[data-active] { stroke: var(--k-text-primary); stroke-width: 2; paint-order: stroke; }
+.k-iran-map__svg:has([data-active]) .k-iran-map__province:not([data-active], [data-selected]) { opacity: 0.75; }
+.k-iran-map--selectable .k-iran-map__province { cursor: pointer; }
+.k-iran-map--selectable .k-iran-map__province:focus { outline: none; }
+.k-iran-map--selectable .k-iran-map__province:focus-visible { stroke: var(--k-border-brand); stroke-width: 3; }
+.k-iran-map__province[data-selected] { fill: var(--k-iran-map-selected, var(--k-bg-brand)); stroke: var(--k-text-primary); stroke-width: 2; }
+.k-iran-map__legend { display: flex; align-items: center; justify-content: center; gap: var(--k-space-2); color: var(--k-text-tertiary); font-variant-numeric: tabular-nums; }
+.k-iran-map__scale { display: inline-flex; gap: 2px; }
+.k-iran-map__scale i { inline-size: 1.5rem; block-size: 0.625rem; background: color-mix(in srgb, var(--k-bg-brand) var(--_p, 60%), var(--k-bg-tertiary)); }
+.k-iran-map__scale i:first-child { border-start-start-radius: var(--k-radius-full); border-end-start-radius: var(--k-radius-full); }
+.k-iran-map__scale i:last-child { border-start-end-radius: var(--k-radius-full); border-end-end-radius: var(--k-radius-full); }
+.k-iran-map .k-chart__tip { pointer-events: none; }
+@media (forced-colors: active) {
+  .k-iran-map__province { stroke: CanvasText; }
+  .k-iran-map__province[data-selected] { fill: Highlight; forced-color-adjust: none; }
+}
+@media (prefers-reduced-motion: reduce) { .k-iran-map__province { transition: none; } }

@@ -13,6 +13,7 @@ import { JALALI_MONTHS } from "@kashi-ui/persian";
 import { ActivityHeatmap, BarChart, BarList, ContextMenu, InlineEdit, LineChart, PieChart, ProportionBar, ProvinceSelect, Sparkline } from "@kashi-ui/react";
 import { toISODate as isoDate } from "@kashi-ui/persian";
 import { Carousel, ColorPicker, Meter, MultiSelect, Splitter, Tour } from "@kashi-ui/react";
+import { IranMap } from "@kashi-ui/react";
 import { getIranHoliday } from "@kashi-ui/persian";
 import { Icon as KashiIcon } from "@kashi-ui/icons/react";
 import type { IconName } from "@kashi-ui/icons";
@@ -1383,3 +1384,39 @@ export const PersianInputDemo = () => {
     </div>
   );
 };
+
+// ───── نقشهٔ استان‌ها (داده‌ها نمونه‌اند)
+const ORDERS: Record<string, number> = {
+  "تهران": 18420, "خراسان رضوی": 7310, "اصفهان": 6980, "فارس": 5870, "آذربایجان شرقی": 4620, "البرز": 4410, "خوزستان": 3950,
+  "مازندران": 3720, "گیلان": 3180, "کرمان": 2860, "قم": 2210, "یزد": 1980, "آذربایجان غربی": 2740, "همدان": 1560, "مرکزی": 1490,
+  "کرمانشاه": 1650, "گلستان": 1530, "قزوین": 1390, "هرمزگان": 1720, "سمنان": 820, "زنجان": 910, "اردبیل": 1080, "لرستان": 1240,
+  "بوشهر": 1010, "کردستان": 1120, "سیستان و بلوچستان": 1340, "چهارمحال و بختیاری": 640, "خراسان شمالی": 590, "خراسان جنوبی": 560,
+  "ایلام": 410, "کهگیلویه و بویراحمد": 520,
+};
+
+export const IranMapDataDemo = () => (
+  <div style={{ inlineSize: "min(100%, 34rem)" }}>
+    <IranMap data={ORDERS} unit="سفارش" label="سفارش‌های ماه گذشته به تفکیک استان" />
+  </div>
+);
+
+export const IranMapSelectDemo = () => {
+  const [province, setProvince] = useState<string | null>("اصفهان");
+  return (
+    <div style={{ display: "grid", gap: "var(--k-space-4)", inlineSize: "min(100%, 34rem)" }}>
+      <ProvinceSelect value={province} onChange={setProvince} />
+      <IranMap value={province} onChange={setProvince} label="استان محل سکونت" />
+    </div>
+  );
+};
+
+export const IranMapMultiDemo = () => {
+  const [regions, setRegions] = useState<string[]>(["گیلان", "مازندران", "گلستان"]);
+  return (
+    <div style={{ display: "grid", gap: "var(--k-space-3)", inlineSize: "min(100%, 34rem)" }}>
+      <IranMap multiple value={regions} onChange={setRegions} label="استان‌های تحت پوشش ارسال" />
+      <Out>{regions.length ? `ارسال به ${formatNumber(regions.length)} استان: ${regions.join("، ")}` : "هیچ استانی انتخاب نشده"}</Out>
+    </div>
+  );
+};
+

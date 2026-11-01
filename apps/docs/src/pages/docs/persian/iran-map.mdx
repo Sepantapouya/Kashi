@@ -1,0 +1,78 @@
+---
+layout: ../../../layouts/Docs.astro
+title: نقشهٔ ایران
+description: نقشهٔ ۳۱ استان ایران برای نمایش داده به تفکیک استان یا انتخاب یک یا چند استان؛ با صفحه‌کلید و جدول هم‌ارز برای صفحه‌خوان.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { IranMapDataDemo, IranMapSelectDemo, IranMapMultiDemo } from "../../../components/demos";
+
+```tsx
+import { IranMap } from "@kashi-ui/react";
+```
+
+## نقشهٔ رنگی
+
+به هر استان یک عدد بدهید؛ استان‌ها بر اساس مقدار در طیف رنگ برند رنگ می‌گیرند و استان‌های بدون داده خاکستری می‌مانند. با رفتن روی هر استان نام و مقدارش نمایش داده می‌شود. داده‌های این نمونه ساختگی‌اند.
+
+<Demo html={false} code={`<IranMap
+  data={{ "تهران": 18420, "خراسان رضوی": 7310, "اصفهان": 6980, /* … */ }}
+  unit="سفارش"
+  label="سفارش‌های ماه گذشته به تفکیک استان"
+/>`}>
+  <IranMapDataDemo client:visible />
+</Demo>
+
+کلیدها همان نام‌های `PROVINCES` در `@kashi-ui/persian` هستند، مثل `"تهران"` یا `"سیستان و بلوچستان"`. تعداد پله‌های رنگ با `steps` (پیش‌فرض ۵) و قالب عدد با `format` عوض می‌شود. چون معمولاً یک استان (مثل تهران) خیلی بزرگ‌تر از بقیه است، پله‌ها به‌طور پیش‌فرض بر اساس رتبه پخش می‌شوند (`scale="quantile"`) تا تفاوت بقیهٔ استان‌ها هم دیده شود؛ برای بازه‌های مساوی `scale="linear"` بدهید.
+
+## انتخاب استان
+
+با دادن `value` یا `onChange` نقشه قابل انتخاب می‌شود. مقدار همان نام استان است، پس با [انتخاب استان](/docs/persian/province/) هماهنگ کار می‌کند:
+
+<Demo html={false} code={`<ProvinceSelect value={province} onChange={setProvince} />
+<IranMap value={province} onChange={setProvince} label="استان محل سکونت" />`}>
+  <IranMapSelectDemo client:visible />
+</Demo>
+
+## انتخاب چند استان
+
+با `multiple` مقدار یک آرایه است؛ مثلاً برای مناطق تحت پوشش ارسال یا فیلتر گزارش:
+
+<Demo html={false} code={`<IranMap multiple value={regions} onChange={setRegions} label="استان‌های تحت پوشش ارسال" />`}>
+  <IranMapMultiDemo client:visible />
+</Demo>
+
+داده و انتخاب را می‌شود با هم داشت: استان‌ها رنگ داده را نشان می‌دهند و استان انتخاب‌شده با رنگ برند و حاشیه برجسته می‌شود.
+
+<Props rows={[
+  ["data", "Record<string, number>", "", "مقدار هر استان برای نقشهٔ رنگی"],
+  ["value / defaultValue", "string | string[] | null", "", "استان یا استان‌های انتخاب‌شده"],
+  ["onChange", "(value: string | string[] | null) => void", "", "با هر انتخاب؛ نقشه را قابل انتخاب می‌کند"],
+  ["multiple", "boolean", "false", "انتخاب چند استان"],
+  ["label", "string", "«نقشهٔ استان‌های ایران»", "نام دسترس‌پذیر"],
+  ["unit", "string", "", "واحد در راهنما و جدول، مثل «سفارش»"],
+  ["format", "(n: number) => string", "ارقام فارسی", "قالب عدد"],
+  ["steps", "number", "5", "تعداد پله‌های رنگ"],
+  ["scale", '"quantile" | "linear"', '"quantile"', "quantile: هر پله تعداد تقریباً برابری استان؛ linear: بازهٔ مساوی"],
+  ["legend", "boolean", "true با data", "راهنمای رنگ زیر نقشه"],
+  ["tooltip", "(province, value) => string", "", "خط اضافه در راهنمای هر استان"],
+]} />
+
+مرز و نقطهٔ وسط هر استان با `IRAN_PROVINCES` و `IRAN_VIEWBOX` هم در دسترس است، برای وقتی که نقشهٔ خودتان را می‌سازید.
+
+## متغیرهای CSS
+
+<Vars rows={[
+  ["--k-iran-map-empty", "var(--k-bg-tertiary)", "رنگ استان بدون داده"],
+  ["--k-iran-map-selected", "var(--k-bg-brand)", "رنگ استان انتخاب‌شده"],
+  ["--k-iran-map-border", "var(--k-bg-primary)", "رنگ مرز بین استان‌ها"],
+]} />
+
+## دسترس‌پذیری
+
+- نقشهٔ بدون انتخاب یک تصویر با نام است و همهٔ مقدارها در یک جدول پنهان، از بیشترین به کمترین، برای صفحه‌خوان و چاپ آمده‌اند.
+- در حالت انتخاب، استان‌ها `radio` (یا `checkbox` با `multiple`) هستند و فقط یکی در ترتیب Tab است؛ جهت‌نماها بین استان‌ها جابه‌جا می‌شوند، Home و End اول و آخر، و Enter یا فاصله انتخاب می‌کند. نام هر استان همراه مقدارش خوانده می‌شود.
+- رنگ تنها نشانهٔ انتخاب نیست؛ استان انتخاب‌شده حاشیهٔ پررنگ هم دارد و در حالت forced-colors با رنگ سیستم برجسته می‌شود.
+
+مرزها از [Natural Earth](https://www.naturalearthdata.com) (مالکیت عمومی) گرفته و ساده شده‌اند؛ برای کارهای نقشه‌برداری دقیق یا حقوقی مناسب نیستند.
