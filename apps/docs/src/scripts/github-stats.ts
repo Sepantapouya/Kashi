@@ -1,4 +1,5 @@
-// آمار زندهٔ مخزن: GitHub Action هر ساعت stats.json را در شاخهٔ stats می‌نویسد و این‌جا خوانده می‌شود.
+// آمار زندهٔ مخزن: ستاره و فورک لحظه‌ای از API عمومی گیت‌هاب؛ کلون‌ها (که گیت‌هاب روزانه حساب می‌کند) از stats.json
+// که GitHub Action در شاخهٔ stats می‌نویسد. زمان‌بندی Action در گیت‌هاب گاهی ساعت‌ها عقب می‌افتد، پس ستاره به آن وابسته نیست.
 // هر عنصری با data-gh="stars|forks|clones|uniques|updated" پر می‌شود و [data-gh-chart] نمودار کلون روزانه را می‌گیرد.
 import { STATS_URL, clonesChart, faNum as fa, type GithubStats } from "../data/github-stats";
 
@@ -20,21 +21,12 @@ async function load(): Promise<GithubStats | null> {
   } catch { /* حافظهٔ مرورگر در دسترس نیست */ }
   // نشانی هر ساعت عوض می‌شود تا کش CDN گیت‌هاب عدد کهنه ندهد
   const hour = Math.floor(Date.now() / 3600000);
-  let stats: GithubStats | null = null;
-  try {
-    const r = await fetch(`${STATS_URL}?h=${hour}`);
-    if (r.ok) stats = await r.json();
-  } catch { /* شاخهٔ stats در دسترس نیست */ }
-  if (!stats) {
-    // پشتیبان: ستاره و فورک مستقیم از API عمومی گیت‌هاب
-    try {
-      const r = await fetch(`https://api.github.com/repos/${REPO}`);
-      if (r.ok) {
-        const d = await r.json();
-        stats = { updated: new Date().toISOString(), stars: d.stargazers_count, forks: d.forks_count };
-      }
-    } catch { /* آفلاین */ }
-  }
+  const [file, live] = await Promise.all([
+    fetch(`${STATS_URL}?h=${hour}`).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+    fetch(`https://api.github.com/repos/${REPO}`).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+  ]);
+  let stats: GithubStats | null = file;
+  if (live) stats = Object.assign({}, file, { stars: live.stargazers_count, forks: live.forks_count, updated: new Date().toISOString() });
   if (stats) {
     try { sessionStorage.setItem(KEY, JSON.stringify({ at: Date.now(), stats })); } catch { /* */ }
   }

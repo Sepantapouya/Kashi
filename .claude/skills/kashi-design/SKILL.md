@@ -46,7 +46,7 @@ Check every one of these before showing work:
 - **Designed standalone pages** (`docs/figma.astro`, `docs/ai.astro`) follow: hero card (eyebrow pill, title with gradient phrase, lead, copyable command, live mock on the other side) → stats row → sections → FAQ with `<details>` and a CSS chevron.
 - **Copy buttons**: the global handler in `layouts/Base.astro` reacts to any `[data-copy]`. Do not reuse the `.copy-btn` class outside `CodeBlock` — it is `position: absolute`.
 - **Header**: four primary links + "ابزارها" menu (theme builder, Tailwind, Figma plugin, MCP) with icon + one-line description; no version badge. Add new tools to the menu, not as new top-level links.
-- **Live GitHub stats**: elements with `data-gh="stars|clones|uniques|updated"` are filled by `scripts/github-stats.ts`; the homepage also reads them at build time so numbers show without JS.
+- **Live GitHub stats**: elements with `data-gh="stars|clones|uniques"` are filled by `scripts/github-stats.ts` — stars live from the GitHub API, clones from the `stats` branch (GitHub computes clones daily and its cron is unreliable, so never promise "hourly"); the homepage also reads them at build time so numbers show without JS.
 - **Icons**: use `iconSvg(name)` from `@kashi-ui/icons`; check a name exists before using it (e.g. there is no `figma` icon — use `pen-tool`).
 
 ## 5. Promo images and channel posts

@@ -125,7 +125,7 @@ const metrics = [
   { label: "توکن طراحی", value: tokenCount },
   { label: "جفت‌رنگ AA", value: 82, suffix: "٪۱۰۰" },
 ];
-// آمار GitHub موقع بیلد (عدد اولیه)؛ اسکریپت github-stats در مرورگر آن را زنده و ساعتی به‌روز می‌کند
+// آمار GitHub موقع بیلد (عدد اولیه)؛ اسکریپت github-stats در مرورگر ستاره را لحظه‌ای و کلون را از stats.json به‌روز می‌کند
 const gh = await fetchStats();
 const ghChart = gh?.clones ? clonesChart(gh.clones.daily) : "";
 const ghLive = [
@@ -629,7 +629,7 @@ const chips = [
             <p class="kicker"><span class="kicker__n">۰۸</span>متن‌باز</p>
             <h2 id="community-title">ساخته‌شده در فضای باز، با همراهی شما</h2>
           </div>
-          <p class="band__lead">کد، نقشهٔ راه و همهٔ تصمیم‌ها در GitHub است. عددهای زیر زنده از خود GitHub می‌آیند و هر ساعت به‌روز می‌شوند.</p>
+          <p class="band__lead">کد، نقشهٔ راه و همهٔ تصمیم‌ها در GitHub است. عددهای زیر زنده از خود GitHub می‌آیند؛ ستاره‌ها لحظه‌ای و کلون‌ها روزانه.</p>
         </header>
 
         <div class="live" data-reveal>
@@ -648,7 +648,7 @@ const chips = [
             </figcaption>
             <div class="live__svg" data-gh-chart set:html={ghChart} />
           </figure>
-          <p class="live__note"><span class="live__dot" aria-hidden="true"></span>زنده از GitHub · به‌روزرسانی <span data-gh="updated">{gh ? "ساعتی" : "در حال دریافت…"}</span></p>
+          <p class="live__note"><span class="live__dot" aria-hidden="true"></span>زنده از GitHub · ستاره‌ها لحظه‌ای، کلون‌ها روزانه</p>
         </div>
 
         <div class="people">

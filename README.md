@@ -6,7 +6,7 @@
 [![npm](https://img.shields.io/npm/v/@kashi-ui/react?color=0b8077&label=npm)](https://www.npmjs.com/package/@kashi-ui/react)
 [![License: MIT](https://img.shields.io/badge/license-MIT-0b8077)](LICENSE)
 
-<!-- آمار زنده: ستاره از GitHub، کلون‌ها از stats.json که GitHub Action هر ساعت در شاخهٔ stats می‌نویسد -->
+<!-- آمار زنده: ستاره از GitHub، کلون‌ها از stats.json که GitHub Action در شاخهٔ stats می‌نویسد (گیت‌هاب کلون را روزانه حساب می‌کند) -->
 [![Stars](https://img.shields.io/github/stars/Sepantapouya/Kashi?style=flat&logo=github&label=stars&color=0b8077&cacheSeconds=3600)](https://github.com/Sepantapouya/Kashi/stargazers)
 [![Clones](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FSepantapouya%2FKashi%2Fstats%2Fstats.json&query=%24.clones.total&label=clones%20%28all%20time%29&logo=git&logoColor=white&color=0b8077&cacheSeconds=3600)](https://kashi.sepantapouya.com/#community-title)
 [![Unique cloners](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FSepantapouya%2FKashi%2Fstats%2Fstats.json&query=%24.clones.last14.uniques&label=unique%20cloners%20%2814d%29&color=3d5ef8&cacheSeconds=3600)](https://kashi.sepantapouya.com/#community-title)
