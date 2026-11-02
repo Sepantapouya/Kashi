@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { formatJalali, parseJalali, toISODate } from "@kashi-ui/persian";
 import { Calendar, sameDay, type CalendarLabels, type CalendarProps } from "./Calendar.js";

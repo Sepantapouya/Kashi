@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, type HTMLAttributes } from "react";
 import { formatMoney, numberToWords, rialToToman, tomanToRial, type FormatMoneyOptions } from "@kashi-ui/persian";
 import { cx } from "./cx.js";

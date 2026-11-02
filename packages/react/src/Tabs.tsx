@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useContext, useId, useRef, useState, type HTMLAttributes, type KeyboardEvent, type ReactNode } from "react";
 import { cx } from "./cx.js";
 import { useIsomorphicLayoutEffect } from "./utils.js";

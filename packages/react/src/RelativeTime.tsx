@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState, type HTMLAttributes } from "react";
 import { formatJalali, formatRelative } from "@kashi-ui/persian";
 

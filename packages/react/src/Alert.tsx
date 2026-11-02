@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, type HTMLAttributes, type ReactElement, type ReactNode } from "react";
 import { cx } from "./cx.js";
 import { CloseIcon, ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from "./icons.js";

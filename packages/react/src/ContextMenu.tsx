@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { MenuCtx, items, menuKeyDown } from "./DropdownMenu.js";
 import { cx } from "./cx.js";

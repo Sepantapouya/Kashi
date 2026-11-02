@@ -1,3 +1,5 @@
+"use client";
+
 import { JALALI_MONTHS, formatJalali, formatNumber, jalaliMonthLength, toGregorian, toISODate, toJalali } from "@kashi-ui/persian";
 import { useRef, useState } from "react";
 import { cx } from "./cx.js";

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   forwardRef, useId, useRef, useState,
   type ChangeEvent, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttributes,

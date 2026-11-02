@@ -1,3 +1,5 @@
+"use client";
+
 import { Children, forwardRef, useState, type HTMLAttributes, type ReactNode } from "react";
 import { cx } from "./cx.js";
 import { toFaDigits } from "./utils.js";

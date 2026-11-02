@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, useState, type ChangeEvent } from "react";
 import { onlyDigits } from "@kashi-ui/persian";
 import { useIsomorphicLayoutEffect } from "./utils.js";

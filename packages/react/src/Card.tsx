@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, type ElementType, type HTMLAttributes, type ImgHTMLAttributes, type ReactNode } from "react";
 import { cx } from "./cx.js";
 

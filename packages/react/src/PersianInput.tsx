@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, type ReactNode } from "react";
 import { CardNumberInput, type CardNumberInputProps } from "./CardNumberInput.js";
 import { IbanInput, type IbanInputProps } from "./IbanInput.js";

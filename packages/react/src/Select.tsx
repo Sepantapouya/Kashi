@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useId, type ReactNode, type SelectHTMLAttributes } from "react";
 import { cx } from "./cx.js";
 import { Field, describedBy } from "./Field.js";

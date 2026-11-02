@@ -1,3 +1,5 @@
+"use client";
+
 import { useId, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
 import { Badge } from "./Badge.js";

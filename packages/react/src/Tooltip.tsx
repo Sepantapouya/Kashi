@@ -1,3 +1,5 @@
+"use client";
+
 import { cloneElement, isValidElement, useEffect, useId, useRef, useState, type ReactElement, type ReactNode } from "react";
 import { cx } from "./cx.js";
 
@@ -19,7 +21,7 @@ export interface TooltipProps {
 export function Tooltip({ content, children, placement = "top", delay = 300 }: TooltipProps) {
   const id = useId();
   const [open, setOpen] = useState(false);
-  const timer = useRef<ReturnType<typeof setTimeout>>();
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const show = (wait: number) => {
     clearTimeout(timer.current);

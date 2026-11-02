@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useId, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { isDev } from "./utils.js";
 import { cx } from "./cx.js";
@@ -83,7 +85,7 @@ function ToastView({ t, closeLabel }: { t: ToastItem; closeLabel: string }) {
     remaining.current = duration;
   }, [t.version]);
   const started = useRef(0);
-  const timer = useRef<ReturnType<typeof setTimeout>>();
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [paused, setPaused] = useState(false);
 
   // زمان‌سنج با توقف هنگام hover یا فوکوس (WCAG 2.2.1)

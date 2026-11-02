@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useEffect, useState, type KeyboardEvent, type ReactNode } from "react";
 import { formatTime, parseTime, toFaDigits, type Time } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";

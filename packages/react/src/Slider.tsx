@@ -1,3 +1,5 @@
+"use client";
+
 import { useId, useState, type CSSProperties, type ReactNode } from "react";
 import { formatNumber } from "@kashi-ui/persian";
 import { cx } from "./cx.js";

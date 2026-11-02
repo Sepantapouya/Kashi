@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useId, useState, type ReactNode } from "react";
 import { formatLandline, getLandlineProvince, isValidLandline, normalizeLandline } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";

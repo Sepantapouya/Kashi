@@ -1,3 +1,5 @@
+"use client";
+
 import { useId, useRef, useState, type DragEvent, type ReactNode } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";

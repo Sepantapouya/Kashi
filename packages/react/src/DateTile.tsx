@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, type HTMLAttributes } from "react";
 import { getIranHoliday, JALALI_MONTHS, jalaliWeekday, toFaDigits, toISODate, toJalali, WEEKDAYS, type HolidayOptions } from "@kashi-ui/persian";
 import { cx } from "./cx.js";

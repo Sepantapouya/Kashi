@@ -1,3 +1,5 @@
+"use client";
+
 // آیکون‌های داخلی کوچک — همه aria-hidden هستند
 const base = {
   viewBox: "0 0 20 20",

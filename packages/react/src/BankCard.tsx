@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { formatCardNumber, getBankByCard, onlyDigits, toFaDigits, type Bank } from "@kashi-ui/persian";
 import { useBankLogo } from "./BankBadge.js";

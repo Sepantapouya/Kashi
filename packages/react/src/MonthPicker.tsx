@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { JALALI_MONTHS, toFaDigits, toJalali } from "@kashi-ui/persian";
 import { cx } from "./cx.js";

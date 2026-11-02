@@ -1,3 +1,5 @@
+"use client";
+
 import { useId, useRef, useState, type ReactNode } from "react";
 import { PLATE_LETTERS, formatPlate, isValidPlate, onlyDigits, plateType, toFaDigits, type Plate } from "@kashi-ui/persian";
 import { Field, describedBy } from "./Field.js";

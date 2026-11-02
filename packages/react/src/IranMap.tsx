@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import { PROVINCES, formatNumber } from "@kashi-ui/persian";
 import { cx } from "./cx.js";

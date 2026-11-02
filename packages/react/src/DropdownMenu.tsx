@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Children, cloneElement, createContext, isValidElement, useContext, useEffect, useId, useRef, useState,
   type KeyboardEvent, type ReactElement, type ReactNode,

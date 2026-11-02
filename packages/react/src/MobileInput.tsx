@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useId, useState, type ReactNode } from "react";
 import { formatMobile, getMobileOperator, isValidMobile, normalizeMobile } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";

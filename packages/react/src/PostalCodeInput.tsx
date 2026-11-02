@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useState, type ReactNode } from "react";
 import { formatPostalCode, isValidPostalCode } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";

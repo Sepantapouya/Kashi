@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
 import { defaultFilter, highlight, type ComboboxOption } from "./Combobox.js";

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
 import { Field } from "./Field.js";

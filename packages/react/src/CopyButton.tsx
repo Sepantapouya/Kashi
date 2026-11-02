@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import { Button, type ButtonProps } from "./Button.js";
 
@@ -26,7 +28,7 @@ const CheckIcon = () => (
 export function CopyButton({ value, onCopy, iconOnly, timeout = 2000, labels = {}, variant = "secondary", size = "sm", ...rest }: CopyButtonProps) {
   const { copy = "کپی", copied = "کپی شد", failed = "کپی نشد" } = labels;
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
-  const timer = useRef<ReturnType<typeof setTimeout>>();
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   useEffect(() => () => clearTimeout(timer.current), []);
 
   const run = async () => {

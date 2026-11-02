@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useId, useRef, useState, type ClipboardEvent, type KeyboardEvent, type ReactNode } from "react";
 import { normalizePersian, toFaDigits } from "@kashi-ui/persian";
 import { Badge, type BadgeTone } from "./Badge.js";

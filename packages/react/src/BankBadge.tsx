@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import type { Bank } from "@kashi-ui/persian";
 

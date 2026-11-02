@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useId, useState, type KeyboardEvent, type ReactNode } from "react";
 import { formatNumber, onlyDigits, toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";

@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useMemo, useState } from "react";
 import { fixPersianText, toFaDigits } from "@kashi-ui/persian";
 import { Button } from "./Button.js";

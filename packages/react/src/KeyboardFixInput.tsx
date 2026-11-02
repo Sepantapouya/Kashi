@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useRef, useState, type ReactNode } from "react";
 import { fixKeyboardLayout, looksLikeWrongLayout } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";

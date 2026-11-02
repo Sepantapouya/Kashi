@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, type ButtonHTMLAttributes, type ElementType, type MouseEvent, type ReactNode } from "react";
 import { cx } from "./cx.js";
 import { isDev } from "./utils.js";

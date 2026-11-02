@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useId, useState, type ReactNode } from "react";
 import { formatIban, getBankByIban, isValidIban } from "@kashi-ui/persian";
 import { BankBadge } from "./BankBadge.js";

@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, useEffect, useId, useRef, type InputHTMLAttributes, type ReactNode } from "react";
 import { cx } from "./cx.js";
 import { mergeRefs } from "./utils.js";
