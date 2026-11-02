@@ -1,28 +1,87 @@
 {
- "generated": "2026-11-02T13:42:40+03:30",
+ "generated": "2026-11-02T14:34:51+03:30",
  "totals": {
-  "commits": 184,
-  "versions": 24,
-  "added": 76259,
+  "commits": 187,
+  "versions": 25,
+  "added": 78454,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [],
  "versions": [
   {
-   "version": "0.22.1",
-   "date": "2026-11-02T13:42:40+03:30",
-   "releaseCommit": "f2eca88",
+   "version": "0.23.0",
+   "date": "2026-11-02T14:34:51+03:30",
+   "releaseCommit": "e5a7c8c",
    "commits": [
     {
-     "sha": "f2eca883857d6e2db6ce589576e62dd508200c40",
-     "short": "f2eca88",
+     "sha": "e5a7c8c48eae0408cbffced1717a7be57d1a8c75",
+     "short": "e5a7c8c",
+     "date": "2026-11-02T14:34:51+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 0.23.0: Iranian address form",
+     "details": [],
+     "files": 21,
+     "added": 130,
+     "removed": 50
+    },
+    {
+     "sha": "8d092fb0370cdcf9975432978b46b8b4f932a617",
+     "short": "8d092fb",
+     "date": "2026-11-02T14:27:13+03:30",
+     "author": "sepantapouya",
+     "subject": "feat: Iranian address form with city list",
+     "details": [
+      "- @kashi-ui/persian: CITIES (1,278 cities in 31 provinces, from Wikidata CC0,",
+      "scripts/build-cities.mjs), getCities, getCityProvinces, formatAddress",
+      "- @kashi-ui/react: AddressForm (optional map, HTML form names, server errors)",
+      "and CitySelect (province filter, auto-fill province, custom city)",
+      "- @kashi-ui/css: address layout; .k-field column no longer overflows",
+      "- docs page, examples, sidebar and gallery card"
+     ],
+     "files": 19,
+     "added": 1946,
+     "removed": 3
+    },
+    {
+     "sha": "07790c739b9efd23f312bf241829560d05e96123",
+     "short": "07790c7",
+     "date": "2026-11-02T13:52:13+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(install): package manager switch also updates the page's code blocks",
+     "details": [],
+     "files": 1,
+     "added": 5,
+     "removed": 0
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "Iranian address form. `AddressForm` puts province, a city from that province, street, plaque, unit and a validated 10-digit postal code in one fieldset, with an optional Iran map for picking the province and `name` support for plain HTML forms (`shipping[province]` …). `CitySelect` searches 1,278 cities from Wikidata (CC0), fills the province when a city is picked first, ignores spaces and half-spaces in search, and accepts a city that is not in the list. `@kashi-ui/persian` adds `CITIES`, `getCities`, `getCityProvinces`, `formatAddress` and the `IranAddress` type. Fields no longer overflow narrow grid columns.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.22.1",
+   "date": "2026-11-02T13:42:40+03:30",
+   "releaseCommit": "cb31403",
+   "commits": [
+    {
+     "sha": "cb3140341bd4cb921ab7102c87ae06a8d267efc0",
+     "short": "cb31403",
      "date": "2026-11-02T13:42:40+03:30",
      "author": "sepantapouya",
      "subject": "Release 0.22.1: Next.js server components, shadcn registry, natural digit width",
      "details": [],
-     "files": 21,
-     "added": 81,
-     "removed": 43
+     "files": 22,
+     "added": 195,
+     "removed": 53
     },
     {
      "sha": "26f18c4643830d5ed57dee8aba07639d65464832",
