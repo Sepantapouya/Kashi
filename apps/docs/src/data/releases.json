@@ -1,28 +1,206 @@
 {
- "generated": "2026-11-01T22:58:39+03:30",
+ "generated": "2026-11-02T12:21:29+03:30",
  "totals": {
-  "commits": 169,
-  "versions": 22,
-  "added": 73553,
+  "commits": 178,
+  "versions": 23,
+  "added": 75174,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [],
  "versions": [
   {
-   "version": "0.21.0",
-   "date": "2026-11-01T22:58:39+03:30",
-   "releaseCommit": "59a0416",
+   "version": "0.22.0",
+   "date": "2026-11-02T12:21:29+03:30",
+   "releaseCommit": "0c01e2e",
    "commits": [
     {
-     "sha": "59a04168a192de767f7f41be4a7eb5c84ddc2d7d",
-     "short": "59a0416",
+     "sha": "0c01e2e0a72589d2f8532c6bcfbcc41b64b9448b",
+     "short": "0c01e2e",
+     "date": "2026-11-02T12:21:29+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 0.22.0: Iran provinces map",
+     "details": [],
+     "files": 21,
+     "added": 88,
+     "removed": 44
+    },
+    {
+     "sha": "530ace88a83033ec1f6e40f25d40501b3a9faea1",
+     "short": "530ace8",
+     "date": "2026-11-02T12:19:47+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(react): keep IranMap tooltip inside the map for northern provinces",
+     "details": [],
+     "files": 1,
+     "added": 2,
+     "removed": 1
+    },
+    {
+     "sha": "046d01d422a7cc175a5361095a8a1286267cde75",
+     "short": "046d01d",
+     "date": "2026-11-02T00:18:18+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(react): IranMap, a map of Iran's 31 provinces",
+     "details": [
+      "Choropleth (quantile by default, linear optional) and single or multiple",
+      "province selection, keyed by the PROVINCES names so it pairs with",
+      "ProvinceSelect. Radio/checkbox roles with roving focus and arrow keys,",
+      "tooltip, legend and a screen-reader data table. Boundaries from Natural",
+      "Earth (public domain), simplified with mapshaper (~8 KB). Docs page,",
+      "three live demos and tests."
+     ],
+     "files": 9,
+     "added": 462,
+     "removed": 0
+    },
+    {
+     "sha": "7f7480c77ad9bc3d88181ef91fb6d051e0751f28",
+     "short": "7f7480c",
+     "date": "2026-11-01T23:59:34+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): StackBlitz on every example; fix Slider onChange typing",
+     "details": [
+      "- Examples whose short snippet can't run alone now send the full live",
+      "demo instead: the TypeScript compiler extracts the demo component from",
+      "demos.tsx with every helper, data constant, icon and import it uses",
+      "- Server-rendered demos name their component with an example prop; the",
+      "vertical stepper gets a play prop with its full JSX",
+      "- All 127 examples now have the button. scripts/check-stackblitz.mjs",
+      "builds every generated project with Vite (127/127 pass); a tsc pass",
+      "found no missing names, and the data table ran on StackBlitz",
+      "- Slider: infer the value type from value/defaultValue only, so",
+      "onChange={setValue} type-checks for numbers and ranges"
+     ],
+     "files": 14,
+     "added": 242,
+     "removed": 29
+    },
+    {
+     "sha": "7bd23668acbaf05cb43d16b4068d0fba7425290a",
+     "short": "7bd2366",
+     "date": "2026-11-01T23:45:26+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): open examples in StackBlitz",
+     "details": [
+      "Each self-contained React example gets an \"Open in StackBlitz\" button",
+      "next to the React/HTML tabs. At build time the snippet becomes a small",
+      "Vite + React project (Kashi CSS, components and icons from npm) posted",
+      "to stackblitz.com/run; no SDK needed.",
+      "The button only appears when the snippet runs on its own: JSX first,",
+      "every component exported by Kashi, no free variables from page state",
+      "and no \"…\" placeholders in code. 47 examples across 24 pages qualify;",
+      "all 47 generated projects were installed from npm and built with Vite,",
+      "and one was opened on StackBlitz and rendered correctly."
+     ],
+     "files": 3,
+     "added": 137,
+     "removed": 1
+    },
+    {
+     "sha": "054a49e450b627acdb023d9588d9ab5c3750b829",
+     "short": "054a49e",
+     "date": "2026-11-01T23:31:31+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(site): fetch GitHub stars live, stop promising hourly clones",
+     "details": [
+      "GitHub skipped most scheduled stats runs (one run in five hours), so the",
+      "star count could lag for hours. Stars and forks now come straight from",
+      "the public GitHub API in the browser; clones still come from the stats",
+      "branch, which matches how GitHub reports them (daily). Copy on the",
+      "homepage now says stars are live and clones daily."
+     ],
+     "files": 4,
+     "added": 13,
+     "removed": 21
+    },
+    {
+     "sha": "3c5dfeb74b3c0b0f03ac2cd1599272fc8d0ad7e8",
+     "short": "3c5dfeb",
+     "date": "2026-11-01T23:20:37+03:30",
+     "author": "sepantapouya",
+     "subject": "chore(claude): kashi-design skill for pages, images and posts",
+     "details": [
+      "Design rules distilled from the site, image and copy work: calm layouts,",
+      "one-line captions, tokens only, honest claims, the RTL/bidi pitfalls that",
+      "kept recurring, docs-page and promo-image patterns, and a verification",
+      "checklist. Ships with a promo image template. .gitignore now keeps",
+      ".claude/skills while personal Claude settings stay ignored."
+     ],
+     "files": 3,
+     "added": 174,
+     "removed": 1
+    },
+    {
+     "sha": "aaa5d9421aacbbc62996fde44e6cc809d8f0369a",
+     "short": "aaa5d94",
+     "date": "2026-11-01T23:17:14+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): calmer header with a Tools menu",
+     "details": [
+      "- Four main links (docs, components, Persian, icons); theme builder,",
+      "Tailwind, Figma plugin and MCP move into a Tools menu with icons and",
+      "one-line descriptions, keyboard and Escape support",
+      "- Version badge removed from the header (still in the footer and hero)",
+      "- Links stay inline down to 52rem instead of 64rem"
+     ],
+     "files": 2,
+     "added": 86,
+     "removed": 20
+    },
+    {
+     "sha": "8cb583076b8dd8175e8166781ade3c0c93e3df95",
+     "short": "8cb5830",
+     "date": "2026-11-01T23:05:44+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(site): designed Tailwind page and a cleaner standards bar",
+     "details": [
+      "- /docs/tailwind/: hero with before/after classes and a live themed",
+      "preview, CSS layer order diagram, copyable semantic color swatches,",
+      "palette grid and radius/shadow previews, all generated from the",
+      "package's tokens.json; guide text stays in MDX for MCP and llms.txt",
+      "- Homepage standards bar: one framed panel, icon above title, short",
+      "one-line captions, visible heading"
+     ],
+     "files": 3,
+     "added": 325,
+     "removed": 34
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "کامپوننت تازهٔ `IranMap`: نقشهٔ ۳۱ استان ایران برای نمایش داده به تفکیک استان (مقیاس quantile یا linear) و انتخاب یک یا چند استان، با صفحه‌کلید، راهنما و جدول هم‌ارز برای صفحه‌خوان. مرزها از Natural Earth (مالکیت عمومی).",
+     "sub": [],
+     "packages": [
+      "react",
+      "css"
+     ]
+    },
+    {
+     "kind": "patch",
+     "text": "`Slider`: نوع مقدار حالا فقط از `value` یا `defaultValue` حدس زده می‌شود؛ `onChange={setValue}` با state عددی یا بازه دیگر خطای TypeScript نمی‌دهد.",
+     "sub": [],
+     "packages": [
+      "react"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.21.0",
+   "date": "2026-11-01T22:58:39+03:30",
+   "releaseCommit": "a7062b1",
+   "commits": [
+    {
+     "sha": "a7062b1f6abe781f3ed1005cd0fae251e4faef55",
+     "short": "a7062b1",
      "date": "2026-11-01T22:58:39+03:30",
      "author": "sepantapouya",
      "subject": "Release 0.21.0: Tailwind preset",
      "details": [],
-     "files": 18,
-     "added": 85,
-     "removed": 38
+     "files": 21,
+     "added": 177,
+     "removed": 49
     },
     {
      "sha": "c1e1496b774c02038a4996ad1b779ed94fbaee58",

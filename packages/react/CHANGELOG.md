@@ -1,5 +1,19 @@
 # @kashi-ui/react
 
+## 0.22.0
+
+### Minor Changes
+
+- 046d01d: کامپوننت تازهٔ `IranMap`: نقشهٔ ۳۱ استان ایران برای نمایش داده به تفکیک استان (مقیاس quantile یا linear) و انتخاب یک یا چند استان، با صفحه‌کلید، راهنما و جدول هم‌ارز برای صفحه‌خوان. مرزها از Natural Earth (مالکیت عمومی).
+
+### Patch Changes
+
+- 7f7480c: `Slider`: نوع مقدار حالا فقط از `value` یا `defaultValue` حدس زده می‌شود؛ `onChange={setValue}` با state عددی یا بازه دیگر خطای TypeScript نمی‌دهد.
+- Updated dependencies [046d01d]
+  - @kashi-ui/css@0.22.0
+  - @kashi-ui/bank-logos@0.22.0
+  - @kashi-ui/persian@0.22.0
+
 ## 0.21.0
 
 ### Minor Changes
