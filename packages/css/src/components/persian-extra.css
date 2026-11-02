@@ -21,7 +21,7 @@
 
 /* مبلغ
  * متغیرها: --k-money-size */
-.k-money { display: inline-flex; align-items: baseline; gap: 0.3em; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--k-text-primary); }
+.k-money { display: inline-flex; align-items: baseline; gap: 0.3em; white-space: nowrap; color: var(--k-text-primary); }
 .k-money__amount { font-size: var(--k-money-size, 1em); font-weight: var(--k-weight-semibold); letter-spacing: -0.01em; }
 .k-money__unit { color: var(--k-text-tertiary); font-size: 0.8em; font-weight: var(--k-weight-medium); }
 .k-money--sm { --k-money-size: var(--k-text-sm); }
@@ -71,7 +71,7 @@
 .k-bankcard__bank { display: inline-flex; align-items: center; gap: var(--k-space-2); font-size: max(0.75rem, 4.2cqi); font-weight: var(--k-weight-semibold); }
 .k-bankcard__logo { inline-size: 1.75rem; block-size: 1.75rem; padding: 2px; border-radius: var(--k-radius-md); background: #fff; }
 .k-bankcard__chip { inline-size: 11.5cqi; fill: #e9c46a; stroke: rgb(120 80 10 / 0.45); stroke-width: 1; }
-.k-bankcard__number { align-self: center; font-size: 6.9cqi; white-space: nowrap; font-weight: var(--k-weight-semibold); letter-spacing: 0.06em; text-align: center; word-spacing: 0.15em; text-shadow: 0 1px 2px rgb(0 0 0 / 0.3); font-variant-numeric: tabular-nums; }
+.k-bankcard__number { align-self: center; font-size: 6.9cqi; white-space: nowrap; font-weight: var(--k-weight-semibold); letter-spacing: 0.06em; text-align: center; word-spacing: 0.15em; text-shadow: 0 1px 2px rgb(0 0 0 / 0.3); }
 .k-bankcard__bottom { display: flex; align-items: end; justify-content: space-between; gap: var(--k-space-3); min-block-size: 1.5rem; font-size: max(0.75rem, 4.2cqi); }
 .k-bankcard__holder { font-weight: var(--k-weight-medium); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .k-bankcard__exp { display: inline-grid; justify-items: end; line-height: 1.3; margin-inline-start: auto; }
@@ -146,7 +146,7 @@
 .k-receipt__rows::after { inset-inline-end: -0.75rem; clip-path: inset(0 50% 0 0); }
 .k-receipt__row { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-3); min-block-size: 1.75rem; font-size: var(--k-text-sm); }
 .k-receipt__row dt { color: var(--k-text-tertiary); }
-.k-receipt__row dd { margin: 0; color: var(--k-text-primary); font-weight: var(--k-weight-medium); text-align: end; font-variant-numeric: tabular-nums; }
+.k-receipt__row dd { margin: 0; color: var(--k-text-primary); font-weight: var(--k-weight-medium); text-align: end; }
 .k-receipt__code, .k-receipt__card { display: inline-flex; align-items: center; gap: var(--k-space-1_5); }
 .k-receipt__card img { border-radius: var(--k-radius-sm); background: #fff; padding: 1px; }
 .k-receipt__actions { display: flex; gap: var(--k-space-2); padding: 0 var(--k-space-5) var(--k-space-5); }
