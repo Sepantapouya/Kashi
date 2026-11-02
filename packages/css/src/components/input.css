@@ -30,6 +30,21 @@
     box-shadow var(--k-duration-fast) var(--k-ease-standard);
 }
 
+/* پر شدن خودکار مرورگر (نشانی، ایمیل…): مرورگر فقط پشت خود متن رنگ می‌گذارد و فیلد دورنگ می‌شود؛
+ * با سایهٔ داخلی هم‌رنگ فیلد پوشانده می‌شود. دو قاعدهٔ جدا، چون مرورگری که یکی را نشناسد کل قاعده را نادیده می‌گیرد */
+.k-input__control:-webkit-autofill {
+  -webkit-text-fill-color: var(--k-text-primary);
+  caret-color: var(--k-text-primary);
+  box-shadow: 0 0 0 100vmax var(--k-input-bg, var(--k-bg-primary)) inset;
+  transition: background-color 0s 600000s;
+}
+.k-input__control:autofill {
+  -webkit-text-fill-color: var(--k-text-primary);
+  caret-color: var(--k-text-primary);
+  box-shadow: 0 0 0 100vmax var(--k-input-bg, var(--k-bg-primary)) inset;
+  transition: background-color 0s 600000s;
+}
+
 .k-input:hover:not(:focus-within, :has(:disabled, [aria-invalid="true"])) {
   --_border: var(--k-input-border-hover, var(--k-text-quaternary));
 }
