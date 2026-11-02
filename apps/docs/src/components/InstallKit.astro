@@ -1,0 +1,333 @@
+---
+// بخش‌های طراحی‌شدهٔ صفحهٔ نصب؛ متن راهنما در خود MDX است تا سرور MCP و llms.txt هم آن را داشته باشند.
+// فهرست رجیستری و پکیج‌ها از خود کد ساخته می‌شود تا با هر نسخه درست بماند.
+import { iconSvg } from "@kashi-ui/icons";
+import { toFaDigits } from "@kashi-ui/persian";
+import { registryItems, REGISTRY_VERSION } from "../data/registry";
+
+interface Props { part: "hero" | "registry" | "packages" }
+const { part } = Astro.props;
+const fa = (n: number) => toFaDigits(String(n));
+const ic = (name: string, size = 16) => iconSvg(name, { size }) ?? "";
+const SITE = "https://kashi.sepantapouya.com";
+const add = (name: string) => `npx shadcn@latest add ${SITE}/r/${name}.json`;
+
+const components = registryItems(SITE).filter((it) => !it.meta!.helper);
+// نام فارسی کوتاه: عنوان صفحهٔ مستندات، یا برای فیلدهایی که صفحهٔ مشترک دارند اول توضیحشان
+const FA_NAME: Record<string, string> = {
+  calendar: "تقویم شمسی", field: "قالب فیلد", "bank-badge": "نشان بانک", "keyboard-fix-input": "اصلاح صفحه‌کلید",
+  "plate-input": "پلاک خودرو", "postal-code-input": "کد پستی", "relative-time": "زمان نسبی", "time-input": "ساعت",
+  "landline-input": "تلفن ثابت", "legal-id-input": "شناسهٔ ملی شرکت", misc: "جداکننده، کلید و حالت خالی",
+};
+const faName = (it: (typeof components)[number]) =>
+  FA_NAME[it.name] ?? (it.meta!.href && !it.meta!.href.includes("#") && it.meta!.fa ? it.meta!.fa : it.description.split(/[:؛،(]/)[0].trim());
+
+const PATHS = [
+  {
+    key: "npm", label: "پکیج npm", icon: "package", note: "پیشنهادی",
+    lead: "کامپوننت‌ها از پکیج می‌آیند و با هر نسخه به‌روز می‌شوند. مناسب بیشتر پروژه‌ها.",
+    steps: [
+      { title: "نصب", code: "npm i @kashi-ui/react @kashi-ui/css", pm: true },
+      { title: "CSS را یک بار در ریشهٔ برنامه وارد کنید", code: `import "@kashi-ui/css";` },
+      { title: "صفحه را راست‌به‌چپ کنید", code: `<html lang="fa" dir="rtl">` },
+    ],
+  },
+  {
+    key: "shadcn", label: "shadcn", icon: "terminal", note: "کد در پروژهٔ شما",
+    lead: "کد خودِ کامپوننت در پروژه کپی می‌شود تا هر تغییری بخواهید در آن بدهید.",
+    steps: [
+      { title: "کامپوننت را اضافه کنید", code: add("button"), pm: true },
+      { title: "از پوشهٔ components/kashi وارد کنید", code: `import { Button } from "@/components/kashi/Button";` },
+      { title: "صفحه را راست‌به‌چپ کنید", code: `<html lang="fa" dir="rtl">` },
+    ],
+  },
+  {
+    key: "tailwind", label: "Tailwind", icon: "palette", note: "کنار کامپوننت‌ها",
+    lead: "رنگ‌ها، فونت و گردی کاشی به‌شکل کلاس‌های Tailwind؛ همراه یکی از دو روش بالا.",
+    steps: [
+      { title: "نصب پریست", code: "npm i @kashi-ui/tailwind", pm: true },
+      { title: "به همین ترتیب در CSS اصلی وارد کنید", code: `@import "@kashi-ui/tailwind";\n@import "tailwindcss";\n@import "@kashi-ui/css";` },
+    ],
+  },
+  {
+    key: "html", label: "HTML و CDN", icon: "code", note: "بدون React",
+    lead: "برای Vue، Svelte، Angular یا HTML ساده؛ فقط CSS، بدون نصب.",
+    steps: [
+      { title: "CSS را از CDN بیاورید", code: `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">` },
+      { title: "از کلاس‌ها استفاده کنید", code: `<button class="k-btn k-btn--primary">ثبت‌نام</button>` },
+    ],
+  },
+];
+
+const PACKAGES = [
+  { name: "react", fa: "کامپوننت‌های React", when: "پروژهٔ React" },
+  { name: "css", fa: "استایل همهٔ کامپوننت‌ها با CSS خالص", when: "همیشه" },
+  { name: "persian", fa: "تاریخ شمسی، کد ملی، کارت، شبا و ارقام فارسی", when: "خودکار با react" },
+  { name: "icons", fa: "آیکون‌های خطی برای React و HTML", when: "اختیاری" },
+  { name: "tailwind", fa: "توکن‌های کاشی به‌شکل کلاس‌های Tailwind", when: "پروژهٔ Tailwind" },
+  { name: "tokens", fa: "توکن‌های رنگ، فاصله و فونت به JSON و CSS", when: "خودکار با css" },
+  { name: "bank-logos", fa: "لوگوی SVG بانک‌های ایران", when: "خودکار با react" },
+  { name: "mcp", fa: "مستندات کاشی برای Claude و Cursor", when: "دستیار هوش مصنوعی" },
+];
+---
+{part === "hero" && (
+  <section class="ik-hero" aria-label="شروع سریع">
+    <div class="ik-hero__head">
+      <span class="ik-eyebrow">نسخهٔ <bdi dir="ltr">v{REGISTRY_VERSION}</bdi></span>
+      <p class="ik-hero__title">کاشی را در <span>چند دقیقه</span> به پروژه‌تان بیاورید</p>
+      <p class="ik-hero__text">یک راه را انتخاب کنید؛ هر راه دو یا سه قدم است.</p>
+    </div>
+
+    <div class="ik-pick">
+      <div class="ik-paths" role="radiogroup" aria-label="روش نصب">
+        {PATHS.map((p, i) => (
+          <label class="ik-path">
+            <input type="radio" name="ik-path" value={p.key} class="k-sr-only" checked={i === 0} />
+            <span class="ik-path__icon" set:html={ic(p.icon, 18)} />
+            <span class="ik-path__text"><b>{p.label}</b><small>{p.note}</small></span>
+          </label>
+        ))}
+      </div>
+
+      <div class="ik-pm" role="radiogroup" aria-label="مدیر پکیج">
+        {["npm", "pnpm", "yarn", "bun"].map((pm, i) => (
+          <label><input type="radio" name="ik-pm" value={pm} class="k-sr-only" checked={i === 0} /><span>{pm}</span></label>
+        ))}
+      </div>
+    </div>
+
+    {PATHS.map((p) => (
+      <div class="ik-panel" data-path={p.key}>
+        <p class="ik-panel__lead">{p.lead}</p>
+        <ol class="ik-steps" role="list">
+          {p.steps.map((s, i) => (
+            <li>
+              <span class="ik-steps__n" aria-hidden="true">{fa(i + 1)}</span>
+              <div class="ik-steps__body">
+                <span class="ik-steps__title">{s.title}</span>
+                <div class="ik-code" dir="ltr">
+                  <code data-pm-cmd={s.pm ? s.code : undefined}>{s.code}</code>
+                  <button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm ik-copy" aria-label={`کپی: ${s.title}`} data-copy={s.code} set:html={ic("copy", 16)} />
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    ))}
+  </section>
+)}
+
+{part === "registry" && (
+  <section class="ik-reg" aria-label="کامپوننت‌های رجیستری shadcn">
+    <div class="ik-reg__all">
+      <div>
+        <b>همهٔ {fa(components.length)} کامپوننت با یک دستور</b>
+        <small>ابزارهای فارسی، CSS و وابستگی‌ها خودکار نصب می‌شوند</small>
+      </div>
+      <div class="ik-code" dir="ltr">
+        <code data-pm-cmd={add("all")}>{add("all")}</code>
+        <button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm ik-copy" aria-label="کپی دستور نصب همه" data-copy={add("all")} set:html={ic("copy", 16)} />
+      </div>
+    </div>
+
+    <div class="ik-reg__bar">
+      <div class="k-input k-input--sm ik-reg__search">
+        <span class="ik-reg__search-icon" set:html={ic("search", 16)} />
+        <input class="k-input__control" type="search" placeholder="جستجو، مثلاً «تاریخ» یا Button" aria-label="جستجوی کامپوننت" data-reg-search />
+      </div>
+      <p class="ik-reg__count" aria-live="polite" data-reg-count>{fa(components.length)} کامپوننت</p>
+    </div>
+
+    <ul class="ik-reg__list" role="list" data-reg-list>
+      {components.map((it) => (
+        <li data-reg-item data-q={`${it.name} ${it.meta!.exports.join(" ")} ${faName(it)} ${it.description}`.toLowerCase()}>
+          <button type="button" class="ik-reg__item" data-copy={add(it.name)} data-pm-copy={add(it.name)} aria-label={`کپی دستور نصب ${faName(it)}`}>
+            <span class="ik-reg__name">
+              <b>{faName(it)}</b>
+              <code dir="ltr">{it.meta!.exports.slice(0, 2).join(", ")}{it.meta!.exports.length > 2 ? ", …" : ""}</code>
+            </span>
+            <span class="ik-reg__copy" aria-hidden="true" set:html={ic("copy", 15)} />
+          </button>
+        </li>
+      ))}
+    </ul>
+    <p class="ik-reg__empty" hidden data-reg-empty>کامپوننتی با این نام پیدا نشد.</p>
+    <button type="button" class="k-btn k-btn--secondary k-btn--sm ik-reg__more" data-reg-more>نمایش همه</button>
+  </section>
+)}
+
+{part === "packages" && (
+  <ul class="ik-pkgs" role="list">
+    {PACKAGES.map((p) => (
+      <li>
+        <a class="ik-pkg" href={`https://www.npmjs.com/package/@kashi-ui/${p.name}`} rel="noopener">
+          <code dir="ltr">@kashi-ui/<b>{p.name}</b></code>
+          <span>{p.fa}</span>
+          <small>{p.when}</small>
+        </a>
+      </li>
+    ))}
+  </ul>
+)}
+
+<script>
+  // مدیر پکیج انتخاب‌شده روی همهٔ دستورهای صفحه اعمال و برای بازدید بعدی نگه داشته می‌شود
+  const convert = (cmd: string, pm: string) => {
+    if (pm === "npm") return cmd;
+    const npx = { pnpm: "pnpm dlx", yarn: "yarn dlx", bun: "bunx --bun" }[pm]!;
+    return cmd.replace(/^npx /, `${npx} `).replace(/^npm i /, `${pm === "npm" ? "npm i" : `${pm} add`} `);
+  };
+  const apply = (pm: string) => {
+    document.querySelectorAll<HTMLElement>("[data-pm-cmd]").forEach((el) => {
+      const cmd = convert(el.dataset.pmCmd!, pm);
+      el.textContent = cmd;
+      el.parentElement?.querySelector<HTMLElement>("[data-copy]")?.setAttribute("data-copy", cmd);
+    });
+    document.querySelectorAll<HTMLElement>("[data-pm-copy]").forEach((el) => el.setAttribute("data-copy", convert(el.dataset.pmCopy!, pm)));
+  };
+  const radios = document.querySelectorAll<HTMLInputElement>('input[name="ik-pm"]');
+  let saved = "npm";
+  try { saved = localStorage.getItem("kashi-pm") ?? "npm"; } catch {}
+  radios.forEach((r) => {
+    if (r.value === saved) r.checked = true;
+    r.addEventListener("change", () => {
+      apply(r.value);
+      try { localStorage.setItem("kashi-pm", r.value); } catch {}
+    });
+  });
+  if (saved !== "npm") apply(saved);
+
+  // جستجو و «نمایش همه» در فهرست رجیستری
+  const list = document.querySelector<HTMLElement>("[data-reg-list]");
+  if (list) {
+    const items = [...list.querySelectorAll<HTMLElement>("[data-reg-item]")];
+    const search = document.querySelector<HTMLInputElement>("[data-reg-search]")!;
+    const count = document.querySelector<HTMLElement>("[data-reg-count]")!;
+    const empty = document.querySelector<HTMLElement>("[data-reg-empty]")!;
+    const more = document.querySelector<HTMLButtonElement>("[data-reg-more]")!;
+    const fa = (n: number) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+    const LIMIT = 12;
+    let open = false;
+    const render = () => {
+      const q = search.value.trim().toLowerCase();
+      const hits = items.filter((it) => !q || it.dataset.q!.includes(q));
+      items.forEach((it) => (it.hidden = true));
+      hits.forEach((it, i) => (it.hidden = !q && !open && i >= LIMIT));
+      count.textContent = q ? `${fa(hits.length)} نتیجه` : `${fa(items.length)} کامپوننت`;
+      empty.hidden = hits.length > 0;
+      more.hidden = Boolean(q) || open || hits.length <= LIMIT;
+      more.textContent = `نمایش همهٔ ${fa(items.length)} کامپوننت`;
+    };
+    search.addEventListener("input", render);
+    more.addEventListener("click", () => {
+      open = true;
+      render();
+      items[LIMIT]?.querySelector("button")?.focus();
+    });
+    render();
+  }
+</script>
+
+<style>
+  code { font-size: 0.8em; }
+  .ik-copy { flex: none; }
+  .ik-copy[data-copied] { color: var(--k-text-success); }
+
+  /* ───── شروع سریع ───── */
+  .ik-hero {
+    position: relative; isolation: isolate; overflow: clip;
+    display: grid; gap: var(--k-space-5);
+    margin-block: var(--k-space-2) var(--k-space-8); padding: clamp(1.5rem, 3.5vw, 2.25rem) clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-2xl, var(--k-radius-xl));
+    background: radial-gradient(circle at 1px 1px, var(--k-border-secondary) 1px, transparent 0) 0 0 / 1.25rem 1.25rem, var(--k-bg-secondary);
+  }
+  .ik-hero::before { content: ""; position: absolute; inset: -40% -10% auto auto; z-index: -1; inline-size: 30rem; block-size: 22rem; pointer-events: none;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--k-text-brand) 16%, transparent), transparent); }
+  .ik-eyebrow { display: inline-block; padding: 0.25rem var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); background: var(--k-bg-primary); color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+  .ik-eyebrow bdi { font-family: var(--k-font-mono); color: var(--k-text-brand); }
+  .ik-hero__title { margin: var(--k-space-4) 0 var(--k-space-2); color: var(--k-text-primary); font-size: clamp(1.5rem, 2.6vw, 2.125rem); font-weight: var(--k-weight-bold); line-height: 1.45; text-wrap: balance; }
+  .ik-hero__title span { color: var(--k-text-brand); }
+  .ik-hero__text { margin: 0; color: var(--k-text-tertiary); }
+
+  .ik-pick { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--k-space-3); }
+  .ik-paths { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--k-space-2); flex: 1 1 34rem; }
+  .ik-path { display: flex; align-items: center; gap: var(--k-space-2_5, 10px); padding: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); cursor: pointer; transition: border-color var(--k-duration-fast), box-shadow var(--k-duration-fast); }
+  .ik-path:hover { border-color: var(--k-border-primary); }
+  .ik-path:has(:checked) { border-color: var(--k-border-brand); box-shadow: 0 0 0 1px var(--k-border-brand), var(--k-shadow-sm); }
+  .ik-path:has(:focus-visible) { box-shadow: var(--k-ring-brand); }
+  .ik-path__icon { display: grid; place-items: center; flex: none; inline-size: 2.25rem; block-size: 2.25rem; border-radius: var(--k-radius-md); background: var(--k-bg-tertiary); color: var(--k-text-tertiary); }
+  .ik-path:has(:checked) .ik-path__icon { background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+  .ik-path__text { display: grid; min-inline-size: 0; }
+  .ik-path__text b { color: var(--k-text-primary); font-size: var(--k-text-sm); }
+  .ik-path__text small { color: var(--k-text-quaternary); font-size: var(--k-text-xs); }
+
+  .ik-pm { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); direction: ltr; }
+  .ik-pm label { cursor: pointer; }
+  .ik-pm span { display: block; padding: 0.25rem 0.625rem; border-radius: calc(var(--k-radius-md) - 3px); color: var(--k-text-tertiary); font: 600 0.75rem var(--k-font-mono); }
+  .ik-pm label:hover span { color: var(--k-text-primary); }
+  .ik-pm :checked + span { background: var(--k-bg-tertiary); color: var(--k-text-primary); }
+  .ik-pm :focus-visible + span { box-shadow: var(--k-ring-brand); }
+
+  .ik-panel { display: none; }
+  .ik-hero:has(input[value="npm"]:checked) .ik-panel[data-path="npm"],
+  .ik-hero:has(input[value="shadcn"]:checked) .ik-panel[data-path="shadcn"],
+  .ik-hero:has(input[value="tailwind"]:checked) .ik-panel[data-path="tailwind"],
+  .ik-hero:has(input[value="html"]:checked) .ik-panel[data-path="html"] { display: grid; gap: var(--k-space-4); }
+  .ik-panel__lead { margin: 0; color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+  .ik-steps { display: grid; gap: var(--k-space-3); margin: 0; padding: 0; list-style: none; }
+  .ik-steps li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--k-space-3); margin: 0; }
+  .ik-steps__n { display: grid; place-items: center; inline-size: 1.75rem; block-size: 1.75rem; margin-block-start: 2px; border-radius: 50%; background: var(--k-bg-brand); color: var(--k-text-on-brand, #fff); font-size: var(--k-text-xs); font-weight: var(--k-weight-bold); }
+  .ik-steps__body { display: grid; gap: var(--k-space-2); min-inline-size: 0; }
+  .ik-steps__title { padding-block-start: 4px; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+
+  .ik-code { display: flex; align-items: flex-start; gap: var(--k-space-2); padding: var(--k-space-1) var(--k-space-1) var(--k-space-1) var(--k-space-3); border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); }
+  .ik-code code { flex: 1; min-inline-size: 0; padding-block: 0.4rem; border: 0; background: none; color: var(--k-text-primary); font-size: 0.8125rem; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+  /* ───── رجیستری ───── */
+  .ik-reg { display: grid; gap: var(--k-space-3); margin: var(--k-space-4) 0 var(--k-space-6); }
+  .ik-reg__all { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--k-space-4); padding: var(--k-space-4); border: 1px solid var(--k-border-brand); border-radius: var(--k-radius-xl); background: var(--k-bg-brand-subtle); }
+  .ik-reg__all > div:first-child { display: grid; gap: 2px; }
+  .ik-reg__all b { color: var(--k-text-primary); font-size: var(--k-text-sm); }
+  .ik-reg__all small { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .ik-reg__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-3); margin-block-start: var(--k-space-2); }
+  .ik-reg__search { position: relative; flex: 0 1 20rem; }
+  .ik-reg__search .k-input__control { padding-inline-start: 2.25rem; }
+  .ik-reg__search-icon { position: absolute; inset-inline-start: 0.75rem; inset-block-start: 50%; display: grid; color: var(--k-text-quaternary); transform: translateY(-50%); pointer-events: none; }
+  .ik-reg__count { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .ik-reg__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: var(--k-space-2); margin: 0; padding: 0; list-style: none; }
+  .ik-reg__list li { margin: 0; }
+  .ik-reg__item { display: flex; align-items: center; gap: var(--k-space-2); inline-size: 100%; padding: var(--k-space-2_5, 10px) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-secondary); color: inherit; font: inherit; text-align: start; cursor: pointer; transition: border-color var(--k-duration-fast), background-color var(--k-duration-fast); }
+  .ik-reg__item:hover { border-color: var(--k-border-brand); background: var(--k-bg-primary); }
+  .ik-reg__item:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+  .ik-reg__name { display: grid; flex: 1; min-inline-size: 0; }
+  .ik-reg__name b { overflow: hidden; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); text-overflow: ellipsis; white-space: nowrap; }
+  .ik-reg__name code { overflow: hidden; padding: 0; border: 0; background: none; color: var(--k-text-tertiary); font-size: 0.6875rem; text-align: end; text-overflow: ellipsis; white-space: nowrap; }
+  .ik-reg__copy { display: grid; flex: none; color: var(--k-text-quaternary); }
+  .ik-reg__item:hover .ik-reg__copy { color: var(--k-text-brand); }
+  .ik-reg__item[data-copied] { border-color: var(--k-text-success); }
+  .ik-reg__item[data-copied] .ik-reg__copy { color: var(--k-text-success); }
+  .ik-reg__empty { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .ik-reg__more { justify-self: center; }
+
+  /* ───── پکیج‌ها ───── */
+  .ik-pkgs { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: var(--k-space-2); margin: var(--k-space-4) 0 var(--k-space-6); padding: 0; list-style: none; }
+  .ik-pkgs li { margin: 0; }
+  .ik-pkg { display: grid; gap: var(--k-space-1); block-size: 100%; padding: var(--k-space-3) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary); color: inherit; text-decoration: none; transition: border-color var(--k-duration-fast); }
+  .ik-pkg:hover { border-color: var(--k-border-brand); }
+  .ik-pkg code { justify-self: start; padding: 0; border: 0; background: none; color: var(--k-text-tertiary); font-size: 0.8125rem; }
+  .ik-pkg code b { color: var(--k-text-primary); }
+  .ik-pkg > span { color: var(--k-text-secondary); font-size: var(--k-text-sm); line-height: 1.8; }
+  .ik-pkg small { justify-self: start; padding: 0.0625rem var(--k-space-2); border-radius: var(--k-radius-full); background: var(--k-bg-tertiary); color: var(--k-text-tertiary); font-size: 0.6875rem; }
+
+  @media (max-width: 52rem) {
+    .ik-paths { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ik-reg__all { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 30rem) {
+    .ik-path { padding: var(--k-space-2_5, 10px); }
+    .ik-path__icon { display: none; }
+    .ik-reg__bar { flex-wrap: wrap; }
+    .ik-reg__search { flex-basis: 100%; }
+  }
+</style>

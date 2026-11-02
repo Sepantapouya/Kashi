@@ -51,7 +51,7 @@ Check every one of these before showing work:
   - sidebar entry in `apps/docs/src/data/nav.ts`, with the "جدید" badge
   - gallery cards: a slug in the right category of `CATEGORIES` in `components/Gallery.astro` (`components` → `/docs/components/`, `persian` → `/docs/persian/`; add a category if none fits) and a small inert preview in `components/Previews.tsx`, sized with a `pv-*` class
   - homepage (`pages/index.astro`) and the header "ابزارها" menu, when it is a headline feature or a tool
-  - search, llms and MCP pick up the MDX page by themselves
+  - search, llms and MCP pick up the MDX page by themselves; the shadcn registry (`data/registry.ts`, served at `/r/`) picks up every file in `packages/react/src`, and the install page list needs a Persian name in `FA_NAME` (`components/InstallKit.astro`) only when the file has no docs page of its own
 
   Then open each listing in the browser and check that the card is there and its preview renders.
 - **Icons**: use `iconSvg(name)` from `@kashi-ui/icons`; check a name exists before using it (e.g. there is no `figma` icon — use `pen-tool`).

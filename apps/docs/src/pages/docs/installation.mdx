@@ -1,17 +1,21 @@
 ---
 layout: ../../layouts/Docs.astro
 title: نصب
-description: کاشی را در پروژهٔ React یا هر پروژهٔ وب دیگری راه‌اندازی کنید.
+description: کاشی را با پکیج npm، رجیستری shadcn، Tailwind یا فقط CSS به پروژهٔ React یا هر پروژهٔ وب دیگری بیاورید.
 ---
-import Install from "../../components/Install.astro";
+import InstallKit from "../../components/InstallKit.astro";
 
-## React
+<InstallKit part="hero" />
 
-پکیج کامپوننت‌ها و استایل‌ها را نصب کنید:
+## پکیج npm
 
-<Install command="npm i @kashi-ui/react @kashi-ui/css" />
+راه پیشنهادی برای بیشتر پروژه‌ها. کامپوننت‌ها از پکیج می‌آیند و با به‌روز کردن پکیج، اصلاح‌ها و کامپوننت‌های تازه هم می‌رسند.
 
-فایل CSS را یک‌بار در ریشهٔ برنامه وارد کنید و جهت صفحه را راست‌به‌چپ قرار دهید:
+```bash
+npm i @kashi-ui/react @kashi-ui/css
+```
+
+فایل CSS را یک بار در ریشهٔ برنامه وارد کنید و جهت صفحه را راست‌به‌چپ قرار دهید:
 
 ```tsx
 // main.tsx یا app/layout.tsx
@@ -32,7 +36,48 @@ export function Example() {
 }
 ```
 
-کاشی با React نسخهٔ ۱۸ و بالاتر کار می‌کند و با Next.js، Vite و Remix سازگار است.
+کاشی با React نسخهٔ ۱۸ و ۱۹ کار می‌کند و با Next.js، Vite و Remix سازگار است. در App Router نکست می‌شود کامپوننت‌ها را مستقیم در صفحه‌های سرور هم استفاده کرد.
+
+## رجیستری shadcn
+
+اگر می‌خواهید کد خودِ کامپوننت در پروژه‌تان باشد و هر تغییری خواستید در آن بدهید، از رجیستری کاشی با ابزار [shadcn](https://ui.shadcn.com/docs/cli) استفاده کنید. فایل‌ها در پوشهٔ `components/kashi` کپی می‌شوند و کامپوننت‌هایی که به آن‌ها وابسته‌اند، CSS کاشی و ابزارهای فارسی هم خودکار نصب می‌شوند.
+
+```bash
+npx shadcn@latest add https://kashi.sepantapouya.com/r/iran-map.json
+```
+
+```tsx
+import { IranMap } from "@/components/kashi/IranMap";
+```
+
+روی هر کامپوننت بزنید تا دستور نصبش کپی شود:
+
+<InstallKit part="registry" />
+
+برای دستور کوتاه‌تر، رجیستری کاشی را یک بار در `components.json` معرفی کنید:
+
+```json
+{
+  "registries": {
+    "@kashi": "https://kashi.sepantapouya.com/r/{name}.json"
+  }
+}
+```
+
+```bash
+npx shadcn@latest add @kashi/date-picker @kashi/iran-map
+```
+
+پروژه باید پیش‌تر با `npx shadcn@latest init` آماده شده باشد. فهرست کامل آیتم‌ها در [registry.json](/r/registry.json) است.
+
+### npm یا shadcn؟
+
+| | پکیج npm | رجیستری shadcn |
+|---|---|---|
+| کد کامپوننت | داخل `node_modules` | داخل پروژهٔ شما |
+| تغییر دادن کد | با props، کلاس و متغیرهای CSS | هر تغییری، مستقیم در فایل |
+| به‌روزرسانی | با `npm update` | با اجرای دوبارهٔ دستور (تغییرهای شما بازنویسی می‌شود) |
+| مناسب برای | بیشتر پروژه‌ها | تیم‌هایی که کد را از آنِ خود می‌خواهند |
 
 ## Tailwind
 
@@ -54,7 +99,9 @@ npm i @kashi-ui/tailwind
 
 برای Vue، Svelte، Angular یا HTML ساده، فقط پکیج CSS لازم است:
 
-<Install command="npm i @kashi-ui/css" />
+```bash
+npm i @kashi-ui/css
+```
 
 یا بدون نصب، از CDN:
 
@@ -67,6 +114,12 @@ npm i @kashi-ui/tailwind
 ```html
 <button class="k-btn k-btn--primary">ثبت‌نام</button>
 ```
+
+## پکیج‌ها
+
+همهٔ پکیج‌ها هم‌نسخه منتشر می‌شوند. معمولاً فقط `react` و `css` را خودتان نصب می‌کنید و بقیه یا خودکار می‌آیند یا اختیاری‌اند:
+
+<InstallKit part="packages" />
 
 ## وارد کردن بخشی از CSS
 
@@ -89,3 +142,9 @@ npm i @kashi-ui/tailwind
 ```html
 <html lang="fa" dir="rtl" data-theme="light">
 ```
+
+## قدم بعدی
+
+- [سفارشی‌سازی و تم](/docs/theming/): رنگ برند و تراکم را عوض کنید.
+- [کامپوننت‌ها](/docs/components/): همهٔ کامپوننت‌ها با پیش‌نمایش زنده و دکمهٔ StackBlitz.
+- [استفاده با هوش مصنوعی](/docs/ai/): مستندات کاشی را با سرور MCP به Claude یا Cursor بدهید.
