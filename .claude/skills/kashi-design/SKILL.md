@@ -47,6 +47,13 @@ Check every one of these before showing work:
 - **Copy buttons**: the global handler in `layouts/Base.astro` reacts to any `[data-copy]`. Do not reuse the `.copy-btn` class outside `CodeBlock` — it is `position: absolute`.
 - **Header**: four primary links + "ابزارها" menu (theme builder, Tailwind, Figma plugin, MCP) with icon + one-line description; no version badge. Add new tools to the menu, not as new top-level links.
 - **Live GitHub stats**: elements with `data-gh="stars|clones|uniques"` are filled by `scripts/github-stats.ts` — stars live from the GitHub API, clones from the `stats` branch (GitHub computes clones daily and its cron is unreliable, so never promise "hourly"); the homepage also reads them at build time so numbers show without JS.
+- **A new component or feature must show up everywhere a visitor looks, not only on its own page.** He found the Iran map missing from `/docs/persian/` although its page and sidebar link existed. When you add one, go through every listing and update each one that applies:
+  - sidebar entry in `apps/docs/src/data/nav.ts`, with the "جدید" badge
+  - gallery cards: a slug in the right category of `CATEGORIES` in `components/Gallery.astro` (`components` → `/docs/components/`, `persian` → `/docs/persian/`; add a category if none fits) and a small inert preview in `components/Previews.tsx`, sized with a `pv-*` class
+  - homepage (`pages/index.astro`) and the header "ابزارها" menu, when it is a headline feature or a tool
+  - search, llms and MCP pick up the MDX page by themselves
+
+  Then open each listing in the browser and check that the card is there and its preview renders.
 - **Icons**: use `iconSvg(name)` from `@kashi-ui/icons`; check a name exists before using it (e.g. there is no `figma` icon — use `pen-tool`).
 
 ## 5. Promo images and channel posts
