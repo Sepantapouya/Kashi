@@ -4,7 +4,7 @@ import { Icon } from "@kashi-ui/icons/react";
 import type { IconName } from "@kashi-ui/icons";
 import {
   Accordion, AccordionItem, Alert, Avatar, AvatarGroup, Badge, Banner, Breadcrumb, Button, ButtonGroup, Calendar, Card, CardBody, CardDescription,
-  CardHeader, CardTitle, CardNumberInput, BarChart, ActivityHeatmap, Meter, Checkbox, ChipGroup, Countdown, Divider, EmptyState, IbanInput, Input, Kbd, MobileInput, NationalIdInput,
+  CardHeader, CardTitle, CardNumberInput, BarChart, ActivityHeatmap, IranMap, Meter, Checkbox, ChipGroup, Countdown, Divider, EmptyState, IbanInput, Input, Kbd, MobileInput, NationalIdInput,
   PersianInput, BankCard, DateTile, KeyboardFixInput, LegalIdInput, Money, PaymentReceipt, PersianTextarea,
   NumberInput, OtpInput, Pagination, PasswordStrength, PlateInput, PostalCodeInput, PriceInput, Progress, Radio, RadioGroup, Rating,
   SegmentedControl, Select, Skeleton, Slider, StatCard, Stepper, Switch, Tab, TabList, Tabs, TagInput, Textarea, Timeline,
@@ -89,6 +89,7 @@ export const previews: Record<string, ReactNode> = {
   "month-picker": <Box><div className="pv-months">{["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور"].map((m, i) => <span key={m} className="k-monthpicker__month pv-month" aria-pressed={i === 4}>{m}</span>)}</div></Box>,
   countdown: <Box><Countdown seconds={154} variant="blocks" /></Box>,
   "activity-heatmap": <Box cls="pv-heat"><ActivityHeatmap year={1405} data={Object.fromEntries(Array.from({ length: 200 }, (_, i) => [new Date(2026, 2, 21 + i * 1.7).toISOString().slice(0, 10), (i * 7) % 9]))} /></Box>,
+  "iran-map": <Box cls="pv-map"><IranMap legend={false} data={{ "تهران": 9, "خراسان رضوی": 7, "اصفهان": 7, "فارس": 6, "آذربایجان شرقی": 5, "خوزستان": 5, "مازندران": 4, "البرز": 4, "گیلان": 3, "کرمان": 3, "یزد": 2, "قم": 2, "کرمانشاه": 2, "همدان": 1, "سمنان": 1 }} /></Box>,
   province: <Box cls="pv--field"><div className="k-input"><input className="k-input__control" defaultValue="مشه" readOnly /></div><ul className="k-listbox k-listbox--inline pv-list"><li className="k-option" data-active=""><span className="k-option__body"><span>خراسان رضوی</span><span className="k-option__desc">مرکز: <mark>مشه</mark>د</span></span></li></ul></Box>,
   charts: <Box cls="pv--field"><BarChart title="فروش" data={[3, 5, 4, 7, 6, 9, 8].map((v, i) => ({ label: String(i + 1), value: v }))} labelMax={false} height="6rem" /></Box>,
   "context-menu": <Box><div className="pv-ctx"><span className="pv-muted">راست‌کلیک</span><div className="k-menu pv-menu" role="presentation"><div className="k-menu__item">باز کردن</div><div className="k-menu__item" data-active="">تغییر نام</div><div className="k-menu__separator" /><div className="k-menu__item k-menu__item--danger">حذف</div></div></div></Box>,
