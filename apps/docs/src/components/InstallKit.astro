@@ -186,6 +186,11 @@ const PACKAGES = [
     });
     document.querySelectorAll<HTMLElement>("[data-pm-copy]").forEach((el) => el.setAttribute("data-copy", convert(el.dataset.pmCopy!, pm)));
   };
+  // دستورهای npm در بلوک‌های کد خود صفحه هم همراه انتخاب عوض می‌شوند
+  document.querySelectorAll<HTMLElement>(".prose > pre code").forEach((el) => {
+    const text = el.textContent!.trim();
+    if (/^(npm i|npx) /.test(text) && !text.includes("\n")) el.dataset.pmCmd = text;
+  });
   const radios = document.querySelectorAll<HTMLInputElement>('input[name="ik-pm"]');
   let saved = "npm";
   try { saved = localStorage.getItem("kashi-pm") ?? "npm"; } catch {}
