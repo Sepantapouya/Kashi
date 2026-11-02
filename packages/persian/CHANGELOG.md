@@ -1,5 +1,9 @@
 # @kashi-ui/persian
 
+## 0.22.1
+
+No changes in this release.
+
 ## 0.22.0
 
 No changes in this release.

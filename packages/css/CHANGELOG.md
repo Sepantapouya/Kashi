@@ -1,5 +1,12 @@
 # @kashi-ui/css
 
+## 0.22.1
+
+### Patch Changes
+
+- c4772f4: Persian digits use their natural width everywhere: the Iran map legend, Money, BankCard number and PaymentReceipt no longer force `tabular-nums`, which spread Persian digits apart. `.k-tabular` stays available as an opt-in.
+- @kashi-ui/tokens@0.22.1
+
 ## 0.22.0
 
 ### Minor Changes

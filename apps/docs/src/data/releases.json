@@ -1,28 +1,132 @@
 {
- "generated": "2026-11-02T12:21:29+03:30",
+ "generated": "2026-11-02T13:42:40+03:30",
  "totals": {
-  "commits": 178,
-  "versions": 23,
-  "added": 75174,
+  "commits": 184,
+  "versions": 24,
+  "added": 76259,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [],
  "versions": [
   {
-   "version": "0.22.0",
-   "date": "2026-11-02T12:21:29+03:30",
-   "releaseCommit": "0c01e2e",
+   "version": "0.22.1",
+   "date": "2026-11-02T13:42:40+03:30",
+   "releaseCommit": "f2eca88",
    "commits": [
     {
-     "sha": "0c01e2e0a72589d2f8532c6bcfbcc41b64b9448b",
-     "short": "0c01e2e",
+     "sha": "f2eca883857d6e2db6ce589576e62dd508200c40",
+     "short": "f2eca88",
+     "date": "2026-11-02T13:42:40+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 0.22.1: Next.js server components, shadcn registry, natural digit width",
+     "details": [],
+     "files": 21,
+     "added": 81,
+     "removed": 43
+    },
+    {
+     "sha": "26f18c4643830d5ed57dee8aba07639d65464832",
+     "short": "26f18c4",
+     "date": "2026-11-02T13:25:43+03:30",
+     "author": "sepantapouya",
+     "subject": "docs: shadcn registry and redesigned install page",
+     "details": [
+      "- /r/<name>.json for every file in packages/react/src, plus /r/all.json and",
+      "/r/registry.json; tested with shadcn CLI in a fresh Next.js 16 app",
+      "- install page: path picker (npm, shadcn, Tailwind, HTML) with package",
+      "manager switch, searchable registry list, package cards",
+      "- shadcn command under the title of every component page",
+      "- styled Markdown tables in docs"
+     ],
+     "files": 11,
+     "added": 624,
+     "removed": 12
+    },
+    {
+     "sha": "47e1a6ee6d55ac76800a4a3fb26a0392e321a5c2",
+     "short": "47e1a6e",
+     "date": "2026-11-02T13:25:43+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(react): \"use client\" in every component module, React 19 safe timers",
+     "details": [
+      "Importing @kashi-ui/react from a Next.js App Router server page failed with",
+      "\"Event handlers cannot be passed to Client Component props\"."
+     ],
+     "files": 81,
+     "added": 168,
+     "removed": 3
+    },
+    {
+     "sha": "c4772f4c8ff9a2fed9729f6aa25382931f28c7cc",
+     "short": "c4772f4",
+     "date": "2026-11-02T13:14:05+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(css): natural width for Persian digits in all components",
+     "details": [
+      "tabular-nums spaces Persian digits apart; drop it from the map legend,",
+      "Money, BankCard number, receipt and site numbers."
+     ],
+     "files": 6,
+     "added": 12,
+     "removed": 7
+    },
+    {
+     "sha": "f992bf96b730c993c27f42dbd4eefd0834116821",
+     "short": "f992bf9",
+     "date": "2026-11-02T13:08:25+03:30",
+     "author": "sepantapouya",
+     "subject": "skill(kashi-design): list new components on every gallery and index page",
+     "details": [],
+     "files": 1,
+     "added": 7,
+     "removed": 0
+    },
+    {
+     "sha": "58ef221a12ba243d84d287e268946bc9a93f8c9a",
+     "short": "58ef221",
+     "date": "2026-11-02T13:07:55+03:30",
+     "author": "sepantapouya",
+     "subject": "docs: list the Iran map on the Persian tools page",
+     "details": [],
+     "files": 2,
+     "added": 5,
+     "removed": 1
+    }
+   ],
+   "notes": [
+    {
+     "kind": "patch",
+     "text": "Works in Next.js App Router server components: every component module now starts with `\"use client\"`, so `import { Button } from \"@kashi-ui/react\"` in a server page no longer fails with \"Event handlers cannot be passed to Client Component props\". Timers use `useRef(undefined)` so the source also type-checks with React 19 types (needed for the new shadcn registry, which copies the source into your project).",
+     "sub": [],
+     "packages": [
+      "react"
+     ]
+    },
+    {
+     "kind": "patch",
+     "text": "Persian digits use their natural width everywhere: the Iran map legend, Money, BankCard number and PaymentReceipt no longer force `tabular-nums`, which spread Persian digits apart. `.k-tabular` stays available as an opt-in.",
+     "sub": [],
+     "packages": [
+      "css"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "0.22.0",
+   "date": "2026-11-02T12:21:29+03:30",
+   "releaseCommit": "8ed4b6b",
+   "commits": [
+    {
+     "sha": "8ed4b6bcaae6e67d13991364b89d1a16ebacdf8c",
+     "short": "8ed4b6b",
      "date": "2026-11-02T12:21:29+03:30",
      "author": "sepantapouya",
      "subject": "Release 0.22.0: Iran provinces map",
      "details": [],
-     "files": 21,
-     "added": 88,
-     "removed": 44
+     "files": 22,
+     "added": 276,
+     "removed": 54
     },
     {
      "sha": "530ace88a83033ec1f6e40f25d40501b3a9faea1",

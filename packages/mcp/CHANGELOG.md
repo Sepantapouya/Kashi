@@ -1,5 +1,13 @@
 # @kashi-ui/mcp
 
+## 0.22.1
+
+### Patch Changes
+
+- @kashi-ui/icons@0.22.1
+  - @kashi-ui/persian@0.22.1
+  - @kashi-ui/tokens@0.22.1
+
 ## 0.22.0
 
 ### Patch Changes
