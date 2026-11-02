@@ -163,7 +163,8 @@ export function IranMap(props: IranMapProps) {
         {tipProvince && (
           <ChartTip
             x={(tipProvince.x / VW) * (box.current?.clientWidth ?? VW)}
-            y={(tipProvince.y / VH) * ((box.current?.clientWidth ?? VW) * (VH / VW)) - 6}
+            // راهنمای استان‌های شمالی بالای نقشه بیرون نزند (زیر سربرگ چسبان نرود)
+            y={Math.max(64, (tipProvince.y / VH) * ((box.current?.clientWidth ?? VW) * (VH / VW)) - 6)}
             width={box.current?.clientWidth}
             title={tip}
             rows={[
