@@ -1,0 +1,49 @@
+/* فرم نشانی ایرانی — استان و شهر، نشانی، پلاک، واحد و کد پستی؛ با نقشه (k-address--map) استان روی نقشه هم انتخاب می‌شود
+ * <fieldset class="k-address">
+ *   <legend class="k-address__legend">نشانی</legend>
+ *   <div class="k-address__fields">
+ *     <div class="k-field k-address__province">…</div> … k-address__city | __street | __plaque | __unit | __postal
+ *   </div>
+ * </fieldset>
+ */
+.k-address {
+  display: grid;
+  gap: var(--k-space-4) var(--k-space-6);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.k-address__legend {
+  margin-block-end: var(--k-space-4);
+  padding: 0;
+  color: var(--k-text-primary);
+  font-size: var(--k-text-md);
+  font-weight: var(--k-weight-semibold);
+}
+.k-address__fields {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--k-space-4);
+  align-content: start;
+  container-type: inline-size;
+}
+.k-address__fields > * { grid-column: span 12; min-inline-size: 0; }
+.k-address__province, .k-address__city, .k-address__postal { grid-column: span 6; }
+.k-address__plaque, .k-address__unit { grid-column: span 3; }
+
+/* نقشه کنار فیلدها؛ در عرض کم زیر آن‌ها */
+.k-address--map { grid-template-columns: minmax(0, 1.4fr) minmax(12rem, 1fr); align-items: start; }
+.k-address--map > .k-address__legend { grid-column: 1 / -1; }
+.k-address__map { align-self: center; }
+
+/* ستون‌ها به عرض خود فرم بستگی دارند، نه صفحه */
+@container (max-width: 30rem) {
+  .k-address__province, .k-address__city { grid-column: span 12; }
+  .k-address__plaque, .k-address__unit { grid-column: span 6; }
+  .k-address__postal { grid-column: span 12; }
+}
+@media (max-width: 40rem) {
+  .k-address--map { grid-template-columns: minmax(0, 1fr); }
+  .k-address__map { max-inline-size: 18rem; justify-self: center; }
+}

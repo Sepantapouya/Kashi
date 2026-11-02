@@ -8,6 +8,8 @@
  */
 .k-field {
   display: grid;
+  /* ستون تنها با عرض فیلد کوچک می‌شود؛ وگرنه input در ستون باریک (مثل «پلاک») از فیلد بیرون می‌زند */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--k-field-gap, var(--k-space-1_5));
   min-inline-size: 0;
 }

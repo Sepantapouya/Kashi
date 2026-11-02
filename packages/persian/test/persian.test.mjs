@@ -248,3 +248,26 @@ test("ویرایش نگارشی: عربی، نیم‌فاصله، علامت‌�
   assert.equal(P.fixPersianText("متن درست است.").count, 0);
   assert.equal(P.fixPersianText("version 2 of app").count, 0);
 });
+
+test("شهرها: هر ۳۱ استان، مرکز هر استان در فهرست، بدون تکرار و نام‌های تمیز", () => {
+  assert.deepEqual(Object.keys(P.CITIES).sort(), P.PROVINCES.map((p) => p.name).sort());
+  for (const p of P.PROVINCES) {
+    const list = P.getCities(p.name);
+    assert.ok(list.includes(p.capital), `${p.capital} در ${p.name}`);
+    assert.equal(new Set(list).size, list.length, `تکرار در ${p.name}`);
+    for (const c of list) assert.doesNotMatch(c, /[()،a-z0-9يك]|^\s|\s$/i, c);
+  }
+  assert.ok(Object.values(P.CITIES).flat().length > 1200);
+  assert.deepEqual(P.getCities(null), []);
+  assert.deepEqual(P.getCities("ناشناخته"), []);
+  assert.deepEqual(P.getCityProvinces("کاشان"), ["اصفهان"]);
+});
+
+test("formatAddress: یک خط با ارقام فارسی؛ شهرِ هم‌نام استان تکرار نمی‌شود", () => {
+  assert.equal(
+    P.formatAddress({ province: "اصفهان", city: "کاشان", street: " خیابان امیرکبیر ", plaque: "12", unit: "3", postalCode: "8713714568" }),
+    "اصفهان، کاشان، خیابان امیرکبیر، پلاک ۱۲، واحد ۳، کد پستی ۸۷۱۳۷-۱۴۵۶۸",
+  );
+  assert.equal(P.formatAddress({ province: "تهران", city: "تهران", street: "میدان آزادی" }), "تهران، میدان آزادی");
+  assert.equal(P.formatAddress(P.EMPTY_ADDRESS), "");
+});

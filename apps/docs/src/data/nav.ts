@@ -32,6 +32,7 @@ const RAW: NavGroup[] = [
       { title: "هیت‌مپ فعالیت", href: "/docs/persian/activity-heatmap/" },
       { title: "انتخاب استان", href: "/docs/persian/province/" },
       { title: "نقشهٔ ایران", href: "/docs/persian/iran-map/", badge: "جدید" },
+      { title: "فرم نشانی", href: "/docs/persian/address/", badge: "جدید" },
       { title: "ویرایش نگارشی", href: "/docs/persian/text-fix/", badge: "جدید" },
       { title: "نمایش مبلغ", href: "/docs/persian/money/", badge: "جدید" },
       { title: "کارت بانکی", href: "/docs/persian/bank-card/", badge: "جدید" },

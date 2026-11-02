@@ -13,7 +13,8 @@ import { JALALI_MONTHS } from "@kashi-ui/persian";
 import { ActivityHeatmap, BarChart, BarList, ContextMenu, InlineEdit, LineChart, PieChart, ProportionBar, ProvinceSelect, Sparkline } from "@kashi-ui/react";
 import { toISODate as isoDate } from "@kashi-ui/persian";
 import { Carousel, ColorPicker, Meter, MultiSelect, Splitter, Tour } from "@kashi-ui/react";
-import { IranMap } from "@kashi-ui/react";
+import { AddressForm, CitySelect, IranMap } from "@kashi-ui/react";
+import { EMPTY_ADDRESS, formatAddress, type IranAddress } from "@kashi-ui/persian";
 import { getIranHoliday } from "@kashi-ui/persian";
 import { Icon as KashiIcon } from "@kashi-ui/icons/react";
 import type { IconName } from "@kashi-ui/icons";
@@ -1420,3 +1421,33 @@ export const IranMapMultiDemo = () => {
   );
 };
 
+
+export const AddressFormDemo = () => {
+  const [address, setAddress] = useState<IranAddress>({ ...EMPTY_ADDRESS, province: "اصفهان", city: "کاشان" });
+  return (
+    <div style={{ display: "grid", gap: "var(--k-space-4)", inlineSize: "min(100%, 36rem)" }}>
+      <AddressForm value={address} onChange={setAddress} name="shipping" />
+      <Out>{formatAddress(address) || "نشانی هنوز خالی است"}</Out>
+    </div>
+  );
+};
+
+export const AddressMapDemo = () => {
+  const [address, setAddress] = useState<IranAddress>(EMPTY_ADDRESS);
+  return (
+    <div style={{ inlineSize: "min(100%, 52rem)" }}>
+      <AddressForm value={address} onChange={setAddress} map legend="نشانی تحویل" />
+    </div>
+  );
+};
+
+export const CitySelectDemo = () => {
+  const [city, setCity] = useState<string | null>(null);
+  const [province, setProvince] = useState<string | null>(null);
+  return (
+    <div style={{ display: "grid", gap: "var(--k-space-3)", inlineSize: "min(100%, 22rem)" }}>
+      <CitySelect value={city} onChange={(c, p) => { setCity(c); setProvince(p); }} hint="بدون استان؛ همهٔ شهرها با نام استانشان" />
+      <Out>{city ? `${city}${province ? ` در استان ${province}` : " (خارج از فهرست)"}` : "شهری انتخاب نشده"}</Out>
+    </div>
+  );
+};

@@ -1,0 +1,96 @@
+---
+layout: ../../../layouts/Docs.astro
+title: فرم نشانی
+description: استان، شهرِ همان استان، نشانی، پلاک، واحد و کد پستی ده‌رقمی در یک فرم؛ با فهرست بیش از ۱۲۰۰ شهر ایران و نقشه برای انتخاب استان.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { AddressFormDemo, AddressMapDemo, CitySelectDemo } from "../../../components/demos";
+
+```tsx
+import { AddressForm } from "@kashi-ui/react";
+import { EMPTY_ADDRESS, formatAddress, type IranAddress } from "@kashi-ui/persian";
+```
+
+## فرم کامل
+
+با انتخاب استان فقط شهرهای همان استان می‌آیند و با عوض شدن استان، شهرِ نامربوط پاک می‌شود. اگر کاربر اول شهر را بنویسد، استان خودکار پر می‌شود. کد پستی هنگام تایپ قالب می‌گیرد و با قواعد کد پستی ایران بررسی می‌شود.
+
+<Demo html={false} code={`const [address, setAddress] = useState<IranAddress>(EMPTY_ADDRESS);
+
+<AddressForm value={address} onChange={setAddress} name="shipping" />
+<p>{formatAddress(address)}</p>`}>
+  <AddressFormDemo client:visible />
+</Demo>
+
+مقدار فرم یک شیء `IranAddress` است:
+
+```ts
+interface IranAddress {
+  province: string | null; // «اصفهان»
+  city: string | null;     // «کاشان»
+  street: string;          // «خیابان امیرکبیر، کوچهٔ ۱۲»
+  plaque: string;
+  unit: string;
+  postalCode: string;      // ده رقم لاتین، «8713714568»
+}
+```
+
+`formatAddress` همین شیء را در یک خط با ارقام فارسی برمی‌گرداند، مثل «اصفهان، کاشان، خیابان امیرکبیر، پلاک ۱۲، واحد ۳، کد پستی ۸۷۱۳۷-۱۴۵۶۸»؛ برای فاکتور، رسید یا صفحهٔ تأیید سفارش.
+
+## با نقشه
+
+با `map` نقشهٔ ایران کنار فیلدها می‌آید و استان را می‌شود روی نقشه هم انتخاب کرد. در عرض کم، نقشه زیر فیلدها می‌رود.
+
+<Demo html={false} code={`<AddressForm value={address} onChange={setAddress} map legend="نشانی تحویل" />`}>
+  <AddressMapDemo client:visible />
+</Demo>
+
+## ارسال با فرم HTML
+
+با `name` هر فیلد در فرم HTML هم فرستاده می‌شود: `name="shipping"` می‌شود `shipping[province]`، `shipping[city]`، `shipping[street]`، `shipping[plaque]`، `shipping[unit]` و `shipping[postalCode]`. این همان قالبی است که Laravel و PHP به‌صورت آرایه می‌خوانند. خطاهای اعتبارسنجی سرور را با `errors` زیر هر فیلد نشان دهید:
+
+```tsx
+<AddressForm name="shipping" errors={{ plaque: "پلاک را بنویسید." }} />
+```
+
+## انتخاب شهر
+
+`CitySelect` جدا هم در دسترس است. با `province` فقط شهرهای همان استان را نشان می‌دهد و بدون آن همهٔ شهرها را با نام استانشان. جستجو «علی آباد»، «علی‌آباد» و «علیآباد» را یکی می‌داند. شهری که در فهرست نیست (مثلاً شهرهای تازه‌تأسیس) با همان نامی که کاربر نوشته پذیرفته می‌شود؛ برای بستن این امکان `allowCustom={false}` بدهید.
+
+<Demo html={false} code={`<CitySelect value={city} onChange={(city, province) => { setCity(city); setProvince(province); }} />`}>
+  <CitySelectDemo client:visible />
+</Demo>
+
+<Props rows={[
+  ["value / defaultValue", "IranAddress", "", "مقدار فرم"],
+  ["onChange", "(address: IranAddress) => void", "", "با هر تغییر، کل نشانی"],
+  ["errors", "Partial<Record<keyof IranAddress, ReactNode>>", "", "خطای هر فیلد"],
+  ["name", "string", "", "پیشوند نام فیلدها برای فرم HTML"],
+  ["legend", "ReactNode", "«نشانی»", "عنوان گروه فیلدها"],
+  ["labels", "Partial<Record<keyof IranAddress, string>>", "", "برچسب دلخواه هر فیلد"],
+  ["map", "boolean", "false", "نقشهٔ ایران برای انتخاب استان"],
+  ["required", "boolean", "true", "همه اجباری جز واحد"],
+  ["disabled", "boolean", "false", "غیرفعال کردن همهٔ فیلدها"],
+]} />
+
+## ابزارهای فهرست شهرها
+
+فهرست شهرها در `@kashi-ui/persian` است و بدون React هم کار می‌کند:
+
+```ts
+import { CITIES, getCities, getCityProvinces, formatAddress } from "@kashi-ui/persian";
+
+getCities("قم");             // ["جعفریه", "دستجرد", "سلفچگان", "قاهان", "قم", "قنوات", "کهک"]
+getCityProvinces("کاشان");   // ["اصفهان"]
+Object.keys(CITIES).length;  // ۳۱ استان
+```
+
+## دسترس‌پذیری
+
+- فیلدها در یک `fieldset` با `legend` هستند و صفحه‌خوان نام گروه را همراه هر فیلد می‌خواند.
+- هر فیلد `autocomplete` استاندارد دارد (`street-address`، `postal-code` و …) تا مرورگر نشانی ذخیره‌شده را پیشنهاد دهد.
+- فیلد اختیاری با «اختیاری» مشخص شده، نه فقط با نبود ستاره.
+- استان و شهر با الگوی Combobox در WAI-ARIA کار می‌کنند و نقشه با کلیدهای جهت‌دار.
+
+فهرست ۱۲۷۸ شهر در ۳۱ استان از [ویکی‌داده](https://www.wikidata.org) (مالکیت عمومی، CC0) گرفته شده است. شهرهای تازه‌تأسیس ممکن است هنوز در آن نباشند؛ برای همین شهر خارج از فهرست هم پذیرفته می‌شود.
