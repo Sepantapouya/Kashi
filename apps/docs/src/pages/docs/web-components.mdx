@@ -1,0 +1,264 @@
+---
+layout: ../../layouts/Docs.astro
+title: وب کامپوننت‌ها
+description: فیلدهای فارسی، تقویم شمسی، پنجره، زبانه و اعلان کاشی بدون React؛ با یک خط script در HTML، Vue، Svelte، Angular و وردپرس.
+---
+import Demo from "../../components/Demo.astro";
+import ElementsScript from "../../components/ElementsScript.astro";
+
+<ElementsScript />
+
+پکیج `@kashi-ui/elements` کامپوننت‌های تعاملی کاشی را به‌شکل **وب کامپوننت** (Custom Elements استاندارد مرورگر) دارد. با هر فریم‌ورکی کار می‌کنند، یا بدون فریم‌ورک:
+
+- **HTML ساده و وردپرس:** یک خط CSS و یک خط script، بدون ابزار ساخت.
+- **Vue، Svelte و Angular:** مثل هر تگ HTML دیگری.
+- **فرم معمولی HTML:** مقدار هر فیلد با `name` ارسال می‌شود و فرم با مقدار نامعتبر ارسال نمی‌شود.
+
+ظاهر از همان `@kashi-ui/css` می‌آید و عنصرها Shadow DOM ندارند؛ پس تم، رنگ برند، حالت روشن و تیره و CSS خودتان بی‌تغییر روی آن‌ها اعمال می‌شود. در پروژهٔ React همان [`@kashi-ui/react`](/docs/installation/) را به کار ببرید.
+
+## نصب
+
+بدون نصب، از CDN:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@kashi-ui/elements/dist/cdn/kashi-elements.js"></script>
+```
+
+یا با npm، در پروژه‌ای که ابزار ساخت دارد (Vite، Nuxt، SvelteKit، Angular):
+
+```bash
+npm i @kashi-ui/elements @kashi-ui/css
+```
+
+```js
+import "@kashi-ui/css";
+import "@kashi-ui/elements";
+```
+
+صفحه را راست‌به‌چپ کنید: `<html lang="fa" dir="rtl">`. همهٔ ابزارهای فارسی داخل همین یک فایل‌اند و لوگوی بانک‌ها جدا و فقط وقتی شمارهٔ کارت یا شبا وارد شود بارگذاری می‌شود.
+
+## فیلدهای فارسی
+
+ارقام فارسی و انگلیسی را می‌پذیرند، هنگام تایپ قالب می‌گیرند و پس از خروج از فیلد یا کامل شدن مقدار، خطا را نشان می‌دهند. موبایل اپراتور، تلفن ثابت استان و کارت و شبا بانک را نشان می‌دهند. برچسب پیش‌فرض هر فیلد فارسی است و با `label` عوض می‌شود.
+
+<Demo lang="html" column align="start" code={`<kashi-national-id name="national_id" required></kashi-national-id>
+<kashi-mobile name="mobile"></kashi-mobile>
+<kashi-card-number name="card"></kashi-card-number>
+<kashi-iban name="sheba"></kashi-iban>
+<kashi-price name="amount" max="50000000"></kashi-price>`}>
+  <kashi-national-id name="national_id" required></kashi-national-id>
+  <kashi-mobile name="mobile"></kashi-mobile>
+  <kashi-card-number name="card"></kashi-card-number>
+  <kashi-iban name="sheba"></kashi-iban>
+  <kashi-price name="amount" max="50000000"></kashi-price>
+</Demo>
+
+فیلدهای دیگر: `<kashi-postal-code>`، `<kashi-landline>` (تلفن ثابت با نام استان) و `<kashi-legal-id>` (شناسهٔ ملی شرکت).
+
+## انتخاب تاریخ شمسی
+
+تاریخ را تایپ کنید (۱۴۰۵/۱/۱) یا از تقویم انتخاب کنید. با `name`، تاریخ **میلادی** به شکل `YYYY-MM-DD` در فرم ارسال می‌شود تا سرور نیازی به تبدیل نداشته باشد. با `holidays` جمعه‌ها و تعطیلات ثابت رسمی در تقویم مشخص می‌شوند.
+
+<Demo lang="html" column align="start" code={`<kashi-date-picker label="تاریخ تحویل" name="delivery" holidays></kashi-date-picker>
+<kashi-province-select name="province"></kashi-province-select>`}>
+  <kashi-date-picker label="تاریخ تحویل" name="delivery" holidays></kashi-date-picker>
+  <kashi-province-select name="province"></kashi-province-select>
+</Demo>
+
+تقویم تنها هم هست: `<kashi-calendar value="2026-03-21" holidays>`. ویژگی‌های `min` و `max` تاریخ میلادی (`2026-03-21`) یا شمسی (`1405/01/01`) می‌گیرند.
+
+## کد تأیید و شمارش معکوس
+
+<Demo lang="html" column code={`<kashi-otp label="کد ارسال‌شده" length="6" group-after="3" name="code"></kashi-otp>
+<p>ارسال دوباره تا <kashi-countdown seconds="120" label="ارسال دوباره"></kashi-countdown></p>`}>
+  <kashi-otp label="کد ارسال‌شده" length="6" group-after="3" name="code"></kashi-otp>
+  <p>ارسال دوباره تا <kashi-countdown seconds="120" label="ارسال دوباره"></kashi-countdown></p>
+</Demo>
+
+## نمایش مبلغ و تاریخ
+
+<Demo lang="html" column code={`<kashi-money value="1250000" size="lg"></kashi-money>
+<kashi-money value="3800000000" compact></kashi-money>
+<kashi-date datetime="2026-03-21" format="full"></kashi-date>
+<kashi-relative-time datetime="2026-01-01T09:30:00Z"></kashi-relative-time>`}>
+  <kashi-money value="1250000" size="lg"></kashi-money>
+  <kashi-money value="3800000000" compact></kashi-money>
+  <kashi-date datetime="2026-03-21" format="full"></kashi-date>
+  <kashi-relative-time datetime="2026-01-01T09:30:00Z"></kashi-relative-time>
+</Demo>
+
+`<kashi-money>` مبلغ را به حروف برای صفحه‌خوان هم می‌خواند و `<kashi-relative-time>` هر دقیقه خودش به‌روز می‌شود.
+
+## پنجره، زبانه، راهنما و اعلان
+
+دکمه‌ای با `data-kashi-open="شناسهٔ پنجره"` پنجره را باز می‌کند و `data-kashi-close` داخل پنجره آن را می‌بندد؛ بدون نوشتن JavaScript. عنصرهای `slot="footer"` در پایین پنجره می‌آیند.
+
+<Demo lang="html" code={`<button class="k-btn k-btn--danger" data-kashi-open="delete-file">حذف فایل</button>
+
+<kashi-dialog id="delete-file" heading="فایل حذف شود؟" description="این کار قابل بازگشت نیست." tone="danger" size="sm">
+  <div slot="footer">
+    <button class="k-btn k-btn--secondary" data-kashi-close>انصراف</button>
+    <button class="k-btn k-btn--danger" data-kashi-close="delete">حذف</button>
+  </div>
+</kashi-dialog>`}>
+  <button class="k-btn k-btn--danger" data-kashi-open="delete-file">حذف فایل</button>
+  <kashi-dialog id="delete-file" heading="فایل حذف شود؟" description="این کار قابل بازگشت نیست." tone="danger" size="sm">
+    <div slot="footer">
+      <button class="k-btn k-btn--secondary" data-kashi-close>انصراف</button>
+      <button class="k-btn k-btn--danger" data-kashi-close="delete">حذف</button>
+    </div>
+  </kashi-dialog>
+</Demo>
+
+هر فرزند `<kashi-tabs>` که `data-tab` دارد یک زبانه است. بدون JavaScript همهٔ بخش‌ها پشت سر هم دیده می‌شوند.
+
+<Demo lang="html" align="stretch" code={`<kashi-tabs label="تنظیمات حساب">
+  <section data-tab="پروفایل">نام، تصویر و نام کاربری.</section>
+  <section data-tab="امنیت">رمز عبور و ورود دومرحله‌ای.</section>
+  <section data-tab="اعلان‌ها">پیامک و ایمیل.</section>
+</kashi-tabs>`}>
+  <kashi-tabs label="تنظیمات حساب">
+    <section data-tab="پروفایل">نام، تصویر و نام کاربری.</section>
+    <section data-tab="امنیت">رمز عبور و ورود دومرحله‌ای.</section>
+    <section data-tab="اعلان‌ها">پیامک و ایمیل.</section>
+  </kashi-tabs>
+</Demo>
+
+<Demo lang="html" code={`<kashi-tooltip content="تغییرات در پیش‌نویس ذخیره می‌شود">
+  <button class="k-btn k-btn--secondary">ذخیره</button>
+</kashi-tooltip>
+
+<button class="k-btn k-btn--primary" data-kashi-toast="ذخیره شد" data-description="تغییرات شما اعمال شد." data-tone="success">نمایش اعلان</button>
+
+<kashi-copy-button value="IR820540102680020817909002"></kashi-copy-button>`}>
+  <kashi-tooltip content="تغییرات در پیش‌نویس ذخیره می‌شود">
+    <button class="k-btn k-btn--secondary">ذخیره</button>
+  </kashi-tooltip>
+  <button class="k-btn k-btn--primary" data-kashi-toast="ذخیره شد" data-description="تغییرات شما اعمال شد." data-tone="success">نمایش اعلان</button>
+  <kashi-copy-button value="IR820540102680020817909002"></kashi-copy-button>
+</Demo>
+
+اعلان را از JavaScript هم می‌شود نشان داد. اگر `<kashi-toaster>` در صفحه نباشد، خودکار ساخته می‌شود:
+
+```js
+import { toast } from "@kashi-ui/elements";
+
+toast.success("سفارش ثبت شد", { description: "کد پیگیری: ۴۸۲۹۱۷" });
+toast.promise(save(), { loading: "در حال ذخیره…", success: "ذخیره شد", error: "ذخیره نشد" });
+```
+
+## ارسال فرم و اعتبارسنجی
+
+هر فیلد با `name` مقدار **خام** خود را با ارقام انگلیسی ارسال می‌کند: کد ملی `0013542419`، موبایل `09123456789`، شبا `IR…`، مبلغ `2500000` و تاریخ `2026-03-21`. قالب نمایشی (فاصله‌ها و ارقام فارسی) به سرور نمی‌رسد.
+
+مقدار نامعتبر جلوی ارسال فرم را می‌گیرد و مرورگر پیام خطای فارسی همان فیلد را نشان می‌دهد؛ `required` هم مثل input معمولی کار می‌کند.
+
+```html
+<form action="/checkout" method="post">
+  <kashi-national-id name="national_id" required></kashi-national-id>
+  <kashi-postal-code name="postal_code" required></kashi-postal-code>
+  <button class="k-btn k-btn--primary">ثبت سفارش</button>
+</form>
+```
+
+## رویدادها و JavaScript
+
+هر فیلد با هر تغییر رویداد `kashi-change` می‌فرستد. در `detail` مقدار، معتبر بودن و اطلاعات اضافه می‌آید، مثل نام بانک یا اپراتور. ویژگی‌های `value` و `valid` را هم مستقیم می‌شود خواند:
+
+```js
+const card = document.querySelector("kashi-card-number");
+card.addEventListener("kashi-change", (e) => {
+  console.log(e.detail); // { value: "6037…", valid: true, bank: "بانک ملی" }
+});
+
+card.value = "6037991234567893"; // مقدار از بیرون
+card.valid; // true
+```
+
+`<kashi-otp>` و `<kashi-countdown>` در پایان رویداد `kashi-complete` می‌فرستند و `<kashi-dialog>` هنگام بسته شدن `kashi-close` را، با مقدار `data-kashi-close` دکمه‌ای که آن را بسته است در `detail.returnValue`.
+
+## Vue، Svelte و Angular
+
+**Vue:** به Vue بگویید تگ‌های `kashi-` کامپوننت Vue نیستند:
+
+```js
+// vite.config.js
+import vue from "@vitejs/plugin-vue";
+
+export default {
+  plugins: [vue({ template: { compilerOptions: { isCustomElement: (tag) => tag.startsWith("kashi-") } } })],
+};
+```
+
+```html
+<kashi-mobile :value="mobile" @kashi-change="mobile = $event.detail.value"></kashi-mobile>
+```
+
+**Svelte:** تنظیمی لازم ندارد:
+
+```html
+<kashi-mobile value={mobile} on:kashi-change={(e) => (mobile = e.detail.value)}></kashi-mobile>
+```
+
+**Angular:** `CUSTOM_ELEMENTS_SCHEMA` را به کامپوننت اضافه کنید:
+
+```ts
+@Component({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: `<kashi-mobile [value]="mobile" (kashi-change)="mobile = $event.detail.value"></kashi-mobile>`,
+})
+```
+
+در TypeScript نوع همهٔ عنصرها ثبت شده است؛ `document.querySelector("kashi-iban")` نوع `KashiIban` را برمی‌گرداند.
+
+## فهرست عنصرها
+
+ویژگی‌های مشترک همهٔ فیلدها: `label`، `hint`، `error` (خطای دلخواه، مثلاً از سرور)، `name`، `value`، `required`، `disabled`، `placeholder`، `size` (`sm` یا `lg`) و `aria-label` (به‌جای برچسب دیداری).
+
+<span id="kashi-national-id"></span><span id="kashi-mobile"></span><span id="kashi-card-number"></span><span id="kashi-iban"></span><span id="kashi-price"></span><span id="kashi-postal-code"></span><span id="kashi-landline"></span><span id="kashi-legal-id"></span>
+
+| عنصر | کاربرد | توضیح |
+|---|---|---|
+| `<kashi-national-id>` | کد ملی | ۱۰ رقم؛ رقم کنترل بررسی می‌شود |
+| `<kashi-legal-id>` | شناسهٔ ملی شرکت | ۱۱ رقم؛ رقم کنترل بررسی می‌شود |
+| `<kashi-mobile>` | موبایل | ۰۹xxxxxxxxx؛ +98 و 0098 را به ۰۹ تبدیل می‌کند؛ detail.operator |
+| `<kashi-landline>` | تلفن ثابت | ۰۲۱xxxxxxxx؛ نام استان از پیش‌شماره؛ detail.province |
+| `<kashi-card-number>` | شمارهٔ کارت | ۱۶ رقم؛ بررسی Luhn، نام و لوگوی بانک؛ detail.bank؛ bank-logo="false" بدون لوگو |
+| `<kashi-iban>` | شمارهٔ شبا | IR + ۲۴ رقم؛ IR خودکار، بررسی رقم‌های کنترل، نام بانک؛ ارقام لاتین به‌طور پیش‌فرض |
+| `<kashi-postal-code>` | کد پستی | ۱۰ رقم؛ قالب ۱۲۳۴۵-۶۷۸۹۰ |
+| `<kashi-price>` | مبلغ | عدد؛ unit (پیش‌فرض «تومان»)، min، max، show-words="false"؛ valueAsNumber |
+
+همهٔ این فیلدها `digits="latin"` برای نمایش ارقام انگلیسی، `invalid-message` برای پیام خطای دلخواه و `show-meta="false"` برای پنهان کردن نام بانک، اپراتور یا استان دارند.
+
+<span id="kashi-otp"></span><span id="kashi-date-picker"></span><span id="kashi-calendar"></span><span id="kashi-province-select"></span>
+
+| عنصر | ویژگی اصلی | توضیح |
+|---|---|---|
+| `<kashi-date-picker>` | value، min، max | YYYY-MM-DD؛ holidays، digits، invalid-message؛ ویژگی isDateDisabled با JavaScript |
+| `<kashi-calendar>` | value، min، max | YYYY-MM-DD؛ holidays، today-label، name؛ ویژگی date با Date |
+| `<kashi-otp>` | length، group-after | پیش‌فرض ۶ رقم؛ رویداد kashi-complete؛ پر شدن خودکار کد پیامکی |
+| `<kashi-province-select>` | value | ۳۱ استان روی select بومی؛ show-capital برای نام مرکز استان |
+
+<span id="kashi-money"></span><span id="kashi-date"></span><span id="kashi-relative-time"></span><span id="kashi-countdown"></span>
+
+| عنصر | ویژگی اصلی | توضیح |
+|---|---|---|
+| `<kashi-money>` | value | unit (toman یا rial)، from، compact، signed، size، words="false" |
+| `<kashi-date>` | datetime | format: numeric، long (پیش‌فرض) یا full |
+| `<kashi-relative-time>` | datetime | refresh بر حسب میلی‌ثانیه (پیش‌فرض یک دقیقه) |
+| `<kashi-countdown>` | seconds یا to | variant="blocks"، label برای صفحه‌خوان، متد restart()، رویداد kashi-complete |
+
+<span id="kashi-dialog"></span><span id="kashi-tabs"></span><span id="kashi-tooltip"></span><span id="kashi-toaster"></span><span id="kashi-copy-button"></span>
+
+| عنصر | ویژگی اصلی | توضیح |
+|---|---|---|
+| `<kashi-dialog>` | heading، description | tone="danger"، size، placement (start، end یا bottom)، open، متدهای show() و close() |
+| `<kashi-tabs>` | label، value | variant (line، pill یا segmented)، orientation="vertical"، size="sm"، block |
+| `<kashi-tooltip>` | content | placement (top، bottom، start یا end)، delay |
+| `<kashi-toaster>` | placement | پیش‌فرض bottom-end؛ max، label؛ تابع toast() و دکمه‌های data-kashi-toast |
+| `<kashi-copy-button>` | value یا target | label، copied-label، icon-only، variant، size؛ رویداد kashi-copy |
+
+## کامپوننت‌های دیگر
+
+بقیهٔ کامپوننت‌های کاشی (دکمه، کارت، نشان، هشدار، جدول، آکاردئون، فیلد متنی و…) به JavaScript نیاز ندارند و با کلاس‌های `@kashi-ui/css` ساخته می‌شوند؛ کد HTML هر کدام در تب «HTML» صفحهٔ همان کامپوننت آمده است. کامپوننت‌های پیچیده‌تری مثل Combobox، جدول داده، نمودار، نقشهٔ ایران و فرم نشانی فعلاً فقط برای React هستند.

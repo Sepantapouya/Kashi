@@ -9,13 +9,14 @@
     "packages/icons",
     "packages/css",
     "packages/react",
+    "packages/elements",
     "packages/tailwind",
     "packages/mcp",
     "apps/docs"
   ],
   "scripts": {
-    "build": "npm run build -w @kashi-ui/tokens && npm run build -w @kashi-ui/persian && npm run build -w @kashi-ui/bank-logos && npm run build -w @kashi-ui/icons && npm run build -w @kashi-ui/css && npm run build -w @kashi-ui/react && npm run build -w @kashi-ui/tailwind && npm run build -w @kashi-ui/mcp",
-    "test": "npm test -w @kashi-ui/tokens && npm test -w @kashi-ui/persian && npm test -w @kashi-ui/icons && npm test -w @kashi-ui/react && npm test -w @kashi-ui/tailwind && npm test -w @kashi-ui/mcp",
+    "build": "npm run build -w @kashi-ui/tokens && npm run build -w @kashi-ui/persian && npm run build -w @kashi-ui/bank-logos && npm run build -w @kashi-ui/icons && npm run build -w @kashi-ui/css && npm run build -w @kashi-ui/react && npm run build -w @kashi-ui/elements && npm run build -w @kashi-ui/tailwind && npm run build -w @kashi-ui/mcp",
+    "test": "npm test -w @kashi-ui/tokens && npm test -w @kashi-ui/persian && npm test -w @kashi-ui/icons && npm test -w @kashi-ui/react && npm test -w @kashi-ui/elements && npm test -w @kashi-ui/tailwind && npm test -w @kashi-ui/mcp",
     "dev": "npx --yes serve . -l 4321",
     "docs": "npm run dev -w @kashi-ui/docs",
     "docs:build": "npm run build && npm run build -w @kashi-ui/docs",

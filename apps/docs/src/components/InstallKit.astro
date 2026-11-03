@@ -50,11 +50,11 @@ const PATHS = [
     ],
   },
   {
-    key: "html", label: "HTML و CDN", icon: "code", note: "بدون React",
-    lead: "برای Vue، Svelte، Angular یا HTML ساده؛ فقط CSS، بدون نصب.",
+    key: "html", label: "HTML و وب کامپوننت", icon: "code", note: "بدون React",
+    lead: "برای Vue، Svelte، Angular، وردپرس یا HTML ساده؛ بدون نصب. فیلدهای فارسی، تقویم شمسی و پنجره‌ها به‌شکل وب کامپوننت.",
     steps: [
-      { title: "CSS را از CDN بیاورید", code: `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">` },
-      { title: "از کلاس‌ها استفاده کنید", code: `<button class="k-btn k-btn--primary">ثبت‌نام</button>` },
+      { title: "CSS و وب کامپوننت‌ها را از CDN بیاورید", code: `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">\n<script type="module" src="https://cdn.jsdelivr.net/npm/@kashi-ui/elements/dist/cdn/kashi-elements.js"></script>` },
+      { title: "از تگ‌ها و کلاس‌ها استفاده کنید", code: `<kashi-national-id name="national_id"></kashi-national-id>\n<button class="k-btn k-btn--primary">ثبت‌نام</button>` },
     ],
   },
 ];
@@ -62,6 +62,7 @@ const PATHS = [
 const PACKAGES = [
   { name: "react", fa: "کامپوننت‌های React", when: "پروژهٔ React" },
   { name: "css", fa: "استایل همهٔ کامپوننت‌ها با CSS خالص", when: "همیشه" },
+  { name: "elements", fa: "وب کامپوننت‌ها: فیلدهای فارسی، تقویم شمسی، پنجره و زبانه", when: "Vue، Svelte، Angular یا HTML" },
   { name: "persian", fa: "تاریخ شمسی، کد ملی، کارت، شبا و ارقام فارسی", when: "خودکار با react" },
   { name: "icons", fa: "آیکون‌های خطی برای React و HTML", when: "اختیاری" },
   { name: "tailwind", fa: "توکن‌های کاشی به‌شکل کلاس‌های Tailwind", when: "پروژهٔ Tailwind" },

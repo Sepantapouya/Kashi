@@ -45,6 +45,7 @@ const layers = [
   { tier: "پایه", name: "@kashi-ui/tokens", kind: "CSS · JSON · JS", text: "رنگ، فاصله، تایپوگرافی و سایه؛ یک منبع حقیقت برای طراحی و کد.", href: "/docs/theming/" },
   { tier: "استایل", name: "@kashi-ui/css", kind: "CSS خالص", text: "استایل همهٔ کامپوننت‌ها در Cascade Layer؛ برای هر فریم‌ورکی.", href: "/docs/installation/" },
   { tier: "کامپوننت", name: "@kashi-ui/react", kind: "React · TypeScript", text: `${fa(componentCount)} کامپوننت دسترس‌پذیر با تایپ کامل و برچسب‌های فارسی.`, href: "/docs/components/" },
+  { tier: "کامپوننت", name: "@kashi-ui/elements", kind: "Web Components", text: "فیلدهای فارسی، تقویم شمسی، پنجره و زبانه برای Vue، Svelte، Angular و HTML.", href: "/docs/web-components/" },
 ];
 const modules = [
   { name: "@kashi-ui/persian", kind: "بدون وابستگی", text: "تاریخ شمسی، ارقام فارسی و اعتبارسنجی کد ملی، کارت و شبا.", href: "/docs/persian/utilities/" },
@@ -139,6 +140,7 @@ const ghLive = [
 const system = [
   { name: "@kashi-ui/react", role: "کامپوننت‌های React با TypeScript", href: "/docs/components/" },
   { name: "@kashi-ui/css", role: "استایل برای هر فریم‌ورک", href: "/docs/installation/" },
+  { name: "@kashi-ui/elements", role: "وب کامپوننت‌ها برای Vue، Svelte و HTML", href: "/docs/web-components/" },
   { name: "@kashi-ui/tokens", role: "توکن‌های طراحی و تم‌ساز", href: "/docs/theming/" },
   { name: "@kashi-ui/persian", role: "تاریخ شمسی و اعتبارسنجی", href: "/docs/persian/utilities/" },
   { name: "@kashi-ui/icons", role: `${fa(iconCount)} آیکون در شش سبک`, href: "/docs/icons/" },
@@ -174,7 +176,7 @@ const adoption = [
 const faq = [
   ["استفاده از کاشی در محصول تجاری آزاد است؟", "بله. کاشی با لایسنس MIT منتشر می‌شود و استفادهٔ تجاری و داخلی، تغییر و توزیع آن بدون محدودیت آزاد است. لوگوی بانک‌ها با CC0 و فونت وزیرمتن با OFL منتشر شده‌اند."],
   ["تغییرات ناسازگار چطور اعلام می‌شود؟", "همهٔ پکیج‌ها با نسخه‌گذاری معنایی (SemVer) و Changesets منتشر می‌شوند و هر نسخه یادداشت انتشار دارد. تاریخچهٔ کامل در صفحهٔ نسخه‌ها هست."],
-  ["بدون React هم می‌شود از کاشی استفاده کرد؟", "بله. استایل همهٔ کامپوننت‌ها در @kashi-ui/css با CSS خالص است و توکن‌ها به شکل CSS Variables، JSON و JS در دسترس‌اند؛ پس در Vue، Svelte، Angular یا HTML ساده هم کار می‌کند."],
+  ["بدون React هم می‌شود از کاشی استفاده کرد؟", "بله. استایل همهٔ کامپوننت‌ها در @kashi-ui/css با CSS خالص است و فیلدهای فارسی، تقویم شمسی، پنجره، زبانه و اعلان در @kashi-ui/elements به‌شکل وب کامپوننت هستند؛ با یک خط script در Vue، Svelte، Angular، وردپرس یا HTML ساده کار می‌کنند."],
   ["با Next.js و ابزارهای فعلی ما سازگار است؟", "کامپوننت‌ها با React نسخهٔ ۱۸ و بالاتر کار می‌کنند و با Next.js، Vite و Remix سازگارند. استایل‌ها در Cascade Layer هستند و با CSS فعلی پروژه تداخل نمی‌کنند. اگر Tailwind دارید، پریست @kashi-ui/tailwind رنگ‌ها و توکن‌های کاشی را به‌شکل کلاس‌های Tailwind در اختیارتان می‌گذارد."],
   ["می‌توانیم برند خودمان را اعمال کنیم؟", "بله. با یک رنگ، createTheme طیف یازده‌پله‌ای برند را می‌سازد و همهٔ کامپوننت‌ها هماهنگ می‌شوند. شعاع گوشه‌ها، تراکم و فونت هم قابل تنظیم است و همین تم در کیت فیگما هم اعمال می‌شود."],
   ["برای راه‌اندازی در سازمان پشتیبانی دارید؟", "گزارش مشکل و پیشنهاد در GitHub بررسی می‌شود. برای ارزیابی، راه‌اندازی یا سفارشی‌سازی سازمانی، در تلگرام مستقیم با نگه‌دارندهٔ کاشی صحبت کنید."],

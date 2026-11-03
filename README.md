@@ -22,6 +22,7 @@
 | `@kashi-ui/bank-logos` | لوگوی SVG ۴۰ بانک و ۱۰ درگاه پرداخت ایران (CC0) |
 | `@kashi-ui/icons` | ۴۵۰۰ آیکون کاشی در شش سبک؛ React، SVG و اسپرایت |
 | `@kashi-ui/react` | کامپوننت‌های React |
+| `@kashi-ui/elements` | وب کامپوننت‌ها برای Vue، Svelte، Angular، وردپرس و HTML: فیلدهای فارسی، تقویم شمسی، پنجره، زبانه و اعلان |
 | `@kashi-ui/tailwind` | پریست Tailwind 3 و 4: توکن‌های کاشی به‌شکل کلاس‌های Tailwind، همگام با تم |
 | `@kashi-ui/mcp` | سرور MCP برای Claude، Cursor و دیگر دستیارهای هوش مصنوعی |
 
@@ -44,12 +45,18 @@ import { Button } from "@kashi-ui/react";
 <Button variant="primary">ثبت‌نام</Button>
 ```
 
-بدون فریم‌ورک (HTML خالص):
+بدون React (HTML، Vue، Svelte، Angular، وردپرس) با وب کامپوننت‌ها:
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@kashi-ui/elements/dist/cdn/kashi-elements.js"></script>
+
 <button class="k-btn k-btn--primary">ثبت‌نام</button>
+<kashi-national-id name="national_id" required></kashi-national-id>
+<kashi-date-picker label="تاریخ تولد" name="birth"></kashi-date-picker>
 ```
+
+راهنما: [kashi.sepantapouya.com/docs/web-components](https://kashi.sepantapouya.com/docs/web-components/)
 
 ## Tailwind
 

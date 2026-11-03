@@ -8,6 +8,7 @@ const RAW: NavGroup[] = [
       { title: "معرفی", href: "/docs/" },
       { title: "نصب", href: "/docs/installation/" },
       { title: "Tailwind", href: "/docs/tailwind/", badge: "جدید" },
+      { title: "وب کامپوننت‌ها (بدون React)", href: "/docs/web-components/", badge: "جدید" },
       { title: "پلاگین فیگما", href: "/docs/figma/", badge: "جدید" },
       { title: "استفاده با هوش مصنوعی", href: "/docs/ai/", badge: "جدید" },
       { title: "آیکون‌ها", href: "/docs/icons/", badge: "جدید" },

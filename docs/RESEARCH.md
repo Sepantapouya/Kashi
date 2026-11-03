@@ -38,7 +38,7 @@
 
 - **چرا CSS خالص در هسته؟** هر فریم‌ورکی (حتی HTML ساده و وردپرس) می‌تواند از آن استفاده کند. ظاهر فقط یک‌بار نوشته می‌شود.
 - **React** لایهٔ نازکی روی همان کلاس‌هاست (+ رفتارهای تعاملی).
-- **Web Components** (مرحلهٔ بعد، احتمالاً با Lit) برای Vue/Svelte/Angular — React 19 هم از Custom Elements پشتیبانی کامل دارد.
+- **Web Components** (`@kashi-ui/elements`) برای Vue/Svelte/Angular/HTML — بدون Lit و بدون Shadow DOM، تا کلاس‌های `k-*` و تم کاربر مستقیم اعمال شوند.
 - **CLI** (مرحلهٔ بعد): `npx kashi-ui init` و `npx kashi-ui add button` به سبک shadcn، برای کسانی که می‌خواهند کد کامپوننت را مستقیم در پروژهٔ خودشان داشته باشند.
 
 ## ۴. اصول طراحی
@@ -66,7 +66,8 @@
 | **۳ ✓** | سایت مستندات تیره با Astro: صفحهٔ اصلی، ۵ راهنما، ۸ صفحهٔ کامپوننت، تم‌ساز زنده |
 | **۴ ✓** | CI با GitHub Actions، نسخه‌بندی با Changesets، گردش کار انتشار npm با provenance، پیکربندی Vercel |
 | ۵ | CLI (`npx kashi-ui add …`) |
-| ۶ | Web Components برای Vue/Svelte/Angular |
+| **۶ (بخش اول) ✓** | Web Components بدون وابستگی (`@kashi-ui/elements`): ۸ فیلد فارسی، OTP، استان، تقویم و DatePicker شمسی، مبلغ، تاریخ، شمارش معکوس، Dialog، Tabs، Tooltip، Toast، CopyButton |
+| ۶ (ادامه) | Combobox، DataTable، نقشهٔ ایران و فرم نشانی به‌شکل Web Component |
 | **۷ (بخش اول) ✓** | DatePicker و Calendar شمسی، کد ملی، شماره کارت، پکیج `@kashi-ui/persian` |
 | **۷ (بخش دوم) ✓** | شبا، موبایل، مبلغ به حروف، لوگوی ۳۱ بانک، یکدست‌سازی متن فارسی |
 | ۷ (ادامه) | کامپوننت‌های ویژهٔ فارسی: تقویم جلالی، DatePicker شمسی، ورودی کد ملی/شماره کارت/شبا، فرمت پول تومان |

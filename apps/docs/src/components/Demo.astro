@@ -20,21 +20,26 @@ interface Props {
   exampleProps?: Record<string, string | number | boolean>;
   /** کد JSX کامل و اجراشدنی برای StackBlitz، وقتی کد نمایشی خلاصه است */
   play?: string;
+  /** «html» برای نمونه‌های وب کامپوننت: کد، خودِ HTML پیش‌نمایش است و تب React ندارد */
+  lang?: "tsx" | "html";
 }
-const { code, align = "center", column = false, label = "نمونه", html: showHtml = true, example, exampleProps = {}, play } = Astro.props;
+const { code, align = "center", column = false, label = "نمونه", html: htmlProp = true, example, exampleProps = {}, play, lang = "tsx" } = Astro.props;
+const isHtml = lang === "html";
+// در نمونهٔ HTML، کد خودش همان HTML است و تب دوم تکراری می‌شود
+const showHtml = htmlProp && !isHtml;
 const html = await Astro.slots.render("default");
 const id = `demo-${Math.random().toString(36).slice(2, 8)}`;
 // نام صفحه برای عنوان پروژه، مثل «button»
 const page = Astro.url.pathname.split("/").filter(Boolean).pop() ?? "kashi";
 // کد کوتاه اگر خودش اجرا می‌شود؛ وگرنه کد کامل پیش‌نمایش زنده
 const title = `${page} · ${label}`;
-const blitz = stackblitzProject(play ?? code, title) ?? demoProject(html, title) ?? (example ? exampleProject(example, exampleProps, title) : null);
+const blitz = isHtml ? null : stackblitzProject(play ?? code, title) ?? demoProject(html, title) ?? (example ? exampleProject(example, exampleProps, title) : null);
 ---
 <figure class="demo">
   <div class:list={["demo__preview", `demo__preview--${align}`, { "demo__preview--column": column }]} role="group" aria-label={label} set:html={html} />
   <div class="demo__code" data-tabs>
     <div class="demo__tabs" role="tablist" aria-label="زبان کد">
-      {code && <button role="tab" type="button" id={`${id}-t1`} aria-controls={`${id}-p1`} aria-selected="true">React</button>}
+      {code && <button role="tab" type="button" id={`${id}-t1`} aria-controls={`${id}-p1`} aria-selected="true">{isHtml ? "HTML" : "React"}</button>}
       {showHtml && <button role="tab" type="button" id={`${id}-t2`} aria-controls={`${id}-p2`} aria-selected={code ? "false" : "true"} tabindex={code ? -1 : undefined}>HTML</button>}
     </div>
     {blitz && (
@@ -50,7 +55,7 @@ const blitz = stackblitzProject(play ?? code, title) ?? demoProject(html, title)
         </button>
       </form>
     )}
-    {code && <div role="tabpanel" id={`${id}-p1`} aria-labelledby={`${id}-t1`}><CodeBlock code={code} lang="tsx" /></div>}
+    {code && <div role="tabpanel" id={`${id}-p1`} aria-labelledby={`${id}-t1`}><CodeBlock code={code} lang={lang} /></div>}
     {showHtml && <div role="tabpanel" id={`${id}-p2`} aria-labelledby={`${id}-t2`} hidden={code ? true : undefined}><CodeBlock code={formatHtml(html)} lang="html" /></div>}
   </div>
 </figure>

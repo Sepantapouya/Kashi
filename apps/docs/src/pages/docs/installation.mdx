@@ -97,23 +97,28 @@ npm i @kashi-ui/tailwind
 
 ## HTML و فریم‌ورک‌های دیگر
 
-برای Vue، Svelte، Angular یا HTML ساده، فقط پکیج CSS لازم است:
+برای Vue، Svelte، Angular، وردپرس یا HTML ساده دو پکیج دارید: `@kashi-ui/css` برای ظاهر همهٔ کامپوننت‌ها و `@kashi-ui/elements` برای کامپوننت‌هایی که JavaScript لازم دارند (فیلدهای فارسی، تقویم شمسی، کد تأیید، پنجره، زبانه و اعلان) به‌شکل وب کامپوننت.
 
 ```bash
-npm i @kashi-ui/css
+npm i @kashi-ui/css @kashi-ui/elements
 ```
 
 یا بدون نصب، از CDN:
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@kashi-ui/elements/dist/cdn/kashi-elements.js"></script>
 ```
 
-سپس از کلاس‌ها استفاده کنید. نمونهٔ HTML هر کامپوننت در صفحهٔ همان کامپوننت آمده است.
+سپس از کلاس‌ها و تگ‌ها استفاده کنید. نمونهٔ HTML هر کامپوننت در صفحهٔ همان کامپوننت آمده است.
 
 ```html
 <button class="k-btn k-btn--primary">ثبت‌نام</button>
+<kashi-national-id name="national_id" required></kashi-national-id>
+<kashi-date-picker label="تاریخ تولد" name="birth"></kashi-date-picker>
 ```
+
+فهرست همهٔ وب کامپوننت‌ها، رویدادها و تنظیم Vue و Angular: [وب کامپوننت‌ها](/docs/web-components/)
 
 ## پکیج‌ها
 

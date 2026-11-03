@@ -1,27 +1,59 @@
 {
- "generated": "2026-11-02T14:34:51+03:30",
+ "generated": "2026-11-03T11:11:48+03:30",
  "totals": {
-  "commits": 187,
+  "commits": 189,
   "versions": 25,
-  "added": 78454,
+  "added": 78860,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [],
+ "unreleased": [
+  {
+   "sha": "e11fd9ef99aed0b17b30175569171137c0b8687d",
+   "short": "e11fd9e",
+   "date": "2026-11-03T11:11:48+03:30",
+   "author": "sepantapouya",
+   "subject": "test: consumer test in a Next.js app before every release",
+   "details": [
+    "scripts/consumer-test.mjs publishes the 8 freshly built packages to a temporary",
+    "local registry (verdaccio), builds the docs site with its shadcn registry on",
+    "localhost, installs tests/consumer (Next.js 16 App Router, React 19, Tailwind 4),",
+    "adds every registry item with shadcn and runs next build. A server page imports",
+    "@kashi-ui/react directly, so a missing \"use client\" fails the build (verified).",
+    "- npm run test:consumer; npm run release runs it before changeset publish",
+    "- CI job \"consumer\" on push to main, pull requests and manual runs",
+    "- registry endpoints read KASHI_REGISTRY_ORIGIN when set"
+   ],
+   "files": 15,
+   "added": 357,
+   "removed": 3
+  },
+  {
+   "sha": "762b358b8968757f2d5e0b5e386b2c2cadf11db1",
+   "short": "762b358",
+   "date": "2026-11-02T14:40:32+03:30",
+   "author": "sepantapouya",
+   "subject": "fix(css): one background for autofilled inputs",
+   "details": [],
+   "files": 2,
+   "added": 20,
+   "removed": 0
+  }
+ ],
  "versions": [
   {
    "version": "0.23.0",
    "date": "2026-11-02T14:34:51+03:30",
-   "releaseCommit": "e5a7c8c",
+   "releaseCommit": "58c5a6b",
    "commits": [
     {
-     "sha": "e5a7c8c48eae0408cbffced1717a7be57d1a8c75",
-     "short": "e5a7c8c",
+     "sha": "58c5a6bd0eece0d372c0bed98815f81939693ce1",
+     "short": "58c5a6b",
      "date": "2026-11-02T14:34:51+03:30",
      "author": "sepantapouya",
      "subject": "Release 0.23.0: Iranian address form",
      "details": [],
      "files": 21,
-     "added": 130,
+     "added": 159,
      "removed": 50
     },
     {

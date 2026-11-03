@@ -1,0 +1,61 @@
+{
+  "name": "@kashi-ui/elements",
+  "version": "0.23.0",
+  "description": "وب کامپوننت‌های کاشی: فیلدهای فارسی، تقویم شمسی و کامپوننت‌های تعاملی بدون React؛ برای HTML، Vue، Svelte، Angular و وردپرس",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./cdn": "./dist/cdn/kashi-elements.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/bundle.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@kashi-ui/bank-logos": "^0.23.0",
+    "@kashi-ui/persian": "^0.23.0"
+  },
+  "peerDependencies": {
+    "@kashi-ui/css": "^0.23.0"
+  },
+  "devDependencies": {
+    "happy-dom": "^21.0.4",
+    "rolldown": "^1.2.15",
+    "typescript": "^5.6.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sepantapouya/Kashi.git",
+    "directory": "packages/elements"
+  },
+  "homepage": "https://kashi.sepantapouya.com/docs/web-components/",
+  "bugs": "https://github.com/Sepantapouya/Kashi/issues",
+  "author": "Sepanta Pouya (https://sepantapouya.com)",
+  "keywords": [
+    "web-components",
+    "custom-elements",
+    "design-system",
+    "persian",
+    "farsi",
+    "rtl",
+    "jalali",
+    "vue",
+    "svelte",
+    "angular"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

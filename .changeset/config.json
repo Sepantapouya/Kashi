@@ -13,6 +13,7 @@
       "@kashi-ui/icons",
       "@kashi-ui/css",
       "@kashi-ui/react",
+      "@kashi-ui/elements",
       "@kashi-ui/mcp",
       "@kashi-ui/tailwind"
     ]
