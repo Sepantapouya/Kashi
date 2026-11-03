@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Docs.astro
 title: وب کامپوننت‌ها
-description: فیلدهای فارسی، تقویم شمسی، فرم نشانی، نقشهٔ ایران، جدول داده، Combobox، منو، پنجره و اعلان کاشی بدون React؛ با یک خط script در HTML، Vue، Svelte، Angular و وردپرس.
+description: کامپوننت‌های کاشی بدون React؛ با یک خط script در HTML، وردپرس، Vue، Svelte و Angular. فیلدهای فارسی، تقویم شمسی، فرم نشانی، نقشهٔ ایران، جدول داده، منو، پنجره و اعلان.
 ---
 import Demo from "../../components/Demo.astro";
 import ElementsScript from "../../components/ElementsScript.astro";
@@ -16,9 +16,11 @@ import ElementsScript from "../../components/ElementsScript.astro";
 
 ظاهر از همان `@kashi-ui/css` می‌آید و عنصرها Shadow DOM ندارند؛ پس تم، رنگ برند، حالت روشن و تیره و CSS خودتان بی‌تغییر روی آن‌ها اعمال می‌شود. در پروژهٔ React همان [`@kashi-ui/react`](/docs/installation/) را به کار ببرید.
 
+این صفحه راه‌اندازی کلی است. نصب، نمونهٔ زنده، ویژگی‌ها و رویدادهای هر کامپوننت در بخش **«وب کامپوننت»** صفحهٔ همان کامپوننت آمده است ([فهرست](#کامپوننتها)).
+
 ## نصب
 
-بدون نصب، از CDN:
+بدون نصب، از CDN، در `<head>` صفحه:
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">
@@ -33,234 +35,56 @@ npm i @kashi-ui/elements @kashi-ui/css
 
 ```js
 import "@kashi-ui/css";
-import "@kashi-ui/elements";
+import "@kashi-ui/elements"; // همه؛ یا فقط یک بخش، مثل "@kashi-ui/elements/inputs.js"
 ```
 
-صفحه را راست‌به‌چپ کنید: `<html lang="fa" dir="rtl">`. همهٔ ابزارهای فارسی داخل همین یک فایل‌اند و لوگوی بانک‌ها جدا و فقط وقتی شمارهٔ کارت یا شبا وارد شود بارگذاری می‌شود.
+صفحه را راست‌به‌چپ کنید: `<html lang="fa" dir="rtl">`.
 
-## فیلدهای فارسی
+## نمونه
 
-ارقام فارسی و انگلیسی را می‌پذیرند، هنگام تایپ قالب می‌گیرند و پس از خروج از فیلد یا کامل شدن مقدار، خطا را نشان می‌دهند. موبایل اپراتور، تلفن ثابت استان و کارت و شبا بانک را نشان می‌دهند. برچسب پیش‌فرض هر فیلد فارسی است و با `label` عوض می‌شود.
+یک فرم معمولی HTML با چند کامپوننت کاشی:
 
-<Demo lang="html" column align="start" code={`<kashi-national-id name="national_id" required></kashi-national-id>
-<kashi-mobile name="mobile"></kashi-mobile>
-<kashi-card-number name="card"></kashi-card-number>
-<kashi-iban name="sheba"></kashi-iban>
-<kashi-price name="amount" max="50000000"></kashi-price>`}>
+<Demo lang="html" column align="start" code={`<form action="/checkout" method="post">
   <kashi-national-id name="national_id" required></kashi-national-id>
   <kashi-mobile name="mobile"></kashi-mobile>
-  <kashi-card-number name="card"></kashi-card-number>
-  <kashi-iban name="sheba"></kashi-iban>
-  <kashi-price name="amount" max="50000000"></kashi-price>
-</Demo>
-
-فیلدهای دیگر: `<kashi-postal-code>`، `<kashi-landline>` (تلفن ثابت با نام استان) و `<kashi-legal-id>` (شناسهٔ ملی شرکت).
-
-## فرم نشانی و نقشهٔ ایران
-
-`<kashi-address-form>` استان، شهرِ همان استان، نشانی، پلاک، واحد و کد پستی را یک‌جا دارد. اگر کاربر اول شهر را بنویسد، استان خودکار پر می‌شود و با عوض شدن استان، شهرِ نامربوط پاک می‌شود. با `map` نقشهٔ ایران کنار فرم می‌آید.
-
-<Demo lang="html" column align="start" code={`<kashi-address-form name="shipping" legend="نشانی تحویل"></kashi-address-form>`}>
-  <kashi-address-form name="shipping" legend="نشانی تحویل"></kashi-address-form>
-</Demo>
-
-نقشه هم برای انتخاب استان است و هم برای نمایش داده؛ دادهٔ هر استان را با ویژگی `data` (JSON) یا `element.data` بدهید:
-
-<Demo lang="html" column align="start" code={`<kashi-iran-map selectable name="province" unit="سفارش" data='{"تهران": 1200, "اصفهان": 420, "خراسان رضوی": 380, "فارس": 260}'></kashi-iran-map>`}>
-  <kashi-iran-map selectable name="province" unit="سفارش" data='{"تهران": 1200, "اصفهان": 420, "خراسان رضوی": 380, "فارس": 260}'></kashi-iran-map>
-</Demo>
-
-## Combobox، منو و پاپ‌اور
-
-گزینه‌های `<kashi-combobox>` همان `<option>` و `<optgroup>` معمولی‌اند؛ جستجو «ي» و «ی» را یکی می‌داند. `<kashi-city-select>` همین را با فهرست ۱۲۷۸ شهر ایران دارد.
-
-<Demo lang="html" column align="start" code={`<kashi-combobox label="زبان برنامه‌نویسی" name="lang">
-  <optgroup label="وب">
-    <option value="ts" data-description="TypeScript">تایپ‌اسکریپت</option>
-    <option value="js">جاوااسکریپت</option>
-  </optgroup>
-  <option value="py">پایتون</option>
-</kashi-combobox>
-<kashi-city-select name="city"></kashi-city-select>`}>
-  <kashi-combobox label="زبان برنامه‌نویسی" name="lang">
-    <optgroup label="وب">
-      <option value="ts" data-description="TypeScript">تایپ‌اسکریپت</option>
-      <option value="js">جاوااسکریپت</option>
-    </optgroup>
-    <option value="py">پایتون</option>
-  </kashi-combobox>
-  <kashi-city-select name="city"></kashi-city-select>
-</Demo>
-
-در `<kashi-dropdown-menu>` و `<kashi-popover>` اولین فرزند دکمهٔ بازکننده است و بقیه محتوا:
-
-<Demo lang="html" code={`<kashi-dropdown-menu label="عملیات">
-  <button class="k-btn k-btn--secondary">بیشتر</button>
-  <button data-value="edit" data-shortcut="⌘E">ویرایش</button>
-  <button data-value="pin" data-checked="false">سنجاق کردن</button>
-  <hr>
-  <button data-value="delete" data-tone="danger">حذف</button>
-</kashi-dropdown-menu>
-
-<kashi-popover heading="فیلتر قیمت">
-  <button class="k-btn k-btn--secondary">فیلتر</button>
-  <kashi-price label="بیشترین قیمت"></kashi-price>
-</kashi-popover>`}>
-  <kashi-dropdown-menu label="عملیات">
-    <button class="k-btn k-btn--secondary">بیشتر</button>
-    <button data-value="edit" data-shortcut="⌘E">ویرایش</button>
-    <button data-value="pin" data-checked="false">سنجاق کردن</button>
-    <hr />
-    <button data-value="delete" data-tone="danger">حذف</button>
-  </kashi-dropdown-menu>
-  <kashi-popover heading="فیلتر قیمت">
-    <button class="k-btn k-btn--secondary">فیلتر</button>
-    <kashi-price label="بیشترین قیمت"></kashi-price>
-  </kashi-popover>
-</Demo>
-
-## جدول داده
-
-`<kashi-data-table>` یک `<table>` معمولی را بهتر می‌کند: ستون‌های `th[data-sort]` مرتب می‌شوند (ارقام فارسی و جداکنندهٔ هزارگان درست خوانده می‌شوند)، `selectable` چک‌باکس انتخاب ردیف و `searchable` جستجو اضافه می‌کند. بدون JavaScript همان جدول با ظاهر کاشی دیده می‌شود.
-
-<Demo lang="html" align="stretch" code={`<kashi-data-table selectable searchable name="orders">
-  <table>
-    <caption>سفارش‌های امروز</caption>
-    <thead><tr><th data-sort>مشتری</th><th data-sort>شهر</th><th data-sort data-numeric>مبلغ (تومان)</th></tr></thead>
-    <tbody>
-      <tr data-id="1"><td>سارا احمدی</td><td>تهران</td><td>۱٬۲۰۰٬۰۰۰</td></tr>
-      <tr data-id="2"><td>علی رضایی</td><td>اصفهان</td><td>۹۸۰٬۰۰۰</td></tr>
-      <tr data-id="3"><td>مینا کریمی</td><td>شیراز</td><td>۳۵۰٬۰۰۰</td></tr>
-    </tbody>
-  </table>
-</kashi-data-table>`}>
-  <kashi-data-table selectable searchable name="orders">
-    <table>
-      <caption>سفارش‌های امروز</caption>
-      <thead><tr><th data-sort>مشتری</th><th data-sort>شهر</th><th data-sort data-numeric>مبلغ (تومان)</th></tr></thead>
-      <tbody>
-        <tr data-id="1"><td>سارا احمدی</td><td>تهران</td><td>۱٬۲۰۰٬۰۰۰</td></tr>
-        <tr data-id="2"><td>علی رضایی</td><td>اصفهان</td><td>۹۸۰٬۰۰۰</td></tr>
-        <tr data-id="3"><td>مینا کریمی</td><td>شیراز</td><td>۳۵۰٬۰۰۰</td></tr>
-      </tbody>
-    </table>
-  </kashi-data-table>
-</Demo>
-
-با JavaScript هم می‌شود جدول را از داده ساخت:
-
-```js
-const table = document.querySelector("kashi-data-table");
-table.columns = [
-  { key: "name", header: "مشتری", sortable: true },
-  { key: "total", header: "مبلغ", numeric: true, format: (v) => formatMoney(v) },
-];
-table.rows = orders; // [{ id: 1, name: "سارا", total: 1200000 }, …]
-```
-
-## برچسب، عدد، امتیاز و صفحه‌بندی
-
-<Demo lang="html" column align="start" code={`<kashi-tag-input label="مهارت‌ها" name="skills" value="طراحی، فیگما" max="5"></kashi-tag-input>
-<kashi-number-input label="تعداد" name="qty" value="1" min="1" max="10"></kashi-number-input>
-<kashi-rating name="stars" value="4" show-value></kashi-rating>
-<kashi-pagination page="5" total="20"></kashi-pagination>`}>
-  <kashi-tag-input label="مهارت‌ها" name="skills" value="طراحی، فیگما" max="5"></kashi-tag-input>
-  <kashi-number-input label="تعداد" name="qty" value="1" min="1" max="10"></kashi-number-input>
-  <kashi-rating name="stars" value="4" show-value></kashi-rating>
-  <kashi-pagination page="5" total="20"></kashi-pagination>
-</Demo>
-
-## انتخاب تاریخ شمسی
-
-تاریخ را تایپ کنید (۱۴۰۵/۱/۱) یا از تقویم انتخاب کنید. با `name`، تاریخ **میلادی** به شکل `YYYY-MM-DD` در فرم ارسال می‌شود تا سرور نیازی به تبدیل نداشته باشد. با `holidays` جمعه‌ها و تعطیلات ثابت رسمی در تقویم مشخص می‌شوند.
-
-<Demo lang="html" column align="start" code={`<kashi-date-picker label="تاریخ تحویل" name="delivery" holidays></kashi-date-picker>
-<kashi-otp label="کد تأیید" length="4"></kashi-otp>`}>
   <kashi-date-picker label="تاریخ تحویل" name="delivery" holidays></kashi-date-picker>
-  <kashi-otp label="کد تأیید" length="4"></kashi-otp>
+  <button class="k-btn k-btn--primary">ثبت سفارش</button>
+</form>`}>
+  <kashi-national-id name="national_id" required></kashi-national-id>
+  <kashi-mobile name="mobile"></kashi-mobile>
+  <kashi-date-picker label="تاریخ تحویل" name="delivery" holidays></kashi-date-picker>
 </Demo>
 
-تقویم تنها هم هست: `<kashi-calendar value="2026-03-21" holidays>`. ویژگی‌های `min` و `max` تاریخ میلادی (`2026-03-21`) یا شمسی (`1405/01/01`) می‌گیرند.
+## کامپوننت‌ها
 
-## کد تأیید و شمارش معکوس
+۳۲ عنصر؛ روی نام هر کامپوننت بزنید تا نصب، نمونه، ویژگی‌ها و رویدادهایش را ببینید.
 
-<Demo lang="html" column code={`<kashi-otp label="کد ارسال‌شده" length="6" group-after="3" name="code"></kashi-otp>
-<p>ارسال دوباره تا <kashi-countdown seconds="120" label="ارسال دوباره"></kashi-countdown></p>`}>
-  <kashi-otp label="کد ارسال‌شده" length="6" group-after="3" name="code"></kashi-otp>
-  <p>ارسال دوباره تا <kashi-countdown seconds="120" label="ارسال دوباره"></kashi-countdown></p>
-</Demo>
+| کامپوننت | عنصرها | بخش npm |
+|---|---|---|
+| [فیلدهای فارسی](/docs/persian/input/#وب-کامپوننت) | `<kashi-national-id>`، `<kashi-legal-id>`، `<kashi-mobile>`، `<kashi-landline>`، `<kashi-card-number>`، `<kashi-iban>`، `<kashi-postal-code>`، `<kashi-price>` | `inputs.js` |
+| [دیت‌پیکر شمسی](/docs/persian/date-picker/#وب-کامپوننت) | `<kashi-date-picker>`، `<kashi-calendar>` | `calendar.js` |
+| [کد تأیید](/docs/persian/otp/#وب-کامپوننت) | `<kashi-otp>` | `fields.js` |
+| [انتخاب استان و شهر](/docs/persian/province/#وب-کامپوننت) | `<kashi-province-select>`، `<kashi-city-select>` | `combobox.js` |
+| [نقشهٔ ایران](/docs/persian/iran-map/#وب-کامپوننت) | `<kashi-iran-map>` | `map.js` |
+| [فرم نشانی](/docs/persian/address/#وب-کامپوننت) | `<kashi-address-form>` | `map.js` |
+| [نمایش مبلغ](/docs/persian/money/#وب-کامپوننت) | `<kashi-money>` | `display.js` |
+| [شمارش معکوس](/docs/persian/countdown/#وب-کامپوننت) | `<kashi-countdown>` | `display.js` |
+| [تاریخ و زمان نسبی](/docs/persian/utilities/#وب-کامپوننت) | `<kashi-date>`، `<kashi-relative-time>` | `display.js` |
+| [Combobox](/docs/components/combobox/#وب-کامپوننت) | `<kashi-combobox>` | `combobox.js` |
+| [جدول داده](/docs/components/table/#وب-کامپوننت) | `<kashi-data-table>` | `table.js` |
+| [صفحه‌بندی](/docs/components/pagination/#وب-کامپوننت) | `<kashi-pagination>` | `controls.js` |
+| [فیلد برچسب](/docs/components/tag-input/#وب-کامپوننت) | `<kashi-tag-input>` | `controls.js` |
+| [فیلد عدد](/docs/components/number-input/#وب-کامپوننت) | `<kashi-number-input>` | `controls.js` |
+| [امتیاز](/docs/components/rating/#وب-کامپوننت) | `<kashi-rating>` | `controls.js` |
+| [پنجرهٔ گفتگو](/docs/components/dialog/#وب-کامپوننت) | `<kashi-dialog>` | `overlay.js` |
+| [زبانه‌ها](/docs/components/tabs/#وب-کامپوننت) | `<kashi-tabs>` | `overlay.js` |
+| [راهنما](/docs/components/tooltip/#وب-کامپوننت) | `<kashi-tooltip>` | `overlay.js` |
+| [دکمهٔ کپی](/docs/components/copy-button/#وب-کامپوننت) | `<kashi-copy-button>` | `overlay.js` |
+| [منوی کشویی](/docs/components/dropdown-menu/#وب-کامپوننت) | `<kashi-dropdown-menu>` | `menu.js` |
+| [پاپ‌اور](/docs/components/popover/#وب-کامپوننت) | `<kashi-popover>` | `menu.js` |
+| [اعلان](/docs/components/toast/#وب-کامپوننت) | `<kashi-toaster>` و تابع `toast()` | `toast.js` |
 
-## نمایش مبلغ و تاریخ
-
-<Demo lang="html" column code={`<kashi-money value="1250000" size="lg"></kashi-money>
-<kashi-money value="3800000000" compact></kashi-money>
-<kashi-date datetime="2026-03-21" format="full"></kashi-date>
-<kashi-relative-time datetime="2026-01-01T09:30:00Z"></kashi-relative-time>`}>
-  <kashi-money value="1250000" size="lg"></kashi-money>
-  <kashi-money value="3800000000" compact></kashi-money>
-  <kashi-date datetime="2026-03-21" format="full"></kashi-date>
-  <kashi-relative-time datetime="2026-01-01T09:30:00Z"></kashi-relative-time>
-</Demo>
-
-`<kashi-money>` مبلغ را به حروف برای صفحه‌خوان هم می‌خواند و `<kashi-relative-time>` هر دقیقه خودش به‌روز می‌شود.
-
-## پنجره، زبانه، راهنما و اعلان
-
-دکمه‌ای با `data-kashi-open="شناسهٔ پنجره"` پنجره را باز می‌کند و `data-kashi-close` داخل پنجره آن را می‌بندد؛ بدون نوشتن JavaScript. عنصرهای `slot="footer"` در پایین پنجره می‌آیند.
-
-<Demo lang="html" code={`<button class="k-btn k-btn--danger" data-kashi-open="delete-file">حذف فایل</button>
-
-<kashi-dialog id="delete-file" heading="فایل حذف شود؟" description="این کار قابل بازگشت نیست." tone="danger" size="sm">
-  <div slot="footer">
-    <button class="k-btn k-btn--secondary" data-kashi-close>انصراف</button>
-    <button class="k-btn k-btn--danger" data-kashi-close="delete">حذف</button>
-  </div>
-</kashi-dialog>`}>
-  <button class="k-btn k-btn--danger" data-kashi-open="delete-file">حذف فایل</button>
-  <kashi-dialog id="delete-file" heading="فایل حذف شود؟" description="این کار قابل بازگشت نیست." tone="danger" size="sm">
-    <div slot="footer">
-      <button class="k-btn k-btn--secondary" data-kashi-close>انصراف</button>
-      <button class="k-btn k-btn--danger" data-kashi-close="delete">حذف</button>
-    </div>
-  </kashi-dialog>
-</Demo>
-
-هر فرزند `<kashi-tabs>` که `data-tab` دارد یک زبانه است. بدون JavaScript همهٔ بخش‌ها پشت سر هم دیده می‌شوند.
-
-<Demo lang="html" align="stretch" code={`<kashi-tabs label="تنظیمات حساب">
-  <section data-tab="پروفایل">نام، تصویر و نام کاربری.</section>
-  <section data-tab="امنیت">رمز عبور و ورود دومرحله‌ای.</section>
-  <section data-tab="اعلان‌ها">پیامک و ایمیل.</section>
-</kashi-tabs>`}>
-  <kashi-tabs label="تنظیمات حساب">
-    <section data-tab="پروفایل">نام، تصویر و نام کاربری.</section>
-    <section data-tab="امنیت">رمز عبور و ورود دومرحله‌ای.</section>
-    <section data-tab="اعلان‌ها">پیامک و ایمیل.</section>
-  </kashi-tabs>
-</Demo>
-
-<Demo lang="html" code={`<kashi-tooltip content="تغییرات در پیش‌نویس ذخیره می‌شود">
-  <button class="k-btn k-btn--secondary">ذخیره</button>
-</kashi-tooltip>
-
-<button class="k-btn k-btn--primary" data-kashi-toast="ذخیره شد" data-description="تغییرات شما اعمال شد." data-tone="success">نمایش اعلان</button>
-
-<kashi-copy-button value="IR820540102680020817909002"></kashi-copy-button>`}>
-  <kashi-tooltip content="تغییرات در پیش‌نویس ذخیره می‌شود">
-    <button class="k-btn k-btn--secondary">ذخیره</button>
-  </kashi-tooltip>
-  <button class="k-btn k-btn--primary" data-kashi-toast="ذخیره شد" data-description="تغییرات شما اعمال شد." data-tone="success">نمایش اعلان</button>
-  <kashi-copy-button value="IR820540102680020817909002"></kashi-copy-button>
-</Demo>
-
-اعلان را از JavaScript هم می‌شود نشان داد. اگر `<kashi-toaster>` در صفحه نباشد، خودکار ساخته می‌شود:
-
-```js
-import { toast } from "@kashi-ui/elements";
-
-toast.success("سفارش ثبت شد", { description: "کد پیگیری: ۴۸۲۹۱۷" });
-toast.promise(save(), { loading: "در حال ذخیره…", success: "ذخیره شد", error: "ذخیره نشد" });
-```
+فیلدها ویژگی‌های مشترک دارند: `label`، `name`، `value`، `hint`، `error` (خطای دلخواه، مثلاً از سرور)، `required`، `disabled` و `aria-label` (به‌جای برچسب دیداری).
 
 ## ارسال فرم و اعتبارسنجی
 
@@ -290,7 +114,7 @@ card.value = "6037991234567893"; // مقدار از بیرون
 card.valid; // true
 ```
 
-`<kashi-otp>` و `<kashi-countdown>` در پایان رویداد `kashi-complete` می‌فرستند و `<kashi-dialog>` هنگام بسته شدن `kashi-close` را، با مقدار `data-kashi-close` دکمه‌ای که آن را بسته است در `detail.returnValue`.
+رویدادها و ویژگی‌های JavaScript هر عنصر در بخش «وب کامپوننت» صفحهٔ همان کامپوننت آمده است.
 
 ## Vue، Svelte و Angular
 
@@ -326,69 +150,6 @@ export default {
 
 در TypeScript نوع همهٔ عنصرها ثبت شده است؛ `document.querySelector("kashi-iban")` نوع `KashiIban` را برمی‌گرداند.
 
-## فهرست عنصرها
-
-ویژگی‌های مشترک همهٔ فیلدها: `label`، `hint`، `error` (خطای دلخواه، مثلاً از سرور)، `name`، `value`، `required`، `disabled`، `placeholder`، `size` (`sm` یا `lg`) و `aria-label` (به‌جای برچسب دیداری).
-
-<span id="kashi-national-id"></span><span id="kashi-mobile"></span><span id="kashi-card-number"></span><span id="kashi-iban"></span><span id="kashi-price"></span><span id="kashi-postal-code"></span><span id="kashi-landline"></span><span id="kashi-legal-id"></span>
-
-| عنصر | کاربرد | توضیح |
-|---|---|---|
-| `<kashi-national-id>` | کد ملی | ۱۰ رقم؛ رقم کنترل بررسی می‌شود |
-| `<kashi-legal-id>` | شناسهٔ ملی شرکت | ۱۱ رقم؛ رقم کنترل بررسی می‌شود |
-| `<kashi-mobile>` | موبایل | ۰۹xxxxxxxxx؛ +98 و 0098 را به ۰۹ تبدیل می‌کند؛ detail.operator |
-| `<kashi-landline>` | تلفن ثابت | ۰۲۱xxxxxxxx؛ نام استان از پیش‌شماره؛ detail.province |
-| `<kashi-card-number>` | شمارهٔ کارت | ۱۶ رقم؛ بررسی Luhn، نام و لوگوی بانک؛ detail.bank؛ bank-logo="false" بدون لوگو |
-| `<kashi-iban>` | شمارهٔ شبا | IR + ۲۴ رقم؛ IR خودکار، بررسی رقم‌های کنترل، نام بانک؛ ارقام لاتین به‌طور پیش‌فرض |
-| `<kashi-postal-code>` | کد پستی | ۱۰ رقم؛ قالب ۱۲۳۴۵-۶۷۸۹۰ |
-| `<kashi-price>` | مبلغ | عدد؛ unit (پیش‌فرض «تومان»)، min، max، show-words="false"؛ valueAsNumber |
-
-همهٔ این فیلدها `digits="latin"` برای نمایش ارقام انگلیسی، `invalid-message` برای پیام خطای دلخواه و `show-meta="false"` برای پنهان کردن نام بانک، اپراتور یا استان دارند.
-
-<span id="kashi-otp"></span><span id="kashi-date-picker"></span><span id="kashi-calendar"></span><span id="kashi-province-select"></span><span id="kashi-city-select"></span><span id="kashi-combobox"></span>
-
-| عنصر | ویژگی اصلی | توضیح |
-|---|---|---|
-| `<kashi-date-picker>` | value، min، max | YYYY-MM-DD؛ holidays، digits، invalid-message؛ ویژگی isDateDisabled با JavaScript |
-| `<kashi-calendar>` | value، min، max | YYYY-MM-DD؛ holidays، today-label، name؛ ویژگی date با Date |
-| `<kashi-otp>` | length، group-after | پیش‌فرض ۶ رقم؛ رویداد kashi-complete؛ پر شدن خودکار کد پیامکی |
-| `<kashi-province-select>` | value | ۳۱ استان با جستجو، با نام مرکز استان هم؛ show-capital="false" بدون نام مرکز |
-| `<kashi-city-select>` | value، province | ۱۲۷۸ شهر؛ detail.province؛ allow-custom="false" برای نپذیرفتن شهر خارج از فهرست |
-| `<kashi-combobox>` | value | گزینه‌ها از `<option>` و `<optgroup>` یا `element.options`؛ رویداد kashi-input برای جستجوی سمت سرور |
-
-<span id="kashi-money"></span><span id="kashi-date"></span><span id="kashi-relative-time"></span><span id="kashi-countdown"></span>
-
-| عنصر | ویژگی اصلی | توضیح |
-|---|---|---|
-| `<kashi-money>` | value | unit (toman یا rial)، from، compact، signed، size، words="false" |
-| `<kashi-date>` | datetime | format: numeric، long (پیش‌فرض) یا full |
-| `<kashi-relative-time>` | datetime | refresh بر حسب میلی‌ثانیه (پیش‌فرض یک دقیقه) |
-| `<kashi-countdown>` | seconds یا to | variant="blocks"، label برای صفحه‌خوان، متد restart()، رویداد kashi-complete |
-
-<span id="kashi-dialog"></span><span id="kashi-tabs"></span><span id="kashi-tooltip"></span><span id="kashi-toaster"></span><span id="kashi-copy-button"></span>
-
-| عنصر | ویژگی اصلی | توضیح |
-|---|---|---|
-| `<kashi-dialog>` | heading، description | tone="danger"، size، placement (start، end یا bottom)، open، متدهای show() و close() |
-| `<kashi-tabs>` | label، value | variant (line، pill یا segmented)، orientation="vertical"، size="sm"، block |
-| `<kashi-tooltip>` | content | placement (top، bottom، start یا end)، delay |
-| `<kashi-toaster>` | placement | پیش‌فرض bottom-end؛ max، label؛ تابع toast() و دکمه‌های data-kashi-toast |
-| `<kashi-copy-button>` | value یا target | label، copied-label، icon-only، variant، size؛ رویداد kashi-copy |
-
-<span id="kashi-address-form"></span><span id="kashi-iran-map"></span><span id="kashi-data-table"></span><span id="kashi-dropdown-menu"></span><span id="kashi-popover"></span><span id="kashi-tag-input"></span><span id="kashi-number-input"></span><span id="kashi-rating"></span><span id="kashi-pagination"></span>
-
-| عنصر | ویژگی اصلی | توضیح |
-|---|---|---|
-| `<kashi-address-form>` | name، legend | map، required="false"، label-province و…؛ element.value و element.errors |
-| `<kashi-iran-map>` | data، value | selectable، multiple، name، unit، steps، scale="linear"، legend="false" |
-| `<kashi-data-table>` | یک `<table>` یا `columns` و `rows` | selectable، searchable، compact، striped، sticky-header، name؛ رویدادهای kashi-change و kashi-sort |
-| `<kashi-dropdown-menu>` | label، align="end" | گزینه‌ها: button، a، hr و data-label؛ data-value، data-shortcut، data-tone="danger"، data-checked؛ رویداد kashi-select |
-| `<kashi-popover>` | heading، placement | top-start، top-end، bottom-end؛ رویدادهای kashi-open و kashi-close |
-| `<kashi-tag-input>` | value، max | name (یک فیلد پنهان برای هر برچسب)، tone، allow-duplicates؛ element.validate |
-| `<kashi-number-input>` | value، min، max، step | thousands، unit، digits |
-| `<kashi-rating>` | value، max | readonly، show-value، size، name |
-| `<kashi-pagination>` | page، total | `href` با `{page}`، siblings، summary |
-
 ## کامپوننت‌های دیگر
 
 بیشتر کامپوننت‌های دیگر کاشی (دکمه، کارت، نشان، هشدار، آکاردئون، مراحل، پیشرفت، فیلد متنی و…) به JavaScript نیاز ندارند و با کلاس‌های `@kashi-ui/css` ساخته می‌شوند؛ کد HTML هر کدام در تب «HTML» صفحهٔ همان کامپوننت آمده است.
@@ -397,10 +158,8 @@ export default {
 
 ## حجم
 
-فایل CDN همهٔ عنصرها حدود ۴۲ کیلوبایت (gzip) است و لوگوی بانک‌ها جدا و فقط هنگام نیاز بارگذاری می‌شود. با npm می‌توانید فقط بخشی را وارد کنید؛ مثلاً فقط فیلدهای فارسی:
+فایل CDN همهٔ عنصرها حدود ۴۲ کیلوبایت (gzip) است و لوگوی بانک‌ها جدا و فقط هنگام نیاز بارگذاری می‌شود. با npm فقط بخشی را که لازم دارید وارد کنید (ستون «بخش npm» جدول بالا)؛ مثلاً فقط فیلدهای فارسی:
 
 ```js
 import "@kashi-ui/elements/inputs.js";
 ```
-
-بخش‌ها: `inputs.js` (فیلدهای فارسی)، `fields.js` (کد تأیید)، `calendar.js`، `combobox.js` (Combobox، استان و شهر)، `map.js` (نقشه و فرم نشانی)، `display.js`، `overlay.js` (پنجره، زبانه، راهنما، کپی)، `toast.js`، `menu.js`، `controls.js` (برچسب، عدد، امتیاز، صفحه‌بندی) و `table.js`.

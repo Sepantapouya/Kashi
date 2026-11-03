@@ -26,7 +26,7 @@ const tags = ELEMENT_DOCS[path]?.tags ?? [];
   <p class="element-add">
     <a class="shadcn-add__label" href="#وب-کامپوننت">وب کامپوننت</a>
     <span>بدون React:</span>
-    {tags.slice(0, 3).map((t) => <a href={`/docs/web-components/#${t}`} dir="ltr"><code>&lt;{t}&gt;</code></a>)}
+    {tags.slice(0, 3).map((t) => <a href="#وب-کامپوننت" dir="ltr"><code>&lt;{t}&gt;</code></a>)}
     {tags.length > 3 && <a href="#وب-کامپوننت">و {toFaDigits(String(tags.length - 3))} مورد دیگر</a>}
   </p>
 )}

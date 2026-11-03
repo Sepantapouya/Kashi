@@ -122,8 +122,38 @@ export function readDoc(file) {
   return mdxToMarkdown(readFileSync(file, "utf8"));
 }
 
-/** همهٔ صفحه‌های MDX یک پوشه با عنوان و گروه از فهرست ناوبری سایت */
-export function collectDocs(root, nav, site = "https://kashi.sepantapouya.com") {
+export const ELEMENTS_CDN = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@kashi-ui/elements/dist/cdn/kashi-elements.js"></script>`;
+export const elementsImport = (module) => `import "@kashi-ui/css";\nimport "@kashi-ui/elements/${module}.js";`;
+
+/** بخش «وب کامپوننت» یک صفحه از روی apps/docs/src/data/elements.ts؛ همان چیزی که سایت پایان صفحه نشان می‌دهد */
+export function elementMarkdown(doc) {
+  const row = (cells) => `| ${cells.map(cell).join(" | ")} |`;
+  const out = [
+    "## وب کامپوننت",
+    "",
+    `همین کامپوننت بدون React، برای HTML، وردپرس، Vue، Svelte و Angular: ${doc.tags.map((t) => `\`<${t}>\``).join("، ")} در \`@kashi-ui/elements\`.${doc.note ? ` ${doc.note}` : ""}`,
+    "",
+    "نصب بدون ابزار ساخت (CDN):",
+    "",
+    "```html", ELEMENTS_CDN, "```",
+    "",
+    "یا با npm، فقط همین بخش:",
+    "",
+    "```bash", "npm i @kashi-ui/elements @kashi-ui/css", "```",
+    "",
+    "```js", elementsImport(doc.module), "```",
+    "",
+    "```html", doc.html, "```",
+  ];
+  if (doc.items?.length) out.push("", row(["عنصر", "کاربرد"]), "|---|---|", ...doc.items.map(([t, d]) => row([`<${t}>`, d])));
+  out.push("", "ویژگی‌ها:", "", row(["نام", "مقدار", "پیش‌فرض", "توضیح"]), "|---|---|---|---|", ...doc.attrs.map((a) => row(a)));
+  if (doc.api?.length) out.push("", "رویدادها و JavaScript:", "", row(["نام", "توضیح"]), "|---|---|", ...doc.api.map((a) => row(a)));
+  return out.join("\n");
+}
+
+/** همهٔ صفحه‌های MDX یک پوشه با عنوان و گروه از فهرست ناوبری سایت؛ elements بخش وب کامپوننت هر صفحه را اضافه می‌کند */
+export function collectDocs(root, nav, site = "https://kashi.sepantapouya.com", elements = {}) {
   const groupOf = {};
   for (const g of nav) for (const item of g.items) groupOf[item.href] = { group: g.title, title: item.title };
   return globSync(`${root}/**/*.mdx`).sort().map((file) => {
@@ -133,6 +163,8 @@ export function collectDocs(root, nav, site = "https://kashi.sepantapouya.com") 
     const n = groupOf[href];
     // راهنماها هم نمونه‌کد دارند (Button در صفحهٔ نصب)؛ فقط صفحه‌های کامپوننت کامپوننت معرفی می‌کنند
     const components = /^(components|persian)\//.test(rel) ? d.components : [];
-    return { slug: rel || "intro", url: site + href, title: d.title || (n && n.title) || rel, description: d.description, group: n ? n.group : "", components, markdown: d.markdown };
+    const el = elements[href];
+    const markdown = el ? `${d.markdown}\n\n${elementMarkdown(el)}` : d.markdown;
+    return { slug: rel || "intro", url: site + href, title: d.title || (n && n.title) || rel, description: d.description, group: n ? n.group : "", components, markdown };
   });
 }

@@ -1,6 +1,7 @@
 // متن llms.txt و llms-full.txt (llmstxt.org) از همان مبدل سرور MCP کاشی؛ هر دو همیشه یک متن دارند
 import { collectDocs } from "../../../../packages/mcp/src/docs-to-md.mjs";
 import { nav } from "./nav";
+import { ELEMENT_DOCS } from "./elements";
 
 const site = "https://kashi.sepantapouya.com";
 
@@ -8,7 +9,7 @@ const intro = `# Kashi (کاشی)
 
 > Kashi is an open-source, RTL-first Persian design system: accessible React components (@kashi-ui/react), framework-agnostic CSS (@kashi-ui/css), design tokens, 4500 icons in six styles and Persian utilities such as Jalali dates and national ID, IBAN and card validation. MIT licensed.
 
-Setup: \`npm i @kashi-ui/react @kashi-ui/css\`, import "@kashi-ui/css" once at the app root and set \`<html lang="fa" dir="rtl">\`. Without React, use the \`k-*\` CSS classes from each page's HTML example. In Tailwind projects, \`@kashi-ui/tailwind\` exposes the same tokens as classes (\`bg-secondary\`, \`border-brand\`, \`rounded-lg\`).
+Setup: \`npm i @kashi-ui/react @kashi-ui/css\`, import "@kashi-ui/css" once at the app root and set \`<html lang="fa" dir="rtl">\`. Without React, use the \`k-*\` CSS classes from each page's HTML example, and for interactive components the \`<kashi-*>\` web components from @kashi-ui/elements (each component page has a "وب کامپوننت" section with install, attributes and events). In Tailwind projects, \`@kashi-ui/tailwind\` exposes the same tokens as classes (\`bg-secondary\`, \`border-brand\`, \`rounded-lg\`).
 
 For coding assistants, the Kashi MCP server gives the same docs plus icon search, tokens and Persian utilities as tools: \`npx -y @kashi-ui/mcp\` (${site}/docs/ai/).
 `;
@@ -18,7 +19,7 @@ const name = (d: Doc) => `${d.title}${d.components.length ? ` (${d.components.jo
 
 export function buildLlms() {
   // بیلد و dev از پوشهٔ apps/docs اجرا می‌شوند
-  const docs: Doc[] = collectDocs(`${process.cwd()}/src/pages/docs`, nav);
+  const docs: Doc[] = collectDocs(`${process.cwd()}/src/pages/docs`, nav, site, ELEMENT_DOCS);
   const groups: Record<string, Doc[]> = {};
   for (const d of docs) (groups[d.group || "Other"] ||= []).push(d);
 

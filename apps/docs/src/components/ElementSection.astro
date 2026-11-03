@@ -1,27 +1,63 @@
 ---
-// بخش «وب کامپوننت» پایان صفحه‌های کامپوننت: همان کامپوننت بدون React، با نمونهٔ زنده و کد HTML.
-// محتوا از data/elements.ts می‌آید تا همهٔ صفحه‌ها یک‌جا و یکدست به‌روز بمانند.
+// بخش «وب کامپوننت» پایان صفحه‌های کامپوننت: همان کامپوننت بدون React با نصب، نمونهٔ زنده، ویژگی‌ها و رویدادها.
+// محتوا از data/elements.ts می‌آید و همان متن با elementMarkdown به llms.txt و سرور MCP هم می‌رسد.
 import Demo from "./Demo.astro";
+import CodeBlock from "./CodeBlock.astro";
+import Props from "./Props.astro";
 import ElementsScript from "./ElementsScript.astro";
 import { ELEMENT_DOCS } from "../data/elements";
+import { ELEMENTS_CDN, elementsImport } from "../../../../packages/mcp/src/docs-to-md.mjs";
 
 const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
 const doc = ELEMENT_DOCS[path];
 // کدهای لاتین داخل متن فارسی در <code> جدا می‌شوند تا ترتیب نمایش به‌هم نریزد
 const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-const note = doc?.note ? doc.note.split("`").map((part, i) => (i % 2 ? `<code dir="ltr">${esc(part)}</code>` : esc(part))).join("") : "";
+const inline = (t?: string) => (t ? t.split("`").map((part, i) => (i % 2 ? `<code dir="ltr">${esc(part)}</code>` : esc(part))).join("") : "");
 ---
 {doc && (
   <section class="element-section" aria-labelledby="وب-کامپوننت">
     <h2 id="وب-کامپوننت">وب کامپوننت</h2>
     <p>
-      همین کامپوننت بدون React، برای HTML، وردپرس، Vue، Svelte و Angular در <a href="/docs/web-components/"><code>@kashi-ui/elements</code></a>
-      {" "}({doc.tags.map((t, i) => <>{i > 0 && "، "}<a href={`/docs/web-components/#${t}`}><code>&lt;{t}&gt;</code></a></>)}).
-      {note && <> <Fragment set:html={note} /></>}
+      همین کامپوننت بدون React، برای HTML، وردپرس، Vue، Svelte و Angular:
+      {" "}{doc.tags.map((t, i) => <>{i > 0 && "، "}<code dir="ltr">&lt;{t}&gt;</code></>)} در <a href="/docs/web-components/"><code>@kashi-ui/elements</code></a>.
+      {doc.note && <> <Fragment set:html={inline(doc.note)} /></>}
     </p>
+
+    <h3>نصب</h3>
+    <p>بدون ابزار ساخت، این دو خط را در <code>&lt;head&gt;</code> صفحه بگذارید:</p>
+    <CodeBlock code={ELEMENTS_CDN} lang="html" label="CDN" />
+    <p>یا با npm، و فقط همین بخش را وارد کنید:</p>
+    <CodeBlock code="npm i @kashi-ui/elements @kashi-ui/css" lang="bash" label="npm" />
+    <CodeBlock code={elementsImport(doc.module)} lang="js" />
+
+    <h3>نمونه</h3>
     <Demo lang="html" column align="start" label="نمونهٔ وب کامپوننت" code={doc.html}>
       <Fragment set:html={doc.html} />
     </Demo>
+
+    {doc.items && (
+      <div class="table-wrap" role="region" aria-label="عنصرهای این صفحه" tabindex="0">
+        <table class="ref-table">
+          <thead><tr><th scope="col">عنصر</th><th scope="col">کاربرد</th></tr></thead>
+          <tbody>{doc.items.map(([t, d]) => <tr><th scope="row"><code dir="ltr">&lt;{t}&gt;</code></th><td>{d}</td></tr>)}</tbody>
+        </table>
+      </div>
+    )}
+
+    <h3>ویژگی‌ها</h3>
+    <Props rows={doc.attrs} caption="ویژگی‌های وب کامپوننت" />
+
+    {doc.api && (
+      <>
+        <h3>رویدادها و JavaScript</h3>
+        <div class="table-wrap" role="region" aria-label="رویدادها و JavaScript" tabindex="0">
+          <table class="ref-table">
+            <thead><tr><th scope="col">نام</th><th scope="col">توضیح</th></tr></thead>
+            <tbody>{doc.api.map(([n, d]) => <tr><th scope="row"><code dir="ltr">{n}</code></th><td>{d}</td></tr>)}</tbody>
+          </table>
+        </div>
+      </>
+    )}
     <ElementsScript />
   </section>
 )}
