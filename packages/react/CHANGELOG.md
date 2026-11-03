@@ -1,5 +1,20 @@
 # @kashi-ui/react
 
+## 0.26.0
+
+### Minor Changes
+
+- f19f0dc: کامپوننت تازهٔ انتخاب نوبت (`AppointmentPicker` و `<kashi-appointment-picker>`): روزهای شمسی با تعداد نوبت خالی و ساعت‌های هر روز در گروه‌های صبح، بعدازظهر و عصر؛ جمعه‌ها و تعطیلات رسمی بسته، نوبت‌های پر و گذشته غیرفعال، و ارسال تاریخ و ساعت در فرم. وب کامپوننت‌های تازهٔ `<kashi-input>` و `<kashi-textarea>` (پاک کردن، نمایش رمز، شمارنده) و `<kashi-banner>` (دکمهٔ بستن).
+
+### Patch Changes
+
+- Updated dependencies [f19f0dc]
+- Updated dependencies [14340ac]
+- Updated dependencies [14340ac]
+  - @kashi-ui/css@0.26.0
+  - @kashi-ui/bank-logos@0.26.0
+  - @kashi-ui/persian@0.26.0
+
 ## 0.25.0
 
 ### Patch Changes
