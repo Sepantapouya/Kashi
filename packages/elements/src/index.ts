@@ -17,6 +17,8 @@ import { KashiColorPicker, KashiDateRangePicker, KashiFileUpload, KashiMonthPick
 import {
   KashiActivityHeatmap, KashiBarChart, KashiBarList, KashiLineChart, KashiPieChart, KashiProportionBar, KashiSparkline,
 } from "./charts.js";
+import { KashiBanner, KashiInput, KashiTextarea } from "./basic.js";
+import { KashiAppointmentPicker } from "./appointment.js";
 import { KashiCarousel, KashiCommandPalette, KashiContextMenu, KashiSideNav, KashiSplitter, KashiTour, KashiTreeView } from "./nav.js";
 import { KashiCalendar, KashiDatePicker } from "./calendar.js";
 import { KashiCountdown, KashiDate, KashiMoney, KashiRelativeTime } from "./display.js";
@@ -33,6 +35,7 @@ export {
   KashiPlateInput, KashiInlineEdit, KashiDateRangePicker, KashiMonthPicker, KashiFileUpload, KashiColorPicker,
   KashiBarChart, KashiLineChart, KashiPieChart, KashiBarList, KashiProportionBar, KashiSparkline, KashiActivityHeatmap,
   KashiCommandPalette, KashiContextMenu, KashiCarousel, KashiTreeView, KashiTour, KashiSplitter, KashiSideNav,
+  KashiInput, KashiTextarea, KashiBanner, KashiAppointmentPicker,
 };
 export { KashiDigitsInput } from "./inputs.js";
 export type { ToastOptions, ToastTone } from "./toast.js";
@@ -52,6 +55,7 @@ export const KASHI_ELEMENTS = [
   "kashi-date-range-picker", "kashi-month-picker", "kashi-file-upload", "kashi-color-picker",
   "kashi-bar-chart", "kashi-line-chart", "kashi-pie-chart", "kashi-bar-list", "kashi-proportion-bar", "kashi-sparkline", "kashi-activity-heatmap",
   "kashi-command-palette", "kashi-context-menu", "kashi-carousel", "kashi-tree-view", "kashi-tour", "kashi-splitter", "kashi-side-nav",
+  "kashi-input", "kashi-textarea", "kashi-banner", "kashi-appointment-picker",
 ] as const;
 
 declare global {
@@ -115,5 +119,9 @@ declare global {
     "kashi-tour": KashiTour;
     "kashi-splitter": KashiSplitter;
     "kashi-side-nav": KashiSideNav;
+    "kashi-input": KashiInput;
+    "kashi-textarea": KashiTextarea;
+    "kashi-banner": KashiBanner;
+    "kashi-appointment-picker": KashiAppointmentPicker;
   }
 }

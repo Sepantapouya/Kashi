@@ -126,6 +126,8 @@ export { IRAN_PROVINCES, IRAN_VIEWBOX } from "./iranMapData.js";
 export { CitySelect } from "./CitySelect.js";
 export type { CitySelectProps } from "./CitySelect.js";
 export { AddressForm } from "./AddressForm.js";
+export { AppointmentPicker, appointmentSlots } from "./AppointmentPicker.js";
+export type { AppointmentPickerProps, AppointmentSlot, AppointmentValue } from "./AppointmentPicker.js";
 export type { AddressFormProps } from "./AddressForm.js";
 export { ProvinceSelect } from "./ProvinceSelect.js";
 export type { ProvinceSelectProps } from "./ProvinceSelect.js";

@@ -57,7 +57,7 @@ import "@kashi-ui/elements"; // همه؛ یا فقط یک بخش، مثل "@kash
 
 ## کامپوننت‌ها
 
-۵۹ عنصر؛ روی نام هر کامپوننت بزنید تا نصب، نمونه، ویژگی‌ها و رویدادهایش را ببینید.
+۶۳ عنصر؛ روی نام هر کامپوننت بزنید تا نصب، نمونه، ویژگی‌ها و رویدادهایش را ببینید.
 
 | کامپوننت | عنصرها | بخش npm |
 |---|---|---|
@@ -66,6 +66,7 @@ import "@kashi-ui/elements"; // همه؛ یا فقط یک بخش، مثل "@kash
 | [ویرایش نگارشی](/docs/persian/text-fix/#وب-کامپوننت) | `<kashi-persian-textarea>`، `<kashi-keyboard-fix>` | `forms.js` |
 | [بازهٔ تاریخ شمسی](/docs/persian/date-range/#وب-کامپوننت) | `<kashi-date-range-picker>` | `pickers.js` |
 | [انتخاب ماه](/docs/persian/month-picker/#وب-کامپوننت) | `<kashi-month-picker>` | `pickers.js` |
+| [انتخاب نوبت](/docs/persian/appointment/#وب-کامپوننت) | `<kashi-appointment-picker>` | `appointment.js` |
 | [هیت‌مپ فعالیت](/docs/persian/activity-heatmap/#وب-کامپوننت) | `<kashi-activity-heatmap>` | `charts.js` |
 | [دیت‌پیکر شمسی](/docs/persian/date-picker/#وب-کامپوننت) | `<kashi-date-picker>`، `<kashi-calendar>` | `calendar.js` |
 | [کد تأیید](/docs/persian/otp/#وب-کامپوننت) | `<kashi-otp>` | `fields.js` |
@@ -75,6 +76,8 @@ import "@kashi-ui/elements"; // همه؛ یا فقط یک بخش، مثل "@kash
 | [نمایش مبلغ](/docs/persian/money/#وب-کامپوننت) | `<kashi-money>` | `display.js` |
 | [شمارش معکوس](/docs/persian/countdown/#وب-کامپوننت) | `<kashi-countdown>` | `display.js` |
 | [تاریخ و زمان نسبی](/docs/persian/utilities/#وب-کامپوننت) | `<kashi-date>`، `<kashi-relative-time>` | `display.js` |
+| [فیلد متنی](/docs/components/input/#وب-کامپوننت) | `<kashi-input>`، `<kashi-textarea>` | `basic.js` |
+| [بنر](/docs/components/banner/#وب-کامپوننت) | `<kashi-banner>` | `basic.js` |
 | [Combobox](/docs/components/combobox/#وب-کامپوننت) | `<kashi-combobox>` | `combobox.js` |
 | [انتخاب چندتایی](/docs/components/multi-select/#وب-کامپوننت) | `<kashi-multi-select>` | `forms.js` |
 | [اسلایدر](/docs/components/slider/#وب-کامپوننت) | `<kashi-slider>` | `forms.js` |
@@ -174,7 +177,7 @@ export default {
 
 بیشتر کامپوننت‌های دیگر کاشی (دکمه، کارت، نشان، هشدار، آکاردئون، مراحل، پیشرفت، فیلد متنی و…) به JavaScript نیاز ندارند و با کلاس‌های `@kashi-ui/css` ساخته می‌شوند؛ کد HTML هر کدام در تب «HTML» صفحهٔ همان کامپوننت آمده است.
 
-همهٔ کامپوننت‌های تعاملی کاشی نسخهٔ وب کامپوننت دارند. چند رفتار کوچک هنوز فقط در React است: دکمهٔ نمایش رمز، پاک کردن و شمارندهٔ نویسه در فیلد متنی، و دکمهٔ بستن بنر. در HTML، خود فیلد و بنر با کلاس‌های CSS کار می‌کنند.
+همهٔ کامپوننت‌های تعاملی کاشی نسخهٔ وب کامپوننت دارند.
 
 ## حجم
 

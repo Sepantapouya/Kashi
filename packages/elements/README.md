@@ -29,8 +29,9 @@ import "@kashi-ui/elements";
 ## عنصرها
 
 - **فیلدهای فارسی:** `kashi-national-id`، `kashi-legal-id`، `kashi-mobile`، `kashi-landline`، `kashi-card-number`، `kashi-iban`، `kashi-postal-code`، `kashi-price`
+- **فیلد متنی و اطلاعیه:** `kashi-input` (پاک کردن، نمایش رمز، شمارنده)، `kashi-textarea`، `kashi-banner` (با دکمهٔ بستن)
 - **فیلدهای دیگر:** `kashi-time-input`، `kashi-plate-input`، `kashi-persian-textarea`، `kashi-keyboard-fix`، `kashi-password-strength`، `kashi-inline-edit`
-- **انتخاب:** `kashi-date-picker`، `kashi-calendar`، `kashi-date-range-picker`، `kashi-month-picker`، `kashi-otp`، `kashi-combobox`، `kashi-multi-select`، `kashi-province-select`، `kashi-city-select`، `kashi-tag-input`، `kashi-chip-group`، `kashi-number-input`، `kashi-slider`، `kashi-rating`، `kashi-color-picker`، `kashi-file-upload`
+- **انتخاب:** `kashi-date-picker`، `kashi-calendar`، `kashi-date-range-picker`، `kashi-month-picker`، `kashi-appointment-picker`، `kashi-otp`، `kashi-combobox`، `kashi-multi-select`، `kashi-province-select`، `kashi-city-select`، `kashi-tag-input`، `kashi-chip-group`، `kashi-number-input`، `kashi-slider`، `kashi-rating`، `kashi-color-picker`، `kashi-file-upload`
 - **نشانی و نقشه:** `kashi-address-form`، `kashi-iran-map`
 - **داده و نمودار:** `kashi-data-table`، `kashi-pagination`، `kashi-bar-chart`، `kashi-line-chart`، `kashi-pie-chart`، `kashi-bar-list`، `kashi-proportion-bar`، `kashi-sparkline`، `kashi-activity-heatmap`
 - **نمایش:** `kashi-money`، `kashi-date`، `kashi-relative-time`، `kashi-countdown`

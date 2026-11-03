@@ -1,28 +1,67 @@
 {
- "generated": "2026-11-03T16:58:35+03:30",
+ "generated": "2026-11-03T17:23:32+03:30",
  "totals": {
-  "commits": 197,
+  "commits": 199,
   "versions": 27,
-  "added": 88385,
+  "added": 88624,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [],
+ "unreleased": [
+  {
+   "sha": "14340ac2cffb61c71f9b747c4ee8f7a5c2e17059",
+   "short": "14340ac",
+   "date": "2026-11-03T17:23:32+03:30",
+   "author": "sepantapouya",
+   "subject": "feat(docs): calmer, clearer component pages",
+   "details": [
+    "- Props and CSS variable tables: two columns; each union type member is",
+    "its own chip, default next to it; stacked on phones.",
+    "- Demo code over ten lines collapses to eight per tab (React and HTML",
+    "measured separately) with a show-all button.",
+    "- Section headings get a hover link icon; h4 gets real spacing.",
+    "- «جدید» kept only on the five latest additions.",
+    "- Blank lines removed inside code fences on the Persian input page;",
+    "smaller demo padding on phones.",
+    "CSS fixes found while checking every page: segmented tabs no longer",
+    "overflow narrow containers; a closed side drawer dialog is hidden again."
+   ],
+   "files": 13,
+   "added": 150,
+   "removed": 35
+  },
+  {
+   "sha": "3633aba1158abe2be017a43d04ea341beced2f56",
+   "short": "3633aba",
+   "date": "2026-11-03T17:10:01+03:30",
+   "author": "sepantapouya",
+   "subject": "fix(docs): markdown tables fill the full width",
+   "details": [
+    "Tables were display: block (for phone scrolling), so their rows stopped",
+    "at content width and left the rest of the frame empty. They are full",
+    "width tables now and switch to the scrolling block only on phones;",
+    "border-collapse: separate keeps the rounded corners."
+   ],
+   "files": 1,
+   "added": 10,
+   "removed": 3
+  }
+ ],
  "versions": [
   {
    "version": "0.25.0",
    "date": "2026-11-03T16:58:35+03:30",
-   "releaseCommit": "b9d524a",
+   "releaseCommit": "950b4b6",
    "commits": [
     {
-     "sha": "b9d524aa9e7533f00bf40b43a1159d81fb53fb30",
-     "short": "b9d524a",
+     "sha": "950b4b6b250273175f23faeb243fbe95109358c9",
+     "short": "950b4b6",
      "date": "2026-11-03T16:58:35+03:30",
      "author": "sepantapouya",
      "subject": "Release 0.25.0: every interactive component as a web component",
      "details": [],
-     "files": 22,
-     "added": 97,
-     "removed": 46
+     "files": 23,
+     "added": 176,
+     "removed": 50
     },
     {
      "sha": "9529713c0a603ef674b3b220d33415f712ff2d21",

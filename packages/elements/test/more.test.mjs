@@ -191,3 +191,48 @@ test("مقدار گذاشته‌شده پیش از وصل شدن به صفحه �
   document.body.replaceChildren(el);
   assert.equal(s.value, 55);
 });
+
+test("فیلد متنی: پاک کردن، نمایش رمز و شمارنده؛ بنر با دکمهٔ بستن", () => {
+  const f = mount('<form><kashi-input label="ایمیل" name="email" clearable value="a@b.c"></kashi-input></form>');
+  const el = f.firstElementChild;
+  const input = el.querySelector("input");
+  assert.equal(input.name, "email");
+  assert.equal(new FormData(f).get("email"), "a@b.c");
+  el.querySelector('[data-act="clear"]').click();
+  assert.equal(el.value, "");
+  assert.equal(el.querySelector('[data-act="clear"]'), null);
+  const pw = mount('<kashi-input label="رمز" type="password" value="x"></kashi-input>');
+  const eye = pw.querySelector('[data-act="reveal"]');
+  assert.equal(eye.getAttribute("aria-label"), "نمایش رمز");
+  eye.click();
+  assert.equal(pw.querySelector("input").type, "text");
+  assert.equal(pw.querySelector('[data-act="reveal"]').getAttribute("aria-pressed"), "true");
+  const t = mount('<kashi-textarea label="متن" maxlength="10" show-count value="سلام"></kashi-textarea>');
+  assert.equal(t.querySelector(".k-counter").textContent, "۴ / ۱۰");
+  assert.match(t.querySelector("textarea").getAttribute("aria-describedby"), /-count/);
+  const b = mount('<kashi-banner tone="warning" dismissible>اختلال <a slot="actions" href="#">جزئیات</a></kashi-banner>');
+  assert.ok(b.querySelector(".k-banner.k-banner--warning .k-banner__actions a"));
+  b.querySelector(".k-banner__close").click();
+  assert.equal(b.hidden, true);
+});
+
+test("انتخاب نوبت: روزها، جمعهٔ تعطیل، نوبت پر، انتخاب و فرم", () => {
+  const f = mount(`<form><kashi-appointment-picker start="2030-04-20" from="09:00" to="13:00" step="60" name="visit" booked='{"2030-04-20": ["10:00"]}'></kashi-appointment-picker></form>`);
+  const el = f.firstElementChild;
+  const days = el.querySelectorAll(".k-appt__day");
+  assert.equal(days.length, 7);
+  assert.equal(days[6].disabled, true);
+  assert.match(days[0].getAttribute("aria-label"), /۳۱ فروردین ۱۴۰۹، ۳ نوبت خالی/);
+  assert.equal(el.querySelector('[data-time="10:00"]').disabled, true);
+  const log = [];
+  el.addEventListener("kashi-change", (e) => log.push(e.detail));
+  el.querySelector('[data-time="11:00"]').click();
+  assert.deepEqual([log.at(-1).date, log.at(-1).time], ["2030-04-20", "11:00"]);
+  assert.equal(new FormData(f).get("visit_date"), "2030-04-20");
+  assert.equal(new FormData(f).get("visit_time"), "11:00");
+  assert.match(el.querySelector(".k-appt__summary").textContent, /ساعت ۱۱:۰۰/);
+  el.querySelectorAll(".k-appt__day")[1].click();
+  assert.equal(el.querySelector('.k-appt__day[aria-checked="true"]').dataset.i, "1");
+  assert.equal(el.querySelector('.k-appt__time[aria-checked="true"]'), null);
+  f.remove(); // زمان‌سنج دقیقه‌ای عنصر متوقف شود تا تست تمام شود
+});

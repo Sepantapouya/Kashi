@@ -90,6 +90,20 @@ export const previews: Record<string, ReactNode> = {
   countdown: <Box><Countdown seconds={154} variant="blocks" /></Box>,
   "activity-heatmap": <Box cls="pv-heat"><ActivityHeatmap year={1405} data={Object.fromEntries(Array.from({ length: 200 }, (_, i) => [new Date(2026, 2, 21 + i * 1.7).toISOString().slice(0, 10), (i * 7) % 9]))} /></Box>,
   "iran-map": <Box cls="pv-map"><IranMap legend={false} data={{ "تهران": 9, "خراسان رضوی": 7, "اصفهان": 7, "فارس": 6, "آذربایجان شرقی": 5, "خوزستان": 5, "مازندران": 4, "البرز": 4, "گیلان": 3, "کرمان": 3, "یزد": 2, "قم": 2, "کرمانشاه": 2, "همدان": 1, "سمنان": 1 }} /></Box>,
+  appointment: (
+    <Box cls="pv--field pv-appt">
+      <div className="pv-appt__days">
+        {[["امروز", "۱۲"], ["فردا", "۱۳"], ["سه‌شنبه", "۱۴"]].map(([w, d], i) => (
+          <span key={d} className="k-appt__day" aria-checked={i === 1 ? "true" : "false"}><span className="k-appt__weekday">{w}</span><span className="k-appt__date">{d}</span></span>
+        ))}
+      </div>
+      <div className="k-appt__times">
+        {["۰۹:۰۰", "۰۹:۳۰", "۱۰:۰۰", "۱۰:۳۰", "۱۱:۰۰", "۱۱:۳۰"].map((t, i) => (
+          <span key={t} className="k-appt__time" aria-checked={i === 2 ? "true" : "false"} style={{ display: "grid", placeItems: "center", ...(i === 1 ? { background: "transparent", color: "var(--k-text-quaternary)", textDecoration: "line-through" } : {}) }}>{t}</span>
+        ))}
+      </div>
+    </Box>
+  ),
   address: (
     <Box cls="pv--field pv-address">
       <div className="pv-address__row">

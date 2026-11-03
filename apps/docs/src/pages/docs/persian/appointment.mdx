@@ -1,0 +1,74 @@
+---
+layout: ../../../layouts/Docs.astro
+title: انتخاب نوبت
+description: رزرو نوبت با روزهای شمسی و ساعت‌های خالی هر روز؛ برای مطب، آرایشگاه، مشاوره و هر سرویس نوبت‌دهی. جمعه‌ها و تعطیلات رسمی بسته‌اند و نوبت‌های پر و گذشته غیرفعال.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { AppointmentPickerDemo, AppointmentCustomDemo } from "../../../components/demos";
+
+```tsx
+import { AppointmentPicker } from "@kashi-ui/react";
+```
+
+## نمونه
+
+روزها با تاریخ شمسی و تعداد نوبت خالی‌شان در یک ردیف می‌آیند و ساعت‌های همان روز در گروه‌های صبح، بعدازظهر و عصر. جمعه‌ها و تعطیلات رسمی ثابت بسته‌اند، نوبت‌های پرشده خط خورده‌اند و ساعت‌هایی از امروز که گذشته‌اند قابل انتخاب نیستند.
+
+<Demo html={false} code={`const [visit, setVisit] = useState<AppointmentValue | null>(null);
+
+<AppointmentPicker
+  value={visit}
+  onChange={setVisit}
+  from="09:00"
+  to="17:00"
+  step={30}
+  booked={{ "2026-11-04": ["09:30", "10:00"] }}
+  name="visit"
+/>`}>
+  <AppointmentPickerDemo client:visible />
+</Demo>
+
+با `from`، `to` و `step` ساعت کاری و طول هر نوبت را بدهید و نوبت‌های پرشده را با `booked` (کلید تاریخ میلادی `YYYY-MM-DD`). با `name` دو فیلد `visit_date` و `visit_time` در فرم HTML ارسال می‌شوند.
+
+## ساعت‌های دلخواه هر روز
+
+اگر ساعت‌ها هر روز فرق می‌کنند (نیمه‌وقت پنجشنبه، استراحت ظهر، چند پزشک)، `getSlots` را بدهید. برای هر روز فهرست ساعت‌ها را برمی‌گرداند؛ هر ساعت یک رشته یا `{ time, available }` است.
+
+<Demo html={false} code={`<AppointmentPicker
+  label="نوبت مشاوره"
+  days={10}
+  getSlots={(date) =>
+    date.getDay() === 4
+      ? ["09:00", "10:00", "11:00"]
+      : ["09:00", "10:00", "11:00", "17:00", "18:00", { time: "19:00", available: false }]
+  }
+/>`}>
+  <AppointmentCustomDemo client:visible />
+</Demo>
+
+روزهای تعطیل را با `closed` عوض کنید: `false` برای باز بودن همهٔ روزها، یا تابعی مثل `(d) => d.getDay() === 4` برای تعطیلی پنجشنبه‌ها. تابع `appointmentSlots` هم جدا در دسترس است تا همان ساعت‌ها را در سرور حساب کنید.
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["value / defaultValue", "{ date: Date; time: string } | null", "", "نوبت انتخاب‌شده"],
+  ["onChange", "(value) => void", "", "با انتخاب هر ساعت"],
+  ["start", "Date", "امروز", "اولین روز"],
+  ["days", "number", "7", "تعداد روزهای قابل انتخاب"],
+  ["from / to", "string", "\"09:00\" / \"17:00\"", "ساعت شروع و پایان کار"],
+  ["step", "number", "30", "طول هر نوبت به دقیقه"],
+  ["booked", "Record<string, string[]>", "", "نوبت‌های پرشده؛ کلید YYYY-MM-DD"],
+  ["getSlots", "(date: Date) => (string | AppointmentSlot)[]", "", "ساعت‌های هر روز به‌جای from، to، step و booked"],
+  ["closed", "boolean | (date: Date) => boolean", "true", "روزهای تعطیل؛ true یعنی جمعه‌ها و تعطیلات رسمی ثابت"],
+  ["label", "string", "\"انتخاب نوبت\"", "برچسب و نام گروه"],
+  ["name", "string", "", "فیلدهای name_date و name_time در فرم"],
+  ["digits", "\"fa\" | \"latin\"", "\"fa\"", "خط ارقام"],
+]} />
+
+## دسترس‌پذیری
+
+- روزها و ساعت‌ها گروه‌های رادیویی‌اند (`role="radiogroup"`) با فوکوس گردشی: فقط یک گزینه در ترتیب Tab است و کلیدهای جهت بین بقیه حرکت می‌کنند؛ در راست‌به‌چپ، فلش چپ یعنی گزینهٔ بعد.
+- صفحه‌خوان هر روز را با تاریخ کامل و وضعیتش می‌خواند: «سه‌شنبه ۱۳ آبان ۱۴۰۵، ۶ نوبت خالی» یا «تعطیل».
+- نوبت انتخاب‌شده در یک ناحیهٔ زنده (`aria-live`) اعلام می‌شود.
+- نوبت پر فقط با خط‌خوردگی نشان داده نمی‌شود؛ غیرفعال است و صفحه‌خوان «پر» را می‌خواند.

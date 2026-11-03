@@ -25,6 +25,8 @@ export function define(tag: string, ctor: CustomElementConstructor, display: "bl
   const rules = [
     BLOCK_TAGS.length && `:where(${BLOCK_TAGS.join(",")}) { display: block; }`,
     CONTENTS_TAGS.length && `:where(${CONTENTS_TAGS.join(",")}) { display: contents; }`,
+    // display بالا قاعدهٔ hidden مرورگر را از کار می‌اندازد؛ عنصر پنهان‌شده باید پنهان بماند
+    `:where(${[...BLOCK_TAGS, ...CONTENTS_TAGS].join(",")})[hidden] { display: none; }`,
   ].filter(Boolean);
   style.textContent = `@layer kashi.elements { ${rules.join(" ")} }`;
 }

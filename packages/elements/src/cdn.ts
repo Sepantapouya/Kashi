@@ -16,6 +16,8 @@ const MODULES: [string[], () => Promise<unknown>][] = [
   [["kashi-multi-select", "kashi-slider", "kashi-chip-group", "kashi-password-strength", "kashi-persian-textarea", "kashi-keyboard-fix", "kashi-time-input", "kashi-plate-input", "kashi-inline-edit"], () => import("./forms.js")],
   [["kashi-date-range-picker", "kashi-month-picker", "kashi-file-upload", "kashi-color-picker"], () => import("./pickers.js")],
   [["kashi-bar-chart", "kashi-line-chart", "kashi-pie-chart", "kashi-bar-list", "kashi-proportion-bar", "kashi-sparkline", "kashi-activity-heatmap"], () => import("./charts.js")],
+  [["kashi-input", "kashi-textarea", "kashi-banner"], () => import("./basic.js")],
+  [["kashi-appointment-picker"], () => import("./appointment.js")],
   [["kashi-command-palette", "kashi-context-menu", "kashi-carousel", "kashi-tree-view", "kashi-tour", "kashi-splitter", "kashi-side-nav"], () => import("./nav.js")],
 ];
 

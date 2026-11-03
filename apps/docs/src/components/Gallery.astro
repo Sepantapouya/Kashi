@@ -23,7 +23,7 @@ const CATEGORIES: Record<"components" | "persian", { key: string; label: string;
   persian: [
     { key: "input", label: "فیلدهای فارسی", text: "کد ملی، شناسهٔ شرکت، موبایل، تلفن، کارت، شبا، مبلغ، کد پستی، ساعت، پلاک و متن؛ همه در یک کامپوننت با kind.", slugs: ["input", "province", "otp"] },
     { key: "map", label: "نقشه و نشانی", text: "نقشهٔ ۳۱ استان ایران و فرم نشانی با فهرست بیش از ۱۲۰۰ شهر.", slugs: ["iran-map", "address"] },
-    { key: "date", label: "تاریخ و زمان", text: "تقویم جلالی دقیق برای سال‌های ۱۳۰۰ تا ۱۵۰۰، بدون کتابخانهٔ جانبی.", slugs: ["date-picker", "date-range", "month-picker", "date-tile", "countdown", "activity-heatmap"] },
+    { key: "date", label: "تاریخ و زمان", text: "تقویم جلالی دقیق برای سال‌های ۱۳۰۰ تا ۱۵۰۰، بدون کتابخانهٔ جانبی.", slugs: ["date-picker", "date-range", "month-picker", "appointment", "date-tile", "countdown", "activity-heatmap"] },
     { key: "bank", label: "بانکی و مالی", text: "نمایش مبلغ، کارت بانکی با رنگ و لوگوی بانک، رسید پرداخت و لوگوی ۴۰ بانک.", slugs: ["money", "bank-card", "receipt", "bank-logos"] },
     { key: "text", label: "متن فارسی", text: "نیم‌فاصله، «ي» و «ك» عربی و صفحه‌کلید اشتباه؛ مشکلاتی که فقط متن فارسی دارد.", slugs: ["text-fix"] },
   ],
@@ -197,6 +197,12 @@ numberToWords(<span class="t-n">2500000</span>);                     <span class
   .gcard__preview .pv-bank { display: grid; place-items: center; inline-size: 3.5rem; block-size: 3.5rem; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-lg); background: var(--k-bg-elevated); color: var(--k-text-brand); }
   .gcard__preview .pv-bank svg { inline-size: 1.75rem; }
   /* سال کامل در عرض کارت: خانه‌های ریز بدون برچسب */
+  .gcard__preview .pv-appt { display: grid; gap: 8px; inline-size: min(100%, 15rem); font-size: 0.75rem; }
+  .gcard__preview .pv-appt__days { display: flex; gap: 6px; }
+  .gcard__preview .pv-appt .k-appt__day { inline-size: auto; flex: 1; padding: 4px 2px; }
+  .gcard__preview .pv-appt .k-appt__date { font-size: 0.9375rem; }
+  .gcard__preview .pv-appt .k-appt__times { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .gcard__preview .pv-appt .k-appt__time { block-size: 1.75rem; font-size: 0.75rem; }
   .gcard__preview .pv-address { display: grid; gap: 6px; inline-size: min(100%, 15rem); }
   .gcard__preview .pv-address__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
   .gcard__preview .pv-address .k-input__control { inline-size: 100%; }

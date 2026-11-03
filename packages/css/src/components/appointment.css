@@ -1,0 +1,87 @@
+/* انتخاب نوبت: روزها (شمسی) در یک ردیف و ساعت‌های خالی هر روز، گروه‌بندی‌شده
+ * <div class="k-appt">
+ *   <div class="k-appt__days" role="radiogroup"><button class="k-appt__day" role="radio" aria-checked="true">…</button></div>
+ *   <div class="k-appt__slots"><div class="k-appt__group"><p class="k-appt__period">صبح</p>
+ *     <div class="k-appt__times" role="radiogroup"><button class="k-appt__time" role="radio">۰۹:۰۰</button></div></div></div>
+ *   <p class="k-appt__summary">…</p>
+ * </div>
+ *
+ * متغیرها: --k-appt-day-width  --k-appt-time-width
+ */
+.k-appt {
+  display: grid;
+  gap: var(--k-space-4);
+  min-inline-size: 0;
+  color: var(--k-text-primary);
+  font-size: var(--k-text-sm);
+}
+
+/* ردیف روزها: اسکرول افقی روی صفحهٔ باریک */
+.k-appt__days {
+  display: flex;
+  gap: var(--k-space-2);
+  overflow-x: auto;
+  padding: 2px 2px var(--k-space-1);
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+.k-appt__day {
+  /* روزها کل ردیف را پر می‌کنند تا با شبکهٔ ساعت‌ها هم‌عرض باشند؛ اگر جا نشوند، اسکرول */
+  flex: 1 0 var(--k-appt-day-width, 4.75rem);
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  padding: var(--k-space-2) var(--k-space-1);
+  border: 1px solid var(--k-border-primary);
+  border-radius: var(--k-radius-lg);
+  background: var(--k-bg-elevated);
+  color: var(--k-text-secondary);
+  font: inherit;
+  cursor: pointer;
+  scroll-snap-align: start;
+  box-shadow: var(--k-shadow-xs);
+  transition: background-color var(--k-duration-fast), border-color var(--k-duration-fast), color var(--k-duration-fast);
+}
+.k-appt__day:hover:not(:disabled) { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-appt__day:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-appt__weekday { color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-weight: var(--k-weight-medium); }
+.k-appt__date { color: inherit; font-size: var(--k-text-lg); font-weight: var(--k-weight-semibold); line-height: 1.2; letter-spacing: -0.02em; }
+.k-appt__month { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.k-appt__free { margin-block-start: 2px; padding: 0 0.4rem; border-radius: var(--k-radius-full); background: var(--k-bg-success-subtle); color: var(--k-text-success); font-size: 0.6875rem; font-weight: var(--k-weight-semibold); line-height: 1.25rem; white-space: nowrap; }
+.k-appt__day[aria-checked="true"] { border-color: var(--k-border-brand); background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+.k-appt__day[aria-checked="true"] .k-appt__weekday,
+.k-appt__day[aria-checked="true"] .k-appt__month { color: var(--k-text-brand); }
+.k-appt__day:disabled { border-style: dashed; background: transparent; box-shadow: none; color: var(--k-text-quaternary); cursor: not-allowed; }
+.k-appt__day:disabled .k-appt__weekday, .k-appt__day:disabled .k-appt__month { color: var(--k-text-quaternary); }
+.k-appt__day:disabled .k-appt__free { background: transparent; color: var(--k-text-quaternary); }
+
+/* ساعت‌ها */
+.k-appt__slots { display: grid; gap: var(--k-space-4); }
+.k-appt__group { display: grid; gap: var(--k-space-2); }
+.k-appt__period { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+.k-appt__times { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--k-appt-time-width, 5.25rem), 1fr)); gap: var(--k-space-2); }
+.k-appt__time {
+  block-size: calc(2.5rem * var(--k-density));
+  border: 1px solid var(--k-border-primary);
+  border-radius: var(--k-radius-md);
+  background: var(--k-bg-elevated);
+  color: var(--k-text-primary);
+  font: inherit;
+  font-weight: var(--k-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--k-duration-fast), border-color var(--k-duration-fast), color var(--k-duration-fast);
+}
+.k-appt__time:hover:not(:disabled) { border-color: var(--k-border-brand); color: var(--k-text-brand); }
+.k-appt__time:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-appt__time[aria-checked="true"] { border-color: transparent; background: var(--k-bg-brand); color: var(--k-text-on-brand); box-shadow: var(--k-shadow-sm); }
+.k-appt__time:disabled { background: transparent; color: var(--k-text-quaternary); text-decoration: line-through; cursor: not-allowed; }
+
+.k-appt__empty { margin: 0; padding: var(--k-space-6) var(--k-space-4); border: 1px dashed var(--k-border-secondary); border-radius: var(--k-radius-lg); color: var(--k-text-tertiary); text-align: center; }
+.k-appt__summary { display: flex; align-items: center; gap: var(--k-space-2); min-block-size: 1.5rem; margin: 0; color: var(--k-text-secondary); }
+.k-appt__summary strong { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+.k-appt__summary svg { flex: none; inline-size: 1.125rem; block-size: 1.125rem; color: var(--k-text-brand); }
+
+@media (forced-colors: active) {
+  .k-appt__day[aria-checked="true"], .k-appt__time[aria-checked="true"] { border: 2px solid Highlight; }
+  .k-appt__time:disabled, .k-appt__day:disabled { color: GrayText; }
+}

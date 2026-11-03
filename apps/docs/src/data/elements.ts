@@ -711,6 +711,67 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
     attrs: [["collapsed", "بولی", "", "فقط آیکون‌ها، با نام در راهنما"]],
     api: [["kashi-toggle", "باز و بسته شدن زیرمنو؛ detail: { id, open }"]],
   },
+  "/docs/components/input/": {
+    tags: ["kashi-input", "kashi-textarea"],
+    module: "basic",
+    html: `<kashi-input label="ایمیل" name="email" type="email" placeholder="you@example.com" clearable></kashi-input>
+<kashi-input label="رمز عبور" name="password" type="password" hint="حداقل ۸ نویسه"></kashi-input>
+<kashi-textarea label="توضیحات" name="bio" maxlength="200" show-count optional></kashi-textarea>`,
+    note: "`input` و `textarea` واقعی داخل عنصرند و با `name` مستقیم در فرم ارسال می‌شوند؛ ویژگی‌هایی مثل `type`، `maxlength` و `autocomplete` همان‌جا می‌روند.",
+    items: [
+      ["kashi-input", "فیلد یک‌خطی؛ با type=\"password\" دکمهٔ نمایش رمز"],
+      ["kashi-textarea", "متن چندخطی؛ rows و autoresize"],
+    ],
+    attrs: [
+      ["label / hint / error / placeholder", "متن", "", "برچسب، راهنما، خطا و متن خالی"],
+      ["type / name / value / autocomplete / inputmode", "", "text", "مثل input معمولی"],
+      ["clearable", "بولی", "", "دکمهٔ پاک کردن وقتی متن دارد"],
+      ["revealable", "false", "", "رمز بدون دکمهٔ نمایش"],
+      ["show-count / maxlength", "بولی / عدد", "", "شمارندهٔ نویسه، مثل «۱۲ / ۲۰۰»"],
+      ["loading", "بولی", "", "اسپینر در انتهای فیلد، مثلاً هنگام بررسی نام کاربری"],
+      ["optional", "متن", "اختیاری", "نشان «اختیاری» کنار برچسب"],
+      ["size / required / disabled / readonly", "sm | lg / بولی", "", "اندازه و حالت‌ها"],
+    ],
+    api: [["kashi-change", "با هر تایپ؛ detail: { value }"], ["kashi-clear", "پس از پاک کردن با دکمه"]],
+  },
+  "/docs/components/banner/": {
+    tags: ["kashi-banner"],
+    module: "basic",
+    html: `<kashi-banner tone="brand" dismissible remember="v25">
+  نسخهٔ <strong>۰.۲۵</strong> منتشر شد: همهٔ کامپوننت‌ها حالا بدون React هم هستند.
+  <a slot="actions" class="k-btn k-btn--secondary k-btn--sm" href="/docs/web-components/">ببینید</a>
+</kashi-banner>`,
+    note: "متن خود عنصر است؛ عنصرهای `slot=\"actions\"` کنار متن و `slot=\"icon\"` پیش از آن می‌آیند. با `remember` بستن اطلاعیه در همان مرورگر یادش می‌ماند.",
+    attrs: [
+      ["tone", "brand | warning | error", "neutral", "رنگ اطلاعیه"],
+      ["dismissible", "بولی", "", "دکمهٔ بستن"],
+      ["remember", "کلید", "", "پس از بستن، دیگر نمایش داده نشود (localStorage)"],
+      ["flush", "بولی", "", "بدون حاشیه و گوشه، برای بالای صفحه"],
+      ["label / close-label", "متن", "اطلاعیه / بستن اطلاعیه", "نام‌ها برای صفحه‌خوان"],
+    ],
+    api: [["kashi-close", "پیش از بستن؛ با event.preventDefault() بسته نمی‌شود"], ["element.close()", "بستن با JavaScript"]],
+  },
+  "/docs/persian/appointment/": {
+    tags: ["kashi-appointment-picker"],
+    module: "appointment",
+    html: `<kashi-appointment-picker name="visit" from="09:00" to="17:00" step="30" booked='{"2026-11-04": ["09:30", "10:00"]}'></kashi-appointment-picker>`,
+    note: "با `name` دو فیلد `visit_date` و `visit_time` ارسال می‌شوند؛ ساعت‌های دلخواه هر روز با `element.getSlots`.",
+    attrs: [
+      ["start", "YYYY-MM-DD", "امروز", "اولین روز"],
+      ["days", "عدد", "7", "تعداد روزها"],
+      ["from / to / step", "HH:MM / دقیقه", "09:00 / 17:00 / 30", "ساعت کاری و طول هر نوبت"],
+      ["booked", "JSON", "", "نوبت‌های پر: {\"2026-11-04\": [\"09:30\"]}"],
+      ["closed", "false", "", "همهٔ روزها باز، حتی جمعه و تعطیلات"],
+      ["value", "«2026-11-04 10:30»", "", "نوبت اولیه"],
+      ["label / name / digits", "", "انتخاب نوبت", "برچسب، نام فرم و خط ارقام"],
+    ],
+    api: [
+      ["kashi-change", "detail: { date: \"YYYY-MM-DD\", time, value }"],
+      ["element.getSlots", "(date) => [\"09:00\", { time, available }]"],
+      ["element.isClosed", "(date) => boolean برای روزهای تعطیل دلخواه"],
+      ["element.value", "{ date, time }"],
+    ],
+  },
 };
 
 /** همهٔ تگ‌های مستندشده، برای بررسی اینکه هیچ عنصری از قلم نیفتد */

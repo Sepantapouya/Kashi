@@ -14,6 +14,7 @@ import { ActivityHeatmap, BarChart, BarList, ContextMenu, InlineEdit, LineChart,
 import { toISODate as isoDate } from "@kashi-ui/persian";
 import { Carousel, ColorPicker, Meter, MultiSelect, Splitter, Tour } from "@kashi-ui/react";
 import { AddressForm, CitySelect, IranMap } from "@kashi-ui/react";
+import { AppointmentPicker, type AppointmentValue } from "@kashi-ui/react";
 import { EMPTY_ADDRESS, formatAddress, type IranAddress } from "@kashi-ui/persian";
 import { getIranHoliday } from "@kashi-ui/persian";
 import { Icon as KashiIcon } from "@kashi-ui/icons/react";
@@ -1451,3 +1452,33 @@ export const CitySelectDemo = () => {
     </div>
   );
 };
+
+/** نوبت‌های پرشدهٔ نمونه برای چند روز آینده، از امروز */
+const sampleBooked = () => {
+  const out: Record<string, string[]> = {};
+  const t = new Date();
+  const taken = [["09:30", "10:00", "11:30", "16:00"], ["09:00", "12:00", "12:30"], ["10:30", "14:00", "14:30", "15:00", "16:30"], ["09:00"]];
+  taken.forEach((times, i) => { out[isoDate(new Date(t.getFullYear(), t.getMonth(), t.getDate() + i))] = times; });
+  return out;
+};
+
+export const AppointmentPickerDemo = () => {
+  const [value, setValue] = useState<AppointmentValue | null>(null);
+  return (
+    <div style={{ display: "grid", gap: "var(--k-space-4)", inlineSize: "min(100%, 40rem)" }}>
+      <AppointmentPicker value={value} onChange={setValue} from="09:00" to="17:00" step={30} booked={sampleBooked()} name="visit" />
+      <Out>{value ? `${isoDate(value.date)} ${value.time}` : "هنوز نوبتی انتخاب نشده"}</Out>
+    </div>
+  );
+};
+
+/** ساعت‌های دلخواه هر روز: پنجشنبه‌ها نیمه‌وقت، بقیهٔ روزها صبح و عصر با استراحت ظهر */
+export const AppointmentCustomDemo = () => (
+  <div style={{ inlineSize: "min(100%, 40rem)" }}>
+    <AppointmentPicker
+      label="نوبت مشاوره"
+      days={10}
+      getSlots={(d) => (d.getDay() === 4 ? ["09:00", "10:00", "11:00"] : ["09:00", "10:00", "11:00", "17:00", "18:00", { time: "19:00", available: false }])}
+    />
+  </div>
+);
