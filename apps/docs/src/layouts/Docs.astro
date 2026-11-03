@@ -4,7 +4,7 @@ import Header from "../components/Header.astro";
 import Sidebar from "../components/Sidebar.astro";
 import Toc from "../components/Toc.astro";
 import Footer from "../components/Footer.astro";
-import ShadcnAdd from "../components/ShadcnAdd.astro";
+import PageInstall from "../components/PageInstall.astro";
 import ElementSection from "../components/ElementSection.astro";
 import { ELEMENT_DOCS } from "../data/elements";
 import { nav, siblings } from "../data/nav";
@@ -33,7 +33,7 @@ const group = nav.find((g) => g.items.some((i) => i.href === (Astro.url.pathname
           {group && <p class="page-head__crumb">{group}</p>}
           <h1>{fm.title}</h1>
           {fm.description && <p class="page-head__lead">{fm.description}</p>}
-          <ShadcnAdd />
+          <PageInstall />
         </header>
         <slot />
         <ElementSection />

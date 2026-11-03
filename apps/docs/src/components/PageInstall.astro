@@ -1,0 +1,179 @@
+---
+// کارت نصب زیر عنوان صفحه‌های کامپوننت: سه راه (React، shadcn، وب کامپوننت) در زبانه‌ها، هر کدام با دستور و دکمهٔ کپی.
+// زبانه و مدیر پکیج انتخاب‌شده برای همهٔ صفحه‌ها نگه داشته می‌شوند. import خود صفحه (اولین بلوک کد) به زبانهٔ React می‌آید.
+import { iconSvg } from "@kashi-ui/icons";
+import { registryItems } from "../data/registry";
+import { ELEMENT_DOCS } from "../data/elements";
+
+const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const slug = path.split("/").at(-2);
+const SITE = "https://kashi.sepantapouya.com";
+const items = registryItems(SITE).filter((it) => !it.meta!.helper && it.meta!.href === path);
+// اگر چند فایل به این صفحه می‌رسند، آن که هم‌نام صفحه است
+const item = items.find((it) => it.name === slug) ?? items[0];
+const el = ELEMENT_DOCS[path];
+const exports = item?.meta?.exports ?? [];
+const copy = iconSvg("copy", { size: 15 });
+
+type Line = { code: string; pm?: boolean; react?: boolean };
+const tabs: { key: string; label: string; lines: Line[]; note: string; href: string; more: string }[] = [];
+if (item) {
+  tabs.push({
+    key: "react", label: "React",
+    lines: [
+      { code: "npm i @kashi-ui/react @kashi-ui/css", pm: true },
+      ...(exports.length ? [{ code: `import { ${exports.join(", ")} } from "@kashi-ui/react";`, react: true }] : []),
+    ],
+    note: "CSS را یک بار در ریشهٔ برنامه وارد کنید: `import \"@kashi-ui/css\"`",
+    href: "/docs/installation/", more: "راهنمای نصب",
+  });
+  tabs.push({
+    key: "shadcn", label: "shadcn",
+    lines: [{ code: `npx shadcn@latest add ${SITE}/r/${item.name}.json`, pm: true }],
+    note: "کد خودِ کامپوننت در پوشهٔ `components/kashi` پروژهٔ شما کپی می‌شود.",
+    href: "/docs/installation/#رجیستری-shadcn", more: "دربارهٔ shadcn",
+  });
+}
+if (el) {
+  tabs.push({
+    key: "elements", label: "وب کامپوننت",
+    lines: [
+      { code: "npm i @kashi-ui/elements @kashi-ui/css", pm: true },
+      { code: `import "@kashi-ui/elements/${el.module}.js";` },
+      { code: `<${el.tags[0]}></${el.tags[0]}>` },
+    ],
+    note: `بدون React، برای HTML، وردپرس، Vue و Angular${el.tags.length > 1 ? `؛ ${el.tags.length.toLocaleString("fa-IR")} عنصر در این صفحه` : ""}.`,
+    href: "#وب-کامپوننت", more: "CDN، نمونه و ویژگی‌ها",
+  });
+}
+const id = "pi";
+// کد لاتین داخل متن فارسی در <code> جدا می‌شود تا ترتیب نمایش به‌هم نریزد
+const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const inline = (t: string) => t.split("`").map((part, i) => (i % 2 ? `<code dir="ltr">${esc(part)}</code>` : esc(part))).join("");
+---
+{tabs.length > 0 && (
+  <div class="pi" data-pi>
+    <div class="pi__bar">
+      <div class="pi__tabs" role="tablist" aria-label="راه نصب">
+        {tabs.map((t, i) => (
+          <button type="button" role="tab" class="pi__tab" id={`${id}-t-${t.key}`} aria-controls={`${id}-p-${t.key}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1} data-tab={t.key}>{t.label}</button>
+        ))}
+      </div>
+      <div class="pi__pm" role="radiogroup" aria-label="مدیر پکیج">
+        {["npm", "pnpm", "yarn", "bun"].map((pm, i) => (
+          <label><input type="radio" name="pi-pm" value={pm} class="k-sr-only" checked={i === 0} /><span>{pm}</span></label>
+        ))}
+      </div>
+    </div>
+    {tabs.map((t, i) => (
+      <div class="pi__panel" role="tabpanel" id={`${id}-p-${t.key}`} aria-labelledby={`${id}-t-${t.key}`} data-panel={t.key} hidden={i !== 0}>
+        <div class="pi__lines" dir="ltr">
+          {t.lines.map((l) => (
+            <div class="pi__line" data-pi-react={l.react ? "" : undefined}>
+              <code data-pm-cmd={l.pm ? l.code : undefined}>{l.code}</code>
+              <button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm pi__copy" aria-label={`کپی: ${l.code}`} data-copy={l.code} set:html={copy} />
+            </div>
+          ))}
+        </div>
+        <p class="pi__note">
+          <span set:html={inline(t.note)} />
+          <a href={t.href}>{t.more}<span aria-hidden="true"> ←</span></a>
+        </p>
+      </div>
+    ))}
+  </div>
+)}
+
+<script>
+  const PM_NPX: Record<string, string> = { pnpm: "pnpm dlx", yarn: "yarn dlx", bun: "bunx --bun" };
+  const convert = (cmd: string, pm: string) =>
+    pm === "npm" ? cmd : cmd.replace(/^npx /, `${PM_NPX[pm]} `).replace(/^npm i /, `${pm} add `);
+  const read = (k: string) => { try { return localStorage.getItem(k); } catch { return null; } };
+  const write = (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* حالت خصوصی */ } };
+
+  for (const card of document.querySelectorAll<HTMLElement>("[data-pi]")) {
+    // اولین بلوک کد صفحه همان import کامپوننت است؛ به زبانهٔ React منتقل می‌شود تا دو بار دیده نشود
+    const head = card.closest(".page-head");
+    const first = head?.nextElementSibling;
+    const reactLine = card.querySelector<HTMLElement>("[data-pi-react]");
+    const text = first?.matches("pre") ? first.textContent?.trim() ?? "" : "";
+    if (reactLine && /^import[\s\S]*from "@kashi-ui\/react";?$/.test(text)) {
+      reactLine.querySelector("code")!.textContent = text;
+      reactLine.querySelector("[data-copy]")!.setAttribute("data-copy", text);
+      (first as HTMLElement).hidden = true;
+    }
+
+    const tabs = [...card.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const select = (key: string, focus = false) => {
+      const tab = tabs.find((t) => t.dataset.tab === key) ?? tabs[0];
+      for (const t of tabs) {
+        const on = t === tab;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+        card.querySelector<HTMLElement>(`[data-panel="${t.dataset.tab}"]`)!.hidden = !on;
+      }
+      if (focus) tab.focus();
+    };
+    select(read("kashi-install-tab") ?? "react");
+    tabs.forEach((t, i) => {
+      t.addEventListener("click", () => {
+        select(t.dataset.tab!);
+        write("kashi-install-tab", t.dataset.tab!);
+      });
+      t.addEventListener("keydown", (e) => {
+        // در راست‌به‌چپ، فلش چپ یعنی زبانهٔ بعد
+        const move = ({ ArrowLeft: 1, ArrowRight: -1, Home: -i, End: tabs.length - 1 - i } as Record<string, number>)[e.key];
+        if (move === undefined) return;
+        e.preventDefault();
+        const next = tabs[(i + move + tabs.length) % tabs.length];
+        select(next.dataset.tab!, true);
+        write("kashi-install-tab", next.dataset.tab!);
+      });
+    });
+
+    const applyPm = (pm: string) => {
+      card.querySelectorAll<HTMLElement>("[data-pm-cmd]").forEach((el) => {
+        const cmd = convert(el.dataset.pmCmd!, pm);
+        el.textContent = cmd;
+        el.parentElement?.querySelector("[data-copy]")?.setAttribute("data-copy", cmd);
+      });
+    };
+    const saved = read("kashi-pm") ?? "npm";
+    card.querySelectorAll<HTMLInputElement>('input[name="pi-pm"]').forEach((r) => {
+      r.checked = r.value === saved;
+      r.addEventListener("change", () => {
+        applyPm(r.value);
+        write("kashi-pm", r.value);
+      });
+    });
+    applyPm(saved);
+  }
+</script>
+
+<style>
+  .pi { margin-block-start: var(--k-space-6); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary); overflow: hidden; }
+  .pi__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--k-space-2); padding: var(--k-space-2) var(--k-space-2) 0; border-block-end: 1px solid var(--k-border-secondary); }
+  .pi__tabs { display: flex; gap: var(--k-space-1); }
+  .pi__tab { position: relative; padding: var(--k-space-2) var(--k-space-3); border: 0; background: none; color: var(--k-text-tertiary); font: inherit; font-size: var(--k-text-sm); font-weight: 600; cursor: pointer; }
+  .pi__tab:hover { color: var(--k-text-primary); }
+  .pi__tab[aria-selected="true"] { color: var(--k-text-primary); }
+  .pi__tab[aria-selected="true"]::after { content: ""; position: absolute; inset-inline: var(--k-space-3); inset-block-end: -1px; block-size: 2px; border-radius: 2px; background: var(--k-text-brand); }
+  .pi__tab:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: -2px; border-radius: var(--k-radius-sm); }
+  .pi__pm { display: flex; gap: 2px; padding: 2px; margin-block-end: var(--k-space-2); border-radius: var(--k-radius-md); background: var(--k-bg-tertiary); direction: ltr; }
+  .pi__pm label { cursor: pointer; }
+  .pi__pm span { display: block; padding: 0.125rem var(--k-space-2); border-radius: var(--k-radius-sm); color: var(--k-text-tertiary); font: 500 0.75rem var(--k-font-mono); }
+  .pi__pm input:checked + span { background: var(--k-bg-primary); color: var(--k-text-primary); box-shadow: var(--k-shadow-xs); }
+  .pi__pm input:focus-visible + span { outline: 2px solid var(--k-border-brand); }
+  .pi__panel { padding: var(--k-space-3) var(--k-space-4) var(--k-space-3); }
+  .pi__lines { display: grid; gap: 2px; }
+  .pi__line { display: flex; align-items: center; gap: var(--k-space-2); min-inline-size: 0; padding: 0.25rem 0.25rem 0.25rem var(--k-space-3); border-radius: var(--k-radius-md); background: var(--k-bg-primary); }
+  .pi__line code { flex: 1; min-inline-size: 0; overflow-x: auto; padding: 0; border: 0; background: none; color: var(--k-text-primary); font-size: 0.8125rem; white-space: nowrap; scrollbar-width: none; }
+  .pi__line code::-webkit-scrollbar { display: none; }
+  .pi__copy { flex: none; color: var(--k-text-tertiary); }
+  .pi__copy:hover { color: var(--k-text-primary); }
+  .pi__copy[data-copied] { color: var(--k-text-success); }
+  .pi__note { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--k-space-1) var(--k-space-3); margin: var(--k-space-3) 0 0; color: var(--k-text-tertiary); font-size: 0.8125rem; }
+  .pi__note code { font-size: 0.75rem; white-space: nowrap; }
+  .pi__note a { color: var(--k-text-brand); text-decoration: none; white-space: nowrap; }
+  .pi__note a:hover { text-decoration: underline; }
+</style>

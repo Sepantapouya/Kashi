@@ -3,7 +3,7 @@
  "totals": {
   "commits": 193,
   "versions": 26,
-  "added": 84481,
+  "added": 84608,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [],
@@ -11,18 +11,18 @@
   {
    "version": "0.24.0",
    "date": "2026-11-03T14:32:01+03:30",
-   "releaseCommit": "2122f40",
+   "releaseCommit": "88a7204",
    "commits": [
     {
-     "sha": "2122f40a27b4b9cf780cbb0af168a7e84ff1721c",
-     "short": "2122f40",
+     "sha": "88a7204f82968ca9749d22639b5295652659a428",
+     "short": "88a7204",
      "date": "2026-11-03T14:32:01+03:30",
      "author": "sepantapouya",
      "subject": "Release 0.24.0: web components (@kashi-ui/elements)",
      "details": [],
-     "files": 23,
-     "added": 102,
-     "removed": 51
+     "files": 24,
+     "added": 229,
+     "removed": 86
     },
     {
      "sha": "9075802430ba6cb746a23a0a2672ad2c52e30506",
