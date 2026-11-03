@@ -458,17 +458,24 @@ code, pre, kbd {
 .ref-table thead th { background: var(--k-bg-secondary); color: var(--k-text-tertiary); font-weight: var(--k-weight-semibold); white-space: nowrap; }
 .ref-table tbody tr:last-child > * { border-block-end: 0; }
 
-/* جدول‌های Markdown در MDX؛ همان ظاهر ref-table، با اسکرول افقی روی گوشی */
+/* جدول‌های Markdown در MDX؛ همان ظاهر ref-table. روی گوشی block با اسکرول افقی؛
+   روی صفحهٔ بزرگ‌تر جدول عادی و تمام‌عرض، تا ستون‌ها کل کادر را پر کنند */
 .prose > table {
-  display: block;
+  display: table;
+  inline-size: 100%;
   max-inline-size: 100%;
   margin-block: var(--k-space-6);
   overflow-x: auto;
   border: 1px solid var(--k-border-secondary);
   border-radius: var(--k-radius-lg);
-  border-collapse: collapse;
+  /* separate تا گوشه‌های گرد کادر دیده شود؛ با collapse، گردی جدول نادیده گرفته می‌شود */
+  border-collapse: separate;
+  border-spacing: 0;
   font-size: var(--k-text-sm);
   line-height: var(--k-leading-normal);
+}
+@media (max-width: 40rem) {
+  .prose > table { display: block; }
 }
 .prose > table th, .prose > table td {
   padding: var(--k-space-3) var(--k-space-4);
