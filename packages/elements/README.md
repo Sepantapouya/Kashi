@@ -29,11 +29,15 @@ import "@kashi-ui/elements";
 ## عنصرها
 
 - **فیلدهای فارسی:** `kashi-national-id`، `kashi-legal-id`، `kashi-mobile`، `kashi-landline`، `kashi-card-number`، `kashi-iban`، `kashi-postal-code`، `kashi-price`
-- **انتخاب:** `kashi-date-picker`، `kashi-calendar`، `kashi-otp`، `kashi-combobox`، `kashi-province-select`، `kashi-city-select`، `kashi-tag-input`، `kashi-number-input`، `kashi-rating`
+- **فیلدهای دیگر:** `kashi-time-input`، `kashi-plate-input`، `kashi-persian-textarea`، `kashi-keyboard-fix`، `kashi-password-strength`، `kashi-inline-edit`
+- **انتخاب:** `kashi-date-picker`، `kashi-calendar`، `kashi-date-range-picker`، `kashi-month-picker`، `kashi-otp`، `kashi-combobox`، `kashi-multi-select`، `kashi-province-select`، `kashi-city-select`، `kashi-tag-input`، `kashi-chip-group`، `kashi-number-input`، `kashi-slider`، `kashi-rating`، `kashi-color-picker`، `kashi-file-upload`
 - **نشانی و نقشه:** `kashi-address-form`، `kashi-iran-map`
-- **داده:** `kashi-data-table`، `kashi-pagination`
+- **داده و نمودار:** `kashi-data-table`، `kashi-pagination`، `kashi-bar-chart`، `kashi-line-chart`، `kashi-pie-chart`، `kashi-bar-list`، `kashi-proportion-bar`، `kashi-sparkline`، `kashi-activity-heatmap`
 - **نمایش:** `kashi-money`، `kashi-date`، `kashi-relative-time`، `kashi-countdown`
-- **تعاملی:** `kashi-dialog`، `kashi-tabs`، `kashi-tooltip`، `kashi-dropdown-menu`، `kashi-popover`، `kashi-toaster` (و تابع `toast()`)، `kashi-copy-button`
+- **تعاملی:** `kashi-dialog`، `kashi-tabs`، `kashi-tooltip`، `kashi-dropdown-menu`، `kashi-popover`، `kashi-context-menu`، `kashi-command-palette`، `kashi-toaster` (و تابع `toast()`)، `kashi-copy-button`
+- **چیدمان:** `kashi-carousel`، `kashi-tree-view`، `kashi-tour`، `kashi-splitter`، `kashi-side-nav`
+
+فایل CDN فقط بخش‌هایی را دانلود می‌کند که تگشان در صفحه هست.
 
 هر فیلد با `name` مقدار خام را با ارقام انگلیسی در فرم ارسال می‌کند، مقدار نامعتبر جلوی ارسال فرم را می‌گیرد و با هر تغییر رویداد `kashi-change` می‌فرستد.
 

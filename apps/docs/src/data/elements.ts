@@ -32,7 +32,7 @@ const FIELD: [string, string, string, string][] = [
 
 export const ELEMENT_DOCS: Record<string, ElementDoc> = {
   "/docs/persian/input/": {
-    tags: ["kashi-national-id", "kashi-mobile", "kashi-card-number", "kashi-iban", "kashi-price", "kashi-postal-code", "kashi-landline", "kashi-legal-id"],
+    tags: ["kashi-national-id", "kashi-mobile", "kashi-card-number", "kashi-iban", "kashi-price", "kashi-postal-code", "kashi-landline", "kashi-legal-id", "kashi-time-input", "kashi-plate-input"],
     module: "inputs",
     html: `<kashi-national-id name="national_id" required></kashi-national-id>
 <kashi-mobile name="mobile"></kashi-mobile>
@@ -48,6 +48,8 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
       ["kashi-iban", "شبا با IR خودکار و نام بانک؛ ارقام لاتین"],
       ["kashi-postal-code", "کد پستی ۱۰ رقمی با قالب ۱۲۳۴۵-۶۷۸۹۰"],
       ["kashi-price", "مبلغ با جداکنندهٔ هزارگان و مبلغ به حروف زیر فیلد"],
+      ["kashi-time-input", "ساعت ۲۴ساعته؛ ↑↓ با گام step دقیقه، min و max؛ بخش npm: forms.js"],
+      ["kashi-plate-input", "پلاک خودرو در چهار بخش؛ با name فیلدهای name_first، name_letter، name_middle و name_region؛ بخش npm: forms.js"],
     ],
     attrs: [
       ...FIELD,
@@ -420,6 +422,294 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
       ["element.columns / element.rows", "ساخت جدول از داده: [{ key, header, sortable, numeric, format }]"],
       ["element.selected", "شناسهٔ ردیف‌های انتخاب‌شده"],
     ],
+  },
+"/docs/components/multi-select/": {
+    tags: ["kashi-multi-select"],
+    module: "forms",
+    html: `<kashi-multi-select label="مهارت‌ها" name="skills" max="4" placeholder="جستجو…">
+  <option value="figma" selected>فیگما</option>
+  <option value="react">ری‌اکت</option>
+  <option value="css" data-description="Cascade Layers">CSS</option>
+  <option value="a11y">دسترس‌پذیری</option>
+</kashi-multi-select>`,
+    note: "گزینه‌ها همان `<option>` معمولی‌اند و `selected` انتخاب اولیه است؛ با `name` هر انتخاب یک فیلد هم‌نام در فرم است.",
+    attrs: [
+      ["label / hint / error / placeholder", "متن", "", "مثل بقیهٔ فیلدها"],
+      ["name", "متن", "", "یک فیلد پنهان برای هر انتخاب"],
+      ["max", "عدد", "", "بیشترین تعداد انتخاب"],
+      ["disabled", "بولی", "", "غیرفعال"],
+    ],
+    api: [["kashi-change", "detail: { value: [...] }"], ["element.options / element.value", "گزینه‌ها و انتخاب‌ها با JavaScript"]],
+  },
+  "/docs/components/slider/": {
+    tags: ["kashi-slider"],
+    module: "forms",
+    html: `<kashi-slider label="حجم صدا" value="40" name="volume"></kashi-slider>
+<kashi-slider label="قیمت" range min="0" max="1000000" step="50000" value="200000, 750000" unit="تومان" name="price"></kashi-slider>`,
+    note: "روی `input type=range` بومی؛ با `range` دو دستگیره و دو فیلد `name_min` و `name_max` در فرم.",
+    attrs: [
+      ["label", "متن", "", "برچسب"],
+      ["min / max / step", "عدد", "0 / 100 / 1", "محدوده و گام"],
+      ["value", "عدد یا «کمینه، بیشینه»", "", "مقدار اولیه"],
+      ["range", "بولی", "", "انتخاب بازه با دو دستگیره"],
+      ["unit / marks", "متن / «0, 50, 100»", "", "واحد کنار عدد و علامت‌های زیر نوار"],
+      ["show-value", "false", "", "پنهان کردن عدد بالای نوار"],
+    ],
+    api: [["kashi-change", "detail: { value }؛ در range آرایهٔ [کمینه، بیشینه]"]],
+  },
+  "/docs/components/chips/": {
+    tags: ["kashi-chip-group"],
+    module: "forms",
+    html: `<kashi-chip-group label="دسته‌بندی" name="category">
+  <button data-value="all" data-pressed>همه</button>
+  <button data-value="new" data-count="12">تازه‌ها</button>
+  <button data-value="sale" data-count="5">تخفیف‌دار</button>
+</kashi-chip-group>`,
+    note: "هر `<button>` یک چیپ است (`data-pressed` برای روشن بودن اولیه، `data-count` برای عدد).",
+    attrs: [
+      ["label", "متن", "", "نام گروه برای صفحه‌خوان"],
+      ["single", "بولی", "", "فقط یک چیپ روشن"],
+      ["name", "متن", "", "مقدار چیپ‌های روشن در فرم"],
+    ],
+    api: [["kashi-change", "detail: { value: [...] }"]],
+  },
+  "/docs/components/password-strength/": {
+    tags: ["kashi-password-strength"],
+    module: "forms",
+    html: `<label class="k-label" for="new-password">رمز تازه</label>
+<div class="k-input"><input id="new-password" class="k-input__control" type="password" autocomplete="new-password"></div>
+<kashi-password-strength for="new-password"></kashi-password-strength>`,
+    note: "با `for` به فیلد رمز وصل می‌شود و با هر تایپ به‌روز می‌شود؛ اگر صفحه‌کلید روی فارسی مانده باشد هشدار می‌دهد.",
+    attrs: [["for", "شناسهٔ فیلد", "", "فیلد رمز"], ["show-rules", "false", "", "بدون فهرست شرط‌ها"]],
+    api: [["element.score(password)", "امتیاز ۰ تا ۴"]],
+  },
+  "/docs/persian/text-fix/": {
+    tags: ["kashi-persian-textarea", "kashi-keyboard-fix"],
+    module: "forms",
+    html: `<kashi-persian-textarea label="توضیحات" name="body" value="اين متن ، ي و ك عربي دارد"></kashi-persian-textarea>
+<kashi-keyboard-fix label="جستجو" value="sghl"></kashi-keyboard-fix>`,
+    items: [
+      ["kashi-persian-textarea", "متن چندخطی با شمارش و اصلاح ی و ک عربی، نیم‌فاصله، علامت‌ها و ارقام"],
+      ["kashi-keyboard-fix", "فیلد متنی که متن تایپ‌شده با صفحه‌کلید انگلیسی را تشخیص می‌دهد («sghl» ← «سلام»)"],
+    ],
+    attrs: [
+      ["label / name / value / placeholder / required", "متن", "", "مثل بقیهٔ فیلدها"],
+      ["fix-on-blur", "بولی", "", "متن: اصلاح خودکار هنگام خروج از فیلد"],
+      ["fix-digits", "false", "", "متن: ارقام انگلیسی اصلاح نشوند"],
+      ["rows", "عدد", "4", "متن: تعداد خط"],
+      ["suggest", "always", "auto", "صفحه‌کلید: پیشنهاد برای هر متن لاتین"],
+    ],
+    api: [["kashi-change", "detail: { value }"]],
+  },
+  "/docs/components/inline-edit/": {
+    tags: ["kashi-inline-edit"],
+    module: "forms",
+    html: `<kashi-inline-edit label="نام پروژه" value="فروشگاه کاشی"></kashi-inline-edit>`,
+    attrs: [["value", "متن", "", "متن فعلی"], ["label", "متن", "متن", "نام برای صفحه‌خوان"], ["placeholder", "متن", "خالی", "وقتی متن خالی است"]],
+    api: [
+      ["kashi-save", "پیش از ثبت؛ detail: { value, wait }. برای ذخیرهٔ سمت سرور detail.wait(fetch(…)) را صدا بزنید؛ اگر رد شود، خطا نشان داده می‌شود"],
+      ["kashi-change", "پس از ثبت؛ detail: { value }"],
+      ["element.validate", "تابع اعتبارسنجی؛ پیام خطا برمی‌گرداند"],
+    ],
+  },
+  "/docs/persian/date-range/": {
+    tags: ["kashi-date-range-picker"],
+    module: "pickers",
+    html: `<kashi-date-range-picker label="بازهٔ گزارش" name="report" holidays></kashi-date-range-picker>`,
+    note: "با `name` دو فیلد `name_start` و `name_end` با تاریخ میلادی ارسال می‌شوند.",
+    attrs: [
+      ["label / hint / error", "متن", "بازهٔ تاریخ", "مثل بقیهٔ فیلدها"],
+      ["start / end", "2026-03-21", "", "بازهٔ اولیه"],
+      ["min / max / holidays / digits", "", "", "مثل انتخاب تاریخ"],
+      ["presets", "false", "", "بدون میان‌برهای «۷ روز اخیر» و…"],
+    ],
+    api: [["kashi-change", "detail: { start, end, value: { start: \"YYYY-MM-DD\", end } }"], ["element.value", "{ start, end } با Date"]],
+  },
+  "/docs/persian/month-picker/": {
+    tags: ["kashi-month-picker"],
+    module: "pickers",
+    html: `<kashi-month-picker value="1405-01" name="month"></kashi-month-picker>`,
+    attrs: [
+      ["value", "1405-01", "", "سال و ماه شمسی"],
+      ["min / max", "1404-01", "", "محدودهٔ ماه‌های قابل انتخاب"],
+      ["name / label / digits", "", "", "نام فرم، نام صفحه‌خوان و خط ارقام"],
+    ],
+    api: [["kashi-change", "detail: { value: \"1405-01\", year, month }"]],
+  },
+  "/docs/components/file-upload/": {
+    tags: ["kashi-file-upload"],
+    module: "pickers",
+    html: `<kashi-file-upload name="documents" accept=".pdf,image/*" max-size="5242880" hint="PDF یا تصویر، حداکثر ۵ مگابایت"></kashi-file-upload>`,
+    note: "با `name` فایل‌ها همراه فرم HTML ارسال می‌شوند (فرم با `enctype=\"multipart/form-data\"`). برای بارگذاری فوری `element.uploader` بدهید.",
+    attrs: [
+      ["accept", ".pdf,image/*", "", "نوع فایل‌های پذیرفته"],
+      ["multiple", "false", "", "فقط یک فایل"],
+      ["max-size / max-files", "بایت / عدد", "", "بیشترین حجم و تعداد"],
+      ["name / hint / label / disabled", "", "", "نام فرم، راهنما و متن دکمه"],
+    ],
+    api: [
+      ["element.uploader", "(file, onProgress) => Promise؛ درصد پیشرفت را با onProgress بدهید"],
+      ["kashi-change", "detail: { files }"],
+      ["element.files", "فایل‌های پذیرفته‌شده"],
+    ],
+  },
+  "/docs/components/color-picker/": {
+    tags: ["kashi-color-picker"],
+    module: "pickers",
+    html: `<kashi-color-picker label="رنگ برند" value="#0b8077" name="brand"></kashi-color-picker>`,
+    attrs: [
+      ["value", "#0b8077", "#0b8077", "رنگ HEX"],
+      ["swatches", "«#0b8077 فیروزه‌ای, …»", "رنگ‌های کاشی", "رنگ‌های پیشنهادی؛ خالی برای هیچ"],
+      ["show-contrast", "false", "", "بدون کنتراست با متن"],
+      ["label / hint / name", "", "", "مثل بقیهٔ فیلدها"],
+    ],
+    api: [["kashi-change", "detail: { value: \"#0b8077\" }"]],
+  },
+  "/docs/components/charts/": {
+    tags: ["kashi-bar-chart", "kashi-line-chart", "kashi-pie-chart", "kashi-bar-list", "kashi-proportion-bar", "kashi-sparkline"],
+    module: "charts",
+    html: `<kashi-bar-chart label="فروش ماهانه" unit="سفارش" data='[{"label": "فروردین", "value": 120}, {"label": "اردیبهشت", "value": 180}, {"label": "خرداد", "value": 150}]'></kashi-bar-chart>
+<kashi-line-chart label="بازدید" labels='["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه"]' series='[{"name": "وب", "values": [40, 65, 58, 80]}, {"name": "اپ", "values": [20, 30, 45, 50]}]'></kashi-line-chart>
+<kashi-pie-chart label="منبع ورود" data='[{"label": "جستجو", "value": 520}, {"label": "مستقیم", "value": 310}, {"label": "شبکه‌های اجتماعی", "value": 170}]'></kashi-pie-chart>`,
+    note: "عنوان با `label` و داده با ویژگی JSON (`data`، `labels`، `series`) یا با JavaScript (`element.data = …`). هر نمودار جدول هم‌ارز برای صفحه‌خوان دارد.",
+    items: [
+      ["kashi-bar-chart", "ستونی؛ data، یا انباشته با labels و series"],
+      ["kashi-line-chart", "خطی تا چهار سری؛ labels و series"],
+      ["kashi-pie-chart", "دونات یا دایره‌ای (variant=\"pie\")؛ data"],
+      ["kashi-bar-list", "میله‌های افقی برای رتبه‌بندی؛ data با href اختیاری"],
+      ["kashi-proportion-bar", "سهم هر بخش در یک میله؛ data"],
+      ["kashi-sparkline", "خط روند کوچک؛ values=\"12, 18, 15\""],
+    ],
+    attrs: [
+      ["label", "متن", "", "عنوان نمودار و نام دسترس‌پذیر"],
+      ["data / labels / series", "JSON", "", "داده"],
+      ["unit", "متن", "", "واحد کنار اعداد، مثل «سفارش»"],
+      ["height", "طول CSS", "", "ارتفاع نمودار ستونی و خطی"],
+      ["variant / total-label / size", "pie / متن / پیکسل", "donut / جمع / 176", "نمودار دایره‌ای"],
+      ["tone / area", "brand | success | error | neutral / false", "brand", "خط روند"],
+    ],
+    api: [["element.data / series / labels / values", "داده با JavaScript"], ["element.format", "قالب عدد: (n) => \"…\""]],
+  },
+  "/docs/persian/activity-heatmap/": {
+    tags: ["kashi-activity-heatmap"],
+    module: "charts",
+    html: `<kashi-activity-heatmap year="1405" unit="سفارش" data='{"2026-03-21": 4, "2026-03-22": 9, "2026-04-02": 2, "2026-05-10": 7}'></kashi-activity-heatmap>`,
+    attrs: [
+      ["data", "JSON", "", "تاریخ میلادی YYYY-MM-DD ← تعداد"],
+      ["year", "سال شمسی", "سال جاری", "سال نمایش"],
+      ["unit / label", "متن", "فعالیت", "واحد و نام دسترس‌پذیر"],
+    ],
+    api: [["element.data", "داده با JavaScript"]],
+  },
+  "/docs/components/command-palette/": {
+    tags: ["kashi-command-palette"],
+    module: "nav",
+    html: `<button class="k-btn k-btn--secondary" data-kashi-command="palette">جستجو <kbd class="k-kbd">Ctrl K</kbd></button>
+<kashi-command-palette id="palette">
+  <a href="/docs/" data-group="صفحه‌ها">مستندات</a>
+  <a href="/docs/web-components/" data-group="صفحه‌ها" data-keywords="html, vue">وب کامپوننت‌ها</a>
+  <button data-value="theme" data-group="دستورها" data-shortcut="⌘D">تغییر تم</button>
+</kashi-command-palette>`,
+    note: "با Ctrl+K یا ⌘K، یا دکمه‌ای با `data-kashi-command`؛ لینک‌ها باز می‌شوند و دکمه‌ها رویداد `kashi-select` می‌فرستند.",
+    attrs: [
+      ["label / placeholder", "متن", "پالت فرمان", "عنوان و متن فیلد جستجو"],
+      ["shortcut", "false", "", "بدون Ctrl+K"],
+      ["data-group / data-description / data-shortcut / data-keywords", "روی هر دستور", "", "گروه، توضیح، میان‌بر و کلمه‌های جستجو"],
+    ],
+    api: [["kashi-select", "detail: { value, item }"], ["element.show() / close()", "باز و بستن"], ["element.items", "دستورها با JavaScript"]],
+  },
+  "/docs/components/context-menu/": {
+    tags: ["kashi-context-menu"],
+    module: "nav",
+    html: `<kashi-context-menu label="گزینه‌های فایل">
+  <div class="k-card" tabindex="0" style="padding: 2rem; text-align: center">روی این کارت راست‌کلیک کنید</div>
+  <div data-menu>
+    <button data-value="rename">تغییر نام</button>
+    <button data-value="copy" data-shortcut="⌘C">کپی</button>
+    <hr>
+    <button data-value="delete" data-tone="danger">حذف</button>
+  </div>
+</kashi-context-menu>`,
+    note: "محتوا ناحیهٔ کلیک است و گزینه‌ها داخل `<div data-menu>`؛ با کیبورد، کلید ContextMenu یا Shift+F10.",
+    attrs: [["label", "متن", "گزینه‌ها", "نام منو"]],
+    api: [["kashi-select", "detail: { value }"]],
+  },
+  "/docs/components/carousel/": {
+    tags: ["kashi-carousel"],
+    module: "nav",
+    html: `<kashi-carousel label="محصولات" per-view="2">
+  <div class="k-card" style="padding: 2rem">محصول ۱</div>
+  <div class="k-card" style="padding: 2rem">محصول ۲</div>
+  <div class="k-card" style="padding: 2rem">محصول ۳</div>
+  <div class="k-card" style="padding: 2rem">محصول ۴</div>
+</kashi-carousel>`,
+    attrs: [["label", "متن", "", "نام اسلایدر"], ["per-view", "عدد", "1", "تعداد اسلاید در هر نما"], ["dots", "false", "", "بدون نقطه‌ها"]],
+    api: [["element.go(n)", "رفتن به اسلاید n (از صفر)"], ["kashi-change", "detail: { index }"]],
+  },
+  "/docs/components/tree-view/": {
+    tags: ["kashi-tree-view"],
+    module: "nav",
+    html: `<kashi-tree-view label="فایل‌های پروژه" expanded="src" selected="app">
+  <ul>
+    <li data-id="src">src
+      <ul>
+        <li data-id="app" data-meta="۲ کیلوبایت">App.tsx</li>
+        <li data-id="main">main.tsx</li>
+      </ul>
+    </li>
+    <li data-id="readme">README.md</li>
+  </ul>
+</kashi-tree-view>`,
+    note: "ساختار همان فهرست تودرتوی `<ul>` و `<li>` است (`data-id`، `data-meta`، `data-disabled`) یا `element.items`.",
+    attrs: [["label", "متن", "", "نام درخت"], ["selected", "شناسه", "", "گرهٔ انتخاب‌شده"], ["expanded", "شناسه‌ها با «,»", "", "گره‌های باز"]],
+    api: [["kashi-change", "detail: { value, node }"], ["kashi-expand", "detail: { expanded: [...] }"], ["element.items", "درخت با JavaScript: [{ id, label, children }]"]],
+  },
+  "/docs/components/tour/": {
+    tags: ["kashi-tour"],
+    module: "nav",
+    html: `<button class="k-btn k-btn--primary" id="tour-start" data-kashi-tour="intro">شروع تور</button>
+<kashi-tour id="intro">
+  <div data-target="#tour-start" data-title="شروع از اینجا">با این دکمه تور دوباره شروع می‌شود.</div>
+  <div data-target=".page-head h1" data-title="عنوان صفحه">نام کامپوننت و توضیح کوتاهش.</div>
+</kashi-tour>`,
+    note: "هر مرحله یک `<div data-target data-title>` است؛ با دکمه‌ای با `data-kashi-tour` یا `element.start()` شروع می‌شود.",
+    attrs: [["data-target / data-title", "روی هر مرحله", "", "انتخابگر CSS بخش و عنوان مرحله"]],
+    api: [["element.start() / stop()", "شروع و پایان"], ["kashi-finish", "پس از آخرین مرحله"], ["element.steps", "مراحل با JavaScript: [{ target, title, content }]"]],
+  },
+  "/docs/components/splitter/": {
+    tags: ["kashi-splitter"],
+    module: "nav",
+    html: `<kashi-splitter size="35" height="12rem">
+  <div style="padding: 1rem">فهرست</div>
+  <div style="padding: 1rem">جزئیات</div>
+</kashi-splitter>`,
+    attrs: [
+      ["size", "درصد", "40", "اندازهٔ اولیهٔ پنل اول"],
+      ["min / max", "درصد", "15 / 85", "محدودهٔ اندازه"],
+      ["orientation", "vertical", "", "پنل‌ها زیر هم"],
+      ["height / label", "طول CSS / متن", "", "ارتفاع و نام جداکننده"],
+    ],
+    api: [["kashi-change", "detail: { value }"]],
+  },
+  "/docs/components/side-nav/": {
+    tags: ["kashi-side-nav"],
+    module: "nav",
+    html: `<kashi-side-nav>
+  <nav class="k-sidenav" aria-label="اصلی">
+    <ul class="k-sidenav__group" role="list">
+      <li><a class="k-sidenav__item" href="#" aria-current="page"><span class="k-sidenav__text">داشبورد</span></a></li>
+      <li><button type="button" class="k-sidenav__item" aria-expanded="false" aria-controls="nav-orders"><span class="k-sidenav__text">سفارش‌ها</span></button>
+        <ul class="k-sidenav__sub" id="nav-orders" role="list" hidden>
+          <li><a class="k-sidenav__item" href="#"><span class="k-sidenav__text">همه</span></a></li>
+          <li><a class="k-sidenav__item" href="#"><span class="k-sidenav__text">در انتظار</span></a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</kashi-side-nav>`,
+    note: "همان HTML منوی کناری (تب HTML بالای صفحه) را داخلش بگذارید؛ زیرمنوها با کلیک باز و بسته می‌شوند.",
+    attrs: [["collapsed", "بولی", "", "فقط آیکون‌ها، با نام در راهنما"]],
+    api: [["kashi-toggle", "باز و بسته شدن زیرمنو؛ detail: { id, open }"]],
   },
 };
 

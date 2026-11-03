@@ -30,6 +30,17 @@ export class KashiCalendar extends HTMLBase {
   static observedAttributes = ["value", "min", "max", "digits", "holidays", "label", "today-label", "name"];
   /** غیرفعال کردن روزهای خاص، مثلاً (d) => d.getDay() === 5 */
   isDateDisabled?: (date: Date) => boolean;
+  /** حالت بازه: روزهای بین start و end برجسته می‌شوند؛ با start بدون end، hover پیش‌نمایش می‌دهد */
+  private rangeValue: { start: Date | null; end: Date | null } | null = null;
+  private hover: Date | null = null;
+  get range() {
+    return this.rangeValue;
+  }
+  set range(r: { start: Date | null; end: Date | null } | null) {
+    this.rangeValue = r;
+    if (r?.start) this.focused = this.clamp(startOfDay(r.start));
+    if (this.rendered) this.render();
+  }
   /** نام تعطیلی هر روز؛ اگر ویژگی holidays گذاشته شود، تعطیلات ثابت ایران و جمعه‌ها */
   holidayOf?: (date: Date) => string | null | false | undefined;
   private selected: Date | null = null;
@@ -46,6 +57,16 @@ export class KashiCalendar extends HTMLBase {
       this.addEventListener("click", this.onClick);
       this.addEventListener("keydown", this.onKey);
       this.addEventListener("change", this.onSelect);
+      // پیش‌نمایش بازه با hover یا فوکوس روی روز
+      const preview = (e: Event) => {
+        const day = (e.target as Element).closest?.<HTMLElement>(".k-calendar__day")?.dataset.day;
+        if (!this.rangeValue?.start || this.rangeValue.end || !day) return;
+        const [y, m, d] = day.split("-").map(Number);
+        this.hover = new Date(y, m - 1, d);
+        this.paintRange();
+      };
+      this.addEventListener("pointerover", preview);
+      this.addEventListener("focusin", preview);
     }
     this.rendered = true;
     this.render();
@@ -164,6 +185,26 @@ export class KashiCalendar extends HTMLBase {
     this.go(moves[e.key]());
   };
 
+  /** برجسته کردن روزهای بازه، بدون ساختن دوبارهٔ جدول تا فوکوس سر جایش بماند */
+  private paintRange() {
+    const r = this.rangeValue;
+    if (!r) return;
+    const rs = r.start ? startOfDay(r.start) : null;
+    const re = r.end ? startOfDay(r.end) : null;
+    const previewEnd = rs && !re && this.hover ? this.hover : null;
+    const [lo, hi] = rs && (re || previewEnd) ? [rs, (re ?? previewEnd)!].sort((a, b) => +a - +b) : [rs, rs];
+    this.querySelectorAll<HTMLElement>("td[data-date]").forEach((td) => {
+      const [y, m, dd] = td.dataset.date!.split("-").map(Number);
+      const d = new Date(y, m - 1, dd);
+      const inRange = !!lo && !!hi && d >= lo && d <= hi;
+      td.setAttribute("aria-selected", String(inRange));
+      td.toggleAttribute("data-in-range", inRange && !!re);
+      td.toggleAttribute("data-preview", inRange && !re);
+      td.toggleAttribute("data-range-start", !!lo && sameDay(d, lo));
+      td.toggleAttribute("data-range-end", !!hi && sameDay(d, hi));
+    });
+  }
+
   private render() {
     const digits = this.getAttribute("digits") === "latin" ? "latin" : "fa";
     const n = (v: number) => (digits === "fa" ? toFaDigits(v) : String(v));
@@ -188,7 +229,7 @@ export class KashiCalendar extends HTMLBase {
         if (!d) return '<td role="gridcell"></td>';
         const h = this.holiday(d);
         const label = formatJalali(d, { style: "full", digits }) + (h ? `، تعطیل${h === "جمعه" ? "" : `: ${h}`}` : "");
-        return `<td role="gridcell" aria-selected="${sameDay(d, this.selected)}"><button type="button" class="k-calendar__day" data-day="${dayKey(d)}" tabindex="${sameDay(d, this.focused) ? 0 : -1}" aria-label="${esc(label)}"${h && h !== "جمعه" ? ` title="${esc(h)}"` : ""}${h ? ' data-holiday=""' : ""}${sameDay(d, today) ? ' aria-current="date"' : ""}${this.disabled(d) ? ' aria-disabled="true"' : ""}>${n(toJalali(d).jd)}</button></td>`;
+        return `<td role="gridcell" data-date="${dayKey(d)}" aria-selected="${sameDay(d, this.selected)}"><button type="button" class="k-calendar__day" data-day="${dayKey(d)}" tabindex="${sameDay(d, this.focused) ? 0 : -1}" aria-label="${esc(label)}"${h && h !== "جمعه" ? ` title="${esc(h)}"` : ""}${h ? ' data-holiday=""' : ""}${sameDay(d, today) ? ' aria-current="date"' : ""}${this.disabled(d) ? ' aria-disabled="true"' : ""}>${n(toJalali(d).jd)}</button></td>`;
       }).join("")}</tr>`);
     }
     const todayLabel = this.getAttribute("today-label");
@@ -209,6 +250,7 @@ export class KashiCalendar extends HTMLBase {
 ${todayLabel ? `<div class="k-calendar__footer"><button type="button" class="k-btn k-btn--link" data-today>${esc(todayLabel)}</button></div>` : ""}
 </div>`;
     syncHidden(this, this.getAttribute("name"), this.value);
+    this.paintRange();
     if (this.refocus) {
       this.refocus = false;
       this.querySelector<HTMLButtonElement>(`[data-day="${dayKey(this.focused)}"]`)?.focus();

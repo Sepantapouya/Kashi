@@ -9,6 +9,15 @@ import { KashiAddressForm, KashiIranMap } from "./map.js";
 import { KashiDropdownMenu, KashiPopover } from "./menu.js";
 import { KashiNumberInput, KashiPagination, KashiRating, KashiTagInput } from "./controls.js";
 import { KashiDataTable } from "./table.js";
+import {
+  KashiChipGroup, KashiInlineEdit, KashiKeyboardFix, KashiMultiSelect, KashiPasswordStrength, KashiPersianTextarea, KashiPlateInput,
+  KashiSlider, KashiTimeInput,
+} from "./forms.js";
+import { KashiColorPicker, KashiDateRangePicker, KashiFileUpload, KashiMonthPicker } from "./pickers.js";
+import {
+  KashiActivityHeatmap, KashiBarChart, KashiBarList, KashiLineChart, KashiPieChart, KashiProportionBar, KashiSparkline,
+} from "./charts.js";
+import { KashiCarousel, KashiCommandPalette, KashiContextMenu, KashiSideNav, KashiSplitter, KashiTour, KashiTreeView } from "./nav.js";
 import { KashiCalendar, KashiDatePicker } from "./calendar.js";
 import { KashiCountdown, KashiDate, KashiMoney, KashiRelativeTime } from "./display.js";
 import { KashiCopyButton, KashiDialog, KashiTabs, KashiTooltip } from "./overlay.js";
@@ -20,11 +29,16 @@ export {
   KashiCountdown, KashiDate, KashiMoney, KashiRelativeTime,
   KashiCopyButton, KashiDialog, KashiTabs, KashiTooltip, KashiToaster, toast,
   KashiDropdownMenu, KashiPopover, KashiTagInput, KashiNumberInput, KashiRating, KashiPagination, KashiDataTable,
+  KashiMultiSelect, KashiSlider, KashiChipGroup, KashiPasswordStrength, KashiPersianTextarea, KashiKeyboardFix, KashiTimeInput,
+  KashiPlateInput, KashiInlineEdit, KashiDateRangePicker, KashiMonthPicker, KashiFileUpload, KashiColorPicker,
+  KashiBarChart, KashiLineChart, KashiPieChart, KashiBarList, KashiProportionBar, KashiSparkline, KashiActivityHeatmap,
+  KashiCommandPalette, KashiContextMenu, KashiCarousel, KashiTreeView, KashiTour, KashiSplitter, KashiSideNav,
 };
 export { KashiDigitsInput } from "./inputs.js";
 export type { ToastOptions, ToastTone } from "./toast.js";
 export type { ComboboxOption } from "./combobox.js";
 export type { TableColumn } from "./table.js";
+export type { CommandItem, TourStep, TreeNode } from "./nav.js";
 
 /** نام همهٔ عنصرها؛ مثلاً برای isCustomElement در Vue */
 export const KASHI_ELEMENTS = [
@@ -33,6 +47,11 @@ export const KASHI_ELEMENTS = [
   "kashi-money", "kashi-date", "kashi-relative-time", "kashi-countdown",
   "kashi-dialog", "kashi-tabs", "kashi-tooltip", "kashi-copy-button", "kashi-toaster",
   "kashi-dropdown-menu", "kashi-popover", "kashi-tag-input", "kashi-number-input", "kashi-rating", "kashi-pagination", "kashi-data-table",
+  "kashi-multi-select", "kashi-slider", "kashi-chip-group", "kashi-password-strength", "kashi-persian-textarea", "kashi-keyboard-fix",
+  "kashi-time-input", "kashi-plate-input", "kashi-inline-edit",
+  "kashi-date-range-picker", "kashi-month-picker", "kashi-file-upload", "kashi-color-picker",
+  "kashi-bar-chart", "kashi-line-chart", "kashi-pie-chart", "kashi-bar-list", "kashi-proportion-bar", "kashi-sparkline", "kashi-activity-heatmap",
+  "kashi-command-palette", "kashi-context-menu", "kashi-carousel", "kashi-tree-view", "kashi-tour", "kashi-splitter", "kashi-side-nav",
 ] as const;
 
 declare global {
@@ -69,5 +88,32 @@ declare global {
     "kashi-rating": KashiRating;
     "kashi-pagination": KashiPagination;
     "kashi-data-table": KashiDataTable;
+    "kashi-multi-select": KashiMultiSelect;
+    "kashi-slider": KashiSlider;
+    "kashi-chip-group": KashiChipGroup;
+    "kashi-password-strength": KashiPasswordStrength;
+    "kashi-persian-textarea": KashiPersianTextarea;
+    "kashi-keyboard-fix": KashiKeyboardFix;
+    "kashi-time-input": KashiTimeInput;
+    "kashi-plate-input": KashiPlateInput;
+    "kashi-inline-edit": KashiInlineEdit;
+    "kashi-date-range-picker": KashiDateRangePicker;
+    "kashi-month-picker": KashiMonthPicker;
+    "kashi-file-upload": KashiFileUpload;
+    "kashi-color-picker": KashiColorPicker;
+    "kashi-bar-chart": KashiBarChart;
+    "kashi-line-chart": KashiLineChart;
+    "kashi-pie-chart": KashiPieChart;
+    "kashi-bar-list": KashiBarList;
+    "kashi-proportion-bar": KashiProportionBar;
+    "kashi-sparkline": KashiSparkline;
+    "kashi-activity-heatmap": KashiActivityHeatmap;
+    "kashi-command-palette": KashiCommandPalette;
+    "kashi-context-menu": KashiContextMenu;
+    "kashi-carousel": KashiCarousel;
+    "kashi-tree-view": KashiTreeView;
+    "kashi-tour": KashiTour;
+    "kashi-splitter": KashiSplitter;
+    "kashi-side-nav": KashiSideNav;
   }
 }

@@ -13,6 +13,7 @@ export function define(tag: string, ctor: CustomElementConstructor, display: "bl
   if (typeof customElements === "undefined" || customElements.get(tag)) return;
   if (display === "block") BLOCK_TAGS.push(tag);
   if (display === "contents") CONTENTS_TAGS.push(tag);
+  upgradeProperties(ctor);
   customElements.define(tag, ctor);
   if (typeof document === "undefined") return;
   if (!style) {
@@ -26,6 +27,27 @@ export function define(tag: string, ctor: CustomElementConstructor, display: "bl
     CONTENTS_TAGS.length && `:where(${CONTENTS_TAGS.join(",")}) { display: contents; }`,
   ].filter(Boolean);
   style.textContent = `@layer kashi.elements { ${rules.join(" ")} }`;
+}
+
+/**
+ * ویژگی‌هایی که پیش از ثبت عنصر با JavaScript گذاشته شده‌اند (مثلاً Vue، یا element.data پیش از بارگذاری تنبل)
+ * روی خود نمونه می‌نشینند و setter کلاس را می‌پوشانند؛ پیش از اولین اتصال، از نمونه برداشته و دوباره از setter گذاشته می‌شوند.
+ */
+function upgradeProperties(ctor: CustomElementConstructor) {
+  const setters = new Set<string>();
+  for (let p = ctor.prototype; p && p !== HTMLBase.prototype; p = Object.getPrototypeOf(p)) {
+    for (const [k, d] of Object.entries(Object.getOwnPropertyDescriptors(p))) if (d.set) setters.add(k);
+  }
+  const original = ctor.prototype.connectedCallback as (() => void) | undefined;
+  ctor.prototype.connectedCallback = function (this: HTMLElement & Record<string, unknown>) {
+    for (const k of setters) {
+      if (!Object.prototype.hasOwnProperty.call(this, k)) continue;
+      const v = this[k];
+      delete this[k];
+      this[k] = v;
+    }
+    original?.call(this);
+  };
 }
 
 /**

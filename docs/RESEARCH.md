@@ -68,7 +68,7 @@
 | ۵ | CLI (`npx kashi-ui add …`) |
 | **۶ (بخش اول) ✓** | Web Components بدون وابستگی (`@kashi-ui/elements`): ۸ فیلد فارسی، OTP، تقویم و DatePicker شمسی، مبلغ، تاریخ، شمارش معکوس، Dialog، Tabs، Tooltip، Toast، CopyButton |
 | **۶ (بخش دوم) ✓** | Combobox، استان و شهر، نقشهٔ ایران، فرم نشانی، DataTable، DropdownMenu، Popover، TagInput، NumberInput، Rating، Pagination |
-| ۶ (ادامه) | نمودارها، CommandPalette، MultiSelect، DateRangePicker، FileUpload و بقیهٔ کامپوننت‌های فقط-React |
+| **۶ (بخش سوم) ✓** | نمودارها، هیت‌مپ، CommandPalette، MultiSelect، DateRangePicker، MonthPicker، FileUpload، ColorPicker، Slider، چیپس، قدرت رمز، ویرایش نگارشی، ساعت، پلاک، ویرایش درجا، منوی راست‌کلیک، کاروسل، درخت، تور، اسپلیتر و منوی کناری؛ CDN با بارگذاری تنبل |
 | **۷ (بخش اول) ✓** | DatePicker و Calendar شمسی، کد ملی، شماره کارت، پکیج `@kashi-ui/persian` |
 | **۷ (بخش دوم) ✓** | شبا، موبایل، مبلغ به حروف، لوگوی ۳۱ بانک، یکدست‌سازی متن فارسی |
 | ۷ (ادامه) | کامپوننت‌های ویژهٔ فارسی: تقویم جلالی، DatePicker شمسی، ورودی کد ملی/شماره کارت/شبا، فرمت پول تومان |
