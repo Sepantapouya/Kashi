@@ -49,3 +49,20 @@ npm publish -w @kashi-ui/react
    ```
 2. پس از ادغام در `main`، گردش کار Release یک PR با عنوان «نسخهٔ جدید کاشی» می‌سازد که نسخه‌ها و CHANGELOG را به‌روز می‌کند.
 3. با ادغام آن PR، هر سه پکیج با یک نسخهٔ یکسان روی npm منتشر می‌شوند، همراه با provenance که نشان می‌دهد پکیج دقیقاً از همین مخزن ساخته شده است.
+
+### تست مصرف‌کننده پیش از انتشار
+
+`npm run release` پیش از `changeset publish` دستور `npm run test:consumer` را اجرا می‌کند و CI هم آن را روی هر کامیت `main` و هر PR اجرا می‌کند. اگر دستی منتشر می‌کنید (`npx changeset publish`)، اول همین را بزنید:
+
+```bash
+npm run build && npm run test:consumer
+```
+
+این تست ([scripts/consumer-test.mjs](scripts/consumer-test.mjs)) کاشیِ همین کامیت را مثل یک کاربر نصب می‌کند:
+
+- هر ۸ پکیج در یک رجیستری npm موقت روی `localhost` (verdaccio) منتشر می‌شوند تا نسخهٔ منتشرنشده هم نصب شود؛
+- پروژهٔ آزمایشی [tests/consumer](tests/consumer) (Next.js با App Router، React 19 و Tailwind 4) از همان رجیستری نصب می‌شود؛
+- همهٔ آیتم‌های رجیستری shadcn از سایتِ همین کامیت با `shadcn add …/r/all.json` اضافه می‌شوند؛
+- `next build` با بررسی TypeScript هم صفحهٔ سرور (import مستقیم از `@kashi-ui/react`) و هم صفحهٔ کلاینت (کدهای کپی‌شده) را می‌سازد.
+
+حدود چند دقیقه طول می‌کشد و به اینترنت نیاز دارد (Next.js و وابستگی‌های دیگر از npm می‌آیند). با `KEEP=1` پوشهٔ موقت برای بررسی نگه داشته می‌شود.

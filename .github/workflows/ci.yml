@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -38,3 +39,18 @@ jobs:
           for p in tokens persian bank-logos icons css react; do
             (cd packages/$p && npm pack --dry-run --json > /dev/null)
           done
+
+  consumer:
+    name: Install in a Next.js app (npm + shadcn)
+    # کاشیِ همین کامیت را مثل یک کاربر در پروژهٔ Next.js نصب و بیلد می‌کند: scripts/consumer-test.mjs
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run test:consumer

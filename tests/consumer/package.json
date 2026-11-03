@@ -1,0 +1,21 @@
+{
+  "name": "kashi-consumer-test",
+  "private": true,
+  "scripts": { "build": "next build" },
+  "dependencies": {
+    "@kashi-ui/css": "*",
+    "@kashi-ui/persian": "*",
+    "@kashi-ui/react": "*",
+    "next": "16.4.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

@@ -5,7 +5,8 @@ import { itemJson, registryItems } from "../../data/registry";
 export const getStaticPaths: GetStaticPaths = () => registryItems("").map((it) => ({ params: { name: it.name } }));
 
 export const GET: APIRoute = ({ params, site, url }) => {
-  const origin = import.meta.env.DEV ? url.origin : site!.origin;
+  // تست مصرف‌کننده (scripts/consumer-test.mjs) رجیستری را روی localhost سرو می‌کند
+  const origin = import.meta.env.DEV ? url.origin : (process.env.KASHI_REGISTRY_ORIGIN ?? site!.origin);
   const item = registryItems(origin).find((it) => it.name === params.name)!;
   return new Response(JSON.stringify(itemJson(item), null, 2), { headers: { "Content-Type": "application/json; charset=utf-8" } });
 };

@@ -3,7 +3,8 @@ import { itemJson, registryItems } from "../../data/registry";
 
 // فهرست کامل رجیستری shadcn کاشی
 export const GET: APIRoute = ({ site, url }) => {
-  const origin = import.meta.env.DEV ? url.origin : site!.origin;
+  // تست مصرف‌کننده (scripts/consumer-test.mjs) رجیستری را روی localhost سرو می‌کند
+  const origin = import.meta.env.DEV ? url.origin : (process.env.KASHI_REGISTRY_ORIGIN ?? site!.origin);
   const body = {
     $schema: "https://ui.shadcn.com/schema/registry.json",
     name: "kashi",
