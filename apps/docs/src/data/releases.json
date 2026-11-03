@@ -1,45 +1,137 @@
 {
- "generated": "2026-11-03T11:11:48+03:30",
+ "generated": "2026-11-03T14:32:01+03:30",
  "totals": {
-  "commits": 189,
-  "versions": 25,
-  "added": 78860,
+  "commits": 193,
+  "versions": 26,
+  "added": 84481,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [
-  {
-   "sha": "e11fd9ef99aed0b17b30175569171137c0b8687d",
-   "short": "e11fd9e",
-   "date": "2026-11-03T11:11:48+03:30",
-   "author": "sepantapouya",
-   "subject": "test: consumer test in a Next.js app before every release",
-   "details": [
-    "scripts/consumer-test.mjs publishes the 8 freshly built packages to a temporary",
-    "local registry (verdaccio), builds the docs site with its shadcn registry on",
-    "localhost, installs tests/consumer (Next.js 16 App Router, React 19, Tailwind 4),",
-    "adds every registry item with shadcn and runs next build. A server page imports",
-    "@kashi-ui/react directly, so a missing \"use client\" fails the build (verified).",
-    "- npm run test:consumer; npm run release runs it before changeset publish",
-    "- CI job \"consumer\" on push to main, pull requests and manual runs",
-    "- registry endpoints read KASHI_REGISTRY_ORIGIN when set"
-   ],
-   "files": 15,
-   "added": 357,
-   "removed": 3
-  },
-  {
-   "sha": "762b358b8968757f2d5e0b5e386b2c2cadf11db1",
-   "short": "762b358",
-   "date": "2026-11-02T14:40:32+03:30",
-   "author": "sepantapouya",
-   "subject": "fix(css): one background for autofilled inputs",
-   "details": [],
-   "files": 2,
-   "added": 20,
-   "removed": 0
-  }
- ],
+ "unreleased": [],
  "versions": [
+  {
+   "version": "0.24.0",
+   "date": "2026-11-03T14:32:01+03:30",
+   "releaseCommit": "2122f40",
+   "commits": [
+    {
+     "sha": "2122f40a27b4b9cf780cbb0af168a7e84ff1721c",
+     "short": "2122f40",
+     "date": "2026-11-03T14:32:01+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 0.24.0: web components (@kashi-ui/elements)",
+     "details": [],
+     "files": 23,
+     "added": 102,
+     "removed": 51
+    },
+    {
+     "sha": "9075802430ba6cb746a23a0a2672ad2c52e30506",
+     "short": "9075802",
+     "date": "2026-11-03T14:28:51+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(elements): install, attributes and events on each component's own page",
+     "details": [
+      "Each component page's «وب کامپوننت» section now has install steps",
+      "(CDN, or npm with just that module), the live sample, an attributes",
+      "table and events/JS API, all from data/elements.ts. The same text goes",
+      "to llms.txt and the MCP server through elementMarkdown. The general web",
+      "components page is now setup, one sample, a list linking to each page",
+      "and the shared guides. 32 elements (the previous commit said 35)."
+     ],
+     "files": 9,
+     "added": 407,
+     "removed": 314
+    },
+    {
+     "sha": "017515b2c49c98b2664b2698df09493baa8680c7",
+     "short": "017515b",
+     "date": "2026-11-03T14:18:51+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(elements): complex components as web components; live section on every page",
+     "details": [
+      "New elements: kashi-combobox, kashi-city-select (1278 cities),",
+      "kashi-province-select now searchable like ProvinceSelect, kashi-iran-map,",
+      "kashi-address-form, kashi-data-table (enhances a plain <table>: sort,",
+      "select, search; or columns/rows from JS), kashi-dropdown-menu,",
+      "kashi-popover, kashi-tag-input, kashi-number-input, kashi-rating,",
+      "kashi-pagination. 35 elements in all; per-module imports via",
+      "@kashi-ui/elements/<module>.js.",
+      "Fixes: values set by frameworks before connect survive the first render;",
+      "city select no longer rebuilds (and loses focus) on province change.",
+      "Docs: data/elements.ts drives the strip under each page title and a new",
+      "«وب کامپوننت» section with a live demo at the end of every component page",
+      "that has a twin (23 pages, also in the TOC). Column demo previews no",
+      "longer wrap (fixes collapsed aspect-ratio content). A test keeps every",
+      "element documented. Skill updated."
+     ],
+     "files": 31,
+     "added": 2409,
+     "removed": 111
+    },
+    {
+     "sha": "f3cd13a14f532dbe3d65b934aecef35ae5965a1c",
+     "short": "f3cd13a",
+     "date": "2026-11-03T14:01:09+03:30",
+     "author": "sepantapouya",
+     "subject": "feat: @kashi-ui/elements — Kashi web components for HTML, Vue, Svelte and Angular",
+     "details": [
+      "21 framework-free custom elements in light DOM on top of @kashi-ui/css:",
+      "Persian inputs (national id, legal id, mobile, landline, card, IBAN,",
+      "postal code, price), OTP, province select, Jalali calendar and date",
+      "picker, money, date, relative time, countdown, dialog, tabs, tooltip,",
+      "toast and copy button. Values submit through name, invalid values block",
+      "native form submit, changes fire kashi-change. CDN bundle in dist/cdn.",
+      "Docs: new /docs/web-components/ page, sidebar, install page, homepage,",
+      "compare, intro, README, roadmap; a strip on each component page that",
+      "has a web component twin. Skill updated."
+     ],
+     "files": 33,
+     "added": 2703,
+     "removed": 29
+    },
+    {
+     "sha": "e11fd9ef99aed0b17b30175569171137c0b8687d",
+     "short": "e11fd9e",
+     "date": "2026-11-03T11:11:48+03:30",
+     "author": "sepantapouya",
+     "subject": "test: consumer test in a Next.js app before every release",
+     "details": [
+      "scripts/consumer-test.mjs publishes the 8 freshly built packages to a temporary",
+      "local registry (verdaccio), builds the docs site with its shadcn registry on",
+      "localhost, installs tests/consumer (Next.js 16 App Router, React 19, Tailwind 4),",
+      "adds every registry item with shadcn and runs next build. A server page imports",
+      "@kashi-ui/react directly, so a missing \"use client\" fails the build (verified).",
+      "- npm run test:consumer; npm run release runs it before changeset publish",
+      "- CI job \"consumer\" on push to main, pull requests and manual runs",
+      "- registry endpoints read KASHI_REGISTRY_ORIGIN when set"
+     ],
+     "files": 15,
+     "added": 357,
+     "removed": 3
+    },
+    {
+     "sha": "762b358b8968757f2d5e0b5e386b2c2cadf11db1",
+     "short": "762b358",
+     "date": "2026-11-02T14:40:32+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(css): one background for autofilled inputs",
+     "details": [],
+     "files": 2,
+     "added": 20,
+     "removed": 0
+    }
+   ],
+   "notes": [
+    {
+     "kind": "patch",
+     "text": "Browser autofill no longer paints a second background behind the text inside `.k-input`; the whole field keeps one color in both themes.",
+     "sub": [],
+     "packages": [
+      "css"
+     ]
+    }
+   ]
+  },
   {
    "version": "0.23.0",
    "date": "2026-11-02T14:34:51+03:30",

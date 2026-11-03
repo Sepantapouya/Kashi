@@ -1,5 +1,12 @@
 # @kashi-ui/css
 
+## 0.24.0
+
+### Patch Changes
+
+- 762b358: Browser autofill no longer paints a second background behind the text inside `.k-input`; the whole field keeps one color in both themes.
+- @kashi-ui/tokens@0.24.0
+
 ## 0.23.0
 
 ### Minor Changes
