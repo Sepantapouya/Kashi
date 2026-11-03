@@ -1,5 +1,9 @@
 # @kashi-ui/icons
 
+## 0.25.0
+
+No changes in this release.
+
 ## 0.24.0
 
 No changes in this release.

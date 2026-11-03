@@ -1,13 +1,88 @@
 {
- "generated": "2026-11-03T14:32:01+03:30",
+ "generated": "2026-11-03T16:58:35+03:30",
  "totals": {
-  "commits": 193,
-  "versions": 26,
-  "added": 84608,
+  "commits": 197,
+  "versions": 27,
+  "added": 88385,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [],
  "versions": [
+  {
+   "version": "0.25.0",
+   "date": "2026-11-03T16:58:35+03:30",
+   "releaseCommit": "b9d524a",
+   "commits": [
+    {
+     "sha": "b9d524aa9e7533f00bf40b43a1159d81fb53fb30",
+     "short": "b9d524a",
+     "date": "2026-11-03T16:58:35+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 0.25.0: every interactive component as a web component",
+     "details": [],
+     "files": 22,
+     "added": 97,
+     "removed": 46
+    },
+    {
+     "sha": "9529713c0a603ef674b3b220d33415f712ff2d21",
+     "short": "9529713",
+     "date": "2026-11-03T16:49:34+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(elements): every interactive component as a web component (59)",
+     "details": [
+      "27 new elements: bar, line, pie, bar list, proportion bar, sparkline",
+      "and activity heatmap charts; multi-select, slider, chip group, password",
+      "strength, Persian textarea, keyboard fix, time, plate, inline edit;",
+      "date range and month pickers, file upload, color picker; command",
+      "palette, context menu, carousel, tree view, tour, splitter, side nav.",
+      "The calendar gets a range mode.",
+      "The CDN file is now a 2.5 KB (gzip) loader that imports each module",
+      "only when one of its tags is on the page; loadAll() loads everything.",
+      "Properties set before an element is defined are kept for every element.",
+      "Docs: each new component page gets its install card tab and web",
+      "component section; overview list and README cover all 59; 32 tests."
+     ],
+     "files": 16,
+     "added": 3473,
+     "removed": 14
+    },
+    {
+     "sha": "88510454bac4b273d44578ba837f36d89960e59f",
+     "short": "8851045",
+     "date": "2026-11-03T16:34:39+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): install card under each component page title",
+     "details": [
+      "One card with React / shadcn / web component tabs replaces the shadcn",
+      "strip and the web component line. Each tab has its commands with copy",
+      "buttons; the chosen tab and package manager are remembered across",
+      "pages. The page's own import block moves into the React tab."
+     ],
+     "files": 6,
+     "added": 190,
+     "removed": 57
+    },
+    {
+     "sha": "d33cd071eba3fc6ae829fc8d3bb12724cbefaa75",
+     "short": "d33cd07",
+     "date": "2026-11-03T16:31:02+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(docs): code blocks in RTL pages",
+     "details": [
+      "Code is always left-to-right now, so long lines stop under the copy",
+      "button and Persian strings next to numbers (JSON) keep their order;",
+      "each Persian phrase in code is bidi-isolated. Code block labels sit",
+      "opposite the copy button. The web component section no longer wraps its",
+      "content, so normal page spacing applies."
+     ],
+     "files": 3,
+     "added": 17,
+     "removed": 6
+    }
+   ],
+   "notes": []
+  },
   {
    "version": "0.24.0",
    "date": "2026-11-03T14:32:01+03:30",
