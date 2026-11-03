@@ -391,7 +391,7 @@ code, pre, kbd {
 }
 .demo__preview--start { justify-content: flex-start; }
 .demo__preview--stretch > * { flex: 1 1 18rem; }
-.demo__preview--column { flex-direction: column; align-items: stretch; }
+.demo__preview--column { flex-direction: column; flex-wrap: nowrap; align-items: stretch; }
 .demo__preview--column.demo__preview--center { align-items: center; }
 .demo__code { position: relative; border-block-start: 1px solid var(--k-border-secondary); background: var(--code-bg); }
 /* دکمهٔ StackBlitz در همان ردیف تب‌ها، سمت مقابل React/HTML (نوار کد چپ‌به‌راست است) */

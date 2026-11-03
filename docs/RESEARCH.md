@@ -66,8 +66,9 @@
 | **۳ ✓** | سایت مستندات تیره با Astro: صفحهٔ اصلی، ۵ راهنما، ۸ صفحهٔ کامپوننت، تم‌ساز زنده |
 | **۴ ✓** | CI با GitHub Actions، نسخه‌بندی با Changesets، گردش کار انتشار npm با provenance، پیکربندی Vercel |
 | ۵ | CLI (`npx kashi-ui add …`) |
-| **۶ (بخش اول) ✓** | Web Components بدون وابستگی (`@kashi-ui/elements`): ۸ فیلد فارسی، OTP، استان، تقویم و DatePicker شمسی، مبلغ، تاریخ، شمارش معکوس، Dialog، Tabs، Tooltip، Toast، CopyButton |
-| ۶ (ادامه) | Combobox، DataTable، نقشهٔ ایران و فرم نشانی به‌شکل Web Component |
+| **۶ (بخش اول) ✓** | Web Components بدون وابستگی (`@kashi-ui/elements`): ۸ فیلد فارسی، OTP، تقویم و DatePicker شمسی، مبلغ، تاریخ، شمارش معکوس، Dialog، Tabs، Tooltip، Toast، CopyButton |
+| **۶ (بخش دوم) ✓** | Combobox، استان و شهر، نقشهٔ ایران، فرم نشانی، DataTable، DropdownMenu، Popover، TagInput، NumberInput، Rating، Pagination |
+| ۶ (ادامه) | نمودارها، CommandPalette، MultiSelect، DateRangePicker، FileUpload و بقیهٔ کامپوننت‌های فقط-React |
 | **۷ (بخش اول) ✓** | DatePicker و Calendar شمسی، کد ملی، شماره کارت، پکیج `@kashi-ui/persian` |
 | **۷ (بخش دوم) ✓** | شبا، موبایل، مبلغ به حروف، لوگوی ۳۱ بانک، یکدست‌سازی متن فارسی |
 | ۷ (ادامه) | کامپوننت‌های ویژهٔ فارسی: تقویم جلالی، DatePicker شمسی، ورودی کد ملی/شماره کارت/شبا، فرمت پول تومان |

@@ -22,7 +22,7 @@
 | `@kashi-ui/bank-logos` | لوگوی SVG ۴۰ بانک و ۱۰ درگاه پرداخت ایران (CC0) |
 | `@kashi-ui/icons` | ۴۵۰۰ آیکون کاشی در شش سبک؛ React، SVG و اسپرایت |
 | `@kashi-ui/react` | کامپوننت‌های React |
-| `@kashi-ui/elements` | وب کامپوننت‌ها برای Vue، Svelte، Angular، وردپرس و HTML: فیلدهای فارسی، تقویم شمسی، پنجره، زبانه و اعلان |
+| `@kashi-ui/elements` | وب کامپوننت‌ها برای Vue، Svelte، Angular، وردپرس و HTML: فیلدهای فارسی، تقویم شمسی، فرم نشانی، نقشهٔ ایران، جدول داده، Combobox، منو، پنجره و اعلان |
 | `@kashi-ui/tailwind` | پریست Tailwind 3 و 4: توکن‌های کاشی به‌شکل کلاس‌های Tailwind، همگام با تم |
 | `@kashi-ui/mcp` | سرور MCP برای Claude، Cursor و دیگر دستیارهای هوش مصنوعی |
 

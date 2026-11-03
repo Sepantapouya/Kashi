@@ -48,13 +48,15 @@ export abstract class KashiDigitsInput extends HTMLBase {
   protected abstract kind: Kind;
   protected raw = "";
   private touched = false;
+  /** مقدار با ویژگی value پیش از وصل شدن به صفحه گذاشته شده (مثلاً Vue) */
+  private valueSet = false;
   private rendered = false;
   private key = uid("kashi-in");
   protected input!: HTMLInputElement;
   private logoSlug: string | null = null;
 
   connectedCallback() {
-    if (!this.rendered) this.raw = this.clean(this.getAttribute("value") ?? "");
+    if (!this.rendered && !this.valueSet) this.raw = this.clean(this.getAttribute("value") ?? "");
     // مقداری که فریم‌ورک پیش از ثبت عنصر روی ویژگی value گذاشته
     if (Object.prototype.hasOwnProperty.call(this, "value")) {
       const v = (this as { value?: unknown }).value;
@@ -75,6 +77,7 @@ export abstract class KashiDigitsInput extends HTMLBase {
     return this.kind.submit ? this.kind.submit(this.raw) : this.raw;
   }
   set value(v: string) {
+    this.valueSet = true;
     this.setRaw(this.clean(String(v ?? "")), false);
   }
   /** آیا مقدار کامل و معتبر است */

@@ -29,9 +29,11 @@ import "@kashi-ui/elements";
 ## عنصرها
 
 - **فیلدهای فارسی:** `kashi-national-id`، `kashi-legal-id`، `kashi-mobile`، `kashi-landline`، `kashi-card-number`، `kashi-iban`، `kashi-postal-code`، `kashi-price`
-- **انتخاب:** `kashi-date-picker`، `kashi-calendar`، `kashi-otp`، `kashi-province-select`
+- **انتخاب:** `kashi-date-picker`، `kashi-calendar`، `kashi-otp`، `kashi-combobox`، `kashi-province-select`، `kashi-city-select`، `kashi-tag-input`، `kashi-number-input`، `kashi-rating`
+- **نشانی و نقشه:** `kashi-address-form`، `kashi-iran-map`
+- **داده:** `kashi-data-table`، `kashi-pagination`
 - **نمایش:** `kashi-money`، `kashi-date`، `kashi-relative-time`، `kashi-countdown`
-- **تعاملی:** `kashi-dialog`، `kashi-tabs`، `kashi-tooltip`، `kashi-toaster` (و تابع `toast()`)، `kashi-copy-button`
+- **تعاملی:** `kashi-dialog`، `kashi-tabs`، `kashi-tooltip`، `kashi-dropdown-menu`، `kashi-popover`، `kashi-toaster` (و تابع `toast()`)، `kashi-copy-button`
 
 هر فیلد با `name` مقدار خام را با ارقام انگلیسی در فرم ارسال می‌کند، مقدار نامعتبر جلوی ارسال فرم را می‌گیرد و با هر تغییر رویداد `kashi-change` می‌فرستد.
 

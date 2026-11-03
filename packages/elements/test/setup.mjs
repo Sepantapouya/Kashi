@@ -3,7 +3,7 @@ import { Window } from "happy-dom";
 
 const window = new Window({ url: "http://localhost/" });
 for (const key of [
-  "window", "document", "HTMLElement", "HTMLInputElement", "HTMLDialogElement", "Element", "Node", "customElements",
+  "window", "document", "HTMLElement", "HTMLInputElement", "HTMLButtonElement", "HTMLDialogElement", "Element", "Node", "customElements",
   "CustomEvent", "Event", "KeyboardEvent", "MouseEvent", "getComputedStyle", "navigator", "FormData",
 ]) {
   Object.defineProperty(globalThis, key, { value: key === "window" ? window : window[key], configurable: true, writable: true });

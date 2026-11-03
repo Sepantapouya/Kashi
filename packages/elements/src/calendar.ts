@@ -33,6 +33,7 @@ export class KashiCalendar extends HTMLBase {
   /** نام تعطیلی هر روز؛ اگر ویژگی holidays گذاشته شود، تعطیلات ثابت ایران و جمعه‌ها */
   holidayOf?: (date: Date) => string | null | false | undefined;
   private selected: Date | null = null;
+  private valueSet = false;
   private focused = startOfDay(new Date());
   private refocus = false;
   private rendered = false;
@@ -40,7 +41,7 @@ export class KashiCalendar extends HTMLBase {
 
   connectedCallback() {
     if (!this.rendered) {
-      this.selected = parseDate(this.getAttribute("value"));
+      if (!this.valueSet) this.selected = parseDate(this.getAttribute("value"));
       this.focused = this.clamp(startOfDay(this.selected ?? new Date()));
       this.addEventListener("click", this.onClick);
       this.addEventListener("keydown", this.onKey);
@@ -64,7 +65,10 @@ export class KashiCalendar extends HTMLBase {
     return this.selected ? toISODate(this.selected) : "";
   }
   set value(v: string) {
-    this.setAttribute("value", v ?? "");
+    this.valueSet = true;
+    this.selected = parseDate(v ?? "");
+    if (this.selected) this.focused = startOfDay(this.selected);
+    if (this.rendered) this.render();
   }
   get date(): Date | null {
     return this.selected;
@@ -220,6 +224,7 @@ export class KashiDatePicker extends HTMLBase {
   static observedAttributes = ["label", "hint", "error", "required", "disabled", "value", "min", "max", "digits", "holidays", "name", "placeholder", "invalid-message", "aria-label"];
   isDateDisabled?: (date: Date) => boolean;
   private selected: Date | null = null;
+  private valueSet = false;
   private invalid = false;
   private rendered = false;
   private key = uid("kashi-date");
@@ -228,7 +233,7 @@ export class KashiDatePicker extends HTMLBase {
   private pop: HTMLElement | null = null;
 
   connectedCallback() {
-    if (!this.rendered) this.selected = parseDate(this.getAttribute("value"));
+    if (!this.rendered && !this.valueSet) this.selected = parseDate(this.getAttribute("value"));
     this.render();
   }
   disconnectedCallback() {
@@ -247,6 +252,7 @@ export class KashiDatePicker extends HTMLBase {
     return this.selected ? toISODate(this.selected) : "";
   }
   set value(v: string) {
+    this.valueSet = true;
     this.selected = parseDate(v ?? "");
     this.invalid = false;
     if (this.rendered) this.paint();

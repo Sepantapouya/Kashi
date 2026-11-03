@@ -1,7 +1,9 @@
 ---
 // دستور نصب کامپوننت همین صفحه با رجیستری shadcn، زیر عنوان صفحه‌های کامپوننت
 import { iconSvg } from "@kashi-ui/icons";
+import { toFaDigits } from "@kashi-ui/persian";
 import { registryItems } from "../data/registry";
+import { ELEMENT_DOCS } from "../data/elements";
 
 const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
 const slug = path.split("/").at(-2);
@@ -10,22 +12,8 @@ const items = registryItems(SITE).filter((it) => !it.meta!.helper && it.meta!.hr
 // اگر چند فایل به این صفحه می‌رسند، آن که هم‌نام صفحه است
 const item = items.find((it) => it.name === slug) ?? items[0];
 const cmd = item && `npx shadcn@latest add ${SITE}/r/${item.name}.json`;
-// نسخهٔ وب کامپوننت همین صفحه در @kashi-ui/elements، برای HTML، Vue، Svelte و Angular
-const ELEMENTS: Record<string, string[]> = {
-  "/docs/persian/input/": ["kashi-national-id", "kashi-mobile", "kashi-card-number", "kashi-iban", "kashi-price", "kashi-postal-code", "kashi-landline", "kashi-legal-id"],
-  "/docs/persian/date-picker/": ["kashi-date-picker", "kashi-calendar"],
-  "/docs/persian/otp/": ["kashi-otp"],
-  "/docs/persian/countdown/": ["kashi-countdown"],
-  "/docs/persian/province/": ["kashi-province-select"],
-  "/docs/persian/money/": ["kashi-money"],
-  "/docs/persian/utilities/": ["kashi-date", "kashi-relative-time"],
-  "/docs/components/dialog/": ["kashi-dialog"],
-  "/docs/components/tabs/": ["kashi-tabs"],
-  "/docs/components/tooltip/": ["kashi-tooltip"],
-  "/docs/components/toast/": ["kashi-toaster"],
-  "/docs/components/copy-button/": ["kashi-copy-button"],
-};
-const tags = ELEMENTS[path] ?? [];
+// نسخهٔ وب کامپوننت همین صفحه در @kashi-ui/elements (data/elements.ts)
+const tags = ELEMENT_DOCS[path]?.tags ?? [];
 ---
 {cmd && (
   <div class="shadcn-add">
@@ -36,9 +24,10 @@ const tags = ELEMENTS[path] ?? [];
 )}
 {tags.length > 0 && (
   <p class="element-add">
-    <a class="shadcn-add__label" href="/docs/web-components/">وب کامپوننت</a>
+    <a class="shadcn-add__label" href="#وب-کامپوننت">وب کامپوننت</a>
     <span>بدون React:</span>
-    {tags.map((t) => <a href={`/docs/web-components/#${t}`} dir="ltr"><code>&lt;{t}&gt;</code></a>)}
+    {tags.slice(0, 3).map((t) => <a href={`/docs/web-components/#${t}`} dir="ltr"><code>&lt;{t}&gt;</code></a>)}
+    {tags.length > 3 && <a href="#وب-کامپوننت">و {toFaDigits(String(tags.length - 3))} مورد دیگر</a>}
   </p>
 )}
 

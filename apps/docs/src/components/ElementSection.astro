@@ -1,0 +1,27 @@
+---
+// بخش «وب کامپوننت» پایان صفحه‌های کامپوننت: همان کامپوننت بدون React، با نمونهٔ زنده و کد HTML.
+// محتوا از data/elements.ts می‌آید تا همهٔ صفحه‌ها یک‌جا و یکدست به‌روز بمانند.
+import Demo from "./Demo.astro";
+import ElementsScript from "./ElementsScript.astro";
+import { ELEMENT_DOCS } from "../data/elements";
+
+const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const doc = ELEMENT_DOCS[path];
+// کدهای لاتین داخل متن فارسی در <code> جدا می‌شوند تا ترتیب نمایش به‌هم نریزد
+const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const note = doc?.note ? doc.note.split("`").map((part, i) => (i % 2 ? `<code dir="ltr">${esc(part)}</code>` : esc(part))).join("") : "";
+---
+{doc && (
+  <section class="element-section" aria-labelledby="وب-کامپوننت">
+    <h2 id="وب-کامپوننت">وب کامپوننت</h2>
+    <p>
+      همین کامپوننت بدون React، برای HTML، وردپرس، Vue، Svelte و Angular در <a href="/docs/web-components/"><code>@kashi-ui/elements</code></a>
+      {" "}({doc.tags.map((t, i) => <>{i > 0 && "، "}<a href={`/docs/web-components/#${t}`}><code>&lt;{t}&gt;</code></a></>)}).
+      {note && <> <Fragment set:html={note} /></>}
+    </p>
+    <Demo lang="html" column align="start" label="نمونهٔ وب کامپوننت" code={doc.html}>
+      <Fragment set:html={doc.html} />
+    </Demo>
+    <ElementsScript />
+  </section>
+)}

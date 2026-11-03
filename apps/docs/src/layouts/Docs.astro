@@ -5,6 +5,8 @@ import Sidebar from "../components/Sidebar.astro";
 import Toc from "../components/Toc.astro";
 import Footer from "../components/Footer.astro";
 import ShadcnAdd from "../components/ShadcnAdd.astro";
+import ElementSection from "../components/ElementSection.astro";
+import { ELEMENT_DOCS } from "../data/elements";
 import { nav, siblings } from "../data/nav";
 
 interface Props {
@@ -14,7 +16,9 @@ interface Props {
   headings?: { depth: number; slug: string; text: string }[];
 }
 const fm = Astro.props.frontmatter ?? { title: Astro.props.title ?? "", description: Astro.props.description };
-const headings = Astro.props.headings ?? [];
+const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
+// بخش «وب کامپوننت» که ElementSection در پایان صفحه می‌سازد در فهرست «در این صفحه» هم بیاید
+const headings = [...(Astro.props.headings ?? []), ...(ELEMENT_DOCS[path] ? [{ depth: 2, slug: "وب-کامپوننت", text: "وب کامپوننت" }] : [])];
 const { prev, next } = siblings(Astro.url.pathname);
 const group = nav.find((g) => g.items.some((i) => i.href === (Astro.url.pathname.endsWith("/") ? Astro.url.pathname : Astro.url.pathname + "/")))?.title;
 ---
@@ -32,6 +36,7 @@ const group = nav.find((g) => g.items.some((i) => i.href === (Astro.url.pathname
           <ShadcnAdd />
         </header>
         <slot />
+        <ElementSection />
       </article>
       <nav class="pager" aria-label="صفحه‌های مجاور">
         {prev ? <a class="pager__link" href={prev.href} rel="prev"><span>قبلی</span>{prev.title}</a> : <span />}

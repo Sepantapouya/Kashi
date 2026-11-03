@@ -1,4 +1,4 @@
-import { PROVINCES, onlyDigits, toFaDigits } from "@kashi-ui/persian";
+import { onlyDigits, toFaDigits } from "@kashi-ui/persian";
 import { HTMLBase, define, emit, esc, fieldHTML, setMessages, syncHidden, uid } from "./base.js";
 
 /**
@@ -9,12 +9,13 @@ export class KashiOtp extends HTMLBase {
   static observedAttributes = ["label", "hint", "error", "length", "digits", "group-after", "size", "disabled", "name", "value", "aria-label"];
   private code = "";
   private caret = 0;
+  private valueSet = false;
   private rendered = false;
   private key = uid("kashi-otp");
   private input!: HTMLInputElement;
 
   connectedCallback() {
-    if (!this.rendered) this.code = onlyDigits(this.getAttribute("value") ?? "").slice(0, this.length);
+    if (!this.rendered && !this.valueSet) this.code = onlyDigits(this.getAttribute("value") ?? "").slice(0, this.length);
     this.render();
   }
   attributeChangedCallback(name: string, old: string | null, next: string | null) {
@@ -29,6 +30,7 @@ export class KashiOtp extends HTMLBase {
     return this.code;
   }
   set value(v: string) {
+    this.valueSet = true;
     this.code = onlyDigits(String(v ?? "")).slice(0, this.length);
     if (this.rendered) this.paint();
   }
@@ -96,58 +98,4 @@ export class KashiOtp extends HTMLBase {
   }
 }
 
-/** انتخاب استان روی <select> بومی: در گوشی انتخاب‌گر سیستم باز می‌شود و در فرم HTML مستقیم ارسال می‌شود */
-export class KashiProvinceSelect extends HTMLBase {
-  static observedAttributes = ["label", "hint", "error", "required", "disabled", "name", "value", "placeholder", "size", "show-capital", "aria-label"];
-  private rendered = false;
-  private key = uid("kashi-prov");
-  private select!: HTMLSelectElement;
-  private current = "";
-
-  connectedCallback() {
-    if (!this.rendered) this.current = this.getAttribute("value") ?? "";
-    this.render();
-  }
-  attributeChangedCallback(name: string, old: string | null, next: string | null) {
-    if (!this.rendered || old === next) return;
-    if (name === "value") this.value = next ?? "";
-    else this.render();
-  }
-  get value() {
-    return this.current;
-  }
-  set value(v: string) {
-    this.current = PROVINCES.some((p) => p.name === v) ? v : "";
-    if (this.select) this.select.value = this.current;
-  }
-  focus(options?: FocusOptions) {
-    this.select?.focus(options);
-  }
-
-  private render() {
-    const id = this.key;
-    const ariaLabel = this.getAttribute("aria-label");
-    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : "استان";
-    const required = this.hasAttribute("required");
-    const name = this.getAttribute("name");
-    const size = this.getAttribute("size");
-    const capital = this.getAttribute("show-capital") === "true" || this.getAttribute("show-capital") === "";
-    const options = PROVINCES.map((p) =>
-      `<option value="${esc(p.name)}"${p.name === this.current ? " selected" : ""}>${esc(p.name)}${capital && p.capital !== p.name ? ` (${esc(p.capital)})` : ""}</option>`,
-    ).join("");
-    const control = `<div class="k-select${size === "sm" || size === "lg" ? ` k-select--${size}` : ""}"><select id="${id}" class="k-select__control"${name ? ` name="${esc(name)}"` : ""}${required ? " required" : ""}${this.hasAttribute("disabled") ? " disabled" : ""}${!label && ariaLabel ? ` aria-label="${esc(ariaLabel)}"` : ""}><option value="" disabled${this.current ? "" : " selected"}>${esc(this.getAttribute("placeholder") ?? "انتخاب استان")}</option>${options}</select></div>`;
-    this.querySelector(":scope > .k-field")?.remove();
-    this.insertAdjacentHTML("afterbegin", fieldHTML({ id, label, required, control }));
-    this.select = this.querySelector("select")!;
-    this.select.value = this.current;
-    this.select.addEventListener("change", () => {
-      this.current = this.select.value;
-      emit(this, "kashi-change", { value: this.current, province: PROVINCES.find((p) => p.name === this.current) ?? null });
-    });
-    this.rendered = true;
-    setMessages(this.querySelector(":scope > .k-field")!, this.select, id, this.getAttribute("error"), this.getAttribute("hint"));
-  }
-}
-
 define("kashi-otp", KashiOtp, "block");
-define("kashi-province-select", KashiProvinceSelect, "block");

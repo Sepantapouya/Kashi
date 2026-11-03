@@ -100,12 +100,20 @@ test("کد تأیید: خانه‌ها، ارقام فارسی و رویداد k
   assert.equal(el.querySelector("input[type=hidden]").value, "1234");
 });
 
-test("انتخاب استان روی select بومی", () => {
+test("انتخاب استان با جستجو، با نام مرکز استان هم", () => {
   const el = mount('<kashi-province-select name="province" value="اصفهان"></kashi-province-select>');
-  const select = el.querySelector("select");
-  assert.equal(select.name, "province");
-  assert.equal(select.value, "اصفهان");
-  assert.equal(select.options.length, 32);
+  const input = el.querySelector('[role="combobox"]');
+  assert.equal(input.value, "اصفهان");
+  assert.equal(el.querySelector("input[type=hidden]").value, "اصفهان");
+  const log = changes(el);
+  type(input, "مشهد");
+  const options = el.querySelectorAll('[role="option"]');
+  assert.equal(options.length, 1);
+  assert.match(options[0].textContent, /خراسان رضوی/);
+  input.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true }));
+  input.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
+  assert.equal(el.value, "خراسان رضوی");
+  assert.equal(log.at(-1).province.capital, "مشهد");
 });
 
 test("تقویم شمسی: ماه درست، تعطیلی و انتخاب روز", () => {

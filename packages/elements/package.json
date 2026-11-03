@@ -11,6 +11,10 @@
       "default": "./dist/index.js"
     },
     "./cdn": "./dist/cdn/kashi-elements.js",
+    "./*.js": {
+      "types": "./dist/*.d.ts",
+      "default": "./dist/*.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -19,7 +23,7 @@
   ],
   "sideEffects": true,
   "scripts": {
-    "build": "tsc -p tsconfig.json && node scripts/bundle.mjs",
+    "build": "node scripts/sync-map.mjs && tsc -p tsconfig.json && node scripts/bundle.mjs",
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
