@@ -1,16 +1,19 @@
 ---
-// جدول متغیرهای CSS: [نام، پیش‌فرض، توضیح]
+// جدول متغیرهای CSS: [نام، پیش‌فرض، توضیح]؛ همان چیدمان دوستونی Props
 interface Props { rows: [string, string, string][] }
 ---
-<div class="table-wrap" role="region" aria-label="متغیرهای CSS" tabindex="0">
-  <table class="ref-table">
-    <thead><tr><th scope="col">متغیر</th><th scope="col">پیش‌فرض</th><th scope="col">کاربرد</th></tr></thead>
+<div class="table-wrap props" role="region" aria-label="متغیرهای CSS" tabindex="0">
+  <table class="ref-table props__table">
+    <caption class="k-sr-only">متغیرهای CSS</caption>
+    <thead class="k-sr-only"><tr><th scope="col">متغیر</th><th scope="col">کاربرد و پیش‌فرض</th></tr></thead>
     <tbody>
       {Astro.props.rows.map(([name, def, desc]) => (
         <tr>
-          <th scope="row"><code>{name}</code></th>
-          <td><code class="type">{def}</code></td>
-          <td>{desc}</td>
+          <th scope="row"><code class="props__name" dir="ltr">{name}</code></th>
+          <td>
+            {desc && <p class="props__desc">{desc}</p>}
+            {def && <p class="props__meta"><span class="props__def">پیش‌فرض <code dir="ltr">{def}</code></span></p>}
+          </td>
         </tr>
       ))}
     </tbody>

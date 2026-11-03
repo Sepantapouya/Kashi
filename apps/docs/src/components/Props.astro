@@ -1,18 +1,28 @@
 ---
 // جدول props: [نام، نوع، پیش‌فرض، توضیح]
+// دو ستون تا متن جا داشته باشد: نام، و کنارش توضیح، مقدارهای ممکن (هر کدام یک برچسب) و پیش‌فرض.
+import { splitType } from "../lib/split-type";
+
 interface Props { rows: [string, string, string, string][]; caption?: string }
 const { rows, caption = "ویژگی‌ها (props)" } = Astro.props;
 ---
-<div class="table-wrap" role="region" aria-label={caption} tabindex="0">
-  <table class="ref-table">
-    <thead><tr><th scope="col">نام</th><th scope="col">نوع</th><th scope="col">پیش‌فرض</th><th scope="col">توضیح</th></tr></thead>
+<div class="table-wrap props" role="region" aria-label={caption} tabindex="0">
+  <table class="ref-table props__table">
+    <caption class="k-sr-only">{caption}</caption>
+    <thead class="k-sr-only"><tr><th scope="col">نام</th><th scope="col">توضیح، نوع و پیش‌فرض</th></tr></thead>
     <tbody>
       {rows.map(([name, type, def, desc]) => (
         <tr>
-          <th scope="row"><code>{name}</code></th>
-          <td><code class="type">{type}</code></td>
-          <td>{def ? <code>{def}</code> : <span class="muted">—</span>}</td>
-          <td>{desc}</td>
+          <th scope="row"><code class="props__name" dir="ltr">{name}</code></th>
+          <td>
+            {desc && <p class="props__desc">{desc}</p>}
+            {(type || def) && (
+              <p class="props__meta">
+                {type && <span class="props__types"><span class="k-sr-only">نوع: </span>{splitType(type).map((t) => <code class="type" dir="ltr">{t}</code>)}</span>}
+                {def && <span class="props__def">پیش‌فرض <code dir="ltr">{def}</code></span>}
+              </p>
+            )}
+          </td>
         </tr>
       ))}
     </tbody>

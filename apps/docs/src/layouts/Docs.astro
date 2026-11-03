@@ -47,3 +47,16 @@ const group = nav.find((g) => g.items.some((i) => i.href === (Astro.url.pathname
   </div>
   <Footer />
 </Base>
+
+<script>
+  // نشانهٔ پیوند کنار عنوان بخش‌ها، برای فرستادن لینک همان بخش
+  for (const h of document.querySelectorAll<HTMLElement>(".prose > h2[id], .prose > h3[id]")) {
+    if (h.querySelector(".h-anchor")) continue;
+    const a = document.createElement("a");
+    a.className = "h-anchor";
+    a.href = `#${h.id}`;
+    a.setAttribute("aria-label", `پیوند به بخش ${h.textContent}`);
+    a.innerHTML = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 11.5a3 3 0 0 0 4.2 0l2.6-2.6a3 3 0 0 0-4.2-4.2l-.8.8M11.5 8.5a3 3 0 0 0-4.2 0l-2.6 2.6a3 3 0 0 0 4.2 4.2l.8-.8"/></svg>';
+    h.append(a);
+  }
+</script>

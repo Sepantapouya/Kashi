@@ -74,9 +74,10 @@
   margin-inline: auto 0;
   border-radius: 0;
   border-block: 0;
-  display: flex;
   flex-direction: column;
 }
+/* flex فقط وقتی باز است؛ display روی خود .k-dialog قاعدهٔ مرورگر برای پنهان کردن dialog بسته را از کار می‌انداخت */
+.k-dialog:is(.k-dialog--start, .k-dialog--end)[open] { display: flex; }
 .k-dialog--start { margin-inline: 0 auto; border-inline-start: 0; }
 .k-dialog--end { border-inline-end: 0; }
 .k-dialog:is(.k-dialog--start, .k-dialog--end) .k-dialog__body { flex: 1; overflow-y: auto; padding-block-end: var(--_p); }

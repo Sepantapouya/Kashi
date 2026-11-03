@@ -293,6 +293,11 @@ code, pre, kbd {
 
 .prose { max-inline-size: 50rem; color: var(--k-text-secondary); line-height: 1.9; }
 .prose > :first-child { margin-block-start: 0; }
+.h-anchor { display: inline-flex; vertical-align: middle; margin-inline-start: var(--k-space-2); padding: 0.2rem; border-radius: var(--k-radius-sm); color: var(--k-text-quaternary); opacity: 0; transition: opacity var(--k-duration-fast), color var(--k-duration-fast); }
+.h-anchor svg { inline-size: 1rem; block-size: 1rem; }
+.prose > :is(h2, h3):hover .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+.h-anchor:hover { color: var(--k-text-brand); }
+@media (hover: none) { .h-anchor { display: none; } }
 .prose > h2 {
   margin-block: var(--k-space-16) var(--k-space-4);
   color: var(--k-text-primary);
@@ -304,6 +309,8 @@ code, pre, kbd {
 .kind-anchor { display: block; scroll-margin-block-start: calc(var(--header-h) + 1rem); }
 .prose > :is(h2, h3) > a { color: inherit; text-decoration: none; }
 .prose > h3 { margin-block: var(--k-space-8) var(--k-space-3); color: var(--k-text-primary); font-size: var(--k-text-lg); font-weight: var(--k-weight-semibold); }
+/* عنوان سطح چهار (مثل «بدون React» و «دسترس‌پذیری» زیر هر فیلد): فاصله از بلوک قبلی، نزدیک به محتوای خودش */
+.prose > h4 { margin-block: var(--k-space-8) var(--k-space-3); color: var(--k-text-primary); font-size: var(--k-text-base); font-weight: var(--k-weight-semibold); }
 .prose > p { margin-block: var(--k-space-4); }
 .prose > ul, .prose > ol { padding-inline-start: var(--k-space-6); }
 .prose > :is(ul, ol) > li { margin-block: var(--k-space-2); }
@@ -397,10 +404,19 @@ code, pre, kbd {
     var(--k-bg-primary);
 }
 .demo__preview--start { justify-content: flex-start; }
+@media (max-width: 40rem) { .demo__preview { padding-inline: var(--k-space-4); } }
 .demo__preview--stretch > * { flex: 1 1 18rem; }
 .demo__preview--column { flex-direction: column; flex-wrap: nowrap; align-items: stretch; }
 .demo__preview--column.demo__preview--center { align-items: center; }
 .demo__code { position: relative; border-block-start: 1px solid var(--k-border-secondary); background: var(--code-bg); }
+/* کد جمع‌شده (هر تب جدا): هشت خط با محو شدن پایین و دکمهٔ «نمایش همهٔ کد» */
+.demo__code [role="tabpanel"] { position: relative; }
+.demo__code [role="tabpanel"][data-collapsed] .codeblock pre { max-block-size: 12.5rem; overflow: hidden; }
+.demo__code [role="tabpanel"][data-collapsed]::after { content: ""; position: absolute; inset-inline: 0; inset-block-end: 0; block-size: 4.5rem; background: linear-gradient(transparent, var(--code-bg)); pointer-events: none; }
+.demo__more { display: block; margin: 0 auto; padding: var(--k-space-2) var(--k-space-4); border: 0; background: none; color: var(--k-text-brand); font: inherit; font-size: var(--k-text-xs); font-weight: 600; cursor: pointer; }
+[data-collapsed] > .demo__more { position: absolute; z-index: 1; inset-inline: 0; inset-block-end: var(--k-space-3); inline-size: fit-content; padding: 0.3rem var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); background: var(--k-bg-primary); color: var(--k-text-secondary); box-shadow: var(--k-shadow-sm); }
+.demo__more:hover { color: var(--k-text-primary); }
+.demo__more:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); border-radius: var(--k-radius-full); }
 /* دکمهٔ StackBlitz در همان ردیف تب‌ها، سمت مقابل React/HTML (نوار کد چپ‌به‌راست است) */
 .demo__blitz { position: absolute; inset-block-start: 0.4rem; right: var(--k-space-3); margin: 0; }
 .demo__blitz-btn {
@@ -457,6 +473,22 @@ code, pre, kbd {
 }
 .ref-table thead th { background: var(--k-bg-secondary); color: var(--k-text-tertiary); font-weight: var(--k-weight-semibold); white-space: nowrap; }
 .ref-table tbody tr:last-child > * { border-block-end: 0; }
+
+/* جدول ویژگی‌ها و متغیرها: نام در ستون باریک، کنارش توضیح و زیر آن مقدارهای ممکن و پیش‌فرض */
+.props__table th[scope="row"] { inline-size: 12rem; padding-block: var(--k-space-4); }
+.props__table td { padding-block: var(--k-space-4); }
+.props__name { padding: 0; border: 0; background: none; color: var(--k-text-primary); font-size: 0.8125rem; font-weight: 600; white-space: nowrap; }
+.props__desc { margin: 0; color: var(--k-text-primary); }
+.props__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-1) var(--k-space-3); margin: var(--k-space-2) 0 0; }
+.props__desc:empty + .props__meta, .props__meta:first-child { margin-block-start: 0; }
+.props__types { display: flex; flex-wrap: wrap; gap: var(--k-space-1); }
+.props__types code, .props__def code { font-size: 0.75rem; }
+.props__def { display: inline-flex; align-items: center; gap: var(--k-space-1); color: var(--k-text-tertiary); font-size: var(--k-text-xs); white-space: nowrap; }
+@media (max-width: 40rem) {
+  .props__table, .props__table tbody, .props__table tr, .props__table th[scope="row"], .props__table td { display: block; inline-size: auto; }
+  .props__table th[scope="row"] { padding-block-end: 0; border-block-end: 0; }
+  .props__table td { padding-block-start: var(--k-space-2); }
+}
 
 /* جدول‌های Markdown در MDX؛ همان ظاهر ref-table. روی گوشی block با اسکرول افقی؛
    روی صفحهٔ بزرگ‌تر جدول عادی و تمام‌عرض، تا ستون‌ها کل کادر را پر کنند */

@@ -64,6 +64,12 @@ Check every one of these before showing work:
   - Read children only via `afterParse()` (a non-module script in `<head>` connects the element before its children exist).
   - Docs demos: `<Demo lang="html" code={…}>` with the same markup as the slot, and `<ElementsScript />` once on the page.
   - Tests: `packages/elements/test` runs in happy-dom; `npm run build -w @kashi-ui/elements && npm test -w @kashi-ui/elements`. Also try the real page in the browser: keyboard, form submit and both themes.
+- **Component page format** (shared components, never per page):
+  - props and CSS variables go through `<Props>` / `<Vars>`: two columns, name on the right, then description, the type split into one chip per union member (`lib/split-type.ts`) and the default. Don't hand-write prop tables in Markdown.
+  - demo code longer than ten lines collapses to eight per tab (React and HTML are measured separately) with «نمایش همهٔ کد»; keep demo code short anyway.
+  - headings get a hover link icon (`.h-anchor`); use `##` for sections, `###`/`####` inside them — every level has its own top margin.
+  - code fences start and end without blank lines.
+  - «جدید» badges in `nav.ts`: only the last few additions (about five). Remove the oldest when adding one, or the badge stops meaning anything.
 - **Icons**: use `iconSvg(name)` from `@kashi-ui/icons`; check a name exists before using it (e.g. there is no `figma` icon — use `pen-tool`).
 
 ## 5. Promo images and channel posts

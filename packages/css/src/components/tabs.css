@@ -62,6 +62,8 @@
 /* چندبخشی: مثل کنترل iOS */
 .k-tabs--segmented .k-tabs__list {
   inline-size: fit-content;
+  /* در ظرف باریک از کادر بیرون نزند؛ زبانه‌ها اسکرول می‌شوند */
+  max-inline-size: 100%;
   padding: 3px;
   border: 1px solid var(--k-border-secondary);
   border-radius: calc(var(--k-radius-md) + 3px);

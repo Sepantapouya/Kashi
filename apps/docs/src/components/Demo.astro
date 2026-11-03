@@ -59,3 +59,28 @@ const blitz = isHtml ? null : stackblitzProject(play ?? code, title) ?? demoProj
     {showHtml && <div role="tabpanel" id={`${id}-p2`} aria-labelledby={`${id}-t2`} hidden={code ? true : undefined}><CodeBlock code={formatHtml(html)} lang="html" /></div>}
   </div>
 </figure>
+
+<script>
+  // کد بلند زیر هر نمونه تا هشت خط جمع می‌شود تا صفحه کوتاه و آرام بماند؛ «نمایش همهٔ کد» بازش می‌کند.
+  // هر تب (React و HTML) جدا اندازه گرفته می‌شود؛ کد یک‌خطی React با HTML بلندش جمع نمی‌شود.
+  const LINES = 8;
+  const fa = (n: number) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+  for (const panel of document.querySelectorAll<HTMLElement>(".demo__code [role='tabpanel']")) {
+    const lines = panel.querySelector("pre")?.querySelectorAll(".line").length ?? 0;
+    if (lines <= LINES + 2) continue;
+    panel.dataset.collapsed = "";
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "demo__more";
+    btn.setAttribute("aria-expanded", "false");
+    const label = () => (panel.hasAttribute("data-collapsed") ? `نمایش همهٔ کد (${fa(lines)} خط)` : "بستن کد");
+    btn.textContent = label();
+    btn.addEventListener("click", () => {
+      const collapsed = panel.toggleAttribute("data-collapsed");
+      btn.setAttribute("aria-expanded", String(!collapsed));
+      btn.textContent = label();
+      if (collapsed) panel.scrollIntoView({ block: "nearest" });
+    });
+    panel.append(btn);
+  }
+</script>
