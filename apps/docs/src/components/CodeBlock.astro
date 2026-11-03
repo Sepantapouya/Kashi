@@ -3,10 +3,14 @@ import { iconSvg } from "@kashi-ui/icons";
 import { Code } from "astro:components";
 interface Props { code: string; lang?: string; label?: string }
 const { code, lang = "tsx", label } = Astro.props;
+// هر عبارت فارسی داخل کد جدا جهت‌یابی می‌شود (k-bidi)؛ وگرنه در خط چپ‌به‌راست، عدد کنار متن فارسی
+// به آن می‌چسبد و ترتیب جابه‌جا نمایش داده می‌شود، مثل {"تهران": 1200} در JSON
+const PERSIAN = /[\u0600-\u06FF](?:[\u0600-\u06FF\u200c ]*[\u0600-\u06FF\u200c])?/g;
+const bidi = { postprocess: (html: string) => html.replace(/>([^<]+)</g, (_m, text: string) => `>${text.replace(PERSIAN, (w) => `<span class="k-bidi">${w}</span>`)}<`) };
 ---
 <div class="codeblock">
   {label && <span class="codeblock__label">{label}</span>}
-  <Code code={code.trim()} lang={lang as any} themes={{ light: "github-light", dark: "github-dark-default" }} defaultColor={false} />
+  <Code code={code.trim()} lang={lang as any} themes={{ light: "github-light", dark: "github-dark-default" }} defaultColor={false} transformers={[bidi]} />
   <button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm copy-btn" aria-label="کپی کد" data-copy={code.trim()}>
     <Fragment set:html={iconSvg("copy")} />
   </button>

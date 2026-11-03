@@ -329,10 +329,12 @@ code, pre, kbd {
 
 /* ───────── بلوک کد ───────── */
 .codeblock { position: relative; }
+/* کد همیشه چپ‌به‌راست است؛ در صفحهٔ راست‌به‌چپ، متن فارسی داخل کد (مثل JSON) جابه‌جا نمایش داده می‌شد */
 .codeblock pre, .prose > pre {
+  direction: ltr;
   margin: 0;
   padding: var(--k-space-4) var(--k-space-5);
-  padding-inline-end: 3rem;
+  padding-right: 3rem;
   max-block-size: 28rem;
   overflow: auto;
   background: var(--code-bg) !important;
@@ -347,11 +349,16 @@ code, pre, kbd {
   border-radius: var(--k-radius-lg);
 }
 .astro-code span { color: var(--shiki-dark); }
+/* عبارت فارسی داخل کد جدا جهت‌یابی می‌شود (CodeBlock.astro)، تا عددهای کنارش جابه‌جا نشوند */
+.astro-code .k-bidi { unicode-bidi: isolate; }
 [data-theme="light"] .astro-code span { color: var(--shiki-light); }
+/* برچسب (مثل «CDN») سمت چپ، روبه‌روی دکمهٔ کپی؛ کد زیر آن شروع می‌شود */
+.codeblock:has(.codeblock__label) pre { padding-block-start: 2.25rem; }
 .codeblock__label {
   position: absolute;
-  inset-block-start: var(--k-space-2);
-  inset-inline-start: var(--k-space-4);
+  z-index: 1;
+  inset-block-start: var(--k-space-3);
+  left: var(--k-space-5);
   color: var(--k-text-tertiary);
   font-size: var(--k-text-xs);
 }
