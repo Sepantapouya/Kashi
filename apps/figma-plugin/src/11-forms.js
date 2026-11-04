@@ -122,7 +122,7 @@ function checkRow(control, { label = "مرا به خاطر بسپار", descript
   ]);
 }
 
-function jalaliGrid({ range, selected = 6, w = 300 } = {}) {
+function jalaliGrid({ range, selected = 6, w = 300, bare } = {}) {
   const C = TOKENS.calendar;
   // k-calendar__day: ۴۰ پیکسل، خانهٔ جدول با ۱ پیکسل فاصله
   const cell = 42;
@@ -151,8 +151,9 @@ function jalaliGrid({ range, selected = 6, w = 300 } = {}) {
     T(label, { style: "Text sm/Semibold", color: "text-primary" }),
     I("chevron-down", 16, "text-quaternary"),
   ]);
-  // همان ساختار k-datepicker__popover و k-calendar در React
-  return F({ name: "Calendar", dir: "V", gap: "space/2", p: "space/4", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
+  // همان ساختار k-datepicker__popover و k-calendar در React؛ bare: بدون قاب و دکمهٔ امروز، برای داخل پنل بازهٔ تاریخ
+  const frame = bare ? { name: "Calendar", dir: "V", gap: "space/2" } : { name: "Calendar", dir: "V", gap: "space/2", p: "space/4", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" };
+  return F(frame, [
     F({ name: "Header", dir: "H", gap: "space/2", w: "fill", align: "between", cross: "center" }, [
       button({ variant: "Tertiary", size: "sm", iconOnly: "chevron-right" }),
       F({ name: "Selects", dir: "H", gap: "space/1" }, [select(C.months[C.month - 1]), select(fa(C.year))]),
@@ -164,7 +165,7 @@ function jalaliGrid({ range, selected = 6, w = 300 } = {}) {
       )),
       F({ name: "Days", dir: "V", gap: 0 }, rows),
     ]),
-    F({ name: "Footer", dir: "H", w: "fill", align: "center", pt: "space/2", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
+    !bare && F({ name: "Footer", dir: "H", w: "fill", align: "center", pt: "space/2", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
       button({ variant: "Link", label: "امروز" }),
     ]),
   ]);

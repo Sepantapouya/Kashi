@@ -127,6 +127,18 @@ const calendar = {
   plateLetters: P.PLATE_LETTERS,
 };
 
+// نقشهٔ ایران: همان مرزهای IranMap در @kashi-ui/react
+const M = await import("../../packages/react/dist/iranMapData.js");
+const iranMap = { viewBox: M.IRAN_VIEWBOX, provinces: Object.entries(M.IRAN_PROVINCES).map(([name, p]) => ({ name, d: p.d })) };
+
+// هفت روز نمونه برای انتخاب نوبت، از شنبه ۱۶ آبان ۱۴۰۵؛ جمعه و تعطیلی رسمی بسته
+const APPT_START = P.toGregorian(1405, 8, 16);
+const appointment = Array.from({ length: 7 }, (_, i) => {
+  const d = new Date(APPT_START.getFullYear(), APPT_START.getMonth(), APPT_START.getDate() + i);
+  const j = P.toJalali(d);
+  return { weekday: P.WEEKDAYS[(d.getDay() + 1) % 7], day: j.jd, month: P.JALALI_MONTHS[j.jm - 1], closed: !!P.getIranHoliday(d), full: P.formatJalali(d, { style: "full" }) };
+});
+
 // صفحه‌های مستندات، برای لینک «Documentation» هر کامپوننت در فیگما
 const docsDir = join(root, "apps/docs/src/pages/docs");
 const docPages = {};
@@ -137,6 +149,8 @@ for (const section of ["components", "persian"]) {
 const TOKENS = {
   docPages,
   calendar,
+  iranMap,
+  appointment,
   palette,
   brandScale: "firoozeh",
   themes: themeOut,

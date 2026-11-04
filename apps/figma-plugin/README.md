@@ -11,12 +11,13 @@
   - `Kashi · Density`: ارتفاع و فاصلهٔ داخلی کنترل‌ها با mode های Default، Compact و Comfortable
   - `Kashi · Spacing` و `Kashi · Typography`: فاصله‌ها، فونت، اندازه و ارتفاع خط
 - متن‌ها مستقیم به متغیرهای فونت، اندازه، وزن و ارتفاع خط وصل‌اند. هر لایهٔ سایه هم رنگ و فاصله‌اش را از متغیرهای تم می‌گیرد.
-- **بیش از ۷۰ کامپوننت با حدود ۷۰۰ variant**؛ هر کامپوننت در یک صفحه، variant ها در جدول مرتب با برچسب ردیف و ستون:
+- **بیش از ۷۵ کامپوننت با حدود ۷۵۰ variant**؛ هر کامپوننت در یک صفحه، variant ها در جدول مرتب با برچسب ردیف و ستون:
   - **Actions:** Button، Icon button، Button group، Segmented control، Copy button
   - **Forms:** Input، Textarea، Select، Combobox، Multi select، Tag input، Checkbox، Radio، Switch، Choice card، Slider، Number input، OTP، File upload، Rating، Password strength، Color picker، Inline edit، Time input، Date picker (تقویم شمسی)، Calendar و Month picker
   - **Persian:**
     - فیلدها: کارت بانکی (با لوگوی بانک)، شبا، کد ملی، موبایل (با اپراتور)، مبلغ، پلاک، کد پستی، تلفن ثابت، شناسه ملی و اصلاح زبان کیبورد
-    - نمایش: استان، Money، کارت بانکی، نشان بانک، رسید پرداخت، Date tile و Countdown
+    - فیلدهای ترکیبی: فرم نشانی (با نقشه و بدون آن)، انتخاب نوبت، بازهٔ تاریخ شمسی و ویرایش نگارشی
+    - نمایش: استان، نقشهٔ ایران (نقشهٔ رنگی و انتخاب استان)، Money، کارت بانکی، نشان بانک، رسید پرداخت، Date tile و Countdown
   - **Feedback:** Alert، Banner، Toast، Progress، Progress circle، Spinner، Meter، Skeleton، Empty state، Tooltip، Popover، Dialog، Drawer و Tour
   - **Data display:** Badge، Chip، Avatar، Avatar group، User، Card، Stat card، Table، Timeline، Tree view، Accordion، Kbd، Divider، Relative time، Heatmap، Bar chart و Carousel
   - **Navigation:** Tabs، Breadcrumb، Pagination، Stepper، Side nav، Dropdown menu، Menu button، Command palette، Context menu و Splitter

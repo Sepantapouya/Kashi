@@ -57,6 +57,13 @@ for (const n of full.figma.root.findAll((x) => x.documentationLinks && x.documen
   assert.ok(path !== "/docs" && (existsSync(join(docsRoot, path + ".mdx")) || existsSync(join(docsRoot, path + ".astro"))), `${n.name}: broken docs link ${path}`);
 }
 
+// هر صفحهٔ کامپوننت در مستندات دست‌کم یک کامپوننت در کیت فیگما دارد؛ کامپوننت تازه بدون نسخهٔ فیگما این تست را می‌شکند
+const { readdirSync } = await import("node:fs");
+const linked = new Set(full.figma.root.findAll((x) => x.documentationLinks && x.documentationLinks.length).map((n) => n.documentationLinks[0].uri.replace(/^https:\/\/[^/]+\/docs\//, "").replace(/\/$/, "")));
+const missing = ["components", "persian"].flatMap((s) => readdirSync(join(docsRoot, "docs", s)).filter((f) => /\.(mdx|astro)$/.test(f) && !f.startsWith("index.")).map((f) => `${s}/${f.replace(/\.(mdx|astro)$/, "")}`)).filter((p) => !linked.has(p));
+assert.deepEqual(missing, [], `docs pages without a Figma component (add them to src/ with docs: "<slug>"): ${missing.join(", ")}`);
+console.log(`  docs coverage: ${linked.size} docs pages have Figma components`);
+
 const findSet = (fig, name) => fig.root.findAll((n) => n.type === "COMPONENT_SET" && n.name === name)[0];
 
 // هم‌خوانی پیکسلی با نسخهٔ کد: اعداد زیر از CSS واقعی در مرورگر اندازه‌گیری شده‌اند

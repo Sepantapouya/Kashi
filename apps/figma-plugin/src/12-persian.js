@@ -1,4 +1,4 @@
-// کامپوننت‌های مخصوص ایران: کارت بانکی، شبا، کد ملی، موبایل، پلاک، مبلغ و ...
+// کامپوننت‌های مخصوص ایران: کارت بانکی، شبا، کد ملی، موبایل، پلاک، مبلغ، نقشه، نشانی، نوبت و ...
 
 /** چیدمان چپ‌به‌راست (برای شماره‌ها): F افقی را برعکس می‌کند، پس ما از قبل برعکس می‌دهیم */
 const LTR = (o, kids) => F(o, kids.filter(Boolean).slice().reverse());
@@ -320,4 +320,205 @@ function buildPersian() {
       docs: "countdown",
     });
   }));
+
+  safe("IranMap", () => section(root, "Iran map · نقشهٔ ایران", "۳۱ استان با مرزهای واقعی؛ نقشهٔ رنگی با طیف برند (چارک‌ها) یا انتخاب یک استان.", (h) => {
+    componentSet(h, "Iran map", {
+      axes: { Mode: ["Choropleth", "Select"] },
+      build: (p) => iranMap({ mode: p.Mode }),
+      docs: "iran-map",
+    });
+  }));
+
+  safe("Address", () => section(root, "Address form · فرم نشانی", "استان، شهرِ همان استان، نشانی، پلاک، واحد و کد پستی ده‌رقمی؛ با Map=Yes استان روی نقشه هم انتخاب می‌شود.", (h) => {
+    componentSet(h, "Address form", {
+      axes: { State: ["Empty", "Filled", "Error"], Map: ["No", "Yes"] },
+      build: (p) => addressForm({ state: p.State, map: p.Map === "Yes" }),
+      cols: 2,
+      docs: "address",
+    });
+  }));
+
+  safe("Appointment", () => section(root, "Appointment picker · انتخاب نوبت", "روزهای شمسی با تعداد نوبت خالی و ساعت‌های همان روز در گروه‌های صبح و بعدازظهر؛ جمعه تعطیل است.", (h) => {
+    componentSet(h, "Appointment picker", {
+      axes: { State: ["Default", "Selected", "No slots"] },
+      build: (p) => appointmentPicker(p.State),
+      cols: 1,
+      docs: "appointment",
+    });
+  }));
+
+  safe("DateRange", () => section(root, "Date range picker · بازهٔ تاریخ شمسی", "میان‌برهای آماده و تقویم جلالی؛ تغییرها با «تأیید» ثبت می‌شوند.", (h) => {
+    componentSet(h, "Date range picker", {
+      axes: { State: ["Closed", "Open"] },
+      build: (p) => dateRangePicker(p.State === "Open"),
+      docs: "date-range",
+    });
+  }));
+
+  safe("TextFix", () => section(root, "Persian textarea · ویرایش نگارشی", "«ي» و «ك» عربی، نیم‌فاصله، علامت‌ها و فاصله‌ها را پیدا و با یک کلیک اصلاح می‌کند.", (h) => {
+    componentSet(h, "Persian textarea", {
+      axes: { State: ["Fix", "Clean"] },
+      build: (p) => persianTextarea(p.State === "Fix"),
+      docs: "text-fix",
+    });
+  }));
+}
+
+// سفارش‌های نمونه به تفکیک استان؛ همان دادهٔ نمونهٔ مستندات IranMap
+const MAP_ORDERS = {
+  "تهران": 18420, "خراسان رضوی": 7310, "اصفهان": 6980, "فارس": 5870, "آذربایجان شرقی": 4620, "البرز": 4410, "خوزستان": 3950,
+  "مازندران": 3720, "گیلان": 3180, "کرمان": 2860, "قم": 2210, "یزد": 1980, "آذربایجان غربی": 2740, "همدان": 1560, "مرکزی": 1490,
+  "کرمانشاه": 1650, "گلستان": 1530, "قزوین": 1390, "هرمزگان": 1720, "سمنان": 820, "زنجان": 910, "اردبیل": 1080, "لرستان": 1240,
+  "بوشهر": 1010, "کردستان": 1120, "سیستان و بلوچستان": 1340, "چهارمحال و بختیاری": 640, "خراسان شمالی": 590, "خراسان جنوبی": 560,
+  "ایلام": 410, "کهگیلویه و بویراحمد": 520,
+};
+
+/** k-iran-map: هر استان یک وکتور؛ رنگ = bg-tertiary و روی آن bg-brand با درصد ۱۲ + ۸۸ × سطح ÷ ۵ (همان color-mix در CSS) */
+function iranMap({ w = 320, mode = "Choropleth", selected = "تهران", legend = mode === "Choropleth" } = {}) {
+  const M = TOKENS.iranMap;
+  const [, , vw, vh] = M.viewBox.split(" ").map(Number);
+  const shape = figma.createNodeFromSvg(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${M.viewBox}" width="${vw}" height="${vh}">${M.provinces.map((p) => `<path d="${p.d}" fill="#000000"/>`).join("")}</svg>`);
+  shape.name = "Provinces";
+  shape.fills = [];
+  shape.rescale(w / vw);
+  const sorted = Object.values(MAP_ORDERS).sort((a, b) => a - b);
+  const level = (v) => 1 + Math.round((sorted.indexOf(v) * 4) / (sorted.length - 1));
+  const mix = (l) => (12 + (88 * l) / 5) / 100;
+  shape.findAll((n) => n.type === "VECTOR").forEach((v, i) => {
+    const p = M.provinces[i];
+    if (!p) return;
+    const on = mode === "Select" && p.name === selected;
+    v.name = p.name;
+    v.fills = on ? [paint("bg-brand")] : mode === "Choropleth" ? [paint("bg-tertiary"), paint("bg-brand", mix(level(MAP_ORDERS[p.name])))] : [paint("bg-tertiary")];
+    v.strokes = [paint(on ? "text-primary" : "bg-primary")];
+    v.strokeWeight = on ? 2 : 1.5;
+  });
+  const scale = Array.from({ length: 5 }, (_, i) => {
+    const r = R({ w: 24, h: 10, name: "Step", radius: i === 0 ? ["radius/full", 0, 0, "radius/full"] : i === 4 ? [0, "radius/full", "radius/full", 0] : undefined });
+    r.fills = [paint("bg-tertiary"), paint("bg-brand", mix(i + 1))];
+    return r;
+  });
+  return F({ name: "Iran map", dir: "V", gap: "space/3", w, cross: "center" }, [
+    shape,
+    legend && F({ name: "Legend", dir: "H", gap: "space/2", cross: "center" }, [
+      T(fa(sorted[0]), { style: "Text xs/Regular", color: "text-tertiary", name: "Min" }),
+      F({ name: "Scale", dir: "H", gap: 2 }, scale),
+      T(`${fa(sorted[sorted.length - 1].toLocaleString("en").replace(/,/g, "٬"))} سفارش`, { style: "Text xs/Regular", color: "text-tertiary", name: "Max" }),
+    ]),
+  ]);
+}
+
+/** k-address: شبکهٔ ۱۲ ستونی با فاصلهٔ ۱۶؛ استان، شهر و کد پستی نیم‌عرض، پلاک و واحد یک‌چهارم */
+function addressForm({ state = "Empty", map = false } = {}) {
+  const filled = state !== "Empty", err = state === "Error";
+  const W = map ? 448 : 560, g = 16;
+  const half = (W - g) / 2, quarter = (W - 3 * g) / 4;
+  const chevron = () => [I("chevron-down", 20, "text-tertiary")];
+  const street = inputBox({ state: err ? "Error" : "Default", text: filled ? (err ? "خیابان ولیعصر" : "خیابان ولیعصر، کوچهٔ نیلوفر، ساختمان کاشی") : "", placeholder: "خیابان، کوچه، نام ساختمان", h: 72 });
+  street.counterAxisAlignItems = "MIN";
+  street.paddingTop = street.paddingBottom = 10;
+  const fields = F({ name: "Fields", dir: "V", gap: g, w: W }, [
+    F({ name: "Row", dir: "H", gap: g, w: "fill", cross: "start" }, [
+      field({ label: "استان", required: true, w: half, control: inputBox({ text: filled ? "تهران" : "", placeholder: "جستجوی استان", end: chevron() }) }),
+      field({ label: "شهر", required: true, w: half, control: inputBox({ text: filled ? "تهران" : "", placeholder: "نام شهر، مثلاً کاشان", end: chevron() }) }),
+    ]),
+    field({ label: "نشانی", required: true, w: "fill", error: err ? "نشانی را کامل‌تر بنویسید؛ کوچه و ساختمان را هم بیاورید." : undefined, control: street }),
+    F({ name: "Row", dir: "H", gap: g, w: "fill", cross: "start" }, [
+      field({ label: "پلاک", required: true, w: quarter, control: inputBox({ text: filled ? "۱۲" : "", placeholder: " " }) }),
+      field({ label: "واحد", optional: true, w: quarter, control: inputBox({ text: filled ? "۳" : "", placeholder: " " }) }),
+      field({ label: "کد پستی", required: true, w: half, error: err ? "کد پستی معتبر نیست." : undefined, control: inputBox({ state: err ? "Error" : "Default", text: filled ? (err ? "۱۴۳۵۹-۸۷۶" : "۱۴۳۵۹-۸۷۶۵۴") : "", placeholder: "۱۲۳۴۵-۶۷۸۹۰", ltr: true }) }),
+    ]),
+  ]);
+  return F({ name: "Address form", dir: "V", gap: "space/4" }, [
+    T("نشانی", { style: "Text md/Semibold", color: "text-primary", name: "Legend" }),
+    map ? F({ name: "Body", dir: "H", gap: "space/6", cross: "center" }, [fields, iranMap({ w: 300, mode: "Select", selected: filled ? "تهران" : null, legend: false })]) : fields,
+  ]);
+}
+
+/** k-appt: روزهای ۷۶ پیکسلی با فاصلهٔ ۸ و ساعت‌های ۴۰ پیکسلی در شبکهٔ ۶ ستونی */
+function appointmentPicker(state = "Default") {
+  const days = TOKENS.appointment;
+  const FREE = [13, 9, 11, 0, 14, 6, 0];
+  const active = state === "No slots" ? 3 : 0;
+  const picked = state === "Selected" ? "۱۱:۰۰" : null;
+  const booked = ["۱۰:۰۰", "۱۴:۳۰", "۱۵:۰۰"];
+  const W = 584, cols = 6, tw = +((W - (cols - 1) * 8) / cols).toFixed(2);
+  const dayTile = (d, i) => {
+    const on = i === active, off = d.closed, full = !off && !FREE[i];
+    const muted = off ? "text-quaternary" : on ? "text-brand" : "text-tertiary";
+    return F({ name: "Day", dir: "V", gap: 2, py: "space/2", px: "space/1", w: 76, grow: true, cross: "center", radius: "radius/lg", fill: off ? undefined : on ? "bg-brand-subtle" : "bg-elevated", stroke: on ? "border-brand" : "border-primary", dash: off ? [4, 3] : undefined, shadow: off ? undefined : "Shadow/xs" }, [
+      T(d.weekday, { style: "Text xs/Medium", color: muted, align: "center", name: "Weekday" }),
+      T(fa(d.day), { style: "Text lg/Semibold", color: off ? "text-quaternary" : on ? "text-brand" : "text-secondary", align: "center", size: TOKENS.font.size.lg, weight: "semibold", leading: 1.2, name: "Date" }),
+      T(d.month, { style: "Text xs/Regular", color: muted, align: "center", name: "Month" }),
+      F({ name: "Free wrap", dir: "V", pt: 2, cross: "center" }, [
+        F({ name: "Free", dir: "H", px: 6.4, h: 20, cross: "center", radius: "radius/full", fill: off ? undefined : full ? "bg-tertiary" : "bg-success-subtle" }, [
+          T(off ? "تعطیل" : full ? "پر" : `${fa(FREE[i])} نوبت`, { style: "Text xs/Semibold", color: off ? "text-quaternary" : full ? "text-tertiary" : "text-success", size: 11, weight: "semibold", leading: 1.8 }),
+        ]),
+      ]),
+    ]);
+  };
+  const time = (t) => {
+    const on = t === picked, off = booked.includes(t);
+    return F({ name: "Time", dir: "H", w: tw, h: 40, align: "center", cross: "center", radius: "radius/md", fill: on ? "bg-brand" : off ? undefined : "bg-elevated", stroke: on ? undefined : "border-primary", shadow: on ? "Shadow/sm" : undefined }, [
+      T(t, { style: "Text sm/Medium", color: on ? "text-on-brand" : off ? "text-quaternary" : "text-primary", decoration: off ? "STRIKETHROUGH" : undefined }),
+    ]);
+  };
+  const slots = [];
+  for (let m = 9 * 60; m + 30 <= 17 * 60; m += 30) slots.push(fa(`${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`));
+  // ردیف‌ها جدا ساخته می‌شوند تا ترتیب راست‌به‌چپ در هر ردیف درست بماند
+  const group = (title, list) => F({ name: "Group", dir: "V", gap: "space/2", w: "fill" }, [
+    T(title, { style: "Text xs/Semibold", color: "text-tertiary", name: "Period" }),
+    ...Array.from({ length: Math.ceil(list.length / cols) }, (_, r) => F({ name: "Row", dir: "H", gap: "space/2", w: "fill" }, list.slice(r * cols, r * cols + cols).map(time))),
+  ]);
+  const cur = days[active];
+  return F({ name: "Appointment picker", dir: "V", gap: "space/4", w: W }, [
+    T("انتخاب نوبت", { style: "Tight sm/Medium", color: "text-secondary", name: "Label" }),
+    F({ name: "Days", dir: "H", gap: "space/2", w: "fill", pt: 2, px: 2, pb: "space/1" }, days.map(dayTile)),
+    state === "No slots"
+      ? F({ name: "Empty", dir: "V", py: "space/6", px: "space/4", w: "fill", cross: "center", radius: "radius/lg", stroke: "border-secondary", dash: [4, 3] }, [
+          T("نوبت خالی برای این روز نمانده است؛ روز دیگری را انتخاب کنید.", { style: "Text sm/Regular", color: "text-tertiary", align: "center", w: "fill" }),
+        ])
+      : F({ name: "Slots", dir: "V", gap: "space/4", w: "fill" }, [group("صبح", slots.filter((t) => t < "۱۲")), group("بعدازظهر", slots.filter((t) => t >= "۱۲"))]),
+    F({ name: "Summary", dir: "H", gap: "space/2", minH: 24, cross: "center" }, picked ? [
+      I("clock", 18, "text-brand"),
+      T("نوبت شما:", { style: "Text sm/Regular", color: "text-secondary" }),
+      T(`${cur.full}، ساعت ${picked}`, { style: "Text sm/Semibold", color: "text-primary", name: "Value" }),
+    ] : []),
+  ]);
+}
+
+/** k-daterange: میان‌برها با خط جداکننده، تقویم بازه و نوار تأیید */
+function dateRangePicker(open) {
+  const value = "۱۴۰۵/۰۸/۱۰ تا ۱۴۰۵/۰۸/۱۷";
+  const trigger = field({ label: "بازهٔ گزارش", w: 300, control: inputBox({ state: open ? "Focus" : "Default", text: value, iconStart: "calendar" }) });
+  if (!open) return trigger;
+  return F({ name: "Date range picker", dir: "V", gap: 6 }, [
+    trigger,
+    F({ name: "Popover", dir: "H", gap: "space/4", p: "space/4", cross: "start", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
+      F({ name: "Presets", dir: "V", gap: 2, pe: "space/4", w: 140, h: "fill", stroke: "border-secondary", sides: [0, 0, 0, 1] }, ["۷ روز اخیر", "۳۰ روز اخیر", "این ماه", "ماه قبل"].map((t) =>
+        F({ name: "Preset", dir: "H", py: "space/2", px: "space/3", w: "fill", radius: "radius/md" }, [T(t, { style: "Text sm/Medium", color: "text-secondary" })]),
+      )),
+      F({ name: "Main", dir: "V", gap: "space/3" }, [
+        jalaliGrid({ range: [10, 17], bare: true }),
+        F({ name: "Footer", dir: "H", gap: "space/2", pt: "space/3", w: "fill", cross: "center", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
+          T(value, { style: "Text sm/Regular", color: "text-tertiary", grow: true, name: "Summary" }),
+          button({ variant: "Secondary", size: "sm", label: "انصراف" }),
+          button({ variant: "Primary", size: "sm", label: "تأیید" }),
+        ]),
+      ]),
+    ]),
+  ]);
+}
+
+/** k-textfix: زیر متن تعداد مشکل‌ها (هشدار) و دکمهٔ «اصلاح نگارش»، یا پیام درست بودن (موفق) */
+function persianTextarea(fix) {
+  const box = inputBox({ text: fix ? "اين كتاب ها را مي خوانم ." : "این کتاب‌ها را می‌خوانم.", h: 104 });
+  box.counterAxisAlignItems = "MIN";
+  box.paddingTop = box.paddingBottom = 10;
+  const node = field({ label: "توضیحات محصول", control: box });
+  add(node, F({ name: "Hint row", dir: "H", gap: "space/2", w: "fill", h: 20, cross: "center" }, [
+    T(fix ? "۶ مورد قابل اصلاح: ۳ حرف عربی، ۲ نیم‌فاصله، ۱ فاصله" : "نگارش متن درست است.", { style: "Tight sm/Regular", color: fix ? "text-warning" : "text-success", grow: true, name: "Hint" }),
+    fix && button({ variant: "Tertiary", size: "xs", label: "اصلاح نگارش" }),
+  ]));
+  return node;
 }
