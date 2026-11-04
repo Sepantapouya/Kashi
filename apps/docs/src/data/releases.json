@@ -1,45 +1,113 @@
 {
- "generated": "2026-11-04T11:28:56+03:30",
+ "generated": "2026-11-04T16:33:10+03:30",
  "totals": {
-  "commits": 203,
-  "versions": 28,
-  "added": 90386,
+  "commits": 205,
+  "versions": 29,
+  "added": 93310,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [
-  {
-   "sha": "99236c86dd8120840e02b9b0aae8a589ad2ba489",
-   "short": "99236c8",
-   "date": "2026-11-04T11:28:56+03:30",
-   "author": "sepantapouya",
-   "subject": "Docs: Kashi is in the official shadcn registry directory; align fields to top",
-   "details": [
-    "- Install commands use @kashi/<name>; full URL and components.json kept as fallback",
-    "- Homepage \"new\" badge and header tools menu point to the shadcn registry",
-    "- k-field: align-content start, so a neighbour's error no longer pushes the box down"
-   ],
-   "files": 8,
-   "added": 52,
-   "removed": 17
-  },
-  {
-   "sha": "817256f0b695e4e1acdfef0554f0ffe460cecc22",
-   "short": "817256f",
-   "date": "2026-11-04T11:05:25+03:30",
-   "author": "sepantapouya",
-   "subject": "Figma kit: Iran map, address form, appointment, date range and text fix",
-   "details": [
-    "- Five new component sets on the Persian page, built from real data",
-    "(map paths from @kashi-ui/react, sample days from @kashi-ui/persian)",
-    "- figma:test now fails when a docs page has no Figma component",
-    "- Skill: every new component also goes into the Figma kit"
-   ],
-   "files": 9,
-   "added": 444,
-   "removed": 16
-  }
- ],
+ "unreleased": [],
  "versions": [
+  {
+   "version": "1.0.0",
+   "date": "2026-11-04T16:33:10+03:30",
+   "releaseCommit": "d1c3ab4",
+   "commits": [
+    {
+     "sha": "d1c3ab4a28d1bd01471553ed5e795b4dd2528e52",
+     "short": "d1c3ab4",
+     "date": "2026-11-04T16:33:10+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.0.0",
+     "details": [],
+     "files": 24,
+     "added": 218,
+     "removed": 69
+    },
+    {
+     "sha": "160345ffe40bbbbd9e987aac3cf7bd183193dcec",
+     "short": "160345f",
+     "date": "2026-11-04T16:25:36+03:30",
+     "author": "sepantapouya",
+     "subject": "Kashi 1.0: bilingual components, size budgets, visual tests, versioning and security policy",
+     "details": [
+      "- One fa/en message dictionary in @kashi-ui/persian, used by React (KashiProvider,",
+      "useKashi) and web components (setLocale); locale tests fail on any leftover Persian",
+      "- @kashi-ui/persian: locale \"en\" for dates, relative time, money, words, holidays;",
+      "bankName and operatorName",
+      "- CSS: direction via :dir() so LTR sections inside RTL pages render right",
+      "- scripts/sizes.mjs with per-component gzip budgets, run by npm test; sizes on pages",
+      "- Playwright visual tests for every demo and a states page, light and dark",
+      "- Docs: i18n, versioning, migration, security, sizes; SECURITY.md; CI npm audit",
+      "- MCP: zod 4.6.7 (GHSA-mrhx-c7xc-m3w5)",
+      "- Changeset: major for all packages (1.0.0)"
+     ],
+     "files": 799,
+     "added": 2706,
+     "removed": 623
+    },
+    {
+     "sha": "99236c86dd8120840e02b9b0aae8a589ad2ba489",
+     "short": "99236c8",
+     "date": "2026-11-04T11:28:56+03:30",
+     "author": "sepantapouya",
+     "subject": "Docs: Kashi is in the official shadcn registry directory; align fields to top",
+     "details": [
+      "- Install commands use @kashi/<name>; full URL and components.json kept as fallback",
+      "- Homepage \"new\" badge and header tools menu point to the shadcn registry",
+      "- k-field: align-content start, so a neighbour's error no longer pushes the box down"
+     ],
+     "files": 8,
+     "added": 52,
+     "removed": 17
+    },
+    {
+     "sha": "817256f0b695e4e1acdfef0554f0ffe460cecc22",
+     "short": "817256f",
+     "date": "2026-11-04T11:05:25+03:30",
+     "author": "sepantapouya",
+     "subject": "Figma kit: Iran map, address form, appointment, date range and text fix",
+     "details": [
+      "- Five new component sets on the Persian page, built from real data",
+      "(map paths from @kashi-ui/react, sample days from @kashi-ui/persian)",
+      "- figma:test now fails when a docs page has no Figma component",
+      "- Skill: every new component also goes into the Figma kit"
+     ],
+     "files": 9,
+     "added": 444,
+     "removed": 16
+    }
+   ],
+   "notes": [
+    {
+     "kind": "major",
+     "text": "کاشی ۱.۰: پایدار برای محصولات سازمانی. تغییر ناسازگاری ندارد؛ نسخه را بالا ببرید و تمام (راهنما: /docs/migration/).",
+     "sub": [
+      "دوزبانه: با `<KashiProvider locale=\"en\">` در React و `setLocale(\"en\")` در وب کامپوننت‌ها، همهٔ متن‌های داخلی، متن صفحه‌خوان، پیام‌های خطا، ارقام و نام ماه‌های شمسی انگلیسی می‌شوند. هر متن با `messages` قابل‌تعویض است و فرهنگ کامل با `faMessages` و `enMessages` در دسترس است.",
+      "`@kashi-ui/persian`: گزینهٔ `locale: \"en\"` برای `formatJalali`، `formatRelative`، `formatMoney`، `numberToWords` و `getIranHoliday`؛ `bankName` و `operatorName` برای نام انگلیسی بانک و اپراتور؛ `JALALI_MONTHS_EN` و `WEEKDAYS_EN`.",
+      "سیاست تغییرات و پشتیبانی (/docs/versioning/) و صفحهٔ امنیت با زمان پاسخ مشخص (/docs/security/).",
+      "سقف حجم برای هر کامپوننت و صفحهٔ حجم کامپوننت‌ها (/docs/sizes/)؛ تست تصویری از همهٔ نمونه‌ها در تم روشن و تیره.",
+      "CSS: آیکون‌های جهت‌دار، راهنما، پیشرفت، نمودار و فیلدهای عددی حالا جهت خود بخش را با `:dir()` می‌سنجند؛ بخش انگلیسی داخل صفحهٔ فارسی (و برعکس) درست نمایش داده می‌شود.",
+      "سرور MCP: zod به نسخهٔ ۴٫۶٫۷ رفت (رفع آسیب‌پذیری GHSA-mrhx-c7xc-m3w5)."
+     ],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens",
+      "bank-logos"
+     ]
+    },
+    {
+     "kind": "patch",
+     "text": "فیلدهای کنار هم در یک ردیف حالا از بالا هم‌تراز می‌مانند؛ وقتی یکی پیام خطا یا راهنما دارد، کادر فیلد کناری دیگر پایین نمی‌رود.",
+     "sub": [],
+     "packages": [
+      "css"
+     ]
+    }
+   ]
+  },
   {
    "version": "0.26.0",
    "date": "2026-11-03T22:58:38+03:30",
