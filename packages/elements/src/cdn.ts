@@ -1,6 +1,8 @@
 // نسخهٔ CDN با بارگذاری تنبل: هر بخش فقط وقتی یکی از تگ‌هایش در صفحه پیدا شود دانلود می‌شود.
 // صفحه‌ای که فقط فیلد کد ملی دارد، نقشه و نمودارها را دانلود نمی‌کند.
 export { toast } from "./toast.js";
+// زبان پیش از بارگذاری عنصرها: <script type="module">import { setLocale } from ".../kashi-elements.js"; setLocale("en");</script>
+export { setLocale } from "./base.js";
 
 const MODULES: [string[], () => Promise<unknown>][] = [
   [["kashi-national-id", "kashi-legal-id", "kashi-mobile", "kashi-landline", "kashi-card-number", "kashi-iban", "kashi-postal-code", "kashi-price"], () => import("./inputs.js")],

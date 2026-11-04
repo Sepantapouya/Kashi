@@ -6,6 +6,7 @@ import {
   formatJalali, getIranHoliday, jalaliMonthLength, jalaliWeekday, toFaDigits, toGregorian, toJalali,
 } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export const sameDay = (a?: Date | null, b?: Date | null) =>
   !!a && !!b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -72,9 +73,12 @@ export interface CalendarProps {
 
 /** تقویم شمسی با الگوی grid استاندارد WAI-ARIA و پیمایش کامل با کیبورد */
 export function Calendar({
-  value, defaultValue = null, onChange, min, max, isDateDisabled, holidays, digits = "fa", autoFocus = false,
-  yearRange, labels = {}, footer, range, className, "aria-label": ariaLabel = "تقویم",
+  value, defaultValue = null, onChange, min, max, isDateDisabled, holidays, digits, autoFocus = false,
+  yearRange, labels = {}, footer, range, className, "aria-label": ariaLabel,
 }: CalendarProps) {
+  const { messages: M, digits: D, locale, months: MONTHS, weekdays: WD, weekdaysShort: WDS, friday: FRI } = useKashi();
+  digits ??= D;
+  ariaLabel ??= M.calendar.label;
   const id = useId();
   const [inner, setInner] = useState<Date | null>(defaultValue);
   const selected = value !== undefined ? value : inner;
@@ -147,7 +151,7 @@ export function Calendar({
     go(next[e.key]());
   };
 
-  const { prevMonth = "ماه قبل", nextMonth = "ماه بعد", month: monthLabel = "ماه", year: yearLabel = "سال" } = labels;
+  const { prevMonth = M.calendar.prevMonth, nextMonth = M.calendar.nextMonth, month: monthLabel = M.calendar.month, year: yearLabel = M.calendar.year } = labels;
   const prevDisabled = min !== undefined && toGregorian(jy, jm, 1) <= startOfDay(min);
   const nextDisabled = max !== undefined && toGregorian(jy, jm, length) >= startOfDay(max);
 
@@ -170,7 +174,7 @@ export function Calendar({
             value={jm}
             onChange={(e) => go(toGregorian(jy, Number(e.target.value), Math.min(toJalali(focused).jd, jalaliMonthLength(jy, Number(e.target.value)))), false)}
           >
-            {JALALI_MONTHS.map((name, i) => <option key={name} value={i + 1}>{name}</option>)}
+            {MONTHS.map((name, i) => <option key={name} value={i + 1}>{name}</option>)}
           </select>
           <select
             className="k-calendar__select"
@@ -193,13 +197,13 @@ export function Calendar({
       </div>
 
       {/* عنوان ماه برای صفحه‌خوان؛ تغییر ماه را اعلام می‌کند */}
-      <h2 className="k-sr-only" id={`${id}-title`} aria-live="polite">{`${JALALI_MONTHS[jm - 1]} ${n(jy)}`}</h2>
+      <h2 className="k-sr-only" id={`${id}-title`} aria-live="polite">{`${MONTHS[jm - 1]} ${n(jy)}`}</h2>
 
       <table className="k-calendar__grid" role="grid" aria-labelledby={`${id}-title`} ref={grid}>
         <thead>
           <tr>
-            {WEEKDAYS_SHORT.map((s, i) => (
-              <th key={s} scope="col" abbr={WEEKDAYS[i]}>{s}</th>
+            {WDS.map((s, i) => (
+              <th key={s} scope="col" abbr={WD[i]}>{s}</th>
             ))}
           </tr>
         </thead>
@@ -216,7 +220,7 @@ export function Calendar({
                 const [lo, hi] = rs && (re || previewEnd) ? [rs, (re ?? previewEnd)!].sort((a, b) => +a - +b) : [null, null];
                 const inRange = !!lo && !!hi && d >= lo && d <= hi;
                 const isSelected = range ? inRange || sameDay(d, rs) : sameDay(d, selected);
-                const holiday = holidays === true ? getIranHoliday(d) : holidays ? holidays(d) || null : null;
+                const holiday = holidays === true ? getIranHoliday(d, { locale }) : holidays ? holidays(d) || null : null;
                 return (
                   <td
                     key={di}
@@ -232,8 +236,8 @@ export function Calendar({
                       className="k-calendar__day"
                       data-day={dayKey(d)}
                       tabIndex={sameDay(d, focused) ? 0 : -1}
-                      aria-label={formatJalali(d, { style: "full", digits }) + (holiday ? `، تعطیل${holiday === "جمعه" ? "" : `: ${holiday}`}` : "")}
-                      title={holiday && holiday !== "جمعه" ? holiday : undefined}
+                      aria-label={formatJalali(d, { style: "full", digits, locale }) + (holiday ? `${M.common.list}${M.calendar.holiday}${holiday === FRI ? "" : `: ${holiday}`}` : "")}
+                      title={holiday && holiday !== FRI ? holiday : undefined}
                       data-holiday={holiday ? "" : undefined}
                       aria-current={sameDay(d, today) ? "date" : undefined}
                       aria-disabled={isDisabled || undefined}

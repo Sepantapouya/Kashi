@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
+import { useKashi } from "./KashiProvider.js";
 
 export interface TourStep {
   /** CSS selector عنصری که این مرحله دربارهٔ آن است، مثل "#export-btn" */
@@ -25,7 +26,8 @@ export interface TourProps {
  */
 export function Tour({ steps, open, onOpenChange, onFinish, labels = {} }: TourProps) {
   const id = useId();
-  const { next = "بعدی", prev = "قبلی", done = "تمام", skip = "رد کردن", step: stepLabel = (n, t) => `مرحلهٔ ${toFaDigits(n)} از ${toFaDigits(t)}` } = labels;
+  const { messages: M, n: N } = useKashi();
+  const { next = M.common.next, prev = M.common.prev, done = M.tour.done, skip = M.tour.skip, step: stepLabel = (a: number, t: number) => M.tour.step(N(a), N(t)) } = labels;
   const [i, setI] = useState(0);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const card = useRef<HTMLDivElement>(null);

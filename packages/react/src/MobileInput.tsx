@@ -1,10 +1,11 @@
 "use client";
 
 import { forwardRef, useId, useState, type ReactNode } from "react";
-import { formatMobile, getMobileOperator, isValidMobile, normalizeMobile } from "@kashi-ui/persian";
+import { formatMobile, getMobileOperator, isValidMobile, normalizeMobile, operatorName } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";
 import { useDigitsInput } from "./useDigitsInput.js";
 import { mergeRefs } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange" | "type" | "inputMode" | "addonEnd">;
 
@@ -24,9 +25,12 @@ export interface MobileInputProps extends Base {
 
 /** فیلد شماره موبایل: +98 و 0098 را به 09 تبدیل می‌کند، گروه‌بندی و تشخیص اپراتور */
 export const MobileInput = forwardRef<HTMLInputElement, MobileInputProps>(function MobileInput(
-  { value, defaultValue, onValueChange, digits = "fa", showOperator = true, invalidMessage = "شماره موبایل معتبر نیست.", error, name, id, onBlur, placeholder, ...rest },
+  { value, defaultValue, onValueChange, digits, showOperator = true, invalidMessage, error, name, id, onBlur, placeholder, ...rest },
   ref,
 ) {
+  const { messages: M, digits: D, locale } = useKashi();
+  digits ??= D;
+  invalidMessage ??= M.invalid.mobile;
   const autoId = useId();
   const inputId = id ?? autoId;
   const [touched, setTouched] = useState(false);
@@ -61,7 +65,7 @@ export const MobileInput = forwardRef<HTMLInputElement, MobileInputProps>(functi
           setTouched(true);
           onBlur?.(e);
         }}
-        addonEnd={operator ? <span className="k-input__meta" id={opId}>{operator.name}</span> : undefined}
+        addonEnd={operator ? <span className="k-input__meta" id={opId}>{operatorName(operator, locale)}</span> : undefined}
         aria-describedby={operator ? opId : undefined}
         error={error ?? (showInvalid ? invalidMessage : undefined)}
         {...rest}

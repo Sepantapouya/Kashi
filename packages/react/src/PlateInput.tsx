@@ -3,6 +3,7 @@
 import { useId, useRef, useState, type ReactNode } from "react";
 import { PLATE_LETTERS, formatPlate, isValidPlate, onlyDigits, plateType, toFaDigits, type Plate } from "@kashi-ui/persian";
 import { Field, describedBy } from "./Field.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface PlateInputProps {
   label?: ReactNode;
@@ -29,13 +30,15 @@ const EMPTY: Plate = { first: "", letter: "", middle: "", region: "" };
  */
 export function PlateInput({
   label, hint, error, value, defaultValue, onChange, name, disabled, id, className,
-  invalidMessage = "پلاک خودرو معتبر نیست.", labels = {},
+  invalidMessage, labels = {},
 }: PlateInputProps) {
+  const { messages: M } = useKashi();
+  invalidMessage ??= M.invalid.plate;
   const autoId = useId();
   const groupId = id ?? autoId;
   // برچسب به اولین بخش وصل است تا کلیک روی آن فوکوس بدهد
   const firstId = `${groupId}-first`;
-  const { first = "دو رقم اول پلاک", letter = "حرف پلاک", middle = "سه رقم پلاک", region = "کد استان" } = labels;
+  const { first = M.plate.first, letter = M.plate.letter, middle = M.plate.middle, region = M.plate.region } = labels;
   const [inner, setInner] = useState<Plate>({ ...EMPTY, ...defaultValue });
   const plate = value ?? inner;
   const [touched, setTouched] = useState(false);
@@ -82,7 +85,7 @@ export function PlateInput({
         role="group"
         id={groupId}
         aria-describedby={describedBy(firstId, hint, error ?? (showInvalid ? invalidMessage : undefined))}
-        aria-label={typeof label === "string" ? label : "پلاک خودرو"}
+        aria-label={typeof label === "string" ? label : M.plate.label}
         data-invalid={showInvalid || error ? "" : undefined}
         data-type={plateType(plate.letter)}
         onBlur={(e) => {

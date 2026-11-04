@@ -5,6 +5,7 @@ import { formatNumber, numberToWords, toFaDigits } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";
 import { useDigitsInput } from "./useDigitsInput.js";
 import { mergeRefs } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange" | "type" | "inputMode" | "addonEnd" | "min" | "max">;
 
@@ -29,25 +30,29 @@ const toRaw = (n?: number | null) => (n === null || n === undefined ? undefined 
 /** فیلد مبلغ: جداکنندهٔ هزارگان، واحد پول و نمایش مبلغ به حروف برای اطمینان کاربر */
 export const PriceInput = forwardRef<HTMLInputElement, PriceInputProps>(function PriceInput(
   {
-    value, defaultValue, onValueChange, unit = "تومان", showWords = true, digits = "fa", min, max,
-    rangeMessage = (lo, hi) =>
-      `مبلغ باید ${lo !== undefined ? `حداقل ${toFaDigits(formatNumber(lo))}` : ""}${lo !== undefined && hi !== undefined ? " و " : ""}${hi !== undefined ? `حداکثر ${toFaDigits(formatNumber(hi))}` : ""} باشد.`,
+    value, defaultValue, onValueChange, unit, showWords = true, digits, min, max,
+    rangeMessage,
     error, hint, name, onBlur, placeholder, ...rest
   },
   ref,
 ) {
+  const { messages: M, digits: D, locale } = useKashi();
+  digits ??= D;
+  unit ??= M.money.toman;
+  const money = (v: number) => (digits === "fa" ? toFaDigits(formatNumber(v)) : formatNumber(v, { digits: "latin" }));
+  rangeMessage ??= (lo, hi) => (lo !== undefined && hi !== undefined ? M.invalid.priceRange(money(lo), money(hi)) : lo !== undefined ? M.invalid.priceMin(money(lo)) : M.invalid.priceMax(money(hi!)));
   const [touched, setTouched] = useState(false);
   const { raw, shown, inputRef, handleChange } = useDigitsInput({
     value: value === undefined ? undefined : (toRaw(value) ?? ""),
     defaultValue: toRaw(defaultValue),
     maxDigits: 15,
     normalize: (d) => d.replace(/^0+(?=\d)/, ""),
-    format: (d) => (d ? formatNumber(d, { digits: "latin" }).replace(/,/g, "٬") : ""),
+    format: (d) => (d ? formatNumber(d, { digits: "latin" }).replace(/,/g, digits === "fa" ? "٬" : ",") : ""),
     digits,
   });
   const n = raw ? Number(raw) : null;
   const outOfRange = n !== null && ((min !== undefined && n < min) || (max !== undefined && n > max));
-  const words = showWords && n !== null ? `${numberToWords(n)}${typeof unit === "string" ? ` ${unit}` : ""}` : null;
+  const words = showWords && n !== null ? `${numberToWords(n, { locale })}${typeof unit === "string" ? ` ${unit}` : ""}` : null;
 
   return (
     <>

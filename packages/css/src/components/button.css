@@ -159,7 +159,7 @@ a.k-btn[aria-disabled="true"]:not([aria-busy="true"]) {
 .k-btn svg { inline-size: 1.25em; block-size: 1.25em; flex-shrink: 0; }
 
 /* آیکون‌های جهت‌دار (فلش و…) در RTL آینه می‌شوند */
-[dir="rtl"] .k-btn [data-k-mirror] { transform: scaleX(-1); }
+.k-btn [data-k-mirror]:dir(rtl) { transform: scaleX(-1); }
 
 /* در حال بارگذاری */
 .k-btn[aria-busy="true"] {

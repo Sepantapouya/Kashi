@@ -6,6 +6,7 @@ import { BankBadge } from "./BankBadge.js";
 import { Input, type InputProps } from "./Input.js";
 import { useDigitsInput } from "./useDigitsInput.js";
 import { mergeRefs } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange" | "type" | "inputMode" | "addonEnd">;
 
@@ -27,9 +28,12 @@ export interface CardNumberInputProps extends Base {
 
 /** فیلد شماره کارت بانکی: گروه‌بندی چهارتایی، تشخیص بانک با لوگو و بررسی Luhn */
 export const CardNumberInput = forwardRef<HTMLInputElement, CardNumberInputProps>(function CardNumberInput(
-  { value, defaultValue, onValueChange, digits = "fa", showBank = true, showBankLogo = true, invalidMessage = "شماره کارت معتبر نیست.", error, name, id, onBlur, placeholder, ...rest },
+  { value, defaultValue, onValueChange, digits, showBank = true, showBankLogo = true, invalidMessage, error, name, id, onBlur, placeholder, ...rest },
   ref,
 ) {
+  const { messages: M, digits: D, locale } = useKashi();
+  digits ??= D;
+  invalidMessage ??= M.invalid.card;
   const autoId = useId();
   const inputId = id ?? autoId;
   const [touched, setTouched] = useState(false);

@@ -5,6 +5,7 @@ import { formatPostalCode, isValidPostalCode } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";
 import { useDigitsInput } from "./useDigitsInput.js";
 import { mergeRefs } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange" | "type" | "inputMode">;
 
@@ -21,9 +22,12 @@ export interface PostalCodeInputProps extends Base {
 
 /** کد پستی ۱۰ رقمی با قالب ۱۲۳۴۵-۶۷۸۹۰ و بررسی قواعد کد پستی ایران */
 export const PostalCodeInput = forwardRef<HTMLInputElement, PostalCodeInputProps>(function PostalCodeInput(
-  { value, defaultValue, onValueChange, digits = "fa", invalidMessage = "کد پستی معتبر نیست.", error, name, onBlur, placeholder, ...rest },
+  { value, defaultValue, onValueChange, digits, invalidMessage, error, name, onBlur, placeholder, ...rest },
   ref,
 ) {
+  const { messages: M, digits: D, locale } = useKashi();
+  digits ??= D;
+  invalidMessage ??= M.invalid.postal;
   const { raw, shown, inputRef, handleChange } = useDigitsInput({ value, defaultValue, maxDigits: 10, format: formatPostalCode, digits });
   const [touched, setTouched] = useState(false);
   const showInvalid = raw.length > 0 && (touched || raw.length === 10) && !isValidPostalCode(raw);

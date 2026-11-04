@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, type ReactNode } from "react";
 import { cx } from "./cx.js";
 import { CloseIcon } from "./icons.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface DialogProps {
   open: boolean;
@@ -34,8 +35,10 @@ export interface DialogProps {
  */
 export function Dialog({
   open, onOpenChange, title, description, icon, tone = "default", size = "md", footer, dismissible = true,
-  closeLabel = "بستن", placement = "center", className, children,
+  closeLabel, placement = "center", className, children,
 }: DialogProps) {
+  const { messages: M } = useKashi();
+  closeLabel ??= M.common.close;
   const ref = useRef<HTMLDialogElement>(null);
   const opener = useRef<Element | null>(null);
   const id = useId();

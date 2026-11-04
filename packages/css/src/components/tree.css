@@ -24,9 +24,9 @@
 .k-tree__toggle { display: grid; place-items: center; flex-shrink: 0; inline-size: 1.25rem; block-size: 1.25rem; color: var(--k-text-tertiary); transition: rotate var(--k-duration-fast); }
 /* فلش «بسته» در RTL به چپ اشاره می‌کند */
 .k-tree__toggle svg { inline-size: 1rem; block-size: 1rem; }
-[dir="rtl"] .k-tree__toggle svg { scale: -1 1; }
+.k-tree__toggle svg:dir(rtl) { scale: -1 1; }
 .k-tree__item[aria-expanded="true"] > .k-tree__row .k-tree__toggle { rotate: 90deg; }
-[dir="rtl"] .k-tree__item[aria-expanded="true"] > .k-tree__row .k-tree__toggle { rotate: -90deg; }
+.k-tree__item[aria-expanded="true"] > .k-tree__row .k-tree__toggle:dir(rtl) { rotate: -90deg; }
 .k-tree__spacer { flex-shrink: 0; inline-size: 1.25rem; }
 .k-tree__icon { display: inline-grid; flex-shrink: 0; color: var(--k-text-tertiary); }
 .k-tree__icon svg { inline-size: 1.125rem; block-size: 1.125rem; }

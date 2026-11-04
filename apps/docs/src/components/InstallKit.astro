@@ -18,7 +18,7 @@ const components = registryItems(SITE).filter((it) => !it.meta!.helper);
 const FA_NAME: Record<string, string> = {
   calendar: "تقویم شمسی", field: "قالب فیلد", "bank-badge": "نشان بانک", "keyboard-fix-input": "اصلاح صفحه‌کلید",
   "plate-input": "پلاک خودرو", "postal-code-input": "کد پستی", "relative-time": "زمان نسبی", "time-input": "ساعت",
-  "landline-input": "تلفن ثابت", "legal-id-input": "شناسهٔ ملی شرکت", misc: "جداکننده، کلید و حالت خالی",
+  "landline-input": "تلفن ثابت", "kashi-provider": "زبان و ارقام (KashiProvider)", "legal-id-input": "شناسهٔ ملی شرکت", misc: "جداکننده، کلید و حالت خالی",
 };
 const faName = (it: (typeof components)[number]) =>
   FA_NAME[it.name] ?? (it.meta!.href && !it.meta!.href.includes("#") && it.meta!.fa ? it.meta!.fa : it.description.split(/[:؛،(]/)[0].trim());

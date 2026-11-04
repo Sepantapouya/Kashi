@@ -4,6 +4,7 @@ import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent, type R
 import { toFaDigits } from "@kashi-ui/persian";
 import { defaultFilter, highlight, type ComboboxOption } from "./Combobox.js";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface CommandItem {
   id: string;
@@ -37,9 +38,12 @@ export interface CommandPaletteProps {
  * پنجره روی <dialog> بومی است (تلهٔ فوکوس و Esc) و فهرست با الگوی combobox/listbox پیمایش می‌شود.
  */
 export function CommandPalette({
-  open, onOpenChange, items, shortcut = true, placeholder = "جستجوی دستور یا صفحه…", emptyMessage = "دستوری پیدا نشد.",
+  open, onOpenChange, items, shortcut = true, placeholder, emptyMessage,
   labels = {}, className,
 }: CommandPaletteProps) {
+  const { messages: M, n: N } = useKashi();
+  placeholder ??= M.command.placeholder;
+  emptyMessage ??= M.command.empty;
   const id = useId();
   const listId = `${id}-list`;
   const ref = useRef<HTMLDialogElement>(null);
@@ -47,7 +51,7 @@ export function CommandPalette({
   const opener = useRef<Element | null>(null);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
-  const { title = "پالت فرمان", navigate = "حرکت", select = "انتخاب", close = "بستن", results = (n: number) => `${toFaDigits(n)} نتیجه` } = labels;
+  const { title = M.command.title, navigate = M.command.navigate, select = M.command.select, close = M.common.close, results = (x: number) => M.common.results(N(x)) } = labels;
 
   // میان‌بر سراسری
   useEffect(() => {

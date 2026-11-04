@@ -26,6 +26,14 @@
 | `@kashi-ui/tailwind` | پریست Tailwind 3 و 4: توکن‌های کاشی به‌شکل کلاس‌های Tailwind، همگام با تم |
 | `@kashi-ui/mcp` | سرور MCP برای Claude، Cursor و دیگر دستیارهای هوش مصنوعی |
 
+## پایدار برای محصولات سازمانی (۱.۰)
+
+- **دوزبانه:** با `<KashiProvider locale="en">` (یا `setLocale("en")` در وب کامپوننت‌ها) همهٔ متن‌های داخلی، ارقام و نام ماه‌ها انگلیسی می‌شوند. [راهنما](https://kashi.sepantapouya.com/docs/i18n/)
+- **[سیاست تغییرات](https://kashi.sepantapouya.com/docs/versioning/):** SemVer، منسوخ کردن پیش از حذف و راهنمای مهاجرت برای هر نسخهٔ اصلی.
+- **[امنیت](SECURITY.md):** گزارش خصوصی آسیب‌پذیری با زمان پاسخ مشخص.
+- **[سقف حجم](https://kashi.sepantapouya.com/docs/sizes/):** هر کامپوننت سقف حجم دارد و تست نمی‌گذارد بی‌اجازه بزرگ‌تر شود.
+- **تست تصویری:** از همهٔ نمونه‌ها در تم روشن و تیره عکس گرفته و با عکس مرجع مقایسه می‌شود (`npm run test:visual`).
+
 ## کامپوننت‌ها
 
 Button · Input · Textarea · Select · Checkbox · RadioGroup · Switch · Badge · Card · Alert · Avatar · AvatarGroup · Tabs · Dialog · Toast · Tooltip · DropdownMenu · DataTable · Pagination · Breadcrumb · Accordion · Stepper · Progress · Spinner · Skeleton · EmptyState · Divider · Kbd · RelativeTime · Combobox · MultiSelect · CommandPalette · TagInput · FileUpload · Slider · NumberInput · Popover · StatCard · Timeline · SideNav · SegmentedControl · CopyButton · Banner · Rating · TreeView · ButtonGroup · ChipGroup · PasswordStrength · BarChart · LineChart · ContextMenu · InlineEdit · PieChart · BarList · ProportionBar · Sparkline · Carousel · ColorPicker · Tour · Meter · Splitter
@@ -96,7 +104,8 @@ claude mcp add kashi -- npx -y @kashi-ui/mcp
 ```bash
 npm install
 npm run build
-npm test      # تست‌های دسترس‌پذیری
+npm test      # همهٔ تست‌ها، تست دوزبانه و سقف حجم (npm run size)
+npm run docs:build && npm run test:visual   # تست تصویری؛ عکس مرجع تازه: npm run test:visual:update
 npm run dev   # پیش‌نمایش در http://localhost:4321/playground/
 npm run docs  # سایت مستندات در http://localhost:4400 (Node 24، طبق .nvmrc)
 ```

@@ -1,12 +1,27 @@
 {
- "generated": "2026-11-04T11:05:25+03:30",
+ "generated": "2026-11-04T11:28:56+03:30",
  "totals": {
-  "commits": 202,
+  "commits": 203,
   "versions": 28,
-  "added": 90334,
+  "added": 90386,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
+  {
+   "sha": "99236c86dd8120840e02b9b0aae8a589ad2ba489",
+   "short": "99236c8",
+   "date": "2026-11-04T11:28:56+03:30",
+   "author": "sepantapouya",
+   "subject": "Docs: Kashi is in the official shadcn registry directory; align fields to top",
+   "details": [
+    "- Install commands use @kashi/<name>; full URL and components.json kept as fallback",
+    "- Homepage \"new\" badge and header tools menu point to the shadcn registry",
+    "- k-field: align-content start, so a neighbour's error no longer pushes the box down"
+   ],
+   "files": 8,
+   "added": 52,
+   "removed": 17
+  },
   {
    "sha": "817256f0b695e4e1acdfef0554f0ffe460cecc22",
    "short": "817256f",

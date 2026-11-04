@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 /** صفحه‌هایی که نمایش داده می‌شوند؛ null یعنی «…» */
 export function pageRange(page: number, total: number, siblings = 1): (number | null)[] {
@@ -48,10 +49,12 @@ const Chevron = ({ dir }: { dir: "prev" | "next" }) => (
 
 /** صفحه‌بندی با ارقام فارسی؛ صفحهٔ فعلی با aria-current="page" */
 export function Pagination({
-  page, total, onChange, getHref, siblings = 1, summary, digits = "fa", pageSize, pageSizes = [10, 20, 50, 100], onPageSizeChange, jumper, labels = {}, className,
+  page, total, onChange, getHref, siblings = 1, summary, digits, pageSize, pageSizes = [10, 20, 50, 100], onPageSizeChange, jumper, labels = {}, className,
 }: PaginationProps) {
+  const { messages: M, digits: D } = useKashi();
+  digits ??= D;
   const n = (v: number) => (digits === "fa" ? toFaDigits(v) : String(v));
-  const { nav = "صفحه‌بندی", prev = "قبلی", next = "بعدی", page: pageLabel = (x) => `صفحهٔ ${x}`, perPage = "در هر صفحه", jump = "برو به صفحه" } = labels;
+  const { nav = M.pagination.nav, prev = M.common.prev, next = M.common.next, page: pageLabel = (x: string) => M.pagination.page(x), perPage = M.pagination.perPage, jump = M.pagination.jump } = labels;
   const [jumpText, setJumpText] = useState("");
   // تابع معمولی، نه کامپوننت: تا دکمه‌ها با هر رندر دوباره ساخته نشوند و فوکوس کیبورد حفظ شود
   const item = ({ to, children, current, disabled, aria, className: c }: { to: number; children: ReactNode; current?: boolean; disabled?: boolean; aria?: string; className: string }) =>
@@ -100,7 +103,7 @@ export function Pagination({
             >
               <label className="k-pagination__tool">
                 <span>{jump}</span>
-                <span className="k-input k-input--sm k-pagination__jump"><input className="k-input__control" inputMode="numeric" dir="ltr" value={jumpText} placeholder={n(page)} aria-label={`${jump}، از ${n(1)} تا ${n(total)}`} onChange={(e) => setJumpText(e.target.value)} /></span>
+                <span className="k-input k-input--sm k-pagination__jump"><input className="k-input__control" inputMode="numeric" dir="ltr" value={jumpText} placeholder={n(page)} aria-label={M.pagination.jumpRange(jump, n(1), n(total))} onChange={(e) => setJumpText(e.target.value)} /></span>
               </label>
             </form>
           )}

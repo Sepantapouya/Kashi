@@ -3,6 +3,7 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface StatCardProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   label: ReactNode;
@@ -32,11 +33,12 @@ export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(function StatC
   { label, value, unit, icon, change, invertTrend, caption, children, labels = {}, className, ...rest },
   ref,
 ) {
-  const { up = "افزایش", down = "کاهش", flat = "بدون تغییر" } = labels;
+  const { messages: M, n } = useKashi();
+  const { up = M.stat.up, down = M.stat.down, flat = M.stat.flat } = labels;
   const dir = change === undefined ? null : change > 0 ? "up" : change < 0 ? "down" : "flat";
   // رنگ بر اساس خوب یا بد بودن، نه جهت
   const good = dir === "flat" ? "flat" : (dir === "up") !== Boolean(invertTrend) ? "up" : "down";
-  const pct = change === undefined ? "" : `${toFaDigits(Math.abs(Math.round(change * 10) / 10)).replace(".", "٫")}٪`;
+  const pct = change === undefined ? "" : M.common.percent(n(Math.abs(Math.round(change * 10) / 10)).replace(".", M.common.decimal));
 
   return (
     <div ref={ref} className={cx("k-stat", className)} {...rest}>

@@ -3,17 +3,27 @@
 import { useId, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import { formatNumber } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
-const fmtDefault = (n: number) => formatNumber(Math.round(n));
-/** عدد کوتاه برای محور: ۱٬۲۰۰٬۰۰۰ ← ۱٫۲ م */
-const compact = (n: number) => {
-  const a = Math.abs(n);
-  const fa = (x: number, u: string) => `${formatNumber(Math.round(x * 10) / 10).replace(".", "٫")}${u}`;
-  if (a >= 1e9) return fa(n / 1e9, " میلیارد");
-  if (a >= 1e6) return fa(n / 1e6, " م");
-  if (a >= 1e3) return fa(n / 1e3, " هزار");
-  return formatNumber(n);
-};
+/** متن‌ها و قالب عددهای نمودار به زبان و ارقام KashiProvider */
+function useChartText() {
+  const { messages: M, digits } = useKashi();
+  const num = (n: number) => formatNumber(n, { digits });
+  const dec = (x: number) => num(Math.round(x * 10) / 10).replace(".", M.common.decimal);
+  return {
+    M,
+    fmt: (n: number) => num(Math.round(n)),
+    pct: (v: number, total: number) => M.common.percent(dec((v / total) * 100)),
+    /** عدد کوتاه برای محور: ۱٬۲۰۰٬۰۰۰ ← ۱٫۲ م */
+    compact: (n: number) => {
+      const a = Math.abs(n);
+      if (a >= 1e9) return dec(n / 1e9) + M.chart.billion;
+      if (a >= 1e6) return dec(n / 1e6) + M.chart.million;
+      if (a >= 1e3) return dec(n / 1e3) + M.chart.thousand;
+      return num(n);
+    },
+  };
+}
 /** گام‌های گرد محور: ۰، ۲۵، ۵۰… */
 function niceTicks(max: number, count = 4): number[] {
   if (max <= 0) return [0];
@@ -52,10 +62,11 @@ const tipAt = (el: HTMLElement, box: HTMLElement | null, i: number, anchor?: HTM
 
 /** جدول هم‌ارز برای صفحه‌خوان و چاپ */
 function DataTable({ caption, labels, series, format }: { caption: string; labels: string[]; series: { name: string; values: number[] }[]; format: (n: number) => string }) {
+  const { messages: M } = useKashi();
   return (
     <table className="k-sr-only">
       <caption>{caption}</caption>
-      <thead><tr><th scope="col">دوره</th>{series.map((s) => <th key={s.name} scope="col">{s.name}</th>)}</tr></thead>
+      <thead><tr><th scope="col">{M.chart.period}</th>{series.map((s) => <th key={s.name} scope="col">{s.name}</th>)}</tr></thead>
       <tbody>{labels.map((l, i) => <tr key={l}><th scope="row">{l}</th>{series.map((s) => <td key={s.name}>{format(s.values[i])}</td>)}</tr>)}</tbody>
     </table>
   );
@@ -78,7 +89,10 @@ export interface BarChartProps {
 }
 
 /** نمودار ستونی؛ تک‌سری یا انباشته تا چهار سری. با موس یا Tab روی هر ستون مقدار دقیق نمایش داده می‌شود */
-export function BarChart({ title, data, series, labels, format = fmtDefault, labelMax = true, height, className }: BarChartProps) {
+export function BarChart({ title, data, series, labels, format, labelMax = true, height, className }: BarChartProps) {
+  const T = useChartText();
+  const M = T.M;
+  format ??= T.fmt;
   const id = useId();
   const stacked = series?.slice(0, 4);
   const cats = stacked ? labels ?? [] : (data ?? []).map((d) => d.label);
@@ -89,7 +103,7 @@ export function BarChart({ title, data, series, labels, format = fmtDefault, lab
   const maxIndex = totals.indexOf(max);
   const color = (i: number) => ({ "--_c": `var(--k-chart-${i + 1})` }) as CSSProperties;
   const describe = (i: number) =>
-    stacked ? `${cats[i]}: ${stacked.map((s) => `${s.name} ${format(s.values[i] ?? 0)}`).join("، ")}، جمع ${format(totals[i])}` : `${cats[i]}: ${format(totals[i])}`;
+    stacked ? `${cats[i]}: ${stacked.map((s) => `${s.name} ${format!(s.values[i] ?? 0)}`).join(M.common.list)}${M.common.list}${M.common.total} ${format!(totals[i])}` : `${cats[i]}: ${format(totals[i])}`;
   const box = useRef<HTMLDivElement>(null);
   const [tip, setTip] = useState<Tip>(null);
   const show = (e: { currentTarget: HTMLElement }, i: number) => setTip(tipAt(e.currentTarget, box.current, i, e.currentTarget.querySelector<HTMLElement>(".k-bars__bar, .k-bars__stack")));
@@ -104,7 +118,7 @@ export function BarChart({ title, data, series, labels, format = fmtDefault, lab
         )}
       </figcaption>
       <div className="k-chart__plot" ref={box}>
-        <div className="k-bars__grid" aria-hidden="true">{ticks.map((t) => <span key={t} data-v={compact(t)} />)}</div>
+        <div className="k-bars__grid" aria-hidden="true">{ticks.map((t) => <span key={t} data-v={T.compact(t)} />)}</div>
         <div className="k-bars" role="list" aria-label={title}>
           {cats.map((label, i) => (
             <div
@@ -141,7 +155,7 @@ export function BarChart({ title, data, series, labels, format = fmtDefault, lab
             width={box.current?.clientWidth}
             title={cats[tip.i]}
             rows={stacked
-              ? [...stacked.map((s, si) => ({ name: s.name, value: format(s.values[tip.i] ?? 0), color: `var(--k-chart-${si + 1})` })), { name: "جمع", value: format(totals[tip.i]) }]
+              ? [...stacked.map((s, si) => ({ name: s.name, value: format(s.values[tip.i] ?? 0), color: `var(--k-chart-${si + 1})` })), { name: M.common.total, value: format(totals[tip.i]) }]
               : [{ value: format(totals[tip.i]) }]}
           />
         )}
@@ -159,11 +173,14 @@ export interface BarListProps {
 }
 
 /** میله‌های افقی برای رتبه‌بندی با نام‌های بلند، مثل پربازدیدترین صفحه‌ها */
-export function BarList({ title, data, format = fmtDefault, className }: BarListProps) {
+export function BarList({ title, data, format, className }: BarListProps) {
+  const T = useChartText();
+  const M = T.M;
+  format ??= T.fmt;
   const id = useId();
   const max = Math.max(1, ...data.map((d) => d.value));
   const total = data.reduce((n, d) => n + d.value, 0) || 1;
-  const share = (v: number) => `${formatNumber(Math.round((v / total) * 1000) / 10).replace(".", "٫")}٪`;
+  const share = (v: number) => T.pct(v, total);
   const box = useRef<HTMLOListElement>(null);
   const [tip, setTip] = useState<Tip>(null);
   return (
@@ -186,7 +203,7 @@ export function BarList({ title, data, format = fmtDefault, className }: BarList
             <span className="k-barlist__value">{format(d.value)} <span className="k-barlist__share">{share(d.value)}</span></span>
           </li>
         ))}
-        {tip && <ChartTip x={tip.x} y={tip.y} width={box.current?.clientWidth} title={data[tip.i].label} rows={[{ name: "مقدار", value: format(data[tip.i].value) }, { name: "سهم از کل", value: share(data[tip.i].value) }]} />}
+        {tip && <ChartTip x={tip.x} y={tip.y} width={box.current?.clientWidth} title={data[tip.i].label} rows={[{ name: M.chart.value, value: format(data[tip.i].value) }, { name: M.chart.share, value: share(data[tip.i].value) }]} />}
       </ol>
     </figure>
   );
@@ -203,11 +220,14 @@ export interface ProportionBarProps {
 }
 
 /** سهم هر بخش از کل در یک میلهٔ افقی، مثل منبع ورود کاربران؛ جایگزین خواناتر نمودار دایره‌ای */
-export function ProportionBar({ title, data, percent = true, format = fmtDefault, className }: ProportionBarProps) {
+export function ProportionBar({ title, data, percent = true, format, className }: ProportionBarProps) {
+  const T = useChartText();
+  const M = T.M;
+  format ??= T.fmt;
   const id = useId();
   const parts = data.slice(0, 4);
   const total = parts.reduce((n, d) => n + d.value, 0) || 1;
-  const pct = (v: number) => `${formatNumber(Math.round((v / total) * 1000) / 10).replace(".", "٫")}٪`;
+  const pct = (v: number) => T.pct(v, total);
   const color = (i: number) => ({ "--_c": `var(--k-chart-${i + 1})` }) as CSSProperties;
   const box = useRef<HTMLDivElement>(null);
   const [tip, setTip] = useState<Tip>(null);
@@ -227,7 +247,7 @@ export function ProportionBar({ title, data, percent = true, format = fmtDefault
             />
           ))}
         </div>
-        {tip && <ChartTip x={tip.x} y={tip.y} width={box.current?.clientWidth} rows={[{ name: parts[tip.i].label, value: pct(parts[tip.i].value), color: `var(--k-chart-${tip.i + 1})` }, { name: "تعداد", value: format(parts[tip.i].value) }]} />}
+        {tip && <ChartTip x={tip.x} y={tip.y} width={box.current?.clientWidth} rows={[{ name: parts[tip.i].label, value: pct(parts[tip.i].value), color: `var(--k-chart-${tip.i + 1})` }, { name: M.chart.count, value: format(parts[tip.i].value) }]} />}
       </div>
       <ul className="k-proportion__legend">
         {parts.map((d, i) => (
@@ -261,12 +281,16 @@ export interface PieChartProps {
  * نمودار دایره‌ای یا دونات تا پنج بخش، با فاصلهٔ کوچک بین بخش‌ها، راهنمای درصد و جدول هم‌ارز.
  * برای مقایسهٔ دقیق بخش‌ها ProportionBar خواناتر است.
  */
-export function PieChart({ title, data, variant = "donut", format = fmtDefault, totalLabel = "جمع", size = 176, className }: PieChartProps) {
+export function PieChart({ title, data, variant = "donut", format, totalLabel, size = 176, className }: PieChartProps) {
+  const T = useChartText();
+  const M = T.M;
+  format ??= T.fmt;
+  totalLabel ??= M.common.total;
   const id = useId();
   const sorted = [...data].sort((a, b) => b.value - a.value);
-  const parts = sorted.length > 5 ? [...sorted.slice(0, 4), { label: "سایر", value: sorted.slice(4).reduce((n, d) => n + d.value, 0) }] : sorted;
+  const parts = sorted.length > 5 ? [...sorted.slice(0, 4), { label: M.common.other, value: sorted.slice(4).reduce((n, d) => n + d.value, 0) }] : sorted;
   const total = parts.reduce((n, d) => n + d.value, 0) || 1;
-  const pct = (v: number) => `${formatNumber(Math.round((v / total) * 1000) / 10).replace(".", "٫")}٪`;
+  const pct = (v: number) => T.pct(v, total);
   const slot = (i: number) => (i < 4 ? `var(--k-chart-${i + 1})` : "var(--k-text-quaternary)");
   const donut = variant === "donut";
   // دایره با stroke-dasharray: هر بخش یک کمان؛ برای pie، شعاع نصف و ضخامت برابر قطر
@@ -320,7 +344,7 @@ export function PieChart({ title, data, variant = "donut", format = fmtDefault, 
             </div>
           )}
           {active !== null && !donut && (
-            <ChartTip x={mid(active).x * size} y={mid(active).y * size - 8} rows={[{ name: parts[active].label, value: pct(parts[active].value), color: slot(active) }, { name: "تعداد", value: format(parts[active].value) }]} />
+            <ChartTip x={mid(active).x * size} y={mid(active).y * size - 8} rows={[{ name: parts[active].label, value: pct(parts[active].value), color: slot(active) }, { name: M.chart.count, value: format(parts[active].value) }]} />
           )}
         </div>
         <ul className="k-pie__legend">
@@ -388,7 +412,10 @@ export interface LineChartProps {
  * نمودار خطی تا چهار سری: خط ۲ پیکسلی، برچسب نام در انتهای هر خط،
  * راهنمای عمودی با موس و ←→ روی کیبورد، و جدول هم‌ارز برای صفحه‌خوان.
  */
-export function LineChart({ title, labels, series, format = fmtDefault, area, height, className }: LineChartProps) {
+export function LineChart({ title, labels, series, format, area, height, className }: LineChartProps) {
+  const T = useChartText();
+  const M = T.M;
+  format ??= T.fmt;
   const id = useId();
   const plot = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ w: 600, h: 220, rtl: true });
@@ -463,7 +490,7 @@ export function LineChart({ title, labels, series, format = fmtDefault, area, he
         className="k-chart__plot"
         tabIndex={0}
         role="img"
-        aria-label={`${title}. با کلیدهای جهت بین نقطه‌ها حرکت کنید.`}
+        aria-label={M.chart.keyboard(title)}
         aria-describedby={`${id}-live`}
         onPointerMove={(e) => pick(e.clientX)}
         onPointerLeave={() => setActive(null)}
@@ -474,7 +501,7 @@ export function LineChart({ title, labels, series, format = fmtDefault, area, he
           <g className="k-chart__grid">
             {ticks.map((t) => <line key={t} x1={pad.start - (size.rtl ? 0 : 0)} x2={size.w - pad.end} y1={y(t)} y2={y(t)} transform={size.rtl ? `translate(${pad.end - pad.start} 0)` : undefined} />)}
           </g>
-          {ticks.map((t) => <text key={t} className="k-chart__tick" x={tickX} y={y(t) + 4} textAnchor={anchor}>{compact(t)}</text>)}
+          {ticks.map((t) => <text key={t} className="k-chart__tick" x={tickX} y={y(t) + 4} textAnchor={anchor}>{T.compact(t)}</text>)}
           {labels.map((l, i) => (i % step === 0 || i === labels.length - 1) && <text key={l} className="k-chart__tick" x={x(i)} y={size.h - 6} textAnchor="middle">{l}</text>)}
           <defs>
             <linearGradient id={`${id}-fade`} x1="0" y1="0" x2="0" y2="1">
@@ -506,7 +533,7 @@ export function LineChart({ title, labels, series, format = fmtDefault, area, he
         )}
       </div>
       <span className="k-sr-only" aria-live="polite" id={`${id}-live`}>
-        {active !== null ? `${labels[active]}: ${shown.map((s) => `${s.name} ${format(s.values[active])}`).join("، ")}` : ""}
+        {active !== null ? `${labels[active]}: ${shown.map((s) => `${s.name} ${format(s.values[active])}`).join(M.common.list)}` : ""}
       </span>
       <DataTable caption={title} labels={labels} series={shown} format={format} />
     </figure>

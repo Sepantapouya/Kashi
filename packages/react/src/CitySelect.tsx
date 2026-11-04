@@ -3,6 +3,7 @@
 import { forwardRef, useMemo, useState } from "react";
 import { CITIES, getCities } from "@kashi-ui/persian";
 import { Combobox, searchText, type ComboboxOption, type ComboboxProps } from "./Combobox.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface CitySelectProps extends Omit<ComboboxProps, "options" | "value" | "defaultValue" | "onChange"> {
   /** فقط شهرهای این استان؛ بدون استان، همهٔ شهرها با نام استانشان */
@@ -24,9 +25,11 @@ const filter = (o: ComboboxOption, q: string) =>
 
 /** انتخاب شهر با جستجو؛ با استان فقط شهرهای همان استان، بدون آن همهٔ ۱۲۰۰+ شهر ایران با نام استان */
 export const CitySelect = forwardRef<HTMLInputElement, CitySelectProps>(function CitySelect(
-  { province, value, defaultValue = null, onChange, allowCustom = true, label = "شهر", placeholder, onInputChange, ...rest },
+  { province, value, defaultValue = null, onChange, allowCustom = true, label, placeholder, onInputChange, ...rest },
   ref,
 ) {
+  const { messages: M } = useKashi();
+  label ??= M.city.label;
   const [query, setQuery] = useState("");
   const [inner, setInner] = useState<string | null>(defaultValue);
   const city = value !== undefined ? value : inner;
@@ -38,9 +41,9 @@ export const CitySelect = forwardRef<HTMLInputElement, CitySelectProps>(function
     const q = query.trim();
     const known = list.some((o) => o.label === city);
     // شهر انتخاب‌شده‌ای که در فهرست نیست هم باید در فیلد بماند
-    if (city && !known) list.unshift({ value: `custom${SEP}${city}`, label: city, description: "خارج از فهرست" });
+    if (city && !known) list.unshift({ value: `custom${SEP}${city}`, label: city, description: M.city.outside });
     if (allowCustom && q && q !== city && !list.some((o) => loose(o.label) === loose(q)))
-      list.push({ value: `custom${SEP}${q}`, label: q, description: "شهر دیگر؛ همین نام ثبت شود" });
+      list.push({ value: `custom${SEP}${q}`, label: q, description: M.city.custom });
     return list;
   }, [province, query, city, allowCustom]);
 
@@ -50,7 +53,7 @@ export const CitySelect = forwardRef<HTMLInputElement, CitySelectProps>(function
     <Combobox
       ref={ref}
       label={label}
-      placeholder={placeholder ?? (province ? "جستجوی شهر" : "نام شهر، مثلاً کاشان")}
+      placeholder={placeholder ?? (province ? M.city.search : M.city.hint)}
       options={options}
       filter={filter}
       value={selected}

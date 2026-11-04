@@ -1,5 +1,5 @@
 import { formatJalali, formatMoney, formatRelative, fromISODate, numberToWords, rialToToman, toFaDigits, tomanToRial } from "@kashi-ui/persian";
-import { HTMLBase, define, emit, esc } from "./base.js";
+import { define, digitsOf, emit, esc, HTMLBase, lang, msg } from "./base.js";
 
 /** «2026-03-21» به نیمه‌شب محلی، و بقیهٔ قالب‌ها (با ساعت) با Date */
 const parseDateTime = (text: string | null): Date | null => {
@@ -27,19 +27,21 @@ export class KashiMoney extends Display {
     const unit = this.getAttribute("unit") === "rial" ? "rial" : "toman";
     const from = this.getAttribute("from") === "rial" ? "rial" : this.getAttribute("from") === "toman" ? "toman" : unit;
     const compact = this.hasAttribute("compact");
-    const digits = this.getAttribute("digits") === "latin" ? "latin" : "fa";
+    const digits = digitsOf(this);
     const signed = this.hasAttribute("signed");
     const size = this.getAttribute("size") ?? "md";
     const n = from === unit ? value : from === "rial" ? rialToToman(value) : tomanToRial(value);
-    const amount = formatMoney(n, { unit, compact, digits, showUnit: false });
-    const full = formatMoney(n, { unit, compact });
-    const unitText = full.endsWith("همت") ? null : unit === "toman" ? "تومان" : "ریال";
+    const locale = lang(), M = msg();
+    const amount = formatMoney(n, { unit, compact, digits, locale, showUnit: false });
+    const full = formatMoney(n, { unit, compact, locale });
+    const unitName = unit === "toman" ? M.money.toman : M.money.rial;
+    const unitText = full.endsWith("همت") ? null : unitName;
     const spoken = this.getAttribute("words") !== "false" && Number.isSafeInteger(Math.round(n))
-      ? `${numberToWords(Math.round(n))} ${unit === "toman" ? "تومان" : "ریال"}`
+      ? `${numberToWords(Math.round(n), { locale })} ${unitName}`
       : null;
     const tone = signed ? (n > 0 ? "positive" : n < 0 ? "negative" : null) : null;
     const hide = spoken ? ' aria-hidden="true"' : "";
-    this.innerHTML = `<data value="${n}" class="k-money k-money--${esc(size)}"${tone ? ` data-tone="${tone}"` : ""}${spoken ? ` title="${esc(spoken)}"` : ""}><span class="k-money__amount"${hide}>${signed && n > 0 ? "+" : ""}${esc(amount)}</span>${unitText ? `<span class="k-money__unit"${hide}>${unitText}</span>` : ""}${spoken ? `<span class="k-sr-only">${n < 0 ? "" : signed && n > 0 ? "مثبت " : ""}${esc(spoken)}</span>` : ""}</data>`;
+    this.innerHTML = `<data value="${n}" class="k-money k-money--${esc(size)}"${tone ? ` data-tone="${tone}"` : ""}${spoken ? ` title="${esc(spoken)}"` : ""}><span class="k-money__amount"${hide}>${signed && n > 0 ? "+" : ""}${esc(amount)}</span>${unitText ? `<span class="k-money__unit"${hide}>${unitText}</span>` : ""}${spoken ? `<span class="k-sr-only">${n < 0 ? "" : signed && n > 0 ? M.money.positive : ""}${esc(spoken)}</span>` : ""}</data>`;
   }
 }
 
@@ -54,8 +56,8 @@ export class KashiDate extends Display {
     }
     const f = this.getAttribute("format");
     const style = f === "numeric" || f === "full" ? f : "long";
-    const digits = this.getAttribute("digits") === "latin" ? "latin" : "fa";
-    this.innerHTML = `<time datetime="${esc(this.getAttribute("datetime"))}">${esc(formatJalali(d, { style, digits }))}</time>`;
+    const digits = digitsOf(this);
+    this.innerHTML = `<time datetime="${esc(this.getAttribute("datetime"))}">${esc(formatJalali(d, { style, digits, locale: lang() }))}</time>`;
   }
 }
 
@@ -77,8 +79,8 @@ export class KashiRelativeTime extends Display {
       this.textContent = "";
       return;
     }
-    const digits = this.getAttribute("digits") === "latin" ? "latin" : "fa";
-    this.innerHTML = `<time datetime="${d.toISOString()}" title="${esc(formatJalali(d, { style: "full", digits }))}">${esc(formatRelative(d, { digits }))}</time>`;
+    const digits = digitsOf(this);
+    this.innerHTML = `<time datetime="${d.toISOString()}" title="${esc(formatJalali(d, { style: "full", digits, locale: lang() }))}">${esc(formatRelative(d, { digits, locale: lang() }))}</time>`;
   }
 }
 
@@ -119,14 +121,15 @@ export class KashiCountdown extends HTMLBase {
   private render() {
     const left = this.remaining;
     const d = Math.floor(left / 86400), h = Math.floor((left % 86400) / 3600), m = Math.floor((left % 3600) / 60), s = left % 60;
-    const fa = this.getAttribute("digits") !== "latin";
+    const fa = digitsOf(this) === "fa";
     const f = (x: string | number) => (fa ? toFaDigits(String(x)) : String(x));
-    const spoken = [d && `${f(d)} روز`, h && `${f(h)} ساعت`, m && `${f(m)} دقیقه`, `${f(s)} ثانیه`].filter(Boolean).join(" و ");
+    const C = msg().countdown;
+    const spoken = [d && `${f(d)} ${C.days}`, h && `${f(h)} ${C.hours}`, m && `${f(m)} ${C.minutes}`, `${f(s)} ${C.seconds}`].filter(Boolean).join(msg().common.and);
     const label = this.getAttribute("label");
     const aria = esc(label ? `${label}: ${spoken}` : spoken);
     const doneAttr = left === 0 ? ' data-done=""' : "";
     if (this.getAttribute("variant") === "blocks") {
-      const units: [number, string][] = [...(d ? [[d, "روز"] as [number, string]] : []), [h, "ساعت"], [m, "دقیقه"], [s, "ثانیه"]];
+      const units: [number, string][] = [...(d ? [[d, C.days] as [number, string]] : []), [h, C.hours], [m, C.minutes], [s, C.seconds]];
       this.innerHTML = `<div role="timer" aria-label="${aria}" class="k-countdown k-countdown--blocks"${doneAttr}>${units.map(([v, name]) => `<span class="k-countdown__unit" aria-hidden="true"><span class="k-countdown__num">${f(pad(v))}</span><span class="k-countdown__name">${name}</span></span>`).join("")}</div>`;
     } else {
       const clock = (d ? `${d}:` : "") + (h || d ? `${pad(h)}:` : "") + `${pad(m)}:${pad(s)}`;

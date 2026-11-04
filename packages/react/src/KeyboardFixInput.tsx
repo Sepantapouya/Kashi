@@ -4,6 +4,7 @@ import { forwardRef, useRef, useState, type ReactNode } from "react";
 import { fixKeyboardLayout, looksLikeWrongLayout } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";
 import { mergeRefs } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange">;
 
@@ -25,6 +26,7 @@ export const KeyboardFixInput = forwardRef<HTMLInputElement, KeyboardFixInputPro
   { value, defaultValue = "", onValueChange, suggest = "auto", renderSuggestion, hint, ...rest },
   ref,
 ) {
+  const { messages: M, locale } = useKashi();
   const [inner, setInner] = useState(defaultValue);
   const current = value ?? inner;
   const el = useRef<HTMLInputElement>(null);
@@ -49,7 +51,7 @@ export const KeyboardFixInput = forwardRef<HTMLInputElement, KeyboardFixInputPro
       hint={
         show ? (
           <span className="k-kbfix" role="status">
-            {renderSuggestion ? renderSuggestion(fixed, apply) : <>منظورتان <button type="button" className="k-kbfix__btn" onClick={apply}>«{fixed}»</button> بود؟</>}
+            {renderSuggestion ? renderSuggestion(fixed, apply) : <>{M.keyboardFix.before} <button type="button" className="k-kbfix__btn" onClick={apply}>«{fixed}»</button>{locale === "en" ? "" : " "}{M.keyboardFix.after}</>}
           </span>
         ) : hint
       }

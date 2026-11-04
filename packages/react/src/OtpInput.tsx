@@ -5,6 +5,7 @@ import { onlyDigits, toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
 import { Field, describedBy } from "./Field.js";
 import { mergeRefs } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface OtpInputProps {
   label?: ReactNode;
@@ -34,9 +35,11 @@ export interface OtpInputProps {
  * صفحه‌خوان و پر شدن خودکار کد پیامکی (autocomplete="one-time-code") بی‌نقص کار می‌کنند.
  */
 export const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(function OtpInput(
-  { label, hint, error, length = 6, value, defaultValue = "", onChange, onComplete, digits = "fa", groupAfter, size = "md", disabled, autoFocus, name, id, className },
+  { label, hint, error, length = 6, value, defaultValue = "", onChange, onComplete, digits, groupAfter, size = "md", disabled, autoFocus, name, id, className },
   ref,
 ) {
+  const { digits: D } = useKashi();
+  digits ??= D;
   const autoId = useId();
   const inputId = id ?? autoId;
   const [inner, setInner] = useState(() => onlyDigits(defaultValue).slice(0, length));

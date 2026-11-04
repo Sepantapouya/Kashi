@@ -7,8 +7,9 @@ const RAW: NavGroup[] = [
     items: [
       { title: "معرفی", href: "/docs/" },
       { title: "نصب", href: "/docs/installation/" },
-      { title: "Tailwind", href: "/docs/tailwind/", badge: "جدید" },
-      { title: "وب کامپوننت‌ها (بدون React)", href: "/docs/web-components/", badge: "جدید" },
+      { title: "Tailwind", href: "/docs/tailwind/" },
+      { title: "وب کامپوننت‌ها (بدون React)", href: "/docs/web-components/" },
+      { title: "دوزبانه، فارسی و انگلیسی", href: "/docs/i18n/", badge: "جدید" },
       { title: "پلاگین فیگما", href: "/docs/figma/" },
       { title: "استفاده با هوش مصنوعی", href: "/docs/ai/" },
       { title: "آیکون‌ها", href: "/docs/icons/" },
@@ -22,6 +23,15 @@ const RAW: NavGroup[] = [
     ],
   },
   {
+    title: "پایداری و امنیت",
+    items: [
+      { title: "سیاست تغییرات", href: "/docs/versioning/", badge: "جدید" },
+      { title: "مهاجرت به ۱.۰", href: "/docs/migration/" },
+      { title: "امنیت", href: "/docs/security/", badge: "جدید" },
+      { title: "حجم کامپوننت‌ها", href: "/docs/sizes/" },
+    ],
+  },
+  {
     title: "فارسی",
     items: [
       { title: "فیلد فارسی", href: "/docs/persian/input/" },
@@ -32,7 +42,7 @@ const RAW: NavGroup[] = [
       { title: "شمارش معکوس", href: "/docs/persian/countdown/" },
       { title: "هیت‌مپ فعالیت", href: "/docs/persian/activity-heatmap/" },
       { title: "انتخاب استان", href: "/docs/persian/province/" },
-      { title: "نقشهٔ ایران", href: "/docs/persian/iran-map/", badge: "جدید" },
+      { title: "نقشهٔ ایران", href: "/docs/persian/iran-map/" },
       { title: "فرم نشانی", href: "/docs/persian/address/", badge: "جدید" },
       { title: "انتخاب نوبت", href: "/docs/persian/appointment/", badge: "جدید" },
       { title: "ویرایش نگارشی", href: "/docs/persian/text-fix/" },

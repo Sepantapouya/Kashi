@@ -40,7 +40,7 @@
   font-weight: var(--k-weight-semibold);
   cursor: pointer;
 }
-[dir="ltr"] .k-calendar__select { background-position: right var(--k-space-1_5) center; }
+.k-calendar__select:dir(ltr) { background-position: right var(--k-space-1_5) center; }
 .k-calendar__select:hover { background-color: var(--k-bg-hover); }
 .k-calendar__select:focus-visible { outline: 2px solid transparent; border-color: var(--k-border-brand); box-shadow: var(--k-ring-brand); }
 .k-calendar__select option { background: var(--k-bg-elevated); color: var(--k-text-primary); }

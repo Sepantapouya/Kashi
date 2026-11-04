@@ -3,6 +3,7 @@
 import { Children, useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface CarouselProps {
   /** هر فرزند یک اسلاید */
@@ -29,7 +30,8 @@ const Arrow = ({ next }: { next?: boolean }) => (
  */
 export function Carousel({ children, label, perView = 1, dots = true, className, labels = {} }: CarouselProps) {
   const id = useId();
-  const { prev = "قبلی", next = "بعدی", slide = (n, t) => `${toFaDigits(n)} از ${toFaDigits(t)}` } = labels;
+  const { messages: M, n: N } = useKashi();
+  const { prev = M.common.prev, next = M.common.next, slide = (a: number, t: number) => M.carousel.slideOf(N(a), N(t)) } = labels;
   const slides = Children.toArray(children);
   const track = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
@@ -64,7 +66,7 @@ export function Carousel({ children, label, perView = 1, dots = true, className,
   };
 
   return (
-    <section className={cx("k-carousel", className)} aria-roledescription="اسلایدر" aria-label={label} style={{ "--k-carousel-per-view": perView } as CSSProperties}>
+    <section className={cx("k-carousel", className)} aria-roledescription={M.carousel.slider} aria-label={label} style={{ "--k-carousel-per-view": perView } as CSSProperties}>
       <div
         ref={track}
         className="k-carousel__track"
@@ -81,7 +83,7 @@ export function Carousel({ children, label, perView = 1, dots = true, className,
         }}
       >
         {slides.map((s, i) => (
-          <div key={i} className="k-carousel__slide" role="group" aria-roledescription="اسلاید" aria-label={slide(i + 1, slides.length)} id={`${id}-s${i}`}>
+          <div key={i} className="k-carousel__slide" role="group" aria-roledescription={M.carousel.slide} aria-label={slide(i + 1, slides.length)} id={`${id}-s${i}`}>
             {s}
           </div>
         ))}
@@ -89,7 +91,7 @@ export function Carousel({ children, label, perView = 1, dots = true, className,
       {pages > 1 && (
         <div className="k-carousel__bar">
           {dots ? (
-            <ul className="k-carousel__dots" aria-label={`اسلایدهای ${label}`}>
+            <ul className="k-carousel__dots" aria-label={M.carousel.slides(label)}>
               {Array.from({ length: pages }, (_, i) => (
                 <li key={i}>
                   <button type="button" className="k-carousel__dot" aria-label={slide(i + 1, pages)} aria-current={i === index} aria-controls={`${id}-s${i}`} onClick={() => go(i)} />

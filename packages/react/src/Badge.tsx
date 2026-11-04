@@ -2,6 +2,7 @@
 
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export type BadgeTone = "neutral" | "brand" | "error" | "warning" | "success" | "info";
 
@@ -28,7 +29,8 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
   { tone = "neutral", variant = "soft", size = "md", dot = false, icon, square = false, onRemove, removeLabel, className, children, ...rest },
   ref,
 ) {
-  const label = removeLabel ?? (typeof children === "string" ? `حذف ${children}` : "حذف");
+  const { messages: M } = useKashi();
+  const label = removeLabel ?? (typeof children === "string" ? M.common.remove(children) : M.common.removeShort);
   return (
     <span
       ref={ref}

@@ -3,6 +3,7 @@
 import { forwardRef, type HTMLAttributes, type ReactElement, type ReactNode } from "react";
 import { cx } from "./cx.js";
 import { CloseIcon, ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from "./icons.js";
+import { useKashi } from "./KashiProvider.js";
 
 export type AlertTone = "neutral" | "brand" | "info" | "success" | "warning" | "error";
 
@@ -37,9 +38,11 @@ const ICONS: Record<AlertTone, () => ReactElement> = {
 };
 
 export const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
-  { tone = "neutral", title, icon, actions, onClose, closeLabel = "بستن", tinted = false, layout = "card", size = "md", classNames = {}, role, className, children, ...rest },
+  { tone = "neutral", title, icon, actions, onClose, closeLabel, tinted = false, layout = "card", size = "md", classNames = {}, role, className, children, ...rest },
   ref,
 ) {
+  const { messages: M } = useKashi();
+  closeLabel ??= M.alert.close;
   const Icon = ICONS[tone];
   return (
     <div

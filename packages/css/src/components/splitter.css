@@ -29,7 +29,7 @@
   translate: -50% -50%;
   transition: background-color var(--k-duration-fast), border-color var(--k-duration-fast);
 }
-[dir="rtl"] .k-splitter__handle::after { translate: 50% -50%; }
+.k-splitter__handle:dir(rtl)::after { translate: 50% -50%; }
 .k-splitter--vertical .k-splitter__handle::after { inline-size: 2rem; block-size: 6px; }
 .k-splitter__handle:is(:hover, [data-dragging])::after { border-color: var(--k-border-brand); background: var(--k-bg-brand); }
 .k-splitter__handle:focus-visible::after { box-shadow: var(--k-ring-brand); border-color: var(--k-border-brand); }

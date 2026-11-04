@@ -5,6 +5,7 @@ import { formatLandline, getLandlineProvince, isValidLandline, normalizeLandline
 import { Input, type InputProps } from "./Input.js";
 import { useDigitsInput } from "./useDigitsInput.js";
 import { mergeRefs } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange" | "type" | "inputMode" | "addonEnd">;
 
@@ -24,9 +25,12 @@ export interface LandlineInputProps extends Base {
 
 /** تلفن ثابت با پیش‌شماره: +98 را به ۰ تبدیل می‌کند، گروه‌بندی و نام استان را نشان می‌دهد */
 export const LandlineInput = forwardRef<HTMLInputElement, LandlineInputProps>(function LandlineInput(
-  { value, defaultValue, onValueChange, digits = "fa", showProvince = true, invalidMessage = "شمارهٔ تلفن ثابت معتبر نیست.", error, name, id, onBlur, placeholder, ...rest },
+  { value, defaultValue, onValueChange, digits, showProvince = true, invalidMessage, error, name, id, onBlur, placeholder, ...rest },
   ref,
 ) {
+  const { messages: M, digits: D, locale } = useKashi();
+  digits ??= D;
+  invalidMessage ??= M.invalid.landline;
   const autoId = useId();
   const inputId = id ?? autoId;
   const [touched, setTouched] = useState(false);

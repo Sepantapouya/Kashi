@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
-import { formatJalali, toGregorian, toISODate, toJalali } from "@kashi-ui/persian";
+import { faMessages, formatJalali, toFaDigits, toGregorian, toISODate, toJalali, type KashiMessages } from "@kashi-ui/persian";
 import { Calendar, type CalendarLabels, type CalendarProps } from "./Calendar.js";
 import { Field } from "./Field.js";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface DateRange {
   start: Date | null;
@@ -19,19 +20,19 @@ export interface DateRangePreset {
 
 const day = (d: Date, add = 0) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + add);
 
-/** میان‌برهای پیش‌فرض با ماه‌های شمسی */
-export const defaultRangePresets: DateRangePreset[] = [
-  { label: "۷ روز اخیر", range: (t) => ({ start: day(t, -6), end: t }) },
-  { label: "۳۰ روز اخیر", range: (t) => ({ start: day(t, -29), end: t }) },
+/** میان‌برهای پیش‌فرض با ماه‌های شمسی، با متن‌های یک زبان */
+const presetsFor = (m: KashiMessages["dateRange"], n: (v: number) => string): DateRangePreset[] => [
+  { label: m.last7(n(7)), range: (t) => ({ start: day(t, -6), end: t }) },
+  { label: m.last30(n(30)), range: (t) => ({ start: day(t, -29), end: t }) },
   {
-    label: "این ماه",
+    label: m.thisMonth,
     range: (t) => {
       const { jy, jm } = toJalali(t);
       return { start: toGregorian(jy, jm, 1), end: t };
     },
   },
   {
-    label: "ماه قبل",
+    label: m.lastMonth,
     range: (t) => {
       const { jy, jm } = toJalali(t);
       const [py, pm] = jm === 1 ? [jy - 1, 12] : [jy, jm - 1];
@@ -39,6 +40,9 @@ export const defaultRangePresets: DateRangePreset[] = [
     },
   },
 ];
+
+/** میان‌برهای پیش‌فرض به فارسی؛ بدون presets، کامپوننت همین‌ها را به زبان KashiProvider نشان می‌دهد */
+export const defaultRangePresets: DateRangePreset[] = presetsFor(faMessages.dateRange, (v) => toFaDigits(v));
 
 export interface DateRangePickerProps {
   label?: ReactNode;
@@ -71,14 +75,17 @@ export interface DateRangePickerProps {
  */
 export function DateRangePicker({
   label, hint, error, value, defaultValue = { start: null, end: null }, onChange, min, max, isDateDisabled, holidays,
-  presets = defaultRangePresets, digits = "fa", name, disabled, id, className, calendarLabels, labels = {},
+  presets, digits, name, disabled, id, className, calendarLabels, labels = {},
 }: DateRangePickerProps) {
+  const { messages: M, digits: D, locale, n: N } = useKashi();
+  digits ??= D;
+  presets ??= presetsFor(M.dateRange, N);
   const autoId = useId();
   const triggerId = id ?? autoId;
   const popoverId = `${triggerId}-popover`;
   const {
-    placeholder = "انتخاب بازهٔ تاریخ", separator = " تا ", apply = "تأیید", cancel = "انصراف",
-    presets: presetsLabel = "میان‌برها", pickEnd = "حالا تاریخ پایان را انتخاب کنید.",
+    placeholder = M.dateRange.placeholder, separator = M.common.range, apply = M.common.confirm, cancel = M.common.cancel,
+    presets: presetsLabel = M.dateRange.presets, pickEnd = M.dateRange.pickEnd,
   } = labels;
   const [inner, setInner] = useState<DateRange>(defaultValue);
   const current = value ?? inner;
@@ -89,7 +96,7 @@ export function DateRangePicker({
   const wrap = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
 
-  const fmt = (d: Date) => formatJalali(d, { digits });
+  const fmt = (d: Date) => formatJalali(d, { digits, locale });
   const text = current.start && current.end ? `${fmt(current.start)}${separator}${fmt(current.end)}` : null;
 
   const close = (focus = true) => {

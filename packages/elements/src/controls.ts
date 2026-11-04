@@ -1,5 +1,5 @@
 import { formatNumber, normalizePersian, onlyDigits, toEnDigits, toFaDigits } from "@kashi-ui/persian";
-import { HTMLBase, bool, define, emit, esc, fieldHTML, setMessages, uid } from "./base.js";
+import { bool, define, digitsOf, emit, esc, fieldHTML, HTMLBase, msg, num, setMessages, uid } from "./base.js";
 
 const REMOVE = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 6 8 8M14 6l-8 8"/></svg>';
 
@@ -61,7 +61,7 @@ export class KashiTagInput extends HTMLBase {
   private render() {
     const id = this.key;
     const ariaLabel = this.getAttribute("aria-label");
-    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : "برچسب‌ها";
+    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : msg().tagInput.label;
     const control = `<div class="k-tag-input"><input id="${id}" class="k-tag-input__control"${this.hasAttribute("disabled") ? " disabled" : ""}${!label && ariaLabel ? ` aria-label="${esc(ariaLabel)}"` : ""}></div><span class="k-sr-only" aria-live="polite"></span>`;
     this.querySelector(":scope > .k-field")?.remove();
     this.insertAdjacentHTML("afterbegin", fieldHTML({ id, label, control }));
@@ -101,7 +101,7 @@ export class KashiTagInput extends HTMLBase {
     for (const r of raw) {
       const t = normalizePersian(r).trim();
       if (!t) continue;
-      const err = next.length >= max ? `حداکثر ${toFaDigits(max)} مورد` : !dup && next.includes(t) ? "این مورد قبلاً اضافه شده است." : this.validate?.(t);
+      const err = next.length >= max ? msg().common.max(num(this, max)) : !dup && next.includes(t) ? msg().tagInput.duplicate : this.validate?.(t);
       if (err) {
         this.localError = err;
         this.commit(next, added);
@@ -109,7 +109,7 @@ export class KashiTagInput extends HTMLBase {
         return;
       }
       next = [...next, t];
-      added = `${t} اضافه شد`;
+      added = msg().common.added(t);
     }
     this.localError = null;
     this.input.value = "";
@@ -118,7 +118,7 @@ export class KashiTagInput extends HTMLBase {
 
   private removeAt(i: number) {
     const t = this.tags[i];
-    this.commit(this.tags.filter((_, j) => j !== i), `${t} حذف شد`);
+    this.commit(this.tags.filter((_, j) => j !== i), msg().common.removed(t));
     this.input.focus();
   }
 
@@ -135,7 +135,7 @@ export class KashiTagInput extends HTMLBase {
     box.querySelectorAll(".k-badge").forEach((b) => b.remove());
     const tone = this.getAttribute("tone") ?? "brand";
     const off = this.hasAttribute("disabled");
-    const badges = this.tags.map((t, i) => `<span class="k-badge${tone !== "neutral" ? ` k-badge--${esc(tone)}` : ""}${off ? "" : " k-badge--removable"}">${esc(t)}${off ? "" : `<button type="button" class="k-badge__remove" data-i="${i}" aria-label="حذف ${esc(t)}">${REMOVE}</button>`}</span>`).join("");
+    const badges = this.tags.map((t, i) => `<span class="k-badge${tone !== "neutral" ? ` k-badge--${esc(tone)}` : ""}${off ? "" : " k-badge--removable"}">${esc(t)}${off ? "" : `<button type="button" class="k-badge__remove" data-i="${i}" aria-label="${esc(msg().common.remove(t))}">${REMOVE}</button>`}</span>`).join("");
     this.input.insertAdjacentHTML("beforebegin", badges);
     this.input.placeholder = this.tags.length ? "" : (this.getAttribute("placeholder") ?? "");
     this.paintMessages();
@@ -197,16 +197,16 @@ export class KashiNumberInput extends HTMLBase {
   private show(n: number | null) {
     if (n === null) return "";
     const s = this.hasAttribute("thousands") ? formatNumber(n, { digits: "latin" }) : String(n);
-    return this.getAttribute("digits") === "latin" ? s : toFaDigits(s).replace(/,/g, "٬");
+    return digitsOf(this) === "latin" ? s : toFaDigits(s).replace(/,/g, "٬");
   }
 
   private render() {
     const id = this.key;
     const ariaLabel = this.getAttribute("aria-label");
-    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : "تعداد";
+    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : msg().numberInput.label;
     const disabled = this.hasAttribute("disabled");
     const unit = this.getAttribute("unit");
-    const control = `<div class="k-number"><div class="k-input"${disabled ? ' data-state="disabled"' : ""}><button type="button" class="k-number__step" data-step="-1" tabindex="-1" aria-label="کاهش"${disabled ? " disabled" : ""}>${MINUS}</button><input id="${id}" class="k-input__control" type="text" inputmode="decimal" role="spinbutton" dir="ltr"${disabled ? " disabled" : ""}${!label && ariaLabel ? ` aria-label="${esc(ariaLabel)}"` : ""}>${unit ? `<span class="k-input__addon">${esc(unit)}</span>` : ""}<button type="button" class="k-number__step" data-step="1" tabindex="-1" aria-label="افزایش"${disabled ? " disabled" : ""}>${PLUS}</button></div></div>`;
+    const control = `<div class="k-number"><div class="k-input"${disabled ? ' data-state="disabled"' : ""}><button type="button" class="k-number__step" data-step="-1" tabindex="-1" aria-label="${esc(msg().numberInput.decrement)}"${disabled ? " disabled" : ""}>${MINUS}</button><input id="${id}" class="k-input__control" type="text" inputmode="decimal" role="spinbutton" dir="ltr"${disabled ? " disabled" : ""}${!label && ariaLabel ? ` aria-label="${esc(ariaLabel)}"` : ""}>${unit ? `<span class="k-input__addon">${esc(unit)}</span>` : ""}<button type="button" class="k-number__step" data-step="1" tabindex="-1" aria-label="${esc(msg().numberInput.increment)}"${disabled ? " disabled" : ""}>${PLUS}</button></div></div>`;
     this.querySelector(":scope > .k-field")?.remove();
     this.insertAdjacentHTML("afterbegin", fieldHTML({ id, label, control }));
     this.input = this.querySelector("input.k-input__control")!;
@@ -275,7 +275,6 @@ export class KashiNumberInput extends HTMLBase {
 }
 
 const STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.3L12 17.1l-5.7 3.1 1.2-6.3L2.8 9.5l6.4-.8z"/><path class="k-rating__half" fill="none" d="M12 2.8v14.3l-5.7 3.1 1.2-6.3L2.8 9.5l6.4-.8z"/></svg>';
-const faNum = (n: number) => toFaDigits(String(n)).replace(".", "٫");
 
 /** امتیاز ستاره‌ای روی رادیوهای بومی؛ با readonly فقط نمایش (با نیم‌ستاره برای امتیاز اعشاری) */
 export class KashiRating extends HTMLBase {
@@ -304,19 +303,20 @@ export class KashiRating extends HTMLBase {
 
   private render() {
     const max = Number(this.getAttribute("max")) || 5;
-    const label = this.getAttribute("label") ?? "امتیاز";
+    const label = this.getAttribute("label") ?? msg().rating.label;
+    const faNum = (x: number) => num(this, x).replace(".", msg().common.decimal);
     const size = this.getAttribute("size");
     const cls = `k-rating${size === "sm" || size === "lg" ? ` k-rating--${size}` : ""}`;
     const c = this.current;
     const stars = Array.from({ length: max }, (_, i) => i + 1);
     const valueHtml = this.hasAttribute("show-value") ? `<span class="k-rating__value" aria-hidden="true">${faNum(c)}</span>` : "";
     if (this.hasAttribute("readonly")) {
-      this.innerHTML = `<span class="${cls}" data-readonly="" role="img" aria-label="${esc(`${label}: ${faNum(c)} از ${faNum(max)}`)}">${stars.map((n) => `<span class="k-rating__star"${n <= Math.floor(c) ? ' data-filled=""' : ""}${n === Math.ceil(c) && c % 1 >= 0.25 ? ' data-half=""' : ""}>${STAR}</span>`).join("")}${valueHtml}</span>`;
+      this.innerHTML = `<span class="${cls}" data-readonly="" role="img" aria-label="${esc(`${label}: ${msg().common.of(faNum(c), faNum(max))}`)}">${stars.map((n) => `<span class="k-rating__star"${n <= Math.floor(c) ? ' data-filled=""' : ""}${n === Math.ceil(c) && c % 1 >= 0.25 ? ' data-half=""' : ""}>${STAR}</span>`).join("")}${valueHtml}</span>`;
       return;
     }
     const name = this.getAttribute("name") ?? this.key;
     const off = this.hasAttribute("disabled");
-    this.innerHTML = `<fieldset class="${cls}"><legend class="k-sr-only">${esc(label)}</legend>${stars.map((n) => `<label class="k-rating__star"${n <= c ? ' data-filled=""' : ""}><input type="radio" class="k-sr-only" name="${esc(name)}" value="${n}"${c === n ? " checked" : ""}${off ? " disabled" : ""} aria-label="${faNum(n)} از ${faNum(max)}">${STAR}</label>`).join("")}${valueHtml}</fieldset>`;
+    this.innerHTML = `<fieldset class="${cls}"><legend class="k-sr-only">${esc(label)}</legend>${stars.map((n) => `<label class="k-rating__star"${n <= c ? ' data-filled=""' : ""}><input type="radio" class="k-sr-only" name="${esc(name)}" value="${n}"${c === n ? " checked" : ""}${off ? " disabled" : ""} aria-label="${esc(msg().common.of(faNum(n), faNum(max)))}">${STAR}</label>`).join("")}${valueHtml}</fieldset>`;
     const fs = this.querySelector("fieldset")!;
     const fill = (upto: number) => fs.querySelectorAll(".k-rating__star").forEach((s, i) => s.toggleAttribute("data-filled", i + 1 <= upto));
     fs.addEventListener("change", (e) => {
@@ -369,7 +369,7 @@ export class KashiPagination extends HTMLBase {
 
   private render() {
     const page = Math.min(this.page, this.total), total = this.total;
-    const n = (v: number) => (this.getAttribute("digits") === "latin" ? String(v) : toFaDigits(v));
+    const n = (v: number) => (digitsOf(this) === "latin" ? String(v) : toFaDigits(v));
     const href = this.getAttribute("href");
     const focused = this.contains(document.activeElement) ? (document.activeElement as HTMLElement).dataset.to : null;
     const item = (to: number, body: string, cls: string, { current = false, disabled = false, aria = "" } = {}) =>
@@ -377,7 +377,7 @@ export class KashiPagination extends HTMLBase {
         ? `<a class="${cls}" href="${esc(href.replace("{page}", String(to)))}" data-to="${to}"${current ? ' aria-current="page"' : ""}${aria ? ` aria-label="${esc(aria)}"` : ""}>${body}</a>`
         : `<button type="button" class="${cls}" data-to="${to}"${disabled ? " disabled" : ""}${current ? ' aria-current="page"' : ""}${aria ? ` aria-label="${esc(aria)}"` : ""}>${body}</button>`;
     const summary = this.getAttribute("summary");
-    this.innerHTML = `<nav class="k-pagination" aria-label="${esc(this.getAttribute("label") ?? "صفحه‌بندی")}">${item(page - 1, `${chevron("m12 5-5 5 5 5")}قبلی`, "k-btn k-btn--secondary k-btn--sm", { disabled: page <= 1 })}${summary ? `<span class="k-pagination__summary">${esc(summary)}</span>` : ""}<ul class="k-pagination__pages" role="list">${pageRange(page, total, Number(this.getAttribute("siblings") ?? 1)).map((p) => `<li>${p === null ? '<span class="k-pagination__ellipsis" aria-hidden="true">…</span>' : item(p, n(p), "k-pagination__page", { current: p === page, aria: `صفحهٔ ${n(p)}` })}</li>`).join("")}</ul>${item(page + 1, `بعدی${chevron("m8 5 5 5-5 5")}`, "k-btn k-btn--secondary k-btn--sm", { disabled: page >= total })}</nav>`;
+    this.innerHTML = `<nav class="k-pagination" aria-label="${esc(this.getAttribute("label") ?? msg().pagination.nav)}">${item(page - 1, `${chevron("m12 5-5 5 5 5")}${esc(msg().common.prev)}`, "k-btn k-btn--secondary k-btn--sm", { disabled: page <= 1 })}${summary ? `<span class="k-pagination__summary">${esc(summary)}</span>` : ""}<ul class="k-pagination__pages" role="list">${pageRange(page, total, Number(this.getAttribute("siblings") ?? 1)).map((p) => `<li>${p === null ? '<span class="k-pagination__ellipsis" aria-hidden="true">…</span>' : item(p, n(p), "k-pagination__page", { current: p === page, aria: msg().pagination.page(n(p)) })}</li>`).join("")}</ul>${item(page + 1, `${esc(msg().common.next)}${chevron("m8 5 5 5-5 5")}`, "k-btn k-btn--secondary k-btn--sm", { disabled: page >= total })}</nav>`;
     this.querySelector("nav")!.addEventListener("click", (e) => {
       const b = (e.target as Element).closest<HTMLButtonElement>("button[data-to]");
       if (!b || b.disabled) return;

@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { MenuCtx, items, menuKeyDown } from "./DropdownMenu.js";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface ContextMenuProps {
   /** ناحیه‌ای که راست‌کلیک روی آن منو را باز می‌کند */
@@ -18,7 +19,9 @@ export interface ContextMenuProps {
  * منوی راست‌کلیک؛ با کیبورد هم: کلید ContextMenu یا Shift+F10 روی ناحیهٔ فوکوس‌شده.
  * همان گزینه‌ها و پیمایش منوی کشویی را دارد.
  */
-export function ContextMenu({ children, menu, label = "گزینه‌ها", className }: ContextMenuProps) {
+export function ContextMenu({ children, menu, label, className }: ContextMenuProps) {
+  const { messages: M } = useKashi();
+  label ??= M.contextMenu.label;
   const id = useId();
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const area = useRef<HTMLDivElement>(null);
@@ -87,7 +90,7 @@ export function ContextMenu({ children, menu, label = "گزینه‌ها", class
       }}
     >
       {children}
-      <span id={`${id}-hint`} className="k-sr-only">برای گزینه‌ها راست‌کلیک کنید یا Shift+F10 را بزنید.</span>
+      <span id={`${id}-hint`} className="k-sr-only">{M.contextMenu.hint}</span>
       <MenuCtx.Provider value={{ close }}>
         <ul
           ref={list}

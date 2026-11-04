@@ -37,6 +37,7 @@ Check every one of these before showing work:
 - **Inherited `white-space: nowrap`**: `.site-nav a` is nowrap, so anything rendered as a link inside the nav (menu items) must reset `white-space: normal` and `min-inline-size: 0`.
 - **Charts/SVG**: time runs right-to-left; Persian date labels in SVG `<text>` can reorder — prefer plain Persian digits plus one axis caption.
 - **Numbers**: format with `toLocaleString("fa-IR")` or `toFaDigits`; Persian decimal separator `٫`, thousands `٬`.
+- **Direction in CSS: use `:dir(rtl)` / `:dir(ltr)` on the element, never `[dir="rtl"] .x`.** The ancestor form matches the page's `dir` even inside an English (`dir="ltr"`) section of a Persian page, so arrows and alignment came out backwards in the bilingual demo. For alignment that depends on the page, not the input's own `dir="ltr"`, test the wrapper: `.k-input:dir(ltr) .k-input__control`.
 - **Directional icons** (arrows) mirror in RTL; use logical CSS (`inset-inline-*`, `margin-inline-*`, `ms-/ps-` in Tailwind).
 - **Order of comparison cards**: in RTL the first card is on the right — put "before/بدون" first so it reads before → after.
 
@@ -73,6 +74,12 @@ Check every one of these before showing work:
   - code fences start and end without blank lines.
   - «جدید» badges in `nav.ts`: only the last few additions (about five). Remove the oldest when adding one, or the badge stops meaning anything.
 - **Icons**: use `iconSvg(name)` from `@kashi-ui/icons`; check a name exists before using it (e.g. there is no `figma` icon — use `pen-tool`).
+
+- **Kashi 1.0 rules (enterprise): every new or changed component must keep all of these green.**
+  - **No hard-coded interface text.** Labels, aria-labels, screen-reader text, errors, placeholders, units: add a key to both `faMessages` and `enMessages` in `packages/persian/src/messages.ts`, read it with `useKashi()` in React (`messages`, `n()` for digits, `months`, `weekdays`, `friday`) and `msg()`, `num(this, …)`, `digitsOf(this)`, `calendarNames()`, `lang()` in elements (`src/base.ts`). A prop or attribute the user passes still wins (`label ??= M.x.y`). Data stays Persian (province and city names, plate letters). `packages/react/test/locale.test.mjs` and `packages/elements/test/locale.test.mjs` render every component in English and fail on any Persian character: add the new component there.
+  - **Size budget.** `npm test` ends with `npm run size` (`scripts/sizes.mjs`): each React component and element module has a gzip limit in `scripts/size-budget.json`. A new component fails until it has a budget; an intentional increase is `npm run size:update` in the same commit. Sizes show on each page's install card and on `/docs/sizes/`. Keep the shared core small: everything a component imports from `@kashi-ui/persian` counts.
+  - **Visual tests.** `npm run docs:build && npm run test:visual` (Playwright, `tests/visual/`, served by `tests/visual/serve.mjs` on port 4417 so it never attaches to another dev server). Every `.demo__preview` on component pages plus `/test/states/` (`apps/docs/src/components/VisualStates.tsx`: errors next to valid fields, long text, disabled, English) in light and dark. Add risky states of a new component to VisualStates. Baselines are macOS; `npm run test:visual:update` only for intentional visual changes. Static demos alone miss state bugs (the plaque/unit misalignment only shows with an error), so states matter.
+  - **Policy.** Never remove or rename a prop, class, tag, attribute, event or message key in a minor release: deprecate first with `deprecate(id, message)` from `packages/react/src/utils.ts` (dev-only warning), mark it on the page, remove only in the next major with a migration page. See `/docs/versioning/`.
 
 ## 5. Promo images and channel posts
 

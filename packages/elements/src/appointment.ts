@@ -1,12 +1,12 @@
 import { JALALI_MONTHS, WEEKDAYS, formatJalali, formatTime, fromISODate, getIranHoliday, parseTime, toFaDigits, toISODate, toJalali } from "@kashi-ui/persian";
-import { HTMLBase, define, emit, esc, uid } from "./base.js";
+import { calendarNames, define, digitsOf, emit, esc, HTMLBase, lang, msg, uid } from "./base.js";
 
 export interface AppointmentSlot {
   time: string;
   available?: boolean;
 }
 
-const PERIODS: [string, number][] = [["صبح", 12], ["بعدازظهر", 17], ["عصر", 24]];
+const PERIODS: ["morning" | "afternoon" | "evening", number][] = [["morning", 12], ["afternoon", 17], ["evening", 24]];
 const day = (d: Date, add = 0) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + add);
 const same = (a: Date, b: Date) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 const minutes = (t: string) => {
@@ -78,7 +78,7 @@ export class KashiAppointmentPicker extends HTMLBase {
     const closedAttr = this.getAttribute("closed") !== "false";
     return Array.from({ length: count }, (_, i) => {
       const d = day(start, i);
-      const closed = this.isClosed ? this.isClosed(d) : closedAttr && !!getIranHoliday(d);
+      const closed = this.isClosed ? this.isClosed(d) : closedAttr && !!getIranHoliday(d, { locale: lang() });
       let slots: { time: string; available: boolean }[] = [];
       if (!closed) {
         if (this.getSlots) slots = this.getSlots(d).map((s) => (typeof s === "string" ? { time: s, available: true } : { time: s.time, available: s.available ?? true }));
@@ -100,7 +100,7 @@ export class KashiAppointmentPicker extends HTMLBase {
 
   private render(focus: "day" | "time" | null = null) {
     const now = new Date();
-    const fa = this.getAttribute("digits") !== "latin";
+    const fa = digitsOf(this) === "fa";
     const n = (v: number | string) => (fa ? toFaDigits(String(v)) : String(v));
     const digits = fa ? "fa" : "latin";
     const list = this.list();
@@ -109,26 +109,27 @@ export class KashiAppointmentPicker extends HTMLBase {
       this.active = i >= 0 ? i : Math.max(0, list.findIndex((x) => x.free > 0));
     }
     const cur = list[this.active];
-    const label = this.getAttribute("label") ?? "انتخاب نوبت";
-    const wd = (d: Date) => (same(d, now) ? "امروز" : same(d, day(now, 1)) ? "فردا" : WEEKDAYS[(d.getDay() + 1) % 7]);
+    const M = msg(), A = M.appointment, { months, weekdays } = calendarNames(), locale = lang();
+    const label = this.getAttribute("label") ?? A.label;
+    const wd = (d: Date) => (same(d, now) ? M.common.today : same(d, day(now, 1)) ? M.common.tomorrow : weekdays[(d.getDay() + 1) % 7]);
     const daysHtml = list.map((x, i) => {
       const { jm, jd } = toJalali(x.date);
-      const status = x.closed ? "تعطیل" : x.free ? `${n(x.free)} نوبت خالی` : "نوبت خالی ندارد";
-      return `<button type="button" role="radio" data-i="${i}" class="k-appt__day" aria-checked="${i === this.active}" tabindex="${i === this.active ? 0 : -1}"${x.closed ? " disabled" : ""} aria-label="${esc(`${formatJalali(x.date, { style: "full", digits })}، ${status}`)}"><span class="k-appt__weekday" aria-hidden="true">${wd(x.date)}</span><span class="k-appt__date" aria-hidden="true">${n(jd)}</span><span class="k-appt__month" aria-hidden="true">${JALALI_MONTHS[jm - 1]}</span><span class="k-appt__free" aria-hidden="true">${x.closed ? "تعطیل" : x.free ? `${n(x.free)} نوبت` : "پر"}</span></button>`;
+      const status = x.closed ? A.closed : x.free ? A.freeLong(n(x.free)) : A.none;
+      return `<button type="button" role="radio" data-i="${i}" class="k-appt__day" aria-checked="${i === this.active}" tabindex="${i === this.active ? 0 : -1}"${x.closed ? " disabled" : ""} aria-label="${esc(`${formatJalali(x.date, { style: "full", digits, locale })}${M.common.list}${status}`)}"><span class="k-appt__weekday" aria-hidden="true">${wd(x.date)}</span><span class="k-appt__date" aria-hidden="true">${n(jd)}</span><span class="k-appt__month" aria-hidden="true">${months[jm - 1]}</span><span class="k-appt__free" aria-hidden="true">${x.closed ? A.closed : x.free ? A.free(n(x.free)) : A.full}</span></button>`;
     }).join("");
     const selDay = !!this.selected && same(this.selected.date, cur.date);
     const focusTime = selDay ? this.selected!.time : cur.slots.find((s) => s.available)?.time;
     const slotsHtml = cur.closed || !cur.free
-      ? `<p class="k-appt__empty">${cur.closed ? "این روز تعطیل است." : "نوبت خالی برای این روز نمانده است؛ روز دیگری را انتخاب کنید."}</p>`
+      ? `<p class="k-appt__empty">${cur.closed ? A.closedDay : A.noSlots}</p>`
       : PERIODS.map(([title, until], k) => {
           const slots = cur.slots.filter((s) => minutes(s.time) / 60 < until && minutes(s.time) / 60 >= (k ? PERIODS[k - 1][1] : 0));
           if (!slots.length) return "";
           const gid = `${this.key}-p${k}`;
-          return `<div class="k-appt__group"><p class="k-appt__period" id="${gid}">${title}</p><div class="k-appt__times" role="radiogroup" aria-labelledby="${gid}">${slots.map((s) => `<button type="button" role="radio" class="k-appt__time" data-time="${s.time}" aria-checked="${selDay && this.selected!.time === s.time}" tabindex="${s.time === focusTime ? 0 : -1}"${s.available ? "" : " disabled"} aria-label="ساعت ${n(s.time)}${s.available ? "" : "، پر"}">${n(s.time)}</button>`).join("")}</div></div>`;
+          return `<div class="k-appt__group"><p class="k-appt__period" id="${gid}">${A[title]}</p><div class="k-appt__times" role="radiogroup" aria-labelledby="${gid}">${slots.map((s) => `<button type="button" role="radio" class="k-appt__time" data-time="${s.time}" aria-checked="${selDay && this.selected!.time === s.time}" tabindex="${s.time === focusTime ? 0 : -1}"${s.available ? "" : " disabled"} aria-label="${esc(A.time(n(s.time)))}${s.available ? "" : esc(A.booked)}">${n(s.time)}</button>`).join("")}</div></div>`;
         }).join("");
     const name = this.getAttribute("name");
     const sel = this.selected;
-    this.innerHTML = `<div class="k-appt" role="group" aria-labelledby="${this.key}-label"><p class="k-label" id="${this.key}-label" style="margin: 0">${esc(label)}</p><div class="k-appt__days" role="radiogroup" aria-label="روز">${daysHtml}</div><div class="k-appt__slots">${slotsHtml}</div><p class="k-appt__summary" aria-live="polite">${sel ? `${CLOCK}<span>نوبت شما: <strong>${formatJalali(sel.date, { style: "full", digits })}، ساعت ${n(sel.time)}</strong></span>` : ""}</p>${name ? `<input type="hidden" name="${esc(`${name}_date`)}" value="${sel ? toISODate(sel.date) : ""}"><input type="hidden" name="${esc(`${name}_time`)}" value="${sel?.time ?? ""}">` : ""}</div>`;
+    this.innerHTML = `<div class="k-appt" role="group" aria-labelledby="${this.key}-label"><p class="k-label" id="${this.key}-label" style="margin: 0">${esc(label)}</p><div class="k-appt__days" role="radiogroup" aria-label="${esc(A.day)}">${daysHtml}</div><div class="k-appt__slots">${slotsHtml}</div><p class="k-appt__summary" aria-live="polite">${sel ? `${CLOCK}<span>${esc(A.yours)} <strong>${esc(A.at(formatJalali(sel.date, { style: "full", digits, locale }), n(sel.time)))}</strong></span>` : ""}</p>${name ? `<input type="hidden" name="${esc(`${name}_date`)}" value="${sel ? toISODate(sel.date) : ""}"><input type="hidden" name="${esc(`${name}_time`)}" value="${sel?.time ?? ""}">` : ""}</div>`;
     this.rendered = true;
     const days = this.querySelector<HTMLElement>(".k-appt__days")!;
     const times = this.querySelector<HTMLElement>(".k-appt__slots")!;

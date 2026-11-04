@@ -12,6 +12,7 @@ import { PostalCodeInput, type PostalCodeInputProps } from "./PostalCodeInput.js
 import { PlateInput, type PlateInputProps } from "./PlateInput.js";
 import { PriceInput, type PriceInputProps } from "./PriceInput.js";
 import { TimeInput, type TimeInputProps } from "./TimeInput.js";
+import { useKashi } from "./KashiProvider.js";
 
 /** نوع‌های پشتیبانی‌شده و ویژگی‌های هر کدام؛ همان ویژگی‌های کامپوننت تخصصی */
 export interface PersianInputKinds {
@@ -66,7 +67,8 @@ const COMPONENTS = {
 export const PersianInput = forwardRef<HTMLInputElement, PersianInputProps>(function PersianInput({ kind, ...rest }, ref) {
   const Component = COMPONENTS[kind] as unknown as (p: Record<string, unknown> & { ref?: unknown }) => ReactNode;
   const props = rest as Record<string, unknown>;
-  const label = props.label ?? (props["aria-label"] ? undefined : PERSIAN_INPUT_LABELS[kind]);
+  const { messages: M } = useKashi();
+  const label = props.label ?? (props["aria-label"] ? undefined : M.persianInput[kind]);
   // PlateInput چند فیلد دارد و ref نمی‌گیرد
   return <Component ref={kind === "plate" ? undefined : ref} {...props} label={label} data-kind={kind} />;
 });

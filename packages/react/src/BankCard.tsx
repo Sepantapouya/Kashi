@@ -1,9 +1,10 @@
 "use client";
 
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
-import { formatCardNumber, getBankByCard, onlyDigits, toFaDigits, type Bank } from "@kashi-ui/persian";
+import { formatCardNumber, getBankByCard, onlyDigits, toFaDigits, type Bank, bankName } from "@kashi-ui/persian";
 import { useBankLogo } from "./BankBadge.js";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface BankCardProps extends Omit<HTMLAttributes<HTMLElement>, "children"> {
   /** شمارهٔ کارت با هر خطی؛ بانک از شش رقم اول تشخیص داده می‌شود */
@@ -39,9 +40,11 @@ const Chip = () => (
 
 /** نمایش کارت بانکی با رنگ و لوگوی بانک، شمارهٔ چهاررقمی و تاریخ انقضا؛ برای کیف پول و انتخاب کارت ذخیره‌شده */
 export const BankCard = forwardRef<HTMLElement, BankCardProps>(function BankCard(
-  { number, holder, expiry, masked, bank, digits = "fa", showLogo = true, className, style, ...rest },
+  { number, holder, expiry, masked, bank, digits, showLogo = true, className, style, ...rest },
   ref,
 ) {
+  const { messages: M, digits: D, locale } = useKashi();
+  digits ??= D;
   const raw = onlyDigits(number).slice(0, 16);
   const detected = bank === undefined ? getBankByCard(raw) : bank;
   const logo = useBankLogo(detected?.slug, showLogo);
@@ -50,7 +53,7 @@ export const BankCard = forwardRef<HTMLElement, BankCardProps>(function BankCard
   const pad = (n: number) => String(n).padStart(2, "0");
   const exp = typeof expiry === "object" ? `${pad(expiry.year % 100)}/${pad(expiry.month)}` : expiry;
   const d = (s: string) => (digits === "fa" ? toFaDigits(s) : s);
-  const spokenNumber = masked ? `مختوم به ${toFaDigits(raw.slice(-4))}` : toFaDigits(formatCardNumber(raw));
+  const spokenNumber = masked ? M.bankCard.endingIn(d(raw.slice(-4))) : d(formatCardNumber(raw));
   const color = detected ? COLORS[detected.slug] : undefined;
 
   return (
@@ -58,20 +61,20 @@ export const BankCard = forwardRef<HTMLElement, BankCardProps>(function BankCard
       ref={ref as never}
       className={cx("k-bankcard", className)}
       style={color ? { ...style, ["--k-bankcard-color" as string]: color } : style}
-      aria-label={`کارت ${detected?.name ?? "بانکی"}، ${spokenNumber}`}
+      aria-label={`${detected ? M.bankCard.cardOf(bankName(detected, locale)) : M.bankCard.card}${M.common.list}${spokenNumber}`}
       {...rest}
     >
       <div className="k-bankcard__top">
         <span className="k-bankcard__bank">
           {logo && <img className="k-bankcard__logo" src={logo} alt="" width={28} height={28} />}
-          {detected?.name ?? "کارت بانکی"}
+          {detected ? bankName(detected, locale) : M.bankCard.card}
         </span>
         <Chip />
       </div>
       <div className="k-bankcard__number" dir="ltr" aria-hidden="true">{d(grouped)}</div>
       <div className="k-bankcard__bottom" aria-hidden={holder || exp ? undefined : true}>
         {holder && <span className="k-bankcard__holder">{holder}</span>}
-        {exp && <span className="k-bankcard__exp"><small>انقضا</small><span dir="ltr">{d(exp)}</span></span>}
+        {exp && <span className="k-bankcard__exp"><small>{M.bankCard.expiry}</small><span dir="ltr">{d(exp)}</span></span>}
       </div>
     </figure>
   );

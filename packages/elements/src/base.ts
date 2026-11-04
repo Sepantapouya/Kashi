@@ -1,4 +1,8 @@
 // پایهٔ مشترک وب کامپوننت‌ها: بدون Shadow DOM، تا کلاس‌های k-* از @kashi-ui/css و تم کاربر مستقیم اعمال شوند.
+import {
+  JALALI_MONTHS, JALALI_MONTHS_EN, WEEKDAYS, WEEKDAYS_EN, WEEKDAYS_SHORT, WEEKDAYS_SHORT_EN,
+  faMessages, getMessages, toFaDigits, type KashiLocale, type KashiMessages, type KashiMessagesInput,
+} from "@kashi-ui/persian";
 
 /** در Node.js (رندر سمت سرور) HTMLElement وجود ندارد؛ import کردن پکیج نباید خطا بدهد */
 export const HTMLBase: typeof HTMLElement =
@@ -60,6 +64,38 @@ export function afterParse(cb: () => void) {
   if (typeof document !== "undefined" && document.readyState === "loading") document.addEventListener("DOMContentLoaded", cb, { once: true });
   else cb();
 }
+
+// ---------- زبان ----------
+type Digits = "fa" | "latin";
+const LOCALE: { locale: KashiLocale; messages: KashiMessages; digits: Digits } = { locale: "fa", messages: faMessages, digits: "fa" };
+
+/**
+ * زبان متن‌های داخلی همهٔ عنصرها: setLocale("en") برچسب دکمه‌ها، متن صفحه‌خوان، پیام‌های خطا، نام ماه‌ها و ارقام را انگلیسی می‌کند.
+ * پیش از ساخته شدن عنصرها صدا بزنید (بالای صفحه، بعد از import). با messages هر متنی را عوض کنید.
+ */
+export function setLocale(locale: KashiLocale, { messages, digits }: { messages?: KashiMessagesInput; digits?: Digits } = {}) {
+  LOCALE.locale = locale;
+  LOCALE.messages = getMessages(locale, messages);
+  LOCALE.digits = digits ?? (locale === "en" ? "latin" : "fa");
+}
+/** ارقام پیش‌فرض زبان فعلی */
+export const localeDigits = () => LOCALE.digits;
+/** فرهنگ متن‌های فعلی */
+export const msg = () => LOCALE.messages;
+/** زبان فعلی */
+export const lang = () => LOCALE.locale;
+/** ارقام عنصر: ویژگی digits، وگرنه پیش‌فرض زبان */
+export const digitsOf = (el: Element): Digits => {
+  const a = el.getAttribute("digits");
+  return a === "latin" || a === "fa" ? a : LOCALE.digits;
+};
+/** عدد با ارقام همان عنصر */
+export const num = (el: Element, v: number | string) => (digitsOf(el) === "fa" ? toFaDigits(String(v)) : String(v));
+/** نام ماه‌ها و روزهای شمسی به زبان فعلی */
+export const calendarNames = () => {
+  const en = LOCALE.locale === "en";
+  return { months: en ? JALALI_MONTHS_EN : JALALI_MONTHS, weekdays: en ? WEEKDAYS_EN : WEEKDAYS, weekdaysShort: en ? WEEKDAYS_SHORT_EN : WEEKDAYS_SHORT, friday: en ? "Friday" : "جمعه" };
+};
 
 let counter = 0;
 /** شناسهٔ یکتا برای اتصال برچسب، راهنما و خطا */

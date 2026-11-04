@@ -1,17 +1,18 @@
 export { toFaDigits, toEnDigits, onlyDigits, formatNumber } from "./digits.js";
 export type { FormatNumberOptions } from "./digits.js";
 export {
-  JALALI_MONTHS, WEEKDAYS, WEEKDAYS_SHORT,
+  JALALI_MONTHS, WEEKDAYS, WEEKDAYS_SHORT, JALALI_MONTHS_EN, WEEKDAYS_EN, WEEKDAYS_SHORT_EN,
   toJalali, toGregorian, isLeapJalaliYear, jalaliMonthLength, isValidJalaliDate, jalaliWeekday, formatJalali, parseJalali, toISODate, fromISODate,
 } from "./jalali.js";
 export type { JalaliDate, FormatJalaliOptions } from "./jalali.js";
 export { isValidNationalId } from "./national-id.js";
-export { isValidCardNumber, getBankByCard, formatCardNumber } from "./card.js";
+export { isValidCardNumber, getBankByCard, formatCardNumber, bankName, BANK_NAMES_EN } from "./card.js";
 export type { Bank } from "./card.js";
 export { isValidIban, getBankByIban, formatIban, ibanDigits } from "./iban.js";
-export { normalizeMobile, isValidMobile, getMobileOperator, formatMobile } from "./mobile.js";
+export { normalizeMobile, isValidMobile, getMobileOperator, formatMobile, operatorName, OPERATOR_NAMES_EN } from "./mobile.js";
 export type { Operator } from "./mobile.js";
 export { numberToWords } from "./words.js";
+export type { NumberToWordsOptions } from "./words.js";
 export { normalizePersian, fixPersianText } from "./text.js";
 export type { NormalizeOptions, FixPersianResult } from "./text.js";
 export { formatRelative } from "./relative.js";
@@ -27,9 +28,11 @@ export type { Province } from "./provinces.js";
 export { CITIES } from "./cities.js";
 export { getCities, getCityProvinces, formatAddress, EMPTY_ADDRESS } from "./address.js";
 export type { IranAddress } from "./address.js";
-export { IRAN_FIXED_HOLIDAYS, getIranHoliday } from "./holidays.js";
+export { IRAN_FIXED_HOLIDAYS, IRAN_FIXED_HOLIDAYS_EN, getIranHoliday } from "./holidays.js";
 export type { HolidayOptions } from "./holidays.js";
 export { isValidLegalId } from "./legal-id.js";
 export { fixKeyboardLayout, looksLikeWrongLayout } from "./keyboard.js";
 export { formatMoney, rialToToman, tomanToRial } from "./money.js";
 export type { FormatMoneyOptions } from "./money.js";
+export { faMessages, enMessages, getMessages } from "./messages.js";
+export type { KashiMessages, KashiMessagesInput, KashiLocale } from "./messages.js";

@@ -38,6 +38,10 @@ export {
   KashiInput, KashiTextarea, KashiBanner, KashiAppointmentPicker,
 };
 export { KashiDigitsInput } from "./inputs.js";
+/** زبان متن‌های داخلی همهٔ عنصرها: setLocale("en") */
+export { setLocale } from "./base.js";
+export { faMessages, enMessages } from "@kashi-ui/persian";
+export type { KashiMessages, KashiMessagesInput, KashiLocale } from "@kashi-ui/persian";
 export type { ToastOptions, ToastTone } from "./toast.js";
 export type { ComboboxOption } from "./combobox.js";
 export type { TableColumn } from "./table.js";

@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEv
 import { toFaDigits } from "@kashi-ui/persian";
 import { Field } from "./Field.js";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface ColorPickerProps {
   label?: ReactNode;
@@ -21,15 +22,16 @@ export interface ColorPickerProps {
   className?: string;
 }
 
+// نام رنگ‌ها از فرهنگ متن‌ها می‌آید تا با زبان KashiProvider عوض شود
 const DEFAULT_SWATCHES = [
-  { name: "فیروزه‌ای", value: "#0b8077" },
-  { name: "لاجوردی", value: "#2740ed" },
-  { name: "بنفش", value: "#7c3aed" },
-  { name: "اناری", value: "#e51d2a" },
-  { name: "زعفرانی", value: "#dd5e02" },
-  { name: "پسته‌ای", value: "#518b25" },
-  { name: "شب", value: "#2a2f3d" },
-];
+  { key: "firoozeh", value: "#0b8077" },
+  { key: "lajvard", value: "#2740ed" },
+  { key: "violet", value: "#7c3aed" },
+  { key: "anar", value: "#e51d2a" },
+  { key: "zafaran", value: "#dd5e02" },
+  { key: "peste", value: "#518b25" },
+  { key: "shab", value: "#2a2f3d" },
+] as const;
 
 const HEX = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i;
 const norm = (v: string) => {
@@ -73,6 +75,8 @@ const Dropper = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor"
 
 /** پنل انتخاب رنگ: سطح اشباع و روشنایی، نوار رنگ‌مایه، قطره‌چکان و کدها */
 function ColorPanel({ hex, onChange, onClose }: { hex: string; onChange: (hex: string) => void; onClose: () => void }) {
+  const { messages: M, n: N } = useKashi();
+  const C = M.colorPicker;
   const [hsv, setHsv] = useState(() => hexToHsv(hex));
   const area = useRef<HTMLDivElement>(null);
   const panel = useRef<HTMLDivElement>(null);
@@ -108,14 +112,14 @@ function ColorPanel({ hex, onChange, onClose }: { hex: string; onChange: (hex: s
     }
   };
   const [r, g, b] = hexToRgb(hex);
-  const pct = (n: number) => `${toFaDigits(Math.round(n * 100))}٪`;
+  const pct = (x: number) => M.common.percent(N(Math.round(x * 100)));
   const eye = typeof window !== "undefined" && "EyeDropper" in window;
   return (
     <div
       ref={panel}
       className="k-color__panel"
       role="dialog"
-      aria-label="انتخاب رنگ دلخواه"
+      aria-label={M.colorPicker.custom}
       onKeyDown={(e) => {
         if (e.key === "Escape") {
           e.stopPropagation();
@@ -129,8 +133,8 @@ function ColorPanel({ hex, onChange, onClose }: { hex: string; onChange: (hex: s
         style={{ "--_hue": `hsl(${hsv.h} 100% 50%)` } as CSSProperties}
         role="slider"
         tabIndex={0}
-        aria-label="اشباع و روشنایی"
-        aria-valuetext={`اشباع ${pct(hsv.s)}، روشنایی ${pct(hsv.v)}`}
+        aria-label={C.area}
+        aria-valuetext={C.areaValue(pct(hsv.s), pct(hsv.v))}
         aria-valuenow={Math.round(hsv.s * 100)}
         onPointerDown={(e) => {
           e.currentTarget.setPointerCapture(e.pointerId);
@@ -146,7 +150,7 @@ function ColorPanel({ hex, onChange, onClose }: { hex: string; onChange: (hex: s
           <button
             type="button"
             className="k-btn k-btn--tertiary k-btn--icon k-btn--sm"
-            aria-label="برداشتن رنگ از صفحه"
+            aria-label={C.eyedropper}
             onClick={async () => {
               try {
                 const res = await new (window as unknown as { EyeDropper: new () => { open: () => Promise<{ sRGBHex: string }> } }).EyeDropper().open();
@@ -165,8 +169,8 @@ function ColorPanel({ hex, onChange, onClose }: { hex: string; onChange: (hex: s
           min={0}
           max={359}
           value={Math.round(hsv.h)}
-          aria-label="رنگ‌مایه"
-          aria-valuetext={`${toFaDigits(Math.round(hsv.h))} درجه`}
+          aria-label={C.hue}
+          aria-valuetext={C.degrees(N(Math.round(hsv.h)))}
           onChange={(e) => apply({ ...hsv, h: Number(e.target.value) })}
         />
       </div>
@@ -177,7 +181,7 @@ function ColorPanel({ hex, onChange, onClose }: { hex: string; onChange: (hex: s
               className="k-color__num"
               inputMode="numeric"
               value={[r, g, b][i]}
-              aria-label={{ R: "قرمز", G: "سبز", B: "آبی" }[ch]}
+              aria-label={{ R: C.red, G: C.green, B: C.blue }[ch]}
               onChange={(e) => {
                 const n = Math.min(255, Math.max(0, Number(e.target.value.replace(/\D/g, "")) || 0));
                 const rgb = [r, g, b];
@@ -196,7 +200,9 @@ function ColorPanel({ hex, onChange, onClose }: { hex: string; onChange: (hex: s
 const Check = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m5 10.5 3.2 3L15 7" /></svg>;
 
 /** انتخاب رنگ برند یا برچسب: نمونه‌رنگ‌ها، پنل انتخاب دلخواه و کد hex، با کنتراست متن روی آن */
-export function ColorPicker({ label, hint, value, defaultValue = "#0b8077", onChange, swatches = DEFAULT_SWATCHES, showContrast = true, name, id, className }: ColorPickerProps) {
+export function ColorPicker({ label, hint, value, defaultValue = "#0b8077", onChange, swatches: swatchesProp, showContrast = true, name, id, className }: ColorPickerProps) {
+  const { messages: M, n: N } = useKashi();
+  const swatches = swatchesProp ?? DEFAULT_SWATCHES.map((s) => ({ name: M.colorPicker.names[s.key], value: s.value }));
   const autoId = useId();
   const fieldId = id ?? autoId;
   const [inner, setInner] = useState(norm(defaultValue) ?? "#000000");
@@ -211,13 +217,13 @@ export function ColorPicker({ label, hint, value, defaultValue = "#0b8077", onCh
   };
   const white = contrastRatio(current, "#ffffff"), black = contrastRatio(current, "#000000");
   const ink = white >= black ? "#ffffff" : "#000000";
-  const fmt = (r: number) => toFaDigits((Math.round(r * 10) / 10).toFixed(1)).replace(".", "٫");
+  const fmt = (r: number) => N((Math.round(r * 10) / 10).toFixed(1)).replace(".", M.common.decimal);
   const invalid = text !== null && !norm(text);
   return (
-    <Field id={`${fieldId}-hex`} label={label} hint={hint} error={invalid ? "کد رنگ معتبر نیست؛ مثل ‎#0fa89b‎ وارد کنید." : undefined} className={className}>
+    <Field id={`${fieldId}-hex`} label={label} hint={hint} error={invalid ? M.colorPicker.invalid : undefined} className={className}>
       <div className="k-color" style={{ "--_sw": current, "--_ink": ink } as CSSProperties}>
         {swatches.length > 0 && (
-          <div className="k-color__swatches" role="radiogroup" aria-label="رنگ‌های پیشنهادی">
+          <div className="k-color__swatches" role="radiogroup" aria-label={M.colorPicker.swatches}>
             {swatches.map((s) => (
               <label key={s.value} className="k-color__swatch" style={{ "--_sw": s.value, "--_ink": contrastRatio(s.value, "#ffffff") >= 3 ? "#fff" : "#000" } as CSSProperties} title={s.name}>
                 <input type="radio" className="k-sr-only" name={`${fieldId}-sw`} checked={norm(s.value) === current} aria-label={s.name} onChange={() => set(norm(s.value)!)} />
@@ -232,7 +238,7 @@ export function ColorPicker({ label, hint, value, defaultValue = "#0b8077", onCh
               ref={trigger}
               type="button"
               className="k-color__preview"
-              aria-label="انتخاب رنگ دلخواه"
+              aria-label={M.colorPicker.custom}
               aria-haspopup="dialog"
               aria-expanded={open}
               onClick={() => setOpen((o) => !o)}
@@ -262,8 +268,8 @@ export function ColorPicker({ label, hint, value, defaultValue = "#0b8077", onCh
         </div>
         {showContrast && (
           <p className="k-color__contrast" aria-live="polite">
-            <span className="k-color__sample">متن نمونه</span>
-            <span>کنتراست با متن {ink === "#ffffff" ? "سفید" : "مشکی"}: {fmt(Math.max(white, black))} به ۱ {Math.max(white, black) >= 4.5 ? "(AA)" : "(کمتر از AA)"}</span>
+            <span className="k-color__sample">{M.colorPicker.sample}</span>
+            <span>{M.colorPicker.contrast(ink === "#ffffff" ? "white" : "black", fmt(Math.max(white, black)), Math.max(white, black) >= 4.5)}</span>
           </p>
         )}
         {name && <input type="hidden" name={name} value={current} />}

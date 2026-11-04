@@ -3,6 +3,7 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { cx } from "./cx.js";
 import { CloseIcon } from "./icons.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface BannerProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   /** @default "neutral" */
@@ -22,7 +23,10 @@ export interface BannerProps extends Omit<HTMLAttributes<HTMLDivElement>, "title
 }
 
 /** نوار اطلاع‌رسانی سطح صفحه، مثل نسخهٔ جدید، پایان اشتراک یا اختلال سرویس */
-export function Banner({ tone = "neutral", icon, actions, onClose, flush, label = "اطلاعیه", closeLabel = "بستن اطلاعیه", className, children, ...rest }: BannerProps) {
+export function Banner({ tone = "neutral", icon, actions, onClose, flush, label, closeLabel, className, children, ...rest }: BannerProps) {
+  const { messages: M } = useKashi();
+  label ??= M.banner.label;
+  closeLabel ??= M.banner.close;
   return (
     <div role="region" aria-label={label} className={cx("k-banner", tone !== "neutral" && `k-banner--${tone}`, flush && "k-banner--flush", className)} {...rest}>
       {icon && <span className="k-banner__icon" aria-hidden="true">{icon}</span>}

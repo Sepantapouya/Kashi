@@ -105,8 +105,8 @@
 .k-tabs--line .k-tabs__indicator { top: auto; bottom: -1px; block-size: 2px; border-radius: 2px; background: var(--k-tabs-indicator, var(--k-border-brand)); }
 .k-tabs--line .k-tabs__list[data-indicator] { overflow-y: hidden; }
 .k-tabs--vertical.k-tabs--line .k-tabs__indicator { inset-inline: auto; left: auto; top: var(--_iy); bottom: auto; inline-size: 2px; block-size: var(--_ih); }
-[dir="rtl"] .k-tabs--vertical.k-tabs--line .k-tabs__indicator { right: -1px; }
-[dir="ltr"] .k-tabs--vertical.k-tabs--line .k-tabs__indicator { left: -1px; }
+.k-tabs--vertical.k-tabs--line .k-tabs__indicator:dir(rtl) { right: -1px; }
+.k-tabs--vertical.k-tabs--line .k-tabs__indicator:dir(ltr) { left: -1px; }
 /* قرصی و چندبخشی: پس‌زمینهٔ زبانهٔ فعال می‌لغزد */
 .k-tabs--pill .k-tabs__list[data-indicator] .k-tabs__tab[aria-selected="true"] { background: transparent; }
 .k-tabs--pill .k-tabs__indicator { border-radius: var(--k-tab-radius, var(--k-radius-md)); background: var(--k-bg-brand-subtle); }

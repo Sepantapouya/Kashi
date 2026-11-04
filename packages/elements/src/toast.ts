@@ -1,4 +1,4 @@
-import { HTMLBase, ICONS, define, esc } from "./base.js";
+import { define, esc, HTMLBase, ICONS, msg } from "./base.js";
 
 export type ToastTone = "neutral" | "success" | "error" | "warning" | "info";
 export interface ToastOptions {
@@ -76,13 +76,13 @@ export class KashiToaster extends HTMLBase {
     const place = this.getAttribute("placement") ?? "bottom-end";
     this.list!.className = `k-toaster k-toaster--${place}`;
     this.list!.dataset.placement = place;
-    this.querySelector("section")!.setAttribute("aria-label", this.getAttribute("label") ?? "اعلان‌ها");
+    this.querySelector("section")!.setAttribute("aria-label", this.getAttribute("label") ?? msg().toast.region);
   }
 
   upsert(item: Item) {
     if (!this.list) this.connectedCallback();
     const old = [...this.list!.children].find((li) => (li as ToastEl).toastId === item.id) as ToastEl | undefined;
-    const li = render(item, this.getAttribute("close-label") ?? "بستن اعلان", () => this.dismiss(item.id));
+    const li = render(item, this.getAttribute("close-label") ?? msg().toast.close, () => this.dismiss(item.id));
     if (old) {
       old.stop?.();
       old.replaceWith(li);

@@ -1,5 +1,5 @@
 import { onlyDigits, toFaDigits } from "@kashi-ui/persian";
-import { HTMLBase, define, emit, esc, fieldHTML, setMessages, syncHidden, uid } from "./base.js";
+import { define, digitsOf, emit, esc, fieldHTML, HTMLBase, msg, setMessages, syncHidden, uid } from "./base.js";
 
 /**
  * کد تأیید یک‌بارمصرف: یک input واقعی (نه شش input جدا)، پس چسباندن، پاک کردن،
@@ -47,7 +47,7 @@ export class KashiOtp extends HTMLBase {
     const length = this.length;
     const group = Number(this.getAttribute("group-after")) || 0;
     const ariaLabel = this.getAttribute("aria-label");
-    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : "کد تأیید";
+    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : msg().otp.label;
     const slots = Array.from({ length }, (_, i) =>
       `${group && i === group ? '<span class="k-otp__sep" aria-hidden="true"></span>' : ""}<span class="k-otp__slot" aria-hidden="true"></span>`,
     ).join("");
@@ -86,7 +86,7 @@ export class KashiOtp extends HTMLBase {
 
   /** فقط خانه‌ها؛ مقدار input را دست نمی‌زند تا تایپ کاربر پیش از رویداد input پاک نشود */
   private paintSlots() {
-    const fa = this.getAttribute("digits") !== "latin";
+    const fa = digitsOf(this) === "fa";
     const focused = this.ownerDocument.activeElement === this.input;
     const active = Math.min(this.caret, this.length - 1);
     this.querySelectorAll<HTMLElement>(".k-otp__slot").forEach((slot, i) => {

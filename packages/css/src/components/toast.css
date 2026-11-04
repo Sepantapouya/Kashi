@@ -71,7 +71,7 @@
   transform-origin: var(--_origin, right);
   animation: k-toast-progress linear forwards;
 }
-[dir="ltr"] .k-toast__progress { --_origin: left; }
+.k-toast__progress:dir(ltr) { --_origin: left; }
 .k-toast:is(:hover, :focus-within) .k-toast__progress { animation-play-state: paused; }
 @keyframes k-toast-progress { to { scale: 0 1; } }
 

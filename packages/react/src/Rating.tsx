@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface RatingProps {
   value?: number;
@@ -33,13 +34,16 @@ const Star = () => (
   </svg>
 );
 
-const fa = (n: number) => toFaDigits(String(n)).replace(".", "٫");
 
 /** امتیاز ستاره‌ای؛ قابل‌انتخاب با رادیوهای بومی (←→) یا فقط‌خواندنی */
 export function Rating({
-  value, defaultValue = 0, onChange, max = 5, readOnly, showValue, size = "md", label = "امتیاز", name, disabled, className,
-  starLabel = (n, m) => `${fa(n)} از ${fa(m)}`,
+  value, defaultValue = 0, onChange, max = 5, readOnly, showValue, size = "md", label, name, disabled, className,
+  starLabel,
 }: RatingProps) {
+  const { messages: M, n: N } = useKashi();
+  const fa = (x: number) => N(x).replace(".", M.common.decimal);
+  label ??= M.rating.label;
+  starLabel ??= (a: number, b: number) => M.common.of(fa(a), fa(b));
   const id = useId();
   const [inner, setInner] = useState(defaultValue);
   const [hover, setHover] = useState<number | null>(null);

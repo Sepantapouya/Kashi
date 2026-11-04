@@ -7,6 +7,23 @@ export interface Bank {
   slug: string;
 }
 
+/** نام انگلیسی بانک‌ها و مؤسسه‌ها، کلید slug؛ برای رابط انگلیسی */
+export const BANK_NAMES_EN: Record<string, string> = {
+  melli: "Bank Melli", sepah: "Bank Sepah", edbi: "Export Development Bank", bim: "Bank of Industry and Mine", keshavarzi: "Bank Keshavarzi",
+  maskan: "Bank Maskan", postbank: "Post Bank", "tosee-taavon": "Tose'e Ta'avon Bank", "eghtesad-novin": "EN Bank", parsian: "Parsian Bank",
+  pasargad: "Bank Pasargad", karafarin: "Karafarin Bank", saman: "Saman Bank", sina: "Sina Bank", sarmayeh: "Sarmayeh Bank", ayandeh: "Ayandeh Bank",
+  shahr: "Shahr Bank", dey: "Dey Bank", saderat: "Bank Saderat", mellat: "Bank Mellat", tejarat: "Tejarat Bank", refah: "Refah Bank",
+  "iran-zamin": "Iran Zamin Bank", "mehr-iran": "Mehr Iran Bank", gardeshgari: "Tourism Bank", markazi: "Central Bank of Iran",
+  khavarmianeh: "Middle East Bank", noor: "Noor Credit Institution", melal: "Melal Credit Institution", tosee: "Tose'e Credit Institution",
+  resalat: "Resalat Bank", ansar: "Ansar Bank", ghavamin: "Ghavamin Bank", hekmat: "Hekmat Iranian Bank", kosar: "Kosar Credit Institution",
+  "mehr-eghtesad": "Mehr Eghtesad Bank",
+};
+
+/** نام بانک به زبان رابط؛ اگر نام انگلیسی نباشد، همان نام فارسی */
+export function bankName(bank: Bank, locale: "fa" | "en" = "fa"): string {
+  return locale === "en" ? BANK_NAMES_EN[bank.slug] ?? bank.name : bank.name;
+}
+
 // شش رقم اول کارت (BIN) بانک‌های ایرانی. فهرست ممکن است کامل نباشد؛ نام بانک فقط برای راهنمایی است.
 const BINS: Record<string, Bank> = {
   "603799": { name: "بانک ملی", slug: "melli" },

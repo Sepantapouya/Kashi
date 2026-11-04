@@ -6,6 +6,7 @@ import { Badge } from "./Badge.js";
 import { defaultFilter, highlight, type ComboboxOption } from "./Combobox.js";
 import { Field, describedBy } from "./Field.js";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface MultiSelectProps {
   label?: ReactNode;
@@ -37,11 +38,13 @@ const Check = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" s
  */
 export function MultiSelect({
   label, hint, error, options, value, defaultValue = [], onChange, placeholder, max, filter = defaultFilter,
-  emptyMessage = "نتیجه‌ای پیدا نشد.", disabled, name, id, className, labels = {},
+  emptyMessage, disabled, name, id, className, labels = {},
 }: MultiSelectProps) {
+  const { messages: M, n: N } = useKashi();
+  emptyMessage ??= M.common.noResults;
   const {
-    remove = (l) => `حذف ${l}`, selected: selectedLabel = (n) => `${toFaDigits(n)} مورد انتخاب شده`,
-    max: maxLabel = (n) => `حداکثر ${toFaDigits(n)} مورد`, clear = "پاک کردن همه",
+    remove = M.common.remove, selected: selectedLabel = (x: number) => M.multiSelect.selected(N(x)),
+    max: maxLabel = (x: number) => M.common.max(N(x)), clear = M.common.clearAll,
   } = labels;
   const autoId = useId();
   const inputId = id ?? autoId;
@@ -66,7 +69,7 @@ export function MultiSelect({
     const on = chosen.includes(o.value);
     if (!on && full) return setAnnounce(maxLabel(max!));
     set(on ? chosen.filter((v) => v !== o.value) : [...chosen, o.value]);
-    setAnnounce(`${o.label} ${on ? "حذف شد" : "انتخاب شد"}`);
+    setAnnounce(on ? M.common.removed(o.label) : M.common.selected(o.label));
     setQuery("");
   };
   const move = (d: number) => {
@@ -83,7 +86,7 @@ export function MultiSelect({
     else if (e.key === "Backspace" && !query && chosen.length) {
       const last = options.find((o) => o.value === chosen[chosen.length - 1]);
       set(chosen.slice(0, -1));
-      if (last) setAnnounce(`${last.label} حذف شد`);
+      if (last) setAnnounce(M.common.removed(last.label));
     }
   };
   const labelOf = (v: string) => options.find((o) => o.value === v)?.label ?? v;

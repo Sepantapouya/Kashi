@@ -8,6 +8,7 @@ import { toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
 import { Field, describedBy, type FieldClassNames } from "./Field.js";
 import { mergeRefs, useIsomorphicLayoutEffect } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 export type InputSize = "sm" | "md" | "lg";
 
@@ -103,7 +104,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   const [revealed, setRevealed] = useState(false);
   const [length, trackLength] = useLength(value, defaultValue);
   const isPassword = type === "password";
-  const { clear = "پاک کردن", show = "نمایش رمز", hide = "پنهان کردن رمز", loading: loadingLabel = "در حال بررسی" } = labels;
+  const { messages: M } = useKashi();
+  const { clear = M.input.clear, show = M.input.show, hide = M.input.hide, loading: loadingLabel = M.input.checking } = labels;
   const counterId = `${inputId}-count`;
   const canClear = clearable && length > 0 && !disabled && !readOnly;
 

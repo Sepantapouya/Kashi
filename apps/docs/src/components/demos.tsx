@@ -1482,3 +1482,23 @@ export const AppointmentCustomDemo = () => (
     />
   </div>
 );
+
+// دوزبانه: همان کامپوننت‌ها با KashiProvider فارسی یا انگلیسی
+import { DatePicker as LocaleDatePicker, KashiProvider, Pagination as LocalePagination, PriceInput as LocalePriceInput } from "@kashi-ui/react";
+export const LocaleDemo = () => {
+  const [locale, setLocale] = useState<"fa" | "en">("en");
+  const [date, setDate] = useState<Date | null>(new Date(2026, 10, 7));
+  const [page, setPage] = useState(3);
+  return (
+    <div style={{ display: "grid", gap: "1rem", inlineSize: "min(100%, 30rem)" }}>
+      <SegmentedControl aria-label="زبان" value={locale} onChange={(v) => setLocale(v as "fa" | "en")} options={[{ value: "fa", label: "فارسی" }, { value: "en", label: "English" }]} />
+      <div dir={locale === "en" ? "ltr" : "rtl"} lang={locale} style={{ display: "grid", gap: "1rem" }}>
+        <KashiProvider locale={locale}>
+          <LocaleDatePicker label={locale === "en" ? "Delivery date" : "تاریخ تحویل"} value={date} onChange={setDate} />
+          <LocalePriceInput label={locale === "en" ? "Amount" : "مبلغ"} defaultValue={1250000} />
+          <LocalePagination page={page} total={12} onChange={setPage} />
+        </KashiProvider>
+      </div>
+    </div>
+  );
+};

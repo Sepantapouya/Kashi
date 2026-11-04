@@ -7,3 +7,6 @@ apps/docs/dist
 dist
 node_modules
 
+scripts/.size-entry.mjs
+tests/visual/report/
+tests/visual/results/

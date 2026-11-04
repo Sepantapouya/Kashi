@@ -1,5 +1,5 @@
 import { normalizePersian, toFaDigits } from "@kashi-ui/persian";
-import { HTMLBase, afterParse, bool, define, emit, esc, uid } from "./base.js";
+import { afterParse, bool, define, emit, esc, HTMLBase, msg, num, uid } from "./base.js";
 
 const search = (s: string) => normalizePersian(s, { digits: "latin" }).toLowerCase();
 const items = (menu: Element) => [...menu.querySelectorAll<HTMLElement>('[role^="menuitem"]:not([aria-disabled="true"])')];
@@ -76,9 +76,10 @@ export class KashiCommandPalette extends HTMLBase {
   private build() {
     const d = document.createElement("dialog");
     d.className = "k-dialog k-command";
-    const title = this.getAttribute("label") ?? "پالت فرمان";
+    const M = msg();
+    const title = this.getAttribute("label") ?? M.command.title;
     d.setAttribute("aria-label", title);
-    d.innerHTML = `<div class="k-input"><span class="k-input__addon">${SEARCH}</span><input class="k-input__control" type="text" role="combobox" aria-expanded="true" aria-controls="${this.key}-list" aria-autocomplete="list" aria-label="${esc(title)}" placeholder="${esc(this.getAttribute("placeholder") ?? "جستجوی دستور یا صفحه…")}" autocomplete="off"></div><ul id="${this.key}-list" role="listbox" aria-label="${esc(title)}" class="k-listbox k-listbox--inline k-command__list"></ul><div class="k-command__footer" aria-hidden="true"><span><kbd class="k-kbd">↑</kbd><kbd class="k-kbd">↓</kbd>حرکت</span><span><kbd class="k-kbd">Enter</kbd>انتخاب</span><span><kbd class="k-kbd">Esc</kbd>بستن</span></div><span class="k-sr-only" aria-live="polite"></span>`;
+    d.innerHTML = `<div class="k-input"><span class="k-input__addon">${SEARCH}</span><input class="k-input__control" type="text" role="combobox" aria-expanded="true" aria-controls="${this.key}-list" aria-autocomplete="list" aria-label="${esc(title)}" placeholder="${esc(this.getAttribute("placeholder") ?? M.command.placeholder)}" autocomplete="off"></div><ul id="${this.key}-list" role="listbox" aria-label="${esc(title)}" class="k-listbox k-listbox--inline k-command__list"></ul><div class="k-command__footer" aria-hidden="true"><span><kbd class="k-kbd">↑</kbd><kbd class="k-kbd">↓</kbd>${esc(M.command.navigate)}</span><span><kbd class="k-kbd">Enter</kbd>${esc(M.command.select)}</span><span><kbd class="k-kbd">Esc</kbd>${esc(M.common.close)}</span></div><span class="k-sr-only" aria-live="polite"></span>`;
     this.append(d);
     this.dialog = d;
     const input = d.querySelector("input")!;
@@ -151,12 +152,12 @@ export class KashiCommandPalette extends HTMLBase {
           last = it.group;
           return `${header}<li id="${this.key}-list-${i}" data-i="${i}" role="option" aria-selected="${i === this.active}"${i === this.active ? " data-active" : ""} class="k-option"><span class="k-option__body"><span>${mark(it.label)}</span>${it.description ? `<span class="k-option__desc">${esc(it.description)}</span>` : ""}</span>${it.shortcut ? `<span class="k-menu__shortcut" aria-hidden="true">${esc(it.shortcut)}</span>` : ""}</li>`;
         }).join("")
-      : '<li role="presentation" class="k-listbox__empty">دستوری پیدا نشد.</li>';
+      : `<li role="presentation" class="k-listbox__empty">${esc(msg().command.empty)}</li>`;
     const input = d.querySelector("input")!;
     if (list.length) input.setAttribute("aria-activedescendant", `${this.key}-list-${this.active}`);
     else input.removeAttribute("aria-activedescendant");
     d.querySelector<HTMLElement>(`#${this.key}-list-${this.active}`)?.scrollIntoView?.({ block: "nearest" });
-    d.querySelector(":scope > .k-sr-only")!.textContent = this.query ? `${toFaDigits(list.length)} نتیجه` : "";
+    d.querySelector(":scope > .k-sr-only")!.textContent = this.query ? msg().common.results(num(this, list.length)) : "";
   }
 }
 
@@ -184,7 +185,7 @@ export class KashiContextMenu extends HTMLBase {
     this.setAttribute("aria-describedby", `${this.key}-hint`);
     const menu = document.createElement("ul");
     menu.setAttribute("role", "menu");
-    menu.setAttribute("aria-label", this.getAttribute("label") ?? "گزینه‌ها");
+    menu.setAttribute("aria-label", this.getAttribute("label") ?? msg().contextMenu.label);
     menu.className = "k-menu k-menu--context";
     menu.hidden = true;
     for (const el of [...(source?.children ?? [])] as HTMLElement[]) {
@@ -209,7 +210,7 @@ export class KashiContextMenu extends HTMLBase {
       menu.append(li);
     }
     source?.remove();
-    this.insertAdjacentHTML("beforeend", `<span id="${this.key}-hint" class="k-sr-only">برای گزینه‌ها راست‌کلیک کنید یا Shift+F10 را بزنید.</span>`);
+    this.insertAdjacentHTML("beforeend", `<span id="${this.key}-hint" class="k-sr-only">${esc(msg().contextMenu.hint)}</span>`);
     this.append(menu);
     this.menu = menu;
     this.addEventListener("contextmenu", (e) => {
@@ -314,11 +315,12 @@ export class KashiCarousel extends HTMLBase {
   }
 
   private build() {
-    const label = this.getAttribute("label") ?? "اسلایدر";
+    const M = msg();
+    const label = this.getAttribute("label") ?? M.carousel.slider;
     const children = [...this.children];
     const section = document.createElement("section");
     section.className = "k-carousel";
-    section.setAttribute("aria-roledescription", "اسلایدر");
+    section.setAttribute("aria-roledescription", M.carousel.slider);
     section.setAttribute("aria-label", label);
     section.style.setProperty("--k-carousel-per-view", String(this.perView));
     const track = document.createElement("div");
@@ -329,8 +331,8 @@ export class KashiCarousel extends HTMLBase {
       const s = document.createElement("div");
       s.className = "k-carousel__slide";
       s.setAttribute("role", "group");
-      s.setAttribute("aria-roledescription", "اسلاید");
-      s.setAttribute("aria-label", `${toFaDigits(i + 1)} از ${toFaDigits(children.length)}`);
+      s.setAttribute("aria-roledescription", M.carousel.slide);
+      s.setAttribute("aria-label", M.carousel.slideOf(num(this, i + 1), num(this, children.length)));
       s.id = `${this.key}-s${i}`;
       s.append(c);
       track.append(s);
@@ -340,7 +342,7 @@ export class KashiCarousel extends HTMLBase {
     this.track = track;
     if (this.pages > 1) {
       const dots = this.getAttribute("dots") !== "false";
-      section.insertAdjacentHTML("beforeend", `<div class="k-carousel__bar">${dots ? `<ul class="k-carousel__dots" aria-label="اسلایدهای ${esc(label)}">${Array.from({ length: this.pages }, (_, i) => `<li><button type="button" class="k-carousel__dot" data-go="${i}" aria-label="${toFaDigits(i + 1)} از ${toFaDigits(this.pages)}" aria-controls="${this.key}-s${i}"></button></li>`).join("")}</ul>` : "<span></span>"}<div class="k-carousel__nav"><button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--sm" data-step="-1" aria-label="قبلی">${ARROW(false)}</button><button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--sm" data-step="1" aria-label="بعدی">${ARROW(true)}</button></div></div>`);
+      section.insertAdjacentHTML("beforeend", `<div class="k-carousel__bar">${dots ? `<ul class="k-carousel__dots" aria-label="${esc(M.carousel.slides(label))}">${Array.from({ length: this.pages }, (_, i) => `<li><button type="button" class="k-carousel__dot" data-go="${i}" aria-label="${esc(M.carousel.slideOf(num(this, i + 1), num(this, this.pages)))}" aria-controls="${this.key}-s${i}"></button></li>`).join("")}</ul>` : "<span></span>"}<div class="k-carousel__nav"><button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--sm" data-step="-1" aria-label="${esc(M.common.prev)}">${ARROW(false)}</button><button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--sm" data-step="1" aria-label="${esc(M.common.next)}">${ARROW(true)}</button></div></div>`);
       section.querySelector(".k-carousel__bar")!.addEventListener("click", (e) => {
         const b = (e.target as Element).closest<HTMLElement>("button");
         if (!b) return;
@@ -627,7 +629,7 @@ export class KashiTour extends HTMLBase {
       });
       document.body.append(this.card);
     }
-    this.card.innerHTML = `<span class="k-tour__step">مرحلهٔ ${toFaDigits(this.i + 1)} از ${toFaDigits(n)}</span><p class="k-tour__title" id="${this.key}-t">${esc(s.title)}</p><p class="k-tour__body" id="${this.key}-b">${esc(s.content)}</p><div class="k-tour__actions"><button type="button" class="k-btn k-btn--link k-tour__skip" data-act="skip">رد کردن</button><span class="k-tour__progress" aria-hidden="true">${this.steps.map((_, k) => `<span${k <= this.i ? ' data-on=""' : ""}></span>`).join("")}</span>${this.i > 0 ? '<button type="button" class="k-btn k-btn--secondary k-btn--sm" data-act="prev">قبلی</button>' : ""}<button type="button" class="k-btn k-btn--primary k-btn--sm" data-act="${last ? "done" : "next"}">${last ? "تمام" : "بعدی"}</button></div>`;
+    this.card.innerHTML = `<span class="k-tour__step">${esc(msg().tour.step(num(this, this.i + 1), num(this, n)))}</span><p class="k-tour__title" id="${this.key}-t">${esc(s.title)}</p><p class="k-tour__body" id="${this.key}-b">${esc(s.content)}</p><div class="k-tour__actions"><button type="button" class="k-btn k-btn--link k-tour__skip" data-act="skip">${esc(msg().tour.skip)}</button><span class="k-tour__progress" aria-hidden="true">${this.steps.map((_, k) => `<span${k <= this.i ? ' data-on=""' : ""}></span>`).join("")}</span>${this.i > 0 ? '<button type="button" class="k-btn k-btn--secondary k-btn--sm" data-act="prev">${esc(msg().common.prev)}</button>' : ""}<button type="button" class="k-btn k-btn--primary k-btn--sm" data-act="${last ? "done" : "next"}">${esc(last ? msg().tour.done : msg().common.next)}</button></div>`;
     const el = document.querySelector<HTMLElement>(s.target);
     const reduce = typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
     el?.scrollIntoView?.({ block: "center", behavior: reduce ? "auto" : "smooth" });
@@ -763,7 +765,7 @@ export class KashiSplitter extends HTMLBase {
     handle.setAttribute("aria-orientation", this.vertical ? "horizontal" : "vertical");
     handle.setAttribute("aria-valuemin", String(this.num("min", 15)));
     handle.setAttribute("aria-valuemax", String(this.num("max", 85)));
-    handle.setAttribute("aria-label", this.getAttribute("label") ?? "تغییر اندازهٔ پنل‌ها");
+    handle.setAttribute("aria-label", this.getAttribute("label") ?? msg().splitter.label);
     this.paint();
   }
 
@@ -781,7 +783,7 @@ export class KashiSplitter extends HTMLBase {
     pane.style.blockSize = this.vertical ? `${this.current}%` : "";
     const handle = box.querySelector<HTMLElement>(".k-splitter__handle")!;
     handle.setAttribute("aria-valuenow", String(this.current));
-    handle.setAttribute("aria-valuetext", `${toFaDigits(Math.round(this.current))}٪`);
+    handle.setAttribute("aria-valuetext", msg().common.percent(num(this, Math.round(this.current))));
   }
 }
 

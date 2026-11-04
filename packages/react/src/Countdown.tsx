@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface CountdownProps {
   /** زمان پایان */
@@ -23,8 +24,10 @@ export interface CountdownProps {
 const pad = (n: number) => String(n).padStart(2, "0");
 
 /** شمارش معکوس با ارقام فارسی؛ هر ثانیه به‌روز می‌شود و در پایان onComplete را صدا می‌زند */
-export function Countdown({ to, seconds, onComplete, variant = "clock", digits = "fa", "aria-label": ariaLabel, className, labels = {} }: CountdownProps) {
-  const { days = "روز", hours = "ساعت", minutes = "دقیقه", seconds: secLabel = "ثانیه" } = labels;
+export function Countdown({ to, seconds, onComplete, variant = "clock", digits, "aria-label": ariaLabel, className, labels = {} }: CountdownProps) {
+  const { messages: M, digits: D } = useKashi();
+  digits ??= D;
+  const { days = M.countdown.days, hours = M.countdown.hours, minutes = M.countdown.minutes, seconds: secLabel = M.countdown.seconds } = labels;
   const end = useRef(to?.getTime() ?? Date.now() + (seconds ?? 0) * 1000);
   const [left, setLeft] = useState(() => Math.max(0, Math.ceil((end.current - Date.now()) / 1000)));
   const done = useRef(false);
@@ -48,7 +51,7 @@ export function Countdown({ to, seconds, onComplete, variant = "clock", digits =
   const d = Math.floor(left / 86400), h = Math.floor((left % 86400) / 3600), m = Math.floor((left % 3600) / 60), s = left % 60;
   const f = (x: string | number) => (digits === "fa" ? toFaDigits(String(x)) : String(x));
   // متن کامل برای صفحه‌خوان؛ role="timer" به‌طور پیش‌فرض هر ثانیه خوانده نمی‌شود
-  const spoken = [d && `${f(d)} ${days}`, h && `${f(h)} ${hours}`, m && `${f(m)} ${minutes}`, `${f(s)} ${secLabel}`].filter(Boolean).join(" و ");
+  const spoken = [d && `${f(d)} ${days}`, h && `${f(h)} ${hours}`, m && `${f(m)} ${minutes}`, `${f(s)} ${secLabel}`].filter(Boolean).join(M.common.and);
 
   if (variant === "blocks") {
     const units: [number, string][] = [...(d ? [[d, days] as [number, string]] : []), [h, hours], [m, minutes], [s, secLabel]];

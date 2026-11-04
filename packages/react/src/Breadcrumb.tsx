@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface BreadcrumbItem {
   label: ReactNode;
@@ -26,7 +27,10 @@ export interface BreadcrumbProps {
 }
 
 /** مسیر صفحه؛ آخرین مورد با aria-current="page" مشخص می‌شود و مسیرهای بلند جمع می‌شوند */
-export function Breadcrumb({ items, maxItems, separator = "chevron", label = "مسیر", expandLabel = "نمایش مسیر کامل", className }: BreadcrumbProps) {
+export function Breadcrumb({ items, maxItems, separator = "chevron", label, expandLabel, className }: BreadcrumbProps) {
+  const { messages: M } = useKashi();
+  label ??= M.breadcrumb.label;
+  expandLabel ??= M.breadcrumb.expand;
   const [expanded, setExpanded] = useState(false);
   const listRef = useRef<HTMLOListElement>(null);
   const justExpanded = useRef(false);

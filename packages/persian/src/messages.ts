@@ -1,0 +1,287 @@
+/**
+ * متن‌های داخلی کامپوننت‌های کاشی (برچسب دکمه‌ها، متن صفحه‌خوان، پیام خطا و…) به فارسی و انگلیسی.
+ * هم @kashi-ui/react (با KashiProvider) و هم @kashi-ui/elements (با setLocale) از همین فرهنگ استفاده می‌کنند
+ * تا ترجمه‌ها یکی بمانند. عددها پیش از رسیدن به تابع‌ها با ارقام همان زبان قالب‌بندی شده‌اند.
+ */
+
+export type KashiLocale = "fa" | "en";
+
+export const faMessages = {
+  common: {
+    close: "بستن",
+    loading: "در حال بارگذاری",
+    optional: "اختیاری",
+    remove: (item: string) => `حذف ${item}`,
+    removeShort: "حذف",
+    clear: "پاک کردن",
+    clearAll: "پاک کردن همه",
+    cancel: "انصراف",
+    confirm: "تأیید",
+    save: "ثبت",
+    edit: "ویرایش",
+    prev: "قبلی",
+    next: "بعدی",
+    today: "امروز",
+    tomorrow: "فردا",
+    noResults: "نتیجه‌ای پیدا نشد.",
+    searching: "در حال جستجو…",
+    results: (n: string) => `${n} نتیجه`,
+    added: (item: string) => `${item} اضافه شد`,
+    removed: (item: string) => `${item} حذف شد`,
+    selected: (item: string) => `${item} انتخاب شد`,
+    max: (n: string) => `حداکثر ${n} مورد`,
+    total: "جمع",
+    other: "سایر",
+    of: (a: string, b: string) => `${a} از ${b}`,
+    and: " و ",
+    list: "، ",
+    range: " تا ",
+    percent: (n: string) => `${n}٪`,
+    decimal: "٫",
+  },
+  money: { toman: "تومان", rial: "ریال", positive: "مثبت " },
+  alert: { close: "بستن" },
+  banner: { label: "اطلاعیه", close: "بستن اطلاعیه" },
+  avatar: { online: "آنلاین", offline: "آفلاین", busy: "مشغول", away: "غایب", more: (n: string) => `${n} نفر دیگر` },
+  bankCard: { card: "کارت بانکی", cardOf: (bank: string) => `کارت ${bank}`, bank: "بانکی", endingIn: (last4: string) => `مختوم به ${last4}`, expiry: "انقضا" },
+  breadcrumb: { label: "مسیر", expand: "نمایش مسیر کامل" },
+  calendar: { label: "تقویم", prevMonth: "ماه قبل", nextMonth: "ماه بعد", month: "ماه", year: "سال", holiday: "تعطیل" },
+  carousel: { slider: "اسلایدر", slide: "اسلاید", slideOf: (n: string, total: string) => `${n} از ${total}`, slides: (label: string) => `اسلایدهای ${label}` },
+  chart: {
+    period: "دوره", value: "مقدار", share: "سهم از کل", count: "تعداد",
+    keyboard: (title: string) => `${title}. با کلیدهای جهت بین نقطه‌ها حرکت کنید.`,
+    thousand: " هزار", million: " م", billion: " میلیارد",
+  },
+  city: { label: "شهر", outside: "خارج از فهرست", custom: "شهر دیگر؛ همین نام ثبت شود", search: "جستجوی شهر", hint: "نام شهر، مثلاً کاشان" },
+  province: { label: "استان", search: "جستجوی استان یا شهر", capital: (c: string) => `مرکز: ${c}` },
+  colorPicker: {
+    label: "رنگ", custom: "انتخاب رنگ دلخواه", area: "اشباع و روشنایی", areaValue: (s: string, v: string) => `اشباع ${s}، روشنایی ${v}`,
+    eyedropper: "برداشتن رنگ از صفحه", hue: "رنگ‌مایه", degrees: (n: string) => `${n} درجه`, red: "قرمز", green: "سبز", blue: "آبی",
+    invalid: "کد رنگ معتبر نیست؛ مثل ‎#0fa89b‎ وارد کنید.", swatches: "رنگ‌های پیشنهادی", sample: "متن نمونه",
+    contrast: (ink: "white" | "black", ratio: string, pass: boolean) => `کنتراست با متن ${ink === "white" ? "سفید" : "مشکی"}: ${ratio} به ۱ ${pass ? "(AA)" : "(کمتر از AA)"}`,
+    names: { firoozeh: "فیروزه‌ای", lajvard: "لاجوردی", violet: "بنفش", anar: "اناری", zafaran: "زعفرانی", peste: "پسته‌ای", shab: "شب" },
+  },
+  combobox: { toggle: "نمایش گزینه‌ها", more: (n: string) => `${n} گزینهٔ دیگر؛ برای پیدا کردن تایپ کنید.` },
+  otp: { label: "کد تأیید" },
+  command: { placeholder: "جستجوی دستور یا صفحه…", empty: "دستوری پیدا نشد.", title: "پالت فرمان", navigate: "حرکت", select: "انتخاب" },
+  contextMenu: { label: "گزینه‌ها", hint: "برای گزینه‌ها راست‌کلیک کنید یا Shift+F10 را بزنید." },
+  copy: { copy: "کپی", copied: "کپی شد", failed: "کپی نشد" },
+  countdown: { days: "روز", hours: "ساعت", minutes: "دقیقه", seconds: "ثانیه", left: "مانده" },
+  table: { selectAll: "انتخاب همهٔ ردیف‌ها", selectRow: "انتخاب ردیف", selectNamed: (row: string) => `انتخاب ${row}`, empty: "داده‌ای وجود ندارد.", sort: (col: string) => `مرتب‌سازی بر اساس ${col}`, search: "جستجو در جدول", rows: (n: string) => `${n} ردیف` },
+  datePicker: { label: "تاریخ", invalid: "این تاریخ معتبر نیست؛ آن را به شکل ۱۴۰۳/۰۵/۱۲ وارد کنید.", open: "انتخاب تاریخ از تقویم" },
+  dateRange: {
+    label: "بازهٔ تاریخ", placeholder: "انتخاب بازهٔ تاریخ", presets: "میان‌برها", pickEnd: "حالا تاریخ پایان را انتخاب کنید.",
+    last7: (n: string) => `${n} روز اخیر`, last30: (n: string) => `${n} روز اخیر`, thisMonth: "این ماه", lastMonth: "ماه قبل",
+  },
+  monthPicker: { label: "انتخاب ماه", prevYear: "سال قبل", nextYear: "سال بعد" },
+  fileUpload: {
+    units: ["بایت", "کیلوبایت", "مگابایت", "گیگابایت"], browse: "انتخاب فایل", drop: "یا فایل را اینجا رها کنید",
+    tooBig: (max: string) => `حجم فایل بیشتر از ${max} است.`, wrongType: "این نوع فایل پذیرفته نیست.", tooMany: (n: string) => `حداکثر ${n} فایل.`,
+    done: "بارگذاری شد", uploading: "در حال بارگذاری", uploadingFile: (name: string) => `در حال بارگذاری ${name}`, error: "خطا در بارگذاری",
+  },
+  input: { clear: "پاک کردن", show: "نمایش رمز", hide: "پنهان کردن رمز", checking: "در حال بررسی" },
+  invalid: {
+    card: "شماره کارت معتبر نیست.", iban: "شماره شبا معتبر نیست.", nationalId: "کد ملی معتبر نیست.", legalId: "شناسهٔ ملی معتبر نیست.",
+    mobile: "شماره موبایل معتبر نیست.", landline: "شمارهٔ تلفن ثابت معتبر نیست.", postal: "کد پستی معتبر نیست.", plate: "پلاک خودرو معتبر نیست.",
+    time: "ساعت معتبر نیست؛ آن را به شکل ۰۹:۳۰ وارد کنید.", timeRange: (a: string, b: string) => `ساعت باید بین ${a} و ${b} باشد.`,
+    priceMin: (n: string) => `مبلغ باید حداقل ${n} باشد.`, priceMax: (n: string) => `مبلغ باید حداکثر ${n} باشد.`,
+    priceRange: (a: string, b: string) => `مبلغ باید حداقل ${a} و حداکثر ${b} باشد.`,
+  },
+  inlineEdit: { empty: "خالی", failed: "ذخیره نشد؛ دوباره امتحان کنید." },
+  iranMap: { label: "نقشهٔ استان‌های ایران", tableNote: "؛ جدول داده در ادامه", onMap: (label: string) => `${label} روی نقشه` },
+  keyboardFix: { before: "منظورتان", after: "بود؟" },
+  meter: { ok: "در محدودهٔ مجاز", warning: "نزدیک به سقف", critical: "سقف تقریباً پر شده" },
+  multiSelect: { label: "انتخاب", selected: (n: string) => `${n} مورد انتخاب شده`, clearedAll: "همه حذف شد" },
+  numberInput: { label: "تعداد", increment: "افزایش", decrement: "کاهش" },
+  pagination: { nav: "صفحه‌بندی", page: (n: string) => `صفحهٔ ${n}`, perPage: "در هر صفحه", jump: "برو به صفحه", jumpRange: (jump: string, a: string, b: string) => `${jump}، از ${a} تا ${b}` },
+  password: {
+    title: "قدرت رمز", strength: (level: string) => `قدرت رمز: ${level}`, levels: ["ضعیف", "متوسط", "خوب", "قوی"], persian: "رمز حروف فارسی دارد؛ شاید صفحه‌کلید روی فارسی مانده است.",
+    length: (n: string) => `حداقل ${n} نویسه`, cases: "حروف بزرگ و کوچک انگلیسی", digit: "دست‌کم یک عدد", symbol: "دست‌کم یک نماد، مثل ! یا @",
+    met: "، رعایت شده", unmet: "، رعایت نشده",
+  },
+  receipt: {
+    success: "پرداخت موفق", failed: "پرداخت ناموفق", pending: "در انتظار تأیید بانک",
+    merchant: "پذیرنده", tracking: "کد پیگیری", copyTracking: "کپی کد پیگیری", reference: "شمارهٔ مرجع", card: "کارت", date: "تاریخ", at: (time: string) => `ساعت ${time}`,
+  },
+  persianInput: {
+    text: "متن", "national-id": "کد ملی", "legal-id": "شناسهٔ ملی شرکت", mobile: "شمارهٔ موبایل", landline: "تلفن ثابت",
+    card: "شمارهٔ کارت", iban: "شمارهٔ شبا", price: "مبلغ", postal: "کد پستی", time: "ساعت", plate: "پلاک خودرو",
+  },
+  textFix: {
+    fix: "اصلاح نگارش", clean: "نگارش متن درست است.", count: (n: string, summary: string) => `${n} مورد قابل اصلاح: ${summary}`,
+    arabic: "حرف عربی", zwnj: "نیم‌فاصله", punctuation: "علامت", digits: "رقم", spacing: "فاصله",
+  },
+  plate: { label: "پلاک خودرو", first: "دو رقم اول پلاک", letter: "حرف پلاک", middle: "سه رقم پلاک", region: "کد استان", iran: "ایران" },
+  rating: { label: "امتیاز" },
+  sideNav: { label: "اصلی" },
+  slider: { from: "حداقل", to: "حداکثر" },
+  splitter: { label: "تغییر اندازهٔ پنل‌ها" },
+  stat: { up: "افزایش", down: "کاهش", flat: "بدون تغییر" },
+  stepper: { label: "مراحل", complete: "انجام شده", current: "مرحلهٔ فعلی" },
+  tagInput: { label: "برچسب‌ها", duplicate: "این مورد قبلاً اضافه شده است." },
+  toast: { region: "اعلان‌ها", close: "بستن اعلان" },
+  tour: { done: "تمام", skip: "رد کردن", step: (n: string, total: string) => `مرحلهٔ ${n} از ${total}` },
+  heatmap: {
+    unit: "فعالیت", weekdays: ["ش", "", "د", "", "چ", "", "ج"], inYear: (unit: string, year: string) => `${unit} در سال ${year}`,
+    total: (n: string, unit: string, year: string) => `${n} ${unit} در ${year}`, less: "کمتر", more: "بیشتر", byMonth: (name: string) => `${name}، به تفکیک ماه`,
+  },
+  appointment: {
+    label: "انتخاب نوبت", day: "روز", morning: "صبح", afternoon: "بعدازظهر", evening: "عصر",
+    closed: "تعطیل", full: "پر", free: (n: string) => `${n} نوبت`, freeLong: (n: string) => `${n} نوبت خالی`, none: "نوبت خالی ندارد",
+    closedDay: "این روز تعطیل است.", noSlots: "نوبت خالی برای این روز نمانده است؛ روز دیگری را انتخاب کنید.",
+    time: (t: string) => `ساعت ${t}`, booked: "، پر", yours: "نوبت شما:", at: (date: string, time: string) => `${date}، ساعت ${time}`,
+  },
+  address: {
+    legend: "نشانی", province: "استان", city: "شهر", street: "نشانی", plaque: "پلاک", unit: "واحد", postalCode: "کد پستی",
+    provinceSearch: "جستجوی استان", streetHint: "خیابان، کوچه، نام ساختمان",
+  },
+};
+
+export type KashiMessages = typeof faMessages;
+
+export const enMessages: KashiMessages = {
+  common: {
+    close: "Close",
+    loading: "Loading",
+    optional: "Optional",
+    remove: (item) => `Remove ${item}`,
+    removeShort: "Remove",
+    clear: "Clear",
+    clearAll: "Clear all",
+    cancel: "Cancel",
+    confirm: "Apply",
+    save: "Save",
+    edit: "Edit",
+    prev: "Previous",
+    next: "Next",
+    today: "Today",
+    tomorrow: "Tomorrow",
+    noResults: "No results found.",
+    searching: "Searching…",
+    results: (n) => `${n} ${n === "1" ? "result" : "results"}`,
+    added: (item) => `${item} added`,
+    removed: (item) => `${item} removed`,
+    selected: (item) => `${item} selected`,
+    max: (n) => `Up to ${n} items`,
+    total: "Total",
+    other: "Other",
+    of: (a, b) => `${a} of ${b}`,
+    and: " and ",
+    list: ", ",
+    range: " – ",
+    percent: (n) => `${n}%`,
+    decimal: ".",
+  },
+  money: { toman: "Toman", rial: "Rial", positive: "plus " },
+  alert: { close: "Close" },
+  banner: { label: "Announcement", close: "Dismiss announcement" },
+  avatar: { online: "Online", offline: "Offline", busy: "Busy", away: "Away", more: (n) => `${n} more` },
+  bankCard: { card: "Bank card", cardOf: (bank) => `${bank} card`, bank: "Bank", endingIn: (last4) => `ending in ${last4}`, expiry: "Expires" },
+  breadcrumb: { label: "Breadcrumb", expand: "Show full path" },
+  calendar: { label: "Calendar", prevMonth: "Previous month", nextMonth: "Next month", month: "Month", year: "Year", holiday: "Holiday" },
+  carousel: { slider: "carousel", slide: "slide", slideOf: (n, total) => `${n} of ${total}`, slides: (label) => `${label} slides` },
+  chart: {
+    period: "Period", value: "Value", share: "Share of total", count: "Count",
+    keyboard: (title) => `${title}. Use the arrow keys to move between points.`,
+    thousand: "K", million: "M", billion: "B",
+  },
+  city: { label: "City", outside: "Not in the list", custom: "Other city; use this name", search: "Search cities", hint: "City name, e.g. Kashan" },
+  province: { label: "Province", search: "Search provinces or cities", capital: (c) => `Capital: ${c}` },
+  colorPicker: {
+    label: "Color", custom: "Pick a custom color", area: "Saturation and brightness", areaValue: (s, v) => `Saturation ${s}, brightness ${v}`,
+    eyedropper: "Pick a color from the screen", hue: "Hue", degrees: (n) => `${n} degrees`, red: "Red", green: "Green", blue: "Blue",
+    invalid: "Invalid color code; enter one like #0fa89b.", swatches: "Suggested colors", sample: "Sample text",
+    contrast: (ink, ratio, pass) => `Contrast with ${ink} text: ${ratio}:1 ${pass ? "(AA)" : "(below AA)"}`,
+    names: { firoozeh: "Turquoise", lajvard: "Lapis", violet: "Violet", anar: "Pomegranate", zafaran: "Saffron", peste: "Pistachio", shab: "Night" },
+  },
+  combobox: { toggle: "Show options", more: (n) => `${n} more; type to find them.` },
+  otp: { label: "Verification code" },
+  command: { placeholder: "Search commands or pages…", empty: "No commands found.", title: "Command palette", navigate: "Navigate", select: "Select" },
+  contextMenu: { label: "Options", hint: "Right-click or press Shift+F10 for options." },
+  copy: { copy: "Copy", copied: "Copied", failed: "Copy failed" },
+  countdown: { days: "days", hours: "hours", minutes: "minutes", seconds: "seconds", left: "left" },
+  table: { selectAll: "Select all rows", selectRow: "Select row", selectNamed: (row) => `Select ${row}`, empty: "No data.", sort: (col) => `Sort by ${col}`, search: "Search the table", rows: (n) => `${n} ${n === "1" ? "row" : "rows"}` },
+  datePicker: { label: "Date", invalid: "Invalid date; enter it like 1403/05/12.", open: "Choose a date from the calendar" },
+  dateRange: {
+    label: "Date range", placeholder: "Select a date range", presets: "Shortcuts", pickEnd: "Now choose the end date.",
+    last7: (n) => `Last ${n} days`, last30: (n) => `Last ${n} days`, thisMonth: "This month", lastMonth: "Last month",
+  },
+  monthPicker: { label: "Choose a month", prevYear: "Previous year", nextYear: "Next year" },
+  fileUpload: {
+    units: ["B", "KB", "MB", "GB"], browse: "Choose file", drop: "or drop a file here",
+    tooBig: (max) => `File is larger than ${max}.`, wrongType: "This file type isn't accepted.", tooMany: (n) => `Up to ${n} files.`,
+    done: "Uploaded", uploading: "Uploading", uploadingFile: (name) => `Uploading ${name}`, error: "Upload failed",
+  },
+  input: { clear: "Clear", show: "Show password", hide: "Hide password", checking: "Checking" },
+  invalid: {
+    card: "Invalid card number.", iban: "Invalid IBAN.", nationalId: "Invalid national ID.", legalId: "Invalid company ID.",
+    mobile: "Invalid mobile number.", landline: "Invalid phone number.", postal: "Invalid postal code.", plate: "Invalid license plate.",
+    time: "Invalid time; enter it like 09:30.", timeRange: (a, b) => `Time must be between ${a} and ${b}.`,
+    priceMin: (n) => `Amount must be at least ${n}.`, priceMax: (n) => `Amount must be at most ${n}.`,
+    priceRange: (a, b) => `Amount must be between ${a} and ${b}.`,
+  },
+  inlineEdit: { empty: "Empty", failed: "Couldn't save; try again." },
+  iranMap: { label: "Map of Iran's provinces", tableNote: "; data table follows", onMap: (label) => `${label} on the map` },
+  keyboardFix: { before: "Did you mean", after: "?" },
+  meter: { ok: "Within limit", warning: "Close to the limit", critical: "Almost full" },
+  multiSelect: { label: "Select", selected: (n) => `${n} selected`, clearedAll: "All removed" },
+  numberInput: { label: "Quantity", increment: "Increase", decrement: "Decrease" },
+  pagination: { nav: "Pagination", page: (n) => `Page ${n}`, perPage: "Per page", jump: "Go to page", jumpRange: (jump, a, b) => `${jump}, ${a} to ${b}` },
+  password: {
+    title: "Password strength", strength: (level) => `Password strength: ${level}`, levels: ["Weak", "Fair", "Good", "Strong"], persian: "Your password has Persian letters; the keyboard may still be on Persian.",
+    length: (n) => `At least ${n} characters`, cases: "Upper and lower case letters", digit: "At least one number", symbol: "At least one symbol, like ! or @",
+    met: ", met", unmet: ", not met",
+  },
+  receipt: {
+    success: "Payment successful", failed: "Payment failed", pending: "Awaiting bank confirmation",
+    merchant: "Merchant", tracking: "Tracking code", copyTracking: "Copy tracking code", reference: "Reference number", card: "Card", date: "Date", at: (time) => `at ${time}`,
+  },
+  persianInput: {
+    text: "Text", "national-id": "National ID", "legal-id": "Company ID", mobile: "Mobile number", landline: "Phone number",
+    card: "Card number", iban: "IBAN", price: "Amount", postal: "Postal code", time: "Time", plate: "License plate",
+  },
+  textFix: {
+    fix: "Fix writing", clean: "The text looks right.", count: (n, summary) => `${n} fixable: ${summary}`,
+    arabic: "Arabic letters", zwnj: "half-spaces", punctuation: "punctuation", digits: "digits", spacing: "spacing",
+  },
+  plate: { label: "License plate", first: "First two digits", letter: "Plate letter", middle: "Three digits", region: "Region code", iran: "ایران" },
+  rating: { label: "Rating" },
+  sideNav: { label: "Main" },
+  slider: { from: "Minimum", to: "Maximum" },
+  splitter: { label: "Resize panels" },
+  stat: { up: "Up", down: "Down", flat: "No change" },
+  stepper: { label: "Steps", complete: "completed", current: "current step" },
+  tagInput: { label: "Tags", duplicate: "This item has already been added." },
+  toast: { region: "Notifications", close: "Dismiss notification" },
+  tour: { done: "Done", skip: "Skip", step: (n, total) => `Step ${n} of ${total}` },
+  heatmap: {
+    unit: "activities", weekdays: ["Sa", "", "Mo", "", "We", "", "Fr"], inYear: (unit, year) => `${unit} in ${year}`,
+    total: (n, unit, year) => `${n} ${unit} in ${year}`, less: "Less", more: "More", byMonth: (name) => `${name}, by month`,
+  },
+  appointment: {
+    label: "Book an appointment", day: "Day", morning: "Morning", afternoon: "Afternoon", evening: "Evening",
+    closed: "Closed", full: "Full", free: (n) => `${n} open`, freeLong: (n) => `${n} open slots`, none: "No open slots",
+    closedDay: "Closed on this day.", noSlots: "No open slots left for this day; choose another day.",
+    time: (t) => `${t}`, booked: ", booked", yours: "Your appointment:", at: (date, time) => `${date} at ${time}`,
+  },
+  address: {
+    legend: "Address", province: "Province", city: "City", street: "Street address", plaque: "No.", unit: "Unit", postalCode: "Postal code",
+    provinceSearch: "Search provinces", streetHint: "Street, alley, building name",
+  },
+};
+
+type DeepPartial<T> = { [K in keyof T]?: T[K] extends (...a: never[]) => unknown ? T[K] : T[K] extends readonly unknown[] ? T[K] : T[K] extends object ? DeepPartial<T[K]> : T[K] };
+export type KashiMessagesInput = DeepPartial<KashiMessages>;
+
+/** فرهنگ کامل: پایهٔ زبان (fa یا en) به‌اضافهٔ متن‌هایی که خودتان عوض کرده‌اید */
+export function getMessages(locale: KashiLocale = "fa", overrides?: KashiMessagesInput): KashiMessages {
+  const base = locale === "en" ? enMessages : faMessages;
+  return overrides ? (merge(base, overrides) as KashiMessages) : base;
+}
+
+const plain = (v: unknown): v is Record<string, unknown> => typeof v === "object" && v !== null && !Array.isArray(v);
+function merge(base: Record<string, unknown>, over: Record<string, unknown>): Record<string, unknown> {
+  const out = { ...base };
+  for (const [k, v] of Object.entries(over)) if (v !== undefined) out[k] = plain(v) && plain(base[k]) ? merge(base[k] as Record<string, unknown>, v) : v;
+  return out;
+}

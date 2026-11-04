@@ -9,6 +9,11 @@ const MCI: Operator = { name: "همراه اول", slug: "mci" };
 const IRANCELL: Operator = { name: "ایرانسل", slug: "irancell" };
 const RIGHTEL: Operator = { name: "رایتل", slug: "rightel" };
 
+/** نام انگلیسی اپراتورها؛ برای رابط انگلیسی */
+export const OPERATOR_NAMES_EN: Record<Operator["slug"], string> = { mci: "Hamrah-e Aval", irancell: "Irancell", rightel: "RighTel" };
+/** نام اپراتور به زبان رابط */
+export const operatorName = (op: Operator, locale: "fa" | "en" = "fa") => (locale === "en" ? OPERATOR_NAMES_EN[op.slug] : op.name);
+
 // پیش‌شماره‌ها پس از ۰۹؛ فهرست اپراتورهای اصلی، ممکن است کامل نباشد
 const PREFIXES: Record<string, Operator> = {
   ...Object.fromEntries(["10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "90", "91", "92", "93", "94"].map((p) => [p, MCI])),

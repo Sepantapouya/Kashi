@@ -119,7 +119,7 @@ a.k-barlist__label:focus-visible { outline: 2px solid transparent; border-radius
 
 .k-sparkline { display: block; inline-size: 100%; block-size: 2rem; overflow: visible; }
 /* زمان در جهت خواندن، هماهنگ با LineChart */
-[dir="rtl"] .k-sparkline { scale: -1 1; }
+.k-sparkline:dir(rtl) { scale: -1 1; }
 @media (forced-colors: active) {
   .k-proportion__seg, .k-bars__seg, .k-barlist__fill { background: CanvasText; forced-color-adjust: none; }
 }
@@ -140,7 +140,7 @@ a.k-barlist__label:focus-visible { outline: 2px solid transparent; border-radius
 @media (prefers-reduced-motion: no-preference) {
   .k-bars__bar, .k-bars__stack { transform-origin: 50% 100%; animation: k-grow 0.7s var(--k-ease-standard) both; animation-delay: var(--_d, 0ms); }
   .k-barlist__fill { transform-origin: 100% 50%; animation: k-grow-x 0.8s var(--k-ease-standard) both; animation-delay: var(--_d, 0ms); }
-  [dir="ltr"] .k-barlist__fill { transform-origin: 0 50%; }
+  .k-barlist__fill:dir(ltr) { transform-origin: 0 50%; }
   .k-proportion__seg { animation: k-fade 0.6s var(--k-ease-standard) both; }
   .k-chart__line { stroke-dasharray: 1; animation: k-draw 1.2s var(--k-ease-standard) both; }
   .k-chart__area { animation: k-fade 1s 0.4s both; }

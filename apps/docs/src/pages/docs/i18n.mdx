@@ -1,0 +1,107 @@
+---
+layout: ../../layouts/Docs.astro
+title: دوزبانه، فارسی و انگلیسی
+description: همهٔ متن‌های داخلی کامپوننت‌ها (دکمه‌ها، متن صفحه‌خوان، پیام‌های خطا، نام ماه‌ها و ارقام) با یک تنظیم انگلیسی می‌شوند؛ برای React و وب کامپوننت‌ها.
+---
+import Demo from "../../components/Demo.astro";
+import Props from "../../components/Props.astro";
+import { LocaleDemo } from "../../components/demos";
+
+کاشی به‌طور پیش‌فرض فارسی است. اگر محصولتان نسخهٔ انگلیسی هم دارد، لازم نیست برچسب هیچ دکمه‌ای را دستی عوض کنید: با یک تنظیم در ریشهٔ برنامه، همهٔ متن‌های داخلی کامپوننت‌ها انگلیسی می‌شوند. تقویم همچنان شمسی است، فقط نام ماه‌ها و روزها به انگلیسی نوشته می‌شود (Farvardin، Aban…).
+
+## نمونه
+
+<Demo html={false} code={`<html lang="en" dir="ltr">
+  …
+  <KashiProvider locale="en">
+    <DatePicker label="Delivery date" value={date} onChange={setDate} />
+    <PriceInput label="Amount" defaultValue={1250000} />
+    <Pagination page={page} total={12} onChange={setPage} />
+  </KashiProvider>`}>
+  <LocaleDemo client:visible />
+</Demo>
+
+## چه چیزهایی عوض می‌شود
+
+| | فارسی | انگلیسی |
+|---|---|---|
+| دکمه‌ها و برچسب‌ها | بستن، قبلی، بعدی، تأیید | Close، Previous، Next، Apply |
+| متن صفحه‌خوان | «انتخاب تاریخ از تقویم» | «Choose a date from the calendar» |
+| پیام‌های خطا | کد ملی معتبر نیست. | Invalid national ID. |
+| ارقام | ۱٬۲۵۰٬۰۰۰ | 1,250,000 |
+| تاریخ | شنبه ۱۶ آبان ۱۴۰۵ | Saturday, 16 Aban 1405 |
+| مبلغ به حروف | یک میلیون و دویست و پنجاه هزار تومان | one million two hundred fifty thousand Toman |
+| نام بانک و اپراتور | بانک ملت، همراه اول | Bank Mellat، Hamrah-e Aval |
+| تعطیلی‌ها | عید نوروز | Nowruz |
+
+نام استان‌ها و شهرها، حروف پلاک خودرو و نوشتهٔ «ایران» روی پلاک فارسی می‌مانند، چون بخشی از خود داده‌اند. جهت صفحه را خودتان با `dir="ltr"` روی `<html>` بگذارید. همهٔ استایل‌های کاشی با Logical Properties نوشته شده‌اند و در هر دو جهت درست می‌نشینند.
+
+## React
+
+```tsx
+import { KashiProvider } from "@kashi-ui/react";
+
+export default function App({ children }) {
+  return <KashiProvider locale="en">{children}</KashiProvider>;
+}
+```
+
+بدون `KashiProvider` همه‌چیز مثل قبل فارسی است. هر prop متنی که خودتان بدهید (`label`، `labels`، `invalidMessage`…) همچنان بر متن پیش‌فرض مقدم است.
+
+<Props rows={[
+  ["locale", '"fa" | "en"', '"fa"', "زبان متن‌های داخلی، نام ماه‌ها و روزها"],
+  ["messages", "KashiMessagesInput", "", "عوض کردن هر متن دلخواه؛ بقیه از زبان پایه می‌آیند"],
+  ["digits", '"fa" | "latin"', '"fa" برای فارسی، "latin" برای انگلیسی', "ارقام پیش‌فرض؛ prop ‏digits هر کامپوننت بر آن مقدم است"],
+]} />
+
+### عوض کردن چند متن
+
+```tsx
+<KashiProvider locale="en" messages={{ common: { close: "Dismiss" }, address: { plaque: "Building no." } }}>
+```
+
+فرهنگ کامل متن‌ها با `faMessages` و `enMessages` در دسترس است تا کلیدها را ببینید یا زبان دیگری بسازید. در کامپوننت‌های خودتان هم با `useKashi()` به همان زبان، ارقام و نام ماه‌ها دسترسی دارید:
+
+```tsx
+import { useKashi } from "@kashi-ui/react";
+
+function OrderCount({ count }: { count: number }) {
+  const { n, locale } = useKashi();
+  return <span>{locale === "en" ? `${n(count)} orders` : `${n(count)} سفارش`}</span>;
+}
+```
+
+## وب کامپوننت‌ها
+
+```html
+<script type="module">
+  import { setLocale } from "https://cdn.jsdelivr.net/npm/@kashi-ui/elements/dist/cdn/kashi-elements.js";
+  setLocale("en");
+</script>
+```
+
+با npm:
+
+```ts
+import { setLocale } from "@kashi-ui/elements";
+setLocale("en", { messages: { common: { close: "Dismiss" } } });
+```
+
+`setLocale` را پیش از ساخته شدن عنصرها، بالای صفحه صدا بزنید. هر ویژگی متنی عنصر (`label`، `placeholder`، `close-label`…) همچنان بر متن پیش‌فرض مقدم است.
+
+## ابزارهای فارسی
+
+تابع‌های `@kashi-ui/persian` هم گزینهٔ `locale` دارند:
+
+```ts
+formatJalali(date, { style: "full", locale: "en" }); // Saturday, 16 Aban 1405
+formatRelative(date, { locale: "en" });              // 5 minutes ago
+formatMoney(1250000, { locale: "en" });              // 1,250,000 Toman
+numberToWords(1250000, { locale: "en" });            // one million two hundred fifty thousand
+getIranHoliday(date, { locale: "en" });              // Nowruz
+bankName(getBankByCard("6104…")!, "en");             // Bank Mellat
+```
+
+## تضمین
+
+تست خودکار هر کامپوننت React و هر وب کامپوننت را با زبان انگلیسی رندر می‌کند و اگر حتی یک حرف فارسی در متن یا متن صفحه‌خوانش بماند، شکست می‌خورد. کامپوننت تازه بدون ترجمهٔ انگلیسی منتشر نمی‌شود.

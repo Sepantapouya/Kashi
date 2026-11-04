@@ -1,10 +1,10 @@
 import {
   formatCardNumber, formatIban, formatLandline, formatMobile, formatNumber, formatPostalCode,
-  getBankByCard, getBankByIban, getLandlineProvince, getMobileOperator,
+  bankName, getBankByCard, getBankByIban, getLandlineProvince, getMobileOperator, operatorName,
   isValidCardNumber, isValidIban, isValidLandline, isValidLegalId, isValidMobile, isValidNationalId, isValidPostalCode,
   normalizeLandline, normalizeMobile, numberToWords, onlyDigits, toFaDigits, type Bank,
 } from "@kashi-ui/persian";
-import { HTMLBase, bool, define, emit, esc, fieldHTML, setMessages, syncHidden, uid } from "./base.js";
+import { bool, define, emit, esc, fieldHTML, HTMLBase, lang, msg, num, setMessages, syncHidden, uid } from "./base.js";
 
 const fa = (s: string) => toFaDigits(s);
 
@@ -20,13 +20,13 @@ function caretAfter(text: string, n: number): number {
 type Meta = { text: string; bank?: Bank } | null;
 
 interface Kind {
-  label: string;
+  label: () => string;
   maxDigits: number;
   format: (raw: string) => string;
   normalize?: (digits: string) => string;
   /** معتبر بودن مقدار کامل */
   valid: (raw: string) => boolean;
-  invalidMessage: string;
+  invalidMessage: () => string;
   placeholder: { fa: string; latin: string };
   digits: "fa" | "latin";
   type?: "text" | "tel";
@@ -96,9 +96,9 @@ export abstract class KashiDigitsInput extends HTMLBase {
     return (k.normalize ?? ((d: string) => d))(onlyDigits(text)).slice(0, k.maxDigits);
   }
 
-  private get digits(): "fa" | "latin" {
+  protected get digits(): "fa" | "latin" {
     const d = this.getAttribute("digits");
-    return d === "fa" || d === "latin" ? d : this.kind.digits;
+    return d === "fa" || d === "latin" ? d : lang() === "en" ? "latin" : this.kind.digits;
   }
 
   private shown(): string {
@@ -110,7 +110,7 @@ export abstract class KashiDigitsInput extends HTMLBase {
     const k = this.kind;
     const id = this.key;
     const ariaLabel = this.getAttribute("aria-label");
-    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : k.label;
+    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : k.label();
     const size = this.getAttribute("size");
     const required = this.hasAttribute("required");
     const disabled = this.hasAttribute("disabled");
@@ -151,7 +151,7 @@ export abstract class KashiDigitsInput extends HTMLBase {
   /** پیام خطای فعلی؛ فیلد مبلغ آن را برای محدوده بازنویسی می‌کند */
   protected invalidText(touched: boolean): string | null {
     const show = this.raw.length > 0 && (touched || this.raw.length === this.kind.maxDigits) && !this.isValid();
-    return show ? (this.getAttribute("invalid-message") ?? this.kind.invalidMessage) : null;
+    return show ? (this.getAttribute("invalid-message") ?? this.kind.invalidMessage()) : null;
   }
   protected hintText(): string | null {
     return this.getAttribute("hint");
@@ -203,11 +203,11 @@ export abstract class KashiDigitsInput extends HTMLBase {
 /** کد ملی: ۱۰ رقم با بررسی رقم کنترل */
 export class KashiNationalId extends KashiDigitsInput {
   protected kind: Kind = {
-    label: "کد ملی",
+    label: () => msg().persianInput["national-id"],
     maxDigits: 10,
     format: (d) => d,
     valid: (d) => isValidNationalId(d),
-    invalidMessage: "کد ملی معتبر نیست.",
+    invalidMessage: () => msg().invalid.nationalId,
     placeholder: { fa: "۰۰۰۰۰۰۰۰۰۰", latin: "0000000000" },
     digits: "fa",
   };
@@ -216,11 +216,11 @@ export class KashiNationalId extends KashiDigitsInput {
 /** شناسهٔ ملی شرکت‌ها: ۱۱ رقم با بررسی رقم کنترل */
 export class KashiLegalId extends KashiDigitsInput {
   protected kind: Kind = {
-    label: "شناسهٔ ملی شرکت",
+    label: () => msg().persianInput["legal-id"],
     maxDigits: 11,
     format: (d) => d,
     valid: (d) => isValidLegalId(d),
-    invalidMessage: "شناسهٔ ملی معتبر نیست.",
+    invalidMessage: () => msg().invalid.legalId,
     placeholder: { fa: "۰۰۰۰۰۰۰۰۰۰۰", latin: "00000000000" },
     digits: "fa",
   };
@@ -229,12 +229,12 @@ export class KashiLegalId extends KashiDigitsInput {
 /** موبایل: +98 و 0098 را به 09 تبدیل می‌کند، گروه‌بندی و تشخیص اپراتور */
 export class KashiMobile extends KashiDigitsInput {
   protected kind: Kind = {
-    label: "شمارهٔ موبایل",
+    label: () => msg().persianInput.mobile,
     maxDigits: 11,
     normalize: normalizeMobile,
     format: formatMobile,
     valid: (d) => isValidMobile(d),
-    invalidMessage: "شماره موبایل معتبر نیست.",
+    invalidMessage: () => msg().invalid.mobile,
     placeholder: { fa: "۰۹۱۲ ۳۴۵ ۶۷۸۹", latin: "0912 345 6789" },
     digits: "fa",
     type: "tel",
@@ -242,7 +242,7 @@ export class KashiMobile extends KashiDigitsInput {
     autocomplete: "tel-national",
     meta: (d) => {
       const op = getMobileOperator(d);
-      return op ? { text: op.name } : null;
+      return op ? { text: operatorName(op, lang()) } : null;
     },
     detail: (d) => ({ operator: getMobileOperator(d)?.name ?? null }),
   };
@@ -251,12 +251,12 @@ export class KashiMobile extends KashiDigitsInput {
 /** تلفن ثابت با پیش‌شماره و نام استان */
 export class KashiLandline extends KashiDigitsInput {
   protected kind: Kind = {
-    label: "تلفن ثابت",
+    label: () => msg().persianInput.landline,
     maxDigits: 11,
     normalize: normalizeLandline,
     format: formatLandline,
     valid: (d) => isValidLandline(d),
-    invalidMessage: "شمارهٔ تلفن ثابت معتبر نیست.",
+    invalidMessage: () => msg().invalid.landline,
     placeholder: { fa: "۰۲۱ ۸۸۷۷ ۶۶۵۵", latin: "021 8877 6655" },
     digits: "fa",
     type: "tel",
@@ -273,17 +273,17 @@ export class KashiLandline extends KashiDigitsInput {
 /** شمارهٔ کارت بانکی: گروه‌بندی چهارتایی، نام و لوگوی بانک، بررسی Luhn */
 export class KashiCardNumber extends KashiDigitsInput {
   protected kind: Kind = {
-    label: "شمارهٔ کارت",
+    label: () => msg().persianInput.card,
     maxDigits: 16,
     format: formatCardNumber,
     valid: (d) => isValidCardNumber(d),
-    invalidMessage: "شماره کارت معتبر نیست.",
+    invalidMessage: () => msg().invalid.card,
     placeholder: { fa: "۰۰۰۰ ۰۰۰۰ ۰۰۰۰ ۰۰۰۰", latin: "0000 0000 0000 0000" },
     digits: "fa",
     autocomplete: "cc-number",
     meta: (d) => {
       const bank = getBankByCard(d);
-      return bank ? { text: bank.name, bank } : null;
+      return bank ? { text: bankName(bank, lang()), bank } : null;
     },
     detail: (d) => ({ bank: getBankByCard(d)?.name ?? null }),
   };
@@ -292,16 +292,16 @@ export class KashiCardNumber extends KashiDigitsInput {
 /** شمارهٔ شبا: IR خودکار، گروه‌بندی، نام و لوگوی بانک و بررسی رقم‌های کنترل */
 export class KashiIban extends KashiDigitsInput {
   protected kind: Kind = {
-    label: "شمارهٔ شبا",
+    label: () => msg().persianInput.iban,
     maxDigits: 24,
     format: (d) => formatIban(d),
     valid: (d) => isValidIban(d),
-    invalidMessage: "شماره شبا معتبر نیست.",
+    invalidMessage: () => msg().invalid.iban,
     placeholder: { fa: "IR00 0000 0000 0000 0000 0000 00", latin: "IR00 0000 0000 0000 0000 0000 00" },
     digits: "latin",
     meta: (d) => {
       const bank = getBankByIban(d);
-      return bank ? { text: bank.name, bank } : null;
+      return bank ? { text: bankName(bank, lang()), bank } : null;
     },
     submit: (d) => (d ? `IR${d}` : ""),
     detail: (d) => ({ bank: getBankByIban(d)?.name ?? null }),
@@ -314,11 +314,11 @@ export class KashiIban extends KashiDigitsInput {
 /** کد پستی ۱۰ رقمی با قالب ۱۲۳۴۵-۶۷۸۹۰ */
 export class KashiPostalCode extends KashiDigitsInput {
   protected kind: Kind = {
-    label: "کد پستی",
+    label: () => msg().persianInput.postal,
     maxDigits: 10,
     format: formatPostalCode,
     valid: (d) => isValidPostalCode(d),
-    invalidMessage: "کد پستی معتبر نیست.",
+    invalidMessage: () => msg().invalid.postal,
     placeholder: { fa: "۱۲۳۴۵-۶۷۸۹۰", latin: "12345-67890" },
     digits: "fa",
     autocomplete: "postal-code",
@@ -329,16 +329,16 @@ export class KashiPostalCode extends KashiDigitsInput {
 export class KashiPrice extends KashiDigitsInput {
   static observedAttributes = [...KashiDigitsInput.observedAttributes, "unit", "min", "max", "show-words"];
   protected kind: Kind = {
-    label: "مبلغ",
+    label: () => msg().persianInput.price,
     maxDigits: 15,
     normalize: (d) => d.replace(/^0+(?=\d)/, ""),
-    format: (d) => (d ? formatNumber(d, { digits: "latin" }).replace(/,/g, "٬") : ""),
+    format: (d) => (d ? formatNumber(d, { digits: "latin" }).replace(/,/g, this.digits === "fa" ? "٬" : ",") : ""),
     valid: () => this.inRange(),
-    invalidMessage: "",
+    invalidMessage: () => "",
     placeholder: { fa: "۰", latin: "0" },
     digits: "fa",
     meta: (_d, host) => {
-      const unit = host.getAttribute("unit") ?? "تومان";
+      const unit = host.getAttribute("unit") ?? msg().money.toman;
       return unit ? { text: unit } : null;
     },
     detail: (d) => ({ value: d ? Number(d) : null }),
@@ -361,13 +361,14 @@ export class KashiPrice extends KashiDigitsInput {
     const custom = this.getAttribute("invalid-message");
     if (custom) return custom;
     const min = this.num("min"), max = this.num("max");
-    const f = (n: number) => fa(formatNumber(n));
-    return `مبلغ باید ${min !== undefined ? `حداقل ${f(min)}` : ""}${min !== undefined && max !== undefined ? " و " : ""}${max !== undefined ? `حداکثر ${f(max)}` : ""} باشد.`;
+    const f = (n: number) => (this.digits === "fa" ? fa(formatNumber(n)) : formatNumber(n, { digits: "latin" }));
+    const I = msg().invalid;
+    return min !== undefined && max !== undefined ? I.priceRange(f(min), f(max)) : min !== undefined ? I.priceMin(f(min)) : I.priceMax(f(max!));
   }
   protected hintText(): string | null {
     if (this.raw && bool(this, "show-words", true)) {
-      const unit = this.getAttribute("unit") ?? "تومان";
-      return `${numberToWords(Number(this.raw))}${unit ? ` ${unit}` : ""}`;
+      const unit = this.getAttribute("unit") ?? msg().money.toman;
+      return `${numberToWords(Number(this.raw), { locale: lang() })}${unit ? ` ${unit}` : ""}`;
     }
     return this.getAttribute("hint");
   }

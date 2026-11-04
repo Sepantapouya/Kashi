@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import type { Bank } from "@kashi-ui/persian";
+import { bankName } from "@kashi-ui/persian";
+import { useKashi } from "./KashiProvider.js";
 
 /** لوگوی بانک را فقط هنگام نیاز بارگذاری می‌کند (code-split)، تا حجم اولیهٔ برنامه زیاد نشود */
 export function useBankLogo(slug: string | undefined, enabled: boolean): string | null {
@@ -24,12 +26,13 @@ export function useBankLogo(slug: string | undefined, enabled: boolean): string 
 
 /** نام و لوگوی بانک داخل فیلد؛ نام با id به فیلد متصل می‌شود و لوگو تزئینی است */
 export function BankBadge({ bank, id, showLogo }: { bank: Bank | null; id: string; showLogo: boolean }) {
+  const { locale } = useKashi();
   const logo = useBankLogo(bank?.slug, showLogo);
   if (!bank) return null;
   return (
     <span className="k-bank" id={id}>
       {logo && <img className="k-bank__logo" src={logo} alt="" width={24} height={24} />}
-      {bank.name}
+      {bankName(bank, locale)}
     </span>
   );
 }

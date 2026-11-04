@@ -1,0 +1,76 @@
+---
+// حجم هر کامپوننت از scripts/sizes.mjs (npm run size)؛ همان عدد که سقفش در scripts/size-budget.json است
+import Docs from "../../layouts/Docs.astro";
+import SIZES from "../../data/sizes.json";
+import BUDGET from "../../../../../scripts/size-budget.json";
+import { registryItems } from "../../data/registry";
+
+const fa = (s: string | number) => String(s).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+const kb = (b: number) => `${fa((b / 1024).toFixed(1)).replace(".", "٫")} کیلوبایت`;
+const items = new Map(registryItems("https://kashi.sepantapouya.com").map((it) => [it.name, it]));
+const own = SIZES.own as Record<string, number>;
+const total = SIZES.react as Record<string, number>;
+const limit = BUDGET.react as Record<string, number>;
+const rows = Object.keys(own)
+  .map((name) => ({ name, title: items.get(name)?.meta?.fa ?? items.get(name)?.title ?? name, href: items.get(name)?.meta?.href, own: own[name], total: total[name], limit: limit[name] }))
+  .sort((a, b) => a.own - b.own);
+const el = SIZES.elements as Record<string, number>;
+const elLimit = BUDGET.elements as Record<string, number>;
+const EL_FA: Record<string, string> = {
+  "cdn-loader": "بارگذار CDN (همهٔ عنصرها، بارگذاری هنگام نیاز)", inputs: "فیلدهای فارسی", fields: "کد تأیید", combobox: "استان، شهر و جستجو", map: "نقشهٔ ایران و فرم نشانی",
+  calendar: "تقویم و انتخاب تاریخ", display: "مبلغ، تاریخ و شمارش معکوس", overlay: "گفتگو، زبانه، راهنما و کپی", toast: "اعلان", menu: "منو و پاپ‌اور", controls: "برچسب، عدد، امتیاز و صفحه‌بندی",
+  table: "جدول داده", forms: "فرم‌های پیشرفته", pickers: "بازهٔ تاریخ، ماه، فایل و رنگ", charts: "نمودارها", nav: "پالت فرمان، کاروسل، درخت و تور", basic: "فیلد متنی و بنر", appointment: "انتخاب نوبت",
+};
+---
+<Docs headings={[{ depth: 2, slug: "هسته", text: "هستهٔ مشترک" }, { depth: 2, slug: "سقف", text: "سقف حجم" }, { depth: 2, slug: "react", text: "کامپوننت‌های React" }, { depth: 2, slug: "وب-کامپوننت", text: "وب کامپوننت‌ها" }, { depth: 2, slug: "css", text: "CSS" }]} title="حجم کامپوننت‌ها" description="حجم هر کامپوننت کاشی در برنامهٔ شما (minify و gzip) و سقفی که تست خودکار نمی‌گذارد از آن بیشتر شود.">
+  <p>هر عدد همان چیزی است که با import همان یک کامپوننت به برنامهٔ شما اضافه می‌شود: کد minify و tree-shake شده با gzip، شامل کامپوننت‌های وابسته و تابع‌های <code dir="ltr">@kashi-ui/persian</code> که لازم دارد و بدون خود React. این اعداد در هر بیلد دوباره اندازه گرفته می‌شوند.</p>
+
+  <h2 id="هسته">هستهٔ مشترک</h2>
+  <p>همهٔ کامپوننت‌ها یک هستهٔ مشترک دارند: فرهنگ متن‌های فارسی، ارقام و نام ماه‌های شمسی. این هسته <strong>{kb(SIZES.core.react)}</strong> است و در برنامه فقط یک بار بارگذاری می‌شود، هر چند کامپوننت که استفاده کنید. با <code dir="ltr">{'<KashiProvider locale="en">'}</code> فرهنگ انگلیسی هم اضافه می‌شود: <strong>{kb(SIZES.core.english)}</strong> بیشتر. ستون «خودِ کامپوننت» حجم اضافه بر این هسته است.</p>
+
+  <h2 id="سقف">سقف حجم</h2>
+  <p>هر کامپوننت سقفی دارد که حدود ۱۰٪ بالاتر از حجم فعلی است. اگر تغییری کامپوننتی را از سقفش بزرگ‌تر کند، تست شکست می‌خورد و تغییر منتشر نمی‌شود؛ بزرگ شدن عمدی باید با به‌روز کردن سقف، آگاهانه و در همان تغییر ثبت شود.</p>
+
+  <h2 id="react">کامپوننت‌های React</h2>
+  <div class="sz-wrap">
+    <table class="sz">
+      <thead><tr><th scope="col">کامپوننت</th><th scope="col">خودِ کامپوننت</th><th scope="col">با هسته</th><th scope="col">سقف</th></tr></thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr>
+            <th scope="row">{r.href ? <a href={r.href}>{r.title}</a> : r.title}<code dir="ltr">{r.name}</code></th>
+            <td>{kb(r.own)}</td>
+            <td>{kb(r.total)}</td>
+            <td>{kb(r.limit)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="وب-کامپوننت">وب کامپوننت‌ها</h2>
+  <p>هر ماژول چند عنصر هم‌خانواده را با هم دارد و هسته و ابزارهای فارسی داخل خودش است. از CDN، فقط بارگذار کوچک اول دانلود می‌شود و هر ماژول وقتی عنصرش در صفحه بیاید.</p>
+  <div class="sz-wrap">
+    <table class="sz">
+      <thead><tr><th scope="col">ماژول</th><th scope="col">حجم</th><th scope="col">سقف</th></tr></thead>
+      <tbody>
+        {Object.entries(el).sort((a, b) => a[1] - b[1]).map(([m, v]) => (
+          <tr><th scope="row">{EL_FA[m] ?? m}<code dir="ltr">{m === "cdn-loader" ? "kashi-elements.js" : `@kashi-ui/elements/${m}.js`}</code></th><td>{kb(v)}</td><td>{kb(elLimit[m])}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="css">CSS</h2>
+  <p>استایل همهٔ کامپوننت‌ها در <code dir="ltr">@kashi-ui/css</code>، بدون فونت: <strong>{kb(SIZES.css.all)}</strong>. فایل‌های فونت وزیرمتن جدا و فقط برای وزن‌هایی که صفحه لازم دارد دانلود می‌شوند.</p>
+</Docs>
+
+<style>
+  .sz-wrap { overflow-x: auto; }
+  .sz { display: table; inline-size: 100%; border-collapse: collapse; font-size: var(--k-text-sm); }
+  .sz th, .sz td { padding: var(--k-space-2) var(--k-space-3); border-block-end: 1px solid var(--k-border-secondary); text-align: start; font-variant-numeric: tabular-nums; }
+  .sz thead th { color: var(--k-text-tertiary); font-weight: var(--k-weight-medium); }
+  .sz tbody th { font-weight: var(--k-weight-medium); }
+  .sz tbody th code { margin-inline-start: var(--k-space-2); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .sz td { color: var(--k-text-secondary); white-space: nowrap; }
+</style>

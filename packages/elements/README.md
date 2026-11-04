@@ -26,6 +26,15 @@ import "@kashi-ui/css";
 import "@kashi-ui/elements";
 ```
 
+## زبان انگلیسی
+
+```ts
+import { setLocale } from "@kashi-ui/elements";
+setLocale("en"); // پیش از ساخته شدن عنصرها
+```
+
+راهنما: https://kashi.sepantapouya.com/docs/i18n/
+
 ## عنصرها
 
 - **فیلدهای فارسی:** `kashi-national-id`، `kashi-legal-id`، `kashi-mobile`، `kashi-landline`، `kashi-card-number`، `kashi-iban`، `kashi-postal-code`، `kashi-price`

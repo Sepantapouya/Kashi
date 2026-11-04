@@ -2,6 +2,7 @@
 
 import { useId, useState, type ReactNode } from "react";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface SideNavItem {
   label: string;
@@ -69,7 +70,9 @@ function Item({ item, collapsed }: { item: SideNavItem; collapsed?: boolean }) {
 }
 
 /** ناوبری کناری پنل مدیریت با گروه، زیرمنو، نشان و حالت جمع‌شده */
-export function SideNav({ sections, header, footer, collapsed, "aria-label": ariaLabel = "اصلی", className }: SideNavProps) {
+export function SideNav({ sections, header, footer, collapsed, "aria-label": ariaLabel, className }: SideNavProps) {
+  const { messages: M } = useKashi();
+  ariaLabel ??= M.sideNav.label;
   const id = useId();
   return (
     <nav className={cx("k-sidenav", collapsed && "k-sidenav--collapsed", className)} aria-label={ariaLabel}>

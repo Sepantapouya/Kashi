@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState, useSyncExternalStore, type ReactNod
 import { isDev } from "./utils.js";
 import { cx } from "./cx.js";
 import { CloseIcon, ErrorIcon, InfoIcon, SuccessIcon, WarningIcon } from "./icons.js";
+import { useKashi } from "./KashiProvider.js";
 
 export type ToastTone = "neutral" | "success" | "error" | "warning" | "info";
 
@@ -162,7 +163,10 @@ const subscribeToasters = (l: () => void) => {
 };
 
 /** محل نمایش اعلان‌ها؛ یک بار در ریشهٔ برنامه قرار دهید */
-export function Toaster({ placement, position, max = 5, label = "اعلان‌ها", closeLabel = "بستن اعلان" }: ToasterProps) {
+export function Toaster({ placement, position, max = 5, label, closeLabel }: ToasterProps) {
+  const { messages: M } = useKashi();
+  label ??= M.toast.region;
+  closeLabel ??= M.toast.close;
   const id = useId();
   const all = useSyncExternalStore(subscribe, () => items, () => items);
   const active = useSyncExternalStore(subscribeToasters, () => toasters[toasters.length - 1], () => undefined);

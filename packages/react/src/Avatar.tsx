@@ -3,16 +3,11 @@
 import { Children, forwardRef, useState, type HTMLAttributes, type ReactNode } from "react";
 import { cx } from "./cx.js";
 import { toFaDigits } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 export type AvatarStatus = "online" | "offline" | "busy" | "away";
 
-const STATUS_LABEL: Record<AvatarStatus, string> = {
-  online: "آنلاین",
-  offline: "آفلاین",
-  busy: "مشغول",
-  away: "غایب",
-};
 
 /** حروف اول دو کلمهٔ اول؛ با نیم‌فاصله تا حروف فارسی به هم نچسبند */
 export function initials(name: string, max = 2): string {
@@ -57,12 +52,13 @@ export const Avatar = forwardRef<HTMLSpanElement, AvatarProps>(function Avatar(
   const [failed, setFailed] = useState(false);
   const showImage = src && !failed;
   const tone = color === "auto" ? autoTone(name) : color ?? (brand ? "brand" : "neutral");
-  const statusText = status ? (statusLabels?.[status] ?? STATUS_LABEL[status]) : undefined;
+  const { messages: M } = useKashi();
+  const statusText = status ? (statusLabels?.[status] ?? M.avatar[status]) : undefined;
   return (
     <span
       ref={ref}
       role="img"
-      aria-label={statusText ? `${name}، ${statusText}` : name}
+      aria-label={statusText ? `${name}${M.common.list}${statusText}` : name}
       data-tone={tone}
       className={cx("k-avatar", size !== "md" && `k-avatar--${size}`, square && "k-avatar--square", tone !== "neutral" && `k-avatar--${tone}`, className)}
       {...rest}
@@ -87,7 +83,9 @@ export interface AvatarGroupProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-export function AvatarGroup({ max, size = "md", moreLabel = (n) => `${toFaDigits(n)} نفر دیگر`, className, children, ...rest }: AvatarGroupProps) {
+export function AvatarGroup({ max, size = "md", moreLabel, className, children, ...rest }: AvatarGroupProps) {
+  const { messages: M, n } = useKashi();
+  moreLabel ??= (x: number) => M.avatar.more(n(x));
   const items = Children.toArray(children);
   const visible = max ? items.slice(0, max) : items;
   const extra = items.length - visible.length;
@@ -96,7 +94,7 @@ export function AvatarGroup({ max, size = "md", moreLabel = (n) => `${toFaDigits
       {visible}
       {extra > 0 && (
         <span role="img" aria-label={moreLabel(extra)} className={cx("k-avatar", size !== "md" && `k-avatar--${size}`)}>
-          <span aria-hidden="true">+{toFaDigits(extra)}</span>
+          <span aria-hidden="true">+{n(extra)}</span>
         </span>
       )}
     </div>

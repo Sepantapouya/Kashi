@@ -1,0 +1,24 @@
+---
+// صفحهٔ تست تصویری (tests/visual): حالت‌های خطا، متن بلند، غیرفعال و انگلیسی. در فهرست سایت نیست.
+import "../../styles/layers.css";
+import "@kashi-ui/css";
+import VisualStates from "../../components/VisualStates";
+---
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="robots" content="noindex" />
+  <title>حالت‌های تست</title>
+  <script is:inline>
+    try {
+      const t = localStorage.getItem("kashi-theme");
+      if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    } catch {}
+  </script>
+  <style>body { margin: 0; background: var(--k-bg-primary); color: var(--k-text-primary); font-family: var(--k-font-sans); }</style>
+</head>
+<body>
+  <VisualStates client:load />
+</body>
+</html>

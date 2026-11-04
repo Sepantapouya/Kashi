@@ -1,5 +1,5 @@
 import { normalizePersian, toFaDigits } from "@kashi-ui/persian";
-import { HTMLBase, afterParse, bool, define, emit, esc, uid } from "./base.js";
+import { afterParse, bool, define, emit, esc, HTMLBase, msg, num, uid } from "./base.js";
 import { cellNumber } from "./controls.js";
 
 export interface TableColumn {
@@ -130,7 +130,7 @@ export class KashiDataTable extends HTMLBase {
       const th = document.createElement("th");
       th.scope = "col";
       th.className = "k-table__check";
-      th.innerHTML = '<input type="checkbox" class="k-checkbox" aria-label="انتخاب همهٔ ردیف‌ها">';
+      th.innerHTML = '<input type="checkbox" class="k-checkbox" aria-label="${esc(msg().table.selectAll)}">';
       head.prepend(th);
       th.querySelector("input")!.addEventListener("change", (e) => {
         const on = (e.target as HTMLInputElement).checked;
@@ -169,7 +169,7 @@ export class KashiDataTable extends HTMLBase {
         const td = document.createElement("td");
         td.className = "k-table__check";
         const label = tr.children[0]?.textContent?.trim();
-        td.innerHTML = `<input type="checkbox" class="k-checkbox" aria-label="${esc(label ? `انتخاب ${label}` : "انتخاب ردیف")}">`;
+        td.innerHTML = `<input type="checkbox" class="k-checkbox" aria-label="${esc(label ? msg().table.selectNamed(label) : msg().table.selectRow)}">`;
         tr.prepend(td);
         tr.setAttribute("aria-selected", "false");
         td.querySelector("input")!.addEventListener("change", (e) => {
@@ -216,13 +216,13 @@ export class KashiDataTable extends HTMLBase {
     const box = document.createElement("div");
     box.className = "k-table-search k-field";
     box.style.marginBlockEnd = "var(--k-space-3)";
-    box.innerHTML = `<div class="k-input k-input--sm"><input id="${id}" class="k-input__control" type="search" placeholder="جستجو در جدول" aria-label="جستجو در جدول"></div><span class="k-sr-only" aria-live="polite"></span>`;
+    box.innerHTML = `<div class="k-input k-input--sm"><input id="${id}" class="k-input__control" type="search" placeholder="${esc(msg().table.search)}" aria-label="${esc(msg().table.search)}"></div><span class="k-sr-only" aria-live="polite"></span>`;
     this.prepend(box);
     const input = box.querySelector("input")!;
     input.addEventListener("input", () => {
       this.query = input.value;
       this.apply();
-      box.querySelector(".k-sr-only")!.textContent = `${toFaDigits(this.visibleRows().length)} ردیف`;
+      box.querySelector(".k-sr-only")!.textContent = msg().table.rows(num(this, this.visibleRows().length));
     });
   }
 
@@ -261,7 +261,7 @@ export class KashiDataTable extends HTMLBase {
     body.querySelector(".k-table__empty")?.remove();
     if (q && !this.visibleRows().length) {
       const cols = ths.length;
-      body.insertAdjacentHTML("beforeend", `<tr class="k-table__empty"><td colspan="${cols}"><p style="padding: 2rem; margin: 0; text-align: center">نتیجه‌ای پیدا نشد.</p></td></tr>`);
+      body.insertAdjacentHTML("beforeend", `<tr class="k-table__empty"><td colspan="${cols}"><p style="padding: 2rem; margin: 0; text-align: center">${esc(msg().common.noResults)}</p></td></tr>`);
     }
     this.selectionChanged(false);
   }

@@ -3,6 +3,7 @@
 import { forwardRef, useState, type ReactNode } from "react";
 import { isValidNationalId, onlyDigits, toFaDigits } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange" | "type" | "inputMode">;
 
@@ -20,9 +21,12 @@ export interface NationalIdInputProps extends Base {
 
 /** فیلد کد ملی: ارقام فارسی و لاتین را می‌پذیرد، ۱۰ رقم را محدود و رقم کنترل را بررسی می‌کند. */
 export const NationalIdInput = forwardRef<HTMLInputElement, NationalIdInputProps>(function NationalIdInput(
-  { value, defaultValue = "", onValueChange, digits = "fa", invalidMessage = "کد ملی معتبر نیست.", error, name, onBlur, placeholder, ...rest },
+  { value, defaultValue = "", onValueChange, digits, invalidMessage, error, name, onBlur, placeholder, ...rest },
   ref,
 ) {
+  const { messages: M, digits: D, locale } = useKashi();
+  digits ??= D;
+  invalidMessage ??= M.invalid.nationalId;
   const [inner, setInner] = useState(() => onlyDigits(defaultValue).slice(0, 10));
   const [touched, setTouched] = useState(false);
   const raw = value !== undefined ? onlyDigits(value).slice(0, 10) : inner;

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { JALALI_MONTHS, toFaDigits, toJalali } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface JalaliMonth {
   year: number;
@@ -32,8 +33,11 @@ const Arrow = ({ next }: { next?: boolean }) => (
 );
 
 /** انتخاب ماه و سال شمسی، برای گزارش ماهانه یا تاریخ انقضای کارت؛ ↑↓←→ بین ماه‌ها و PageUp/PageDown بین سال‌ها */
-export function MonthPicker({ value, defaultValue = null, onChange, min, max, digits = "fa", "aria-label": ariaLabel = "انتخاب ماه", className, labels = {} }: MonthPickerProps) {
-  const { prevYear = "سال قبل", nextYear = "سال بعد" } = labels;
+export function MonthPicker({ value, defaultValue = null, onChange, min, max, digits, "aria-label": ariaLabel, className, labels = {} }: MonthPickerProps) {
+  const { messages: M, digits: D, months: MONTHS } = useKashi();
+  digits ??= D;
+  ariaLabel ??= M.monthPicker.label;
+  const { prevYear = M.monthPicker.prevYear, nextYear = M.monthPicker.nextYear } = labels;
   const today = toJalali(new Date());
   const [inner, setInner] = useState<JalaliMonth | null>(defaultValue);
   const selected = value !== undefined ? value : inner;
@@ -84,7 +88,7 @@ export function MonthPicker({ value, defaultValue = null, onChange, min, max, di
         <button type="button" className="k-btn k-btn--tertiary k-btn--icon k-btn--sm" aria-label={nextYear} onClick={() => setYear(year + 1)} disabled={!!max && year >= max.year}><Arrow next /></button>
       </div>
       <div className="k-monthpicker__grid" ref={grid} onKeyDown={onKeyDown}>
-        {JALALI_MONTHS.map((name, i) => {
+        {MONTHS.map((name, i) => {
           const m = { year, month: i + 1 };
           const isSel = selected?.year === year && selected.month === i + 1;
           return (

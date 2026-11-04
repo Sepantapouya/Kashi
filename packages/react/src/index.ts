@@ -159,3 +159,7 @@ export { PaymentReceipt } from "./PaymentReceipt.js";
 export type { PaymentReceiptProps, ReceiptStatus } from "./PaymentReceipt.js";
 export { PersianInput, PERSIAN_INPUT_LABELS } from "./PersianInput.js";
 export type { PersianInputKind, PersianInputKinds, PersianInputProps } from "./PersianInput.js";
+export { KashiProvider, useKashi } from "./KashiProvider.js";
+export type { KashiProviderProps } from "./KashiProvider.js";
+export { faMessages, enMessages } from "@kashi-ui/persian";
+export type { KashiMessages, KashiMessagesInput, KashiLocale } from "@kashi-ui/persian";

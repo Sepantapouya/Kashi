@@ -1,19 +1,24 @@
 "use client";
 
-import { toFaDigits } from "@kashi-ui/persian";
+import { faMessages, toFaDigits, type KashiMessages } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface PasswordRule {
   label: string;
   test: (password: string) => boolean;
 }
 
-export const defaultPasswordRules: PasswordRule[] = [
-  { label: `حداقل ${toFaDigits(8)} نویسه`, test: (p) => p.length >= 8 },
-  { label: "حروف بزرگ و کوچک انگلیسی", test: (p) => /[a-z]/.test(p) && /[A-Z]/.test(p) },
-  { label: "دست‌کم یک عدد", test: (p) => /\d/.test(p) },
-  { label: "دست‌کم یک نماد، مثل ! یا @", test: (p) => /[^A-Za-z0-9\s؀-ۿ]/.test(p) },
+/** شرط‌های پیش‌فرض با متن‌های زبان فعلی */
+const rulesFor = (m: KashiMessages["password"], n: (v: number) => string): PasswordRule[] => [
+  { label: m.length(n(8)), test: (p) => p.length >= 8 },
+  { label: m.cases, test: (p) => /[a-z]/.test(p) && /[A-Z]/.test(p) },
+  { label: m.digit, test: (p) => /\d/.test(p) },
+  { label: m.symbol, test: (p) => /[^A-Za-z0-9\s؀-ۿ]/.test(p) },
 ];
+
+/** شرط‌های پیش‌فرض به فارسی؛ بدون rules، کامپوننت همین‌ها را به زبان KashiProvider نشان می‌دهد */
+export const defaultPasswordRules: PasswordRule[] = rulesFor(faMessages.password, (v) => toFaDigits(v));
 
 export interface PasswordStrengthProps {
   password: string;
@@ -32,8 +37,10 @@ const Check = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" s
 const Dot = () => <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="2.5" fill="currentColor" /></svg>;
 
 /** قدرت رمز عبور با نوار چهارقسمتی و فهرست شرط‌ها؛ زیر فیلد رمز بگذارید و با id به آن وصل کنید */
-export function PasswordStrength({ password, rules = defaultPasswordRules, showRules = true, warnPersian = true, id, className, labels = {} }: PasswordStrengthProps) {
-  const { title = "قدرت رمز", levels = ["ضعیف", "متوسط", "خوب", "قوی"], persian = "رمز حروف فارسی دارد؛ شاید صفحه‌کلید روی فارسی مانده است." } = labels;
+export function PasswordStrength({ password, rules, showRules = true, warnPersian = true, id, className, labels = {} }: PasswordStrengthProps) {
+  const { messages: M, n: N } = useKashi();
+  rules ??= rulesFor(M.password, N);
+  const { title = M.password.title, levels = M.password.levels, persian = M.password.persian } = labels;
   const met = rules.map((r) => r.test(password));
   const n = met.filter(Boolean).length;
   // امتیاز ۰ تا ۴ به نسبت شرط‌های برآورده‌شده
@@ -53,7 +60,7 @@ export function PasswordStrength({ password, rules = defaultPasswordRules, showR
           {rules.map((r, i) => (
             <li key={r.label} className="k-strength__rule" data-met={met[i] ? "" : undefined}>
               {met[i] ? <Check /> : <Dot />}
-              <span>{r.label}<span className="k-sr-only">{met[i] ? "، رعایت شده" : "، رعایت نشده"}</span></span>
+              <span>{r.label}<span className="k-sr-only">{met[i] ? M.password.met : M.password.unmet}</span></span>
             </li>
           ))}
         </ul>

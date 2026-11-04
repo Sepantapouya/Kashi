@@ -16,7 +16,11 @@
   ],
   "scripts": {
     "build": "npm run build -w @kashi-ui/tokens && npm run build -w @kashi-ui/persian && npm run build -w @kashi-ui/bank-logos && npm run build -w @kashi-ui/icons && npm run build -w @kashi-ui/css && npm run build -w @kashi-ui/react && npm run build -w @kashi-ui/elements && npm run build -w @kashi-ui/tailwind && npm run build -w @kashi-ui/mcp",
-    "test": "npm test -w @kashi-ui/tokens && npm test -w @kashi-ui/persian && npm test -w @kashi-ui/icons && npm test -w @kashi-ui/react && npm test -w @kashi-ui/elements && npm test -w @kashi-ui/tailwind && npm test -w @kashi-ui/mcp",
+    "test": "npm test -w @kashi-ui/tokens && npm test -w @kashi-ui/persian && npm test -w @kashi-ui/icons && npm test -w @kashi-ui/react && npm test -w @kashi-ui/elements && npm test -w @kashi-ui/tailwind && npm test -w @kashi-ui/mcp && npm run size",
+    "size": "node scripts/sizes.mjs",
+    "size:update": "node scripts/sizes.mjs --update",
+    "test:visual": "playwright test",
+    "test:visual:update": "playwright test --update-snapshots",
     "dev": "npx --yes serve . -l 4321",
     "docs": "npm run dev -w @kashi-ui/docs",
     "docs:build": "npm run build && npm run build -w @kashi-ui/docs",
@@ -35,7 +39,8 @@
   "author": "Sepanta Pouya (https://sepantapouya.com)",
   "devDependencies": {
     "@changesets/changelog-git": "^1.0.0",
-    "@changesets/cli": "^3.0.3"
+    "@changesets/cli": "^3.0.3",
+    "@playwright/test": "^1.64.1"
   },
   "engines": {
     "node": ">=22.23.4"

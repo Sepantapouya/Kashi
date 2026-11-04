@@ -33,7 +33,7 @@
   animation: k-progress-indeterminate 1.4s var(--k-ease-standard) infinite;
 }
 @keyframes k-progress-indeterminate { from { translate: 120% 0; } to { translate: -260% 0; } }
-[dir="ltr"] .k-progress:not([aria-valuenow]) .k-progress__bar { animation-direction: reverse; }
+.k-progress:not([aria-valuenow]) .k-progress__bar:dir(ltr) { animation-direction: reverse; }
 
 /* حلقهٔ پیشرفت */
 .k-progress-ring {
@@ -51,7 +51,7 @@
 .k-progress-ring.k-progress--warning { --_c: var(--k-text-warning); }
 .k-progress-ring.k-progress--error { --_c: var(--k-text-error); }
 .k-progress-ring svg { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; rotate: -90deg; }
-[dir="rtl"] .k-progress-ring svg { scale: -1 1; rotate: 90deg; }
+.k-progress-ring svg:dir(rtl) { scale: -1 1; rotate: 90deg; }
 .k-progress-ring circle { fill: none; stroke-width: 4; }
 .k-progress-ring__track { stroke: var(--k-bg-tertiary); }
 .k-progress-ring__bar { stroke: var(--_c); stroke-linecap: round; transition: stroke-dashoffset var(--k-duration-slow) var(--k-ease-standard); }

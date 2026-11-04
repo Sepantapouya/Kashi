@@ -24,6 +24,8 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      # آسیب‌پذیری شدید در وابستگی‌هایی که به کاربر می‌رسند جلوی ادغام را می‌گیرد
+      - run: npm audit --omit=dev --audit-level=high
       # بیلد توکن‌ها شامل بررسی کنتراست WCAG است و در صورت رد شدن شکست می‌خورد
       - run: npm run build
       - run: npm test

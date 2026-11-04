@@ -86,8 +86,8 @@
 .k-dialog--end[open] { animation: k-drawer-end var(--k-duration-slow) var(--k-ease-standard); }
 @keyframes k-drawer-start { from { translate: 100% 0; } }
 @keyframes k-drawer-end { from { translate: -100% 0; } }
-[dir="ltr"] .k-dialog--start[open] { animation-name: k-drawer-end; }
-[dir="ltr"] .k-dialog--end[open] { animation-name: k-drawer-start; }
+.k-dialog--start[open]:dir(ltr) { animation-name: k-drawer-end; }
+.k-dialog--end[open]:dir(ltr) { animation-name: k-drawer-start; }
 
 .k-dialog--bottom {
   inline-size: min(var(--k-dialog-width, 40rem), 100vw);

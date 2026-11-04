@@ -1,4 +1,4 @@
-import { HTMLBase, ICONS, afterParse, bool, define, emit, esc, uid } from "./base.js";
+import { afterParse, bool, define, emit, esc, HTMLBase, ICONS, msg, uid } from "./base.js";
 
 /**
  * پنجرهٔ گفتگو روی <dialog> بومی با showModal: فوکوس داخل پنجره می‌ماند، Esc می‌بندد،
@@ -93,7 +93,7 @@ export class KashiDialog extends HTMLBase {
     desc.hidden = !description;
     if (description) d.setAttribute("aria-describedby", desc.id);
     else d.removeAttribute("aria-describedby");
-    d.querySelector(".k-dialog__close")!.setAttribute("aria-label", this.getAttribute("close-label") ?? "بستن");
+    d.querySelector(".k-dialog__close")!.setAttribute("aria-label", this.getAttribute("close-label") ?? msg().common.close);
   }
 
   private sync() {
@@ -366,9 +366,9 @@ export class KashiCopyButton extends HTMLBase {
   }
 
   private render() {
-    const copy = this.getAttribute("label") ?? "کپی";
-    const copied = this.getAttribute("copied-label") ?? "کپی شد";
-    const text = this.state === "copied" ? copied : this.state === "failed" ? "کپی نشد" : copy;
+    const copy = this.getAttribute("label") ?? msg().copy.copy;
+    const copied = this.getAttribute("copied-label") ?? msg().copy.copied;
+    const text = this.state === "copied" ? copied : this.state === "failed" ? msg().copy.failed : copy;
     const iconOnly = bool(this, "icon-only");
     const icon = this.state === "copied" ? ICONS.check : ICONS.copy;
     const variant = this.getAttribute("variant") ?? "secondary";

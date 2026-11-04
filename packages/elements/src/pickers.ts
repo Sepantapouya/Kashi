@@ -1,5 +1,5 @@
-import { JALALI_MONTHS, formatJalali, fromISODate, parseJalali, toFaDigits, toGregorian, toISODate, toJalali } from "@kashi-ui/persian";
-import { HTMLBase, ICONS, bool, define, emit, esc, fieldHTML, setMessages, uid } from "./base.js";
+import { JALALI_MONTHS, formatJalali, fromISODate, parseJalali, toFaDigits, toGregorian, toISODate, toJalali, type KashiMessages } from "@kashi-ui/persian";
+import { bool, calendarNames, define, digitsOf, emit, esc, fieldHTML, HTMLBase, ICONS, lang, localeDigits, msg, num, setMessages, uid } from "./base.js";
 import type { KashiCalendar } from "./calendar.js";
 import "./calendar.js";
 
@@ -11,14 +11,14 @@ interface Range {
   start: Date | null;
   end: Date | null;
 }
-const PRESETS: [string, (t: Date) => { start: Date; end: Date }][] = [
-  ["۷ روز اخیر", (t) => ({ start: day(t, -6), end: t })],
-  ["۳۰ روز اخیر", (t) => ({ start: day(t, -29), end: t })],
-  ["این ماه", (t) => {
+const PRESETS: [(m: KashiMessages["dateRange"], n: (v: number) => string) => string, (t: Date) => { start: Date; end: Date }][] = [
+  [(m, n) => m.last7(n(7)), (t) => ({ start: day(t, -6), end: t })],
+  [(m, n) => m.last30(n(30)), (t) => ({ start: day(t, -29), end: t })],
+  [(m) => m.thisMonth, (t) => {
     const { jy, jm } = toJalali(t);
     return { start: toGregorian(jy, jm, 1), end: t };
   }],
-  ["ماه قبل", (t) => {
+  [(m) => m.lastMonth, (t) => {
     const { jy, jm } = toJalali(t);
     const [py, pm] = jm === 1 ? [jy - 1, 12] : [jy, jm - 1];
     return { start: toGregorian(py, pm, 1), end: day(toGregorian(jy, jm, 1), -1) };
@@ -62,18 +62,18 @@ export class KashiDateRangePicker extends HTMLBase {
   }
 
   private fmt(d: Date) {
-    return formatJalali(d, { digits: this.getAttribute("digits") === "latin" ? "latin" : "fa" });
+    return formatJalali(d, { digits: digitsOf(this), locale: lang() });
   }
   private text(r: Range) {
-    return r.start && r.end ? `${this.fmt(r.start)} تا ${this.fmt(r.end)}` : null;
+    return r.start && r.end ? `${this.fmt(r.start)}${msg().common.range}${this.fmt(r.end)}` : null;
   }
 
   private render() {
     this.close(false);
     const id = this.key;
-    const label = this.getAttribute("label") ?? "بازهٔ تاریخ";
+    const label = this.getAttribute("label") ?? msg().dateRange.label;
     const text = this.text(this.current);
-    const control = `<div class="k-datepicker k-daterange"><div class="k-select"><button id="${id}" type="button" class="k-select__control k-daterange__trigger" aria-haspopup="dialog" aria-expanded="false"${text ? "" : ' data-placeholder=""'}${this.hasAttribute("disabled") ? " disabled" : ""}>${ICONS.calendar}<span>${esc(text ?? this.getAttribute("placeholder") ?? "انتخاب بازهٔ تاریخ")}</span></button></div></div>`;
+    const control = `<div class="k-datepicker k-daterange"><div class="k-select"><button id="${id}" type="button" class="k-select__control k-daterange__trigger" aria-haspopup="dialog" aria-expanded="false"${text ? "" : ' data-placeholder=""'}${this.hasAttribute("disabled") ? " disabled" : ""}>${ICONS.calendar}<span>${esc(text ?? this.getAttribute("placeholder") ?? msg().dateRange.placeholder)}</span></button></div></div>`;
     this.querySelector(":scope > .k-field")?.remove();
     this.insertAdjacentHTML("afterbegin", fieldHTML({ id, label, control }));
     this.trigger = this.querySelector(".k-daterange__trigger")!;
@@ -96,9 +96,9 @@ export class KashiDateRangePicker extends HTMLBase {
     pop.id = `${this.key}-popover`;
     pop.className = "k-datepicker__popover k-daterange__popover";
     pop.setAttribute("role", "dialog");
-    pop.setAttribute("aria-label", this.getAttribute("label") ?? "انتخاب بازهٔ تاریخ");
+    pop.setAttribute("aria-label", this.getAttribute("label") ?? msg().dateRange.placeholder);
     const presets = this.getAttribute("presets") === "false" ? [] : PRESETS;
-    pop.innerHTML = `${presets.length ? `<ul class="k-daterange__presets" role="list" aria-label="میان‌برها">${presets.map(([l], i) => `<li><button type="button" class="k-daterange__preset" data-preset="${i}" aria-pressed="false">${l}</button></li>`).join("")}</ul>` : ""}<div class="k-daterange__main"><div class="k-daterange__footer"><span class="k-daterange__summary" aria-live="polite"></span><button type="button" class="k-btn k-btn--secondary k-btn--sm" data-cancel>انصراف</button><button type="button" class="k-btn k-btn--primary k-btn--sm" data-apply>تأیید</button></div></div>`;
+    pop.innerHTML = `${presets.length ? `<ul class="k-daterange__presets" role="list" aria-label="${esc(msg().dateRange.presets)}">${presets.map(([l], i) => `<li><button type="button" class="k-daterange__preset" data-preset="${i}" aria-pressed="false">${esc(l(msg().dateRange, (v) => num(this, v)))}</button></li>`).join("")}</ul>` : ""}<div class="k-daterange__main"><div class="k-daterange__footer"><span class="k-daterange__summary" aria-live="polite"></span><button type="button" class="k-btn k-btn--secondary k-btn--sm" data-cancel>${esc(msg().common.cancel)}</button><button type="button" class="k-btn k-btn--primary k-btn--sm" data-apply>${esc(msg().common.confirm)}</button></div></div>`;
     const cal = document.createElement("kashi-calendar") as KashiCalendar;
     for (const a of ["min", "max", "digits", "holidays"]) {
       const v = this.getAttribute(a);
@@ -149,7 +149,7 @@ export class KashiDateRangePicker extends HTMLBase {
   private paintDraft() {
     const pop = this.pop!;
     const r = this.draft;
-    pop.querySelector(".k-daterange__summary")!.textContent = this.text(r) ?? (r.start ? "حالا تاریخ پایان را انتخاب کنید." : "");
+    pop.querySelector(".k-daterange__summary")!.textContent = this.text(r) ?? (r.start ? msg().dateRange.pickEnd : "");
     pop.querySelector<HTMLButtonElement>("[data-apply]")!.disabled = !r.start || !r.end;
     const today = day(new Date());
     pop.querySelectorAll<HTMLElement>("[data-preset]").forEach((b, i) => {
@@ -219,11 +219,11 @@ export class KashiMonthPicker extends HTMLBase {
   }
 
   private render(focus = false) {
-    const f = (n: number) => (this.getAttribute("digits") === "latin" ? String(n) : toFaDigits(String(n)));
+    const f = (n: number) => (digitsOf(this) === "latin" ? String(n) : toFaDigits(String(n)));
     const t = toJalali(new Date());
     const min = this.parse(this.getAttribute("min")), max = this.parse(this.getAttribute("max"));
     const y = this.year;
-    this.innerHTML = `<div class="k-monthpicker" role="group" aria-label="${esc(this.getAttribute("label") ?? "انتخاب ماه")}"><div class="k-monthpicker__header"><button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm" data-year="-1" aria-label="سال قبل"${min && y <= min.year ? " disabled" : ""}>${ARROW(false)}</button><span class="k-monthpicker__year" aria-live="polite">${f(y)}</span><button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm" data-year="1" aria-label="سال بعد"${max && y >= max.year ? " disabled" : ""}>${ARROW(true)}</button></div><div class="k-monthpicker__grid">${JALALI_MONTHS.map((name, i) => `<button type="button" data-month="${i + 1}" class="k-monthpicker__month" tabindex="${this.focusMonth === i + 1 ? 0 : -1}" aria-pressed="${this.selected?.year === y && this.selected.month === i + 1}" aria-label="${name} ${f(y)}"${t.jy === y && t.jm === i + 1 ? ' aria-current="date"' : ""}${this.out(y, i + 1) ? " disabled" : ""}>${name}</button>`).join("")}</div></div>`;
+    this.innerHTML = `<div class="k-monthpicker" role="group" aria-label="${esc(this.getAttribute("label") ?? msg().monthPicker.label)}"><div class="k-monthpicker__header"><button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm" data-year="-1" aria-label="${esc(msg().monthPicker.prevYear)}"${min && y <= min.year ? " disabled" : ""}>${ARROW(false)}</button><span class="k-monthpicker__year" aria-live="polite">${f(y)}</span><button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm" data-year="1" aria-label="${esc(msg().monthPicker.nextYear)}"${max && y >= max.year ? " disabled" : ""}>${ARROW(true)}</button></div><div class="k-monthpicker__grid">${calendarNames().months.map((name, i) => `<button type="button" data-month="${i + 1}" class="k-monthpicker__month" tabindex="${this.focusMonth === i + 1 ? 0 : -1}" aria-pressed="${this.selected?.year === y && this.selected.month === i + 1}" aria-label="${name} ${f(y)}"${t.jy === y && t.jm === i + 1 ? ' aria-current="date"' : ""}${this.out(y, i + 1) ? " disabled" : ""}>${name}</button>`).join("")}</div></div>`;
     const name = this.getAttribute("name");
     if (name) this.insertAdjacentHTML("beforeend", `<input type="hidden" name="${esc(name)}" value="${this.value}">`);
     this.rendered = true;
@@ -257,16 +257,16 @@ export class KashiMonthPicker extends HTMLBase {
   }
 }
 
-/** حجم فایل به فارسی: «۱٫۲ مگابایت» */
+/** حجم فایل به زبان فعلی: «۱٫۲ مگابایت» یا «1.2 MB» */
 export function formatBytes(bytes: number): string {
-  const units = ["بایت", "کیلوبایت", "مگابایت", "گیگابایت"];
+  const units = msg().fileUpload.units;
   let v = bytes, i = 0;
   while (v >= 1024 && i < units.length - 1) {
     v /= 1024;
     i++;
   }
   const n = i === 0 ? String(v) : v.toFixed(v < 10 ? 1 : 0).replace(/\.0$/, "");
-  return `${toFaDigits(n).replace(".", "٫")} ${units[i]}`;
+  return `${localeDigits() === "fa" ? toFaDigits(n).replace(".", "٫") : n} ${units[i]}`;
 }
 const UPLOAD = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13V3.5m-4 4 4-4 4 4M4 13v2.5A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5V13"/></svg>';
 const TRASH = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5h13M8 5.5V4h4v1.5M5 5.5l.8 10.2a1.5 1.5 0 0 0 1.5 1.3h5.4a1.5 1.5 0 0 0 1.5-1.3L15 5.5"/></svg>';
@@ -313,7 +313,7 @@ export class KashiFileUpload extends HTMLBase {
     const off = this.hasAttribute("disabled");
     const name = this.getAttribute("name");
     const accept = this.getAttribute("accept");
-    this.innerHTML = `<div class="k-dropzone"${off ? ' data-disabled=""' : ""}><span class="k-dropzone__icon" aria-hidden="true">${UPLOAD}</span><p class="k-dropzone__title" style="margin: 0"><button type="button" class="k-dropzone__browse"${off ? " disabled" : ""}${hint ? ` aria-describedby="${k}-hint"` : ""}>${esc(this.getAttribute("label") ?? "انتخاب فایل")}</button> <span>یا فایل را اینجا رها کنید</span></p>${hint ? `<p class="k-dropzone__hint" id="${k}-hint" style="margin: 0">${esc(hint)}</p>` : ""}<input type="file" tabindex="-1" aria-hidden="true"${accept ? ` accept="${esc(accept)}"` : ""}${this.multiple ? " multiple" : ""}${name ? ` name="${esc(name)}"` : ""}></div><ul class="k-file-list" role="list" hidden></ul><span class="k-sr-only" aria-live="polite"></span>`;
+    this.innerHTML = `<div class="k-dropzone"${off ? ' data-disabled=""' : ""}><span class="k-dropzone__icon" aria-hidden="true">${UPLOAD}</span><p class="k-dropzone__title" style="margin: 0"><button type="button" class="k-dropzone__browse"${off ? " disabled" : ""}${hint ? ` aria-describedby="${k}-hint"` : ""}>${esc(this.getAttribute("label") ?? msg().fileUpload.browse)}</button> <span>${esc(msg().fileUpload.drop)}</span></p>${hint ? `<p class="k-dropzone__hint" id="${k}-hint" style="margin: 0">${esc(hint)}</p>` : ""}<input type="file" tabindex="-1" aria-hidden="true"${accept ? ` accept="${esc(accept)}"` : ""}${this.multiple ? " multiple" : ""}${name ? ` name="${esc(name)}"` : ""}></div><ul class="k-file-list" role="list" hidden></ul><span class="k-sr-only" aria-live="polite"></span>`;
     this.rendered = true;
     this.input = this.querySelector("input[type=file]")!;
     const zone = this.querySelector<HTMLElement>(".k-dropzone")!;
@@ -338,7 +338,7 @@ export class KashiFileUpload extends HTMLBase {
       if (!b) return;
       const it = this.items.find((x) => x.id === b.dataset.remove);
       this.items = this.items.filter((x) => x.id !== b.dataset.remove);
-      this.announce(`${it?.file.name ?? ""} حذف شد`);
+      this.announce(msg().common.removed(it?.file.name ?? ""));
       this.changed();
     });
     this.paint();
@@ -359,14 +359,14 @@ export class KashiFileUpload extends HTMLBase {
     const kept = this.multiple ? this.items.filter((i) => i.status !== "error").length : 0;
     const added: FileItem[] = list.map((file, i) => {
       let error: string | undefined;
-      if (!this.accepts(file)) error = "این نوع فایل پذیرفته نیست.";
-      else if (maxSize && file.size > maxSize) error = `حجم فایل بیشتر از ${formatBytes(maxSize)} است.`;
-      else if (maxFiles && kept + i >= maxFiles) error = `حداکثر ${toFaDigits(maxFiles)} فایل.`;
+      if (!this.accepts(file)) error = msg().fileUpload.wrongType;
+      else if (maxSize && file.size > maxSize) error = msg().fileUpload.tooBig(formatBytes(maxSize));
+      else if (maxFiles && kept + i >= maxFiles) error = msg().fileUpload.tooMany(num(this, maxFiles));
       const up = !error && !!this.uploader;
       return { id: uid("f"), file, status: error ? "error" : up ? "uploading" : "done", progress: error ? 0 : up ? 0 : 100, error };
     });
     this.items = this.multiple ? [...this.items, ...added] : added;
-    this.announce(added.map((a) => `${a.file.name}: ${a.error ?? (this.uploader ? "در حال بارگذاری" : "بارگذاری شد")}`).join("، "));
+    this.announce(added.map((a) => `${a.file.name}: ${a.error ?? (this.uploader ? msg().fileUpload.uploading : msg().fileUpload.done)}`).join(msg().common.list));
     this.changed();
     for (const it of added) {
       if (it.status !== "uploading" || !this.uploader) continue;
@@ -376,11 +376,11 @@ export class KashiFileUpload extends HTMLBase {
       }).then(() => {
         it.status = "done";
         it.progress = 100;
-        this.announce(`${it.file.name}: بارگذاری شد`);
+        this.announce(`${it.file.name}: ${msg().fileUpload.done}`);
         this.changed();
       }, (e: unknown) => {
         it.status = "error";
-        it.error = e instanceof Error ? e.message : "خطا در بارگذاری";
+        it.error = e instanceof Error ? e.message : msg().fileUpload.error;
         this.announce(`${it.file.name}: ${it.error}`);
         this.changed();
       });
@@ -406,7 +406,7 @@ export class KashiFileUpload extends HTMLBase {
     const list = this.querySelector<HTMLElement>(".k-file-list")!;
     list.hidden = !this.items.length;
     const ext = (n: string) => (n.split(".").pop() ?? "").slice(0, 4).toUpperCase();
-    list.innerHTML = this.items.map((it) => `<li class="k-file" data-status="${it.status}"><span class="k-file__icon" aria-hidden="true">${esc(ext(it.file.name))}</span><span class="k-file__name" title="${esc(it.file.name)}">${esc(it.file.name)}</span><button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm k-file__remove" data-remove="${it.id}" aria-label="حذف ${esc(it.file.name)}">${TRASH}</button><span class="k-file__meta">${esc(it.error ?? `${formatBytes(it.file.size)}${it.status === "uploading" ? ` · ${toFaDigits(Math.round(it.progress))}٪` : it.status === "done" ? " · بارگذاری شد" : ""}`)}</span>${it.status === "uploading" ? `<div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(it.progress)}" aria-label="در حال بارگذاری ${esc(it.file.name)}" class="k-progress k-progress--sm"><div class="k-progress__bar" style="--k-value: ${it.progress}%"></div></div>` : ""}</li>`).join("");
+    list.innerHTML = this.items.map((it) => `<li class="k-file" data-status="${it.status}"><span class="k-file__icon" aria-hidden="true">${esc(ext(it.file.name))}</span><span class="k-file__name" title="${esc(it.file.name)}">${esc(it.file.name)}</span><button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm k-file__remove" data-remove="${it.id}" aria-label="${esc(msg().common.remove(it.file.name))}">${TRASH}</button><span class="k-file__meta">${esc(it.error ?? `${formatBytes(it.file.size)}${it.status === "uploading" ? ` · ${msg().common.percent(num(this, Math.round(it.progress)))}` : it.status === "done" ? ` · ${msg().fileUpload.done}` : ""}`)}</span>${it.status === "uploading" ? `<div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(it.progress)}" aria-label="${esc(msg().fileUpload.uploadingFile(it.file.name))}" class="k-progress k-progress--sm"><div class="k-progress__bar" style="--k-value: ${it.progress}%"></div></div>` : ""}</li>`).join("");
   }
 }
 
@@ -442,7 +442,8 @@ function hsvToHex({ h, s, v }: HSV) {
   };
   return toHex(f(5), f(3), f(1));
 }
-const SWATCHES: [string, string][] = [["فیروزه‌ای", "#0b8077"], ["لاجوردی", "#2740ed"], ["بنفش", "#7c3aed"], ["اناری", "#e51d2a"], ["زعفرانی", "#dd5e02"], ["پسته‌ای", "#518b25"], ["شب", "#2a2f3d"]];
+const SWATCH_KEYS = [["firoozeh", "#0b8077"], ["lajvard", "#2740ed"], ["violet", "#7c3aed"], ["anar", "#e51d2a"], ["zafaran", "#dd5e02"], ["peste", "#518b25"], ["shab", "#2a2f3d"]] as const;
+const SWATCHES = (): [string, string][] => SWATCH_KEYS.map(([k, hex]) => [msg().colorPicker.names[k], hex]);
 const SW_CHECK = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 10.5 3.2 3L15 7"/></svg>';
 
 /**
@@ -491,16 +492,16 @@ export class KashiColorPicker extends HTMLBase {
 
   private swatches(): [string, string][] {
     const attr = this.getAttribute("swatches");
-    if (attr === null) return SWATCHES;
+    if (attr === null) return SWATCHES();
     return attr.split(",").map((s) => s.trim().split(/\s+/)).filter(([h]) => norm(h)).map(([h, ...n]) => [n.join(" ") || h, norm(h)!]);
   }
 
   private render() {
     const k = this.key;
     const sw = this.swatches();
-    const control = `<div class="k-color">${sw.length ? `<div class="k-color__swatches" role="radiogroup" aria-label="رنگ‌های پیشنهادی">${sw.map(([n, h]) => `<label class="k-color__swatch" style="--_sw: ${h}; --_ink: ${contrastRatio(h, "#ffffff") >= 3 ? "#fff" : "#000"}" title="${esc(n)}"><input type="radio" class="k-sr-only" name="${k}-sw" value="${h}" aria-label="${esc(n)}">${SW_CHECK}</label>`).join("")}</div>` : ""}<div class="k-color__row"><span class="k-color__anchor"><button type="button" class="k-color__preview" aria-label="انتخاب رنگ دلخواه" aria-haspopup="dialog" aria-expanded="false"></button></span><div class="k-input"><input id="${k}-hex" class="k-input__control" dir="ltr" spellcheck="false" autocomplete="off"></div></div>${this.getAttribute("show-contrast") === "false" ? "" : '<p class="k-color__contrast" aria-live="polite"><span class="k-color__sample">متن نمونه</span><span></span></p>'}</div>`;
+    const control = `<div class="k-color">${sw.length ? `<div class="k-color__swatches" role="radiogroup" aria-label="${esc(msg().colorPicker.swatches)}">${sw.map(([n, h]) => `<label class="k-color__swatch" style="--_sw: ${h}; --_ink: ${contrastRatio(h, "#ffffff") >= 3 ? "#fff" : "#000"}" title="${esc(n)}"><input type="radio" class="k-sr-only" name="${k}-sw" value="${h}" aria-label="${esc(n)}">${SW_CHECK}</label>`).join("")}</div>` : ""}<div class="k-color__row"><span class="k-color__anchor"><button type="button" class="k-color__preview" aria-label="${esc(msg().colorPicker.custom)}" aria-haspopup="dialog" aria-expanded="false"></button></span><div class="k-input"><input id="${k}-hex" class="k-input__control" dir="ltr" spellcheck="false" autocomplete="off"></div></div>${this.getAttribute("show-contrast") === "false" ? "" : '<p class="k-color__contrast" aria-live="polite"><span class="k-color__sample">${esc(msg().colorPicker.sample)}</span><span></span></p>'}</div>`;
     this.querySelector(":scope > .k-field")?.remove();
-    this.insertAdjacentHTML("afterbegin", fieldHTML({ id: `${k}-hex`, label: this.getAttribute("label") ?? "رنگ", control }));
+    this.insertAdjacentHTML("afterbegin", fieldHTML({ id: `${k}-hex`, label: this.getAttribute("label") ?? msg().colorPicker.label, control }));
     this.rendered = true;
     this.querySelector(".k-color__swatches")?.addEventListener("change", (e) => this.pick((e.target as HTMLInputElement).value));
     const hex = this.querySelector<HTMLInputElement>(`#${k}-hex`)!;
@@ -535,7 +536,7 @@ export class KashiColorPicker extends HTMLBase {
     if (syncText) hex.value = c;
     const best = Math.max(white, black);
     const out = this.querySelector(".k-color__contrast span:last-child");
-    if (out) out.textContent = `کنتراست با متن ${ink === "#ffffff" ? "سفید" : "مشکی"}: ${toFaDigits((Math.round(best * 10) / 10).toFixed(1)).replace(".", "٫")} به ۱ ${best >= 4.5 ? "(AA)" : "(کمتر از AA)"}`;
+    if (out) out.textContent = msg().colorPicker.contrast(ink === "#ffffff" ? "white" : "black", num(this, (Math.round(best * 10) / 10).toFixed(1)).replace(".", msg().common.decimal), best >= 4.5);
     const name = this.getAttribute("name");
     this.querySelectorAll(":scope > input[type=hidden]").forEach((el) => el.remove());
     if (name) this.insertAdjacentHTML("beforeend", `<input type="hidden" name="${esc(name)}" value="${c}">`);
@@ -544,7 +545,7 @@ export class KashiColorPicker extends HTMLBase {
   }
   private paintMessages(invalid: boolean) {
     const hex = this.querySelector<HTMLInputElement>(`#${this.key}-hex`)!;
-    setMessages(this.querySelector(":scope > .k-field")!, hex, `${this.key}-hex`, invalid ? "کد رنگ معتبر نیست؛ مثل ‎#0fa89b‎ وارد کنید." : null, this.getAttribute("hint"));
+    setMessages(this.querySelector(":scope > .k-field")!, hex, `${this.key}-hex`, invalid ? msg().colorPicker.invalid : null, this.getAttribute("hint"));
   }
 
   private openPanel() {
@@ -552,8 +553,8 @@ export class KashiColorPicker extends HTMLBase {
     const p = document.createElement("div");
     p.className = "k-color__panel";
     p.setAttribute("role", "dialog");
-    p.setAttribute("aria-label", "انتخاب رنگ دلخواه");
-    p.innerHTML = `<div class="k-color__area" role="slider" tabindex="0" aria-label="اشباع و روشنایی"><span class="k-color__thumb"></span></div><div class="k-color__tools"><span class="k-color__current" aria-hidden="true"></span><input type="range" class="k-color__hue" min="0" max="359" aria-label="رنگ‌مایه"></div><div class="k-color__codes" dir="ltr">${["R", "G", "B"].map((ch, i) => `<label class="k-color__code"><input class="k-color__num" inputmode="numeric" data-ch="${i}" aria-label="${["قرمز", "سبز", "آبی"][i]}"><span aria-hidden="true">${ch}</span></label>`).join("")}</div>`;
+    p.setAttribute("aria-label", msg().colorPicker.custom);
+    p.innerHTML = `<div class="k-color__area" role="slider" tabindex="0" aria-label="${esc(msg().colorPicker.area)}"><span class="k-color__thumb"></span></div><div class="k-color__tools"><span class="k-color__current" aria-hidden="true"></span><input type="range" class="k-color__hue" min="0" max="359" aria-label="${esc(msg().colorPicker.hue)}"></div><div class="k-color__codes" dir="ltr">${["R", "G", "B"].map((ch, i) => `<label class="k-color__code"><input class="k-color__num" inputmode="numeric" data-ch="${i}" aria-label="${esc([msg().colorPicker.red, msg().colorPicker.green, msg().colorPicker.blue][i])}"><span aria-hidden="true">${ch}</span></label>`).join("")}</div>`;
     anchor.append(p);
     this.panel = p;
     const area = p.querySelector<HTMLElement>(".k-color__area")!;
@@ -602,17 +603,17 @@ export class KashiColorPicker extends HTMLBase {
   private paintPanel() {
     const p = this.panel!;
     const { h, s, v } = this.hsv;
-    const pct = (n: number) => `${toFaDigits(Math.round(n * 100))}٪`;
+    const pct = (n: number) => msg().common.percent(num(this, Math.round(n * 100)));
     const area = p.querySelector<HTMLElement>(".k-color__area")!;
     area.style.setProperty("--_hue", `hsl(${h} 100% 50%)`);
     area.setAttribute("aria-valuenow", String(Math.round(s * 100)));
-    area.setAttribute("aria-valuetext", `اشباع ${pct(s)}، روشنایی ${pct(v)}`);
+    area.setAttribute("aria-valuetext", msg().colorPicker.areaValue(pct(s), pct(v)));
     const thumb = p.querySelector<HTMLElement>(".k-color__thumb")!;
     thumb.style.left = `${s * 100}%`;
     thumb.style.top = `${(1 - v) * 100}%`;
     const hue = p.querySelector<HTMLInputElement>(".k-color__hue")!;
     hue.value = String(Math.round(h));
-    hue.setAttribute("aria-valuetext", `${toFaDigits(Math.round(h))} درجه`);
+    hue.setAttribute("aria-valuetext", msg().colorPicker.degrees(num(this, Math.round(h))));
     const rgb = rgbOf(this.current);
     p.querySelectorAll<HTMLInputElement>(".k-color__num").forEach((el, i) => {
       if (document.activeElement !== el) el.value = String(rgb[i]);

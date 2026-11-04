@@ -3,6 +3,7 @@
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { JALALI_MONTHS, WEEKDAYS, formatJalali, formatTime, getIranHoliday, parseTime, toFaDigits, toISODate, toJalali } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface AppointmentSlot {
   /** ساعت به شکل HH:MM */
@@ -46,7 +47,7 @@ export interface AppointmentPickerProps {
   className?: string;
 }
 
-const PERIODS: [string, number][] = [["صبح", 12], ["بعدازظهر", 17], ["عصر", 24]];
+const PERIODS: ["morning" | "afternoon" | "evening", number][] = [["morning", 12], ["afternoon", 17], ["evening", 24]];
 const day = (d: Date, add = 0) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + add);
 const same = (a: Date, b: Date) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 const minutes = (t: string) => {
@@ -85,7 +86,7 @@ export function appointmentSlots(
  */
 export function AppointmentPicker({
   value, defaultValue = null, onChange, start, days = 7, from, to, step, booked, getSlots, closed = true,
-  label = "انتخاب نوبت", name, digits = "fa", className,
+  label, name, digits, className,
 }: AppointmentPickerProps) {
   const id = useId();
   const [inner, setInner] = useState<AppointmentValue | null>(defaultValue);
@@ -96,11 +97,15 @@ export function AppointmentPicker({
     const t = setInterval(() => setNow(new Date()), 60_000);
     return () => clearInterval(t);
   }, []);
+  const { messages: M, digits: D, locale, weekdays: WD, months: MONTHS } = useKashi();
+  const A = M.appointment;
+  digits ??= D;
+  label ??= A.label;
   const n = (v: number | string) => (digits === "fa" ? toFaDigits(String(v)) : String(v));
   const first = day(start ?? now);
   const list = useMemo(() => Array.from({ length: days }, (_, i) => {
     const d = day(first, i);
-    const isClosed = typeof closed === "function" ? closed(d) : closed ? !!getIranHoliday(d) : false;
+    const isClosed = typeof closed === "function" ? closed(d) : closed ? !!getIranHoliday(d, { locale }) : false;
     const slots = isClosed ? [] : appointmentSlots(d, { from, to, step, booked, getSlots, now });
     return { date: d, closed: isClosed, slots, free: slots.filter((s) => s.available).length };
   }), [first.getTime(), days, closed, from, to, step, booked, getSlots, now.getHours(), now.getMinutes()]);
@@ -113,7 +118,7 @@ export function AppointmentPicker({
   const daysRef = useRef<HTMLDivElement>(null);
   const timesRef = useRef<HTMLDivElement>(null);
 
-  const label2 = (d: Date) => (same(d, now) ? "امروز" : same(d, day(now, 1)) ? "فردا" : WEEKDAYS[(d.getDay() + 1) % 7]);
+  const label2 = (d: Date) => (same(d, now) ? M.common.today : same(d, day(now, 1)) ? M.common.tomorrow : WD[(d.getDay() + 1) % 7]);
   const pick = (time: string) => {
     const v = { date: current.date, time };
     if (value === undefined) setInner(v);
@@ -147,10 +152,10 @@ export function AppointmentPicker({
   return (
     <div className={cx("k-appt", className)} role="group" aria-labelledby={`${id}-label`}>
       <p className="k-label" id={`${id}-label`} style={{ margin: 0 }}>{label}</p>
-      <div className="k-appt__days" role="radiogroup" aria-label="روز" ref={daysRef} onKeyDown={(e) => roving(e, daysRef.current, setActive)}>
+      <div className="k-appt__days" role="radiogroup" aria-label={A.day} ref={daysRef} onKeyDown={(e) => roving(e, daysRef.current, setActive)}>
         {list.map((x, i) => {
           const { jm, jd } = toJalali(x.date);
-          const full = formatJalali(x.date, { style: "full", digits });
+          const full = formatJalali(x.date, { style: "full", digits, locale });
           return (
             <button
               key={x.date.getTime()}
@@ -161,23 +166,23 @@ export function AppointmentPicker({
               aria-checked={i === active}
               tabIndex={i === active ? 0 : -1}
               disabled={x.closed}
-              aria-label={`${full}، ${x.closed ? "تعطیل" : x.free ? `${n(x.free)} نوبت خالی` : "نوبت خالی ندارد"}`}
+              aria-label={`${full}${M.common.list}${x.closed ? A.closed : x.free ? A.freeLong(n(x.free)) : A.none}`}
               onClick={() => setActive(i)}
             >
               <span className="k-appt__weekday" aria-hidden="true">{label2(x.date)}</span>
               <span className="k-appt__date" aria-hidden="true">{n(jd)}</span>
-              <span className="k-appt__month" aria-hidden="true">{JALALI_MONTHS[jm - 1]}</span>
-              <span className="k-appt__free" aria-hidden="true">{x.closed ? "تعطیل" : x.free ? `${n(x.free)} نوبت` : "پر"}</span>
+              <span className="k-appt__month" aria-hidden="true">{MONTHS[jm - 1]}</span>
+              <span className="k-appt__free" aria-hidden="true">{x.closed ? A.closed : x.free ? A.free(n(x.free)) : A.full}</span>
             </button>
           );
         })}
       </div>
       <div className="k-appt__slots" ref={timesRef} onKeyDown={(e) => roving(e, timesRef.current)}>
         {current.closed || !current.free ? (
-          <p className="k-appt__empty">{current.closed ? "این روز تعطیل است." : "نوبت خالی برای این روز نمانده است؛ روز دیگری را انتخاب کنید."}</p>
+          <p className="k-appt__empty">{current.closed ? A.closedDay : A.noSlots}</p>
         ) : groups.map((g) => (
           <div className="k-appt__group" key={g.title}>
-            <p className="k-appt__period" id={`${id}-${g.title}`}>{g.title}</p>
+            <p className="k-appt__period" id={`${id}-${g.title}`}>{A[g.title]}</p>
             <div className="k-appt__times" role="radiogroup" aria-labelledby={`${id}-${g.title}`}>
               {g.slots.map((s) => {
                 const on = isSelectedDay && selected!.time === s.time;
@@ -190,7 +195,7 @@ export function AppointmentPicker({
                     aria-checked={on}
                     tabIndex={s.time === timeFocus ? 0 : -1}
                     disabled={!s.available}
-                    aria-label={`ساعت ${n(s.time)}${s.available ? "" : "، پر"}`}
+                    aria-label={`${A.time(n(s.time))}${s.available ? "" : A.booked}`}
                     onClick={() => pick(s.time)}
                   >
                     {n(s.time)}
@@ -205,7 +210,7 @@ export function AppointmentPicker({
         {selected && (
           <>
             <Clock />
-            <span>نوبت شما: <strong>{formatJalali(selected.date, { style: "full", digits })}، ساعت {n(selected.time)}</strong></span>
+            <span>{A.yours} <strong>{A.at(formatJalali(selected.date, { style: "full", digits, locale }), n(selected.time))}</strong></span>
           </>
         )}
       </p>

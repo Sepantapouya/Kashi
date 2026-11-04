@@ -1,5 +1,5 @@
 import { EMPTY_ADDRESS, PROVINCES, formatNumber, getCities, type IranAddress } from "@kashi-ui/persian";
-import { HTMLBase, afterParse, bool, define, emit, esc, uid } from "./base.js";
+import { afterParse, bool, define, digitsOf, emit, esc, HTMLBase, msg, uid } from "./base.js";
 import { IRAN_PROVINCES, IRAN_VIEWBOX } from "./iranMapData.js";
 // فرم نشانی از این عنصرها ساخته شده؛ با import همین فایل به‌تنهایی هم ثبت شوند
 import "./combobox.js";
@@ -80,7 +80,7 @@ export class KashiIranMap extends HTMLBase {
     return this.multiple || bool(this, "selectable") || this.hasAttribute("value") || this.hasAttribute("name");
   }
   private fmt(n: number) {
-    return formatNumber(n);
+    return formatNumber(n, { digits: digitsOf(this) });
   }
 
   private level(n: string): number | undefined {
@@ -112,7 +112,7 @@ export class KashiIranMap extends HTMLBase {
   }
 
   private render() {
-    const label = this.getAttribute("label") ?? "نقشهٔ استان‌های ایران";
+    const label = this.getAttribute("label") ?? msg().iranMap.label;
     const sel = this.selectable;
     const multi = this.multiple;
     const data = this.values;
@@ -130,7 +130,7 @@ export class KashiIranMap extends HTMLBase {
       ? `<table class="k-sr-only"><caption>${esc(label)}</caption><tbody>${NAMES.filter((n) => typeof data[n] === "number").sort((a, b) => data[b] - data[a]).map((n) => `<tr><th scope="row">${esc(n)}</th><td>${this.fmt(data[n])}${unit ? ` ${esc(unit)}` : ""}</td></tr>`).join("")}</tbody></table>`
       : "";
     // نسبت ابعاد با aspect-ratio، نه padding درصدی: در چیدمان flex ستونی ارتفاع padding درصدی صفر حساب می‌شود
-    this.innerHTML = `<figure class="k-iran-map${sel ? " k-iran-map--selectable" : ""}"><div class="k-iran-map__canvas" style="block-size: auto; aspect-ratio: ${VW} / ${VH}"><svg viewBox="${IRAN_VIEWBOX}" class="k-iran-map__svg" role="${sel ? (multi ? "group" : "radiogroup") : "img"}" aria-label="${esc(sel ? label : `${label}${data ? "؛ جدول داده در ادامه" : ""}`)}">${paths}</svg><div class="k-chart__tip" aria-hidden="true" style="display: none"></div></div>${legend}${table}</figure>`;
+    this.innerHTML = `<figure class="k-iran-map${sel ? " k-iran-map--selectable" : ""}"><div class="k-iran-map__canvas" style="block-size: auto; aspect-ratio: ${VW} / ${VH}"><svg viewBox="${IRAN_VIEWBOX}" class="k-iran-map__svg" role="${sel ? (multi ? "group" : "radiogroup") : "img"}" aria-label="${esc(sel ? label : `${label}${data ? msg().iranMap.tableNote : ""}`)}">${paths}</svg><div class="k-chart__tip" aria-hidden="true" style="display: none"></div></div>${legend}${table}</figure>`;
     const svg = this.querySelector("svg")!;
     const fig = this.querySelector("figure")!;
     svg.addEventListener("pointerover", (e) => {
@@ -226,7 +226,7 @@ export class KashiIranMap extends HTMLBase {
     const w = this.querySelector("figure")!.clientWidth || VW;
     const v = this.values?.[n];
     const unit = this.getAttribute("unit");
-    const row = typeof v === "number" ? `${this.fmt(v)}${unit ? ` ${unit}` : ""}` : `مرکز: ${CAPITAL[n]}`;
+    const row = typeof v === "number" ? `${this.fmt(v)}${unit ? ` ${unit}` : ""}` : msg().province.capital(CAPITAL[n]);
     box.innerHTML = `<span class="k-chart__tip-title">${esc(n)}</span><span class="k-chart__tip-row"><strong>${esc(row)}</strong></span>`;
     // داخل ظرف بماند و راهنمای استان‌های شمالی بالای نقشه بیرون نزند
     box.style.left = `${Math.min(Math.max((p.x / VW) * w, 80), w - 80)}px`;
@@ -236,7 +236,10 @@ export class KashiIranMap extends HTMLBase {
 }
 
 type Field = keyof IranAddress;
-const LABELS: Record<Field, string> = { province: "استان", city: "شهر", street: "نشانی", plaque: "پلاک", unit: "واحد", postalCode: "کد پستی" };
+const LABELS = (): Record<Field, string> => {
+  const A = msg().address;
+  return { province: A.province, city: A.city, street: A.street, plaque: A.plaque, unit: A.unit, postalCode: A.postalCode };
+};
 
 /**
  * فرم نشانی ایرانی: استان، شهرِ همان استان، نشانی، پلاک، واحد و کد پستی ده‌رقمی؛ با map نقشهٔ ایران برای انتخاب استان.
@@ -277,7 +280,7 @@ export class KashiAddressForm extends HTMLBase {
   }
   /** خطای هر فیلد، مثلاً از اعتبارسنجی سرور: { plaque: "پلاک را بنویسید." } */
   set errors(e: Partial<Record<Field, string>>) {
-    for (const f of Object.keys(LABELS) as Field[]) {
+    for (const f of Object.keys(LABELS()) as Field[]) {
       const el = this.querySelector(`[data-field="${f}"]`);
       if (!el) continue;
       if (el.matches("kashi-province-select, kashi-city-select, kashi-postal-code")) {
@@ -288,7 +291,7 @@ export class KashiAddressForm extends HTMLBase {
   }
 
   private label(f: Field) {
-    return this.getAttribute(`label-${f === "postalCode" ? "postal-code" : f}`) ?? LABELS[f];
+    return this.getAttribute(`label-${f === "postalCode" ? "postal-code" : f}`) ?? LABELS()[f];
   }
 
   private render() {
@@ -300,18 +303,18 @@ export class KashiAddressForm extends HTMLBase {
     const map = bool(this, "map");
     const k = this.key;
     const reqMark = req ? '<span class="k-label__required" aria-hidden="true">*</span>' : "";
-    const legend = this.getAttribute("legend") ?? "نشانی";
+    const legend = this.getAttribute("legend") ?? msg().address.legend;
     this.innerHTML = `<fieldset class="k-address${map ? " k-address--map" : ""}"${this.hasAttribute("disabled") ? " disabled" : ""}>
 ${legend ? `<legend class="k-address__legend">${esc(legend)}</legend>` : ""}
 <div class="k-address__fields">
-<kashi-province-select class="k-address__province" data-field="province" label="${esc(this.label("province"))}" show-capital="false" placeholder="جستجوی استان"${n("province")}${r}></kashi-province-select>
+<kashi-province-select class="k-address__province" data-field="province" label="${esc(this.label("province"))}" show-capital="false" placeholder="${esc(msg().address.provinceSearch)}"${n("province")}${r}></kashi-province-select>
 <kashi-city-select class="k-address__city" data-field="city" label="${esc(this.label("city"))}"${n("city")}${r}></kashi-city-select>
-<div class="k-field k-address__street" data-field="street"><div class="k-field__label-row"><label class="k-label" for="${k}-street">${esc(this.label("street"))}${reqMark}</label></div><div class="k-input k-input--textarea k-input--autoresize"><textarea id="${k}-street" class="k-input__control" rows="2" autocomplete="street-address" placeholder="خیابان، کوچه، نام ساختمان"${n("street")}${r}></textarea></div></div>
+<div class="k-field k-address__street" data-field="street"><div class="k-field__label-row"><label class="k-label" for="${k}-street">${esc(this.label("street"))}${reqMark}</label></div><div class="k-input k-input--textarea k-input--autoresize"><textarea id="${k}-street" class="k-input__control" rows="2" autocomplete="street-address" placeholder="${esc(msg().address.streetHint)}"${n("street")}${r}></textarea></div></div>
 <div class="k-field k-address__plaque" data-field="plaque"><div class="k-field__label-row"><label class="k-label" for="${k}-plaque">${esc(this.label("plaque"))}${reqMark}</label></div><div class="k-input"><input id="${k}-plaque" class="k-input__control" inputmode="numeric" autocomplete="address-line2"${n("plaque")}${r}></div></div>
-<div class="k-field k-address__unit" data-field="unit"><div class="k-field__label-row"><label class="k-label" for="${k}-unit">${esc(this.label("unit"))}${req ? '<span class="k-label__optional">اختیاری</span>' : ""}</label></div><div class="k-input"><input id="${k}-unit" class="k-input__control" inputmode="numeric" autocomplete="address-line3"${n("unit")}></div></div>
+<div class="k-field k-address__unit" data-field="unit"><div class="k-field__label-row"><label class="k-label" for="${k}-unit">${esc(this.label("unit"))}${req ? `<span class="k-label__optional">${esc(msg().common.optional)}</span>` : ""}</label></div><div class="k-input"><input id="${k}-unit" class="k-input__control" inputmode="numeric" autocomplete="address-line3"${n("unit")}></div></div>
 <kashi-postal-code class="k-address__postal" data-field="postalCode" label="${esc(this.label("postalCode"))}"${n("postalCode")}${r}></kashi-postal-code>
 </div>
-${map ? `<kashi-iran-map class="k-address__map" selectable label="${esc(`${this.label("province")} روی نقشه`)}"></kashi-iran-map>` : ""}
+${map ? `<kashi-iran-map class="k-address__map" selectable label="${esc(msg().iranMap.onMap(this.label("province")))}"></kashi-iran-map>` : ""}
 </fieldset>`;
     this.built = true;
     const province = this.querySelector<KashiProvinceSelect>("kashi-province-select")!;

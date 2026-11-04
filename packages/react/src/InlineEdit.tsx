@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface InlineEditProps {
   value?: string;
@@ -25,7 +26,8 @@ const X = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strok
 
 /** ویرایش درجا: کلیک یا Enter برای ویرایش، Enter ثبت، Esc انصراف */
 export function InlineEdit({ value, defaultValue = "", onSave, label, placeholder, validate, renderView, className, labels = {} }: InlineEditProps) {
-  const { edit = "ویرایش", save = "ثبت", cancel = "انصراف", empty = "خالی" } = labels;
+  const { messages: M } = useKashi();
+  const { edit = M.common.edit, save = M.common.save, cancel = M.common.cancel, empty = M.inlineEdit.empty } = labels;
   const [inner, setInner] = useState(defaultValue);
   const current = value ?? inner;
   const [editing, setEditing] = useState(false);
@@ -66,7 +68,7 @@ export function InlineEdit({ value, defaultValue = "", onSave, label, placeholde
       stop();
     } catch {
       if (value === undefined) setInner(prev);
-      setError("ذخیره نشد؛ دوباره امتحان کنید.");
+      setError(M.inlineEdit.failed);
     } finally {
       setBusy(false);
     }
@@ -75,7 +77,7 @@ export function InlineEdit({ value, defaultValue = "", onSave, label, placeholde
   if (!editing) {
     return (
       <span className={cx("k-inline-edit", className)}>
-        <button ref={view} type="button" className="k-inline-edit__view" onClick={start} aria-label={`${label}: ${current || empty}، ${edit}`}>
+        <button ref={view} type="button" className="k-inline-edit__view" onClick={start} aria-label={`${label}: ${current || empty}${M.common.list}${edit}`}>
           {current ? (renderView ? renderView(current) : current) : <span className="k-inline-edit__placeholder">{placeholder ?? empty}</span>}
           <Pencil />
         </button>

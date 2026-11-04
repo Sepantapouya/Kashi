@@ -18,3 +18,14 @@ export function isDev(): boolean {
 
 /** useLayoutEffect در مرورگر، useEffect در سرور؛ تا در Next.js و رندر سمت سرور هشدار ندهد */
 export const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+const deprecations = new Set<string>();
+/**
+ * هشدار یک‌باره برای قابلیت منسوخ، فقط در حالت توسعه (سیاست تغییرات: /docs/versioning/).
+ * deprecate("Button.kind", "prop ‏kind منسوخ است؛ از variant استفاده کنید. در ۲.۰ حذف می‌شود.")
+ */
+export function deprecate(id: string, message: string) {
+  if (!isDev() || deprecations.has(id)) return;
+  deprecations.add(id);
+  console.warn(`[kashi] منسوخ: ${message}`);
+}

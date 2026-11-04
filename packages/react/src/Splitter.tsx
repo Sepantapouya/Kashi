@@ -3,6 +3,7 @@
 import { useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface SplitterProps {
   /** دقیقاً دو فرزند: پنل ابتدا و پنل انتها */
@@ -25,7 +26,9 @@ export interface SplitterProps {
 }
 
 /** دو پنل با مرز قابل‌کشیدن؛ با کیبورد: ←→ (یا ↑↓) پنج درصد، Home/End کمینه و بیشینه */
-export function Splitter({ children, orientation = "horizontal", size, defaultSize = 40, onSizeChange, min = 15, max = 85, label = "تغییر اندازهٔ پنل‌ها", height, className }: SplitterProps) {
+export function Splitter({ children, orientation = "horizontal", size, defaultSize = 40, onSizeChange, min = 15, max = 85, label, height, className }: SplitterProps) {
+  const { messages: M, n } = useKashi();
+  label ??= M.splitter.label;
   const [inner, setInner] = useState(defaultSize);
   const current = size ?? inner;
   const [dragging, setDragging] = useState(false);
@@ -70,7 +73,7 @@ export function Splitter({ children, orientation = "horizontal", size, defaultSi
         aria-valuenow={current}
         aria-valuemin={min}
         aria-valuemax={max}
-        aria-valuetext={`${toFaDigits(Math.round(current))}٪`}
+        aria-valuetext={M.common.percent(n(Math.round(current)))}
         aria-label={label}
         data-dragging={dragging ? "" : undefined}
         onKeyDown={onKey}

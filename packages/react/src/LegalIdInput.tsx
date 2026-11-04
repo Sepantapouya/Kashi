@@ -3,6 +3,7 @@
 import { forwardRef, useState, type ReactNode } from "react";
 import { isValidLegalId, onlyDigits, toFaDigits } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange" | "type" | "inputMode">;
 
@@ -19,9 +20,12 @@ export interface LegalIdInputProps extends Base {
 
 /** شناسهٔ ملی اشخاص حقوقی (شرکت‌ها): ۱۱ رقم با بررسی رقم کنترل */
 export const LegalIdInput = forwardRef<HTMLInputElement, LegalIdInputProps>(function LegalIdInput(
-  { value, defaultValue = "", onValueChange, digits = "fa", invalidMessage = "شناسهٔ ملی معتبر نیست.", error, name, onBlur, placeholder, ...rest },
+  { value, defaultValue = "", onValueChange, digits, invalidMessage, error, name, onBlur, placeholder, ...rest },
   ref,
 ) {
+  const { messages: M, digits: D, locale } = useKashi();
+  digits ??= D;
+  invalidMessage ??= M.invalid.legalId;
   const [inner, setInner] = useState(() => onlyDigits(defaultValue).slice(0, 11));
   const [touched, setTouched] = useState(false);
   const raw = value !== undefined ? onlyDigits(value).slice(0, 11) : inner;

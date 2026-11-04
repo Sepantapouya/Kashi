@@ -2,7 +2,7 @@ import {
   JALALI_MONTHS, WEEKDAYS, WEEKDAYS_SHORT,
   formatJalali, fromISODate, getIranHoliday, jalaliMonthLength, jalaliWeekday, parseJalali, toFaDigits, toGregorian, toISODate, toJalali,
 } from "@kashi-ui/persian";
-import { HTMLBase, ICONS, bool, define, emit, esc, fieldHTML, setMessages, syncHidden, uid } from "./base.js";
+import { bool, calendarNames, define, digitsOf, emit, esc, fieldHTML, HTMLBase, ICONS, lang, msg, setMessages, syncHidden, uid } from "./base.js";
 
 const sameDay = (a?: Date | null, b?: Date | null) =>
   !!a && !!b && a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -120,7 +120,7 @@ export class KashiCalendar extends HTMLBase {
   }
   private holiday(d: Date): string | null {
     if (this.holidayOf) return this.holidayOf(d) || null;
-    return bool(this, "holidays") ? getIranHoliday(d) : null;
+    return bool(this, "holidays") ? getIranHoliday(d, { locale: lang() }) : null;
   }
 
   private go(d: Date, focus = true) {
@@ -206,8 +206,9 @@ export class KashiCalendar extends HTMLBase {
   }
 
   private render() {
-    const digits = this.getAttribute("digits") === "latin" ? "latin" : "fa";
+    const digits = digitsOf(this);
     const n = (v: number) => (digits === "fa" ? toFaDigits(v) : String(v));
+    const M = msg(), C = M.calendar, { months, weekdays, weekdaysShort, friday } = calendarNames();
     const today = startOfDay(new Date());
     const { jy, jm } = toJalali(this.focused);
     const monthStart = toGregorian(jy, jm, 1);
@@ -228,23 +229,23 @@ export class KashiCalendar extends HTMLBase {
       rows.push(`<tr>${cells.slice(w, w + 7).map((d) => {
         if (!d) return '<td role="gridcell"></td>';
         const h = this.holiday(d);
-        const label = formatJalali(d, { style: "full", digits }) + (h ? `، تعطیل${h === "جمعه" ? "" : `: ${h}`}` : "");
-        return `<td role="gridcell" data-date="${dayKey(d)}" aria-selected="${sameDay(d, this.selected)}"><button type="button" class="k-calendar__day" data-day="${dayKey(d)}" tabindex="${sameDay(d, this.focused) ? 0 : -1}" aria-label="${esc(label)}"${h && h !== "جمعه" ? ` title="${esc(h)}"` : ""}${h ? ' data-holiday=""' : ""}${sameDay(d, today) ? ' aria-current="date"' : ""}${this.disabled(d) ? ' aria-disabled="true"' : ""}>${n(toJalali(d).jd)}</button></td>`;
+        const label = formatJalali(d, { style: "full", digits, locale: lang() }) + (h ? `${M.common.list}${C.holiday}${h === friday ? "" : `: ${h}`}` : "");
+        return `<td role="gridcell" data-date="${dayKey(d)}" aria-selected="${sameDay(d, this.selected)}"><button type="button" class="k-calendar__day" data-day="${dayKey(d)}" tabindex="${sameDay(d, this.focused) ? 0 : -1}" aria-label="${esc(label)}"${h && h !== friday ? ` title="${esc(h)}"` : ""}${h ? ' data-holiday=""' : ""}${sameDay(d, today) ? ' aria-current="date"' : ""}${this.disabled(d) ? ' aria-disabled="true"' : ""}>${n(toJalali(d).jd)}</button></td>`;
       }).join("")}</tr>`);
     }
     const todayLabel = this.getAttribute("today-label");
-    this.innerHTML = `<div class="k-calendar" role="group" aria-label="${esc(this.getAttribute("label") ?? "تقویم")}">
+    this.innerHTML = `<div class="k-calendar" role="group" aria-label="${esc(this.getAttribute("label") ?? C.label)}">
 <div class="k-calendar__header">
-<button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm" data-nav="prev" aria-label="ماه قبل"${prevOff ? " disabled" : ""}>${ICONS.prev}</button>
+<button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm" data-nav="prev" aria-label="${esc(C.prevMonth)}"${prevOff ? " disabled" : ""}>${ICONS.prev}</button>
 <div class="k-calendar__selects">
-<select class="k-calendar__select" data-part="month" aria-label="ماه">${JALALI_MONTHS.map((m, i) => `<option value="${i + 1}"${i + 1 === jm ? " selected" : ""}>${m}</option>`).join("")}</select>
-<select class="k-calendar__select" data-part="year" aria-label="سال">${years.map((y) => `<option value="${y}"${y === jy ? " selected" : ""}>${n(y)}</option>`).join("")}</select>
+<select class="k-calendar__select" data-part="month" aria-label="${esc(C.month)}">${months.map((m, i) => `<option value="${i + 1}"${i + 1 === jm ? " selected" : ""}>${m}</option>`).join("")}</select>
+<select class="k-calendar__select" data-part="year" aria-label="${esc(C.year)}">${years.map((y) => `<option value="${y}"${y === jy ? " selected" : ""}>${n(y)}</option>`).join("")}</select>
 </div>
-<button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm" data-nav="next" aria-label="ماه بعد"${nextOff ? " disabled" : ""}>${ICONS.next}</button>
+<button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm" data-nav="next" aria-label="${esc(C.nextMonth)}"${nextOff ? " disabled" : ""}>${ICONS.next}</button>
 </div>
-<h2 class="k-sr-only" id="${this.key}-title" aria-live="polite">${JALALI_MONTHS[jm - 1]} ${n(jy)}</h2>
+<h2 class="k-sr-only" id="${this.key}-title" aria-live="polite">${months[jm - 1]} ${n(jy)}</h2>
 <table class="k-calendar__grid" role="grid" aria-labelledby="${this.key}-title">
-<thead><tr>${WEEKDAYS_SHORT.map((s, i) => `<th scope="col" abbr="${WEEKDAYS[i]}">${s}</th>`).join("")}</tr></thead>
+<thead><tr>${weekdaysShort.map((s, i) => `<th scope="col" abbr="${weekdays[i]}">${s}</th>`).join("")}</tr></thead>
 <tbody>${rows.join("")}</tbody>
 </table>
 ${todayLabel ? `<div class="k-calendar__footer"><button type="button" class="k-btn k-btn--link" data-today>${esc(todayLabel)}</button></div>` : ""}
@@ -310,7 +311,7 @@ export class KashiDatePicker extends HTMLBase {
   }
 
   private get digits(): "fa" | "latin" {
-    return this.getAttribute("digits") === "latin" ? "latin" : "fa";
+    return digitsOf(this);
   }
   private fmt(d: Date | null) {
     return d ? formatJalali(d, { digits: this.digits }) : "";
@@ -319,7 +320,7 @@ export class KashiDatePicker extends HTMLBase {
   private render() {
     const id = this.key;
     const ariaLabel = this.getAttribute("aria-label");
-    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : "تاریخ";
+    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : msg().datePicker.label;
     const required = this.hasAttribute("required");
     const disabled = this.hasAttribute("disabled");
     const placeholder = this.getAttribute("placeholder") ?? (this.digits === "fa" ? "۱۴۰۳/۰۱/۰۱" : "1403/01/01");
@@ -341,9 +342,9 @@ export class KashiDatePicker extends HTMLBase {
   private paint() {
     const text = this.fmt(this.selected);
     if (!this.invalid && this.input.value !== text) this.input.value = text;
-    const open = this.getAttribute("open-label") ?? "انتخاب تاریخ از تقویم";
-    this.toggle.setAttribute("aria-label", this.selected ? `${open}، ${formatJalali(this.selected, { style: "full", digits: this.digits })}` : open);
-    const message = this.getAttribute("invalid-message") ?? "این تاریخ معتبر نیست؛ آن را به شکل ۱۴۰۳/۰۵/۱۲ وارد کنید.";
+    const open = this.getAttribute("open-label") ?? msg().datePicker.open;
+    this.toggle.setAttribute("aria-label", this.selected ? `${open}${msg().common.list}${formatJalali(this.selected, { style: "full", digits: this.digits, locale: lang() })}` : open);
+    const message = this.getAttribute("invalid-message") ?? msg().datePicker.invalid;
     this.input.setCustomValidity(this.invalid ? message : "");
     setMessages(this.querySelector(".k-field")!, this.input, this.key, this.getAttribute("error") || (this.invalid ? message : null), this.getAttribute("hint"));
     syncHidden(this, this.getAttribute("name"), this.value);
@@ -379,7 +380,7 @@ export class KashiDatePicker extends HTMLBase {
     pop.className = "k-datepicker__popover";
     pop.id = `${this.key}-calendar`;
     pop.setAttribute("role", "dialog");
-    pop.setAttribute("aria-label", this.getAttribute("open-label") ?? "انتخاب تاریخ از تقویم");
+    pop.setAttribute("aria-label", this.getAttribute("open-label") ?? msg().datePicker.open);
     pop.style.insetBlockStart = `${box.offsetTop + box.offsetHeight + 6}px`;
     const cal = document.createElement("kashi-calendar") as KashiCalendar;
     for (const a of ["min", "max", "digits", "holidays"]) {
@@ -387,7 +388,7 @@ export class KashiDatePicker extends HTMLBase {
       if (v !== null) cal.setAttribute(a, v);
     }
     if (this.selected) cal.setAttribute("value", toISODate(this.selected));
-    cal.setAttribute("today-label", this.getAttribute("today-label") ?? "امروز");
+    cal.setAttribute("today-label", this.getAttribute("today-label") ?? msg().common.today);
     cal.isDateDisabled = this.isDateDisabled;
     cal.addEventListener("kashi-change", (e) => {
       e.stopPropagation();

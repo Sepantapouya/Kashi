@@ -102,7 +102,11 @@
   direction: rtl;
   text-align: start;
 }
-[dir="ltr"] .k-input__control:is([type="email"], [type="url"], [type="tel"], [type="number"], [type="password"]):placeholder-shown {
+/* در صفحه یا بخش چپ‌به‌راست (مثلاً رابط انگلیسی) همین فیلدها از چپ شروع می‌شوند؛ :dir جهت خود قاب را می‌سنجد، نه صفحه را */
+.k-input:dir(ltr) .k-input__control:is([type="email"], [type="url"], [type="tel"], [type="number"], [type="password"], [dir="ltr"]) {
+  text-align: start;
+}
+.k-input:dir(ltr) .k-input__control:is([type="email"], [type="url"], [type="tel"], [type="number"], [type="password"]):placeholder-shown {
   direction: ltr;
 }
 

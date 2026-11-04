@@ -25,7 +25,7 @@ export interface TimelineProps extends HTMLAttributes<HTMLOListElement> {
 const Dot = () => <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3" fill="currentColor" /></svg>;
 
 /** خط زمانی رویدادها و فعالیت‌ها، به ترتیب داده‌شده */
-export function Timeline({ items, digits = "fa", className, ...rest }: TimelineProps) {
+export function Timeline({ items, digits, className, ...rest }: TimelineProps) {
   return (
     <ol className={cx("k-timeline", className)} {...rest}>
       {items.map((it, i) => (

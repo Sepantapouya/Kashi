@@ -3,6 +3,7 @@
 import { forwardRef, useEffect, useState, type KeyboardEvent, type ReactNode } from "react";
 import { formatTime, parseTime, toFaDigits, type Time } from "@kashi-ui/persian";
 import { Input, type InputProps } from "./Input.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange" | "type" | "min" | "max" | "step">;
 
@@ -33,10 +34,14 @@ const Clock = () => (
 
 /** ساعت ۲۴ساعته با ارقام فارسی: «۹۳۰» یا «۹:۳۰» تایپ کنید، ↑↓ گام به گام */
 export const TimeInput = forwardRef<HTMLInputElement, TimeInputProps>(function TimeInput(
-  { value, defaultValue = null, onChange, step = 15, min, max, digits = "fa", invalidMessage = "ساعت معتبر نیست؛ آن را به شکل ۰۹:۳۰ وارد کنید.",
-    rangeMessage = (a, b) => `ساعت باید بین ${a} و ${b} باشد.`, error, name, placeholder, onBlur, onKeyDown, ...rest },
+  { value, defaultValue = null, onChange, step = 15, min, max, digits, invalidMessage,
+    rangeMessage, error, name, placeholder, onBlur, onKeyDown, ...rest },
   ref,
 ) {
+  const { messages: M, digits: D, locale } = useKashi();
+  digits ??= D;
+  invalidMessage ??= M.invalid.time;
+  rangeMessage ??= M.invalid.timeRange;
   const [inner, setInner] = useState<string | null>(defaultValue);
   const current = value !== undefined ? value : inner;
   const show = (s: string | null) => (s ? (digits === "fa" ? toFaDigits(s) : s) : "");

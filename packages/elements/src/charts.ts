@@ -1,5 +1,9 @@
-import { JALALI_MONTHS, formatJalali, formatNumber, jalaliMonthLength, toGregorian, toISODate, toJalali } from "@kashi-ui/persian";
-import { HTMLBase, define, esc, uid } from "./base.js";
+import { formatJalali, formatNumber as fmtNumber, jalaliMonthLength, toGregorian, toISODate, toJalali } from "@kashi-ui/persian";
+import { calendarNames, define, esc, HTMLBase, lang, localeDigits, msg, uid } from "./base.js";
+
+// عددها با ارقام زبان فعلی (setLocale)
+const formatNumber = (n: number) => fmtNumber(n, { digits: localeDigits() });
+const dec = (x: number) => formatNumber(Math.round(x * 10) / 10).replace(".", msg().common.decimal);
 
 // نمودارها: عنوان با label، داده با ویژگی JSON (data، labels، series) یا با JavaScript (element.data = …)،
 // قالب عدد با element.format = (n) => "…" یا ویژگی unit. هر نمودار جدول هم‌ارز برای صفحه‌خوان دارد.
@@ -11,10 +15,10 @@ type Row = { name?: string; value: string; color?: string };
 /** عدد کوتاه برای محور: ۱٬۲۰۰٬۰۰۰ ← ۱٫۲ م */
 const compact = (n: number) => {
   const a = Math.abs(n);
-  const fa = (x: number, u: string) => `${formatNumber(Math.round(x * 10) / 10).replace(".", "٫")}${u}`;
-  if (a >= 1e9) return fa(n / 1e9, " میلیارد");
-  if (a >= 1e6) return fa(n / 1e6, " م");
-  if (a >= 1e3) return fa(n / 1e3, " هزار");
+  const C = msg().chart;
+  if (a >= 1e9) return dec(n / 1e9) + C.billion;
+  if (a >= 1e6) return dec(n / 1e6) + C.million;
+  if (a >= 1e3) return dec(n / 1e3) + C.thousand;
   return formatNumber(n);
 };
 /** گام‌های گرد محور: ۰، ۲۵، ۵۰… */
@@ -25,7 +29,7 @@ function niceTicks(max: number, count = 4): number[] {
   const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => s >= raw)!;
   return Array.from({ length: Math.ceil(max / step) + 1 }, (_, i) => i * step);
 }
-const pctOf = (v: number, total: number) => `${formatNumber(Math.round((v / (total || 1)) * 1000) / 10).replace(".", "٫")}٪`;
+const pctOf = (v: number, total: number) => msg().common.percent(dec((v / (total || 1)) * 100));
 const chartColor = (i: number) => `var(--k-chart-${i + 1})`;
 
 const json = <T,>(t: string | null, fallback: T): T => {
@@ -118,7 +122,7 @@ export class KashiBarChart extends Chart {
     const top = ticks.at(-1) || 1;
     const maxI = totals.indexOf(max);
     const labelMax = this.getAttribute("label-max") !== "false";
-    const describe = (i: number) => (stacked ? `${cats[i]}: ${stacked.map((s) => `${s.name} ${f(s.values[i] ?? 0)}`).join("، ")}، جمع ${f(totals[i])}` : `${cats[i]}: ${f(totals[i])}`);
+    const describe = (i: number) => (stacked ? `${cats[i]}: ${stacked.map((s) => `${s.name} ${f(s.values[i] ?? 0)}`).join(msg().common.list)}${msg().common.list}${msg().common.total} ${f(totals[i])}` : `${cats[i]}: ${f(totals[i])}`);
     const height = this.getAttribute("height");
     this.innerHTML = `<figure class="k-chart k-chart--bar" aria-labelledby="${this.key}-t" style="margin: 0${height ? `; --k-chart-height: ${esc(height)}` : ""}"><figcaption class="k-chart__head"><p class="k-chart__title" id="${this.key}-t">${esc(this.heading)}</p>${stacked && stacked.length > 1 ? `<ul class="k-chart__legend" aria-hidden="true">${stacked.map((s, i) => `<li style="--_c: ${chartColor(i)}"><span class="k-chart__key k-chart__key--box"></span>${esc(s.name)}</li>`).join("")}</ul>` : ""}</figcaption><div class="k-chart__plot"><div class="k-bars__grid" aria-hidden="true">${ticks.map((t) => `<span data-v="${esc(compact(t))}"></span>`).join("")}</div><div class="k-bars" role="list" aria-label="${esc(this.heading)}">${cats.map((label, i) => `<div class="k-bars__col" role="listitem" tabindex="0" data-i="${i}" aria-label="${esc(describe(i))}" style="--_d: ${i * 40}ms">${labelMax && i === maxI ? `<span class="k-bars__value" aria-hidden="true">${esc(f(totals[i]))}</span>` : ""}${stacked ? `<span class="k-bars__stack" style="block-size: ${(totals[i] / top) * 100}%" aria-hidden="true">${stacked.map((s, si) => `<span class="k-bars__seg" style="--_c: ${chartColor(si)}; flex-grow: ${s.values[i] ?? 0}"></span>`).join("")}</span>` : `<span class="k-bars__bar" style="block-size: ${(totals[i] / top) * 100}%" aria-hidden="true"></span>`}<span class="k-bars__label" aria-hidden="true">${esc(label)}</span></div>`).join("")}</div></div></figure>`;
     const plot = this.querySelector<HTMLElement>(".k-chart__plot")!;
@@ -128,7 +132,7 @@ export class KashiBarChart extends Chart {
       col.setAttribute("data-active", "");
       const p = this.at(col.querySelector(".k-bars__bar, .k-bars__stack") ?? col, plot);
       this.tip(plot, p.x, p.y, cats[i], stacked
-        ? [...stacked.map((s, si) => ({ name: s.name, value: f(s.values[i] ?? 0), color: chartColor(si) })), { name: "جمع", value: f(totals[i]) }]
+        ? [...stacked.map((s, si) => ({ name: s.name, value: f(s.values[i] ?? 0), color: chartColor(si) })), { name: msg().common.total, value: f(totals[i]) }]
         : [{ value: f(totals[i]) }]);
     };
     const hide = () => {
@@ -162,7 +166,7 @@ export class KashiBarList extends Chart {
         const d = data[Number(row.dataset.i)];
         row.setAttribute("data-active", "");
         const p = this.at(row.querySelector(".k-barlist__fill")!, box);
-        this.tip(box, p.x, p.y, d.label, [{ name: "مقدار", value: f(d.value) }, { name: "سهم از کل", value: pctOf(d.value, total) }]);
+        this.tip(box, p.x, p.y, d.label, [{ name: msg().chart.value, value: f(d.value) }, { name: msg().chart.share, value: pctOf(d.value, total) }]);
       });
       row.addEventListener("pointerleave", () => {
         row.removeAttribute("data-active");
@@ -191,7 +195,7 @@ export class KashiProportionBar extends Chart {
         const i = Number(seg.dataset.i);
         mark(i);
         const p = this.at(seg, box);
-        this.tip(box, p.x, p.y, undefined, [{ name: parts[i].label, value: pctOf(parts[i].value, total), color: chartColor(i) }, { name: "تعداد", value: f(parts[i].value) }]);
+        this.tip(box, p.x, p.y, undefined, [{ name: parts[i].label, value: pctOf(parts[i].value, total), color: chartColor(i) }, { name: msg().chart.count, value: f(parts[i].value) }]);
       });
       seg.addEventListener("pointerleave", () => {
         mark(null);
@@ -210,12 +214,12 @@ export class KashiPieChart extends Chart {
   protected draw() {
     const f = this.format;
     const sorted = [...this.data].sort((a, b) => b.value - a.value);
-    const parts = sorted.length > 5 ? [...sorted.slice(0, 4), { label: "سایر", value: sorted.slice(4).reduce((n, d) => n + d.value, 0) }] : sorted;
+    const parts = sorted.length > 5 ? [...sorted.slice(0, 4), { label: msg().common.other, value: sorted.slice(4).reduce((n, d) => n + d.value, 0) }] : sorted;
     const total = parts.reduce((n, d) => n + d.value, 0) || 1;
     const slot = (i: number) => (i < 4 ? chartColor(i) : "var(--k-text-quaternary)");
     const donut = this.getAttribute("variant") !== "pie";
     const size = Number(this.getAttribute("size")) || 176;
-    const totalLabel = this.getAttribute("total-label") ?? "جمع";
+    const totalLabel = this.getAttribute("total-label") ?? msg().common.total;
     // هر بخش یک کمان با stroke-dasharray؛ برای pie، شعاع نصف و ضخامت برابر قطر
     const R = 50, r = donut ? 40 : 25, w = donut ? 16 : 50;
     const C = 2 * Math.PI * r;
@@ -240,7 +244,7 @@ export class KashiPieChart extends Chart {
       if (center) center.innerHTML = i === null ? `<strong>${esc(f(total))}</strong><span>${esc(totalLabel)}</span>` : `<strong>${pctOf(parts[i].value, total)}</strong><span>${esc(parts[i].label)}</span>`;
       if (!donut) {
         if (i === null) this.tip(plot, null);
-        else this.tip(plot, mid(i).x, mid(i).y, undefined, [{ name: parts[i].label, value: pctOf(parts[i].value, total), color: slot(i) }, { name: "تعداد", value: f(parts[i].value) }]);
+        else this.tip(plot, mid(i).x, mid(i).y, undefined, [{ name: parts[i].label, value: pctOf(parts[i].value, total), color: slot(i) }, { name: msg().chart.count, value: f(parts[i].value) }]);
       }
     };
     this.querySelectorAll<HTMLElement>(".k-pie__slice, .k-pie__legend li").forEach((el) => el.addEventListener("pointerenter", () => activate(Number(el.dataset.i))));
@@ -313,7 +317,7 @@ export class KashiLineChart extends Chart {
     const f = this.format;
     const labels = this.labels;
     const height = this.getAttribute("height");
-    this.innerHTML = `<figure class="k-chart" aria-labelledby="${this.key}-t" style="margin: 0${height ? `; --k-chart-height: ${esc(height)}` : ""}"><figcaption class="k-chart__head"><p class="k-chart__title" id="${this.key}-t">${esc(this.heading)}</p>${shown.length > 1 ? `<ul class="k-chart__legend" aria-hidden="true">${shown.map((s, i) => `<li style="--_c: ${chartColor(i)}"><span class="k-chart__key"></span>${esc(s.name)}</li>`).join("")}</ul>` : ""}</figcaption><div class="k-chart__plot" tabindex="0" role="img" aria-label="${esc(`${this.heading}. با کلیدهای جهت بین نقطه‌ها حرکت کنید.`)}" aria-describedby="${this.key}-live"><svg class="k-chart__svg" aria-hidden="true" direction="ltr"></svg></div><span class="k-sr-only" aria-live="polite" id="${this.key}-live"></span><table class="k-sr-only"><caption>${esc(this.heading)}</caption><thead><tr><th scope="col">دوره</th>${shown.map((s) => `<th scope="col">${esc(s.name)}</th>`).join("")}</tr></thead><tbody>${labels.map((l, i) => `<tr><th scope="row">${esc(l)}</th>${shown.map((s) => `<td>${esc(f(s.values[i]))}</td>`).join("")}</tr>`).join("")}</tbody></table></figure>`;
+    this.innerHTML = `<figure class="k-chart" aria-labelledby="${this.key}-t" style="margin: 0${height ? `; --k-chart-height: ${esc(height)}` : ""}"><figcaption class="k-chart__head"><p class="k-chart__title" id="${this.key}-t">${esc(this.heading)}</p>${shown.length > 1 ? `<ul class="k-chart__legend" aria-hidden="true">${shown.map((s, i) => `<li style="--_c: ${chartColor(i)}"><span class="k-chart__key"></span>${esc(s.name)}</li>`).join("")}</ul>` : ""}</figcaption><div class="k-chart__plot" tabindex="0" role="img" aria-label="${esc(msg().chart.keyboard(this.heading))}" aria-describedby="${this.key}-live"><svg class="k-chart__svg" aria-hidden="true" direction="ltr"></svg></div><span class="k-sr-only" aria-live="polite" id="${this.key}-live"></span><table class="k-sr-only"><caption>${esc(this.heading)}</caption><thead><tr><th scope="col">${esc(msg().chart.period)}</th>${shown.map((s) => `<th scope="col">${esc(s.name)}</th>`).join("")}</tr></thead><tbody>${labels.map((l, i) => `<tr><th scope="row">${esc(l)}</th>${shown.map((s) => `<td>${esc(f(s.values[i]))}</td>`).join("")}</tr>`).join("")}</tbody></table></figure>`;
     const plot = this.querySelector<HTMLElement>(".k-chart__plot")!;
     plot.addEventListener("pointermove", (e) => this.pick(e.clientX));
     plot.addEventListener("pointerleave", () => this.setActive(null));
@@ -370,7 +374,7 @@ export class KashiLineChart extends Chart {
     const f = this.format;
     if (a === null) this.tip(plot, null);
     else this.tip(plot, x(a), Math.min(...shown.map((s) => y(s.values[a]))) - 6, labels[a], shown.map((s, si) => ({ name: s.name, value: f(s.values[a]), color: chartColor(si) })));
-    this.querySelector(`#${this.key}-live`)!.textContent = a === null ? "" : `${labels[a]}: ${shown.map((s) => `${s.name} ${f(s.values[a])}`).join("، ")}`;
+    this.querySelector(`#${this.key}-live`)!.textContent = a === null ? "" : `${labels[a]}: ${shown.map((s) => `${s.name} ${f(s.values[a])}`).join(msg().common.list)}`;
   }
 
   private pick(clientX: number) {
@@ -388,7 +392,6 @@ export class KashiLineChart extends Chart {
   }
 }
 
-const WEEK = ["ش", "", "د", "", "چ", "", "ج"];
 
 /** نقشهٔ فعالیت سالانه با ماه‌های شمسی: data='{"2026-03-21": 3, …}'، year="1405"، unit="فعالیت" */
 export class KashiActivityHeatmap extends Chart {
@@ -399,7 +402,8 @@ export class KashiActivityHeatmap extends Chart {
   protected draw() {
     const data = this.data;
     const year = Number(this.getAttribute("year")) || toJalali(new Date()).jy;
-    const unit = this.getAttribute("unit") ?? "فعالیت";
+    const H = msg().heatmap;
+    const unit = this.getAttribute("unit") ?? H.unit;
     const days: { date: Date; value: number }[] = [];
     for (let m = 1; m <= 12; m++) for (let d = 1; d <= jalaliMonthLength(year, m); d++) {
       const date = toGregorian(year, m, d);
@@ -410,12 +414,12 @@ export class KashiActivityHeatmap extends Chart {
     // شنبه سطر اول
     const offset = (days[0].date.getDay() + 1) % 7;
     const col = (i: number) => Math.floor((i + offset) / 7);
-    const months = JALALI_MONTHS.map((name, m) => ({ name, col: col(days.findIndex((d) => toJalali(d.date).jm === m + 1)) }));
+    const months = calendarNames().months.map((name, m) => ({ name, col: col(days.findIndex((d) => toJalali(d.date).jm === m + 1)) }));
     const total = days.reduce((s, d) => s + d.value, 0);
-    const monthly = JALALI_MONTHS.map((name, m) => ({ name, sum: days.filter((d) => toJalali(d.date).jm === m + 1).reduce((s, d) => s + d.value, 0) }));
-    const yearText = formatNumber(year).replace(/٬/g, "");
-    const name = this.getAttribute("label") ?? `${unit} در سال ${yearText}`;
-    this.innerHTML = `<figure class="k-heatmap" style="margin: 0"><div class="k-heatmap__scroll"><div role="img" aria-label="${esc(`${name}: ${formatNumber(total)} ${unit}`)}"><div class="k-heatmap__months" aria-hidden="true">${months.map((m) => `<span style="grid-column: ${m.col + 1}">${m.name}</span>`).join("")}</div><div class="k-heatmap__body" aria-hidden="true"><div class="k-heatmap__days">${WEEK.map((w) => `<span>${w}</span>`).join("")}</div><div class="k-heatmap__grid">${'<span class="k-heatmap__cell" data-empty=""></span>'.repeat(offset)}${days.map((d, i) => `<span class="k-heatmap__cell" data-l="${level(d.value)}" data-i="${i}"></span>`).join("")}</div></div></div></div><figcaption class="k-heatmap__foot"><span>${formatNumber(total)} ${esc(unit)} در ${yearText}</span><span class="k-heatmap__scale" aria-hidden="true">کمتر ${[0, 1, 2, 3, 4].map((l) => `<span class="k-heatmap__cell" data-l="${l}"></span>`).join("")} بیشتر</span></figcaption><table class="k-sr-only"><caption>${esc(name)}، به تفکیک ماه</caption><tbody>${monthly.map((m) => `<tr><th scope="row">${m.name}</th><td>${formatNumber(m.sum)}</td></tr>`).join("")}</tbody></table></figure>`;
+    const monthly = calendarNames().months.map((name, m) => ({ name, sum: days.filter((d) => toJalali(d.date).jm === m + 1).reduce((s, d) => s + d.value, 0) }));
+    const yearText = formatNumber(year).replace(/[٬,]/g, "");
+    const name = this.getAttribute("label") ?? H.inYear(unit, yearText);
+    this.innerHTML = `<figure class="k-heatmap" style="margin: 0"><div class="k-heatmap__scroll"><div role="img" aria-label="${esc(`${name}: ${formatNumber(total)} ${unit}`)}"><div class="k-heatmap__months" aria-hidden="true">${months.map((m) => `<span style="grid-column: ${m.col + 1}">${m.name}</span>`).join("")}</div><div class="k-heatmap__body" aria-hidden="true"><div class="k-heatmap__days">${H.weekdays.map((w) => `<span>${w}</span>`).join("")}</div><div class="k-heatmap__grid">${'<span class="k-heatmap__cell" data-empty=""></span>'.repeat(offset)}${days.map((d, i) => `<span class="k-heatmap__cell" data-l="${level(d.value)}" data-i="${i}"></span>`).join("")}</div></div></div></div><figcaption class="k-heatmap__foot"><span>${esc(H.total(formatNumber(total), unit, yearText))}</span><span class="k-heatmap__scale" aria-hidden="true">${esc(H.less)} ${[0, 1, 2, 3, 4].map((l) => `<span class="k-heatmap__cell" data-l="${l}"></span>`).join("")} ${esc(H.more)}</span></figcaption><table class="k-sr-only"><caption>${esc(H.byMonth(name))}</caption><tbody>${monthly.map((m) => `<tr><th scope="row">${m.name}</th><td>${formatNumber(m.sum)}</td></tr>`).join("")}</tbody></table></figure>`;
     const fig = this.querySelector<HTMLElement>("figure")!;
     this.querySelector(".k-heatmap__grid")!.addEventListener("pointerover", (e) => {
       const cell = (e.target as HTMLElement).closest<HTMLElement>("[data-i]");
@@ -424,7 +428,7 @@ export class KashiActivityHeatmap extends Chart {
       cell.setAttribute("data-active", "");
       const p = this.at(cell, fig);
       const d = days[Number(cell.dataset.i)];
-      this.tip(fig, p.x, p.y - 2, formatJalali(d.date, { style: "full" }), [{ value: `${formatNumber(d.value)} ${unit}` }]);
+      this.tip(fig, p.x, p.y - 2, formatJalali(d.date, { style: "full", digits: localeDigits(), locale: lang() }), [{ value: `${formatNumber(d.value)} ${unit}` }]);
     });
     fig.addEventListener("pointerleave", () => this.tip(fig, null));
   }

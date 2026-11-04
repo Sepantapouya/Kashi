@@ -5,6 +5,7 @@ import { PROVINCES, formatNumber } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
 import { ChartTip } from "./Chart.js";
 import { IRAN_PROVINCES, IRAN_VIEWBOX } from "./iranMapData.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Selection = string | string[] | null;
 
@@ -55,9 +56,10 @@ const [, , VW, VH] = IRAN_VIEWBOX.split(" ").map(Number);
 
 /** نقشهٔ ۳۱ استان ایران؛ نقشهٔ رنگی برای داده و/یا انتخاب یک یا چند استان، با صفحه‌کلید و جدول هم‌ارز */
 export function IranMap(props: IranMapProps) {
+  const { messages: M, digits: D } = useKashi();
   const {
-    data, value, defaultValue, multiple = false, label = "نقشهٔ استان‌های ایران", unit,
-    format = (n: number) => formatNumber(n), steps = 5, scale = "quantile", legend, tooltip, className,
+    data, value, defaultValue, multiple = false, label = M.iranMap.label, unit,
+    format = (n: number) => formatNumber(n, { digits: D }), steps = 5, scale = "quantile", legend, tooltip, className,
   } = props;
   const onChange = props.onChange as ((v: Selection) => void) | undefined;
   const selectable = value !== undefined || defaultValue !== undefined || onChange !== undefined;
@@ -134,7 +136,7 @@ export function IranMap(props: IranMapProps) {
           role={selectable ? (multiple ? "group" : "radiogroup") : "img"}
           onFocus={() => setInside(true)}
           onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setInside(false); }}
-          aria-label={selectable ? label : `${label}${data ? `؛ جدول داده در ادامه` : ""}`}
+          aria-label={selectable ? label : `${label}${data ? M.iranMap.tableNote : ""}`}
         >
           {NAMES.map((n, i) => {
             const p = IRAN_PROVINCES[n];
@@ -172,7 +174,7 @@ export function IranMap(props: IranMapProps) {
             rows={[
               ...(typeof tipValue === "number" ? [{ value: `${format(tipValue)}${unit ? ` ${unit}` : ""}` }] : []),
               ...(tooltip ? [{ value: tooltip(tip!, tipValue) }] : []),
-              ...(typeof tipValue !== "number" && !tooltip ? [{ value: `مرکز: ${CAPITAL[tip!]}` }] : []),
+              ...(typeof tipValue !== "number" && !tooltip ? [{ value: M.province.capital(CAPITAL[tip!]) }] : []),
             ]}
           />
         )}

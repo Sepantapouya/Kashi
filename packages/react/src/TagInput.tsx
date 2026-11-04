@@ -6,6 +6,7 @@ import { Badge, type BadgeTone } from "./Badge.js";
 import { cx } from "./cx.js";
 import { Field, describedBy } from "./Field.js";
 import { mergeRefs } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface TagInputProps {
   label?: ReactNode;
@@ -47,9 +48,10 @@ export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(function Tag
   const [localError, setLocalError] = useState<string>();
   const [announce, setAnnounce] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const { messages: M, n: N } = useKashi();
   const {
-    added = (t) => `${t} اضافه شد`, removed = (t) => `${t} حذف شد`, remove = (t) => `حذف ${t}`,
-    max: maxMsg = (n) => `حداکثر ${toFaDigits(n)} مورد`, duplicate = "این مورد قبلاً اضافه شده است.",
+    added = M.common.added, removed = M.common.removed, remove = M.common.remove,
+    max: maxMsg = (x: number) => M.common.max(N(x)), duplicate = M.tagInput.duplicate,
   } = labels;
 
   const set = (next: string[]) => {

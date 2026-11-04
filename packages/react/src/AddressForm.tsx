@@ -8,6 +8,7 @@ import { Input, Textarea } from "./Input.js";
 import { IranMap } from "./IranMap.js";
 import { PostalCodeInput } from "./PostalCodeInput.js";
 import { ProvinceSelect } from "./ProvinceSelect.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Field = keyof IranAddress;
 
@@ -31,18 +32,20 @@ export interface AddressFormProps {
   className?: string;
 }
 
-const LABELS: Record<Field, string> = { province: "استان", city: "شهر", street: "نشانی", plaque: "پلاک", unit: "واحد", postalCode: "کد پستی" };
 
 /**
  * فرم نشانی ایرانی: استان، شهرِ همان استان، نشانی، پلاک، واحد و کد پستی ده‌رقمی.
  * با انتخاب شهر بدون استان، استان خودکار پر می‌شود؛ با عوض شدن استان، شهرِ نامربوط پاک می‌شود.
  */
 export function AddressForm({
-  value, defaultValue, onChange, errors = {}, name, legend = "نشانی", labels: labelsProp, map = false, required = true, disabled, className,
+  value, defaultValue, onChange, errors = {}, name, legend, labels: labelsProp, map = false, required = true, disabled, className,
 }: AddressFormProps) {
   const [inner, setInner] = useState<IranAddress>({ ...EMPTY_ADDRESS, ...defaultValue });
   const address = value ?? inner;
-  const labels = { ...LABELS, ...labelsProp };
+  const { messages: M } = useKashi();
+  const A = M.address;
+  if (legend === undefined) legend = A.legend;
+  const labels: Record<Field, string> = { province: A.province, city: A.city, street: A.street, plaque: A.plaque, unit: A.unit, postalCode: A.postalCode, ...labelsProp };
   const field = (key: Field) => (name ? `${name}[${key}]` : undefined);
 
   const update = (patch: Partial<IranAddress>) => {
@@ -69,7 +72,7 @@ export function AddressForm({
           error={errors.province}
           required={required}
           showCapital={false}
-          placeholder="جستجوی استان"
+          placeholder={A.provinceSearch}
         />
         <CitySelect
           className="k-address__city"
@@ -89,7 +92,7 @@ export function AddressForm({
           required={required}
           name={field("street")}
           autoComplete="street-address"
-          placeholder="خیابان، کوچه، نام ساختمان"
+          placeholder={A.streetHint}
           rows={2}
           autoResize
         />
@@ -129,7 +132,7 @@ export function AddressForm({
       {map && (
         <IranMap
           className="k-address__map"
-          label={`${labels.province} روی نقشه`}
+          label={M.iranMap.onMap(labels.province)}
           value={address.province}
           onChange={setProvince}
         />

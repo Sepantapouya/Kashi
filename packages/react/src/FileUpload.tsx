@@ -1,16 +1,18 @@
 "use client";
 
 import { useId, useRef, useState, type DragEvent, type ReactNode } from "react";
-import { toFaDigits } from "@kashi-ui/persian";
+import { getMessages, toFaDigits, type KashiLocale } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
 import { Progress } from "./Progress.js";
+import { useKashi } from "./KashiProvider.js";
 
 export type FileStatus = "uploading" | "done" | "error";
 export interface FileItem { id: string; file: File; status: FileStatus; progress: number; error?: string }
 
-/** حجم فایل به فارسی: ۱٫۲ مگابایت */
-export function formatBytes(bytes: number): string {
-  const units = ["بایت", "کیلوبایت", "مگابایت", "گیگابایت"];
+/** حجم فایل: ۱٫۲ مگابایت؛ با locale="en" ← «1.2 MB» */
+export function formatBytes(bytes: number, locale: KashiLocale = "fa"): string {
+  const en = locale === "en";
+  const units = getMessages(locale).fileUpload.units;
   let v = bytes;
   let i = 0;
   while (v >= 1024 && i < units.length - 1) {
@@ -18,7 +20,7 @@ export function formatBytes(bytes: number): string {
     i++;
   }
   const n = i === 0 ? String(v) : v.toFixed(v < 10 ? 1 : 0).replace(/\.0$/, "");
-  return `${toFaDigits(n).replace(".", "٫")} ${units[i]}`;
+  return `${en ? n : toFaDigits(n).replace(".", "٫")} ${units[i]}`;
 }
 
 const ext = (name: string) => (name.split(".").pop() ?? "").slice(0, 4).toUpperCase();
@@ -62,10 +64,12 @@ export function FileUpload({ accept, multiple = true, maxSize, maxFiles, uploade
   const [items, setItems] = useState<FileItem[]>([]);
   const [dragging, setDragging] = useState(false);
   const [announce, setAnnounce] = useState("");
+  const { messages: M, n: N, locale } = useKashi();
+  const bytes = (b: number) => formatBytes(b, locale);
   const {
-    browse = "انتخاب فایل", drop = "یا فایل را اینجا رها کنید", remove = (n) => `حذف ${n}`,
-    tooBig = (m) => `حجم فایل بیشتر از ${m} است.`, wrongType = "این نوع فایل پذیرفته نیست.",
-    tooMany = (n) => `حداکثر ${toFaDigits(n)} فایل.`, done = "بارگذاری شد", uploading = "در حال بارگذاری",
+    browse = M.fileUpload.browse, drop = M.fileUpload.drop, remove = M.common.remove,
+    tooBig = M.fileUpload.tooBig, wrongType = M.fileUpload.wrongType,
+    tooMany = (x: number) => M.fileUpload.tooMany(N(x)), done = M.fileUpload.done, uploading = M.fileUpload.uploading,
   } = labels;
 
   const update = (fn: (list: FileItem[]) => FileItem[]) =>
@@ -81,12 +85,12 @@ export function FileUpload({ accept, multiple = true, maxSize, maxFiles, uploade
       const fid = `${Date.now()}-${i}-${file.name}`;
       let err: string | undefined;
       if (!accepts(file, accept)) err = wrongType;
-      else if (maxSize && file.size > maxSize) err = tooBig(formatBytes(maxSize));
+      else if (maxSize && file.size > maxSize) err = tooBig(bytes(maxSize));
       else if (maxFiles && items.length + i >= maxFiles) err = tooMany(maxFiles);
       return { id: fid, file, status: err ? "error" : uploader ? "uploading" : "done", progress: err ? 0 : uploader ? 0 : 100, error: err };
     });
     update((prev) => (multiple ? [...prev, ...added] : added));
-    setAnnounce(added.map((a) => `${a.file.name}: ${a.error ?? (uploader ? uploading : done)}`).join("، "));
+    setAnnounce(added.map((a) => `${a.file.name}: ${a.error ?? (uploader ? uploading : done)}`).join(M.common.list));
     for (const it of added) {
       if (it.status !== "uploading" || !uploader) continue;
       uploader(it.file, (p) => update((l) => l.map((x) => (x.id === it.id ? { ...x, progress: p } : x))))
@@ -95,7 +99,7 @@ export function FileUpload({ accept, multiple = true, maxSize, maxFiles, uploade
           setAnnounce(`${it.file.name}: ${done}`);
         })
         .catch((e: unknown) => {
-          const msg = e instanceof Error ? e.message : "خطا در بارگذاری";
+          const msg = e instanceof Error ? e.message : M.fileUpload.error;
           update((l) => l.map((x) => (x.id === it.id ? { ...x, status: "error", error: msg } : x)));
           setAnnounce(`${it.file.name}: ${msg}`);
         });
@@ -157,13 +161,13 @@ export function FileUpload({ accept, multiple = true, maxSize, maxFiles, uploade
                 aria-label={remove(it.file.name)}
                 onClick={() => {
                   update((l) => l.filter((x) => x.id !== it.id));
-                  setAnnounce(`${it.file.name} حذف شد`);
+                  setAnnounce(M.common.removed(it.file.name));
                 }}
               >
                 <TrashIcon />
               </button>
               <span className="k-file__meta">
-                {it.error ?? `${formatBytes(it.file.size)}${it.status === "uploading" ? ` · ${toFaDigits(Math.round(it.progress))}٪` : it.status === "done" ? ` · ${done}` : ""}`}
+                {it.error ?? `${bytes(it.file.size)}${it.status === "uploading" ? ` · ${M.common.percent(N(Math.round(it.progress)))}` : it.status === "done" ? ` · ${done}` : ""}`}
               </span>
               {it.status === "uploading" && <Progress value={it.progress} size="sm" aria-label={`${uploading} ${it.file.name}`} />}
             </li>

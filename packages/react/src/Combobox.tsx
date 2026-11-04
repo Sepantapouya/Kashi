@@ -5,6 +5,7 @@ import { normalizePersian, toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
 import { Field, describedBy } from "./Field.js";
 import { mergeRefs } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface ComboboxOption {
   value: string;
@@ -80,11 +81,14 @@ export interface ComboboxProps {
 export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(function Combobox(
   {
     label, hint, error, options, value, defaultValue = null, onChange, onInputChange, placeholder, filter = defaultFilter,
-    emptyMessage = "نتیجه‌ای پیدا نشد.", loading, required, disabled, name, id, className,
-    resultsLabel = (n) => `${toFaDigits(n)} نتیجه`,
+    emptyMessage, loading, required, disabled, name, id, className,
+    resultsLabel,
   },
   ref,
 ) {
+  const { messages: M, n: N } = useKashi();
+  emptyMessage ??= M.common.noResults;
+  resultsLabel ??= (x: number) => M.common.results(N(x));
   const autoId = useId();
   const inputId = id ?? autoId;
   const listId = `${inputId}-list`;
@@ -212,7 +216,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(function Com
             type="button"
             tabIndex={-1}
             className="k-input__action k-combobox__toggle"
-            aria-label="نمایش گزینه‌ها"
+            aria-label={M.combobox.toggle}
             disabled={disabled}
             onClick={() => {
               if (open) setOpen(false);
@@ -227,7 +231,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(function Com
           </button>
         </div>
         <ul id={listId} role="listbox" aria-labelledby={label ? undefined : inputId} aria-label={typeof label === "string" ? label : undefined} className="k-listbox" hidden={!open} style={{ insetBlockStart: "calc(100% + 6px)" }}>
-          {filtered.length === 0 && <li className="k-listbox__empty" role="presentation">{loading ? "در حال جستجو…" : emptyMessage}</li>}
+          {filtered.length === 0 && <li className="k-listbox__empty" role="presentation">{loading ? M.common.searching : emptyMessage}</li>}
           {filtered.map((o, i) => {
             const header = o.group && o.group !== lastGroup ? o.group : null;
             lastGroup = o.group;

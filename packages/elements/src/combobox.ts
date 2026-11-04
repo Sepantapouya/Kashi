@@ -1,5 +1,5 @@
 import { CITIES, PROVINCES, getCities, normalizePersian, toFaDigits } from "@kashi-ui/persian";
-import { HTMLBase, afterParse, define, emit, esc, fieldHTML, setMessages, syncHidden, uid } from "./base.js";
+import { afterParse, define, emit, esc, fieldHTML, HTMLBase, msg, num, setMessages, syncHidden, uid } from "./base.js";
 
 export interface ComboboxOption {
   value: string;
@@ -41,8 +41,12 @@ export class KashiCombobox extends HTMLBase {
   private listbox!: HTMLUListElement;
   private live!: HTMLElement;
   /** برچسب پیش‌فرض وقتی label داده نشود */
-  protected defaultLabel: string | null = null;
-  protected defaultPlaceholder = "";
+  protected get defaultLabel(): string | null {
+    return null;
+  }
+  protected get defaultPlaceholder(): string {
+    return "";
+  }
 
   connectedCallback() {
     afterParse(() => {
@@ -140,7 +144,7 @@ export class KashiCombobox extends HTMLBase {
     const required = this.hasAttribute("required");
     const disabled = this.hasAttribute("disabled");
     const listId = `${id}-list`;
-    const control = `<div class="k-combobox"><div class="k-input"${disabled ? ' data-state="disabled"' : ""}><input id="${id}" class="k-input__control" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="${listId}" autocomplete="off" placeholder="${esc(this.getAttribute("placeholder") ?? this.defaultPlaceholder)}"${required ? " required" : ""}${disabled ? " disabled" : ""}${!label && ariaLabel ? ` aria-label="${esc(ariaLabel)}"` : ""}><button type="button" tabindex="-1" class="k-input__action k-combobox__toggle" aria-label="نمایش گزینه‌ها"${disabled ? " disabled" : ""}>${CHEVRON}</button></div><ul id="${listId}" role="listbox" class="k-listbox" hidden style="inset-block-start: calc(100% + 6px)"${label ? ` aria-label="${esc(label)}"` : ` aria-labelledby="${id}"`}></ul><span class="k-sr-only" aria-live="polite"></span></div>`;
+    const control = `<div class="k-combobox"><div class="k-input"${disabled ? ' data-state="disabled"' : ""}><input id="${id}" class="k-input__control" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="${listId}" autocomplete="off" placeholder="${esc(this.getAttribute("placeholder") ?? this.defaultPlaceholder)}"${required ? " required" : ""}${disabled ? " disabled" : ""}${!label && ariaLabel ? ` aria-label="${esc(ariaLabel)}"` : ""}><button type="button" tabindex="-1" class="k-input__action k-combobox__toggle" aria-label="${esc(msg().combobox.toggle)}"${disabled ? " disabled" : ""}>${CHEVRON}</button></div><ul id="${listId}" role="listbox" class="k-listbox" hidden style="inset-block-start: calc(100% + 6px)"${label ? ` aria-label="${esc(label)}"` : ` aria-labelledby="${id}"`}></ul><span class="k-sr-only" aria-live="polite"></span></div>`;
     this.querySelector(":scope > .k-field")?.remove();
     this.insertAdjacentHTML("afterbegin", fieldHTML({ id, label, required, control }));
     this.input = this.querySelector("input.k-input__control")!;
@@ -255,10 +259,10 @@ export class KashiCombobox extends HTMLBase {
       const on = o.value === this.selected?.value;
       return `${header}<li id="${listId}-${i}" data-i="${i}" role="option" aria-selected="${on}"${o.disabled ? ' aria-disabled="true"' : ""}${i === this.active ? " data-active" : ""} class="k-option"><span class="k-option__body"><span>${mark(o.label)}</span>${o.description ? `<span class="k-option__desc">${esc(o.description)}</span>` : ""}</span>${on ? `<span class="k-option__check">${CHECK}</span>` : ""}</li>`;
     });
-    if (!this.filtered.length) items.push(`<li class="k-listbox__empty" role="presentation">${esc(this.getAttribute("empty-message") ?? "نتیجه‌ای پیدا نشد.")}</li>`);
-    if (this.filtered.length > MAX_RENDER) items.push(`<li class="k-listbox__empty" role="presentation">${toFaDigits(this.filtered.length - MAX_RENDER)} گزینهٔ دیگر؛ برای پیدا کردن تایپ کنید.</li>`);
+    if (!this.filtered.length) items.push(`<li class="k-listbox__empty" role="presentation">${esc(this.getAttribute("empty-message") ?? msg().common.noResults)}</li>`);
+    if (this.filtered.length > MAX_RENDER) items.push(`<li class="k-listbox__empty" role="presentation">${esc(msg().combobox.more(num(this, this.filtered.length - MAX_RENDER)))}</li>`);
     this.listbox.innerHTML = items.join("");
-    this.live.textContent = this.typing ? `${toFaDigits(this.filtered.length)} نتیجه` : "";
+    this.live.textContent = this.typing ? msg().common.results(num(this, this.filtered.length)) : "";
     this.setActive(this.active);
   }
 
@@ -320,11 +324,15 @@ export class KashiCombobox extends HTMLBase {
 /** انتخاب یکی از ۳۱ استان با جستجو؛ با نام مرکز استان هم پیدا می‌شود (مثلاً «مشهد») */
 export class KashiProvinceSelect extends KashiCombobox {
   static observedAttributes = [...KashiCombobox.observedAttributes, "show-capital"];
-  protected defaultLabel = "استان";
-  protected defaultPlaceholder = "جستجوی استان یا شهر";
+  protected get defaultLabel() {
+    return msg().province.label;
+  }
+  protected get defaultPlaceholder() {
+    return msg().province.search;
+  }
   protected source(): ComboboxOption[] {
     const capital = this.getAttribute("show-capital") !== "false";
-    return PROVINCES.map((p) => ({ value: p.name, label: p.name, description: capital ? `مرکز: ${p.capital}` : undefined, keywords: [p.capital] }));
+    return PROVINCES.map((p) => ({ value: p.name, label: p.name, description: capital ? msg().province.capital(p.capital) : undefined, keywords: [p.capital] }));
   }
   protected detail() {
     return { value: this.value, province: PROVINCES.find((p) => p.name === this.value) ?? null };
@@ -341,7 +349,12 @@ const loose = (s: string) => searchText(s).replace(/[\s‌]/g, "");
  */
 export class KashiCitySelect extends KashiCombobox {
   static observedAttributes = [...KashiCombobox.observedAttributes, "province", "allow-custom"];
-  protected defaultLabel = "شهر";
+  protected get defaultLabel() {
+    return msg().city.label;
+  }
+  protected get defaultPlaceholder() {
+    return this.placeholderText();
+  }
   private custom: string | null = null;
 
   get province(): string | null {
@@ -363,7 +376,7 @@ export class KashiCitySelect extends KashiCombobox {
     let o = city ? (list.find((x) => x.label === city && (!p || x.value.startsWith(`${p}${SEP}`))) ?? null) : null;
     if (city && !o) {
       this.custom = city;
-      o = { value: `custom${SEP}${city}`, label: city, description: "خارج از فهرست" };
+      o = { value: `custom${SEP}${city}`, label: city, description: msg().city.outside };
     }
     this.selected = o;
     this.query = o?.label ?? "";
@@ -394,21 +407,20 @@ export class KashiCitySelect extends KashiCombobox {
     }
   }
   connectedCallback() {
-    this.defaultPlaceholder = this.placeholderText();
     super.connectedCallback();
   }
   private placeholderText() {
-    return this.province ? "جستجوی شهر" : "نام شهر، مثلاً کاشان";
+    return this.province ? msg().city.search : msg().city.hint;
   }
   protected source(query: string): ComboboxOption[] {
     const p = this.province;
     const list: ComboboxOption[] = p
       ? getCities(p).map((c) => ({ value: `${p}${SEP}${c}`, label: c }))
       : Object.entries(CITIES).flatMap(([prov, cities]) => cities.map((c) => ({ value: `${prov}${SEP}${c}`, label: c, description: prov })));
-    if (this.custom) list.unshift({ value: `custom${SEP}${this.custom}`, label: this.custom, description: "خارج از فهرست" });
+    if (this.custom) list.unshift({ value: `custom${SEP}${this.custom}`, label: this.custom, description: msg().city.outside });
     const q = query.trim();
     if (this.getAttribute("allow-custom") !== "false" && q && q !== this.custom && !list.some((o) => loose(o.label) === loose(q)))
-      list.push({ value: `custom${SEP}${q}`, label: q, description: "شهر دیگر؛ همین نام ثبت شود" });
+      list.push({ value: `custom${SEP}${q}`, label: q, description: msg().city.custom });
     return list;
   }
   protected accepts(o: ComboboxOption, q: string) {

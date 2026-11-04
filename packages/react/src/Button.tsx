@@ -3,6 +3,7 @@
 import { forwardRef, type ButtonHTMLAttributes, type ElementType, type MouseEvent, type ReactNode } from "react";
 import { cx } from "./cx.js";
 import { isDev } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 export type ButtonVariant = "primary" | "secondary" | "tertiary" | "link" | "danger" | "danger-secondary";
 export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
@@ -39,11 +40,13 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
 
 export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
   {
-    variant = "secondary", size = "md", shape = "default", loading = false, loadingLabel = "در حال بارگذاری",
+    variant = "secondary", size = "md", shape = "default", loading = false, loadingLabel,
     block = false, iconOnly = false, iconStart, iconEnd, disabled, type = "button", href, as, className, children, onClick, ...rest
   },
   ref,
 ) {
+  const { messages: M } = useKashi();
+  loadingLabel ??= M.common.loading;
   if (isDev() && iconOnly && !rest["aria-label"] && !rest["aria-labelledby"]) {
     console.warn("[kashi] <Button iconOnly> بدون aria-label برای صفحه‌خوان‌ها بی‌نام است.");
   }

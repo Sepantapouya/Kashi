@@ -20,6 +20,11 @@ export const JALALI_MONTHS = [
 /** روزهای هفته از شنبه */
 export const WEEKDAYS = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"] as const;
 export const WEEKDAYS_SHORT = ["ش", "ی", "د", "س", "چ", "پ", "ج"] as const;
+/** نام ماه‌های شمسی به انگلیسی (آوانویسی رایج) برای رابط انگلیسی */
+export const JALALI_MONTHS_EN = ["Farvardin", "Ordibehesht", "Khordad", "Tir", "Mordad", "Shahrivar", "Mehr", "Aban", "Azar", "Dey", "Bahman", "Esfand"] as const;
+/** روزهای هفته از شنبه، به انگلیسی */
+export const WEEKDAYS_EN = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"] as const;
+export const WEEKDAYS_SHORT_EN = ["Sa", "Su", "Mo", "Tu", "We", "Th", "Fr"] as const;
 
 const BREAKS = [-61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210, 1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178];
 
@@ -126,18 +131,21 @@ export function jalaliWeekday(date: Date): number {
 export interface FormatJalaliOptions {
   /** "numeric": ۱۴۰۳/۰۵/۱۲ — "long": ۱۲ مرداد ۱۴۰۳ — "full": جمعه ۱۲ مرداد ۱۴۰۳ @default "numeric" */
   style?: "numeric" | "long" | "full";
-  /** @default "fa" */
+  /** پیش‌فرض: "fa" برای locale فارسی و "latin" برای انگلیسی */
   digits?: "fa" | "latin";
+  /** زبان نام ماه و روز: "en" ← «Saturday, 16 Aban 1405» @default "fa" */
+  locale?: "fa" | "en";
 }
 
-export function formatJalali(date: Date, { style = "numeric", digits = "fa" }: FormatJalaliOptions = {}): string {
+export function formatJalali(date: Date, { style = "numeric", locale = "fa", digits = locale === "en" ? "latin" : "fa" }: FormatJalaliOptions = {}): string {
   const { jy, jm, jd } = toJalali(date);
   const pad = (n: number) => String(n).padStart(2, "0");
+  const en = locale === "en";
   let out: string;
   if (style === "numeric") out = `${jy}/${pad(jm)}/${pad(jd)}`;
   else {
-    out = `${jd} ${JALALI_MONTHS[jm - 1]} ${jy}`;
-    if (style === "full") out = `${WEEKDAYS[jalaliWeekday(date)]} ${out}`;
+    out = `${jd} ${(en ? JALALI_MONTHS_EN : JALALI_MONTHS)[jm - 1]} ${jy}`;
+    if (style === "full") out = en ? `${WEEKDAYS_EN[jalaliWeekday(date)]}, ${out}` : `${WEEKDAYS[jalaliWeekday(date)]} ${out}`;
   }
   return digits === "fa" ? toFaDigits(out) : out;
 }

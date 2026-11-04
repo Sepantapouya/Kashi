@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface Column<T> {
   key: string;
@@ -102,7 +103,8 @@ export function DataTable<T extends Record<string, unknown>>({
     if (allRef.current) allRef.current.indeterminate = some;
   }, [some]);
 
-  const { selectAll = "انتخاب همهٔ ردیف‌ها", selectRow = () => "انتخاب ردیف", loading: loadingLabel = "در حال بارگذاری" } = labels;
+  const { messages: M } = useKashi();
+  const { selectAll = M.table.selectAll, selectRow = () => M.table.selectRow, loading: loadingLabel = M.common.loading } = labels;
   const loadingRows = loading === true ? 5 : typeof loading === "number" ? loading : 0;
   const cellCls = (c: Column<T>) =>
     cx(c.numeric && "k-table__num", c.align && !c.numeric && `k-table__align-${c.align}`, c.hideBelow && `k-table__hide-${c.hideBelow}`, c.className, classNames.cell) || undefined;
@@ -150,7 +152,7 @@ export function DataTable<T extends Record<string, unknown>>({
               </tr>
             ))
           ) : sorted.length === 0 ? (
-            <tr className="k-table__empty"><td colSpan={colCount}>{empty ?? <p style={{ padding: "2rem", margin: 0, textAlign: "center" }}>داده‌ای وجود ندارد.</p>}</td></tr>
+            <tr className="k-table__empty"><td colSpan={colCount}>{empty ?? <p style={{ padding: "2rem", margin: 0, textAlign: "center" }}>{M.table.empty}</p>}</td></tr>
           ) : (
             sorted.map((r) => {
               const rid = getRowId(r);

@@ -3,6 +3,7 @@
 import { useId, useState, type CSSProperties, type ReactNode } from "react";
 import { formatNumber } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Val = number | [number, number];
 /** نوع مقدار فقط از value/defaultValue حدس زده شود، نه از onChange؛ وگرنه setState (که تابع هم می‌پذیرد) خطای نوع می‌دهد. با همهٔ نسخه‌های TypeScript کار می‌کند */
@@ -35,7 +36,7 @@ export interface SliderProps<V extends Val = Val> {
 /** اسلایدر روی <input type="range"> بومی؛ با آرایهٔ دوتایی، بازه با دو دستگیره */
 export function Slider<V extends Val>({
   label, value, defaultValue, onChange, min = 0, max = 100, step = 1, showValue = true,
-  format = (n) => formatNumber(n), marks, disabled, name, className, labels = {},
+  format, marks, disabled, name, className, labels = {},
 }: SliderProps<V>) {
   const id = useId();
   const isRange = Array.isArray(value ?? defaultValue);
@@ -43,7 +44,9 @@ export function Slider<V extends Val>({
   const current = (value ?? inner) as Val;
   const [lo, hi] = Array.isArray(current) ? current : [min, current];
   const pct = (n: number) => `${((n - min) / (max - min)) * 100}%`;
-  const { from = "حداقل", to = "حداکثر", separator = " تا " } = labels;
+  const { messages: M, digits: D } = useKashi();
+  format ??= (x: number) => formatNumber(x, { digits: D });
+  const { from = M.slider.from, to = M.slider.to, separator = M.common.range } = labels;
 
   const set = (next: Val) => {
     if (value === undefined) setInner(next);

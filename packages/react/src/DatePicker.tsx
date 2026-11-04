@@ -5,6 +5,7 @@ import { formatJalali, parseJalali, toISODate } from "@kashi-ui/persian";
 import { Calendar, sameDay, type CalendarLabels, type CalendarProps } from "./Calendar.js";
 import { Input, type InputProps } from "./Input.js";
 import { mergeRefs, useIsomorphicLayoutEffect } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange" | "type" | "addonEnd" | "min" | "max">;
 
@@ -35,12 +36,17 @@ export interface DatePickerProps extends Base {
  */
 export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function DatePicker(
   {
-    value, defaultValue = null, onChange, min, max, isDateDisabled, holidays, digits = "fa", yearRange,
-    invalidMessage = "این تاریخ معتبر نیست؛ آن را به شکل ۱۴۰۳/۰۵/۱۲ وارد کنید.", openLabel = "انتخاب تاریخ از تقویم",
-    todayLabel = "امروز", calendarLabels, error, name, onBlur, placeholder, ...rest
+    value, defaultValue = null, onChange, min, max, isDateDisabled, holidays, digits, yearRange,
+    invalidMessage, openLabel,
+    todayLabel, calendarLabels, error, name, onBlur, placeholder, ...rest
   },
   ref,
 ) {
+  const { messages: M, digits: D, locale } = useKashi();
+  digits ??= D;
+  invalidMessage ??= M.datePicker.invalid;
+  openLabel ??= M.datePicker.open;
+  todayLabel ??= M.common.today;
   const id = useId();
   const popoverId = `${id}-calendar`;
   const [inner, setInner] = useState<Date | null>(defaultValue);
@@ -115,7 +121,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
             ref={button}
             type="button"
             className="k-btn k-btn--tertiary k-btn--icon k-btn--sm k-datepicker__toggle"
-            aria-label={selected ? `${openLabel}، ${formatJalali(selected, { style: "full", digits })}` : openLabel}
+            aria-label={selected ? `${openLabel}${M.common.list}${formatJalali(selected, { style: "full", digits, locale })}` : openLabel}
             aria-haspopup="dialog"
             aria-expanded={open}
             aria-controls={open ? popoverId : undefined}

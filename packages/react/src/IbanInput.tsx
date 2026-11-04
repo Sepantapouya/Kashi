@@ -6,6 +6,7 @@ import { BankBadge } from "./BankBadge.js";
 import { Input, type InputProps } from "./Input.js";
 import { useDigitsInput } from "./useDigitsInput.js";
 import { mergeRefs } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 type Base = Omit<InputProps, "value" | "defaultValue" | "onChange" | "type" | "inputMode" | "addonEnd">;
 
@@ -29,9 +30,11 @@ const ibanOf = (d: string) => (d ? `IR${d}` : "");
 
 /** فیلد شماره شبا: IR خودکار، گروه‌بندی، تشخیص بانک با لوگو و بررسی رقم‌های کنترل */
 export const IbanInput = forwardRef<HTMLInputElement, IbanInputProps>(function IbanInput(
-  { value, defaultValue, onValueChange, digits = "latin", showBank = true, showBankLogo = true, invalidMessage = "شماره شبا معتبر نیست.", error, name, id, onBlur, placeholder, ...rest },
+  { value, defaultValue, onValueChange, digits = "latin", showBank = true, showBankLogo = true, invalidMessage, error, name, id, onBlur, placeholder, ...rest },
   ref,
 ) {
+  const { messages: M } = useKashi();
+  invalidMessage ??= M.invalid.iban;
   const autoId = useId();
   const inputId = id ?? autoId;
   const [touched, setTouched] = useState(false);

@@ -1,8 +1,7 @@
 import {
   PLATE_LETTERS, fixKeyboardLayout, fixPersianText, formatNumber, formatPlate, formatTime, isValidPlate, looksLikeWrongLayout,
-  onlyDigits, parseTime, plateType, toFaDigits, type Plate, type Time,
-} from "@kashi-ui/persian";
-import { HTMLBase, afterParse, bool, define, emit, esc, fieldHTML, setMessages, syncHidden, uid } from "./base.js";
+  onlyDigits, parseTime, plateType, toFaDigits, type Plate, type Time, type KashiMessages } from "@kashi-ui/persian";
+import { afterParse, bool, define, digitsOf, emit, esc, fieldHTML, HTMLBase, lang, localeDigits, msg, num, setMessages, syncHidden, uid } from "./base.js";
 import { searchText, type ComboboxOption } from "./combobox.js";
 
 const CHECK = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 10.5 3.2 3L15 7"/></svg>';
@@ -80,7 +79,7 @@ export class KashiMultiSelect extends HTMLBase {
   private render() {
     const id = this.key;
     const ariaLabel = this.getAttribute("aria-label");
-    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : "انتخاب";
+    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : msg().multiSelect.label;
     const off = this.hasAttribute("disabled");
     const control = `<div class="k-combobox k-multiselect"><div class="k-tag-input"><input id="${id}" class="k-tag-input__control" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="${id}-list" autocomplete="off"${off ? " disabled" : ""}${!label && ariaLabel ? ` aria-label="${esc(ariaLabel)}"` : ""}></div><ul id="${id}-list" role="listbox" aria-multiselectable="true" class="k-listbox" hidden style="inset-block-start: calc(100% + 6px)"${label ? ` aria-label="${esc(label)}"` : ""}></ul><span id="${id}-count" class="k-sr-only"></span><span class="k-sr-only" aria-live="polite"></span></div>`;
     this.querySelector(":scope > .k-field")?.remove();
@@ -90,8 +89,8 @@ export class KashiMultiSelect extends HTMLBase {
     this.listbox = this.querySelector(".k-listbox")!;
     this.box.addEventListener("click", (e) => {
       const rm = (e.target as Element).closest<HTMLElement>("[data-remove]");
-      if (rm) this.set(this.chosen.filter((v) => v !== rm.dataset.remove), `${this.labelOf(rm.dataset.remove!)} حذف شد`);
-      else if ((e.target as Element).closest("[data-clear]")) this.set([], "همه حذف شد");
+      if (rm) this.set(this.chosen.filter((v) => v !== rm.dataset.remove), msg().common.removed(this.labelOf(rm.dataset.remove!)));
+      else if ((e.target as Element).closest("[data-clear]")) this.set([], msg().multiSelect.clearedAll);
       this.input.focus();
     });
     this.input.addEventListener("input", () => {
@@ -124,10 +123,10 @@ export class KashiMultiSelect extends HTMLBase {
   private toggle(o: ComboboxOption | undefined) {
     if (!o || o.disabled) return;
     const on = this.chosen.includes(o.value);
-    if (!on && this.full) return this.announce(`حداکثر ${toFaDigits(Number(this.getAttribute("max")))} مورد`);
+    if (!on && this.full) return this.announce(msg().common.max(num(this, Number(this.getAttribute("max")))));
     this.query = "";
     this.input.value = "";
-    this.set(on ? this.chosen.filter((v) => v !== o.value) : [...this.chosen, o.value], `${o.label} ${on ? "حذف شد" : "انتخاب شد"}`);
+    this.set(on ? this.chosen.filter((v) => v !== o.value) : [...this.chosen, o.value], on ? msg().common.removed(o.label) : msg().common.selected(o.label));
   }
 
   private set(next: string[], message: string) {
@@ -183,18 +182,18 @@ export class KashiMultiSelect extends HTMLBase {
       this.close();
     } else if (e.key === "Backspace" && !this.input.value && this.chosen.length) {
       const last = this.chosen.at(-1)!;
-      this.set(this.chosen.slice(0, -1), `${this.labelOf(last)} حذف شد`);
+      this.set(this.chosen.slice(0, -1), msg().common.removed(this.labelOf(last)));
     }
   }
 
   private paint() {
     const off = this.hasAttribute("disabled");
     this.box.querySelectorAll(".k-badge, [data-clear]").forEach((el) => el.remove());
-    const badges = this.chosen.map((v) => `<span class="k-badge k-badge--brand${off ? "" : " k-badge--removable"}">${esc(this.labelOf(v))}${off ? "" : `<button type="button" class="k-badge__remove" data-remove="${esc(v)}" aria-label="حذف ${esc(this.labelOf(v))}">${X}</button>`}</span>`).join("");
+    const badges = this.chosen.map((v) => `<span class="k-badge k-badge--brand${off ? "" : " k-badge--removable"}">${esc(this.labelOf(v))}${off ? "" : `<button type="button" class="k-badge__remove" data-remove="${esc(v)}" aria-label="${esc(msg().common.remove(this.labelOf(v)))}">${X}</button>`}</span>`).join("");
     this.input.insertAdjacentHTML("beforebegin", badges);
-    if (this.chosen.length > 1 && !off) this.box.insertAdjacentHTML("beforeend", `<button type="button" class="k-input__action" data-clear aria-label="پاک کردن همه">${X}</button>`);
+    if (this.chosen.length > 1 && !off) this.box.insertAdjacentHTML("beforeend", `<button type="button" class="k-input__action" data-clear aria-label="${esc(msg().common.clearAll)}">${X}</button>`);
     this.input.placeholder = this.chosen.length ? "" : (this.getAttribute("placeholder") ?? "");
-    this.querySelector(`#${this.key}-count`)!.textContent = `${toFaDigits(this.chosen.length)} مورد انتخاب شده`;
+    this.querySelector(`#${this.key}-count`)!.textContent = msg().multiSelect.selected(num(this, this.chosen.length));
     const error = this.getAttribute("error");
     this.box.toggleAttribute("data-invalid", !!error);
     setMessages(this.querySelector(":scope > .k-field")!, this.input, this.key, error, this.getAttribute("hint"), `${this.key}-count`);
@@ -215,7 +214,7 @@ export class KashiMultiSelect extends HTMLBase {
           const on = this.chosen.includes(o.value);
           return `<li id="${this.key}-list-${i}" data-i="${i}" role="option" aria-selected="${on}"${o.disabled || (!on && full) ? ' aria-disabled="true"' : ""}${i === this.active ? " data-active" : ""} class="k-option k-option--check"><span class="k-multiselect__box" aria-hidden="true">${on ? CHECK : ""}</span><span class="k-option__body"><span>${mark(o.label)}</span>${o.description ? `<span class="k-option__desc">${esc(o.description)}</span>` : ""}</span></li>`;
         }).join("")
-      : '<li class="k-listbox__empty" role="presentation">نتیجه‌ای پیدا نشد.</li>';
+      : `<li class="k-listbox__empty" role="presentation">${esc(msg().common.noResults)}</li>`;
     const act = this.active >= 0 ? this.listbox.querySelector<HTMLElement>(`[data-i="${this.active}"]`) : null;
     if (act) {
       this.input.setAttribute("aria-activedescendant", act.id);
@@ -272,7 +271,7 @@ export class KashiSlider extends HTMLBase {
 
   private fmt(n: number) {
     const unit = this.getAttribute("unit");
-    return `${formatNumber(n)}${unit ? ` ${unit}` : ""}`;
+    return `${formatNumber(n, { digits: digitsOf(this) })}${unit ? ` ${unit}` : ""}`;
   }
 
   private render() {
@@ -284,11 +283,11 @@ export class KashiSlider extends HTMLBase {
     const input = (which: "lo" | "hi") => {
       const v = which === "lo" ? this.lo : this.hi;
       const n = name ? (range ? `${name}_${which === "lo" ? "min" : "max"}` : name) : "";
-      return `<input type="range" class="k-slider__input" data-which="${which}" min="${this.min}" max="${this.max}" step="${this.num("step", 1)}" value="${v}"${off ? " disabled" : ""}${n ? ` name="${esc(n)}"` : ""}${range ? ` aria-label="${which === "lo" ? "حداقل" : "حداکثر"}${label ? ` ${esc(label)}` : ""}"` : label ? ` aria-labelledby="${this.key}-label"` : ""} aria-valuetext="${esc(this.fmt(v))}">`;
+      return `<input type="range" class="k-slider__input" data-which="${which}" min="${this.min}" max="${this.max}" step="${this.num("step", 1)}" value="${v}"${off ? " disabled" : ""}${n ? ` name="${esc(n)}"` : ""}${range ? ` aria-label="${esc(which === "lo" ? msg().slider.from : msg().slider.to)}${label ? ` ${esc(label)}` : ""}"` : label ? ` aria-labelledby="${this.key}-label"` : ""} aria-valuetext="${esc(this.fmt(v))}">`;
     };
     const marks = (this.getAttribute("marks") ?? "").split(/[,،]/).map((s) => s.trim()).filter(Boolean).map(Number);
     const showValue = this.getAttribute("show-value") !== "false";
-    this.innerHTML = `<div class="k-slider"${range ? ' data-range=""' : ""}>${label || showValue ? `<div class="k-slider__head">${label ? `<span class="k-label" id="${this.key}-label">${esc(label)}</span>` : ""}${showValue ? `<span class="k-slider__value" aria-hidden="true">${esc(range ? `${this.fmt(this.lo)} تا ${this.fmt(this.hi)}` : this.fmt(this.hi))}</span>` : ""}</div>` : ""}<div class="k-slider__track" style="--_from: ${range ? pct(this.lo) : "0%"}; --_to: ${pct(this.hi)}"><span class="k-slider__fill" aria-hidden="true"></span>${range ? input("lo") : ""}${input("hi")}</div>${marks.length ? `<div class="k-slider__marks" aria-hidden="true">${marks.map((m) => `<span>${esc(this.fmt(m))}</span>`).join("")}</div>` : ""}</div>`;
+    this.innerHTML = `<div class="k-slider"${range ? ' data-range=""' : ""}>${label || showValue ? `<div class="k-slider__head">${label ? `<span class="k-label" id="${this.key}-label">${esc(label)}</span>` : ""}${showValue ? `<span class="k-slider__value" aria-hidden="true">${esc(range ? `${this.fmt(this.lo)}${msg().common.range}${this.fmt(this.hi)}` : this.fmt(this.hi))}</span>` : ""}</div>` : ""}<div class="k-slider__track" style="--_from: ${range ? pct(this.lo) : "0%"}; --_to: ${pct(this.hi)}"><span class="k-slider__fill" aria-hidden="true"></span>${range ? input("lo") : ""}${input("hi")}</div>${marks.length ? `<div class="k-slider__marks" aria-hidden="true">${marks.map((m) => `<span>${esc(this.fmt(m))}</span>`).join("")}</div>` : ""}</div>`;
     this.rendered = true;
     this.querySelectorAll<HTMLInputElement>(".k-slider__input").forEach((el) =>
       el.addEventListener("input", () => {
@@ -303,7 +302,7 @@ export class KashiSlider extends HTMLBase {
         track.style.setProperty("--_from", range ? pct(this.lo) : "0%");
         track.style.setProperty("--_to", pct(this.hi));
         const out = this.querySelector(".k-slider__value");
-        if (out) out.textContent = range ? `${this.fmt(this.lo)} تا ${this.fmt(this.hi)}` : this.fmt(this.hi);
+        if (out) out.textContent = range ? `${this.fmt(this.lo)}${msg().common.range}${this.fmt(this.hi)}` : this.fmt(this.hi);
         emit(this, "kashi-change", { value: this.value });
       }),
     );
@@ -345,7 +344,7 @@ export class KashiChipGroup extends HTMLBase {
       b.dataset.value ||= b.textContent?.trim() ?? "";
       b.setAttribute("aria-pressed", String(b.hasAttribute("data-pressed") || b.getAttribute("aria-pressed") === "true"));
       b.insertAdjacentHTML("afterbegin", '<svg class="k-chip__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 10.5 3.2 3L15 7"/></svg>');
-      if (b.dataset.count) b.insertAdjacentHTML("beforeend", `<span class="k-chip__count">${toFaDigits(b.dataset.count)}</span>`);
+      if (b.dataset.count) b.insertAdjacentHTML("beforeend", `<span class="k-chip__count">${num(this, b.dataset.count ?? "")}</span>`);
     });
     this.addEventListener("click", (e) => {
       const b = (e.target as Element).closest<HTMLButtonElement>(".k-chip");
@@ -363,11 +362,11 @@ export class KashiChipGroup extends HTMLBase {
   }
 }
 
-const RULES: [string, (p: string) => boolean][] = [
-  [`حداقل ${toFaDigits(8)} نویسه`, (p) => p.length >= 8],
-  ["حروف بزرگ و کوچک انگلیسی", (p) => /[a-z]/.test(p) && /[A-Z]/.test(p)],
-  ["دست‌کم یک عدد", (p) => /\d/.test(p)],
-  ["دست‌کم یک نماد، مثل ! یا @", (p) => /[^A-Za-z0-9\s؀-ۿ]/.test(p)],
+const RULES: [(m: KashiMessages["password"]) => string, (p: string) => boolean][] = [
+  [(m) => m.length(localeDigits() === "fa" ? toFaDigits(8) : "8"), (p) => p.length >= 8],
+  [(m) => m.cases, (p) => /[a-z]/.test(p) && /[A-Z]/.test(p)],
+  [(m) => m.digit, (p) => /\d/.test(p)],
+  [(m) => m.symbol, (p) => /[^A-Za-z0-9\s؀-ۿ]/.test(p)],
 ];
 
 /** قدرت رمز زیر فیلد رمز؛ با for="شناسهٔ فیلد" به آن وصل می‌شود و با هر تایپ به‌روز می‌شود */
@@ -413,11 +412,12 @@ export class KashiPasswordStrength extends HTMLBase {
 
   private render(p: string) {
     const score = this.score(p);
-    const levels = ["ضعیف", "متوسط", "خوب", "قوی"];
+    const P = msg().password;
+    const levels = P.levels;
     const persian = /[؀-ۿ]/.test(p);
-    this.innerHTML = `<div class="k-strength" data-score="${score}"><div class="k-strength__bars" aria-hidden="true">${"<span class=\"k-strength__bar\"></span>".repeat(4)}</div><p class="k-strength__label" aria-live="polite" style="margin: 0">${score ? `قدرت رمز: <strong>${levels[score - 1]}</strong>` : ""}</p>${persian ? '<p class="k-hint k-hint--error" role="alert">رمز حروف فارسی دارد؛ شاید صفحه‌کلید روی فارسی مانده است.</p>' : ""}${this.getAttribute("show-rules") === "false" ? "" : `<ul class="k-strength__rules">${RULES.map(([label, t]) => {
+    this.innerHTML = `<div class="k-strength" data-score="${score}"><div class="k-strength__bars" aria-hidden="true">${"<span class=\"k-strength__bar\"></span>".repeat(4)}</div><p class="k-strength__label" aria-live="polite" style="margin: 0">${score ? esc(P.strength("\u0000")).replace("\u0000", `<strong>${esc(levels[score - 1])}</strong>`) : ""}</p>${persian ? `<p class="k-hint k-hint--error" role="alert">${esc(P.persian)}</p>` : ""}${this.getAttribute("show-rules") === "false" ? "" : `<ul class="k-strength__rules">${RULES.map(([label, t]) => {
       const met = t(p);
-      return `<li class="k-strength__rule"${met ? ' data-met=""' : ""}>${met ? CHECK : '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="2.5" fill="currentColor"/></svg>'}<span>${label}<span class="k-sr-only">${met ? "، رعایت شده" : "، رعایت نشده"}</span></span></li>`;
+      return `<li class="k-strength__rule"${met ? ' data-met=""' : ""}>${met ? CHECK : '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="2.5" fill="currentColor"/></svg>'}<span>${esc(label(P))}<span class="k-sr-only">${met ? P.met : P.unmet}</span></span></li>`;
     }).join("")}</ul>`}</div>`;
   }
 }
@@ -430,7 +430,7 @@ abstract class TextField extends HTMLBase {
   protected valueSet = false;
   protected text = "";
   protected abstract multiline: boolean;
-  protected abstract defaultLabel: string;
+  protected abstract get defaultLabel(): string;
   protected abstract hint(): string | null;
 
   connectedCallback() {
@@ -501,13 +501,15 @@ abstract class TextField extends HTMLBase {
   }
 }
 
-const KINDS = { arabic: "حرف عربی", zwnj: "نیم‌فاصله", punctuation: "علامت", digits: "رقم", spacing: "فاصله" } as const;
+const KINDS = ["arabic", "zwnj", "punctuation", "digits", "spacing"] as const;
 
 /** متن چندخطی با ویرایش نگارشی: ی و ک عربی، نیم‌فاصله، علامت‌ها و ارقام را می‌شمارد و با یک دکمه اصلاح می‌کند */
 export class KashiPersianTextarea extends TextField {
   static observedAttributes = ["label", "hint", "error", "placeholder", "required", "disabled", "name", "value", "rows", "fix-on-blur", "fix-digits", "aria-label"];
   protected multiline = true;
-  protected defaultLabel = "متن";
+  protected get defaultLabel() {
+    return msg().persianInput.text;
+  }
   protected render() {
     super.render();
     this.control.addEventListener("blur", () => {
@@ -524,9 +526,10 @@ export class KashiPersianTextarea extends TextField {
   protected hint() {
     if (!this.text.trim()) return this.getAttribute("hint") ? esc(this.getAttribute("hint")) : null;
     const r = this.result();
-    if (!r.count) return '<span class="k-textfix" data-state="clean"><span class="k-textfix__text">نگارش متن درست است.</span></span>';
-    const summary = (Object.keys(KINDS) as (keyof typeof KINDS)[]).filter((k) => r.fixes[k]).map((k) => `${toFaDigits(r.fixes[k])} ${KINDS[k]}`).join("، ");
-    return `<span class="k-textfix" data-state="fix"><span class="k-textfix__text">${toFaDigits(r.count)} مورد قابل اصلاح: ${summary}</span><button type="button" class="k-btn k-btn--tertiary k-btn--xs" data-fix>اصلاح نگارش</button></span>`;
+    if (!r.count) return `<span class="k-textfix" data-state="clean"><span class="k-textfix__text">${esc(msg().textFix.clean)}</span></span>`;
+    const T = msg().textFix;
+    const summary = KINDS.filter((k) => r.fixes[k]).map((k) => `${num(this, r.fixes[k])} ${T[k]}`).join(msg().common.list);
+    return `<span class="k-textfix" data-state="fix"><span class="k-textfix__text">${esc(T.count(num(this, r.count), summary))}</span><button type="button" class="k-btn k-btn--tertiary k-btn--xs" data-fix>${esc(T.fix)}</button></span>`;
   }
 }
 
@@ -534,7 +537,9 @@ export class KashiPersianTextarea extends TextField {
 export class KashiKeyboardFix extends TextField {
   static observedAttributes = ["label", "hint", "error", "placeholder", "required", "disabled", "name", "value", "suggest", "aria-label"];
   protected multiline = false;
-  protected defaultLabel = "متن";
+  protected get defaultLabel() {
+    return msg().persianInput.text;
+  }
   protected render() {
     super.render();
     this.addEventListener("click", (e) => {
@@ -546,7 +551,7 @@ export class KashiKeyboardFix extends TextField {
     const latin = /[a-z]/i.test(t) && !/[؀-ۿ]/.test(t);
     const show = this.getAttribute("suggest") === "always" ? latin : looksLikeWrongLayout(t);
     if (!show) return this.getAttribute("hint") ? esc(this.getAttribute("hint")) : null;
-    return `<span class="k-kbfix" role="status">منظورتان <button type="button" class="k-kbfix__btn" data-fix>«${esc(fixKeyboardLayout(t))}»</button> بود؟</span>`;
+    return `<span class="k-kbfix" role="status">${esc(msg().keyboardFix.before)} <button type="button" class="k-kbfix__btn" data-fix>«${esc(fixKeyboardLayout(t))}»</button>${lang() === "en" ? "" : " "}${esc(msg().keyboardFix.after)}</span>`;
   }
 }
 
@@ -588,7 +593,7 @@ export class KashiTimeInput extends HTMLBase {
     return t ? formatTime(t) : null;
   }
   private show(s: string | null) {
-    return s ? (this.getAttribute("digits") === "latin" ? s : toFaDigits(s)) : "";
+    return s ? (digitsOf(this) === "latin" ? s : toFaDigits(s)) : "";
   }
   private get lo() {
     const t = parseTime(this.getAttribute("min") ?? "");
@@ -602,8 +607,8 @@ export class KashiTimeInput extends HTMLBase {
   private render() {
     const id = this.key;
     const ariaLabel = this.getAttribute("aria-label");
-    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : "ساعت";
-    const fa = this.getAttribute("digits") !== "latin";
+    const label = this.hasAttribute("label") ? this.getAttribute("label") : ariaLabel ? null : msg().persianInput.time;
+    const fa = digitsOf(this) === "fa";
     const control = `<div class="k-input"><input id="${id}" class="k-input__control" type="text" inputmode="numeric" dir="ltr" autocomplete="off" placeholder="${esc(this.getAttribute("placeholder") ?? (fa ? "۰۹:۳۰" : "09:30"))}"${this.hasAttribute("required") ? " required" : ""}${this.hasAttribute("disabled") ? " disabled" : ""}${!label && ariaLabel ? ` aria-label="${esc(ariaLabel)}"` : ""}><span class="k-input__addon">${CLOCK}</span></div>`;
     this.querySelector(":scope > .k-field")?.remove();
     this.insertAdjacentHTML("afterbegin", fieldHTML({ id, label, required: this.hasAttribute("required"), control }));
@@ -642,11 +647,11 @@ export class KashiTimeInput extends HTMLBase {
   }
   private paint(syncText = true) {
     if (syncText) this.input.value = this.show(this.current);
-    const msg = this.invalid === "range"
-      ? `ساعت باید بین ${this.show(formatTime(fromMin(this.lo)))} و ${this.show(formatTime(fromMin(this.hi)))} باشد.`
-      : this.invalid ? "ساعت معتبر نیست؛ آن را به شکل ۰۹:۳۰ وارد کنید." : null;
-    this.input.setCustomValidity(msg ?? "");
-    setMessages(this.querySelector(":scope > .k-field")!, this.input, this.key, this.getAttribute("error") || msg, this.getAttribute("hint"));
+    const text = this.invalid === "range"
+      ? msg().invalid.timeRange(this.show(formatTime(fromMin(this.lo))), this.show(formatTime(fromMin(this.hi))))
+      : this.invalid ? msg().invalid.time : null;
+    this.input.setCustomValidity(text ?? "");
+    setMessages(this.querySelector(":scope > .k-field")!, this.input, this.key, this.getAttribute("error") || text, this.getAttribute("hint"));
     syncHidden(this, this.getAttribute("name"), this.current ?? "");
   }
 }
@@ -694,8 +699,9 @@ export class KashiPlateInput extends HTMLBase {
     const off = this.hasAttribute("disabled") ? " disabled" : "";
     const seg = (key: keyof Plate, len: number, aria: string, cls = "", first = false) =>
       `<input${first ? ` id="${k}-first"` : ""} class="k-plate__seg ${cls}" data-key="${key}" data-len="${len}" inputmode="numeric" autocomplete="off" aria-label="${aria}" placeholder="${toFaDigits("0".repeat(len))}" value="${toFaDigits(p[key])}"${off}>`;
-    const label = this.getAttribute("label") ?? "پلاک خودرو";
-    const control = `<div class="k-plate" role="group" aria-label="${esc(label)}" data-type="${plateType(p.letter)}"><span class="k-plate__flag" aria-hidden="true"><span class="k-plate__flag-colors"></span>I.R.<br>IRAN</span>${seg("first", 2, "دو رقم اول پلاک", "", true)}<select class="k-plate__letter" data-key="letter" aria-label="حرف پلاک"${off}><option value="">–</option>${PLATE_LETTERS.map((l) => `<option value="${l}"${l === p.letter ? " selected" : ""}>${l === "ه" ? "هـ" : l}</option>`).join("")}</select>${seg("middle", 3, "سه رقم پلاک", "k-plate__seg--3")}<span class="k-plate__region"><span class="k-plate__region-label" aria-hidden="true">ایران</span>${seg("region", 2, "کد استان")}</span></div><span class="k-sr-only" aria-live="polite"></span>`;
+    const PL = msg().plate;
+    const label = this.getAttribute("label") ?? PL.label;
+    const control = `<div class="k-plate" role="group" aria-label="${esc(label)}" data-type="${plateType(p.letter)}"><span class="k-plate__flag" aria-hidden="true"><span class="k-plate__flag-colors"></span>I.R.<br>IRAN</span>${seg("first", 2, PL.first, "", true)}<select class="k-plate__letter" data-key="letter" aria-label="${esc(PL.letter)}"${off}><option value="">–</option>${PLATE_LETTERS.map((l) => `<option value="${l}"${l === p.letter ? " selected" : ""}>${l === "ه" ? "هـ" : l}</option>`).join("")}</select>${seg("middle", 3, PL.middle, "k-plate__seg--3")}<span class="k-plate__region"><span class="k-plate__region-label" aria-hidden="true">ایران</span>${seg("region", 2, PL.region)}</span></div><span class="k-sr-only" aria-live="polite"></span>`;
     this.querySelector(":scope > .k-field")?.remove();
     this.insertAdjacentHTML("afterbegin", fieldHTML({ id: `${k}-first`, label, control }));
     const parts = [...this.querySelectorAll<HTMLInputElement | HTMLSelectElement>("[data-key]")];
@@ -740,7 +746,7 @@ export class KashiPlateInput extends HTMLBase {
     group.dataset.type = plateType(p.letter);
     const complete = p.first.length === 2 && !!p.letter && p.middle.length === 3 && p.region.length === 2;
     const showInvalid = (this.touched || complete) && Object.values(p).some(Boolean) && !this.valid;
-    const error = this.getAttribute("error") || (showInvalid ? "پلاک خودرو معتبر نیست." : null);
+    const error = this.getAttribute("error") || (showInvalid ? msg().invalid.plate : null);
     group.toggleAttribute("data-invalid", !!error);
     setMessages(this.querySelector(":scope > .k-field")!, group, this.key, error, this.getAttribute("hint"));
     this.querySelector(".k-field > .k-sr-only")!.textContent = this.valid ? formatPlate(p) : "";
@@ -784,10 +790,10 @@ export class KashiInlineEdit extends HTMLBase {
   }
 
   private render(focus = false) {
-    const label = this.getAttribute("label") ?? "متن";
+    const label = this.getAttribute("label") ?? msg().persianInput.text;
     this.rendered = true;
     this.editing = false;
-    this.innerHTML = `<span class="k-inline-edit"><button type="button" class="k-inline-edit__view" aria-label="${esc(`${label}: ${this.text || "خالی"}، ویرایش`)}">${this.text ? esc(this.text) : `<span class="k-inline-edit__placeholder">${esc(this.getAttribute("placeholder") ?? "خالی")}</span>`}${PENCIL}</button></span>`;
+    this.innerHTML = `<span class="k-inline-edit"><button type="button" class="k-inline-edit__view" aria-label="${esc(`${label}: ${this.text || msg().inlineEdit.empty}${msg().common.list}${msg().common.edit}`)}">${this.text ? esc(this.text) : `<span class="k-inline-edit__placeholder">${esc(this.getAttribute("placeholder") ?? msg().inlineEdit.empty)}</span>`}${PENCIL}</button></span>`;
     const view = this.querySelector("button")!;
     view.addEventListener("click", () => this.edit());
     if (focus) view.focus();
@@ -795,9 +801,9 @@ export class KashiInlineEdit extends HTMLBase {
 
   private edit(error?: string, draft = this.text) {
     this.editing = true;
-    const label = this.getAttribute("label") ?? "متن";
+    const label = this.getAttribute("label") ?? msg().persianInput.text;
     const errId = uid("kashi-ie-err");
-    this.innerHTML = `<span class="k-inline-edit"><span class="k-field" style="gap: 4px"><span class="k-input"${error ? ' data-state="invalid"' : ""}><input class="k-input__control" aria-label="${esc(label)}" placeholder="${esc(this.getAttribute("placeholder") ?? "")}"${error ? ` aria-invalid="true" aria-describedby="${errId}"` : ""}></span>${error ? `<span class="k-hint k-hint--error" id="${errId}">${esc(error)}</span>` : ""}</span><span class="k-inline-edit__actions"><button type="button" class="k-btn k-btn--primary k-btn--icon k-btn--sm" data-save aria-label="ثبت">${CHECK}</button><button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--sm" data-cancel aria-label="انصراف">${X}</button></span></span>`;
+    this.innerHTML = `<span class="k-inline-edit"><span class="k-field" style="gap: 4px"><span class="k-input"${error ? ' data-state="invalid"' : ""}><input class="k-input__control" aria-label="${esc(label)}" placeholder="${esc(this.getAttribute("placeholder") ?? "")}"${error ? ` aria-invalid="true" aria-describedby="${errId}"` : ""}></span>${error ? `<span class="k-hint k-hint--error" id="${errId}">${esc(error)}</span>` : ""}</span><span class="k-inline-edit__actions"><button type="button" class="k-btn k-btn--primary k-btn--icon k-btn--sm" data-save aria-label="${esc(msg().common.save)}">${CHECK}</button><button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--sm" data-cancel aria-label="${esc(msg().common.cancel)}">${X}</button></span></span>`;
     const input = this.querySelector<HTMLInputElement>("input")!;
     input.value = draft;
     input.focus();
@@ -830,7 +836,7 @@ export class KashiInlineEdit extends HTMLBase {
         await pending;
       } catch {
         this.text = prev;
-        return this.edit("ذخیره نشد؛ دوباره امتحان کنید.", raw);
+        return this.edit(msg().inlineEdit.failed, raw);
       }
     }
     this.render(true);

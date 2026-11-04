@@ -1,5 +1,5 @@
 import { toFaDigits } from "@kashi-ui/persian";
-import { HTMLBase, ICONS, afterParse, bool, define, emit, esc, fieldHTML, setMessages, uid } from "./base.js";
+import { afterParse, bool, define, emit, esc, fieldHTML, HTMLBase, ICONS, msg, num, setMessages, uid } from "./base.js";
 
 const EYE = (off: boolean) => `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.8 10S4.8 4.5 10 4.5 18.2 10 18.2 10 15.2 15.5 10 15.5 1.8 10 1.8 10Z"/><circle cx="10" cy="10" r="2.5"/>${off ? '<path d="m3 3 14 14"/>' : ""}</svg>`;
 const X = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m6 6 8 8M14 6l-8 8"/></svg>';
@@ -63,7 +63,7 @@ export class KashiInput extends HTMLBase {
     const box = `<div class="k-input${this.multiline ? " k-input--textarea" : ""}${bool(this, "autoresize") ? " k-input--autoresize" : ""}${size === "sm" || size === "lg" ? ` k-input--${size}` : ""}" data-size="${size ?? "md"}"${disabled ? ' data-state="disabled"' : ""}>${control}<span class="k-input__end"></span></div>`;
     const optional = this.getAttribute("optional");
     this.querySelector(":scope > .k-field")?.remove();
-    this.insertAdjacentHTML("afterbegin", fieldHTML({ id, label, required: this.hasAttribute("required"), optional: optional === null ? null : optional || "اختیاری", control: box }));
+    this.insertAdjacentHTML("afterbegin", fieldHTML({ id, label, required: this.hasAttribute("required"), optional: optional === null ? null : optional || msg().common.optional, control: box }));
     this.control = this.querySelector(".k-input__control")!;
     this.control.value = this.text;
     this.control.addEventListener("input", () => {
@@ -97,9 +97,9 @@ export class KashiInput extends HTMLBase {
     const end = this.querySelector<HTMLElement>(".k-input__end")!;
     const password = !this.multiline && this.getAttribute("type") === "password" && this.getAttribute("revealable") !== "false";
     end.innerHTML = [
-      bool(this, "loading") ? '<span class="k-input__addon"><span class="k-spinner k-spinner--sm" role="status" aria-label="در حال بررسی"></span></span>' : "",
-      bool(this, "clearable") && len > 0 && !off ? `<button type="button" class="k-input__action" data-act="clear" aria-label="پاک کردن">${X}</button>` : "",
-      password ? `<button type="button" class="k-input__action" data-act="reveal" aria-label="${this.revealed ? "پنهان کردن رمز" : "نمایش رمز"}" aria-pressed="${this.revealed}">${EYE(this.revealed)}</button>` : "",
+      bool(this, "loading") ? '<span class="k-input__addon"><span class="k-spinner k-spinner--sm" role="status" aria-label="${esc(msg().input.checking)}"></span></span>' : "",
+      bool(this, "clearable") && len > 0 && !off ? `<button type="button" class="k-input__action" data-act="clear" aria-label="${esc(msg().input.clear)}">${X}</button>` : "",
+      password ? `<button type="button" class="k-input__action" data-act="reveal" aria-label="${esc(this.revealed ? msg().input.hide : msg().input.show)}" aria-pressed="${this.revealed}">${EYE(this.revealed)}</button>` : "",
     ].join("");
     end.style.display = end.innerHTML ? "contents" : "none";
     const field = this.querySelector<HTMLElement>(":scope > .k-field")!;
@@ -114,7 +114,7 @@ export class KashiInput extends HTMLBase {
         row.innerHTML = '<div class="k-field__hints"></div>';
         field.append(row);
       }
-      row.insertAdjacentHTML("beforeend", `<span class="k-counter" id="${countId}"${max && len > max ? ' data-over=""' : ""}>${max ? `${toFaDigits(len)} / ${toFaDigits(max)}` : toFaDigits(len)}</span>`);
+      row.insertAdjacentHTML("beforeend", `<span class="k-counter" id="${countId}"${max && len > max ? ' data-over=""' : ""}>${max ? `${num(this, len)} / ${num(this, max)}` : num(this, len)}</span>`);
     }
   }
 }
@@ -192,10 +192,10 @@ export class KashiBanner extends HTMLBase {
     const box = this.box!;
     const tone = this.getAttribute("tone");
     box.className = `k-banner${tone && tone !== "neutral" ? ` k-banner--${tone}` : ""}${bool(this, "flush") ? " k-banner--flush" : ""}`;
-    box.setAttribute("aria-label", this.getAttribute("label") ?? "اطلاعیه");
+    box.setAttribute("aria-label", this.getAttribute("label") ?? msg().banner.label);
     box.querySelector(".k-banner__close")?.remove();
     if (bool(this, "dismissible")) {
-      box.insertAdjacentHTML("beforeend", `<button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm k-banner__close" aria-label="${esc(this.getAttribute("close-label") ?? "بستن اطلاعیه")}">${ICONS.close}</button>`);
+      box.insertAdjacentHTML("beforeend", `<button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm k-banner__close" aria-label="${esc(this.getAttribute("close-label") ?? msg().banner.close)}">${ICONS.close}</button>`);
       box.querySelector(".k-banner__close")!.addEventListener("click", () => this.close());
     }
   }

@@ -4,6 +4,7 @@
 import { iconSvg } from "@kashi-ui/icons";
 import { registryItems } from "../data/registry";
 import { ELEMENT_DOCS } from "../data/elements";
+import SIZES from "../data/sizes.json";
 
 const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
 const slug = path.split("/").at(-2);
@@ -16,7 +17,10 @@ const exports = item?.meta?.exports ?? [];
 const copy = iconSvg("copy", { size: 15 });
 
 type Line = { code: string; pm?: boolean; react?: boolean };
-const tabs: { key: string; label: string; lines: Line[]; note: string; href: string; more: string }[] = [];
+const tabs: { key: string; label: string; lines: Line[]; note: string; href: string; more: string; size?: string }[] = [];
+// حجم gzip، با ارقام فارسی (scripts/sizes.mjs)
+const kb = (b?: number) => (b ? `${(b / 1024).toFixed(1).replace(".", "٫").replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d])} کیلوبایت` : undefined);
+const own = SIZES.own as Record<string, number>;
 if (item) {
   tabs.push({
     key: "react", label: "React",
@@ -26,6 +30,7 @@ if (item) {
     ],
     note: "CSS را یک بار در ریشهٔ برنامه وارد کنید: `import \"@kashi-ui/css\"`",
     href: "/docs/installation/", more: "راهنمای نصب",
+    size: own[item.name] ? `${kb(own[item.name])} + هستهٔ مشترک` : undefined,
   });
   tabs.push({
     key: "shadcn", label: "shadcn",
@@ -44,6 +49,7 @@ if (el) {
     ],
     note: `بدون React، برای HTML، وردپرس، Vue و Angular${el.tags.length > 1 ? `؛ ${el.tags.length.toLocaleString("fa-IR")} عنصر در این صفحه` : ""}.`,
     href: "#وب-کامپوننت", more: "CDN، نمونه و ویژگی‌ها",
+    size: kb((SIZES.elements as Record<string, number>)[el.module]),
   });
 }
 const id = "pi";
@@ -77,6 +83,7 @@ const inline = (t: string) => t.split("`").map((part, i) => (i % 2 ? `<code dir=
         </div>
         <p class="pi__note">
           <span set:html={inline(t.note)} />
+          {t.size && <a class="pi__size" href="/docs/sizes/" title="حجم gzip در برنامهٔ شما؛ جزئیات در صفحهٔ حجم کامپوننت‌ها">حجم: {t.size}</a>}
           <a href={t.href}>{t.more}<span aria-hidden="true"> ←</span></a>
         </p>
       </div>
@@ -176,4 +183,7 @@ const inline = (t: string) => t.split("`").map((part, i) => (i % 2 ? `<code dir=
   .pi__note code { font-size: 0.75rem; white-space: nowrap; }
   .pi__note a { color: var(--k-text-brand); text-decoration: none; white-space: nowrap; }
   .pi__note a:hover { text-decoration: underline; }
+  /* حجم کنار پیوند «بیشتر»؛ متن یادداشت سمت راست می‌ماند */
+  .pi__note .pi__size { margin-inline-start: auto; padding: 0 var(--k-space-2); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); color: var(--k-text-secondary); font-variant-numeric: tabular-nums; }
+  .pi__note .pi__size:hover { border-color: var(--k-border-brand); color: var(--k-text-brand); text-decoration: none; }
 </style>

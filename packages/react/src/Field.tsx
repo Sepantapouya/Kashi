@@ -2,6 +2,7 @@
 
 import { type ReactNode } from "react";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 /** کلاس دلخواه برای هر بخش داخلی فیلد */
 export interface FieldClassNames {
@@ -38,7 +39,8 @@ export function describedBy(id: string, hint: unknown, error: unknown, extra?: s
 
 /** قالب مشترک برچسب + کنترل + راهنما/خطا */
 export function Field({ id, label, hint, error, required, optional, labelEnd, hintEnd, className, classNames = {}, children }: FieldProps) {
-  const optionalText = optional === true ? "اختیاری" : optional;
+  const { messages: M } = useKashi();
+  const optionalText = optional === true ? M.common.optional : optional;
   return (
     <div className={cx("k-field", className, classNames.root)} data-invalid={error ? "" : undefined}>
       {(label || labelEnd) && (

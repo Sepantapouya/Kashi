@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Button, type ButtonProps } from "./Button.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface CopyButtonProps extends Omit<ButtonProps, "onClick" | "children" | "onCopy"> {
   /** متنی که کپی می‌شود */
@@ -26,7 +27,8 @@ const CheckIcon = () => (
 
 /** دکمهٔ کپی در کلیپ‌بورد با بازخورد «کپی شد» برای چشم و صفحه‌خوان */
 export function CopyButton({ value, onCopy, iconOnly, timeout = 2000, labels = {}, variant = "secondary", size = "sm", ...rest }: CopyButtonProps) {
-  const { copy = "کپی", copied = "کپی شد", failed = "کپی نشد" } = labels;
+  const { messages: M } = useKashi();
+  const { copy = M.copy.copy, copied = M.copy.copied, failed = M.copy.failed } = labels;
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   useEffect(() => () => clearTimeout(timer.current), []);

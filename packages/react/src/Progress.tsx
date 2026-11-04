@@ -3,6 +3,7 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
 import { toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
   /** مقدار؛ بدون آن نوار «نامعین» است */
@@ -21,8 +22,9 @@ export interface ProgressProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export function Progress({ value, max = 100, label, showValue, size = "md", tone = "brand", variant = "linear", className, "aria-label": ariaLabel, ...rest }: ProgressProps) {
+  const { messages: M, n } = useKashi();
   const pct = value === undefined ? undefined : Math.max(0, Math.min(100, (value / max) * 100));
-  const text = pct === undefined ? undefined : `${toFaDigits(Math.round(pct))}٪`;
+  const text = pct === undefined ? undefined : M.common.percent(n(Math.round(pct)));
   if (variant === "circular") {
     const r = 16;
     const c = 2 * Math.PI * r;
@@ -78,7 +80,9 @@ export interface SpinnerProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 /** اسپینر با متن صفحه‌خوان */
-export function Spinner({ label = "در حال بارگذاری", size = "md", className, ...rest }: SpinnerProps) {
+export function Spinner({ label, size = "md", className, ...rest }: SpinnerProps) {
+  const { messages: M } = useKashi();
+  label ??= M.common.loading;
   return (
     <span role="status" className={className} {...rest}>
       <span className={cx("k-spinner", size !== "md" && `k-spinner--${size}`)} aria-hidden="true" />

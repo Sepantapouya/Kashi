@@ -4,6 +4,7 @@ import { forwardRef, useId, useState, type KeyboardEvent, type ReactNode } from 
 import { formatNumber, onlyDigits, toFaDigits } from "@kashi-ui/persian";
 import { cx } from "./cx.js";
 import { Field, describedBy } from "./Field.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface NumberInputProps {
   label?: ReactNode;
@@ -34,15 +35,17 @@ const Plus = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" st
 
 /** ورودی عدد با دکمه‌های + و −؛ ↑↓ یک گام، PageUp/PageDown ده گام، Home/End کمینه و بیشینه */
 export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(function NumberInput(
-  { label, hint, error, value, defaultValue = null, onChange, min, max, step = 1, thousands, digits = "fa", unit, disabled, name, id, className, labels = {} },
+  { label, hint, error, value, defaultValue = null, onChange, min, max, step = 1, thousands, digits, unit, disabled, name, id, className, labels = {} },
   ref,
 ) {
+  const { messages: M, digits: D } = useKashi();
+  digits ??= D;
   const autoId = useId();
   const inputId = id ?? autoId;
   const [inner, setInner] = useState<number | null>(defaultValue);
   const current = value !== undefined ? value : inner;
   const [draft, setDraft] = useState<string | null>(null);
-  const { increment = "افزایش", decrement = "کاهش" } = labels;
+  const { increment = M.numberInput.increment, decrement = M.numberInput.decrement } = labels;
 
   const clamp = (n: number) => Math.min(max ?? Infinity, Math.max(min ?? -Infinity, n));
   const show = (n: number | null) => {
