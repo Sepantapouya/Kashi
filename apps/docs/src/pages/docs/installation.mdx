@@ -42,8 +42,10 @@ export function Example() {
 
 اگر می‌خواهید کد خودِ کامپوننت در پروژه‌تان باشد و هر تغییری خواستید در آن بدهید، از رجیستری کاشی با ابزار [shadcn](https://ui.shadcn.com/docs/cli) استفاده کنید. فایل‌ها در پوشهٔ `components/kashi` کپی می‌شوند و کامپوننت‌هایی که به آن‌ها وابسته‌اند، CSS کاشی و ابزارهای فارسی هم خودکار نصب می‌شوند.
 
+کاشی در [فهرست رسمی رجیستری‌های shadcn](https://ui.shadcn.com/docs/directory) با نام `@kashi` ثبت شده است، پس بدون هیچ تنظیمی کافی است نام کامپوننت را بدهید:
+
 ```bash
-npx shadcn@latest add https://kashi.sepantapouya.com/r/iran-map.json
+npx shadcn@latest add @kashi/iran-map
 ```
 
 ```tsx
@@ -54,7 +56,13 @@ import { IranMap } from "@/components/kashi/IranMap";
 
 <InstallKit part="registry" />
 
-برای دستور کوتاه‌تر، رجیستری کاشی را یک بار در `components.json` معرفی کنید:
+اگر نسخهٔ shadcn شما قدیمی است و پیام `Unknown registry "@kashi"` داد، یا آدرس کامل آیتم را بدهید:
+
+```bash
+npx shadcn@latest add https://kashi.sepantapouya.com/r/iran-map.json
+```
+
+یا رجیستری کاشی را یک بار در `components.json` معرفی کنید تا `@kashi` همیشه شناخته شود:
 
 ```json
 {

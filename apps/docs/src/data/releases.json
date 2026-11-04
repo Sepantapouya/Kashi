@@ -1,28 +1,45 @@
 {
- "generated": "2026-11-03T22:58:38+03:30",
+ "generated": "2026-11-04T11:05:25+03:30",
  "totals": {
-  "commits": 201,
+  "commits": 202,
   "versions": 28,
-  "added": 89781,
+  "added": 90334,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [],
+ "unreleased": [
+  {
+   "sha": "817256f0b695e4e1acdfef0554f0ffe460cecc22",
+   "short": "817256f",
+   "date": "2026-11-04T11:05:25+03:30",
+   "author": "sepantapouya",
+   "subject": "Figma kit: Iran map, address form, appointment, date range and text fix",
+   "details": [
+    "- Five new component sets on the Persian page, built from real data",
+    "(map paths from @kashi-ui/react, sample days from @kashi-ui/persian)",
+    "- figma:test now fails when a docs page has no Figma component",
+    "- Skill: every new component also goes into the Figma kit"
+   ],
+   "files": 9,
+   "added": 444,
+   "removed": 16
+  }
+ ],
  "versions": [
   {
    "version": "0.26.0",
    "date": "2026-11-03T22:58:38+03:30",
-   "releaseCommit": "88b9236",
+   "releaseCommit": "89e3a06",
    "commits": [
     {
-     "sha": "88b9236e0c468e6fefd9858f21c168131d9c2643",
-     "short": "88b9236",
+     "sha": "89e3a06bf3dd3c91c2e6570a6f0c781d922f8c17",
+     "short": "89e3a06",
      "date": "2026-11-03T22:58:38+03:30",
      "author": "sepantapouya",
      "subject": "Release 0.26.0: appointment picker; no React-only behaviour left",
      "details": [],
-     "files": 24,
-     "added": 116,
-     "removed": 58
+     "files": 25,
+     "added": 225,
+     "removed": 100
     },
     {
      "sha": "f19f0dcc6f885ea642c8c3e8cf4d7f0225accef8",

@@ -29,8 +29,8 @@ if (item) {
   });
   tabs.push({
     key: "shadcn", label: "shadcn",
-    lines: [{ code: `npx shadcn@latest add ${SITE}/r/${item.name}.json`, pm: true }],
-    note: "کد خودِ کامپوننت در پوشهٔ `components/kashi` پروژهٔ شما کپی می‌شود.",
+    lines: [{ code: `npx shadcn@latest add @kashi/${item.name}`, pm: true }],
+    note: "کد خودِ کامپوننت در پوشهٔ `components/kashi` پروژهٔ شما کپی می‌شود. برای نسخه‌های قدیمی shadcn، راهنمای «دربارهٔ shadcn» را ببینید.",
     href: "/docs/installation/#رجیستری-shadcn", more: "دربارهٔ shadcn",
   });
 }

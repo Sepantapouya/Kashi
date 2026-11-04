@@ -10,7 +10,8 @@ const { part } = Astro.props;
 const fa = (n: number) => toFaDigits(String(n));
 const ic = (name: string, size = 16) => iconSvg(name, { size }) ?? "";
 const SITE = "https://kashi.sepantapouya.com";
-const add = (name: string) => `npx shadcn@latest add ${SITE}/r/${name}.json`;
+// کاشی در فهرست رسمی رجیستری‌های shadcn است، پس @kashi بدون تنظیم شناخته می‌شود
+const add = (name: string) => `npx shadcn@latest add @kashi/${name}`;
 
 const components = registryItems(SITE).filter((it) => !it.meta!.helper);
 // نام فارسی کوتاه: عنوان صفحهٔ مستندات، یا برای فیلدهایی که صفحهٔ مشترک دارند اول توضیحشان
