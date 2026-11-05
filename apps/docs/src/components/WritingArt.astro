@@ -1,0 +1,220 @@
+---
+// نمودارهای صفحهٔ «نوشتن متن رابط»: کالبد پیام خطا، طیف لحن، درخت انتخاب پیام، فرمول برچسب دکمه، نیم‌فاصله و فاصلهٔ نشانه‌ها.
+// همه با HTML و توکن‌های کاشی، تا در هر دو تم و راست‌به‌چپ درست بنشینند و صفحه‌خوان متنشان را بخواند.
+import { iconSvg } from "@kashi-ui/icons";
+
+interface Props { part: "error" | "tone" | "message" | "button" | "zwnj" | "punct" }
+const { part } = Astro.props;
+const ic = (n: string, size = 16) => iconSvg(n, { size }) ?? "";
+
+const tones = [
+  { label: "تبریک", pos: 8, text: "تبریک! اولین فروشتان ثبت شد." },
+  { label: "خوشامد", pos: 24, text: "به کاشی خوش آمدید." },
+  { label: "کار عادی", pos: 46, text: "نشانی ذخیره شد." },
+  { label: "خطا", pos: 66, text: "پرداخت انجام نشد." },
+  { label: "حذف", pos: 80, text: "برای همیشه حذف می‌شود." },
+  { label: "پول و امنیت", pos: 94, text: "رمز دوم لازم است." },
+];
+const messages = [
+  { q: "خطای یک فیلد؟", a: "خطای فیلد", href: "/docs/components/input/", ex: "کد ملی باید ده رقم باشد." },
+  { q: "نتیجهٔ کوتاه یک عمل؟", a: "توست", href: "/docs/components/toast/", ex: "به سبد اضافه شد." },
+  { q: "مهم برای همین بخش؟", a: "هشدار", href: "/docs/components/alert/", ex: "این سفارش هنوز پرداخت نشده است." },
+  { q: "دربارهٔ کل سایت یا حساب؟", a: "بنر", href: "/docs/components/banner/", ex: "اشتراک شما ۳ روز دیگر تمام می‌شود." },
+  { q: "تصمیم کاربر لازم است؟", a: "دیالوگ", href: "/docs/components/dialog/", ex: "حذف این سفارش؟" },
+];
+---
+{part === "error" && (
+  <figure class="wa wa--error" aria-label="کالبد یک پیام خطای خوب">
+    <div class="wa__stage">
+      <div class="wa-field">
+        <span class="wa-field__label">کد ملی</span>
+        <span class="wa-field__box">۰۰۱۲۳۴۵</span>
+        <span class="wa-field__error"><mark data-n="۱">کد ملی</mark> <mark data-n="۲">باید ده رقم باشد</mark>؛ <mark data-n="۳">سه رقم دیگر بنویسید.</mark></span>
+      </div>
+    </div>
+    <ol class="wa__legend">
+      <li><b>چه شد:</b> به زبان کاربر، دربارهٔ همان فیلد</li>
+      <li><b>چرا:</b> قاعده‌ای که رعایت نشده، بدون سرزنش</li>
+      <li><b>حالا چه کنم:</b> قدم بعدی، تا جای ممکن دقیق</li>
+    </ol>
+    <figcaption>پیام کنار همان فیلد، بدون علامت تعجب و بدون کد فنی.</figcaption>
+  </figure>
+)}
+
+{part === "tone" && (
+  <figure class="wa wa--tone" aria-label="طیف لحن: از شاد تا جدی">
+    <div class="wa-tone">
+      <div class="wa-tone__axis" aria-hidden="true"><span>شادتر</span><span>جدی‌تر</span></div>
+      <ol class="wa-tone__points">
+        {tones.map((t) => (
+          <li style={`--pos: ${t.pos}%`}>
+            <span class="wa-tone__dot" aria-hidden="true" />
+            <b>{t.label}</b>
+            <small>{t.text}</small>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <figcaption>صدا ثابت است؛ لحن با موقعیت جابه‌جا می‌شود. هر چه پول، امنیت یا برگشت‌ناپذیری بیشتر، لحن جدی‌تر و کوتاه‌تر.</figcaption>
+  </figure>
+)}
+
+{part === "message" && (
+  <figure class="wa wa--tree" aria-label="کدام پیام برای کدام موقعیت">
+    <div class="wa-tree">
+      <div class="wa-tree__root"><span set:html={ic("message-circle", 18)} />می‌خواهید چیزی به کاربر بگویید</div>
+      <ol class="wa-tree__branches">
+        {messages.map((m) => (
+          <li>
+            <span class="wa-tree__q">{m.q}</span>
+            <a class="wa-tree__a" href={m.href}>{m.a}</a>
+            <span class="wa-tree__ex">«{m.ex}»</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <figcaption>اول بپرسید پیام دربارهٔ چیست و چقدر ماندگار باید باشد، بعد جایش را انتخاب کنید.</figcaption>
+  </figure>
+)}
+
+{part === "button" && (
+  <figure class="wa wa--button" aria-label="فرمول برچسب دکمه">
+    <div class="wa-formula">
+      <span class="wa-formula__part wa-formula__part--verb"><small>فعل</small>حذف</span>
+      <span class="wa-formula__op" aria-hidden="true">+</span>
+      <span class="wa-formula__part"><small>چه چیز</small>سفارش</span>
+      <span class="wa-formula__op" aria-hidden="true">=</span>
+      <span class="k-btn k-btn--danger wa-formula__btn">حذف سفارش</span>
+    </div>
+    <div class="wa-formula">
+      <span class="wa-formula__part wa-formula__part--verb"><small>فعل</small>پرداخت</span>
+      <span class="wa-formula__op" aria-hidden="true">+</span>
+      <span class="wa-formula__part"><small>جزئیات مهم</small>۲۵۰٬۰۰۰ تومان</span>
+      <span class="wa-formula__op" aria-hidden="true">=</span>
+      <span class="k-btn k-btn--primary wa-formula__btn">پرداخت ۲۵۰٬۰۰۰ تومان</span>
+    </div>
+    <figcaption>دکمه بی‌خواندن بقیهٔ صفحه هم بگوید بعد از کلیک چه می‌شود.</figcaption>
+  </figure>
+)}
+
+{part === "zwnj" && (
+  <figure class="wa wa--zwnj" aria-label="سرهم، فاصله و نیم‌فاصله">
+    <div class="wa-zwnj">
+      <div class="wa-zwnj__case wa-zwnj__case--bad">
+        <span class="wa-zwnj__word">میخواهم</span>
+        <b><span set:html={ic("close", 14)} />سرهم</b>
+        <small>«می» گم می‌شود و خواندن کند است</small>
+      </div>
+      <div class="wa-zwnj__case wa-zwnj__case--bad">
+        <span class="wa-zwnj__word wa-zwnj__word--split"><span>می</span><span class="wa-zwnj__gap" aria-hidden="true" /><span>خواهم</span></span>
+        <b><span set:html={ic("close", 14)} />فاصلهٔ کامل</b>
+        <small>در شکستن خط، «می» تنها سر یک خط می‌ماند</small>
+      </div>
+      <div class="wa-zwnj__case wa-zwnj__case--good">
+        <span class="wa-zwnj__word wa-zwnj__word--zwnj"><span>می</span><span class="wa-zwnj__mark" aria-hidden="true" /><span>خواهم</span></span>
+        <b><span set:html={ic("check", 14)} />نیم‌فاصله</b>
+        <small>جدا دیده می‌شود، ولی یک واژه می‌ماند</small>
+      </div>
+    </div>
+    <figcaption>نیم‌فاصله در چیدمان استاندارد صفحه‌کلید فارسی (ویندوز و مک): <kbd class="k-kbd">Shift</kbd> + <kbd class="k-kbd">Space</kbd>.</figcaption>
+  </figure>
+)}
+
+{part === "punct" && (
+  <figure class="wa wa--punct" aria-label="فاصله پیش و پس از نشانه‌ها">
+    <div class="wa-punct" dir="rtl">
+      <span class="wa-punct__w">سلام</span><span class="wa-punct__m">،</span><span class="wa-punct__s" title="یک فاصله" /><span class="wa-punct__w">خوبید</span><span class="wa-punct__m">؟</span><span class="wa-punct__s" title="یک فاصله" /><span class="wa-punct__m">«</span><span class="wa-punct__w">کاشی</span><span class="wa-punct__m">»</span><span class="wa-punct__s" title="یک فاصله" /><span class="wa-punct__m">(</span><span class="wa-punct__w">اختیاری</span><span class="wa-punct__m">)</span>
+    </div>
+    <ul class="wa__legend wa__legend--inline">
+      <li><span class="wa-key wa-key--m" aria-hidden="true" />نشانه: بی‌فاصله به واژهٔ پیش</li>
+      <li><span class="wa-key wa-key--s" aria-hidden="true" />یک فاصله بعد از نشانهٔ درنگ</li>
+      <li>گیومه و پرانتز: بی‌فاصله با درون</li>
+    </ul>
+  </figure>
+)}
+
+<style>
+  .wa { margin: var(--k-space-6) 0; padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); }
+  .wa figcaption { margin-block-start: var(--k-space-4); color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .wa__stage { display: grid; place-items: center; padding: var(--k-space-6) var(--k-space-4); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary) radial-gradient(circle at 1px 1px, var(--k-border-secondary) 1px, transparent 0) 0 0 / 14px 14px; }
+  .wa__legend { display: grid; gap: var(--k-space-2); margin: var(--k-space-4) 0 0; padding: 0; list-style: none; counter-reset: n; color: var(--k-text-secondary); font-size: var(--k-text-sm); }
+  .wa__legend li { display: flex; align-items: center; gap: var(--k-space-2); }
+  ol.wa__legend li::before { counter-increment: n; content: counter(n, persian); display: grid; place-items: center; flex: none; inline-size: 1.5rem; block-size: 1.5rem; border-radius: var(--k-radius-full); background: var(--k-bg-brand); color: var(--k-text-on-brand); font-size: var(--k-text-xs); font-weight: var(--k-weight-bold); }
+  .wa__legend--inline { grid-auto-flow: column; justify-content: start; gap: var(--k-space-5); }
+
+  /* کالبد خطا */
+  .wa-field { display: grid; gap: var(--k-space-1-5, 0.375rem); inline-size: min(100%, 22rem); }
+  .wa-field__label { color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); }
+  .wa-field__box { padding: var(--k-space-2) var(--k-space-3); border: 1px solid var(--k-border-error); border-radius: var(--k-radius-md); background: var(--k-bg-primary); color: var(--k-text-primary); direction: ltr; text-align: end; }
+  .wa-field__error { color: var(--k-text-error); font-size: var(--k-text-sm); line-height: 2.4; }
+  .wa-field__error mark { position: relative; padding: 2px 4px; border-radius: var(--k-radius-sm); background: var(--k-bg-error-subtle); color: inherit; }
+  .wa-field__error mark::after { content: attr(data-n); position: absolute; inset-block-start: -0.9rem; inset-inline-start: -0.35rem; display: grid; place-items: center; inline-size: 1.1rem; block-size: 1.1rem; border-radius: var(--k-radius-full); background: var(--k-bg-brand); color: var(--k-text-on-brand); font-size: 0.625rem; font-weight: var(--k-weight-bold); line-height: 1; }
+
+  /* طیف لحن */
+  .wa-tone { padding: var(--k-space-2) var(--k-space-2) 0; }
+  .wa-tone__axis { position: relative; display: flex; justify-content: space-between; margin-block-end: var(--k-space-3); color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+  .wa-tone__points { position: relative; block-size: 8.75rem; margin: 0; padding: 0; list-style: none; }
+  .wa-tone__points::before { content: ""; position: absolute; inset-inline: 0; inset-block-start: 0.45rem; block-size: 4px; border-radius: var(--k-radius-full); background: linear-gradient(to left, var(--k-text-success), var(--k-text-brand) 50%, var(--k-text-error)); opacity: 0.55; }
+  .wa-tone__points li { position: absolute; inset-inline-start: var(--pos); translate: 50% 0; display: grid; justify-items: center; gap: 2px; inline-size: 7rem; text-align: center; }
+  .wa-tone__points li:nth-child(even) { inset-block-start: 4.5rem; }
+  .wa-tone__dot { inline-size: 1.15rem; block-size: 1.15rem; margin-block-end: var(--k-space-1); border: 3px solid var(--k-bg-primary); border-radius: var(--k-radius-full); background: var(--k-text-brand); box-shadow: 0 0 0 1px var(--k-border-brand); }
+  .wa-tone__points li:nth-child(even) .wa-tone__dot { margin-block-start: -4.5rem; margin-block-end: 3.1rem; }
+  .wa-tone__points b { color: var(--k-text-primary); font-size: var(--k-text-sm); }
+  .wa-tone__points small { color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.6; }
+
+  /* درخت پیام */
+  .wa-tree { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: var(--k-space-6); }
+  .wa-tree__root { display: flex; align-items: center; gap: var(--k-space-2); max-inline-size: 11rem; padding: var(--k-space-3) var(--k-space-4); border-radius: var(--k-radius-full); background: var(--k-bg-brand); color: var(--k-text-on-brand); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); line-height: 1.6; box-shadow: var(--k-shadow-sm); }
+  .wa-tree__root span { display: grid; flex: none; }
+  .wa-tree__branches { position: relative; display: grid; gap: var(--k-space-2); margin: 0; padding: 0 var(--k-space-6) 0 0; list-style: none; }
+  .wa-tree__branches::before { content: ""; position: absolute; inset-block: 1.3rem; inset-inline-start: 0; border-inline-start: 2px solid var(--k-border-brand); opacity: 0.5; }
+  .wa-tree__branches li { position: relative; display: grid; grid-template-columns: minmax(9rem, 12rem) auto minmax(0, 1fr); align-items: center; gap: var(--k-space-3); }
+  .wa-tree__branches li::before { content: ""; position: absolute; inset-inline-start: calc(-1 * var(--k-space-6)); inline-size: var(--k-space-6); border-block-start: 2px solid var(--k-border-brand); opacity: 0.5; }
+  .wa-tree__q { padding: var(--k-space-2) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); background: var(--k-bg-secondary); color: var(--k-text-secondary); font-size: var(--k-text-sm); text-align: center; }
+  .wa-tree__a { padding: var(--k-space-1) var(--k-space-3); border-radius: var(--k-radius-full); background: var(--k-bg-brand-subtle); color: var(--k-text-brand); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); text-decoration: none; white-space: nowrap; }
+  .wa-tree__a:hover { text-decoration: underline; }
+  .wa-tree__ex { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+
+  /* فرمول دکمه */
+  .wa--button { display: grid; gap: var(--k-space-4); }
+  .wa-formula { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-3); }
+  .wa-formula__part { display: grid; gap: 2px; padding: var(--k-space-2) var(--k-space-4); border: 1px dashed var(--k-border-primary); border-radius: var(--k-radius-lg); color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+  .wa-formula__part small { color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-weight: var(--k-weight-medium); }
+  .wa-formula__part--verb { border-style: solid; border-color: var(--k-border-brand); background: var(--k-bg-brand-subtle); }
+  .wa-formula__op { color: var(--k-text-tertiary); font-size: var(--k-text-lg); font-weight: var(--k-weight-bold); }
+  .wa-formula__btn { pointer-events: none; }
+
+  /* نیم‌فاصله */
+  .wa-zwnj { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--k-space-3); }
+  .wa-zwnj__case { display: grid; justify-items: center; gap: var(--k-space-2); padding: var(--k-space-5) var(--k-space-3) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-block-start: 3px solid var(--k-text-error); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary); text-align: center; }
+  .wa-zwnj__case--good { border-block-start-color: var(--k-text-success); background: var(--k-bg-primary); }
+  .wa-zwnj__word { display: inline-flex; align-items: center; color: var(--k-text-primary); font-size: var(--k-text-3xl); font-weight: var(--k-weight-bold); line-height: 1.4; }
+  .wa-zwnj__gap { inline-size: 0.9em; block-size: 1.1em; margin-inline: 2px; border: 1px dashed var(--k-text-error); border-radius: 4px; }
+  .wa-zwnj__mark { inline-size: 3px; block-size: 1.15em; margin-inline: 3px; border-radius: 2px; background: var(--k-text-success); }
+  .wa-zwnj__case b { display: inline-flex; align-items: center; gap: 4px; color: var(--k-text-error); font-size: var(--k-text-sm); }
+  .wa-zwnj__case--good b { color: var(--k-text-success); }
+  .wa-zwnj__case small { color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.7; }
+
+  /* فاصلهٔ نشانه‌ها */
+  .wa-punct { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: center; gap: 0; padding: var(--k-space-6) var(--k-space-4); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary); font-size: var(--k-text-3xl); font-weight: var(--k-weight-semibold); line-height: 1.5; }
+  .wa-punct__w { color: var(--k-text-primary); }
+  .wa-punct__m { padding: 0 2px; border-radius: 4px; background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+  .wa-punct__s { inline-size: 0.7em; margin-inline: 2px; border-block-end: 3px solid var(--k-text-warning); }
+  .wa-key { display: inline-block; flex: none; inline-size: 1.25rem; block-size: 0.9rem; border-radius: 3px; }
+  .wa-key--m { background: var(--k-bg-brand-subtle); box-shadow: inset 0 0 0 1px var(--k-border-brand); }
+  .wa-key--s { border-block-end: 3px solid var(--k-text-warning); border-radius: 0; }
+
+  @media (max-width: 40rem) {
+    .wa-tree { grid-template-columns: minmax(0, 1fr); }
+    .wa-tree__root { max-inline-size: none; justify-content: center; }
+    .wa-tree__branches li { grid-template-columns: minmax(0, 1fr) auto; }
+    .wa-tree__ex { grid-column: 1 / -1; }
+    .wa-zwnj { grid-template-columns: minmax(0, 1fr); }
+    .wa-tone__points { block-size: auto; display: grid; gap: var(--k-space-3); }
+    .wa-tone__points::before { display: none; }
+    .wa-tone__points li, .wa-tone__points li:nth-child(even) { position: static; translate: none; inline-size: auto; justify-items: start; text-align: start; grid-template-columns: auto 1fr; column-gap: var(--k-space-2); }
+    .wa-tone__points li .wa-tone__dot, .wa-tone__points li:nth-child(even) .wa-tone__dot { grid-row: span 2; margin: 0; }
+    .wa__legend--inline { grid-auto-flow: row; }
+    .wa-punct { font-size: var(--k-text-xl); }
+  }
+</style>

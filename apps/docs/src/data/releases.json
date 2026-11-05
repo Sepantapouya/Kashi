@@ -1,12 +1,33 @@
 {
- "generated": "2026-11-04T16:33:10+03:30",
+ "generated": "2026-11-05T12:29:30+03:30",
  "totals": {
-  "commits": 205,
+  "commits": 206,
   "versions": 29,
-  "added": 93388,
+  "added": 94217,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [],
+ "unreleased": [
+  {
+   "sha": "92a7a33b58c44eb7c49ae34df5e9fe68105590e7",
+   "short": "92a7a33",
+   "date": "2026-11-05T12:29:30+03:30",
+   "author": "sepantapouya",
+   "subject": "Docs: usage guide on every component page and a writing guide for interface text",
+   "details": [
+    "- data/guidelines.ts: when to use, when not (with the alternative), do/don't pairs",
+    "with static k-* previews and text tips, for all 71 component pages",
+    "- UsageSection.astro after the page content and in the TOC; guidelineMarkdown sends",
+    "the same text to llms.txt and the MCP server",
+    "- /docs/writing/: tone, button labels, error messages, empty and success states,",
+    "punctuation, numbers and money, English words, screen reader text, checklist",
+    "- MCP test fails for a component page without a usage guide",
+    "- Visual tests: whole-pixel clips so page length no longer shifts sizes by 1px"
+   ],
+   "files": 638,
+   "added": 829,
+   "removed": 16
+  }
+ ],
  "versions": [
   {
    "version": "1.0.0",

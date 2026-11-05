@@ -66,8 +66,9 @@ code, pre, kbd {
   transition: color var(--k-duration-fast), background-color var(--k-duration-fast);
 }
 .site-nav a:hover { color: var(--k-text-primary); background: var(--k-bg-hover); }
-.site-nav a[aria-current="page"] { color: var(--k-text-primary); }
-.site-nav a[aria-current="page"]::after {
+.site-nav > a[aria-current="page"] { color: var(--k-text-primary); }
+/* فقط پیوندهای خود سربرگ؛ آیتم‌های منوی کشویی خط زیرین ندارند */
+.site-nav > a[aria-current="page"]::after {
   content: "";
   position: absolute;
   inset-inline: var(--k-space-3);
@@ -77,7 +78,9 @@ code, pre, kbd {
   background: var(--k-border-brand);
 }
 /* منوی ابزارها در سربرگ */
-.nav-menu { position: relative; }
+/* پنل نسبت به کل نوار پیوندها جا می‌گیرد، نه دکمهٔ خودش، تا در عرض کم از صفحه بیرون نزند */
+.site-nav { position: relative; }
+.nav-menu { position: static; }
 .nav-menu__btn {
   position: relative; display: inline-flex; align-items: center; gap: 4px;
   padding: var(--k-space-2) var(--k-space-3); border: 0; border-radius: var(--k-radius-md); background: none;
@@ -92,13 +95,18 @@ code, pre, kbd {
 .nav-menu__btn[aria-expanded="true"] .nav-menu__chev { rotate: 180deg; }
 .nav-menu__panel {
   position: absolute; inset-block-start: calc(100% + 0.5rem); inset-inline-start: 0; z-index: 10;
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; inline-size: 38rem; max-inline-size: calc(100vw - 2rem); padding: var(--k-space-2);
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: var(--k-space-2); inline-size: max-content; max-inline-size: calc(100vw - 2rem); padding: var(--k-space-2);
   border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-xl);
 }
 .nav-menu__panel[hidden] { display: none; }
 @media (prefers-reduced-motion: no-preference) { .nav-menu__panel:not([hidden]) { animation: nav-in 0.16s var(--k-ease-standard); } }
 @keyframes nav-in { from { opacity: 0; translate: 0 -4px; } }
 /* white-space: پیوندهای .site-nav یک‌خطی‌اند؛ توضیح ابزارها باید بشکند */
+.nav-menu__section { display: grid; align-content: start; gap: var(--k-space-1); min-inline-size: 0; }
+.nav-menu__section + .nav-menu__section { padding-inline-start: var(--k-space-2); border-inline-start: 1px solid var(--k-border-secondary); }
+.nav-menu__title { margin: 0; padding: var(--k-space-2) var(--k-space-3) var(--k-space-1); color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
+.nav-menu__grid { display: grid; grid-template-columns: repeat(var(--cols, 2), minmax(12rem, 15rem)); gap: 2px; }
+.nav-menu__panel--guides .nav-menu__grid { grid-template-columns: minmax(13rem, 15.5rem); }
 .nav-menu__item { display: flex; align-items: flex-start; gap: var(--k-space-3); min-inline-size: 0; padding: var(--k-space-3); white-space: normal; border-radius: var(--k-radius-lg); color: inherit; text-decoration: none; transition: background-color var(--k-duration-fast); }
 .nav-menu__item:hover, .nav-menu__item:focus-visible { background: var(--k-bg-hover); outline: none; }
 .nav-menu__item:focus-visible { box-shadow: inset 0 0 0 2px var(--k-border-brand); }
@@ -583,7 +591,11 @@ code, pre, kbd {
   max-inline-size: 80rem;
   margin-inline: auto;
 }
-.site-footer__brand { margin-inline-end: auto; max-inline-size: 20rem; }
+/* پنج ستون پیوند کنار نشان؛ در عرض کمتر سه‌تایی و در موبایل دوتایی */
+.site-footer__inner { display: grid; grid-template-columns: minmax(14rem, 1.5fr) repeat(5, minmax(0, 1fr)); gap: var(--k-space-8) var(--k-space-6); }
+@media (max-width: 64rem) { .site-footer__inner { grid-template-columns: repeat(3, minmax(0, 1fr)); } .site-footer__brand { grid-column: 1 / -1; } }
+@media (max-width: 40rem) { .site-footer__inner { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.site-footer__brand { max-inline-size: 20rem; }
 .site-footer__brand p { margin: var(--k-space-3) 0 0; line-height: 1.9; }
 .site-footer .credit {
   display: inline-flex;

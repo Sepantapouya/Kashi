@@ -8,19 +8,48 @@ import SiteSearch from "./SiteSearch";
 const path = Astro.url.pathname;
 // پیوندهای اصلی کم و ثابت؛ ابزارها در یک منوی کشویی تا سربرگ شلوغ نشود
 const links = [
-  { href: "/docs/", label: "مستندات", match: (p: string) => p.startsWith("/docs/") && !/^\/docs\/(components|persian|theming|icons|figma|ai|tailwind)\//.test(p) },
+  { href: "/docs/", label: "مستندات", match: (p: string) => p.startsWith("/docs/") && !/^\/docs\/(components|persian|icons)\//.test(p) && !MENU_HREFS.some((h) => p.startsWith(h)) },
   { href: "/docs/components/", label: "کامپوننت‌ها", match: (p: string) => p.startsWith("/docs/components/") },
   { href: "/docs/persian/", label: "فارسی", match: (p: string) => p.startsWith("/docs/persian/") },
   { href: "/docs/icons/", label: "آیکون‌ها", match: (p: string) => p.startsWith("/docs/icons/") },
 ];
-const tools = [
-  { href: "/docs/theming/", icon: "palette", label: "تم‌ساز", text: "رنگ برند، گردی و تراکم را زنده بسازید" },
-  { href: "/docs/tailwind/", icon: "wind", label: "Tailwind", text: "توکن‌های کاشی به‌شکل کلاس‌های Tailwind" },
-  { href: "/docs/figma/", icon: "pen-tool", label: "پلاگین فیگما", text: "کل کیت با یک کلیک در فایل شما" },
-  { href: "/docs/ai/", icon: "ai-chat", label: "سرور MCP", text: "کاشی در دستیار هوش مصنوعی شما" },
-  { href: "/docs/installation/#رجیستری-shadcn", icon: "terminal", label: "رجیستری shadcn", text: "کد کامپوننت‌ها با @kashi در پروژهٔ شما" },
+// منوهای کشویی: هر بخش عنوان دارد و آیتم‌ها در شبکهٔ هم‌اندازه می‌نشینند؛ متن کد لاتین داخل `بک‌تیک`
+type MenuItem = { href: string; icon: string; label: string; text: string };
+const menus: { id: string; label: string; cols: number; sections: { title?: string; items: MenuItem[] }[] }[] = [
+  {
+    id: "tools", label: "ابزارها", cols: 3,
+    sections: [{ items: [
+      { href: "/docs/theming/", icon: "palette", label: "تم‌ساز", text: "رنگ برند، گردی و تراکم را زنده بسازید" },
+      { href: "/docs/figma/", icon: "pen-tool", label: "پلاگین فیگما", text: "کل کیت با یک کلیک در فایل شما" },
+      { href: "/docs/tailwind/", icon: "wind", label: "Tailwind", text: "توکن‌های کاشی به‌شکل کلاس‌ها" },
+      { href: "/docs/web-components/", icon: "puzzle", label: "وب کامپوننت‌ها", text: "بدون React، برای هر فریم‌ورکی" },
+      { href: "/docs/installation/#رجیستری-shadcn", icon: "terminal", label: "رجیستری shadcn", text: "کد کامپوننت‌ها با `@kashi`" },
+      { href: "/docs/ai/", icon: "ai-chat", label: "سرور MCP", text: "کاشی در دستیار هوش مصنوعی" },
+    ] }],
+  },
+  {
+    id: "guides", label: "راهنماها", cols: 2,
+    sections: [
+      { title: "طراحی و محتوا", items: [
+        { href: "/docs/writing/", icon: "pen", label: "نوشتن متن رابط", text: "لحن، پیام خطا و فارسی‌نویسی" },
+        { href: "/docs/accessibility/", icon: "accessibility", label: "دسترس‌پذیری", text: "WCAG 2.2 AA در همهٔ کامپوننت‌ها" },
+        { href: "/docs/typography/", icon: "type", label: "فونت و تایپوگرافی", text: "وزیرمتن، اندازه‌ها و ارقام" },
+        { href: "/docs/colors/", icon: "color-swatch", label: "رنگ‌ها", text: "پالت، رنگ‌های معنایی و کنتراست" },
+      ] },
+      { title: "پایداری", items: [
+        { href: "/docs/i18n/", icon: "language", label: "دوزبانه", text: "فارسی و انگلیسی با یک تنظیم" },
+        { href: "/docs/versioning/", icon: "git-branch", label: "سیاست تغییرات", text: "نسخه‌ها، منسوخ‌کردن و پشتیبانی" },
+        { href: "/docs/security/", icon: "shield-check", label: "امنیت", text: "گزارش آسیب‌پذیری و زمان پاسخ" },
+        { href: "/docs/sizes/", icon: "scale", label: "حجم کامپوننت‌ها", text: "حجم هر کامپوننت و سقف آن" },
+      ] },
+    ],
+  },
 ];
-const toolActive = tools.some((t) => path.startsWith(t.href));
+const MENU_HREFS = menus.flatMap((m) => m.sections.flatMap((s) => s.items.map((i) => i.href))).filter((h) => !h.includes("#"));
+const isCurrent = (href: string) => !href.includes("#") && path.startsWith(href);
+const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+// کد لاتین داخل متن فارسی در <bdi> تا «@kashi» به «kashi@» برنگردد
+const inline = (t: string) => t.split("`").map((part, i) => (i % 2 ? `<bdi dir="ltr">${esc(part)}</bdi>` : esc(part))).join("");
 ---
 <header class="site-header">
   <div class="site-header__inner">
@@ -36,20 +65,29 @@ const toolActive = tools.some((t) => path.startsWith(t.href));
       {links.map((l) => (
         <a href={l.href} aria-current={l.match(path) ? "page" : undefined}>{l.label}</a>
       ))}
-      <div class="nav-menu" data-nav-menu>
-        <button type="button" class="nav-menu__btn" aria-expanded="false" aria-controls="tools-menu" data-active={toolActive ? "" : undefined}>
-          ابزارها
-          <Fragment set:html={iconSvg("chevron-down", { size: 16, className: "nav-menu__chev" })} />
-        </button>
-        <div class="nav-menu__panel" id="tools-menu" hidden>
-          {tools.map((t) => (
-            <a class="nav-menu__item" href={t.href} aria-current={path.startsWith(t.href) ? "page" : undefined}>
-              <span class="nav-menu__icon" set:html={iconSvg(t.icon, { size: 20 })} />
-              <span class="nav-menu__body"><b>{t.label}</b><small>{t.text}</small></span>
-            </a>
-          ))}
+      {menus.map((m) => (
+        <div class="nav-menu" data-nav-menu>
+          <button type="button" class="nav-menu__btn" aria-expanded="false" aria-controls={`${m.id}-menu`} data-active={m.sections.some((sec) => sec.items.some((i) => isCurrent(i.href))) ? "" : undefined}>
+            {m.label}
+            <Fragment set:html={iconSvg("chevron-down", { size: 16, className: "nav-menu__chev" })} />
+          </button>
+          <div class={`nav-menu__panel nav-menu__panel--${m.id}`} id={`${m.id}-menu`} style={`--cols: ${m.cols}`} hidden>
+            {m.sections.map((sec) => (
+              <div class="nav-menu__section">
+                {sec.title && <p class="nav-menu__title">{sec.title}</p>}
+                <div class="nav-menu__grid">
+                  {sec.items.map((t) => (
+                    <a class="nav-menu__item" href={t.href} aria-current={isCurrent(t.href) ? "page" : undefined}>
+                      <span class="nav-menu__icon" set:html={iconSvg(t.icon, { size: 20 })} />
+                      <span class="nav-menu__body"><b>{t.label}</b><small set:html={inline(t.text)} /></span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      ))}
     </nav>
 
     <div class="site-header__end">
@@ -83,15 +121,17 @@ const toolActive = tools.some((t) => path.startsWith(t.href));
 <script>
   import "../scripts/github-stats";
 
-  // منوی «ابزارها»: کلیک یا Enter باز می‌کند؛ Escape، کلیک بیرون یا رفتن فوکوس می‌بندد
+  // منوهای «ابزارها» و «راهنماها»: کلیک یا Enter باز می‌کند؛ باز شدن یکی، دیگری را می‌بندد؛ Escape، کلیک بیرون یا رفتن فوکوس می‌بندد
   document.querySelectorAll<HTMLElement>("[data-nav-menu]").forEach((root) => {
     const btn = root.querySelector<HTMLButtonElement>(".nav-menu__btn")!;
     const panel = root.querySelector<HTMLElement>(".nav-menu__panel")!;
     const items = () => [...panel.querySelectorAll<HTMLAnchorElement>("a")];
     const set = (open: boolean) => {
+      if (open) document.querySelectorAll<HTMLElement>("[data-nav-menu]").forEach((other) => other !== root && other.dispatchEvent(new Event("kashi-close-menu")));
       btn.setAttribute("aria-expanded", String(open));
       panel.hidden = !open;
     };
+    root.addEventListener("kashi-close-menu", () => set(false));
     btn.addEventListener("click", () => set(panel.hidden));
     btn.addEventListener("keydown", (e) => {
       if (e.key === "ArrowDown") { e.preventDefault(); set(true); items()[0]?.focus(); }
