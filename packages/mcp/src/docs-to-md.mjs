@@ -152,8 +152,17 @@ export function elementMarkdown(doc) {
   return out.join("\n");
 }
 
+/** بخش «راهنمای استفاده» یک صفحه از روی apps/docs/src/data/guidelines.ts؛ همان چیزی که سایت نشان می‌دهد */
+export function guidelineMarkdown(g) {
+  const out = ["## راهنمای استفاده", "", "کِی استفاده کنیم:", "", ...g.use.map((u) => `- ${u}`), "", "کِی استفاده نکنیم:", ""];
+  out.push(...g.avoid.map(([t, href, label]) => `- ${t}${href ? ` (${label ?? "جایگزین"}: ${href})` : ""}`), "", "درست و نادرست:", "");
+  for (const p of g.pairs) out.push(`- ✓ درست: ${p.do.text}`, `- ✗ نادرست: ${p.dont.text}`);
+  if (g.writing?.length) out.push("", "متن:", "", ...g.writing.map((w) => `- ${w}`));
+  return out.join("\n");
+}
+
 /** همهٔ صفحه‌های MDX یک پوشه با عنوان و گروه از فهرست ناوبری سایت؛ elements بخش وب کامپوننت هر صفحه را اضافه می‌کند */
-export function collectDocs(root, nav, site = "https://kashi.sepantapouya.com", elements = {}) {
+export function collectDocs(root, nav, site = "https://kashi.sepantapouya.com", elements = {}, guidelines = {}) {
   const groupOf = {};
   for (const g of nav) for (const item of g.items) groupOf[item.href] = { group: g.title, title: item.title };
   return globSync(`${root}/**/*.mdx`).sort().map((file) => {
@@ -164,7 +173,8 @@ export function collectDocs(root, nav, site = "https://kashi.sepantapouya.com", 
     // راهنماها هم نمونه‌کد دارند (Button در صفحهٔ نصب)؛ فقط صفحه‌های کامپوننت کامپوننت معرفی می‌کنند
     const components = /^(components|persian)\//.test(rel) ? d.components : [];
     const el = elements[href];
-    const markdown = el ? `${d.markdown}\n\n${elementMarkdown(el)}` : d.markdown;
+    const g = guidelines[href];
+    const markdown = [d.markdown, g && guidelineMarkdown(g), el && elementMarkdown(el)].filter(Boolean).join("\n\n");
     return { slug: rel || "intro", url: site + href, title: d.title || (n && n.title) || rel, description: d.description, group: n ? n.group : "", components, markdown };
   });
 }

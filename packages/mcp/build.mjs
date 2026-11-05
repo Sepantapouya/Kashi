@@ -4,8 +4,9 @@ import { mkdirSync, rmSync, writeFileSync, copyFileSync, chmodSync, readFileSync
 import { collectDocs } from "./src/docs-to-md.mjs";
 import { nav } from "../../apps/docs/src/data/nav.ts";
 import { ELEMENT_DOCS } from "../../apps/docs/src/data/elements.ts";
+import { GUIDELINES } from "../../apps/docs/src/data/guidelines.ts";
 
-const docs = collectDocs("../../apps/docs/src/pages/docs", nav, undefined, ELEMENT_DOCS);
+const docs = collectDocs("../../apps/docs/src/pages/docs", nav, undefined, ELEMENT_DOCS, GUIDELINES);
 
 const { version } = JSON.parse(readFileSync("package.json", "utf8"));
 rmSync("dist", { recursive: true, force: true });

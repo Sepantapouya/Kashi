@@ -2,6 +2,7 @@
 import { collectDocs } from "../../../../packages/mcp/src/docs-to-md.mjs";
 import { nav } from "./nav";
 import { ELEMENT_DOCS } from "./elements";
+import { GUIDELINES } from "./guidelines";
 
 const site = "https://kashi.sepantapouya.com";
 
@@ -19,7 +20,7 @@ const name = (d: Doc) => `${d.title}${d.components.length ? ` (${d.components.jo
 
 export function buildLlms() {
   // بیلد و dev از پوشهٔ apps/docs اجرا می‌شوند
-  const docs: Doc[] = collectDocs(`${process.cwd()}/src/pages/docs`, nav, site, ELEMENT_DOCS);
+  const docs: Doc[] = collectDocs(`${process.cwd()}/src/pages/docs`, nav, site, ELEMENT_DOCS, GUIDELINES);
   const groups: Record<string, Doc[]> = {};
   for (const d of docs) (groups[d.group || "Other"] ||= []).push(d);
 

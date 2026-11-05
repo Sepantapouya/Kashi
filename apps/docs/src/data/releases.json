@@ -3,7 +3,7 @@
  "totals": {
   "commits": 205,
   "versions": 29,
-  "added": 93310,
+  "added": 93388,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [],
@@ -11,18 +11,18 @@
   {
    "version": "1.0.0",
    "date": "2026-11-04T16:33:10+03:30",
-   "releaseCommit": "d1c3ab4",
+   "releaseCommit": "3f0cce0",
    "commits": [
     {
-     "sha": "d1c3ab4a28d1bd01471553ed5e795b4dd2528e52",
-     "short": "d1c3ab4",
+     "sha": "3f0cce0023bafe30cbfa4a416d792563270214f6",
+     "short": "3f0cce0",
      "date": "2026-11-04T16:33:10+03:30",
      "author": "sepantapouya",
      "subject": "Release 1.0.0",
      "details": [],
      "files": 24,
-     "added": 218,
-     "removed": 69
+     "added": 296,
+     "removed": 101
     },
     {
      "sha": "160345ffe40bbbbd9e987aac3cf7bd183193dcec",

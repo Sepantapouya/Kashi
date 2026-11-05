@@ -1,0 +1,79 @@
+---
+// بخش «راهنمای استفاده» پایان صفحه‌های کامپوننت: کِی استفاده کنیم، کِی نه (با جایگزین) و نمونهٔ درست و نادرست.
+// محتوا از data/guidelines.ts می‌آید و همان متن با guidelineMarkdown به llms.txt و سرور MCP هم می‌رسد.
+import { GUIDELINES } from "../data/guidelines";
+import { iconSvg } from "@kashi-ui/icons";
+
+const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const g = GUIDELINES[path];
+const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// کد لاتین داخل متن فارسی در <code> جدا می‌شود تا ترتیب نمایش به‌هم نریزد
+const inline = (t: string) => t.split("`").map((part, i) => (i % 2 ? `<code dir="ltr">${esc(part)}</code>` : esc(part))).join("");
+const ok = iconSvg("check", { size: 16 }) ?? "";
+const no = iconSvg("close", { size: 16 }) ?? "";
+---
+{g && (
+  <section class="ug" aria-labelledby="راهنمای-استفاده">
+    <h2 id="راهنمای-استفاده">راهنمای استفاده</h2>
+    <div class="ug__cols">
+      <div class="ug__col ug__col--use">
+        <h3>کِی استفاده کنیم</h3>
+        <ul>{g.use.map((u) => <li set:html={inline(u)} />)}</ul>
+      </div>
+      <div class="ug__col ug__col--avoid">
+        <h3>کِی استفاده نکنیم</h3>
+        <ul>
+          {g.avoid.map(([text, href, label]) => (
+            <li><span set:html={inline(text)} />{href && <> <a href={href}>{label ?? "جایگزین"}<span aria-hidden="true"> ←</span></a></>}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <h3>درست و نادرست</h3>
+    <div class="ug__pairs">
+      {g.pairs.map((p) => (
+        <>
+          <figure class="ug__ex ug__ex--do">
+            {p.do.html && <div class="ug__preview" inert set:html={p.do.html} />}
+            <figcaption><span class="ug__mark" set:html={ok} /><span><strong>درست:</strong> <span set:html={inline(p.do.text)} /></span></figcaption>
+          </figure>
+          <figure class="ug__ex ug__ex--dont">
+            {p.dont.html && <div class="ug__preview" inert set:html={p.dont.html} />}
+            <figcaption><span class="ug__mark" set:html={no} /><span><strong>نادرست:</strong> <span set:html={inline(p.dont.text)} /></span></figcaption>
+          </figure>
+        </>
+      ))}
+    </div>
+
+    {g.writing && (
+      <>
+        <h3>متن</h3>
+        <ul>{g.writing.map((w) => <li set:html={inline(w)} />)}</ul>
+        <p class="ug__more">قاعده‌های کلی لحن، برچسب دکمه و پیام خطا: <a href="/docs/writing/">نوشتن متن رابط</a></p>
+      </>
+    )}
+  </section>
+)}
+
+<style>
+  .ug__cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--k-space-4); margin-block: var(--k-space-4); }
+  .ug__col { padding: var(--k-space-4) var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); }
+  .ug__col h3 { display: flex; align-items: center; gap: var(--k-space-2); margin: 0 0 var(--k-space-2); font-size: var(--k-text-md); }
+  .ug__col h3::before { content: ""; inline-size: 0.5rem; block-size: 0.5rem; border-radius: var(--k-radius-full); background: var(--k-text-success); }
+  .ug__col--avoid h3::before { background: var(--k-text-error); }
+  .ug__col ul { margin: 0; padding-inline-start: 1.1rem; }
+  .ug__col li { margin-block: var(--k-space-1-5, 0.375rem); color: var(--k-text-secondary); }
+  .ug__col li a { white-space: nowrap; }
+  .ug__pairs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-3); margin-block: var(--k-space-3) var(--k-space-6); }
+  .ug__ex { display: grid; grid-template-rows: auto 1fr; margin: 0; overflow: hidden; border: 1px solid var(--k-border-secondary); border-block-start: 3px solid var(--k-text-success); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); }
+  .ug__ex--dont { border-block-start-color: var(--k-text-error); }
+  .ug__preview { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--k-space-2); min-block-size: 6rem; padding: var(--k-space-5); border-block-end: 1px solid var(--k-border-secondary); background: var(--k-bg-secondary); }
+  .ug__preview > * { max-inline-size: 100%; }
+  .ug__ex figcaption { display: flex; gap: var(--k-space-2); align-items: flex-start; padding: var(--k-space-3) var(--k-space-4); color: var(--k-text-secondary); font-size: var(--k-text-sm); line-height: 1.8; }
+  .ug__ex figcaption strong { color: var(--k-text-primary); }
+  .ug__mark { display: grid; place-items: center; flex: none; inline-size: 1.375rem; block-size: 1.375rem; margin-block-start: 0.15rem; border-radius: var(--k-radius-full); background: var(--k-bg-success-subtle); color: var(--k-text-success); }
+  .ug__ex--dont .ug__mark { background: var(--k-bg-error-subtle); color: var(--k-text-error); }
+  .ug__more { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  @media (max-width: 40rem) { .ug__pairs { grid-template-columns: minmax(0, 1fr); } }
+</style>

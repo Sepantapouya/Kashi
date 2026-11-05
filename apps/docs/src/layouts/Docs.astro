@@ -6,6 +6,8 @@ import Toc from "../components/Toc.astro";
 import Footer from "../components/Footer.astro";
 import PageInstall from "../components/PageInstall.astro";
 import ElementSection from "../components/ElementSection.astro";
+import UsageSection from "../components/UsageSection.astro";
+import { GUIDELINES } from "../data/guidelines";
 import { ELEMENT_DOCS } from "../data/elements";
 import { nav, siblings } from "../data/nav";
 
@@ -18,7 +20,11 @@ interface Props {
 const fm = Astro.props.frontmatter ?? { title: Astro.props.title ?? "", description: Astro.props.description };
 const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
 // بخش «وب کامپوننت» که ElementSection در پایان صفحه می‌سازد در فهرست «در این صفحه» هم بیاید
-const headings = [...(Astro.props.headings ?? []), ...(ELEMENT_DOCS[path] ? [{ depth: 2, slug: "وب-کامپوننت", text: "وب کامپوننت" }] : [])];
+const headings = [
+  ...(Astro.props.headings ?? []),
+  ...(GUIDELINES[path] ? [{ depth: 2, slug: "راهنمای-استفاده", text: "راهنمای استفاده" }] : []),
+  ...(ELEMENT_DOCS[path] ? [{ depth: 2, slug: "وب-کامپوننت", text: "وب کامپوننت" }] : []),
+];
 const { prev, next } = siblings(Astro.url.pathname);
 const group = nav.find((g) => g.items.some((i) => i.href === (Astro.url.pathname.endsWith("/") ? Astro.url.pathname : Astro.url.pathname + "/")))?.title;
 ---
@@ -36,6 +42,7 @@ const group = nav.find((g) => g.items.some((i) => i.href === (Astro.url.pathname
           <PageInstall />
         </header>
         <slot />
+        <UsageSection />
         <ElementSection />
       </article>
       <nav class="pager" aria-label="صفحه‌های مجاور">
