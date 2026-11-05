@@ -1,0 +1,37 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Logo from '../components/Logo.astro';
+import { Button, Badge } from '@kashi-ui/react';
+import { iconSvg } from '@kashi-ui/icons';
+import '../styles/pro.css';
+const features = [ ['layers','از کامپوننت تا صفحه','چیدمان‌های کامل، ساخته‌شده با کامپوننت‌های خود کاشی.'], ['palette','با رنگ و نشان شما','رنگ، فونت و جزئیات را با توکن‌های کاشی شخصی‌سازی کنید.'], ['code','برای ادامهٔ کار شما','قالب React با ساختار قابل ویرایش؛ نقطهٔ شروع محصول خودتان.'] ];
+---
+<Base title="کاشی پرو — صفحات آماده برای محصول بعدی شما" description="قالب‌های فارسی و راست‌چین ساخته‌شده با کاشی. پیش‌نمایش واقعی را ببینید و هر قالب را جداگانه انتخاب کنید.">
+<Header />
+<main id="main" class="pro">
+ <section class="pro-hero">
+  <div class="pro-eyebrow"><Logo size={24}/><span>کاشی</span><Badge tone="brand" size="sm">PRO</Badge><span class="pro-divider"></span><span>یک قدم جلوتر شروع کنید</span></div>
+  <h1>صفحهٔ بعدی شما،<br/><span>از اینجا شروع می‌شود.</span></h1>
+  <p>صفحات آمادهٔ فارسی با همان جزئیاتی که از کاشی می‌شناسید.<br class="pro-desktop"/> قالب دلخواهتان را انتخاب کنید و به محصول خودتان شکل بدهید.</p>
+  <div class="pro-actions"><Button href="#templates" size="lg" variant="primary">دیدن قالب‌ها <span set:html={iconSvg('arrow-down', {size:18})}/></Button><span>خرید جداگانهٔ هر قالب</span></div>
+  <div class="pro-traits"><span>راست‌چین از پایه</span><span>تم روشن و تیره</span><span>کامپوننت‌های واقعی کاشی</span></div>
+ </section>
+ <section id="templates" class="pro-catalog" aria-labelledby="catalog-title">
+  <div class="pro-section-head"><div><span class="pro-kicker">مجموعهٔ صفحات آماده</span><h2 id="catalog-title">یک شروع فکرشده.</h2></div><Badge variant="outline">اولین قالب · پیش‌نمایش</Badge></div>
+  <article class="pro-product">
+   <div class="pro-window"><div class="pro-window-bar"><span class="pro-dots" aria-hidden="true">● ● ●</span><span>سنجه — صفحهٔ فرود</span><a href="/templates/landing/" aria-label="باز کردن پیش‌نمایش سنجه" set:html={iconSvg('arrow-up-right', {size:18})}/></div><div class="pro-preview"><iframe src="/templates/landing/?embed=1" title="پیش‌نمایش قالب سنجه" loading="lazy" tabindex="-1" inert></iframe><a class="pro-preview-link" href="/templates/landing/" aria-label="مشاهدهٔ قالب سنجه"><span>مشاهدهٔ پیش‌نمایش <span set:html={iconSvg('arrow-left', {size:18})}/></span></a></div></div>
+   <div class="pro-product-info"><div><div class="pro-product-kind">صفحهٔ فرود محصول <span>React</span></div><h3>سنجه<span> / </span>برای معرفی محصول شما</h3><p>از اولین نگاه تا انتخاب پلن؛ یک صفحهٔ کامل با معرفی قابلیت‌ها، پیشخوان تعاملی، قیمت‌گذاری و پرسش‌های رایج.</p><ul class="pro-product-tags"><li>واکنش‌گرا</li><li>دو تم</li><li>قابل شخصی‌سازی</li></ul></div><div class="pro-product-action"><Badge tone="brand">فروش به‌زودی</Badge><p>قیمت این قالب به‌زودی اعلام می‌شود.</p><Button href="/templates/landing/" variant="secondary">دیدن پیش‌نمایش کامل <span set:html={iconSvg('arrow-left', {size:18})}/></Button></div></div>
+  </article>
+ </section>
+ <section class="pro-features" aria-label="چرا کاشی پرو">{features.map(([icon,title,text],i)=><article><div class="pro-feature-top"><span set:html={iconSvg(icon,{size:24})}/><small>{['۰۱','۰۲','۰۳'][i]}</small></div><h2>{title}</h2><p>{text}</p></article>)}</section>
+ <section class="pro-open"><div class="pro-open-icon" set:html={iconSvg('heart',{size:28})}/><div><h2>کاشی رایگان می‌ماند.</h2><p>پرو برای خرید صفحات آماده است. کامپوننت‌ها و ابزارهای متن‌باز کاشی همچنان رایگان در دسترس‌اند.</p></div><Button href="/docs/" variant="secondary">دیدن کاشی رایگان</Button></section>
+ <section class="pro-faq"><div><span class="pro-kicker">پیش از انتخاب</span><h2>چند پاسخ روشن.</h2></div><div>
+ <details><summary>برای هر قالب جداگانه پرداخت می‌کنم؟</summary><p>بله. مدل کاشی پرو خرید جداگانهٔ هر قالب است؛ قالبی را انتخاب می‌کنید که برای پروژه‌تان نیاز دارید.</p></details>
+ <details><summary>الان می‌توانم قالب را بخرم؟</summary><p>در حال حاضر پیش‌نمایش قابل بررسی است. قیمت، شرایط استفاده و جزئیات فایل‌های تحویلی پیش از فعال‌شدن خرید منتشر می‌شوند.</p></details>
+ <details><summary>سنجه یک سرویس واقعی است؟</summary><p>خیر؛ سنجه محصولی نمایشی برای معرفی قالب است. نام‌ها، آمار، نظرها و قیمت‌های داخل آن نمونه‌اند و به کاشی یا یک سرویس واقعی مربوط نیستند.</p></details>
+ <details><summary>برای استفاده از کاشی به پرو نیاز دارم؟</summary><p>خیر. با کامپوننت‌های رایگان کاشی می‌توانید صفحات خودتان را بسازید. پرو، چیدمان و طراحی آمادهٔ صفحات را به آن اضافه می‌کند.</p></details>
+ </div></section>
+</main><Footer/>
+</Base>
