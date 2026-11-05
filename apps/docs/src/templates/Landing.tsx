@@ -2,7 +2,7 @@
 // همهٔ بخش‌ها از کامپوننت‌ها و توکن‌های کاشی‌اند؛ پیشخوان داخل هیرو هم از همان StatCard و LineChart و SideNav ساخته شده.
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 import {
-  Accordion, AccordionItem, Avatar, AvatarGroup, Badge, Button, Input, LineChart, SegmentedControl, SideNav, StatCard,
+  Dialog, Accordion, AccordionItem, Avatar, AvatarGroup, Badge, Button, Input, LineChart, SegmentedControl, SideNav, StatCard,
 } from "@kashi-ui/react";
 import { Icon } from "@kashi-ui/icons/react";
 import type { IconName } from "@kashi-ui/icons";
@@ -116,7 +116,7 @@ function DashboardPreview() {
   const r = RANGES[range];
   return (
     <div className="ln-app" role="group" aria-label="نمونهٔ پیشخوان سنجه">
-      <div className="ln-app__bar" aria-hidden="true"><i /><i /><i /><span>app.sanje.ir</span></div>
+      <div className="ln-app__bar"><i /><i /><i /><span>پیشخوان سنجه</span><Badge size="sm" tone="brand">دادهٔ نمونه</Badge></div>
       <div className="ln-app__body">
         <div className="ln-app__side" {...({ inert: "" } as object)}>
         <SideNav
@@ -136,12 +136,9 @@ function DashboardPreview() {
         />
         </div>
         <div className="ln-app__main">
-          <div className="ln-app__head" {...({ inert: "" } as object)}>
-            <h3>پیشخوان من</h3>
-            <div className="ln-app__tools">
-              <Button size="sm" variant="secondary" iconStart={<I name="calendar" size={16} />}>آبان ۱۴۰۵</Button>
-              <Button size="sm" variant="secondary" iconStart={<I name="download" size={16} />}>خروجی</Button>
-            </div>
+          <div className="ln-app__head">
+            <div><span className="ln-app__eyebrow">نمای کلی کسب‌وکار</span><h3>هر روز، کمی روشن‌تر.</h3></div>
+            <span className="ln-app__sample"><I name="calendar" size={16}/> گزارش نمونهٔ ۱۴۰۵</span>
           </div>
           <div className="ln-app__stats" {...({ inert: "" } as object)}>
             <StatCard label="کاربران فعال" value={<CountUp to={12440} />} change={8.2} icon={<I name="users" size={18} />} caption="نسبت به ماه قبل" />
@@ -302,7 +299,7 @@ function Section({ kicker, title, lead, children, className }: { kicker: string;
   );
 }
 
-function Pricing() {
+function Pricing({ onSelect }: { onSelect: (title: string) => void }) {
   const [cycle, setCycle] = useState("yearly");
   return (
     <section className="ln-section ln-wrap ln-pricing" id="pricing">
@@ -331,7 +328,7 @@ function Pricing() {
               <small className="ln-plan__note">
                 {price === null ? "قیمت بر اساس حجم و نیاز شما" : price === 0 ? "برای همیشه، بدون کارت بانکی" : cycle === "yearly" ? `پرداخت سالانه: ${fa(price * 12)} تومان` : "پرداخت ماه‌به‌ماه، لغو در هر زمان"}
               </small>
-              <Button variant={p.popular ? "primary" : "secondary"} block size="lg">{p.cta}</Button>
+              <Button variant={p.popular ? "primary" : "secondary"} block size="lg" onClick={() => onSelect(`پلن ${p.name}`)}>{p.cta}</Button>
               <ul className="ln-plan__list">
                 {p.features.map((f) => <li key={f}><span><I name="check" size={14} /></span>{f}</li>)}
               </ul>
@@ -350,6 +347,9 @@ const Stars = ({ size = 14 }: { size?: number }) => (
 
 export default function Landing() {
   const root = useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dialog, setDialog] = useState<string | null>(null);
+  const [newsletter, setNewsletter] = useState(false);
   // بخش‌ها با اسکرول ظاهر می‌شوند؛ بی‌جاوااسکریپت یا با «حرکت کمتر» همه از اول پیدا هستند
   useEffect(() => {
     const el = root.current;
@@ -367,17 +367,21 @@ export default function Landing() {
   }, []);
   return (
     <div className="ln" ref={root}>
+      <Dialog open={dialog !== null} onOpenChange={(open) => { if (!open) setDialog(null); }} title={dialog} description="این بخش، نمونه‌ای از تجربهٔ محصول در قالب سنجه است." footer={<Button variant="primary" onClick={() => setDialog(null)}>متوجه شدم</Button>}>
+        <div className="ln-demo-dialog"><span className="ln-vis__ic"><I name="layers" size={24}/></span><p>سنجه یک قالب آمادهٔ کاشی پرو است، نه سرویس تحلیل داده. در نسخهٔ فعلی حسابی ساخته نمی‌شود، پرداختی انجام نمی‌شود و اطلاعاتی ارسال نمی‌شود.</p><p>در پروژهٔ خودتان می‌توانید این مسیر را به سرویس ورود، پرداخت یا پشتیبانی متصل کنید.</p><Button href="/pro/" variant="secondary">دربارهٔ قالب در کاشی پرو</Button></div>
+      </Dialog>
       <header className="ln-top">
         <div className="ln-wrap ln-top__in">
           <a className="ln-logo" href="#" aria-label="سنجه، صفحهٔ اصلی"><Mark /><span>سنجه</span></a>
-          <nav className="ln-nav" aria-label="اصلی">
+          <nav className="ln-nav" aria-label="اصلی" id="sanje-nav" data-open={menuOpen || undefined}>
             {NAV.map(([n, href]) => (
-              <a key={n} href={href}>{n}</a>
+              <a key={n} href={href} onClick={() => setMenuOpen(false)}>{n}</a>
             ))}
           </nav>
           <div className="ln-top__end">
-            <Button variant="tertiary" size="sm">ورود</Button>
-            <Button variant="primary" size="sm">شروع رایگان</Button>
+            <Button variant="tertiary" size="sm" onClick={() => setDialog("ورود به سنجه")}>ورود</Button>
+            <Button variant="primary" size="sm" href="#pricing">انتخاب پلن</Button>
+            <Button className="ln-menu-toggle" variant="secondary" size="sm" shape="square" aria-label={menuOpen ? "بستن فهرست" : "باز کردن فهرست"} aria-expanded={menuOpen} aria-controls="sanje-nav" onClick={() => setMenuOpen(!menuOpen)}><I name={menuOpen ? "x" : "menu"} size={20}/></Button>
           </div>
         </div>
       </header>
@@ -386,21 +390,21 @@ export default function Landing() {
         <section className="ln-hero" id="product">
           <div className="ln-hero__bg" aria-hidden="true"><i className="ln-blob ln-blob--a" /><i className="ln-blob ln-blob--b" /><i className="ln-blob ln-blob--c" /><span className="ln-pattern" /></div>
           <div className="ln-wrap ln-hero__in">
-            <a className="ln-pill" href="#dashboard"><b>تازه</b>پیشخوان تیمی را ببینید<I name="arrow-left" size={14} /></a>
-            <h1>داده‌هایتان را<br /><span className="ln-hl"><span className="ln-grad">به رشد تبدیل کنید</span><svg viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden="true"><path d="M4 11C70 4 160 2 296 8" /></svg></span></h1>
-            <p className="ln-lead">تحلیل رفتار کاربران، قیف تبدیل و درآمد، با تقویم شمسی و فارسی از پایه. تصویر روشنی از مسیر رشد محصولتان داشته باشید.</p>
-            <div className="ln-hero__cta">
-              <Button href="#dashboard" variant="secondary" size="lg" iconStart={<I name="play-circle" size={20} />}>دیدن نمونه</Button>
-              <Button variant="primary" size="lg" className="ln-btn-glow" href="#pricing">۱۴ روز رایگان</Button>
+            <div className="ln-hero-copy">
+              <a className="ln-pill" href="#dashboard"><span className="ln-status-dot"/>از عددها، به تصمیم‌های بهتر<I name="arrow-left" size={14}/></a>
+              <h1>رشد اتفاقی نیست.<br/><span className="ln-grad">واضح‌تر ببینیدش.</span></h1>
+              <p className="ln-lead">رفتار کاربران، مسیر خرید و درآمدتان را در یک تصویر ببینید. با زبان فارسی و تقویمی که با آن کار می‌کنید.</p>
+              <div className="ln-hero__cta"><Button href="#dashboard" variant="primary" size="lg" iconEnd={<I name="arrow-down" size={18}/>}>کاوش در پیشخوان</Button><Button href="#pricing" variant="secondary" size="lg">مشاهدهٔ پلن‌ها</Button></div>
+              <p className="ln-hero-note"><I name="check" size={15}/> فارسی از پایه <span>·</span> تقویم شمسی <span>·</span> گزارش قابل فهم</p>
             </div>
-            <div className="ln-hero__trust">
-              <AvatarGroup size="sm" max={4}>
-                {["نگار", "امیر", "سارا", "رضا", "مریم"].map((n) => <Avatar key={n} name={n} color="auto" />)}
-              </AvatarGroup>
-              <span><Stars />۴٫۹ از ۸۲۰ نظر</span>
-            </div>
+            <aside className="ln-insight" aria-label="نمونهٔ بینش تحلیلی">
+              <div className="ln-insight-head"><span><I name="sparkles" size={18}/> یک بینش، یک قدم جلوتر</span><Badge tone="brand" size="sm">نمونه</Badge></div>
+              <p>کدام مسیر، مشتری‌های<br/><strong>بیشتری برایتان می‌سازد؟</strong></p>
+              <div className="ln-source-bars">{[["جستجوی مستقیم", 78, "۴٫۸٪"],["شبکه‌های اجتماعی", 52, "۳٫۲٪"],["کمپین ایمیلی", 34, "۲٫۱٪"]].map(([label,width,value])=><div key={label}><div><span>{label}</span><b>{value}</b></div><i><span style={{width:`${width}%`}}/></i></div>)}</div>
+              <div className="ln-insight-foot"><I name="trending-up" size={18}/><span>مسیرهای مؤثر را پیدا کنید.<br/><b>روی همان‌ها سرمایه‌گذاری کنید.</b></span></div>
+            </aside>
           </div>
-          <div className="ln-wrap ln-hero__app" id="dashboard">
+          <div className="ln-wrap ln-hero__app" id="dashboard"><div className="ln-preview-caption"><span>یک تصویر کامل، به‌جای چند گزارش پراکنده</span><span><I name="mouse-pointer" size={16}/> بازهٔ نمودار را تغییر دهید</span></div>
             <div className="ln-hero__glow" aria-hidden="true" />
             <DashboardPreview />
             <div className="ln-float ln-float--a" aria-hidden="true">
@@ -417,7 +421,7 @@ export default function Landing() {
         </section>
 
         <section className="ln-logos ln-wrap" aria-labelledby="ln-logos-t">
-          <p id="ln-logos-t">بیش از ۴٬۰۰۰ تیم با سنجه رشد می‌کنند</p>
+          <p id="ln-logos-t">برای تیم‌های محصول، بازاریابی و رشد — برندهای زیر نمایشی‌اند</p>
           <ul>{LOGOS.map((l) => <li key={l.name}><I name={l.icon} size={26} /><span>{l.name}</span></li>)}</ul>
         </section>
 
@@ -453,27 +457,12 @@ export default function Landing() {
           </div>
         </Section>
 
-        <section className="ln-quote">
-          <span className="ln-pattern ln-pattern--soft" aria-hidden="true" />
-          <div className="ln-wrap ln-quote__in">
-            <span className="ln-quote__mark" aria-hidden="true"><Stars size={22} /></span>
-            <figure className="ln-reveal">
-              <blockquote>«سنجه اولین ابزاری بود که بدون تبدیل تاریخ و ترجمهٔ گزارش، همهٔ تیم ما از روز اول با آن کار کرد. حالا هیچ تصمیمی را بی‌آن نمی‌گیریم.»</blockquote>
-              <figcaption className="ln-quote__who">
-                <Avatar name="نگار احمدی" size="lg" color="auto" />
-                <span><b>نگار احمدی</b><small>مدیر محصول، کاروانک</small></span>
-                <span className="ln-quote__org"><I name="compass" size={22} />کاروانک</span>
-              </figcaption>
-            </figure>
-            <dl className="ln-stats ln-reveal">
-              {STATS.map((x) => <div key={x.label}><dt>{x.label}</dt><dd><CountUp to={x.to} decimals={x.decimals} suffix={x.suffix} /></dd></div>)}
-            </dl>
-          </div>
-        </section>
+        <section className="ln-workflow ln-wrap" aria-labelledby="workflow-title"><div><span className="ln-kicker">از داده تا تصمیم</span><h2 id="workflow-title">کمتر بین ابزارها بچرخید.<br/>بیشتر روی محصول تمرکز کنید.</h2><p>گزارش خوب فقط عدد نشان نمی‌دهد؛ کمک می‌کند قدم بعدی را پیدا کنید.</p></div><ol>{[["رویدادها را کنار هم ببینید","ورود، مشاهدهٔ محصول و خرید؛ مسیر کاربر را یک‌جا دنبال کنید."],["نقطهٔ افت را پیدا کنید","بفهمید در کدام مرحله باید تجربهٔ کاربر را بهتر کنید."],["نتیجهٔ تغییر را بسنجید","بازه‌ها را مقایسه کنید و اثر تصمیم‌هایتان را ببینید."]].map(([title,text],i)=><li key={title}><span>{fa(i+1)}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol></section>
 
-        <Pricing />
+        <Pricing onSelect={setDialog} />
 
-        <Section kicker="نظر مشتری‌ها" title="از زبان تیم‌هایی که با سنجه کار می‌کنند" lead="امتیاز ۴٫۹ از ۵، از ۸۲۰ نظر ثبت‌شده" className="ln-wrap">
+
+        <Section kicker="کاربردهای سنجه" title="برای سؤال‌های واقعی تیم شما" lead="روایت‌های زیر نمونه‌اند و جای نمایش تجربهٔ مشتری‌های محصول شما را نشان می‌دهند." className="ln-wrap">
           <div className="ln-reviews">
             {[0, 1, 2].map((c) => (
               <div key={c} className="ln-reviews__col ln-reveal" style={{ "--d": `${c * 120}ms` } as CSSProperties}>
@@ -499,7 +488,7 @@ export default function Landing() {
                 {["سارا", "علی", "مریم"].map((n) => <Avatar key={n} name={n} color="auto" />)}
               </AvatarGroup>
               <div><b>هنوز سؤالی دارید؟</b><small>شنبه تا پنجشنبه، ۹ تا ۲۱</small></div>
-              <Button variant="primary" block iconStart={<I name="message-circle" size={18} />}>گفتگو با پشتیبانی</Button>
+              <Button variant="primary" block onClick={() => setDialog("گفتگو با پشتیبانی")} iconStart={<I name="message-circle" size={18} />}>گفتگو با پشتیبانی</Button>
             </div>
           </aside>
           <Accordion type="single" className="ln-faq__list ln-reveal" style={{ "--d": "120ms" } as CSSProperties}>
@@ -514,12 +503,12 @@ export default function Landing() {
               <h2>تازه‌ترین نوشته‌ها</h2>
               <p>تجربه‌ها و روش‌هایی که تیم‌های محصول برای رشد به کار می‌برند.</p>
             </div>
-            <Button variant="secondary" iconEnd={<I name="arrow-left" size={16} />}>همهٔ نوشته‌ها</Button>
+            <Button variant="secondary" onClick={() => setDialog("کتابخانهٔ نوشته‌ها")} iconEnd={<I name="arrow-left" size={16} />}>همهٔ نوشته‌ها</Button>
           </div>
           <ul className="ln-posts">
             {POSTS.map((p, i) => (
               <li key={p.title} className="ln-reveal" style={{ "--d": `${i * 120}ms` } as CSSProperties}>
-                <a href="#" className="ln-post">
+                <a href="#article" onClick={(e) => { e.preventDefault(); setDialog(p.title); }} className="ln-post">
                   <PostArt kind={p.art} />
                   <span className="ln-post__tag">{p.tag}</span>
                   <h3>{p.title}<I name="arrow-up-left" size={18} /></h3>
@@ -538,8 +527,8 @@ export default function Landing() {
             <h2>همین امروز بفهمید کاربرانتان چه می‌کنند</h2>
             <p>راه‌اندازی کمتر از ده دقیقه؛ ۱۴ روز رایگان و بدون کارت بانکی.</p>
             <div className="ln-hero__cta">
-              <Button variant="secondary" size="lg">گفتگو با فروش</Button>
-              <Button variant="primary" size="lg" iconEnd={<I name="arrow-left" size={18} />}>شروع رایگان</Button>
+              <Button variant="secondary" size="lg" onClick={() => setDialog("گفتگو با فروش")}>گفتگو با فروش</Button>
+              <Button href="#pricing" variant="primary" size="lg" iconEnd={<I name="arrow-left" size={18} />}>انتخاب پلن</Button>
             </div>
             <ul className="ln-cta__checks">
               {["بدون کارت بانکی", "لغو در هر زمان", "پشتیبانی فارسی"].map((t) => <li key={t}><I name="check" size={16} />{t}</li>)}
@@ -555,27 +544,28 @@ export default function Landing() {
               <a className="ln-logo" href="#"><Mark size={30} /><span>سنجه</span></a>
               <p>تحلیل داده برای تیم‌های ایرانی؛ از اولین بازدید تا آخرین خرید.</p>
             </div>
-            <form className="ln-news" onSubmit={(e) => e.preventDefault()}>
+            <form className="ln-news" onSubmit={(e) => { e.preventDefault(); setNewsletter(true); }}>
               <b>خبرنامهٔ ماهانه</b>
               <small>یک ایمیل در ماه دربارهٔ رشد محصول؛ بدون تبلیغ.</small>
               <div className="ln-news__row">
-                <Input type="email" aria-label="ایمیل" placeholder="name@example.com" dir="ltr" addonStart={<I name="mail" size={18} />} />
+                <Input required type="email" aria-label="ایمیل" placeholder="name@example.com" dir="ltr" addonStart={<I name="mail" size={18} />} />
                 <Button variant="primary" type="submit">عضویت</Button>
               </div>
+              <p className="ln-news-result" role="status">{newsletter ? "این فرم نمایشی است؛ ایمیلی ذخیره یا ارسال نشد." : ""}</p>
             </form>
           </div>
           <div className="ln-foot__cols">
             {FOOTER.map(([title, links]) => (
               <nav key={title} aria-label={title}>
                 <p>{title}</p>
-                <ul>{links.map((l) => <li key={l}><a href="#">{l}{l === "قیمت‌ها" && <Badge size="sm" tone="brand">تخفیف</Badge>}</a></li>)}</ul>
+                <ul>{links.map((l) => <li key={l}><a href="#info" onClick={(e) => { e.preventDefault(); setDialog(l); }}>{l}{l === "قیمت‌ها" && <Badge size="sm" tone="brand">تخفیف</Badge>}</a></li>)}</ul>
               </nav>
             ))}
           </div>
           <div className="ln-foot__bottom">
             <small>© ۱۴۰۵ سنجه. همهٔ حقوق محفوظ است.</small>
             <ul className="ln-social">
-              {SOCIAL.map(([l, ic]) => <li key={l}><a href="#" aria-label={l}><I name={ic} size={18} /></a></li>)}
+              {SOCIAL.map(([l, ic]) => <li key={l}><a href="#social" onClick={(e) => { e.preventDefault(); setDialog(l); }} aria-label={l}><I name={ic} size={18} /></a></li>)}
             </ul>
           </div>
         </div>
