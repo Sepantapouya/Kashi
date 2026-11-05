@@ -1,5 +1,10 @@
 name: Service status
 on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/status/**
+      - .github/workflows/status.yml
   schedule:
     - cron: '17,47 * * * *'
   workflow_dispatch:
