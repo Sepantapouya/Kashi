@@ -4,5 +4,5 @@
   "buildCommand": "npm run docs:build",
   "outputDirectory": "dist",
   "trailingSlash": true,
-  "git": { "deploymentEnabled": { "stats": false } }
+  "git": { "deploymentEnabled": { "stats": false, "status": false } }
 }

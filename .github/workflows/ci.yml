@@ -28,6 +28,7 @@ jobs:
       - run: npm audit --omit=dev --audit-level=high
       # بیلد توکن‌ها شامل بررسی کنتراست WCAG است و در صورت رد شدن شکست می‌خورد
       - run: npm run build
+      - run: node --test scripts/status/model.test.mjs
       - run: npm test
       # پلاگین فیگما در شبیه‌ساز اجرا می‌شود؛ plugin/ باید با src/ و توکن‌ها هم‌خوان باشد
       - name: Figma plugin

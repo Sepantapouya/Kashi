@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Logo from '../components/Logo.astro';
+import Footer from '../components/Footer.astro';
+import StatusDashboard from '../components/status/StatusDashboard';
+import initial from '../../public/status.json';
+import '../styles/status.css';
+---
+<Base title="رادار کاشی — وضعیت سرویس‌ها" description="وضعیت دسترسی به سایت، پکیج‌های npm و دانلود پلاگین فیگمای کاشی؛ همراه تاریخچهٔ واقعی بررسی‌ها.">
+ <Header/>
+ <main id="main" class="radar">
+  <header class="radar-hero"><div class="radar-eyebrow"><span class="radar-spark">✳</span> رادار کاشی <span class="radar-eyebrow-line"></span> وضعیت سرویس‌ها</div><h1>با خیال روشن،<br/><span>به ساختن ادامه بدهید.</span></h1><p>دسترسی به ابزارهایی که با آن‌ها می‌سازید.<br/>آخرین بررسی، تاریخچهٔ نتایج و هر آنچه هنوز نمی‌دانیم.</p><div class="radar-hero-pattern" aria-hidden="true"><Logo size={58}/></div></header>
+  <StatusDashboard initial={initial} client:load/>
+ </main>
+ <Footer/>
+</Base>

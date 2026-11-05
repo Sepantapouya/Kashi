@@ -1,0 +1,1 @@
+{"version":1,"samples":[{"at":"2026-11-05T19:25:14.135Z","source":"local","checks":{"site":{"state":"down","ms":20521},"npm":{"state":"down","ms":20427},"figma":{"state":"up","ms":9242}}}]}
