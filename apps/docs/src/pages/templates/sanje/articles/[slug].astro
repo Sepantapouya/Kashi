@@ -1,0 +1,8 @@
+---
+import Sanje from '../../../../layouts/Sanje.astro';
+import { SanjeArticle } from '../../../../templates/sanje/Pages';
+import { articles } from '../../../../templates/sanje/content';
+export function getStaticPaths(){return articles.map(article=>({params:{slug:article.slug},props:{article}}));}
+const {article}=Astro.props;
+---
+<Sanje title={`${article.title} · سنجه`}><SanjeArticle slug={article.slug} client:load/></Sanje>

@@ -2,9 +2,11 @@
 // همهٔ بخش‌ها از کامپوننت‌ها و توکن‌های کاشی‌اند؛ پیشخوان داخل هیرو هم از همان StatCard و LineChart و SideNav ساخته شده.
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 import {
-  Dialog, Accordion, AccordionItem, Avatar, AvatarGroup, Badge, Button, Input, LineChart, SegmentedControl, SideNav, StatCard,
+  Accordion, AccordionItem, Avatar, AvatarGroup, Badge, Button, Input, LineChart, SegmentedControl, SideNav, StatCard,
 } from "@kashi-ui/react";
 import { Icon } from "@kashi-ui/icons/react";
+import { SanjeHeader, SanjeFooter } from "./sanje/Shell";
+import { articles, sanje } from "./sanje/content";
 import type { IconName } from "@kashi-ui/icons";
 
 const I = ({ name, size = 20 }: { name: IconName; size?: number }) => <Icon name={name} size={size} />;
@@ -16,8 +18,6 @@ const Mark = ({ size = 32 }: { size?: number }) => (
     <path d="M10.5 20.5v-3M16 20.5v-7M21.5 20.5v-10" stroke="var(--ln-mark-ink)" strokeWidth="2.4" strokeLinecap="round" />
   </svg>
 );
-
-const NAV = [["محصول", "#product"], ["قابلیت‌ها", "#features"], ["قیمت‌ها", "#pricing"], ["پرسش‌ها", "#questions"]];
 
 const LOGOS: { name: string; icon: IconName }[] = [
   { name: "کاروانک", icon: "compass" },
@@ -50,15 +50,6 @@ const POSTS: { tag: string; title: string; text: string; author: string; date: s
   { tag: "تحلیل", title: "قیف تبدیل را از کجا شروع کنیم؟", text: "پنج رویدادی که هر فروشگاه اینترنتی از روز اول باید اندازه بگیرد، و پنج عددی که فریبتان می‌دهند.", author: "نگار احمدی", date: "۱۲ آبان ۱۴۰۵", art: "funnel" },
   { tag: "محصول", title: "گزارش‌گیری شمسی، درست و بی‌دردسر", text: "چرا هفته از شنبه شروع می‌شود، ماه ۳۱ روزه است و نوروز باید در نمودار دیده شود.", author: "امیر توکلی", date: "۵ آبان ۱۴۰۵", art: "calendar" },
   { tag: "رشد", title: "از ۱۰۰ تا ۱۰٬۰۰۰ کاربر", text: "تجربهٔ سه استارتاپ ایرانی در پیدا کردن کانال رشدی که واقعاً جواب داد.", author: "مریم صادقی", date: "۲۸ مهر ۱۴۰۵", art: "growth" },
-];
-
-const SOCIAL: [string, IconName][] = [["تلگرام", "send"], ["اینستاگرام", "camera"], ["لینکدین", "briefcase"], ["ایکس", "at-sign"], ["آپارات", "play-circle"]];
-
-const STATS: { to: number; decimals?: number; suffix: string; label: string }[] = [
-  { to: 4000, suffix: "+", label: "تیم فعال" },
-  { to: 1.2, decimals: 1, suffix: " میلیارد", label: "رویداد در ماه" },
-  { to: 99.98, decimals: 2, suffix: "٪", label: "دسترس‌پذیری سال گذشته" },
-  { to: 10, suffix: " دقیقه", label: "تا اولین گزارش" },
 ];
 
 const PLANS: { name: string; desc: string; monthly: number | null; yearly: number | null; cta: string; popular?: boolean; features: string[] }[] = [
@@ -96,14 +87,6 @@ function CountUp({ to, decimals = 0, suffix = "", duration = 1400 }: { to: numbe
   return <span ref={ref} className="ln-num">{fa(v, decimals)}{suffix}</span>;
 }
 
-const FOOTER: [string, string[]][] = [
-  ["محصول", ["معرفی", "قابلیت‌ها", "قیمت‌ها", "به‌روزرسانی‌ها", "آموزش‌ها"]],
-  ["شرکت", ["درباره‌ی ما", "فرصت‌های شغلی", "اخبار", "تماس با ما"]],
-  ["منابع", ["وبلاگ", "خبرنامه", "رویدادها", "مرکز راهنما", "مستندات فنی"]],
-  ["کاربردها", ["استارتاپ‌ها", "فروشگاه اینترنتی", "سازمان‌ها", "اپلیکیشن موبایل"]],
-  ["قوانین", ["شرایط استفاده", "حریم خصوصی", "کوکی‌ها", "پیمان سطح خدمت"]],
-];
-
 const RANGES: Record<string, { labels: string[]; values: number[]; total: number; decimals: number; title: string }> = {
   "12m": { labels: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"], values: [380, 420, 410, 470, 520, 500, 560, 610, 590, 680, 720, 780], total: 780, decimals: 0, title: "درآمد ماهانهٔ ۱۴۰۵ (میلیون تومان)" },
   "30d": { labels: ["۱ آبان", "۴ آبان", "۷ آبان", "۱۰ آبان", "۱۳ آبان", "۱۶ آبان", "۱۹ آبان", "۲۲ آبان", "۲۵ آبان", "۲۸ آبان"], values: [1.8, 2.0, 1.9, 2.2, 2.1, 2.4, 2.3, 2.6, 2.5, 2.8], total: 64.2, decimals: 1, title: "درآمد روزانهٔ آبان (میلیون تومان)" },
@@ -111,7 +94,7 @@ const RANGES: Record<string, { labels: string[]; values: number[]; total: number
 };
 
 /** پیشخوان نمونه داخل هیرو؛ فقط دکمه‌های بازهٔ نمودار کار می‌کنند و بقیه نمایشی‌اند */
-function DashboardPreview() {
+export function DashboardPreview() {
   const [range, setRange] = useState("12m");
   const r = RANGES[range];
   return (
@@ -299,7 +282,7 @@ function Section({ kicker, title, lead, children, className }: { kicker: string;
   );
 }
 
-function Pricing({ onSelect }: { onSelect: (title: string) => void }) {
+export function Pricing() {
   const [cycle, setCycle] = useState("yearly");
   return (
     <section className="ln-section ln-wrap ln-pricing" id="pricing">
@@ -328,7 +311,7 @@ function Pricing({ onSelect }: { onSelect: (title: string) => void }) {
               <small className="ln-plan__note">
                 {price === null ? "قیمت بر اساس حجم و نیاز شما" : price === 0 ? "برای همیشه، بدون کارت بانکی" : cycle === "yearly" ? `پرداخت سالانه: ${fa(price * 12)} تومان` : "پرداخت ماه‌به‌ماه، لغو در هر زمان"}
               </small>
-              <Button variant={p.popular ? "primary" : "secondary"} block size="lg" onClick={() => onSelect(`پلن ${p.name}`)}>{p.cta}</Button>
+              <Button variant={p.popular ? "primary" : "secondary"} block size="lg" href={sanje.base + (price === null ? "contact/" : "signup/") + "?plan=" + ["basic","growth","enterprise"][i] + "&cycle=" + cycle}>{p.cta}</Button>
               <ul className="ln-plan__list">
                 {p.features.map((f) => <li key={f}><span><I name="check" size={14} /></span>{f}</li>)}
               </ul>
@@ -347,9 +330,6 @@ const Stars = ({ size = 14 }: { size?: number }) => (
 
 export default function Landing() {
   const root = useRef<HTMLDivElement>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [dialog, setDialog] = useState<string | null>(null);
-  const [newsletter, setNewsletter] = useState(false);
   // بخش‌ها با اسکرول ظاهر می‌شوند؛ بی‌جاوااسکریپت یا با «حرکت کمتر» همه از اول پیدا هستند
   useEffect(() => {
     const el = root.current;
@@ -367,26 +347,10 @@ export default function Landing() {
   }, []);
   return (
     <div className="ln" ref={root}>
-      <Dialog open={dialog !== null} onOpenChange={(open) => { if (!open) setDialog(null); }} title={dialog} description="این بخش، نمونه‌ای از تجربهٔ محصول در قالب سنجه است." footer={<Button variant="primary" onClick={() => setDialog(null)}>متوجه شدم</Button>}>
-        <div className="ln-demo-dialog"><span className="ln-vis__ic"><I name="layers" size={24}/></span><p>سنجه یک قالب آمادهٔ کاشی پرو است، نه سرویس تحلیل داده. در نسخهٔ فعلی حسابی ساخته نمی‌شود، پرداختی انجام نمی‌شود و اطلاعاتی ارسال نمی‌شود.</p><p>در پروژهٔ خودتان می‌توانید این مسیر را به سرویس ورود، پرداخت یا پشتیبانی متصل کنید.</p><Button href="/pro/" variant="secondary">دربارهٔ قالب در کاشی پرو</Button></div>
-      </Dialog>
-      <header className="ln-top">
-        <div className="ln-wrap ln-top__in">
-          <a className="ln-logo" href="#" aria-label="سنجه، صفحهٔ اصلی"><Mark /><span>سنجه</span></a>
-          <nav className="ln-nav" aria-label="اصلی" id="sanje-nav" data-open={menuOpen || undefined}>
-            {NAV.map(([n, href]) => (
-              <a key={n} href={href} onClick={() => setMenuOpen(false)}>{n}</a>
-            ))}
-          </nav>
-          <div className="ln-top__end">
-            <Button variant="tertiary" size="sm" onClick={() => setDialog("ورود به سنجه")}>ورود</Button>
-            <Button variant="primary" size="sm" href="#pricing">انتخاب پلن</Button>
-            <Button className="ln-menu-toggle" variant="secondary" size="sm" shape="square" aria-label={menuOpen ? "بستن فهرست" : "باز کردن فهرست"} aria-expanded={menuOpen} aria-controls="sanje-nav" onClick={() => setMenuOpen(!menuOpen)}><I name={menuOpen ? "x" : "menu"} size={20}/></Button>
-          </div>
-        </div>
-      </header>
 
-      <main>
+      <SanjeHeader current={sanje.home}/>
+
+      <main id="sanje-main">
         <section className="ln-hero" id="product">
           <div className="ln-hero__bg" aria-hidden="true"><i className="ln-blob ln-blob--a" /><i className="ln-blob ln-blob--b" /><i className="ln-blob ln-blob--c" /><span className="ln-pattern" /></div>
           <div className="ln-wrap ln-hero__in">
@@ -394,7 +358,7 @@ export default function Landing() {
               <a className="ln-pill" href="#dashboard"><span className="ln-status-dot"/>از عددها، به تصمیم‌های بهتر<I name="arrow-left" size={14}/></a>
               <h1>رشد اتفاقی نیست.<br/><span className="ln-grad">واضح‌تر ببینیدش.</span></h1>
               <p className="ln-lead">رفتار کاربران، مسیر خرید و درآمدتان را در یک تصویر ببینید. با زبان فارسی و تقویمی که با آن کار می‌کنید.</p>
-              <div className="ln-hero__cta"><Button href="#dashboard" variant="primary" size="lg" iconEnd={<I name="arrow-down" size={18}/>}>کاوش در پیشخوان</Button><Button href="#pricing" variant="secondary" size="lg">مشاهدهٔ پلن‌ها</Button></div>
+              <div className="ln-hero__cta"><Button href={sanje.base+"dashboard/"} variant="primary" size="lg" iconEnd={<I name="arrow-down" size={18}/>}>کاوش در پیشخوان</Button><Button href="#pricing" variant="secondary" size="lg">مشاهدهٔ پلن‌ها</Button></div>
               <p className="ln-hero-note"><I name="check" size={15}/> فارسی از پایه <span>·</span> تقویم شمسی <span>·</span> گزارش قابل فهم</p>
             </div>
             <aside className="ln-insight" aria-label="نمونهٔ بینش تحلیلی">
@@ -404,7 +368,7 @@ export default function Landing() {
               <div className="ln-insight-foot"><I name="trending-up" size={18}/><span>مسیرهای مؤثر را پیدا کنید.<br/><b>روی همان‌ها سرمایه‌گذاری کنید.</b></span></div>
             </aside>
           </div>
-          <div className="ln-wrap ln-hero__app" id="dashboard"><div className="ln-preview-caption"><span>یک تصویر کامل، به‌جای چند گزارش پراکنده</span><span><I name="mouse-pointer" size={16}/> بازهٔ نمودار را تغییر دهید</span></div>
+          <div className="ln-wrap ln-hero__app" id="dashboard"><div className="ln-preview-caption"><span>یک تصویر کامل، به‌جای چند گزارش پراکنده</span><span><I name="mouse-pointer" size={16}/> بازهٔ نمودار را تغییر دهید</span><a href={`${sanje.base}dashboard/`}>پیشخوان کامل ←</a></div>
             <div className="ln-hero__glow" aria-hidden="true" />
             <DashboardPreview />
             <div className="ln-float ln-float--a" aria-hidden="true">
@@ -459,7 +423,7 @@ export default function Landing() {
 
         <section className="ln-workflow ln-wrap" aria-labelledby="workflow-title"><div><span className="ln-kicker">از داده تا تصمیم</span><h2 id="workflow-title">کمتر بین ابزارها بچرخید.<br/>بیشتر روی محصول تمرکز کنید.</h2><p>گزارش خوب فقط عدد نشان نمی‌دهد؛ کمک می‌کند قدم بعدی را پیدا کنید.</p></div><ol>{[["رویدادها را کنار هم ببینید","ورود، مشاهدهٔ محصول و خرید؛ مسیر کاربر را یک‌جا دنبال کنید."],["نقطهٔ افت را پیدا کنید","بفهمید در کدام مرحله باید تجربهٔ کاربر را بهتر کنید."],["نتیجهٔ تغییر را بسنجید","بازه‌ها را مقایسه کنید و اثر تصمیم‌هایتان را ببینید."]].map(([title,text],i)=><li key={title}><span>{fa(i+1)}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol></section>
 
-        <Pricing onSelect={setDialog} />
+        <Pricing/>
 
 
         <Section kicker="کاربردهای سنجه" title="برای سؤال‌های واقعی تیم شما" lead="روایت‌های زیر نمونه‌اند و جای نمایش تجربهٔ مشتری‌های محصول شما را نشان می‌دهند." className="ln-wrap">
@@ -488,7 +452,7 @@ export default function Landing() {
                 {["سارا", "علی", "مریم"].map((n) => <Avatar key={n} name={n} color="auto" />)}
               </AvatarGroup>
               <div><b>هنوز سؤالی دارید؟</b><small>شنبه تا پنجشنبه، ۹ تا ۲۱</small></div>
-              <Button variant="primary" block onClick={() => setDialog("گفتگو با پشتیبانی")} iconStart={<I name="message-circle" size={18} />}>گفتگو با پشتیبانی</Button>
+              <Button variant="primary" block href={`${sanje.base}contact/`} iconStart={<I name="message-circle" size={18} />}>گفتگو با پشتیبانی</Button>
             </div>
           </aside>
           <Accordion type="single" className="ln-faq__list ln-reveal" style={{ "--d": "120ms" } as CSSProperties}>
@@ -503,16 +467,16 @@ export default function Landing() {
               <h2>تازه‌ترین نوشته‌ها</h2>
               <p>تجربه‌ها و روش‌هایی که تیم‌های محصول برای رشد به کار می‌برند.</p>
             </div>
-            <Button variant="secondary" onClick={() => setDialog("کتابخانهٔ نوشته‌ها")} iconEnd={<I name="arrow-left" size={16} />}>همهٔ نوشته‌ها</Button>
+            <Button variant="secondary" href={`${sanje.base}blog/`} iconEnd={<I name="arrow-left" size={16} />}>همهٔ نوشته‌ها</Button>
           </div>
           <ul className="ln-posts">
             {POSTS.map((p, i) => (
               <li key={p.title} className="ln-reveal" style={{ "--d": `${i * 120}ms` } as CSSProperties}>
-                <a href="#article" onClick={(e) => { e.preventDefault(); setDialog(p.title); }} className="ln-post">
+                <a href={`${sanje.base}articles/${articles[i].slug}/`} className="ln-post">
                   <PostArt kind={p.art} />
                   <span className="ln-post__tag">{p.tag}</span>
-                  <h3>{p.title}<I name="arrow-up-left" size={18} /></h3>
-                  <p>{p.text}</p>
+                  <h3>{articles[i].title}<I name="arrow-up-left" size={18} /></h3>
+                  <p>{articles[i].description}</p>
                   <span className="ln-post__by"><Avatar name={p.author} size="sm" color="auto" /><span><b>{p.author}</b><small>{p.date}</small></span></span>
                 </a>
               </li>
@@ -527,7 +491,7 @@ export default function Landing() {
             <h2>همین امروز بفهمید کاربرانتان چه می‌کنند</h2>
             <p>راه‌اندازی کمتر از ده دقیقه؛ ۱۴ روز رایگان و بدون کارت بانکی.</p>
             <div className="ln-hero__cta">
-              <Button variant="secondary" size="lg" onClick={() => setDialog("گفتگو با فروش")}>گفتگو با فروش</Button>
+              <Button variant="secondary" size="lg" href={`${sanje.base}contact/`}>گفتگو با فروش</Button>
               <Button href="#pricing" variant="primary" size="lg" iconEnd={<I name="arrow-left" size={18} />}>انتخاب پلن</Button>
             </div>
             <ul className="ln-cta__checks">
@@ -537,39 +501,7 @@ export default function Landing() {
         </section>
       </main>
 
-      <footer className="ln-foot">
-        <div className="ln-wrap">
-          <div className="ln-foot__top">
-            <div className="ln-foot__brand">
-              <a className="ln-logo" href="#"><Mark size={30} /><span>سنجه</span></a>
-              <p>تحلیل داده برای تیم‌های ایرانی؛ از اولین بازدید تا آخرین خرید.</p>
-            </div>
-            <form className="ln-news" onSubmit={(e) => { e.preventDefault(); setNewsletter(true); }}>
-              <b>خبرنامهٔ ماهانه</b>
-              <small>یک ایمیل در ماه دربارهٔ رشد محصول؛ بدون تبلیغ.</small>
-              <div className="ln-news__row">
-                <Input required type="email" aria-label="ایمیل" placeholder="name@example.com" dir="ltr" addonStart={<I name="mail" size={18} />} />
-                <Button variant="primary" type="submit">عضویت</Button>
-              </div>
-              <p className="ln-news-result" role="status">{newsletter ? "این فرم نمایشی است؛ ایمیلی ذخیره یا ارسال نشد." : ""}</p>
-            </form>
-          </div>
-          <div className="ln-foot__cols">
-            {FOOTER.map(([title, links]) => (
-              <nav key={title} aria-label={title}>
-                <p>{title}</p>
-                <ul>{links.map((l) => <li key={l}><a href="#info" onClick={(e) => { e.preventDefault(); setDialog(l); }}>{l}{l === "قیمت‌ها" && <Badge size="sm" tone="brand">تخفیف</Badge>}</a></li>)}</ul>
-              </nav>
-            ))}
-          </div>
-          <div className="ln-foot__bottom">
-            <small>© ۱۴۰۵ سنجه. همهٔ حقوق محفوظ است.</small>
-            <ul className="ln-social">
-              {SOCIAL.map(([l, ic]) => <li key={l}><a href="#social" onClick={(e) => { e.preventDefault(); setDialog(l); }} aria-label={l}><I name={ic} size={18} /></a></li>)}
-            </ul>
-          </div>
-        </div>
-      </footer>
+      <SanjeFooter/>
     </div>
   );
 }

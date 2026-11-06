@@ -1,0 +1,15 @@
+---
+import Sanje from '../../../layouts/Sanje.astro';
+import SanjePage from '../../../templates/sanje/Pages';
+import Reports from '../../../templates/sanje/Reports';
+import Guide from '../../../templates/sanje/Guide';
+import { reportPages, type Report } from '../../../templates/sanje/reportData';
+export function getStaticPaths(){
+  const pages={pricing:'قیمت‌ها',blog:'نوشته‌ها',contact:'تماس',login:'ورود',signup:'ثبت‌نام',reset:'بازیابی رمز',guide:'راهنمای شروع'} as const;
+  return [...Object.entries(pages).map(([page,title])=>({params:{page},props:{title}})), ...Object.entries(reportPages).map(([page,[title]])=>({params:{page},props:{title}}))];
+}
+const kind=Astro.params.page;
+---
+<Sanje title={Astro.props.title+' · سنجه'}>
+{kind in reportPages ? <Reports page={kind as Report} client:load/> : kind==='guide' ? <Guide client:load/> : <SanjePage kind={kind as import('../../../templates/sanje/Pages').PageKind} client:load/>}
+</Sanje>
