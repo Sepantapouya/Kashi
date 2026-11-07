@@ -12,7 +12,8 @@
     "packages/elements",
     "packages/tailwind",
     "packages/mcp",
-    "apps/docs"
+    "apps/docs",
+    "apps/sanje"
   ],
   "scripts": {
     "build": "npm run build -w @kashi-ui/tokens && npm run build -w @kashi-ui/persian && npm run build -w @kashi-ui/bank-logos && npm run build -w @kashi-ui/icons && npm run build -w @kashi-ui/css && npm run build -w @kashi-ui/react && npm run build -w @kashi-ui/elements && npm run build -w @kashi-ui/tailwind && npm run build -w @kashi-ui/mcp",
@@ -29,7 +30,9 @@
     "test:consumer": "node scripts/consumer-test.mjs",
     "release": "npm run build && npm test && npm run test:consumer && changeset publish",
     "figma:build": "node apps/figma-plugin/build.mjs",
-    "figma:test": "node apps/figma-plugin/build.mjs && node apps/figma-plugin/test/run.mjs"
+    "figma:test": "node apps/figma-plugin/build.mjs && node apps/figma-plugin/test/run.mjs",
+    "sanje": "npm run dev -w @kashi-ui/sanje",
+    "sanje:build": "npm run build -w @kashi-ui/sanje"
   },
   "license": "MIT",
   "repository": {

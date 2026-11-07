@@ -19,10 +19,10 @@ An RTL Persian frontend website template, built with Kashi components. It is cur
 
 - `content.ts`: shared identity, routes, and article content
 - `Shell.tsx`: shared header, mobile menu, footer
-- `reportData.ts`: deterministic sample sessions and aggregate calculations
-- `Reports.tsx`: linked reports; date/channel filters propagate in the URL
+- `apps/sanje/src/reportData.ts`: deterministic dashboard sample data
+- `apps/sanje/src/Reports.tsx`: independent dashboard reports
 - `Pages.tsx`: page layouts, article renderer, demo form behavior
-- `../Landing.tsx`: homepage, pricing, and dashboard components
+- `../Landing.tsx`: homepage and pricing
 - `../../styles/sanje.css`: shared page styles
 - `../../styles/landing.css`: landing styles
 - `../../layouts/Sanje.astro`: document, font/theme setup, demo notice
@@ -34,3 +34,5 @@ In the repository, run `npm run dev -w @kashi-ui/docs` with the Node version fro
 Forms validate locally, show an explicit demo result, and clear their values. They do not submit, store, or log entered data. Do not enter real credentials. Theme preference alone is saved in localStorage. Plan selection routes to the signup/contact preview; no purchase occurs. Chart data is illustrative, not fetched analytics. The small dashboard embedded on the landing page is illustrative; the full dashboard links to working reports.
 
 Before selling a standalone download: extract a self-contained project, pin compatible published Kashi dependencies, add product-specific license and delivery terms, document integration points, and verify installation/build from the downloaded archive. Before running an actual service: implement server authentication, data storage, email delivery, payment verification and service-specific security controls.
+
+The dashboard runs independently in `apps/sanje` with `npm run sanje` on port 4401. Legacy report URLs forward to `PUBLIC_SANJE_URL` (localhost in development). Set this variable to the deployed app origin before publishing the docs.

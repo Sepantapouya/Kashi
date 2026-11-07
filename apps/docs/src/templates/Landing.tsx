@@ -1,8 +1,7 @@
 // کیت پرو کاشی — صفحهٔ فرود یک محصول تحلیل داده («سنجه»، نام ساختگی).
-// همهٔ بخش‌ها از کامپوننت‌ها و توکن‌های کاشی‌اند؛ پیشخوان داخل هیرو هم از همان StatCard و LineChart و SideNav ساخته شده.
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 import {
-  Accordion, AccordionItem, Avatar, AvatarGroup, Badge, Button, Input, LineChart, SegmentedControl, SideNav, StatCard,
+  Accordion, AccordionItem, Avatar, AvatarGroup, Badge, Button, Input, SegmentedControl,
 } from "@kashi-ui/react";
 import { Icon } from "@kashi-ui/icons/react";
 import { SanjeHeader, SanjeFooter } from "./sanje/Shell";
@@ -60,86 +59,6 @@ const PLANS: { name: string; desc: string; monthly: number | null; yearly: numbe
 
 const reduced = () => typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fa = (n: number, decimals = 0) => n.toLocaleString("fa-IR", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-
-/** عدد را وقتی دیده شد از صفر تا مقدارش می‌شمارد؛ پیش از اجرای جاوااسکریپت و با «حرکت کمتر» همان عدد نهایی است */
-function CountUp({ to, decimals = 0, suffix = "", duration = 1400 }: { to: number; decimals?: number; suffix?: string; duration?: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const [v, setV] = useState(to);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || reduced() || typeof IntersectionObserver === "undefined") return;
-    setV(0);
-    let raf = 0;
-    const io = new IntersectionObserver(([e]) => {
-      if (!e.isIntersecting) return;
-      io.disconnect();
-      const t0 = performance.now();
-      const tick = (t: number) => {
-        const p = Math.min(1, (t - t0) / duration);
-        setV(to * (1 - Math.pow(1 - p, 3)));
-        if (p < 1) raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-    }, { threshold: 0.3 });
-    io.observe(el);
-    return () => { io.disconnect(); cancelAnimationFrame(raf); };
-  }, [to, duration]);
-  return <span ref={ref} className="ln-num">{fa(v, decimals)}{suffix}</span>;
-}
-
-const RANGES: Record<string, { labels: string[]; values: number[]; total: number; decimals: number; title: string }> = {
-  "12m": { labels: ["فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"], values: [380, 420, 410, 470, 520, 500, 560, 610, 590, 680, 720, 780], total: 780, decimals: 0, title: "درآمد ماهانهٔ ۱۴۰۵ (میلیون تومان)" },
-  "30d": { labels: ["۱ آبان", "۴ آبان", "۷ آبان", "۱۰ آبان", "۱۳ آبان", "۱۶ آبان", "۱۹ آبان", "۲۲ آبان", "۲۵ آبان", "۲۸ آبان"], values: [1.8, 2.0, 1.9, 2.2, 2.1, 2.4, 2.3, 2.6, 2.5, 2.8], total: 64.2, decimals: 1, title: "درآمد روزانهٔ آبان (میلیون تومان)" },
-  "7d": { labels: ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"], values: [2.4, 2.7, 2.5, 2.9, 3.1, 2.2, 1.9], total: 17.7, decimals: 1, title: "درآمد روزانهٔ این هفته (میلیون تومان)" },
-};
-
-/** پیشخوان نمونه داخل هیرو؛ فقط دکمه‌های بازهٔ نمودار کار می‌کنند و بقیه نمایشی‌اند */
-export function DashboardPreview() {
-  const [range, setRange] = useState("12m");
-  const r = RANGES[range];
-  return (
-    <div className="ln-app" role="group" aria-label="نمونهٔ پیشخوان سنجه">
-      <div className="ln-app__bar"><i /><i /><i /><span>پیشخوان سنجه</span><Badge size="sm" tone="brand">دادهٔ نمونه</Badge></div>
-      <div className="ln-app__body">
-        <div className="ln-app__side" {...({ inert: "" } as object)}>
-        <SideNav
-          className="ln-app__nav"
-          header={<div className="ln-app__brand"><Mark size={24} /><b>سنجه</b></div>}
-          sections={[
-            { items: [
-              { label: "خانه", icon: <I name="home" size={18} />, current: true },
-              { label: "پیشخوان‌ها", icon: <I name="chart" size={18} /> },
-              { label: "قیف‌ها", icon: <I name="funnel" size={18} />, badge: <Badge size="sm" tone="brand">تازه</Badge> },
-              { label: "کاربران", icon: <I name="users" size={18} /> },
-              { label: "گزارش‌ها", icon: <I name="file-text" size={18} /> },
-              { label: "هشدارها", icon: <I name="bell" size={18} />, badge: <Badge size="sm">۳</Badge> },
-            ] },
-          ]}
-          footer={<div className="ln-app__me"><Avatar name="نگار احمدی" size="sm" color="auto" /><span><b>نگار احمدی</b><small>فروشگاه کاروانک</small></span></div>}
-        />
-        </div>
-        <div className="ln-app__main">
-          <div className="ln-app__head">
-            <div><span className="ln-app__eyebrow">نمای کلی کسب‌وکار</span><h3>هر روز، کمی روشن‌تر.</h3></div>
-            <span className="ln-app__sample"><I name="calendar" size={16}/> گزارش نمونهٔ ۱۴۰۵</span>
-          </div>
-          <div className="ln-app__stats" {...({ inert: "" } as object)}>
-            <StatCard label="کاربران فعال" value={<CountUp to={12440} />} change={8.2} icon={<I name="users" size={18} />} caption="نسبت به ماه قبل" />
-            <StatCard label="بازدید صفحه" value={<CountUp to={86720} />} change={2.4} icon={<I name="eye" size={18} />} caption="نسبت به ماه قبل" />
-            <StatCard label="نرخ تبدیل" value={<CountUp to={3.8} decimals={1} suffix="٪" />} change={-0.6} icon={<I name="target" size={18} />} caption="نسبت به ماه قبل" />
-          </div>
-          <div className="ln-app__chart">
-            <div className="ln-app__chart-head">
-              <div aria-live="polite"><small>درآمد خالص</small><b><CountUp key={range} to={r.total} decimals={r.decimals} duration={700} /> <span>میلیون تومان</span></b></div>
-              <SegmentedControl size="sm" aria-label="بازه" value={range} onChange={setRange} options={[{ value: "12m", label: "۱۲ ماه" }, { value: "30d", label: "۳۰ روز" }, { value: "7d", label: "۷ روز" }]} />
-            </div>
-            <LineChart key={range} title={r.title} labels={r.labels} series={[{ name: "درآمد", values: r.values }]} area height="12rem" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /** جلد نوشته‌های وبلاگ: گرادیان برند با نقش کاشی و یک ترکیب ساده؛ بدون عکس */
 function PostArt({ kind }: { kind: "funnel" | "calendar" | "growth" }) {
@@ -355,10 +274,10 @@ export default function Landing() {
           <div className="ln-hero__bg" aria-hidden="true"><i className="ln-blob ln-blob--a" /><i className="ln-blob ln-blob--b" /><i className="ln-blob ln-blob--c" /><span className="ln-pattern" /></div>
           <div className="ln-wrap ln-hero__in">
             <div className="ln-hero-copy">
-              <a className="ln-pill" href="#dashboard"><span className="ln-status-dot"/>از عددها، به تصمیم‌های بهتر<I name="arrow-left" size={14}/></a>
+              <a className="ln-pill" href={sanje.base+"dashboard/"}><span className="ln-status-dot"/>از عددها، به تصمیم‌های بهتر<I name="arrow-left" size={14}/></a>
               <h1>رشد اتفاقی نیست.<br/><span className="ln-grad">واضح‌تر ببینیدش.</span></h1>
               <p className="ln-lead">رفتار کاربران، مسیر خرید و درآمدتان را در یک تصویر ببینید. با زبان فارسی و تقویمی که با آن کار می‌کنید.</p>
-              <div className="ln-hero__cta"><Button href={sanje.base+"dashboard/"} variant="primary" size="lg" iconEnd={<I name="arrow-down" size={18}/>}>کاوش در پیشخوان</Button><Button href="#pricing" variant="secondary" size="lg">مشاهدهٔ پلن‌ها</Button></div>
+              <div className="ln-hero__cta"><Button href={sanje.base+"dashboard/"} variant="primary" size="lg" iconEnd={<I name="arrow-left" size={18}/>}>ورود به پیشخوان</Button><Button href="#pricing" variant="secondary" size="lg">مشاهدهٔ پلن‌ها</Button></div>
               <p className="ln-hero-note"><I name="check" size={15}/> فارسی از پایه <span>·</span> تقویم شمسی <span>·</span> گزارش قابل فهم</p>
             </div>
             <aside className="ln-insight" aria-label="نمونهٔ بینش تحلیلی">
@@ -368,19 +287,12 @@ export default function Landing() {
               <div className="ln-insight-foot"><I name="trending-up" size={18}/><span>مسیرهای مؤثر را پیدا کنید.<br/><b>روی همان‌ها سرمایه‌گذاری کنید.</b></span></div>
             </aside>
           </div>
-          <div className="ln-wrap ln-hero__app" id="dashboard"><div className="ln-preview-caption"><span>یک تصویر کامل، به‌جای چند گزارش پراکنده</span><span><I name="mouse-pointer" size={16}/> بازهٔ نمودار را تغییر دهید</span><a href={`${sanje.base}dashboard/`}>پیشخوان کامل ←</a></div>
-            <div className="ln-hero__glow" aria-hidden="true" />
-            <DashboardPreview />
-            <div className="ln-float ln-float--a" aria-hidden="true">
-              <span className="ln-vis__ic ln-vis__ic--ok"><I name="trending-up" size={18} /></span>
-              <span><b>فروش امروز ۲۴٪ بالاتر</b><small>نسبت به میانگین چهار هفته</small></span>
+          <div className="ln-wrap ln-hero__app" id="dashboard">
+            <div className="ln-preview-caption">
+              <span>پیشخوان تعاملی فروشگاه نمونه</span>
+              <a href={sanje.base+"dashboard/"}>باز کردن داشبورد کامل ←</a>
             </div>
-            <div className="ln-float ln-float--b" aria-hidden="true">
-              <div className="ln-float__title"><b>قیف خرید</b><Badge size="sm" tone="success">+۳٫۱٪</Badge></div>
-              {[["بازدید", 100], ["سبد", 58], ["خرید", 23]].map(([l, v]) => (
-                <div key={l} className="ln-mini"><span>{l}</span><i style={{ "--w": `${v}%` } as CSSProperties} /><small>{Number(v).toLocaleString("fa-IR")}٪</small></div>
-              ))}
-            </div>
+            <Button href={sanje.base+"dashboard/"} variant="primary" size="lg">ورود به اپ مستقل سنجه <I name="arrow-left" size={18}/></Button>
           </div>
         </section>
 

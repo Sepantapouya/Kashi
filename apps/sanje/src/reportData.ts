@@ -3,13 +3,6 @@ export const stages = ['بازدید محصول', 'افزودن به سبد', '�
 export const channels = { search: 'جستجو', direct: 'ورود مستقیم', social: 'شبکه‌های اجتماعی', email: 'ایمیل' } as const;
 export type Channel = keyof typeof channels;
 export const channelIds = Object.keys(channels) as Channel[];
-export const reportPages = {
-  dashboard: ['نمای کلی', 'در فروشگاه چه می‌گذرد؟'],
-  funnel: ['قیف خرید', 'از بازدید محصول تا خرید موفق'],
-  channels: ['کانال‌های جذب', 'مشتری‌ها از کجا می‌آیند؟'],
-  events: ['رویدادها', 'ردپای هر تعامل'],
-} as const;
-export type Report = keyof typeof reportPages;
 const fa = new Intl.NumberFormat('fa-IR', {maximumFractionDigits:1});
 export const num = (n:number) => fa.format(n);
 export const rate = (n:number,total:number) => total ? num(100*n/total)+'٪' : '—';

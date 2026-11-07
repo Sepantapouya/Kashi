@@ -1,0 +1,24 @@
+{
+  "name": "@kashi-ui/sanje",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 4401 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4401 --strictPort"
+  },
+  "dependencies": {
+    "@kashi-ui/css": "*",
+    "@kashi-ui/react": "*",
+    "@kashi-ui/icons": "*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "vite": "^8.3.5"
+  },
+  "engines": {
+    "node": ">=22.23.4"
+  }
+}

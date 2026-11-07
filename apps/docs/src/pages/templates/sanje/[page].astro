@@ -1,15 +1,25 @@
 ---
 import Sanje from '../../../layouts/Sanje.astro';
 import SanjePage from '../../../templates/sanje/Pages';
-import Reports from '../../../templates/sanje/Reports';
 import Guide from '../../../templates/sanje/Guide';
-import { reportPages, type Report } from '../../../templates/sanje/reportData';
-export function getStaticPaths(){
-  const pages={pricing:'قیمت‌ها',blog:'نوشته‌ها',contact:'تماس',login:'ورود',signup:'ثبت‌نام',reset:'بازیابی رمز',guide:'راهنمای شروع'} as const;
-  return [...Object.entries(pages).map(([page,title])=>({params:{page},props:{title}})), ...Object.entries(reportPages).map(([page,[title]])=>({params:{page},props:{title}}))];
+const reports = ['dashboard', 'funnel', 'channels', 'events'];
+export function getStaticPaths() {
+  return ['pricing','blog','contact','login','signup','reset','guide','dashboard','funnel','channels','events'].map(page => ({params:{page}}));
 }
-const kind=Astro.params.page;
+const kind = Astro.params.page!;
+const isReport = reports.includes(kind);
+const appUrl = import.meta.env.PUBLIC_SANJE_URL || (import.meta.env.DEV ? 'http://127.0.0.1:4401' : '');
+const destination = appUrl ? appUrl.replace(/\/$/, '') + '/' + kind + '/' : '';
 ---
-<Sanje title={Astro.props.title+' · سنجه'}>
-{kind in reportPages ? <Reports page={kind as Report} client:load/> : kind==='guide' ? <Guide client:load/> : <SanjePage kind={kind as import('../../../templates/sanje/Pages').PageKind} client:load/>}
+<Sanje title="سنجه">
+{isReport ? <main id="sanje-main" class="ln-wrap sj-guide">
+  <h1>پیشخوان مستقل سنجه</h1>
+  {destination ? <a id="sanje-app-link" class="k-btn k-btn--primary" href={destination}>ورود به داشبورد</a> : <p>پیشخوان به اپ مستقل منتقل شده و نشانی عمومی آن به‌زودی اضافه می‌شود.</p>}
+</main> : kind === 'guide' ? <Guide client:load/> : <SanjePage kind={kind as import('../../../templates/sanje/Pages').PageKind} client:load/>}
+{isReport && destination && <script is:inline define:vars={{destination}}>
+  const url = new URL(destination, location.origin);
+  url.search = location.search;
+  url.searchParams.delete('embed');
+  location.replace(url.href);
+</script>}
 </Sanje>
