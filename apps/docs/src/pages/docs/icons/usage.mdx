@@ -39,7 +39,7 @@ iconSvg("heart", { variant: "two-tone" });
 
 ## React
 
-هر آیکون یک کامپوننت جداست؛ فقط آیکون‌هایی که import می‌کنید در باندل می‌آیند.
+هر آیکون یک کامپوننت جداست و فقط طرح خودش را دارد؛ فقط آیکون‌هایی که import می‌کنید در باندل می‌آیند (سه آیکون حدود ۴ کیلوبایت gzip، همراه کد سبک‌ها).
 
 ```tsx
 import { IconSearch, IconTrash } from "@kashi-ui/icons/react";
@@ -54,6 +54,16 @@ import { IconSearch, IconTrash } from "@kashi-ui/icons/react";
 import { Icon } from "@kashi-ui/icons/react";
 
 <Icon name={item.icon} />
+```
+
+`Icon` چون هر نامی را می‌پذیرد، **همهٔ** آیکون‌ها را به باندل می‌آورد (چند صد کیلوبایت). اگر نام‌ها از پیش معلوم‌اند، یک نقشهٔ کوچک بسازید تا فقط همان‌ها بیایند:
+
+```tsx
+import { IconHome, IconSearch, IconUser } from "@kashi-ui/icons/react";
+
+const icons = { home: IconHome, search: IconSearch, user: IconUser };
+const C = icons[item.icon];
+<C />
 ```
 
 | ویژگی | نوع | پیش‌فرض | توضیح |

@@ -14,6 +14,8 @@ import { IconSearch, Icon } from "@kashi-ui/icons/react";
 <IconWallet variant="bold" />   // light | bold | bulk | two-tone | broken | curved
 ```
 
+هر کامپوننت فقط طرح خودش را دارد و tree-shake می‌شود: سه آیکون حدود ۴ کیلوبایت gzip. `<Icon name>` برای نام‌های پویاست و همهٔ آیکون‌ها را به باندل می‌آورد؛ اگر نام‌ها معلوم‌اند، آیکون‌ها را جدا import کنید.
+
 ```js
 import { iconSvg, searchIcons } from "@kashi-ui/icons";
 

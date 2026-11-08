@@ -2,11 +2,29 @@
 // خطا کنار فیلد بی‌خطا، برچسب اختیاری، متن بلند، غیرفعال، و همان کامپوننت‌ها به انگلیسی. فقط برای تست تصویری.
 import {
   AddressForm, Alert, Badge, Button, CardNumberInput, Checkbox, DatePicker, Input, KashiProvider, NationalIdInput,
-  Pagination, PriceInput, RadioGroup, Radio, Select, Switch, Textarea, TimeInput,
+  Pagination, PriceInput, RadioGroup, Radio, Select, Switch, Tab, TabList, TabPanel, Tabs, Textarea, TimeInput,
 } from "@kashi-ui/react";
 
 const day = new Date(2026, 10, 7);
 const noop = () => {};
+
+const TAB_NAMES = ["اطلاعات حساب", "امنیت و ورود", "اعلان‌ها", "روش‌های پرداخت", "نشانی‌ها", "تاریخچهٔ سفارش"];
+
+/** زبانه‌های بیشتر از عرض و محتوای پهن پنل؛ نباید ظرف ۳۷۵ پیکسلی (یا ستون auto) را پهن کنند */
+export function WideTabs({ variant = "line" }: { variant?: "line" | "pill" | "segmented" }) {
+  return (
+    <Tabs defaultValue="t0" variant={variant}>
+      <TabList aria-label="تنظیمات">
+        {TAB_NAMES.map((t, i) => <Tab key={t} value={`t${i}`}>{t}</Tab>)}
+      </TabList>
+      {TAB_NAMES.map((t, i) => (
+        <TabPanel key={t} value={`t${i}`}>
+          <pre dir="ltr" style={{ margin: 0, overflowX: "auto" }}>npm i @kashi-ui/react @kashi-ui/css @kashi-ui/icons @kashi-ui/persian</pre>
+        </TabPanel>
+      ))}
+    </Tabs>
+  );
+}
 
 function Fields() {
   return (
@@ -64,6 +82,12 @@ export default function VisualStates() {
           </section>
         </KashiProvider>
       </div>
+      {/* آخر صفحه تا ارتفاعش جای بخش‌های دیگر را جابه‌جا نکند. ستون auto: پیش از رفع باگ، زبانه‌ها و پنل این ظرف ۳۴۳ پیکسلی را پهن‌تر می‌کردند */}
+      <section data-visual="tabs-narrow" style={{ display: "grid", gap: 24, inlineSize: 343 }}>
+        <WideTabs />
+        <WideTabs variant="pill" />
+        <WideTabs variant="segmented" />
+      </section>
     </div>
   );
 }

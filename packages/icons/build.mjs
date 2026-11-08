@@ -86,15 +86,22 @@ export declare function iconSvg(name: IconName | (string & {}), options?: IconSv
 export declare function searchIcons(query: string): IconName[];
 `);
 
+// هر کامپوننت فقط بدنهٔ SVG خودش را دارد و با /*#__PURE__*/ ساخته می‌شود تا باندلر آیکون‌های استفاده‌نشده را حذف کند؛
+// import { IconSearch } فقط همان آیکون و render.js را می‌آورد. <Icon name> همهٔ آیکون‌ها را می‌خواهد و فقط با import خودش بارگذاری می‌شود.
+// هیچ دستور سطح‌بالایی با اثر جانبی (مثل X.displayName = …) نباید اینجا بیاید؛ همان کافی است تا همه‌چیز در باندل بماند.
 writeFileSync("dist/react.js", `// @kashi-ui/icons/react — این فایل خودکار ساخته شده است
 import { createElement, forwardRef, useId } from "react";
-import { icons } from "./index.js";
 import { renderBody } from "./render.js";
 
-function create(name, displayName) {
-  const C = forwardRef(function KashiIcon({ size = 20, strokeWidth = 1.5, title, mirror = false, variant = "light", style, ...rest }, ref) {
+function named(C, displayName) {
+  C.displayName = displayName;
+  return C;
+}
+
+function create(name, displayName, source) {
+  return named(forwardRef(function KashiIcon({ size = 20, strokeWidth = 1.5, title, mirror = false, variant = "light", style, ...rest }, ref) {
     const uid = "k" + useId().replace(/[^a-zA-Z0-9]/g, "");
-    const body = { __html: renderBody(icons[name].body, variant, { uid, sw: strokeWidth }) };
+    const body = { __html: renderBody(source, variant, { uid, sw: strokeWidth }) };
     return createElement("svg", Object.assign({
       ref,
       xmlns: "http://www.w3.org/2000/svg",
@@ -114,21 +121,16 @@ function create(name, displayName) {
       "data-variant": variant === "light" ? undefined : variant,
       style: mirror ? Object.assign({ transform: "scaleX(-1)" }, style) : style,
     }, rest, { dangerouslySetInnerHTML: body }));
-  });
-  C.displayName = displayName;
-  return C;
+  }), displayName);
 }
 
-${names.map((n) => `export const ${pascal(n)} = create(${JSON.stringify(n)}, ${JSON.stringify(pascal(n))});`).join("\n")}
+${names.map((n) => `export const ${pascal(n)} = /*#__PURE__*/ create(${JSON.stringify(n)}, ${JSON.stringify(pascal(n))}, ${JSON.stringify(icons[n].body)});`).join("\n")}
 
-const byName = { ${names.map((n) => `${JSON.stringify(n)}: ${pascal(n)}`).join(", ")} };
-
-/** آیکون با نام: <Icon name="search" /> */
-export const Icon = forwardRef(function Icon({ name, ...rest }, ref) {
-  const C = byName[name];
+/** آیکون با نام: <Icon name="search" />؛ همهٔ آیکون‌ها را به باندل می‌آورد، برای نام‌های پویا */
+export const Icon = /*#__PURE__*/ named(/*#__PURE__*/ forwardRef(function Icon({ name, ...rest }, ref) {
+  const C = ({ ${names.map((n) => `${JSON.stringify(n)}: ${pascal(n)}`).join(", ")} })[name];
   return C ? createElement(C, Object.assign({ ref }, rest)) : null;
-});
-Icon.displayName = "Icon";
+}), "Icon");
 `);
 
 writeFileSync("dist/react.d.ts", `import type { ForwardRefExoticComponent, RefAttributes, SVGProps } from "react";

@@ -102,8 +102,12 @@
     "appointment": 9352,
     "cdn-loader": 2467
   },
+  "icons": {
+    "react-one": 3969,
+    "react-three": 4161
+  },
   "css": {
-    "all": 37747
+    "all": 37950
   },
   "core": {
     "react": 4362,

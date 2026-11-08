@@ -53,3 +53,24 @@ test("states", async ({ page }) => {
     await expect(page, name).toHaveScreenshot(`states-${name}.png`, { clip: await box(page.locator(`[data-visual="${name}"]`)), fullPage: true });
   }
 });
+
+// در موبایل (۳۷۵ پیکسل، راست‌به‌چپ) نه لینک پرش پنهان و نه زبانه‌های پهن نباید صفحه را افقی اسکرول‌پذیر کنند
+test("mobile has no horizontal scroll", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/test/mobile/", { waitUntil: "networkidle" });
+  await page.evaluate(() => document.fonts.ready);
+  const overflow = () => page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(await overflow(), "پیش از فوکوس").toBe(0);
+  const lists = await page.locator(".k-tabs__list").evaluateAll((els) => els.map((e) => [e.scrollWidth > e.clientWidth, e.getBoundingClientRect().width]));
+  for (const [scrolls, width] of lists) {
+    expect(scrolls, "فهرست زبانه خودش اسکرول می‌شود").toBe(true);
+    expect(width).toBeLessThanOrEqual(375 - 32);
+  }
+  await expect(page, "mobile").toHaveScreenshot("mobile-tabs.png", { fullPage: true });
+  await page.keyboard.press("Tab");
+  const skip = page.locator(".k-skip-link");
+  await expect(skip).toBeFocused();
+  expect((await skip.boundingBox()).width).toBeGreaterThan(40);
+  expect(await overflow(), "با فوکوس لینک پرش").toBe(0);
+  await expect(page, "skip link").toHaveScreenshot("mobile-skip-link.png", { clip: await box(skip), fullPage: true });
+});

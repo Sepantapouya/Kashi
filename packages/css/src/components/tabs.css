@@ -4,15 +4,24 @@
  *
  * متغیرها: --k-tab-height  --k-tab-radius  --k-tabs-gap  --k-tabs-indicator  --k-tabs-list-width
  */
-.k-tabs { display: grid; gap: var(--k-tabs-gap, var(--k-space-4)); inline-size: 100%; }
+/* ستون minmax(0, 1fr): فهرست زبانهٔ پهن یا محتوای پهن پنل، ظرف (و صفحهٔ موبایل) را پهن‌تر نمی‌کند */
+.k-tabs { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--k-tabs-gap, var(--k-space-4)); inline-size: 100%; min-inline-size: 0; }
+.k-tabs__panel { min-inline-size: 0; }
 
+/* زبانه‌های بیشتر از عرض، افقی اسکرول می‌شوند */
 .k-tabs__list {
   position: relative;
   display: flex;
   gap: var(--k-space-1);
+  min-inline-size: 0;
+  max-inline-size: 100%;
   overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-padding-inline: var(--k-space-4);
   scrollbar-width: none;
 }
+.k-tabs__list::-webkit-scrollbar { display: none; }
+.k-tabs__tab { flex-shrink: 0; }
 
 .k-tabs__tab {
   position: relative;

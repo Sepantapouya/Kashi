@@ -3367,7 +3367,7 @@ function menuPanel(items, { w = 240 } = {}) {
 function buildNavigation() {
   const root = kitPage("🧭", "Navigation", "ناوبری", "تب، مسیر صفحه، صفحه‌بندی، مراحل، منوی کناری، منوی کشویی و جستجوی فرمان (⌘K).");
 
-  safe("Tabs", () => section(root, "Tabs · تب‌ها", "سه سبک خطی، قرصی و بخش‌بندی؛ افقی یا عمودی.", (h) => {
+  safe("Tabs", () => section(root, "Tabs · تب‌ها", "سه سبک خطی، قرصی و بخش‌بندی؛ افقی یا عمودی. در قاب باریک، فهرست افقی پهن‌تر نمی‌شود و زبانه‌ها اسکرول می‌خورند.", (h) => {
     const labels = ["نمای کلی", "تراکنش‌ها", "گزارش‌ها", "تنظیمات"];
     componentSet(h, "Tabs", {
       axes: { Variant: ["Line", "Pill", "Segmented"], Orientation: ["Horizontal", "Vertical"] },
@@ -3390,6 +3390,8 @@ function buildNavigation() {
           p: p.Variant === "Segmented" ? 3 : undefined, radius: p.Variant === "Segmented" ? 11 : undefined,
           fill: p.Variant === "Segmented" ? "bg-secondary" : undefined, stroke: p.Variant === "Segmented" ? "border-secondary" : p.Variant === "Line" && !vertical ? "border-secondary" : undefined,
           sides: p.Variant === "Line" && !vertical ? [0, 0, 1, 0] : undefined,
+          // مثل overflow-x: auto در k-tabs__list: اگر نمونه را باریک‌تر کنید، زبانه‌های اضافه بریده می‌شوند و قاب پهن نمی‌شود
+          clip: !vertical,
           css: p.Variant === "Segmented" && !vertical ? "k-tabs--segmented .k-tabs__list" : undefined, cssCheck: ["pad", "radius", "bg", "border"],
         }, labels.map(tab));
         return list;

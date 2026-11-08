@@ -102,6 +102,10 @@
     "appointment": 10300,
     "cdn-loader": 2800
   },
+  "icons": {
+    "react-one": 4400,
+    "react-three": 4600
+  },
   "css": {
     "all": 41400
   },

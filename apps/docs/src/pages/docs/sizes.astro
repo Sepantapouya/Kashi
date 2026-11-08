@@ -16,13 +16,19 @@ const rows = Object.keys(own)
   .sort((a, b) => a.own - b.own);
 const el = SIZES.elements as Record<string, number>;
 const elLimit = BUDGET.elements as Record<string, number>;
+const ic = ((SIZES as { icons?: Record<string, number> }).icons ?? {}) as Record<string, number>;
+const icLimit = ((BUDGET as { icons?: Record<string, number> }).icons ?? {}) as Record<string, number>;
+const IC_FA: Record<string, [string, string]> = {
+  "react-one": ["یک آیکون", "import { IconSearch }"],
+  "react-three": ["سه آیکون", "import { IconSearch, IconHome, IconUser }"],
+};
 const EL_FA: Record<string, string> = {
   "cdn-loader": "بارگذار CDN (همهٔ عنصرها، بارگذاری هنگام نیاز)", inputs: "فیلدهای فارسی", fields: "کد تأیید", combobox: "استان، شهر و جستجو", map: "نقشهٔ ایران و فرم نشانی",
   calendar: "تقویم و انتخاب تاریخ", display: "مبلغ، تاریخ و شمارش معکوس", overlay: "گفتگو، زبانه، راهنما و کپی", toast: "اعلان", menu: "منو و پاپ‌اور", controls: "برچسب، عدد، امتیاز و صفحه‌بندی",
   table: "جدول داده", forms: "فرم‌های پیشرفته", pickers: "بازهٔ تاریخ، ماه، فایل و رنگ", charts: "نمودارها", nav: "پالت فرمان، کاروسل، درخت و تور", basic: "فیلد متنی و بنر", appointment: "انتخاب نوبت",
 };
 ---
-<Docs headings={[{ depth: 2, slug: "هسته", text: "هستهٔ مشترک" }, { depth: 2, slug: "سقف", text: "سقف حجم" }, { depth: 2, slug: "react", text: "کامپوننت‌های React" }, { depth: 2, slug: "وب-کامپوننت", text: "وب کامپوننت‌ها" }, { depth: 2, slug: "css", text: "CSS" }]} title="حجم کامپوننت‌ها" description="حجم هر کامپوننت کاشی در برنامهٔ شما (minify و gzip) و سقفی که تست خودکار نمی‌گذارد از آن بیشتر شود.">
+<Docs headings={[{ depth: 2, slug: "هسته", text: "هستهٔ مشترک" }, { depth: 2, slug: "سقف", text: "سقف حجم" }, { depth: 2, slug: "react", text: "کامپوننت‌های React" }, { depth: 2, slug: "وب-کامپوننت", text: "وب کامپوننت‌ها" }, { depth: 2, slug: "آیکون", text: "آیکون‌ها" }, { depth: 2, slug: "css", text: "CSS" }]} title="حجم کامپوننت‌ها" description="حجم هر کامپوننت کاشی در برنامهٔ شما (minify و gzip) و سقفی که تست خودکار نمی‌گذارد از آن بیشتر شود.">
   <p>هر عدد همان چیزی است که با import همان یک کامپوننت به برنامهٔ شما اضافه می‌شود: کد minify و tree-shake شده با gzip، شامل کامپوننت‌های وابسته و تابع‌های <code dir="ltr">@kashi-ui/persian</code> که لازم دارد و بدون خود React. این اعداد در هر بیلد دوباره اندازه گرفته می‌شوند.</p>
 
   <h2 id="هسته">هستهٔ مشترک</h2>
@@ -56,6 +62,19 @@ const EL_FA: Record<string, string> = {
       <tbody>
         {Object.entries(el).sort((a, b) => a[1] - b[1]).map(([m, v]) => (
           <tr><th scope="row">{EL_FA[m] ?? m}<code dir="ltr">{m === "cdn-loader" ? "kashi-elements.js" : `@kashi-ui/elements/${m}.js`}</code></th><td>{kb(v)}</td><td>{kb(elLimit[m])}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="آیکون">آیکون‌ها</h2>
+  <p>هر کامپوننت <code dir="ltr">@kashi-ui/icons/react</code> فقط طرح خودش را دارد؛ عدد زیر شامل کد مشترک ساخت شش سبک هم هست که یک بار بارگذاری می‌شود. <code dir="ltr">{'<Icon name>'}</code> چون هر نامی را می‌پذیرد همهٔ آیکون‌ها را می‌آورد و فقط برای نام‌های پویاست.</p>
+  <div class="sz-wrap">
+    <table class="sz">
+      <thead><tr><th scope="col">import</th><th scope="col">حجم</th><th scope="col">سقف</th></tr></thead>
+      <tbody>
+        {Object.entries(ic).map(([k, v]) => (
+          <tr><th scope="row">{IC_FA[k]?.[0] ?? k}<code dir="ltr">{IC_FA[k]?.[1] ?? k}</code></th><td>{kb(v)}</td><td>{kb(icLimit[k])}</td></tr>
         ))}
       </tbody>
     </table>

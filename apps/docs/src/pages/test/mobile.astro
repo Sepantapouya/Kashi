@@ -1,0 +1,30 @@
+---
+// صفحهٔ تست موبایل (tests/visual): در ۳۷۵ پیکسل و dir="rtl" نباید اسکرول افقی داشته باشد؛ لینک پرش و زبانه‌های پهن. در فهرست سایت نیست.
+import "../../styles/layers.css";
+import "@kashi-ui/css";
+import { WideTabs } from "../../components/VisualStates";
+---
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>تست موبایل</title>
+  <script is:inline>
+    try {
+      const t = localStorage.getItem("kashi-theme");
+      if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+    } catch {}
+  </script>
+  <style>body { margin: 0; background: var(--k-bg-primary); color: var(--k-text-primary); font-family: var(--k-font-sans); } main { display: grid; gap: 24px; padding: 16px; }</style>
+</head>
+<body>
+  <a class="k-skip-link" href="#main">رفتن به محتوای اصلی</a>
+  <main id="main" data-visual="mobile">
+    <WideTabs client:load />
+    <WideTabs variant="pill" client:load />
+    <WideTabs variant="segmented" client:load />
+  </main>
+</body>
+</html>
