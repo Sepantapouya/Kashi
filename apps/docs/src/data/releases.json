@@ -1,100 +1,163 @@
 {
- "generated": "2026-11-08T13:52:29+03:30",
+ "generated": "2026-11-08T15:43:53+03:30",
  "totals": {
-  "commits": 211,
-  "versions": 29,
-  "added": 95206,
+  "commits": 216,
+  "versions": 30,
+  "added": 96012,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
   {
-   "sha": "ce9bda0fb48b26584a389d7649bad86f3f67dc00",
-   "short": "ce9bda0",
-   "date": "2026-11-08T13:52:29+03:30",
+   "sha": "8ec94dc52835d152a7906697c22ec5d52ffae5a7",
+   "short": "8ec94dc",
+   "date": "2026-11-08T15:43:53+03:30",
    "author": "sepantapouya",
-   "subject": "fix(icons): improve filled variants across the catalog",
+   "subject": "feat(icons): add 200 workflow icons and refine status spacing",
    "details": [],
-   "files": 7,
-   "added": 123,
-   "removed": 56
+   "files": 13,
+   "added": 304,
+   "removed": 26
   },
   {
-   "sha": "70666cf8b49de6c80f8f4943417d22b32124fc39",
-   "short": "70666cf",
-   "date": "2026-11-08T13:35:55+03:30",
+   "sha": "489a542efa19fbd679e84a069c4485a7fab4bf9d",
+   "short": "489a542",
+   "date": "2026-11-08T15:27:06+03:30",
    "author": "sepantapouya",
-   "subject": "feat(icons): add 10 urban mobility icons",
+   "subject": "docs(icons): define Kashi icon design scale",
    "details": [],
-   "files": 11,
-   "added": 22,
-   "removed": 12
-  },
-  {
-   "sha": "37cc8b0af7a062169650f2aabbc9f2d51b1a538c",
-   "short": "37cc8b0",
-   "date": "2026-11-05T23:10:36+03:30",
-   "author": "sepantapouya",
-   "subject": "ci: initialize service monitoring on collector updates",
-   "details": [],
-   "files": 1,
-   "added": 5,
+   "files": 4,
+   "added": 145,
    "removed": 0
   },
   {
-   "sha": "a44d976b9cbdfea1c895bdb82697b4d1db2afc1f",
-   "short": "a44d976",
-   "date": "2026-11-05T23:07:51+03:30",
+   "sha": "ebf7e8c14179cb030c49aa15014b5ce17a1221d6",
+   "short": "ebf7e8c",
+   "date": "2026-11-08T14:47:07+03:30",
    "author": "sepantapouya",
-   "subject": "feat(docs): add Kashi service radar with real availability checks",
+   "subject": "feat(icons): add 90 icons across nine themes",
    "details": [],
-   "files": 14,
-   "added": 193,
-   "removed": 3
+   "files": 12,
+   "added": 125,
+   "removed": 12
   },
   {
-   "sha": "9d2e32b3302480958fe69d8ab41a9879a16a4446",
-   "short": "9d2e32b",
-   "date": "2026-11-05T13:21:09+03:30",
+   "sha": "151055edd409dbf66bb880cfb90271aa3e421a5d",
+   "short": "151055e",
+   "date": "2026-11-08T14:32:44+03:30",
    "author": "sepantapouya",
-   "subject": "Docs: full Persian UI writing guide with diagrams; guides menu in header and footer",
-   "details": [
-    "- /docs/writing/ rewritten: principles, voice and tone, every UI element, ZWNJ and",
-    "spacing, spelling, punctuation, numbers and money, word choice, bidi, Persian",
-    "typography, screen readers, product glossary, checklist and sources",
-    "(Persian Academy via Virastaran, ArvanCloud orthography, W3C alreq, Digikala)",
-    "- WritingArt.astro: error message anatomy, tone spectrum, which-message tree,",
-    "button label formula, ZWNJ comparison and punctuation spacing, in both themes",
-    "- Header: «ابزارها» as a 3×2 grid and a new «راهنماها» menu with two sections;",
-    "panels anchored to the nav so they stay on screen; no stray active underline",
-    "inside menus; Latin text in <bdi> so @kashi reads right",
-    "- Footer: five columns (product, tools, guides, stability, community) on a grid"
-   ],
-   "files": 7,
-   "added": 646,
-   "removed": 105
-  },
-  {
-   "sha": "92a7a33b58c44eb7c49ae34df5e9fe68105590e7",
-   "short": "92a7a33",
-   "date": "2026-11-05T12:29:30+03:30",
-   "author": "sepantapouya",
-   "subject": "Docs: usage guide on every component page and a writing guide for interface text",
-   "details": [
-    "- data/guidelines.ts: when to use, when not (with the alternative), do/don't pairs",
-    "with static k-* previews and text tips, for all 71 component pages",
-    "- UsageSection.astro after the page content and in the TOC; guidelineMarkdown sends",
-    "the same text to llms.txt and the MCP server",
-    "- /docs/writing/: tone, button labels, error messages, empty and success states,",
-    "punctuation, numbers and money, English words, screen reader text, checklist",
-    "- MCP test fails for a component page without a usage guide",
-    "- Visual tests: whole-pixel clips so page length no longer shifts sizes by 1px"
-   ],
-   "files": 638,
-   "added": 829,
-   "removed": 16
+   "subject": "refine(icons): hand-draw eight bold glyphs",
+   "details": [],
+   "files": 6,
+   "added": 67,
+   "removed": 17
   }
  ],
  "versions": [
+  {
+   "version": "1.1.0",
+   "date": "2026-11-08T13:55:57+03:30",
+   "releaseCommit": "5eb4f15",
+   "commits": [
+    {
+     "sha": "5eb4f158bed2cce4e9b91fb8825f8595458c1bb3",
+     "short": "5eb4f15",
+     "date": "2026-11-08T13:55:57+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.1.0",
+     "details": [],
+     "files": 23,
+     "added": 165,
+     "removed": 49
+    },
+    {
+     "sha": "ce9bda0fb48b26584a389d7649bad86f3f67dc00",
+     "short": "ce9bda0",
+     "date": "2026-11-08T13:52:29+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(icons): improve filled variants across the catalog",
+     "details": [],
+     "files": 7,
+     "added": 123,
+     "removed": 56
+    },
+    {
+     "sha": "70666cf8b49de6c80f8f4943417d22b32124fc39",
+     "short": "70666cf",
+     "date": "2026-11-08T13:35:55+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 10 urban mobility icons",
+     "details": [],
+     "files": 11,
+     "added": 22,
+     "removed": 12
+    },
+    {
+     "sha": "37cc8b0af7a062169650f2aabbc9f2d51b1a538c",
+     "short": "37cc8b0",
+     "date": "2026-11-05T23:10:36+03:30",
+     "author": "sepantapouya",
+     "subject": "ci: initialize service monitoring on collector updates",
+     "details": [],
+     "files": 1,
+     "added": 5,
+     "removed": 0
+    },
+    {
+     "sha": "a44d976b9cbdfea1c895bdb82697b4d1db2afc1f",
+     "short": "a44d976",
+     "date": "2026-11-05T23:07:51+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): add Kashi service radar with real availability checks",
+     "details": [],
+     "files": 14,
+     "added": 193,
+     "removed": 3
+    },
+    {
+     "sha": "9d2e32b3302480958fe69d8ab41a9879a16a4446",
+     "short": "9d2e32b",
+     "date": "2026-11-05T13:21:09+03:30",
+     "author": "sepantapouya",
+     "subject": "Docs: full Persian UI writing guide with diagrams; guides menu in header and footer",
+     "details": [
+      "- /docs/writing/ rewritten: principles, voice and tone, every UI element, ZWNJ and",
+      "spacing, spelling, punctuation, numbers and money, word choice, bidi, Persian",
+      "typography, screen readers, product glossary, checklist and sources",
+      "(Persian Academy via Virastaran, ArvanCloud orthography, W3C alreq, Digikala)",
+      "- WritingArt.astro: error message anatomy, tone spectrum, which-message tree,",
+      "button label formula, ZWNJ comparison and punctuation spacing, in both themes",
+      "- Header: «ابزارها» as a 3×2 grid and a new «راهنماها» menu with two sections;",
+      "panels anchored to the nav so they stay on screen; no stray active underline",
+      "inside menus; Latin text in <bdi> so @kashi reads right",
+      "- Footer: five columns (product, tools, guides, stability, community) on a grid"
+     ],
+     "files": 7,
+     "added": 646,
+     "removed": 105
+    },
+    {
+     "sha": "92a7a33b58c44eb7c49ae34df5e9fe68105590e7",
+     "short": "92a7a33",
+     "date": "2026-11-05T12:29:30+03:30",
+     "author": "sepantapouya",
+     "subject": "Docs: usage guide on every component page and a writing guide for interface text",
+     "details": [
+      "- data/guidelines.ts: when to use, when not (with the alternative), do/don't pairs",
+      "with static k-* previews and text tips, for all 71 component pages",
+      "- UsageSection.astro after the page content and in the TOC; guidelineMarkdown sends",
+      "the same text to llms.txt and the MCP server",
+      "- /docs/writing/: tone, button labels, error messages, empty and success states,",
+      "punctuation, numbers and money, English words, screen reader text, checklist",
+      "- MCP test fails for a component page without a usage guide",
+      "- Visual tests: whole-pixel clips so page length no longer shifts sizes by 1px"
+     ],
+     "files": 638,
+     "added": 829,
+     "removed": 16
+    }
+   ],
+   "notes": []
+  },
   {
    "version": "1.0.0",
    "date": "2026-11-04T16:33:10+03:30",
