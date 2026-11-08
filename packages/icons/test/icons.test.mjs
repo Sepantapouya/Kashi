@@ -59,9 +59,9 @@ test("every icon renders in all six variants", async () => {
   for (const n of iconNames) for (const v of variants) {
     const svg = iconSvg(n, { variant: v });
     assert.match(svg, /<(path|circle)\b/, `${n} ${v}`);
-    assert.doesNotMatch(svg, /data-(sq|outline)/, `${n} ${v} marker`);
+    assert.doesNotMatch(svg, /data-(sq|outline|bold|base)=/, `${n} ${v} marker`);
   }
-  const a = iconSvg("calendar", { variant: "bold" }), b = iconSvg("calendar", { variant: "bold" });
+  const a = iconSvg("info", { variant: "bold" }), b = iconSvg("info", { variant: "bold" });
   assert.notEqual(a.match(/mask id="([^"]+)"/)[1], b.match(/mask id="([^"]+)"/)[1], "mask ids are unique");
   const html = renderToStaticMarkup(createElement(R.IconHome, { variant: "bulk" }));
   assert.match(html, /data-variant="bulk"/);
@@ -70,16 +70,23 @@ test("every icon renders in all six variants", async () => {
   assert.equal(readdirSync(new URL("../dist/svg/curved/", import.meta.url)).length, iconNames.length);
 });
 
-test("bold leaves room between open strokes and keeps lens and wheel centers open", () => {
+test("bold leaves room between open strokes and keeps small rings open", () => {
   const barcode = iconSvg("scan-barcode", { variant: "bold" });
   const weight = Number(barcode.match(/<g stroke-width="([\d.]+)">/)?.[1]);
   assert.ok(weight > 1.5 && weight < 2);
   assert.match(iconSvg("scan-barcode", { variant: "bold", strokeWidth: 2 }), /<g stroke-width="2">/);
-  for (const name of ["search", "settings", "bicycle"]) {
-    const svg = iconSvg(name, { variant: "bold" });
-    assert.match(svg, /<circle\b/);
-    assert.doesNotMatch(svg, /fill="currentColor"/, name);
-  }
+  const settings = iconSvg("settings", { variant: "bold" });
+  assert.match(settings, /<circle\b/);
+  assert.doesNotMatch(settings, /fill="currentColor"/);
+});
+
+test("hand-drawn bold shapes also render inside composite icons", () => {
+  const search = iconSvg("search", { variant: "bold" });
+  assert.match(search, /<path fill="currentColor" stroke="none"/);
+  assert.match(iconSvg("search"), /<circle cx="9\.1" cy="9\.1" r="6\.2"/);
+  const gift = iconSvg("gift-check", { variant: "bold" });
+  assert.match(gift, /<g mask="url\(#[^)]+\)"><path fill="currentColor" stroke="none"/);
+  assert.match(gift, /<path d="m12\.6 15\.1/);
 });
 
 test("bold fills a closed outline and cuts out the following relative detail", () => {

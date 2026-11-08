@@ -9,6 +9,10 @@ import { sqPath } from "./render.js";
 /** جابه‌جایی کل آیکون برای هم‌مرکز شدن، بی‌آن‌که مختصات دوباره نوشته شوند */
 const shift = (dx, dy, body) => `<g data-shift="${dx} ${dy}">${body}</g>`;
 const sq = (x, y, w, h, r) => `<path data-sq="${x} ${y} ${w} ${h} ${r}" d="${sqPath(x, y, w, h, r)}"/>`;
+const withBold = (body, bold) => `<g data-bold="true" display="none">${bold}</g><g data-base="true">${body}</g>`;
+const filled = (d) => `<path d="${d}" fill="currentColor" fill-rule="evenodd" stroke="none"/>`;
+const disk = (x, y, r) => `M${x} ${y - r}a${r} ${r} 0 1 1 0 ${2 * r} ${r} ${r} 0 1 1 0 ${-2 * r}Z`;
+const hiddenEyeLobe = filled("M7.55 5.35C8.3 5.05 9.1 4.9 10 4.9c3.2 0 5.8 1.8 7.5 5.1-.67 1.3-1.43 2.35-2.32 3.18l-2.47-2.47a2.8 2.8 0 0 0-2.97-2.97Z");
 
 /** دسته‌ها به ترتیب نمایش در مستندات */
 export const categories = {
@@ -101,7 +105,10 @@ export const icons = {
   "chevron-right": { title: "راست", category: "chevrons", keywords: ["قبلی", "در", "راست‌به‌چپ", "previous", "forward"], directional: true, body: "<path d=\"m7.75 5 4.5 5-4.5 5\"/>" },
   "arrow-left": { title: "فلش چپ", category: "arrows", keywords: ["بعدی", "ادامه", "رفتن", "next"], directional: true, body: "<path d=\"M16.25 10H3.75M8.8 4.95 3.75 10l5.05 5.05\"/>" },
   "arrow-right": { title: "فلش راست", category: "arrows", keywords: ["قبلی", "بازگشت", "back", "previous"], directional: true, body: "<path d=\"M3.75 10h12.5M11.2 4.95 16.25 10l-5.05 5.05\"/>" },
-  "search": { title: "جستجو", category: "actions", keywords: ["پیدا", "کردن", "ذره‌بین", "find", "magnifier"], body: "<circle data-outline=\"true\" cx=\"9.1\" cy=\"9.1\" r=\"6.2\"/><path d=\"m14.9 14.9 2.3 2.3\"/>" },
+  "search": { title: "جستجو", category: "actions", keywords: ["پیدا", "کردن", "ذره‌بین", "find", "magnifier"], body: withBold(
+    '<circle cx="9.1" cy="9.1" r="6.2"/><path d="m14.9 14.9 2.3 2.3"/>',
+    '<path fill="currentColor" stroke="none" d="M14.85 8.75a6.1 6.1 0 1 1-12.2 0 6.1 6.1 0 1 1 12.2 0ZM12.8 8.75a4.05 4.05 0 1 0-8.1 0 4.05 4.05 0 1 0 8.1 0Z"/><path d="m14.45 14.45 2.8 2.8"/>',
+  ) },
   "plus": { title: "افزودن", category: "actions", keywords: ["جدید", "اضافه", "به‌علاوه", "add", "new", "create"], body: "<path d=\"M10 5v10M5 10h10\"/>" },
   "minus": { title: "کم کردن", category: "actions", keywords: ["منها", "کاهش", "remove", "subtract"], body: "<path d=\"M5 10h10\"/>" },
   "calendar": { title: "تقویم", category: "time", keywords: ["تاریخ", "روز", "برنامه", "date", "schedule"], body: sq(3, 3.75, 14, 13.5, 4) + "<path d=\"M3.2 8.2h13.6M7 2.5v2.6M13 2.5v2.6M6.9 11.3v.01M10 11.3v.01M13.1 11.3v.01M6.9 14.1v.01M10 14.1v.01\"/>" },
@@ -115,14 +122,24 @@ export const icons = {
   "phone": { title: "موبایل", category: "calls", keywords: ["گوشی", "تلفن", "همراه", "mobile", "smartphone"], body: sq(5, 2.5, 10, 15, 3.25) + "<path d=\"M8.75 14.5h2.5\"/>" },
   "landline": { title: "تلفن", category: "calls", keywords: ["تماس", "تلفن", "ثابت", "call", "landline"], body: "<path d=\"M4.2 3.6c.7-.7 1.85-.65 2.5.1l1.4 1.7c.55.65.5 1.6-.1 2.2l-.85.85c.75 1.6 2.05 2.9 3.65 3.65l.85-.85c.6-.6 1.55-.65 2.2-.1l1.7 1.4c.75.65.8 1.8.1 2.5l-.9.9c-.85.85-2.1 1.2-3.25.8C7.25 15.5 3.75 12 2.5 7.75c-.4-1.15-.05-2.4.8-3.25Z\"/>" },
   "lock": { title: "قفل", category: "security", keywords: ["رمز", "امنیت", "خصوصی", "password", "secure", "private"], body: sq(4, 8.25, 12, 9.25, 3.25) + "<path d=\"M6.9 8.3V6.4a3.1 3.1 0 0 1 6.2 0v1.9M10 11.6v2.2\"/>" },
-  "eye": { title: "نمایش", category: "actions", keywords: ["دیدن", "مشاهده", "رمز", "show", "view", "visible"], body: "<path d=\"M2.5 10c1.7-3.3 4.3-5.1 7.5-5.1s5.8 1.8 7.5 5.1c-1.7 3.3-4.3 5.1-7.5 5.1S4.2 13.3 2.5 10Z\"/><path d=\"M7.4 10a2.6 2.6 0 1 0 5.2 0 2.6 2.6 0 1 0-5.2 0\"/>" },
-  "eye-off": { title: "پنهان", category: "actions", keywords: ["مخفی", "کردن", "رمز", "hide", "hidden"], body: "<path d=\"M2.5 10c1.7-3.3 4.3-5.1 7.5-5.1s5.8 1.8 7.5 5.1c-1.7 3.3-4.3 5.1-7.5 5.1S4.2 13.3 2.5 10Z\"/><path d=\"M7.4 10a2.6 2.6 0 1 0 5.2 0 2.6 2.6 0 1 0-5.2 0M3.5 3.5l13 13\"/>" },
+  "eye": { title: "نمایش", category: "actions", keywords: ["دیدن", "مشاهده", "رمز", "show", "view", "visible"], body: withBold(
+    '<path d="M2.5 10c1.7-3.3 4.3-5.1 7.5-5.1s5.8 1.8 7.5 5.1c-1.7 3.3-4.3 5.1-7.5 5.1S4.2 13.3 2.5 10Z"/><path d="M7.4 10a2.6 2.6 0 1 0 5.2 0 2.6 2.6 0 1 0-5.2 0"/>',
+    filled("M2.5 10c1.7-3.3 4.3-5.1 7.5-5.1s5.8 1.8 7.5 5.1c-1.7 3.3-4.3 5.1-7.5 5.1S4.2 13.3 2.5 10Z" + disk(10, 10, 3.2) + disk(10, 10, 1.4)),
+  ) },
+  "eye-off": { title: "پنهان", category: "actions", keywords: ["مخفی", "کردن", "رمز", "hide", "hidden"], body: withBold(
+    '<path d="M2.5 10c1.7-3.3 4.3-5.1 7.5-5.1s5.8 1.8 7.5 5.1c-1.7 3.3-4.3 5.1-7.5 5.1S4.2 13.3 2.5 10Z"/><path d="M7.4 10a2.6 2.6 0 1 0 5.2 0 2.6 2.6 0 1 0-5.2 0M3.5 3.5l13 13"/>',
+    hiddenEyeLobe + `<g transform="rotate(180 10 10)">${hiddenEyeLobe}</g>` + '<path d="m3.5 3.5 13 13"/>',
+  ) },
   "upload": { title: "آپلود", category: "arrow-actions", keywords: ["بارگذاری", "ارسال", "فایل", "upload"], body: "<path d=\"M10 12.75V3.6M6.6 6.9 10 3.5l3.4 3.4M3.25 12.5V14c0 2 1.25 3.25 3.25 3.25h7c2 0 3.25-1.25 3.25-3.25v-1.5\"/>" },
   "download": { title: "دانلود", category: "arrow-actions", keywords: ["دریافت", "خروجی", "download", "export"], body: "<path d=\"M10 3.5v9.15M6.6 9.3l3.4 3.4 3.4-3.4M3.25 12.5V14c0 2 1.25 3.25 3.25 3.25h7c2 0 3.25-1.25 3.25-3.25v-1.5\"/>" },
   "file": { title: "فایل", category: "files", keywords: ["سند", "پرونده", "document"], body: "<path d=\"M11.5 2.75H7.1C5.25 2.75 4 4.05 4 5.95v8.1c0 1.9 1.25 3.2 3.1 3.2h5.8c1.85 0 3.1-1.3 3.1-3.2v-6.8ZM11.5 2.9v2.3c0 1.15.9 2.05 2.05 2.05h2.3M7.4 10.6h3.7M7.4 13.6h5\"/>" },
   "trash": { title: "حذف", category: "actions", keywords: ["سطل", "زباله", "پاک", "کردن", "delete", "remove", "bin"], body: "<path d=\"M3.5 5.6h13M7.6 5.5l.35-1.35c.15-.6.7-1 1.3-1h1.5c.6 0 1.15.4 1.3 1l.35 1.35M15 5.6l-.6 9.1c-.1 1.5-1.35 2.55-2.85 2.55h-3.1c-1.5 0-2.75-1.05-2.85-2.55L5 5.6M8.6 9.1v4.5M11.4 9.1v4.5\"/>" },
   "edit": { title: "ویرایش", category: "actions", keywords: ["مداد", "تغییر", "edit", "pencil"], body: "<path d=\"M11.15 4.75 4.35 11.45c-.3.3-.5.7-.55 1.1l-.3 2.6c-.05.55.4 1 .95.95l2.6-.3c.4-.05.8-.25 1.1-.55l6.75-6.75a2.65 2.65 0 0 0-3.75-3.75ZM10.25 5.65l3.75 3.75M10.9 16.75h5.6\"/>" },
-  "copy": { title: "کپی", category: "actions", keywords: ["رونوشت", "تکثیر", "duplicate", "clipboard"], body: sq(6.75, 6.75, 10.35, 10.35, 3.2) + "<path d=\"M13.25 6.75V6.1c0-1.9-1.3-3.2-3.2-3.2H6.1c-1.9 0-3.2 1.3-3.2 3.2v3.95c0 1.9 1.3 3.2 3.2 3.2h.65\"/>" },
+  "copy": { title: "کپی", category: "actions", keywords: ["رونوشت", "تکثیر", "duplicate", "clipboard"], body: withBold(
+    sq(6.75, 6.75, 10.35, 10.35, 3.2) + '<path d="M13.25 6.75V6.1c0-1.9-1.3-3.2-3.2-3.2H6.1c-1.9 0-3.2 1.3-3.2 3.2v3.95c0 1.9 1.3 3.2 3.2 3.2h.65"/>',
+    filled(sqPath(6.7, 6.7, 10.55, 10.55, 3.15))
+      + '<path d="M13.05 4.95c0-1.4-1-2.2-2.4-2.2h-5.4c-1.5 0-2.5 1-2.5 2.5v5.4c0 1.4.8 2.4 2.2 2.4"/>',
+  ) },
   "filter": { title: "فیلتر", category: "actions", keywords: ["پالایش", "مرتب‌سازی", "filter", "funnel"], body: "<path d=\"M4.6 3.5h10.8c.95 0 1.45 1.1.85 1.8l-4.05 4.8c-.3.35-.45.8-.45 1.25v4.1c0 .4-.25.8-.6.95l-1.7.85c-.55.25-1.15-.15-1.15-.75v-5.15c0-.45-.15-.9-.45-1.25L3.75 5.3c-.6-.7-.1-1.8.85-1.8Z\"/>" },
   "more": { title: "بیشتر", category: "actions", keywords: ["سه", "نقطه", "گزینه‌ها", "menu", "more", "dots"], body: "<path d=\"M5 10h.01M10 10h.01M15 10h.01\" stroke-width=\"2.2\"/>" },
   "more-vertical": { title: "بیشتر عمودی", category: "actions", keywords: ["سه", "نقطه", "منو", "کباب", "more", "kebab"], body: "<path d=\"M10 5h.01M10 10h.01M10 15h.01\" stroke-width=\"2.2\"/>" },
@@ -182,7 +199,10 @@ export const icons = {
   "chat": { title: "گفتگو", category: "communication", keywords: ["پیام", "چت", "کامنت", "chat", "message", "comment"], body: '<path d="M10 3c-4 0-7 2.75-7 6.25 0 1.7.7 3.25 1.9 4.4l-.55 2.4c-.1.5.4.9.85.65l2.4-1.2c.75.25 1.55.35 2.4.35 4 0 7-2.75 7-6.25S14 3 10 3Z"/><path d="M6.9 9.4v.01M10 9.4v.01M13.1 9.4v.01" stroke-width="2"/>' },
   "at-sign": { title: "اَت", category: "communication", keywords: ["ایمیل", "منشن", "at", "mention"], body: '<circle cx="10" cy="10" r="3"/><path d="M13 10v1.1c0 1.2.9 2.15 2.05 2.15S17 12.3 17 11.1V10a7 7 0 1 0-2.8 5.6"/>' },
   "megaphone": { title: "اطلاعیه", category: "notifications", keywords: ["بلندگو", "تبلیغ", "اعلام", "announce", "marketing"], body: '<path d="M3 9c0-1.1.9-2 2-2h2.25l6.4-3.2c.85-.4 1.85.2 1.85 1.15v10.1c0 .95-1 1.55-1.85 1.15L7.25 13H5c-1.1 0-2-.9-2-2Z"/><path d="M7.25 7v6M7.25 13l.9 3.4c.15.55.6.85 1.15.85.75 0 1.3-.7 1.1-1.45l-.6-2.25M17.5 8.75v2.5"/>' },
-  "video": { title: "ویدیو", category: "camera", keywords: ["فیلم", "دوربین", "تماس", "تصویری", "video", "camera"], body: sq(2.5, 5, 10.5, 10, 3) + '<path d="m13 8.6 2.85-1.9c.6-.4 1.4.05 1.4.75v5.1c0 .7-.8 1.15-1.4.75L13 11.4Z"/>' },
+  "video": { title: "ویدیو", category: "camera", keywords: ["فیلم", "دوربین", "تماس", "تصویری", "video", "camera"], body: withBold(
+    sq(2.5, 5, 10.5, 10, 3) + '<path d="m13 8.6 2.85-1.9c.6-.4 1.4.05 1.4.75v5.1c0 .7-.8 1.15-1.4.75L13 11.4Z"/>',
+    filled(sqPath(2.5, 5, 9.7, 10, 2.9) + "M13.4 8.35l2.75-1.75c.6-.4 1.35.05 1.35.75v5.3c0 .7-.75 1.15-1.35.75l-2.75-1.75Z"),
+  ) },
   "mic": { title: "میکروفون", category: "audio", keywords: ["صدا", "ضبط", "ویس", "mic", "record", "voice"], body: sq(7, 2.75, 6, 9.5, 3) + '<path d="M4.75 9.5a5.25 5.25 0 0 0 10.5 0M10 14.75v2.5"/>' },
   "camera": { title: "دوربین", category: "camera", keywords: ["عکس", "عکاسی", "camera", "photo"], body: '<path d="M7.2 4.6c.3-.55.85-.85 1.45-.85h2.7c.6 0 1.15.3 1.45.85l.6 1.15h1.85c1.65 0 2.75 1.1 2.75 2.75v5.1c0 1.65-1.1 2.75-2.75 2.75H4.75C3.1 16.35 2 15.25 2 13.6V8.5c0-1.65 1.1-2.75 2.75-2.75H6.6Z"/><path d="M7.25 10.75a2.75 2.75 0 1 0 5.5 0 2.75 2.75 0 1 0-5.5 0"/>' },
   "play": { title: "پخش", category: "media", keywords: ["شروع", "اجرا", "play", "start"], body: '<path d="M6.5 5.4c0-1.1 1.2-1.8 2.15-1.2l7.2 4.6c.9.55.9 1.85 0 2.4l-7.2 4.6c-.95.6-2.15-.1-2.15-1.2Z"/>' },
@@ -197,7 +217,11 @@ export const icons = {
   "briefcase": { title: "کیف کار", category: "business", keywords: ["شغل", "کار", "استخدام", "job", "work", "business"], body: sq(2.5, 6, 15, 11, 3.5) + '<path d="M7 6V4.9c0-1.05.7-1.65 1.65-1.65h2.7c.95 0 1.65.6 1.65 1.65V6M2.75 10.75c4.6 1.9 9.9 1.9 14.5 0M10 11.6v1.5"/>' },
   "award": { title: "جایزه", category: "ratings", keywords: ["مدال", "افتخار", "رتبه", "award", "badge", "medal"], body: '<circle cx="10" cy="7.75" r="4.75"/><path d="m7.2 11.6-1 5.15c-.1.5.4.85.85.6L10 15.9l2.95 1.45c.45.25.95-.1.85-.6l-1-5.15"/>' },
   "crown": { title: "تاج", category: "ratings", keywords: ["ویژه", "پریمیوم", "اشتراک", "crown", "premium", "pro"], body: '<path d="m3.3 6.6 2.95 2.85 3-4.5c.35-.5 1.15-.5 1.5 0l3 4.5 2.95-2.85c.45-.4 1.15 0 1.05.6l-1.2 7.2c-.15.85-.85 1.45-1.7 1.45H5.15c-.85 0-1.55-.6-1.7-1.45l-1.2-7.2c-.1-.6.6-1 1.05-.6Z"/>' },
-  "gift": { title: "هدیه", category: "shopping", keywords: ["کادو", "جایزه", "تخفیف", "gift", "present"], body: sq(3.5, 8.75, 13, 8.5, 2.75) + sq(2.5, 5.5, 15, 3.25, 1.4) + '<path d="M10 5.5v11.75M10 5.5C9.3 3.6 7.9 2.75 6.85 3.2c-1 .45-1 1.85.1 2.3M10 5.5c.7-1.9 2.1-2.75 3.15-2.3 1 .45 1 1.85-.1 2.3"/>' },
+  "gift": { title: "هدیه", category: "shopping", keywords: ["کادو", "جایزه", "تخفیف", "gift", "present"], body: withBold(
+    sq(3.5, 8.75, 13, 8.5, 2.75) + sq(2.5, 5.5, 15, 3.25, 1.4) + '<path d="M10 5.5v11.75M10 5.5C9.3 3.6 7.9 2.75 6.85 3.2c-1 .45-1 1.85.1 2.3M10 5.5c.7-1.9 2.1-2.75 3.15-2.3 1 .45 1 1.85-.1 2.3"/>',
+    '<path fill="currentColor" stroke="none" d="M9.25 5.75H4.2c-1 0-1.55.55-1.55 1.55S3.2 8.85 4.2 8.85h5.05ZM10.75 5.75h5.05c1 0 1.55.55 1.55 1.55s-.55 1.55-1.55 1.55h-5.05ZM9.25 10H3.8v4.9c0 1.5.85 2.35 2.35 2.35h3.1Zm1.5 0h5.45v4.9c0 1.5-.85 2.35-2.35 2.35h-3.1Z"/>' +
+    '<path d="M9.15 5.75c-.5-1.65-1.45-2.9-2.6-2.65-1.25.3-1.2 2.1-.1 2.65m4.4 0c.5-1.65 1.45-2.9 2.6-2.65 1.25.3 1.2 2.1.1 2.65"/>',
+  ) },
   "paperclip": { title: "پیوست", category: "files", keywords: ["سنجاق", "ضمیمه", "attach", "attachment"], body: '<path d="M15.6 9.6 10.2 15c-1.75 1.75-4.45 1.75-6.2 0s-1.75-4.45 0-6.2l5.7-5.7c1.15-1.15 3-1.15 4.15 0s1.15 3 0 4.15l-5.6 5.6c-.6.6-1.5.6-2.05 0-.6-.55-.6-1.45 0-2.05l5.1-5.1"/>' },
   "file-plus": { title: "فایل جدید", category: "files", keywords: ["سند", "ایجاد", "new", "file", "add"], body: '<path d="M11.5 2.75H7.1C5.25 2.75 4 4.05 4 5.95v8.1c0 1.9 1.25 3.2 3.1 3.2h5.8c1.85 0 3.1-1.3 3.1-3.2v-6.8ZM11.5 2.9v2.3c0 1.15.9 2.05 2.05 2.05h2.3"/><path d="M10 9.9v4.6M7.7 12.2h4.6"/>' },
   "file-check": { title: "فایل تأییدشده", category: "files", keywords: ["سند", "تأیید", "approved", "file"], body: '<path d="M11.5 2.75H7.1C5.25 2.75 4 4.05 4 5.95v8.1c0 1.9 1.25 3.2 3.1 3.2h5.8c1.85 0 3.1-1.3 3.1-3.2v-6.8ZM11.5 2.9v2.3c0 1.15.9 2.05 2.05 2.05h2.3"/><path d="m7.6 12.2 1.6 1.6 3.2-3.25"/>' },
@@ -355,7 +379,11 @@ export const icons = {
   "plug": { title: "دوشاخه", category: "connectivity", keywords: ["برق", "اتصال", "افزونه", "plug", "power", "plugin"], body: '<path d="M4.75 6h10.5v2.5c0 2.9-2.35 5.25-5.25 5.25S4.75 11.4 4.75 8.5Z"/><path d="M7 2.75V6M13 2.75V6M10 13.75v3.5"/>' },
   "hard-drive": { title: "هارد", category: "devices", keywords: ["دیسک", "حافظه", "ذخیره", "drive", "disk", "storage"], body: sq(2.5, 10.5, 15, 6.5, 2.5) + '<path d="M4.1 10.6 6 4.85c.3-.9 1.1-1.6 2.1-1.6h3.8c1 0 1.8.7 2.1 1.6l1.9 5.75M13.75 13.75h.01M11.25 13.75h.01"/>' },
   "bus": { title: "اتوبوس", category: "transport", keywords: ["حمل‌ونقل", "عمومی", "سفر", "bus", "transit"], body: sq(4, 2.75, 12, 12.5, 3) + '<path d="M4.15 9.25h11.7M6.5 15.25v2M13.5 15.25v2M7 12.4v.01M13 12.4v.01M7.75 5.5h4.5"/>' },
-  "bicycle": { title: "دوچرخه", category: "transport", keywords: ["رکاب", "ورزش", "bike", "bicycle", "cycle"], body: '<circle data-outline="true" cx="5" cy="13" r="3.25"/><circle data-outline="true" cx="15" cy="13" r="3.25"/><path d="M5 13 8.25 7.25h4.5L15 13M8.25 7.25 10.5 13H5M12.75 7.25 10.5 13M7 4.75h2.5M12.25 4.75H14"/>' },
+  "bicycle": { title: "دوچرخه", category: "transport", keywords: ["رکاب", "ورزش", "bike", "bicycle", "cycle"], body: withBold(
+    '<circle cx="5" cy="13" r="3.25"/><circle cx="15" cy="13" r="3.25"/><path d="M5 13 8.25 7.25h4.5L15 13M8.25 7.25 10.5 13H5M12.75 7.25 10.5 13M7 4.75h2.5M12.25 4.75H14"/>',
+    filled(disk(5, 13.15, 3.3) + disk(5, 13.15, 1.8) + disk(15, 13.15, 3.3) + disk(15, 13.15, 1.8))
+      + '<path d="M5 13.15 8 7.65h4.75l2.25 5.5M8 7.65l2.5 5.5 2.25-5.5m-2.25 5.5H5M7 5.1h2.5M12.75 7.65l-.7-2.55h2.2"/>',
+  ) },
   "train": { title: "قطار", category: "transport", keywords: ["مترو", "ریل", "سفر", "train", "metro", "rail"], body: sq(4.5, 2.5, 11, 12.5, 3.5) + '<path d="M4.6 8.75h10.8M7.5 12.25v.01M12.5 12.25v.01M6.75 15l-2 2.5M13.25 15l2 2.5"/>' },
   "fuel": { title: "سوخت", category: "transport", keywords: ["بنزین", "پمپ", "fuel", "gas", "petrol"], body: sq(3, 2.75, 9, 14.5, 2.5) + '<path d="M3.1 8.25h8.8M12 10h1.5c.85 0 1.5.65 1.5 1.5v2.75c0 .7.55 1.25 1.25 1.25s1.25-.55 1.25-1.25V7.6c0-.5-.2-1-.55-1.35L14.75 4M2 17.25h11"/>' },
   "parking": { title: "پارکینگ", category: "transport", keywords: ["توقف", "خودرو", "parking", "car"], body: sq(2.75, 2.75, 14.5, 14.5, 4.5) + '<path d="M8 14V6h2.75a2.25 2.25 0 0 1 0 4.5H8"/>' },
@@ -4223,7 +4251,11 @@ export const icons = {
   "ticket-validator": { title: "بلیت‌خوان", category: "transport", keywords: ["کارت‌خوان مترو", "بلیت", "اعتبارسنج بلیت", "ticket validator", "fare reader"], body: sq(3, 6.25, 8.5, 11, 2.25) + '<path d="M5.75 9.5h3M7.25 14.1v.01M14.25 2.75H16c.7 0 1.25.55 1.25 1.25v3.75c0 .7-.55 1.25-1.25 1.25h-1.75c-.7 0-1.25-.55-1.25-1.25V4c0-.7.55-1.25 1.25-1.25ZM14.7 5.25h.85"/>' },
   "bike-lane": { title: "خط ویژهٔ دوچرخه", category: "transport", keywords: ["مسیر دوچرخه", "خط ویژه", "دوچرخه‌سواری", "bike lane", "cycle lane"], body: '<circle cx="5.1" cy="11.1" r="2.3"/><circle cx="14.9" cy="11.1" r="2.3"/><path d="m5.1 11.1 3.1-4.35 2.15 4.35 3.35-4.35m1.2 4.35-1.85-5.85h-1.5M7.15 6.75h2.1M3 16.35h4M10 16.35h7"/>' },
   "bus-shelter": { title: "سرپناه ایستگاه اتوبوس", category: "transport", keywords: ["سایه‌بان", "انتظار", "ایستگاه اتوبوس", "bus shelter", "transit shelter"], body: '<path d="M2.75 7V6A2.75 2.75 0 0 1 5.5 3.25h9A2.75 2.75 0 0 1 17.25 6v1Zm1.5 0v9.75M15.75 7v9.75M7.25 12h5.5M8 12v2.5M12 12v2.5"/>' },
-  "transit-map": { title: "نقشهٔ خطوط مترو", category: "location", keywords: ["نقشه مترو", "ایستگاه", "خط مترو", "transit map", "subway map"], body: '<circle cx="4.5" cy="6" r="1.65"/><circle cx="15.5" cy="6" r="1.65"/><circle cx="10" cy="10.75" r="1.85"/><circle cx="15.5" cy="15.5" r="1.65"/><path d="M4.5 7.65v1.1a2 2 0 0 0 2 2h1.65m3.7 0h1.65a2 2 0 0 0 2-2v-1.1m-4.1 4.35 2.85 2.45"/>' },
+  "transit-map": { title: "نقشهٔ خطوط مترو", category: "location", keywords: ["نقشه مترو", "ایستگاه", "خط مترو", "transit map", "subway map"], body: withBold(
+    '<circle cx="4.5" cy="6" r="1.65"/><circle cx="15.5" cy="6" r="1.65"/><circle cx="10" cy="10.75" r="1.85"/><circle cx="15.5" cy="15.5" r="1.65"/><path d="M4.5 7.65v1.1a2 2 0 0 0 2 2h1.65m3.7 0h1.65a2 2 0 0 0 2-2v-1.1m-4.1 4.35 2.85 2.45"/>',
+    '<path d="M4.25 5.25v3.1c0 1.35.95 2.4 2.3 2.4h1.2m4.5 0h1.2c1.35 0 2.3-1.05 2.3-2.4v-3.1m-4.1 6.95 4.1 3.55"/>' +
+    '<circle cx="10" cy="10.75" r="1.7"/><circle cx="4.25" cy="5.25" r="1.45" fill="currentColor" stroke="none"/><circle cx="15.75" cy="5.25" r="1.45" fill="currentColor" stroke="none"/><circle cx="15.75" cy="15.75" r="1.45" fill="currentColor" stroke="none"/>',
+  ) },
   "platform-screen-doors": { title: "درهای ایمنی سکو", category: "transport", keywords: ["سکوی مترو", "در کشویی", "حفاظ سکو", "platform screen doors", "subway doors"], body: sq(2.75, 3.5, 14.5, 13, 2) + '<path d="M10 3.5v13M7 8.75 5.75 10 7 11.25m6-2.5L14.25 10 13 11.25"/>' },
 };
 

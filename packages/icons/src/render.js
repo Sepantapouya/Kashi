@@ -240,6 +240,9 @@ export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}
       // در دوتُن و حجمی نشان گوشه یکدست پررنگ می‌ماند؛ نیمه‌کم‌رنگ شدن «+» یا «×» معنایش را می‌گیرد
       + `<g mask="url(#${uid}-c)">${renderBody(cut[2], variant, { uid: `${uid}b`, sw })}</g>${renderBody(cut[3], variant === "two-tone" || variant === "bulk" ? "light" : variant, { uid: `${uid}g`, sw })}`;
   }
+  // بعضی آیکون‌ها برای حفظ جزئیات، طرح توپر دست‌کشیده دارند.
+  const custom = /^<g data-bold="true" display="none">([\s\S]*)<\/g><g data-base="true">([\s\S]*)<\/g>$/.exec(body);
+  if (custom) return variant === "bold" ? custom[1] : renderBody(custom[2], variant, { uid, sw });
   if (variant === "light" || !variants.includes(variant)) return plain(body);
   const { shape, detail } = parts(body, variant);
   const S = shape.join(""), D = detail.join("");
