@@ -1,5 +1,9 @@
 # @kashi-ui/tokens
 
+## 1.4.0
+
+No changes in this release.
+
 ## 1.3.0
 
 No changes in this release.

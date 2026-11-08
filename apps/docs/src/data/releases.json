@@ -1,25 +1,55 @@
 {
- "generated": "2026-11-08T22:34:40+03:30",
+ "generated": "2026-11-08T23:47:26+03:30",
  "totals": {
-  "commits": 220,
-  "versions": 32,
-  "added": 96931,
+  "commits": 222,
+  "versions": 33,
+  "added": 97350,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
   {
-   "sha": "58c44fa0759f9ebc3ace88cf46404b75508245f2",
-   "short": "58c44fa",
-   "date": "2026-11-08T22:34:40+03:30",
+   "sha": "3ced8a35f2f377290648597d03275ef48e2a8bdb",
+   "short": "3ced8a3",
+   "date": "2026-11-08T23:47:26+03:30",
    "author": "sepantapouya",
-   "subject": "feat(icons): add 200 everyday UI icons",
+   "subject": "feat(icons): add 200 home, settings, and workflow icons",
    "details": [],
    "files": 9,
-   "added": 253,
+   "added": 254,
    "removed": 8
   }
  ],
  "versions": [
+  {
+   "version": "1.3.0",
+   "date": "2026-11-08T22:36:42+03:30",
+   "releaseCommit": "b9963e1",
+   "commits": [
+    {
+     "sha": "b9963e193f3090d56ed76ab726697e4d9c962c4a",
+     "short": "b9963e1",
+     "date": "2026-11-08T22:36:42+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.3.0",
+     "details": [],
+     "files": 24,
+     "added": 165,
+     "removed": 73
+    },
+    {
+     "sha": "58c44fa0759f9ebc3ace88cf46404b75508245f2",
+     "short": "58c44fa",
+     "date": "2026-11-08T22:34:40+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 200 everyday UI icons",
+     "details": [],
+     "files": 9,
+     "added": 253,
+     "removed": 8
+    }
+   ],
+   "notes": []
+  },
   {
    "version": "1.2.1",
    "date": "2026-11-08T21:30:28+03:30",
