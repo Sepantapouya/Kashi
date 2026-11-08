@@ -1,36 +1,78 @@
 {
- "generated": "2026-11-08T21:27:28+03:30",
+ "generated": "2026-11-08T22:34:40+03:30",
  "totals": {
-  "commits": 218,
-  "versions": 31,
-  "added": 96488,
+  "commits": 220,
+  "versions": 32,
+  "added": 96931,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [
   {
-   "sha": "94d7b1ee23a222aaace3bb12e46b06b7d4a33d1e",
-   "short": "94d7b1e",
-   "date": "2026-11-08T21:27:28+03:30",
+   "sha": "58c44fa0759f9ebc3ace88cf46404b75508245f2",
+   "short": "58c44fa",
+   "date": "2026-11-08T22:34:40+03:30",
    "author": "sepantapouya",
-   "subject": "fix: tree-shakeable React icons, Tabs overflow, RTL skip link",
-   "details": [
-    "- @kashi-ui/icons/react: each component carries only its own SVG body and",
-    "is /*#__PURE__*/; three icons bundle to ~4 KB gzip instead of ~1.7 MB.",
-    "<Icon name> stays as the opt-in that loads every icon.",
-    "- .k-tabs uses grid-template-columns: minmax(0, 1fr); the tab list scrolls",
-    "horizontally inside its own box, so wide tabs/panels no longer widen the",
-    "page on mobile.",
-    "- .k-skip-link is clipped to 1px until :focus instead of being translated",
-    "off-screen (caused horizontal scroll in dir=\"rtl\").",
-    "- Tests: icons tree-shake test, /test/mobile/ no-horizontal-scroll visual",
-    "test, tabs-narrow visual state; size budget group for icons; docs, Figma."
-   ],
-   "files": 24,
-   "added": 236,
-   "removed": 25
+   "subject": "feat(icons): add 200 everyday UI icons",
+   "details": [],
+   "files": 9,
+   "added": 253,
+   "removed": 8
   }
  ],
  "versions": [
+  {
+   "version": "1.2.1",
+   "date": "2026-11-08T21:30:28+03:30",
+   "releaseCommit": "a352621",
+   "commits": [
+    {
+     "sha": "a3526217b1c22ee98c68903168194320b07117a9",
+     "short": "a352621",
+     "date": "2026-11-08T21:30:28+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.2.1",
+     "details": [],
+     "files": 23,
+     "added": 190,
+     "removed": 94
+    },
+    {
+     "sha": "94d7b1ee23a222aaace3bb12e46b06b7d4a33d1e",
+     "short": "94d7b1e",
+     "date": "2026-11-08T21:27:28+03:30",
+     "author": "sepantapouya",
+     "subject": "fix: tree-shakeable React icons, Tabs overflow, RTL skip link",
+     "details": [
+      "- @kashi-ui/icons/react: each component carries only its own SVG body and",
+      "is /*#__PURE__*/; three icons bundle to ~4 KB gzip instead of ~1.7 MB.",
+      "<Icon name> stays as the opt-in that loads every icon.",
+      "- .k-tabs uses grid-template-columns: minmax(0, 1fr); the tab list scrolls",
+      "horizontally inside its own box, so wide tabs/panels no longer widen the",
+      "page on mobile.",
+      "- .k-skip-link is clipped to 1px until :focus instead of being translated",
+      "off-screen (caused horizontal scroll in dir=\"rtl\").",
+      "- Tests: icons tree-shake test, /test/mobile/ no-horizontal-scroll visual",
+      "test, tabs-narrow visual state; size budget group for icons; docs, Figma."
+     ],
+     "files": 24,
+     "added": 236,
+     "removed": 25
+    }
+   ],
+   "notes": [
+    {
+     "kind": "patch",
+     "text": "- `@kashi-ui/icons/react` دوباره tree-shake می‌شود: هر کامپوننت فقط طرح SVG خودش را دارد و با `/*#__PURE__*/` ساخته می‌شود؛ `import { IconSearch, IconHome, IconUser }` حدود ۴ کیلوبایت gzip به باندل اضافه می‌کند، نه کل آیکون‌ها (حدود ۱٫۷ مگابایت). `<Icon name>` مثل قبل کار می‌کند و برای نام‌های پویا است؛ فقط آن همهٔ آیکون‌ها را می‌آورد.",
+     "sub": [
+      "زبانه‌های افقی (`Tabs`) دیگر ظرفشان را پهن نمی‌کنند: `.k-tabs` ستون `minmax(0, 1fr)` دارد، پنل کوچک می‌شود و فهرست زبانهٔ بلند داخل کادر خودش افقی اسکرول می‌خورد؛ در ۳۷۵ پیکسل صفحه اسکرول افقی نمی‌گیرد.",
+      "`.k-skip-link` تا فوکوس نگرفته به یک پیکسلِ بریده (clip-path) پنهان می‌شود، نه با جابه‌جایی بیرون از صفحه که در `dir=\"rtl\"` اسکرول افقی می‌ساخت."
+     ],
+     "packages": [
+      "css"
+     ]
+    }
+   ]
+  },
   {
    "version": "1.2.0",
    "date": "2026-11-08T15:47:40+03:30",

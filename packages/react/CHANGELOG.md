@@ -1,5 +1,13 @@
 # @kashi-ui/react
 
+## 1.3.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@1.3.0
+  - @kashi-ui/css@1.3.0
+  - @kashi-ui/persian@1.3.0
+
 ## 1.2.1
 
 ### Patch Changes
