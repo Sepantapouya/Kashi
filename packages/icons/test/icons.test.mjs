@@ -89,6 +89,15 @@ test("hand-drawn bold shapes also render inside composite icons", () => {
   assert.match(gift, /<path d="m12\.6 15\.1/);
 });
 
+test("file revision actions replace the clock with a single corner badge", () => {
+  assert.match(iconSvg("file-version-history"), /<circle cx="14\.6" cy="14\.1"/);
+  for (const name of ["file-version-restore", "file-version-download"]) {
+    const svg = iconSvg(name);
+    assert.doesNotMatch(svg, /<circle cx="14\.6"/);
+    assert.equal(svg.match(/<mask\b/g)?.length, 1);
+  }
+});
+
 test("bold fills a closed outline and cuts out the following relative detail", () => {
   const svg = iconSvg("curb-ramp", { variant: "bold" });
   const mask = svg.match(/<mask\b[^>]*>(.*?)<\/mask>/)?.[1];

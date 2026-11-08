@@ -14,6 +14,21 @@ const filled = (d) => `<path d="${d}" fill="currentColor" fill-rule="evenodd" st
 const disk = (x, y, r) => `M${x} ${y - r}a${r} ${r} 0 1 1 0 ${2 * r} ${r} ${r} 0 1 1 0 ${-2 * r}Z`;
 const hiddenEyeLobe = filled("M7.55 5.35C8.3 5.05 9.1 4.9 10 4.9c3.2 0 5.8 1.8 7.5 5.1-.67 1.3-1.43 2.35-2.32 3.18l-2.47-2.47a2.8 2.8 0 0 0-2.97-2.97Z");
 
+const withCorner = (subject, badge, cut = "15 15 4.6") => `<g data-cut="${cut}">${subject}</g>${badge}`;
+
+// در حالت‌های ترکیبی، نشان قبلی را از طرح پایه کنار می‌گذاریم.
+const workflowSubjects = {
+  "file-version-history": '<path d="M3 13.4V5.75c0-1.6 1.05-2.65 2.65-2.65h3.3M5.35 14.8V7.55c0-1.4 1-2.3 2.3-2.3h3.85l3.25 3.25v6.3c0 1.4-.9 2.3-2.3 2.3h-4.8c-1.4 0-2.3-.9-2.3-2.3Zm6.15-9.35v1.5c0 .9.65 1.55 1.55 1.55h1.5M8 10.95h2.8m-2.8 2.75h1.7"/>',
+  "file-conflict": '<path d="M3 12.7V5.35c0-1.4 1-2.35 2.35-2.35H9l3.1 3.1M3 12.7c0 1.35.95 2.3 2.3 2.3h.65M8.1 14.95v-4.6c0-1.35.95-2.3 2.3-2.3h2.5l4.1 4.1v2.8c0 1.35-.95 2.3-2.3 2.3h-4.3c-1.35 0-2.3-.95-2.3-2.3Zm4.8-6.65v2.2c0 .95.7 1.65 1.65 1.65h2.2"/>',
+  "message-schedule": '<path d="M3 6.25c0-1.6 1.15-2.75 2.75-2.75h6.6c1.6 0 2.75 1.15 2.75 2.75v4.3c0 1.6-1.15 2.75-2.75 2.75h-4.1L4.9 15.75v-2.6C3.75 12.8 3 11.85 3 10.55Zm3.05 1h5.5m-5.5 2.9h3.15"/>',
+  "payment-methods": '<path d="M3 11.65v-5.8c0-1.45.95-2.4 2.4-2.4h7.25"/>' + sq(5.4, 6, 11.6, 9.5, 2.35) + '<path d="M5.6 9.55h11.2m-8.6 3.15h2.25"/>',
+  "billing-cycle": '<path d="M3.75 3.25H13c1.45 0 2.45 1 2.45 2.45v10.65l-1.95-1-1.95 1-1.95-1-1.95 1-1.95-1-1.95 1Zm3.1 3.5h5.3m-5.3 2.85h3.8m-3.8 2.85h2.55"/>',
+  "deployment-history": sq(3, 3, 13.9, 13.9, 2.4) + '<path d="M3.25 7.25h13.4M6.1 5.2v.01m2.45-.01v.01M6.15 10.25v.01m2.8-.01h3.45M6.15 13.25v.01m2.8-.01h2.4"/>',
+};
+
+const scheduleBadge = '<circle cx="14.6" cy="14.1" r="2.85"/><path d="M14.6 12.65v1.5l.95.6"/>';
+const historyRefresh = '<path d="M17.45 14.1a2.9 2.9 0 1 1-.85-2.05m1.1-1.3v1.65h-1.65"/>';
+
 /** دسته‌ها به ترتیب نمایش در مستندات */
 export const categories = {
   "alerts": "هشدار و وضعیت",
@@ -4365,6 +4380,106 @@ export const icons = {
   "quilt-block": { title: "بلوک چهل‌تکه", category: "fashion", keywords: ["لحاف", "پارچه تکه‌دوزی", "patchwork block"], body: sq(2.75, 2.75, 14.5, 14.5, 2.15) + '<path d="M10 3.1 16.9 10 10 16.9 3.1 10Zm0 4.25L12.65 10 10 12.65 7.35 10Z" stroke-width="1.2"/>' },
   "zipper-foot": { title: "پایهٔ زیپ‌دوزی", category: "fashion", keywords: ["پایه چرخ خیاطی", "زیپ دوزی", "zipper presser foot"], body: '<path d="M7.25 3h4.75v7.2h3.4v4.65h-4.2l-1.2 1.9H5.1v-3.5l2.15-2.5Zm2.35 3.25v.01m0 4v.01"/>' },
   "bias-tape-maker": { title: "ابزار ساخت نوار اریب", category: "fashion", keywords: ["نوار اریب", "نوار پارچه‌ای", "bias binding tool"], body: '<path d="m3 5.5 13.25 3.2v3.25L3 15.15Zm0 2.35 10.45 1.8V11L3 12.8m13.25-2.5h1.1"/>' },
+
+  // حساب کاربری و تیم
+  "guest-account": { title: "حساب مهمان", category: "people", keywords: ["ورود مهمان", "دسترسی موقت", "guest access"], body: '<circle cx="7.75" cy="6.25" r="2.55"/>' + '<path d="M3.2 14.45c0-1.95 2.05-3 4.55-3s4.55 1.05 4.55 3c0 1.75-2.05 2-4.55 2s-4.55-.25-4.55-2Zm9.5-8.75h4m-1.6-1.6 1.6 1.6-1.6 1.6"/>' },
+  "team-invite": { title: "دعوت به تیم", category: "people", keywords: ["عضو جدید", "دعوت‌نامه", "team invitation"], body: '<circle cx="6.3" cy="5.75" r="2.4"/>' + sq(8.5, 9.5, 8.75, 6.6, 1.5) + '<path d="M3 14.65c0-2 1.65-3.2 4.05-3.2m3.3.15 1.75 1.4c.45.35 1.1.35 1.55 0l1.75-1.4"/>' },
+  "profile-fields": { title: "فیلدهای پروفایل", category: "people", keywords: ["مشخصات کاربر", "اطلاعات حساب", "profile attributes"], body: sq(2.75, 3, 14.5, 14, 2.4) + '<circle cx="6.65" cy="7.65" r="1.4"/>' + '<path d="M4.9 12c0-1.15.65-1.65 1.75-1.65s1.75.5 1.75 1.65m1.95-4.35h3.5m-3.5 3.2h3.5"/>' },
+  "team-roles": { title: "نقش‌های تیم", category: "people", keywords: ["مدیر", "سطح دسترسی", "team role"], body: '<circle cx="6.4" cy="6.25" r="2.5"/>' + '<path d="M2.75 14.45c0-1.7 1.6-2.75 3.65-2.75 1.2 0 2.2.3 2.85.9M11 5h4.6l1.5 1.6-1.5 1.6H11Zm1.8 6.4h3.5m-3.5 3h2.25"/>' },
+  "delegated-access": { title: "تفویض دسترسی", category: "security", keywords: ["نماینده", "دسترسی نیابتی", "delegated permission"], body: '<circle cx="5.5" cy="6.75" r="2.1"/>' + '<path d="M2.75 15c0-1.7 1.1-2.75 2.75-2.75m3.15-4.5h2.85m-1.15-1.15 1.15 1.15-1.15 1.15m6.9 1.6a2.5 2.5 0 1 0-4.9.65L8.1 15.4v1.65h1.7l1.1-1.1h1.5v-1.5l1.4-1.4a2.5 2.5 0 0 0 3.45-2.55Z"/>' },
+  "workspace-membership": { title: "عضویت در فضای کاری", category: "people", keywords: ["عضو سازمان", "عضویت تیم", "workspace member"], body: sq(3, 3, 14, 14, 2.6) + '<circle cx="8.1" cy="8.45" r="1.65"/>' + '<path d="M5.75 13.15c0-1.25.95-1.95 2.35-1.95 1.4 0 2.35.7 2.35 1.95M12.75 7h1.5m-1.5 3.15h1.5m-1.5 3.15h1.5"/>' },
+  "account-recovery": { title: "بازیابی حساب", category: "security", keywords: ["بازیابی کاربر", "فراموشی حساب", "recover account"], body: '<circle cx="10.35" cy="7.1" r="1.95"/>' + '<path d="M7.3 13.2c0-1.45 1.2-2.25 3.05-2.25s3.05.8 3.05 2.25M16.7 9.25a6.8 6.8 0 0 1-13.45 1.4m0 0v3.1m0-3.1h3.1m-3.1-2.9a6.8 6.8 0 0 1 10.9-3.5"/>' },
+  "team-directory": { title: "فهرست اعضای تیم", category: "people", keywords: ["دایرکتوری", "لیست کارکنان", "employee directory"], body: sq(3, 2.75, 14, 14.5, 2.2) + '<path d="M3.2 7.25h13.6M6 5v.01M8.75 5v.01M6.15 10.45v.01M6.15 13.5v.01M9.2 10.45h4.4m-4.4 3.05h4.4"/>' },
+
+  // امنیت و حریم خصوصی
+  "recovery-code": { title: "کد بازیابی", category: "security", keywords: ["کد پشتیبان", "بازیابی ورود", "backup code"], body: sq(3, 4, 14, 12, 2.6) + '<path d="M6 7.25h2.5m3 0H14M6 10.25h2.5m3 0H14M6 13.15h2.5m3 0H14"/>' },
+  "trusted-device": { title: "دستگاه مورد اعتماد", category: "security", keywords: ["ورود امن", "دستگاه تأییدشده", "trusted login device"], body: sq(3.75, 2.75, 8.3, 14.5, 2.5) + '<path d="M6.7 14.65h2.4m3-7.6c1.1 0 2.7-.5 3.35-1.1.6.6 1.4.9 1.8 1v3.1c0 1.75-1.4 3-2.55 3.6-1.15-.6-2.55-1.85-2.55-3.6"/>' },
+  "session-timeout": { title: "پایان زمان نشست", category: "security", keywords: ["انقضای نشست", "خروج خودکار", "session expiry"], body: sq(2.75, 3, 14.5, 13.7, 2.6) + '<circle cx="10.15" cy="11.35" r="3.05"/>' + '<path d="M3 6.7h14m-10.7-1.9v.01m2.2-.01v.01m1.65 4.95v1.65l1.1.7"/>' },
+  "privacy-consent": { title: "رضایت حریم خصوصی", category: "security", keywords: ["رضایت‌نامه", "دادهٔ شخصی", "privacy permission"], body: '<path d="M10 2.75c1.75 1.15 4.05 1.8 6.4 2.05v4.8c0 3.3-2.7 5.85-6.4 7.65-3.7-1.8-6.4-4.35-6.4-7.65V4.8C5.95 4.55 8.25 3.9 10 2.75Zm-3.1 5.5h6.2m-6.2 3.05h3.55"/>' },
+  "security-key-usb": { title: "کلید امنیتی USB", category: "security", keywords: ["کلید سخت‌افزاری", "احراز هویت", "hardware security key"], body: sq(5.75, 6.7, 8.5, 10.55, 2.5) + sq(7.5, 2.75, 5, 3.95, 1) + '<circle cx="10" cy="11.4" r="1.55"/>' + '<path d="M9.25 4.55v.01m1.5-.01v.01" stroke-width="1.15"/>' },
+  "active-sessions": { title: "نشست‌های فعال", category: "security", keywords: ["نشست‌ها", "دستگاه‌های واردشده", "signed in sessions"], body: sq(2.75, 3.5, 12.25, 8.25, 2.1) + sq(12, 8.25, 5.25, 8.5, 1.45) + '<path d="M6.25 14.6h3.2m-1.6-2.85v2.85m6.3-.4h.95"/>' },
+  "login-activity": { title: "فعالیت ورود", category: "security", keywords: ["ورود اخیر", "تاریخچهٔ ورود", "sign in activity"], body: '<path d="M3.5 16.75V5.25c0-1.45 1.05-2.5 2.5-2.5h3.25c1.45 0 2.5 1.05 2.5 2.5v1.8M2.75 16.75h9m-5.65-5.45h5.75l1.4-2.8 1.7 5.15 2.15-2.35"/>' },
+  "identity-review": { title: "بررسی هویت", category: "security", keywords: ["اعتبارسنجی هویت", "احراز هویت", "identity verification review"], body: sq(2.75, 4.25, 14.5, 11.5, 2.5) + '<circle cx="7.15" cy="8.6" r="1.6"/>' + '<path d="M4.95 12.85c0-1.1.9-1.65 2.2-1.65s2.2.55 2.2 1.65m2.35-4.85h2.7m-2.7 3h2.7"/>' },
+
+  // پیام و اعلان
+  "message-thread": { title: "رشتهٔ پیام‌ها", category: "communication", keywords: ["گفت‌وگوی رشته‌ای", "زیرگفتگو", "thread"], body: '<path d="M3 5.8c0-1.4 1-2.4 2.4-2.4h6.2C13 3.4 14 4.4 14 5.8V8c0 1.4-1 2.4-2.4 2.4H7.1L4.7 12v-1.75C3.7 10 3 9.15 3 8Zm2.85.9h5.3m-2.75 7.2h5.1a2.2 2.2 0 0 0 2.2-2.2V8.9"/>' },
+  "mail-draft": { title: "پیش‌نویس ایمیل", category: "communication", keywords: ["پیش نویس", "ارسال‌نشده", "email draft"], body: sq(2.75, 4.7, 14.5, 10.6, 2.6) + '<path d="m5.65 7.75 3.2 2.25c.65.45 1.65.45 2.3 0l3.2-2.25M7.35 12.6h1.1m2 0h1.1"/>' },
+  "chat-mention": { title: "اشاره در گفتگو", category: "communication", keywords: ["منشن", "نام کاربر در پیام", "mention"], body: '<path d="M3 8.25A5.5 5.5 0 0 1 8.5 2.75h3A5.5 5.5 0 0 1 17 8.25V9a5.5 5.5 0 0 1-5.5 5.5H7.4L4.2 17v-4.4A5.45 5.45 0 0 1 3 9Zm9.55 2.15h-1a.85.85 0 0 1-.85-.85V7.35"/>' + '<circle cx="9.05" cy="8.8" r="1.55"/>' },
+  "notification-digest": { title: "خلاصهٔ اعلان‌ها", category: "notifications", keywords: ["جمع‌بندی اعلان", "اعلان دسته‌ای", "digest"], body: sq(3, 3.15, 14, 13.7, 2.35) + '<path d="M3.2 7h13.6m-10.35 3.3h7.05m-7.05 3.3h4.9m-4.9-8.6v.01m2.2-.01v.01"/>' },
+  "notification-rule": { title: "قانون اعلان", category: "notifications", keywords: ["تنظیم اعلان", "شرط اطلاع‌رسانی", "notification automation"], body: '<path d="M3 11.25c1-.65 1.35-1.5 1.35-2.7V7.3a3.9 3.9 0 0 1 7.6-1.25M3 11.25c-.65.45-.35 1.5.5 1.5h5.2m-2.85 2.25c.35.45.95.7 1.65.7m4.7-6.25h5.05m-5.05 4.25h5.05M14 8.3v2.3m1.4 1.95v2.3"/>' },
+  "message-schedule": { title: "زمان‌بندی پیام", category: "communication", keywords: ["ارسال زمان‌دار", "پیام زمان‌بندی‌شده", "send later"], body: withCorner(workflowSubjects["message-schedule"], scheduleBadge, "14.6 14.1 4.45") },
+  "inbox-zero": { title: "صندوق پیام خالی", category: "communication", keywords: ["همه خوانده شده", "صندوق خالی", "empty inbox"], body: '<path d="M3.2 11.75 5.25 5.1c.25-.85.9-1.35 1.8-1.35h5.9c.9 0 1.55.5 1.8 1.35l2.05 6.65v2.15c0 1.45-1 2.35-2.45 2.35h-8.7c-1.45 0-2.45-.9-2.45-2.35Zm.05 0H7.7c.4 1 1.2 1.55 2.3 1.55s1.9-.55 2.3-1.55h4.45M8 7.6l1.3 1.3 2.7-2.7"/>' },
+  "read-receipt": { title: "رسید خواندن پیام", category: "communication", keywords: ["خوانده شده", "رسید دریافت", "seen status"], body: '<path d="M3 8.2c0-2.6 1.6-4.2 4.2-4.2h5.6c2.6 0 4.2 1.6 4.2 4.2v1.4c0 2.6-1.6 4.2-4.2 4.2H7.65L4 16v-3.3c-.7-.8-1-1.8-1-3.1Zm3.25 1.1 1.6 1.6 3.4-3.4m-.9 3.4 3.4-3.4"/>' },
+
+  // فایل و سند
+  "file-version-history": { title: "تاریخچهٔ نسخه‌های فایل", category: "files", keywords: ["نسخه قبلی", "بازبینی فایل", "file revisions"], body: withCorner(workflowSubjects["file-version-history"], scheduleBadge, "14.6 14.1 4.45") },
+  "file-conflict": { title: "تعارض فایل", category: "files", keywords: ["تداخل نسخه", "بازنویسی هم‌زمان", "file merge conflict"], body: workflowSubjects["file-conflict"] + '<path d="M11.05 11.25v2.25m0 1.7v.01"/>' },
+  "shared-drive": { title: "درایو مشترک", category: "folders", keywords: ["فضای مشترک", "درایو تیم", "team drive"], body: sq(3, 11.75, 14, 4.75, 1.5) + '<circle cx="10" cy="5" r="1.55"/>' + '<path d="M7.6 9.05c0-1.25.9-1.95 2.4-1.95s2.4.7 2.4 1.95M5.75 14.1v.01m2.55-.01v.01M12.1 14.1h2.15"/>' },
+  "file-placeholder": { title: "جای‌نگهدار فایل", category: "files", keywords: ["فایل ناموجود", "فایل بارگیری نشده", "file skeleton"], body: '<path d="M4.1 6.45V5.5a2.55 2.55 0 0 1 2.55-2.55h2.2m2.9.15 3.9 3.9v1.25m0 3.15v3.15a2.55 2.55 0 0 1-2.55 2.55h-.7m-3.15 0h-2.6a2.55 2.55 0 0 1-2.55-2.55v-.8m0-3.2v-.9m3.65.7h4.35m-4.35 2.8h2.8"/>' },
+  "file-request": { title: "درخواست فایل", category: "files", keywords: ["ارسال مدرک", "درخواست بارگذاری", "request upload"], body: '<path d="M4.2 13.65V5.55A2.55 2.55 0 0 1 6.75 3h4.4l4.65 4.65v6a2.55 2.55 0 0 1-2.55 2.55h-6.5a2.55 2.55 0 0 1-2.55-2.55Zm6.95-10.4v2.6c0 1.05.75 1.8 1.8 1.8h2.6M10 8.85v4.65m-1.7-1.7 1.7 1.7 1.7-1.7"/>' },
+  "document-outline": { title: "ساختار سند", category: "documents", keywords: ["فهرست مطالب", "سرفصل سند", "document contents"], body: sq(3.75, 2.75, 12.5, 14.5, 2.25) + '<path d="M6.6 6.1h6.6M6.6 9.45v.01m2.4-.01h4.2m-6.6 3.3v.01m2.4-.01h3.2"/>' },
+  "document-section": { title: "بخش سند", category: "documents", keywords: ["قطعه سند", "بلوک محتوا", "document block"], body: sq(3.75, 2.75, 12.5, 14.5, 2.4) + sq(6.35, 7.4, 7.3, 4.35, 1) + '<path d="M6.55 5.25h3.4m-3.4 9.05h5.15"/>' },
+  "file-preview": { title: "پیش‌نمایش فایل", category: "files", keywords: ["نمایش سند", "مشاهدهٔ فایل", "preview document"], body: '<path d="M4.05 14.35V5.4A2.4 2.4 0 0 1 6.45 3h4.7l4.8 4.8v6.55a2.4 2.4 0 0 1-2.4 2.4h-7.1a2.4 2.4 0 0 1-2.4-2.4Zm7.1-11.15V6c0 1 .8 1.8 1.8 1.8h2.8M6.65 11.85c1.25-1.45 2.3-1.95 3.35-1.95s2.1.5 3.35 1.95c-1.25 1.45-2.3 1.95-3.35 1.95s-2.1-.5-3.35-1.95Zm3.35 0v.01"/>' },
+
+  // سفارش و تحویل
+  "checkout": { title: "نهایی‌کردن خرید", category: "shopping", keywords: ["پرداخت سفارش", "تسویه سبد", "checkout flow"], body: sq(2.75, 3, 14.5, 14, 2.45) + '<path d="M3 6.6h14m-11.75 2.1h1.2l1.25 3.75h4.5l.75-2.75H6.9m1.25 4.75v.01m3.55-.01v.01" stroke-width="1.3"/>' },
+  "order-confirmation": { title: "تأیید سفارش", category: "shopping", keywords: ["رسید سفارش", "ثبت خرید", "order confirmation"], body: '<path d="M4 3h9.25c.95 0 1.75.8 1.75 1.75v11.6l-1.85-1-1.85 1-1.8-1-1.8 1-1.85-1-1.85 1Zm2.7 3.5h5m-5 2.65h2.9m-2.9 3.35 1.25 1.25 2.65-2.65"/>' },
+  "pickup-order": { title: "تحویل حضوری سفارش", category: "shopping", keywords: ["تحویل از فروشگاه", "دریافت سفارش", "collect in store"], body: '<path d="M3 7.25h14L15.3 3.5H4.7Zm1 0v8.5h3.3m8.7-8.5v8.5h-3.3m-5.35-3.9h5.3l.65 4.5H6.7Zm1.5 0v-.7a1.15 1.15 0 1 1 2.3 0v.7"/>' },
+  "stock-reserved": { title: "موجودی رزروشده", category: "shopping", keywords: ["نگهداشت کالا", "رزرو موجودی", "reserved stock"], body: sq(3, 4.1, 10.4, 8.55, 1.8) + sq(10.6, 12, 6.5, 4.75, 1.4) + '<path d="M8.2 4.3v3.2m3.95 4.5v-.6a1.7 1.7 0 0 1 3.4 0v.6M13.85 14.4v.01"/>' },
+  "return-label": { title: "برچسب مرجوعی", category: "shopping", keywords: ["برگشت کالا", "برچسب بازگشت", "return shipping label"], body: '<path d="M3.25 6.4a2.3 2.3 0 0 1 2.3-2.3h5.35l5.15 4.45a1.9 1.9 0 0 1 0 2.9L10.9 15.9H5.55a2.3 2.3 0 0 1-2.3-2.3Zm3.4 3.45h3.5c1.15 0 1.85.7 1.85 1.8m-3.7-3.45-1.65 1.65L8.3 11.5"/>' },
+  "order-adjustment": { title: "اصلاح سفارش", category: "shopping", keywords: ["تغییر سفارش", "اقلام سفارش", "amend order"], body: sq(3, 3, 14, 14, 2.4) + '<path d="M6 7.25h8m-8 5.5h8m-5.65-7v3m3.4 2.5v3"/>' },
+  "delivery-instructions": { title: "راهنمای تحویل مرسوله", category: "shopping", keywords: ["یادداشت پیک", "دستور تحویل", "delivery notes"], body: '<path d="M3.1 3.25h10.05v7.05m-10.05-7.05V15h4.7M5.75 6.25h4.75m-4.75 3.1h3.1m.65 3.1 3.8-2.1 3.8 2.1v3.6l-3.8 1.8-3.8-1.8Zm0 0 3.8 1.9 3.8-1.9m-3.8 1.9v3.5"/>' },
+  "package-damaged": { title: "مرسولهٔ آسیب‌دیده", category: "shopping", keywords: ["بسته خراب", "خسارت حمل", "damaged parcel"], body: sq(3.25, 3.9, 13.5, 12.2, 2.4) + '<path d="M9.1 4.05v3.15h2.05l-2 3.3h2.1l-1.7 3.4m4-6.9h.35"/>' },
+
+  // پرداخت و صورتحساب
+  "payment-installments": { title: "پرداخت اقساطی", category: "banking", keywords: ["اقساط", "خرید قسطی", "installment payment"], body: sq(2.75, 4, 14.5, 11.8, 2.6) + '<path d="M3 8.1h14m-10.9 3.5v1.55m3.9-1.55v1.55m3.9-1.55v1.55"/>' },
+  "payment-methods": { title: "روش‌های پرداخت", category: "banking", keywords: ["گزینه پرداخت", "کارت و پول", "payment options"], body: withCorner(workflowSubjects["payment-methods"], '<circle cx="14.6" cy="14.1" r="2.85"/><path d="M13.65 14.1h1.9"/>', "14.6 14.1 4.45") },
+  "billing-cycle": { title: "چرخهٔ صورتحساب", category: "banking", keywords: ["دوره مالی", "دوره پرداخت", "billing period"], body: withCorner(workflowSubjects["billing-cycle"], historyRefresh, "14.6 14.1 4.55") },
+  "credit-limit": { title: "سقف اعتبار", category: "banking", keywords: ["اعتبار مجاز", "حد اعتبار", "credit ceiling"], body: sq(2.75, 3.9, 14.5, 12.2, 2.8) + '<path d="M5.9 12.15a4.1 4.1 0 0 1 8.2 0M10 12.1l1.9-2.25m-6-3.3h2.2"/>' },
+  "billing-address": { title: "نشانی صورتحساب", category: "banking", keywords: ["آدرس پرداخت", "نشانی مالی", "invoice address"], body: '<path d="M3.25 3h9.8c1.05 0 1.8.75 1.8 1.8v3M3.25 3v11.4c0 1.05.75 1.8 1.8 1.8h3.6M6.15 6.25h5.3m-5.3 2.8h2.7m8.4 3.4c0 2-2.75 4.65-3.8 4.65-1.05 0-3.8-2.65-3.8-4.65a3.8 3.8 0 1 1 7.6 0Z"/>' + '<circle cx="13.45" cy="12.25" r="1"/>' },
+  "invoice-line-item": { title: "ردیف صورتحساب", category: "banking", keywords: ["آیتم فاکتور", "ردیف هزینه", "invoice entry"], body: sq(3.75, 2.75, 12.5, 14.5, 2.3) + '<path d="M6.35 6.25h4.25m-4.25 3.55h7.3m-7.3 3.6h7.3m-2.1-3.6v3.6m-4.9-1.8h2"/>' },
+  "partial-refund": { title: "بازپرداخت بخشی از مبلغ", category: "banking", keywords: ["استرداد جزئی", "بازگشت مبلغ", "partial reimbursement"], body: '<circle cx="11.7" cy="9.65" r="4.8"/>' + '<path d="M11.7 4.85v4.8h4.8M5.65 13.4l-2.7 2.65m0 0 2.25 1.35m-2.25-1.35-.35-2.35m.35 2.35H8.7"/>' },
+  "payment-dispute": { title: "اعتراض به پرداخت", category: "banking", keywords: ["اختلاف پرداخت", "اعتراض تراکنش", "payment chargeback"], body: '<path d="M3.25 14V5.75a2.5 2.5 0 0 1 2.5-2.5h5.2a2.5 2.5 0 0 1 2.5 2.5v3.6M3.25 14a2.5 2.5 0 0 0 2.5 2.5h3.5m-3.1-9.95h4.4m-4.4 2.85h2.45"/>' + '<circle cx="13.65" cy="13.45" r="3.55"/>' + '<path d="M13.65 11.85v1.5m0 1.65v.01"/>' },
+
+  // داده و گزارش
+  "saved-view": { title: "نمای ذخیره‌شده", category: "interface", keywords: ["نمای سفارشی", "ذخیره فیلتر", "saved filter view"], body: sq(2.75, 3.2, 14.5, 13.6, 2.45) + '<path d="M3 7h14m-11 3.4h4m-4 3.1h3m3.7-3.85h1.8v4.65l-.9-.65-.9.65Z"/>' },
+  "column-visibility": { title: "نمایش ستون‌ها", category: "interface", keywords: ["مخفی کردن ستون", "جدول", "column display"], body: sq(2.75, 3.75, 14.5, 12.5, 2.15) + '<path d="M3 7.65h14M7.55 7.65v8.5m4.9-8.5v2m0 2.7v.01m0 2.7v1.05"/>' },
+  "table-row-group": { title: "گروه‌بندی ردیف‌ها", category: "interface", keywords: ["ردیف گروهی", "درخت جدول", "group rows"], body: sq(2.75, 3.2, 14.5, 13.6, 2.4) + '<path d="M3 7.25h14m-10.6 2.7v3.95h1.95m2.6-3.95h3.1m-3.1 3.95h3.1"/>' },
+  "table-summary": { title: "ردیف جمع جدول", category: "interface", keywords: ["خلاصه جدول", "مجموع ستون", "table totals"], body: sq(2.75, 3.2, 14.5, 13.6, 2.4) + '<path d="M3 7.25h14m-14 4.4h14m-7-4.4v4.4m2.9 2.4h2.2m-7.9 0H5.5"/>' },
+  "dashboard-widget": { title: "ابزارک داشبورد", category: "interface", keywords: ["ویجت داشبورد", "پنل داده", "dashboard card"], body: sq(2.75, 3, 14.5, 14, 2.5) + sq(5.2, 5.5, 9.6, 4.9, 1.15) + '<path d="M6.5 13.55h1.5m4 0h1.5"/>' },
+  "metric-target": { title: "هدف شاخص", category: "charts", keywords: ["شاخص هدف", "مقدار هدف", "KPI target"], body: '<path d="M3 3.25v11c0 1.3.95 2.25 2.25 2.25h3.6m-2.85-5 2.45-2.8 2 1.3 3.65-4.6m-2.15 0h2.15v2.15"/>' + '<circle cx="13.9" cy="13.9" r="3.3"/>' + '<circle cx="13.9" cy="13.9" r="1.1"/>' },
+  "report-schedule": { title: "زمان‌بندی گزارش", category: "charts", keywords: ["گزارش دوره‌ای", "ارسال گزارش", "scheduled report"], body: sq(3, 3.1, 14, 13.8, 2.5) + '<path d="M3.2 7.45h13.6M6.5 5.25v.01M9.25 5.25v.01M6.65 13.85v-2.4m3.35 2.4V9.8m3.35 4.05v-1.3"/>' },
+  "data-retention": { title: "نگهداری داده", category: "development", keywords: ["سیاست نگهداری", "حذف دوره‌ای", "retention policy"], body: '<path d="M3.1 5.5c0-1.5 2.3-2.55 5.2-2.55s5.2 1.05 5.2 2.55-2.3 2.55-5.2 2.55-5.2-1.05-5.2-2.55Zm0 0v8.15c0 1.5 2.3 2.55 5.2 2.55m-5.2-6.45c0 1.4 2.2 2.4 4.95 2.4m2.4-2.55h6.3m-6.3 7.3h6.3m-5.5-7.3c0 2.05 1.15 2.9 2.35 3.65-1.2.75-2.35 1.6-2.35 3.65m4.7-7.3c0 2.05-1.15 2.9-2.35 3.65 1.2.75 2.35 1.6 2.35 3.65"/>' },
+
+  // فرم و کنترل‌های رابط
+  "input-clear": { title: "پاک‌کردن مقدار ورودی", category: "interface", keywords: ["خالی کردن فیلد", "پاک کردن متن", "clear field"], body: sq(2.75, 5.25, 14.5, 9.5, 2.35) + '<path d="M6.1 10h3.05m2.65-1.65 3.3 3.3m0-3.3-3.3 3.3"/>' },
+  "field-required": { title: "فیلد اجباری", category: "interface", keywords: ["فیلد الزامی", "اعتبارسنجی فرم", "required input"], body: sq(2.75, 5.25, 14.5, 9.5, 2.35) + '<path d="M6.1 10.2h3.15m4.05-2.15v4.2m-1.75-3.15 3.5 2.1m0-2.1-3.5 2.1" stroke-width="1.3"/>' },
+  "field-read-only": { title: "فیلد فقط‌خواندنی", category: "interface", keywords: ["ورودی غیرقابل ویرایش", "فرم قفل‌شده", "read only input"], body: sq(2.75, 5.25, 14.5, 9.5, 2.35) + sq(10.85, 9.8, 3.8, 2.75, 0.9) + '<path d="M6 10h2.1m3.45-.2v-.7a1.2 1.2 0 0 1 2.4 0v.7"/>' },
+  "multi-select": { title: "انتخاب چندگانه", category: "interface", keywords: ["گزینه‌های چندانتخابی", "چندگزینه‌ای", "multiple selection"], body: sq(3, 3.25, 14, 13.5, 2.3) + '<path d="M3.2 7.3h13.6m-4.1-2.5 1.05 1 1.05-1M6 10.25l1 1 1.7-1.75M6 13.65l1 1 1.7-1.75m2.2-2.65h2.7m-2.7 3.4h2.7" stroke-width="1.2"/>' },
+  "selection-count": { title: "شمارش موارد انتخاب‌شده", category: "interface", keywords: ["تعداد انتخاب", "انتخاب گروهی", "selected count"], body: sq(3, 3.5, 8.9, 8.9, 2.25) + '<path d="m5.35 7.65 1.5 1.45 2.55-2.65m3.2 7.05c0-1.15.8-1.65 1.9-1.65 1.05 0 1.8.55 1.8 1.4 0 .75-.55 1.2-1.25 1.65l-2.4 1.6h3.9"/>' },
+  "keyboard-focus": { title: "تمرکز صفحه‌کلید", category: "interface", keywords: ["حلقه فوکوس", "فوکوس کیبورد", "keyboard focus ring"], body: '<path d="M2.75 7V5a2.25 2.25 0 0 1 2.25-2.25h2m6 0h2A2.25 2.25 0 0 1 17.25 5v2m0 6v2A2.25 2.25 0 0 1 15 17.25h-2m-6 0H5A2.25 2.25 0 0 1 2.75 15v-2"/>' + sq(6, 7.35, 8, 5.3, 1.4) + '<path d="M8.35 10h3.3"/>' },
+  "dropdown-search": { title: "جست‌وجوی فهرست کشویی", category: "interface", keywords: ["جستجو در گزینه‌ها", "فیلد کشویی", "searchable dropdown"], body: sq(3, 3, 14, 14, 2.4) + '<circle cx="7.85" cy="7.6" r="1.35"/>' + '<path d="m8.8 8.55 1.05 1.05m3.2-2.3 1.25 1.2 1.25-1.2M5.6 12h8.8m-8.8 2.5h5.3"/>' },
+  "filter-reset": { title: "بازنشانی فیلترها", category: "actions", keywords: ["حذف پالایش", "ریست فیلتر", "clear filters"], body: '<path d="M3.25 3.5h13.5l-4.35 5.45c-.45.55-.65 1.1-.65 1.65m-8.5-7.1 4.35 5.45c.45.55.65 1.1.65 1.65V16l2.1-1.15m6.85-.8a3.05 3.05 0 1 1-1.05-2.3m.85-1.5v1.9h-1.9"/>' },
+
+  // توسعه و عملیات
+  "environment-variables": { title: "متغیرهای محیطی", category: "development", keywords: ["تنظیم محیط", "فایل env", "environment configuration"], body: sq(2.75, 3.5, 14.5, 13, 2.4) + '<path d="M3 7h14m-10.6 2.9 1.6 1.5-1.6 1.5m3.7 0h3.65M6 5.25v.01m2.4-.01v.01"/>' },
+  "service-health": { title: "سلامت سرویس", category: "development", keywords: ["وضعیت سرویس", "پایش سامانه", "system status"], body: sq(2.75, 4.05, 14.5, 11.9, 2.4) + '<path d="M5.25 10h2.6l1.35-2.4 1.75 4.8 1.35-2.4h2.45M5.4 13.7v.01"/>' },
+  "deployment-history": { title: "تاریخچهٔ استقرار", category: "development", keywords: ["بیلد قبلی", "تاریخچه انتشار", "deploy history"], body: withCorner(workflowSubjects["deployment-history"], historyRefresh, "14.6 14.1 4.55") },
+  "code-coverage": { title: "پوشش تست کد", category: "development", keywords: ["پوشش آزمون", "پوشش کد", "test coverage"], body: '<path d="m6.5 6.5-3.75 3.5 3.75 3.5m1.95 2.2 2.8-11.4m6 7.8a3.2 3.2 0 1 1-3.2-3.2v3.2Z"/>' },
+  "diff-split": { title: "مقایسهٔ کنارهم تغییرات", category: "development", keywords: ["نمای تفاوت", "مقایسه دو نسخه", "side by side diff"], body: sq(2.75, 4.1, 14.5, 11.8, 2.15) + '<path d="M10 4.3v11.4m-4.6-5.7h2.2m4.8 0h2.2m-1.1-1.1v2.2" stroke-width="1.35"/>' },
+  "version-pin": { title: "قفل نسخهٔ وابستگی", category: "development", keywords: ["نسخه ثابت", "سنجاق نسخه", "pin dependency version"], body: '<path d="M3 6.1a2.1 2.1 0 0 1 2.1-2.1H11l5.65 5.05a1.45 1.45 0 0 1 0 2.15L11 16.25H5.1A2.1 2.1 0 0 1 3 14.15Zm3 4v.01m3.6-2.2h2.4l-.45 1.65 1.1 1.4H8.95l1.1-1.4Zm1.2 3v2.25"/>' },
+  "release-channel": { title: "کانال انتشار", category: "development", keywords: ["نسخه پایدار", "بتا", "release track"], body: '<circle cx="5.25" cy="10" r="2.15"/>' + '<circle cx="14.7" cy="5.75" r="2.1"/>' + '<circle cx="14.7" cy="14.25" r="2.1"/>' + '<path d="M7.4 10h1.35c1.75 0 3.05-1.55 3.85-3.1M8.75 10c1.75 0 3.05 1.55 3.85 3.1"/>' },
+  "error-log": { title: "گزارش خطا", category: "development", keywords: ["لاگ خطا", "رویداد خطا", "error event"], body: sq(3.25, 2.75, 13.5, 14.5, 2.4) + '<path d="M6.25 6.1h5.5m-5.5 3.7h3.5m-3.5 3.5h3.5m3.35-3.5v2.25m0 1.75v.01"/>' },
+
+  // تقویم و نوبت‌دهی
+  "calendar-reschedule": { title: "تغییر زمان رویداد", category: "time", keywords: ["جابه‌جایی نوبت", "تغییر تاریخ", "reschedule event"], body: sq(3, 4.25, 14, 12.6, 2.5) + '<path d="M3.2 8h13.6" stroke-width="1.3"/><path d="M7 2.75v2.7M13 2.75v2.7" stroke-width="1.3"/><path d="M12.75 10.95H7.1m1.3-1.25-1.3 1.25 1.3 1.25M7.25 13.85h5.65m-1.3-1.25 1.3 1.25-1.3 1.25" stroke-width="1.3"/>' },
+  "office-hours-sign": { title: "تابلوی ساعات کاری", category: "time", keywords: ["ساعات اداری", "زمان پاسخ‌گویی", "business hours sign"], body: sq(2.75, 5, 14.5, 10.5, 2.25) + '<path d="m7.1 5 2.9-2.3L12.9 5m-7.2 3.15h3m-3 4.05h3"/>' + '<circle cx="13" cy="10.2" r="2.15"/>' + '<path d="M13 9.1v1.15l.6.45" stroke-width="1.1"/>' },
+  "queue-ticket": { title: "برگهٔ نوبت", category: "time", keywords: ["شماره صف", "صف انتظار", "queue number"], body: '<path d="M3 5.25h14v2.3c-1.25.15-2 .95-2 2.45s.75 2.3 2 2.45v2.3H3v-2.3C4.25 12.3 5 11.5 5 10s-.75-2.3-2-2.45Zm4.25 3.8h5.5m-5.5 2.65h3.4"/>' },
+  "appointment-slot": { title: "بازهٔ نوبت", category: "time", keywords: ["زمان رزرو", "بازهٔ قرار", "booking slot"], body: sq(3, 4, 14, 13, 2.5) + sq(7.65, 9.75, 4.7, 4.4, 1.25) + '<path d="M3.2 7.85h13.6M6.75 2.75v2.6m6.5-2.6v2.6"/>' },
+  "service-window": { title: "بازهٔ ارائهٔ خدمت", category: "time", keywords: ["بازهٔ زمانی", "پنجره سرویس", "service hours window"], body: '<path d="M3 7.3v5.4m14-5.4v5.4M3 10h2.75m8.5 0H17"/>' + '<circle cx="10" cy="10" r="4.25"/>' + '<path d="M10 7.7v2.5l1.55 1"/>' },
+  "reservation-capacity": { title: "ظرفیت رزرو", category: "time", keywords: ["ظرفیت نوبت", "سهمیه رزرو", "booking capacity"], body: sq(3, 3.25, 14, 13.5, 2.5) + '<circle cx="7.85" cy="9.15" r="1.4"/>' + '<path d="M5.9 13.25c0-1.2.8-1.85 1.95-1.85s1.95.65 1.95 1.85m2.5-3.6h2m-2 2.8h2M3.2 6.65h13.6"/>' },
+  "time-zone": { title: "منطقهٔ زمانی", category: "time", keywords: ["اختلاف ساعت", "زمان محلی", "time zone"], body: '<path d="M10 3a7 7 0 0 0-4.5 12.4m7.6-11.65a7 7 0 0 1 2.9 3.1M3.2 9.4h7.05M10 3c-1.85 2-2.7 4.15-2.7 6.5 0 1.95.55 3.9 1.6 5.55m1.1-12c.95 1 1.65 2.1 2.1 3.25"/>' + '<circle cx="13.75" cy="13.1" r="3.5"/>' + '<path d="M13.75 11.4v1.85l1.05.7"/>' },
+  "out-of-office": { title: "خارج از دفتر", category: "time", keywords: ["مرخصی", "عدم حضور", "away from office"], body: '<path d="M3.25 16.75V5.15c0-1.3.95-2.25 2.25-2.25h5.65c1.3 0 2.25.95 2.25 2.25v1.5M2.75 16.75h7.4M6.65 7.1h3.25m-3.25 3.15h2.2"/>' + '<circle cx="14.1" cy="13.6" r="3.15"/>' + '<path d="M12.75 14.95l2.7-2.7"/>' },
 };
 
 // ───── آیکون‌های ترکیبی: یک آیکون پایه با نشانی کوچک در گوشهٔ پایین (مثل folder-check)
@@ -4463,18 +4578,165 @@ const composites = {
   "key-card": "check x lock",
 };
 
+function addComposite(base, key, name = `${base}-${key}`, title, subject) {
+  const icon = icons[base];
+  const badge = badges[key];
+  if (!icon || !badge || icons[name]) return;
+  icons[name] = {
+    title: title ?? badge.title(icon.title),
+    category: icon.category,
+    keywords: [...new Set([...icon.keywords, ...badge.keywords])],
+    body: withCorner(subject ?? icon.body, badge.body),
+  };
+}
+
 for (const [base, list] of Object.entries(composites)) {
-  const i = icons[base];
-  if (!i) continue;
-  for (const key of list.split(" ")) {
-    const name = `${base}-${key}`;
-    const badge = badges[key];
-    if (icons[name] || !badge) continue;
-    icons[name] = {
-      title: badge.title(i.title),
-      category: i.category,
-      keywords: [...new Set([...i.keywords, ...badge.keywords])],
-      body: `<g data-cut="15 15 4.6">${i.body}</g>${badge.body}`,
-    };
-  }
+  for (const key of list.split(" ")) addComposite(base, key);
+}
+
+// عنوان‌های کاربردی برای وضعیت‌هایی که در جریان‌های محصول معنای مشخصی دارند.
+const workflowBadges = {
+  // حساب کاربری و تیم
+  "guest-access-approved": ["guest-account", "check", "دسترسی مهمان تأییدشده"],
+  "guest-access-expiring": ["guest-account", "clock", "پایان اعتبار دسترسی مهمان"],
+  "team-invite-pending": ["team-invite", "clock", "دعوت تیم در انتظار پاسخ"],
+  "team-invite-revoked": ["team-invite", "x", "دعوت تیم لغوشده"],
+  "profile-fields-edit": ["profile-fields", "edit", "ویرایش مشخصات پروفایل"],
+  "profile-fields-private": ["profile-fields", "lock", "مشخصات خصوصی پروفایل"],
+  "team-role-assigned": ["team-roles", "check", "نقش تیم تخصیص‌یافته"],
+  "team-role-restricted": ["team-roles", "lock", "نقش تیم محدود"],
+  "delegated-access-pending": ["delegated-access", "clock", "تفویض دسترسی در انتظار تأیید"],
+  "workspace-membership-request": ["workspace-membership", "plus", "درخواست عضویت در فضای کاری"],
+  "account-recovery-pending": ["account-recovery", "clock", "بازیابی حساب در جریان"],
+  "team-directory-search": ["team-directory", "search", "جست‌وجو در فهرست اعضای تیم"],
+
+  // امنیت و حریم خصوصی
+  "recovery-code-generated": ["recovery-code", "check", "کد بازیابی صادرشده"],
+  "recovery-code-download": ["recovery-code", "down", "دریافت کد بازیابی"],
+  "trusted-device-revoked": ["trusted-device", "x", "لغو اعتماد به دستگاه"],
+  "trusted-device-pending": ["trusted-device", "clock", "اعتماد به دستگاه در انتظار تأیید"],
+  "session-timeout-warning": ["session-timeout", "alert", "هشدار پایان نشست"],
+  "privacy-consent-pending": ["privacy-consent", "clock", "رضایت حریم خصوصی در انتظار پاسخ"],
+  "privacy-consent-granted": ["privacy-consent", "check", "رضایت حریم خصوصی ثبت‌شده"],
+  "security-key-usb-enroll": ["security-key-usb", "plus", "ثبت کلید امنیتی جدید"],
+  "security-key-usb-remove": ["security-key-usb", "x", "حذف کلید امنیتی ثبت‌شده"],
+  "active-sessions-revoke": ["active-sessions", "x", "خاتمهٔ نشست‌های فعال"],
+  "login-activity-alert": ["login-activity", "alert", "ورود مشکوک"],
+  "identity-review-pending": ["identity-review", "clock", "هویت در انتظار بررسی"],
+
+  // پیام و اعلان
+  "message-thread-follow": ["message-thread", "plus", "دنبال‌کردن رشتهٔ پیام"],
+  "message-thread-resolved": ["message-thread", "check", "رشتهٔ پیام حل‌شده"],
+  "mail-draft-edit": ["mail-draft", "edit", "ویرایش پیش‌نویس ایمیل"],
+  "mail-draft-delete": ["mail-draft", "x", "حذف پیش‌نویس ایمیل"],
+  "chat-mention-search": ["chat-mention", "search", "پیداکردن اشاره‌ها در گفتگو"],
+  "chat-mention-alert": ["chat-mention", "alert", "هشدار اشاره در گفتگو"],
+  "notification-digest-pending": ["notification-digest", "clock", "خلاصهٔ اعلان در صف ارسال"],
+  "notification-digest-download": ["notification-digest", "down", "دریافت خلاصهٔ اعلان‌ها"],
+  "notification-rule-add": ["notification-rule", "plus", "افزودن قانون اعلان"],
+  "notification-rule-error": ["notification-rule", "alert", "خطای قانون اعلان"],
+  "message-schedule-cancel": ["message-schedule", "x", "لغو ارسال زمان‌دار پیام"],
+  "read-receipt-restricted": ["read-receipt", "lock", "رسید خواندن خصوصی"],
+
+  // فایل و سند
+  "file-version-restore": ["file-version-history", "sync", "بازیابی نسخهٔ قبلی فایل"],
+  "file-version-download": ["file-version-history", "down", "دانلود نسخهٔ قبلی فایل"],
+  "file-conflict-resolved": ["file-conflict", "check", "تعارض فایل رفع‌شده"],
+  "file-conflict-review": ["file-conflict", "search", "بررسی نسخه‌های متعارض"],
+  "shared-drive-add": ["shared-drive", "plus", "افزودن درایو مشترک"],
+  "shared-drive-locked": ["shared-drive", "lock", "درایو مشترک قفل‌شده"],
+  "file-placeholder-retry": ["file-placeholder", "sync", "تلاش دوباره برای بارگیری فایل"],
+  "file-request-fulfilled": ["file-request", "check", "فایل درخواستی دریافت‌شده"],
+  "file-request-pending": ["file-request", "clock", "فایل درخواستی در انتظار دریافت"],
+  "document-outline-edit": ["document-outline", "edit", "ویرایش ساختار سند"],
+  "document-section-add": ["document-section", "plus", "افزودن بخش سند"],
+  "file-preview-restricted": ["file-preview", "lock", "پیش‌نمایش فایل محدود"],
+
+  // سفارش و تحویل
+  "checkout-pending": ["checkout", "clock", "خرید در انتظار پرداخت"],
+  "checkout-blocked": ["checkout", "alert", "اختلال در نهایی‌کردن خرید"],
+  "order-confirmation-download": ["order-confirmation", "down", "دانلود تأییدیهٔ سفارش"],
+  "pickup-order-ready": ["pickup-order", "check", "سفارش آمادهٔ تحویل حضوری"],
+  "pickup-order-cancelled": ["pickup-order", "x", "تحویل حضوری لغوشده"],
+  "stock-reserved-expiring": ["stock-reserved", "clock", "رزرو موجودی رو به انقضا"],
+  "return-label-download": ["return-label", "down", "دانلود برچسب مرجوعی"],
+  "return-label-void": ["return-label", "x", "برچسب مرجوعی باطل‌شده"],
+  "order-adjustment-applied": ["order-adjustment", "check", "اصلاح سفارش اعمال‌شده"],
+  "order-adjustment-review": ["order-adjustment", "search", "بررسی اصلاح سفارش"],
+  "delivery-instructions-edit": ["delivery-instructions", "edit", "ویرایش راهنمای تحویل"],
+  "package-damaged-report": ["package-damaged", "alert", "گزارش خسارت مرسوله"],
+
+  // پرداخت و صورتحساب
+  "payment-installments-due": ["payment-installments", "clock", "سررسید قسط"],
+  "payment-installments-late": ["payment-installments", "alert", "قسط عقب‌افتاده"],
+  "payment-method-add": ["payment-methods", "plus", "افزودن روش پرداخت"],
+  "payment-method-verified": ["payment-methods", "check", "روش پرداخت تأییدشده"],
+  "billing-cycle-change": ["billing-cycle", "edit", "تغییر چرخهٔ صورتحساب"],
+  "credit-limit-warning": ["credit-limit", "alert", "هشدار نزدیک‌شدن به سقف اعتبار"],
+  "billing-address-edit": ["billing-address", "edit", "ویرایش نشانی صورتحساب"],
+  "invoice-line-item-add": ["invoice-line-item", "plus", "افزودن ردیف صورتحساب"],
+  "invoice-line-item-remove": ["invoice-line-item", "minus", "کسر ردیف صورتحساب"],
+  "partial-refund-pending": ["partial-refund", "clock", "بازپرداخت جزئی در انتظار"],
+  "payment-dispute-open": ["payment-dispute", "alert", "اعتراض باز به پرداخت"],
+  "payment-dispute-resolved": ["payment-dispute", "check", "اعتراض پرداخت حل‌شده"],
+
+  // داده و گزارش
+  "saved-view-edit": ["saved-view", "edit", "ویرایش نمای ذخیره‌شده"],
+  "saved-view-private": ["saved-view", "lock", "نمای ذخیره‌شدهٔ خصوصی"],
+  "column-visibility-check": ["column-visibility", "check", "نمایش ستون فعال"],
+  "column-visibility-restricted": ["column-visibility", "lock", "ستون محدودشده"],
+  "table-row-group-add": ["table-row-group", "plus", "افزودن گروه ردیف"],
+  "table-summary-export": ["table-summary", "down", "خروجی ردیف جمع"],
+  "dashboard-widget-add": ["dashboard-widget", "plus", "افزودن ابزارک داشبورد"],
+  "dashboard-widget-error": ["dashboard-widget", "alert", "خطای ابزارک داشبورد"],
+  "metric-target-met": ["metric-target", "check", "هدف شاخص محقق‌شده"],
+  "report-schedule-edit": ["report-schedule", "edit", "ویرایش زمان‌بندی گزارش"],
+  "report-schedule-error": ["report-schedule", "alert", "خطای زمان‌بندی گزارش"],
+  "data-retention-warning": ["data-retention", "alert", "هشدار پایان مدت نگهداری داده"],
+
+  // فرم و کنترل‌های رابط
+  "input-clear-confirmed": ["input-clear", "check", "مقدار ورودی پاک‌شده"],
+  "field-required-missing": ["field-required", "alert", "فیلد اجباری خالی"],
+  "field-required-completed": ["field-required", "check", "فیلد اجباری تکمیل‌شده"],
+  "field-read-only-unlock-request": ["field-read-only", "plus", "درخواست دسترسی ویرایش فیلد"],
+  "multi-select-search": ["multi-select", "search", "جست‌وجو در انتخاب چندگانه"],
+  "multi-select-clear": ["multi-select", "x", "پاک‌کردن انتخاب چندگانه"],
+  "selection-count-confirmed": ["selection-count", "check", "موارد انتخاب‌شده تأیید شدند"],
+  "selection-count-warning": ["selection-count", "alert", "هشدار تعداد انتخاب"],
+  "keyboard-focus-details": ["keyboard-focus", "info", "اطلاعات تمرکز صفحه‌کلید"],
+  "dropdown-search-empty": ["dropdown-search", "x", "جست‌وجوی کشویی بدون نتیجه"],
+  "dropdown-search-pending": ["dropdown-search", "clock", "جست‌وجوی کشویی در انتظار"],
+  "filter-reset-confirmed": ["filter-reset", "check", "فیلترها بازنشانی شدند"],
+
+  // توسعه و عملیات
+  "environment-variables-edit": ["environment-variables", "edit", "ویرایش متغیرهای محیطی"],
+  "environment-variables-lock": ["environment-variables", "lock", "متغیر محیطی محرمانه"],
+  "service-health-degraded": ["service-health", "alert", "عملکرد مختل سرویس"],
+  "service-health-operational": ["service-health", "check", "سرویس عملیاتی"],
+  "deployment-history-rollback": ["deployment-history", "sync", "بازگشت به استقرار قبلی"],
+  "deployment-history-search": ["deployment-history", "search", "جست‌وجوی استقرارها"],
+  "code-coverage-warning": ["code-coverage", "alert", "پوشش تست ناکافی"],
+  "diff-split-review": ["diff-split", "search", "بازبینی نمای تغییرات"],
+  "version-pin-confirmed": ["version-pin", "check", "نسخهٔ وابستگی تثبیت شد"],
+  "release-channel-add": ["release-channel", "plus", "افزودن کانال انتشار"],
+  "release-channel-sync": ["release-channel", "sync", "همگام‌سازی کانال انتشار"],
+  "error-log-export": ["error-log", "down", "خروجی گزارش خطا"],
+
+  // تقویم و نوبت‌دهی
+  "calendar-reschedule-pending": ["calendar-reschedule", "clock", "تغییر زمان در انتظار تأیید"],
+  "calendar-reschedule-approved": ["calendar-reschedule", "check", "تغییر زمان تأییدشده"],
+  "office-hours-edit": ["office-hours-sign", "edit", "ویرایش ساعت کاری"],
+  "office-hours-closed": ["office-hours-sign", "x", "خارج از ساعت کاری"],
+  "queue-ticket-issued": ["queue-ticket", "check", "برگهٔ نوبت صادرشده"],
+  "queue-ticket-waiting": ["queue-ticket", "clock", "نوبت در انتظار فراخوان"],
+  "appointment-slot-available": ["appointment-slot", "plus", "بازهٔ نوبت قابل رزرو"],
+  "appointment-slot-booked": ["appointment-slot", "lock", "بازهٔ نوبت رزروشده"],
+  "service-window-updated": ["service-window", "sync", "بازهٔ خدمت به‌روز شده"],
+  "reservation-capacity-full": ["reservation-capacity", "alert", "ظرفیت رزرو تکمیل است"],
+  "time-zone-edit": ["time-zone", "edit", "ویرایش منطقهٔ زمانی"],
+  "out-of-office-scheduled": ["out-of-office", "clock", "عدم حضور زمان‌بندی‌شده"],
+};
+
+for (const [name, [base, badge, title]] of Object.entries(workflowBadges)) {
+  addComposite(base, badge, name, title, workflowSubjects[base]);
 }
