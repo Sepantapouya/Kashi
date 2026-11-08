@@ -59,7 +59,7 @@ test("every icon renders in all six variants", async () => {
   for (const n of iconNames) for (const v of variants) {
     const svg = iconSvg(n, { variant: v });
     assert.match(svg, /<(path|circle)\b/, `${n} ${v}`);
-    assert.doesNotMatch(svg, /data-sq/, `${n} ${v} marker`);
+    assert.doesNotMatch(svg, /data-(sq|outline)/, `${n} ${v} marker`);
   }
   const a = iconSvg("calendar", { variant: "bold" }), b = iconSvg("calendar", { variant: "bold" });
   assert.notEqual(a.match(/mask id="([^"]+)"/)[1], b.match(/mask id="([^"]+)"/)[1], "mask ids are unique");
@@ -68,4 +68,24 @@ test("every icon renders in all six variants", async () => {
   const bold = readFileSync(new URL("../dist/sprite-bold.svg", import.meta.url), "utf8");
   assert.ok(bold.includes('id="k-home--bold"'));
   assert.equal(readdirSync(new URL("../dist/svg/curved/", import.meta.url)).length, iconNames.length);
+});
+
+test("bold leaves room between open strokes and keeps lens and wheel centers open", () => {
+  const barcode = iconSvg("scan-barcode", { variant: "bold" });
+  const weight = Number(barcode.match(/<g stroke-width="([\d.]+)">/)?.[1]);
+  assert.ok(weight > 1.5 && weight < 2);
+  assert.match(iconSvg("scan-barcode", { variant: "bold", strokeWidth: 2 }), /<g stroke-width="2">/);
+  for (const name of ["search", "settings", "bicycle"]) {
+    const svg = iconSvg(name, { variant: "bold" });
+    assert.match(svg, /<circle\b/);
+    assert.doesNotMatch(svg, /fill="currentColor"/, name);
+  }
+});
+
+test("bold fills a closed outline and cuts out the following relative detail", () => {
+  const svg = iconSvg("curb-ramp", { variant: "bold" });
+  const mask = svg.match(/<mask\b[^>]*>(.*?)<\/mask>/)?.[1];
+  assert.ok(mask);
+  assert.match(mask, /d="M3 13\.25h6\.5L17 5\.75"/);
+  assert.match(svg, /fill="currentColor" stroke-width="0\.5" mask="url\(#[^)]+\)"><path d="M3 13\.25 10\.5 5\.75H17v6\.5l-7\.5 4H3Z"/);
 });
