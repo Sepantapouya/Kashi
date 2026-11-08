@@ -1,5 +1,13 @@
 # @kashi-ui/elements
 
+## 1.1.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@1.1.0
+  - @kashi-ui/css@1.1.0
+  - @kashi-ui/persian@1.1.0
+
 ## 1.0.0
 
 ### Major Changes
