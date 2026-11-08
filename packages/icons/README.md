@@ -26,4 +26,6 @@ searchIcons("کارت"); // ["credit-card", "id-card", ...]
 - اسپرایت سبک‌ها: `@kashi-ui/icons/sprite-bold.svg` و `<use href="sprite-bold.svg#k-search--bold">`
 - همهٔ آیکون‌ها در پلاگین فیگمای کاشی هم هستند (`Icon / search`).
 
+[اسکیل طراحی و بازبینی آیکون‌های کاشی](https://github.com/Sepantapouya/Kashi/blob/main/packages/icons/DESIGN.md)
+
 طراحی‌شده برای کاشی، با مجوز MIT.
