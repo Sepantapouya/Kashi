@@ -1,0 +1,50 @@
+---
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ArticleBrowser, { type ArticleCard } from "../../components/ArticleBrowser";
+import { getArticles, readingMinutes, faDate, isoDay } from "../../lib/articles";
+import { ARTICLE_CATEGORIES } from "../../content.config";
+import "../../styles/articles.css";
+
+const all = await getArticles();
+const cards: ArticleCard[] = all.map((a) => ({
+  slug: a.id,
+  title: a.data.title,
+  description: a.data.description,
+  category: a.data.category,
+  tags: a.data.tags,
+  date: isoDay(a.data.date),
+  dateFa: faDate(a.data.date),
+  minutes: readingMinutes(a.body),
+  coverAlt: a.data.coverAlt,
+}));
+const categories = ARTICLE_CATEGORIES.filter((c) => cards.some((a) => a.category === c));
+const site = Astro.site!.href.replace(/\/$/, "");
+const jsonLd = [
+  { "@type": "CollectionPage", "@id": `${site}/articles/#page`, name: "مقاله‌های کاشی", url: `${site}/articles/`, inLanguage: "fa-IR", isPartOf: { "@id": `${site}/#website` },
+    mainEntity: { "@type": "ItemList", itemListElement: cards.map((a, i) => ({ "@type": "ListItem", position: i + 1, url: `${site}/articles/${a.slug}/`, name: a.title })) } },
+  { "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: "کاشی", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "مقاله‌ها", item: `${site}/articles/` },
+  ] },
+];
+---
+<Base
+  title="مقاله‌ها"
+  seoTitle="مقاله‌های طراحی و توسعهٔ رابط فارسی · کاشی"
+  description="راهنمای عملی طراحی و توسعهٔ رابط کاربری فارسی: راست‌چین کردن با CSS، نیم‌فاصله، تقویم شمسی، فرم‌های ایرانی، دسترس‌پذیری و دیزاین سیستم."
+  jsonLd={jsonLd}
+>
+  <Header />
+  <main id="main" class="arts" tabindex="-1">
+    <header class="arts__head">
+      <nav class="art-crumb" aria-label="مسیر صفحه"><a href="/">کاشی</a><span aria-hidden="true">/</span><span aria-current="page">مقاله‌ها</span></nav>
+      <h1>مقاله‌های کاشی</h1>
+      <p>راهنمای عملی ساختن رابط کاربری فارسی؛ از راست‌چین کردن صفحه و نیم‌فاصله تا تقویم شمسی، فرم‌های ایرانی و دسترس‌پذیری. هر مقاله نمونه‌کد قابل‌اجرا دارد.</p>
+      <a class="arts__rss" href="/articles/rss.xml">خوراک RSS</a>
+    </header>
+    <ArticleBrowser client:load articles={cards} categories={[...categories]} />
+  </main>
+  <Footer />
+</Base>

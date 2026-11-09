@@ -12,12 +12,13 @@ import { ELEMENT_DOCS } from "../data/elements";
 import { nav, siblings } from "../data/nav";
 
 interface Props {
-  frontmatter?: { title: string; description?: string; status?: string };
+  frontmatter?: { title: string; description?: string; status?: string; seoTitle?: string };
   title?: string;
+  seoTitle?: string;
   description?: string;
   headings?: { depth: number; slug: string; text: string }[];
 }
-const fm = Astro.props.frontmatter ?? { title: Astro.props.title ?? "", description: Astro.props.description };
+const fm = Astro.props.frontmatter ?? { title: Astro.props.title ?? "", description: Astro.props.description, seoTitle: Astro.props.seoTitle };
 const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
 // بخش «وب کامپوننت» که ElementSection در پایان صفحه می‌سازد در فهرست «در این صفحه» هم بیاید
 const headings = [
@@ -27,8 +28,21 @@ const headings = [
 ];
 const { prev, next } = siblings(Astro.url.pathname);
 const group = nav.find((g) => g.items.some((i) => i.href === (Astro.url.pathname.endsWith("/") ? Astro.url.pathname : Astro.url.pathname + "/")))?.title;
+// عنوان جستجو: نام کوتاه کامپوننت («دکمه») در گوگل معنایی ندارد؛ نوعش را کنارش می‌گوییم
+const seoTitle = fm.seoTitle ?? (fm.title.length < 20 && path.startsWith("/docs/components/") && path !== "/docs/components/"
+  ? `کامپوننت ${fm.title} در React و HTML · کاشی`
+  : fm.title.length < 20 && path.startsWith("/docs/persian/") && path !== "/docs/persian/"
+  ? `${fm.title} · کامپوننت فارسی React · کاشی`
+  : undefined);
+const site = Astro.site!.href.replace(/\/$/, "");
+const section = path.startsWith("/docs/components/") ? { name: "کامپوننت‌ها", url: "/docs/components/" }
+  : path.startsWith("/docs/persian/") ? { name: "ابزارهای فارسی", url: "/docs/persian/" }
+  : path.startsWith("/docs/icons/") ? { name: "آیکون‌ها", url: "/docs/icons/" }
+  : { name: "مستندات", url: "/docs/" };
+const crumbs = [{ name: "کاشی", url: "/" }, ...(section.url !== path ? [section] : []), { name: fm.title, url: path }];
+const breadcrumb = { "@type": "BreadcrumbList", itemListElement: crumbs.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, item: `${site}${c.url}` })) };
 ---
-<Base title={fm.title} description={fm.description}>
+<Base title={fm.title} description={fm.description} seoTitle={seoTitle} jsonLd={[breadcrumb]}>
   <Header />
 
   <div class="docs">

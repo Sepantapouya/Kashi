@@ -1,10 +1,12 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
+import sitemap from "./integrations/sitemap.mjs";
+import { articleDates } from "./integrations/article-dates.mjs";
 
 export default defineConfig({
   site: "https://kashi.sepantapouya.com",
-  integrations: [mdx(), react()],
+  integrations: [mdx(), react(), sitemap({ site: "https://kashi.sepantapouya.com", lastmod: articleDates() })],
   devToolbar: { enabled: false },
   // فیلدهای فارسی در یک صفحه (PersianInput) جمع شده‌اند؛ نشانی‌های قدیمی به بخش همان نوع می‌روند
   redirects: {

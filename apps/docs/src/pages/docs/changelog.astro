@@ -32,7 +32,7 @@ const headings = [
 const totals = data.totals;
 const removed = [...unreleased, ...versions.flatMap((v) => v.commits)].reduce((a, c) => a + c.removed, 0);
 ---
-<Docs title="نسخه‌ها" description="همهٔ نسخه‌های کاشی، از اولین کامیت تا امروز؛ با یادداشت هر انتشار و همهٔ کامیت‌ها." headings={headings}>
+<Docs title="نسخه‌ها" seoTitle="تاریخچهٔ نسخه‌ها و تغییرات کاشی" description="همهٔ نسخه‌های کاشی، از اولین کامیت تا امروز؛ با یادداشت هر انتشار و همهٔ کامیت‌ها." headings={headings}>
   <h2 id="summary">خلاصه</h2>
   <dl class="rl-stats">
     <div><dt>نسخه</dt><dd>{fa(versions.length)}</dd></div>

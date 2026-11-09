@@ -1,0 +1,116 @@
+---
+import { render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ArticleFigure from "../../components/ArticleFigure.astro";
+import { getArticles, readingMinutes, faDate, isoDay, type Article } from "../../lib/articles";
+import { toFaDigits } from "@kashi-ui/persian";
+import "../../styles/articles.css";
+
+export async function getStaticPaths() {
+  const all = await getArticles();
+  return all.map((article) => ({ params: { slug: article.id }, props: { article, all } }));
+}
+
+const { article, all } = Astro.props as { article: Article; all: Article[] };
+const { Content, headings } = await render(article);
+const d = article.data;
+const minutes = readingMinutes(article.body);
+const site = Astro.site!.href.replace(/\/$/, "");
+const url = `${site}/articles/${article.id}/`;
+const cover = `/articles/${article.id}/cover.jpg`;
+const toc = headings.filter((h) => h.depth === 2);
+
+// مرتبط: اول آن‌هایی که نویسنده انتخاب کرده، بعد هم‌دسته‌ها و برچسب مشترک
+const score = (a: Article) => (d.related.includes(a.id) ? 10 : 0) + (a.data.category === d.category ? 2 : 0) + a.data.tags.filter((t) => d.tags.includes(t)).length;
+const related = all.filter((a) => a.id !== article.id).sort((a, b) => score(b) - score(a)).slice(0, 3);
+
+const jsonLd = [
+  {
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    headline: d.title,
+    description: d.description,
+    image: [`${site}${cover}`],
+    datePublished: d.date.toISOString(),
+    dateModified: (d.updated ?? d.date).toISOString(),
+    author: { "@type": "Person", name: d.author, url: "https://sepantapouya.com" },
+    publisher: { "@id": `${site}/#org` },
+    mainEntityOfPage: url,
+    inLanguage: "fa-IR",
+    articleSection: d.category,
+    keywords: d.tags.join("، "),
+  },
+  { "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: "کاشی", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "مقاله‌ها", item: `${site}/articles/` },
+    { "@type": "ListItem", position: 3, name: d.title, item: url },
+  ] },
+];
+---
+<Base
+  title={d.title}
+  seoTitle={d.seoTitle}
+  description={d.description}
+  ogType="article"
+  ogImage={cover}
+  ogImageAlt={d.coverAlt}
+  published={d.date.toISOString()}
+  modified={(d.updated ?? d.date).toISOString()}
+  jsonLd={jsonLd}
+>
+  <Header />
+  <main id="main" class="art" tabindex="-1">
+    <article>
+      <header class="art__head">
+        <nav class="art-crumb" aria-label="مسیر صفحه"><a href="/">کاشی</a><span aria-hidden="true">/</span><a href="/articles/">مقاله‌ها</a><span aria-hidden="true">/</span><a href={`/articles/?c=${encodeURIComponent(d.category)}`}>{d.category}</a></nav>
+        <h1>{d.title}</h1>
+        <p class="art__lead">{d.description}</p>
+        <p class="art__meta">
+          <span>{d.author}</span>
+          <time datetime={isoDay(d.date)}>{faDate(d.date)}</time>
+          {d.updated && <span>به‌روزرسانی: <time datetime={isoDay(d.updated)}>{faDate(d.updated)}</time></span>}
+          <span>{toFaDigits(minutes)} دقیقه مطالعه</span>
+        </p>
+      </header>
+      <img class="art__cover" src={cover} alt={d.coverAlt} width="1200" height="630" fetchpriority="high" decoding="async" />
+      <div class="art__body">
+        {toc.length > 2 && (
+          <nav class="art__toc" aria-label="فهرست مطالب">
+            <p>در این مقاله</p>
+            <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+          </nav>
+        )}
+        <div class="prose art__prose">
+          <Content components={{ Figure: ArticleFigure }} />
+        </div>
+      </div>
+      <footer class="art__foot">
+        <ul class="art__tags" role="list">{d.tags.map((t) => <li><a href={`/articles/?tag=${encodeURIComponent(t)}`}>#{t}</a></li>)}</ul>
+        <aside class="art__cta">
+          <div>
+            <b>این‌ها را آماده می‌خواهید؟</b>
+            <p>کاشی، دیزاین‌سیستم فارسی و متن‌باز، همهٔ این موارد را از پیش درست دارد: راست‌به‌چپ، تقویم شمسی، فرم‌های ایرانی و دسترس‌پذیری.</p>
+          </div>
+          <a class="k-btn k-btn--primary k-btn--md" href="/docs/installation/">شروع با کاشی</a>
+        </aside>
+      </footer>
+    </article>
+    {related.length > 0 && (
+      <section class="art__related" aria-labelledby="rel-t">
+        <h2 id="rel-t">مقاله‌های مرتبط</h2>
+        <ul role="list">
+          {related.map((r) => (
+            <li><a class="ab-card" href={`/articles/${r.id}/`}>
+              <img src={`/articles/${r.id}/cover.jpg`} alt={r.data.coverAlt} width="1200" height="630" loading="lazy" decoding="async" />
+              <span class="ab-card__meta"><b>{r.data.category}</b><span>{toFaDigits(readingMinutes(r.body))} دقیقه</span></span>
+              <h3>{r.data.title}</h3>
+            </a></li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </main>
+  <Footer />
+</Base>

@@ -16,8 +16,10 @@ const prev = names[i - 1];
 const next = names[i + 1];
 const related = names.filter((n) => n !== name && icons[n].category === icon.category);
 const category = categories[icon.category as keyof typeof categories];
+// عنوان جستجو زیر ۶۲ نویسه می‌ماند تا در نتایج گوگل بریده نشود
+const seoTitle = [`آیکون ${icon.title} · ${name} · کاشی`, `آیکون ${icon.title} · کاشی`, `آیکون ${icon.title}`].find((t) => t.length <= 62) ?? `آیکون ${icon.title}`;
 ---
-<Docs title={`${icon.title} · آیکون ${name}`} description={`آیکون «${icon.title}» از دستهٔ ${category} در @kashi-ui/icons؛ کد React و HTML، اسپرایت، فیگما و دانلود SVG.`}>
+<Docs title={`${icon.title} · آیکون ${name}`} seoTitle={seoTitle} description={`آیکون «${icon.title}» (${name}) از دستهٔ ${category} در @kashi-ui/icons؛ کد React و HTML، اسپرایت، فیگما و دانلود SVG.`}>
   <p class="ip-back"><a href="/docs/icons/">همهٔ آیکون‌ها</a> / <a href={`/docs/icons/category/${icon.category}/`}>{category}</a></p>
 
   <IconDetail client:load name={name} />

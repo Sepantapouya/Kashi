@@ -17,7 +17,7 @@ const lum = (h: string) => { const [r, g, b] = hex(h); return 0.2126 * lin(r) + 
 const onDark = (h: string) => lum(h) < 0.18;
 const headings = Object.keys(palette).map((k) => ({ depth: 2, slug: k, text: NAMES[k]?.[0] ?? k }));
 ---
-<Docs title="رنگ‌ها" description="رنگ‌های پایهٔ کاشی، الهام‌گرفته از کاشی‌کاری و رنگ‌های ایرانی. کامپوننت‌ها از توکن‌های معنایی استفاده می‌کنند، نه مستقیم از این طیف‌ها." headings={headings}>
+<Docs title="رنگ‌ها" seoTitle="رنگ‌ها و پالت رنگی کاشی؛ الهام از کاشی‌کاری ایرانی" description="رنگ‌های پایهٔ کاشی، الهام‌گرفته از کاشی‌کاری و رنگ‌های ایرانی. کامپوننت‌ها از توکن‌های معنایی استفاده می‌کنند، نه مستقیم از این طیف‌ها." headings={headings}>
   <p>هر طیف یازده پله دارد و با متغیر <code>--k-{"{نام}"}-{"{پله}"}</code> در دسترس است؛ برای مثال <code>--k-firoozeh-500</code>. برای کپی، روی هر رنگ کلیک کنید.</p>
   {Object.entries(palette).map(([name, scale]) => (
     <section class="palette" aria-labelledby={name}>
