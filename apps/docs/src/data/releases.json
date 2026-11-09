@@ -1,13 +1,54 @@
 {
- "generated": "2026-11-09T17:15:39+03:30",
+ "generated": "2026-11-09T23:21:45+03:30",
  "totals": {
-  "commits": 232,
-  "versions": 37,
-  "added": 100974,
+  "commits": 235,
+  "versions": 38,
+  "added": 101530,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [],
  "versions": [
+  {
+   "version": "1.8.0",
+   "date": "2026-11-09T23:21:45+03:30",
+   "releaseCommit": "618ac3f",
+   "commits": [
+    {
+     "sha": "618ac3ff23a980ca76f2854309cac5837b34c919",
+     "short": "618ac3f",
+     "date": "2026-11-09T23:21:45+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.8.0",
+     "details": [],
+     "files": 22,
+     "added": 96,
+     "removed": 46
+    },
+    {
+     "sha": "5a17f1028181194116ccf9e6daf9465c501a54e2",
+     "short": "5a17f10",
+     "date": "2026-11-09T20:54:10+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 300 independently drawn Kashi icons",
+     "details": [],
+     "files": 12,
+     "added": 347,
+     "removed": 12
+    },
+    {
+     "sha": "66f6cc2b677965a9a36d1944d96a7b611fc3e05d",
+     "short": "66f6cc2",
+     "date": "2026-11-09T17:16:12+03:30",
+     "author": "sepantapouya",
+     "subject": "docs: record the Kashi 1.7.0 release",
+     "details": [],
+     "files": 1,
+     "added": 113,
+     "removed": 42
+    }
+   ],
+   "notes": []
+  },
   {
    "version": "1.7.0",
    "date": "2026-11-09T17:15:39+03:30",
