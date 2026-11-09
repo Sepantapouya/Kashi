@@ -1,5 +1,12 @@
 # @kashi-ui/tailwind
 
+## 2.0.0
+
+### Patch Changes
+
+- Updated dependencies [99a712f]
+  - @kashi-ui/css@2.0.0
+
 ## 1.8.0
 
 ### Patch Changes

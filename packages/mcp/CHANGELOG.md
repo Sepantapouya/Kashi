@@ -1,5 +1,14 @@
 # @kashi-ui/mcp
 
+## 2.0.0
+
+### Patch Changes
+
+- Updated dependencies [99a712f]
+  - @kashi-ui/tokens@2.0.0
+  - @kashi-ui/icons@2.0.0
+  - @kashi-ui/persian@2.0.0
+
 ## 1.8.0
 
 ### Patch Changes
