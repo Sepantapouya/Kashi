@@ -1,12 +1,14 @@
 // دکمه‌ها و کنترل‌های عملیاتی
 
+// نسخهٔ ۲: دکمه‌ها تخت‌اند (بی‌سایه)؛ حاشیهٔ ثانویه همان حاشیهٔ کنترل‌هاست
 const BTN_VARIANTS = {
-  Primary: { bg: "bg-brand", hover: "bg-brand-hover", fg: "text-on-brand", shadow: true },
-  Secondary: { bg: "bg-elevated", overlay: true, fg: "text-secondary", hoverFg: "text-primary", border: "border-primary", shadow: true },
+  Primary: { bg: "bg-brand", hover: "bg-brand-hover", fg: "text-on-brand" },
+  Secondary: { bg: "bg-elevated", overlay: true, fg: "text-secondary", hoverFg: "text-primary", border: "border-control" },
+  Outline: { overlay: true, fg: "text-brand", border: "border-brand", ghost: true },
   Tertiary: { overlay: true, fg: "text-secondary", hoverFg: "text-primary", ghost: true },
   Link: { fg: "text-brand", link: true },
-  Danger: { bg: "bg-error", hover: "bg-error-hover", fg: "text-on-error", shadow: true, danger: true },
-  "Danger secondary": { bg: "bg-elevated", overlay: true, fg: "text-error", border: "border-primary", shadow: true, danger: true },
+  Danger: { bg: "bg-error", hover: "bg-error-hover", fg: "text-on-error", danger: true },
+  "Danger secondary": { bg: "bg-error-subtle", overlay: true, fg: "text-error", danger: true },
 };
 const BTN_FONT = { xs: "Text xs/Semibold", sm: "Text sm/Semibold", md: "Text sm/Semibold", lg: "Text md/Semibold", xl: "Text md/Semibold" };
 const BTN_ICON = { xs: 16, sm: 18, md: 20, lg: 20, xl: 20 };
@@ -112,11 +114,11 @@ function buildActions() {
       axes: { Size: ["sm", "md"], Selected: ["1", "2", "3"] },
       build: (p) => {
         const items = ["فهرست", "جدول", "نقشه"];
-        // k-segmented: فاصلهٔ ۳، گوشهٔ ۱۲؛ هر بخش ۳۲ (کوچک ۲۸) با گوشهٔ ۹
-        return F({ name: "Segmented", dir: "H", gap: 2, p: 3, radius: 12, fill: "bg-secondary", stroke: "border-secondary", css: p.Size === "sm" ? "k-segmented k-segmented--sm" : "k-segmented" },
+        // نسخهٔ ۲ k-segmented: ریل پُرزمینه بدون حاشیه، فاصلهٔ ۳، گوشهٔ ۱۲؛ هر بخش ۳۴ (کوچک ۳۰) با گوشهٔ ۸
+        return F({ name: "Segmented", dir: "H", gap: 2, p: 3, radius: "radius/md", fill: "bg-muted", css: p.Size === "sm" ? "k-segmented k-segmented--sm" : "k-segmented" },
           items.map((label, i) => {
             const on = String(i + 1) === p.Selected;
-            return F({ name: "Segment", dir: "H", gap: "space/1.5", h: p.Size === "sm" ? 28 : 32, px: "space/3", cross: "center", radius: 9, fill: on ? "bg-elevated" : undefined, shadow: on ? "Shadow/sm" : undefined, css: on ? undefined : "k-segmented__item", cssCheck: ["padx", "radius", "gap", "bg"] }, [
+            return F({ name: "Segment", dir: "H", gap: "space/1.5", h: p.Size === "sm" ? 30 : 34, px: "space/3", cross: "center", radius: 8, fill: on ? "bg-raised" : undefined, css: on ? undefined : "k-segmented__item", cssCheck: ["padx", "radius", "gap", "bg"] }, [
               T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-tertiary", css: on ? undefined : "k-segmented__item" }),
             ]);
           }));

@@ -64,14 +64,14 @@ export const categories = {
   "design": "طراحی",
   "development": "توسعه و داده",
   "devices": "دستگاه‌ها",
-  "connectivity": "اتصال و انرژی",
+  "connectivity": "اتصال و شبکه",
   "weather": "آب‌وهوا",
   "nature": "طبیعت",
   "food": "خوراکی",
   "health": "سلامت",
   "education": "آموزش",
   "sports": "ورزش و سرگرمی",
-  "home-life": "خانه و پوشاک",
+  "home-life": "خانه و زندگی",
   "bathroom": "دستشویی و حمام",
   "halloween": "هالووین",
   "tools": "ابزار",
@@ -108,6 +108,22 @@ export const categories = {
 /**
  * name: { body: محتوای داخل <svg>، title: نام فارسی، keywords: برای جستجو، category، directional: فلش‌هایی که در راست‌به‌چپ معنا عوض می‌کنند }
  */
+/** نسخهٔ ۲: ۷۱ دسته در ۱۲ گروه روشن؛ برای مرور در مستندات و افزونهٔ فیگما (شناسهٔ دسته‌ها عوض نشده) */
+export const categoryGroups = [
+  { id: "interface", title: "رابط کاربری", categories: ["interface", "actions", "arrows", "arrow-actions", "chevrons", "navigation", "layout", "editor", "alerts", "notifications"] },
+  { id: "documents", title: "فایل، کار و ابزار", categories: ["files", "folders", "documents", "office", "business", "legal", "tools"] },
+  { id: "communication", title: "ارتباط", categories: ["communication", "calls", "social", "connectivity"] },
+  { id: "media", title: "رسانه", categories: ["camera", "media", "audio", "music"] },
+  { id: "tech", title: "فناوری و داده", categories: ["development", "charts", "ai", "devices", "security", "smart-home", "design"] },
+  { id: "money", title: "پول و خرید", categories: ["banking", "shopping", "real-estate"] },
+  { id: "place", title: "زمان، مکان و سفر", categories: ["time", "location", "weather", "travel", "transport", "space"] },
+  { id: "home", title: "خانه و زندگی", categories: ["home-life", "buildings", "kitchen", "food", "bathroom", "laundry", "fashion", "beauty", "kids", "smoking"] },
+  { id: "health", title: "سلامت، ورزش و بازی", categories: ["health", "sports", "gaming"] },
+  { id: "world", title: "علم و طبیعت", categories: ["education", "science", "energy", "agriculture", "nature", "animals"] },
+  { id: "culture", title: "فرهنگ و مناسبت", categories: ["persian", "events", "christmas", "halloween", "emoji", "people", "ratings"] },
+  { id: "letters", title: "حروف و اعداد", categories: ["persian-letters", "latin-letters", "greek", "numbers"] },
+];
+
 export const icons = {
   "info": { title: "اطلاعات", category: "alerts", keywords: ["راهنما", "توضیح", "information", "help"], body: "<circle cx=\"10\" cy=\"10\" r=\"7.5\"/><path d=\"M10 13.4V9.6M10 6.6v.01\"/>" },
   "success": { title: "موفق", category: "alerts", keywords: ["تیک", "تایید", "درست", "انجام", "شد", "check", "ok", "done"], body: "<circle cx=\"10\" cy=\"10\" r=\"7.5\"/><path d=\"m7.1 10.1 1.95 1.95 3.85-3.9\"/>" },

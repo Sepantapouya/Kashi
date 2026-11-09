@@ -20,6 +20,7 @@ const MODULES: [string[], () => Promise<unknown>][] = [
   [["kashi-bar-chart", "kashi-line-chart", "kashi-pie-chart", "kashi-bar-list", "kashi-proportion-bar", "kashi-sparkline", "kashi-activity-heatmap"], () => import("./charts.js")],
   [["kashi-input", "kashi-textarea", "kashi-banner"], () => import("./basic.js")],
   [["kashi-appointment-picker"], () => import("./appointment.js")],
+  [["kashi-price-range", "kashi-swatch-group", "kashi-search-suggest"], () => import("./commerce.js")],
   [["kashi-command-palette", "kashi-context-menu", "kashi-carousel", "kashi-tree-view", "kashi-tour", "kashi-splitter", "kashi-side-nav"], () => import("./nav.js")],
 ];
 

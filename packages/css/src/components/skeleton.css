@@ -14,4 +14,6 @@
 .k-skeleton--circle { border-radius: 50%; }
 .k-skeleton-group { display: grid; gap: var(--k-space-1); }
 @keyframes k-shimmer { from { background-position: 150% 0, 0 0; } to { background-position: -50% 0, 0 0; } }
+/* در فارسی درخشش از راست به چپ می‌رود؛ در انگلیسی برعکس */
+.k-skeleton:dir(ltr) { animation-direction: reverse; }
 @media (prefers-reduced-motion: reduce) { .k-skeleton { animation: none; } }

@@ -1,0 +1,83 @@
+/* جستجو با پیشنهاد (SearchSuggest) — جعبهٔ جستجوی پُرزمینه و پنل جستجوهای اخیر و پرطرفدار
+ * <form class="k-search-suggest" role="search">
+ *   <div class="k-search-suggest__box"><svg/><input class="k-search-suggest__input" type="search"></div>
+ *   <div class="k-search-suggest__panel" popover>…بخش‌ها با k-search-suggest__chip…</div>
+ * </form>
+ * متغیرها: --k-search-bg  --k-search-radius  --k-search-height
+ */
+.k-search-suggest { position: relative; }
+.k-search-suggest__box {
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-2_5, 0.625rem);
+  block-size: var(--k-search-height, calc(3rem * var(--k-density)));
+  padding-inline: var(--k-space-4);
+  border: 1px solid transparent;
+  border-radius: var(--k-search-radius, var(--k-radius-full));
+  background: var(--k-search-bg, var(--k-bg-secondary));
+  color: var(--k-text-tertiary);
+  transition: border-color var(--k-duration-fast), box-shadow var(--k-duration-fast), background-color var(--k-duration-fast);
+}
+.k-search-suggest__box svg { flex-shrink: 0; }
+.k-search-suggest__box:focus-within { border-color: var(--k-border-brand); background: var(--k-bg-primary); box-shadow: var(--k-ring-brand); }
+.k-search-suggest__input {
+  flex: 1;
+  min-inline-size: 0;
+  block-size: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--k-text-primary);
+  font: inherit;
+  font-size: var(--k-text-md);
+  outline: none;
+}
+.k-search-suggest__input::placeholder { color: var(--k-text-tertiary); }
+.k-search-suggest__input::-webkit-search-cancel-button { display: none; }
+
+.k-search-suggest__panel {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: calc(100% + 8px);
+  z-index: var(--k-z-dropdown);
+  display: grid;
+  gap: var(--k-space-6);
+  max-block-size: min(28rem, 70vh);
+  margin: 0;
+  padding: var(--k-space-5);
+  overflow-y: auto;
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-surface);
+  background: var(--k-bg-elevated);
+  color: var(--k-text-primary);
+  box-shadow: var(--k-shadow-xl);
+  animation: k-pop-in var(--k-duration-fast) var(--k-ease-standard);
+}
+.k-search-suggest__panel[hidden] { display: none; }
+.k-search-suggest__panel:has(.k-search-suggest__list) { padding: var(--k-space-2); }
+.k-search-suggest__section { display: grid; gap: var(--k-space-3); }
+.k-search-suggest__head { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-3); font-size: var(--k-text-md); }
+.k-search-suggest__head .k-btn--link { color: var(--k-text-tertiary); font-weight: var(--k-weight-medium); }
+.k-search-suggest__chips { display: flex; flex-wrap: wrap; gap: var(--k-space-2); margin: 0; padding: 0; list-style: none; }
+.k-search-suggest__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-1_5);
+  min-block-size: 2.5rem;
+  padding-inline: var(--k-space-4);
+  border: 1px solid var(--k-border-control);
+  border-radius: var(--k-radius-full);
+  background: var(--k-bg-primary);
+  color: var(--k-text-primary);
+  font: inherit;
+  font-size: var(--k-text-sm);
+  cursor: pointer;
+  transition: border-color var(--k-duration-fast), background-color var(--k-duration-fast);
+}
+.k-search-suggest__chip svg { color: var(--k-text-tertiary); }
+.k-search-suggest__chip:hover { border-color: var(--k-border-brand); background: var(--k-bg-brand-subtle); }
+.k-search-suggest__chip:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-search-suggest__list { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.k-search-suggest__list .k-option svg { flex-shrink: 0; color: var(--k-text-quaternary); }
+.k-search-suggest__list mark { background: none; color: var(--k-text-primary); font-weight: var(--k-weight-bold); }
+@media (forced-colors: active) { .k-search-suggest__chip { border-color: ButtonText; } }

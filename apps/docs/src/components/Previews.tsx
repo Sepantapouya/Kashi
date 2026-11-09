@@ -8,6 +8,7 @@ import {
   PersianInput, BankCard, DateTile, KeyboardFixInput, LegalIdInput, Money, PaymentReceipt, PersianTextarea,
   NumberInput, OtpInput, Pagination, PasswordStrength, PlateInput, PostalCodeInput, PriceInput, Progress, Radio, RadioGroup, Rating,
   SegmentedControl, Select, Skeleton, Slider, StatCard, Stepper, Switch, Tab, TabList, Tabs, TagInput, Textarea, Timeline,
+  PriceRange, SwatchGroup,
 } from "@kashi-ui/react";
 
 const I = ({ d }: { d: IconName }) => <Icon name={d} />;
@@ -119,6 +120,9 @@ export const previews: Record<string, ReactNode> = {
   "context-menu": <Box><div className="pv-ctx"><span className="pv-muted">راست‌کلیک</span><div className="k-menu pv-menu" role="presentation"><div className="k-menu__item">باز کردن</div><div className="k-menu__item" data-active="">تغییر نام</div><div className="k-menu__separator" /><div className="k-menu__item k-menu__item--danger">حذف</div></div></div></Box>,
   meter: <Box cls="pv--field"><Meter label="فضای ذخیره" value={8.6} max={10} format={(n) => `${n.toLocaleString("fa")} گیگ`} /></Box>,
   carousel: <Box cls="pv--col pv--field"><div className="pv-car">{["#0b8077", "#2740ed", "#dd5e02"].map((c) => <span key={c} style={{ background: c }} />)}</div><div className="k-carousel__dots" style={{ justifyContent: "center" }}><span className="k-carousel__dot" aria-current="true" /><span className="k-carousel__dot" /><span className="k-carousel__dot" /></div></Box>,
+  "search-suggest": <Box cls="pv--field"><div className="k-search-suggest__box"><Icon name="search" size={18} /><span className="pv-muted">جستجو در همهٔ کالاها</span></div><ul className="k-search-suggest__chips">{["باتری", "کمد", "میز آرایش"].map((t) => <li key={t}><span className="k-search-suggest__chip"><Icon name="history" size={14} />{t}</span></li>)}</ul></Box>,
+  "swatch-group": <Box><SwatchGroup size="sm" defaultValue={["blue"]} options={[{ value: "blue", label: "آبی", color: "linear-gradient(90deg,#3b6fd4 25%,#6b93e0 25% 50%,#9db7ec 50% 75%,#cfdcf6 75%)" }, { value: "white", label: "سفید", color: "#fff" }, { value: "black", label: "مشکی", color: "#111" }, { value: "pink", label: "صورتی", color: "linear-gradient(90deg,#b8305a 25%,#cb6385 25% 50%,#de96ae 50% 75%,#f0c9d6 75%)" }]} /></Box>,
+  "price-range": <Box cls="pv--field"><PriceRange min={0} max={20_000_000} step={100_000} defaultValue={[1_500_000, 12_000_000]} /></Box>,
   "color-picker": <Box cls="pv--col"><div className="k-color__swatches">{["#0b8077", "#2740ed", "#7c3aed", "#e51d2a", "#dd5e02"].map((c, i) => <span key={c} className="k-color__swatch" style={{ "--_sw": c, boxShadow: i === 0 ? `0 0 0 2px var(--k-bg-primary), 0 0 0 4px ${c}` : undefined } as React.CSSProperties} />)}</div><span className="pv-muted" dir="ltr">#0b8077</span></Box>,
   tour: <Box><div className="pv-tour"><span className="pv-tour__spot"><Button size="sm">خروجی اکسل</Button></span><div className="k-tour__card pv-static"><span className="k-tour__step">مرحلهٔ ۲ از ۳</span><p className="k-tour__title">خروجی اکسل</p></div></div></Box>,
   splitter: <Box cls="pv--field"><div className="k-splitter" style={{ blockSize: "6rem" }}><div className="k-splitter__pane" style={{ inlineSize: "40%", padding: 8 }}><span className="pv-muted">فهرست</span></div><div className="k-splitter__handle" /><div className="k-splitter__pane" style={{ padding: 8 }}><span className="pv-muted">پیش‌نمایش</span></div></div></Box>,

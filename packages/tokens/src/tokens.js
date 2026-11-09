@@ -57,8 +57,10 @@ export const space = {
 
 // همهٔ گوشه‌ها در --k-radius-factor ضرب می‌شوند: 0 = تیز، 1 = پیش‌فرض، 2 = خیلی گرد
 const r = (rem) => `calc(${rem}rem * var(--k-radius-factor))`;
+// نسخهٔ ۲: گوشه‌ها نرم‌تر و دو نقش ثابت: «کنترل» (دکمه، فیلد، انتخاب، سگمنت) و «سطح» (کارت، آکاردئون، دیالوگ)
 export const radius = {
-  none: "0", sm: r(0.25), md: r(0.5), lg: r(0.75), xl: r(1), "2xl": r(1.5), full: "9999px",
+  none: "0", sm: r(0.375), md: r(0.75), lg: r(1), xl: r(1.25), "2xl": r(1.75), full: "9999px",
+  control: "var(--k-radius-md)", surface: "var(--k-radius-xl)",
 };
 
 const t = (rem) => `calc(${rem}rem * var(--k-text-scale))`;
@@ -83,7 +85,7 @@ export const font = {
 
 // سایه‌ها به سبک Untitled UI (نرم و لایه‌ای)
 export const shadow = {
-  xs: "0 1px 2px rgb(10 13 18 / 0.05)",
+  xs: "0 0 #0000",
   sm: "0 1px 3px rgb(10 13 18 / 0.1), 0 1px 2px -1px rgb(10 13 18 / 0.1)",
   md: "0 4px 6px -1px rgb(10 13 18 / 0.1), 0 2px 4px -2px rgb(10 13 18 / 0.06)",
   lg: "0 12px 16px -4px rgb(10 13 18 / 0.08), 0 4px 6px -2px rgb(10 13 18 / 0.03)",
@@ -93,7 +95,8 @@ export const shadow = {
 
 export const motion = {
   duration: { fast: "120ms", normal: "200ms", slow: "320ms" },
-  easing: { standard: "cubic-bezier(0.2, 0, 0, 1)", emphasized: "cubic-bezier(0.3, 0, 0, 1.3)" },
+  // spring: بازخورد کوچک با کمی جهش (تیک، دستگیره، نشان)؛ exit: بسته شدن، سریع‌تر از باز شدن
+  easing: { standard: "cubic-bezier(0.2, 0, 0, 1)", emphasized: "cubic-bezier(0.3, 0, 0, 1.3)", spring: "cubic-bezier(0.34, 1.56, 0.64, 1)", exit: "cubic-bezier(0.4, 0, 1, 1)" },
 };
 
 export const zIndex = { dropdown: "1000", sticky: "1100", overlay: "1300", modal: "1400", toast: "1500" };
@@ -110,6 +113,9 @@ export const themes = {
     "bg-secondary": p("shab", 950),
     "bg-tertiary": p("shab", 900),
     "bg-elevated": p("shab", 925),
+    // نسخهٔ ۲: ریل و دستگیرهٔ کنترل‌های پُرزمینه (سگمنت، زبانه‌ها)؛ بدون حاشیه، فقط با تفاوت زمینه
+    "bg-muted": p("shab", 900),
+    "bg-raised": p("shab", 800),
     "bg-hover": "rgb(255 255 255 / 0.05)",
     "bg-active": "rgb(255 255 255 / 0.08)",
     // رنگ برند پررنگ با متن سفید، مثل Untitled UI و Linear؛ فیروزه‌ای روشن روی تیره اسباب‌بازی‌گونه دیده می‌شد
@@ -140,16 +146,19 @@ export const themes = {
     "border-brand": p("brand", 400),
     // حاشیهٔ فیلدها، چک‌باکس و سوییچ خاموش — حداقل ۳:۱ (WCAG 1.4.11)
     "border-input": p("shab", 550),
+    // یک حاشیه برای همهٔ کنترل‌ها: فیلد، انتخاب، دکمهٔ ثانویه (هم‌مقدار border-input)
+    "border-control": p("shab", 550),
     "border-error": p("anar", 400),
     // حلقهٔ فوکوس نرم و پهن (Untitled UI)
     "ring-brand": "0 0 0 4px color-mix(in srgb, var(--k-brand-400) 28%, transparent)",
     "ring-error": "0 0 0 4px rgb(248 59 71 / 0.28)",
     // سایهٔ اسکئومورفیک دکمه‌ها و فیلدها (Untitled UI)
-    "shadow-skeuomorphic": "inset 0 0 0 1px rgb(0 0 0 / 0.2), inset 0 -2px 0 rgb(0 0 0 / 0.12)",
+    // نسخهٔ ۲ تخت است: سایهٔ اسکئومورفیک، برق لبه و سایهٔ xs روی کنترل‌ها حذف شده‌اند (توکن‌ها برای سازگاری می‌مانند)
+    "shadow-skeuomorphic": "0 0 #0000",
     // خط روشن بالای سطوح برجسته در تم تیره؛ حس عمق می‌دهد
-    "highlight": "inset 0 1px 0 rgb(255 255 255 / 0.05)",
+    "highlight": "0 0 #0000",
     // سایه‌ها در تیره باید پررنگ‌تر باشند تا دیده شوند
-    "shadow-xs": "0 1px 2px rgb(0 0 0 / 0.4)",
+    "shadow-xs": "0 0 #0000",
     "shadow-sm": "0 1px 3px rgb(0 0 0 / 0.45), 0 1px 2px -1px rgb(0 0 0 / 0.4)",
     "shadow-md": "0 4px 8px -2px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.35)",
     "shadow-lg": "0 12px 24px -4px rgb(0 0 0 / 0.55), 0 4px 8px -4px rgb(0 0 0 / 0.35)",
@@ -161,6 +170,8 @@ export const themes = {
     "bg-secondary": p("shab", 50),
     "bg-tertiary": p("shab", 100),
     "bg-elevated": p("shab", 0),
+    "bg-muted": p("shab", 100),
+    "bg-raised": p("shab", 0),
     "bg-hover": p("shab", 50),
     "bg-active": p("shab", 100),
     "bg-brand": p("brand", 600),
@@ -187,13 +198,14 @@ export const themes = {
     "border-secondary": p("shab", 200),
     "border-brand": p("brand", 600),
     "border-input": p("shab", 450),
+    "border-control": p("shab", 450),
     "border-error": p("anar", 500),
     "ring-brand": "0 0 0 4px color-mix(in srgb, var(--k-brand-500) 20%, transparent)",
     "ring-error": "0 0 0 4px rgb(229 29 42 / 0.2)",
-    "shadow-skeuomorphic": "inset 0 0 0 1px rgb(10 13 18 / 0.18), inset 0 -2px 0 rgb(10 13 18 / 0.05)",
+    "shadow-skeuomorphic": "0 0 #0000",
     "highlight": "0 0 #0000",
     // بازگرداندن سایه‌های روشن برای زیرشاخه‌هایی که داخل تم تیره روشن شده‌اند
-    "shadow-xs": "0 1px 2px rgb(10 13 18 / 0.05)",
+    "shadow-xs": "0 0 #0000",
     "shadow-sm": "0 1px 3px rgb(10 13 18 / 0.1), 0 1px 2px -1px rgb(10 13 18 / 0.1)",
     "shadow-md": "0 4px 6px -1px rgb(10 13 18 / 0.1), 0 2px 4px -2px rgb(10 13 18 / 0.06)",
     "shadow-lg": "0 12px 16px -4px rgb(10 13 18 / 0.08), 0 4px 6px -2px rgb(10 13 18 / 0.03)",

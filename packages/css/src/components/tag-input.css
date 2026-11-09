@@ -6,8 +6,8 @@
   gap: var(--k-space-1_5);
   min-block-size: var(--k-input-height-md, calc(2.5rem * var(--k-density)));
   padding: var(--k-space-1_5) calc(0.625rem * var(--k-density));
-  border: 1px solid var(--k-input-border, var(--k-border-input));
-  border-radius: var(--k-input-radius, var(--k-radius-md));
+  border: 1px solid var(--k-input-border, var(--k-border-control));
+  border-radius: var(--k-input-radius, var(--k-radius-control));
   background: var(--k-input-bg, var(--k-bg-primary));
   box-shadow: var(--k-shadow-xs);
   cursor: text;

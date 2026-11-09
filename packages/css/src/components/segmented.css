@@ -10,9 +10,10 @@
   display: inline-flex;
   gap: 2px;
   padding: 3px;
-  border: 1px solid var(--k-border-secondary);
-  border-radius: var(--k-radius-lg);
-  background: var(--k-bg-secondary);
+  /* نسخهٔ ۲: ریل پُرزمینه بدون حاشیه؛ گزینهٔ انتخاب‌شده فقط زمینهٔ روشن‌تر می‌گیرد */
+  border: 0;
+  border-radius: var(--k-radius-control);
+  background: var(--k-segmented-bg, var(--k-bg-muted));
   /* با چهار گزینه یا بیشتر در صفحهٔ ۳۷۵ پیکسلی، خودِ کنترل افقی اسکرول می‌شود، نه صفحه */
   max-inline-size: 100%;
   overflow-x: auto;
@@ -30,9 +31,9 @@
   align-items: center;
   justify-content: center;
   gap: var(--k-space-1_5);
-  block-size: calc(var(--_h) - 8px);
+  block-size: calc(var(--_h) - 6px);
   padding-inline: var(--k-space-3);
-  border-radius: calc(var(--k-radius-lg) - 3px);
+  border-radius: calc(var(--k-radius-control) - 4px);
   color: var(--k-text-tertiary);
   font-size: var(--k-text-sm);
   font-weight: var(--k-weight-semibold);
@@ -40,16 +41,30 @@
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
-  transition: background-color var(--k-duration-fast), color var(--k-duration-fast), box-shadow var(--k-duration-fast);
+  transition: background-color var(--k-duration-fast), color var(--k-duration-fast), box-shadow var(--k-duration-fast), scale var(--k-duration-fast) var(--k-ease-spring);
 }
 .k-segmented__item svg { inline-size: 1.125rem; block-size: 1.125rem; }
 .k-segmented__item:hover { color: var(--k-text-primary); }
 .k-segmented__item:has(:checked) {
-  background: var(--k-bg-elevated);
+  background: var(--k-segmented-active, var(--k-bg-raised));
   color: var(--k-text-primary);
-  box-shadow: var(--k-shadow-sm), inset 0 0 0 1px var(--k-border-secondary), var(--k-highlight);
 }
 .k-segmented__item:has(:focus-visible) { box-shadow: var(--k-ring-brand); }
+/* ریزتعامل (React): دستگیرهٔ جدا که بین گزینه‌ها می‌لغزد؛ بدون JavaScript زمینهٔ خود گزینه کافی است */
+.k-segmented { position: relative; isolation: isolate; }
+.k-segmented__indicator {
+  position: absolute;
+  inset-block: 3px;
+  left: var(--_ix);
+  inline-size: var(--_iw);
+  z-index: -1;
+  border-radius: calc(var(--k-radius-control) - 4px);
+  background: var(--k-segmented-active, var(--k-bg-raised));
+  pointer-events: none;
+  transition: left var(--k-duration-slow) var(--k-ease-spring), inline-size var(--k-duration-slow) var(--k-ease-standard);
+}
+.k-segmented[data-indicator] .k-segmented__item:has(:checked) { background: transparent; }
+.k-segmented__item:active:not(:has(:disabled)) { scale: 0.97; }
 .k-segmented__item:has(:disabled) { color: var(--k-text-quaternary); cursor: not-allowed; }
 @media (forced-colors: active) {
   .k-segmented__item:has(:checked) { outline: 2px solid Highlight; }

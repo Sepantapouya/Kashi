@@ -75,7 +75,7 @@
 .k-color__num {
   inline-size: 100%;
   block-size: 2rem;
-  border: 1px solid var(--k-border-input);
+  border: 1px solid var(--k-border-control);
   border-radius: var(--k-radius-md);
   background: var(--k-bg-primary);
   color: var(--k-text-primary);

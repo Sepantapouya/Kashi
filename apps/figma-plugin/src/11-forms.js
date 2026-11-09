@@ -398,7 +398,7 @@ function buildForms() {
         const slots = Array.from({ length: n }, (_, i) => {
           const active = p.State === "Typing" && i === filled;
           const isFilled = i < filled;
-          return F({ name: "Slot", dir: "H", w: 52, h: 60, align: "center", cross: "center", radius: "radius/lg", fill: "bg-primary", stroke: p.State === "Error" ? "border-error" : active ? "border-brand" : isFilled ? "border-primary" : "border-input", shadow: active ? "Input focus" : "Shadow/xs",
+          return F({ name: "Slot", dir: "H", w: 52, h: 60, align: "center", cross: "center", radius: "radius/md", fill: "bg-primary", stroke: p.State === "Error" ? "border-error" : active ? "border-brand" : "border-control", shadow: active ? "Input focus" : undefined,
             css: isFilled && p.State === "Filled" ? "k-otp__slot" : undefined, cssCheck: ["radius", "bg", "border", "w"] }, [
             isFilled ? T(digits[i], { style: "Text sm/Semibold", color: "text-primary", align: "center", size: 26, weight: "semibold", leading: 1.75 }) : active ? R({ w: 2, h: 26, radius: 1, fill: "text-primary", name: "Caret" }) : null,
           ]);
@@ -516,6 +516,85 @@ function buildForms() {
         ]);
       },
       docs: "color-picker",
+    });
+  }));
+
+  safe("SearchSuggest", () => section(root, "Search suggest · جستجو با پیشنهاد", "جعبهٔ جستجوی پُرزمینه؛ با فیلد خالی جستجوهای اخیر و پرطرفدار، با تایپ پیشنهادها.", (h) => {
+    const chip = (t, icon) => F({ name: "Chip", dir: "H", gap: "space/1.5", h: 40, px: "space/4", cross: "center", radius: "radius/full", fill: "bg-primary", stroke: "border-control" }, [
+      I(icon, 16, "text-tertiary"), T(t, { style: "Text sm/Regular", color: "text-primary" }),
+    ]);
+    const box = (q) => F({ name: "Box", dir: "H", gap: 10, h: 48, px: "space/4", w: 420, cross: "center", radius: "radius/full", fill: q ? "bg-primary" : "bg-secondary", stroke: q ? "border-brand" : undefined, shadow: q ? "Input focus" : undefined }, [
+      I("search", 20, "text-tertiary"), T(q || "جستجو در همهٔ کالاها", { style: "Text md/Regular", color: q ? "text-primary" : "text-tertiary", name: "Query" }),
+    ]);
+    componentSet(h, "Search suggest", {
+      axes: { State: ["Idle", "Typing"] },
+      build: (p) => {
+        const typing = p.State === "Typing";
+        const head = (t, clear) => F({ dir: "H", w: "fill", align: "between", cross: "center" }, [T(t, { style: "Text md/Semibold", color: "text-primary" }), clear && T("پاک کردن", { style: "Text sm/Medium", color: "text-tertiary" })]);
+        const panel = typing
+          ? F({ name: "Panel", dir: "V", gap: 2, p: "space/2", w: 420, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" },
+            ["ساعت مچی زنانه", "ساعت هوشمند", "ساعت دیواری"].map((t, i) => F({ name: "Option", dir: "H", gap: "space/2", h: 40, px: 10, w: "fill", cross: "center", radius: "radius/md", fill: i === 0 ? "bg-hover" : undefined }, [I("search", 18, "text-quaternary"), T(t, { style: "Text sm/Regular", color: "text-secondary" })])))
+          : F({ name: "Panel", dir: "V", gap: "space/6", p: "space/5", w: 420, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
+            F({ dir: "V", gap: "space/3", w: "fill" }, [head("جستجوهای اخیر", true), F({ dir: "H", wrap: true, gap: 8, rowGap: 8, w: "fill" }, ["باتری", "کمد", "میز آرایش", "آینه"].map((t) => chip(t, "history")))]),
+            F({ dir: "V", gap: "space/3", w: "fill" }, [head("جستجوهای پرطرفدار"), F({ dir: "H", wrap: true, gap: 8, rowGap: 8, w: "fill" }, ["ساعت مچی زنانه", "عروسک", "اسکوتر برقی"].map((t) => chip(t, "trending-up")))]),
+          ]);
+        return F({ name: "Search suggest", dir: "V", gap: 8 }, [box(typing ? "ساعت" : ""), panel]);
+      },
+      text: { Query: ["Query", "جستجو در همهٔ کالاها"] },
+      docs: "search-suggest",
+    });
+  }));
+
+  safe("SwatchGroup", () => section(root, "Swatch group · نمونهٔ رنگ", "فیلتر رنگ با نمونه‌های نام‌دار؛ انتخاب با حلقهٔ برند و تیک.", (h) => {
+    const colors = [["آبی", "lajvard/500"], ["زرد", "zafaran/300"], ["سفید", "shab/0"], ["صورتی", "anar/400"], ["طوسی", "shab/400"], ["مشکی", "shab/1000"], ["نارنجی", "zafaran/500"], ["سبز", "pesteh/500"]];
+    componentSet(h, "Swatch", {
+      axes: { Selected: ["Off", "On"], Size: ["sm", "md", "lg"] },
+      build: (p) => {
+        const s = { sm: 40, md: 56, lg: 72 }[p.Size];
+        const on = p.Selected === "On";
+        return F({ name: "Swatch", dir: "V", gap: "space/1.5", cross: "center" }, [
+          F({ name: "Ring", dir: "H", p: 3, radius: "radius/xl", stroke: on ? "border-brand" : "border-secondary", sw: on ? 2 : 1, main: "center", cross: "center" }, [
+            F({ name: "Color", dir: "H", w: s, h: s, radius: "radius/lg", fill: "lajvard/500", main: "center", cross: "center" }, [
+              on && F({ name: "Check", dir: "H", w: 20, h: 20, radius: "radius/full", fill: "bg-brand", main: "center", cross: "center" }, [I("check", 14, "text-on-brand")]),
+            ]),
+          ]),
+          T("آبی", { style: on ? "Text sm/Semibold" : "Text sm/Regular", color: on ? "text-primary" : "text-secondary", name: "Label" }),
+        ]);
+      },
+      text: { Label: ["Label", "آبی"] },
+      cols: 3,
+      docs: "swatch-group",
+    });
+    add(h, F({ name: "Swatch group · نمونه", dir: "V", gap: "space/3", w: 320 }, [
+      T("رنگ", { style: "Tight sm/Medium", color: "text-secondary" }),
+      F({ dir: "H", wrap: true, gap: 8, rowGap: 16, w: "fill" }, colors.map(([t, c], i) => F({ dir: "V", gap: 6, cross: "center", w: 72 }, [
+        F({ dir: "H", p: 3, radius: "radius/xl", stroke: i === 0 ? "border-brand" : "border-secondary", sw: i === 0 ? 2 : 1 }, [R({ w: 56, h: 56, radius: "radius/lg", fill: c, stroke: t === "سفید" ? "border-secondary" : undefined })]),
+        T(t, { style: "Text sm/Regular", color: "text-secondary" }),
+      ]))),
+    ]));
+  }));
+
+  safe("PriceRange", () => section(root, "Price range · بازهٔ قیمت", "دو فیلد «از» و «تا» به تومان و اسلایدر دودستگیره.", (h) => {
+    componentSet(h, "Price range", {
+      axes: { State: ["Default", "Focus"] },
+      build: (p) => {
+        const W = 340;
+        const fieldBox = (edge, val, focus) => F({ name: edge, dir: "H", gap: "space/2", h: 44, px: "space/3", w: "fill", cross: "center", radius: "radius/md", fill: "bg-primary", stroke: focus ? "border-brand" : "border-control", shadow: focus ? "Input focus" : undefined }, [
+          T(edge, { style: "Text sm/Regular", color: "text-tertiary" }), T(val, { style: "Text md/Semibold", color: "text-primary", name: "Value", w: "fill", align: "end" }), T("تومان", { style: "Text sm/Regular", color: "text-tertiary" }),
+        ]);
+        const thumb = (x) => R({ ellipse: true, w: 20, h: 20, fill: "#ffffff", stroke: "bg-brand", sw: 2, shadow: "Shadow/sm", name: "Thumb", absolute: true, x: x * W - 10, y: 0 });
+        return F({ name: "Price range", dir: "V", gap: "space/4", w: W }, [
+          T("قیمت", { style: "Tight sm/Medium", color: "text-secondary", name: "Label" }),
+          F({ dir: "H", gap: "space/3", w: "fill" }, [fieldBox("از", "۱٬۵۰۰٬۰۰۰", p.State === "Focus"), fieldBox("تا", "۱۸٬۰۰۰٬۰۰۰", false)]),
+          F({ name: "Track", dir: "none", w: W, h: 20 }, [
+            R({ w: W, h: 6, radius: "radius/full", fill: "bg-tertiary", name: "Rail", x: 0, y: 7 }),
+            R({ w: W * 0.66, h: 6, radius: "radius/full", fill: "bg-brand", name: "Fill", x: W * 0.06, y: 7 }),
+            thumb(0.06), thumb(0.72),
+          ]),
+          F({ dir: "H", w: "fill", align: "between" }, [T("ارزان‌ترین", { style: "Text xs/Regular", color: "text-tertiary" }), T("گران‌ترین", { style: "Text xs/Regular", color: "text-tertiary" })]),
+        ]);
+      },
+      docs: "price-range",
     });
   }));
 

@@ -10,7 +10,7 @@
  */
 .k-input {
   --_h: var(--k-input-height-md, calc(2.5rem * var(--k-density)));
-  --_border: var(--k-input-border, var(--k-border-input));
+  --_border: var(--k-input-border, var(--k-border-control));
   --_ring: var(--k-ring-brand);
 
   display: flex;
@@ -19,7 +19,7 @@
   min-block-size: var(--_h);
   padding-inline: calc(0.875rem * var(--k-density));
   border: 1px solid var(--_border);
-  border-radius: var(--k-input-radius, var(--k-radius-md));
+  border-radius: var(--k-input-radius, var(--k-radius-control));
   background: var(--k-input-bg, var(--k-bg-primary));
   color: var(--k-text-primary);
   box-shadow: var(--k-shadow-xs);

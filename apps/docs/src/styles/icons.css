@@ -183,3 +183,10 @@
 .ic-cat__view { display: inline-flex; align-items: center; gap: var(--k-space-1); padding: var(--k-space-1) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-xs); color: var(--k-text-secondary); font-size: var(--k-text-xs); opacity: 0; transition: opacity var(--k-duration-fast); }
 .ic-cat:hover .ic-cat__view, .ic-cat:focus-visible .ic-cat__view { opacity: 1; }
 @media (hover: none) { .ic-cat__view { opacity: 1; } }
+
+/* نسخهٔ ۲: دسته‌ها در ۱۲ گروه */
+.ic-groups { display: grid; gap: var(--k-space-12); margin-block-start: var(--k-space-6); }
+.ic-group { display: grid; gap: var(--k-space-4); }
+.ic-group .ic-cats { margin-block-start: 0; }
+.ic-group__title { display: flex; align-items: baseline; gap: var(--k-space-3); margin: 0; font-size: var(--k-text-xl); }
+.ic-group__title span { color: var(--k-text-tertiary); font-size: var(--k-text-sm); font-weight: var(--k-weight-regular); }

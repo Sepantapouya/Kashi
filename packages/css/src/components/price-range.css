@@ -1,0 +1,37 @@
+/* بازهٔ قیمت (PriceRange) — دو فیلد «از» و «تا» با واحد و اسلایدر دودستگیره
+ * متغیرها: --k-price-range-gap
+ */
+.k-price-range { display: grid; gap: var(--k-price-range-gap, var(--k-space-4)); container-type: inline-size; }
+.k-price-range__fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-3); }
+/* در ستون باریک (فیلتر کناری، گوشی) «از» و «تا» زیر هم می‌آیند تا عددهای بزرگ بریده نشوند */
+@container (max-width: 24rem) { .k-price-range__fields { grid-template-columns: minmax(0, 1fr); } }
+.k-price-range__field {
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-2);
+  block-size: var(--k-input-height-md, calc(2.75rem * var(--k-density)));
+  padding-inline: var(--k-space-3);
+  border: 1px solid var(--k-border-control);
+  border-radius: var(--k-radius-control);
+  background: var(--k-bg-primary);
+  cursor: text;
+  transition: border-color var(--k-duration-fast), box-shadow var(--k-duration-fast);
+}
+.k-price-range__field:focus-within { border-color: var(--k-border-brand); box-shadow: var(--k-ring-brand); }
+.k-price-range__edge, .k-price-range__unit { flex-shrink: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+.k-price-range__input {
+  flex: 1;
+  min-inline-size: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--k-text-primary);
+  font: inherit;
+  font-size: var(--k-text-md);
+  font-weight: var(--k-weight-semibold);
+  text-align: end;
+  outline: none;
+}
+.k-price-range__input:disabled { color: var(--k-text-quaternary); }
+.k-price-range__slider { padding-inline: var(--k-space-1); }
+.k-price-range__ends { display: flex; justify-content: space-between; margin-block-start: calc(-1 * var(--k-space-2)); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }

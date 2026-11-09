@@ -1,5 +1,6 @@
 // حالت‌هایی که نمونه‌های مستندات نشان نمی‌دهند ولی باگ‌های ظاهری معمولاً همان‌جاست:
 // خطا کنار فیلد بی‌خطا، برچسب اختیاری، متن بلند، غیرفعال، و همان کامپوننت‌ها به انگلیسی. فقط برای تست تصویری.
+import { PriceRange, SearchSuggest, SwatchGroup } from "@kashi-ui/react";
 import {
   AddressForm, Alert, Badge, Button, CardNumberInput, Checkbox, DatePicker, Input, KashiProvider, NationalIdInput,
   Pagination, PriceInput, RadioGroup, Radio, Select, Switch, Tab, TabList, TabPanel, Tabs, Textarea, TimeInput,
@@ -134,6 +135,18 @@ export default function VisualStates() {
         <Carousel label="گالری" effect="fade" lightbox thumbnails={COLORS.map(([a, b]) => thumb(a, b))}>
           {COLORS.map(([a, b], i) => <div key={i}>{tile(a, b, `عکس ${["۱", "۲", "۳"][i]}`)}</div>)}
         </Carousel>
+      </section>
+      <section data-visual="v2-commerce" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
+        <div style={{ display: "grid", gap: 16 }}>
+          <Select label="شهر محل تحویل کالا که برچسبش بلند است" placeholder="انتخاب کنید" options={[{ value: "a", label: "تهران، منطقهٔ یک، شمیران و حومهٔ آن با نام بلند" }, { value: "b", label: "اصفهان" }]} defaultValue="a" />
+          <Select label="نقش" error="یک نقش انتخاب کنید." placeholder="انتخاب کنید" required options={[{ value: "x", label: "مدیر" }]} />
+          <Select label="غیرفعال" disabled options={[{ value: "x", label: "مدیر" }]} />
+          <SearchSuggest placeholder="جستجو در همهٔ کالاها" defaultValue="ساعت مچی زنانهٔ بند فلزی" />
+        </div>
+        <div style={{ display: "grid", gap: 16, inlineSize: 300 }}>
+          <PriceRange label="قیمت" min={0} max={2_500_000_000} step={1_000_000} defaultValue={[125_000_000, 2_480_000_000]} />
+          <SwatchGroup label="رنگ" defaultValue={["silver"]} options={[{ value: "white", label: "سفید", color: "#fff" }, { value: "silver", label: "نقره‌ای متالیک براق", color: "radial-gradient(#fff, #a9adb3)" }, { value: "x", label: "ناموجود", color: "#111", disabled: true }]} />
+        </div>
       </section>
       <section data-visual="tabs-narrow" style={{ display: "grid", gap: 24, inlineSize: 343 }}>
         <WideTabs />

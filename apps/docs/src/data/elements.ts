@@ -458,6 +458,62 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
     ],
     api: [["kashi-change", "detail: { value }؛ در range آرایهٔ [کمینه، بیشینه]"]],
   },
+  "/docs/components/search-suggest/": {
+    tags: ["kashi-search-suggest"],
+    module: "commerce",
+    html: `<kashi-search-suggest
+  placeholder="جستجو در همهٔ کالاها"
+  popular="ساعت هوشمند، عروسک، اسکوتر برقی"
+  suggestions="ساعت مچی زنانه، ساعت هوشمند، گوشی هوشمند، هدفون بی‌سیم، میز آرایش"
+  storage-key="demo-recent"
+></kashi-search-suggest>`,
+    note: "فهرست‌ها با ویرگول (`,` یا `،`) جدا می‌شوند. با `storage-key` جستجوهای اخیر در مرورگر ذخیره می‌شوند؛ با `action` فرم به همان نشانی و با پارامتر `q` ارسال می‌شود.",
+    attrs: [
+      ["placeholder", "متن", "", "متن راهنمای فیلد"],
+      ["popular", "فهرست", "", "جستجوهای پرطرفدار"],
+      ["suggestions", "فهرست", "", "پیشنهادها هنگام تایپ"],
+      ["recent", "فهرست", "", "جستجوهای اخیر (اگر storage-key ندارید)"],
+      ["storage-key", "متن", "", "ذخیرهٔ خودکار جستجوهای اخیر در localStorage"],
+      ["action", "نشانی", "", "ارسال فرم جستجو به این نشانی"],
+      ["name", "متن", "q", "نام فیلد در فرم"],
+    ],
+    api: [["kashi-search", "detail: { query }"], ["kashi-change", "detail: { value }"], [".value", "متن فعلی"]],
+  },
+  "/docs/components/swatch-group/": {
+    tags: ["kashi-swatch-group"],
+    module: "commerce",
+    html: `<kashi-swatch-group label="رنگ" name="color" value="blue">
+  <option value="blue" data-color="#3b6fd4">آبی</option>
+  <option value="white" data-color="#ffffff">سفید</option>
+  <option value="black" data-color="#111111">مشکی</option>
+  <option value="silver" data-color="radial-gradient(circle at 35% 30%, #fff, #a9adb3)">نقره‌ای</option>
+</kashi-swatch-group>`,
+    note: "هر `<option>` یک نمونه است؛ `data-color` هر مقدار CSS برای background (رنگ یا گرادیان).",
+    attrs: [
+      ["label", "متن", "", "عنوان گروه"],
+      ["value", "فهرست", "", "مقدارهای انتخاب‌شده"],
+      ["single", "بولی", "", "فقط یک انتخاب"],
+      ["size", "sm | md | lg", "md", "اندازهٔ نمونه‌ها"],
+      ["name", "متن", "", "ارسال در فرم"],
+    ],
+    api: [["kashi-change", "detail: { value: [...] }"], [".value", "آرایهٔ مقدارهای انتخاب‌شده"]],
+  },
+  "/docs/persian/price-range/": {
+    tags: ["kashi-price-range"],
+    module: "commerce",
+    html: `<kashi-price-range label="قیمت" min="0" max="25000000" step="100000" value="1500000,18000000" name="price"></kashi-price-range>`,
+    note: "`value` دو عدد با ویرگول است. با `name`، دو فیلد `name_min` و `name_max` در فرم ارسال می‌شوند.",
+    attrs: [
+      ["label", "متن", "", "عنوان فیلتر"],
+      ["min / max", "عدد", "0 / 100000000", "بازهٔ قیمت ممکن"],
+      ["step", "عدد", "1000", "گام اسلایدر و گرد کردن"],
+      ["value", "دو عدد", "min,max", "بازهٔ انتخاب‌شده"],
+      ["unit", "متن", "تومان", "واحد کنار فیلدها"],
+      ["name", "متن", "", "دو فیلد name_min و name_max"],
+      ["disabled", "بولی", "", "غیرفعال"],
+    ],
+    api: [["kashi-change", "detail: { value: [از، تا] }"], [".value", "[از، تا]"]],
+  },
   "/docs/components/chips/": {
     tags: ["kashi-chip-group"],
     module: "forms",

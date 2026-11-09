@@ -4,7 +4,7 @@
 .k-table-wrap {
   overflow-x: auto;
   border: 1px solid var(--k-border-secondary);
-  border-radius: var(--k-table-radius, var(--k-radius-xl));
+  border-radius: var(--k-table-radius, var(--k-radius-surface));
   background: var(--k-bg-elevated);
   box-shadow: var(--k-shadow-xs), var(--k-highlight);
 }
@@ -18,10 +18,10 @@
 .k-table th, .k-table td { padding: var(--k-table-cell-py, var(--k-space-3)) var(--k-table-cell-px, var(--k-space-6)); text-align: start; vertical-align: middle; border-block-end: 1px solid var(--k-border-secondary); }
 .k-table thead th {
   padding-block: var(--k-space-3);
-  background: var(--k-table-header-bg, var(--k-bg-secondary));
+  background: var(--k-table-header-bg, var(--k-bg-muted));
   color: var(--k-text-tertiary);
-  font-size: var(--k-text-xs);
-  font-weight: var(--k-weight-semibold);
+  font-size: var(--k-text-sm);
+  font-weight: var(--k-weight-medium);
   white-space: nowrap;
 }
 .k-table tbody tr { transition: background-color var(--k-duration-fast); }

@@ -28,6 +28,13 @@
 .k-dialog[open] { animation: k-dialog-in var(--k-duration-normal) var(--k-ease-emphasized); }
 .k-dialog[open]::backdrop { animation: k-fade-in var(--k-duration-normal) var(--k-ease-standard); }
 @keyframes k-dialog-in { from { opacity: 0; scale: 0.96; translate: 0 8px; } }
+/* ریزتعامل: بسته شدن هم نرم است و سریع‌تر از باز شدن (در مرورگرهایی که transition-behavior دارند) */
+@supports (transition-behavior: allow-discrete) {
+  .k-dialog { transition: opacity var(--k-duration-fast) var(--k-ease-exit), scale var(--k-duration-fast) var(--k-ease-exit), display var(--k-duration-fast) allow-discrete, overlay var(--k-duration-fast) allow-discrete; }
+  .k-dialog:not([open]) { opacity: 0; scale: 0.97; }
+  .k-dialog::backdrop { transition: opacity var(--k-duration-fast) var(--k-ease-exit), display var(--k-duration-fast) allow-discrete, overlay var(--k-duration-fast) allow-discrete; }
+  .k-dialog:not([open])::backdrop { opacity: 0; }
+}
 @keyframes k-fade-in { from { opacity: 0; } }
 
 .k-dialog__header {

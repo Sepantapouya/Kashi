@@ -5,7 +5,13 @@
 //   dist/svg/*.svg     فایل جدا برای هر آیکون؛ سبک‌های دیگر در dist/svg/<variant>/
 //   dist/sprite.svg    همهٔ آیکون‌ها به شکل <symbol> برای <use href>؛ سبک‌های دیگر در dist/sprite-<variant>.svg
 import { mkdirSync, writeFileSync, rmSync, copyFileSync } from "node:fs";
-import { icons, categories } from "./src/icons.js";
+import { icons, categories, categoryGroups } from "./src/icons.js";
+// هر دسته دقیقاً در یک گروه
+{
+  const used = categoryGroups.flatMap((g) => g.categories);
+  for (const c of Object.keys(categories)) if (used.filter((u) => u === c).length !== 1) throw new Error(`category ${c} must be in exactly one group`);
+  for (const c of used) if (!categories[c]) throw new Error(`group has unknown category ${c}`);
+}
 import { renderBody, variants } from "./src/render.js";
 
 const pascal = (name) => "Icon" + name.replace(/(^|-)([a-z0-9])/g, (_, __, c) => c.toUpperCase());
@@ -33,6 +39,7 @@ const data = Object.fromEntries(names.map((n) => [n, Object.assign({ component: 
 writeFileSync("dist/index.js", `// @kashi-ui/icons — این فایل خودکار ساخته شده است
 import { renderBody, variants } from "./render.js";
 export const categories = ${JSON.stringify(categories)};
+export const categoryGroups = ${JSON.stringify(categoryGroups)};
 export const icons = ${JSON.stringify(data)};
 export const iconNames = Object.keys(icons);
 export { variants };
@@ -77,6 +84,8 @@ writeFileSync("dist/index.d.ts", `export type IconName = ${union};
 export type IconCategory = ${Object.keys(categories).map((c) => JSON.stringify(c)).join(" | ")};
 export interface IconData { title: string; category: IconCategory; keywords: string[]; directional?: boolean; body: string; component: string }
 export declare const categories: Record<IconCategory, string>;
+/** دسته‌ها در ۱۲ گروه، به ترتیب نمایش */
+export declare const categoryGroups: { id: string; title: string; categories: IconCategory[] }[];
 export declare const icons: Record<IconName, IconData>;
 export declare const iconNames: IconName[];
 export type IconVariant = ${variants.map((v) => JSON.stringify(v)).join(" | ")};

@@ -1,7 +1,8 @@
 "use client";
 
-import { useId, useState, type ReactNode } from "react";
+import { useId, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { cx } from "./cx.js";
+import { useIsomorphicLayoutEffect } from "./utils.js";
 
 export interface SegmentedOption {
   value: string;
@@ -37,13 +38,32 @@ export function SegmentedControl({
   const autoName = useId();
   const [inner, setInner] = useState(defaultValue ?? options.find((o) => !o.disabled)?.value);
   const current = value ?? inner;
+  // ریزتعامل: دستگیرهٔ انتخاب با تغییر گزینه می‌لغزد؛ تا اندازه‌گیری نشده، سبک ایستای CSS نمایش داده می‌شود
+  const ref = useRef<HTMLDivElement>(null);
+  const [box, setBox] = useState<{ x: number; w: number } | null>(null);
+  useIsomorphicLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const measure = () => {
+      const item = el.querySelector<HTMLElement>(".k-segmented__item:has(:checked)");
+      setBox(item ? { x: item.offsetLeft, w: item.offsetWidth } : null);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [current]);
   return (
     <div
+      ref={ref}
       role="radiogroup"
       aria-label={ariaLabel}
       aria-labelledby={labelledBy}
       className={cx("k-segmented", size === "sm" && "k-segmented--sm", block && "k-segmented--block", className)}
+      data-indicator={box ? "" : undefined}
+      style={box ? ({ "--_ix": `${box.x}px`, "--_iw": `${box.w}px` } as CSSProperties) : undefined}
     >
+      {box && <span className="k-segmented__indicator" aria-hidden="true" />}
       {options.map((o) => (
         <label key={o.value} className="k-segmented__item">
           <input

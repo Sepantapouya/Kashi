@@ -74,15 +74,12 @@
   /* در ظرف باریک از کادر بیرون نزند؛ زبانه‌ها اسکرول می‌شوند */
   max-inline-size: 100%;
   padding: 3px;
-  border: 1px solid var(--k-border-secondary);
-  border-radius: calc(var(--k-radius-md) + 3px);
-  background: var(--k-bg-secondary);
+  border: 0;
+  border-radius: var(--k-radius-control);
+  background: var(--k-bg-muted);
 }
 .k-tabs--segmented .k-tabs__tab { min-block-size: calc(2.25rem * var(--k-density)); }
-.k-tabs--segmented .k-tabs__tab[aria-selected="true"] {
-  background: var(--k-bg-elevated);
-  box-shadow: var(--k-shadow-sm), var(--k-highlight);
-}
+.k-tabs--segmented .k-tabs__tab[aria-selected="true"] { background: var(--k-bg-raised); }
 .k-tabs--block .k-tabs__list { inline-size: auto; }
 .k-tabs--block .k-tabs__tab { flex: 1; }
 
@@ -107,7 +104,7 @@
 }
 
 /* نشانگر لغزان (وقتی JavaScript جای زبانهٔ فعال را اندازه گرفت) */
-.k-tabs__indicator { position: absolute; left: var(--_ix); top: var(--_iy); inline-size: var(--_iw); block-size: var(--_ih); pointer-events: none; transition: left var(--k-duration-slow) var(--k-ease-standard), top var(--k-duration-slow) var(--k-ease-standard), inline-size var(--k-duration-slow) var(--k-ease-standard), block-size var(--k-duration-slow) var(--k-ease-standard); }
+.k-tabs__indicator { position: absolute; left: var(--_ix); top: var(--_iy); inline-size: var(--_iw); block-size: var(--_ih); pointer-events: none; transition: left var(--k-duration-slow) var(--k-ease-spring), top var(--k-duration-slow) var(--k-ease-spring), inline-size var(--k-duration-slow) var(--k-ease-standard), block-size var(--k-duration-slow) var(--k-ease-standard); }
 .k-tabs__list[data-indicator] .k-tabs__tab { z-index: 1; }
 /* خطی */
 .k-tabs--line .k-tabs__list[data-indicator] .k-tabs__tab[aria-selected="true"]::after { content: none; }
@@ -120,6 +117,6 @@
 .k-tabs--pill .k-tabs__list[data-indicator] .k-tabs__tab[aria-selected="true"] { background: transparent; }
 .k-tabs--pill .k-tabs__indicator { border-radius: var(--k-tab-radius, var(--k-radius-md)); background: var(--k-bg-brand-subtle); }
 .k-tabs--segmented .k-tabs__list[data-indicator] .k-tabs__tab[aria-selected="true"] { background: transparent; box-shadow: none; }
-.k-tabs--segmented .k-tabs__indicator { border-radius: var(--k-tab-radius, var(--k-radius-md)); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-sm), var(--k-highlight); }
+.k-tabs--segmented .k-tabs__indicator { border-radius: var(--k-tab-radius, calc(var(--k-radius-control) - 3px)); background: var(--k-bg-raised); }
 @media (prefers-reduced-motion: reduce) { .k-tabs__indicator { transition: none; } }
 @media (forced-colors: active) { .k-tabs__indicator { background: Highlight; } }

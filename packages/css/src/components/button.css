@@ -15,8 +15,8 @@
   --_bg-hover: color-mix(in srgb, var(--_bg), var(--k-text-primary) 5%);
   --_fg: var(--k-text-secondary);
   --_fg-hover: var(--k-text-primary);
-  --_border: var(--k-border-primary);
-  --_shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic);
+  --_border: var(--k-border-control);
+  --_shadow: none;
   --_ring: var(--k-ring-brand);
 
   position: relative;
@@ -30,7 +30,7 @@
   min-inline-size: 24px;
   padding-inline: var(--_px);
   border: 1px solid var(--_border);
-  border-radius: var(--k-btn-radius, var(--k-radius-md));
+  border-radius: var(--k-btn-radius, var(--k-radius-control));
   background: var(--_bg);
   color: var(--_fg);
   box-shadow: var(--_shadow);
@@ -45,12 +45,23 @@
   transition:
     background-color var(--k-duration-fast) var(--k-ease-standard),
     color var(--k-duration-fast) var(--k-ease-standard),
-    box-shadow var(--k-duration-fast) var(--k-ease-standard);
+    border-color var(--k-duration-fast) var(--k-ease-standard),
+    box-shadow var(--k-duration-fast) var(--k-ease-standard),
+    scale var(--k-duration-fast) var(--k-ease-spring);
 }
 
 .k-btn:hover { background: var(--_bg-hover); color: var(--_fg-hover); }
 /* حالت فشرده: کمی تیره‌تر، بدون جابه‌جایی که چشم را اذیت کند */
-.k-btn:active:not(:disabled, [aria-disabled="true"]) { background: color-mix(in srgb, var(--_bg-hover), #000 8%); }
+.k-btn:active:not(:disabled, [aria-disabled="true"]) { background: color-mix(in srgb, var(--_bg-hover), #000 8%); scale: 0.97; }
+/* ریزتعامل: آیکون انتهای دکمه (مثل فلش «ادامه») با hover کمی جلو می‌رود */
+.k-btn:hover:not(:disabled, [aria-disabled="true"]) > svg:last-child:not(:only-child) { translate: calc(-2px * var(--_dir, 1)) 0; }
+.k-btn > svg { transition: translate var(--k-duration-normal) var(--k-ease-spring); }
+.k-btn:dir(ltr) { --_dir: -1; }
+.k-btn--link:active:not(:disabled) { scale: 1; }
+/* ریزتعامل: دکمهٔ کپی؛ تیک با جهش جای آیکون کپی را می‌گیرد و رنگ موفقیت می‌آید */
+.k-btn[data-copied]:not(.k-btn--primary, .k-btn--danger) { --_fg: var(--k-text-success); --_fg-hover: var(--k-text-success); }
+.k-btn[data-copied] > svg { animation: k-check-pop var(--k-duration-normal) var(--k-ease-spring); }
+@keyframes k-check-pop { from { scale: 0; opacity: 0; } }
 .k-btn:is(.k-btn--tertiary, .k-btn--link):active:not(:disabled) { background: var(--_bg-hover); }
 
 .k-btn:focus-visible {
@@ -64,7 +75,7 @@
   --_bg: var(--k-bg-secondary);
   --_fg: var(--k-text-quaternary);
   --_border: var(--k-border-secondary);
-  --_shadow: var(--k-shadow-xs);
+  --_shadow: none;
   cursor: not-allowed;
 }
 .k-btn[aria-disabled="true"]:hover { background: var(--_bg); color: var(--_fg); }
@@ -77,19 +88,16 @@
   --_fg: var(--k-text-on-brand);
   --_fg-hover: var(--k-text-on-brand);
   --_border: transparent;
-  --_shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic);
 }
-/* حاشیهٔ داخلی سفید که به پایین محو می‌شود (Untitled UI) */
-.k-btn:is(.k-btn--primary, .k-btn--danger)::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  border: 1px solid rgb(255 255 255 / var(--k-btn-highlight, 0.12));
-  border-radius: inherit;
-  mask: linear-gradient(to bottom, #000, transparent);
-  pointer-events: none;
+/* نسخهٔ ۲: دکمه‌ها تخت‌اند؛ سایه و برق لبه برداشته شد */
+/* حاشیه به رنگ برند، زمینهٔ شفاف؛ برای اقدام دوم کنار دکمهٔ اصلی («تماس با فروش» کنار «شروع کنید») */
+.k-btn--outline {
+  --_bg: transparent;
+  --_bg-hover: var(--k-bg-brand-subtle);
+  --_fg: var(--k-text-brand);
+  --_fg-hover: var(--k-text-brand);
+  --_border: var(--k-border-brand);
 }
-.k-btn:is(.k-btn--primary, .k-btn--danger):is(:disabled, [aria-disabled="true"]:not([aria-busy="true"]))::before { display: none; }
 .k-btn--tertiary {
   --_bg: transparent;
   --_bg-hover: var(--k-bg-hover);
@@ -113,10 +121,13 @@
   --_fg: var(--k-text-on-error);
   --_fg-hover: var(--k-text-on-error);
   --_border: transparent;
-  --_shadow: var(--k-shadow-xs), var(--k-shadow-skeuomorphic);
   --_ring: var(--k-ring-error);
 }
+/* نسخهٔ ۲: نرم، بدون حاشیه؛ زمینهٔ قرمز کم‌رنگ (مثل «حذف» در فهرست تنظیمات) */
 .k-btn--danger-secondary {
+  --_bg: var(--k-bg-error-subtle);
+  --_bg-hover: color-mix(in srgb, var(--k-bg-error-subtle), var(--k-text-error) 10%);
+  --_border: transparent;
   --_fg: var(--k-text-error);
   --_fg-hover: var(--k-text-error);
   --_ring: var(--k-ring-error);

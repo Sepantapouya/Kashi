@@ -1,7 +1,7 @@
 ---
 layout: ../../../layouts/Docs.astro
 title: دکمه
-description: برای اجرای یک عمل. شش گونه برای سلسله‌مراتب بصری، چهار اندازه و حالت بارگذاری دسترس‌پذیر.
+description: برای اجرای یک عمل. هفت گونه برای سلسله‌مراتب بصری، چند اندازه و حالت بارگذاری دسترس‌پذیر.
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
@@ -15,15 +15,17 @@ import { Button } from "@kashi-ui/react";
 
 ## گونه‌ها
 
-در هر بخش از صفحه فقط یک دکمهٔ `primary` بگذارید. بقیهٔ عمل‌ها با `secondary` یا `tertiary` نمایش داده شوند.
+در هر بخش از صفحه فقط یک دکمهٔ `primary` بگذارید. اقدام دوم مهم (مثل «تماس با فروش» کنار «شروع کنید») `outline` می‌گیرد و بقیهٔ عمل‌ها `secondary` یا `tertiary`.
 
 <Demo code={`<Button variant="primary">ذخیره</Button>
+<Button variant="outline">تماس با فروش</Button>
 <Button variant="secondary">پیش‌نمایش</Button>
 <Button variant="tertiary">انصراف</Button>
 <Button variant="link">اطلاعات بیشتر</Button>
 <Button variant="danger">حذف</Button>
 <Button variant="danger-secondary">بایگانی</Button>`}>
   <Button variant="primary">ذخیره</Button>
+  <Button variant="outline">تماس با فروش</Button>
   <Button variant="secondary">پیش‌نمایش</Button>
   <Button variant="tertiary">انصراف</Button>
   <Button variant="link">اطلاعات بیشتر</Button>
@@ -84,7 +86,7 @@ import { Button } from "@kashi-ui/react";
 ## ویژگی‌ها
 
 <Props rows={[
-  ["variant", '"primary" | "secondary" | "tertiary" | "link" | "danger" | "danger-secondary"', '"secondary"', "سبک بصری و اهمیت عمل"],
+  ["variant", '"primary" | "secondary" | "outline" | "tertiary" | "link" | "danger" | "danger-secondary"', '"secondary"', "سبک بصری و اهمیت عمل؛ outline حاشیهٔ برند دارد، برای اقدام دوم کنار دکمهٔ اصلی"],
   ["size", '"sm" | "md" | "lg" | "xl"', '"md"', "اندازه؛ ارتفاع‌ها ۳۶، ۴۰، ۴۴ و ۴۸ پیکسل"],
   ["loading", "boolean", "false", "نمایش اسپینر؛ دکمه فوکوس‌پذیر می‌ماند ولی کلیک نمی‌گیرد"],
   ["loadingLabel", "string", '"در حال بارگذاری"', "متنی که صفحه‌خوان هنگام بارگذاری اعلام می‌کند"],

@@ -1586,3 +1586,63 @@ export const TooltipClipDemo = () => (
     </CardBody>
   </Card>
 );
+
+/* ───── نسخهٔ ۲: جستجو با پیشنهاد، بازهٔ قیمت، نمونهٔ رنگ ───── */
+import { PriceRange, SearchSuggest, SwatchGroup } from "@kashi-ui/react";
+
+const PRODUCTS = ["ساعت مچی زنانه", "ساعت هوشمند", "ساعت دیواری", "گوشی سامسونگ", "گوشی هوشمند", "هدفون بی‌سیم", "هدفون گیمینگ", "میز آرایش", "میز تحریر", "کمد لباس", "اسکوتر برقی", "عروسک", "باتری قلمی"];
+
+export const SearchSuggestDemo = () => {
+  const [last, setLast] = useState("");
+  const [recent, setRecent] = useState(["باتری", "گریل", "کمد", "میز آرایش", "آینه"]);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 34rem)" }}>
+      <SearchSuggest
+        placeholder="جستجو در همهٔ کالاها"
+        recent={recent}
+        onClearRecent={() => setRecent([])}
+        popular={["ساعت مچی زنانه", "عروسک", "اسکوتر برقی", "ساعت هوشمند", "گوشی هوشمند"]}
+        suggestions={PRODUCTS}
+        onSearch={(q) => { setLast(q); setRecent((r) => [q, ...r.filter((x) => x !== q)].slice(0, 8)); }}
+      />
+      <Out>{last ? `جستجو: ${last}` : "روی فیلد بزنید"}</Out>
+    </div>
+  );
+};
+
+export const PriceRangeDemo = () => {
+  const [v, setV] = useState<[number, number]>([1_500_000, 18_000_000]);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 26rem)" }}>
+      <PriceRange label="قیمت" min={0} max={25_000_000} step={100_000} value={v} onChange={setV} name="price" />
+      <Out>{`${formatNumber(v[0])} تا ${formatNumber(v[1])} تومان`}</Out>
+    </div>
+  );
+};
+
+const shades = (...c: string[]) => `linear-gradient(90deg, ${c.map((x, i) => `${x} ${(i * 100) / c.length}% ${((i + 1) * 100) / c.length}%`).join(", ")})`;
+export const SWATCHES = [
+  { value: "blue", label: "آبی", color: shades("#3b6fd4", "#6b93e0", "#9db7ec", "#cfdcf6") },
+  { value: "yellow", label: "زرد", color: shades("#f2c14e", "#f5d17c", "#f8e1a9", "#fcf1d6") },
+  { value: "white", label: "سفید", color: "#ffffff" },
+  { value: "pink", label: "صورتی", color: shades("#b8305a", "#cb6385", "#de96ae", "#f0c9d6") },
+  { value: "gray", label: "طوسی", color: "#9ca3af" },
+  { value: "black", label: "مشکی", color: "#111111" },
+  { value: "orange", label: "نارنجی", color: shades("#ea7f2b", "#f0a05f", "#f5c193", "#fae1c8") },
+  { value: "silver", label: "نقره‌ای", color: "radial-gradient(circle at 35% 30%, #ffffff, #cfd2d6 55%, #a9adb3)" },
+];
+
+export const SwatchDemo = () => {
+  const [v, setV] = useState(["blue", "black"]);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 22rem)" }}>
+      <SwatchGroup label="رنگ" options={SWATCHES} value={v} onChange={setV} name="color" />
+      <Out>{v.length ? v.map((x) => SWATCHES.find((s) => s.value === x)?.label).join("، ") : "بدون فیلتر رنگ"}</Out>
+    </div>
+  );
+};
+
+export const SwatchSingleDemo = () => {
+  const [v, setV] = useState(["black"]);
+  return <SwatchGroup single size="sm" label="رنگ کالا" options={SWATCHES.slice(4, 8)} value={v} onChange={setV} />;
+};

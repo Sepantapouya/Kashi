@@ -24,6 +24,7 @@ import { KashiCalendar, KashiDatePicker } from "./calendar.js";
 import { KashiCountdown, KashiDate, KashiMoney, KashiRelativeTime } from "./display.js";
 import { KashiCopyButton, KashiDialog, KashiTabs, KashiTooltip } from "./overlay.js";
 import { KashiToaster, toast } from "./toast.js";
+import { KashiPriceRange, KashiSearchSuggest, KashiSwatchGroup } from "./commerce.js";
 
 export {
   KashiCardNumber, KashiIban, KashiLandline, KashiLegalId, KashiMobile, KashiNationalId, KashiPostalCode, KashiPrice,
@@ -36,6 +37,7 @@ export {
   KashiBarChart, KashiLineChart, KashiPieChart, KashiBarList, KashiProportionBar, KashiSparkline, KashiActivityHeatmap,
   KashiCommandPalette, KashiContextMenu, KashiCarousel, KashiTreeView, KashiTour, KashiSplitter, KashiSideNav,
   KashiInput, KashiTextarea, KashiBanner, KashiAppointmentPicker,
+  KashiPriceRange, KashiSwatchGroup, KashiSearchSuggest,
 };
 export { KashiDigitsInput } from "./inputs.js";
 /** زبان متن‌های داخلی همهٔ عنصرها: setLocale("en") */
@@ -60,6 +62,7 @@ export const KASHI_ELEMENTS = [
   "kashi-bar-chart", "kashi-line-chart", "kashi-pie-chart", "kashi-bar-list", "kashi-proportion-bar", "kashi-sparkline", "kashi-activity-heatmap",
   "kashi-command-palette", "kashi-context-menu", "kashi-carousel", "kashi-tree-view", "kashi-tour", "kashi-splitter", "kashi-side-nav",
   "kashi-input", "kashi-textarea", "kashi-banner", "kashi-appointment-picker",
+  "kashi-price-range", "kashi-swatch-group", "kashi-search-suggest",
 ] as const;
 
 declare global {
@@ -127,5 +130,8 @@ declare global {
     "kashi-textarea": KashiTextarea;
     "kashi-banner": KashiBanner;
     "kashi-appointment-picker": KashiAppointmentPicker;
+    "kashi-price-range": KashiPriceRange;
+    "kashi-swatch-group": KashiSwatchGroup;
+    "kashi-search-suggest": KashiSearchSuggest;
   }
 }

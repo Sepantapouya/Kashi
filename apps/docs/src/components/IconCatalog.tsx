@@ -1,14 +1,13 @@
 // صفحهٔ اصلی آیکون‌ها: فقط کارت دسته‌ها با پیش‌نمایش آیکون‌هایشان؛ با جستجو نتیجه‌ها جای کارت‌ها می‌آیند
 import { useRef, useState } from "react";
 import { EmptyState, Input, Kbd } from "@kashi-ui/react";
-import { categories, icons, searchIcons, type IconName, type IconVariant } from "@kashi-ui/icons";
+import { categories, categoryGroups, icons, searchIcons, type IconName, type IconVariant } from "@kashi-ui/icons";
 import { Icon } from "@kashi-ui/icons/react";
 import { VariantPicker, fa, useSlash, useVariant, withVariant } from "./iconShared";
 import "../styles/icons.css";
 
 type Category = keyof typeof categories;
 const all = Object.keys(icons) as IconName[];
-const catKeys = Object.keys(categories) as Category[];
 
 export function IconCatalog() {
   const [query, setQuery] = useState("");
@@ -47,27 +46,37 @@ export function IconCatalog() {
           )}
         </>
       ) : (
-        <ul className="ic-cats" role="list">
-          {catKeys.map((c) => {
-            const list = all.filter((n) => icons[n].category === c);
+        <div className="ic-groups">
+          {categoryGroups.map((g) => {
+            const total = g.categories.reduce((n, c) => n + all.filter((x) => icons[x].category === c).length, 0);
             return (
-              <li key={c}>
-                <a className="ic-cat" href={withVariant(`/docs/icons/category/${c}/`, variant)}>
-                  <span className="ic-cat__preview" aria-hidden="true">
-                    {list.slice(0, 15).map((n) => <Icon key={n} name={n} variant={variant} size={22} />)}
-                  </span>
-                  <span className="ic-cat__foot">
-                    <span>
-                      <span className="ic-cat__title">{categories[c]}</span>
-                      <span className="ic-cat__count">{fa(list.length)} آیکون</span>
-                    </span>
-                    <span className="ic-cat__view">مشاهده<Icon name="arrow-left" size={14} /></span>
-                  </span>
-                </a>
-              </li>
+              <section key={g.id} className="ic-group" aria-labelledby={`g-${g.id}`}>
+                <h2 id={`g-${g.id}`} className="ic-group__title">{g.title}<span>{fa(g.categories.length)} دسته · {fa(total)} آیکون</span></h2>
+                <ul className="ic-cats" role="list">
+                  {(g.categories as Category[]).map((c) => {
+                    const list = all.filter((n) => icons[n].category === c);
+                    return (
+                      <li key={c}>
+                        <a className="ic-cat" href={withVariant(`/docs/icons/category/${c}/`, variant)}>
+                          <span className="ic-cat__preview" aria-hidden="true">
+                            {list.slice(0, 15).map((n) => <Icon key={n} name={n} variant={variant} size={22} />)}
+                          </span>
+                          <span className="ic-cat__foot">
+                            <span>
+                              <span className="ic-cat__title">{categories[c]}</span>
+                              <span className="ic-cat__count">{fa(list.length)} آیکون</span>
+                            </span>
+                            <span className="ic-cat__view">مشاهده<Icon name="arrow-left" size={14} /></span>
+                          </span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
             );
           })}
-        </ul>
+        </div>
       )}
     </div>
   );

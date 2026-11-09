@@ -1,7 +1,7 @@
 // ناوبری: تب، مسیر، صفحه‌بندی، مراحل، منوی کناری، منو و جستجوی فرمان
 
 function menuPanel(items, { w = 240 } = {}) {
-  return F({ name: "Menu", dir: "V", gap: 0, p: "space/1.5", w, radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover", css: "k-menu", cssCheck: ["pad", "radius", "bg", "border"] }, items.map((it) => {
+  return F({ name: "Menu", dir: "V", gap: 0, p: "space/1.5", w, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover", css: "k-menu", cssCheck: ["pad", "radius", "bg", "border"] }, items.map((it) => {
     if (it === "-") return F({ name: "Separator", dir: "H", w: "fill", py: "space/1" }, [R({ w: 10, h: 1, fill: "border-secondary", fillW: true, name: "Line" })]);
     if (it.label && it.heading) return F({ name: "Group label", dir: "H", px: 10, pt: "space/2", pb: "space/1", w: "fill" }, [T(it.label, { style: "Text xs/Medium", color: "text-tertiary" })]);
     const fg = it.danger ? "text-error" : it.disabled ? "text-quaternary" : it.active ? "text-primary" : "text-secondary";
@@ -33,14 +33,14 @@ function buildNavigation() {
               : [F({ dir: "H", gap: "space/2", h: 38, px: "space/1", cross: "center", css: on ? undefined : "k-tabs__tab", cssCheck: ["padx", "gap"] }, [T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-tertiary", name: "Label" }), i === 1 && badge({ tone: on ? "Brand" : "Neutral", size: "sm", label: "۱۲", dot: false })]), R({ w: 10, h: 2, radius: 2, fill: on ? "border-brand" : undefined, fillW: true, name: "Indicator", css: on ? "k-tabs__indicator" : undefined, cssCheck: ["bg", "h"] })]);
           }
           // سگمنت: حداقل ۳۶ پیکسل، تب انتخاب‌شده روی bg-elevated با سایهٔ sm و خط روشن
-          return F({ name: "Tab", dir: "H", gap: "space/2", h: p.Variant === "Segmented" ? 36 : "tab/height", px: "space/3", w: vertical ? "fill" : undefined, cross: "center", radius: "radius/md", fill: on ? (p.Variant === "Pill" ? "bg-brand-subtle" : "bg-elevated") : undefined, shadow: on && p.Variant === "Segmented" ? ["Shadow/sm", "highlight-only"] : undefined }, [
+          return F({ name: "Tab", dir: "H", gap: "space/2", h: p.Variant === "Segmented" ? 36 : "tab/height", px: "space/3", w: vertical ? "fill" : undefined, cross: "center", radius: "radius/md", fill: on ? (p.Variant === "Pill" ? "bg-brand-subtle" : "bg-raised") : undefined }, [
             T(label, { style: "Text sm/Semibold", color: on ? (p.Variant === "Pill" ? "text-brand" : "text-primary") : "text-tertiary", name: "Label" }),
           ]);
         };
         const list = F({
           name: "Tab list", dir: vertical ? "V" : "H", gap: p.Variant === "Line" ? (vertical ? 0 : "space/4") : "space/1", w: vertical ? 200 : undefined,
-          p: p.Variant === "Segmented" ? 3 : undefined, radius: p.Variant === "Segmented" ? 11 : undefined,
-          fill: p.Variant === "Segmented" ? "bg-secondary" : undefined, stroke: p.Variant === "Segmented" ? "border-secondary" : p.Variant === "Line" && !vertical ? "border-secondary" : undefined,
+          p: p.Variant === "Segmented" ? 3 : undefined, radius: p.Variant === "Segmented" ? "radius/md" : undefined,
+          fill: p.Variant === "Segmented" ? "bg-muted" : undefined, stroke: p.Variant === "Line" && !vertical ? "border-secondary" : undefined,
           sides: p.Variant === "Line" && !vertical ? [0, 0, 1, 0] : undefined,
           // مثل overflow-x: auto در k-tabs__list: اگر نمونه را باریک‌تر کنید، زبانه‌های اضافه بریده می‌شوند و قاب پهن نمی‌شود
           clip: !vertical,

@@ -290,7 +290,7 @@ function layoutVariantGrid(section, node, comps, list, opts) {
 const DOC_ALIASES = {
   chip: "chips", chart: "charts", stat: "stat-card", "data-table": "table", kbd: "divider", "relative-time": "persian/utilities",
   "card-number-input": "persian/input", "iban-input": "persian/input", "national-id-input": "persian/input", "mobile-input": "persian/input",
-  "price-input": "persian/input", "plate-input": "persian/input", "persian-input": "persian/input", "time-input": "persian/input",
+  "price-input": "persian/input", "price-range": "persian/price-range", "plate-input": "persian/input", "persian-input": "persian/input", "time-input": "persian/input",
   "province-select": "persian/province", "payment-receipt": "persian/receipt", "bank-badge": "persian/bank-logos",
   calendar: "persian/date-picker", "date-picker": "persian/date-picker", "otp-input": "persian/otp",
 };

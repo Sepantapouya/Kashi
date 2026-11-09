@@ -15,7 +15,7 @@ const slugOf = (href: string) => href.split("/").filter(Boolean).pop()!;
 // دسته‌بندی بر اساس کاربرد
 const CATEGORIES: Record<"components" | "persian", { key: string; label: string; text?: string; slugs: string[] }[]> = {
   components: [
-    { key: "form", label: "فرم و ورودی", text: "هر چیزی که کاربر با آن داده وارد می‌کند؛ با برچسب، راهنما و پیام خطای فارسی.", slugs: ["button", "input", "select", "checkbox", "radio", "switch", "combobox", "tag-input", "file-upload", "slider", "number-input", "segmented-control", "button-group", "chips", "copy-button", "password-strength", "rating", "inline-edit", "color-picker", "multi-select"] },
+    { key: "form", label: "فرم و ورودی", text: "هر چیزی که کاربر با آن داده وارد می‌کند؛ با برچسب، راهنما و پیام خطای فارسی.", slugs: ["button", "input", "select", "checkbox", "radio", "switch", "combobox", "tag-input", "file-upload", "slider", "number-input", "segmented-control", "button-group", "chips", "copy-button", "password-strength", "rating", "inline-edit", "color-picker", "multi-select", "search-suggest", "swatch-group"] },
     { key: "data", label: "نمایش داده", text: "جدول، کارت آمار و خط زمانی برای داشبوردها و پنل‌های مدیریت.", slugs: ["charts", "table", "stat-card", "timeline", "card", "badge", "avatar", "tree-view", "progress", "meter", "carousel", "skeleton", "empty-state", "divider"] },
     { key: "nav", label: "ناوبری", text: "تب، منو، صفحه‌بندی و کامند پالت، همه با پیمایش کامل کیبورد.", slugs: ["tabs", "side-nav", "breadcrumb", "pagination", "stepper", "command-palette", "dropdown-menu", "context-menu", "accordion", "splitter"] },
     { key: "feedback", label: "بازخورد و پنجره", text: "پیام‌ها و پنجره‌هایی که فوکوس و صفحه‌خوان را درست مدیریت می‌کنند.", slugs: ["alert", "toast", "banner", "dialog", "popover", "tooltip", "tour"] },
@@ -24,7 +24,7 @@ const CATEGORIES: Record<"components" | "persian", { key: string; label: string;
     { key: "input", label: "فیلدهای فارسی", text: "کد ملی، شناسهٔ شرکت، موبایل، تلفن، کارت، شبا، مبلغ، کد پستی، ساعت، پلاک و متن؛ همه در یک کامپوننت با kind.", slugs: ["input", "province", "otp"] },
     { key: "map", label: "نقشه و نشانی", text: "نقشهٔ ۳۱ استان ایران و فرم نشانی با فهرست بیش از ۱۲۰۰ شهر.", slugs: ["iran-map", "address"] },
     { key: "date", label: "تاریخ و زمان", text: "تقویم جلالی دقیق برای سال‌های ۱۳۰۰ تا ۱۵۰۰، بدون کتابخانهٔ جانبی.", slugs: ["date-picker", "date-range", "month-picker", "appointment", "date-tile", "countdown", "activity-heatmap"] },
-    { key: "bank", label: "بانکی و مالی", text: "نمایش مبلغ، کارت بانکی با رنگ و لوگوی بانک، رسید پرداخت و لوگوی ۴۰ بانک.", slugs: ["money", "bank-card", "receipt", "bank-logos"] },
+    { key: "bank", label: "بانکی و مالی", text: "نمایش مبلغ، فیلتر بازهٔ قیمت، کارت بانکی با رنگ و لوگوی بانک، رسید پرداخت و لوگوی ۴۰ بانک.", slugs: ["money", "price-range", "bank-card", "receipt", "bank-logos"] },
     { key: "text", label: "متن فارسی", text: "نیم‌فاصله، «ي» و «ك» عربی و صفحه‌کلید اشتباه؛ مشکلاتی که فقط متن فارسی دارد.", slugs: ["text-fix"] },
   ],
 };

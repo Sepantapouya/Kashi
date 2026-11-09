@@ -17,7 +17,7 @@
   border: 1px solid var(--k-border-secondary);
   border-radius: var(--k-radius-lg);
   background: var(--k-bg-elevated);
-  box-shadow: var(--k-shadow-lg), var(--k-highlight);
+  box-shadow: var(--k-shadow-lg);
   list-style: none;
   animation: k-pop-in var(--k-duration-fast) var(--k-ease-standard);
 }

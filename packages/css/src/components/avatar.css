@@ -73,6 +73,12 @@
 .k-avatar-group > .k-avatar {
   box-shadow: 0 0 0 2px var(--k-bg-primary);
 }
+/* زمینهٔ رنگی نیمه‌شفاف روی هم می‌افتد؛ در گروه روی زمینهٔ مات صفحه کشیده می‌شود */
+.k-avatar-group > .k-avatar--brand { background: var(--k-avatar-bg, linear-gradient(var(--k-bg-brand-subtle), var(--k-bg-brand-subtle)) var(--k-bg-primary)); }
+.k-avatar-group > .k-avatar--info { background: var(--k-avatar-bg, linear-gradient(var(--k-bg-info-subtle), var(--k-bg-info-subtle)) var(--k-bg-primary)); }
+.k-avatar-group > .k-avatar--success { background: var(--k-avatar-bg, linear-gradient(var(--k-bg-success-subtle), var(--k-bg-success-subtle)) var(--k-bg-primary)); }
+.k-avatar-group > .k-avatar--warning { background: var(--k-avatar-bg, linear-gradient(var(--k-bg-warning-subtle), var(--k-bg-warning-subtle)) var(--k-bg-primary)); }
+.k-avatar-group > .k-avatar--error { background: var(--k-avatar-bg, linear-gradient(var(--k-bg-error-subtle), var(--k-bg-error-subtle)) var(--k-bg-primary)); }
 .k-avatar-group > .k-avatar + .k-avatar {
   margin-inline-start: calc(var(--_s) * -0.28);
 }

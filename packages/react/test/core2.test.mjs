@@ -20,8 +20,55 @@ test("RadioGroup: fieldset و legend، نام مشترک و گزینهٔ انت�
 test("Select: برچسب متصل و گزینهٔ راهنما", () => {
   const html = render(h(K.Select, { id: "c", label: "شهر", placeholder: "انتخاب کنید", options: [{ value: "thr", label: "تهران" }], error: "الزامی است" }));
   assert.match(html, /<label class="k-label" for="c">شهر/);
-  assert.match(html, /<option value="" disabled="" selected="">انتخاب کنید<\/option>/);
+  // نسخهٔ ۲: دکمه با نقش combobox، فهرست listbox و select بومیِ پنهان برای فرم
+  assert.match(html, /<button id="c" type="button" role="combobox"[^>]*aria-haspopup="listbox"[^>]*aria-expanded="false"[^>]*aria-controls="c-list"/);
+  assert.match(html, /k-select__value--placeholder">انتخاب کنید</);
+  assert.match(html, /<ul id="c-list" role="listbox" aria-labelledby="c"/);
+  assert.match(html, /<li id="c-list-0"[^>]*role="option"[^>]*aria-selected="false"><span class="k-option__label">تهران/);
+  assert.match(html, /<select class="k-select__native" tabindex="-1" aria-hidden="true"/);
   assert.match(html, /aria-invalid="true"/);
+});
+
+test("Select native: همان select بومی نسخهٔ ۱", () => {
+  const html = render(h(K.Select, { id: "n", native: true, label: "شهر", placeholder: "انتخاب کنید", name: "city", options: [{ value: "thr", label: "تهران" }] }));
+  assert.match(html, /<select id="n" class="k-select__control"[^>]*name="city"/);
+  assert.match(html, /<option value="" disabled="" selected="">انتخاب کنید<\/option>/);
+});
+
+test("Select: گزینه‌ها از option و optgroup فرزند", () => {
+  const html = render(h(K.Select, { id: "g", label: "شهر", defaultValue: "isf" },
+    h("optgroup", { label: "مرکز" }, h("option", { value: "thr" }, "تهران"), h("option", { value: "isf" }, "اصفهان"))));
+  assert.match(html, /k-listbox__group">مرکز</);
+  assert.match(html, /k-select__value">اصفهان</);
+  assert.match(html, /aria-selected="true"><span class="k-option__label">اصفهان/);
+});
+
+test("PriceRange: دو فیلد با جداکننده، اسلایدر دودستگیره و name_min/name_max", () => {
+  const html = render(h(K.PriceRange, { label: "قیمت", min: 0, max: 10_000_000, defaultValue: [1_500_000, 8_000_000], name: "price" }));
+  assert.match(html, /role="group" aria-labelledby="[^"]+-l"/);
+  assert.match(html, /value="۱٬۵۰۰٬۰۰۰"/);
+  assert.match(html, /value="۸٬۰۰۰٬۰۰۰"/);
+  assert.match(html, /name="price_min"/);
+  assert.match(html, /name="price_max"/);
+  assert.match(html, /ارزان‌ترین/);
+});
+
+test("SwatchGroup: چک‌باکس بومی با برچسب متنی؛ single رادیو", () => {
+  const opts = [{ value: "blue", label: "آبی", color: "#3b6fd4" }, { value: "black", label: "مشکی", color: "#111" }];
+  const html = render(h(K.SwatchGroup, { label: "رنگ", options: opts, defaultValue: ["blue"], name: "color" }));
+  assert.match(html, /<fieldset class="k-swatches"><legend class="k-label k-swatches__legend">رنگ<\/legend>/);
+  assert.match(html, /type="checkbox" class="k-sr-only" name="color" checked="" value="blue"/);
+  assert.match(html, /آبی<span class="k-sr-only">، انتخاب شده<\/span>/);
+  const single = render(h(K.SwatchGroup, { options: opts, single: true }));
+  assert.match(single, /role="radiogroup"/);
+  assert.match(single, /type="radio"/);
+});
+
+test("SearchSuggest: فرم search، فیلد combobox و پنل پنهان تا فوکوس", () => {
+  const html = render(h(K.SearchSuggest, { placeholder: "جستجو در همهٔ کالاها", popular: ["عروسک"], recent: ["باتری"] }));
+  assert.match(html, /<form role="search" class="k-search-suggest"/);
+  assert.match(html, /type="search"[^>]*placeholder="جستجو در همهٔ کالاها"[^>]*aria-label="جستجو" role="combobox" aria-autocomplete="list" aria-expanded="false"/);
+  assert.match(html, /class="k-search-suggest__panel" hidden=""/);
 });
 
 test("Tabs: نقش‌ها، اتصال زبانه و پنل، فقط زبانهٔ فعال در ترتیب Tab", () => {

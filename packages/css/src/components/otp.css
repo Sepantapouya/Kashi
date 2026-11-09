@@ -28,8 +28,8 @@
   place-items: center;
   inline-size: var(--_s);
   block-size: calc(var(--_s) * 1.15);
-  border: 1px solid var(--k-border-input);
-  border-radius: var(--k-radius-lg);
+  border: 1px solid var(--k-border-control);
+  border-radius: var(--k-radius-control);
   background: var(--k-bg-primary);
   color: var(--k-text-primary);
   box-shadow: var(--k-shadow-xs);
