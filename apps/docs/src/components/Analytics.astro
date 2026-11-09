@@ -1,15 +1,22 @@
 ---
-// Google Tag Manager برای سایت کاشی. فقط روی دامنهٔ واقعی بار می‌شود، نه روی localhost،
-// تا بازدیدهای توسعه و تست‌های تصویری در آمار نیایند.
+// آمار سایت کاشی: Google Tag Manager و Google Analytics 4.
+// فقط روی دامنهٔ واقعی بار می‌شوند، نه روی localhost، تا بازدیدهای توسعه و تست‌های تصویری در آمار نیایند.
+// GA4 مستقیم این‌جا وصل است؛ در پنل تگ منیجر تگ GA4 جدا نسازید، وگرنه هر بازدید دو بار شمرده می‌شود.
 const GTM_ID = "GTM-TWGR2P8Z";
+const GA_ID = "G-J4FVG0HF1X";
 ---
-<script is:inline define:vars={{ GTM_ID }}>
+<script is:inline define:vars={{ GTM_ID, GA_ID }}>
   if (!/^(localhost|127\.0\.0\.1|\[::1\])$|\.(local|localhost|test)$/.test(location.hostname)) {
     window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", GA_ID);
     window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
-    const s = document.createElement("script");
-    s.async = true;
-    s.src = "https://www.googletagmanager.com/gtm.js?id=" + GTM_ID;
-    document.head.appendChild(s);
+    for (const src of ["https://www.googletagmanager.com/gtag/js?id=" + GA_ID, "https://www.googletagmanager.com/gtm.js?id=" + GTM_ID]) {
+      const s = document.createElement("script");
+      s.async = true;
+      s.src = src;
+      document.head.appendChild(s);
+    }
   }
 </script>
