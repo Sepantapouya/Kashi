@@ -1,51 +1,122 @@
 {
- "generated": "2026-11-09T13:33:18+03:30",
+ "generated": "2026-11-09T17:15:39+03:30",
  "totals": {
-  "commits": 229,
-  "versions": 35,
-  "added": 99890,
+  "commits": 232,
+  "versions": 37,
+  "added": 100974,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [
-  {
-   "sha": "5176ef2ae83ba03cc9f748ba5e4bc58a471a4d4a",
-   "short": "5176ef2",
-   "date": "2026-11-09T13:33:18+03:30",
-   "author": "sepantapouya",
-   "subject": "feat: fixes and improvements from building the Skills store",
-   "details": [
-    "Bugs",
-    "- SideNav never grows past its container (max-inline-size: 100%).",
-    "- Tooltip (React and <kashi-tooltip>) renders in the top layer via the",
-    "Popover API with fixed positioning, flips to the other side when there",
-    "is no room, so overflow: hidden ancestors no longer clip it.",
-    "- Base reset: button, input, select, textarea inherit the font.",
-    "- messages: context-menu hint names the action instead of \"click\" and has",
-    "no Latin digits next to Persian; ContextMenu (React + element) now also",
-    "opens on touch long-press.",
-    "- unicode-bidi: isolate for kbd, menu shortcut, file name/ext, hue slider.",
-    "- SegmentedControl scrolls horizontally inside itself on narrow screens.",
-    "Improvements",
-    "- Carousel (React + element): effect=\"fade\" opacity crossfade, thumbnails",
-    "(data-thumb in the element), autoplay with progress bar and pause button",
-    "that pauses on hover/focus/hidden tab, lightbox dialog, touch swipe.",
-    "- FileUpload (React + element): real <input type=file name> for plain",
-    "forms / FormData / Server Actions, required, image preview, client-side",
-    "image downscale (resizeImages / max-dimension + quality).",
-    "- Input variant=\"code\" (React + element): mono LTR isolated value, sans",
-    "placeholder, no spellcheck/autocapitalize.",
-    "- Radio cards: badge and meta (price) slots, stronger selected state.",
-    "- Docs: Safari/iOS warning about 3D transforms on large images.",
-    "fa + en messages, tests (React, elements, mobile visual checks), visual",
-    "baselines for new demos and states, Figma kit, docs, guidelines, element",
-    "docs and size budget updated."
-   ],
-   "files": 78,
-   "added": 1727,
-   "removed": 332
-  }
- ],
+ "unreleased": [],
  "versions": [
+  {
+   "version": "1.7.0",
+   "date": "2026-11-09T17:15:39+03:30",
+   "releaseCommit": "bebbcfe",
+   "commits": [
+    {
+     "sha": "bebbcfe4f8b52f0ff7f7360082efa690a5352d96",
+     "short": "bebbcfe",
+     "date": "2026-11-09T17:15:39+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.7.0",
+     "details": [],
+     "files": 22,
+     "added": 96,
+     "removed": 46
+    },
+    {
+     "sha": "cc050a54c948aca2e69323cb289aa05fcce5fc12",
+     "short": "cc050a5",
+     "date": "2026-11-09T17:09:25+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 700 independently drawn Kashi icons",
+     "details": [],
+     "files": 12,
+     "added": 787,
+     "removed": 12
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "1.6.0",
+   "date": "2026-11-09T13:36:36+03:30",
+   "releaseCommit": "68d6d84",
+   "commits": [
+    {
+     "sha": "68d6d849c58f95609d77224b53f8302e8281e9de",
+     "short": "68d6d84",
+     "date": "2026-11-09T13:36:36+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.6.0",
+     "details": [],
+     "files": 23,
+     "added": 201,
+     "removed": 65
+    },
+    {
+     "sha": "5176ef2ae83ba03cc9f748ba5e4bc58a471a4d4a",
+     "short": "5176ef2",
+     "date": "2026-11-09T13:33:18+03:30",
+     "author": "sepantapouya",
+     "subject": "feat: fixes and improvements from building the Skills store",
+     "details": [
+      "Bugs",
+      "- SideNav never grows past its container (max-inline-size: 100%).",
+      "- Tooltip (React and <kashi-tooltip>) renders in the top layer via the",
+      "Popover API with fixed positioning, flips to the other side when there",
+      "is no room, so overflow: hidden ancestors no longer clip it.",
+      "- Base reset: button, input, select, textarea inherit the font.",
+      "- messages: context-menu hint names the action instead of \"click\" and has",
+      "no Latin digits next to Persian; ContextMenu (React + element) now also",
+      "opens on touch long-press.",
+      "- unicode-bidi: isolate for kbd, menu shortcut, file name/ext, hue slider.",
+      "- SegmentedControl scrolls horizontally inside itself on narrow screens.",
+      "Improvements",
+      "- Carousel (React + element): effect=\"fade\" opacity crossfade, thumbnails",
+      "(data-thumb in the element), autoplay with progress bar and pause button",
+      "that pauses on hover/focus/hidden tab, lightbox dialog, touch swipe.",
+      "- FileUpload (React + element): real <input type=file name> for plain",
+      "forms / FormData / Server Actions, required, image preview, client-side",
+      "image downscale (resizeImages / max-dimension + quality).",
+      "- Input variant=\"code\" (React + element): mono LTR isolated value, sans",
+      "placeholder, no spellcheck/autocapitalize.",
+      "- Radio cards: badge and meta (price) slots, stronger selected state.",
+      "- Docs: Safari/iOS warning about 3D transforms on large images.",
+      "fa + en messages, tests (React, elements, mobile visual checks), visual",
+      "baselines for new demos and states, Figma kit, docs, guidelines, element",
+      "docs and size budget updated."
+     ],
+     "files": 78,
+     "added": 1727,
+     "removed": 332
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "رفع مشکل‌ها و بهبودهایی که هنگام ساخت فروشگاه اسکیل‌ها روی کاشی پیدا شد:",
+     "sub": [
+      "**SideNav** دیگر از ظرفش پهن‌تر نمی‌شود: `--k-sidenav-width` (پیش‌فرض ۱۷rem) با `max-inline-size: 100%`؛ در ستون ۲۵۰ پیکسلی نشان مورد بریده نمی‌شود.",
+      "**Tooltip** (و `<kashi-tooltip>`) در لایهٔ بالایی مرورگر (Popover API) نمایش داده می‌شود؛ `overflow: hidden` والدها آن را نمی‌برد و اگر سمت خواسته‌شده جا نداشته باشد، به سمت مقابل می‌رود. کیبورد، hover و ARIA مثل قبل‌اند.",
+      "**پایهٔ CSS**: `button`، `input`، `select` و `textarea` فونت را از صفحه می‌گیرند (`font: inherit`)؛ دکمهٔ سادهٔ بدون کلاس دیگر فونت سیستم ندارد.",
+      "**متن‌ها**: راهنمای منوی راست‌کلیک به‌جای فعل «کلیک» کار را نام می‌برد (دکمهٔ راست ماوس، نگه‌داشتن انگشت) و ارقام لاتین کنار متن فارسی ندارد. منوی راست‌کلیک (React و `<kashi-context-menu>`) حالا با نگه‌داشتن انگشت روی صفحهٔ لمسی هم باز می‌شود.",
+      "**جدا کردن متن چپ‌به‌راست**: `unicode-bidi: isolate` برای کلید (kbd)، میان‌بر منو، نام و پسوند فایل و نوار رنگ‌مایه؛ نشانه‌گذاری متن فارسی اطرافشان دیگر جابه‌جا نمی‌شود.",
+      "**SegmentedControl** با چهار گزینه یا بیشتر در صفحهٔ ۳۷۵ پیکسلی خودش افقی اسکرول می‌خورد (بدون نوار اسکرول پیدا)؛ صفحه پهن نمی‌شود.",
+      "**Carousel** (و `<kashi-carousel>`): `effect=\"fade\"` محو شدن با opacity برای عکس‌های بزرگ، `thumbnails` (در وب کامپوننت `data-thumb`)، `autoplay` با نوار پیشرفت و دکمهٔ توقف که با hover، فوکوس و پنهان شدن زبانه مکث می‌کند، `lightbox` نمای بزرگ تمام‌صفحه با Esc و کلیدهای جهت، و کشیدن انگشت.",
+      "**FileUpload** (و `<kashi-file-upload>`): با `name` فایل‌های پذیرفته‌شده در یک `<input type=\"file\">` واقعی می‌مانند و با فرم معمولی، FormData و Server Action ارسال می‌شوند؛ `required`، پیش‌نمایش تصویر و `resizeImages` (در وب کامپوننت `max-dimension` و `quality`) برای کوچک کردن عکس‌های بزرگ در مرورگر پیش از ارسال. پیام‌های تازه در فارسی و انگلیسی.",
+      "**Input** (و `<kashi-input>`): `variant=\"code\"` برای کد تخفیف، کلید لایسنس و شناسه؛ متن تایپ‌شده تک‌فاصله، چپ‌به‌راست و جدا از متن فارسی، ولی placeholder با فونت فارسی.",
+      "**Radio** در `variant=\"cards\"`: `badge` (مثل «پیشنهادی») و `meta` (قیمت) و حالت انتخاب‌شدهٔ پررنگ‌تر با حلقهٔ فوکوس.",
+      "**مستندات**: هشدار دربارهٔ تبدیل سه‌بعدی روی عکس‌های بزرگ در Safari و iOS در صفحه‌ها و راهنمای کارت و کاروسل."
+     ],
+     "packages": [
+      "react",
+      "css",
+      "persian"
+     ]
+    }
+   ]
+  },
   {
    "version": "1.5.0",
    "date": "2026-11-09T12:39:53+03:30",
