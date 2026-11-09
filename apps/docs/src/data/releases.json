@@ -1,12 +1,50 @@
 {
- "generated": "2026-11-09T12:39:53+03:30",
+ "generated": "2026-11-09T13:33:18+03:30",
  "totals": {
-  "commits": 228,
+  "commits": 229,
   "versions": 35,
-  "added": 98163,
+  "added": 99890,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [],
+ "unreleased": [
+  {
+   "sha": "5176ef2ae83ba03cc9f748ba5e4bc58a471a4d4a",
+   "short": "5176ef2",
+   "date": "2026-11-09T13:33:18+03:30",
+   "author": "sepantapouya",
+   "subject": "feat: fixes and improvements from building the Skills store",
+   "details": [
+    "Bugs",
+    "- SideNav never grows past its container (max-inline-size: 100%).",
+    "- Tooltip (React and <kashi-tooltip>) renders in the top layer via the",
+    "Popover API with fixed positioning, flips to the other side when there",
+    "is no room, so overflow: hidden ancestors no longer clip it.",
+    "- Base reset: button, input, select, textarea inherit the font.",
+    "- messages: context-menu hint names the action instead of \"click\" and has",
+    "no Latin digits next to Persian; ContextMenu (React + element) now also",
+    "opens on touch long-press.",
+    "- unicode-bidi: isolate for kbd, menu shortcut, file name/ext, hue slider.",
+    "- SegmentedControl scrolls horizontally inside itself on narrow screens.",
+    "Improvements",
+    "- Carousel (React + element): effect=\"fade\" opacity crossfade, thumbnails",
+    "(data-thumb in the element), autoplay with progress bar and pause button",
+    "that pauses on hover/focus/hidden tab, lightbox dialog, touch swipe.",
+    "- FileUpload (React + element): real <input type=file name> for plain",
+    "forms / FormData / Server Actions, required, image preview, client-side",
+    "image downscale (resizeImages / max-dimension + quality).",
+    "- Input variant=\"code\" (React + element): mono LTR isolated value, sans",
+    "placeholder, no spellcheck/autocapitalize.",
+    "- Radio cards: badge and meta (price) slots, stronger selected state.",
+    "- Docs: Safari/iOS warning about 3D transforms on large images.",
+    "fa + en messages, tests (React, elements, mobile visual checks), visual",
+    "baselines for new demos and states, Figma kit, docs, guidelines, element",
+    "docs and size budget updated."
+   ],
+   "files": 78,
+   "added": 1727,
+   "removed": 332
+  }
+ ],
  "versions": [
   {
    "version": "1.5.0",
