@@ -1,5 +1,11 @@
 # @kashi-ui/tailwind
 
+## 1.5.0
+
+### Patch Changes
+
+- @kashi-ui/css@1.5.0
+
 ## 1.4.0
 
 ### Patch Changes

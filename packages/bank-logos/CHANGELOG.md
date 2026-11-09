@@ -1,5 +1,9 @@
 # @kashi-ui/bank-logos
 
+## 1.5.0
+
+No changes in this release.
+
 ## 1.4.0
 
 No changes in this release.
