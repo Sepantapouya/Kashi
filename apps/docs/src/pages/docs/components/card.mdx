@@ -75,6 +75,8 @@ import { Card, CardHeader, CardTitle, CardDescription, CardBody, CardFooter } fr
   <CardExtrasDemo client:load />
 </Demo>
 
+> **تصویر بزرگ و تبدیل سه‌بعدی:** روی کارت یا تصویری که عکس بزرگ دارد از `rotateX`، `rotateY`، `perspective` یا `translate3d` استفاده نکنید. Safari و iOS چنین لایه‌ای را گاهی تکه‌تکه و با کاشی‌های تکراری رسم می‌کنند. برای hover، سایه، رنگ مرز یا `translate` دوبعدی کوچک کافی است؛ برای جابه‌جایی عکس‌های بزرگ از `opacity` استفاده کنید (مثل `effect="fade"` در [کاروسل](/docs/components/carousel/)).
+
 <Props caption="ویژگی‌های جدید" rows={[
   ["variant", '"outlined" | "elevated" | "filled"', '"outlined"', "سبک (Card)"],
   ["padding", '"none" | "sm" | "md" | "lg"', '"md"', "فاصلهٔ داخلی همهٔ بخش‌ها (Card)"],

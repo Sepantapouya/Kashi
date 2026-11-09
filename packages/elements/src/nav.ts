@@ -163,7 +163,7 @@ export class KashiCommandPalette extends HTMLBase {
 
 /**
  * منوی راست‌کلیک: محتوای عنصر ناحیهٔ کلیک است و گزینه‌ها داخل یک <div data-menu> (همان گزینه‌های kashi-dropdown-menu).
- * با راست‌کلیک، کلید ContextMenu یا Shift+F10 باز می‌شود؛ انتخاب گزینه رویداد kashi-select می‌فرستد.
+ * با دکمهٔ راست ماوس، نگه‌داشتن انگشت (لمسی)، کلید ContextMenu یا Shift+F10 باز می‌شود؛ انتخاب گزینه رویداد kashi-select می‌فرستد.
  */
 export class KashiContextMenu extends HTMLBase {
   static observedAttributes = ["label"];
@@ -218,6 +218,23 @@ export class KashiContextMenu extends HTMLBase {
       e.preventDefault();
       this.openAt(e.clientX, e.clientY);
     });
+    // نگه‌داشتن انگشت: Safari در iOS رویداد contextmenu نمی‌فرستد
+    let press: { t: ReturnType<typeof setTimeout>; x: number; y: number } | null = null;
+    const cancel = () => {
+      if (press) clearTimeout(press.t);
+      press = null;
+    };
+    this.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "touch" || menu.contains(e.target as Node)) return;
+      cancel();
+      const { clientX: x, clientY: y } = e;
+      press = { x, y, t: setTimeout(() => { press = null; this.openAt(x, y); }, 500) };
+    });
+    this.addEventListener("pointermove", (e) => {
+      if (press && Math.hypot(e.clientX - press.x, e.clientY - press.y) > 10) cancel();
+    });
+    this.addEventListener("pointerup", cancel);
+    this.addEventListener("pointercancel", cancel);
     this.addEventListener("keydown", (e) => {
       if (menu.contains(e.target as Node)) return this.onMenuKey(e);
       if (e.key === "ContextMenu" || (e.shiftKey && e.key === "F10")) {
@@ -289,23 +306,67 @@ export class KashiContextMenu extends HTMLBase {
 
 const ARROW = (next: boolean) => `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-k-mirror=""><path d="${next ? "m8 5 5 5-5 5" : "m12 5-5 5 5 5"}"/></svg>`;
 
-/** اسلایدر محتوا با اسکرول بومی: هر فرزند یک اسلاید؛ per-view تعداد اسلاید در هر نما، کلیدهای جهت و نقطه‌ها */
+const PLAY = (playing: boolean) => `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${playing ? '<path d="M7.5 5v10M12.5 5v10"/>' : '<path d="M7 4.8v10.4a.6.6 0 0 0 .9.5l8-5.2a.6.6 0 0 0 0-1L7.9 4.3a.6.6 0 0 0-.9.5Z"/>'}</svg>`;
+const EXPAND = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5h4.5V8M8 16.5H3.5V12M16.5 3.5 11.5 8.5M3.5 16.5l5-5"/></svg>';
+const CLOSE = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m5.5 5.5 9 9m0-9-9 9"/></svg>';
+const rtlOf = (el: Element) => getComputedStyle(el).direction === "rtl";
+
+/** کشیدن انگشت یا قلم روی el؛ در RTL کشیدن به راست یعنی «بعدی» */
+function onSwipe(el: HTMLElement, step: (n: number) => void) {
+  let start: { x: number; y: number } | null = null;
+  el.addEventListener("pointerdown", (e) => {
+    if (e.pointerType !== "mouse") start = { x: e.clientX, y: e.clientY };
+  });
+  el.addEventListener("pointercancel", () => (start = null));
+  el.addEventListener("pointerup", (e) => {
+    const s = start;
+    start = null;
+    if (!s) return;
+    const dx = e.clientX - s.x, dy = e.clientY - s.y;
+    if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+    step((dx < 0) !== rtlOf(el) ? 1 : -1);
+  });
+}
+
+/**
+ * اسلایدر محتوا: هر فرزند یک اسلاید؛ per-view تعداد اسلاید در هر نما، کلیدهای جهت و نقطه‌ها.
+ * effect="fade" محو شدن با opacity (برای عکس‌های بزرگ)، autoplay (یا autoplay="4000") پخش خودکار با نوار پیشرفت و دکمهٔ توقف،
+ * data-thumb="…" روی هر اسلاید نوار تصویرهای کوچک می‌سازد و lightbox نمای بزرگ تمام‌صفحه را اضافه می‌کند.
+ */
 export class KashiCarousel extends HTMLBase {
-  static observedAttributes = ["label", "per-view", "dots"];
+  static observedAttributes = ["label", "per-view", "dots", "effect", "autoplay", "lightbox"];
   private track: HTMLElement | null = null;
+  private section: HTMLElement | null = null;
   private index = 0;
   private io: IntersectionObserver | null = null;
   private key = uid("kashi-carousel");
+  private timer: ReturnType<typeof setTimeout> | undefined;
+  private left = 0;
+  private startedAt = 0;
+  private playing = false;
+  private holds = new Set<string>();
+  private box: HTMLDialogElement | null = null;
+  private boxIndex = 0;
 
   connectedCallback() {
     afterParse(() => this.isConnected && !this.track && this.build());
   }
   disconnectedCallback() {
     this.io?.disconnect();
+    clearTimeout(this.timer);
+    document.removeEventListener("visibilitychange", this.onVisibility);
   }
 
+  private get fade() {
+    return this.getAttribute("effect") === "fade";
+  }
   private get perView() {
-    return Math.max(1, Number(this.getAttribute("per-view")) || 1);
+    return this.fade ? 1 : Math.max(1, Number(this.getAttribute("per-view")) || 1);
+  }
+  private get interval() {
+    if (!this.hasAttribute("autoplay")) return 0;
+    const v = Number(this.getAttribute("autoplay"));
+    return v > 0 ? v : 5000;
   }
   private get slides() {
     return [...(this.track?.children ?? [])] as HTMLElement[];
@@ -318,15 +379,18 @@ export class KashiCarousel extends HTMLBase {
     const M = msg();
     const label = this.getAttribute("label") ?? M.carousel.slider;
     const children = [...this.children];
+    const lightbox = this.hasAttribute("lightbox");
     const section = document.createElement("section");
-    section.className = "k-carousel";
+    section.className = `k-carousel${this.fade ? " k-carousel--fade" : ""}`;
     section.setAttribute("aria-roledescription", M.carousel.slider);
     section.setAttribute("aria-label", label);
+    if (lightbox) section.setAttribute("data-lightbox", "");
     section.style.setProperty("--k-carousel-per-view", String(this.perView));
     const track = document.createElement("div");
     track.className = "k-carousel__track";
     track.tabIndex = 0;
     track.setAttribute("aria-live", "polite");
+    const thumbs: string[] = [];
     children.forEach((c, i) => {
       const s = document.createElement("div");
       s.className = "k-carousel__slide";
@@ -334,38 +398,99 @@ export class KashiCarousel extends HTMLBase {
       s.setAttribute("aria-roledescription", M.carousel.slide);
       s.setAttribute("aria-label", M.carousel.slideOf(num(this, i + 1), num(this, children.length)));
       s.id = `${this.key}-s${i}`;
+      const thumb = c.getAttribute("data-thumb") ?? (c.tagName === "IMG" ? c.getAttribute("src") : null);
+      if (thumb) thumbs[i] = thumb;
       s.append(c);
       track.append(s);
     });
     section.append(track);
     this.replaceChildren(section);
     this.track = track;
-    if (this.pages > 1) {
-      const dots = this.getAttribute("dots") !== "false";
-      section.insertAdjacentHTML("beforeend", `<div class="k-carousel__bar">${dots ? `<ul class="k-carousel__dots" aria-label="${esc(M.carousel.slides(label))}">${Array.from({ length: this.pages }, (_, i) => `<li><button type="button" class="k-carousel__dot" data-go="${i}" aria-label="${esc(M.carousel.slideOf(num(this, i + 1), num(this, this.pages)))}" aria-controls="${this.key}-s${i}"></button></li>`).join("")}</ul>` : "<span></span>"}<div class="k-carousel__nav"><button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--sm" data-step="-1" aria-label="${esc(M.common.prev)}">${ARROW(false)}</button><button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--sm" data-step="1" aria-label="${esc(M.common.next)}">${ARROW(true)}</button></div></div>`);
-      section.querySelector(".k-carousel__bar")!.addEventListener("click", (e) => {
-        const b = (e.target as Element).closest<HTMLElement>("button");
-        if (!b) return;
-        this.go(b.dataset.go !== undefined ? Number(b.dataset.go) : this.index + Number(b.dataset.step));
-      });
+    this.section = section;
+    const interval = this.interval;
+    if (interval && this.pages > 1) section.insertAdjacentHTML("beforeend", `<span class="k-carousel__progress" aria-hidden="true"><span class="k-carousel__progress-bar" style="--_d: ${interval}ms"></span></span>`);
+    if (children.some((c) => c.hasAttribute("data-thumb"))) {
+      section.insertAdjacentHTML("beforeend", `<div class="k-carousel__thumbs" role="group" aria-label="${esc(M.carousel.thumbnails(label))}">${children.map((_, i) => `<button type="button" class="k-carousel__thumb" data-go="${i}" aria-label="${esc(M.carousel.slideOf(num(this, i + 1), num(this, children.length)))}" aria-controls="${this.key}-s${i}">${thumbs[i] ? `<img src="${esc(thumbs[i])}" alt="" loading="lazy">` : ""}</button>`).join("")}</div>`);
     }
+    if (this.pages > 1 || lightbox) {
+      const dots = this.getAttribute("dots") !== "false" && this.pages > 1;
+      const nav = `${interval && this.pages > 1 ? `<button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm" data-act="play"></button>` : ""}${lightbox ? `<button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm" data-act="expand" aria-haspopup="dialog" aria-label="${esc(M.carousel.expand)}">${EXPAND}</button>` : ""}${this.pages > 1 ? `<button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--sm" data-step="-1" aria-label="${esc(M.common.prev)}">${ARROW(false)}</button><button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--sm" data-step="1" aria-label="${esc(M.common.next)}">${ARROW(true)}</button>` : ""}`;
+      section.insertAdjacentHTML("beforeend", `<div class="k-carousel__bar">${dots ? `<ul class="k-carousel__dots" aria-label="${esc(M.carousel.slides(label))}">${Array.from({ length: this.pages }, (_, i) => `<li><button type="button" class="k-carousel__dot" data-go="${i}" aria-label="${esc(M.carousel.slideOf(num(this, i + 1), num(this, this.pages)))}" aria-controls="${this.key}-s${i}"></button></li>`).join("")}</ul>` : "<span></span>"}<div class="k-carousel__nav">${nav}</div></div>`);
+    }
+    section.addEventListener("click", (e) => {
+      const b = (e.target as Element).closest<HTMLElement>("button");
+      if (b && !this.box?.contains(b)) {
+        if (b.dataset.act === "play") return this.setPlaying(!this.playing);
+        if (b.dataset.act === "expand") return this.openBox(this.index);
+        if (b.dataset.go !== undefined) return this.go(Number(b.dataset.go));
+        if (b.dataset.step) return this.go(this.index + Number(b.dataset.step));
+        return;
+      }
+      const slide = (e.target as Element).closest<HTMLElement>(".k-carousel__slide");
+      if (lightbox && slide && track.contains(slide) && !(e.target as Element).closest("a, input, select, textarea, [tabindex]:not(.k-carousel__track)")) this.openBox(this.slides.indexOf(slide));
+    });
     track.addEventListener("keydown", (e) => {
-      const rtl = getComputedStyle(track).direction === "rtl";
+      const rtl = rtlOf(track);
       const step = ({ ArrowLeft: rtl ? 1 : -1, ArrowRight: rtl ? -1 : 1 } as Record<string, number>)[e.key];
       if (step) {
         e.preventDefault();
         this.go(this.index + step);
       } else if (e.key === "Home") this.go(0);
       else if (e.key === "End") this.go(this.pages - 1);
+      else if (lightbox && e.key === "Enter" && e.target === track) this.openBox(this.index);
     });
-    if (typeof IntersectionObserver !== "undefined") {
+    if (this.fade) onSwipe(track, (n) => this.go(this.index + n));
+    else if (typeof IntersectionObserver !== "undefined") {
       this.io = new IntersectionObserver((entries) => {
         const vis = entries.filter((x) => x.isIntersecting && x.intersectionRatio > 0.6).map((x) => this.slides.indexOf(x.target as HTMLElement));
         if (vis.length) this.setIndex(Math.min(...vis));
       }, { root: track, threshold: [0.6, 1] });
       this.slides.forEach((s) => this.io!.observe(s));
     }
+    // مکث پخش خودکار با hover، فوکوس و پنهان شدن زبانه
+    section.addEventListener("mouseenter", () => this.hold("hover", true));
+    section.addEventListener("mouseleave", () => this.hold("hover", false));
+    section.addEventListener("focusin", () => this.hold("focus", true));
+    section.addEventListener("focusout", (e) => !section.contains(e.relatedTarget as Node) && this.hold("focus", false));
+    document.addEventListener("visibilitychange", this.onVisibility);
+    this.index = -1;
     this.setIndex(0);
+    this.left = interval;
+    this.setPlaying(interval > 0 && !matchMedia?.("(prefers-reduced-motion: reduce)").matches);
+  }
+
+  private onVisibility = () => this.hold("hidden", document.hidden);
+  private hold(why: string, on: boolean) {
+    if (on) this.holds.add(why);
+    else this.holds.delete(why);
+    this.schedule();
+  }
+  private setPlaying(on: boolean) {
+    this.playing = on;
+    const b = this.querySelector<HTMLButtonElement>('[data-act="play"]');
+    if (b) {
+      b.innerHTML = PLAY(on);
+      b.setAttribute("aria-label", on ? msg().carousel.pause : msg().carousel.play);
+      b.setAttribute("aria-pressed", String(!on));
+    }
+    this.schedule();
+  }
+  /** تایمر پخش خودکار؛ با مکث، زمان باقی‌مانده حفظ می‌شود */
+  private schedule() {
+    const run = this.interval > 0 && this.pages > 1 && this.playing && this.holds.size === 0;
+    if (this.timer !== undefined) {
+      clearTimeout(this.timer);
+      this.timer = undefined;
+      this.left = Math.max(0, this.left - (Date.now() - this.startedAt));
+    }
+    this.track?.setAttribute("aria-live", run ? "off" : "polite");
+    this.querySelector(".k-carousel__progress-bar")?.toggleAttribute("data-paused", !run);
+    if (!run) return;
+    this.startedAt = Date.now();
+    this.timer = setTimeout(() => {
+      this.timer = undefined;
+      this.go((this.index + 1) % this.pages);
+    }, this.left);
   }
 
   /** رفتن به اسلاید n (از صفر) */
@@ -374,19 +499,89 @@ export class KashiCarousel extends HTMLBase {
     const el = this.slides[i];
     const t = this.track;
     if (!el || !t) return;
-    const rtl = getComputedStyle(t).direction === "rtl";
-    const offset = rtl ? -(t.getBoundingClientRect().right - el.getBoundingClientRect().right) + t.scrollLeft : el.getBoundingClientRect().left - t.getBoundingClientRect().left + t.scrollLeft;
-    t.scrollTo?.({ left: offset });
+    if (!this.fade) {
+      const offset = rtlOf(t) ? -(t.getBoundingClientRect().right - el.getBoundingClientRect().right) + t.scrollLeft : el.getBoundingClientRect().left - t.getBoundingClientRect().left + t.scrollLeft;
+      t.scrollTo?.({ left: offset });
+    }
     this.setIndex(i);
   }
   private setIndex(i: number) {
     const changed = i !== this.index;
     this.index = i;
     this.querySelectorAll(".k-carousel__dot").forEach((d, k) => d.setAttribute("aria-current", String(k === i)));
-    const [prev, next] = this.querySelectorAll<HTMLButtonElement>("[data-step]");
+    const thumbs = this.querySelectorAll<HTMLElement>(".k-carousel__thumb");
+    thumbs.forEach((d, k) => d.setAttribute("aria-current", String(k === i)));
+    const strip = this.querySelector<HTMLElement>(".k-carousel__thumbs");
+    const active = thumbs[i];
+    if (strip && active) {
+      const s = strip.getBoundingClientRect(), r = active.getBoundingClientRect();
+      if (r.left < s.left || r.right > s.right) strip.scrollTo?.({ left: strip.scrollLeft + (r.left + r.width / 2) - (s.left + s.width / 2) });
+    }
+    if (this.fade) this.slides.forEach((s, k) => {
+      s.toggleAttribute("data-active", k === i);
+      s.toggleAttribute("inert", k !== i);
+      if (k === i) s.removeAttribute("aria-hidden");
+      else s.setAttribute("aria-hidden", "true");
+    });
+    const [prev, next] = this.querySelectorAll<HTMLButtonElement>(".k-carousel__bar [data-step]");
     if (prev) prev.disabled = i === 0;
     if (next) next.disabled = i >= this.pages - 1;
-    if (changed) emit(this, "kashi-change", { index: i });
+    if (!changed) return;
+    // اسلاید تازه: نوار پیشرفت و تایمر از اول
+    const bar = this.querySelector<HTMLElement>(".k-carousel__progress-bar");
+    if (bar) bar.replaceWith(bar.cloneNode(true));
+    if (this.timer !== undefined) clearTimeout(this.timer);
+    this.timer = undefined;
+    this.left = this.interval;
+    if (this.section) this.schedule();
+    emit(this, "kashi-change", { index: i });
+  }
+
+  /** نمای بزرگ تمام‌صفحه روی <dialog>؛ اسلایدها کپی می‌شوند */
+  private openBox(i: number) {
+    const M = msg();
+    if (!this.box) {
+      const d = document.createElement("dialog");
+      d.className = "k-carousel__lightbox";
+      d.setAttribute("aria-label", M.carousel.lightbox(this.getAttribute("label") ?? M.carousel.slider));
+      d.innerHTML = `<div class="k-carousel__lightbox-head"><span class="k-carousel__lightbox-count" aria-live="polite"></span><button type="button" class="k-btn k-btn--tertiary k-btn--icon" data-box="close" aria-label="${esc(M.common.close)}">${CLOSE}</button></div><div class="k-carousel__lightbox-stage">${this.slides.map((s) => `<div class="k-carousel__lightbox-slide">${s.innerHTML}</div>`).join("")}</div>${this.slides.length > 1 ? `<div class="k-carousel__lightbox-nav"><button type="button" class="k-btn k-btn--secondary k-btn--icon" data-box="-1" aria-label="${esc(M.common.prev)}">${ARROW(false)}</button><button type="button" class="k-btn k-btn--secondary k-btn--icon" data-box="1" aria-label="${esc(M.common.next)}">${ARROW(true)}</button></div>` : ""}`;
+      d.querySelectorAll("[id]").forEach((x) => x.removeAttribute("id"));
+      d.addEventListener("click", (e) => {
+        const b = (e.target as Element).closest<HTMLElement>("[data-box]");
+        if (b?.dataset.box === "close" || e.target === d) d.close();
+        else if (b) this.boxGo(this.boxIndex + Number(b.dataset.box));
+      });
+      d.addEventListener("keydown", (e) => {
+        const rtl = rtlOf(d);
+        const step = ({ ArrowLeft: rtl ? 1 : -1, ArrowRight: rtl ? -1 : 1 } as Record<string, number>)[e.key];
+        if (step) {
+          e.preventDefault();
+          this.boxGo(this.boxIndex + step);
+        }
+      });
+      d.addEventListener("close", () => {
+        this.hold("box", false);
+        this.go(Math.min(this.boxIndex, this.pages - 1));
+      });
+      onSwipe(d.querySelector<HTMLElement>(".k-carousel__lightbox-stage")!, (n) => this.boxGo(this.boxIndex + n));
+      this.section!.append(d);
+      this.box = d;
+    }
+    this.hold("box", true);
+    this.boxGo(i);
+    (this.box as HTMLDialogElement & { showModal?: () => void }).showModal?.();
+    this.box.querySelector<HTMLElement>('[data-box="close"]')?.focus();
+  }
+  private boxGo(i: number) {
+    const total = this.slides.length;
+    this.boxIndex = (i + total) % total;
+    this.box!.querySelectorAll<HTMLElement>(".k-carousel__lightbox-slide").forEach((s, k) => {
+      s.toggleAttribute("data-active", k === this.boxIndex);
+      s.toggleAttribute("inert", k !== this.boxIndex);
+      if (k === this.boxIndex) s.removeAttribute("aria-hidden");
+      else s.setAttribute("aria-hidden", "true");
+    });
+    this.box!.querySelector(".k-carousel__lightbox-count")!.textContent = msg().carousel.slideOf(num(this, this.boxIndex + 1), num(this, total));
   }
 }
 

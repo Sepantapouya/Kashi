@@ -194,9 +194,9 @@ function buildForms() {
     });
   }));
 
-  safe("InputVariants", () => section(root, "Input types · انواع فیلد", "رمز عبور با دکمهٔ نمایش، جستجو با پاک کردن، فیلد با پیشوند و شمارندهٔ نویسه.", (h) => {
+  safe("InputVariants", () => section(root, "Input types · انواع فیلد", "رمز عبور با دکمهٔ نمایش، جستجو با پاک کردن، فیلد با پیشوند، شمارندهٔ نویسه و فیلد کد (variant=\"code\": تک‌فاصله و چپ‌به‌راست، placeholder فارسی).", (h) => {
     componentSet(h, "Input type", {
-      axes: { Type: ["Password", "Search", "URL", "Loading", "Counter"] },
+      axes: { Type: ["Password", "Search", "URL", "Loading", "Counter", "Code"] },
       build: (p) => {
         if (p.Type === "Password") return field({ label: "رمز عبور", labelEnd: T("فراموشی رمز؟", { style: "Text sm/Semibold", color: "text-brand" }), control: inputBox({ text: "••••••••••", end: [I("eye", 20, "text-tertiary")] }) });
         if (p.Type === "Search") return field({ label: "جستجو", control: inputBox({ iconStart: "search", text: "کاشی", end: [I("close", 18, "text-quaternary"), F({ dir: "H", px: 6, h: 22, cross: "center", radius: "radius/sm", stroke: "border-primary" }, [T("⌘K", { style: "Text xs/Medium", color: "text-tertiary", ltr: true })])] }) });
@@ -205,6 +205,13 @@ function buildForms() {
           F({ name: "Value wrap", dir: "H", px: "input/padding", h: "fill", grow: true, cross: "center" }, [T("kashi.ir", { style: "Text md/Regular", color: "text-primary", ltr: true, name: "Value", w: "fill" })]),
           F({ name: "Prefix", dir: "H", px: "space/3", h: "fill", cross: "center", fill: "bg-secondary", stroke: "border-input", sides: [0, 1, 0, 0] }, [T("https://", { style: "Text md/Regular", color: "text-tertiary", ltr: true })]),
         ]) });
+        // k-input--code: متن چپ‌به‌راست با فاصلهٔ حروف بیشتر (در کد، فونت تک‌فاصلهٔ سیستم)
+        if (p.Type === "Code") {
+          const f = field({ label: "کد تخفیف", hint: "کد را از پیامک یا ایمیل کپی کنید.", control: inputBox({ text: "KASHI-25OFF", ltr: true }) });
+          const v = f.findOne((n) => n.type === "TEXT" && n.name === "Value");
+          if (v) v.letterSpacing = { unit: "PERCENT", value: 8 };
+          return f;
+        }
         if (p.Type === "Loading") return field({ label: "نام کاربری", hint: "در حال بررسی…", control: inputBox({ text: "sepanta", ltr: true, end: [R({ ellipse: true, w: 16, h: 16, stroke: "bg-brand", sw: 2, arc: { startingAngle: 0, endingAngle: 4.5, innerRadius: 0.8 }, name: "Spinner" })] }) });
         return field({ label: "درباره", optional: true, control: inputBox({ text: "طراح محصول", end: [T("۱۰ / ۵۰", { style: "Text xs/Regular", color: "text-quaternary" })] }) });
       },
@@ -322,13 +329,14 @@ function buildForms() {
 
   safe("ChoiceCard", () => section(root, "Choice card · کارت انتخاب", "رادیو یا چک‌باکس به شکل کارت؛ برای انتخاب پلن یا روش ارسال.", (h) => {
     componentSet(h, "Choice card", {
-      axes: { Type: ["Radio", "Checkbox"], Selected: ["Off", "On"] },
+      axes: { Type: ["Radio", "Checkbox"], Selected: ["Off", "On"], Badge: ["Off", "On"] },
       build: (p) => {
         const on = p.Selected === "On";
+        // Radio badge و meta: نشان «پیشنهادی» کنار عنوان
         return F({ name: "Card", dir: "H", gap: "space/3", p: "space/4", w: 340, cross: "start", radius: "radius/xl", fill: on ? "bg-brand-subtle" : "bg-elevated", stroke: on ? "border-brand" : "border-secondary", sw: on ? 2 : 1 }, [
           F({ name: "Icon", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/md", fill: "bg-secondary", stroke: "border-secondary" }, [I("sparkle", 20, on ? "text-brand" : "text-tertiary")]),
           F({ name: "Text", dir: "V", gap: 2, grow: true }, [
-            F({ dir: "H", gap: "space/2" }, [T("پلن حرفه‌ای", { style: "Text sm/Semibold", color: "text-primary", name: "Title" }), T("۴۹۰ هزار تومان/ماه", { style: "Text sm/Regular", color: "text-tertiary", name: "Price" })]),
+            F({ dir: "H", gap: "space/2", cross: "center" }, [T("پلن حرفه‌ای", { style: "Text sm/Semibold", color: "text-primary", name: "Title" }), p.Badge === "On" && badge({ tone: "Brand", size: "sm", label: "پیشنهادی", dot: false }), T("۴۹۰ هزار تومان/ماه", { style: "Text sm/Regular", color: "text-tertiary", name: "Price" })]),
             T("تا ۲۰ کاربر، پشتیبانی اولویت‌دار و گزارش‌های پیشرفته.", { style: "Text sm/Regular", color: "text-tertiary", name: "Description", w: 220 }),
           ]),
           checkMark(p.Type === "Radio" ? "radio" : "checkbox", { checked: p.Selected, size: 18 }),
@@ -410,7 +418,7 @@ function buildForms() {
 
   safe("FileUpload", () => section(root, "File upload · آپلود فایل", "کشیدن و رها کردن، با فهرست فایل‌ها و پیشرفت آپلود.", (h) => {
     componentSet(h, "File upload", {
-      axes: { State: ["Default", "Drag over", "Uploading"] },
+      axes: { State: ["Default", "Drag over", "Uploading", "Image"] },
       build: (p) => {
         const drag = p.State === "Drag over";
         // k-dropzone: فاصلهٔ ۳۲/۲۴، حاشیهٔ خط‌چین border-input؛ هنگام کشیدن خط پیوسته و پس‌زمینهٔ برند
@@ -433,8 +441,18 @@ function buildForms() {
           ]),
           button({ variant: "Tertiary", size: "sm", iconOnly: "trash" }),
         ]);
+        // پیش‌نمایش تصویر (k-file__thumb) به جای پسوند؛ عکس بزرگ پیش از ارسال کوچک شده است
+        const imageRow = () => F({ name: "File", dir: "H", gap: "space/3", p: "space/4", w: "fill", cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Surface" }, [
+          R({ w: 40, h: 40, radius: "radius/md", fill: "firoozeh/600", stroke: "border-secondary", name: "Thumb" }),
+          F({ dir: "V", gap: "space/1", grow: true }, [
+            T("product-photo.jpg", { style: "Text sm/Medium", color: "text-primary", ltr: true, align: "end", w: "fill" }),
+            T("۴۲۰ کیلوبایت · بارگذاری شد · کوچک شد به ۱۶۰۰×۱۲۰۰", { style: "Text xs/Regular", color: "text-tertiary" }),
+          ]),
+          button({ variant: "Tertiary", size: "sm", iconOnly: "trash" }),
+        ]);
         return F({ name: "File upload", dir: "V", gap: "space/4", w: 420 }, [
           zone,
+          p.State === "Image" && imageRow(),
           p.State === "Uploading" && fileRow("brand-guide.pdf", "PDF", "۲٫۴ مگابایت · ۶۰٪", 0.6),
           p.State === "Uploading" && fileRow("logo.png", "PNG", "۸۴۰ کیلوبایت · بارگذاری شد", 1),
         ]);

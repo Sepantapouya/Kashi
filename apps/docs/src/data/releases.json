@@ -1,61 +1,79 @@
 {
- "generated": "2026-11-09T12:36:06+03:30",
+ "generated": "2026-11-09T12:39:53+03:30",
  "totals": {
-  "commits": 227,
-  "versions": 34,
-  "added": 97986,
+  "commits": 228,
+  "versions": 35,
+  "added": 98163,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [
-  {
-   "sha": "f4906b4ded0999c0940b528d28e4f0a321e880b7",
-   "short": "f4906b4",
-   "date": "2026-11-09T12:36:06+03:30",
-   "author": "sepantapouya",
-   "subject": "feat(icons): add 200 education, health, and travel icons",
-   "details": [],
-   "files": 9,
-   "added": 233,
-   "removed": 8
-  },
-  {
-   "sha": "2f913796f4135e3089dd01ad895cf41a9ac4d2dc",
-   "short": "2f91379",
-   "date": "2026-11-09T12:36:06+03:30",
-   "author": "sepantapouya",
-   "subject": "feat(icons): add 200 independent interface icons",
-   "details": [],
-   "files": 9,
-   "added": 233,
-   "removed": 8
-  },
-  {
-   "sha": "4f647f989a51b6423080890163304b2cf3878a00",
-   "short": "4f647f9",
-   "date": "2026-11-09T12:30:17+03:30",
-   "author": "sepantapouya",
-   "subject": "feat(docs): connect Google Analytics 4 on the live site",
-   "details": [],
-   "files": 1,
-   "added": 14,
-   "removed": 7
-  },
-  {
-   "sha": "dda4b5a4ab0fb74ed8248b48e278b346d359c291",
-   "short": "dda4b5a",
-   "date": "2026-11-09T12:25:27+03:30",
-   "author": "sepantapouya",
-   "subject": "feat(docs): add Google Tag Manager on the live site only",
-   "details": [
-    "Loads GTM-TWGR2P8Z through the official gtm.start snippet, skipped on",
-    "localhost and test hosts so development and visual tests stay out of the stats."
-   ],
-   "files": 2,
-   "added": 17,
-   "removed": 0
-  }
- ],
+ "unreleased": [],
  "versions": [
+  {
+   "version": "1.5.0",
+   "date": "2026-11-09T12:39:53+03:30",
+   "releaseCommit": "1309e90",
+   "commits": [
+    {
+     "sha": "1309e90a833058e3b9949068738a723422532593",
+     "short": "1309e90",
+     "date": "2026-11-09T12:39:53+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.5.0",
+     "details": [],
+     "files": 25,
+     "added": 177,
+     "removed": 64
+    },
+    {
+     "sha": "f4906b4ded0999c0940b528d28e4f0a321e880b7",
+     "short": "f4906b4",
+     "date": "2026-11-09T12:36:06+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 200 education, health, and travel icons",
+     "details": [],
+     "files": 9,
+     "added": 233,
+     "removed": 8
+    },
+    {
+     "sha": "2f913796f4135e3089dd01ad895cf41a9ac4d2dc",
+     "short": "2f91379",
+     "date": "2026-11-09T12:36:06+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 200 independent interface icons",
+     "details": [],
+     "files": 9,
+     "added": 233,
+     "removed": 8
+    },
+    {
+     "sha": "4f647f989a51b6423080890163304b2cf3878a00",
+     "short": "4f647f9",
+     "date": "2026-11-09T12:30:17+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): connect Google Analytics 4 on the live site",
+     "details": [],
+     "files": 1,
+     "added": 14,
+     "removed": 7
+    },
+    {
+     "sha": "dda4b5a4ab0fb74ed8248b48e278b346d359c291",
+     "short": "dda4b5a",
+     "date": "2026-11-09T12:25:27+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): add Google Tag Manager on the live site only",
+     "details": [
+      "Loads GTM-TWGR2P8Z through the official gtm.start snippet, skipped on",
+      "localhost and test hosts so development and visual tests stay out of the stats."
+     ],
+     "files": 2,
+     "added": 17,
+     "removed": 0
+    }
+   ],
+   "notes": []
+  },
   {
    "version": "1.4.0",
    "date": "2026-11-09T00:05:40+03:30",

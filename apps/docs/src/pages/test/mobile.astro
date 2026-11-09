@@ -2,7 +2,7 @@
 // صفحهٔ تست موبایل (tests/visual): در ۳۷۵ پیکسل و dir="rtl" نباید اسکرول افقی داشته باشد؛ لینک پرش و زبانه‌های پهن. در فهرست سایت نیست.
 import "../../styles/layers.css";
 import "@kashi-ui/css";
-import { WideTabs } from "../../components/VisualStates";
+import { MobileExtras, WideTabs } from "../../components/VisualStates";
 ---
 <!doctype html>
 <html lang="fa" dir="rtl" data-theme="dark">
@@ -25,6 +25,7 @@ import { WideTabs } from "../../components/VisualStates";
     <WideTabs client:load />
     <WideTabs variant="pill" client:load />
     <WideTabs variant="segmented" client:load />
+    <MobileExtras client:load />
   </main>
 </body>
 </html>

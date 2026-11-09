@@ -5,7 +5,7 @@ description: توضیح کوتاه یک کنترل هنگام hover یا فوک�
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { TooltipDemo, TooltipSidesDemo } from "../../../components/demos";
+import { TooltipClipDemo, TooltipDemo, TooltipSidesDemo } from "../../../components/demos";
 
 ```tsx
 import { Tooltip } from "@kashi-ui/react";
@@ -33,12 +33,27 @@ import { Tooltip } from "@kashi-ui/react";
 
 `placement` حالا `"start"` و `"end"` هم می‌پذیرد. متغیرهای CSS: `--k-tooltip-bg`، `--k-tooltip-fg`، `--k-tooltip-max-width`، `--k-tooltip-radius`.
 
+## داخل کارت و ظرف‌های بریده
+
+راهنما در لایهٔ بالایی مرورگر (Popover API) و با `position: fixed` نمایش داده می‌شود، پس `overflow: hidden` کارت، جدول یا پنجره آن را نمی‌برد. اگر سمت خواسته‌شده جا نداشته باشد (مثلاً بالای صفحه)، به سمت مقابل می‌رود و هرگز از لبهٔ صفحه بیرون نمی‌زند؛ پیکان همیشه رو به عنصر است.
+
+<Demo html={false} code={`<Card style={{ overflow: "hidden" }}>
+  <CardBody>
+    فروشگاه نارون
+    <Tooltip content="هویت فروشنده با مدارک رسمی بررسی شده است">
+      <Button size="sm" variant="tertiary" iconOnly aria-label="فروشندهٔ تأییدشده"><CheckIcon /></Button>
+    </Tooltip>
+  </CardBody>
+</Card>`}>
+  <TooltipClipDemo client:load />
+</Demo>
+
 ## ویژگی‌ها
 
 <Props rows={[
   ["content", "ReactNode", "", "متن راهنما"],
   ["children", "ReactElement", "", "یک عنصر فوکوس‌پذیر، معمولاً دکمه"],
-  ["placement", '"top" | "bottom"', '"top"', "جایگاه"],
+  ["placement", '"top" | "bottom" | "start" | "end"', '"top"', "جایگاه خواسته‌شده؛ اگر جا نباشد سمت مقابل"],
   ["delay", "number", "300", "تأخیر نمایش با hover (میلی‌ثانیه)؛ با فوکوس فوری است"],
 ]} />
 

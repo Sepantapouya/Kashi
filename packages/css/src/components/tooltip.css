@@ -58,3 +58,13 @@
 @media (forced-colors: active) {
   .k-tooltip { border: 1px solid CanvasText; }
 }
+
+/* جای‌گذاری با JavaScript در لایهٔ بالایی (Popover API): overflow: hidden والدها راهنما را نمی‌برد.
+ * data-side سمت واقعی پس از برگشتن (flip) است؛ --_x/--_y جای راهنما و --_ax/--_ay جای پیکان. */
+.k-tooltip[popover] { margin: 0; padding: var(--k-space-1_5) var(--k-space-3); border: 0; overflow: visible; }
+.k-tooltip[data-placed] { position: fixed; inset: auto; left: var(--_x); top: var(--_y); translate: none; z-index: var(--k-z-toast); animation-name: k-tip-side; }
+.k-tooltip[data-placed]::after { inset: auto; translate: none; border-color: transparent; }
+.k-tooltip[data-side="top"]::after { top: 100%; left: var(--_ax); translate: -50% 0; border-top-color: var(--k-tooltip-bg, var(--k-text-primary)); }
+.k-tooltip[data-side="bottom"]::after { bottom: 100%; left: var(--_ax); translate: -50% 0; border-bottom-color: var(--k-tooltip-bg, var(--k-text-primary)); }
+.k-tooltip[data-side="left"]::after { left: 100%; top: var(--_ay); translate: 0 -50%; border-left-color: var(--k-tooltip-bg, var(--k-text-primary)); }
+.k-tooltip[data-side="right"]::after { right: 100%; top: var(--_ay); translate: 0 -50%; border-right-color: var(--k-tooltip-bg, var(--k-text-primary)); }

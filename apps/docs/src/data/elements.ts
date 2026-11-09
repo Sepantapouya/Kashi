@@ -260,6 +260,7 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
       ["placement", "top | bottom | start | end", "top", "جای راهنما"],
       ["delay", "میلی‌ثانیه", "300", "تأخیر نمایش با hover"],
     ],
+    note: "راهنما در لایهٔ بالایی مرورگر نمایش داده می‌شود؛ `overflow: hidden` والدها آن را نمی‌برد و اگر جا نباشد به سمت مقابل می‌رود.",
   },
   "/docs/components/toast/": {
     tags: ["kashi-toaster"],
@@ -546,6 +547,9 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
       ["multiple", "false", "", "فقط یک فایل"],
       ["max-size / max-files", "بایت / عدد", "", "بیشترین حجم و تعداد"],
       ["name / hint / label / disabled", "", "", "نام فرم، راهنما و متن دکمه"],
+      ["required", "بولی", "", "با name: فرم بدون فایل ارسال نمی‌شود"],
+      ["preview", "false", "", "بدون پیش‌نمایش تصویر"],
+      ["max-dimension / quality", "پیکسل / ۰ تا ۱", "", "کوچک کردن عکس‌های بزرگ در مرورگر پیش از ارسال"],
     ],
     api: [
       ["element.uploader", "(file, onProgress) => Promise؛ درصد پیشرفت را با onProgress بدهید"],
@@ -643,7 +647,14 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
   <div class="k-card" style="padding: 2rem">محصول ۳</div>
   <div class="k-card" style="padding: 2rem">محصول ۴</div>
 </kashi-carousel>`,
-    attrs: [["label", "متن", "", "نام اسلایدر"], ["per-view", "عدد", "1", "تعداد اسلاید در هر نما"], ["dots", "false", "", "بدون نقطه‌ها"]],
+    note: "برای گالری عکس: `effect=\"fade\"` محو شدن با opacity، `data-thumb=\"…\"` روی هر اسلاید نوار تصویرهای کوچک، `lightbox` نمای بزرگ و `autoplay` پخش خودکار با دکمهٔ توقف.",
+    attrs: [
+      ["label", "متن", "", "نام اسلایدر"], ["per-view", "عدد", "1", "تعداد اسلاید در هر نما"], ["dots", "false", "", "بدون نقطه‌ها"],
+      ["effect", "slide | fade", "slide", "ریل اسکرولی یا محو شدن اسلایدها روی هم (برای عکس‌های بزرگ)"],
+      ["autoplay", "بولی یا میلی‌ثانیه", "", "پخش خودکار؛ بدون عدد هر ۵ ثانیه. با hover، فوکوس و پنهان شدن زبانه مکث می‌کند"],
+      ["lightbox", "بولی", "", "نمای بزرگ تمام‌صفحه با کلیک روی اسلاید"],
+      ["data-thumb (روی اسلاید)", "نشانی تصویر", "", "تصویر کوچک آن اسلاید"],
+    ],
     api: [["element.go(n)", "رفتن به اسلاید n (از صفر)"], ["kashi-change", "detail: { index }"]],
   },
   "/docs/components/tree-view/": {
@@ -729,6 +740,7 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
       ["revealable", "false", "", "رمز بدون دکمهٔ نمایش"],
       ["show-count / maxlength", "بولی / عدد", "", "شمارندهٔ نویسه، مثل «۱۲ / ۲۰۰»"],
       ["loading", "بولی", "", "اسپینر در انتهای فیلد، مثلاً هنگام بررسی نام کاربری"],
+      ["variant", "code", "", "کد، کلید و شناسه: تک‌فاصله و چپ‌به‌راست، placeholder فارسی"],
       ["optional", "متن", "اختیاری", "نشان «اختیاری» کنار برچسب"],
       ["size / required / disabled / readonly", "sm | lg / بولی", "", "اندازه و حالت‌ها"],
     ],

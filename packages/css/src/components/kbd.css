@@ -18,4 +18,4 @@
   unicode-bidi: isolate;
   vertical-align: middle;
 }
-.k-kbd-combo { display: inline-flex; align-items: center; gap: 0.25rem; direction: ltr; color: var(--k-text-quaternary); font-size: var(--k-text-xs); }
+.k-kbd-combo { display: inline-flex; align-items: center; gap: 0.25rem; direction: ltr; unicode-bidi: isolate; color: var(--k-text-quaternary); font-size: var(--k-text-xs); }

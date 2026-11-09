@@ -5,7 +5,7 @@ description: انتخاب یکی از چند گزینهٔ کوتاه کنار ه
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { SegmentedDemo } from "../../../components/demos";
+import { SegmentedDemo, SegmentedScrollDemo } from "../../../components/demos";
 
 ```tsx
 import { SegmentedControl } from "@kashi-ui/react";
@@ -36,6 +36,17 @@ import { SegmentedControl } from "@kashi-ui/react";
   ["block", "boolean", "false", "تمام‌عرض با بخش‌های هم‌اندازه"],
   ["name", "string", "خودکار", "نام رادیوها برای ارسال فرم"],
 ]} />
+
+## گزینه‌های زیاد در صفحهٔ باریک
+
+با چهار گزینه یا بیشتر در موبایل، خود کنترل افقی اسکرول می‌خورد (بدون نوار اسکرول پیدا) و صفحه پهن نمی‌شود. با کلیدهای جهت، گزینهٔ انتخاب‌شده خودکار در دید می‌آید. اگر گزینه‌ها بیشتر از پنج تاست، [زبانه‌ها](/docs/components/tabs/) یا [منوی انتخاب](/docs/components/select/) بهترند.
+
+<Demo html={false} code={`<SegmentedControl aria-label="بازهٔ گزارش" value={v} onChange={setV} options={[
+  { value: "day", label: "امروز" }, { value: "week", label: "این هفته" }, { value: "month", label: "این ماه" },
+  { value: "season", label: "این فصل" }, { value: "year", label: "امسال" },
+]} />`}>
+  <SegmentedScrollDemo client:load />
+</Demo>
 
 ## دسترس‌پذیری
 

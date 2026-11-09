@@ -46,7 +46,9 @@ export const faMessages = {
   bankCard: { card: "کارت بانکی", cardOf: (bank: string) => `کارت ${bank}`, bank: "بانکی", endingIn: (last4: string) => `مختوم به ${last4}`, expiry: "انقضا" },
   breadcrumb: { label: "مسیر", expand: "نمایش مسیر کامل" },
   calendar: { label: "تقویم", prevMonth: "ماه قبل", nextMonth: "ماه بعد", month: "ماه", year: "سال", holiday: "تعطیل" },
-  carousel: { slider: "اسلایدر", slide: "اسلاید", slideOf: (n: string, total: string) => `${n} از ${total}`, slides: (label: string) => `اسلایدهای ${label}` },
+  carousel: { slider: "اسلایدر", slide: "اسلاید", slideOf: (n: string, total: string) => `${n} از ${total}`, slides: (label: string) => `اسلایدهای ${label}`,
+    play: "پخش خودکار اسلایدها", pause: "توقف پخش خودکار", expand: "نمایش بزرگ", lightbox: (label: string) => `${label}، نمای بزرگ`,
+    thumbnails: (label: string) => `تصویرهای کوچک ${label}` },
   chart: {
     period: "دوره", value: "مقدار", share: "سهم از کل", count: "تعداد",
     keyboard: (title: string) => `${title}. با کلیدهای جهت بین نقطه‌ها حرکت کنید.`,
@@ -64,7 +66,7 @@ export const faMessages = {
   combobox: { toggle: "نمایش گزینه‌ها", more: (n: string) => `${n} گزینهٔ دیگر؛ برای پیدا کردن تایپ کنید.` },
   otp: { label: "کد تأیید" },
   command: { placeholder: "جستجوی دستور یا صفحه…", empty: "دستوری پیدا نشد.", title: "پالت فرمان", navigate: "حرکت", select: "انتخاب" },
-  contextMenu: { label: "گزینه‌ها", hint: "برای گزینه‌ها راست‌کلیک کنید یا Shift+F10 را بزنید." },
+  contextMenu: { label: "گزینه‌ها", hint: "برای دیدن گزینه‌ها، دکمهٔ راست ماوس را بزنید، انگشت را روی آن نگه دارید یا ‎Shift+F10‎ را بزنید." },
   copy: { copy: "کپی", copied: "کپی شد", failed: "کپی نشد" },
   countdown: { days: "روز", hours: "ساعت", minutes: "دقیقه", seconds: "ثانیه", left: "مانده" },
   table: { selectAll: "انتخاب همهٔ ردیف‌ها", selectRow: "انتخاب ردیف", selectNamed: (row: string) => `انتخاب ${row}`, empty: "داده‌ای وجود ندارد.", sort: (col: string) => `مرتب‌سازی بر اساس ${col}`, search: "جستجو در جدول", rows: (n: string) => `${n} ردیف` },
@@ -78,6 +80,8 @@ export const faMessages = {
     units: ["بایت", "کیلوبایت", "مگابایت", "گیگابایت"], browse: "انتخاب فایل", drop: "یا فایل را اینجا رها کنید",
     tooBig: (max: string) => `حجم فایل بیشتر از ${max} است.`, wrongType: "این نوع فایل پذیرفته نیست.", tooMany: (n: string) => `حداکثر ${n} فایل.`,
     done: "بارگذاری شد", uploading: "در حال بارگذاری", uploadingFile: (name: string) => `در حال بارگذاری ${name}`, error: "خطا در بارگذاری",
+    preview: (name: string) => `پیش‌نمایش ${name}`,
+    resized: (w: string, h: string) => `برای بارگذاری سریع‌تر به ${w}×${h} پیکسل کوچک شد.`,
   },
   input: { clear: "پاک کردن", show: "نمایش رمز", hide: "پنهان کردن رمز", checking: "در حال بررسی" },
   invalid: {
@@ -96,7 +100,7 @@ export const faMessages = {
   pagination: { nav: "صفحه‌بندی", page: (n: string) => `صفحهٔ ${n}`, perPage: "در هر صفحه", jump: "برو به صفحه", jumpRange: (jump: string, a: string, b: string) => `${jump}، از ${a} تا ${b}` },
   password: {
     title: "قدرت رمز", strength: (level: string) => `قدرت رمز: ${level}`, levels: ["ضعیف", "متوسط", "خوب", "قوی"], persian: "رمز حروف فارسی دارد؛ شاید صفحه‌کلید روی فارسی مانده است.",
-    length: (n: string) => `حداقل ${n} نویسه`, cases: "حروف بزرگ و کوچک انگلیسی", digit: "دست‌کم یک عدد", symbol: "دست‌کم یک نماد، مثل ! یا @",
+    length: (n: string) => `حداقل ${n} نویسه`, cases: "حروف بزرگ و کوچک انگلیسی", digit: "دست‌کم یک عدد", symbol: "دست‌کم یک نماد، مثل ! یا @", // fa-lint-ignore: «!» نمونهٔ نماد است، نه نشانهٔ تعجب
     met: "، رعایت شده", unmet: "، رعایت نشده",
   },
   receipt: {
@@ -179,7 +183,9 @@ export const enMessages: KashiMessages = {
   bankCard: { card: "Bank card", cardOf: (bank) => `${bank} card`, bank: "Bank", endingIn: (last4) => `ending in ${last4}`, expiry: "Expires" },
   breadcrumb: { label: "Breadcrumb", expand: "Show full path" },
   calendar: { label: "Calendar", prevMonth: "Previous month", nextMonth: "Next month", month: "Month", year: "Year", holiday: "Holiday" },
-  carousel: { slider: "carousel", slide: "slide", slideOf: (n, total) => `${n} of ${total}`, slides: (label) => `${label} slides` },
+  carousel: { slider: "carousel", slide: "slide", slideOf: (n, total) => `${n} of ${total}`, slides: (label) => `${label} slides`,
+    play: "Play slideshow", pause: "Pause slideshow", expand: "View larger", lightbox: (label) => `${label}, larger view`,
+    thumbnails: (label) => `${label} thumbnails` },
   chart: {
     period: "Period", value: "Value", share: "Share of total", count: "Count",
     keyboard: (title) => `${title}. Use the arrow keys to move between points.`,
@@ -197,7 +203,7 @@ export const enMessages: KashiMessages = {
   combobox: { toggle: "Show options", more: (n) => `${n} more; type to find them.` },
   otp: { label: "Verification code" },
   command: { placeholder: "Search commands or pages…", empty: "No commands found.", title: "Command palette", navigate: "Navigate", select: "Select" },
-  contextMenu: { label: "Options", hint: "Right-click or press Shift+F10 for options." },
+  contextMenu: { label: "Options", hint: "Right-click, long-press or press Shift+F10 for options." },
   copy: { copy: "Copy", copied: "Copied", failed: "Copy failed" },
   countdown: { days: "days", hours: "hours", minutes: "minutes", seconds: "seconds", left: "left" },
   table: { selectAll: "Select all rows", selectRow: "Select row", selectNamed: (row) => `Select ${row}`, empty: "No data.", sort: (col) => `Sort by ${col}`, search: "Search the table", rows: (n) => `${n} ${n === "1" ? "row" : "rows"}` },
@@ -211,6 +217,8 @@ export const enMessages: KashiMessages = {
     units: ["B", "KB", "MB", "GB"], browse: "Choose file", drop: "or drop a file here",
     tooBig: (max) => `File is larger than ${max}.`, wrongType: "This file type isn't accepted.", tooMany: (n) => `Up to ${n} files.`,
     done: "Uploaded", uploading: "Uploading", uploadingFile: (name) => `Uploading ${name}`, error: "Upload failed",
+    preview: (name) => `Preview of ${name}`,
+    resized: (w, h) => `Resized to ${w}×${h} px for a faster upload.`,
   },
   input: { clear: "Clear", show: "Show password", hide: "Hide password", checking: "Checking" },
   invalid: {

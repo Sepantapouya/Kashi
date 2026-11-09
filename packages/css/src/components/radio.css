@@ -4,6 +4,8 @@
  *   <label class="k-check"><input type="radio" name="ship" class="k-radio"><span class="k-check__text">…</span></label>
  * </fieldset>
  * کارت‌های قابل‌انتخاب: k-radio-group--cards
+ *   با نشان و قیمت: <span class="k-check__head"><span class="k-check__label">حرفه‌ای</span><span class="k-badge k-badge--brand k-badge--sm">پیشنهادی</span></span>
+ *   و بعد از k-check__text: <span class="k-check__meta">۴۹۰ هزار تومان</span>
  *
  * متغیرها: --k-radio-size
  */
@@ -69,11 +71,21 @@
 .k-radio-group--cards .k-check:hover { border-color: var(--k-border-primary); }
 .k-radio-group--cards .k-check:has(:checked) {
   border-color: var(--k-border-brand);
+  background: color-mix(in srgb, var(--k-bg-brand-subtle) 55%, var(--k-bg-elevated));
   box-shadow: 0 0 0 1px var(--k-border-brand), var(--k-shadow-xs);
 }
+.k-radio-group--cards .k-check:has(:checked) .k-check__label { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
+/* فوکوس کیبورد روی کارت انتخاب‌شده هم مرز برند را نگه می‌دارد */
 .k-radio-group--cards .k-check:has(:focus-visible) { box-shadow: var(--k-ring-brand); }
+.k-radio-group--cards .k-check:has(:checked:focus-visible) { box-shadow: 0 0 0 1px var(--k-border-brand), var(--k-ring-brand); }
 .k-radio-group--cards .k-check:has(:focus-visible) .k-radio { box-shadow: none; }
-.k-radio-group--cards .k-check__text { flex: 1; }
+.k-radio-group--cards .k-check:has(:disabled) { background: var(--k-bg-secondary); box-shadow: none; cursor: not-allowed; }
+.k-radio-group--cards .k-check__text { flex: 1; min-inline-size: 0; }
+
+/* نشان کنار عنوان و قیمت در انتهای کارت */
+.k-check__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-2); }
+.k-check__meta { flex-shrink: 0; align-self: center; margin-inline-start: var(--k-space-3); color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); font-variant-numeric: tabular-nums; text-align: end; }
+.k-check:has(:disabled) .k-check__meta { color: var(--k-text-quaternary); }
 
 @media (forced-colors: active) {
   .k-radio { appearance: auto; }

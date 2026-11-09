@@ -351,9 +351,24 @@ function buildData() {
     });
   }));
 
-  safe("Carousel", () => section(root, "Carousel · کاروسل", "با دکمه‌ها و نقطه‌های راهنما؛ با کیبورد هم کار می‌کند.", (h) => {
+  safe("Carousel", () => section(root, "Carousel · کاروسل", "با دکمه‌ها و نقطه‌های راهنما؛ با کیبورد هم کار می‌کند. گالری: محو شدن (fade)، نوار پیشرفت پخش خودکار، دکمهٔ توقف و نمای بزرگ، و تصویرهای کوچک.", (h) => {
     componentSet(h, "Carousel", {
-      build: () => F({ name: "Carousel", dir: "V", gap: "space/3", w: 480, cross: "center" }, [
+      axes: { Type: ["Default", "Gallery"] },
+      build: (p) => p.Type === "Gallery" ? F({ name: "Carousel", dir: "V", gap: "space/3", w: 480 }, [
+        // effect="fade": عکس‌ها روی هم محو می‌شوند (opacity)، نه جابه‌جایی؛ Safari عکس بزرگِ transform‌دار را تکه‌تکه رسم می‌کند
+        R({ w: 480, h: 270, radius: "radius/xl", fill: "firoozeh/700", name: "Photo" }),
+        F({ name: "Progress", dir: "H", w: "fill", h: 2, radius: "radius/full", fill: "bg-tertiary", clip: true }, [R({ w: 190, h: 2, fill: "bg-brand", name: "Value" })]),
+        F({ name: "Thumbnails", dir: "H", gap: "space/2" }, ["firoozeh/700", "lajvard/600", "zafaran/600", "anar/600"].map((c, i) => R({ w: 64, h: 64, radius: "radius/md", fill: c, stroke: i === 0 ? "border-brand" : "border-secondary", sw: i === 0 ? 2 : 1, name: "Thumb" }))),
+        F({ name: "Bar", dir: "H", w: "fill", align: "between", cross: "center" }, [
+          F({ name: "Dots", dir: "H", gap: 6 }, [1, 2, 3, 4].map((i) => R({ w: i === 1 ? 24 : 8, h: 8, radius: "radius/full", fill: i === 1 ? "bg-brand" : "border-primary", name: "Dot" }))),
+          F({ name: "Nav", dir: "H", gap: "space/1.5" }, [
+            button({ variant: "Tertiary", size: "sm", iconOnly: "pause" }),
+            button({ variant: "Tertiary", size: "sm", iconOnly: "expand" }),
+            button({ variant: "Secondary", size: "sm", iconOnly: "chevron-right" }),
+            button({ variant: "Secondary", size: "sm", iconOnly: "chevron-left" }),
+          ]),
+        ]),
+      ]) : F({ name: "Carousel", dir: "V", gap: "space/3", w: 480, cross: "center" }, [
         F({ name: "Viewport", dir: "H", w: "fill", h: 240, radius: "radius/xl", fill: "firoozeh/800", align: "between", cross: "center", px: "space/4" }, [
           button({ variant: "Secondary", size: "sm", iconOnly: "chevron-right", pill: true }),
           T("اسلاید ۲ از ۵", { style: "Text md/Semibold", color: "#ffffff" }),

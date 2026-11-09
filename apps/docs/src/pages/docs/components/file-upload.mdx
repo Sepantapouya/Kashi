@@ -5,7 +5,7 @@ description: کشیدن و رها کردن یا انتخاب فایل، با ب�
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { FileUploadDemo } from "../../../components/demos";
+import { FileUploadDemo, FileUploadFormDemo } from "../../../components/demos";
 
 ```tsx
 import { FileUpload } from "@kashi-ui/react";
@@ -35,8 +35,27 @@ import { FileUpload } from "@kashi-ui/react";
   ["uploader", "(file, onProgress) => Promise<void>", "", "بارگذاری هر فایل"],
   ["onFilesChange", "(items: FileItem[]) => void", "", "وضعیت همهٔ فایل‌ها"],
   ["hint", "ReactNode", "", "متن راهنما داخل ناحیه"],
+  ["name", "string", "", "نام فیلد در فرم؛ فایل‌ها با ارسال معمولی فرم، FormData و Server Action فرستاده می‌شوند"],
+  ["required", "boolean", "false", "با name: فرم بدون فایل ارسال نمی‌شود"],
+  ["preview", "boolean", "true", "پیش‌نمایش کوچک برای تصویرها"],
+  ["resizeImages", "{ maxDimension, quality?, type? }", "", "کوچک کردن عکس‌های بزرگ در مرورگر پیش از بررسی حجم و ارسال"],
   ["labels", "{ browse?, drop?, tooBig?, wrongType?, tooMany?, … }", "", "متن‌ها"],
 ]} />
+
+## در فرم، بدون uploader
+
+با `name`، فایل‌های پذیرفته‌شده در یک `<input type="file" name>` واقعی می‌مانند؛ پس فرم معمولی، `new FormData(form)` و Server Action در Next.js همان فایل‌ها را می‌فرستند و `uploader` لازم نیست. فایلی که نوع یا حجمش پذیرفته نیست، با پیام خطا در فهرست می‌ماند ولی ارسال نمی‌شود.
+
+<Demo html={false} code={`<form action={saveProduct}>
+  <FileUpload name="photo" required multiple={false}
+    accept="image/png,image/jpeg,image/webp" maxSize={2 * 1024 * 1024}
+    resizeImages={{ maxDimension: 1600, quality: 0.85 }} />
+  <Button type="submit">ارسال</Button>
+</form>`}>
+  <FileUploadFormDemo client:load />
+</Demo>
+
+`resizeImages` عکس‌های JPEG، PNG و WebP بزرگ‌تر از `maxDimension` را پیش از بررسی حجم کوچک می‌کند، پس عکس ۸ مگابایتی دوربین گوشی از سقف ۲ مگابایت رد نمی‌شود. GIF و SVG دست نمی‌خورند و اگر نسخهٔ کوچک سبک‌تر نباشد، همان فایل اصلی می‌ماند. پیام‌های نوع و حجم از فایل متن‌ها (`fileUpload.wrongType`، `fileUpload.tooBig`) می‌آیند و در انگلیسی هم ترجمه شده‌اند.
 
 تابع `formatBytes` حجم را فارسی می‌نویسد: `formatBytes(1536)` ← «۱٫۵ کیلوبایت».
 

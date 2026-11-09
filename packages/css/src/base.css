@@ -22,6 +22,12 @@
   font-feature-settings: "kern", "liga", "calt";
 }
 
+/* کنترل‌های فرم فونت سیستم را نگیرند؛ <button> ساده هم با فونت کاشی نوشته شود */
+:where(button, input, select, textarea, optgroup) {
+  font: inherit;
+  letter-spacing: inherit;
+}
+
 /* فونت عنوان‌ها جدا قابل‌تغییر است: --k-font-display */
 :where(h1, h2, h3, h4, h5, h6) {
   margin: 0;

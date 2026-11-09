@@ -7,7 +7,7 @@ import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
 import Vars from "../../../components/Vars.astro";
 import { Input, Textarea } from "@kashi-ui/react";
-import { InputAddons, InputExtrasDemo } from "../../../components/demos";
+import { InputAddons, InputCodeDemo, InputExtrasDemo } from "../../../components/demos";
 
 ```tsx
 import { Input, Textarea } from "@kashi-ui/react";
@@ -73,10 +73,19 @@ import { Input, Textarea } from "@kashi-ui/react";
   ["labels", "{ clear, show, hide, loading }", "فارسی", "متن‌های صفحه‌خوان"],
 ]} />
 
+## کد و کلید
+
+برای کد تخفیف، کلید لایسنس، شناسهٔ سفارش و مقدارهای شبیه شبا: `variant="code"` متن تایپ‌شده را تک‌فاصله، چپ‌به‌راست و جدا از متن فارسی اطراف (`unicode-bidi: isolate`) با فاصلهٔ حروف بیشتر نشان می‌دهد، ولی متن placeholder با همان فونت فارسی می‌ماند. غلط‌گیر، حروف بزرگ خودکار و تکمیل خودکار خاموش می‌شوند.
+
+<Demo align="stretch" code={`<Input label="کد تخفیف" variant="code" placeholder="مثلاً NOWRUZ-1405" />`}>
+  <InputCodeDemo client:visible />
+</Demo>
+
 ## ویژگی‌ها
 
 <Props rows={[
   ["label", "ReactNode", "", "برچسب بالای فیلد؛ اگر نمی‌دهید aria-label بدهید"],
+  ["variant", '"default" | "code"', '"default"', "«code» برای کد، کلید و شناسه: تک‌فاصله و چپ‌به‌راست، placeholder فارسی (فقط Input)"],
   ["hint", "ReactNode", "", "متن راهنمای زیر فیلد"],
   ["error", "ReactNode", "", "پیام خطا؛ فیلد را aria-invalid می‌کند"],
   ["size", '"sm" | "md" | "lg"', '"md"', "ارتفاع‌ها ۴۰، ۴۴ و ۴۸ پیکسل (فقط Input)"],

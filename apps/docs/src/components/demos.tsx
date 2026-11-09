@@ -1502,3 +1502,87 @@ export const LocaleDemo = () => {
     </div>
   );
 };
+
+// ---- ۱.۶: گالری عکس، فایل در فرم، فیلد کد، کارت رادیو با قیمت، کنترل تکه‌ای اسکرولی، راهنما داخل کارت
+
+const photos = [
+  ["حرم شاه‌چراغ", "#0b8077", "#2740ed"],
+  ["پل خواجو", "#dd5e02", "#7c3aed"],
+  ["کویر مرنجاب", "#c2410c", "#facc15"],
+  ["جنگل ابر", "#166534", "#0ea5e9"],
+] as const;
+const Photo = ({ name, a, b, small }: { name: string; a: string; b: string; small?: boolean }) => (
+  <div role="img" aria-label={name} style={{ display: "grid", placeItems: "end start", aspectRatio: small ? "1" : "16 / 9", inlineSize: "100%", padding: small ? 0 : "var(--k-space-4)", background: `linear-gradient(135deg, ${a}, ${b})`, color: "#fff", fontWeight: 700, fontSize: "var(--k-text-sm)" }}>
+    {!small && name}
+  </div>
+);
+
+export const CarouselGalleryDemo = () => (
+  <div style={{ inlineSize: "min(100%, 34rem)" }}>
+    <Carousel label="گالری سفر" effect="fade" autoplay={6000} lightbox thumbnails={photos.map(([n, a, b]) => <Photo key={n} name={n} a={a} b={b} small />)}>
+      {photos.map(([n, a, b]) => <Photo key={n} name={n} a={a} b={b} />)}
+    </Carousel>
+  </div>
+);
+
+export const FileUploadFormDemo = () => {
+  const [sent, setSent] = useState("");
+  return (
+    <form
+      className="demo-stack"
+      style={{ inlineSize: "min(100%, 30rem)" }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        const files = new FormData(e.currentTarget).getAll("photo") as File[];
+        setSent(files.map((f) => `${f.name} (${Math.round(f.size / 1024).toLocaleString("fa")} کیلوبایت)`).join("، "));
+      }}
+    >
+      <FileUpload name="photo" required multiple={false} accept="image/png,image/jpeg,image/webp" maxSize={2 * 1024 * 1024} resizeImages={{ maxDimension: 1600, quality: 0.85 }} hint="عکس محصول؛ عکس‌های بزرگ پیش از ارسال تا ۱۶۰۰ پیکسل کوچک می‌شوند" />
+      <Button type="submit" variant="primary">ارسال فرم</Button>
+      <Out>{sent ? `در FormData: ${sent}` : "هنوز ارسال نشده"}</Out>
+    </form>
+  );
+};
+
+export const InputCodeDemo = () => (
+  <div className="demo-stack" style={{ inlineSize: "min(100%, 24rem)" }}>
+    <Input label="کد تخفیف" variant="code" placeholder="مثلاً NOWRUZ-1405" defaultValue="KASHI-25OFF" />
+    <Input label="کلید لایسنس" variant="code" placeholder="کلید ۲۵ نویسه‌ای را وارد کنید" hint="کلید را از ایمیل خرید کپی کنید." />
+  </div>
+);
+
+export const RadioLicenseDemo = () => {
+  const [plan, setPlan] = useState("team");
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 30rem)" }}>
+      <RadioGroup label="نوع لایسنس" variant="cards" value={plan} onChange={setPlan}>
+        <Radio value="solo" label="شخصی" description="یک نفر، همهٔ پروژه‌های خودتان" meta="۹۰ هزار تومان" />
+        <Radio value="team" label="تیمی" badge="پیشنهادی" description="تا ۱۰ نفر، با به‌روزرسانی یک‌ساله" meta="۴۹۰ هزار تومان" />
+        <Radio value="org" label="سازمانی" description="بدون محدودیت نفر، فاکتور رسمی" meta="تماس بگیرید" disabled />
+      </RadioGroup>
+      <Out>{`انتخاب: ${plan}`}</Out>
+    </div>
+  );
+};
+
+export const SegmentedScrollDemo = () => {
+  const [v, setV] = useState("week");
+  return (
+    <div style={{ inlineSize: "min(100%, 18rem)", padding: "var(--k-space-3)", border: "1px dashed var(--k-border-primary)", borderRadius: "var(--k-radius-lg)" }}>
+      <SegmentedControl aria-label="بازهٔ گزارش" value={v} onChange={setV} options={[
+        { value: "day", label: "امروز" }, { value: "week", label: "این هفته" }, { value: "month", label: "این ماه" }, { value: "season", label: "این فصل" }, { value: "year", label: "امسال" },
+      ]} />
+    </div>
+  );
+};
+
+export const TooltipClipDemo = () => (
+  <Card style={{ inlineSize: "min(100%, 20rem)", overflow: "hidden" }}>
+    <CardBody style={{ display: "flex", alignItems: "center", gap: "var(--k-space-2)" }}>
+      <strong>فروشگاه نارون</strong>
+      <Tooltip content="هویت فروشنده با مدارک رسمی بررسی شده است" placement="top">
+        <Button size="sm" variant="tertiary" iconOnly aria-label="فروشندهٔ تأییدشده"><CheckIcon /></Button>
+      </Tooltip>
+    </CardBody>
+  </Card>
+);

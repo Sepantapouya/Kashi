@@ -47,7 +47,7 @@
 .k-menu__item--danger svg { color: inherit; }
 .k-menu__check { display: inline-grid; place-items: center; inline-size: 1.125rem; flex-shrink: 0; color: var(--k-text-brand); }
 .k-menu__check svg { inline-size: 1rem; block-size: 1rem; color: inherit; }
-.k-menu__shortcut { margin-inline-start: auto; color: var(--k-text-quaternary); font-size: var(--k-text-xs); direction: ltr; }
+.k-menu__shortcut { margin-inline-start: auto; color: var(--k-text-quaternary); font-size: var(--k-text-xs); direction: ltr; unicode-bidi: isolate; }
 .k-menu__separator { block-size: 1px; margin: var(--k-space-1_5) calc(var(--k-space-1_5) * -1); background: var(--k-border-secondary); }
 .k-menu__label { padding: var(--k-space-2) var(--k-space-2_5, 0.625rem) var(--k-space-1); color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); }
 @media (forced-colors: active) {

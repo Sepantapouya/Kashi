@@ -32,14 +32,14 @@ const ATTRS = {
   "kashi-line-chart": `labels='["Jan","Feb"]' series='[{"name":"A","values":[1,2]}]' label="Trend"`,
   "kashi-activity-heatmap": 'year="1405"',
   "kashi-appointment-picker": 'start="2026-11-07" value="2026-11-07 10:00"',
-  "kashi-carousel": "",
+  "kashi-carousel": "autoplay lightbox effect=\"fade\"",
   "kashi-tour": "",
-  "kashi-file-upload": "",
+  "kashi-file-upload": "name=\"f\" required max-dimension=\"1600\"",
   "kashi-color-picker": "",
 };
 const CHILDREN = {
   "kashi-multi-select": '<option value="a">A</option><option value="b">B</option>',
-  "kashi-carousel": "<div>1</div><div>2</div>",
+  "kashi-carousel": "<div data-thumb=\"a.jpg\">1</div><div data-thumb=\"b.jpg\">2</div>",
   "kashi-splitter": "<div>a</div><div>b</div>",
   "kashi-tabs": '<div data-tab="One">1</div>',
   "kashi-data-table": "",

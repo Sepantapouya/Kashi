@@ -110,6 +110,20 @@
   direction: ltr;
 }
 
+/* کد، کلید لایسنس، شناسه: متن تایپ‌شده تک‌فاصله و چپ‌به‌راست، جدا از متن فارسی اطراف؛ placeholder فونت فارسی را نگه می‌دارد
+ * <div class="k-input k-input--code"><input class="k-input__control" placeholder="مثلاً ABCD-1234" spellcheck="false"></div> */
+.k-input--code .k-input__control {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: end;
+  font-family: var(--k-font-mono);
+  font-variant-numeric: tabular-nums slashed-zero;
+  letter-spacing: 0.08em;
+}
+.k-input--code .k-input__control:placeholder-shown { direction: inherit; text-align: start; font-family: var(--k-font-sans); letter-spacing: normal; }
+.k-input--code .k-input__control::placeholder { font-family: var(--k-font-sans); letter-spacing: normal; }
+.k-input--code:dir(ltr) .k-input__control { text-align: start; }
+
 .k-input__addon {
   display: inline-flex;
   align-items: center;

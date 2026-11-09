@@ -5,7 +5,7 @@ description: انتخاب دقیقاً یک گزینه از چند گزینه؛ 
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { RadioCardsDemo, RadioInlineDemo, RadioListDemo } from "../../../components/demos";
+import { RadioCardsDemo, RadioInlineDemo, RadioLicenseDemo, RadioListDemo } from "../../../components/demos";
 
 ```tsx
 ```
@@ -41,6 +41,29 @@ import { RadioCardsDemo, RadioInlineDemo, RadioListDemo } from "../../../compone
 </RadioGroup>`}>
   <RadioCardsDemo client:load />
 </Demo>
+
+### با نشان و قیمت
+
+برای انتخاب پلن یا لایسنس: `badge` نشانی مثل «پیشنهادی» کنار عنوان می‌گذارد (متن ساده نشان برند می‌شود؛ `<Badge>` دلخواه هم می‌پذیرد) و `meta` قیمت یا اطلاعات کوتاه را در انتهای کارت می‌آورد. کارت انتخاب‌شده رنگ برند و عنوان پررنگ دارد و با کیبورد حلقهٔ فوکوس می‌گیرد.
+
+<Demo code={`<RadioGroup label="نوع لایسنس" variant="cards" value={plan} onChange={setPlan}>
+  <Radio value="solo" label="شخصی" description="یک نفر، همهٔ پروژه‌های خودتان" meta="۹۰ هزار تومان" />
+  <Radio value="team" label="تیمی" badge="پیشنهادی" description="تا ۱۰ نفر، با به‌روزرسانی یک‌ساله" meta="۴۹۰ هزار تومان" />
+  <Radio value="org" label="سازمانی" description="بدون محدودیت نفر، فاکتور رسمی" meta="تماس بگیرید" disabled />
+</RadioGroup>`}>
+  <RadioLicenseDemo client:load />
+</Demo>
+
+## ویژگی‌های Radio
+
+<Props rows={[
+  ["value", "string", "", "مقدار گزینه — الزامی"],
+  ["label", "ReactNode", "", "عنوان گزینه — الزامی"],
+  ["description", "ReactNode", "", "توضیح زیر عنوان؛ با aria-describedby به رادیو وصل است"],
+  ["badge", "ReactNode", "", "نشان کنار عنوان، مثل «پیشنهادی»"],
+  ["meta", "ReactNode", "", "قیمت یا اطلاعات کوتاه در انتهای کارت"],
+  ["disabled", "boolean", "false", "غیرفعال"],
+]} />
 
 ## ویژگی‌های RadioGroup
 

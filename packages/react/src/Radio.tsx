@@ -69,9 +69,13 @@ export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
   value: string;
   label: ReactNode;
   description?: ReactNode;
+  /** نشان کنار عنوان، مثل «پیشنهادی»؛ متن ساده به نشان برند تبدیل می‌شود. بیشتر برای variant="cards" */
+  badge?: ReactNode;
+  /** قیمت یا اطلاعات کوتاه در انتهای کارت، مثل «۴۹۰ هزار تومان / سال». بیشتر برای variant="cards" */
+  meta?: ReactNode;
 }
 
-export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({ value, label, description, id, className, disabled, name, ...rest }, ref) {
+export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({ value, label, description, badge, meta, id, className, disabled, name, ...rest }, ref) {
   const ctx = useContext(RadioCtx);
   // بدون name مشترک، مرورگر رادیوها را یک گروه نمی‌داند و چند گزینه هم‌زمان انتخاب می‌شود
   if (!ctx && !name && isDev()) {
@@ -95,9 +99,17 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({ v
         {...rest}
       />
       <span className="k-check__text">
-        <span className="k-check__label">{label}</span>
+        {badge != null && badge !== false ? (
+          <span className="k-check__head">
+            <span className="k-check__label">{label}</span>
+            {typeof badge === "string" ? <span className="k-badge k-badge--brand k-badge--sm">{badge}</span> : badge}
+          </span>
+        ) : (
+          <span className="k-check__label">{label}</span>
+        )}
         {description && <span className="k-check__description" id={`${inputId}-desc`}>{description}</span>}
       </span>
+      {meta != null && meta !== false && <span className="k-check__meta">{meta}</span>}
     </label>
   );
 });

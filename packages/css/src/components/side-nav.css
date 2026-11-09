@@ -5,7 +5,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--k-space-6);
+  /* پهنای پیش‌فرض ۱۷rem، ولی هرگز پهن‌تر از ظرف (ستون ۲۵۰ پیکسلی) نمی‌شود؛ نشان مورد بریده نمی‌شود */
   inline-size: var(--k-sidenav-width, 17rem);
+  max-inline-size: 100%;
+  min-inline-size: 0;
   padding: var(--k-space-5) var(--k-space-3);
   border-inline-end: 1px solid var(--k-border-secondary);
   background: var(--k-bg-primary);

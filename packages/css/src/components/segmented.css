@@ -13,7 +13,14 @@
   border: 1px solid var(--k-border-secondary);
   border-radius: var(--k-radius-lg);
   background: var(--k-bg-secondary);
+  /* با چهار گزینه یا بیشتر در صفحهٔ ۳۷۵ پیکسلی، خودِ کنترل افقی اسکرول می‌شود، نه صفحه */
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  scroll-padding-inline: var(--k-space-6);
 }
+.k-segmented::-webkit-scrollbar { display: none; }
 .k-segmented--sm { --_h: calc(2.25rem * var(--k-density)); }
 .k-segmented--block { display: flex; }
 .k-segmented--block .k-segmented__item { flex: 1; }
@@ -29,6 +36,7 @@
   color: var(--k-text-tertiary);
   font-size: var(--k-text-sm);
   font-weight: var(--k-weight-semibold);
+  flex-shrink: 0;
   white-space: nowrap;
   cursor: pointer;
   user-select: none;

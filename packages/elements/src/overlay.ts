@@ -1,4 +1,4 @@
-import { afterParse, bool, define, emit, esc, HTMLBase, ICONS, msg, uid } from "./base.js";
+import { afterParse, bool, define, emit, esc, HTMLBase, ICONS, msg, placeTip, uid, unplaceTip, type TipPlacement } from "./base.js";
 
 /**
  * پنجرهٔ گفتگو روی <dialog> بومی با showModal: فوکوس داخل پنجره می‌ماند، Esc می‌بندد،
@@ -254,6 +254,7 @@ export class KashiTabs extends HTMLBase {
 /**
  * راهنمای کوتاه طبق WCAG 1.4.13: با hover و فوکوس نمایش داده می‌شود، روی خودش هم hover پذیر است
  * و با Esc بسته می‌شود. با aria-describedby به اولین فرزند (معمولاً یک دکمه) متصل است.
+ * در لایهٔ بالایی مرورگر نمایش داده می‌شود (overflow: hidden والدها آن را نمی‌برد) و اگر جا نباشد به سمت مقابل می‌رود.
  */
 export class KashiTooltip extends HTMLBase {
   static observedAttributes = ["content", "placement"];
@@ -271,6 +272,7 @@ export class KashiTooltip extends HTMLBase {
       tip.setAttribute("role", "tooltip");
       tip.id = this.key;
       tip.hidden = true;
+      tip.setAttribute("popover", "manual");
       this.append(tip);
       this.tip = tip;
       const trigger = this.firstElementChild !== tip ? this.firstElementChild : null;
@@ -284,10 +286,29 @@ export class KashiTooltip extends HTMLBase {
   }
   disconnectedCallback() {
     clearTimeout(this.timer);
-    document.removeEventListener("keydown", this.onKey);
+    this.close();
   }
   attributeChangedCallback() {
     if (this.tip) this.decorate();
+    if (this.tip && !this.tip.hidden) this.place();
+  }
+  private place = () => placeTip(this, this.tip!, (this.getAttribute("placement") as TipPlacement) || "top");
+  private open() {
+    const tip = this.tip!;
+    if (!tip.hidden) return;
+    tip.hidden = false;
+    this.place();
+    document.addEventListener("keydown", this.onKey);
+    addEventListener("scroll", this.place, { capture: true, passive: true });
+    addEventListener("resize", this.place);
+  }
+  private close() {
+    if (!this.tip) return;
+    this.tip.hidden = true;
+    unplaceTip(this.tip);
+    document.removeEventListener("keydown", this.onKey);
+    removeEventListener("scroll", this.place, { capture: true });
+    removeEventListener("resize", this.place);
   }
 
   private decorate() {
@@ -297,22 +318,16 @@ export class KashiTooltip extends HTMLBase {
   }
   private show(wait: number) {
     clearTimeout(this.timer);
-    this.timer = setTimeout(() => {
-      this.tip!.hidden = false;
-      document.addEventListener("keydown", this.onKey);
-    }, wait);
+    this.timer = setTimeout(() => this.open(), wait);
   }
   private hide() {
     clearTimeout(this.timer);
-    this.timer = setTimeout(() => {
-      this.tip!.hidden = true;
-      document.removeEventListener("keydown", this.onKey);
-    }, 100);
+    this.timer = setTimeout(() => this.close(), 100);
   }
   private onKey = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
       clearTimeout(this.timer);
-      this.tip!.hidden = true;
+      this.close();
     }
   };
 }

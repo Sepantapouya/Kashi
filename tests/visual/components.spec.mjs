@@ -74,3 +74,41 @@ test("mobile has no horizontal scroll", async ({ page }) => {
   expect(await overflow(), "با فوکوس لینک پرش").toBe(0);
   await expect(page, "skip link").toHaveScreenshot("mobile-skip-link.png", { clip: await box(skip), fullPage: true });
 });
+
+// ۱.۶: منوی کناری در ستون ۲۵۰ پیکسلی، تولتیپ بیرون از کارت بریده، فونت دکمهٔ ساده، کلید در متن فارسی
+test("mobile: side nav, tooltip, plain button, kbd", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto("/test/mobile/", { waitUntil: "networkidle" });
+  await page.evaluate(() => document.fonts.ready);
+  const r = await page.evaluate(() => {
+    const col = document.querySelector('[data-visual="sidenav-250"]').getBoundingClientRect();
+    const nav = document.querySelector('[data-visual="sidenav-250"] .k-sidenav').getBoundingClientRect();
+    const badges = [...document.querySelectorAll('[data-visual="sidenav-250"] .k-badge')].map((b) => b.getBoundingClientRect());
+    const btn = getComputedStyle(document.querySelector("[data-plain-button]")).fontFamily;
+    const body = getComputedStyle(document.body).fontFamily;
+    const kbd = getComputedStyle(document.querySelector('[data-visual="kbd-in-text"] .k-kbd')).unicodeBidi;
+    return { col: [col.left, col.right], nav: [nav.left, nav.right], badges: badges.map((b) => [b.left, b.right]), btn, body, kbd };
+  });
+  expect(r.nav[1] - r.nav[0], "منوی کناری از ستون پهن‌تر نمی‌شود").toBeLessThanOrEqual(r.col[1] - r.col[0] + 0.5);
+  for (const [l, rr] of r.badges) expect(l >= r.col[0] - 0.5 && rr <= r.col[1] + 0.5, "نشان بریده نمی‌شود").toBe(true);
+  expect(r.btn, "دکمهٔ ساده فونت کاشی را می‌گیرد").toBe(r.body);
+  expect(r.kbd).toBe("isolate");
+  await expect(page, "side nav 250").toHaveScreenshot("mobile-sidenav-250.png", { clip: await box(page.locator('[data-visual="sidenav-250"]')), fullPage: true });
+
+  // تولتیپ داخل کارت با overflow: hidden باید کامل دیده شود
+  const trigger = page.locator("[data-tip-trigger]");
+  await trigger.scrollIntoViewIfNeeded();
+  await trigger.focus();
+  const tip = page.locator('[data-visual="tooltip-card"] [role="tooltip"]');
+  await expect(tip).toBeVisible();
+  const t = await tip.evaluate((el) => {
+    const b = el.getBoundingClientRect(), c = el.closest(".k-card").getBoundingClientRect();
+    return { top: b.top, bottom: b.bottom, left: b.left, right: b.right, cardTop: c.top, popover: el.matches(":popover-open"), w: innerWidth };
+  });
+  expect(t.popover, "در لایهٔ بالایی").toBe(true);
+  expect(t.top, "بالای کارت، بیرون از ناحیهٔ بریده").toBeLessThan(t.cardTop);
+  expect(t.left).toBeGreaterThanOrEqual(0);
+  expect(t.right).toBeLessThanOrEqual(t.w);
+  await page.keyboard.press("Escape");
+  await expect(tip).toBeHidden();
+});

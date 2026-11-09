@@ -23,3 +23,42 @@
 .k-carousel__dot:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
 @media (prefers-reduced-motion: reduce) { .k-carousel__track { scroll-behavior: auto; } }
 @media (forced-colors: active) { .k-carousel__dot[aria-current="true"] { background: Highlight; } }
+
+/* محو شدن (effect="fade"): اسلایدها روی هم، فقط opacity عوض می‌شود. برای عکس‌های بزرگ از scale یا translate
+ * استفاده نکنید؛ Safari لایهٔ بزرگِ دارای transform را تکه‌تکه و تکراری رسم می‌کند. */
+.k-carousel--fade .k-carousel__track { grid-auto-flow: row; grid-template-areas: "stack"; grid-auto-columns: auto; overflow: hidden; scroll-snap-type: none; touch-action: pan-y; }
+.k-carousel--fade .k-carousel__slide { grid-area: stack; opacity: 0; visibility: hidden; transition: opacity var(--k-duration-slow) var(--k-ease-standard), visibility 0s linear var(--k-duration-slow); }
+.k-carousel--fade .k-carousel__slide[data-active] { opacity: 1; visibility: visible; transition-delay: 0s; }
+.k-carousel__slide img { display: block; max-inline-size: 100%; }
+
+/* نوار پیشرفت پخش خودکار؛ با مکث (hover، فوکوس، دکمهٔ توقف) می‌ایستد */
+.k-carousel__progress { display: block; block-size: 2px; overflow: hidden; border-radius: var(--k-radius-full); background: var(--k-bg-tertiary); }
+.k-carousel__progress-bar { display: block; block-size: 100%; inline-size: 100%; background: var(--k-bg-brand); transform-origin: right; animation: k-carousel-progress var(--_d, 5s) linear forwards; }
+.k-carousel__progress-bar:dir(ltr) { transform-origin: left; }
+.k-carousel__progress-bar[data-paused] { animation-play-state: paused; }
+@keyframes k-carousel-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* تصویرهای کوچک */
+.k-carousel__thumbs { display: flex; gap: var(--k-space-2); max-inline-size: 100%; overflow-x: auto; padding: 3px; scrollbar-width: none; overscroll-behavior-inline: contain; }
+.k-carousel__thumbs::-webkit-scrollbar { display: none; }
+.k-carousel__thumb { flex-shrink: 0; inline-size: var(--k-carousel-thumb-size, 4rem); aspect-ratio: 1; padding: 0; overflow: hidden; border: 0; border-radius: var(--k-radius-md); background: var(--k-bg-secondary); opacity: 0.6; cursor: pointer; box-shadow: inset 0 0 0 1px var(--k-border-secondary); transition: opacity var(--k-duration-fast), box-shadow var(--k-duration-fast); }
+.k-carousel__thumb > * { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.k-carousel__thumb:hover { opacity: 0.85; }
+.k-carousel__thumb[aria-current="true"] { opacity: 1; box-shadow: 0 0 0 2px var(--k-bg-primary), 0 0 0 4px var(--k-border-brand); }
+.k-carousel__thumb:focus-visible { outline: 2px solid transparent; box-shadow: 0 0 0 2px var(--k-bg-primary), var(--k-ring-brand); }
+
+/* نمای بزرگ (lightbox) روی <dialog> بومی: Esc، فوکوس داخل پنجره، کلیدهای جهت */
+.k-carousel[data-lightbox] .k-carousel__slide { cursor: zoom-in; }
+.k-carousel__lightbox { inline-size: 100vw; max-inline-size: none; block-size: 100dvh; max-block-size: none; margin: 0; padding: var(--k-space-4); border: 0; background: rgb(8 10 12 / 0.92); color: #fff; }
+.k-carousel__lightbox[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: var(--k-space-3); }
+.k-carousel__lightbox::backdrop { background: transparent; }
+.k-carousel__lightbox-head { display: flex; align-items: center; justify-content: space-between; }
+.k-carousel__lightbox-count { font-size: var(--k-text-sm); font-variant-numeric: tabular-nums; }
+.k-carousel__lightbox .k-btn--tertiary { color: #fff; }
+.k-carousel__lightbox .k-btn--tertiary:hover { background: rgb(255 255 255 / 0.12); }
+.k-carousel__lightbox-stage { display: grid; grid-template-areas: "stack"; min-block-size: 0; touch-action: pan-y; }
+.k-carousel__lightbox-slide { grid-area: stack; display: grid; place-items: center; min-block-size: 0; opacity: 0; visibility: hidden; transition: opacity var(--k-duration-slow) var(--k-ease-standard), visibility 0s linear var(--k-duration-slow); }
+.k-carousel__lightbox-slide[data-active] { opacity: 1; visibility: visible; transition-delay: 0s; }
+.k-carousel__lightbox-slide > * { max-inline-size: 100%; max-block-size: 100%; }
+.k-carousel__lightbox-slide img { inline-size: auto; max-inline-size: 100%; block-size: auto; max-block-size: calc(100dvh - 9rem); object-fit: contain; border-radius: var(--k-radius-md); }
+.k-carousel__lightbox-nav { display: flex; justify-content: center; gap: var(--k-space-3); }
