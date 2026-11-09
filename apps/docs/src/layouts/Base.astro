@@ -1,4 +1,5 @@
 ---
+import Analytics from "../components/Analytics.astro";
 import "../styles/layers.css";
 import "@kashi-ui/css";
 import "../styles/site.css";
@@ -38,6 +39,7 @@ const fullTitle = title ? `${title} · کاشی` : "کاشی — دیزاین‌
         if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
       } catch {}
     </script>
+    <Analytics />
   </head>
   <body>
     <a class="k-skip-link" href="#main">رفتن به محتوای اصلی</a>
