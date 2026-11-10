@@ -72,7 +72,7 @@ const removed = [...unreleased, ...versions.flatMap((v) => v.commits)].reduce((a
   )}
 
   {versions.map((v, i) => (
-    <section class="rl-version" aria-labelledby={slug(v.version)}>
+    <section class:list={["rl-version", { "rl-version--latest": i === 0, "rl-version--major": /\.0\.0$/.test(v.version) }]} aria-labelledby={slug(v.version)}>
       <header class="rl-head">
         <div class="rl-title">
           <h2 id={slug(v.version)}><span dir="ltr">v{v.version}</span></h2>
@@ -135,6 +135,14 @@ const removed = [...unreleased, ...versions.flatMap((v) => v.commits)].reduce((a
   .rl-version { position: relative; margin-block-start: var(--k-space-8); padding-inline-start: var(--k-space-6); border-inline-start: 2px solid var(--k-border-secondary); }
   .rl-version::before { content: ""; position: absolute; inset-block-start: 0.6rem; inset-inline-start: calc(-0.4375rem - 1px); inline-size: 0.75rem; block-size: 0.75rem; border: 2px solid var(--k-border-brand); border-radius: 50%; background: var(--k-bg-primary); }
   .rl-version--next::before { border-color: var(--k-text-warning); border-style: dashed; }
+  /* آخرین نسخه: کارت روشن با هاله؛ نسخه‌های اصلی نقطهٔ بزرگ‌تر */
+  .rl-version--latest { padding: var(--k-space-5) var(--k-space-6); border: 1px solid color-mix(in srgb, var(--k-text-brand) 35%, transparent); border-inline-start-width: 2px; border-inline-start-color: var(--k-text-brand); border-radius: 0 var(--k-radius-xl) var(--k-radius-xl) 0; background: linear-gradient(to left, color-mix(in srgb, var(--k-text-brand) 8%, transparent), transparent 70%); box-shadow: 0 30px 60px -40px color-mix(in srgb, var(--k-text-brand) 50%, transparent); }
+  :global([dir="ltr"]) .rl-version--latest { border-radius: var(--k-radius-xl) 0 0 var(--k-radius-xl); }
+  .rl-version--latest::before { inset-block-start: 1.6rem; background: var(--k-text-brand); box-shadow: 0 0 0 4px color-mix(in srgb, var(--k-text-brand) 25%, transparent); }
+  @media (prefers-reduced-motion: no-preference) { .rl-version--latest::before { animation: rl-pulse 2.4s ease-out infinite; } }
+  @keyframes rl-pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--k-text-brand) 50%, transparent); } 70%, 100% { box-shadow: 0 0 0 8px transparent; } }
+  .rl-version--major:not(.rl-version--latest)::before { inline-size: 1rem; block-size: 1rem; inset-inline-start: calc(-0.5625rem - 1px); background: var(--k-border-brand); }
+  .rl-version--latest h2 { font-size: var(--k-text-3xl); }
   .rl-head { margin-block-end: var(--k-space-3); }
   .rl-title { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-2); }
   .rl-title h2 { margin: 0; scroll-margin-block-start: 5rem; font-size: var(--k-text-xl); }

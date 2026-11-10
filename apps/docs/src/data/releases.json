@@ -1,13 +1,130 @@
 {
- "generated": "2026-11-09T23:21:45+03:30",
+ "generated": "2026-11-10T11:33:22+03:30",
  "totals": {
-  "commits": 235,
-  "versions": 38,
-  "added": 101530,
+  "commits": 241,
+  "versions": 39,
+  "added": 111782,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [],
+ "unreleased": [
+  {
+   "sha": "f1e7aa7353542386efe782f7df3be4181c0d6ae9",
+   "short": "f1e7aa7",
+   "date": "2026-11-10T11:33:22+03:30",
+   "author": "sepantapouya",
+   "subject": "feat(docs): redesigned comparison page; sidebar scrollbar only on hover",
+   "details": [],
+   "files": 2,
+   "added": 95,
+   "removed": 4
+  },
+  {
+   "sha": "31187bd694af4087a309fb7aec5a5fe2ec48c5b6",
+   "short": "31187bd",
+   "date": "2026-11-10T11:18:08+03:30",
+   "author": "sepantapouya",
+   "subject": "feat(docs): enterprise redesign of the site",
+   "details": [
+    "- Deeper dark theme, glass header with version badge, page transitions, reading progress, back-to-top",
+    "- Docs shell: collapsible sidebar with filter, breadcrumb and page actions, feedback box, TOC rail",
+    "- Landing: centered hero with aurora and moving grid, flattening product window, package marquee,",
+    "icon showcase, section motion, FAQ on Kashi accordion",
+    "- Component pages: demo toolbar (LTR / opposite theme), redesigned do/don't guidelines",
+    "- Docs home and Persian gallery redesigned; site UI uses Kashi components where they exist"
+   ],
+   "files": 233,
+   "added": 1435,
+   "removed": 218
+  }
+ ],
  "versions": [
+  {
+   "version": "2.0.0",
+   "date": "2026-11-10T01:47:51+03:30",
+   "releaseCommit": "7d29937",
+   "commits": [
+    {
+     "sha": "7d299373bed954ba0ebd9f71128945a828fabb4f",
+     "short": "7d29937",
+     "date": "2026-11-10T01:47:51+03:30",
+     "author": "sepantapouya",
+     "subject": "chore: release 2.0.0",
+     "details": [],
+     "files": 20,
+     "added": 157,
+     "removed": 57
+    },
+    {
+     "sha": "99a712f746b0ef7babab721faa082bffeb455fb0",
+     "short": "99a712f",
+     "date": "2026-11-10T01:47:24+03:30",
+     "author": "sepantapouya",
+     "subject": "feat: Kashi 2.0 — minimal unified redesign, micro-interactions and new commerce components",
+     "details": [
+      "- Flat controls, softer radius scale with control/surface roles, one control border",
+      "- Custom Select listbox (Popover API, full keyboard, hidden native select)",
+      "- Sliding segmented/tabs indicator, spring checks, switch stretch, error shake",
+      "- New: SearchSuggest, PriceRange, SwatchGroup (React, elements, Figma, docs)",
+      "- Icon categories in 12 groups; motion docs page; 2.0 migration guide"
+     ],
+     "files": 155,
+     "added": 5372,
+     "removed": 4853
+    },
+    {
+     "sha": "8ad6802120d0a51b21f09d8c37ceb9809cbc3e20",
+     "short": "8ad6802",
+     "date": "2026-11-10T00:21:06+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): site-wide SEO and an articles section with 20 Persian articles",
+     "details": [
+      "- sitemap.xml (built after the site, real lastmod for articles) and robots.txt",
+      "- Organization and WebSite JSON-LD on every page, BreadcrumbList on docs,",
+      "BlogPosting on articles; og:type, article times and per-page share images",
+      "- clearer search titles for short component names, shorter icon titles,",
+      "fuller descriptions; StackBlitz files moved out of raw HTML (no extra <title>)",
+      "- /articles/ with search (Persian normalisation), category and tag filters",
+      "and sort, kept in the URL; RSS feed; linked from the guides menu and footer",
+      "- 20 articles, each with a share cover and three in-text figures rendered",
+      "from real Kashi components (scripts/article-images)"
+     ],
+     "files": 151,
+     "added": 3148,
+     "removed": 22
+    },
+    {
+     "sha": "61187a3351c5b7240c0045ef49bf451a696f1639",
+     "short": "61187a3",
+     "date": "2026-11-09T23:21:55+03:30",
+     "author": "sepantapouya",
+     "subject": "docs: record the Kashi 1.8.0 release",
+     "details": [],
+     "files": 1,
+     "added": 45,
+     "removed": 4
+    }
+   ],
+   "notes": [
+    {
+     "kind": "major",
+     "text": "کاشی ۲.۰: بازطراحی یکپارچه و مینیمال. هیچ prop، کلاس، تگ یا تابعی حذف نشده؛ ظاهر پیش‌فرض عوض شده (راهنما: /docs/migration/).",
+     "sub": [
+      "کنترل‌ها تخت‌اند (بدون سایهٔ اسکئومورفیک)، گوشه‌ها نرم‌تر با دو نقش `--k-radius-control` و `--k-radius-surface`، و یک حاشیه برای همهٔ کنترل‌ها با `--k-border-control`.",
+      "سلکت در React فهرست کاشی با صفحه‌کلید کامل و select بومیِ پنهان؛ `native` برای فهرست مرورگر.",
+      "سگمنت و زبانه‌های segmented با ریل پُرزمینه (`--k-bg-muted`، `--k-bg-raised`)، آکاردئون با کارت‌های جدا، `danger-secondary` نرم، منو و جدول و راهنمای نمودار آرام‌تر.",
+      "ریزتعامل در همهٔ کامپوننت‌ها: فشرده شدن دکمه و کنترل‌ها، تیک و نقطه با فنر، دستگیرهٔ کش‌آمدنی سوییچ، دستگیرهٔ لغزان سگمنت، لرزش و ظاهر شدن نرم خطای فیلد، باز و بسته شدن نرم فهرست و پنجره و آکاردئون، دکمهٔ کپی با تیک؛ توکن‌های تازهٔ `--k-ease-spring` و `--k-ease-exit` و صفحهٔ /docs/motion/. با «کاهش حرکت» همه خاموش می‌شوند.",
+      "تازه: دکمهٔ `outline`، کامپوننت‌های SearchSuggest، PriceRange و SwatchGroup (React، وب کامپوننت و فیگما).",
+      "آیکون‌ها: `categoryGroups` با ۱۲ گروه؛ دو دسته نام روشن‌تر گرفتند."
+     ],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens"
+     ]
+    }
+   ]
+  },
   {
    "version": "1.8.0",
    "date": "2026-11-09T23:21:45+03:30",
