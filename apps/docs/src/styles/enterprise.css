@@ -756,3 +756,7 @@ main.home .vs__table .mk { transition: scale var(--k-duration-normal) var(--k-ea
 main.home .vs__table tbody tr:hover .mk { scale: 1.15; }
 /* پرسش‌ها: کارت آکاردئون کاشی */
 main.home .faq__list { --k-accordion-bg: color-mix(in srgb, var(--k-bg-secondary) 70%, transparent); }
+
+/* اسکرول‌بار سایدبار و فهرست صفحه فقط هنگام نگه داشتن ماوس روی آن‌ها */
+.docs__sidebar, .docs__toc { scrollbar-color: transparent transparent; transition: scrollbar-color var(--k-duration-normal); }
+.docs__sidebar:hover, .docs__toc:hover, .docs__sidebar:focus-within { scrollbar-color: var(--k-border-primary) transparent; }
