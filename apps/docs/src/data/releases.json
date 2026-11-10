@@ -1,43 +1,85 @@
 {
- "generated": "2026-11-10T11:33:22+03:30",
+ "generated": "2026-11-10T12:40:07+03:30",
  "totals": {
-  "commits": 241,
-  "versions": 39,
-  "added": 111782,
+  "commits": 244,
+  "versions": 40,
+  "added": 112467,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [
-  {
-   "sha": "f1e7aa7353542386efe782f7df3be4181c0d6ae9",
-   "short": "f1e7aa7",
-   "date": "2026-11-10T11:33:22+03:30",
-   "author": "sepantapouya",
-   "subject": "feat(docs): redesigned comparison page; sidebar scrollbar only on hover",
-   "details": [],
-   "files": 2,
-   "added": 95,
-   "removed": 4
-  },
-  {
-   "sha": "31187bd694af4087a309fb7aec5a5fe2ec48c5b6",
-   "short": "31187bd",
-   "date": "2026-11-10T11:18:08+03:30",
-   "author": "sepantapouya",
-   "subject": "feat(docs): enterprise redesign of the site",
-   "details": [
-    "- Deeper dark theme, glass header with version badge, page transitions, reading progress, back-to-top",
-    "- Docs shell: collapsible sidebar with filter, breadcrumb and page actions, feedback box, TOC rail",
-    "- Landing: centered hero with aurora and moving grid, flattening product window, package marquee,",
-    "icon showcase, section motion, FAQ on Kashi accordion",
-    "- Component pages: demo toolbar (LTR / opposite theme), redesigned do/don't guidelines",
-    "- Docs home and Persian gallery redesigned; site UI uses Kashi components where they exist"
-   ],
-   "files": 233,
-   "added": 1435,
-   "removed": 218
-  }
- ],
+ "unreleased": [],
  "versions": [
+  {
+   "version": "2.1.0",
+   "date": "2026-11-10T12:40:07+03:30",
+   "releaseCommit": "845e7f9",
+   "commits": [
+    {
+     "sha": "845e7f9471b7ecaae606c1561383334fcab1dc71",
+     "short": "845e7f9",
+     "date": "2026-11-10T12:40:07+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 2.1.0",
+     "details": [],
+     "files": 22,
+     "added": 96,
+     "removed": 46
+    },
+    {
+     "sha": "89faf6d8421d997b224a17f695df7247a4df642f",
+     "short": "89faf6d",
+     "date": "2026-11-10T12:06:08+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 400 independently drawn Kashi icons",
+     "details": [],
+     "files": 12,
+     "added": 458,
+     "removed": 13
+    },
+    {
+     "sha": "e4c3790dbb7d06ed99a20fac0cbead44d1074c54",
+     "short": "e4c3790",
+     "date": "2026-11-10T11:59:03+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(docs): versions page shows 2.0.0; highlight latest release",
+     "details": [
+      "releases.json had been left at 1.8.0, so the live changelog still listed 1.8.0 as latest."
+     ],
+     "files": 2,
+     "added": 131,
+     "removed": 6
+    },
+    {
+     "sha": "f1e7aa7353542386efe782f7df3be4181c0d6ae9",
+     "short": "f1e7aa7",
+     "date": "2026-11-10T11:33:22+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): redesigned comparison page; sidebar scrollbar only on hover",
+     "details": [],
+     "files": 2,
+     "added": 95,
+     "removed": 4
+    },
+    {
+     "sha": "31187bd694af4087a309fb7aec5a5fe2ec48c5b6",
+     "short": "31187bd",
+     "date": "2026-11-10T11:18:08+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): enterprise redesign of the site",
+     "details": [
+      "- Deeper dark theme, glass header with version badge, page transitions, reading progress, back-to-top",
+      "- Docs shell: collapsible sidebar with filter, breadcrumb and page actions, feedback box, TOC rail",
+      "- Landing: centered hero with aurora and moving grid, flattening product window, package marquee,",
+      "icon showcase, section motion, FAQ on Kashi accordion",
+      "- Component pages: demo toolbar (LTR / opposite theme), redesigned do/don't guidelines",
+      "- Docs home and Persian gallery redesigned; site UI uses Kashi components where they exist"
+     ],
+     "files": 233,
+     "added": 1435,
+     "removed": 218
+    }
+   ],
+   "notes": []
+  },
   {
    "version": "2.0.0",
    "date": "2026-11-10T01:47:51+03:30",
