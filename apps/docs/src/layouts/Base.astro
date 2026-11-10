@@ -3,6 +3,7 @@ import Analytics from "../components/Analytics.astro";
 import "../styles/layers.css";
 import "@kashi-ui/css";
 import "../styles/site.css";
+import "../styles/enterprise.css";
 
 interface Props {
   title?: string;
@@ -76,6 +77,7 @@ const ld = JSON.stringify({ "@context": "https://schema.org", "@graph": graph })
     <a class="k-skip-link" href="#main">رفتن به محتوای اصلی</a>
     <slot />
     <div class="k-sr-only" aria-live="polite" id="live-region"></div>
+    <button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--pill to-top" data-to-top aria-label="بازگشت به بالای صفحه" tabindex="-1"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 15.5v-11M5.5 9 10 4.5 14.5 9" /></svg></button>
 
     <script>
       const root = document.documentElement;
@@ -159,6 +161,104 @@ const ld = JSON.stringify({ "@context": "https://schema.org", "@graph": graph })
         spy();
         addEventListener("scroll", spy, { passive: true });
       }
+
+      const calm = matchMedia("(prefers-reduced-motion: reduce)");
+
+      // قرص لغزان زیر پیوندهای سربرگ
+      const siteNav = document.querySelector<HTMLElement>(".site-nav");
+      if (siteNav) {
+        const pill = document.createElement("span");
+        pill.className = "nav-pill";
+        pill.setAttribute("aria-hidden", "true");
+        siteNav.prepend(pill);
+        const move = (el: HTMLElement) => {
+          pill.style.left = `${el.offsetLeft}px`;
+          pill.style.width = `${el.offsetWidth}px`;
+          pill.toggleAttribute("data-on", true);
+        };
+        siteNav.addEventListener("pointerover", (e) => {
+          const el = (e.target as HTMLElement).closest<HTMLElement>(".site-nav > a, .nav-menu__btn");
+          if (el) move(el);
+        });
+        siteNav.addEventListener("pointerleave", () => pill.removeAttribute("data-on"));
+      }
+
+      // نور دنبال‌کنندهٔ ماوس روی کارت‌ها
+      document.querySelectorAll<HTMLElement>(".pager__link, .nav-menu__item, .tile, .pkg, .ent__item, .quality__item, .gcard, .cmp-card, .logo-card").forEach((el) => el.setAttribute("data-spot", ""));
+      document.addEventListener("pointermove", (e) => {
+        const el = (e.target as HTMLElement).closest?.("[data-spot]") as HTMLElement | null;
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        el.style.setProperty("--my", `${e.clientY - r.top}px`);
+      }, { passive: true });
+
+      // ترتیب ورود آیتم‌های منوی کشویی
+      document.querySelectorAll<HTMLElement>(".nav-menu__panel").forEach((panel) =>
+        panel.querySelectorAll<HTMLElement>(".nav-menu__item").forEach((item, i) => item.style.setProperty("--i", String(i))));
+
+      // نشانگر لغزان «در این صفحه»
+      const tocList = document.querySelector<HTMLElement>(".toc ul");
+      if (tocList) {
+        const rail = document.createElement("span");
+        rail.className = "toc__rail";
+        rail.setAttribute("aria-hidden", "true");
+        tocList.append(rail);
+        const place = () => {
+          const a = tocList.querySelector<HTMLElement>("a[data-active]");
+          rail.style.opacity = a ? "1" : "0";
+          if (a) { rail.style.top = `${a.offsetTop}px`; rail.style.height = `${a.offsetHeight}px`; }
+        };
+        new MutationObserver(place).observe(tocList, { subtree: true, attributes: true, attributeFilter: ["data-active"] });
+        place();
+      }
+
+      // بازگشت به بالا
+      const toTop = document.querySelector<HTMLButtonElement>("[data-to-top]");
+      if (toTop) {
+        const sync = () => {
+          const show = scrollY > innerHeight * 1.2;
+          toTop.toggleAttribute("data-show", show);
+          toTop.tabIndex = show ? 0 : -1;
+        };
+        sync();
+        addEventListener("scroll", sync, { passive: true });
+        toTop.addEventListener("click", () => {
+          scrollTo({ top: 0, behavior: calm.matches ? "auto" : "smooth" });
+          document.getElementById("main")?.focus({ preventScroll: true });
+        });
+      }
+
+      // پیوند کنار عنوان: کپی نشانی همان بخش
+      document.addEventListener("click", (e) => {
+        const a = (e.target as HTMLElement).closest<HTMLAnchorElement>(".h-anchor");
+        if (!a || !navigator.clipboard) return;
+        navigator.clipboard.writeText(a.href).then(() => {
+          a.dataset.copied = "";
+          announce("پیوند بخش کپی شد");
+          setTimeout(() => delete a.dataset.copied, 1400);
+        });
+      });
+
+      // نشانگر لغزان زبانه‌های کاشی در صفحه‌های ایستا (کامپوننت React خودش این را دارد)
+      document.querySelectorAll<HTMLElement>(".k-tabs__list[role='tablist']").forEach((list) => {
+        if (list.querySelector(".k-tabs__indicator")) return;
+        const ind = document.createElement("span");
+        ind.className = "k-tabs__indicator";
+        ind.setAttribute("aria-hidden", "true");
+        const place = () => {
+          const t = list.querySelector<HTMLElement>("[aria-selected='true']");
+          if (!t || !t.offsetWidth) return;
+          list.style.setProperty("--_ix", `${t.offsetLeft}px`);
+          list.style.setProperty("--_iy", `${t.offsetTop}px`);
+          list.style.setProperty("--_iw", `${t.offsetWidth}px`);
+          list.style.setProperty("--_ih", `${t.offsetHeight}px`);
+          if (!ind.isConnected) { list.append(ind); list.setAttribute("data-indicator", ""); }
+        };
+        new MutationObserver(place).observe(list, { subtree: true, attributes: true, attributeFilter: ["aria-selected"] });
+        new ResizeObserver(place).observe(list);
+        place();
+      });
 
       // چک‌باکس‌های نیمه‌انتخاب رندرشده در سرور
       document.querySelectorAll<HTMLInputElement>("input[data-indeterminate]").forEach((el) => (el.indeterminate = true));

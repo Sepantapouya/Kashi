@@ -60,11 +60,11 @@ const inline = (t: string) => t.split("`").map((part, i) => (i % 2 ? `<code dir=
 {tabs.length > 0 && (
   <div class="pi" data-pi>
     <div class="pi__bar">
-      <div class="pi__tabs" role="tablist" aria-label="راه نصب">
+      <div class="k-tabs k-tabs--line k-tabs--sm pi__tabwrap"><div class="pi__tabs k-tabs__list" role="tablist" aria-label="راه نصب">
         {tabs.map((t, i) => (
-          <button type="button" role="tab" class="pi__tab" id={`${id}-t-${t.key}`} aria-controls={`${id}-p-${t.key}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1} data-tab={t.key}>{t.label}</button>
+          <button type="button" role="tab" class="k-tabs__tab pi__tab" id={`${id}-t-${t.key}`} aria-controls={`${id}-p-${t.key}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1} data-tab={t.key}>{t.label}</button>
         ))}
-      </div>
+      </div></div>
       <div class="pi__pm" role="radiogroup" aria-label="مدیر پکیج">
         {["npm", "pnpm", "yarn", "bun"].map((pm, i) => (
           <label><input type="radio" name="pi-pm" value={pm} class="k-sr-only" checked={i === 0} /><span>{pm}</span></label>
@@ -160,12 +160,8 @@ const inline = (t: string) => t.split("`").map((part, i) => (i % 2 ? `<code dir=
 <style>
   .pi { margin-block-start: var(--k-space-6); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary); overflow: hidden; }
   .pi__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--k-space-2); padding: var(--k-space-2) var(--k-space-2) 0; border-block-end: 1px solid var(--k-border-secondary); }
-  .pi__tabs { display: flex; gap: var(--k-space-1); }
-  .pi__tab { position: relative; padding: var(--k-space-2) var(--k-space-3); border: 0; background: none; color: var(--k-text-tertiary); font: inherit; font-size: var(--k-text-sm); font-weight: 600; cursor: pointer; }
-  .pi__tab:hover { color: var(--k-text-primary); }
-  .pi__tab[aria-selected="true"] { color: var(--k-text-primary); }
-  .pi__tab[aria-selected="true"]::after { content: ""; position: absolute; inset-inline: var(--k-space-3); inset-block-end: -1px; block-size: 2px; border-radius: 2px; background: var(--k-text-brand); }
-  .pi__tab:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: -2px; border-radius: var(--k-radius-sm); }
+  .pi__tabwrap { inline-size: auto; }
+  .pi__tabs { border-block-end: 0; gap: var(--k-space-3); }
   .pi__pm { display: flex; gap: 2px; padding: 2px; margin-block-end: var(--k-space-2); border-radius: var(--k-radius-md); background: var(--k-bg-tertiary); direction: ltr; }
   .pi__pm label { cursor: pointer; }
   .pi__pm span { display: block; padding: 0.125rem var(--k-space-2); border-radius: var(--k-radius-sm); color: var(--k-text-tertiary); font: 500 0.75rem var(--k-font-mono); }

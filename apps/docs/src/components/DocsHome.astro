@@ -1,0 +1,111 @@
+---
+// اجزای صفحهٔ «معرفی» مستندات: کارت‌های شروع سریع، اصول و پکیج‌ها
+import { iconSvg } from "@kashi-ui/icons";
+import pkg from "@kashi-ui/react/package.json";
+
+interface Props { part: "start" | "principles" | "packages" | "status" }
+const { part } = Astro.props;
+
+const start = [
+  { href: "/docs/installation/", icon: "download", title: "نصب", text: "React، HTML ساده، shadcn یا CDN؛ در کمتر از یک دقیقه." },
+  { href: "/docs/components/", icon: "grid", title: "کامپوننت‌ها", text: "همهٔ کامپوننت‌ها با پیش‌نمایش زنده، کد React و HTML." },
+  { href: "/docs/persian/", icon: "language", title: "ابزارهای فارسی", text: "تقویم شمسی، کد ملی، شبا، پلاک، نقشه و نشانی ایران." },
+  { href: "/docs/theming/", icon: "palette", title: "تم و برند", text: "یک رنگ بدهید؛ طیف کامل، گردی و تراکم ساخته می‌شود." },
+  { href: "/docs/figma/", icon: "pen-tool", title: "فیگما", text: "کیت کامل با یک کلیک، هماهنگ با همین کد." },
+  { href: "/docs/ai/", icon: "ai-chat", title: "هوش مصنوعی", text: "کاشی در Claude، Cursor و Copilot با سرور MCP." },
+];
+const principles = [
+  { icon: "text-rtl", title: "راست‌به‌چپ از پایه", text: "همه‌چیز با Logical Properties؛ همان کد در چپ‌به‌راست هم درست است." },
+  { icon: "accessibility", title: "دسترس‌پذیری، شرط انتشار", text: "WCAG 2.2 AA؛ کنتراست و ARIA در هر بیلد خودکار بررسی می‌شود." },
+  { icon: "layers", title: "CSS شما برنده است", text: "استایل‌ها در Cascade Layer؛ سفارشی‌سازی بدون !important." },
+  { icon: "puzzle", title: "مستقل از فریم‌ورک", text: "ظاهر یک‌بار در CSS؛ React و وب کامپوننت‌ها لایهٔ نازکی رویش." },
+];
+const packages = [
+  { name: "@kashi-ui/react", text: "کامپوننت‌های React با تایپ کامل TypeScript", href: "/docs/installation/" },
+  { name: "@kashi-ui/css", text: "استایل همهٔ کامپوننت‌ها با کلاس‌های k-* و فونت وزیرمتن", href: "/docs/installation/" },
+  { name: "@kashi-ui/tokens", text: "توکن‌ها به‌شکل CSS Variables، JSON و JS، با createTheme()", href: "/docs/theming/" },
+  { name: "@kashi-ui/elements", text: "وب کامپوننت‌ها برای Vue، Svelte، Angular و HTML", href: "/docs/web-components/" },
+  { name: "@kashi-ui/persian", text: "تاریخ شمسی، ارقام و اعتبارسنجی؛ بدون وابستگی", href: "/docs/persian/utilities/" },
+  { name: "@kashi-ui/icons", text: "آیکون‌ها در شش سبک", href: "/docs/icons/" },
+  { name: "@kashi-ui/tailwind", text: "پریست Tailwind 3 و 4، همگام با تم", href: "/docs/tailwind/" },
+  { name: "@kashi-ui/mcp", text: "سرور MCP برای دستیارهای هوش مصنوعی", href: "/docs/ai/" },
+];
+const icon = (n: string, size = 20) => iconSvg(n, { size }) ?? iconSvg("sparkle", { size }) ?? "";
+---
+{part === "start" && (
+  <ul class="dh-start" role="list">
+    {start.map((c, i) => (
+      <li style={`--i: ${i}`}>
+        <a class="dh-card" href={c.href} data-spot>
+          <span class="dh-card__icon" set:html={icon(c.icon)} />
+          <span class="dh-card__body"><b>{c.title}</b><small>{c.text}</small></span>
+          <span class="dh-card__arrow" aria-hidden="true">←</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+)}
+{part === "principles" && (
+  <ul class="dh-principles" role="list">
+    {principles.map((p) => (
+      <li>
+        <span class="dh-principles__icon" set:html={icon(p.icon, 18)} />
+        <b>{p.title}</b>
+        <span>{p.text}</span>
+      </li>
+    ))}
+  </ul>
+)}
+{part === "packages" && (
+  <ul class="dh-pkgs" role="list">
+    {packages.map((p) => (
+      <li><a href={p.href}><code dir="ltr">{p.name}</code><span>{p.text}</span></a></li>
+    ))}
+  </ul>
+)}
+{part === "status" && (
+  <div class="dh-status">
+    <span class="k-badge k-badge--success"><span class="k-badge__dot" aria-hidden="true"></span>پایدار</span>
+    <p>نسخهٔ <bdi dir="ltr">{pkg.version}</bdi> پایدار است و از <a href="/docs/versioning/">نسخه‌گذاری معنایی</a> پیروی می‌کند: تغییر ناسازگار فقط در نسخهٔ اصلی بعدی و پس از دورهٔ «منسوخ» می‌آید. همهٔ پکیج‌ها با یک شمارهٔ نسخه منتشر می‌شوند. <a href="/docs/changelog/">تغییرات نسخه‌ها</a> · <a href="/docs/migration/">مهاجرت به ۲.۰</a></p>
+  </div>
+)}
+
+<style>
+  .dh-start { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: var(--k-space-3); margin: var(--k-space-6) 0; padding: 0; list-style: none; }
+  .dh-card {
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; gap: var(--k-space-3);
+    block-size: 100%; padding: var(--k-space-4) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl);
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.025), transparent), var(--k-bg-primary); color: inherit; text-decoration: none;
+    transition: border-color var(--k-duration-normal), translate var(--k-duration-slow) var(--k-ease-spring), box-shadow var(--k-duration-slow);
+  }
+  .dh-card:hover { border-color: color-mix(in srgb, var(--k-text-brand) 40%, transparent); box-shadow: 0 24px 50px -30px color-mix(in srgb, var(--k-text-brand) 40%, transparent); }
+  @media (prefers-reduced-motion: no-preference) { .dh-card:hover { translate: 0 -3px; } }
+  .dh-card:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+  .dh-card__icon { display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: color-mix(in srgb, var(--k-text-brand) 9%, transparent); color: var(--k-text-brand); transition: scale var(--k-duration-normal) var(--k-ease-spring), rotate var(--k-duration-normal) var(--k-ease-spring); }
+  .dh-card:hover .dh-card__icon { scale: 1.08; rotate: -6deg; }
+  .dh-card__body { display: grid; gap: 2px; }
+  .dh-card__body b { color: var(--k-text-primary); font-size: var(--k-text-md); }
+  .dh-card__body small { color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.8; }
+  .dh-card__arrow { color: var(--k-text-quaternary); transition: translate var(--k-duration-normal) var(--k-ease-spring), color var(--k-duration-fast); }
+  .dh-card:hover .dh-card__arrow { translate: -4px 0; color: var(--k-text-brand); }
+  :global([dir="ltr"]) .dh-card__arrow { scale: -1 1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .dh-start > li { animation: dh-in 480ms var(--k-ease-standard) both; animation-delay: calc(var(--i) * 45ms + 120ms); }
+  }
+  @keyframes dh-in { from { opacity: 0; translate: 0 10px; } }
+
+  .dh-principles { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 1px; margin: var(--k-space-5) 0; padding: 0; list-style: none; overflow: hidden; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-border-secondary); }
+  .dh-principles li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px var(--k-space-3); padding: var(--k-space-5); background: var(--k-bg-primary); }
+  .dh-principles__icon { grid-row: span 2; display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: var(--k-radius-md); background: var(--k-bg-muted); color: var(--k-text-brand); }
+  .dh-principles b { color: var(--k-text-primary); }
+  .dh-principles span:last-child { color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.85; }
+
+  .dh-pkgs { display: grid; grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr)); gap: var(--k-space-2); margin: var(--k-space-5) 0; padding: 0; list-style: none; }
+  .dh-pkgs a { display: grid; gap: 2px; padding: var(--k-space-3) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); color: inherit; text-decoration: none; transition: border-color var(--k-duration-fast), background-color var(--k-duration-fast); }
+  .dh-pkgs a:hover { border-color: var(--k-border-primary); background: var(--k-bg-hover); }
+  .dh-pkgs code { justify-self: start; color: var(--k-text-primary); font-size: 0.8125rem; font-weight: var(--k-weight-semibold); }
+  .dh-pkgs span { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+
+  .dh-status { display: flex; align-items: flex-start; gap: var(--k-space-3); padding: var(--k-space-4) var(--k-space-5); border: 1px solid color-mix(in srgb, var(--k-text-success) 30%, transparent); border-radius: var(--k-radius-xl); background: color-mix(in srgb, var(--k-text-success) 6%, transparent); }
+  .dh-status p { margin: 0; color: var(--k-text-secondary); line-height: 1.9; }
+</style>

@@ -4,6 +4,8 @@ import Logo from "./Logo.astro";
 import { author } from "../data/author";
 import Sidebar from "./Sidebar.astro";
 import SiteSearch from "./SiteSearch";
+import pkg from "@kashi-ui/react/package.json";
+const ver = pkg.version.split(".").slice(0, 2).join(".");
 
 const path = Astro.url.pathname;
 // پیوندهای اصلی کم و ثابت؛ ابزارها در یک منوی کشویی تا سربرگ شلوغ نشود
@@ -63,6 +65,7 @@ const inline = (t: string) => t.split("`").map((part, i) => (i % 2 ? `<bdi dir="
       <Logo />
       <span class="brand__name" aria-hidden="true">کاشی</span>
     </a>
+    <a class="k-badge k-badge--sm k-badge--outline ver-badge" href="/docs/changelog/" aria-label={`نسخهٔ ${pkg.version}، تغییرات نسخه‌ها`} dir="ltr">v{ver}</a>
 
     <nav class="site-nav" aria-label="اصلی">
       {links.map((l) => (

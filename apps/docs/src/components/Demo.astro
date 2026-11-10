@@ -2,6 +2,7 @@
 // پیش‌نمایش زنده + کد React + HTML خروجی.
 // HTML مستقیم از خروجی همان کامپوننت React ساخته می‌شود، پس همیشه با کد هم‌خوان است.
 import CodeBlock from "./CodeBlock.astro";
+import { iconSvg } from "@kashi-ui/icons";
 import { formatHtml } from "../lib/format-html";
 import { stackblitzProject, demoProject, exampleProject } from "../lib/stackblitz";
 
@@ -38,28 +39,55 @@ const blitz = isHtml ? null : stackblitzProject(play ?? code, title) ?? demoProj
 <figure class="demo">
   <div class:list={["demo__preview", `demo__preview--${align}`, { "demo__preview--column": column }]} role="group" aria-label={label} set:html={html} />
   <div class="demo__code" data-tabs>
-    <div class="demo__tabs" role="tablist" aria-label="زبان کد">
-      {code && <button role="tab" type="button" id={`${id}-t1`} aria-controls={`${id}-p1`} aria-selected="true">{isHtml ? "HTML" : "React"}</button>}
-      {showHtml && <button role="tab" type="button" id={`${id}-t2`} aria-controls={`${id}-p2`} aria-selected={code ? "false" : "true"} tabindex={code ? -1 : undefined}>HTML</button>}
+    <div class="k-tabs k-tabs--line k-tabs--sm demo__tabs"><div class="k-tabs__list" role="tablist" aria-label="زبان کد">
+      {code && <button role="tab" class="k-tabs__tab" type="button" id={`${id}-t1`} aria-controls={`${id}-p1`} aria-selected="true">{isHtml ? "HTML" : "React"}</button>}
+      {showHtml && <button role="tab" class="k-tabs__tab" type="button" id={`${id}-t2`} aria-controls={`${id}-p2`} aria-selected={code ? "false" : "true"} tabindex={code ? -1 : undefined}>HTML</button>}
+    </div></div>
+    <div class="demo__end">
+    <div class="demo__tools" role="group" aria-label="نمایش نمونه">
+      <button type="button" class="k-btn k-btn--tertiary k-btn--xs k-btn--icon demo__tool" data-demo-dir aria-pressed="false" title="نمایش چپ‌به‌راست">
+        <Fragment set:html={iconSvg("text-ltr", { size: 16 })} /><span class="k-sr-only">نمایش چپ‌به‌راست</span>
+      </button>
+      <button type="button" class="k-btn k-btn--tertiary k-btn--xs k-btn--icon demo__tool" data-demo-theme aria-pressed="false" title="تم مقابل فقط برای این نمونه">
+        <Fragment set:html={iconSvg("contrast", { size: 16 })} /><span class="k-sr-only">تم مقابل فقط برای این نمونه</span>
+      </button>
     </div>
     {blitz && (
       <form class="demo__blitz" method="post" action="https://stackblitz.com/run?file=src/App.tsx" target="_blank" data-files={JSON.stringify(blitz.files).replace(/</g, "\\u003c")}>
         <input type="hidden" name="project[title]" value={blitz.title} />
         <input type="hidden" name="project[description]" value="نمونهٔ کاشی، دیزاین‌سیستم فارسی — kashi.sepantapouya.com" />
         <input type="hidden" name="project[template]" value="node" />
-        <button type="submit" class="demo__blitz-btn">
+        <button type="submit" class="k-btn k-btn--secondary k-btn--xs k-btn--pill demo__blitz-btn">
           <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M11.6 1.8 3.9 11.2c-.4.5 0 1.3.7 1.3h4.2l-1.1 5.6c-.1.7.8 1.1 1.2.5l7.2-9.4c.4-.5 0-1.3-.6-1.3h-4l1.4-5.4c.2-.7-.7-1.2-1.3-.7Z"/></svg>
           StackBlitz
           <span class="k-sr-only"> — باز کردن همین نمونه برای ویرایش آنلاین (در پنجرهٔ جدید)</span>
         </button>
       </form>
     )}
+    </div>
     {code && <div role="tabpanel" id={`${id}-p1`} aria-labelledby={`${id}-t1`}><CodeBlock code={code} lang={lang} /></div>}
     {showHtml && <div role="tabpanel" id={`${id}-p2`} aria-labelledby={`${id}-t2`} hidden={code ? true : undefined}><CodeBlock code={formatHtml(html)} lang="html" /></div>}
   </div>
 </figure>
 
 <script>
+  // ابزار هر نمونه: جهت چپ‌به‌راست و تم مقابل، فقط برای همان پیش‌نمایش
+  document.addEventListener("click", (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>("[data-demo-dir], [data-demo-theme]");
+    if (!btn) return;
+    const preview = btn.closest(".demo")?.querySelector<HTMLElement>(".demo__preview");
+    if (!preview) return;
+    const on = btn.getAttribute("aria-pressed") !== "true";
+    btn.setAttribute("aria-pressed", String(on));
+    if (btn.hasAttribute("data-demo-dir")) {
+      if (on) preview.setAttribute("dir", "ltr"); else preview.removeAttribute("dir");
+    } else {
+      const root = document.documentElement.dataset.theme === "light" ? "light" : "dark";
+      if (on) preview.dataset.theme = root === "light" ? "dark" : "light"; else delete preview.dataset.theme;
+    }
+    preview.animate?.([{ opacity: 0.4 }, { opacity: 1 }], { duration: 260, easing: "cubic-bezier(0.2, 0, 0, 1)" });
+  });
+
   // فایل‌های نمونه به‌جای ده‌ها input مخفی در data-files هستند تا HTML خام صفحه تگ <title> اضافه نداشته باشد (سئو)؛
   // درست پیش از ارسال به StackBlitz به فیلد تبدیل می‌شوند
   document.addEventListener("submit", (e) => {

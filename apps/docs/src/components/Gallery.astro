@@ -56,12 +56,19 @@ const persian = mode === "persian";
           : "هر کارت پیش‌نمایش زندهٔ همان کامپوننت است. برای مستندات، نمونه‌ها و ویژگی‌ها روی آن بزنید."}
       </p>
 
-      {!persian && (
-        <div class="gallery__tools" data-enter style="--d: 3">
+      {persian && (
+        <ul class="gfacts" role="list" data-enter style="--d: 3">
+          {[["۳۱", "استان روی نقشه"], ["۱۲۰۰+", "شهر در فرم نشانی"], ["۴۰", "بانک با لوگو و رنگ"], ["۱۳۰۰ تا ۱۵۰۰", "تقویم جلالی دقیق"], ["۰", "وابستگی جانبی"]].map(([n, t]) => (
+            <li><b>{n}</b><span>{t}</span></li>
+          ))}
+        </ul>
+      )}
+      {(
+        <div class="gallery__tools" data-enter style="--d: 4">
           <label class="gallery__search k-input">
             <span class="k-input__addon"><Fragment set:html={iconSvg("search")} /></span>
             <span class="k-sr-only">جستجوی کامپوننت</span>
-            <input class="k-input__control" type="search" placeholder="جستجو، مثلاً «جدول» یا «منو»" data-gallery-search autocomplete="off" />
+            <input class="k-input__control" type="search" placeholder={persian ? "جستجو، مثلاً «شبا» یا «تقویم»" : "جستجو، مثلاً «جدول» یا «منو»"} data-gallery-search autocomplete="off" />
           </label>
           <div class="k-chips" role="group" aria-label="دسته">
             {filters.map((f, i) => (
@@ -70,7 +77,9 @@ const persian = mode === "persian";
               </button>
             ))}
           </div>
-          <a class="gallery__switch" href="/docs/persian/">ابزارهای فارسی را جدا ببینید <span aria-hidden="true">←</span></a>
+          {persian
+            ? <a class="gallery__switch" href="/docs/components/">کامپوننت‌های عمومی را ببینید <span aria-hidden="true">←</span></a>
+            : <a class="gallery__switch" href="/docs/persian/">ابزارهای فارسی را جدا ببینید <span aria-hidden="true">←</span></a>}
         </div>
       )}
       <p class="k-sr-only" aria-live="polite" data-gallery-status></p>
@@ -114,6 +123,11 @@ numberToWords(<span class="t-n">2500000</span>);                     <span class
 </Base>
 
 <style is:global>
+  .gfacts { display: flex; flex-wrap: wrap; justify-content: center; gap: 1px; margin: var(--k-space-8) auto 0; padding: 0; list-style: none; overflow: hidden; inline-size: fit-content; max-inline-size: 100%; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-border-secondary); }
+  .gfacts li { display: grid; justify-items: center; gap: 2px; min-inline-size: 8.5rem; padding: var(--k-space-4) var(--k-space-5); background: color-mix(in srgb, var(--k-bg-primary) 92%, transparent); }
+  .gfacts b { color: var(--k-text-primary); font-size: var(--k-text-xl); font-weight: var(--k-weight-black); }
+  .gfacts span { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  @media (max-width: 40rem) { .gfacts li { min-inline-size: 7rem; flex: 1 1 40%; } }
   .gallery { overflow-x: clip; max-inline-size: 84rem; margin-inline: auto; padding: clamp(3rem, 7vw, 5rem) var(--gutter) clamp(4rem, 8vw, 6rem); }
   .gallery__head { position: relative; isolation: isolate; max-inline-size: 48rem; margin: 0 auto clamp(2.5rem, 5vw, 3.5rem); text-align: center; }
   .gallery__head::before { content: ""; position: absolute; inset: -6rem 10% auto; block-size: 16rem; z-index: -1; border-radius: 50%; background: var(--k-brand-500); filter: blur(90px); opacity: 0.16; pointer-events: none; }

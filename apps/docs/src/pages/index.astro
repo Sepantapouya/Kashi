@@ -199,33 +199,34 @@ const chips = [
   <main id="main" tabindex="-1" class="home">
     <!-- ───── هیرو ───── -->
     <div class="scroll-progress" aria-hidden="true"></div>
-    <section class="hero" aria-labelledby="hero-title" data-hero>
+    <section class="hero hero--v2" aria-labelledby="hero-title" data-hero>
       <div class="hero__bg" aria-hidden="true"></div>
       <div class="hero__glow" aria-hidden="true"></div>
+      <div class="hero__aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="hero__floor" aria-hidden="true"></div>
 
-      <div class="wrap hero__grid">
-        <div class="hero__copy">
-          <a class="hero__badge" href="/docs/installation/#رجیستری-shadcn" data-enter style="--d: 0">
-            <span class="hero__badge-tag">تازه</span>
-            در فهرست رسمی رجیستری‌های shadcn
-            <span aria-hidden="true">←</span>
+      <div class="wrap hero__center">
+        <a class="hero__badge" href="/docs/installation/#رجیستری-shadcn" data-enter style="--d: 0">
+          <span class="hero__badge-tag">تازه</span>
+          در فهرست رسمی رجیستری‌های shadcn
+          <span aria-hidden="true">←</span>
+        </a>
+        <h1 id="hero-title" class="hero__title" data-enter style="--d: 1">
+          زیرساخت طراحی یکپارچه<br class="hero__br" /> برای{" "}
+          <span class="hero__accent">محصولات فارسی.</span>
+        </h1>
+        <p class="hero__lead" data-enter style="--d: 2">
+          کامپوننت‌ها، توکن‌ها و کیت فیگمای راست‌به‌چپ و دسترس‌پذیر، از یک منبع؛ همراه با ابزارهایی که فقط یک محصول ایرانی لازم دارد: تقویم شمسی، کد ملی، شبا و پلاک.
+        </p>
+        <div class="hero__actions" data-enter style="--d: 3">
+          <a class="k-btn k-btn--primary k-btn--lg hero__cta" href="/docs/">
+            شروع کنید
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-k-mirror=""><path d="M4 10h12m-5-5 5 5-5 5" /></svg>
           </a>
-          <h1 id="hero-title" class="hero__title" data-enter style="--d: 1">
-            زیرساخت طراحی یکپارچه برای{" "}
-            <span class="hero__accent">محصولات فارسی.</span>
-          </h1>
-          <p class="hero__lead" data-enter style="--d: 2">
-            کامپوننت‌ها، توکن‌ها و کیت فیگمای راست‌به‌چپ و دسترس‌پذیر، از یک منبع. همراه با ابزارهایی که فقط یک محصول ایرانی لازم دارد: تقویم شمسی، کد ملی، شبا و پلاک.
-          </p>
-          <div class="hero__actions" data-enter style="--d: 3">
-            <a class="k-btn k-btn--primary k-btn--lg hero__cta" href="/docs/">
-              شروع کنید
-              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-k-mirror=""><path d="M4 10h12m-5-5 5 5-5 5" /></svg>
-            </a>
-            <a class="k-btn k-btn--secondary k-btn--lg" href="#enterprise-title">برای سازمان‌ها</a>
-          </div>
-          <div class="hero__install" data-enter style="--d: 4"><Install /></div>
-          <div class="proof" data-enter style="--d: 5">
+          <a class="k-btn k-btn--secondary k-btn--lg" href="/docs/components/">دیدن کامپوننت‌ها</a>
+        </div>
+        <div class="hero__install" data-enter style="--d: 4"><Install /></div>
+          <div class="proof hero__proof" data-enter style="--d: 5">
             <a class="proof__gh" href={author.repo} target="_blank" rel="noopener">
               <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
               <span><b data-gh="stars">{gh ? faNum(gh.stars) : "—"}</b> ستاره</span>
@@ -233,50 +234,11 @@ const chips = [
             </a>
             <span class="proof__item" data-gh-wait={gh?.clones?.total ? undefined : ""}><span class="proof__dot" aria-hidden="true"></span><b data-gh="clones">{gh?.clones?.total ? faNum(gh.clones.total) : "—"}</b> کلون از GitHub</span>
           </div>
-        </div>
-
-        <aside class="sysmap" data-enter style="--d: 3" aria-labelledby="sysmap-title">
-          <header class="sysmap__head">
-            <span id="sysmap-title" class="sysmap__title">اکوسیستم کاشی</span>
-            <span class="sysmap__status"><span class="proof__dot" aria-hidden="true"></span>پایدار</span>
-          </header>
-          <ul class="sysmap__list" role="list">
-            {system.map((m) => (
-              <li>
-                <a class="sysmap__row" href={m.href}>
-                  <code dir="ltr">{m.name}</code>
-                  <span class="sysmap__role">{m.role}</span>
-                  <span class="sysmap__ver" dir="ltr">{pkg.version}</span>
-                </a>
-              </li>
-            ))}
-            <li>
-              <a class="sysmap__row" href="/docs/figma/">
-                <code dir="ltr">Kashi UI Kit</code>
-                <span class="sysmap__role">کیت و پلاگین فیگما</span>
-                <span class="sysmap__ver">Figma</span>
-              </a>
-            </li>
-          </ul>
-          <footer class="sysmap__foot">همهٔ پکیج‌ها با یک شمارهٔ نسخه منتشر می‌شوند · <bdi dir="ltr">SemVer · MIT</bdi></footer>
-        </aside>
       </div>
 
-      <!-- عددها با شمارش زنده -->
-      <div class="wrap">
-        <dl class="metrics" data-enter style="--d: 6">
-          {metrics.map((m) => (
-            <div class="metrics__item">
-              <dt>{m.label}</dt>
-              <dd><span data-count={m.value}>{fa(m.value)}</span>{m.suffix && <small>{m.suffix}</small>}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-
-      <!-- نمای محصول با تراشه‌های شناور -->
-      <div class="wrap">
-        <div class="stage" data-enter style="--d: 7">
+      <!-- نمای محصول: پنجرهٔ بزرگ که با اسکرول صاف می‌شود -->
+      <div class="wrap hero__stage-wrap">
+        <div class="stage hero__stage" data-enter style="--d: 6">
           <ul class="chips" role="list" aria-label="نمونه‌ای از قابلیت‌های فارسی">
             {chips.map((c, k) => (
               <li class={`chip chip--${k + 1}`}>
@@ -294,6 +256,37 @@ const chips = [
           </figure>
         </div>
         <p class="product__caption">پنل بالا یک نمونهٔ زنده است و فقط با کامپوننت‌های کاشی ساخته شده؛ فیلترها و بازهٔ زمانی کار می‌کنند.</p>
+      </div>
+
+      <!-- عددها با شمارش زنده -->
+      <div class="wrap">
+        <dl class="metrics" data-reveal>
+          {metrics.map((m) => (
+            <div class="metrics__item">
+              <dt>{m.label}</dt>
+              <dd><span data-count={m.value}>{fa(m.value)}</span>{m.suffix && <small>{m.suffix}</small>}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <!-- اکوسیستم: نوار روان پکیج‌ها، همه با یک نسخه -->
+      <div class="eco" aria-labelledby="eco-title">
+        <p id="eco-title" class="eco__title">یک اکوسیستم، یک شمارهٔ نسخه <bdi dir="ltr">v{pkg.version}</bdi></p>
+        <div class="eco__track">
+          <ul class="eco__list" role="list">
+            {system.map((m) => (
+              <li><a class="eco__item" href={m.href}><code dir="ltr">{m.name}</code><span>{m.role}</span></a></li>
+            ))}
+            <li><a class="eco__item" href="/docs/figma/"><code dir="ltr">Kashi UI Kit</code><span>کیت و پلاگین فیگما</span></a></li>
+          </ul>
+          <ul class="eco__list" role="list" aria-hidden="true">
+            {system.map((m) => (
+              <li><a class="eco__item" href={m.href} tabindex="-1"><code dir="ltr">{m.name}</code><span>{m.role}</span></a></li>
+            ))}
+            <li><a class="eco__item" href="/docs/figma/" tabindex="-1"><code dir="ltr">Kashi UI Kit</code><span>کیت و پلاگین فیگما</span></a></li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -419,30 +412,44 @@ const chips = [
           <p class="band__lead">از فلش و فرم تا سماور و بادگیر؛ همه روی شبکهٔ ۲۰×۲۰ و با همان گوشه‌های نرم کامپوننت‌ها. هر آیکون در شش سبک هست و با یک prop عوض می‌شود.</p>
         </header>
 
-        <div class="iconset" data-reveal>
-          <div class="iconset__styles" role="group" aria-label="سبک آیکون">
-            {variants.map((v, i) => (
-              <button type="button" class="iconset__style" data-variant={v} aria-pressed={i === 0 ? "true" : "false"}>{variantLabels[v]}</button>
-            ))}
+        <div class="iconset icx" data-reveal>
+          <!-- ویترین: آیکون بزرگ، نام، کد و پلهٔ اندازه -->
+          <div class="icx__show" aria-live="polite">
+            <div class="icx__stage" data-icx-big aria-hidden="true"></div>
+            <div class="icx__meta">
+              <b class="icx__name" data-icx-name>{icons[iconShowcase[0]].title}</b>
+              <code class="icx__code" dir="ltr" data-icx-code>&lt;Icon name="{iconShowcase[0]}" /&gt;</code>
+            </div>
+            <ul class="icx__sizes" role="list" aria-hidden="true">
+              {[16, 20, 24, 32, 48].map((px) => <li><span class="icx__size" style={`--px: ${px}px`} data-icx-size></span><small>{fa(px)}</small></li>)}
+            </ul>
           </div>
-          <ul class="iconset__grid" role="list">
-            {iconShowcase.map((n, k) => (
-              <li style={`--i: ${k}`}>
-                <a class="iconset__cell" href={`/docs/icons/${n}/`} aria-label={icons[n].title} title={icons[n].title}>
-                  {variants.map((v, i) => <span class="iconset__glyph" data-v={v} hidden={i !== 0} set:html={iconSvg(n, { size: 24, variant: v })} />)}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div class="iconset__foot">
-            <dl class="iconset__stats">
-              <div><dt>آیکون</dt><dd>{fa(iconCount)}</dd></div>
-              <div><dt>سبک</dt><dd>{fa(variants.length)}</dd></div>
-              <div><dt>دسته</dt><dd>{fa(iconCategoryCount)}</dd></div>
-            </dl>
-            <div class="iconset__links">
-              <a class="text-link" href="/docs/icons/category/persian/">آیکون‌های ایرانی <span aria-hidden="true">←</span></a>
-              <a class="text-link" href="/docs/icons/">همهٔ آیکون‌ها <span aria-hidden="true">←</span></a>
+
+          <div class="icx__side">
+            <div class="k-chips iconset__styles" role="group" aria-label="سبک آیکون">
+              {variants.map((v, i) => (
+                <button type="button" class="k-chip iconset__style" data-variant={v} aria-pressed={i === 0 ? "true" : "false"}>{variantLabels[v]}</button>
+              ))}
+            </div>
+            <ul class="iconset__grid" role="list">
+              {iconShowcase.map((n, k) => (
+                <li style={`--i: ${k}`}>
+                  <a class="iconset__cell" href={`/docs/icons/${n}/`} aria-label={icons[n].title} title={icons[n].title} data-icx-name={n}>
+                    {variants.map((v, i) => <span class="iconset__glyph" data-v={v} hidden={i !== 0} set:html={iconSvg(n, { size: 24, variant: v })} />)}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div class="iconset__foot">
+              <dl class="iconset__stats">
+                <div><dt>آیکون</dt><dd>{fa(iconCount)}</dd></div>
+                <div><dt>سبک</dt><dd>{fa(variants.length)}</dd></div>
+                <div><dt>دسته</dt><dd>{fa(iconCategoryCount)}</dd></div>
+              </dl>
+              <div class="iconset__links">
+                <a class="k-btn k-btn--secondary k-btn--sm" href="/docs/icons/category/persian/">آیکون‌های ایرانی</a>
+                <a class="k-btn k-btn--primary k-btn--sm" href="/docs/icons/">همهٔ آیکون‌ها</a>
+              </div>
             </div>
           </div>
         </div>
@@ -691,11 +698,11 @@ const chips = [
           <h2 id="faq-title">پیش از انتخاب کاشی</h2>
           <p class="band__lead">پاسخ پرسش‌هایی که تیم‌ها معمولاً پیش از استفاده می‌پرسند. پرسش دیگری دارید؟ <a href={author.telegram.href} target="_blank" rel="noopener">در تلگرام بپرسید<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>.</p>
         </header>
-        <div class="faq__list" data-reveal>
+        <div class="k-accordion faq__list" data-reveal>
           {faq.map(([q, a], i) => (
-            <details class="faq__item" open={i === 0}>
-              <summary>{q}<span class="faq__chev" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 5 5 5-5" /></svg></span></summary>
-              <p>{a}</p>
+            <details class="k-accordion__item faq__item" name="faq" open={i === 0}>
+              <summary class="k-accordion__trigger">{q}</summary>
+              <div class="k-accordion__content"><p>{a}</p></div>
             </details>
           ))}
         </div>
@@ -1120,16 +1127,7 @@ const chips = [
   /* ───── پرسش‌های رایج ───── */
   .faq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
   .faq__head h2 { margin: var(--k-space-3) 0 var(--k-space-4); color: var(--k-text-primary); font-size: clamp(var(--k-text-2xl), 3.4vw, 2.5rem); font-weight: var(--k-weight-bold); line-height: 1.35; }
-  .faq__list { border-block-start: 1px solid var(--k-border-secondary); }
-  .faq__item { border-block-end: 1px solid var(--k-border-secondary); }
-  .faq__item summary { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-4); padding: var(--k-space-5) 0; color: var(--k-text-primary); font-weight: var(--k-weight-semibold); cursor: pointer; list-style: none; }
-  .faq__item summary::-webkit-details-marker { display: none; }
-  .faq__item summary:hover { color: var(--k-text-brand); }
-  .faq__item summary:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); border-radius: var(--k-radius-sm); }
-  .faq__chev { display: grid; flex: none; place-items: center; inline-size: 1.75rem; block-size: 1.75rem; border: 1px solid var(--k-border-secondary); border-radius: 50%; color: var(--k-text-tertiary); transition: rotate var(--k-duration-normal) var(--k-ease-standard); }
-  .faq__chev svg { inline-size: 1rem; block-size: 1rem; }
-  .faq__item[open] .faq__chev { rotate: 180deg; color: var(--k-text-brand); }
-  .faq__item p { margin: 0; padding-block-end: var(--k-space-5); color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 2; }
+  .faq__item p { margin: 0; color: var(--k-text-tertiary); line-height: 2; }
 
   /* ───── کیفیت ───── */
   .quality { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--k-space-6); align-items: start; }
@@ -1316,7 +1314,48 @@ const chips = [
   iconStyles.forEach((btn) => btn.addEventListener("click", () => {
     iconStyles.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
     document.querySelectorAll<HTMLElement>(".iconset__glyph").forEach((g) => { g.hidden = g.dataset.v !== btn.dataset.variant; });
+    if (current) show(current, true);
   }));
+
+  // ویترین آیکون: آیکون زیر ماوس یا فوکوس بزرگ نمایش داده می‌شود؛ وگرنه خودکار می‌چرخد
+  const big = document.querySelector<HTMLElement>("[data-icx-big]");
+  const nameEl = document.querySelector<HTMLElement>("[data-icx-name]");
+  const codeEl = document.querySelector<HTMLElement>("[data-icx-code]");
+  const sizes = [...document.querySelectorAll<HTMLElement>("[data-icx-size]")];
+  const cells = [...document.querySelectorAll<HTMLAnchorElement>(".iconset__cell")];
+  let current: HTMLAnchorElement | null = null;
+  const show = (cell: HTMLAnchorElement, force = false) => {
+    if (!big || (!force && cell === current)) return;
+    current?.removeAttribute("data-current");
+    current = cell;
+    cell.setAttribute("data-current", "");
+    const svg = cell.querySelector(".iconset__glyph:not([hidden]) svg");
+    if (!svg) return;
+    const variant = cell.querySelector<HTMLElement>(".iconset__glyph:not([hidden])")?.dataset.v ?? "light";
+    big.replaceChildren(svg.cloneNode(true));
+    big.classList.remove("is-in"); void big.offsetWidth; big.classList.add("is-in");
+    sizes.forEach((box) => box.replaceChildren(svg.cloneNode(true)));
+    if (nameEl) nameEl.textContent = cell.getAttribute("aria-label");
+    if (codeEl) codeEl.textContent = `<Icon name="${cell.dataset.icxName}"${variant === "light" ? "" : ` variant="${variant}"`} />`;
+  };
+  if (cells.length) show(cells.find((c) => c.dataset.icxName === "samovar") ?? cells[0], true);
+  const box = document.querySelector<HTMLElement>(".icx");
+  let paused = false;
+  box?.addEventListener("pointerenter", () => (paused = true));
+  box?.addEventListener("pointerleave", () => (paused = false));
+  cells.forEach((c) => {
+    c.addEventListener("pointerenter", () => show(c));
+    c.addEventListener("focus", () => { paused = true; show(c); });
+    c.addEventListener("blur", () => (paused = false));
+  });
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let k = 0;
+    setInterval(() => {
+      if (paused || document.hidden || !box || box.getBoundingClientRect().bottom < 0 || box.getBoundingClientRect().top > innerHeight) return;
+      k = (cells.indexOf(current!) + 1) % cells.length;
+      show(cells[k]);
+    }, 2400);
+  }
 </script>
 
 <script>
@@ -1375,4 +1414,14 @@ const chips = [
     void iconGrid.offsetWidth;
     iconGrid.classList.add("is-swapping");
   }));
+
+  // نور هیرو دنبال ماوس
+  const heroEl = document.querySelector<HTMLElement>("[data-hero]");
+  if (heroEl && matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").matches) {
+    heroEl.addEventListener("pointermove", (e) => {
+      const r = heroEl.getBoundingClientRect();
+      heroEl.style.setProperty("--hx", `${e.clientX - r.left}px`);
+      heroEl.style.setProperty("--hy", `${e.clientY - r.top}px`);
+    }, { passive: true });
+  }
 </script>

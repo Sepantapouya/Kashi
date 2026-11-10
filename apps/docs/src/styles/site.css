@@ -426,45 +426,20 @@ code, pre, kbd {
 .demo__more:hover { color: var(--k-text-primary); }
 .demo__more:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); border-radius: var(--k-radius-full); }
 /* دکمهٔ StackBlitz در همان ردیف تب‌ها، سمت مقابل React/HTML (نوار کد چپ‌به‌راست است) */
-.demo__blitz { position: absolute; inset-block-start: 0.4rem; right: var(--k-space-3); margin: 0; }
-.demo__blitz-btn {
-  display: inline-flex; align-items: center; gap: 6px; padding: 0.3rem 0.65rem; direction: ltr;
-  border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); background: var(--k-bg-primary);
-  color: var(--k-text-secondary); font: inherit; font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); cursor: pointer;
-  transition: color var(--k-duration-fast), border-color var(--k-duration-fast);
-}
+.demo__end { position: absolute; z-index: 1; inset-block-start: 0.3rem; right: var(--k-space-3); display: flex; align-items: center; gap: var(--k-space-2); direction: ltr; }
+.demo__blitz { margin: 0; }
+.demo__tools { display: flex; gap: 2px; padding-inline-end: var(--k-space-2); border-inline-end: 1px solid var(--k-border-secondary); }
+.demo__tool[aria-pressed="true"] { background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+.demo__tool svg { transition: rotate var(--k-duration-slow) var(--k-ease-spring); }
+.demo__tool[data-demo-theme][aria-pressed="true"] svg { rotate: 180deg; }
+.demo__tool[data-demo-dir][aria-pressed="true"] svg { scale: -1 1; }
+.demo__blitz-btn { direction: ltr; }
 .demo__blitz-btn svg { inline-size: 0.875rem; block-size: 0.875rem; color: #1389fd; }
-.demo__blitz-btn:hover { border-color: #1389fd; color: var(--k-text-primary); }
-.demo__blitz-btn:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
-.demo__tabs {
-  display: flex;
-  gap: var(--k-space-1);
-  padding: var(--k-space-2) var(--k-space-3) 0;
-  border-block-end: 1px solid var(--k-border-secondary);
-  direction: ltr;
-}
-.demo__tabs [role="tab"] {
-  position: relative;
-  padding: var(--k-space-2) var(--k-space-3);
-  border: 0;
-  background: none;
-  color: var(--k-text-tertiary);
-  font: inherit;
-  font-size: var(--k-text-sm);
-  font-weight: var(--k-weight-semibold);
-  cursor: pointer;
-  border-radius: var(--k-radius-sm) var(--k-radius-sm) 0 0;
-}
-.demo__tabs [role="tab"]:hover { color: var(--k-text-primary); }
-.demo__tabs [role="tab"][aria-selected="true"] { color: var(--k-text-primary); }
-.demo__tabs [role="tab"][aria-selected="true"]::after {
-  content: "";
-  position: absolute;
-  inset-inline: var(--k-space-2);
-  inset-block-end: -1px;
-  block-size: 2px;
-  background: var(--k-border-brand);
-}
+.demo__blitz-btn:hover { border-color: #1389fd; }
+.demo__tabs { padding: var(--k-space-1) var(--k-space-4) 0; direction: ltr; --k-tabs-gap: 0; }
+.demo__tabs .k-tabs__list { border-block-end: 0; }
+.demo__code { --_tabs-line: 1px solid var(--k-border-secondary); }
+.demo__code > .demo__tabs { border-block-end: var(--_tabs-line); }
 
 /* ───────── جدول‌ها ───────── */
 .table-wrap {

@@ -1,21 +1,98 @@
 ---
+import { iconSvg } from "@kashi-ui/icons";
 import { nav } from "../data/nav";
 const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : Astro.url.pathname + "/";
+// آیکون هر گروه؛ گروه بی‌آیکون فقط عنوان دارد
+const GROUP_ICONS: Record<string, string> = { "شروع": "rocket", "پایداری و امنیت": "shield-check", "فارسی": "language", "کامپوننت‌ها": "grid" };
 ---
-<nav class="sidebar" aria-label="مستندات">
-  {nav.map((group) => (
-    <div class="sidebar__group">
-      <p class="sidebar__title">{group.title}</p>
+<nav class="sidebar" aria-label="مستندات" data-sidebar>
+  <div class="sidebar__filter">
+    <div class="k-input k-input--sm">
+      <span class="k-input__addon" set:html={iconSvg("search", { size: 16 })} />
+      <input type="search" class="k-input__control" placeholder="فیلتر صفحه‌ها…" aria-label="فیلتر فهرست مستندات" autocomplete="off" data-side-filter />
+    </div>
+  </div>
+  <p class="sidebar__empty" hidden data-side-empty>صفحه‌ای با این نام نیست.</p>
+  {nav.map((group, gi) => (
+    <details class="sidebar__group" open data-side-group={gi}>
+      <summary class="sidebar__title">
+        {GROUP_ICONS[group.title] && <span class="sidebar__gicon" set:html={iconSvg(GROUP_ICONS[group.title], { size: 16 })} />}
+        <span class="sidebar__gname">{group.title}</span>
+        <span class="k-badge k-badge--sm sidebar__count" aria-hidden="true">{group.items.length.toLocaleString("fa-IR")}</span>
+        <Fragment set:html={iconSvg("chevron-down", { size: 14, className: "sidebar__chev" })} />
+      </summary>
       <ul role="list">
         {group.items.map((item) => (
           <li>
             <a href={item.href} aria-current={item.href === path ? "page" : undefined}>
-              {item.title}
+              <span class="sidebar__label">{item.title}</span>
               {item.badge && <span class="k-badge k-badge--sm k-badge--brand">{item.badge}</span>}
             </a>
           </li>
         ))}
       </ul>
-    </div>
+    </details>
   ))}
 </nav>
+
+<script>
+  const norm = (s: string) => s.replace(/[يى]/g, "ی").replace(/ك/g, "ک").replace(/[‌\s]+/g, " ").trim().toLowerCase();
+  const KEY = "kashi-side-closed";
+  let closed: string[] = [];
+  try { closed = JSON.parse(localStorage.getItem(KEY) ?? "[]"); } catch { /* حالت خصوصی */ }
+
+  document.querySelectorAll<HTMLElement>("[data-sidebar]").forEach((side) => {
+    const groups = [...side.querySelectorAll<HTMLDetailsElement>("[data-side-group]")];
+    // گروه‌هایی که کاربر بسته، بسته می‌مانند؛ مگر صفحهٔ فعلی داخلشان باشد
+    for (const g of groups) {
+      if (closed.includes(g.dataset.sideGroup!) && !g.querySelector('[aria-current="page"]')) g.open = false;
+      g.addEventListener("toggle", () => {
+        if (side.hasAttribute("data-filtering")) return;
+        const id = g.dataset.sideGroup!;
+        closed = g.open ? closed.filter((x) => x !== id) : [...new Set([...closed, id])];
+        try { localStorage.setItem(KEY, JSON.stringify(closed)); } catch { /* */ }
+      });
+    }
+
+    const input = side.querySelector<HTMLInputElement>("[data-side-filter]")!;
+    const empty = side.querySelector<HTMLElement>("[data-side-empty]")!;
+    const was = new Map<HTMLDetailsElement, boolean>();
+    input.addEventListener("input", () => {
+      const q = norm(input.value);
+      if (q && !side.hasAttribute("data-filtering")) { side.setAttribute("data-filtering", ""); groups.forEach((g) => was.set(g, g.open)); }
+      let any = false;
+      for (const g of groups) {
+        let hits = 0;
+        g.querySelectorAll<HTMLLIElement>("li").forEach((li) => {
+          const ok = !q || norm(li.textContent ?? "").includes(q);
+          li.hidden = !ok;
+          if (ok) hits++;
+        });
+        g.hidden = hits === 0;
+        if (q) g.open = true;
+        any ||= hits > 0;
+      }
+      empty.hidden = any;
+      if (!q && side.hasAttribute("data-filtering")) {
+        groups.forEach((g) => (g.open = was.get(g) ?? true));
+        // رویداد toggle پس از همین تابع اجرا می‌شود؛ پرچم بعد از آن برداشته می‌شود
+        setTimeout(() => side.removeAttribute("data-filtering"));
+      }
+    });
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && input.value) { e.preventDefault(); input.value = ""; input.dispatchEvent(new Event("input")); }
+      if (e.key === "Enter") {
+        const first = side.querySelector<HTMLAnchorElement>("li:not([hidden]) a");
+        if (first) location.href = first.href;
+      }
+    });
+  });
+
+  // صفحهٔ فعلی در سایدبار دیده شود (بدون پرش کل صفحه)
+  const current = document.querySelector<HTMLElement>(".docs__sidebar [aria-current='page']");
+  const box = document.querySelector<HTMLElement>(".docs__sidebar");
+  if (current && box) {
+    const top = current.offsetTop - box.clientHeight / 2;
+    if (top > 0) box.scrollTop = top;
+  }
+</script>

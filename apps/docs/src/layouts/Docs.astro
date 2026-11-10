@@ -10,6 +10,8 @@ import UsageSection from "../components/UsageSection.astro";
 import { GUIDELINES } from "../data/guidelines";
 import { ELEMENT_DOCS } from "../data/elements";
 import { nav, siblings } from "../data/nav";
+import { author } from "../data/author";
+import { iconSvg } from "@kashi-ui/icons";
 
 interface Props {
   frontmatter?: { title: string; description?: string; status?: string; seoTitle?: string };
@@ -40,17 +42,37 @@ const section = path.startsWith("/docs/components/") ? { name: "کامپوننت
   : path.startsWith("/docs/icons/") ? { name: "آیکون‌ها", url: "/docs/icons/" }
   : { name: "مستندات", url: "/docs/" };
 const crumbs = [{ name: "کاشی", url: "/" }, ...(section.url !== path ? [section] : []), { name: fm.title, url: path }];
+// فایل منبع صفحه (برای MDX) تا «ویرایش در GitHub» به همان فایل برود
+const file = (Astro.props as { file?: string }).file;
+const editHref = file?.includes("/apps/docs/") ? `${author.repo}/edit/main/apps/docs/${file.split("/apps/docs/")[1]}` : undefined;
+const issueHref = `${author.repo}/issues/new?title=${encodeURIComponent(`مستندات: ${fm.title}`)}&body=${encodeURIComponent(`صفحه: ${site}${path}\n\n`)}`;
 const breadcrumb = { "@type": "BreadcrumbList", itemListElement: crumbs.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, item: `${site}${c.url}` })) };
 ---
 <Base title={fm.title} description={fm.description} seoTitle={seoTitle} jsonLd={[breadcrumb]}>
   <Header />
+  <div class="read-progress" aria-hidden="true"></div>
 
   <div class="docs">
     <aside class="docs__sidebar"><Sidebar /></aside>
     <main id="main" class="docs__main" tabindex="-1">
       <article class="prose">
         <header class="page-head">
-          {group && <p class="page-head__crumb">{group}</p>}
+          <div class="page-head__top">
+            <nav class="k-breadcrumb crumbs" aria-label="مسیر صفحه">
+              <ol>
+                {crumbs.slice(0, -1).map((c) => <li><a class="k-breadcrumb__link" href={c.url}>{c.name}</a></li>)}
+                {group && group !== crumbs.at(-2)?.name && <li><span class="k-breadcrumb__text">{group}</span></li>}
+                <li><span class="k-breadcrumb__link" aria-current="page">{fm.title}</span></li>
+              </ol>
+            </nav>
+            <div class="k-btn-group page-actions" role="group" aria-label="کارهای این صفحه">
+              <button type="button" class="k-btn k-btn--secondary k-btn--sm page-action" data-copy-url aria-label="کپی پیوند این صفحه" title="کپی پیوند">
+                <Fragment set:html={iconSvg("link", { size: 16 })} /><Fragment set:html={iconSvg("check", { size: 16, className: "page-action__ok" })} />
+              </button>
+              {editHref && <a class="k-btn k-btn--secondary k-btn--sm page-action" href={editHref} target="_blank" rel="noopener" title="ویرایش در GitHub"><Fragment set:html={iconSvg("edit", { size: 16 })} /><span>ویرایش</span><span class="k-sr-only"> در GitHub (در پنجرهٔ جدید)</span></a>}
+              <a class="k-btn k-btn--secondary k-btn--sm page-action" href={issueHref} target="_blank" rel="noopener" title="گزارش مشکل این صفحه"><Fragment set:html={iconSvg("flag", { size: 16 })} /><span>گزارش</span><span class="k-sr-only"> مشکل این صفحه (در پنجرهٔ جدید)</span></a>
+            </div>
+          </div>
           <h1>{fm.title}</h1>
           {fm.description && <p class="page-head__lead">{fm.description}</p>}
           <PageInstall />
@@ -59,17 +81,65 @@ const breadcrumb = { "@type": "BreadcrumbList", itemListElement: crumbs.map((c, 
         <UsageSection />
         <ElementSection />
       </article>
+      <aside class="feedback" data-feedback aria-labelledby="feedback-q">
+        <p id="feedback-q" class="feedback__q">این صفحه به کارتان آمد؟</p>
+        <div class="feedback__btns" role="group" aria-labelledby="feedback-q">
+          <button type="button" class="k-btn k-btn--secondary k-btn--sm k-btn--pill feedback__btn" data-vote="yes" aria-pressed="false"><Fragment set:html={iconSvg("thumbs-up", { size: 18 })} />بله</button>
+          <button type="button" class="k-btn k-btn--secondary k-btn--sm k-btn--pill feedback__btn" data-vote="no" aria-pressed="false"><Fragment set:html={iconSvg("thumbs-down", { size: 18 })} />نه چندان</button>
+        </div>
+        <p class="feedback__thanks" data-feedback-thanks hidden role="status">ممنون! <a href={issueHref} target="_blank" rel="noopener">بگویید چه چیزی کم بود<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a></p>
+      </aside>
       <nav class="pager" aria-label="صفحه‌های مجاور">
         {prev ? <a class="pager__link" href={prev.href} rel="prev"><span>قبلی</span>{prev.title}</a> : <span />}
         {next && <a class="pager__link pager__link--next" href={next.href} rel="next"><span>بعدی</span>{next.title}</a>}
       </nav>
     </main>
-    <aside class="docs__toc"><Toc headings={headings} /></aside>
+    <aside class="docs__toc">
+      <Toc headings={headings} />
+      <ul class="toc-extra" role="list">
+        {editHref && <li><a href={editHref} target="_blank" rel="noopener"><Fragment set:html={iconSvg("edit", { size: 14 })} />ویرایش این صفحه<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a></li>}
+        <li><a href={issueHref} target="_blank" rel="noopener"><Fragment set:html={iconSvg("bug", { size: 14 })} />گزارش مشکل<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a></li>
+        <li><a href="#main"><Fragment set:html={iconSvg("arrow-up", { size: 14 })} />بالای صفحه</a></li>
+      </ul>
+    </aside>
   </div>
   <Footer />
 </Base>
 
 <script>
+  // کپی پیوند صفحه
+  document.querySelector<HTMLButtonElement>("[data-copy-url]")?.addEventListener("click", (e) => {
+    const b = e.currentTarget as HTMLButtonElement;
+    navigator.clipboard?.writeText(location.href.split("#")[0]).then(() => {
+      b.dataset.copied = "";
+      const live = document.getElementById("live-region");
+      if (live) live.textContent = "پیوند صفحه کپی شد";
+      setTimeout(() => delete b.dataset.copied, 1600);
+    });
+  });
+
+  // «این صفحه به کارتان آمد؟»: یک رأی برای هر صفحه، در مرورگر خود کاربر و رویداد آمار
+  const fb = document.querySelector<HTMLElement>("[data-feedback]");
+  if (fb) {
+    const key = `kashi-fb:${location.pathname}`;
+    const btns = [...fb.querySelectorAll<HTMLButtonElement>("[data-vote]")];
+    const thanks = fb.querySelector<HTMLElement>("[data-feedback-thanks]")!;
+    const show = (v: string, fresh: boolean) => {
+      btns.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.vote === v)));
+      fb.dataset.voted = v;
+      thanks.hidden = false;
+      if (fresh) fb.dataset.fresh = "";
+    };
+    try { const v = localStorage.getItem(key); if (v) show(v, false); } catch { /* */ }
+    btns.forEach((b) => b.addEventListener("click", () => {
+      const v = b.dataset.vote!;
+      if (fb.dataset.voted === v) return;
+      show(v, true);
+      try { localStorage.setItem(key, v); } catch { /* */ }
+      (window as unknown as { dataLayer?: unknown[] }).dataLayer?.push({ event: "page_feedback", helpful: v, page: location.pathname });
+    }));
+  }
+
   // نشانهٔ پیوند کنار عنوان بخش‌ها، برای فرستادن لینک همان بخش
   for (const h of document.querySelectorAll<HTMLElement>(".prose > h2[id], .prose > h3[id]")) {
     if (h.querySelector(".h-anchor")) continue;

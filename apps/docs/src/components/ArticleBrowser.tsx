@@ -132,7 +132,7 @@ export default function ArticleBrowser({ articles, categories }: { articles: Art
         <ul className="ab__grid" role="list">
           {list.map((a) => (
             <li key={a.slug}>
-              <a className="ab-card" href={`/articles/${a.slug}/`}>
+              <a className="ab-card" data-spot="" href={`/articles/${a.slug}/`}>
                 <img src={`/articles/${a.slug}/cover.jpg`} alt={a.coverAlt} width={1200} height={630} loading="lazy" decoding="async" />
                 <span className="ab-card__meta"><b>{a.category}</b><span>{a.dateFa}</span><span>{fa(a.minutes)} دقیقه</span></span>
                 <h2>{a.title}</h2>
