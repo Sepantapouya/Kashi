@@ -1,7 +1,7 @@
 import { compare, frame, code, field, btn, badge } from "../kit.mjs";
 
 const sampleRow = (color, ratio, pass) => `<div style="display:grid;grid-template-columns:1fr 140px 120px;align-items:center;gap:20px;padding:18px 24px;border-bottom:1px solid var(--k-border-secondary)">
-  <span style="font-size:22px;color:${color}">سفارش شما فردا ارسال می‌شود.</span>
+  <span style="justify-self:start;padding:10px 16px;border-radius:12px;background:#fff;font-size:22px;color:${color}">سفارش شما فردا ارسال می‌شود.</span>
   <b style="font-size:20px">${ratio} به ۱</b>${pass ? badge("قبول", "success", true) : badge("رد", "error", true)}</div>`;
 
 const login = (focus) => `<div style="display:grid;gap:16px">
