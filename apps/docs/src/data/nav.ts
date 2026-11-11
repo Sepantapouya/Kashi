@@ -16,6 +16,7 @@ const RAW: NavGroup[] = [
       { title: "راهنمای آیکون‌ها", href: "/docs/icons/usage/" },
       { title: "سفارشی‌سازی و تم", href: "/docs/theming/" },
       { title: "حرکت و ریزتعامل‌ها", href: "/docs/motion/", badge: "جدید" },
+      { title: "حالت‌های کامپوننت‌ها", href: "/docs/states/", badge: "جدید" },
       { title: "فونت و تایپوگرافی", href: "/docs/typography/" },
       { title: "دسترس‌پذیری", href: "/docs/accessibility/" },
       { title: "نوشتن متن رابط", href: "/docs/writing/", badge: "جدید" },

@@ -1,0 +1,109 @@
+---
+layout: ../../layouts/Docs.astro
+title: حالت‌های کامپوننت‌ها
+seoTitle: "حالت‌های کامپوننت‌ها: بارگذاری، خالی، غیرفعال، خطا و فقط‌خواندنی · کاشی"
+description: پنج حالتی که هر کامپوننت کاشی باید درست نشان بدهد، با یک ظاهر و یک API یکسان؛ کِی از کدام استفاده کنیم و کدام کامپوننت کدام را دارد.
+---
+import Demo from "../../components/Demo.astro";
+import { Select, Checkbox, Switch, SegmentedControl, Input, BarChart, StatCard, TagInput } from "@kashi-ui/react";
+
+هر کامپوننتی که داده نشان می‌دهد یا داده می‌گیرد، جز حالت عادی، پنج حالت دیگر هم دارد. در کاشی هر کدام **یک ظاهر و یک نام prop** در همهٔ کامپوننت‌ها دارد، تا کاربر همه‌جا یک زبان ببیند و شما هر بار از نو تصمیم نگیرید.
+
+| حالت | معنا | prop | ظاهر |
+| --- | --- | --- | --- |
+| بارگذاری | داده در راه است | `loading` | اسپینر کوچک یا ردیف‌های اسکلتی؛ بقیهٔ صفحه کار می‌کند |
+| خالی | داده آمد ولی چیزی نیست | `emptyMessage` | پیام کوتاه و راهنما، نه فضای سفید |
+| غیرفعال | الان قابل‌استفاده نیست | `disabled` | کم‌رنگ؛ در فرم ارسال نمی‌شود |
+| خطا | مقدار درست نیست | `error` (یا `invalid`) | حاشیهٔ قرمز، پیام زیر فیلد و یک لرزش کوتاه |
+| فقط‌خواندنی | دیده می‌شود ولی عوض نمی‌شود | `readOnly` | زمینهٔ ملایم، متن کاملاً خوانا؛ در فرم ارسال می‌شود |
+
+## امتحان کنید
+
+<Demo align="start" html={false} code={`<Select label="شهر" options={…} readOnly defaultValue="tehran" />
+<Select label="شهر" options={[]} loading />
+<Select label="شهر" options={[]} emptyMessage="اول استان را انتخاب کنید." />
+<Checkbox label="قوانین را خواندم" defaultChecked readOnly />
+<SegmentedControl options={…} defaultValue="week" readOnly />`}>
+  <div style={{ display: "grid", gap: "24px", inlineSize: "min(100%, 34rem)" }}>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(13rem, 1fr))", gap: "16px" }}>
+      <Select client:load label="فقط‌خواندنی" readOnly defaultValue="tehran" options={[{ value: "tehran", label: "تهران" }, { value: "shiraz", label: "شیراز" }]} />
+      <Select client:load label="بارگذاری" options={[]} loading placeholder="در حال دریافت…" />
+      <Select client:load label="خالی" options={[]} placeholder="شهر" emptyMessage="اول استان را انتخاب کنید." />
+      <Select client:load label="غیرفعال" disabled defaultValue="tehran" options={[{ value: "tehran", label: "تهران" }]} />
+    </div>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "28px", alignItems: "center" }}>
+      <Checkbox client:load label="قوانین را خواندم" defaultChecked readOnly />
+      <Switch client:load label="اعلان پیامکی" defaultChecked readOnly />
+      <SegmentedControl client:load aria-label="بازه" readOnly defaultValue="week" options={[{ value: "day", label: "روز" }, { value: "week", label: "هفته" }, { value: "month", label: "ماه" }]} />
+    </div>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(13rem, 1fr))", gap: "16px" }}>
+      <Input label="کد ملی" defaultValue="۰۰۱۲۳۴۵۶۷۸" readOnly />
+      <TagInput client:load label="مهارت‌ها" defaultValue={["طراحی", "React"]} readOnly />
+    </div>
+  </div>
+</Demo>
+
+روی سلکت‌ها بزنید: فقط‌خواندنی و غیرفعال باز نمی‌شوند، بارگذاری ردیف‌های اسکلتی نشان می‌دهد و خالی پیامش را. تیک و سوییچ فقط‌خواندنی با کلیک عوض نمی‌شوند ولی کم‌رنگ هم نیستند.
+
+## داده و نمودار
+
+<Demo align="start" html={false} code={`<StatCard label="فروش امروز" value="…" loading />
+<BarChart title="فروش هفته" data={[]} loading />
+<BarChart title="فروش هفته" data={[]} emptyMessage="هنوز سفارشی ثبت نشده." />`}>
+  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))", gap: "16px", inlineSize: "100%" }}>
+    <StatCard label="فروش امروز" value="۱۸۴٬۵۰۰٬۰۰۰" unit="تومان" loading />
+    <BarChart title="فروش هفته" data={[]} loading height="9rem" />
+    <BarChart title="فروش هفته" data={[]} emptyMessage="هنوز سفارشی ثبت نشده." />
+  </div>
+</Demo>
+
+## کِی از کدام استفاده کنیم
+
+- **فقط‌خواندنی یا غیرفعال؟** اگر کاربر باید مقدار را ببیند، کپی کند یا بداند چه ثبت شده (کد ملیِ تأییدشده، سفارشِ ارسال‌شده)، فقط‌خواندنی. اگر گزینه فعلاً معنا ندارد و ارسال هم نمی‌شود (شهر پیش از انتخاب استان)، غیرفعال؛ و کنارش بگویید چرا.
+- **بارگذاری یا خالی؟** تا پاسخ نیامده، بارگذاری. اگر آمد و چیزی نبود، خالی؛ و پیام خالی بگوید قدم بعد چیست («اول استان را انتخاب کنید»)، نه فقط «چیزی نیست».
+- **اسکلت یا اسپینر؟** جایی که شکل محتوا معلوم است (فهرست، کارت، نمودار) اسکلت؛ برای کارهای کوتاه داخل کنترل (جستجو، اعتبارسنجی) اسپینر کوچک.
+- **خطا** همیشه با متن؛ رنگ قرمز به‌تنهایی برای کاربر کوررنگ یا صفحه‌خوان کافی نیست. متن خطا را از [نوشتن متن رابط](/docs/writing/) بگیرید.
+
+## دسترس‌پذیری
+
+- فقط‌خواندنی با `aria-readonly` اعلام می‌شود و برخلاف غیرفعال در ترتیب تب می‌ماند، پس صفحه‌خوان مقدار را می‌خواند.
+- بارگذاری با `aria-busy="true"` روی همان بخش؛ متن «در حال بارگذاری» برای صفحه‌خوان هست و اسکلت برای چشم.
+- پیام خالی و خطا متن واقعی‌اند، نه فقط شکل.
+- با «کاهش حرکت» سیستم‌عامل، درخشش اسکلت و چرخش اسپینر متوقف می‌شوند.
+
+## کدام کامپوننت کدام حالت را دارد
+
+| کامپوننت | بارگذاری | خالی | غیرفعال | خطا | فقط‌خواندنی |
+| --- | --- | --- | --- | --- | --- |
+| Input و فیلدهای فارسی | ✓ | — | ✓ | ✓ | ✓ |
+| Select | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Combobox | ✓ | ✓ | ✓ | ✓ | ✓ |
+| MultiSelect | ✓ | ✓ | ✓ | ✓ | ✓ |
+| TagInput | — | — | ✓ | ✓ | ✓ |
+| SearchSuggest | ✓ | ✓ | — | — | — |
+| Checkbox و Switch | — | — | ✓ | ✓ | ✓ |
+| RadioGroup | — | — | ✓ | ✓ | ✓ |
+| SegmentedControl | — | — | ✓ | — | ✓ |
+| ChipGroup و SwatchGroup | — | — | ✓ | — | ✓ |
+| Rating | — | — | ✓ | — | ✓ |
+| Button | ✓ | — | ✓ | — | — |
+| DataTable | ✓ | ✓ | — | — | — |
+| نمودارها | ✓ | ✓ | — | — | — |
+| StatCard | ✓ | — | — | — | — |
+
+«—» یعنی آن حالت برای این کامپوننت معنا ندارد یا هنوز اضافه نشده؛ فهرست با هر نسخه کامل‌تر می‌شود.
+
+## بدون React
+
+همهٔ ظاهرها در CSS کاشی هستند و با صفت‌های HTML کار می‌کنند:
+
+```html
+<!-- فقط‌خواندنی -->
+<input class="k-input__control" readonly>
+<label class="k-check" data-readonly><input type="checkbox" class="k-checkbox" aria-readonly="true" checked> …</label>
+<div class="k-segmented" role="radiogroup" data-readonly aria-readonly="true">…</div>
+
+<!-- بارگذاری و خالی داخل فهرست -->
+<ul class="k-listbox" aria-busy="true"><li class="k-listbox__loading"></li><li class="k-listbox__loading"></li></ul>
+<ul class="k-listbox"><li class="k-listbox__empty">گزینه‌ای برای انتخاب نیست.</li></ul>
+```

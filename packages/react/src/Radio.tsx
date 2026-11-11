@@ -4,7 +4,7 @@ import { createContext, forwardRef, useContext, useId, useState, type InputHTMLA
 import { cx } from "./cx.js";
 import { isDev } from "./utils.js";
 
-interface Ctx { name: string; value: string | undefined; setValue: (v: string) => void; invalid?: boolean; disabled?: boolean }
+interface Ctx { name: string; value: string | undefined; setValue: (v: string) => void; invalid?: boolean; disabled?: boolean; readOnly?: boolean }
 const RadioCtx = createContext<Ctx | null>(null);
 
 export interface RadioGroupProps {
@@ -21,13 +21,15 @@ export interface RadioGroupProps {
   error?: ReactNode;
   required?: boolean;
   disabled?: boolean;
+  /** فقط‌خواندنی: گزینهٔ انتخاب‌شده دیده و با فرم ارسال می‌شود ولی عوض نمی‌شود */
+  readOnly?: boolean;
   className?: string;
   children: ReactNode;
 }
 
 /** گروه رادیو با fieldset و legend؛ پیمایش با کلیدهای جهت‌دار را مرورگر انجام می‌دهد */
 export function RadioGroup({
-  label, name, value, defaultValue, onChange, variant = "list", hint, error, required, disabled, className, children,
+  label, name, value, defaultValue, onChange, variant = "list", hint, error, required, disabled, readOnly, className, children,
 }: RadioGroupProps) {
   const id = useId();
   const [inner, setInner] = useState(defaultValue);
@@ -39,6 +41,8 @@ export function RadioGroup({
       aria-describedby={describedBy}
       aria-required={required || undefined}
       aria-invalid={error ? true : undefined}
+      aria-readonly={readOnly || undefined}
+      data-readonly={readOnly || undefined}
       disabled={disabled}
     >
       <legend className="k-label">
@@ -51,7 +55,9 @@ export function RadioGroup({
           value: current,
           invalid: !!error,
           disabled,
+          readOnly,
           setValue: (v) => {
+            if (readOnly) return;
             if (value === undefined) setInner(v);
             onChange?.(v);
           },
@@ -84,7 +90,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({ v
   const autoId = useId();
   const inputId = id ?? autoId;
   return (
-    <label className={cx("k-check", className)} htmlFor={inputId}>
+    <label className={cx("k-check", className)} htmlFor={inputId} data-readonly={ctx?.readOnly || undefined}>
       <input
         ref={ref}
         type="radio"
@@ -95,6 +101,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio({ v
         checked={ctx ? ctx.value === value : undefined}
         onChange={() => ctx?.setValue(value)}
         disabled={disabled}
+        aria-readonly={ctx?.readOnly || undefined}
         aria-describedby={description ? `${inputId}-desc` : undefined}
         {...rest}
       />

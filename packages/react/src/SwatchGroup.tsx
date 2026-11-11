@@ -26,24 +26,27 @@ export interface SwatchGroupProps {
   size?: "sm" | "md" | "lg";
   /** با name، مقدارهای انتخاب‌شده در فرم ارسال می‌شوند */
   name?: string;
+  /** فقط‌خواندنی: انتخاب‌ها دیده می‌شوند ولی عوض نمی‌شوند */
+  readOnly?: boolean;
   className?: string;
 }
 
 /** انتخاب رنگ از میان نمونه‌ها (فیلتر رنگ کالا)؛ روی چک‌باکس یا رادیوی بومی، پس صفحه‌کلید و فرم خودکار کار می‌کنند */
-export function SwatchGroup({ options, value, defaultValue, onChange, single = false, label, size = "md", name, className }: SwatchGroupProps) {
+export function SwatchGroup({ options, value, defaultValue, onChange, single = false, label, size = "md", name, readOnly, className }: SwatchGroupProps) {
   const { messages: M } = useKashi();
   const id = useId();
   const [inner, setInner] = useState<string[]>(defaultValue ?? []);
   const selected = value ?? inner;
 
   const toggle = (v: string) => {
+    if (readOnly) return;
     const next = single ? (selected[0] === v ? [] : [v]) : selected.includes(v) ? selected.filter((x) => x !== v) : [...selected, v];
     if (value === undefined) setInner(next);
     onChange?.(next);
   };
 
   return (
-    <fieldset className={cx("k-swatches", size !== "md" && `k-swatches--${size}`, className)}>
+    <fieldset className={cx("k-swatches", size !== "md" && `k-swatches--${size}`, className)} aria-readonly={readOnly || undefined} data-readonly={readOnly || undefined}>
       {label && <legend className="k-label k-swatches__legend">{label}</legend>}
       <div className="k-swatches__grid" role={single ? "radiogroup" : undefined}>
         {options.map((o) => {
@@ -58,7 +61,7 @@ export function SwatchGroup({ options, value, defaultValue, onChange, single = f
                 checked={on}
                 disabled={o.disabled}
                 onChange={() => toggle(o.value)}
-                onClick={(e) => { if (single && on) { e.preventDefault(); toggle(o.value); } }}
+                onClick={(e) => { if (readOnly) { e.preventDefault(); return; } if (single && on) { e.preventDefault(); toggle(o.value); } }}
               />
               <span className="k-swatch__color" style={{ "--_c": o.color } as CSSProperties} aria-hidden="true">
                 <svg className="k-swatch__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="m5 10.5 3.2 3L15 7" /></svg>

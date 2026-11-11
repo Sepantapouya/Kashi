@@ -20,6 +20,8 @@ export interface StatCardProps extends Omit<HTMLAttributes<HTMLDivElement>, "tit
   /** نمودار کوچک یا هر محتوای دیگر در پایین کارت */
   children?: ReactNode;
   labels?: { up?: string; down?: string; flat?: string };
+  /** عدد در راه است؛ اسکلت جای محتوا */
+  loading?: boolean;
 }
 
 const Arrow = ({ dir }: { dir: "up" | "down" }) => (
@@ -30,7 +32,7 @@ const Arrow = ({ dir }: { dir: "up" | "down" }) => (
 
 /** کارت شاخص کلیدی (KPI) با روند؛ صفحه‌خوان روند را به شکل «۱۲٪ افزایش» می‌خواند */
 export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(function StatCard(
-  { label, value, unit, icon, change, invertTrend, caption, children, labels = {}, className, ...rest },
+  { label, value, unit, icon, change, invertTrend, caption, children, labels = {}, loading, className, ...rest },
   ref,
 ) {
   const { messages: M, n } = useKashi();
@@ -41,7 +43,7 @@ export const StatCard = forwardRef<HTMLDivElement, StatCardProps>(function StatC
   const pct = change === undefined ? "" : M.common.percent(n(Math.abs(Math.round(change * 10) / 10)).replace(".", M.common.decimal));
 
   return (
-    <div ref={ref} className={cx("k-stat", className)} {...rest}>
+    <div ref={ref} className={cx("k-stat", className)} aria-busy={loading || undefined} {...rest}>
       <div className="k-stat__head">
         {icon && <span className="k-stat__icon" aria-hidden="true">{icon}</span>}
         <p className="k-stat__label">{label}</p>

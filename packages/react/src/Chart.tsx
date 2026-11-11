@@ -72,7 +72,25 @@ function DataTable({ caption, labels, series, format }: { caption: string; label
   );
 }
 
+
+/** قاب نمودار در حالت بارگذاری یا بی‌داده: عنوان می‌ماند، جای نمودار اسکلت یا پیام */
+function ChartPlaceholder({ title, loading, emptyMessage, className }: { title?: ReactNode; loading?: boolean; emptyMessage?: ReactNode; className?: string }) {
+  const { messages: M } = useKashi();
+  return (
+    <figure className={cx("k-chart", className)} style={{ margin: 0 }} aria-busy={loading || undefined}>
+      {title && <figcaption className="k-chart__head"><p className="k-chart__title">{title}</p></figcaption>}
+      {loading
+        ? <div className="k-chart__skeleton" role="status"><span className="k-sr-only">{M.common.loading}</span></div>
+        : <div className="k-chart__empty" role="status">{emptyMessage ?? M.common.noData}</div>}
+    </figure>
+  );
+}
+
 export interface BarChartProps {
+  /** داده در راه است؛ اسکلت جای نمودار */
+  loading?: boolean;
+  /** پیام نمودار بی‌داده @default «داده‌ای برای نمایش نیست.» */
+  emptyMessage?: ReactNode;
   /** عنوان نمودار؛ نام دسترس‌پذیر هم هست */
   title: string;
   /** یک سری */
@@ -89,7 +107,7 @@ export interface BarChartProps {
 }
 
 /** نمودار ستونی؛ تک‌سری یا انباشته تا چهار سری. با موس یا Tab روی هر ستون مقدار دقیق نمایش داده می‌شود */
-export function BarChart({ title, data, series, labels, format, labelMax = true, height, className }: BarChartProps) {
+export function BarChart({ title, data, series, labels, format, labelMax = true, height, className, loading, emptyMessage }: BarChartProps) {
   const T = useChartText();
   const M = T.M;
   format ??= T.fmt;
@@ -107,6 +125,7 @@ export function BarChart({ title, data, series, labels, format, labelMax = true,
   const box = useRef<HTMLDivElement>(null);
   const [tip, setTip] = useState<Tip>(null);
   const show = (e: { currentTarget: HTMLElement }, i: number) => setTip(tipAt(e.currentTarget, box.current, i, e.currentTarget.querySelector<HTMLElement>(".k-bars__bar, .k-bars__stack")));
+  if (loading || cats.length === 0) return <ChartPlaceholder title={title} loading={loading} emptyMessage={emptyMessage} className={className} />;
   return (
     <figure className={cx("k-chart k-chart--bar", className)} aria-labelledby={`${id}-t`} style={{ margin: 0, ...(height ? ({ "--k-chart-height": height } as CSSProperties) : {}) }}>
       <figcaption className="k-chart__head">
@@ -165,6 +184,10 @@ export function BarChart({ title, data, series, labels, format, labelMax = true,
 }
 
 export interface BarListProps {
+  /** داده در راه است؛ اسکلت جای نمودار */
+  loading?: boolean;
+  /** پیام نمودار بی‌داده @default «داده‌ای برای نمایش نیست.» */
+  emptyMessage?: ReactNode;
   title: string;
   /** به ترتیب داده‌شده؛ معمولاً از بیشترین به کمترین */
   data: { label: string; value: number; href?: string }[];
@@ -173,7 +196,7 @@ export interface BarListProps {
 }
 
 /** میله‌های افقی برای رتبه‌بندی با نام‌های بلند، مثل پربازدیدترین صفحه‌ها */
-export function BarList({ title, data, format, className }: BarListProps) {
+export function BarList({ title, data, format, className, loading, emptyMessage }: BarListProps) {
   const T = useChartText();
   const M = T.M;
   format ??= T.fmt;
@@ -183,6 +206,7 @@ export function BarList({ title, data, format, className }: BarListProps) {
   const share = (v: number) => T.pct(v, total);
   const box = useRef<HTMLOListElement>(null);
   const [tip, setTip] = useState<Tip>(null);
+  if (loading || !data?.length) return <ChartPlaceholder title={title} loading={loading} emptyMessage={emptyMessage} className={className} />;
   return (
     <figure className={cx("k-chart", className)} aria-labelledby={`${id}-t`} style={{ margin: 0 }}>
       <figcaption className="k-chart__head"><p className="k-chart__title" id={`${id}-t`}>{title}</p></figcaption>
@@ -210,6 +234,10 @@ export function BarList({ title, data, format, className }: BarListProps) {
 }
 
 export interface ProportionBarProps {
+  /** داده در راه است؛ اسکلت جای نمودار */
+  loading?: boolean;
+  /** پیام نمودار بی‌داده @default «داده‌ای برای نمایش نیست.» */
+  emptyMessage?: ReactNode;
   title: string;
   /** حداکثر چهار بخش؛ بیشتر را در «سایر» جمع کنید */
   data: { label: string; value: number }[];
@@ -220,7 +248,7 @@ export interface ProportionBarProps {
 }
 
 /** سهم هر بخش از کل در یک میلهٔ افقی، مثل منبع ورود کاربران؛ جایگزین خواناتر نمودار دایره‌ای */
-export function ProportionBar({ title, data, percent = true, format, className }: ProportionBarProps) {
+export function ProportionBar({ title, data, percent = true, format, className, loading, emptyMessage }: ProportionBarProps) {
   const T = useChartText();
   const M = T.M;
   format ??= T.fmt;
@@ -231,6 +259,7 @@ export function ProportionBar({ title, data, percent = true, format, className }
   const color = (i: number) => ({ "--_c": `var(--k-chart-${i + 1})` }) as CSSProperties;
   const box = useRef<HTMLDivElement>(null);
   const [tip, setTip] = useState<Tip>(null);
+  if (loading || !data?.length) return <ChartPlaceholder title={title} loading={loading} emptyMessage={emptyMessage} className={className} />;
   return (
     <figure className={cx("k-chart", className)} aria-labelledby={`${id}-t`} style={{ margin: 0 }}>
       <figcaption className="k-chart__head"><p className="k-chart__title" id={`${id}-t`}>{title}</p></figcaption>
@@ -264,6 +293,10 @@ export function ProportionBar({ title, data, percent = true, format, className }
 }
 
 export interface PieChartProps {
+  /** داده در راه است؛ اسکلت جای نمودار */
+  loading?: boolean;
+  /** پیام نمودار بی‌داده @default «داده‌ای برای نمایش نیست.» */
+  emptyMessage?: ReactNode;
   title: string;
   /** بیش از پنج بخش در «سایر» جمع می‌شود */
   data: { label: string; value: number }[];
@@ -281,7 +314,7 @@ export interface PieChartProps {
  * نمودار دایره‌ای یا دونات تا پنج بخش، با فاصلهٔ کوچک بین بخش‌ها، راهنمای درصد و جدول هم‌ارز.
  * برای مقایسهٔ دقیق بخش‌ها ProportionBar خواناتر است.
  */
-export function PieChart({ title, data, variant = "donut", format, totalLabel, size = 176, className }: PieChartProps) {
+export function PieChart({ title, data, variant = "donut", format, totalLabel, size = 176, className, loading, emptyMessage }: PieChartProps) {
   const T = useChartText();
   const M = T.M;
   format ??= T.fmt;
@@ -311,6 +344,7 @@ export function PieChart({ title, data, variant = "donut", format, totalLabel, s
     const rr = donut ? r : r * 1.3;
     return { x: (R + rr * Math.cos(ang)) / (2 * R), y: (R + rr * Math.sin(ang)) / (2 * R) };
   };
+  if (loading || !data?.length) return <ChartPlaceholder title={title} loading={loading} emptyMessage={emptyMessage} className={className} />;
   return (
     <figure className={cx("k-chart k-pie", className)} aria-labelledby={`${id}-t`} style={{ margin: 0 }}>
       <figcaption className="k-chart__head"><p className="k-chart__title" id={`${id}-t`}>{title}</p></figcaption>
@@ -396,6 +430,10 @@ export interface LineSeries {
 }
 
 export interface LineChartProps {
+  /** داده در راه است؛ اسکلت جای نمودار */
+  loading?: boolean;
+  /** پیام نمودار بی‌داده @default «داده‌ای برای نمایش نیست.» */
+  emptyMessage?: ReactNode;
   title: string;
   /** برچسب محور افقی، مثل ماه‌ها */
   labels: string[];
@@ -412,7 +450,7 @@ export interface LineChartProps {
  * نمودار خطی تا چهار سری: خط ۲ پیکسلی، برچسب نام در انتهای هر خط،
  * راهنمای عمودی با موس و ←→ روی کیبورد، و جدول هم‌ارز برای صفحه‌خوان.
  */
-export function LineChart({ title, labels, series, format, area, height, className }: LineChartProps) {
+export function LineChart({ title, labels, series, format, area, height, className, loading, emptyMessage }: LineChartProps) {
   const T = useChartText();
   const M = T.M;
   format ??= T.fmt;
@@ -475,6 +513,7 @@ export function LineChart({ title, labels, series, format, area, height, classNa
   };
 
   const step = Math.max(1, Math.ceil(labels.length / Math.max(2, Math.floor(innerW / 64))));
+  if (loading || !labels?.length || !series?.length) return <ChartPlaceholder title={title} loading={loading} emptyMessage={emptyMessage} className={className} />;
   return (
     <figure className={cx("k-chart", className)} aria-labelledby={`${id}-t`} style={{ margin: 0, ...(height ? ({ "--k-chart-height": height } as CSSProperties) : {}) }}>
       <figcaption className="k-chart__head">

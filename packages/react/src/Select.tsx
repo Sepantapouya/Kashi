@@ -7,6 +7,7 @@ import {
 import { cx } from "./cx.js";
 import { Field, describedBy } from "./Field.js";
 import { useIsomorphicLayoutEffect } from "./utils.js";
+import { useKashi } from "./KashiProvider.js";
 
 export interface SelectOption { value: string; label: ReactNode; disabled?: boolean }
 
@@ -23,6 +24,12 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
   fieldClassName?: string;
   /** فهرست بومی مرورگر به‌جای فهرست کاشی؛ برای فهرست‌های خیلی بلند یا وقتی انتخاب‌گر سیستم گوشی را می‌خواهید @default false */
   native?: boolean;
+  /** فقط‌خواندنی: مقدار دیده و با فرم ارسال می‌شود ولی فهرست باز نمی‌شود (برخلاف disabled، کم‌رنگ نمی‌شود) */
+  readOnly?: boolean;
+  /** گزینه‌ها در حال بارگذاری‌اند؛ اسپینر جای شورون و ردیف‌های اسکلتی در فهرست */
+  loading?: boolean;
+  /** پیام فهرست خالی @default «گزینه‌ای برای انتخاب نیست.» */
+  emptyMessage?: ReactNode;
 }
 
 type Item = { kind: "option"; value: string; label: ReactNode; text: string; disabled?: boolean } | { kind: "group"; label: ReactNode };
@@ -61,7 +68,7 @@ const Check = () => (
  * برای انتخاب‌گر سیستم، native بدهید.
  */
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(
-  { label, hint, error, placeholder, options, size = "md", id, required, className, fieldClassName, children, native = false, "aria-describedby": extra, ...rest },
+  { label, hint, error, placeholder, options, size = "md", id, required, className, fieldClassName, children, native = false, readOnly, loading, emptyMessage, "aria-describedby": extra, ...rest },
   ref,
 ) {
   const autoId = useId();
@@ -82,17 +89,20 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
       </Field>
     );
   }
-  return <CustomSelect {...{ selectId, label, hint, error, placeholder, options, size, required, className, fieldClassName, children, extra, placeholderSelected, rest }} forwardedRef={ref} />;
+  return <CustomSelect {...{ selectId, label, hint, error, placeholder, options, size, required, className, fieldClassName, children, extra, placeholderSelected, rest, readOnly, loading, emptyMessage }} forwardedRef={ref} />;
 });
 
 function CustomSelect({
   selectId, label, hint, error, placeholder, options, size, required, className, fieldClassName, children, extra, placeholderSelected, rest, forwardedRef,
+  readOnly, loading, emptyMessage,
 }: {
+  readOnly?: boolean; loading?: boolean; emptyMessage?: ReactNode;
   selectId: string; label?: ReactNode; hint?: ReactNode; error?: ReactNode; placeholder?: string; options?: SelectOption[]; size: "sm" | "md" | "lg";
   required?: boolean; className?: string; fieldClassName?: string; children?: ReactNode; extra?: string; placeholderSelected: boolean;
   rest: Omit<SelectHTMLAttributes<HTMLSelectElement>, "size">; forwardedRef: React.ForwardedRef<HTMLSelectElement>;
 }) {
   const { value, defaultValue, onChange, disabled, name, form, autoComplete, onBlur, onFocus, ...other } = rest;
+  const { messages: M } = useKashi();
   const items = useMemo(() => collect(options, children), [options, children]);
   const opts = items.filter((i): i is Extract<Item, { kind: "option" }> => i.kind === "option");
 
@@ -123,7 +133,7 @@ function CustomSelect({
   }, [controlled]);
 
   const openList = (to?: number) => {
-    if (disabled) return;
+    if (disabled || readOnly) return;
     const idx = to ?? Math.max(0, opts.findIndex((o) => o.value === current));
     setActive(idx);
     setOpen(true);
@@ -188,7 +198,7 @@ function CustomSelect({
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
-    if (disabled) return;
+    if (disabled || readOnly) return;
     const k = e.key;
     if (!open) {
       if (k === "ArrowDown" || k === "ArrowUp" || k === "Enter" || k === " ") { e.preventDefault(); openList(k === "ArrowUp" ? undefined : undefined); return; }
@@ -210,7 +220,8 @@ function CustomSelect({
   let index = -1;
   return (
     <Field id={selectId} label={label} hint={hint} error={error} required={required} className={fieldClassName}>
-      <div className={cx("k-select", "k-select--custom", size !== "md" && `k-select--${size}`, className)} data-open={open || undefined}>
+      <div className={cx("k-select", "k-select--custom", size !== "md" && `k-select--${size}`, className)} data-open={open || undefined}
+        data-readonly={readOnly || undefined} aria-busy={loading || undefined}>
         <button
           ref={triggerRef}
           id={selectId}
@@ -223,6 +234,7 @@ function CustomSelect({
           aria-activedescendant={open && active >= 0 ? `${listId}-${active}` : undefined}
           aria-invalid={error ? true : undefined}
           aria-required={required || undefined}
+          aria-readonly={readOnly || undefined}
           aria-describedby={describedBy(selectId, hint, error, extra)}
           disabled={disabled}
           onClick={() => (open ? close(false) : openList())}
@@ -236,6 +248,8 @@ function CustomSelect({
         <ul id={listId} ref={listRef} role="listbox" aria-labelledby={selectId} className={cx("k-listbox", "k-select__list", up && "k-select__list--up")} hidden={!open} tabIndex={-1}
           {...({ popover: "manual" } as Record<string, string>)}
           style={pos ? { position: "fixed", insetBlock: "auto", top: pos.top, bottom: pos.bottom, left: pos.left, width: pos.width, right: "auto" } : undefined}>
+          {loading && opts.length === 0 && [0, 1, 2].map((k) => <li key={`l${k}`} className="k-listbox__loading" role="presentation" />)}
+          {!loading && opts.length === 0 && <li className="k-listbox__empty" role="presentation">{emptyMessage ?? M.common.noOptions}</li>}
           {items.map((it, i) => {
             if (it.kind === "group") return <li key={`g${i}`} role="presentation" className="k-listbox__group">{it.label}</li>;
             index += 1;

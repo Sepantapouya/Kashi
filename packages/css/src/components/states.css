@@ -1,0 +1,110 @@
+/* حالت‌های مشترک همهٔ کنترل‌ها: فقط‌خواندنی، بارگذاری و خالی
+ * (غیرفعال و خطا در فایل هر کامپوننت هستند: :disabled و aria-invalid="true")
+ *
+ * فقط‌خواندنی — مقدار دیده و انتخاب و کپی می‌شود، ولی عوض نمی‌شود؛ برخلاف غیرفعال، متن کم‌رنگ نمی‌شود و در فرم ارسال می‌شود
+ *   <input class="k-input__control" readonly>            ← فیلد متنی
+ *   <div class="k-select k-select--custom" data-readonly> ← سلکت، کمبوباکس، ورودی برچسب
+ *   <label class="k-check" data-readonly>                ← چک‌باکس، رادیو، سوییچ
+ *   <div class="k-segmented" data-readonly>              ← سگمنت، نمونهٔ رنگ، چیپ‌ها
+ * بارگذاری — aria-busy="true" روی کنترل یا فهرست؛ ردیف‌های اسکلتی: <li class="k-listbox__loading">
+ * خالی — <li class="k-listbox__empty">؛ برای بلوک‌های بزرگ‌تر: k-empty-state
+ */
+
+/* ───────── فقط‌خواندنی ───────── */
+.k-input:has(> .k-input__control:read-only:not(:disabled)),
+.k-select--custom[data-readonly] .k-select__control,
+:is(.k-combobox, .k-multi-select)[data-readonly] .k-input,
+.k-tag-input[data-readonly] {
+  --_border: var(--k-border-secondary);
+  border-color: var(--k-border-secondary);
+  background: var(--k-bg-muted);
+  box-shadow: none;
+  cursor: default;
+}
+.k-input:has(> .k-input__control:read-only:not(:disabled)):hover { --_border: var(--k-border-secondary); }
+.k-input:has(> .k-input__control:read-only:not(:disabled)):focus-within {
+  --_border: var(--k-border-primary);
+  box-shadow: none;
+  outline: 2px solid transparent;
+}
+.k-input__control:read-only:not(:disabled) { cursor: text; }
+/* فهرست در حالت فقط‌خواندنی باز نمی‌شود؛ شورون نشانه‌اش است */
+.k-select--custom[data-readonly] .k-select__chevron,
+:is(.k-combobox, .k-multi-select)[data-readonly] :is(.k-combobox__toggle, .k-input__action) { display: none; }
+.k-select--custom[data-readonly] .k-select__control:focus-visible { box-shadow: var(--k-ring-brand); }
+
+/* چک‌باکس، رادیو و سوییچ: رنگ کامل می‌ماند تا خوانا باشد؛ فقط تعامل حذف می‌شود */
+.k-check[data-readonly] { cursor: default; }
+:is(.k-checkbox, .k-radio, .k-switch)[aria-readonly="true"] { cursor: default; }
+:is(.k-checkbox, .k-radio, .k-switch)[aria-readonly="true"]:active { scale: none; }
+.k-check[data-readonly] :is(.k-checkbox, .k-radio, .k-switch) { pointer-events: none; }
+.k-check[data-readonly] :is(.k-checkbox, .k-radio, .k-switch):not(:checked) { background-color: var(--k-bg-muted); border-color: var(--k-border-secondary); }
+.k-check[data-readonly] :is(.k-checkbox, .k-radio, .k-switch):active { scale: none; }
+
+/* گروه‌های انتخاب: سگمنت، نمونهٔ رنگ، چیپ‌ها و امتیاز */
+:is(.k-segmented, .k-swatches, .k-chips)[data-readonly] { cursor: default; }
+:is(.k-segmented, .k-swatches, .k-chips)[data-readonly] :is(.k-segmented__item, .k-swatch, .k-chip) { pointer-events: none; }
+.k-segmented[data-readonly] { background: transparent; box-shadow: inset 0 0 0 1px var(--k-border-secondary); }
+.k-chips[data-readonly] .k-chip:not([aria-pressed="true"]) { opacity: 0.7; }
+
+/* ───────── بارگذاری ───────── */
+/* سلکت و کمبوباکس: اسپینر جای شورون */
+.k-select--custom[aria-busy="true"] .k-select__chevron { opacity: 0; }
+.k-select--custom[aria-busy="true"] .k-select__control::after {
+  content: "";
+  position: absolute;
+  inset-block-start: calc(50% - 0.5rem);
+  inset-inline-end: 0.75rem;
+  inline-size: 1rem;
+  block-size: 1rem;
+  border: 2px solid var(--k-border-primary);
+  border-block-start-color: var(--k-text-brand);
+  border-radius: 50%;
+  animation: k-spin 0.7s linear infinite;
+}
+.k-select--custom[aria-busy="true"] .k-select__control { position: relative; cursor: progress; }
+
+/* ردیف‌های اسکلتی داخل فهرست‌ها */
+.k-listbox__loading { display: grid; gap: var(--k-space-2); padding: var(--k-space-2) var(--k-space-3); list-style: none; }
+.k-listbox__loading::before, .k-listbox__loading::after {
+  content: "";
+  block-size: 0.75rem;
+  border-radius: var(--k-radius-sm);
+  background: linear-gradient(90deg, var(--k-bg-muted) 25%, var(--k-bg-raised) 50%, var(--k-bg-muted) 75%) 0 0 / 200% 100%;
+  animation: k-state-shimmer 1.4s linear infinite;
+}
+.k-listbox__loading::after { inline-size: 62%; }
+.k-listbox__loading:nth-child(2n)::before { inline-size: 80%; }
+
+/* بلوک در حال بارگذاری (کارت آمار، نمودار): محتوا کم‌رنگ و غیرقابل‌کلیک، اسکلت جایش */
+.k-stat[aria-busy="true"] { position: relative; pointer-events: none; }
+.k-stat[aria-busy="true"] > * { visibility: hidden; }
+.k-stat[aria-busy="true"]::before, .k-chart__skeleton {
+  content: "";
+  position: absolute;
+  inset: var(--k-space-4);
+  border-radius: var(--k-radius-md);
+  background:
+    linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--k-bg-raised) 70%, transparent) 50%, transparent 100%) 0 0 / 200% 100%,
+    repeating-linear-gradient(180deg, var(--k-bg-muted) 0 0.75rem, transparent 0.75rem 1.5rem);
+  animation: k-state-shimmer 1.4s linear infinite;
+}
+
+/* ───────── خالی ───────── */
+.k-listbox__empty { display: grid; justify-items: center; gap: var(--k-space-2); }
+.k-listbox__empty::before {
+  content: "";
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  background: var(--k-text-quaternary);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'%3E%3Ccircle cx='9' cy='9' r='5.5'/%3E%3Cpath d='m13 13 3.5 3.5M7 9h4'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.k-chart__skeleton { position: relative; inset: auto; block-size: var(--k-chart-height, 12rem); margin-block-start: var(--k-space-3); }
+
+/* نمودار و جدول بی‌داده */
+.k-chart__empty { display: grid; place-items: center; align-content: center; gap: var(--k-space-2); min-block-size: 10rem; color: var(--k-text-tertiary); font-size: var(--k-text-sm); text-align: center; }
+
+@keyframes k-state-shimmer { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .k-listbox__loading::before, .k-listbox__loading::after, [aria-busy="true"]:is(.k-stat, .k-chart)::before { animation: none; }
+}

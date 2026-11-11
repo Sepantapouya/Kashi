@@ -21,6 +21,8 @@ export interface ChipGroupProps {
   onChange?: (value: string[]) => void;
   /** فقط یک انتخاب؛ کلیک دوباره انتخاب را برمی‌دارد */
   single?: boolean;
+  /** فقط‌خواندنی: انتخاب‌ها دیده می‌شوند ولی عوض نمی‌شوند */
+  readOnly?: boolean;
   "aria-label"?: string;
   className?: string;
 }
@@ -30,17 +32,18 @@ const Check = () => (
 );
 
 /** چیپ‌های فیلتر روشن و خاموش‌شونده، مثل دسته‌بندی‌ها یا وضعیت سفارش */
-export function ChipGroup({ options, value, defaultValue = [], onChange, single, "aria-label": ariaLabel, className }: ChipGroupProps) {
+export function ChipGroup({ options, value, defaultValue = [], onChange, single, readOnly, "aria-label": ariaLabel, className }: ChipGroupProps) {
   const [inner, setInner] = useState(defaultValue);
   const current = value ?? inner;
   const toggle = (v: string) => {
+    if (readOnly) return;
     const on = current.includes(v);
     const next = single ? (on ? [] : [v]) : on ? current.filter((x) => x !== v) : [...current, v];
     if (value === undefined) setInner(next);
     onChange?.(next);
   };
   return (
-    <div role="group" aria-label={ariaLabel} className={cx("k-chips", className)}>
+    <div role="group" aria-label={ariaLabel} aria-readonly={readOnly || undefined} data-readonly={readOnly || undefined} className={cx("k-chips", className)}>
       {options.map((o) => (
         <button key={o.value} type="button" className="k-chip" aria-pressed={current.includes(o.value)} disabled={o.disabled} onClick={() => toggle(o.value)}>
           <Check />

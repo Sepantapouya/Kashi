@@ -27,12 +27,14 @@ export interface SegmentedControlProps {
   /** تمام‌عرض با بخش‌های هم‌اندازه */
   block?: boolean;
   disabled?: boolean;
+  /** فقط‌خواندنی: انتخاب‌ها دیده می‌شوند ولی عوض نمی‌شوند */
+  readOnly?: boolean;
   className?: string;
 }
 
 /** انتخاب یکی از چند گزینهٔ کوتاه، مثل «فهرست / جدول / کارت»؛ روی رادیوی بومی با پیمایش ↑↓←→ */
 export function SegmentedControl({
-  options, value, defaultValue, onChange, name, size = "md", block, disabled, className,
+  options, value, defaultValue, onChange, name, size = "md", block, disabled, readOnly, className,
   "aria-label": ariaLabel, "aria-labelledby": labelledBy,
 }: SegmentedControlProps) {
   const autoName = useId();
@@ -59,6 +61,8 @@ export function SegmentedControl({
       role="radiogroup"
       aria-label={ariaLabel}
       aria-labelledby={labelledBy}
+      aria-readonly={readOnly || undefined}
+      data-readonly={readOnly || undefined}
       className={cx("k-segmented", size === "sm" && "k-segmented--sm", block && "k-segmented--block", className)}
       data-indicator={box ? "" : undefined}
       style={box ? ({ "--_ix": `${box.x}px`, "--_iw": `${box.w}px` } as CSSProperties) : undefined}
@@ -75,6 +79,7 @@ export function SegmentedControl({
             disabled={disabled || o.disabled}
             aria-label={o["aria-label"]}
             onChange={() => {
+              if (readOnly) return;
               if (value === undefined) setInner(o.value);
               onChange?.(o.value);
             }}

@@ -26,6 +26,10 @@ export interface SearchSuggestProps {
   name?: string;
   className?: string;
   labels?: { recent?: ReactNode; popular?: ReactNode; clear?: ReactNode };
+  /** پیشنهادها در راه‌اند (مثلاً از سرور)؛ ردیف‌های اسکلتی زیر جعبه */
+  loading?: boolean;
+  /** پیام وقتی برای عبارت تایپ‌شده پیشنهادی نیست؛ بدون آن، پنل بسته می‌ماند */
+  emptyMessage?: ReactNode;
 }
 
 const norm = (s: string) => s.replace(/[يى]/g, "ی").replace(/ك/g, "ک").replace(/[‌\s]+/g, " ").trim().toLowerCase();
@@ -37,7 +41,7 @@ const HistoryIcon = () => <svg viewBox="0 0 20 20" width="16" height="16" fill="
 /** جعبهٔ جستجو با جستجوهای اخیر و پرطرفدار و پیشنهاد هنگام تایپ (الگوی فروشگاه‌های اینترنتی) */
 export function SearchSuggest({
   value, defaultValue, onChange, onSearch, recent, onClearRecent, storageKey, popular = [], suggestions,
-  placeholder, label, name, className, labels = {},
+  placeholder, label, name, className, labels = {}, loading, emptyMessage,
 }: SearchSuggestProps) {
   const { messages: M } = useKashi();
   const id = useId();
@@ -78,7 +82,9 @@ export function SearchSuggest({
   const boxRef = useRef<HTMLDivElement>(null);
   const showList = list.length > 0;
   const showIdle = !q.trim() && (history.length > 0 || popular.length > 0);
-  const visible = open && (showList || showIdle);
+  const showLoading = !!loading && !!q.trim() && !showList;
+  const showEmpty = !loading && !!q.trim() && !showList && emptyMessage !== undefined;
+  const visible = open && (showList || showIdle || showLoading || showEmpty);
 
   const submit = (s: string) => {
     const t = s.trim();
@@ -141,7 +147,7 @@ export function SearchSuggest({
 
   return (
     <form role="search" className={cx("k-search-suggest", className)} onSubmit={onSubmit} data-open={visible || undefined}>
-      <div className="k-search-suggest__box" ref={boxRef}>
+      <div className="k-search-suggest__box" ref={boxRef} aria-busy={loading || undefined}>
         <SearchIcon />
         <input
           ref={inputRef}
@@ -172,7 +178,11 @@ export function SearchSuggest({
         style={pos ? { position: "fixed", inset: "auto", margin: 0, top: pos.top, left: pos.left, width: pos.width } : undefined}
         onKeyDown={(e) => { if (e.key === "Escape") { setOpen(false); inputRef.current?.focus(); } }}
       >
-        {showList ? (
+        {showLoading ? (
+          <ul className="k-search-suggest__list" role="presentation">{[0, 1, 2].map((k) => <li key={k} className="k-listbox__loading" />)}</ul>
+        ) : showEmpty ? (
+          <ul className="k-search-suggest__list" role="presentation"><li className="k-listbox__empty">{emptyMessage}</li></ul>
+        ) : showList ? (
           <ul role="listbox" aria-label={M.searchSuggest.suggestions} className="k-search-suggest__list">
             {list.map((s, i) => (
               <li key={s} id={`${listId}-${i}`} role="option" aria-selected={i === active} className="k-option" data-active={i === active || undefined}

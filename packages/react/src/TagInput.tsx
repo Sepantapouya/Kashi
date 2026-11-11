@@ -26,6 +26,8 @@ export interface TagInputProps {
   allowDuplicates?: boolean;
   tone?: BadgeTone;
   disabled?: boolean;
+  /** فقط‌خواندنی: برچسب‌ها دیده و ارسال می‌شوند ولی اضافه یا حذف نمی‌شوند */
+  readOnly?: boolean;
   name?: string;
   id?: string;
   className?: string;
@@ -36,7 +38,7 @@ export interface TagInputProps {
 export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(function TagInput(
   {
     label, hint, error, value, defaultValue = [], onChange, placeholder, separators = ["Enter", ",", "،"], validate, max,
-    allowDuplicates = false, tone = "brand", disabled, name, id, className, labels = {},
+    allowDuplicates = false, tone = "brand", disabled, readOnly, name, id, className, labels = {},
   },
   ref,
 ) {
@@ -113,17 +115,18 @@ export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(function Tag
 
   return (
     <Field id={inputId} label={label} hint={hint} error={shownError} className={className}>
-      <div className="k-tag-input" data-invalid={shownError ? "" : undefined} onClick={() => inputRef.current?.focus()}>
+      <div className="k-tag-input" data-invalid={shownError ? "" : undefined} data-readonly={readOnly || undefined} onClick={() => inputRef.current?.focus()}>
         {tags.map((t, i) => (
-          <Badge key={`${t}-${i}`} tone={tone} onRemove={disabled ? undefined : () => removeAt(i)} removeLabel={remove(t)}>{t}</Badge>
+          <Badge key={`${t}-${i}`} tone={tone} onRemove={disabled || readOnly ? undefined : () => removeAt(i)} removeLabel={remove(t)}>{t}</Badge>
         ))}
         <input
           ref={mergeRefs(ref, inputRef)}
           id={inputId}
           className="k-tag-input__control"
           value={text}
-          placeholder={tags.length ? undefined : placeholder}
+          placeholder={tags.length || readOnly ? undefined : placeholder}
           disabled={disabled}
+          readOnly={readOnly}
           aria-invalid={shownError ? true : undefined}
           aria-describedby={describedBy(inputId, hint, shownError)}
           onChange={(e) => {
@@ -137,9 +140,9 @@ export const TagInput = forwardRef<HTMLInputElement, TagInputProps>(function Tag
               if (rest) setText(rest);
             } else setText(v);
           }}
-          onKeyDown={onKeyDown}
-          onPaste={onPaste}
-          onBlur={() => text.trim() && addMany([text])}
+          onKeyDown={readOnly ? undefined : onKeyDown}
+          onPaste={readOnly ? undefined : onPaste}
+          onBlur={() => !readOnly && text.trim() && addMany([text])}
         />
       </div>
       <span className="k-sr-only" aria-live="polite">{announce}</span>
