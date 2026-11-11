@@ -4,6 +4,7 @@ import "../styles/layers.css";
 import "@kashi-ui/css";
 import "../styles/site.css";
 import "../styles/enterprise.css";
+import "../styles/chrome.css";
 
 interface Props {
   title?: string;
@@ -144,7 +145,7 @@ const ld = JSON.stringify({ "@context": "https://schema.org", "@graph": graph })
       });
 
       // هدر پس از اسکرول شیشه‌ای و سایه‌دار می‌شود
-      const header = document.querySelector(".site-header");
+      const header = document.querySelector("[data-hd]");
       const onScroll = () => header?.toggleAttribute("data-scrolled", scrollY > 8);
       onScroll();
       addEventListener("scroll", onScroll, { passive: true });
@@ -165,26 +166,21 @@ const ld = JSON.stringify({ "@context": "https://schema.org", "@graph": graph })
       const calm = matchMedia("(prefers-reduced-motion: reduce)");
 
       // قرص لغزان زیر پیوندهای سربرگ
-      const siteNav = document.querySelector<HTMLElement>(".site-nav");
-      if (siteNav) {
-        const pill = document.createElement("span");
-        pill.className = "nav-pill";
-        pill.setAttribute("aria-hidden", "true");
-        siteNav.prepend(pill);
-        const move = (el: HTMLElement) => {
+      const siteNav = document.querySelector<HTMLElement>("[data-hd-nav]");
+      const pill = siteNav?.querySelector<HTMLElement>(".hd__pill");
+      if (siteNav && pill) {
+        siteNav.addEventListener("pointerover", (e) => {
+          const el = (e.target as HTMLElement).closest<HTMLElement>(".hd__link");
+          if (!el) return;
           pill.style.left = `${el.offsetLeft}px`;
           pill.style.width = `${el.offsetWidth}px`;
           pill.toggleAttribute("data-on", true);
-        };
-        siteNav.addEventListener("pointerover", (e) => {
-          const el = (e.target as HTMLElement).closest<HTMLElement>(".site-nav > a, .nav-menu__btn");
-          if (el) move(el);
         });
         siteNav.addEventListener("pointerleave", () => pill.removeAttribute("data-on"));
       }
 
       // نور دنبال‌کنندهٔ ماوس روی کارت‌ها
-      document.querySelectorAll<HTMLElement>(".pager__link, .nav-menu__item, .tile, .pkg, .ent__item, .quality__item, .gcard, .cmp-card, .logo-card").forEach((el) => el.setAttribute("data-spot", ""));
+      document.querySelectorAll<HTMLElement>(".pager__link, .hd__feature, .tile, .pkg, .ent__item, .quality__item, .gcard, .cmp-card, .logo-card").forEach((el) => el.setAttribute("data-spot", ""));
       document.addEventListener("pointermove", (e) => {
         const el = (e.target as HTMLElement).closest?.("[data-spot]") as HTMLElement | null;
         if (!el) return;
@@ -192,10 +188,6 @@ const ld = JSON.stringify({ "@context": "https://schema.org", "@graph": graph })
         el.style.setProperty("--mx", `${e.clientX - r.left}px`);
         el.style.setProperty("--my", `${e.clientY - r.top}px`);
       }, { passive: true });
-
-      // ترتیب ورود آیتم‌های منوی کشویی
-      document.querySelectorAll<HTMLElement>(".nav-menu__panel").forEach((panel) =>
-        panel.querySelectorAll<HTMLElement>(".nav-menu__item").forEach((item, i) => item.style.setProperty("--i", String(i))));
 
       // نشانگر لغزان «در این صفحه»
       const tocList = document.querySelector<HTMLElement>(".toc ul");

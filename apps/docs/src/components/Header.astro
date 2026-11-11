@@ -6,114 +6,113 @@ import Sidebar from "./Sidebar.astro";
 import SiteSearch from "./SiteSearch";
 import pkg from "@kashi-ui/react/package.json";
 const ver = pkg.version.split(".").slice(0, 2).join(".");
-
 const path = Astro.url.pathname;
-// پیوندهای اصلی کم و ثابت؛ ابزارها در یک منوی کشویی تا سربرگ شلوغ نشود
-const links = [
-  { href: "/docs/", label: "مستندات", match: (p: string) => p.startsWith("/docs/") && !/^\/docs\/(components|persian|icons)\//.test(p) && !MENU_HREFS.some((h) => p.startsWith(h)) },
-  { href: "/docs/components/", label: "کامپوننت‌ها", match: (p: string) => p.startsWith("/docs/components/") },
-  { href: "/docs/persian/", label: "فارسی", match: (p: string) => p.startsWith("/docs/persian/") },
-  { href: "/docs/icons/", label: "آیکون‌ها", match: (p: string) => p.startsWith("/docs/icons/") },
-];
-// منوهای کشویی: هر بخش عنوان دارد و آیتم‌ها در شبکهٔ هم‌اندازه می‌نشینند؛ متن کد لاتین داخل `بک‌تیک`
-type MenuItem = { href: string; icon: string; label: string; text: string };
-const menus: { id: string; label: string; cols: number; sections: { title?: string; items: MenuItem[] }[] }[] = [
-  {
-    id: "tools", label: "ابزارها", cols: 3,
-    sections: [{ items: [
-      { href: "/docs/theming/", icon: "palette", label: "تم‌ساز", text: "رنگ برند، گردی و تراکم را زنده بسازید" },
-      { href: "/docs/figma/", icon: "pen-tool", label: "پلاگین فیگما", text: "کل کیت با یک کلیک در فایل شما" },
-      { href: "/docs/tailwind/", icon: "wind", label: "Tailwind", text: "توکن‌های کاشی به‌شکل کلاس‌ها" },
-      { href: "/docs/web-components/", icon: "puzzle", label: "وب کامپوننت‌ها", text: "بدون React، برای هر فریم‌ورکی" },
-      { href: "/docs/installation/#رجیستری-shadcn", icon: "terminal", label: "رجیستری shadcn", text: "کد کامپوننت‌ها با `@kashi`" },
-      { href: "/docs/ai/", icon: "ai-chat", label: "سرور MCP", text: "کاشی در دستیار هوش مصنوعی" },
-    ] }],
-  },
-  {
-    id: "guides", label: "راهنماها", cols: 2,
-    sections: [
-      { title: "طراحی و محتوا", items: [
-        { href: "/articles/", icon: "newspaper", label: "مقاله‌ها", text: "راهنمای عملی طراحی و توسعهٔ فارسی" },
-        { href: "/docs/writing/", icon: "pen", label: "نوشتن متن رابط", text: "لحن، پیام خطا و فارسی‌نویسی" },
-        { href: "/docs/accessibility/", icon: "accessibility", label: "دسترس‌پذیری", text: "WCAG 2.2 AA در همهٔ کامپوننت‌ها" },
-        { href: "/docs/typography/", icon: "type", label: "فونت و تایپوگرافی", text: "وزیرمتن، اندازه‌ها و ارقام" },
-        { href: "/docs/motion/", icon: "sparkle", label: "حرکت و ریزتعامل‌ها", text: "توکن‌های زمان و منحنی، بازخورد هر کامپوننت" },
-        { href: "/docs/states/", icon: "layers", label: "حالت‌های کامپوننت‌ها", text: "بارگذاری، خالی، غیرفعال، خطا و فقط‌خواندنی" },
-        { href: "/docs/colors/", icon: "color-swatch", label: "رنگ‌ها", text: "پالت، رنگ‌های معنایی و کنتراست" },
-        { href: "/docs/brand/", icon: "kashi-tile", label: "برند کاشی", text: "نشان، رنگ، نام و باید و نبایدها" },
-      ] },
-      { title: "پایداری", items: [
-        { href: "/status/", icon: "globe", label: "وضعیت سرویس‌ها", text: "دسترس‌پذیری سایت، npm و دانلودها" },
-        { href: "/docs/i18n/", icon: "language", label: "دوزبانه", text: "فارسی و انگلیسی با یک تنظیم" },
-        { href: "/docs/versioning/", icon: "git-branch", label: "سیاست تغییرات", text: "نسخه‌ها، منسوخ‌کردن و پشتیبانی" },
-        { href: "/docs/security/", icon: "shield-check", label: "امنیت", text: "گزارش آسیب‌پذیری و زمان پاسخ" },
-        { href: "/docs/sizes/", icon: "scale", label: "حجم کامپوننت‌ها", text: "حجم هر کامپوننت و سقف آن" },
-      ] },
-    ],
-  },
-];
-const MENU_HREFS = menus.flatMap((m) => m.sections.flatMap((s) => s.items.map((i) => i.href))).filter((h) => !h.includes("#"));
-const isCurrent = (href: string) => !href.includes("#") && path.startsWith(href);
-const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
-// کد لاتین داخل متن فارسی در <bdi> تا «@kashi» به «kashi@» برنگردد
-const inline = (t: string) => t.split("`").map((part, i) => (i % 2 ? `<bdi dir="ltr">${esc(part)}</bdi>` : esc(part))).join("");
----
-<header class="site-header">
-  <div class="site-header__inner">
-    <button class="k-btn k-btn--tertiary k-btn--icon menu-btn" type="button" aria-label="باز کردن منو" aria-haspopup="dialog" data-open-menu>
-      <Fragment set:html={iconSvg("menu")} />
-    </button>
-    <a href="/" class="brand" aria-label="کاشی، صفحهٔ اصلی">
-      <Logo />
-      <span class="brand__name" aria-hidden="true">کاشی</span>
-    </a>
-    <a class="k-badge k-badge--sm k-badge--outline ver-badge" href="/docs/changelog/" aria-label={`نسخهٔ ${pkg.version}، تغییرات نسخه‌ها`} dir="ltr">v{ver}</a>
 
-    <nav class="site-nav" aria-label="اصلی">
-      {links.map((l) => (
-        <a href={l.href} aria-current={l.match(path) ? "page" : undefined}>{l.label}</a>
-      ))}
-      {menus.map((m) => (
-        <div class="nav-menu" data-nav-menu>
-          <button type="button" class="nav-menu__btn" aria-expanded="false" aria-controls={`${m.id}-menu`} data-active={m.sections.some((sec) => sec.items.some((i) => isCurrent(i.href))) ? "" : undefined}>
-            {m.label}
-            <Fragment set:html={iconSvg("chevron-down", { size: 16, className: "nav-menu__chev" })} />
-          </button>
-          <div class={`nav-menu__panel nav-menu__panel--${m.id}`} id={`${m.id}-menu`} style={`--cols: ${m.cols}`} hidden>
-            {m.sections.map((sec) => (
-              <div class="nav-menu__section">
-                {sec.title && <p class="nav-menu__title">{sec.title}</p>}
-                <div class="nav-menu__grid">
-                  {sec.items.map((t) => (
-                    <a class="nav-menu__item" href={t.href} aria-current={isCurrent(t.href) ? "page" : undefined}>
-                      <span class="nav-menu__icon" set:html={iconSvg(t.icon, { size: 20 })} />
-                      <span class="nav-menu__body"><b>{t.label}</b><small set:html={inline(t.text)} /></span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
+// منوی «منابع»: سه ستون هم‌قد و یک کارت معرفی تازه‌ترین چیز؛ متن کد لاتین داخل `بک‌تیک`
+type Item = { href: string; icon: string; label: string; text: string };
+const columns: { title: string; items: Item[] }[] = [
+  { title: "ابزارها", items: [
+    { href: "/docs/theming/", icon: "palette", label: "تم‌ساز", text: "رنگ برند، گردی و تراکم را زنده بسازید" },
+    { href: "/docs/figma/", icon: "pen-tool", label: "پلاگین فیگما", text: "کل کیت با یک کلیک در فایل شما" },
+    { href: "/docs/tailwind/", icon: "wind", label: "Tailwind", text: "توکن‌های کاشی به‌شکل کلاس‌ها" },
+    { href: "/docs/web-components/", icon: "puzzle", label: "وب کامپوننت‌ها", text: "بدون React، برای هر فریم‌ورکی" },
+    { href: "/docs/installation/#رجیستری-shadcn", icon: "terminal", label: "رجیستری shadcn", text: "کد کامپوننت‌ها با `@kashi`" },
+    { href: "/docs/ai/", icon: "ai-chat", label: "سرور MCP", text: "کاشی در دستیار هوش مصنوعی" },
+  ] },
+  { title: "طراحی و محتوا", items: [
+    { href: "/articles/", icon: "newspaper", label: "مقاله‌ها", text: "راهنمای عملی رابط فارسی" },
+    { href: "/docs/states/", icon: "layers", label: "حالت‌های کامپوننت‌ها", text: "بارگذاری، خالی، خطا و فقط‌خواندنی" },
+    { href: "/docs/motion/", icon: "sparkle", label: "حرکت و ریزتعامل‌ها", text: "زمان، منحنی و بازخورد" },
+    { href: "/docs/writing/", icon: "pen", label: "نوشتن متن رابط", text: "لحن، پیام خطا و فارسی‌نویسی" },
+    { href: "/docs/accessibility/", icon: "accessibility", label: "دسترس‌پذیری", text: "WCAG 2.2 AA در همه‌جا" },
+    { href: "/docs/typography/", icon: "type", label: "فونت و تایپوگرافی", text: "وزیرمتن، اندازه‌ها و ارقام" },
+    { href: "/docs/colors/", icon: "color-swatch", label: "رنگ‌ها", text: "پالت و کنتراست" },
+    { href: "/docs/brand/", icon: "kashi-tile", label: "برند کاشی", text: "نشان، نام و باید و نبایدها" },
+  ] },
+  { title: "پایداری", items: [
+    { href: "/status/", icon: "globe", label: "وضعیت سرویس‌ها", text: "سایت، npm و دانلودها" },
+    { href: "/docs/changelog/", icon: "git-branch", label: "نسخه‌ها", text: "همهٔ انتشارها و تغییرات" },
+    { href: "/docs/versioning/", icon: "tag", label: "سیاست تغییرات", text: "نسخه‌گذاری و منسوخ‌کردن" },
+    { href: "/docs/security/", icon: "shield-check", label: "امنیت", text: "گزارش آسیب‌پذیری" },
+    { href: "/docs/sizes/", icon: "scale", label: "حجم کامپوننت‌ها", text: "حجم هر کامپوننت و سقفش" },
+    { href: "/docs/i18n/", icon: "language", label: "دوزبانه", text: "فارسی و انگلیسی با یک تنظیم" },
+  ] },
+];
+const menuHrefs = columns.flatMap((c) => c.items.map((i) => i.href)).filter((h) => !h.includes("#"));
+const inMenu = menuHrefs.some((h) => path.startsWith(h));
+const links = [
+  { href: "/docs/", label: "مستندات", on: path.startsWith("/docs/") && !/^\/docs\/(components|persian|icons)\//.test(path) && !inMenu },
+  { href: "/docs/components/", label: "کامپوننت‌ها", on: path.startsWith("/docs/components/") },
+  { href: "/docs/persian/", label: "فارسی", on: path.startsWith("/docs/persian/") },
+  { href: "/docs/icons/", label: "آیکون‌ها", on: path.startsWith("/docs/icons/") },
+];
+const esc = (t: string) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+const inline = (t: string) => t.split("`").map((part, i) => (i % 2 ? `<bdi dir="ltr">${esc(part)}</bdi>` : esc(part))).join("");
+const icon = (n: string, size = 18) => iconSvg(n, { size }) ?? iconSvg("sparkle", { size }) ?? "";
+const github = `<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>`;
+---
+<header class="hd" data-hd>
+  <div class="hd__bar">
+    <div class="hd__start">
+      <button class="k-btn k-btn--tertiary k-btn--icon k-btn--sm hd__burger" type="button" aria-label="باز کردن منو" aria-haspopup="dialog" data-open-menu>
+        <Fragment set:html={iconSvg("menu")} />
+      </button>
+      <a href="/" class="hd__brand" aria-label="کاشی، صفحهٔ اصلی">
+        <Logo size={26} />
+        <span aria-hidden="true">کاشی</span>
+      </a>
+      <a class="hd__ver" href="/docs/changelog/" aria-label={`نسخهٔ ${pkg.version}، تغییرات نسخه‌ها`} dir="ltr">v{ver}</a>
+    </div>
+
+    <nav class="hd__nav" aria-label="اصلی" data-hd-nav>
+      <span class="hd__pill" aria-hidden="true"></span>
+      {links.map((l) => <a class="hd__link" href={l.href} aria-current={l.on ? "page" : undefined}>{l.label}</a>)}
+      <button type="button" class="hd__link hd__trigger" aria-expanded="false" aria-controls="hd-resources" data-hd-trigger data-active={inMenu ? "" : undefined}>
+        منابع
+        <Fragment set:html={iconSvg("chevron-down", { size: 14, className: "hd__chev" })} />
+      </button>
     </nav>
 
-    <div class="site-header__end">
+    <div class="hd__end">
       <SiteSearch client:idle />
-      <a class="k-btn k-btn--tertiary gh-btn" href={author.repo} target="_blank" rel="noopener" aria-label="مخزن کاشی در GitHub (در پنجرهٔ جدید)">
-        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
-        <span class="gh-btn__stars" data-gh-wait aria-hidden="true"><svg viewBox="0 0 20 20" fill="currentColor"><path d="m10 2.5 2.3 4.7 5.2.75-3.75 3.65.9 5.15L10 14.3l-4.65 2.45.9-5.15L2.5 7.95l5.2-.75Z"/></svg><span data-gh="stars"></span></span>
-      </a>
-      <a class="k-btn k-btn--tertiary k-btn--icon tg-btn" href={author.channel.href} target="_blank" rel="noopener" aria-label="کانال تلگرام کاشی (در پنجرهٔ جدید)" title="کانال تلگرام کاشی">
-        <Fragment set:html={iconSvg("send")} />
-      </a>
-      <button class="k-btn k-btn--tertiary k-btn--icon" type="button" data-theme-toggle aria-label="تم روشن">
-        <Fragment set:html={iconSvg("sun", { className: "icon-sun" })} />
-        <Fragment set:html={iconSvg("moon", { className: "icon-moon" })} />
-      </button>
-      <a class="k-btn k-btn--primary k-btn--sm install-btn" href="/docs/installation/" aria-current={path.startsWith("/docs/installation") ? "page" : undefined}>
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3.5v9m0 0-3.5-3.5M10 12.5l3.5-3.5M4 15.5h12" /></svg>
-        نصب
+      <div class="hd__icons">
+        <a class="hd__icon hd__gh" href={author.repo} target="_blank" rel="noopener" aria-label="مخزن کاشی در GitHub (در پنجرهٔ جدید)">
+          <Fragment set:html={github} />
+          <span class="hd__stars" data-gh-wait aria-hidden="true"><span data-gh="stars"></span></span>
+        </a>
+        <a class="hd__icon" href={author.channel.href} target="_blank" rel="noopener" aria-label="کانال تلگرام کاشی (در پنجرهٔ جدید)" title="کانال تلگرام کاشی">
+          <Fragment set:html={iconSvg("send", { size: 18 })} />
+        </a>
+        <button class="hd__icon" type="button" data-theme-toggle aria-label="تم روشن">
+          <Fragment set:html={iconSvg("sun", { size: 18, className: "icon-sun" })} />
+          <Fragment set:html={iconSvg("moon", { size: 18, className: "icon-moon" })} />
+        </button>
+      </div>
+      <a class="k-btn k-btn--primary k-btn--sm hd__cta" href="/docs/installation/" aria-current={path.startsWith("/docs/installation") ? "page" : undefined}>شروع کنید</a>
+    </div>
+  </div>
+
+  <div class="hd__mega" id="hd-resources" hidden data-hd-mega>
+    <div class="hd__mega-inner">
+      {columns.map((c) => (
+        <section class="hd__col" aria-label={c.title}>
+          <p class="hd__col-title">{c.title}</p>
+          <ul role="list">
+            {c.items.map((t) => (
+              <li><a class="hd__item" href={t.href} aria-current={!t.href.includes("#") && path.startsWith(t.href) ? "page" : undefined}>
+                <span class="hd__item-icon" set:html={icon(t.icon)} />
+                <span class="hd__item-body"><b>{t.label}</b><small set:html={inline(t.text)} /></span>
+              </a></li>
+            ))}
+          </ul>
+        </section>
+      ))}
+      <a class="hd__feature" href="/docs/states/">
+        <span class="hd__feature-tag">تازه در ۲.۳</span>
+        <b>حالت‌های کامپوننت‌ها</b>
+        <span>فقط‌خواندنی، بارگذاری و خالی؛ با یک ظاهر و یک API در همهٔ کامپوننت‌ها.</span>
+        <span class="hd__feature-art" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="hd__feature-more">ببینید <span aria-hidden="true">←</span></span>
       </a>
     </div>
   </div>
@@ -126,41 +125,46 @@ const inline = (t: string) => t.split("`").map((part, i) => (i % 2 ? `<bdi dir="
       <Fragment set:html={iconSvg("close")} />
     </button>
   </div>
+  <nav class="menu-dialog__links" aria-label="بخش‌ها">
+    {links.map((l) => <a href={l.href} aria-current={l.on ? "page" : undefined}>{l.label}</a>)}
+  </nav>
   <Sidebar />
 </dialog>
 
 <script>
   import "../scripts/github-stats";
 
-  // منوهای «ابزارها» و «راهنماها»: کلیک یا Enter باز می‌کند؛ باز شدن یکی، دیگری را می‌بندد؛ Escape، کلیک بیرون یا رفتن فوکوس می‌بندد
-  document.querySelectorAll<HTMLElement>("[data-nav-menu]").forEach((root) => {
-    const btn = root.querySelector<HTMLButtonElement>(".nav-menu__btn")!;
-    const panel = root.querySelector<HTMLElement>(".nav-menu__panel")!;
-    const items = () => [...panel.querySelectorAll<HTMLAnchorElement>("a")];
+  // منوی «منابع»: کلیک یا Enter باز می‌کند؛ Escape، کلیک بیرون یا رفتن فوکوس می‌بندد؛ کلیدهای جهت‌دار بین آیتم‌ها
+  const trigger = document.querySelector<HTMLButtonElement>("[data-hd-trigger]");
+  const mega = document.querySelector<HTMLElement>("[data-hd-mega]");
+  const header = document.querySelector<HTMLElement>("[data-hd]");
+  if (trigger && mega && header) {
+    const items = () => [...mega.querySelectorAll<HTMLAnchorElement>("a")];
     const set = (open: boolean) => {
-      if (open) document.querySelectorAll<HTMLElement>("[data-nav-menu]").forEach((other) => other !== root && other.dispatchEvent(new Event("kashi-close-menu")));
-      btn.setAttribute("aria-expanded", String(open));
-      panel.hidden = !open;
+      trigger.setAttribute("aria-expanded", String(open));
+      mega.hidden = !open;
+      header.toggleAttribute("data-mega", open);
     };
-    root.addEventListener("kashi-close-menu", () => set(false));
-    btn.addEventListener("click", () => set(panel.hidden));
-    btn.addEventListener("keydown", (e) => {
+    trigger.addEventListener("click", () => set(mega.hidden));
+    trigger.addEventListener("keydown", (e) => {
       if (e.key === "ArrowDown") { e.preventDefault(); set(true); items()[0]?.focus(); }
     });
-    panel.addEventListener("keydown", (e) => {
+    mega.addEventListener("keydown", (e) => {
       const list = items();
       const i = list.indexOf(document.activeElement as HTMLAnchorElement);
       if (e.key === "ArrowDown") { e.preventDefault(); list[(i + 1) % list.length].focus(); }
       if (e.key === "ArrowUp") { e.preventDefault(); list[(i - 1 + list.length) % list.length].focus(); }
     });
-    root.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !panel.hidden) { set(false); btn.focus(); }
+    header.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !mega.hidden) { set(false); trigger.focus(); }
     });
-    root.addEventListener("focusout", (e) => {
-      if (!root.contains(e.relatedTarget as Node)) set(false);
+    header.addEventListener("focusout", (e) => {
+      if (!header.contains(e.relatedTarget as Node)) set(false);
     });
     document.addEventListener("pointerdown", (e) => {
-      if (!root.contains(e.target as Node)) set(false);
+      if (!header.contains(e.target as Node)) set(false);
     });
-  });
+    // ترتیب ورود آیتم‌ها
+    items().forEach((a, i) => a.style.setProperty("--i", String(i)));
+  }
 </script>

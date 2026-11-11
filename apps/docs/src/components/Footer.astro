@@ -1,28 +1,62 @@
 ---
+import { iconSvg } from "@kashi-ui/icons";
 import Logo from "./Logo.astro";
+import Install from "./Install.astro";
 import { author } from "../data/author";
 import pkg from "@kashi-ui/react/package.json";
-const columns = [
+
+interface Props {
+  /** نوار دعوت بالای پانویس؛ صفحهٔ اصلی بخش دعوت خودش را دارد */
+  cta?: boolean;
+}
+const { cta = true } = Astro.props;
+const columns: { title: string; links: [string, string][] }[] = [
   { title: "محصول", links: [["معرفی", "/docs/"], ["نصب", "/docs/installation/"], ["کامپوننت‌ها", "/docs/components/"], ["کامپوننت‌های فارسی", "/docs/persian/"], ["آیکون‌ها", "/docs/icons/"], ["وب کامپوننت‌ها", "/docs/web-components/"]] },
   { title: "ابزارها", links: [["تم‌ساز", "/docs/theming/"], ["پلاگین فیگما", "/docs/figma/"], ["Tailwind", "/docs/tailwind/"], ["رجیستری shadcn", "/docs/installation/#رجیستری-shadcn"], ["سرور MCP", "/docs/ai/"]] },
-  { title: "راهنماها", links: [["مقاله‌ها", "/articles/"], ["نوشتن متن رابط", "/docs/writing/"], ["دسترس‌پذیری", "/docs/accessibility/"], ["فونت و تایپوگرافی", "/docs/typography/"], ["حرکت و ریزتعامل‌ها", "/docs/motion/"], ["حالت‌ها", "/docs/states/"], ["رنگ‌ها", "/docs/colors/"], ["برند کاشی", "/docs/brand/"], ["دوزبانه", "/docs/i18n/"], ["مقایسه با دیگران", "/docs/compare/"]] },
-  { title: "پایداری", links: [["وضعیت سرویس‌ها", "/status/"], ["سیاست تغییرات", "/docs/versioning/"], ["مهاجرت به ۲.۰", "/docs/migration/"], ["امنیت", "/docs/security/"], ["حجم کامپوننت‌ها", "/docs/sizes/"], ["نسخه‌ها", "/docs/changelog/"]] },
-  { title: "جامعه", links: [["کانال تلگرام", author.channel.href], ["GitHub", author.repo], ["گزارش مشکل", `${author.repo}/issues`], ["راهنمای مشارکت", `${author.repo}/blob/main/CONTRIBUTING.md`], ["دونیت و حمایت", author.telegram.href]] },
+  { title: "راهنماها", links: [["مقاله‌ها", "/articles/"], ["حالت‌های کامپوننت‌ها", "/docs/states/"], ["حرکت و ریزتعامل‌ها", "/docs/motion/"], ["نوشتن متن رابط", "/docs/writing/"], ["دسترس‌پذیری", "/docs/accessibility/"], ["برند کاشی", "/docs/brand/"], ["مقایسه با دیگران", "/docs/compare/"]] },
+  { title: "پایداری", links: [["وضعیت سرویس‌ها", "/status/"], ["نسخه‌ها", "/docs/changelog/"], ["سیاست تغییرات", "/docs/versioning/"], ["مهاجرت به ۲.۰", "/docs/migration/"], ["امنیت", "/docs/security/"], ["حجم کامپوننت‌ها", "/docs/sizes/"]] },
+  { title: "جامعه", links: [["کانال تلگرام", author.channel.href], ["GitHub", author.repo], ["گزارش مشکل", `${author.repo}/issues`], ["راهنمای مشارکت", `${author.repo}/blob/main/CONTRIBUTING.md`], ["حمایت از کاشی", author.telegram.href]] },
+];
+const github = `<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>`;
+const npm = `<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M2 6h16v7h-8v1.5H6.5V13H2V6Zm1.5 1.5v4h2v-3h1.5v3h1v-4H3.5Zm6 0v5H11v-1h2v-4H9.5Zm1.5 1.5h.5v2H11V9Zm3-1.5v4h1.5v-3H16v3h.5v-3h.5v3h.5v-4H14Z"/></svg>`;
+const social = [
+  { href: author.channel.href, label: "کانال تلگرام کاشی", svg: iconSvg("send", { size: 18 }) ?? "" },
+  { href: author.repo, label: "GitHub", svg: github },
+  { href: "https://www.npmjs.com/org/kashi-ui", label: "npm", svg: npm },
 ];
 ---
-<footer class="site-footer">
-  <div class="site-footer__inner">
-    <div class="site-footer__brand">
-      <a href="/" class="brand" aria-label="کاشی، صفحهٔ اصلی"><Logo size={24} /><span class="brand__name" aria-hidden="true">کاشی</span></a>
-      <p>دیزاین‌سیستم متن‌باز فارسی.<br />منتشرشده با لایسنس MIT.</p>
-      <a class="credit" href={author.site} target="_blank" rel="noopener">
-        <img src={author.photo} alt="" width="28" height="28" loading="lazy" />
-        <span>ساخته‌شده توسط <strong>{author.name}</strong><span class="k-sr-only"> (در پنجرهٔ جدید)</span></span>
+<footer class="ft">
+  {cta && (
+    <div class="ft__cta">
+      <div class="ft__cta-copy">
+        <p class="ft__cta-title">همین امروز با کاشی بسازید</p>
+        <p class="ft__cta-text">رایگان و متن‌باز؛ نصب در کمتر از یک دقیقه، با React یا HTML ساده.</p>
+      </div>
+      <div class="ft__cta-actions">
+        <Install />
+        <a class="k-btn k-btn--primary" href="/docs/installation/">راهنمای نصب</a>
+      </div>
+    </div>
+  )}
+
+  <div class="ft__main">
+    <div class="ft__brand">
+      <a href="/" class="ft__logo" aria-label="کاشی، صفحهٔ اصلی"><Logo size={30} /><span aria-hidden="true">کاشی</span></a>
+      <p>دیزاین‌سیستم متن‌باز فارسی؛ راست‌به‌چپ، دسترس‌پذیر و آماده برای محصول‌های واقعی.</p>
+      <ul class="ft__social" role="list">
+        {social.map((s) => (
+          <li><a class="ft__social-link" href={s.href} target="_blank" rel="noopener" aria-label={`${s.label} (در پنجرهٔ جدید)`} title={s.label} set:html={s.svg} /></li>
+        ))}
+      </ul>
+      <a class="ft__channel" href={author.channel.href} target="_blank" rel="noopener">
+        <span class="ft__channel-dot" aria-hidden="true"></span>
+        <span>کانال تلگرام کاشی <bdi dir="ltr">@{author.channel.handle}</bdi></span>
+        <span class="k-sr-only"> (در پنجرهٔ جدید)</span>
       </a>
     </div>
     {columns.map((c) => (
-      <nav aria-label={c.title}>
-        <p class="site-footer__title">{c.title}</p>
+      <nav class="ft__col" aria-label={c.title}>
+        <p class="ft__col-title">{c.title}</p>
         <ul role="list">{c.links.map(([label, href]) => {
           const external = href.startsWith("http");
           return <li><a href={href} target={external ? "_blank" : undefined} rel={external ? "noopener" : undefined}>{label}{external && <span class="k-sr-only"> (در پنجرهٔ جدید)</span>}</a></li>;
@@ -30,9 +64,18 @@ const columns = [
       </nav>
     ))}
   </div>
-  <div class="site-footer__legal">
+
+  <div class="ft__bottom">
     <span>© ۲۰۲۶ مشارکت‌کنندگان کاشی · لایسنس MIT</span>
-    <span class="site-footer__status"><span class="site-footer__dot" aria-hidden="true"></span>نسخهٔ پایدار <bdi dir="ltr">v{pkg.version}</bdi></span>
-    <span>فونت وزیرمتن اثر صابر راستی‌کردار، تحت لایسنس SIL OFL 1.1</span>
+    <a class="ft__credit" href={author.site} target="_blank" rel="noopener">
+      <img src={author.photo} alt="" width="24" height="24" loading="lazy" />
+      ساخته‌شده توسط <strong>{author.name}</strong><span class="k-sr-only"> (در پنجرهٔ جدید)</span>
+    </a>
+    <span class="ft__meta">
+      <a href="/docs/changelog/" class="ft__ver"><span class="ft__ver-dot" aria-hidden="true"></span>نسخهٔ <bdi dir="ltr">v{pkg.version}</bdi></a>
+      <span aria-hidden="true">·</span>
+      <span>فونت وزیرمتن، SIL OFL 1.1</span>
+    </span>
   </div>
+  <div class="ft__word" aria-hidden="true">کاشی</div>
 </footer>

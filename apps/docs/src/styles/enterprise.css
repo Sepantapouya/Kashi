@@ -55,58 +55,9 @@ html { scrollbar-color: var(--k-border-primary) transparent; }
 }
 @keyframes vt-out { to { opacity: 0; } }
 @keyframes vt-in { from { opacity: 0; translate: 0 6px; } }
-.site-header { view-transition-name: site-header; }
 .docs__sidebar { view-transition-name: docs-sidebar; }
-::view-transition-old(site-header), ::view-transition-new(site-header), ::view-transition-old(docs-sidebar), ::view-transition-new(docs-sidebar) { animation: none; }
-
-/* ───────── سربرگ ───────── */
-.site-header {
-  border-block-end-color: transparent;
-  background: color-mix(in srgb, var(--k-bg-primary) 72%, transparent);
-  backdrop-filter: saturate(1.6) blur(14px);
-  -webkit-backdrop-filter: saturate(1.6) blur(14px);
-  transition: background-color var(--k-duration-normal), box-shadow var(--k-duration-normal);
-}
-.site-header::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0;
-  inset-block-end: 0;
-  block-size: 1px;
-  background: var(--k-border-secondary);
-  transition: opacity var(--k-duration-normal);
-}
-.site-header[data-scrolled] { background: color-mix(in srgb, var(--k-bg-primary) 82%, transparent); box-shadow: 0 10px 30px -18px rgb(0 0 0 / 0.7); }
-.site-header[data-scrolled]::after { background: var(--site-line); }
-
-/* قرص لغزان زیر پیوندهای سربرگ: با حرکت ماوس بین پیوندها می‌لغزد */
-.nav-pill {
-  position: absolute;
-  z-index: 0;
-  inset-block-start: 50%;
-  block-size: 2.125rem;
-  translate: 0 -50%;
-  border-radius: var(--k-radius-md);
-  background: var(--k-bg-hover);
-  opacity: 0;
-  pointer-events: none;
-  transition: left 280ms var(--k-ease-spring), width 280ms var(--k-ease-spring), opacity var(--k-duration-fast);
-}
-.nav-pill[data-on] { opacity: 1; }
-.site-nav > a, .nav-menu__btn { z-index: 1; }
-.site-nav:has(.nav-pill) > a:hover, .site-nav:has(.nav-pill) .nav-menu__btn:hover:not([aria-expanded="true"]) { background: none; }
-.site-nav > a[aria-current="page"]::after, .nav-menu__btn[data-active]::after { view-transition-name: nav-active; background: var(--k-text-brand); box-shadow: 0 0 12px var(--k-text-brand); }
-
-/* منوی کشویی: آیتم‌ها پشت‌سرهم می‌آیند و آیکون با hover کمی بالا می‌رود */
-.nav-menu__panel { border-color: var(--k-border-secondary); background: color-mix(in srgb, var(--k-bg-elevated) 92%, transparent); backdrop-filter: blur(18px); box-shadow: 0 24px 60px -20px rgb(0 0 0 / 0.75), 0 0 0 1px rgb(255 255 255 / 0.02) inset; }
-@media (prefers-reduced-motion: no-preference) {
-  .nav-menu__panel:not([hidden]) { animation: menu-in 220ms var(--k-ease-emphasized); transform-origin: top; }
-  .nav-menu__panel:not([hidden]) .nav-menu__item { animation: item-in 260ms var(--k-ease-standard) both; animation-delay: calc(var(--i, 0) * 22ms + 40ms); }
-}
 @keyframes menu-in { from { opacity: 0; scale: 0.98; translate: 0 -6px; } }
 @keyframes item-in { from { opacity: 0; translate: 0 4px; } }
-.nav-menu__icon { transition: translate var(--k-duration-normal) var(--k-ease-spring), border-color var(--k-duration-fast), box-shadow var(--k-duration-normal); }
-.nav-menu__item:hover .nav-menu__icon { translate: 0 -2px; border-color: color-mix(in srgb, var(--k-text-brand) 45%, transparent); box-shadow: 0 6px 18px -8px var(--k-text-brand); }
 
 /* دکمهٔ جستجو */
 .search-btn { border-color: var(--k-border-secondary); background: rgb(255 255 255 / 0.025); box-shadow: none; transition: border-color var(--k-duration-fast), color var(--k-duration-fast), background-color var(--k-duration-fast); }
@@ -331,33 +282,7 @@ html { scrollbar-color: var(--k-border-primary) transparent; }
 [dir="ltr"] .pager__link--next span::after { content: "→"; }
 .pager__link:not(.pager__link--next):hover span::before { translate: 3px 0; }
 .pager__link--next:hover span::after { translate: -3px 0; }
-
-/* ───────── پانویس ───────── */
-.site-footer { background: var(--k-bg-primary); border-block-start: 0; padding-block-end: 0; }
-.site-footer::before { content: ""; position: absolute; inset-inline: 0; inset-block-start: 0; block-size: 1px; background: var(--site-line); }
-.site-footer::after {
-  content: "کاشی";
-  display: block;
-  position: relative;
-  z-index: 0;
-  margin-block-start: var(--k-space-8);
-  margin-block-end: -0.28em;
-  text-align: center;
-  font-size: clamp(6rem, 22vw, 18rem);
-  font-weight: var(--k-weight-black);
-  line-height: 1;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--k-text-primary) 9%, transparent), transparent 75%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  pointer-events: none;
-  user-select: none;
-}
-.site-footer a:not(.brand, .credit) { display: inline-block; transition: color var(--k-duration-fast), translate var(--k-duration-normal) var(--k-ease-spring); }
-@media (prefers-reduced-motion: no-preference) { .site-footer a:not(.brand, .credit):hover { translate: -2px 0; } }
-.site-footer__dot { box-shadow: 0 0 0 0 var(--k-text-success); animation: pulse-dot 2.4s ease-out infinite; }
 @keyframes pulse-dot { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--k-text-success) 60%, transparent); } 70%, 100% { box-shadow: 0 0 0 6px transparent; } }
-@media (prefers-reduced-motion: reduce) { .site-footer__dot { animation: none; } }
 
 /* ───────── نمایان شدن هنگام اسکرول (فقط مرورگرهای دارای view()؛ بدون آن همه‌چیز از اول دیده می‌شود) ───────── */
 @supports (animation-timeline: view()) {
@@ -474,13 +399,6 @@ main.home :is(.pkg, .ent__item, .quality__item) { transition: border-color var(-
 .toc-extra a:hover { color: var(--k-text-primary); }
 .toc-extra svg { color: var(--k-text-quaternary); transition: color var(--k-duration-fast), translate var(--k-duration-normal) var(--k-ease-spring); }
 .toc-extra a:hover svg { color: var(--k-text-brand); translate: 0 -1px; }
-
-/* نشان نسخه کنار نام */
-.ver-badge { gap: 0.3rem; margin-inline-start: calc(var(--k-space-1) * -1); font-family: var(--k-font-mono); text-decoration: none; transition: color var(--k-duration-fast), border-color var(--k-duration-fast); }
-.ver-badge::before { content: ""; inline-size: 0.35rem; block-size: 0.35rem; border-radius: 50%; background: var(--k-text-success); box-shadow: 0 0 6px var(--k-text-success); }
-.ver-badge:hover { border-color: var(--k-border-primary); }
-.ver-badge:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
-@media (max-width: 30rem) { .ver-badge { display: none; } }
 
 /* ───────── هیروی صفحهٔ اصلی: شبکهٔ زنده، پرتوها، قاب نورانی ───────── */
 @property --spin { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
@@ -779,4 +697,3 @@ main.home .tgcard__body { display: grid; gap: 2px; }
 main.home .tgcard__body b { color: var(--k-text-primary); font-size: var(--k-text-lg); }
 main.home .tgcard__body small { color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.8; }
 @media (max-width: 40rem) { main.home .tgcard { grid-template-columns: auto minmax(0, 1fr); } main.home .tgcard__cta { grid-column: 1 / -1; justify-self: start; } }
-@media (max-width: 30rem) { .tg-btn { display: none; } }
