@@ -1,0 +1,270 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import { iconSvg } from "@kashi-ui/icons";
+
+// رنگ‌ها از همان توکن‌های کاشی؛ مقدار هگز فقط برای جاهایی که توکن نیست (فیگما، چاپ، شبکهٔ اجتماعی)
+const brand = [
+  { name: "فیروزه‌ای ۶۰۰", token: "--k-firoozeh-600", hex: "#0b8077", role: "رنگ اصلی نشان؛ ستارهٔ بیرونی" },
+  { name: "فیروزه‌ای ۲۰۰", token: "--k-firoozeh-200", hex: "#8ce9df", role: "ستارهٔ درونی نشان" },
+  { name: "فیروزه‌ای ۵۰۰", token: "--k-firoozeh-500", hex: "#0fa89b", role: "تأکید، لینک و نور برند" },
+  { name: "شب ۱۰۰۰", token: "--k-shab-1000", hex: "#09090b", role: "پس‌زمینهٔ تیره" },
+  { name: "شب ۵۰", token: "--k-shab-50", hex: "#f6f7f9", role: "پس‌زمینهٔ روشن" },
+];
+const downloads = [
+  { file: "/brand/kashi-logo.svg", label: "نشان رنگی", kind: "SVG" },
+  { file: "/brand/kashi-logo.png", label: "نشان رنگی", kind: "PNG ۱۰۲۴" },
+  { file: "/brand/kashi-logo-white.svg", label: "نشان سفید", kind: "SVG" },
+  { file: "/brand/kashi-logo-black.svg", label: "نشان مشکی", kind: "SVG" },
+  { file: "/brand/kashi-avatar.png", label: "عکس پروفایل", kind: "PNG ۱۰۲۴" },
+];
+const headings = [
+  { depth: 2, slug: "logo", text: "نشان" },
+  { depth: 2, slug: "space", text: "فضای خالی و اندازه" },
+  { depth: 2, slug: "logo-dont", text: "نشان: درست و نادرست" },
+  { depth: 2, slug: "colors", text: "رنگ‌ها" },
+  { depth: 2, slug: "type", text: "تایپوگرافی" },
+  { depth: 2, slug: "name", text: "نام کاشی" },
+  { depth: 2, slug: "voice", text: "لحن" },
+  { depth: 2, slug: "use", text: "استفاده از نام و نشان" },
+  { depth: 2, slug: "download", text: "دریافت فایل‌ها" },
+];
+const P = "M16 1 11.61 5.39H5.39v6.22L1 16l4.39 4.39v6.22h6.22L16 31l4.39-4.39h6.22v-6.22L31 16l-4.39-4.39V5.39h-6.22Z";
+const I = "M16 8.8 13.89 10.91H10.91v2.98L8.8 16l2.11 2.11v2.98h2.98L16 23.2l2.11-2.11h2.98v-2.98L23.2 16l-2.11-2.11v-2.98h-2.98Z";
+const mark = (outer = "#0b8077", inner = "#8ce9df") => `<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="${outer}" d="${P}"/><path fill="${inner}" d="${I}"/></svg>`;
+const mono = (c: string) => `<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="${c}" fill-rule="evenodd" d="${P} ${I}"/></svg>`;
+const ok = iconSvg("check", { size: 14 }) ?? "";
+const no = iconSvg("close", { size: 14 }) ?? "";
+const logoDont = [
+  { text: "نشان را کش ندهید یا فشرده نکنید؛ نسبت همیشه یک‌به‌یک است.", cls: "stretch" },
+  { text: "نشان را نچرخانید؛ شمسه همیشه با یک رأس رو به بالاست.", cls: "rotate" },
+  { text: "رنگ‌ها را عوض نکنید؛ فقط نسخهٔ رنگی، سفید یا مشکی.", cls: "recolor" },
+  { text: "سایه، گرادیان، خط دور یا جلوهٔ سه‌بعدی اضافه نکنید.", cls: "effect" },
+  { text: "نشان را روی پس‌زمینهٔ شلوغ یا کم‌کنتراست نگذارید.", cls: "busy" },
+  { text: "ستاره‌ها را از هم جدا یا جابه‌جا نکنید و چیزی داخلشان ننویسید.", cls: "split" },
+];
+const nameRules: [boolean, string, string][] = [
+  [true, "کاشی", "در متن فارسی همیشه همین‌طور؛ بدون «ی» عربی (كاشي) و بدون نیم‌فاصله"],
+  [true, "Kashi", "در متن انگلیسی؛ K بزرگ، بقیه کوچک"],
+  [true, "@kashi-ui/react", "نام پکیج‌ها همیشه با کوچک و خط تیره، داخل `code`"],
+  [false, "KASHI · kashi · Kashi UI", "همه با حروف بزرگ، همه کوچک، یا افزودن UI به نام"],
+  [false, "کاشی‌یو‌آی · کاشی دیزاین", "ترجمه یا پسوند ساختگی برای نام"],
+  [false, "دیزاین سیستم کاشی (بدون نیم‌فاصله)", "درست: «دیزاین‌سیستم کاشی» یا «کاشی، دیزاین‌سیستم فارسی»"],
+];
+---
+<Docs title="برند کاشی" description="نشان، رنگ‌ها، تایپوگرافی، نام و لحن کاشی؛ با باید و نبایدها و فایل‌های آماده برای پوستر، شبکهٔ اجتماعی و ارائه." headings={headings}>
+  <p>این صفحه برای هر کسی است که دربارهٔ کاشی چیزی منتشر می‌کند: پست شبکهٔ اجتماعی، ارائه، مقاله یا صفحهٔ «ساخته‌شده با کاشی». قاعده‌ها کم‌اند و یک هدف دارند: کاشی همه‌جا یکسان و قابل‌اعتماد دیده شود.</p>
+
+  <h2 id="logo">نشان</h2>
+  <p>نشان کاشی یک <strong>شمسه</strong> است، ستارهٔ هشت‌پر کاشی‌کاری ایرانی: یک ستارهٔ بزرگ فیروزه‌ای و ستارهٔ کوچک‌تری در دلش. همان ایدهٔ کاشی‌کاری است؛ قطعه‌های دقیق که کنار هم یک کل یکپارچه می‌سازند.</p>
+  <div class="br-logos">
+    <figure class="br-tile br-tile--dark"><div class="br-mark" set:html={mark()} /><figcaption>رنگی روی تیره</figcaption></figure>
+    <figure class="br-tile br-tile--light"><div class="br-mark" set:html={mark()} /><figcaption>رنگی روی روشن</figcaption></figure>
+    <figure class="br-tile br-tile--brand"><div class="br-mark" set:html={mono("#ffffff")} /><figcaption>سفید روی رنگ برند</figcaption></figure>
+    <figure class="br-tile br-tile--light"><div class="br-mark" set:html={mono("#09090b")} /><figcaption>مشکی، برای چاپ تک‌رنگ</figcaption></figure>
+  </div>
+  <div class="br-lockup" aria-label="نشان و نام کاشی کنار هم">
+    <span class="br-lockup__mark" set:html={mark()} />
+    <span class="br-lockup__name">کاشی</span>
+  </div>
+  <p>کنار نام، نشان هم‌قد ارتفاع حروف «کاشی» است و فاصله‌اش با نام نصف عرض نشان. نام با وزیرمتن سیاه (Black) نوشته می‌شود.</p>
+
+  <h2 id="space">فضای خالی و اندازه</h2>
+  <div class="br-space">
+    <div class="br-space__box"><span class="br-space__guide" aria-hidden="true"></span><div class="br-mark" set:html={mark()} /></div>
+    <ul>
+      <li><strong>فضای خالی:</strong> دور نشان دست‌کم به اندازهٔ ستارهٔ درونی (یک‌چهارم عرض نشان) خالی بماند؛ نه متن، نه لبهٔ کادر.</li>
+      <li><strong>کوچک‌ترین اندازه:</strong> ۱۶ پیکسل روی صفحه (فاوآیکن) و ۸ میلی‌متر در چاپ. کوچک‌تر از این، ستارهٔ درونی دیده نمی‌شود.</li>
+      <li><strong>عکس پروفایل:</strong> نشان حدود ۵۵٪ عرض کادر و در وسط، تا برش دایره‌ای شبکه‌های اجتماعی چیزی از آن نبُرد. فایل آماده در <a href="#download">دریافت فایل‌ها</a> هست.</li>
+    </ul>
+  </div>
+
+  <h2 id="logo-dont">نشان: درست و نادرست</h2>
+  <div class="br-dont">
+    <figure class="br-ex br-ex--do">
+      <div class="br-ex__stage"><span class="br-tag"><span class="br-tag__ic" set:html={ok} />درست</span><div class="br-mark" set:html={mark()} /></div>
+      <figcaption>نشان رنگی، با نسبت و رنگ اصلی، روی پس‌زمینهٔ ساده و با فضای خالی کافی.</figcaption>
+    </figure>
+    {logoDont.map((d) => (
+      <figure class="br-ex br-ex--dont">
+        <div class="br-ex__stage" data-case={d.cls}><span class="br-tag"><span class="br-tag__ic" set:html={no} />نادرست</span><div class="br-mark" set:html={d.cls === "split" ? `<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#0b8077" d="${P}"/><path fill="#8ce9df" transform="translate(7 -6)" d="${I}"/></svg>` : d.cls === "recolor" ? mark("#e51d2a", "#ffd166") : d.cls === "stretch" ? mark().replace("<svg ", '<svg preserveAspectRatio="none" ') : mark()} /></div>
+        <figcaption>{d.text}</figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <h2 id="colors">رنگ‌ها</h2>
+  <p>رنگ برند <strong>فیروزه‌ای</strong> است، رنگ کاشی‌های گنبدهای ایرانی، و کنارش <strong>شب</strong>، طیف خاکستری خنثای کاشی. در کد همیشه توکن را بنویسید، نه هگز؛ <a href="/docs/colors/">همهٔ رنگ‌ها و کنتراست‌ها</a>.</p>
+  <ul class="br-colors" role="list">
+    {brand.map((c) => (
+      <li>
+        <button type="button" class="br-color" data-copy={c.hex} aria-label={`کپی ${c.hex}`} style={`--c: ${c.hex}`}>
+          <span class="br-color__chip"></span>
+          <span class="br-color__body"><b>{c.name}</b><code dir="ltr">{c.hex}</code><small>{c.role}</small></span>
+        </button>
+      </li>
+    ))}
+  </ul>
+  <ul class="br-rules" role="list">
+    <li class="is-do"><span set:html={ok} />فیروزه‌ای برای تأکید است، نه برای همه‌جا؛ بیشتر سطح‌ها خنثی می‌مانند.</li>
+    <li class="is-do"><span set:html={ok} />در طرح‌های تیره، پس‌زمینه «شب ۱۰۰۰» و نور فیروزه‌ای ملایم؛ همان حس سایت.</li>
+    <li class="is-dont"><span set:html={no} />رنگ‌های معنایی (قرمز خطا، سبز موفقیت) را برای تزئین برند به کار نبرید.</li>
+    <li class="is-dont"><span set:html={no} />متن سفید روی فیروزه‌ای ۲۰۰ تا ۴۰۰ ننویسید؛ کنتراست کافی ندارد.</li>
+  </ul>
+
+  <h2 id="type">تایپوگرافی</h2>
+  <div class="br-type">
+    <div class="br-type__sample"><span class="br-type__big">کاشی ۲.۰</span><span class="br-type__meta">وزیرمتن · Black · ۹۰۰</span></div>
+    <div class="br-type__sample"><span class="br-type__mid">مینیمال‌تر از همیشه</span><span class="br-type__meta">وزیرمتن · Bold · ۷۰۰</span></div>
+    <div class="br-type__sample"><span class="br-type__body">دیزاین‌سیستم فارسی، متن‌باز و دسترس‌پذیر.</span><span class="br-type__meta">وزیرمتن · Regular · ۴۰۰</span></div>
+    <div class="br-type__sample"><code class="br-type__code" dir="ltr">npm i @kashi-ui/react</code><span class="br-type__meta">فونت مونو سیستم برای کد</span></div>
+  </div>
+  <ul class="br-rules" role="list">
+    <li class="is-do"><span set:html={ok} />تیترها سیاه یا پررنگ، متن معمولی؛ فقط دو یا سه وزن در یک طرح.</li>
+    <li class="is-do"><span set:html={ok} />ارقام در متن فارسی، فارسی (۲.۰، ۶۶۰۰)؛ در کد و نام نسخه لاتین (v2.0.0).</li>
+    <li class="is-dont"><span set:html={no} />فونت فانتزی، کشیدهٔ «ـــ» یا متن ایتالیک برای فارسی نه.</li>
+    <li class="is-dont"><span set:html={no} />متن فارسی را وسط‌چین نکنید مگر تیترهای کوتاه.</li>
+  </ul>
+  <p><a href="/docs/typography/">فونت و تایپوگرافی</a> اندازه‌ها و ارتفاع خط را کامل گفته است.</p>
+
+  <h2 id="name">نام کاشی</h2>
+  <ul class="br-names" role="list">
+    {nameRules.map(([good, sample, note]) => (
+      <li class={good ? "is-do" : "is-dont"}>
+        <span class="br-names__mark" set:html={good ? ok : no} />
+        <span class="br-names__sample"><bdi>{sample}</bdi></span>
+        <span class="br-names__note" set:html={note.replace(/`([^`]+)`/g, '<code dir="ltr">$1</code>')} />
+      </li>
+    ))}
+  </ul>
+
+  <h2 id="voice">لحن</h2>
+  <p>کاشی مثل یک همکار باتجربه حرف می‌زند: <strong>روشن، کوتاه و صادق.</strong></p>
+  <div class="br-voice">
+    <div class="is-do"><b><span set:html={ok} />بگویید</b><p>«کاشی تقویم شمسی و کد ملی را آماده دارد.»</p><p>«در معیارهای فارسی Farsi UI هم قوی است؛ <a href="/docs/compare/">مقایسه</a>.»</p></div>
+    <div class="is-dont"><b><span set:html={no} />نگویید</b><p>«انقلابی‌ترین دیزاین‌سیستم تاریخ!»</p><p>«بقیهٔ دیزاین‌سیستم‌ها به درد نمی‌خورند.»</p></div>
+  </div>
+  <p>ادعا بدون عدد نمی‌آید و دربارهٔ رقیب‌ها منصفانه حرف می‌زنیم. جزئیات بیشتر: <a href="/docs/writing/">نوشتن متن رابط</a>.</p>
+
+  <h2 id="use">استفاده از نام و نشان</h2>
+  <ul class="br-rules" role="list">
+    <li class="is-do"><span set:html={ok} />در مقاله، ارائه، ویدیو و پست شبکهٔ اجتماعی دربارهٔ کاشی، نام و نشان را آزادانه استفاده کنید.</li>
+    <li class="is-do"><span set:html={ok} />محصولی که با کاشی ساخته‌اید می‌تواند بنویسد «ساخته‌شده با کاشی» و به سایت پیوند دهد.</li>
+    <li class="is-dont"><span set:html={no} />طوری استفاده نکنید که انگار محصول شما نسخهٔ رسمی کاشی است یا کاشی آن را تأیید کرده.</li>
+    <li class="is-dont"><span set:html={no} />نشان کاشی را جزء لوگوی محصول یا شرکت خودتان نکنید.</li>
+  </ul>
+  <p>کد کاشی با لایسنس MIT آزاد است؛ این قاعده‌ها فقط دربارهٔ نام و نشان‌اند تا کسی گمراه نشود. سؤالی دارید؟ در <a href="https://t.me/sepantapouya_ux">تلگرام</a> بپرسید.</p>
+
+  <h2 id="download">دریافت فایل‌ها</h2>
+  <ul class="br-dl" role="list">
+    {downloads.map((d) => (
+      <li><a class="br-dl__item" href={d.file} download>
+        <span class="br-dl__prev" set:html={d.file.includes("white") ? mono("#ffffff") : d.file.includes("black") ? mono("#09090b") : mark()} />
+        <span class="br-dl__body"><b>{d.label}</b><small>{d.kind}</small></span>
+        <span class="br-dl__ic" set:html={iconSvg("download", { size: 18 }) ?? ""} />
+      </a></li>
+    ))}
+  </ul>
+</Docs>
+
+<style>
+  .br-mark { display: grid; place-items: center; }
+  .br-mark :global(svg) { inline-size: 4.5rem; block-size: 4.5rem; }
+
+  .br-logos { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--k-space-3); margin-block: var(--k-space-5); }
+  .br-tile { display: grid; gap: var(--k-space-4); justify-items: center; margin: 0; padding: var(--k-space-8) var(--k-space-4) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); }
+  .br-tile figcaption { font-size: var(--k-text-xs); }
+  .br-tile--dark { background: radial-gradient(70% 70% at 50% 35%, rgb(15 168 155 / 0.22), transparent 70%), #09090b; color: #b1b9c9; }
+  .br-tile--light { background: #f6f7f9; color: #535d78; }
+  .br-tile--brand { background: #0b8077; color: #e6fbf8; border-color: transparent; }
+  .br-tile { transition: translate var(--k-duration-slow) var(--k-ease-spring); }
+  .br-tile .br-mark :global(svg) { transition: rotate 600ms var(--k-ease-spring); }
+  .br-tile:hover .br-mark :global(svg) { rotate: 45deg; }
+
+  .br-lockup { display: flex; align-items: center; justify-content: center; gap: 1.25rem; margin-block: var(--k-space-4); padding: var(--k-space-8); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: radial-gradient(60% 80% at 50% 0%, color-mix(in srgb, var(--k-text-brand) 12%, transparent), transparent 70%), var(--k-bg-primary); }
+  .br-lockup__mark :global(svg) { display: block; inline-size: 3.25rem; block-size: 3.25rem; }
+  .br-lockup__name { color: var(--k-text-primary); font-size: 3rem; font-weight: 900; line-height: 1; }
+
+  .br-space { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--k-space-6); align-items: center; margin-block: var(--k-space-4); }
+  .br-space__box { position: relative; display: grid; place-items: center; inline-size: 12rem; block-size: 12rem; border-radius: var(--k-radius-xl); background: var(--k-bg-secondary); }
+  .br-space__guide { position: absolute; inset: 2.25rem; border: 1px dashed color-mix(in srgb, var(--k-text-brand) 60%, transparent); border-radius: 4px; }
+  .br-space__guide::before { content: "x"; position: absolute; inset-block-start: -1.6rem; inset-inline-start: 50%; translate: 50% 0; color: var(--k-text-brand); font: 600 0.75rem var(--k-font-mono); }
+  .br-space ul { margin: 0; padding-inline-start: var(--k-space-5); display: grid; gap: var(--k-space-3); color: var(--k-text-secondary); line-height: 1.9; }
+  @media (max-width: 40rem) { .br-space { grid-template-columns: minmax(0, 1fr); justify-items: center; } }
+
+  /* درست و نادرست نشان */
+  .br-dont { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: var(--k-space-3); margin-block: var(--k-space-5); }
+  .br-ex { --_c: var(--k-text-success); display: grid; grid-template-rows: auto 1fr; margin: 0; overflow: hidden; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); transition: border-color var(--k-duration-normal), translate var(--k-duration-slow) var(--k-ease-spring); }
+  .br-ex--dont { --_c: var(--k-text-error); }
+  .br-ex:hover { border-color: color-mix(in srgb, var(--_c) 45%, transparent); }
+  @media (prefers-reduced-motion: no-preference) { .br-ex:hover { translate: 0 -2px; } }
+  .br-ex__stage { position: relative; display: grid; place-items: center; block-size: 9.5rem; background: radial-gradient(80% 90% at 50% 0%, color-mix(in srgb, var(--_c) 9%, transparent), transparent 70%), var(--k-bg-secondary); }
+  .br-ex__stage::after { content: ""; position: absolute; inset-inline: 0; inset-block-end: 0; block-size: 3px; background: var(--_c); }
+  .br-ex figcaption { padding: var(--k-space-3) var(--k-space-4); border-block-start: 1px solid var(--k-border-secondary); color: var(--k-text-secondary); font-size: var(--k-text-sm); line-height: 1.8; }
+  .br-tag { position: absolute; inset-block-start: var(--k-space-3); inset-inline-start: var(--k-space-3); display: inline-flex; align-items: center; gap: 6px; padding: 0.2rem 0.65rem 0.2rem 0.25rem; border-radius: var(--k-radius-full); background: color-mix(in srgb, var(--_c) 14%, var(--k-bg-primary)); color: var(--_c); font-size: var(--k-text-xs); font-weight: var(--k-weight-bold); box-shadow: 0 0 0 1px color-mix(in srgb, var(--_c) 30%, transparent) inset; }
+  .br-tag__ic { display: grid; place-items: center; inline-size: 1.125rem; block-size: 1.125rem; border-radius: 50%; background: var(--_c); color: var(--k-bg-primary); }
+  .br-tag__ic :global(svg) { display: block; inline-size: 0.75rem; block-size: 0.75rem; stroke-width: 2.4; }
+  [data-case="stretch"] .br-mark :global(svg) { inline-size: 7.5rem; block-size: 3.25rem; }
+  [data-case="rotate"] .br-mark :global(svg) { rotate: 22.5deg; }
+  [data-case="effect"] .br-mark :global(svg) { filter: drop-shadow(4px 6px 0 #e3b341) drop-shadow(0 0 1px #fff); }
+  [data-case="busy"] { background: repeating-linear-gradient(45deg, #22c2b4 0 10px, #3d5ef8 10px 20px, #dd5e02 20px 30px); }
+
+  /* رنگ‌ها */
+  .br-colors { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--k-space-3); margin: var(--k-space-5) 0; padding: 0; list-style: none; }
+  .br-color { display: grid; inline-size: 100%; padding: 0; overflow: hidden; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); color: inherit; font: inherit; text-align: start; cursor: pointer; transition: translate var(--k-duration-slow) var(--k-ease-spring), border-color var(--k-duration-fast); }
+  .br-color:hover { border-color: var(--k-border-primary); }
+  @media (prefers-reduced-motion: no-preference) { .br-color:hover { translate: 0 -3px; } }
+  .br-color:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+  .br-color__chip { block-size: 5.5rem; background: var(--c); box-shadow: inset 0 -1px rgb(0 0 0 / 0.1); }
+  .br-color__body { display: grid; gap: 2px; padding: var(--k-space-3); }
+  .br-color__body b { color: var(--k-text-primary); font-size: var(--k-text-sm); }
+  .br-color__body code { justify-self: start; color: var(--k-text-secondary); font-size: 0.75rem; }
+  .br-color__body small { color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.7; }
+  .br-color[data-copied] code { color: var(--k-text-success); }
+
+  .br-rules { display: grid; gap: var(--k-space-2); margin: var(--k-space-4) 0; padding: 0; list-style: none; }
+  .br-rules li { display: flex; align-items: flex-start; gap: var(--k-space-2); color: var(--k-text-secondary); line-height: 1.85; }
+  .br-rules li > span { display: grid; flex: none; place-items: center; inline-size: 1.25rem; block-size: 1.25rem; margin-block-start: 0.3rem; border-radius: 50%; }
+  .br-rules .is-do > span { background: var(--k-bg-success-subtle); color: var(--k-text-success); }
+  .br-rules .is-dont > span { background: var(--k-bg-error-subtle); color: var(--k-text-error); }
+
+  /* تایپوگرافی */
+  .br-type { display: grid; margin-block: var(--k-space-5); overflow: hidden; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); }
+  .br-type__sample { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--k-space-3); padding: var(--k-space-5) var(--k-space-6); background: var(--k-bg-primary); }
+  .br-type__sample + .br-type__sample { border-block-start: 1px solid var(--k-border-secondary); }
+  .br-type__big { color: var(--k-text-primary); font-size: 3rem; font-weight: 900; line-height: 1.2; }
+  .br-type__mid { color: var(--k-text-primary); font-size: 1.75rem; font-weight: 700; }
+  .br-type__body { color: var(--k-text-secondary); font-size: 1.0625rem; }
+  .br-type__code { color: var(--k-text-brand); font-size: 0.95rem; }
+  .br-type__meta { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+
+  /* نام */
+  .br-names { display: grid; gap: 1px; margin: var(--k-space-5) 0; padding: 0; list-style: none; overflow: hidden; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-border-secondary); }
+  .br-names li { display: grid; grid-template-columns: auto 14rem minmax(0, 1fr); align-items: center; gap: var(--k-space-4); padding: var(--k-space-3) var(--k-space-5); background: var(--k-bg-primary); }
+  .br-names__mark { display: grid; place-items: center; inline-size: 1.5rem; block-size: 1.5rem; border-radius: 50%; }
+  .is-do .br-names__mark { background: var(--k-bg-success-subtle); color: var(--k-text-success); }
+  .is-dont .br-names__mark { background: var(--k-bg-error-subtle); color: var(--k-text-error); }
+  .br-names__sample { color: var(--k-text-primary); font-size: var(--k-text-lg); font-weight: 800; }
+  .is-dont .br-names__sample { color: var(--k-text-tertiary); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--k-text-error) 60%, transparent); }
+  .br-names__note { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  @media (max-width: 40rem) { .br-names li { grid-template-columns: auto minmax(0, 1fr); } .br-names__note { grid-column: 2; } }
+
+  /* لحن */
+  .br-voice { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-3); margin-block: var(--k-space-4); }
+  .br-voice > div { --_c: var(--k-text-success); padding: var(--k-space-4) var(--k-space-5); border: 1px solid var(--k-border-secondary); border-block-start: 2px solid var(--_c); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); }
+  .br-voice > .is-dont { --_c: var(--k-text-error); }
+  .br-voice b { display: flex; align-items: center; gap: var(--k-space-2); color: var(--_c); }
+  .br-voice p { margin: var(--k-space-2) 0 0; color: var(--k-text-secondary); }
+  @media (max-width: 40rem) { .br-voice { grid-template-columns: minmax(0, 1fr); } }
+
+  /* دریافت */
+  .br-dl { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: var(--k-space-3); margin: var(--k-space-5) 0; padding: 0; list-style: none; }
+  .br-dl__item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--k-space-3); padding: var(--k-space-3) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); color: inherit; text-decoration: none; transition: border-color var(--k-duration-fast), translate var(--k-duration-slow) var(--k-ease-spring); }
+  .br-dl__item:hover { border-color: color-mix(in srgb, var(--k-text-brand) 45%, transparent); }
+  @media (prefers-reduced-motion: no-preference) { .br-dl__item:hover { translate: 0 -2px; } .br-dl__item:hover .br-dl__ic { translate: 0 2px; } }
+  .br-dl__prev { display: grid; place-items: center; inline-size: 2.75rem; block-size: 2.75rem; border-radius: var(--k-radius-md); background: #3e4350; }
+  .br-dl__prev :global(svg) { inline-size: 1.75rem; block-size: 1.75rem; }
+  .br-dl__body { display: grid; }
+  .br-dl__body b { color: var(--k-text-primary); font-size: var(--k-text-sm); }
+  .br-dl__body small { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  .br-dl__ic { color: var(--k-text-brand); transition: translate var(--k-duration-normal) var(--k-ease-spring); }
+</style>
