@@ -1,13 +1,84 @@
 {
- "generated": "2026-11-10T12:40:07+03:30",
+ "generated": "2026-11-11T23:20:02+03:30",
  "totals": {
-  "commits": 244,
-  "versions": 40,
-  "added": 112467,
+  "commits": 249,
+  "versions": 41,
+  "added": 113197,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [],
  "versions": [
+  {
+   "version": "2.2.0",
+   "date": "2026-11-11T23:20:02+03:30",
+   "releaseCommit": "150cecf",
+   "commits": [
+    {
+     "sha": "150cecfe715e6b08e96eef05d2ad4b15ad4f0354",
+     "short": "150cecf",
+     "date": "2026-11-11T23:20:02+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 2.2.0",
+     "details": [],
+     "files": 22,
+     "added": 96,
+     "removed": 46
+    },
+    {
+     "sha": "a57b67dffa45aea446212a632d935d0f79cea8f0",
+     "short": "a57b67d",
+     "date": "2026-11-11T23:18:35+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 200 independently drawn Kashi icons",
+     "details": [],
+     "files": 12,
+     "added": 237,
+     "removed": 12
+    },
+    {
+     "sha": "231bb45180b489cf96ab0b08f3a3bee18d90fcf8",
+     "short": "231bb45",
+     "date": "2026-11-11T23:21:17+03:30",
+     "author": "sepantapouya",
+     "subject": "feat: link the Kashi Telegram channel (t.me/kashidesign)",
+     "details": [
+      "- Site: header icon, landing announcement bar and channel card, footer, Organization sameAs",
+      "- README: Telegram badge and channel link"
+     ],
+     "files": 7,
+     "added": 42,
+     "removed": 6
+    },
+    {
+     "sha": "513bcdeab054480675ba27276f4d63b0b0a222e4",
+     "short": "513bcde",
+     "date": "2026-11-11T22:14:04+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): brand page with logo, colors, type, name and usage rules",
+     "details": [
+      "- /docs/brand/: logo variants, clear space and minimum size, logo do/don't,",
+      "brand colors, typography, name spelling, voice, usage rules, downloads",
+      "- Brand assets in public/brand (SVG color/white/black, PNG, avatar)",
+      "- Linked from sidebar, header guides menu and footer"
+     ],
+     "files": 9,
+     "added": 279,
+     "removed": 1
+    },
+    {
+     "sha": "f80ed1721c984c07f42474b47a19642853688c11",
+     "short": "f80ed17",
+     "date": "2026-11-10T12:40:11+03:30",
+     "author": "sepantapouya",
+     "subject": "docs: record the Kashi 2.1.0 release",
+     "details": [],
+     "files": 1,
+     "added": 76,
+     "removed": 34
+    }
+   ],
+   "notes": []
+  },
   {
    "version": "2.1.0",
    "date": "2026-11-10T12:40:07+03:30",
