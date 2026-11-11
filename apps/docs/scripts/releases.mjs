@@ -11,8 +11,22 @@ const root = join(here, "../../..");
 const out = join(here, "../src/data/releases.json");
 const git = (...args) => execFileSync("git", args, { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] });
 
-let shallow = true;
-try { shallow = git("rev-parse", "--is-shallow-repository").trim() !== "false"; } catch { /* گیت در دسترس نیست */ }
+const isShallow = () => {
+  try { return git("rev-parse", "--is-shallow-repository").trim() !== "false"; } catch { return true; /* گیت در دسترس نیست */ }
+};
+let shallow = isShallow();
+// روی سرور ساخت (Vercel) مخزن کم‌عمق کلون می‌شود؛ تاریخچهٔ کامل را خودمان می‌گیریم تا فهرست نسخه‌ها
+// همیشه با آخرین انتشار ساخته شود، نه اینکه به فایل ثبت‌شدهٔ قدیمی بسنده کند.
+// اول از origin، و اگر نبود یا اجازه نداشت، از نشانی عمومی مخزن.
+if (shallow) {
+  for (const remote of ["origin", "https://github.com/Sepantapouya/Kashi.git"]) {
+    try {
+      execFileSync("git", ["fetch", "--unshallow", "--tags", "--quiet", remote], { cwd: root, stdio: "ignore", timeout: 120_000 });
+    } catch { /* ریموت در دسترس نیست؛ بعدی */ }
+    shallow = isShallow();
+    if (!shallow) { console.log(`releases: fetched full git history from ${remote === "origin" ? "origin" : "GitHub"}`); break; }
+  }
+}
 if (shallow) {
   console.log(`releases: no full git history${existsSync(out) ? ", keeping existing releases.json" : ""}`);
   if (!existsSync(out)) writeFileSync(out, JSON.stringify({ versions: [], unreleased: [] }));
