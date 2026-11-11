@@ -760,3 +760,23 @@ main.home .faq__list { --k-accordion-bg: color-mix(in srgb, var(--k-bg-secondary
 /* اسکرول‌بار سایدبار و فهرست صفحه فقط هنگام نگه داشتن ماوس روی آن‌ها */
 .docs__sidebar, .docs__toc { scrollbar-color: transparent transparent; transition: scrollbar-color var(--k-duration-normal); }
 .docs__sidebar:hover, .docs__toc:hover, .docs__sidebar:focus-within { scrollbar-color: var(--k-border-primary) transparent; }
+
+/* کانال تلگرام کاشی در صفحهٔ اصلی */
+main.home .tgcard {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--k-space-5);
+  margin-block: var(--k-space-6); padding: var(--k-space-5) var(--k-space-6);
+  border: 1px solid color-mix(in srgb, var(--k-text-brand) 35%, transparent); border-radius: var(--k-radius-2xl);
+  background: radial-gradient(60% 120% at 100% 0%, color-mix(in srgb, var(--k-text-brand) 14%, transparent), transparent 70%), var(--k-bg-secondary);
+  color: inherit; text-decoration: none;
+  transition: border-color var(--k-duration-normal), translate var(--k-duration-slow) var(--k-ease-spring), box-shadow var(--k-duration-slow);
+}
+main.home .tgcard:hover { border-color: color-mix(in srgb, var(--k-text-brand) 60%, transparent); box-shadow: 0 30px 60px -36px color-mix(in srgb, var(--k-text-brand) 55%, transparent); }
+@media (prefers-reduced-motion: no-preference) { main.home .tgcard:hover { translate: 0 -2px; } main.home .tgcard:hover .tgcard__icon svg { translate: -3px -3px; } }
+main.home .tgcard:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+main.home .tgcard__icon { display: grid; place-items: center; inline-size: 3.25rem; block-size: 3.25rem; border-radius: 50%; background: var(--k-bg-brand); color: #fff; box-shadow: 0 10px 24px -10px var(--k-bg-brand); }
+main.home .tgcard__icon svg { transition: translate var(--k-duration-normal) var(--k-ease-spring); }
+main.home .tgcard__body { display: grid; gap: 2px; }
+main.home .tgcard__body b { color: var(--k-text-primary); font-size: var(--k-text-lg); }
+main.home .tgcard__body small { color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.8; }
+@media (max-width: 40rem) { main.home .tgcard { grid-template-columns: auto minmax(0, 1fr); } main.home .tgcard__cta { grid-column: 1 / -1; justify-self: start; } }
+@media (max-width: 30rem) { .tg-btn { display: none; } }

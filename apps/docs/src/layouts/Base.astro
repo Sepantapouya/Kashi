@@ -29,7 +29,7 @@ const fullTitle = seoTitle ?? (!title ? "کاشی — دیزاین‌سیستم 
 const ogImageUrl = new URL(ogImage, Astro.site);
 const site = Astro.site!.href.replace(/\/$/, "");
 const graph = [
-  { "@type": "Organization", "@id": `${site}/#org`, name: "کاشی", alternateName: "Kashi", url: `${site}/`, logo: `${site}/favicon.svg`, sameAs: ["https://github.com/Sepantapouya/Kashi", "https://www.npmjs.com/org/kashi-ui"] },
+  { "@type": "Organization", "@id": `${site}/#org`, name: "کاشی", alternateName: "Kashi", url: `${site}/`, logo: `${site}/favicon.svg`, sameAs: ["https://github.com/Sepantapouya/Kashi", "https://www.npmjs.com/org/kashi-ui", "https://t.me/kashidesign"] },
   { "@type": "WebSite", "@id": `${site}/#website`, name: "کاشی", alternateName: "Kashi Design System", url: `${site}/`, inLanguage: "fa-IR", publisher: { "@id": `${site}/#org` } },
   ...jsonLd,
 ];

@@ -190,10 +190,11 @@ const chips = [
 ];
 ---
 <Base>
-  <a class="announce" href="/docs/tailwind/">
+  <a class="announce" href={author.channel.href} target="_blank" rel="noopener">
     <span class="announce__tag">تازه</span>
-    <span class="announce__text">پریست Tailwind کاشی: bg-brand، rounded-lg و همهٔ توکن‌ها، همگام با تم</span>
-    <span class="announce__more">راهنمای Tailwind <span aria-hidden="true">←</span></span>
+    <span class="announce__text">کانال تلگرام کاشی راه افتاد: نسخه‌های تازه، کامپوننت‌های جدید و نکته‌های طراحی فارسی</span>
+    <span class="announce__more">عضو شوید <span aria-hidden="true">←</span></span>
+    <span class="k-sr-only"> (در پنجرهٔ جدید)</span>
   </a>
   <Header />
   <main id="main" tabindex="-1" class="home">
@@ -659,6 +660,13 @@ const chips = [
           </figure>
           <p class="live__note"><span class="live__dot" aria-hidden="true"></span>زنده از GitHub · ستاره‌ها لحظه‌ای، کلون‌ها روزانه</p>
         </div>
+
+        <a class="tgcard" href={author.channel.href} target="_blank" rel="noopener" data-reveal>
+          <span class="tgcard__icon" set:html={iconSvg("send", { size: 26 })} />
+          <span class="tgcard__body"><b>کانال تلگرام کاشی</b><small>خبر نسخه‌ها، کامپوننت‌ها و آیکون‌های تازه و نکته‌های طراحی رابط فارسی؛ زودتر از همه.</small></span>
+          <span class="k-btn k-btn--primary tgcard__cta">عضو شوید <bdi dir="ltr">@{author.channel.handle}</bdi></span>
+          <span class="k-sr-only"> (در پنجرهٔ جدید)</span>
+        </a>
 
         <div class="people">
         <article class="author" data-reveal aria-labelledby="author-title">

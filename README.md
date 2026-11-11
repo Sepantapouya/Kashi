@@ -1,10 +1,11 @@
 # کاشی (Kashi)
 
-**مستندات و نمونه‌ها: [kashi.sepantapouya.com](https://kashi.sepantapouya.com)**
+**مستندات و نمونه‌ها: [kashi.sepantapouya.com](https://kashi.sepantapouya.com)** · **کانال تلگرام: [t.me/kashidesign](https://t.me/kashidesign)**
 
 [![CI](https://github.com/Sepantapouya/Kashi/actions/workflows/ci.yml/badge.svg)](https://github.com/Sepantapouya/Kashi/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@kashi-ui/react?color=0b8077&label=npm)](https://www.npmjs.com/package/@kashi-ui/react)
 [![License: MIT](https://img.shields.io/badge/license-MIT-0b8077)](LICENSE)
+[![Telegram](https://img.shields.io/badge/Telegram-@kashidesign-26A5E4?logo=telegram&logoColor=white)](https://t.me/kashidesign)
 
 <!-- آمار زنده: ستاره از GitHub، کلون‌ها از stats.json که GitHub Action در شاخهٔ stats می‌نویسد (گیت‌هاب کلون را روزانه حساب می‌کند) -->
 [![Stars](https://img.shields.io/github/stars/Sepantapouya/Kashi?style=flat&logo=github&label=stars&color=0b8077&cacheSeconds=3600)](https://github.com/Sepantapouya/Kashi/stargazers)
@@ -135,6 +136,8 @@ const css = createTheme({ brand: "#7c3aed", radius: 1.5, density: 0.875 });
 ## مشارکت
 
 مخزن: [github.com/Sepantapouya/Kashi](https://github.com/Sepantapouya/Kashi)
+
+کانال تلگرام کاشی برای خبر نسخه‌ها، کامپوننت‌های تازه و نکته‌های طراحی فارسی: [t.me/kashidesign](https://t.me/kashidesign)
 
 کاشی متن‌باز است (MIT). راهنما: [CONTRIBUTING.md](CONTRIBUTING.md)
 ریسرچ و نقشهٔ راه: [docs/RESEARCH.md](docs/RESEARCH.md) · انتشار نسخه: [RELEASING.md](RELEASING.md)
