@@ -2,6 +2,10 @@
 
 ## 2.3.0
 
+### Patch Changes
+
+- دکمهٔ در حال بارگذاری (`loading`) با نگه داشتن ماوس، متنش را روی اسپینر نشان می‌داد؛ درست شد.
+
 ### Minor Changes
 
 - 31b0ded: حالت‌های مشترک کامپوننت‌ها: فقط‌خواندنی (`readOnly`) برای Select، Combobox، MultiSelect، TagInput، Checkbox، Switch، RadioGroup، SegmentedControl، ChipGroup و SwatchGroup؛ بارگذاری و فهرست خالی (`loading`، `emptyMessage`) برای Select، MultiSelect، SearchSuggest و همهٔ نمودارها؛ `loading` برای StatCard. ظاهر مشترک در `states.css` و پیام‌های تازهٔ `common.noOptions` و `common.noData`. راهنما: /docs/states/

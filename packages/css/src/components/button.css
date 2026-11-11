@@ -173,7 +173,10 @@ a.k-btn[aria-disabled="true"]:not([aria-busy="true"]) {
 .k-btn [data-k-mirror]:dir(rtl) { transform: scaleX(-1); }
 
 /* در حال بارگذاری */
-.k-btn[aria-busy="true"] {
+/* :hover هم، چون دکمهٔ در حال بارگذاری aria-disabled هم دارد و قاعدهٔ hover غیرفعال، رنگ متن را برمی‌گرداند */
+.k-btn[aria-busy="true"],
+.k-btn[aria-busy="true"]:hover,
+.k-btn[aria-busy="true"][aria-disabled="true"]:hover {
   color: transparent;
   cursor: progress;
 }
