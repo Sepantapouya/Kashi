@@ -1,0 +1,1533 @@
+{
+  "scope": "Manual visual review of the 300-icon draft batch against the original catalog, correcting the earlier blanket rejection.",
+  "policy": "Keep visually distinct alternate drawings even when they share a concept. Reject only identical or very close silhouettes whose differences are limited to spacing, rounding, orientation, or incidental strokes. Raster similarity is a review aid, never the deletion rule.",
+  "previousCatalogCount": 7200,
+  "restoredCount": 193,
+  "rejectedCount": 107,
+  "catalogCount": 7393,
+  "restored": [
+    {
+      "name": "nav-home-open-door",
+      "title": "خانه با در باز"
+    },
+    {
+      "name": "nav-home-central-round-window",
+      "title": "خانه با پنجرهٔ گرد مرکزی"
+    },
+    {
+      "name": "nav-home-wide-entry",
+      "title": "خانه با ورودی پهن"
+    },
+    {
+      "name": "nav-home-roofline-continuous",
+      "title": "خانه با خط پیوستهٔ بام"
+    },
+    {
+      "name": "nav-settings-soft-cog",
+      "title": "چرخ‌دندهٔ نرم تنظیمات"
+    },
+    {
+      "name": "nav-settings-horizontal-dual",
+      "title": "دو لغزندهٔ افقی تنظیمات"
+    },
+    {
+      "name": "nav-settings-vertical-knobs",
+      "title": "تنظیمات با سه پیچ عمودی"
+    },
+    {
+      "name": "nav-dashboard-three-cards",
+      "title": "داشبورد با سه کارت"
+    },
+    {
+      "name": "nav-app-switcher-overlap",
+      "title": "تغییر برنامه با کارت‌های روی هم"
+    },
+    {
+      "name": "nav-bottom-raised-tab",
+      "title": "ناوبری پایین با زبانهٔ برجسته"
+    },
+    {
+      "name": "nav-explore-petal",
+      "title": "کاوش با نشان چهارجهت"
+    },
+    {
+      "name": "nav-menu-drawer-handle",
+      "title": "دستگیرهٔ کشوی منو"
+    },
+    {
+      "name": "nav-section-tabs-topline",
+      "title": "زبانه‌های بالای بخش"
+    },
+    {
+      "name": "nav-return-home-route",
+      "title": "مسیر بازگشت به خانه"
+    },
+    {
+      "name": "nav-workspace-offset-panels",
+      "title": "فضای کار با پنل‌های نامتقارن"
+    },
+    {
+      "name": "nav-command-center-cross",
+      "title": "مرکز فرمان چهارکنترل"
+    },
+    {
+      "name": "action-add-between-items",
+      "title": "درج میان دو آیتم"
+    },
+    {
+      "name": "action-copy-offset-sheets",
+      "title": "کپی با دو برگهٔ جدا"
+    },
+    {
+      "name": "action-paste-clipboard-open",
+      "title": "چسباندن از کلیپ‌بورد باز"
+    },
+    {
+      "name": "action-save-open-slot",
+      "title": "ذخیره با شکاف باز"
+    },
+    {
+      "name": "action-delete-open-bin",
+      "title": "حذف با سطل درباز"
+    },
+    {
+      "name": "action-refresh-split-arcs",
+      "title": "تازه‌سازی با دو قوس جدا"
+    },
+    {
+      "name": "action-collapse-inward-corners",
+      "title": "جمع‌شدن به دو گوشهٔ داخلی"
+    },
+    {
+      "name": "action-drag-grip-pill",
+      "title": "دستگیرهٔ کشیدن کپسولی"
+    },
+    {
+      "name": "action-filter-tapered-funnel",
+      "title": "فیلتر با قیف باریک‌شونده"
+    },
+    {
+      "name": "action-sort-height-pair",
+      "title": "مرتب‌سازی با دو میله"
+    },
+    {
+      "name": "profile-bust-rounded-shoulders",
+      "title": "نیم‌تنه با شانهٔ گرد"
+    },
+    {
+      "name": "profile-bust-square-shoulders",
+      "title": "نیم‌تنه با شانهٔ صاف"
+    },
+    {
+      "name": "profile-portrait-soft-frame",
+      "title": "چهره در قاب نرم"
+    },
+    {
+      "name": "profile-contact-open-card",
+      "title": "کارت تماس با لبهٔ باز"
+    },
+    {
+      "name": "profile-three-head-team",
+      "title": "تیم با سه سر گرد"
+    },
+    {
+      "name": "profile-head-side-silhouette",
+      "title": "نیم‌رخ سادهٔ انسان"
+    },
+    {
+      "name": "profile-person-arms-relaxed",
+      "title": "آدمک با دست‌های آزاد"
+    },
+    {
+      "name": "profile-person-arms-up",
+      "title": "آدمک با دست‌های بالا"
+    },
+    {
+      "name": "profile-avatar-hair-sweep",
+      "title": "آواتار با موی یک‌طرفه"
+    },
+    {
+      "name": "profile-avatar-long-hair",
+      "title": "آواتار با موی بلند"
+    },
+    {
+      "name": "profile-person-seated-front",
+      "title": "آدمک نشسته از روبه‌رو"
+    },
+    {
+      "name": "profile-parent-small-child",
+      "title": "بزرگسال و کودک کنار هم"
+    },
+    {
+      "name": "profile-id-lanyard-short",
+      "title": "کارت گردنی با بند کوتاه"
+    },
+    {
+      "name": "profile-address-book-spine",
+      "title": "دفتر مخاطبان با عطف"
+    },
+    {
+      "name": "profile-couple-facing",
+      "title": "دو نیم‌رخ روبه‌روی هم"
+    },
+    {
+      "name": "profile-user-outline-open",
+      "title": "پروفایل با شانهٔ باز"
+    },
+    {
+      "name": "profile-account-pill-card",
+      "title": "کارت افقی حساب کاربری"
+    },
+    {
+      "name": "message-soft-tail-left",
+      "title": "حباب پیام با دنبالهٔ نرم چپ"
+    },
+    {
+      "name": "message-soft-tail-right",
+      "title": "حباب پیام با دنبالهٔ نرم راست"
+    },
+    {
+      "name": "message-rounded-text-pair",
+      "title": "پیام با دو خط متن کوتاه"
+    },
+    {
+      "name": "message-three-square-dots",
+      "title": "پیام با سه نقطهٔ مربع"
+    },
+    {
+      "name": "message-two-dialog-panels",
+      "title": "دو پنل گفتگوی متوالی"
+    },
+    {
+      "name": "message-mail-flap-open",
+      "title": "پاکت با لبهٔ باز بالا"
+    },
+    {
+      "name": "message-mail-flap-wide",
+      "title": "پاکت با لبهٔ پهن"
+    },
+    {
+      "name": "message-mail-inbox-tray",
+      "title": "نامه داخل سینی ورودی"
+    },
+    {
+      "name": "message-phone-round-grip",
+      "title": "گوشی تلفن با دستهٔ گرد"
+    },
+    {
+      "name": "message-phone-desk-sloped",
+      "title": "تلفن رومیزی با پایهٔ شیب‌دار"
+    },
+    {
+      "name": "message-video-conversation",
+      "title": "گفتگو با دوربین جانبی"
+    },
+    {
+      "name": "message-voice-three-pulses",
+      "title": "پیام صوتی با سه موج"
+    },
+    {
+      "name": "message-quote-rounded-lines",
+      "title": "گفتار نقل‌شده با خطوط گرد"
+    },
+    {
+      "name": "message-thread-connected-bubbles",
+      "title": "حباب‌های متصل رشتهٔ گفتگو"
+    },
+    {
+      "name": "message-reply-hook-line",
+      "title": "پاسخ با قلاب منحنی"
+    },
+    {
+      "name": "file-rounded-fold-low",
+      "title": "برگه با تای کوتاه"
+    },
+    {
+      "name": "file-corner-fold-wide",
+      "title": "برگه با تای پهن"
+    },
+    {
+      "name": "file-open-top-page",
+      "title": "برگه با لبهٔ بالای باز"
+    },
+    {
+      "name": "file-double-staggered-pages",
+      "title": "دو برگه با فاصلهٔ پلکانی"
+    },
+    {
+      "name": "file-folder-soft-tab",
+      "title": "پوشه با زبانهٔ منحنی"
+    },
+    {
+      "name": "file-folder-open-slant",
+      "title": "پوشهٔ باز با در شیب‌دار"
+    },
+    {
+      "name": "file-folder-centered-tab",
+      "title": "پوشه با زبانهٔ میانی"
+    },
+    {
+      "name": "file-folder-twin-pocket",
+      "title": "پوشه با دو جیب"
+    },
+    {
+      "name": "file-archive-wide-handle",
+      "title": "بایگانی با دستگیرهٔ پهن"
+    },
+    {
+      "name": "file-note-torn-bottom",
+      "title": "یادداشت با لبهٔ دندانه‌دار"
+    },
+    {
+      "name": "file-clipboard-wide-clip",
+      "title": "کلیپ‌بورد با گیرهٔ پهن"
+    },
+    {
+      "name": "file-text-margin-column",
+      "title": "سند با حاشیهٔ کناری"
+    },
+    {
+      "name": "file-spreadsheet-row-labels",
+      "title": "جدول با برچسب ردیف‌ها"
+    },
+    {
+      "name": "file-contract-two-signatures",
+      "title": "قرارداد با دو امضا"
+    },
+    {
+      "name": "file-receipt-short-perforation",
+      "title": "رسید با خط پرفراژ کوتاه"
+    },
+    {
+      "name": "media-stop-beveled-square",
+      "title": "توقف با مربع پخ‌دار"
+    },
+    {
+      "name": "media-camera-shoulder-slope",
+      "title": "دوربین با شانهٔ شیب‌دار"
+    },
+    {
+      "name": "media-image-double-peaks",
+      "title": "تصویر با دو قلهٔ نامتقارن"
+    },
+    {
+      "name": "media-gallery-offset-frames",
+      "title": "گالری با قاب‌های پلکانی"
+    },
+    {
+      "name": "media-clapper-open-top",
+      "title": "کلاکت با در باز"
+    },
+    {
+      "name": "media-album-sleeve-disc",
+      "title": "کاور آلبوم و دیسک بیرون‌زده"
+    },
+    {
+      "name": "media-equalizer-five-round",
+      "title": "اکولایزر پنج‌ستونهٔ گرد"
+    },
+    {
+      "name": "control-toggle-square-knob",
+      "title": "کلید با دکمهٔ چهارگوش"
+    },
+    {
+      "name": "control-radio-concentric-ring",
+      "title": "گزینهٔ رادیویی با حلقهٔ میانی"
+    },
+    {
+      "name": "control-slider-center-grip",
+      "title": "لغزنده با دستگیرهٔ وسط"
+    },
+    {
+      "name": "control-knob-top-notch",
+      "title": "پیچ تنظیم با شیار بالا"
+    },
+    {
+      "name": "control-switch-lever-slant",
+      "title": "کلید با اهرم مایل"
+    },
+    {
+      "name": "control-three-faders-offset",
+      "title": "سه فیدر با دستگیرهٔ کوتاه"
+    },
+    {
+      "name": "control-preferences-two-rails",
+      "title": "دو ریل تنظیمات"
+    },
+    {
+      "name": "control-progress-two-segments",
+      "title": "نوار پیشرفت با دو بخش"
+    },
+    {
+      "name": "control-accordion-chevron-row",
+      "title": "ردیف بازشونده با شورون"
+    },
+    {
+      "name": "control-tabs-raised-center",
+      "title": "زبانه با بخش میانی برجسته"
+    },
+    {
+      "name": "control-input-floating-label",
+      "title": "ورودی با عنوان شناور"
+    },
+    {
+      "name": "control-touch-single-finger",
+      "title": "لمس با انگشت کشیده"
+    },
+    {
+      "name": "calendar-centered-day-tile",
+      "title": "تقویم با خانهٔ روز در وسط"
+    },
+    {
+      "name": "calendar-top-ring-trio",
+      "title": "تقویم با سه حلقهٔ بالا"
+    },
+    {
+      "name": "calendar-desk-sloping-stand",
+      "title": "تقویم رومیزی با پایهٔ مایل"
+    },
+    {
+      "name": "calendar-work-week-five-days",
+      "title": "تقویم هفتهٔ کاری"
+    },
+    {
+      "name": "calendar-agenda-split-page",
+      "title": "تقویم با برنامهٔ دو ستونه"
+    },
+    {
+      "name": "calendar-hanging-single-loop",
+      "title": "تقویم با حلقهٔ تکی"
+    },
+    {
+      "name": "calendar-flip-two-pages",
+      "title": "تقویم ورق‌خوردهٔ دو صفحه"
+    },
+    {
+      "name": "clock-square-face-rounded",
+      "title": "ساعت با صفحهٔ چهارگوش نرم"
+    },
+    {
+      "name": "clock-wall-four-markers",
+      "title": "ساعت دیواری با چهار نشان"
+    },
+    {
+      "name": "clock-duration-two-ticks",
+      "title": "بازهٔ زمان با دو نشان"
+    },
+    {
+      "name": "clock-timer-quarter-sector",
+      "title": "تایمر با بخش یک‌چهارم"
+    },
+    {
+      "name": "clock-digital-colon-face",
+      "title": "ساعت دیجیتال با دونقطه"
+    },
+    {
+      "name": "clock-date-tear-sheet",
+      "title": "برگ تاریخ با لبهٔ کنده"
+    },
+    {
+      "name": "shop-bag-arched-handle",
+      "title": "کیسهٔ خرید با دستهٔ قوسی"
+    },
+    {
+      "name": "shop-bag-rope-handles",
+      "title": "پاکت خرید با دستهٔ طنابی"
+    },
+    {
+      "name": "shop-bag-side-gusset",
+      "title": "پاکت خرید با لبهٔ جانبی"
+    },
+    {
+      "name": "shop-tote-wide-strap",
+      "title": "ساک با بند پهن"
+    },
+    {
+      "name": "shop-cart-deep-basket",
+      "title": "چرخ خرید با سبد عمیق"
+    },
+    {
+      "name": "shop-basket-single-arch",
+      "title": "سبد با یک دستهٔ قوسی"
+    },
+    {
+      "name": "shop-store-flat-canopy",
+      "title": "فروشگاه با سایبان تخت"
+    },
+    {
+      "name": "shop-package-open-wings",
+      "title": "جعبه با درهای باز"
+    },
+    {
+      "name": "shop-tag-clipped-corners",
+      "title": "برچسب با گوشه‌های بریده"
+    },
+    {
+      "name": "shop-delivery-van-rounded",
+      "title": "ون ارسال با کابین گرد"
+    },
+    {
+      "name": "shop-scanner-open-frame",
+      "title": "اسکنر با قاب باز"
+    },
+    {
+      "name": "payment-card-low-band",
+      "title": "کارت با نوار پایین"
+    },
+    {
+      "name": "payment-card-split-chip",
+      "title": "کارت با تراشهٔ دو بخشی"
+    },
+    {
+      "name": "payment-card-stacked-gap",
+      "title": "دو کارت با فاصلهٔ آشکار"
+    },
+    {
+      "name": "payment-wallet-round-flap",
+      "title": "کیف پول با لبهٔ گرد"
+    },
+    {
+      "name": "payment-wallet-vertical-sleeve",
+      "title": "کیف پول عمودی با جیب"
+    },
+    {
+      "name": "payment-banknote-center-oval",
+      "title": "اسکناس با بیضی مرکزی"
+    },
+    {
+      "name": "payment-coins-offset-two",
+      "title": "دو سکه با فاصلهٔ افقی"
+    },
+    {
+      "name": "payment-coin-stack-three-level",
+      "title": "سکه با سه طبقهٔ مشخص"
+    },
+    {
+      "name": "payment-pos-slanted-screen",
+      "title": "کارتخوان با صفحهٔ مایل"
+    },
+    {
+      "name": "payment-cash-register-flat",
+      "title": "صندوق با نمایشگر تخت"
+    },
+    {
+      "name": "payment-safe-offset-dial",
+      "title": "گاوصندوق با چرخ جانبی"
+    },
+    {
+      "name": "payment-piggy-rounded-body",
+      "title": "قلک با بدنهٔ گرد"
+    },
+    {
+      "name": "payment-invoice-total-line",
+      "title": "صورتحساب با خط جمع جدا"
+    },
+    {
+      "name": "payment-briefcase-round-lock",
+      "title": "کیف اداری با قفل گرد"
+    },
+    {
+      "name": "payment-briefcase-tall-handle",
+      "title": "کیف کاری با دستهٔ بلند"
+    },
+    {
+      "name": "payment-stamp-wide-base",
+      "title": "مهر با پایهٔ پهن"
+    },
+    {
+      "name": "chart-bars-three-rounded",
+      "title": "سه ستون با سر گرد"
+    },
+    {
+      "name": "chart-bars-horizontal-stepped",
+      "title": "میله‌های افقی پلکانی"
+    },
+    {
+      "name": "chart-line-two-mountains",
+      "title": "نمودار با دو اوج متفاوت"
+    },
+    {
+      "name": "chart-area-smooth-hill",
+      "title": "نمودار سطحی با تپهٔ نرم"
+    },
+    {
+      "name": "chart-pie-detached-third",
+      "title": "نمودار دایره با بخش جدا"
+    },
+    {
+      "name": "chart-donut-wide-gap",
+      "title": "نمودار حلقه با فاصلهٔ پهن"
+    },
+    {
+      "name": "chart-gauge-three-zones",
+      "title": "سنجش با سه بخش باز"
+    },
+    {
+      "name": "chart-candle-two-bodies",
+      "title": "دو کندل با بدنهٔ مشخص"
+    },
+    {
+      "name": "chart-funnel-three-sections",
+      "title": "قیف با سه مرحلهٔ جدا"
+    },
+    {
+      "name": "chart-stacked-horizontal-blocks",
+      "title": "نوار افقی با سه بخش"
+    },
+    {
+      "name": "chart-radar-soft-pentagon",
+      "title": "نمودار رادار پنج‌ضلعی نرم"
+    },
+    {
+      "name": "chart-report-three-metrics",
+      "title": "گزارش با سه سنجه"
+    },
+    {
+      "name": "chart-analytics-screen-peak",
+      "title": "نمایشگر آمار با یک قله"
+    },
+    {
+      "name": "chart-table-row-bars",
+      "title": "جدول با نوارهای هر ردیف"
+    },
+    {
+      "name": "chart-growth-over-bars",
+      "title": "رشد با پیکان بالای ستون‌ها"
+    },
+    {
+      "name": "chart-balance-two-levels",
+      "title": "مقایسه با دو سطح"
+    },
+    {
+      "name": "map-pin-wide-drop",
+      "title": "پین با قطرهٔ پهن"
+    },
+    {
+      "name": "map-folded-center-road",
+      "title": "نقشهٔ تاشده با راه میانی"
+    },
+    {
+      "name": "map-direction-wide-arrow",
+      "title": "جهت‌نما با پیکان پهن"
+    },
+    {
+      "name": "map-compass-cardinal-gap",
+      "title": "قطب‌نما با فاصلهٔ جهت‌ها"
+    },
+    {
+      "name": "map-car-side-low-roof",
+      "title": "خودرو از کنار با سقف کوتاه"
+    },
+    {
+      "name": "map-bus-two-pane-windshield",
+      "title": "اتوبوس با شیشهٔ دو تکه"
+    },
+    {
+      "name": "map-passport-short-emblem",
+      "title": "گذرنامه با نشان ساده"
+    },
+    {
+      "name": "map-parking-open-bay",
+      "title": "جای پارک با مرز باز"
+    },
+    {
+      "name": "living-sofa-wide-cushions",
+      "title": "مبل با دو کوسن پهن"
+    },
+    {
+      "name": "living-armchair-open-arms",
+      "title": "صندلی راحتی با دستهٔ باز"
+    },
+    {
+      "name": "living-table-rounded-top",
+      "title": "میز با صفحهٔ گردگوشه"
+    },
+    {
+      "name": "living-bed-arched-headboard",
+      "title": "تخت با تاج منحنی"
+    },
+    {
+      "name": "living-floor-lamp-bent-neck",
+      "title": "چراغ ایستاده با گردن خم"
+    },
+    {
+      "name": "living-door-inset-panel",
+      "title": "در با پنل توکار"
+    },
+    {
+      "name": "living-window-two-panes",
+      "title": "پنجره با دو لنگهٔ پهن"
+    },
+    {
+      "name": "living-curtain-open-pair",
+      "title": "پردهٔ باز با دو بخش"
+    },
+    {
+      "name": "living-cushion-four-darts",
+      "title": "کوسن با چهار گوشهٔ نرم"
+    },
+    {
+      "name": "living-rug-tassel-pair",
+      "title": "قالیچه با دو ردیف ریشه"
+    },
+    {
+      "name": "living-wall-shelf-two-books",
+      "title": "قفسه با دو کتاب"
+    },
+    {
+      "name": "living-switch-wall-rocker",
+      "title": "کلید دیواری با دکمهٔ گهواره‌ای"
+    },
+    {
+      "name": "living-trash-pedal-bin",
+      "title": "سطل با پدال پایین"
+    },
+    {
+      "name": "living-thermostat-short-scale",
+      "title": "ترموستات با درجهٔ کوتاه"
+    },
+    {
+      "name": "learn-book-thick-spine",
+      "title": "کتاب با عطف ضخیم"
+    },
+    {
+      "name": "learn-notebook-top-coil",
+      "title": "دفتر با فنر بالا"
+    },
+    {
+      "name": "learn-pencil-hex-grip",
+      "title": "مداد با بدنهٔ شش‌گوش"
+    },
+    {
+      "name": "learn-ruler-four-notches",
+      "title": "خط‌کش با چهار شیار"
+    },
+    {
+      "name": "learn-diploma-curled-end",
+      "title": "مدرک با انتهای لوله‌شده"
+    },
+    {
+      "name": "learn-library-three-spines",
+      "title": "کتابخانه با سه عطف متفاوت"
+    },
+    {
+      "name": "learn-calculator-two-columns",
+      "title": "ماشین‌حساب با دو ستون دکمه"
+    },
+    {
+      "name": "learn-stapler-open-jaw",
+      "title": "منگنه با دهانهٔ باز"
+    },
+    {
+      "name": "learn-folder-workbook-tabs",
+      "title": "پوشهٔ آموزشی با زبانهٔ عطف"
+    },
+    {
+      "name": "learn-back-to-school-bag",
+      "title": "کیف مدرسه با جیب کشیده"
+    },
+    {
+      "name": "learn-desk-organizer-slant",
+      "title": "جامدادی رومیزی با مداد مایل"
+    },
+    {
+      "name": "learn-magnifier-book-page",
+      "title": "ذره‌بین با صفحهٔ باز"
+    },
+    {
+      "name": "health-heart-pulse-wide",
+      "title": "قلب با موج نبض پهن"
+    },
+    {
+      "name": "health-thermometer-long-stem",
+      "title": "دماسنج با ساقهٔ بلند"
+    },
+    {
+      "name": "health-bandage-three-pads",
+      "title": "چسب زخم با پد میانی"
+    },
+    {
+      "name": "health-mask-two-folds",
+      "title": "ماسک با دو چین کوتاه"
+    },
+    {
+      "name": "sport-dumbbell-wide-collars",
+      "title": "دمبل با وزنه‌های پهن"
+    },
+    {
+      "name": "sport-running-shoe-low-ankle",
+      "title": "کفش دویدن با ساق کوتاه"
+    },
+    {
+      "name": "sport-water-bottle-waist",
+      "title": "بطری ورزشی با کمر باریک"
+    },
+    {
+      "name": "sport-yoga-mat-rolled-edge",
+      "title": "زیرانداز با لبهٔ لوله‌شده"
+    },
+    {
+      "name": "sport-basketball-swept-seams",
+      "title": "توپ بسکتبال با درزهای مایل"
+    },
+    {
+      "name": "sport-tennis-racket-long-grip",
+      "title": "راکت با دستهٔ بلند"
+    },
+    {
+      "name": "sport-whistle-short-mouth",
+      "title": "سوت با دهانهٔ کوتاه"
+    }
+  ],
+  "rejected": [
+    {
+      "name": "nav-sidebar-recessed-list",
+      "title": "نوار کناری با فهرست توکار",
+      "retained": "layout-main-and-detail-pane",
+      "retainedTitle": "نمای فهرست و جزئیات",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "nav-waypoint-arrow-head",
+      "title": "پیکان مقصد توپرنما",
+      "retained": "map-direction-wide-arrow",
+      "retainedTitle": "جهت‌نما با پیکان پهن",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "nav-compass-lozenge",
+      "title": "قطب‌نما با عقربهٔ لوزی",
+      "retained": "compass",
+      "retainedTitle": "قطب‌نما",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "nav-menu-short-middle",
+      "title": "منو با خط میانی کوتاه",
+      "retained": "menu",
+      "retainedTitle": "منو",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "action-cut-crossing-blades",
+      "title": "برش با قیچی متقاطع",
+      "retained": "scissors",
+      "retainedTitle": "قیچی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "action-edit-pen-slant",
+      "title": "ویرایش با قلم مورب",
+      "retained": "edit",
+      "retainedTitle": "ویرایش",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "action-undo-round-corner",
+      "title": "واگرد با گوشهٔ نرم",
+      "retained": "undo",
+      "retainedTitle": "واگرد",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "action-redo-round-corner",
+      "title": "ازنو با گوشهٔ نرم",
+      "retained": "redo",
+      "retainedTitle": "ازنو",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "action-expand-diagonal-corners",
+      "title": "گسترش از دو گوشه",
+      "retained": "maximize-diagonal",
+      "retainedTitle": "بزرگ کردن مورب",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "action-share-raised-branch",
+      "title": "اشتراک با شاخهٔ بالارونده",
+      "retained": "share",
+      "retainedTitle": "اشتراک‌گذاری",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "action-link-chain-angled",
+      "title": "پیوند زنجیری زاویه‌دار",
+      "retained": "link",
+      "retainedTitle": "لینک",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "action-select-box-corners",
+      "title": "انتخاب با چهار گوشه",
+      "retained": "select-all",
+      "retainedTitle": "انتخاب همه",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "action-pin-flat-head",
+      "title": "سنجاق با سر تخت",
+      "retained": "pin",
+      "retainedTitle": "سنجاق",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "action-open-new-window-corner",
+      "title": "بازکردن در پنجرهٔ تازه با گوشه",
+      "retained": "external-link",
+      "retainedTitle": "لینک بیرونی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "profile-two-shoulder-peers",
+      "title": "دو همکار کنار هم",
+      "retained": "users",
+      "retainedTitle": "کاربران",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "profile-person-walking-step",
+      "title": "آدمک در گام بلند",
+      "retained": "walk",
+      "retainedTitle": "پیاده",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "profile-user-round-bottom",
+      "title": "کاربر با بدنهٔ منحنی",
+      "retained": "user",
+      "retainedTitle": "کاربر",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "message-circular-chat-tail",
+      "title": "پیام دایره با دنباله",
+      "retained": "chat",
+      "retainedTitle": "گفتگو",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "message-paper-plane-fold",
+      "title": "هواپیمای کاغذی با خط تا",
+      "retained": "send",
+      "retainedTitle": "ارسال",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "message-support-earcups",
+      "title": "هدست پشتیبانی با کاپ پهن",
+      "retained": "headset",
+      "retainedTitle": "پشتیبانی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "message-broadcast-open-rings",
+      "title": "پخش پیام با حلقه‌های باز",
+      "retained": "broadcast",
+      "retainedTitle": "پخش زنده",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "message-megaphone-soft-mouth",
+      "title": "بلندگو با دهانهٔ نرم",
+      "retained": "megaphone",
+      "retainedTitle": "اطلاعیه",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "file-binder-two-rings",
+      "title": "زونکن با دو حلقه",
+      "retained": "binder",
+      "retainedTitle": "زونکن",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "file-note-curled-corner",
+      "title": "یادداشت با گوشهٔ لوله‌شده",
+      "retained": "sticky-note",
+      "retainedTitle": "یادداشت",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "file-presentation-tripod-wide",
+      "title": "تختهٔ ارائه با سه‌پایهٔ پهن",
+      "retained": "presentation",
+      "retainedTitle": "ارائه",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "file-bookmark-ribbon-long",
+      "title": "نشانک با نوار بلند",
+      "retained": "bookmark",
+      "retainedTitle": "نشانک",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "file-stack-offset-tabs",
+      "title": "بایگانی با زبانه‌های پلکانی",
+      "retained": "files",
+      "retainedTitle": "فایل‌ها",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-play-rounded-wedge",
+      "title": "پخش با مثلث نرم",
+      "retained": "play",
+      "retainedTitle": "پخش",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-pause-soft-bars",
+      "title": "توقف موقت با میلهٔ نرم",
+      "retained": "pause",
+      "retainedTitle": "توقف موقت",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-next-flat-bar",
+      "title": "آهنگ بعد با خط صاف",
+      "retained": "skip-next",
+      "retainedTitle": "بعدی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-previous-flat-bar",
+      "title": "آهنگ قبل با خط صاف",
+      "retained": "skip-previous",
+      "retainedTitle": "قبلی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-rewind-twin-open",
+      "title": "بازگشت با دو مثلث باز",
+      "retained": "rewind",
+      "retainedTitle": "عقب زدن",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-forward-twin-open",
+      "title": "جلو رفتن با دو مثلث باز",
+      "retained": "fast-forward",
+      "retainedTitle": "جلو زدن",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-volume-short-cone",
+      "title": "صدا با مخروط کوتاه",
+      "retained": "volume",
+      "retainedTitle": "صدا",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-microphone-wide-capsule",
+      "title": "میکروفون با کپسول پهن",
+      "retained": "mic",
+      "retainedTitle": "میکروفون",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-music-note-swept-stem",
+      "title": "نت موسیقی با ساقهٔ خمیده",
+      "retained": "music",
+      "retainedTitle": "موسیقی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-headphones-arched-cups",
+      "title": "هدفون با قوس بلند",
+      "retained": "headphones",
+      "retainedTitle": "هدفون",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-film-three-perforations",
+      "title": "فیلم با سه سوراخ در هر لبه",
+      "retained": "film",
+      "retainedTitle": "فیلم",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-screen-low-stand",
+      "title": "نمایشگر با پایهٔ کوتاه",
+      "retained": "monitor",
+      "retainedTitle": "مانیتور",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "media-playlist-three-lengths",
+      "title": "فهرست پخش با خطوط پلکانی",
+      "retained": "playlist",
+      "retainedTitle": "فهرست پخش",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "control-toggle-round-track",
+      "title": "کلید با مسیر گرد پهن",
+      "retained": "toggle",
+      "retainedTitle": "کلید روشن",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "control-checkbox-soft-tick",
+      "title": "انتخاب با تیک نرم",
+      "retained": "checkbox",
+      "retainedTitle": "چک‌باکس",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "control-slider-end-knob",
+      "title": "لغزنده با دکمهٔ انتهایی",
+      "retained": "slider",
+      "retainedTitle": "اسلایدر",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "control-progress-three-step",
+      "title": "پیشرفت با سه مرحلهٔ گرد",
+      "retained": "stepper",
+      "retainedTitle": "مراحل",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "control-range-two-handles",
+      "title": "بازه با دو دستگیرهٔ گرد",
+      "retained": "range-slider",
+      "retainedTitle": "بازهٔ مقدار",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "control-search-short-handle",
+      "title": "جستجو با دستهٔ کوتاه",
+      "retained": "search",
+      "retainedTitle": "جستجو",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "control-password-three-dots",
+      "title": "فیلد رمز با سه نقطه",
+      "retained": "input-password",
+      "retainedTitle": "فیلد رمز",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "control-cursor-soft-pointer",
+      "title": "نشانگر با نوک نرم",
+      "retained": "cursor",
+      "retainedTitle": "نشانگر",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "calendar-wide-binding",
+      "title": "تقویم با صحافی پهن",
+      "retained": "calendar",
+      "retainedTitle": "تقویم",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "clock-rounded-face-short-hands",
+      "title": "ساعت با عقربه‌های کوتاه",
+      "retained": "clock",
+      "retainedTitle": "ساعت",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "clock-alarm-flat-bells",
+      "title": "ساعت زنگ‌دار با زنگ صاف",
+      "retained": "alarm",
+      "retainedTitle": "زنگ ساعت",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "clock-stopwatch-wide-button",
+      "title": "کرنومتر با دکمهٔ پهن",
+      "retained": "timer",
+      "retainedTitle": "زمان‌سنج",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "clock-hourglass-curved-neck",
+      "title": "ساعت شنی با گردن منحنی",
+      "retained": "hourglass",
+      "retainedTitle": "ساعت شنی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "clock-sand-timer-open",
+      "title": "زمان‌سنج شنی با بدنهٔ باز",
+      "retained": "hourglass",
+      "retainedTitle": "ساعت شنی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "clock-history-open-quarter",
+      "title": "تاریخچه با ربع باز",
+      "retained": "history",
+      "retainedTitle": "تاریخچه",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "shop-cart-short-wheelbase",
+      "title": "سبد چرخ‌دار با محور کوتاه",
+      "retained": "cart",
+      "retainedTitle": "سبد خرید",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "shop-basket-folded-handles",
+      "title": "سبد با دسته‌های تاشو",
+      "retained": "basket",
+      "retainedTitle": "سبد",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "shop-store-rounded-awning",
+      "title": "فروشگاه با سایبان گرد",
+      "retained": "store",
+      "retainedTitle": "فروشگاه",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "shop-package-tucked-flap",
+      "title": "بسته با لبهٔ تاشده",
+      "retained": "package",
+      "retainedTitle": "بسته",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "shop-tag-round-eyelet",
+      "title": "برچسب با سوراخ گرد",
+      "retained": "tag",
+      "retainedTitle": "برچسب",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "shop-ticket-center-notch",
+      "title": "کوپن با بریدگی میانی",
+      "retained": "ticket",
+      "retainedTitle": "بلیت",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "shop-hanger-slender-hook",
+      "title": "چوب‌لباسی با قلاب باریک",
+      "retained": "hanger",
+      "retainedTitle": "رخت‌آویز",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "shop-shirt-short-sleeve",
+      "title": "تی‌شرت با آستین کوتاه",
+      "retained": "shirt",
+      "retainedTitle": "پوشاک",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "shop-gift-crossed-ribbon",
+      "title": "هدیه با روبان متقاطع",
+      "retained": "gift",
+      "retainedTitle": "هدیه",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "payment-bank-four-pillars",
+      "title": "بانک با چهار ستون",
+      "retained": "bank",
+      "retainedTitle": "بانک",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "payment-hand-coin-cup",
+      "title": "دست گود با سکه",
+      "retained": "hand-coin",
+      "retainedTitle": "پرداخت دستی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "payment-handshake-open-cuffs",
+      "title": "دست دادن با سرآستین باز",
+      "retained": "handshake",
+      "retainedTitle": "توافق",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "payment-percent-open-diagonal",
+      "title": "درصد با خط مورب بلند",
+      "retained": "percent",
+      "retainedTitle": "درصد",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "chart-line-open-axis",
+      "title": "نمودار خطی با محور باز",
+      "retained": "chart-line",
+      "retainedTitle": "نمودار خطی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "chart-trend-arrow-slim",
+      "title": "پیکان روند با شکست کوتاه",
+      "retained": "trending-up",
+      "retainedTitle": "رشد",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "chart-trend-fall-slim",
+      "title": "پیکان افت با شکست کوتاه",
+      "retained": "trending-down",
+      "retainedTitle": "افت",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "chart-scatter-six-points",
+      "title": "پراکندگی با شش نقطه",
+      "retained": "chart-scatter",
+      "retainedTitle": "نمودار پراکندگی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "map-pin-short-teardrop",
+      "title": "پین با قطرهٔ کوتاه",
+      "retained": "map-pin-wide-drop",
+      "retainedTitle": "پین با قطرهٔ پهن",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "map-route-two-round-stops",
+      "title": "مسیر با دو ایستگاه گرد",
+      "retained": "route",
+      "retainedTitle": "مسیر",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "map-signpost-two-boards",
+      "title": "تابلوی راه با دو تخته",
+      "retained": "signpost",
+      "retainedTitle": "تابلوی راهنما",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "map-road-two-lanes",
+      "title": "جاده با دو خط باز",
+      "retained": "road",
+      "retainedTitle": "جاده",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "map-car-rounded-hood",
+      "title": "خودرو با کاپوت گرد",
+      "retained": "car",
+      "retainedTitle": "خودرو",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "map-train-rounded-front",
+      "title": "قطار با دماغهٔ گرد",
+      "retained": "train",
+      "retainedTitle": "قطار",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "map-bicycle-open-frame",
+      "title": "دوچرخه با قاب باز",
+      "retained": "bicycle",
+      "retainedTitle": "دوچرخه",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "map-airplane-swept-wings",
+      "title": "هواپیما با بال پس‌گرا",
+      "retained": "plane",
+      "retainedTitle": "هواپیما",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "map-suitcase-recessed-handle",
+      "title": "چمدان با دستهٔ توکار",
+      "retained": "suitcase",
+      "retainedTitle": "چمدان",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "map-backpack-single-pocket",
+      "title": "کوله با جیب تکی بزرگ",
+      "retained": "backpack",
+      "retainedTitle": "کوله‌پشتی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "map-hotel-key-sleeve",
+      "title": "کلید هتل با آویز تخت",
+      "retained": "key",
+      "retainedTitle": "کلید",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "map-globe-offset-meridian",
+      "title": "کره با نصف‌النهار مایل",
+      "retained": "globe",
+      "retainedTitle": "زبان",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "living-chair-curved-back",
+      "title": "صندلی با پشتی منحنی",
+      "retained": "chair",
+      "retainedTitle": "صندلی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "living-desk-side-drawer",
+      "title": "میز کار با کشوی کناری",
+      "retained": "desk",
+      "retainedTitle": "میز کار",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "living-lamp-tapered-shade",
+      "title": "چراغ با کلاهک مخروطی کوتاه",
+      "retained": "lamp",
+      "retainedTitle": "چراغ",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "living-plant-twin-leaves",
+      "title": "گلدان با دو برگ پهن",
+      "retained": "plant-pot",
+      "retainedTitle": "گلدان",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "living-key-simple-teeth",
+      "title": "کلید با دو دندانهٔ ساده",
+      "retained": "key",
+      "retainedTitle": "کلید",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "living-lock-soft-shackle",
+      "title": "قفل با حلقهٔ نرم",
+      "retained": "lock",
+      "retainedTitle": "قفل",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "learn-book-open-wide-pages",
+      "title": "کتاب باز با صفحه‌های پهن",
+      "retained": "book-open",
+      "retainedTitle": "کتاب باز",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "learn-pen-cap-short",
+      "title": "خودکار با درپوش کوتاه",
+      "retained": "pen",
+      "retainedTitle": "قلم",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "learn-scissors-long-loops",
+      "title": "قیچی با حلقه‌های کشیده",
+      "retained": "scissors",
+      "retainedTitle": "قیچی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "learn-graduation-short-tassel",
+      "title": "کلاه فارغ‌التحصیلی با منگولهٔ کوتاه",
+      "retained": "graduation-cap",
+      "retainedTitle": "آموزش",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "learn-blackboard-side-tray",
+      "title": "تخته با سینی کناری",
+      "retained": "blackboard",
+      "retainedTitle": "تخته سیاه",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "learn-paperclip-wide-loop",
+      "title": "گیرهٔ کاغذ با حلقهٔ پهن",
+      "retained": "paperclip",
+      "retainedTitle": "پیوست",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "learn-pushpin-triangle-foot",
+      "title": "پونز با پایهٔ مثلثی",
+      "retained": "pin",
+      "retainedTitle": "سنجاق",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "learn-study-double-arm-lamp",
+      "title": "چراغ مطالعه با بازوی دوگانه",
+      "retained": "desk-lamp",
+      "retainedTitle": "چراغ مطالعه",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "health-heart-low-cleft",
+      "title": "قلب با شکاف کم‌عمق",
+      "retained": "heart",
+      "retainedTitle": "قلب",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "health-medical-bag-short-grip",
+      "title": "کیف پزشکی با دستهٔ کوتاه",
+      "retained": "medical-bag",
+      "retainedTitle": "کیف پزشکی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "health-pill-single-seam",
+      "title": "کپسول با خط میانی تکی",
+      "retained": "pill",
+      "retainedTitle": "دارو",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "health-pill-bottle-round-cap",
+      "title": "شیشهٔ دارو با در گرد",
+      "retained": "pill-bottle",
+      "retainedTitle": "قوطی دارو",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "health-stethoscope-soft-tube",
+      "title": "گوشی پزشکی با لولهٔ نرم",
+      "retained": "stethoscope",
+      "retainedTitle": "گوشی پزشکی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "health-tooth-soft-roots",
+      "title": "دندان با ریشه‌های نرم",
+      "retained": "tooth",
+      "retainedTitle": "دندان",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "health-eye-soft-lens",
+      "title": "چشم با عدسی نرم",
+      "retained": "eye",
+      "retainedTitle": "نمایش",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "health-hand-sanitizer-pump",
+      "title": "ضدعفونی‌کننده با پمپ کوتاه",
+      "retained": "hand-sanitizer",
+      "retainedTitle": "ژل ضدعفونی",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    },
+    {
+      "name": "sport-kettlebell-round-base",
+      "title": "کتل‌بل با بدنهٔ گرد",
+      "retained": "kettlebell",
+      "retainedTitle": "کتل‌بل",
+      "reason": "Very close silhouette and arrangement; small changes to spacing, rounding, orientation, or incidental strokes do not provide enough visual distinction."
+    }
+  ]
+}
