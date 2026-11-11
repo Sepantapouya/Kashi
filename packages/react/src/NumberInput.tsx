@@ -24,6 +24,8 @@ export interface NumberInputProps {
   /** واحد کنار عدد، مثل «نفر» */
   unit?: ReactNode;
   disabled?: boolean;
+  /** فقط‌خواندنی: مقدار دیده و با فرم ارسال می‌شود ولی عوض نمی‌شود */
+  readOnly?: boolean;
   name?: string;
   id?: string;
   className?: string;
@@ -35,7 +37,7 @@ const Plus = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" st
 
 /** ورودی عدد با دکمه‌های + و −؛ ↑↓ یک گام، PageUp/PageDown ده گام، Home/End کمینه و بیشینه */
 export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(function NumberInput(
-  { label, hint, error, value, defaultValue = null, onChange, min, max, step = 1, thousands, digits, unit, disabled, name, id, className, labels = {} },
+  { label, hint, error, value, defaultValue = null, onChange, min, max, step = 1, thousands, digits, unit, disabled, readOnly, name, id, className, labels = {} },
   ref,
 ) {
   const { messages: M, digits: D } = useKashi();
@@ -79,7 +81,7 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
     <Field id={inputId} label={label} hint={hint} error={error} className={className}>
       <div className={cx("k-number")}>
         <div className="k-input" data-state={error ? "invalid" : disabled ? "disabled" : undefined}>
-          <button type="button" className="k-number__step" tabIndex={-1} aria-label={decrement} disabled={disabled || (min !== undefined && (current ?? 0) <= min)} onClick={() => bump(-1)}><Minus /></button>
+          <button type="button" className="k-number__step" tabIndex={-1} aria-label={decrement} hidden={readOnly} disabled={disabled || (min !== undefined && (current ?? 0) <= min)} onClick={() => bump(-1)}><Minus /></button>
           <input
             ref={ref}
             id={inputId}
@@ -94,6 +96,8 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
             aria-invalid={error ? true : undefined}
             aria-describedby={describedBy(inputId, hint, error)}
             disabled={disabled}
+            readOnly={readOnly}
+            aria-readonly={readOnly || undefined}
             dir="ltr"
             value={draft ?? show(current)}
             onChange={(e) => {
@@ -107,10 +111,10 @@ export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(functi
               setDraft(null);
               if (current !== null && current !== clamp(current)) set(clamp(current));
             }}
-            onKeyDown={onKeyDown}
+            onKeyDown={readOnly ? undefined : onKeyDown}
           />
           {unit && <span className="k-input__addon">{unit}</span>}
-          <button type="button" className="k-number__step" tabIndex={-1} aria-label={increment} disabled={disabled || (max !== undefined && (current ?? 0) >= max)} onClick={() => bump(1)}><Plus /></button>
+          <button type="button" className="k-number__step" tabIndex={-1} aria-label={increment} hidden={readOnly} disabled={disabled || (max !== undefined && (current ?? 0) >= max)} onClick={() => bump(1)}><Plus /></button>
         </div>
       </div>
       {name && <input type="hidden" name={name} value={current ?? ""} />}

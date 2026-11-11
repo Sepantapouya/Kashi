@@ -61,6 +61,8 @@ export interface DateRangePickerProps {
   /** با name، دو فیلد پنهان name_start و name_end به شکل YYYY-MM-DD ساخته می‌شود */
   name?: string;
   disabled?: boolean;
+  /** فقط‌خواندنی: مقدار دیده و با فرم ارسال می‌شود ولی عوض نمی‌شود */
+  readOnly?: boolean;
   id?: string;
   className?: string;
   calendarLabels?: CalendarLabels;
@@ -75,7 +77,7 @@ export interface DateRangePickerProps {
  */
 export function DateRangePicker({
   label, hint, error, value, defaultValue = { start: null, end: null }, onChange, min, max, isDateDisabled, holidays,
-  presets, digits, name, disabled, id, className, calendarLabels, labels = {},
+  presets, digits, name, disabled, readOnly, id, className, calendarLabels, labels = {},
 }: DateRangePickerProps) {
   const { messages: M, digits: D, locale, n: N } = useKashi();
   digits ??= D;
@@ -134,7 +136,7 @@ export function DateRangePicker({
 
   return (
     <Field id={triggerId} label={label} hint={hint} error={error} className={className}>
-      <div className="k-datepicker k-daterange" ref={wrap}>
+      <div className="k-datepicker k-daterange" ref={wrap} data-readonly={readOnly || undefined}>
         <div className="k-select">
           <button
             ref={trigger}
@@ -146,8 +148,9 @@ export function DateRangePicker({
             aria-controls={open ? popoverId : undefined}
             aria-invalid={error ? true : undefined}
             disabled={disabled}
+            aria-readonly={readOnly || undefined}
             data-placeholder={text ? undefined : ""}
-            onClick={() => setOpen((o) => !o)}
+            onClick={() => !readOnly && setOpen((o) => !o)}
           >
             <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <rect x="3" y="4.5" width="14" height="12.5" rx="2" /><path d="M3 8.5h14M7 3v3M13 3v3" />

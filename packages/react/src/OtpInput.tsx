@@ -24,6 +24,8 @@ export interface OtpInputProps {
   groupAfter?: number;
   size?: "sm" | "md";
   disabled?: boolean;
+  /** فقط‌خواندنی: مقدار دیده و با فرم ارسال می‌شود ولی عوض نمی‌شود */
+  readOnly?: boolean;
   autoFocus?: boolean;
   name?: string;
   id?: string;
@@ -35,7 +37,7 @@ export interface OtpInputProps {
  * صفحه‌خوان و پر شدن خودکار کد پیامکی (autocomplete="one-time-code") بی‌نقص کار می‌کنند.
  */
 export const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(function OtpInput(
-  { label, hint, error, length = 6, value, defaultValue = "", onChange, onComplete, digits, groupAfter, size = "md", disabled, autoFocus, name, id, className },
+  { label, hint, error, length = 6, value, defaultValue = "", onChange, onComplete, digits, groupAfter, size = "md", disabled, readOnly, autoFocus, name, id, className },
   ref,
 ) {
   const { digits: D } = useKashi();
@@ -65,6 +67,7 @@ export const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(function Otp
           maxLength={length * 2 /* ارقام فارسی و فاصله‌های چسبانده‌شده */}
           value={code}
           disabled={disabled}
+          readOnly={readOnly}
           autoFocus={autoFocus}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy(inputId, hint, error)}

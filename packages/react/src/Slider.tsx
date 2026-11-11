@@ -28,6 +28,8 @@ export interface SliderProps<V extends Val = Val> {
   /** برچسب‌های زیر نوار، مثل [0, 50, 100] */
   marks?: number[];
   disabled?: boolean;
+  /** فقط‌خواندنی: مقدار دیده و با فرم ارسال می‌شود ولی عوض نمی‌شود */
+  readOnly?: boolean;
   name?: string;
   className?: string;
   labels?: { from?: string; to?: string; separator?: string };
@@ -36,7 +38,7 @@ export interface SliderProps<V extends Val = Val> {
 /** اسلایدر روی <input type="range"> بومی؛ با آرایهٔ دوتایی، بازه با دو دستگیره */
 export function Slider<V extends Val>({
   label, value, defaultValue, onChange, min = 0, max = 100, step = 1, showValue = true,
-  format, marks, disabled, name, className, labels = {},
+  format, marks, disabled, readOnly, name, className, labels = {},
 }: SliderProps<V>) {
   const id = useId();
   const isRange = Array.isArray(value ?? defaultValue);
@@ -66,11 +68,13 @@ export function Slider<V extends Val>({
         step={step}
         value={v}
         disabled={disabled}
+        aria-readonly={readOnly || undefined}
         name={name ? (isRange ? `${name}_${which === "lo" ? "min" : "max"}` : name) : undefined}
         aria-labelledby={isRange ? undefined : label ? labelId : undefined}
         aria-label={isRange ? `${which === "lo" ? from : to}${typeof label === "string" ? ` ${label}` : ""}` : undefined}
         aria-valuetext={format(v)}
         onChange={(e) => {
+          if (readOnly) return;
           const n = Number(e.target.value);
           // دستگیره‌ها از روی هم رد نمی‌شوند
           if (!isRange) set(n);
@@ -81,7 +85,7 @@ export function Slider<V extends Val>({
   };
 
   return (
-    <div className={cx("k-slider", className)} data-range={isRange ? "" : undefined}>
+    <div className={cx("k-slider", className)} data-range={isRange ? "" : undefined} data-readonly={readOnly || undefined}>
       {(label || showValue) && (
         <div className="k-slider__head">
           {label && <span className="k-label" id={labelId}>{label}</span>}

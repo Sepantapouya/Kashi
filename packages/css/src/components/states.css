@@ -13,6 +13,7 @@
 /* ───────── فقط‌خواندنی ───────── */
 .k-input:has(> .k-input__control:read-only:not(:disabled)),
 .k-select--custom[data-readonly] .k-select__control,
+.k-daterange[data-readonly] .k-select__control,
 :is(.k-combobox, .k-multi-select)[data-readonly] .k-input,
 .k-tag-input[data-readonly] {
   --_border: var(--k-border-secondary);
@@ -40,6 +41,11 @@
 .k-check[data-readonly] :is(.k-checkbox, .k-radio, .k-switch) { pointer-events: none; }
 .k-check[data-readonly] :is(.k-checkbox, .k-radio, .k-switch):not(:checked) { background-color: var(--k-bg-muted); border-color: var(--k-border-secondary); }
 .k-check[data-readonly] :is(.k-checkbox, .k-radio, .k-switch):active { scale: none; }
+
+/* اسلایدر و کد یک‌بارمصرف */
+.k-slider[data-readonly] .k-slider__input { pointer-events: none; }
+.k-slider[data-readonly] { cursor: default; }
+.k-otp:has(.k-otp__input:read-only:not(:disabled)) .k-otp__slot { background: var(--k-bg-muted); border-color: var(--k-border-secondary); }
 
 /* گروه‌های انتخاب: سگمنت، نمونهٔ رنگ، چیپ‌ها و امتیاز */
 :is(.k-segmented, .k-swatches, .k-chips)[data-readonly] { cursor: default; }

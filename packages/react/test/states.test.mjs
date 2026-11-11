@@ -74,3 +74,15 @@ test("حالت‌ها به انگلیسی", () => {
   assert.match(html, /No options to choose from\./);
   assert.match(html, /No data to show\./);
 });
+
+test("فیلدهای عدد، کد، تاریخ و اسلایدر: فقط‌خواندنی", () => {
+  const num = render(h(K.NumberInput, { label: "تعداد", defaultValue: 2, readOnly: true }));
+  assert.match(num, /readOnly=""|readonly=""/);
+  assert.equal((num.match(/k-number__step"[^>]*hidden=""/g) ?? []).length, 2);
+  assert.match(render(h(K.OtpInput, { label: "کد", defaultValue: "1234", length: 4, readOnly: true })), /readOnly=""|readonly=""/);
+  const dp = render(h(K.DatePicker, { label: "تاریخ", readOnly: true }));
+  assert.match(dp, /readOnly=""|readonly=""/);
+  assert.doesNotMatch(dp, /k-datepicker__toggle/);
+  assert.match(render(h(K.DateRangePicker, { label: "بازه", readOnly: true })), /data-readonly="true"/);
+  assert.match(render(h(K.Slider, { label: "حجم", defaultValue: 30, readOnly: true })), /data-readonly="true"[\s\S]*aria-readonly="true"/);
+});

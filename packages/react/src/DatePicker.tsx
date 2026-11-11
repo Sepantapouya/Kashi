@@ -38,7 +38,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
   {
     value, defaultValue = null, onChange, min, max, isDateDisabled, holidays, digits, yearRange,
     invalidMessage, openLabel,
-    todayLabel, calendarLabels, error, name, onBlur, placeholder, ...rest
+    todayLabel, calendarLabels, error, name, onBlur, placeholder, readOnly, ...rest
   },
   ref,
 ) {
@@ -116,7 +116,8 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(function
           onBlur?.(e);
         }}
         error={error ?? (invalid ? invalidMessage : undefined)}
-        addonEnd={
+        readOnly={readOnly}
+        addonEnd={readOnly ? undefined :
           <button
             ref={button}
             type="button"
