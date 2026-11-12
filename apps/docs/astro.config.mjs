@@ -3,13 +3,16 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "./integrations/sitemap.mjs";
 import { articleDates } from "./integrations/article-dates.mjs";
+import { aliases as iconAliases } from "@kashi-ui/icons";
 
 export default defineConfig({
   site: "https://kashi.sepantapouya.com",
   integrations: [mdx(), react(), sitemap({ site: "https://kashi.sepantapouya.com", lastmod: articleDates() })],
   devToolbar: { enabled: false },
-  // فیلدهای فارسی در یک صفحه (PersianInput) جمع شده‌اند؛ نشانی‌های قدیمی به بخش همان نوع می‌روند
   redirects: {
+    // آیکون‌هایی که طرحشان تکراری بود و نام قدیمی‌شان به آیکون اصلی می‌رسد
+    ...Object.fromEntries(Object.entries(iconAliases).map(([old, to]) => [`/docs/icons/${old}/`, `/docs/icons/${to}/`])),
+    // فیلدهای فارسی در یک صفحه (PersianInput) جمع شده‌اند؛ نشانی‌های قدیمی به بخش همان نوع می‌روند
     "/docs/persian/national-id/": "/docs/persian/input/#national-id",
     "/docs/persian/legal-id/": "/docs/persian/input/#legal-id",
     "/docs/persian/mobile/": "/docs/persian/input/#mobile",

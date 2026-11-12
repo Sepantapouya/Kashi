@@ -5,7 +5,7 @@
 //   dist/svg/*.svg     فایل جدا برای هر آیکون؛ سبک‌های دیگر در dist/svg/<variant>/
 //   dist/sprite.svg    همهٔ آیکون‌ها به شکل <symbol> برای <use href>؛ سبک‌های دیگر در dist/sprite-<variant>.svg
 import { mkdirSync, writeFileSync, rmSync, copyFileSync } from "node:fs";
-import { icons, categories, categoryGroups } from "./src/icons.js";
+import { icons, categories, categoryGroups, aliases } from "./src/icons.js";
 // هر دسته دقیقاً در یک گروه
 {
   const used = categoryGroups.flatMap((g) => g.categories);
@@ -28,6 +28,11 @@ for (const n of names) {
   if (!categories[i.category]) throw new Error(`${n}: unknown category ${i.category}`);
   if (/<script|\son[a-z]+=|href=/i.test(i.body)) throw new Error(`${n}: unsafe svg`);
 }
+// نام قدیمی نباید با نام اصلی یکی باشد و باید به آیکون موجود برسد
+for (const [old, to] of Object.entries(aliases)) {
+  if (icons[old] || !icons[to] || seen.has(pascal(old))) throw new Error(`bad alias ${old} → ${to}`);
+}
+const aliasNames = Object.keys(aliases);
 
 rmSync("dist", { recursive: true, force: true });
 mkdirSync("dist/svg", { recursive: true });
@@ -42,6 +47,8 @@ export const categories = ${JSON.stringify(categories)};
 export const categoryGroups = ${JSON.stringify(categoryGroups)};
 export const icons = ${JSON.stringify(data)};
 export const iconNames = Object.keys(icons);
+/** نام‌های قدیمی (منسوخ) → نام اصلی؛ iconSvg هنوز آن‌ها را می‌شناسد */
+export const aliases = ${JSON.stringify(aliases)};
 export { variants };
 
 let uid = 0;
@@ -50,7 +57,7 @@ const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replac
 
 /** کد SVG یک آیکون؛ بدون title برای صفحه‌خوان پنهان است */
 export function iconSvg(name, { size = 20, strokeWidth = 1.5, title, className, mirror = false, variant = "light" } = {}) {
-  const icon = icons[name];
+  const icon = icons[name] ?? icons[aliases[name]];
   if (!icon) return null;
   const a11y = title ? \` role="img" aria-label="\${esc(title)}"\` : ' aria-hidden="true"';
   const cls = className ? \` class="\${esc(className)}"\` : "";
@@ -88,10 +95,13 @@ export declare const categories: Record<IconCategory, string>;
 export declare const categoryGroups: { id: string; title: string; categories: IconCategory[] }[];
 export declare const icons: Record<IconName, IconData>;
 export declare const iconNames: IconName[];
+/** @deprecated نام‌های قدیمی که طرحشان تکراری بود؛ از نام اصلی استفاده کنید */
+export type IconAlias = ${aliasNames.map((n) => JSON.stringify(n)).join(" | ")};
+export declare const aliases: Record<IconAlias, IconName>;
 export type IconVariant = ${variants.map((v) => JSON.stringify(v)).join(" | ")};
 export declare const variants: IconVariant[];
 export interface IconSvgOptions { size?: number | string; strokeWidth?: number; title?: string; className?: string; mirror?: boolean; variant?: IconVariant }
-export declare function iconSvg(name: IconName | (string & {}), options?: IconSvgOptions): string | null;
+export declare function iconSvg(name: IconName | IconAlias | (string & {}), options?: IconSvgOptions): string | null;
 export declare function searchIcons(query: string): IconName[];
 `);
 
@@ -134,16 +144,18 @@ function create(name, displayName, source) {
 }
 
 ${names.map((n) => `export const ${pascal(n)} = /*#__PURE__*/ create(${JSON.stringify(n)}, ${JSON.stringify(pascal(n))}, ${JSON.stringify(icons[n].body)});`).join("\n")}
+/** نام‌های قدیمی (منسوخ) */
+${aliasNames.map((n) => `export const ${pascal(n)} = ${pascal(aliases[n])};`).join("\n")}
 
 /** آیکون با نام: <Icon name="search" />؛ همهٔ آیکون‌ها را به باندل می‌آورد، برای نام‌های پویا */
 export const Icon = /*#__PURE__*/ named(/*#__PURE__*/ forwardRef(function Icon({ name, ...rest }, ref) {
-  const C = ({ ${names.map((n) => `${JSON.stringify(n)}: ${pascal(n)}`).join(", ")} })[name];
+  const C = ({ ${[...names, ...aliasNames].map((n) => `${JSON.stringify(n)}: ${pascal(aliases[n] ?? n)}`).join(", ")} })[name];
   return C ? createElement(C, Object.assign({ ref }, rest)) : null;
 }), "Icon");
 `);
 
 writeFileSync("dist/react.d.ts", `import type { ForwardRefExoticComponent, RefAttributes, SVGProps } from "react";
-import type { IconName, IconVariant } from "./index.js";
+import type { IconName, IconAlias, IconVariant } from "./index.js";
 export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "ref"> {
   /** اندازه به پیکسل یا هر واحد CSS @default 20 */
   size?: number | string;
@@ -158,17 +170,20 @@ export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "ref"> {
 }
 export type KashiIcon = ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>;
 ${names.map((n) => `export declare const ${pascal(n)}: KashiIcon;`).join("\n")}
-export declare const Icon: ForwardRefExoticComponent<IconProps & { name: IconName } & RefAttributes<SVGSVGElement>>;
+${aliasNames.map((n) => `/** @deprecated از ${pascal(aliases[n])} استفاده کنید */\nexport declare const ${pascal(n)}: KashiIcon;`).join("\n")}
+export declare const Icon: ForwardRefExoticComponent<IconProps & { name: IconName | IconAlias } & RefAttributes<SVGSVGElement>>;
 `);
 
-for (const n of names) {
-  writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(icons[n].body, "light", { uid: `k-${n}` })}</svg>\n`);
-  for (const v of variants.slice(1)) writeFileSync(`dist/svg/${v}/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(icons[n].body, v, { uid: `k-${n}` })}</svg>\n`);
+// فایل SVG و نماد اسپرایتِ نام‌های قدیمی هم ساخته می‌شود تا مسیرهای قبلی نشکنند؛ در فهرست و شمارش نیستند
+for (const n of [...names, ...aliasNames]) {
+  const body = icons[aliases[n] ?? n].body;
+  writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(body, "light", { uid: `k-${n}` })}</svg>\n`);
+  for (const v of variants.slice(1)) writeFileSync(`dist/svg/${v}/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(body, v, { uid: `k-${n}` })}</svg>\n`);
 }
 for (const v of variants) {
   writeFileSync(
     `dist/sprite${v === "light" ? "" : `-${v}`}.svg`,
-    `<svg xmlns="http://www.w3.org/2000/svg" style="display:none">\n${names.map((n) => `<symbol id="k-${n}${v === "light" ? "" : `--${v}`}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${renderBody(icons[n].body, v, { uid: `k-${n}-${v}` })}</symbol>`).join("\n")}\n</svg>\n`,
+    `<svg xmlns="http://www.w3.org/2000/svg" style="display:none">\n${[...names, ...aliasNames].map((n) => `<symbol id="k-${n}${v === "light" ? "" : `--${v}`}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${renderBody(icons[aliases[n] ?? n].body, v, { uid: `k-${n}-${v}` })}</symbol>`).join("\n")}\n</svg>\n`,
   );
 }
-console.log(`icons: ${names.length} icons × ${variants.length} variants in ${Object.keys(categories).length} categories`);
+console.log(`icons: ${names.length} icons (+${aliasNames.length} deprecated aliases) × ${variants.length} variants in ${Object.keys(categories).length} categories`);

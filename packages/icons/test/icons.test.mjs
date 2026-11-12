@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { icons, iconNames, iconSvg, searchIcons, categories } from "../dist/index.js";
+import { icons, iconNames, iconSvg, searchIcons, categories, aliases } from "../dist/index.js";
 import * as R from "../dist/react.js";
 
 test("every icon has Persian title, category and a component", () => {
@@ -48,7 +48,7 @@ test("search works in Persian and English, Arabic letters normalized", () => {
 
 test("svg files and sprite contain every icon", () => {
   const files = readdirSync(new URL("../dist/svg/", import.meta.url)).filter((f) => f.endsWith(".svg"));
-  assert.equal(files.length, iconNames.length);
+  assert.equal(files.length, iconNames.length + Object.keys(aliases).length);
   const sprite = readFileSync(new URL("../dist/sprite.svg", import.meta.url), "utf8");
   for (const n of iconNames) assert.ok(sprite.includes(`id="k-${n}"`), n);
 });
@@ -67,7 +67,7 @@ test("every icon renders in all six variants", async () => {
   assert.match(html, /data-variant="bulk"/);
   const bold = readFileSync(new URL("../dist/sprite-bold.svg", import.meta.url), "utf8");
   assert.ok(bold.includes('id="k-home--bold"'));
-  assert.equal(readdirSync(new URL("../dist/svg/curved/", import.meta.url)).length, iconNames.length);
+  assert.equal(readdirSync(new URL("../dist/svg/curved/", import.meta.url)).length, iconNames.length + Object.keys(aliases).length);
 });
 
 test("bold leaves room between open strokes and keeps small rings open", () => {
@@ -104,4 +104,30 @@ test("bold fills a closed outline and cuts out the following relative detail", (
   assert.ok(mask);
   assert.match(mask, /d="M3 13\.25h6\.5L17 5\.75"/);
   assert.match(svg, /fill="currentColor" stroke-width="0\.5" mask="url\(#[^)]+\)"><path d="M3 13\.25 10\.5 5\.75H17v6\.5l-7\.5 4H3Z"/);
+});
+
+test("no two icons share a drawing or a Persian title", () => {
+  // نمادهای استاندارد شستشو عیناً همان شکل هندسی‌اند؛ تنها استثنای آگاهانه
+  const allowed = new Set(["triangle|bleach-any"]);
+  const byBody = new Map(), byTitle = new Map();
+  for (const n of iconNames) {
+    const b = icons[n].body, t = icons[n].title.trim();
+    if (byBody.has(b)) assert.ok(allowed.has(`${byBody.get(b)}|${n}`), `same drawing: ${byBody.get(b)} and ${n}`);
+    else byBody.set(b, n);
+    assert.ok(!byTitle.has(t), `same title «${t}»: ${byTitle.get(t)} and ${n}`);
+    byTitle.set(t, n);
+  }
+});
+
+test("deprecated aliases still render as their replacement", () => {
+  assert.ok(Object.keys(aliases).length > 0);
+  for (const [old, to] of Object.entries(aliases)) {
+    assert.ok(!icons[old] && icons[to], old);
+    const norm = (x) => x.replace(/data-kashi-icon="[^"]+"/, "").replace(/k\d+/g, "");
+    assert.equal(norm(iconSvg(old)), norm(iconSvg(to)), old);
+    assert.ok(searchIcons(old.replace(/-/g, " ")).includes(to), `search ${old}`);
+    assert.equal(R[`Icon${old.replace(/(^|-)([a-z0-9])/g, (_, __, c) => c.toUpperCase())}`], R[icons[to].component], `component ${old}`);
+  }
+  const html = renderToStaticMarkup(createElement(R.Icon, { name: "lock-clock" }));
+  assert.match(html, /data-kashi-icon="lock-timer"/);
 });
