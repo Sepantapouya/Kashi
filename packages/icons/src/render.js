@@ -226,8 +226,8 @@ const NUM = /-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?/gi;
 function shiftPath(d, dx, dy) {
   const out = [];
   let first = true;
-  for (const seg of d.match(/[a-zA-Z][^a-zA-Z]*/g) ?? []) {
-    const cmd = seg[0], C = cmd.toUpperCase(), nums = (seg.slice(1).match(NUM) ?? []).map(Number);
+  for (const seg of d.match(/[a-zA-Z][^a-zA-Z]*/g) || []) {
+    const cmd = seg[0], C = cmd.toUpperCase(), nums = (seg.slice(1).match(NUM) || []).map(Number);
     const k = ARGS[C];
     if (k === undefined) return null;
     if (k ? nums.length % k : nums.length) return null; // پرچم‌های فشردهٔ کمان یا دادهٔ نامعمول: دست نزن
@@ -271,7 +271,8 @@ export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}
   if (shift) {
     const [dx, dy] = shift[1].split(" ");
     const inner = renderBody(shift[2], variant, { uid, sw });
-    return bakeShift(inner, +dx, +dy) ?? `<g transform="translate(${dx} ${dy})">${inner}</g>`;
+    const baked = bakeShift(inner, +dx, +dy);
+    return baked !== null ? baked : `<g transform="translate(${dx} ${dy})">${inner}</g>`;
   }
   // آیکون ترکیبی: پایه داخل <g data-cut> و نشان گوشه بعد از آن؛ زیر نشان از پایه بریده می‌شود
   const cut = /^<g data-cut="([^"]+)">([\s\S]*)<\/g>([^<]*(?:<(?!\/g>)[^<]*)*)$/.exec(body);
