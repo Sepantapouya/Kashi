@@ -1,13 +1,241 @@
 {
- "generated": "2026-11-11T23:20:02+03:30",
+ "generated": "2026-11-12T19:46:41+03:30",
  "totals": {
-  "commits": 249,
-  "versions": 41,
-  "added": 113197,
+  "commits": 263,
+  "versions": 42,
+  "added": 119182,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [],
+ "unreleased": [
+  {
+   "sha": "7fda78c89acf19678d133dce0b6f183d93a4e5a3",
+   "short": "7fda78c",
+   "date": "2026-11-12T19:46:41+03:30",
+   "author": "sepantapouya",
+   "subject": "docs(icons): placement, fit, density and uniqueness rules; whole-set audit",
+   "details": [
+    "- DESIGN.md gains centre (±1 x, ±1.5 y) and edge (≥1) limits, fitting by",
+    "scaling coordinates, a density ceiling, closed silhouettes for filled",
+    "icons, the duplicate/alias policy and a whole-set audit section",
+    "- npm run audit -w @kashi-ui/icons renders every icon and lists",
+    "off-centre, edge, small and dense suspects",
+    "- design-scale.svg shows the centre tolerance box"
+   ],
+   "files": 4,
+   "added": 95,
+   "removed": 3
+  },
+  {
+   "sha": "b3994c3f0e059b7f1cf7cae3a49b887d0333b56d",
+   "short": "b3994c3",
+   "date": "2026-11-12T19:40:32+03:30",
+   "author": "sepantapouya",
+   "subject": "fix(icons): center and fit 300 icons, redraw six crowded ones",
+   "details": [
+    "- 300 icons that sat off-center or touched the canvas edge are moved",
+    "(and 34 slightly scaled) into the 2-unit margin; stroke stays 1.5",
+    "- santur, rubik-cube, colosseum, backgammon, accordion and raft are",
+    "simplified so they read at 20px; payment-link badge fits the margin",
+    "- letters, digits, arrows and corner-badge icons keep their deliberate",
+    "placement"
+   ],
+   "files": 4,
+   "added": 312,
+   "removed": 307
+  },
+  {
+   "sha": "8a07d56bd258cfaf0a3d9662ed994cb7ef1ea58e",
+   "short": "8a07d56",
+   "date": "2026-11-12T19:20:24+03:30",
+   "author": "sepantapouya",
+   "subject": "fix(icons): remove duplicate icons and make every title unique",
+   "details": [
+    "- 41 names whose drawing repeated another icon become deprecated aliases",
+    "that still render the original (iconSvg, React, SVG files, sprite)",
+    "- 71 shared Persian titles made unique",
+    "- chess-rook-black is now a filled silhouette; record, medical-cross,",
+    "file-medical, helipad and fa-alef get their own drawing",
+    "- test guards against duplicate drawings and titles; old icon pages redirect"
+   ],
+   "files": 15,
+   "added": 243,
+   "removed": 178
+  },
+  {
+   "sha": "e7c779333ceb4a7b2f0e39ffe15e50864fd87a13",
+   "short": "e7c7793",
+   "date": "2026-11-12T01:06:17+03:30",
+   "author": "sepantapouya",
+   "subject": "Restore 193 distinct icon drawings after visual duplicate review",
+   "details": [],
+   "files": 17,
+   "added": 1795,
+   "removed": 2141
+  },
+  {
+   "sha": "01bf741d91e26c15c7da37b1510746a932dc37bb",
+   "short": "01bf741",
+   "date": "2026-11-12T00:50:10+03:30",
+   "author": "sepantapouya",
+   "subject": "Reject redundant icon batch and guard against reintroduction",
+   "details": [],
+   "files": 3,
+   "added": 2131,
+   "removed": 0
+  },
+  {
+   "sha": "500f33ca1a159b9d79a1b7632cd2d19c48e2051a",
+   "short": "500f33c",
+   "date": "2026-11-12T00:32:48+03:30",
+   "author": "sepantapouya",
+   "subject": "feat(docs): redesign article covers and figures for the dark site",
+   "details": [
+    "- Covers: deep dark base with category-colored glow, glass card art, gradient title",
+    "- Figures: dark palette matching the site, dotted backdrop with category glow,",
+    "new do/don't tags; IBAN segments and contrast samples made correct on dark"
+   ],
+   "files": 84,
+   "added": 58,
+   "removed": 35
+  },
+  {
+   "sha": "ab09773548733cbae7670a29acd40e7987849bf3",
+   "short": "ab09773",
+   "date": "2026-11-12T00:29:04+03:30",
+   "author": "sepantapouya",
+   "subject": "feat: read-only for number, OTP, date, date range and slider",
+   "details": [],
+   "files": 10,
+   "added": 68,
+   "removed": 25
+  },
+  {
+   "sha": "e8426e656bd06b4e9bc06eaf4725fa752f19a28a",
+   "short": "e8426e6",
+   "date": "2026-11-12T00:22:52+03:30",
+   "author": "sepantapouya",
+   "subject": "feat(docs): redesigned header and footer",
+   "details": [
+    "- Header: three zones, pill nav with sliding hover, one full-width Resources mega",
+    "menu (tools, design and content, stability, featured card), grouped icon actions;",
+    "fixes menu descriptions overflowing the panel",
+    "- Footer: CTA band with install command, brand column with socials and channel,",
+    "five link columns, bottom bar and wordmark",
+    "- Old header/footer CSS removed from site.css and enterprise.css"
+   ],
+   "files": 7,
+   "added": 448,
+   "removed": 401
+  },
+  {
+   "sha": "79a63adc95e044fe9045c47b5d24f673523c6c1b",
+   "short": "79a63ad",
+   "date": "2026-11-11T23:54:14+03:30",
+   "author": "sepantapouya",
+   "subject": "fix(css): loading button no longer shows its label on hover",
+   "details": [
+    "aria-disabled hover rule restored the text color over the spinner."
+   ],
+   "files": 3,
+   "added": 12,
+   "removed": 1
+  }
+ ],
  "versions": [
+  {
+   "version": "2.3.0",
+   "date": "2026-11-11T23:52:54+03:30",
+   "releaseCommit": "a8f46e5",
+   "commits": [
+    {
+     "sha": "a8f46e5eaa885a99c0168f40d55f6de1fe28b032",
+     "short": "a8f46e5",
+     "date": "2026-11-11T23:52:54+03:30",
+     "author": "sepantapouya",
+     "subject": "chore: release 2.3.0",
+     "details": [],
+     "files": 23,
+     "added": 108,
+     "removed": 49
+    },
+    {
+     "sha": "31b0dedd2b19af83473418a07b049d868c8a8762",
+     "short": "31b0ded",
+     "date": "2026-11-11T23:37:40+03:30",
+     "author": "sepantapouya",
+     "subject": "chore: changeset for component states",
+     "details": [],
+     "files": 1,
+     "added": 7,
+     "removed": 0
+    },
+    {
+     "sha": "df92041be775deffd2d861113e4da00aa8501e43",
+     "short": "df92041",
+     "date": "2026-11-11T23:37:32+03:30",
+     "author": "sepantapouya",
+     "subject": "feat: loading, empty and read-only states across components",
+     "details": [
+      "- states.css: shared read-only, loading (spinner, skeleton rows) and empty looks",
+      "- React: readOnly on Select, Combobox, MultiSelect, TagInput, Checkbox, Switch,",
+      "RadioGroup, SegmentedControl, ChipGroup, SwatchGroup; loading/emptyMessage on",
+      "Select, MultiSelect, SearchSuggest and all charts; loading on StatCard",
+      "- Messages: common.noOptions, common.noData (fa/en)",
+      "- Docs: /docs/states/ with matrix, guidance and live demos; tests in states.test.mjs"
+     ],
+     "files": 22,
+     "added": 617,
+     "removed": 209
+    },
+    {
+     "sha": "8ad3b5fb0a07695f9211dc00747e83658e8ecd73",
+     "short": "8ad3b5f",
+     "date": "2026-11-11T23:23:29+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(docs): build the versions list from full history on the build server",
+     "details": [
+      "Vercel clones shallow, so releases.mjs kept the committed releases.json and the",
+      "changelog lagged behind releases. Now it fetches full history (origin, then the",
+      "public GitHub URL) before building the list."
+     ],
+     "files": 1,
+     "added": 16,
+     "removed": 2
+    },
+    {
+     "sha": "4b44ff5d08aa51b15453d3a4b147d0e4c682d8c6",
+     "short": "4b44ff5",
+     "date": "2026-11-11T23:20:09+03:30",
+     "author": "sepantapouya",
+     "subject": "docs: record the Kashi 2.2.0 release",
+     "details": [],
+     "files": 1,
+     "added": 75,
+     "removed": 4
+    }
+   ],
+   "notes": [
+    {
+     "kind": "patch",
+     "text": "دکمهٔ در حال بارگذاری (`loading`) با نگه داشتن ماوس، متنش را روی اسپینر نشان می‌داد؛ درست شد.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css"
+     ]
+    },
+    {
+     "kind": "minor",
+     "text": "حالت‌های مشترک کامپوننت‌ها: فقط‌خواندنی (`readOnly`) برای Select، Combobox، MultiSelect، TagInput، Checkbox، Switch، RadioGroup، SegmentedControl، ChipGroup و SwatchGroup؛ بارگذاری و فهرست خالی (`loading`، `emptyMessage`) برای Select، MultiSelect، SearchSuggest و همهٔ نمودارها؛ `loading` برای StatCard. ظاهر مشترک در `states.css` و پیام‌های تازهٔ `common.noOptions` و `common.noData`. راهنما: /docs/states/",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian"
+     ]
+    }
+   ]
+  },
   {
    "version": "2.2.0",
    "date": "2026-11-11T23:20:02+03:30",

@@ -1,5 +1,17 @@
 # @kashi-ui/icons
 
+## 2.4.0
+
+### Minor Changes
+
+- e7c7793: Add 193 visually distinct icon drawings after a side-by-side review of the 300-icon draft. Exclude 107 very close alternatives, preserve the original 7200 icons, and update the documentation and Figma catalog to 7393 icons in six styles. Concept overlap alone no longer rejects useful visual variants.
+- Reach 8,000 active icons with 648 independently drawn workflow icons across 33 groups. Refine shared shopping, file ownership, checkout, security, media and accessibility drawings for small-size legibility. Preserve 41 deprecated aliases and the existing 7,352 canonical drawings.
+- 8a07d56: آیکون‌های تکراری حذف شدند: ۴۱ نام که طرحشان تکرار آیکون دیگری بود حالا نام قدیمیِ منسوخ‌اند و به آیکون اصلی می‌رسند (`aliases`)؛ کد قبلی نمی‌شکند و در نسخهٔ ۳.۰ حذف می‌شوند. ۷۱ عنوان فارسی یکسان یکتا شدند و رخ سیاه، ضبط، صلیب پزشکی، پروندهٔ پزشکی، هلی‌پد و حرف الف طرح جدا گرفتند. آزمونی هم جلوی طرح یا عنوان تکراری را می‌گیرد.
+
+### Patch Changes
+
+- b3994c3: بازبینی کیفیت همهٔ آیکون‌ها: ۳۰۰ آیکون که از مرکز دور بودند یا به لبهٔ بوم چسبیده بودند در مرکز و داخل حاشیهٔ ۲ واحدی قرار گرفتند (۳۴ تا با کوچک‌شدن اندک؛ ضخامت خط همان ۱٫۵ ماند). سنتور، مکعب روبیک، کولوسئوم، تخته‌نرد، آکاردئون و کلک ساده‌تر و خواناتر کشیده شدند و نشان لینکِ «لینک پرداخت» داخل حاشیه آمد.
+
 ## 2.3.0
 
 No changes in this release.

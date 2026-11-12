@@ -1,5 +1,14 @@
 # @kashi-ui/elements
 
+## 2.4.0
+
+### Patch Changes
+
+- Updated dependencies [ab09773]
+  - @kashi-ui/css@2.4.0
+  - @kashi-ui/bank-logos@2.4.0
+  - @kashi-ui/persian@2.4.0
+
 ## 2.3.0
 
 ### Patch Changes

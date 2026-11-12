@@ -1,5 +1,12 @@
 # @kashi-ui/css
 
+## 2.4.0
+
+### Patch Changes
+
+- ab09773: فقط‌خواندنی (`readOnly`) برای NumberInput، OtpInput، DatePicker (بدون دکمهٔ تقویم)، DateRangePicker و Slider.
+- @kashi-ui/tokens@2.4.0
+
 ## 2.3.0
 
 ### Patch Changes
