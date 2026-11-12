@@ -1,28 +1,97 @@
 {
- "generated": "2026-11-12T21:35:00+03:30",
+ "generated": "2026-11-12T22:49:13+03:30",
  "totals": {
-  "commits": 268,
-  "versions": 44,
-  "added": 122823,
+  "commits": 272,
+  "versions": 46,
+  "added": 125012,
   "first": "2026-10-26T23:11:45+03:30"
  },
  "unreleased": [],
  "versions": [
   {
-   "version": "2.4.1",
-   "date": "2026-11-12T21:35:00+03:30",
-   "releaseCommit": "f90cd82",
+   "version": "2.6.0",
+   "date": "2026-11-12T22:49:13+03:30",
+   "releaseCommit": "07aff40",
    "commits": [
     {
-     "sha": "f90cd829d15ae5a7f3f2019060bbc3b7583e5b17",
-     "short": "f90cd82",
-     "date": "2026-11-12T21:35:00+03:30",
+     "sha": "07aff4028cc106b0229141749527674588f59e7a",
+     "short": "07aff40",
+     "date": "2026-11-12T22:49:13+03:30",
      "author": "sepantapouya",
-     "subject": "Release 2.4.1: precise icon strokes, no transforms, 18 clearer icons",
+     "subject": "Release 2.6.0: 88 icon categories, category-aware search",
      "details": [],
      "files": 20,
      "added": 95,
      "removed": 45
+    },
+    {
+     "sha": "482f9036a4990b081d618d77d95d225a7397d3ec",
+     "short": "482f903",
+     "date": "2026-11-12T22:41:24+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): 17 new categories, 1069 icons recategorized, category-aware search",
+     "details": [
+      "- split crowded categories (interface, shopping, communication, gaming, banking,",
+      "time, sports, transport) into tables, forms, accessibility, checkout, retail,",
+      "chat, support, meetings, board games, billing, calendar, fitness, cycling,",
+      "traffic, browser, infrastructure and privacy; existing category keys unchanged",
+      "- accessibility icons gathered from five categories; houses to real estate,",
+      "settings-* to navigation, ratings gathered",
+      "- searchIcons matches category labels; Persian synonyms for 56 basic icons",
+      "- test guards category size (≤220) and label search; Figma plugin rebuilt"
+     ],
+     "files": 6,
+     "added": 1079,
+     "removed": 1046
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "2.5.0",
+   "date": "2026-11-12T22:34:20+03:30",
+   "releaseCommit": "c7647c5",
+   "commits": [
+    {
+     "sha": "c7647c5463bcf5b9b592da70e73ed1abf60bc51c",
+     "short": "c7647c5",
+     "date": "2026-11-12T22:34:20+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 2.5.0 with 8200 hand-drawn icons",
+     "details": [],
+     "files": 31,
+     "added": 734,
+     "removed": 53
+    },
+    {
+     "sha": "da54d580d60f1579ae0e26b895178d1f14e6c580",
+     "short": "da54d58",
+     "date": "2026-11-12T21:41:26+03:30",
+     "author": "sepantapouya",
+     "subject": "chore(size): budget for icon shift baking in render.js",
+     "details": [],
+     "files": 2,
+     "added": 48,
+     "removed": 48
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "2.4.1",
+   "date": "2026-11-12T21:35:00+03:30",
+   "releaseCommit": "92fbaa1",
+   "commits": [
+    {
+     "sha": "92fbaa101fc3ae929d5a2be11f845d3151e27804",
+     "short": "92fbaa1",
+     "date": "2026-11-12T21:35:00+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 2.4.1: precise icon strokes, no transforms, 18 clearer icons",
+     "details": [],
+     "files": 21,
+     "added": 328,
+     "removed": 179
     },
     {
      "sha": "f0ddf11e184d5851bcf48629d80dcc2fd9d9ce2d",
