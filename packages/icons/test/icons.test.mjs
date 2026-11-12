@@ -16,6 +16,17 @@ test("every icon has Persian title, category and a component", () => {
   }
 });
 
+test("categories stay balanced and searchable by name", () => {
+  // دسته‌ای که خیلی بزرگ شود دیگر کمکی به پیدا کردن نمی‌کند؛ پیش از عبور از سقف، تقسیمش کنید
+  const size = {};
+  for (const n of iconNames) size[icons[n].category] = (size[icons[n].category] || 0) + 1;
+  for (const [c, label] of Object.entries(categories)) {
+    assert.ok(size[c] > 0, `${c} is empty`);
+    assert.ok(size[c] <= 220, `${c} has ${size[c]} icons; split it`);
+  }
+  assert.ok(searchIcons("دسترس‌پذیری").length >= 90, "category label is searchable");
+});
+
 test("iconSvg is decorative by default and labelled with a title", () => {
   const plain = iconSvg("search");
   assert.match(plain, /aria-hidden="true"/);

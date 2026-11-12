@@ -81,7 +81,7 @@ let index;
 export function searchIcons(query) {
   const q = fold(query);
   if (!q) return iconNames;
-  index ??= iconNames.map((n) => [n, [n, icons[n].title, ...icons[n].keywords].map(fold)]);
+  index ??= iconNames.map((n) => [n, [n, icons[n].title, ...icons[n].keywords, categories[icons[n].category]].map(fold)]);
   return index.filter(([, words]) => words.some((t) => t.includes(q))).map(([n]) => n);
 }
 `);
