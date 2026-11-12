@@ -1,0 +1,406 @@
+{
+  "baselineCount": 8000,
+  "activeCount": 8200,
+  "addedCount": 200,
+  "preservedAliases": 41,
+  "groups": [
+    {
+      "title": "صندلی و نشیمن",
+      "bases": [
+        "seat-wingback-armchair",
+        "seat-pedestal-barstool",
+        "seat-splayed-barstool",
+        "seat-cantilever-chair",
+        "seat-ladder-back-chair",
+        "seat-upholstered-dining",
+        "seat-tub-chair",
+        "seat-lounge-sling",
+        "seat-chaise-longue",
+        "seat-corner-sectional",
+        "seat-modular-curved-sofa",
+        "seat-two-seat-bench-arms",
+        "seat-park-bench-side",
+        "seat-storage-bench",
+        "seat-pouffe-round",
+        "seat-floor-cushion-stack",
+        "seat-folding-step-chair",
+        "seat-saddle-stool",
+        "seat-swivel-shell-chair",
+        "seat-picnic-bench-set"
+      ],
+      "states": []
+    },
+    {
+      "title": "میز و نگهداری وسایل",
+      "bases": [
+        "table-trestle-frame",
+        "table-round-pedestal",
+        "table-nesting-pair",
+        "table-oval-cross-base",
+        "table-wall-drop-leaf",
+        "table-c-console",
+        "table-drawing-tilt",
+        "table-kitchen-island",
+        "storage-ladder-shelf",
+        "storage-cube-shelf",
+        "storage-open-rail-wardrobe",
+        "storage-sliding-wardrobe",
+        "storage-apothecary-drawers",
+        "storage-shoe-cabinet-tilt",
+        "storage-wall-hooks-rail",
+        "storage-lidded-wicker-basket",
+        "storage-fabric-bin-handles",
+        "storage-rolling-drawer-unit",
+        "storage-glass-display-case",
+        "storage-folding-room-divider"
+      ],
+      "states": []
+    },
+    {
+      "title": "نورپردازی و دکور",
+      "bases": [
+        "light-tripod-floor-lamp",
+        "light-drum-pendant",
+        "light-cone-wall-sconce",
+        "light-globe-wall-sconce",
+        "light-swing-arm-desk",
+        "light-mushroom-table",
+        "light-pleated-table",
+        "light-ring-desk",
+        "light-track-spots",
+        "light-recessed-square",
+        "light-ceiling-flush-dome",
+        "light-bulkhead-oval",
+        "light-wall-picture-bar",
+        "light-led-strip-reel",
+        "light-lantern-cage",
+        "decor-arched-wall-mirror",
+        "decor-asymmetric-mirror",
+        "decor-triptych-frame",
+        "decor-pedestal-planter",
+        "decor-fluted-vase"
+      ],
+      "states": []
+    },
+    {
+      "title": "کیف و کفش",
+      "bases": [
+        "bag-rolltop-backpack",
+        "bag-drawstring-sack",
+        "bag-crossbody-sling",
+        "bag-doctor-frame",
+        "bag-bucket-shoulder",
+        "bag-baguette-shoulder",
+        "bag-foldover-clutch",
+        "bag-camera-shoulder-case",
+        "bag-duffel-end-pocket",
+        "bag-tote-gusset",
+        "shoe-chelsea-boot",
+        "shoe-lace-up-work-boot",
+        "shoe-running-knit",
+        "shoe-mary-jane",
+        "shoe-mule-block-heel",
+        "shoe-strappy-sandal",
+        "shoe-chunky-loafer",
+        "shoe-hiking-low-cut",
+        "shoe-house-slides",
+        "shoe-penny-loafer-profile"
+      ],
+      "states": []
+    },
+    {
+      "title": "وسایل آشپزخانه",
+      "bases": [
+        "kitchen-double-basket-fryer",
+        "kitchen-drawer-dishwasher",
+        "kitchen-french-door-fridge",
+        "kitchen-retro-rounded-fridge",
+        "kitchen-rice-cooker-lid",
+        "kitchen-pressure-cooker-stove",
+        "kitchen-toaster-long-slot",
+        "kitchen-hand-mixer-twin",
+        "kitchen-food-processor-bowl",
+        "kitchen-personal-smoothie-blender",
+        "kitchen-citrus-press-lever",
+        "kitchen-filter-dripper",
+        "kitchen-french-press-plunger",
+        "kitchen-moka-angular-pot",
+        "kitchen-electric-gooseneck-base",
+        "kitchen-double-wall-cup",
+        "kitchen-glass-measuring-jug",
+        "kitchen-colander-footed",
+        "kitchen-salad-spinner-crank",
+        "kitchen-bread-bin-rolltop"
+      ],
+      "states": []
+    },
+    {
+      "title": "ابزار دستی و تعمیر",
+      "bases": [
+        "tool-ratcheting-screwdriver",
+        "tool-stubby-screwdriver",
+        "tool-offset-screwdriver",
+        "tool-socket-ratchet",
+        "tool-socket-set-case",
+        "tool-combination-spanner",
+        "tool-locking-pliers",
+        "tool-long-nose-pliers-open",
+        "tool-diagonal-cutters",
+        "tool-strap-wrench",
+        "tool-tap-wrench-t-handle",
+        "tool-hand-plane-block",
+        "tool-spokeshave",
+        "tool-flush-cut-saw",
+        "tool-pull-saw-double-edge",
+        "tool-hacksaw-compact-frame",
+        "tool-wooden-mallet",
+        "tool-rubber-mallet",
+        "tool-claw-hammer-curved",
+        "tool-caulk-gun-open-frame"
+      ],
+      "states": []
+    },
+    {
+      "title": "دستگاه‌ها و لوازم دیجیتال",
+      "bases": [
+        "device-ultrawide-monitor",
+        "device-portrait-monitor",
+        "device-dual-monitor-arm",
+        "device-mini-pc-tower",
+        "device-all-in-one-desktop",
+        "device-laptop-convertible-tent",
+        "device-laptop-dual-screen",
+        "device-tablet-keyboard-case",
+        "device-pen-display-tablet",
+        "device-vertical-docking-station",
+        "device-usb-hub-bar",
+        "device-magnetic-phone-stand",
+        "device-foldable-phone-book",
+        "device-foldable-phone-clamshell",
+        "device-wireless-earbud-stems",
+        "device-open-ear-headset",
+        "device-soundbar-subwoofer",
+        "device-panoramic-webcam",
+        "device-usb-podcast-microphone",
+        "device-mesh-router-pair"
+      ],
+      "states": []
+    },
+    {
+      "title": "حمام و شست‌وشو",
+      "bases": [
+        "bath-freestanding-tub-oval",
+        "bath-corner-shower-cabin",
+        "bath-wall-hung-toilet",
+        "bath-countertop-basin",
+        "bath-pedestal-basin",
+        "bath-wide-rain-shower",
+        "bath-handheld-shower-rail",
+        "bath-thermostatic-bar-tap",
+        "bath-double-towel-bar",
+        "bath-ladder-towel-rack",
+        "bath-recessed-shower-niche",
+        "bath-corner-wire-caddy",
+        "bath-wall-soap-pump",
+        "bath-foam-pump-bottle",
+        "bath-toothbrush-holder-wall",
+        "bath-floss-dispenser",
+        "bath-travel-toiletry-bottle",
+        "bath-lidded-laundry-hamper",
+        "bath-laundry-hamper-dual",
+        "bath-wall-folding-dryer"
+      ],
+      "states": []
+    },
+    {
+      "title": "بسته‌بندی و فروشگاه",
+      "bases": [
+        "pack-standup-zip-pouch",
+        "pack-coffee-valve-bag",
+        "pack-gusset-paper-sack",
+        "pack-pillow-gift-box",
+        "pack-folding-lid-box",
+        "pack-tuck-end-carton",
+        "pack-window-display-box",
+        "pack-handle-carry-carton",
+        "pack-cylindrical-tube",
+        "pack-cosmetic-dropper-box",
+        "pack-blister-card",
+        "pack-hang-tab-pouch",
+        "pack-courier-poly-mailer",
+        "pack-padded-mailer",
+        "pack-ecommerce-tear-strip",
+        "pack-flat-pizza-carton",
+        "pack-takeaway-noodle-carton",
+        "pack-egg-carton-hinged",
+        "pack-spray-bottle-trigger",
+        "pack-refill-pouch-spout"
+      ],
+      "states": []
+    },
+    {
+      "title": "سفر و جابه‌جایی روزمره",
+      "bases": [
+        "travel-carryon-hard-shell",
+        "travel-weekender-top-handles",
+        "travel-rolling-duffel",
+        "travel-suit-garment-bag",
+        "travel-packing-cube-mesh",
+        "travel-neck-pillow-open",
+        "travel-folding-toiletry-kit",
+        "travel-compact-travel-iron",
+        "mobility-city-stepthrough-bike",
+        "mobility-folding-city-bike",
+        "mobility-front-cargo-bike",
+        "mobility-kick-scooter-deck",
+        "mobility-three-wheel-scooter",
+        "mobility-low-step-city-scooter",
+        "mobility-electric-moped-box",
+        "mobility-compact-stroller",
+        "mobility-shopping-trolley-fabric",
+        "travel-folding-luggage-cart",
+        "travel-pet-carrier-soft",
+        "travel-child-booster-seat"
+      ],
+      "states": []
+    }
+  ],
+  "nearestComparisons": [
+    [
+      "kitchen-double-basket-fryer",
+      "navigation-mega-menu",
+      0.777
+    ],
+    [
+      "device-mini-pc-tower",
+      "payment-receipt-paperless",
+      0.772
+    ],
+    [
+      "pack-padded-mailer",
+      "project-kanban-wip-limit",
+      0.772
+    ],
+    [
+      "table-round-pedestal",
+      "table-oval-cross-base",
+      0.769
+    ],
+    [
+      "table-oval-cross-base",
+      "table-round-pedestal",
+      0.769
+    ],
+    [
+      "shoe-chelsea-boot",
+      "shoe-lace-up-work-boot",
+      0.768
+    ],
+    [
+      "shoe-lace-up-work-boot",
+      "shoe-chelsea-boot",
+      0.768
+    ],
+    [
+      "travel-packing-cube-mesh",
+      "travel-pet-carrier-soft",
+      0.767
+    ],
+    [
+      "travel-pet-carrier-soft",
+      "travel-packing-cube-mesh",
+      0.767
+    ],
+    [
+      "tool-socket-set-case",
+      "pack-padded-mailer",
+      0.751
+    ],
+    [
+      "device-foldable-phone-book",
+      "joycon-pair",
+      0.75
+    ],
+    [
+      "device-mesh-router-pair",
+      "hinge",
+      0.75
+    ],
+    [
+      "light-led-strip-reel",
+      "french-horn",
+      0.743
+    ],
+    [
+      "bag-camera-shoulder-case",
+      "travel-pet-carrier-soft",
+      0.741
+    ],
+    [
+      "kitchen-toaster-long-slot",
+      "ui-token-input-wrap",
+      0.738
+    ],
+    [
+      "shoe-strappy-sandal",
+      "shoe-house-slides",
+      0.733
+    ],
+    [
+      "shoe-house-slides",
+      "shoe-strappy-sandal",
+      0.733
+    ],
+    [
+      "pack-tuck-end-carton",
+      "jar",
+      0.73
+    ],
+    [
+      "bath-corner-wire-caddy",
+      "ramekin",
+      0.728
+    ],
+    [
+      "light-bulkhead-oval",
+      "black-hole",
+      0.724
+    ],
+    [
+      "travel-carryon-hard-shell",
+      "watch-health",
+      0.724
+    ],
+    [
+      "seat-ladder-back-chair",
+      "bath-ladder-towel-rack",
+      0.723
+    ],
+    [
+      "kitchen-french-door-fridge",
+      "pack-blister-card",
+      0.723
+    ],
+    [
+      "bath-ladder-towel-rack",
+      "seat-ladder-back-chair",
+      0.723
+    ],
+    [
+      "pack-blister-card",
+      "kitchen-french-door-fridge",
+      0.723
+    ]
+  ],
+  "newDrawingFlags": {
+    "offCentre": [],
+    "edge": [],
+    "small": [],
+    "dense": [
+      "light-recessed-square (0.62)"
+    ]
+  },
+  "review": "200 independently drawn object/form variants, no badge-mask composition. Exact names, normalized Persian titles and SVG bodies checked against 8000 canonical icons and 41 aliases. Nearest raster candidates reviewed visually: shared frames represent different visible objects; related variants retain distinct construction. 2400 light/bold renders at 16/20/24px and 1.5/2 stroke; bounds checked in all six styles. Dense square downlight frame accepted after 20px review. All 8000 prior drawings preserved.",
+  "baselineCommit": "da54d58",
+  "baselineVersion": "2.4.1"
+}

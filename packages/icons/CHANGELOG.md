@@ -1,5 +1,11 @@
 # @kashi-ui/icons
 
+## 2.5.0
+
+### Minor Changes
+
+- Add 200 independently drawn product and everyday-object icon variants across seating, storage, lighting, bags, footwear, kitchen, tools, devices, bathroom, retail packaging and travel. Reach 8,200 active icons while preserving all existing drawings and 41 compatibility aliases.
+
 ## 2.4.1
 
 ### Patch Changes
