@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1050" height="362" viewBox="0 0 1050 362" role="img" aria-labelledby="title desc">
   <title id="title">Kashi icon design scale</title>
-  <desc id="desc">Three panels show the 20 by 20 grid, a filled calendar with negative space, and the clearance around a file restore badge.</desc>
+  <desc id="desc">Three panels show the 20 by 20 grid with the 2-unit padding and the centre tolerance box, a filled calendar with negative space, and the clearance around a file restore badge.</desc>
   <defs>
     <pattern id="unit-grid" width="1" height="1" patternUnits="userSpaceOnUse">
       <path d="M0 1V0h1" fill="none" stroke="#d8e4dc" stroke-width=".08"/>
@@ -33,6 +33,7 @@
       <rect width="20" height="20" fill="url(#unit-grid)" stroke="#bacdc1" stroke-width=".12"/>
       <path d="M10 0v20M0 10h20" fill="none" stroke="#96b2a3" stroke-width=".12" stroke-dasharray=".38 .38"/>
       <rect x="2" y="2" width="16" height="16" rx=".45" fill="none" stroke="#6c9c89" stroke-width=".13" stroke-dasharray=".36 .29"/>
+      <rect x="9" y="8.5" width="2" height="3" rx=".2" fill="#d9a441" fill-opacity=".22" stroke="#b9862a" stroke-width=".1"/>
       <path d="M6.25 2.75h7.5c2.8 0 3.5.7 3.5 3.5v7.5c0 2.8-.7 3.5-3.5 3.5h-7.5c-2.8 0-3.5-.7-3.5-3.5v-7.5c0-2.8.7-3.5 3.5-3.5Z" fill="none" stroke="#216653" stroke-width="1.5"/>
     </g>
     <g transform="translate(445 122) scale(8)" stroke-linecap="round">
@@ -49,7 +50,8 @@
       <path d="M17.6 15a2.6 2.6 0 1 1-.8-1.85m.95-.75v1.4h-1.4" stroke="#71528a" stroke-width="1.5"/>
     </g>
     <g fill="#4b665b" font-size="12" text-anchor="middle">
-      <text x="190" y="311">Dashed guide · 2 units of visible padding</text>
+      <text x="190" y="304">Dashed guide · 2 units of visible padding</text>
+      <text x="190" y="320" fill="#9a6f1f">Amber box · centre within ±1 x, ±1.5 y</text>
       <text x="525" y="311">Open slots and dots stay visible at 20 px</text>
       <text x="860" y="311">Center (15, 15) · clearance radius 4.6</text>
     </g>
