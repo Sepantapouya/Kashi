@@ -1,147 +1,246 @@
 {
- "generated": "2026-11-12T19:46:41+03:30",
+ "generated": "2026-11-12T21:35:00+03:30",
  "totals": {
-  "commits": 263,
-  "versions": 42,
-  "added": 119182,
+  "commits": 268,
+  "versions": 44,
+  "added": 122823,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [
-  {
-   "sha": "7fda78c89acf19678d133dce0b6f183d93a4e5a3",
-   "short": "7fda78c",
-   "date": "2026-11-12T19:46:41+03:30",
-   "author": "sepantapouya",
-   "subject": "docs(icons): placement, fit, density and uniqueness rules; whole-set audit",
-   "details": [
-    "- DESIGN.md gains centre (±1 x, ±1.5 y) and edge (≥1) limits, fitting by",
-    "scaling coordinates, a density ceiling, closed silhouettes for filled",
-    "icons, the duplicate/alias policy and a whole-set audit section",
-    "- npm run audit -w @kashi-ui/icons renders every icon and lists",
-    "off-centre, edge, small and dense suspects",
-    "- design-scale.svg shows the centre tolerance box"
-   ],
-   "files": 4,
-   "added": 95,
-   "removed": 3
-  },
-  {
-   "sha": "b3994c3f0e059b7f1cf7cae3a49b887d0333b56d",
-   "short": "b3994c3",
-   "date": "2026-11-12T19:40:32+03:30",
-   "author": "sepantapouya",
-   "subject": "fix(icons): center and fit 300 icons, redraw six crowded ones",
-   "details": [
-    "- 300 icons that sat off-center or touched the canvas edge are moved",
-    "(and 34 slightly scaled) into the 2-unit margin; stroke stays 1.5",
-    "- santur, rubik-cube, colosseum, backgammon, accordion and raft are",
-    "simplified so they read at 20px; payment-link badge fits the margin",
-    "- letters, digits, arrows and corner-badge icons keep their deliberate",
-    "placement"
-   ],
-   "files": 4,
-   "added": 312,
-   "removed": 307
-  },
-  {
-   "sha": "8a07d56bd258cfaf0a3d9662ed994cb7ef1ea58e",
-   "short": "8a07d56",
-   "date": "2026-11-12T19:20:24+03:30",
-   "author": "sepantapouya",
-   "subject": "fix(icons): remove duplicate icons and make every title unique",
-   "details": [
-    "- 41 names whose drawing repeated another icon become deprecated aliases",
-    "that still render the original (iconSvg, React, SVG files, sprite)",
-    "- 71 shared Persian titles made unique",
-    "- chess-rook-black is now a filled silhouette; record, medical-cross,",
-    "file-medical, helipad and fa-alef get their own drawing",
-    "- test guards against duplicate drawings and titles; old icon pages redirect"
-   ],
-   "files": 15,
-   "added": 243,
-   "removed": 178
-  },
-  {
-   "sha": "e7c779333ceb4a7b2f0e39ffe15e50864fd87a13",
-   "short": "e7c7793",
-   "date": "2026-11-12T01:06:17+03:30",
-   "author": "sepantapouya",
-   "subject": "Restore 193 distinct icon drawings after visual duplicate review",
-   "details": [],
-   "files": 17,
-   "added": 1795,
-   "removed": 2141
-  },
-  {
-   "sha": "01bf741d91e26c15c7da37b1510746a932dc37bb",
-   "short": "01bf741",
-   "date": "2026-11-12T00:50:10+03:30",
-   "author": "sepantapouya",
-   "subject": "Reject redundant icon batch and guard against reintroduction",
-   "details": [],
-   "files": 3,
-   "added": 2131,
-   "removed": 0
-  },
-  {
-   "sha": "500f33ca1a159b9d79a1b7632cd2d19c48e2051a",
-   "short": "500f33c",
-   "date": "2026-11-12T00:32:48+03:30",
-   "author": "sepantapouya",
-   "subject": "feat(docs): redesign article covers and figures for the dark site",
-   "details": [
-    "- Covers: deep dark base with category-colored glow, glass card art, gradient title",
-    "- Figures: dark palette matching the site, dotted backdrop with category glow,",
-    "new do/don't tags; IBAN segments and contrast samples made correct on dark"
-   ],
-   "files": 84,
-   "added": 58,
-   "removed": 35
-  },
-  {
-   "sha": "ab09773548733cbae7670a29acd40e7987849bf3",
-   "short": "ab09773",
-   "date": "2026-11-12T00:29:04+03:30",
-   "author": "sepantapouya",
-   "subject": "feat: read-only for number, OTP, date, date range and slider",
-   "details": [],
-   "files": 10,
-   "added": 68,
-   "removed": 25
-  },
-  {
-   "sha": "e8426e656bd06b4e9bc06eaf4725fa752f19a28a",
-   "short": "e8426e6",
-   "date": "2026-11-12T00:22:52+03:30",
-   "author": "sepantapouya",
-   "subject": "feat(docs): redesigned header and footer",
-   "details": [
-    "- Header: three zones, pill nav with sliding hover, one full-width Resources mega",
-    "menu (tools, design and content, stability, featured card), grouped icon actions;",
-    "fixes menu descriptions overflowing the panel",
-    "- Footer: CTA band with install command, brand column with socials and channel,",
-    "five link columns, bottom bar and wordmark",
-    "- Old header/footer CSS removed from site.css and enterprise.css"
-   ],
-   "files": 7,
-   "added": 448,
-   "removed": 401
-  },
-  {
-   "sha": "79a63adc95e044fe9045c47b5d24f673523c6c1b",
-   "short": "79a63ad",
-   "date": "2026-11-11T23:54:14+03:30",
-   "author": "sepantapouya",
-   "subject": "fix(css): loading button no longer shows its label on hover",
-   "details": [
-    "aria-disabled hover rule restored the text color over the spinner."
-   ],
-   "files": 3,
-   "added": 12,
-   "removed": 1
-  }
- ],
+ "unreleased": [],
  "versions": [
+  {
+   "version": "2.4.1",
+   "date": "2026-11-12T21:35:00+03:30",
+   "releaseCommit": "f90cd82",
+   "commits": [
+    {
+     "sha": "f90cd829d15ae5a7f3f2019060bbc3b7583e5b17",
+     "short": "f90cd82",
+     "date": "2026-11-12T21:35:00+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 2.4.1: precise icon strokes, no transforms, 18 clearer icons",
+     "details": [],
+     "files": 20,
+     "added": 95,
+     "removed": 45
+    },
+    {
+     "sha": "f0ddf11e184d5851bcf48629d80dcc2fd9d9ce2d",
+     "short": "f0ddf11",
+     "date": "2026-11-12T21:33:36+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(icons): redraw eight more crowded icons, keep render.js Figma-safe",
+     "details": [
+      "- bento, fuse, burrito, micrometer thimble, laser level, room reverb reduction,",
+      "dual-SIM data default and pedalboard redrawn with fewer, larger parts",
+      "- bakeShift avoids ?? so the Figma sandbox build accepts render.js",
+      "- Figma plugin rebuilt; changeset for the patch release"
+     ],
+     "files": 5,
+     "added": 61,
+     "removed": 13
+    },
+    {
+     "sha": "afb679113e97ac5dde754147d2dcceed94bc2866",
+     "short": "afb6791",
+     "date": "2026-11-12T21:27:20+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(icons): bake shifts into coordinates and normalize stroke weights",
+     "details": [
+      "- shift() offsets are now written into path coordinates in every variant, so no",
+      "exported SVG carries a transform (pixel-identical, eye-off baked by hand)",
+      "- 1.35/1.4 fine strokes → 1.3, 1.45 → 1.5, near-1.5 strays harmonized; only",
+      "deliberate heavy marks (bars, dots, petals) stay above 1.75"
+     ],
+     "files": 2,
+     "added": 947,
+     "removed": 906
+    },
+    {
+     "sha": "1938254c8ed50bbf42d61c3b07aa0f682b0e8265",
+     "short": "1938254",
+     "date": "2026-11-12T20:56:39+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(icons): redraw ten dense icons that blurred at 20px",
+     "details": [
+      "heatmap, backgammon, ayeneh-kari, acoustic-panel, si-o-se-pol, goal-net,",
+      "spice-rack, accordion-instrument, harmonica and drum-machine had repeated",
+      "parts too small and too close to read at 16–20px. Following DESIGN.md's",
+      "density rule, repetition is reduced (3×3 tiles → one grid with three",
+      "heat cells, two points per side → one, five holes → four, six pads →",
+      "2×2, nested diamond without the cross) with at least one visible unit",
+      "between separate parts. Audit stays clean (0 off-centre, edge, small);",
+      "dense suspects 150 → 146; tests pass."
+     ],
+     "files": 1,
+     "added": 10,
+     "removed": 10
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "2.4.0",
+   "date": "2026-11-12T20:41:17+03:30",
+   "releaseCommit": "67df7e5",
+   "commits": [
+    {
+     "sha": "67df7e558ca242d59f383322b329f85065bb6721",
+     "short": "67df7e5",
+     "date": "2026-11-12T20:41:17+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 2.4.0 with 8000 reviewed icons",
+     "details": [],
+     "files": 36,
+     "added": 2528,
+     "removed": 79
+    },
+    {
+     "sha": "7fda78c89acf19678d133dce0b6f183d93a4e5a3",
+     "short": "7fda78c",
+     "date": "2026-11-12T19:46:41+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(icons): placement, fit, density and uniqueness rules; whole-set audit",
+     "details": [
+      "- DESIGN.md gains centre (±1 x, ±1.5 y) and edge (≥1) limits, fitting by",
+      "scaling coordinates, a density ceiling, closed silhouettes for filled",
+      "icons, the duplicate/alias policy and a whole-set audit section",
+      "- npm run audit -w @kashi-ui/icons renders every icon and lists",
+      "off-centre, edge, small and dense suspects",
+      "- design-scale.svg shows the centre tolerance box"
+     ],
+     "files": 4,
+     "added": 95,
+     "removed": 3
+    },
+    {
+     "sha": "b3994c3f0e059b7f1cf7cae3a49b887d0333b56d",
+     "short": "b3994c3",
+     "date": "2026-11-12T19:40:32+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(icons): center and fit 300 icons, redraw six crowded ones",
+     "details": [
+      "- 300 icons that sat off-center or touched the canvas edge are moved",
+      "(and 34 slightly scaled) into the 2-unit margin; stroke stays 1.5",
+      "- santur, rubik-cube, colosseum, backgammon, accordion and raft are",
+      "simplified so they read at 20px; payment-link badge fits the margin",
+      "- letters, digits, arrows and corner-badge icons keep their deliberate",
+      "placement"
+     ],
+     "files": 4,
+     "added": 312,
+     "removed": 307
+    },
+    {
+     "sha": "8a07d56bd258cfaf0a3d9662ed994cb7ef1ea58e",
+     "short": "8a07d56",
+     "date": "2026-11-12T19:20:24+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(icons): remove duplicate icons and make every title unique",
+     "details": [
+      "- 41 names whose drawing repeated another icon become deprecated aliases",
+      "that still render the original (iconSvg, React, SVG files, sprite)",
+      "- 71 shared Persian titles made unique",
+      "- chess-rook-black is now a filled silhouette; record, medical-cross,",
+      "file-medical, helipad and fa-alef get their own drawing",
+      "- test guards against duplicate drawings and titles; old icon pages redirect"
+     ],
+     "files": 15,
+     "added": 243,
+     "removed": 178
+    },
+    {
+     "sha": "e7c779333ceb4a7b2f0e39ffe15e50864fd87a13",
+     "short": "e7c7793",
+     "date": "2026-11-12T01:06:17+03:30",
+     "author": "sepantapouya",
+     "subject": "Restore 193 distinct icon drawings after visual duplicate review",
+     "details": [],
+     "files": 17,
+     "added": 1795,
+     "removed": 2141
+    },
+    {
+     "sha": "01bf741d91e26c15c7da37b1510746a932dc37bb",
+     "short": "01bf741",
+     "date": "2026-11-12T00:50:10+03:30",
+     "author": "sepantapouya",
+     "subject": "Reject redundant icon batch and guard against reintroduction",
+     "details": [],
+     "files": 3,
+     "added": 2131,
+     "removed": 0
+    },
+    {
+     "sha": "500f33ca1a159b9d79a1b7632cd2d19c48e2051a",
+     "short": "500f33c",
+     "date": "2026-11-12T00:32:48+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): redesign article covers and figures for the dark site",
+     "details": [
+      "- Covers: deep dark base with category-colored glow, glass card art, gradient title",
+      "- Figures: dark palette matching the site, dotted backdrop with category glow,",
+      "new do/don't tags; IBAN segments and contrast samples made correct on dark"
+     ],
+     "files": 84,
+     "added": 58,
+     "removed": 35
+    },
+    {
+     "sha": "ab09773548733cbae7670a29acd40e7987849bf3",
+     "short": "ab09773",
+     "date": "2026-11-12T00:29:04+03:30",
+     "author": "sepantapouya",
+     "subject": "feat: read-only for number, OTP, date, date range and slider",
+     "details": [],
+     "files": 10,
+     "added": 68,
+     "removed": 25
+    },
+    {
+     "sha": "e8426e656bd06b4e9bc06eaf4725fa752f19a28a",
+     "short": "e8426e6",
+     "date": "2026-11-12T00:22:52+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): redesigned header and footer",
+     "details": [
+      "- Header: three zones, pill nav with sliding hover, one full-width Resources mega",
+      "menu (tools, design and content, stability, featured card), grouped icon actions;",
+      "fixes menu descriptions overflowing the panel",
+      "- Footer: CTA band with install command, brand column with socials and channel,",
+      "five link columns, bottom bar and wordmark",
+      "- Old header/footer CSS removed from site.css and enterprise.css"
+     ],
+     "files": 7,
+     "added": 448,
+     "removed": 401
+    },
+    {
+     "sha": "79a63adc95e044fe9045c47b5d24f673523c6c1b",
+     "short": "79a63ad",
+     "date": "2026-11-11T23:54:14+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(css): loading button no longer shows its label on hover",
+     "details": [
+      "aria-disabled hover rule restored the text color over the spinner."
+     ],
+     "files": 3,
+     "added": 12,
+     "removed": 1
+    }
+   ],
+   "notes": [
+    {
+     "kind": "patch",
+     "text": "فقط‌خواندنی (`readOnly`) برای NumberInput، OtpInput، DatePicker (بدون دکمهٔ تقویم)، DateRangePicker و Slider.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css"
+     ]
+    }
+   ]
+  },
   {
    "version": "2.3.0",
    "date": "2026-11-11T23:52:54+03:30",

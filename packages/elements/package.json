@@ -1,6 +1,6 @@
 {
   "name": "@kashi-ui/elements",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "وب کامپوننت‌های کاشی: فیلدهای فارسی، تقویم شمسی و کامپوننت‌های تعاملی بدون React؛ برای HTML، Vue، Svelte، Angular و وردپرس",
   "type": "module",
   "main": "./dist/index.js",
@@ -27,11 +27,11 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@kashi-ui/bank-logos": "^2.4.0",
-    "@kashi-ui/persian": "^2.4.0"
+    "@kashi-ui/bank-logos": "^2.4.1",
+    "@kashi-ui/persian": "^2.4.1"
   },
   "peerDependencies": {
-    "@kashi-ui/css": "^2.4.0"
+    "@kashi-ui/css": "^2.4.1"
   },
   "devDependencies": {
     "happy-dom": "^21.0.4",

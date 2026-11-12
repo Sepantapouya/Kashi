@@ -1,6 +1,6 @@
 {
   "name": "@kashi-ui/mcp",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "سرور MCP کاشی: مستندات کامپوننت‌ها، آیکون‌ها، توکن‌ها و ابزارهای فارسی برای Claude، Cursor و دیگر دستیارهای هوش مصنوعی",
   "type": "module",
   "bin": {
@@ -21,9 +21,9 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
-    "@kashi-ui/icons": "^2.4.0",
-    "@kashi-ui/persian": "^2.4.0",
-    "@kashi-ui/tokens": "^2.4.0",
+    "@kashi-ui/icons": "^2.4.1",
+    "@kashi-ui/persian": "^2.4.1",
+    "@kashi-ui/tokens": "^2.4.1",
     "@modelcontextprotocol/sdk": "^1.32.2",
     "zod": "^4.6.7"
   },
