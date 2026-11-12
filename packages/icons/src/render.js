@@ -221,6 +221,46 @@ function twoToneShaped(shape, detail) {
   return size(outer) > size(shape) ? faint(shape.join("")) + outer.join("") : shape.join("") + faint(outer.join(""));
 }
 
+/** جابه‌جایی را در خود مختصات می‌پزد تا خروجی بدون transform بماند؛ اگر عنصری ناشناخته باشد null برمی‌گرداند */
+const NUM = /-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?/gi;
+function shiftPath(d, dx, dy) {
+  const out = [];
+  let first = true;
+  for (const seg of d.match(/[a-zA-Z][^a-zA-Z]*/g) ?? []) {
+    const cmd = seg[0], C = cmd.toUpperCase(), nums = (seg.slice(1).match(NUM) ?? []).map(Number);
+    const k = ARGS[C];
+    if (k === undefined) return null;
+    if (k ? nums.length % k : nums.length) return null; // پرچم‌های فشردهٔ کمان یا دادهٔ نامعمول: دست نزن
+    if (cmd !== C) {
+      // نسبی؛ فقط نخستین جفت m آغازین مطلق است
+      if (first && C === "M" && nums.length >= 2) { nums[0] += dx; nums[1] += dy; }
+    } else if (k) {
+      for (let i = 0; i < nums.length; i++) {
+        const j = i % k;
+        if (C === "H") nums[i] += dx;
+        else if (C === "V") nums[i] += dy;
+        else if (C === "A") { if (j === 5) nums[i] += dx; else if (j === 6) nums[i] += dy; }
+        else nums[i] += j % 2 ? dy : dx;
+      }
+    }
+    first = false;
+    out.push(cmd + nums.map(n).join(" "));
+  }
+  return out.join("");
+}
+const XY = { cx: "x", cy: "y", x: "x", y: "y", x1: "x", x2: "x", y1: "y", y2: "y" };
+function bakeShift(svg, dx, dy) {
+  if (/transform=|<use\b|<text\b|points=|patternUnits|gradientUnits/.test(svg)) return null;
+  let ok = true;
+  const res = svg.replace(/<(path|circle|ellipse|line|rect)\b[^>]*>/g, (tag) =>
+    tag.replace(/\s(d|cx|cy|x|y|x1|x2|y1|y2)="([^"]*)"/g, (m, a, v) => {
+      if (a === "d") { const d = shiftPath(v, dx, dy); if (d === null) ok = false; return ` d="${d}"`; }
+      return ` ${a}="${n(+v + (XY[a] === "x" ? dx : dy))}"`;
+    }));
+  // ماسک‌ها هم userSpaceOnUse اند؛ کادرشان باید همراه شکل جابه‌جا شود
+  return ok ? res.replace(/(maskUnits="userSpaceOnUse") x="(-?[\d.]+)" y="(-?[\d.]+)"/g, (m, u, x, y) => `${u} x="${n(+x + dx)}" y="${n(+y + dy)}"`) : null;
+}
+
 /**
  * بدنهٔ SVG یک سبک.
  * uid برای شناسهٔ ماسک‌های سبک bold است و باید در صفحه یکتا باشد؛ sw ضخامت خط است.
@@ -230,7 +270,8 @@ export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}
   const shift = /^<g data-shift="([^"]+)">([\s\S]*)<\/g>$/.exec(body);
   if (shift) {
     const [dx, dy] = shift[1].split(" ");
-    return `<g transform="translate(${dx} ${dy})">${renderBody(shift[2], variant, { uid, sw })}</g>`;
+    const inner = renderBody(shift[2], variant, { uid, sw });
+    return bakeShift(inner, +dx, +dy) ?? `<g transform="translate(${dx} ${dy})">${inner}</g>`;
   }
   // آیکون ترکیبی: پایه داخل <g data-cut> و نشان گوشه بعد از آن؛ زیر نشان از پایه بریده می‌شود
   const cut = /^<g data-cut="([^"]+)">([\s\S]*)<\/g>([^<]*(?:<(?!\/g>)[^<]*)*)$/.exec(body);
