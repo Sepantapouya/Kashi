@@ -10,7 +10,7 @@ const RAW: NavGroup[] = [
       { title: "Tailwind", href: "/docs/tailwind/" },
       { title: "وب کامپوننت‌ها (بدون React)", href: "/docs/web-components/" },
       { title: "دوزبانه، فارسی و انگلیسی", href: "/docs/i18n/", badge: "جدید" },
-      { title: "پلاگین فیگما", href: "/docs/figma/" },
+      { title: "پلاگین‌های فیگما", href: "/docs/figma/" },
       { title: "استفاده با هوش مصنوعی", href: "/docs/ai/" },
       { title: "آیکون‌ها", href: "/docs/icons/" },
       { title: "راهنمای آیکون‌ها", href: "/docs/icons/usage/" },
