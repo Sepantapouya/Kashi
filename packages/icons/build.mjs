@@ -56,13 +56,13 @@ let uid = 0;
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 
 /** کد SVG یک آیکون؛ بدون title برای صفحه‌خوان پنهان است */
-export function iconSvg(name, { size = 20, strokeWidth = 1.5, title, className, mirror = false, variant = "light" } = {}) {
+export function iconSvg(name, { size = 20, strokeWidth = 1.5, title, className, mirror = false, variant = "light", idPrefix } = {}) {
   const icon = icons[name] ?? icons[aliases[name]];
   if (!icon) return null;
   const a11y = title ? \` role="img" aria-label="\${esc(title)}"\` : ' aria-hidden="true"';
   const cls = className ? \` class="\${esc(className)}"\` : "";
   const flip = mirror ? ' style="transform:scaleX(-1)"' : "";
-  return \`<svg xmlns="http://www.w3.org/2000/svg" width="\${size}" height="\${size}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="\${strokeWidth}" stroke-linecap="round" stroke-linejoin="round"\${cls}\${a11y}\${flip} data-kashi-icon="\${name}"\${variant === "light" ? "" : \` data-variant="\${variant}"\`}>\${title ? \`<title>\${esc(title)}</title>\` : ""}\${renderBody(icon.body, variant, { uid: \`k\${++uid}\`, sw: strokeWidth })}</svg>\`;
+  return \`<svg xmlns="http://www.w3.org/2000/svg" width="\${size}" height="\${size}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="\${strokeWidth}" stroke-linecap="round" stroke-linejoin="round"\${cls}\${a11y}\${flip} data-kashi-icon="\${name}"\${variant === "light" ? "" : \` data-variant="\${variant}"\`}>\${title ? \`<title>\${esc(title)}</title>\` : ""}\${renderBody(icon.body, variant, { uid: idPrefix == null ? \`k\${++uid}\` : String(idPrefix).replace(/[^a-zA-Z0-9_-]/g, ""), sw: strokeWidth })}</svg>\`;
 }
 
 /**
@@ -89,9 +89,9 @@ export function searchIcons(query) {
 const union = names.map((n) => JSON.stringify(n)).join(" | ");
 writeFileSync("dist/index.d.ts", `export type IconName = ${union};
 export type IconCategory = ${Object.keys(categories).map((c) => JSON.stringify(c)).join(" | ")};
-export interface IconData { title: string; category: IconCategory; keywords: string[]; directional?: boolean; body: string; component: string }
+export interface IconData { title: string; category: IconCategory; keywords: string[]; directional?: boolean; brand?: boolean; body: string; component: string }
 export declare const categories: Record<IconCategory, string>;
-/** دسته‌ها در ۱۲ گروه، به ترتیب نمایش */
+/** گروه‌های دسته‌ها، به ترتیب نمایش */
 export declare const categoryGroups: { id: string; title: string; categories: IconCategory[] }[];
 export declare const icons: Record<IconName, IconData>;
 export declare const iconNames: IconName[];
@@ -100,7 +100,7 @@ export type IconAlias = ${aliasNames.map((n) => JSON.stringify(n)).join(" | ")};
 export declare const aliases: Record<IconAlias, IconName>;
 export type IconVariant = ${variants.map((v) => JSON.stringify(v)).join(" | ")};
 export declare const variants: IconVariant[];
-export interface IconSvgOptions { size?: number | string; strokeWidth?: number; title?: string; className?: string; mirror?: boolean; variant?: IconVariant }
+export interface IconSvgOptions { size?: number | string; strokeWidth?: number; title?: string; className?: string; mirror?: boolean; variant?: IconVariant; /** Stable, instance-unique SVG id prefix for SSR */ idPrefix?: string }
 export declare function iconSvg(name: IconName | IconAlias | (string & {}), options?: IconSvgOptions): string | null;
 export declare function searchIcons(query: string): IconName[];
 `);

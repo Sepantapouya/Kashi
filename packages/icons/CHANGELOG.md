@@ -1,5 +1,17 @@
 # @kashi-ui/icons
 
+## 2.7.0
+
+- Support an explicit `idPrefix` for deterministic SVG code during server rendering; keep gradient-based logo examples consistent during hydration.
+
+### Minor Changes
+
+- Reach 10,200 canonical icons with 200 hand-drawn everyday-object variants and 1,800 documented application, brand and cryptocurrency marks, organized into 43 new categories. Preserve brand geometry and use currentColor, retaining multicolor contrast with monochrome masks and gradient identity across style and stroke settings; include upstream artwork notices and source manifests. Add 200 Iranian bank, payment, website, app, telecom, transport, media, insurance and retailer marks without removing any of the preceding 10,000 icon names. Existing icon names and compatibility aliases remain available. Update the documentation, MCP catalog and both Figma plugins.
+
+### Patch Changes
+
+- b93d527: پلاگین تازهٔ فیگما «Kashi Icons» برای مرور و خروجی گرفتن از همهٔ آیکون‌ها: جست‌وجوی فارسی و انگلیسی، دسته‌ها، شش سبک، رنگ، اندازه و ضخامت؛ افزودن با کلیک یا کشیدن روی بوم و دانلود SVG، PNG و ZIP یا کپی کد SVG و React. همان پنل به‌صورت صفحهٔ وب برای بیرون از فیگما هم در سایت هست.
+
 ## 2.6.0
 
 ### Minor Changes

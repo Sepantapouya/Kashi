@@ -1,30 +1,61 @@
 {
   "name": "@kashi-ui/icons",
-  "version": "2.6.0",
+  "version": "2.7.0",
   "description": "آیکون‌های خطی کاشی؛ SVG، کامپوننت React و اسپرایت",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
-    "./react": { "types": "./dist/react.d.ts", "default": "./dist/react.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "default": "./dist/react.js"
+    },
     "./svg/*": "./dist/svg/*",
     "./sprite.svg": "./dist/sprite.svg",
     "./sprite-*.svg": "./dist/sprite-*.svg",
     "./package.json": "./package.json"
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "THIRD-PARTY-NOTICES.md",
+    "brand-sources.json"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "node build.mjs",
     "test": "node --test test/*.test.mjs",
     "audit": "node scripts/audit.mjs"
   },
-  "peerDependencies": { "react": ">=18" },
-  "peerDependenciesMeta": { "react": { "optional": true } },
-  "publishConfig": { "access": "public" },
-  "keywords": ["icons", "svg", "react", "persian", "rtl", "kashi"],
-  "repository": { "type": "git", "url": "git+https://github.com/Sepantapouya/Kashi.git", "directory": "packages/icons" },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "icons",
+    "svg",
+    "react",
+    "persian",
+    "rtl",
+    "kashi"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sepantapouya/Kashi.git",
+    "directory": "packages/icons"
+  },
   "homepage": "https://kashi.sepantapouya.com/docs/icons/",
   "bugs": "https://github.com/Sepantapouya/Kashi/issues",
   "author": "Sepanta Pouya (https://sepantapouya.com)",

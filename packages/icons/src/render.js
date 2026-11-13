@@ -266,6 +266,12 @@ function bakeShift(svg, dx, dy) {
  * uid برای شناسهٔ ماسک‌های سبک bold است و باید در صفحه یکتا باشد؛ sw ضخامت خط است.
  */
 export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}) {
+  // سبک و ضخامت نباید شکل رسمی، رنگ یا فضای منفی لوگوها را عوض کند.
+  const brand = /^<g data-brand="true">([\s\S]*)<\/g>$/.exec(body);
+  if (brand) return brand[1]
+    .replace(/>\s+</g, "><")
+    .replace(/\bid="([^"]+)"/g, (_, id) => `id="${uid}-brand-${id}"`)
+    .replace(/url\(#([^)]+)\)/g, (_, id) => `url(#${uid}-brand-${id})`);
   // جابه‌جایی کل آیکون برای هم‌مرکز شدن؛ همهٔ سبک‌ها با هم جابه‌جا می‌شوند
   const shift = /^<g data-shift="([^"]+)">([\s\S]*)<\/g>$/.exec(body);
   if (shift) {

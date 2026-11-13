@@ -1,6 +1,6 @@
 # @kashi-ui/mcp
 
-سرور [MCP](https://modelcontextprotocol.io) کاشی: Claude، Cursor، Copilot و دیگر دستیارهای هوش مصنوعی را مستقیم به مستندات کامپوننت‌ها، ۸۲۰۰ آیکون، توکن‌ها و ابزارهای فارسی [کاشی](https://kashi.sepantapouya.com) وصل می‌کند تا کد را از روی prop های واقعی بنویسند، نه از روی حدس.
+سرور [MCP](https://modelcontextprotocol.io) کاشی: Claude، Cursor، Copilot و دیگر دستیارهای هوش مصنوعی را مستقیم به مستندات کامپوننت‌ها، ۱۰۲۰۰ آیکون، توکن‌ها و ابزارهای فارسی [کاشی](https://kashi.sepantapouya.com) وصل می‌کند تا کد را از روی prop های واقعی بنویسند، نه از روی حدس.
 
 راهنمای کامل: [kashi.sepantapouya.com/docs/ai](https://kashi.sepantapouya.com/docs/ai/)
 
@@ -31,7 +31,7 @@ VS Code (`.vscode/mcp.json`):
 | `kashi_get_docs` | مستندات کامل یک کامپوننت: prop ها، نمونهٔ React و HTML، متغیرهای CSS و دسترس‌پذیری |
 | `kashi_search_docs` | جستجوی فارسی و انگلیسی در مستندات |
 | `kashi_list_docs` | فهرست همهٔ صفحه‌ها |
-| `kashi_search_icons` | جستجو بین ۸۲۰۰ آیکون |
+| `kashi_search_icons` | جستجو بین ۱۰۲۰۰ آیکون |
 | `kashi_get_icon` | کد React یا SVG یک آیکون در هر شش سبک |
 | `kashi_get_tokens` | توکن‌های طراحی و متغیرهای تم |
 | `kashi_create_theme` | CSS تم برند از یک رنگ |

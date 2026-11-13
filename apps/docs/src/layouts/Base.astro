@@ -234,7 +234,7 @@ const ld = JSON.stringify({ "@context": "https://schema.org", "@graph": graph })
 
       // نشانگر لغزان زبانه‌های کاشی در صفحه‌های ایستا (کامپوننت React خودش این را دارد)
       document.querySelectorAll<HTMLElement>(".k-tabs__list[role='tablist']").forEach((list) => {
-        if (list.querySelector(".k-tabs__indicator")) return;
+        if (list.closest("astro-island") || list.querySelector(".k-tabs__indicator")) return;
         const ind = document.createElement("span");
         ind.className = "k-tabs__indicator";
         ind.setAttribute("aria-hidden", "true");
