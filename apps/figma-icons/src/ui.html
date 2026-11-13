@@ -13,8 +13,9 @@
   --muted: var(--figma-color-text-secondary, #687491);
   --faint: var(--figma-color-text-tertiary, #8792ab);
   --line: var(--figma-color-border, #e6e8ee);
-  --tile: #f4f5f8;
-  --tile-hover: #eceef3;
+  /* کاشی‌ها از رنگ متن و زمینه ساخته می‌شوند تا با هر پوستهٔ فیگما درست بمانند */
+  --tile: color-mix(in srgb, var(--fg) 6%, var(--bg));
+  --tile-hover: color-mix(in srgb, var(--fg) 11%, var(--bg));
   --brand: #0b8077;
   --brand-fg: #ffffff;
   --brand-soft: rgba(15, 168, 155, 0.12);
@@ -31,8 +32,6 @@ html.figma-dark, html.dark {
   --muted: var(--figma-color-text-secondary, #9aa3b8);
   --faint: var(--figma-color-text-tertiary, #6f7890);
   --line: var(--figma-color-border, #2c3038);
-  --tile: #22252c;
-  --tile-hover: #2a2e36;
   --brand: #22c2b4;
   --brand-fg: #04201e;
   --brand-soft: rgba(34, 194, 180, 0.14);
@@ -171,6 +170,7 @@ input[type="range"] { inline-size: 84px; accent-color: var(--brand); }
 
 .standalone-note { display: none; }
 body.web .only-figma { display: none !important; }
+body:not(.web) .only-web { display: none !important; }
 body.web .standalone-note { display: inline; }
 body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); border-color: transparent; box-shadow: 0 4px 14px var(--ring); }
 .brand bdi { font-family: ui-monospace, Menlo, monospace; font-size: 10.5px; }
@@ -196,7 +196,7 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
       <div class="brand"><b>آیکون‌های کاشی</b><span id="total"></span></div>
       <div class="top-actions">
         <button class="ghost only-figma" id="size-toggle" title="اندازهٔ پنل" aria-label="تغییر اندازهٔ پنل"></button>
-        <button class="ghost" id="theme-toggle" title="روشن / تیره" aria-label="روشن یا تیره"></button>
+        <button class="ghost only-web" id="theme-toggle" title="روشن / تیره" aria-label="روشن یا تیره"></button>
       </div>
     </div>
     <div class="search" id="search-box">
@@ -624,9 +624,15 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
   function applyTheme() {
     var html = document.documentElement;
     if (!inFigma) html.classList.toggle("dark", state.theme !== "light");
-    else if (state.theme) { html.classList.toggle("figma-dark", state.theme === "dark"); }
+    else {
+      // در فیگما پوسته را از رنگ واقعی زمینه می‌خوانیم؛ کلاس figma-dark همیشه سر وقت نمی‌رسد
+      var m = (getComputedStyle(document.body).backgroundColor.match(/\d+(\.\d+)?/g) || [255, 255, 255]).map(Number);
+      var dark = 0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2] < 128;
+      if (html.classList.contains("dark") !== dark) html.classList.toggle("dark", dark);
+    }
     $("theme-toggle").innerHTML = chrome(isDark() ? "sun" : "moon", 18);
   }
+  if (inFigma) new MutationObserver(function () { applyTheme(); }).observe(document.documentElement, { attributes: true, attributeFilter: ["class", "style"] });
   function isDark() { var c = document.documentElement.classList; return c.contains("dark") || c.contains("figma-dark"); }
   $("theme-toggle").addEventListener("click", function () { state.theme = isDark() ? "light" : "dark"; applyTheme(); save(); });
   $("size-toggle").addEventListener("click", function () {
