@@ -29,7 +29,9 @@
     "test:consumer": "node scripts/consumer-test.mjs",
     "release": "npm run build && npm test && npm run test:consumer && changeset publish",
     "figma:build": "node apps/figma-plugin/build.mjs",
-    "figma:test": "node apps/figma-plugin/build.mjs && node apps/figma-plugin/test/run.mjs"
+    "figma:test": "node apps/figma-plugin/build.mjs && node apps/figma-plugin/test/run.mjs",
+    "figma-icons:build": "node apps/figma-icons/build.mjs",
+    "figma-icons:test": "node apps/figma-icons/build.mjs && node apps/figma-icons/test/run.mjs"
   },
   "license": "MIT",
   "repository": {

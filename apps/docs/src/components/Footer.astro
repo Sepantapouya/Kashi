@@ -12,7 +12,7 @@ interface Props {
 const { cta = true } = Astro.props;
 const columns: { title: string; links: [string, string][] }[] = [
   { title: "محصول", links: [["معرفی", "/docs/"], ["نصب", "/docs/installation/"], ["کامپوننت‌ها", "/docs/components/"], ["کامپوننت‌های فارسی", "/docs/persian/"], ["آیکون‌ها", "/docs/icons/"], ["وب کامپوننت‌ها", "/docs/web-components/"]] },
-  { title: "ابزارها", links: [["تم‌ساز", "/docs/theming/"], ["پلاگین فیگما", "/docs/figma/"], ["Tailwind", "/docs/tailwind/"], ["رجیستری shadcn", "/docs/installation/#رجیستری-shadcn"], ["سرور MCP", "/docs/ai/"]] },
+  { title: "ابزارها", links: [["تم‌ساز", "/docs/theming/"], ["پلاگین فیگما", "/docs/figma/"], ["آیکون‌ها در فیگما", "/docs/icons/usage/#پلاگین-آیکونهای-کاشی"], ["Tailwind", "/docs/tailwind/"], ["رجیستری shadcn", "/docs/installation/#رجیستری-shadcn"], ["سرور MCP", "/docs/ai/"]] },
   { title: "راهنماها", links: [["مقاله‌ها", "/articles/"], ["حالت‌های کامپوننت‌ها", "/docs/states/"], ["حرکت و ریزتعامل‌ها", "/docs/motion/"], ["نوشتن متن رابط", "/docs/writing/"], ["دسترس‌پذیری", "/docs/accessibility/"], ["برند کاشی", "/docs/brand/"], ["مقایسه با دیگران", "/docs/compare/"]] },
   { title: "پایداری", links: [["وضعیت سرویس‌ها", "/status/"], ["نسخه‌ها", "/docs/changelog/"], ["سیاست تغییرات", "/docs/versioning/"], ["مهاجرت به ۲.۰", "/docs/migration/"], ["امنیت", "/docs/security/"], ["حجم کامپوننت‌ها", "/docs/sizes/"]] },
   { title: "جامعه", links: [["کانال تلگرام", author.channel.href], ["GitHub", author.repo], ["گزارش مشکل", `${author.repo}/issues`], ["راهنمای مشارکت", `${author.repo}/blob/main/CONTRIBUTING.md`], ["حمایت از کاشی", author.telegram.href]] },
