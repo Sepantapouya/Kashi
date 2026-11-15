@@ -266,6 +266,16 @@ function bakeShift(svg, dx, dy) {
  * uid برای شناسهٔ ماسک‌های سبک bold است و باید در صفحه یکتا باشد؛ sw ضخامت خط است.
  */
 export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}) {
+  // نویسه‌های وزیرمتن مسیر واقعی فونت‌اند؛ سبک فقط قاب و وزن تعریف‌شدهٔ فونت را تغییر می‌دهد.
+  const glyph = /^<g data-vazirmatn="true"><g data-font-frame="true">([\s\S]*?)<\/g><g data-font-face="true">([\s\S]*?)<\/g><g data-font-bold="true" display="none">([\s\S]*?)<\/g><\/g>$/.exec(body);
+  if (glyph) {
+    const frame = glyph[1], face = variant === "bold" ? glyph[3] : glyph[2];
+    if (!frame) return face;
+    const enclosure = renderBody(frame, variant, { uid: `${uid}-font-frame`, sw });
+    if (variant !== "bold") return enclosure + face;
+    const id = `${uid}-font-cut`;
+    return `<defs><mask id="${id}" x="0" y="0" width="20" height="20" maskUnits="userSpaceOnUse"><path d="M0 0h20v20H0Z" fill="#fff" stroke="none"/>${face.replace(/currentColor/g, "#000")}</mask></defs><g mask="url(#${id})">${enclosure}</g>`;
+  }
   // سبک و ضخامت نباید شکل رسمی، رنگ یا فضای منفی لوگوها را عوض کند.
   const brand = /^<g data-brand="true">([\s\S]*)<\/g>$/.exec(body);
   if (brand) return brand[1]

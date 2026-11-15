@@ -1,0 +1,1479 @@
+{
+  "font": "Vazirmatn",
+  "version": "Version 33.003",
+  "fontSha256": "4e3fa217d38fdafc1fea4414ceb58ca5e662cf0ab5fa735a8c8c20e8b42cad92",
+  "weights": [
+    500,
+    700
+  ],
+  "updatedCount": 86,
+  "outlineVariant": "number-zero preserves its hollow-zero presentation with the same font contour",
+  "icons": [
+    {
+      "name": "digit-0",
+      "text": "۰",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          901
+        ],
+        [
+          901
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "digit-1",
+      "text": "۱",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          903
+        ],
+        [
+          903
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "digit-2",
+      "text": "۲",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          905
+        ],
+        [
+          905
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "digit-3",
+      "text": "۳",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          907
+        ],
+        [
+          907
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "digit-4",
+      "text": "۴",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          909
+        ],
+        [
+          909
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "digit-5",
+      "text": "۵",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          913
+        ],
+        [
+          913
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "digit-6",
+      "text": "۶",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          915
+        ],
+        [
+          915
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "digit-7",
+      "text": "۷",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          917
+        ],
+        [
+          917
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "digit-8",
+      "text": "۸",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          921
+        ],
+        [
+          921
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "digit-9",
+      "text": "۹",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          923
+        ],
+        [
+          923
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "number-zero",
+      "text": "۰",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          901
+        ],
+        [
+          901
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-alef",
+      "text": "ا",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          681
+        ],
+        [
+          681
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-be",
+      "text": "ب",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          682
+        ],
+        [
+          682
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-pe",
+      "text": "پ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          788
+        ],
+        [
+          788
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-te",
+      "text": "ت",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          684
+        ],
+        [
+          684
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-se",
+      "text": "ث",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          685
+        ],
+        [
+          685
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-jim",
+      "text": "ج",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          686
+        ],
+        [
+          686
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-che",
+      "text": "چ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          797
+        ],
+        [
+          797
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-hhe",
+      "text": "ح",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          687
+        ],
+        [
+          687
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-khe",
+      "text": "خ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          688
+        ],
+        [
+          688
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-dal",
+      "text": "د",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          689
+        ],
+        [
+          689
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-zal",
+      "text": "ذ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          690
+        ],
+        [
+          690
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-re",
+      "text": "ر",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          691
+        ],
+        [
+          691
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-ze",
+      "text": "ز",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          692
+        ],
+        [
+          692
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-zhe",
+      "text": "ژ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          808
+        ],
+        [
+          808
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-sin",
+      "text": "س",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          693
+        ],
+        [
+          693
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-shin",
+      "text": "ش",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          694
+        ],
+        [
+          694
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-sad",
+      "text": "ص",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          695
+        ],
+        [
+          695
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-zad",
+      "text": "ض",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          696
+        ],
+        [
+          696
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-ta",
+      "text": "ط",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          697
+        ],
+        [
+          697
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-za",
+      "text": "ظ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          698
+        ],
+        [
+          698
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-ein",
+      "text": "ع",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          699
+        ],
+        [
+          699
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-ghein",
+      "text": "غ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          700
+        ],
+        [
+          700
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-fe",
+      "text": "ف",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          714
+        ],
+        [
+          714
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-qaf",
+      "text": "ق",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          715
+        ],
+        [
+          715
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-kaf",
+      "text": "ک",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          822
+        ],
+        [
+          822
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-gaf",
+      "text": "گ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          836
+        ],
+        [
+          836
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-lam",
+      "text": "ل",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          717
+        ],
+        [
+          717
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-mim",
+      "text": "م",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          718
+        ],
+        [
+          718
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-nun",
+      "text": "ن",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          719
+        ],
+        [
+          719
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-vav",
+      "text": "و",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          721
+        ],
+        [
+          721
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-he",
+      "text": "ه",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          720
+        ],
+        [
+          720
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "fa-ye",
+      "text": "ی",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          868
+        ],
+        [
+          868
+        ]
+      ],
+      "framed": true
+    },
+    {
+      "name": "persian-numerals",
+      "text": "۱۲۳",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          903,
+          905,
+          907
+        ],
+        [
+          903,
+          905,
+          907
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-alef-plain",
+      "text": "ا",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          681
+        ],
+        [
+          681
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-be-plain",
+      "text": "ب",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          682
+        ],
+        [
+          682
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-pe-plain",
+      "text": "پ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          788
+        ],
+        [
+          788
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-te-plain",
+      "text": "ت",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          684
+        ],
+        [
+          684
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-se-plain",
+      "text": "ث",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          685
+        ],
+        [
+          685
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-jim-plain",
+      "text": "ج",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          686
+        ],
+        [
+          686
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-che-plain",
+      "text": "چ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          797
+        ],
+        [
+          797
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-hhe-plain",
+      "text": "ح",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          687
+        ],
+        [
+          687
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-khe-plain",
+      "text": "خ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          688
+        ],
+        [
+          688
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-dal-plain",
+      "text": "د",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          689
+        ],
+        [
+          689
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-zal-plain",
+      "text": "ذ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          690
+        ],
+        [
+          690
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-re-plain",
+      "text": "ر",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          691
+        ],
+        [
+          691
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-ze-plain",
+      "text": "ز",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          692
+        ],
+        [
+          692
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-zhe-plain",
+      "text": "ژ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          808
+        ],
+        [
+          808
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-sin-plain",
+      "text": "س",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          693
+        ],
+        [
+          693
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-shin-plain",
+      "text": "ش",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          694
+        ],
+        [
+          694
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-sad-plain",
+      "text": "ص",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          695
+        ],
+        [
+          695
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-zad-plain",
+      "text": "ض",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          696
+        ],
+        [
+          696
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-ta-plain",
+      "text": "ط",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          697
+        ],
+        [
+          697
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-za-plain",
+      "text": "ظ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          698
+        ],
+        [
+          698
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-ein-plain",
+      "text": "ع",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          699
+        ],
+        [
+          699
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-ghein-plain",
+      "text": "غ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          700
+        ],
+        [
+          700
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-fe-plain",
+      "text": "ف",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          714
+        ],
+        [
+          714
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-qaf-plain",
+      "text": "ق",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          715
+        ],
+        [
+          715
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-kaf-plain",
+      "text": "ک",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          822
+        ],
+        [
+          822
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-gaf-plain",
+      "text": "گ",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          836
+        ],
+        [
+          836
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-lam-plain",
+      "text": "ل",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          717
+        ],
+        [
+          717
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-mim-plain",
+      "text": "م",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          718
+        ],
+        [
+          718
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-nun-plain",
+      "text": "ن",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          719
+        ],
+        [
+          719
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-vav-plain",
+      "text": "و",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          721
+        ],
+        [
+          721
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-he-plain",
+      "text": "ه",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          720
+        ],
+        [
+          720
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "fa-ye-plain",
+      "text": "ی",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          868
+        ],
+        [
+          868
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "digit-0-plain",
+      "text": "۰",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          901
+        ],
+        [
+          901
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "digit-1-plain",
+      "text": "۱",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          903
+        ],
+        [
+          903
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "digit-2-plain",
+      "text": "۲",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          905
+        ],
+        [
+          905
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "digit-3-plain",
+      "text": "۳",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          907
+        ],
+        [
+          907
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "digit-4-plain",
+      "text": "۴",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          909
+        ],
+        [
+          909
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "digit-5-plain",
+      "text": "۵",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          913
+        ],
+        [
+          913
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "digit-6-plain",
+      "text": "۶",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          915
+        ],
+        [
+          915
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "digit-7-plain",
+      "text": "۷",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          917
+        ],
+        [
+          917
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "digit-8-plain",
+      "text": "۸",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          921
+        ],
+        [
+          921
+        ]
+      ],
+      "framed": false
+    },
+    {
+      "name": "digit-9-plain",
+      "text": "۹",
+      "weights": [
+        500,
+        700
+      ],
+      "glyphIds": [
+        [
+          923
+        ],
+        [
+          923
+        ]
+      ],
+      "framed": false
+    }
+  ]
+}

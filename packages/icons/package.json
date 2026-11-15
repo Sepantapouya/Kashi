@@ -24,7 +24,9 @@
     "README.md",
     "LICENSE",
     "THIRD-PARTY-NOTICES.md",
-    "brand-sources.json"
+    "brand-sources.json",
+    "Vazirmatn-OFL.txt",
+    "audits/vazirmatn-glyphs.json"
   ],
   "sideEffects": false,
   "scripts": {

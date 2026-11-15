@@ -85,3 +85,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 
 Brand artwork uses currentColor. Four multicolor wallet marks are projected through inverse-luminance masks to retain their contrast and negative spaces in the selected color.
+
+## Vazirmatn — SIL Open Font License 1.1
+
+The 86 Persian letter and numeral icons use outlines extracted from Vazirmatn 33.003, at weights 500 and 700. Copyright 2015 The Vazirmatn Project Authors (https://github.com/rastikerdar/vazirmatn). Coordinates are fitted to the icon grid; no runtime font loading is required. The existing hollow-zero variant retains its outlined presentation. Source font checksum, character mapping and glyph IDs are recorded in `audits/vazirmatn-glyphs.json`. The full font license is distributed in `Vazirmatn-OFL.txt`.
