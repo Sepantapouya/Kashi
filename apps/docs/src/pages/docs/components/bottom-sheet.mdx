@@ -1,0 +1,64 @@
+---
+layout: ../../../layouts/Docs.astro
+title: برگهٔ پایین
+description: پنلی که از پایین صفحهٔ گوشی بالا می‌آید؛ با دستگیره کشیده می‌شود، روی ارتفاع‌های تعیین‌شده می‌ایستد و با کشیدن به پایین بسته می‌شود.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { BottomSheetDemo } from "../../../components/demos";
+
+```tsx
+import { BottomSheet } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<BottomSheet open={open} onOpenChange={setOpen} title="مرتب‌سازی">
+  <RadioGroup label="ترتیب نمایش">…</RadioGroup>
+</BottomSheet>
+
+// دو ارتفاع: نیمه و تقریباً تمام صفحه
+<BottomSheet
+  open={open}
+  onOpenChange={setOpen}
+  title="نظر خریداران"
+  snapPoints={[0.45, 0.9]}
+  footer={<Button variant="primary">نوشتن نظر</Button>}
+>
+  …
+</BottomSheet>`}>
+  <BottomSheetDemo client:load />
+</Demo>
+
+روی دسکتاپ هم کار می‌کند؛ دستگیره را با ماوس بکشید. در گوشی بازش کنید تا حس واقعی‌اش را ببینید.
+
+## ارتفاع و کشیدن
+
+- **بدون `snapPoints`** برگه به اندازهٔ محتواست (حداکثر ۹۰٪ صفحه) و کشیدن به پایین آن را می‌بندد.
+- **با `snapPoints`** مثل `[0.45, 0.9]` برگه روی این ارتفاع‌ها (به نسبت ارتفاع صفحه) می‌ایستد. بعد از رها کردن، به نزدیک‌ترین ارتفاع می‌رود؛ پرتاب سریع به بالا یا پایین ارتفاع بعدی را انتخاب می‌کند و پرتاب به پایین از کوچک‌ترین ارتفاع، برگه را می‌بندد.
+- ارتفاع فعلی را با `snap` و `onSnapChange` کنترل کنید، یا فقط `defaultSnap` بدهید.
+- دستگیره با کیبورد هم کار می‌کند: Enter بین ارتفاع‌ها جابه‌جا می‌کند و کلیدهای جهت بالا و پایین ارتفاع را عوض می‌کنند.
+- محتوای وسط جداگانه اسکرول می‌خورد و اسکرولش به صفحهٔ پشت منتقل نمی‌شود. `footer` بالای نوار پایین آیفون (safe area) می‌ماند.
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["open", "boolean", "", "باز بودن (کنترل‌شده)"],
+  ["onOpenChange", "(open: boolean) => void", "", "هنگام بستن با کشیدن، Esc یا پس‌زمینه"],
+  ["title", "ReactNode", "", "عنوان — الزامی، نام برگه برای صفحه‌خوان"],
+  ["hideTitle", "boolean", "false", "پنهان کردن عنوان از دید؛ صفحه‌خوان همچنان می‌خواند"],
+  ["description", "ReactNode", "", "توضیح زیر عنوان"],
+  ["snapPoints", "number[]", "", "ارتفاع‌های ایست به نسبت صفحه، از کوچک به بزرگ"],
+  ["defaultSnap / snap / onSnapChange", "number", "0", "اندیس ارتفاع فعلی"],
+  ["footer", "ReactNode", "", "دکمه‌های پایین"],
+  ["dismissible", "boolean", "true", "بستن با کشیدن به پایین و کلیک روی پس‌زمینه"],
+  ["showClose", "boolean", "false", "دکمهٔ بستن در سربرگ"],
+]} />
+
+متغیرهای CSS: `--k-sheet-height`، `--k-sheet-radius` و `--k-dialog-width` (بیشترین پهنا روی صفحهٔ بزرگ).
+
+## دسترس‌پذیری
+
+- همان رفتار دیالوگ: تلهٔ فوکوس، Esc و برگشت فوکوس پس از بستن.
+- کشیدن تنها راه نیست: Esc، کلیک روی پس‌زمینه و (با `showClose`) دکمهٔ بستن هم می‌بندند و دستگیره با کیبورد ارتفاع را عوض می‌کند.
+- دستگیرهٔ دارای ارتفاع، `aria-expanded` دارد و نامش «باز کردن کامل برگه» یا «کوچک کردن برگه» است.

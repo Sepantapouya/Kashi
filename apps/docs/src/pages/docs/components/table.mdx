@@ -5,7 +5,7 @@ description: جدول با مرتب‌سازی، انتخاب ردیف‌ها، 
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { TableDemo, TableExtrasDemo } from "../../../components/demos";
+import { TableDemo, TableExtrasDemo, VirtualTableDemo } from "../../../components/demos";
 
 ```tsx
 import { DataTable } from "@kashi-ui/react";
@@ -68,9 +68,30 @@ import { DataTable } from "@kashi-ui/react";
 
 متغیرهای CSS: `--k-table-radius`، `--k-table-cell-px`، `--k-table-cell-py`، `--k-table-header-bg`، `--k-table-stripe`، `--k-table-row-hover`.
 
+## ده‌ها هزار ردیف با اسکرول مجازی
+
+با `virtual` فقط ردیف‌هایی ساخته می‌شوند که دیده می‌شوند، به‌اضافهٔ چند ردیف بالا و پایین؛ ده هزار یا صد هزار ردیف همان‌قدر روان است که بیست ردیف. مرتب‌سازی، انتخاب و سرستون ثابت مثل قبل کار می‌کنند و صفحه‌خوان با `aria-rowcount` و `aria-rowindex` تعداد کل و جای هر ردیف را می‌خواند.
+
+<Demo html={false} code={`<DataTable
+  caption="۱۰٬۰۰۰ سفارش"
+  rows={orders}
+  getRowId={(r) => r.id}
+  columns={columns}
+  virtual
+  maxHeight="22rem"
+/>`}>
+  <VirtualTableDemo client:load />
+</Demo>
+
+- ارتفاع جدول از `maxHeight` می‌آید (پیش‌فرض ۲۸rem).
+- ردیف‌ها باید هم‌قد باشند. ارتفاع واقعی ردیف خودکار اندازه‌گیری می‌شود؛ اگر ردیف‌ها ارتفاع ثابت دارند، با `virtual={{ rowHeight: 48 }}` آن را بدهید.
+- برای جست‌وجو در مرورگر (Ctrl+F) ردیف‌های ساخته‌نشده پیدا نمی‌شوند؛ اگر کاربر باید در همهٔ ردیف‌ها جست‌وجو کند، یک فیلد جست‌وجو بالای جدول بگذارید.
+- برای داده‌ای که از سرور صفحه‌به‌صفحه می‌آید، [صفحه‌بندی](/docs/components/pagination/) معمولاً ساده‌تر است.
+
 ## ویژگی‌ها
 
 <Props rows={[
+  ["virtual", "boolean | { rowHeight?: number; overscan?: number }", "false", "اسکرول مجازی برای هزاران ردیف؛ overscan تعداد ردیف اضافهٔ بالا و پایین (پیش‌فرض ۶)"],
   ["columns", "Column[]", "", "ستون‌ها: key، header، render، sortable، sortValue، numeric، width"],
   ["rows", "T[]", "", "ردیف‌ها"],
   ["getRowId", "(row) => string", "", "شناسهٔ یکتای هر ردیف"],

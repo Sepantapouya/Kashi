@@ -38,3 +38,37 @@
 .k-empty__title { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-md); font-weight: var(--k-weight-semibold); }
 .k-empty__description { margin: 0; max-inline-size: 22rem; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: var(--k-leading-normal); }
 .k-empty__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--k-space-3); margin-block-start: var(--k-space-4); }
+
+/* اندازه‌ها: k-empty--sm داخل جدول و منو، k-empty--lg صفحهٔ کامل */
+.k-empty--sm { --k-empty-padding: var(--k-space-6) var(--k-space-4); gap: var(--k-space-1); }
+.k-empty--sm .k-empty__icon { inline-size: 2.25rem; block-size: 2.25rem; margin-block-end: var(--k-space-2); border-radius: var(--k-radius-md); }
+.k-empty--sm .k-empty__icon svg { inline-size: 1.125rem; block-size: 1.125rem; }
+.k-empty--sm .k-empty__icon::before { display: none; }
+.k-empty--sm .k-empty__title { font-size: var(--k-text-sm); }
+.k-empty--sm .k-empty__description { font-size: var(--k-text-xs); }
+.k-empty--sm .k-empty__actions { margin-block-start: var(--k-space-2); }
+.k-empty--lg { --k-empty-padding: var(--k-space-16) var(--k-space-6); }
+.k-empty--lg .k-empty__icon { inline-size: 3.5rem; block-size: 3.5rem; border-radius: var(--k-radius-xl); }
+.k-empty--lg .k-empty__icon svg { inline-size: 1.75rem; block-size: 1.75rem; }
+.k-empty--lg .k-empty__title { font-size: var(--k-text-lg); }
+.k-empty--lg .k-empty__description { max-inline-size: 26rem; font-size: var(--k-text-md); }
+
+/* قاب خط‌چین */
+.k-empty--bordered { border: 1px dashed var(--k-border-primary); border-radius: var(--k-radius-xl); background: var(--k-bg-secondary); overflow: hidden; }
+
+/* رنگ آیکون حالت‌های آماده */
+.k-empty[data-preset="error"] .k-empty__icon { color: var(--k-text-error); }
+.k-empty[data-preset="offline"] .k-empty__icon { color: var(--k-text-warning); }
+.k-empty[data-preset="done"] .k-empty__icon { color: var(--k-text-success); }
+
+/* ورود: آیکون کمی بالا می‌آید، دایره‌ها باز می‌شوند، متن پشت سرش */
+@media (prefers-reduced-motion: no-preference) {
+  .k-empty__icon { animation: k-empty-icon var(--k-duration-slow) var(--k-ease-emphasized) both; }
+  .k-empty__icon::before { animation: k-empty-rings 600ms var(--k-ease-standard) both; }
+  .k-empty__title, .k-empty__description, .k-empty__actions { animation: k-empty-text var(--k-duration-slow) var(--k-ease-standard) both; }
+  .k-empty__description { animation-delay: 40ms; }
+  .k-empty__actions { animation-delay: 80ms; }
+}
+@keyframes k-empty-icon { from { opacity: 0; translate: 0 6px; scale: 0.92; } }
+@keyframes k-empty-rings { from { opacity: 0; scale: 0.7; } }
+@keyframes k-empty-text { from { opacity: 0; translate: 0 4px; } }

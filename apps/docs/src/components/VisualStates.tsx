@@ -1,6 +1,7 @@
 // حالت‌هایی که نمونه‌های مستندات نشان نمی‌دهند ولی باگ‌های ظاهری معمولاً همان‌جاست:
 // خطا کنار فیلد بی‌خطا، برچسب اختیاری، متن بلند، غیرفعال، و همان کامپوننت‌ها به انگلیسی. فقط برای تست تصویری.
 import { PriceRange, SearchSuggest, SwatchGroup } from "@kashi-ui/react";
+import { DataTable, EmptyState, Navbar } from "@kashi-ui/react";
 import {
   AddressForm, Alert, Badge, Button, CardNumberInput, Checkbox, DatePicker, Input, KashiProvider, NationalIdInput,
   Pagination, PriceInput, RadioGroup, Radio, Select, Switch, Tab, TabList, TabPanel, Tabs, Textarea, TimeInput,
@@ -147,6 +148,23 @@ export default function VisualStates() {
           <PriceRange label="قیمت" min={0} max={2_500_000_000} step={1_000_000} defaultValue={[125_000_000, 2_480_000_000]} />
           <SwatchGroup label="رنگ" defaultValue={["silver"]} options={[{ value: "white", label: "سفید", color: "#fff" }, { value: "silver", label: "نقره‌ای متالیک براق", color: "radial-gradient(#fff, #a9adb3)" }, { value: "x", label: "ناموجود", color: "#111", disabled: true }]} />
         </div>
+      </section>
+      <section data-visual="v28-navbar" style={{ display: "grid", gap: 16 }}>
+        <Navbar sticky={false} collapseBelow="sm" brand="فروشگاه کاشی با نام بلند" links={[{ href: "#", label: "خانه" }, { href: "#", label: "محصولات و خدمات", current: true }, { href: "#", label: "وبلاگ", badge: "جدید" }]} actions={<Button size="sm" variant="primary">ثبت‌نام</Button>} />
+        <div style={{ inlineSize: 375 }}><Navbar sticky={false} collapseBelow="lg" brand="کاشی" links={[{ href: "#", label: "خانه", current: true }]} actions={<Button size="sm">ورود</Button>} /></div>
+        <KashiProvider locale="en"><Navbar sticky={false} brand="Kashi" links={[{ href: "#", label: "Home", current: true }, { href: "#", label: "Docs" }]} /></KashiProvider>
+        <Navbar sticky={false} collapseBelow="sm" variant="pill" centered brand="کاشی" links={[{ href: "#", label: "خانه" }, { href: "#", label: "محصولات", current: true }, { href: "#", label: "وبلاگ" }]} actions={<Button size="sm">ورود</Button>} />
+        <div style={{ padding: 12, background: "var(--k-bg-secondary)" }}><Navbar sticky={false} collapseBelow="sm" floating variant="pill" brand="کاشی" links={[{ href: "#", label: "خانه", current: true }, { href: "#", label: "قیمت‌ها" }]} actions={<Button size="sm" variant="primary">ثبت‌نام</Button>} /></div>
+      </section>
+      <section data-visual="v28-empty" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, alignItems: "start" }}>
+        <EmptyState preset="noResults" size="sm" bordered actions={<Button size="sm" variant="secondary">پاک کردن فیلترها</Button>} />
+        <EmptyState preset="error" bordered title="بارگذاری سفارش‌ها با یک عنوان خیلی بلند انجام نشد" />
+        <KashiProvider locale="en"><EmptyState preset="offline" size="lg" /></KashiProvider>
+      </section>
+      <section data-visual="v28-virtual-table" style={{ inlineSize: 520 }}>
+        <DataTable caption="۲۰۰۰ ردیف" virtual maxHeight="12rem" striped compact selectable getRowId={(r) => r.id}
+          rows={Array.from({ length: 2000 }, (_, i) => ({ id: String(i), name: `مشتری شمارهٔ ${i + 1}`, amount: (i * 7919) % 100000 }))}
+          columns={[{ key: "name", header: "نام" }, { key: "amount", header: "مبلغ", numeric: true }]} />
       </section>
       <section data-visual="tabs-narrow" style={{ display: "grid", gap: 24, inlineSize: 343 }}>
         <WideTabs />

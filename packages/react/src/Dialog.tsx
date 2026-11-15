@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useId, useRef, type ReactNode } from "react";
+import { useId, useRef, type ReactNode } from "react";
 import { cx } from "./cx.js";
 import { CloseIcon } from "./icons.js";
 import { useKashi } from "./KashiProvider.js";
+import { useModalDialog } from "./modal.js";
 
 export interface DialogProps {
   open: boolean;
@@ -40,19 +41,9 @@ export function Dialog({
   const { messages: M } = useKashi();
   closeLabel ??= M.common.close;
   const ref = useRef<HTMLDialogElement>(null);
-  const opener = useRef<Element | null>(null);
   const id = useId();
-
-  useEffect(() => {
-    const d = ref.current;
-    if (!d) return;
-    if (open && !d.open) {
-      opener.current = document.activeElement;
-      d.showModal();
-    } else if (!open && d.open) {
-      d.close();
-    }
-  }, [open]);
+  // باز و بسته با انیمیشن خروج و برگشت فوکوس
+  const { restoreFocus } = useModalDialog(ref, open);
 
   return (
     <dialog
@@ -62,8 +53,8 @@ export function Dialog({
       aria-labelledby={`${id}-title`}
       aria-describedby={description ? `${id}-desc` : undefined}
       onClose={() => {
-        onOpenChange(false);
-        (opener.current as HTMLElement | null)?.focus?.();
+        if (open) onOpenChange(false);
+        restoreFocus();
       }}
       onCancel={(e) => {
         // Esc: بستن از طریق state تا والد همگام بماند

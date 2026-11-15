@@ -5,7 +5,7 @@ description: وقتی داده‌ای برای نمایش نیست؛ توضیح 
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
-import { EmptyDemo } from "../../../components/demos";
+import { EmptyDemo, EmptyPresetsDemo, EmptySizesDemo } from "../../../components/demos";
 
 ```tsx
 import { EmptyState } from "@kashi-ui/react";
@@ -25,8 +25,43 @@ import { EmptyState } from "@kashi-ui/react";
   <EmptyDemo />
 </Demo>
 
+## حالت‌های آماده
+
+شش حالتی که تقریباً هر محصولی لازم دارد، با آیکون، عنوان و توضیح آماده به فارسی و انگلیسی. هر بخش را با `title`، `description` یا `icon` عوض کنید و دکمهٔ قدم بعدی را با `actions` بدهید.
+
+<Demo html={false} code={`<EmptyState preset="noResults" bordered
+  actions={<Button size="sm" variant="secondary">پاک کردن فیلترها</Button>}
+/>
+
+<EmptyState preset="error" actions={<Button size="sm">تلاش دوباره</Button>} />`}>
+  <EmptyPresetsDemo client:load />
+</Demo>
+
+| preset | کاربرد |
+| --- | --- |
+| `noData` | هنوز چیزی ساخته نشده |
+| `noResults` | جست‌وجو یا فیلتر نتیجه نداشت |
+| `error` | داده نیامد؛ برای صفحه‌خوان اعلام می‌شود |
+| `offline` | اتصال اینترنت قطع است؛ اعلام می‌شود |
+| `noAccess` | کاربر اجازهٔ دیدن این بخش را ندارد |
+| `done` | کار دیگری نمانده، مثل صندوق اعلان خالی |
+
+## اندازه و قاب
+
+`size="sm"` برای داخل جدول، منو یا کارت کوچک و `size="lg"` برای صفحهٔ کامل. `bordered` قاب خط‌چین می‌کشد؛ مناسب جای خالی وسط صفحه.
+
+<Demo html={false} code={`<EmptyState preset="noData" size="sm" bordered />
+<EmptyState preset="noResults" bordered />`}>
+  <EmptySizesDemo />
+</Demo>
+
+## ویژگی‌ها
+
 <Props rows={[
-  ["title", "ReactNode", "", "عنوان — الزامی"],
+  ["preset", '"noData" | "noResults" | "error" | "offline" | "noAccess" | "done"', "", "حالت آماده با آیکون و متن پیش‌فرض"],
+  ["size", '"sm" | "md" | "lg"', '"md"', "اندازه"],
+  ["bordered", "boolean", "false", "قاب خط‌چین"],
+  ["title", "ReactNode", "", "عنوان؛ بدون preset الزامی"],
   ["description", "ReactNode", "", "توضیح و راهنمایی"],
   ["icon", "ReactNode", "", "آیکون"],
   ["actions", "ReactNode", "", "دکمه‌ها"],

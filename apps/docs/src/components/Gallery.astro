@@ -15,10 +15,10 @@ const slugOf = (href: string) => href.split("/").filter(Boolean).pop()!;
 // دسته‌بندی بر اساس کاربرد
 const CATEGORIES: Record<"components" | "persian", { key: string; label: string; text?: string; slugs: string[] }[]> = {
   components: [
-    { key: "form", label: "فرم و ورودی", text: "هر چیزی که کاربر با آن داده وارد می‌کند؛ با برچسب، راهنما و پیام خطای فارسی.", slugs: ["button", "input", "select", "checkbox", "radio", "switch", "combobox", "tag-input", "file-upload", "slider", "number-input", "segmented-control", "button-group", "chips", "copy-button", "password-strength", "rating", "inline-edit", "color-picker", "multi-select", "search-suggest", "swatch-group"] },
+    { key: "form", label: "فرم و ورودی", text: "هر چیزی که کاربر با آن داده وارد می‌کند؛ با برچسب، راهنما و پیام خطای فارسی.", slugs: ["form", "button", "input", "select", "checkbox", "radio", "switch", "combobox", "tag-input", "file-upload", "slider", "number-input", "segmented-control", "button-group", "chips", "copy-button", "password-strength", "rating", "inline-edit", "color-picker", "multi-select", "search-suggest", "swatch-group"] },
     { key: "data", label: "نمایش داده", text: "جدول، کارت آمار و خط زمانی برای داشبوردها و پنل‌های مدیریت.", slugs: ["charts", "table", "stat-card", "timeline", "card", "badge", "avatar", "tree-view", "progress", "meter", "carousel", "skeleton", "empty-state", "divider"] },
-    { key: "nav", label: "ناوبری", text: "تب، منو، صفحه‌بندی و کامند پالت، همه با پیمایش کامل کیبورد.", slugs: ["tabs", "side-nav", "breadcrumb", "pagination", "stepper", "command-palette", "dropdown-menu", "context-menu", "accordion", "splitter"] },
-    { key: "feedback", label: "بازخورد و پنجره", text: "پیام‌ها و پنجره‌هایی که فوکوس و صفحه‌خوان را درست مدیریت می‌کنند.", slugs: ["alert", "toast", "banner", "dialog", "popover", "tooltip", "tour"] },
+    { key: "nav", label: "ناوبری", text: "تب، منو، صفحه‌بندی و کامند پالت، همه با پیمایش کامل کیبورد.", slugs: ["navbar", "tabs", "side-nav", "breadcrumb", "pagination", "stepper", "command-palette", "dropdown-menu", "context-menu", "accordion", "splitter"] },
+    { key: "feedback", label: "بازخورد و پنجره", text: "پیام‌ها و پنجره‌هایی که فوکوس و صفحه‌خوان را درست مدیریت می‌کنند.", slugs: ["alert", "toast", "banner", "dialog", "drawer", "bottom-sheet", "popover", "tooltip", "tour"] },
   ],
   persian: [
     { key: "input", label: "فیلدهای فارسی", text: "کد ملی، شناسهٔ شرکت، موبایل، تلفن، کارت، شبا، مبلغ، کد پستی، ساعت، پلاک و متن؛ همه در یک کامپوننت با kind.", slugs: ["input", "province", "otp"] },
@@ -192,6 +192,19 @@ numberToWords(<span class="t-n">2500000</span>);                     <span class
   .gcard__preview .pv-dialog__title { margin: 0; color: var(--k-text-primary); font-weight: var(--k-weight-semibold); font-size: var(--k-text-sm); }
   .gcard__preview .pv-dialog__text { margin: var(--k-space-1) 0 var(--k-space-3); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
   .gcard__preview .pv-dialog__actions { display: flex; justify-content: flex-end; gap: var(--k-space-2); }
+  .gcard__preview .pv-drawer { position: relative; display: flex; inline-size: 15rem; block-size: 9rem; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); overflow: hidden; background: var(--k-bg-secondary); }
+  .gcard__preview .pv-drawer__page { flex: 1; background: repeating-linear-gradient(180deg, transparent 0 14px, var(--k-border-secondary) 14px 15px); opacity: .6; }
+  .gcard__preview .pv-drawer__panel { display: grid; align-content: start; gap: var(--k-space-2); inline-size: 9rem; padding: var(--k-space-3); background: var(--k-bg-elevated); border-inline-start: 1px solid var(--k-border-secondary); box-shadow: var(--k-shadow-lg); font-size: var(--k-text-xs); }
+  .gcard__preview .pv-drawer__panel .k-btn { justify-self: stretch; }
+  .gcard__preview .pv-phone { position: relative; inline-size: 8.5rem; block-size: 10rem; border: 1px solid var(--k-border-primary); border-radius: 1.25rem; background: var(--k-bg-secondary); overflow: hidden; }
+  .gcard__preview .pv-sheet { position: absolute; inset: auto 0 0; display: grid; gap: var(--k-space-1-5, 6px); padding: 6px var(--k-space-3) var(--k-space-3); border-radius: 1rem 1rem 0 0; background: var(--k-bg-elevated); border-block-start: 1px solid var(--k-border-secondary); box-shadow: var(--k-shadow-xl); }
+  .gcard__preview .pv-sheet__handle { justify-self: center; inline-size: 1.75rem; block-size: 3px; border-radius: 2px; background: var(--k-border-primary); margin-block-end: 4px; }
+  .gcard__preview .pv-sheet__row { padding: 4px 8px; border-radius: var(--k-radius-sm); font-size: var(--k-text-xs); color: var(--k-text-secondary); }
+  .gcard__preview .pv-sheet__row[data-on] { background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+  .gcard__preview .pv-navbar { display: flex; align-items: center; gap: var(--k-space-3); padding: var(--k-space-2) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); font-size: var(--k-text-xs); color: var(--k-text-tertiary); }
+  .gcard__preview .pv-navbar b { color: var(--k-text-primary); margin-inline-end: var(--k-space-1); }
+  .gcard__preview .pv-navbar span[data-on] { color: var(--k-text-primary); padding: 3px 8px; border-radius: var(--k-radius-sm); background: var(--k-bg-hover); }
+  .gcard__preview .pv-navbar .k-btn { margin-inline-start: auto; }
   .gcard__preview .pv-list { margin-block-start: var(--k-space-1); }
   .gcard__preview .pv-cmd { border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-lg); overflow: hidden; font-size: var(--k-text-sm); }
   .gcard__preview .pv-cmd__search { display: flex; align-items: center; gap: var(--k-space-2); padding: var(--k-space-2) var(--k-space-3); border-block-end: 1px solid var(--k-border-secondary); color: var(--k-text-tertiary); }

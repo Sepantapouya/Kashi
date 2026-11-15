@@ -171,6 +171,40 @@ function buildNavigation() {
     });
   }));
 
+  safe("Navbar", () => section(root, "Navbar · نوار ناوبری", "نوار بالای سایت؛ در گوشی پیوندها به منوی کشو می‌روند.", (h) => {
+    componentSet(h, "Navbar", {
+      axes: { Style: ["Line", "Pill", "Centered", "Floating"], Size: ["Desktop", "Mobile"] },
+      // k-navbar: ارتفاع ۶۴، فاصلهٔ افقی ۱۶، پیوندها ۸/۱۲ با گوشهٔ ۸
+      build: (p) => {
+        const mobile = p.Size === "Mobile";
+        const pill = p.Style !== "Line";
+        const floating = p.Style === "Floating";
+        const link = (label, on, badgeText) => F({ name: "Link", dir: "V", gap: 0, cross: "center" }, [
+          F({ dir: "H", gap: "space/2", py: "space/2", px: "space/3", radius: pill ? "radius/full" : "radius/md", fill: on ? (pill ? "bg-brand-subtle" : "bg-hover") : undefined, cross: "center" }, [
+            T(label, { style: "Text sm/Medium", color: on ? (pill ? "text-brand" : "text-primary") : "text-tertiary" }),
+            badgeText && badge({ tone: "Brand", size: "sm", label: badgeText, dot: false }),
+          ]),
+          on && !pill && R({ w: 56, h: 2, radius: 1, fill: "text-brand", name: "Underline" }),
+        ]);
+        const linksRow = !mobile && F({ name: "Links", dir: "H", gap: "space/1", cross: "center" }, [link("خانه"), link("محصولات", true), link("قیمت‌ها"), link("وبلاگ", false, "جدید")]);
+        return F({ name: "Navbar", dir: "H", gap: "space/6", px: floating ? "space/3" : "space/4", h: floating ? 56 : 64, w: mobile ? 375 : 960, cross: "center", fill: floating ? "bg-elevated" : "bg-primary", stroke: "border-secondary", sides: floating ? undefined : [0, 0, 1, 0], radius: floating ? "radius/2xl" : undefined, shadow: floating ? "Shadow/md" : undefined }, [
+          F({ name: "Brand", dir: "H", gap: "space/2", cross: "center" }, [
+            F({ dir: "H", w: 28, h: 28, align: "center", cross: "center", radius: "radius/md", fill: "bg-brand" }, [T("ک", { style: "Text sm/Bold", color: "text-on-brand" })]),
+            T("فروشگاه کاشی", { style: "Text md/Bold", color: "text-primary" }),
+          ]),
+          p.Style === "Centered" && !mobile ? Spacer() : linksRow,
+          p.Style === "Centered" && !mobile ? linksRow : null,
+          Spacer(),
+          !mobile && button({ variant: "Tertiary", size: "sm", label: "ورود" }),
+          button({ variant: "Primary", size: "sm", label: "ثبت‌نام" }),
+          mobile && button({ variant: "Tertiary", size: "sm", iconOnly: "menu" }),
+        ]);
+      },
+      cols: 2,
+      docs: "navbar",
+    });
+  }));
+
   safe("Menu", () => section(root, "Dropdown menu · منوی کشویی", "با میانبر، گزینهٔ تیک‌دار، زیرمنو و گزینهٔ خطرناک.", (h) => {
     componentSet(h, "Dropdown menu", {
       axes: { Type: ["Actions", "Checkable"] },

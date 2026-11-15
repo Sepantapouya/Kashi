@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { cx } from "./cx.js";
 import { useKashi } from "./KashiProvider.js";
 
@@ -55,6 +55,11 @@ export interface DataTableProps<T> {
   onRowClick?: (row: T) => void;
   /** محتوای پایین جدول، مثل صفحه‌بندی */
   footer?: ReactNode;
+  /**
+   * اسکرول مجازی برای هزاران ردیف: فقط ردیف‌های دیده‌شده ساخته می‌شوند.
+   * ارتفاع از maxHeight (پیش‌فرض 28rem)؛ ردیف‌ها باید هم‌قد باشند. rowHeight تخمین اولیه است و بعد اندازه‌گیری می‌شود.
+   */
+  virtual?: boolean | { rowHeight?: number; overscan?: number };
   labels?: { selectAll?: string; selectRow?: (row: T) => string; loading?: string };
   classNames?: { root?: string; table?: string; row?: string; cell?: string; header?: string; footer?: string };
   className?: string;
@@ -63,7 +68,7 @@ export interface DataTableProps<T> {
 /** جدول داده با مرتب‌سازی (aria-sort)، انتخاب ردیف‌ها و حالت خالی */
 export function DataTable<T extends Record<string, unknown>>({
   columns, rows, getRowId, caption, description, hideCaption, selectable, selected, onSelectedChange,
-  sort, defaultSort = null, onSortChange, empty, compact, striped, stickyHeader, maxHeight, loading, onRowClick, footer,
+  sort, defaultSort = null, onSortChange, empty, compact, striped, stickyHeader, maxHeight, loading, onRowClick, footer, virtual,
   labels = {}, classNames = {}, className,
 }: DataTableProps<T>) {
   const id = useId();
@@ -110,22 +115,65 @@ export function DataTable<T extends Record<string, unknown>>({
     cx(c.numeric && "k-table__num", c.align && !c.numeric && `k-table__align-${c.align}`, c.hideBelow && `k-table__hide-${c.hideBelow}`, c.className, classNames.cell) || undefined;
   const colCount = columns.length + (selectable ? 1 : 0);
 
+  // ---- اسکرول مجازی
+  const vOpts = virtual ? (typeof virtual === "object" ? virtual : {}) : null;
+  const wrap = useRef<HTMLDivElement>(null);
+  const [rowH, setRowH] = useState(vOpts?.rowHeight ?? (compact ? 41 : 53));
+  const [view, setView] = useState({ top: 0, height: 0, head: 0 });
+  const overscan = vOpts?.overscan ?? 6;
+  useEffect(() => {
+    const w = wrap.current;
+    if (!vOpts || !w) return;
+    let frame = 0;
+    const read = () => {
+      frame = 0;
+      setView({ top: w.scrollTop, height: w.clientHeight, head: w.querySelector("thead")?.offsetHeight ?? 0 });
+    };
+    const on = () => { if (!frame) frame = requestAnimationFrame(read); };
+    read();
+    w.addEventListener("scroll", on, { passive: true });
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(on) : null;
+    ro?.observe(w);
+    return () => { w.removeEventListener("scroll", on); ro?.disconnect(); cancelAnimationFrame(frame); };
+  }, [!!vOpts]);
+  const useIso = typeof window === "undefined" ? useEffect : useLayoutEffect;
+  useIso(() => {
+    // ارتفاع واقعی ردیف را از اولین ردیف ساخته‌شده بخوان
+    if (!vOpts || vOpts.rowHeight) return;
+    const tr = wrap.current?.querySelector<HTMLElement>("tbody tr[data-row]");
+    if (tr && Math.abs(tr.offsetHeight - rowH) > 0.5) setRowH(tr.offsetHeight);
+  });
+  const win = vOpts && sorted.length > 0
+    ? (() => {
+        const first = Math.max(0, Math.floor((view.top - view.head) / rowH) - overscan);
+        const count = Math.ceil((view.height || 600) / rowH) + overscan * 2;
+        const last = Math.min(sorted.length, first + count);
+        return { first, last, before: first * rowH, after: (sorted.length - last) * rowH };
+      })()
+    : null;
+  const visible = win ? sorted.slice(win.first, win.last) : sorted;
+  const spacer = (h: number, key: string) => h > 0 && <tr key={key} className="k-table__spacer" aria-hidden="true"><td colSpan={colCount} style={{ blockSize: h, padding: 0, border: 0 }} /></tr>;
+
   return (
     <div
-      className={cx("k-table-wrap", stickyHeader && "k-table-wrap--sticky", className, classNames.root)}
+      ref={wrap}
+      className={cx("k-table-wrap", (stickyHeader || vOpts) && "k-table-wrap--sticky", vOpts && "k-table-wrap--virtual", className, classNames.root)}
       role="region"
       aria-labelledby={`${id}-caption`}
       aria-busy={loadingRows > 0 || undefined}
       tabIndex={0}
-      style={maxHeight ? { maxBlockSize: maxHeight } : undefined}
+      style={maxHeight || vOpts ? { maxBlockSize: maxHeight ?? "28rem" } : undefined}
     >
-      <table className={cx("k-table", compact && "k-table--compact", striped && "k-table--striped", onRowClick && "k-table--clickable", classNames.table)}>
+      <table
+        className={cx("k-table", compact && "k-table--compact", striped && "k-table--striped", onRowClick && "k-table--clickable", classNames.table)}
+        aria-rowcount={vOpts ? sorted.length + 1 : undefined}
+      >
         <caption id={`${id}-caption`} className={hideCaption ? "k-sr-only" : undefined}>
           <span className="k-table__caption-title">{caption}</span>
           {description && <span className="k-table__caption-desc">{description}</span>}
         </caption>
         <thead>
-          <tr>
+          <tr aria-rowindex={vOpts ? 1 : undefined}>
             {selectable && (
               <th scope="col" className="k-table__check">
                 <input ref={allRef} type="checkbox" className="k-checkbox" aria-label={selectAll} checked={all} onChange={() => setSel(all ? [] : ids)} />
@@ -154,14 +202,19 @@ export function DataTable<T extends Record<string, unknown>>({
           ) : sorted.length === 0 ? (
             <tr className="k-table__empty"><td colSpan={colCount}>{empty ?? <p style={{ padding: "2rem", margin: 0, textAlign: "center" }}>{M.table.empty}</p>}</td></tr>
           ) : (
-            sorted.map((r) => {
+            <>
+            {win && spacer(win.before, "sp-top")}
+            {visible.map((r, vi) => {
               const rid = getRowId(r);
               const on = sel.includes(rid);
+              const index = (win?.first ?? 0) + vi;
               return (
                 <tr
                   key={rid}
+                  data-row={vOpts ? "" : undefined}
+                  aria-rowindex={vOpts ? index + 2 : undefined}
+                  className={cx(striped && vOpts && index % 2 === 1 && "k-table__row--odd", classNames.row) || undefined}
                   aria-selected={selectable ? on : undefined}
-                  className={classNames.row}
                   onClick={onRowClick ? (e) => {
                     // کلیک روی چک‌باکس، دکمه یا لینک داخل ردیف را ردیف نگیرد
                     if ((e.target as HTMLElement).closest("a, button, input, label, select, textarea")) return;
@@ -178,7 +231,9 @@ export function DataTable<T extends Record<string, unknown>>({
                   ))}
                 </tr>
               );
-            })
+            })}
+            {win && spacer(win.after, "sp-bottom")}
+            </>
           )}
         </tbody>
       </table>

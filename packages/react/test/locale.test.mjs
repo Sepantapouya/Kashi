@@ -11,6 +11,11 @@ const day = new Date(2026, 10, 7); // ۱۶ آبان ۱۴۰۵، شنبه
 // همهٔ متن‌های داخلی باید با locale="en" انگلیسی شوند؛ هر حرف فارسی یعنی متنی جا مانده است
 const CASES = {
   Alert: h(K.Alert, { title: "Saved", onClose() {} }, "Done"),
+  Drawer: h(K.Drawer, { open: false, onOpenChange() {}, title: "Filters" }, "x"),
+  BottomSheet: h(K.BottomSheet, { open: false, onOpenChange() {}, title: "Sort", snapPoints: [0.5, 0.9] }, "x"),
+  Navbar: h(K.Navbar, { brand: "Kashi", links: [{ href: "/", label: "Home", current: true }] }),
+  EmptyPresets: h("div", null, ...["noData", "noResults", "error", "offline", "noAccess", "done"].map((p) => h(K.EmptyState, { key: p, preset: p }))),
+  DataTableVirtual: h(K.DataTable, { caption: "Rows", rows: [], getRowId: (r) => r.id, columns: [{ key: "a", header: "A" }], virtual: true }),
   Banner: h(K.Banner, { onClose() {} }, "Hi"),
   Breadcrumb: h(K.Breadcrumb, { items: [{ label: "Home", href: "/" }, { label: "A", href: "/a" }, { label: "B", href: "/b" }, { label: "C" }], maxItems: 2 }),
   Button: h(K.Button, { loading: true }, "Save"),

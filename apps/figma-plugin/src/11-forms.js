@@ -650,4 +650,22 @@ function buildForms() {
       docs: "month-picker",
     });
   }));
+
+  safe("Form", () => section(root, "Form validation · اعتبارسنجی فرم", "useForm: خطای فارسی کنار هر فیلد و خلاصه بالای فرم پس از ارسال ناموفق.", (h) => {
+    componentSet(h, "Form", {
+      axes: { State: ["Default", "Errors"] },
+      build: (p) => {
+        const err = p.State === "Errors";
+        return F({ name: "Form", dir: "V", gap: "space/4", w: 420 }, [
+          err && F({ name: "Summary", dir: "H", gap: "space/3", p: 12, w: "fill", radius: "radius/lg", fill: "bg-secondary", stroke: "border-primary", cross: "center" }, [I("alert-circle", 18, "text-error"), T("۲ مورد را اصلاح کنید.", { style: "Text sm/Semibold", color: "text-primary" })]),
+          field({ label: "نام و نام خانوادگی", w: "fill", control: inputBox({ text: "سارا محمدی" }) }),
+          field({ label: "کد ملی", w: "fill", error: err ? "کد ملی معتبر نیست." : undefined, control: inputBox({ text: "۱۲۳۴۵۶۷۸۹۰", ltr: true, state: err ? "Error" : "Default" }) }),
+          field({ label: "موبایل", w: "fill", error: err ? "این بخش را پر کنید." : undefined, control: inputBox({ placeholder: "۰۹۱۲ ۱۲۳ ۴۵۶۷", ltr: true, state: err ? "Error" : "Default" }) }),
+          button({ variant: "Primary", label: "ثبت‌نام", w: "fill" }),
+        ]);
+      },
+      cols: 2,
+      docs: "form",
+    });
+  }));
 }
