@@ -1,5 +1,9 @@
 # @kashi-ui/icons
 
+## 2.8.0
+
+No changes in this release.
+
 ## 2.7.0
 
 - Support an explicit `idPrefix` for deterministic SVG code during server rendering; keep gradient-based logo examples consistent during hydration.

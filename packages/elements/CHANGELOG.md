@@ -1,5 +1,14 @@
 # @kashi-ui/elements
 
+## 2.8.0
+
+### Patch Changes
+
+- Updated dependencies [365ebb0]
+  - @kashi-ui/css@2.8.0
+  - @kashi-ui/persian@2.8.0
+  - @kashi-ui/bank-logos@2.8.0
+
 ## 2.7.0
 
 ### Patch Changes
