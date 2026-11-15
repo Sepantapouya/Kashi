@@ -12,7 +12,7 @@ export default function SiteSearch() {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <button type="button" className="search-btn" onClick={() => setOpen(true)} aria-haspopup="dialog">
+      <button type="button" className="search-btn" aria-label="جستجو در مستندات" onClick={() => setOpen(true)} aria-haspopup="dialog">
         <Icon name="search" />
         <span className="search-btn__text">جستجو در مستندات…</span>
         <kbd className="search-btn__kbd" aria-hidden="true">⌘K</kbd>
