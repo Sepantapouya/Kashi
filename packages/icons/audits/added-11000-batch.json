@@ -31337,6 +31337,7 @@
       "orthogonal-view": "Intentional four-by-four technical grid, reviewed at 16/20/24 pixels on both backgrounds, including stroke 2. Detail strokes are 1.1; bold cells have transparent 1.3-unit gaps."
     },
     "npmPackageContents": "verified SVG exports, source manifest, MIT notices and Vazirmatn license",
-    "publication": "Prepared locally; this 800-icon batch has not been pushed or published."
-  }
+    "publication": "Authoring review only; registry dist-tags and deployment checks determine live publication status."
+  },
+  "releaseVersion": "2.9.0"
 }

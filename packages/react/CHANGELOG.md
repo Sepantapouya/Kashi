@@ -1,5 +1,13 @@
 # @kashi-ui/react
 
+## 2.9.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.9.0
+  - @kashi-ui/css@2.9.0
+  - @kashi-ui/persian@2.9.0
+
 ## 2.8.1
 
 ### Patch Changes
