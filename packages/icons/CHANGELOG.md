@@ -1,5 +1,11 @@
 # @kashi-ui/icons
 
+## 2.8.1
+
+### Patch Changes
+
+- 6064f15: Replace 86 existing Persian letter and numeral drawings with Vazirmatn 33.003 outlines, preserving published names. Use true font weights and transparent bold cutouts without requiring runtime font loading. Update both Figma exports and include font attribution and licensing.
+
 ## 2.8.0
 
 No changes in this release.

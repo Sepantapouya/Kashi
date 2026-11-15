@@ -1,5 +1,9 @@
 # @kashi-ui/persian
 
+## 2.8.1
+
+No changes in this release.
+
 ## 2.8.0
 
 ### Minor Changes

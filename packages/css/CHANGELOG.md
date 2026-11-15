@@ -1,5 +1,11 @@
 # @kashi-ui/css
 
+## 2.8.1
+
+### Patch Changes
+
+- @kashi-ui/tokens@2.8.1
+
 ## 2.8.0
 
 ### Minor Changes
