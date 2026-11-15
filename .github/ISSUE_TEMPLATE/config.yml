@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: پرسش و گفت‌وگو · Questions and discussion
+    url: https://t.me/kashidesign
+    about: کانال تلگرام کاشی · Kashi's Telegram channel
+  - name: گزارش آسیب‌پذیری امنیتی · Security vulnerability
+    url: https://github.com/Sepantapouya/Kashi/blob/main/SECURITY.md
+    about: لطفاً آسیب‌پذیری را عمومی گزارش نکنید · Please don't report vulnerabilities publicly

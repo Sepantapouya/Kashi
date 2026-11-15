@@ -20,11 +20,16 @@ interface Props {
   /** متای مقاله */
   published?: string;
   modified?: string;
+  /** زبان صفحه؛ «en» صفحه را چپ‌به‌راست و انگلیسی می‌کند */
+  lang?: "fa" | "en";
+  /** نشانی نسخهٔ زبان دیگر همین صفحه (hreflang) */
+  alternate?: string;
 }
-const { title, description = "کاشی — دیزاین‌سیستم فارسی، متن‌باز، راست‌به‌چپ و دسترس‌پذیر برای React و هر فریم‌ورک دیگری.", seoTitle, ogImage = "/og.png", ogImageAlt = "کاشی، دیزاین‌سیستم متن‌باز برای محصولات فارسی", ogType = "website", jsonLd = [], published, modified } = Astro.props;
+const { title, description = "کاشی — دیزاین‌سیستم فارسی، متن‌باز، راست‌به‌چپ و دسترس‌پذیر برای React و هر فریم‌ورک دیگری.", seoTitle, ogImage = "/og.png", ogImageAlt = "کاشی، دیزاین‌سیستم متن‌باز برای محصولات فارسی", ogType = "website", jsonLd = [], published, modified, lang = "fa", alternate } = Astro.props;
+const en = lang === "en";
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // عنوان کوتاه در نتایج گوگل چیزی نمی‌گوید و بلند بریده می‌شود؛ هر دو حالت این‌جا متعادل می‌شوند
-const fullTitle = seoTitle ?? (!title ? "کاشی — دیزاین‌سیستم فارسی متن‌باز برای React و HTML"
+const fullTitle = en ? (seoTitle ?? (title ? `${title} · Kashi Design System` : "Kashi — open-source Persian RTL design system")) : seoTitle ?? (!title ? "کاشی — دیزاین‌سیستم فارسی متن‌باز برای React و HTML"
   : title.length < 14 ? `${title} · کاشی، دیزاین‌سیستم فارسی`
   : `${title} · کاشی`.length > 62 ? title : `${title} · کاشی`);
 const ogImageUrl = new URL(ogImage, Astro.site);
@@ -37,7 +42,7 @@ const graph = [
 const ld = JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c");
 ---
 <!doctype html>
-<html lang="fa" dir="rtl" data-theme="dark">
+<html lang={en ? "en" : "fa"} dir={en ? "ltr" : "rtl"} data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -49,7 +54,9 @@ const ld = JSON.stringify({ "@context": "https://schema.org", "@graph": graph })
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="کاشی" />
-    <meta property="og:locale" content="fa_IR" />
+    <meta property="og:locale" content={en ? "en_US" : "fa_IR"} />
+    {alternate && <link rel="alternate" hreflang={en ? "fa" : "en"} href={new URL(alternate, Astro.site)} />}
+    {alternate && <link rel="alternate" hreflang={lang} href={canonical} />}
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageUrl} />
@@ -75,7 +82,7 @@ const ld = JSON.stringify({ "@context": "https://schema.org", "@graph": graph })
     <Analytics />
   </head>
   <body>
-    <a class="k-skip-link" href="#main">رفتن به محتوای اصلی</a>
+    <a class="k-skip-link" href="#main">{en ? "Skip to content" : "رفتن به محتوای اصلی"}</a>
     <slot />
     <div class="k-sr-only" aria-live="polite" id="live-region"></div>
     <button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--pill to-top" data-to-top aria-label="بازگشت به بالای صفحه" tabindex="-1"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 15.5v-11M5.5 9 10 4.5 14.5 9" /></svg></button>

@@ -256,3 +256,6 @@
   .ft__cta-actions, .ft__cta-actions .install { inline-size: 100%; min-inline-size: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .ft__channel-dot { animation: none; } }
+
+/* پیوند مستندات انگلیسی در سربرگ */
+.hd__lang { font: 700 0.75rem/1 var(--k-font-sans); letter-spacing: 0.04em; }

@@ -10,6 +10,7 @@ export default defineConfig({
   integrations: [mdx(), react(), sitemap({ site: "https://kashi.sepantapouya.com", lastmod: articleDates() })],
   devToolbar: { enabled: false },
   redirects: {
+    "/en/": "/en/docs/",
     // آیکون‌هایی که طرحشان تکراری بود و نام قدیمی‌شان به آیکون اصلی می‌رسد
     ...Object.fromEntries(Object.entries(iconAliases).map(([old, to]) => [`/docs/icons/${old}/`, `/docs/icons/${to}/`])),
     // فیلدهای فارسی در یک صفحه (PersianInput) جمع شده‌اند؛ نشانی‌های قدیمی به بخش همان نوع می‌روند

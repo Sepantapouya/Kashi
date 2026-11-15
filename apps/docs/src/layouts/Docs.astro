@@ -22,6 +22,8 @@ interface Props {
 }
 const fm = Astro.props.frontmatter ?? { title: Astro.props.title ?? "", description: Astro.props.description, seoTitle: Astro.props.seoTitle };
 const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
+// نسخهٔ انگلیسی صفحه‌هایی که ترجمه دارند (hreflang)
+const EN_ALT: Record<string, string> = { "/docs/": "/en/docs/", "/docs/installation/": "/en/docs/installation/", "/docs/i18n/": "/en/docs/localization/", "/docs/persian/utilities/": "/en/docs/persian/" };
 // بخش «وب کامپوننت» که ElementSection در پایان صفحه می‌سازد در فهرست «در این صفحه» هم بیاید
 const headings = [
   ...(Astro.props.headings ?? []),
@@ -48,7 +50,7 @@ const editHref = file?.includes("/apps/docs/") ? `${author.repo}/edit/main/apps/
 const issueHref = `${author.repo}/issues/new?title=${encodeURIComponent(`مستندات: ${fm.title}`)}&body=${encodeURIComponent(`صفحه: ${site}${path}\n\n`)}`;
 const breadcrumb = { "@type": "BreadcrumbList", itemListElement: crumbs.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, item: `${site}${c.url}` })) };
 ---
-<Base title={fm.title} description={fm.description} seoTitle={seoTitle} jsonLd={[breadcrumb]}>
+<Base title={fm.title} description={fm.description} seoTitle={seoTitle} jsonLd={[breadcrumb]} alternate={EN_ALT[path]}>
   <Header />
   <div class="read-progress" aria-hidden="true"></div>
 
