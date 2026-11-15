@@ -89,7 +89,8 @@
 .hd__stars { display: inline-flex; align-items: center; gap: 2px; white-space: nowrap; color: var(--k-text-secondary); }
 .hd__stars::before { content: "★"; color: #e3b341; }
 .hd__stars[data-gh-wait] { display: none; }
-.hd__cta { margin-inline-start: var(--k-space-1); }
+.hd__cta { flex: none; margin-inline-start: var(--k-space-1); }
+.hd__end .search-btn { min-inline-size: 0; }
 
 /* منوی تمام‌عرض «منابع» */
 .hd__mega {

@@ -173,8 +173,8 @@ code, pre, kbd {
   .docs { grid-template-columns: 14rem minmax(0, 1fr); }
   .docs__toc { display: none; }
 }
-@media (max-width: 64rem) {
-  .search-btn { inline-size: 2.25rem; padding: 0; justify-content: center; margin-inline-end: 0; border-color: transparent; background: none; box-shadow: none; }
+@media (max-width: 80rem) {
+  .search-btn { inline-size: 2.25rem; flex-shrink: 0; padding: 0; justify-content: center; margin-inline-end: 0; border-color: transparent; background: none; box-shadow: none; }
   .search-btn__text, .search-btn__kbd { display: none; }
 }
 @media (max-width: 56rem) {
