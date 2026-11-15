@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { palette, space, radius, font, shadow, themes } from "../../packages/tokens/src/tokens.js";
 import { icons as ICON_SOURCE, categories as ICON_CATEGORIES } from "../../packages/icons/src/icons.js";
 import { renderBody, variants as ICON_VARIANTS } from "../../packages/icons/src/render.js";
+import { withIconHtmlNotice, iconJsNotice, iconLicenseZipEntries } from "../../scripts/icon-attribution.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "../..");
@@ -206,14 +207,14 @@ if (modern) throw new Error(`unsupported syntax in src/: "${body.slice(modern.in
 
 const out = join(here, "plugin");
 mkdirSync(out, { recursive: true });
-writeFileSync(join(out, "code.js"), code);
+writeFileSync(join(out, "code.js"), iconJsNotice + code);
 // پنل پلاگین: فونت وزیرمتن جاسازی می‌شود (فیگما فونت سیستم را به iframe نمی‌دهد) و پیش‌نمایش شش سبک
 const fontB64 = readFileSync(join(root, "packages/css/dist/fonts/Vazirmatn.woff2")).toString("base64");
 const previewIcon = ICON_SOURCE["heart"] ? "heart" : Object.keys(ICON_SOURCE)[0];
 const previews = Object.fromEntries(ICON_VARIANTS.map((v) => [v, `<svg viewBox="0 0 20 20" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${renderBody(ICON_SOURCE[previewIcon].body, v, { uid: `p-${v}` })}</svg>`]));
-const ui = readFileSync(join(here, "src/ui.html"), "utf8")
+const ui = withIconHtmlNotice(readFileSync(join(here, "src/ui.html"), "utf8")
   .replace("/*KASHI_FONT*/", `@font-face { font-family: "Vazirmatn"; src: url(data:font/woff2;base64,${fontB64}) format("woff2"); font-weight: 100 900; font-display: block; }`)
-  .replace("/*KASHI_PREVIEWS*/", `const PREVIEWS = ${JSON.stringify(previews)}; const ICON_TOTAL = ${Object.keys(ICON_SOURCE).length};`);
+  .replace("/*KASHI_PREVIEWS*/", `const PREVIEWS = ${JSON.stringify(previews)}; const ICON_TOTAL = ${Object.keys(ICON_SOURCE).length};`));
 writeFileSync(join(out, "ui.html"), ui);
 // هر دو manifest کار می‌کنند: ریشه به plugin/ اشاره می‌کند و این یکی به فایل‌های کنار خودش
 const manifest = JSON.parse(readFileSync(join(here, "manifest.json"), "utf8"));
@@ -254,6 +255,9 @@ function zip(files) {
 }
 const downloads = join(root, "apps/docs/public/downloads");
 mkdirSync(downloads, { recursive: true });
-writeFileSync(join(downloads, "kashi-figma-plugin.zip"), zip(["manifest.json", "code.js", "ui.html"].map((f) => [`kashi-figma-plugin/${f}`, readFileSync(join(out, f))])));
+writeFileSync(join(downloads, "kashi-figma-plugin.zip"), zip([
+  ...["manifest.json", "code.js", "ui.html"].map((f) => [`kashi-figma-plugin/${f}`, readFileSync(join(out, f))]),
+  ...iconLicenseZipEntries("kashi-figma-plugin"),
+]));
 
 console.log(`figma-plugin:${parts.length} source files, ${banks.length} bank logos, ${(code.length / 1024).toFixed(0)} KB`);

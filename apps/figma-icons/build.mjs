@@ -3,6 +3,7 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { withIconHtmlNotice, iconLicenseZipEntries } from "../../scripts/icon-attribution.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "../..");
@@ -28,10 +29,10 @@ const renderSrc = readFileSync(join(root, "packages/icons/src/render.js"), "utf8
 const render = `var KashiRender = (function () {\n${renderSrc}\nreturn { renderBody, variants };\n})();`;
 const fontB64 = readFileSync(join(root, "packages/css/dist/fonts/Vazirmatn.woff2")).toString("base64");
 
-const ui = readFileSync(join(here, "src/ui.html"), "utf8")
+const ui = withIconHtmlNotice(readFileSync(join(here, "src/ui.html"), "utf8")
   .replace("/*KASHI_FONT*/", () => `@font-face { font-family: "Vazirmatn"; src: url(data:font/woff2;base64,${fontB64}) format("woff2"); font-weight: 100 900; font-display: block; }`)
   .replace("/*KASHI_DATA*/", () => `var DATA = ${JSON.stringify(data)};`)
-  .replace("/*KASHI_RENDER*/", () => render);
+  .replace("/*KASHI_RENDER*/", () => render));
 
 // کد sandbox فیگما نحو تازه را همیشه اجرا نمی‌کند
 const code = readFileSync(join(here, "src/code.js"), "utf8");
@@ -79,7 +80,10 @@ function zip(files) {
 }
 const downloads = join(root, "apps/docs/public/downloads");
 mkdirSync(downloads, { recursive: true });
-writeFileSync(join(downloads, "kashi-icons-figma-plugin.zip"), zip(["manifest.json", "code.js", "ui.html"].map((f) => [`kashi-icons-figma-plugin/${f}`, readFileSync(join(out, f))])));
+writeFileSync(join(downloads, "kashi-icons-figma-plugin.zip"), zip([
+  ...["manifest.json", "code.js", "ui.html"].map((f) => [`kashi-icons-figma-plugin/${f}`, readFileSync(join(out, f))]),
+  ...iconLicenseZipEntries("kashi-icons-figma-plugin"),
+]));
 // همان پنل به‌صورت صفحهٔ وب: دانلود SVG و PNG و کپی کد بیرون از فیگما
 writeFileSync(join(root, "apps/docs/public/icon-exporter.html"), ui);
 

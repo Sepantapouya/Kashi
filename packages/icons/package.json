@@ -26,7 +26,10 @@
     "THIRD-PARTY-NOTICES.md",
     "brand-sources.json",
     "Vazirmatn-OFL.txt",
-    "audits/vazirmatn-glyphs.json"
+    "audits/vazirmatn-glyphs.json",
+    "general-sources.json",
+    "Tabler-MIT.txt",
+    "Iconoir-MIT.txt"
   ],
   "sideEffects": false,
   "scripts": {

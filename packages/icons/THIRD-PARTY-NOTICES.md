@@ -89,3 +89,13 @@ Brand artwork uses currentColor. Four multicolor wallet marks are projected thro
 ## Vazirmatn — SIL Open Font License 1.1
 
 The 86 Persian letter and numeral icons use outlines extracted from Vazirmatn 33.003, at weights 500 and 700. Copyright 2015 The Vazirmatn Project Authors (https://github.com/rastikerdar/vazirmatn). Coordinates are fitted to the icon grid; no runtime font loading is required. The existing hollow-zero variant retains its outlined presentation. Source font checksum, character mapping and glyph IDs are recorded in `audits/vazirmatn-glyphs.json`. The full font license is distributed in `Vazirmatn-OFL.txt`.
+
+## Tabler and Iconoir — MIT
+
+The 800 general-purpose additions in `general-sources.json` are adapted from Tabler Icons 3.52.0 and Iconoir 7.12.2 (commit 39834e3f193bc0cca2c36bebb6a650471977433d). They are upstream-authored drawings adapted to Kashi, rather than newly authored original Kashi artwork. They contain no new bank or brand marks.
+
+Tabler: Copyright (c) 2020–2026 Paweł Kuna. The full license is distributed in `Tabler-MIT.txt`.
+
+Iconoir: Copyright (c) 2021 Luca Burgio. The full license is distributed in `Iconoir-MIT.txt`.
+
+The source manifest records the original file, pinned version or revision, original SVG checksums and normalized body checksum for every drawing. Coordinates are fitted to the 20×20 grid, strokes use the 1.5 reference weight, and rectangle elements use Kashi's continuous corners. Where available, upstream filled artwork is used for the bold variant. Non-rendering clip definitions are excluded from visible geometry; actual source fill and stroke instructions and even-odd holes are preserved.
