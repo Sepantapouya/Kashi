@@ -160,6 +160,14 @@
 @keyframes hd-item-in { from { opacity: 0; translate: 0 6px; } }
 @keyframes hd-shimmer { to { background-position: -200% 0; } }
 
+/* پیش‌نمایش «icons»: شبکهٔ کوچک آیکون روی نقطه‌ها */
+.hd__feature-art--icons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.25rem; flex: 1; align-content: center; margin-block: var(--k-space-3); padding: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: radial-gradient(var(--k-border-primary) 1px, transparent 1px) center / 0.75rem 0.75rem, var(--k-bg-primary); color: var(--k-text-primary); }
+.hd__feature-art--icons span { display: grid; place-items: center; aspect-ratio: 1; }
+.hd__feature-art--icons span:nth-child(3n + 2) { color: var(--k-text-brand); }
+@media (prefers-reduced-motion: no-preference) {
+  .hd__mega:not([hidden]) .hd__feature-art--icons span { animation: hd-item-in 360ms var(--k-ease-standard) both; animation-delay: calc(var(--i) * 30ms + 200ms); }
+}
+
 /* پیش‌نمایش «sheet»: گوشی کوچک با برگهٔ پایین که بالا می‌آید */
 .hd__feature-art--sheet { display: grid; place-items: center; flex: 1; margin-block: var(--k-space-3); }
 .hd__phone { position: relative; overflow: hidden; display: grid; align-content: start; gap: 6px; inline-size: 8.5rem; block-size: 12.5rem; padding: 1.25rem 0.75rem; border: 1px solid var(--k-border-primary); border-radius: 1.5rem; background: var(--k-bg-primary); box-shadow: var(--k-shadow-lg); }
