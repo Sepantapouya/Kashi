@@ -5,6 +5,8 @@ import { author } from "../data/author";
 import Sidebar from "./Sidebar.astro";
 import SiteSearch from "./SiteSearch";
 import pkg from "@kashi-ui/react/package.json";
+import { featured } from "../data/featured";
+import { toFaDigits } from "@kashi-ui/persian";
 const ver = pkg.version.split(".").slice(0, 2).join(".");
 const path = Astro.url.pathname;
 
@@ -108,11 +110,17 @@ const github = `<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
           </ul>
         </section>
       ))}
-      <a class="hd__feature" href="/docs/states/">
-        <span class="hd__feature-tag">تازه در ۲.۳</span>
-        <b>حالت‌های کامپوننت‌ها</b>
-        <span>فقط‌خواندنی، بارگذاری و خالی؛ با یک ظاهر و یک API در همهٔ کامپوننت‌ها.</span>
-        <span class="hd__feature-art" aria-hidden="true"><i></i><i></i><i></i></span>
+      <a class="hd__feature" href={featured.href}>
+        <span class="hd__feature-tag">تازه در {toFaDigits(featured.since)}</span>
+        <b>{featured.title}</b>
+        <span>{featured.text}</span>
+        {featured.art === "sheet" ? (
+          <span class="hd__feature-art hd__feature-art--sheet" aria-hidden="true">
+            <span class="hd__phone"><i></i><i></i><i></i><span class="hd__sheet"><em></em><i></i><i></i><u></u></span></span>
+          </span>
+        ) : (
+          <span class="hd__feature-art" aria-hidden="true"><i></i><i></i><i></i></span>
+        )}
         <span class="hd__feature-more">ببینید <span aria-hidden="true">←</span></span>
       </a>
     </div>

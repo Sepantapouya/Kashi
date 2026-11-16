@@ -1,20 +1,11 @@
 ---
-// فهرست آیکون‌ها: فقط کارت دسته‌ها؛ هر کارت به صفحهٔ همان دسته می‌رود
+// فهرست آیکون‌ها: معرفی با جستجو و نمونهٔ زندهٔ سبک‌ها، ویژهٔ ایران و کارت دسته‌ها در گروه‌ها
 import Docs from "../../../layouts/Docs.astro";
 import { IconCatalog } from "../../../components/IconCatalog";
 import { icons, categories, categoryGroups, variants } from "@kashi-ui/icons";
-import { toFaDigits } from "@kashi-ui/persian";
 
-const count = toFaDigits(String(Object.keys(icons).length));
+const n = (x: number) => x.toLocaleString("fa-IR");
 ---
-<Docs title="آیکون‌های کاشی" description={`${count} آیکون در ${toFaDigits(String(categoryGroups.length))} گروه و ${toFaDigits(String(Object.keys(categories).length))} دسته و ${toFaDigits(String(variants.length))} سبک؛ برای React، HTML، هر فریم‌ورک دیگر و فیگما.`}>
-  <p class="icx-lead">
-    یک دسته را باز کنید تا همهٔ آیکون‌هایش را با سبک، اندازه و ضخامت دلخواه ببینید.
-    <a href="/docs/icons/usage/">راهنمای نصب و استفاده</a>
-  </p>
+<Docs title="آیکون‌های کاشی" description={`${n(Object.keys(icons).length)} آیکون در ${n(categoryGroups.length)} گروه، ${n(Object.keys(categories).length)} دسته و ${n(variants.length)} سبک؛ برای React، HTML، هر فریم‌ورک دیگر و فیگما.`}>
   <IconCatalog client:load />
 </Docs>
-
-<style>
-  .icx-lead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--k-space-2); margin: 0; color: var(--k-text-secondary); font-size: var(--k-text-sm); }
-</style>

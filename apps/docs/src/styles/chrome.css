@@ -160,6 +160,23 @@
 @keyframes hd-item-in { from { opacity: 0; translate: 0 6px; } }
 @keyframes hd-shimmer { to { background-position: -200% 0; } }
 
+/* پیش‌نمایش «sheet»: گوشی کوچک با برگهٔ پایین که بالا می‌آید */
+.hd__feature-art--sheet { display: grid; place-items: center; flex: 1; margin-block: var(--k-space-3); }
+.hd__phone { position: relative; overflow: hidden; display: grid; align-content: start; gap: 6px; inline-size: 8.5rem; block-size: 12.5rem; padding: 1.25rem 0.75rem; border: 1px solid var(--k-border-primary); border-radius: 1.5rem; background: var(--k-bg-primary); box-shadow: var(--k-shadow-lg); }
+.hd__phone > i { block-size: 0.45rem; border-radius: 3px; background: var(--k-bg-tertiary); }
+.hd__phone > i:nth-child(2) { inline-size: 75%; }
+.hd__phone > i:nth-child(3) { inline-size: 55%; }
+.hd__sheet { position: absolute; inset-inline: 0; inset-block-end: 0; display: grid; gap: 6px; justify-items: start; padding: 0.5rem 0.75rem 0.85rem; border-block-start: 1px solid var(--k-border-secondary); border-radius: 1rem 1rem 0 0; background: var(--k-bg-elevated); box-shadow: 0 -8px 24px rgb(0 0 0 / 0.25); }
+.hd__sheet em { justify-self: center; inline-size: 1.75rem; block-size: 0.25rem; border-radius: 99px; background: var(--k-border-primary); }
+.hd__sheet i { inline-size: 100%; block-size: 0.45rem; border-radius: 3px; background: var(--k-bg-tertiary); }
+.hd__sheet i + i { inline-size: 65%; }
+.hd__sheet u { inline-size: 100%; block-size: 1.1rem; margin-block-start: 2px; border-radius: 6px; background: var(--k-bg-brand); }
+@media (prefers-reduced-motion: no-preference) {
+  .hd__mega:not([hidden]) .hd__sheet { animation: hd-sheet-in 700ms var(--k-ease-emphasized) 250ms both; }
+  .hd__feature:hover .hd__sheet { translate: 0 -6px; transition: translate var(--k-duration-normal) var(--k-ease-spring); }
+}
+@keyframes hd-sheet-in { from { translate: 0 100%; } }
+
 /* نمایش در عرض‌های کوچک‌تر */
 @media (max-width: 80rem) { .hd__mega-inner { grid-template-columns: repeat(3, minmax(0, 1fr)); } .hd__feature { display: none; } }
 @media (max-width: 70rem) {
