@@ -5,6 +5,7 @@ import { CopyButton, EmptyState, Input, Kbd, SegmentedControl } from "@kashi-ui/
 import { categories, categoryGroups, icons, searchIcons, variants, type IconName, type IconVariant } from "@kashi-ui/icons";
 import { Icon } from "@kashi-ui/icons/react";
 import { fa, useSlash, useVariant, variantLabels, withVariant } from "./iconShared";
+import { author } from "../data/author";
 import "../styles/icons.css";
 
 type Category = keyof typeof categories;
@@ -25,6 +26,7 @@ const groupIcon: Record<string, IconName> = {
 };
 
 const specimen: IconName[] = ["home", "search", "calendar", "user", "bell", "wallet", "credit-card", "chart", "lock", "mail", "heart", "settings"];
+export const requestUrl = (q = "") => `${author.repo}/issues/new?template=icon_request.yml${q ? `&title=${encodeURIComponent(`[آیکون] ${q}`)}` : ""}`;
 const popular = ["حذف", "کارت", "تقویم", "بانک", "arrow"];
 
 /** نمونهٔ زنده: همان دوازده آیکون در شش سبک؛ تا کاربر سبکی انتخاب نکرده، خودکار می‌چرخد */
@@ -192,7 +194,13 @@ export function IconCatalog() {
             <SegmentedControl size="sm" aria-label="اندازهٔ پیش‌نمایش" options={[16, 20, 24, 32].map((s) => ({ value: String(s), label: fa(s) }))} value={size} onChange={setSize} />
           </div>
           {found.length === 0 ? (
-            <EmptyState preset="noResults" title="آیکونی پیدا نشد" description={`برای «${q}» نتیجه‌ای نبود. کلمهٔ دیگری، فارسی یا انگلیسی، امتحان کنید.`} bordered />
+            <EmptyState
+              preset="noResults"
+              title="آیکونی پیدا نشد"
+              description={`برای «${q}» نتیجه‌ای نبود. کلمهٔ دیگری، فارسی یا انگلیسی، امتحان کنید یا آن را درخواست بدهید.`}
+              actions={<a className="k-btn k-btn--secondary k-btn--sm" href={requestUrl(q)} target="_blank" rel="noopener">درخواست این آیکون</a>}
+              bordered
+            />
           ) : (
             <IconGrid key={q} names={found} variant={variant} size={Number(size)} />
           )}
@@ -234,6 +242,8 @@ export function IconCatalog() {
           <ul className="ix-next" role="list">
             <li><a href="/docs/icons/usage/"><Icon name="book-open" size={22} /><span><strong>راهنمای نصب و استفاده</strong><span>React، HTML، اسپرایت و هر فریم‌ورک دیگر</span></span></a></li>
             <li><a href="/docs/figma/"><Icon name="pen-tool" size={22} /><span><strong>آیکون‌ها در فیگما</strong><span>همهٔ سبک‌ها با پلاگین کیت کاشی</span></span></a></li>
+            <li><a href={requestUrl()} target="_blank" rel="noopener"><Icon name="chat-plus" size={22} /><span><strong>آیکونی کم است؟</strong><span>درخواست بدهید؛ هر دو هفته بررسی می‌شود</span></span></a></li>
+            <li><a href="/docs/icons/compare/"><Icon name="scale" size={22} /><span><strong>مقایسه با مجموعه‌های دیگر</strong><span>Iconly و Lucide و Phosphor</span></span></a></li>
           </ul>
       </div>
     </div>

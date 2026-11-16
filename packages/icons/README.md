@@ -1,6 +1,6 @@
 # @kashi-ui/icons
 
-۱۱۰۰۰ آیکون و نشان کاشی؛ آیکون‌های عمومی در شش سبک (خطی، توپر، حجمی، دورنگ، شکسته و منحنی) روی شبکهٔ ۲۰×۲۰ با خط ۱٫۵؛ برای React، HTML و هر فریم‌ورک دیگر. فهرست کامل و نحوهٔ استفادهٔ هر آیکون: https://kashi.sepantapouya.com/docs/icons/
+۱۱۰۰۰ آیکون و نشان کاشی؛ آیکون‌های عمومی در شش سبک (خطی، توپر، حجمی، دورنگ، شکسته و منحنی) روی شبکهٔ ۲۰×۲۰ با خط ۱٫۵؛ برای React، Vue، Svelte، HTML و هر فریم‌ورک دیگر. فهرست کامل و نحوهٔ استفادهٔ هر آیکون: https://kashi.sepantapouya.com/docs/icons/
 
 ```bash
 npm i @kashi-ui/icons
@@ -16,6 +16,20 @@ import { IconSearch, Icon } from "@kashi-ui/icons/react";
 
 هر کامپوننت فقط طرح خودش را دارد و tree-shake می‌شود: سه آیکون حدود ۴ کیلوبایت gzip. `<Icon name>` برای نام‌های پویاست و همهٔ آیکون‌ها را به باندل می‌آورد؛ اگر نام‌ها معلوم‌اند، آیکون‌ها را جدا import کنید.
 
+```vue
+<script setup>
+import { IconSearch, Icon } from "@kashi-ui/icons/vue";
+</script>
+<template><IconSearch :size="20" variant="bold" /></template>
+```
+
+```svelte
+<script>
+  import { Icon, iconSearch } from "@kashi-ui/icons/svelte";
+</script>
+<Icon icon={iconSearch} size={20} variant="bold" />
+```
+
 ```js
 import { iconSvg, searchIcons } from "@kashi-ui/icons";
 
@@ -29,6 +43,8 @@ searchIcons("کارت"); // ["credit-card", "id-card", ...]
 - همهٔ آیکون‌ها در پلاگین فیگمای کاشی هم هستند (`Icon / search`).
 
 مسیرهای `@kashi-ui/icons/svg/<variant>/brand-*.svg` و `crypto-*.svg` برای نشان‌های رسمی، با `exports` به همان فایل SVG پایه اشاره می‌کنند؛ هندسهٔ این نشان‌ها در هر شش سبک یکسان است. برای واردکردن SVG از مسیر عمومی `@kashi-ui/icons/svg/...` استفاده کنید. اسپرایت‌های هر شش سبک همچنان جداگانه منتشر می‌شوند.
+
+آیکونی کم است؟ [فرم درخواست آیکون](https://github.com/Sepantapouya/Kashi/issues/new?template=icon_request.yml)؛ درخواست‌ها هر دو هفته بررسی می‌شوند.
 
 [اسکیل طراحی و بازبینی آیکون‌های کاشی](https://github.com/Sepantapouya/Kashi/blob/main/packages/icons/DESIGN.md)
 

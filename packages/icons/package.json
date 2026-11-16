@@ -1,7 +1,7 @@
 {
   "name": "@kashi-ui/icons",
   "version": "2.9.0",
-  "description": "آیکون‌های خطی کاشی؛ SVG، کامپوننت React و اسپرایت",
+  "description": "آیکون‌های کاشی در شش سبک؛ SVG، اسپرایت و کامپوننت React، Vue و Svelte",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -13,6 +13,15 @@
     "./react": {
       "types": "./dist/react.d.ts",
       "default": "./dist/react.js"
+    },
+    "./vue": {
+      "types": "./dist/vue.d.ts",
+      "default": "./dist/vue.js"
+    },
+    "./svelte": {
+      "types": "./dist/svelte/index.d.ts",
+      "svelte": "./dist/svelte/index.js",
+      "default": "./dist/svelte/index.js"
     },
     "./svg/*": "./dist/svg/*",
     "./sprite.svg": "./dist/sprite.svg",
@@ -48,10 +57,18 @@
     "audit": "node scripts/audit.mjs"
   },
   "peerDependencies": {
-    "react": ">=18"
+    "react": ">=18",
+    "vue": ">=3.3",
+    "svelte": ">=4"
   },
   "peerDependenciesMeta": {
     "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    },
+    "svelte": {
       "optional": true
     }
   },
@@ -74,5 +91,9 @@
   "homepage": "https://kashi.sepantapouya.com/docs/icons/",
   "bugs": "https://github.com/Sepantapouya/Kashi/issues",
   "author": "Sepanta Pouya (https://sepantapouya.com)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "svelte": "^5.57.3",
+    "vue": "^3.5.45"
+  }
 }

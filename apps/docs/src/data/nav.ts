@@ -14,6 +14,7 @@ const RAW: NavGroup[] = [
       { title: "استفاده با هوش مصنوعی", href: "/docs/ai/" },
       { title: "آیکون‌ها", href: "/docs/icons/" },
       { title: "راهنمای آیکون‌ها", href: "/docs/icons/usage/" },
+      { title: "مقایسهٔ آیکون‌ها", href: "/docs/icons/compare/" },
       { title: "سفارشی‌سازی و تم", href: "/docs/theming/" },
       { title: "حرکت و ریزتعامل‌ها", href: "/docs/motion/" },
       { title: "حالت‌های کامپوننت‌ها", href: "/docs/states/" },

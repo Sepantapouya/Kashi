@@ -11,7 +11,7 @@ const { icons, categories, categoryGroups } = await import(join(root, "packages/
 const version = JSON.parse(readFileSync(join(root, "packages/icons/package.json"), "utf8")).version;
 
 // فقط آیکون‌هایی که پنل برای دکمه‌های خودش لازم دارد باید حتماً وجود داشته باشند
-const chromeIcons = ["search", "close", "star", "plus", "download", "image", "copy", "apps", "clock", "sun", "moon", "maximize-diagonal", "minimize-diagonal", "heart"];
+const chromeIcons = ["search", "close", "star", "plus", "download", "image", "copy", "apps", "clock", "sun", "moon", "maximize-diagonal", "minimize-diagonal", "heart", "component", "refresh"];
 for (const n of chromeIcons) if (!icons[n]) throw new Error(`panel icon "${n}" is missing from @kashi-ui/icons`);
 
 const catIds = Object.keys(categories);

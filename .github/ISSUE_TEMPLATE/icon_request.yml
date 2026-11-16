@@ -1,0 +1,49 @@
+name: درخواست آیکون · Icon request
+description: آیکونی که در کاشی پیدا نکردید · An icon you couldn't find in Kashi
+title: "[آیکون] "
+labels: ["icon request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        پیش از درخواست، در [kashi.sepantapouya.com/docs/icons](https://kashi.sepantapouya.com/docs/icons/) هم فارسی و هم انگلیسی جستجو کنید.
+        درخواست‌ها هر دو هفته بررسی می‌شوند و آیکون‌های پذیرفته‌شده در نسخهٔ بعدی می‌آیند.
+        Search the icon page in Persian and English first. Requests are reviewed every two weeks.
+  - type: input
+    id: name
+    attributes:
+      label: نام آیکون · Icon name
+      description: یک نام فارسی و یک نام انگلیسی · A Persian and an English name
+      placeholder: "مثلاً: کارت‌خوان / card-reader"
+    validations:
+      required: true
+  - type: textarea
+    id: use
+    attributes:
+      label: کجا به کارش می‌برید؟ · Where will you use it?
+      description: صفحه یا دکمه‌ای که این آیکون را لازم دارد · The screen or button that needs it
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: نوع · Kind
+      options:
+        - آیکون عمومی · General icon
+        - لوگوی برند یا بانک ایرانی · Iranian brand or bank logo
+        - لوگوی برند خارجی · International brand logo
+        - مفهوم فرهنگی ایرانی · Persian cultural concept
+        - سبک تازه برای آیکون موجود · New style for an existing icon
+    validations:
+      required: true
+  - type: textarea
+    id: reference
+    attributes:
+      label: نمونه یا طرح · Reference or sketch
+      description: تصویر، طرح دستی یا پیوند به آیکونی مشابه؛ برای لوگو، پیوند به منبع رسمی برند · An image, a sketch or a link; for logos, the brand's official source
+  - type: checkboxes
+    id: help
+    attributes:
+      label: کمک · Help
+      options:
+        - label: می‌خواهم خودم آن را طبق DESIGN.md طراحی کنم · I'd like to design it myself following DESIGN.md

@@ -149,6 +149,13 @@ input[type="range"] { inline-size: 84px; accent-color: var(--brand); }
 .ctl.disabled { opacity: 0.4; pointer-events: none; }
 
 .actions { display: flex; gap: 6px; }
+.selbar { display: flex; align-items: center; gap: 8px; margin: 0 12px 8px; padding: 8px 8px 8px 12px; padding-inline: 12px 8px; border: 1px solid var(--brand); border-radius: 12px; background: color-mix(in srgb, var(--brand) 10%, var(--bg)); font-size: 12px; animation: selbar-in 0.2s ease-out; }
+.selbar[hidden] { display: none; }
+.selbar > span:first-child { display: grid; color: var(--brand); }
+.selbar > span:first-child svg { inline-size: 16px; block-size: 16px; }
+.selbar #selbar-text { flex: 1; min-inline-size: 0; }
+.selbar .btn { block-size: 30px; padding: 0 10px; font-size: 12px; }
+@keyframes selbar-in { from { opacity: 0; transform: translateY(4px); } }
 .btn { block-size: 36px; padding: 0 14px; border-radius: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--line); background: var(--bg); transition: background 0.15s, transform 0.1s, box-shadow 0.15s, opacity 0.15s; white-space: nowrap; }
 .btn svg { inline-size: 16px; block-size: 16px; }
 .btn:hover { background: var(--tile); }
@@ -217,6 +224,11 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     </section>
   </div>
 
+  <div class="selbar only-figma" id="selbar" hidden>
+    <span data-icon="refresh"></span>
+    <span id="selbar-text"></span>
+    <button class="btn" id="selbar-apply"></button>
+  </div>
   <footer class="inspector" id="inspector">
     <div class="ins-head">
       <div class="preview" id="preview"></div>
@@ -230,6 +242,7 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     </div>
     <div class="actions">
       <button class="btn primary only-figma" id="insert"><span data-icon="plus"></span><span id="insert-label">افزودن به فیگما</span></button>
+      <button class="btn only-figma" id="as-comp" title="کامپوننت با ویژگی‌های Style و Size؛ رنگ از متغیر «Kashi Icons / icon»"><span data-icon="component"></span>کامپوننت</button>
       <button class="btn" id="dl-svg" title="دانلود SVG"><span data-icon="download"></span>SVG</button>
       <div class="menu-wrap">
         <button class="btn" id="png-btn" aria-haspopup="menu"><span data-icon="image"></span>PNG</button>
@@ -317,10 +330,21 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     opts = opts || {};
     var color = opts.color || (state.color === "currentColor" ? (opts.forFigma ? "#000000" : "currentColor") : state.color);
     var size = opts.size || state.size;
-    var inner = KashiRender.renderBody(BY[name].b, state.variant, { uid: "kashi-" + name, sw: state.sw }).replace(/currentColor/g, color);
-    return '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 20 20" fill="none" stroke="' + color + '" stroke-width="' + state.sw + '" stroke-linecap="round" stroke-linejoin="round">' + inner + "</svg>";
+    var variant = opts.variant || state.variant;
+    var sw = opts.sw || state.sw;
+    var inner = KashiRender.renderBody(BY[name].b, variant, { uid: "kashi-" + name, sw: sw }).replace(/currentColor/g, color);
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 20 20" fill="none" stroke="' + color + '" stroke-width="' + sw + '" stroke-linecap="round" stroke-linejoin="round">' + inner + "</svg>";
   }
   function fileName(name, ext) { return "kashi-" + name + (state.variant === "light" ? "" : "-" + state.variant) + "." + ext; }
+  // کامپوننت: شش سبک با خط ۱٫۵ و رنگ سیاه (بعداً به متغیر رنگ وصل می‌شود)؛ اندازه‌ها در فیگما از همین ساخته می‌شوند
+  var COMP_SIZES = [16, 20, 24, 32];
+  function compSize() { return COMP_SIZES.indexOf(state.size) !== -1 ? state.size : 24; }
+  function compItem(name) {
+    return {
+      name: name, title: BY[name].t, variant: state.variant, size: compSize(), sizes: COMP_SIZES,
+      styles: KashiRender.variants.map(function (v) { return { variant: v, svg: exportSvg(name, { forFigma: true, variant: v, sw: 1.5, size: 20, color: "#000000" }) }; }),
+    };
+  }
   function figmaItem(name) {
     return { name: name, label: "Kashi / " + name + (state.variant === "light" ? "" : " / " + STYLE_LABELS[state.variant]), variant: state.variant, size: state.size, svg: exportSvg(name, { forFigma: true }) };
   }
@@ -464,7 +488,8 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     $("dl-svg").lastChild.textContent = many ? "ZIP" : inFigma ? "SVG" : "دانلود SVG";
     $("png-btn").lastChild.textContent = many ? "PNG ZIP" : "PNG";
     var hasSel = selected.length > 0;
-    ["insert", "dl-svg", "png-btn", "copy-btn"].forEach(function (id) { $(id).disabled = !hasSel; });
+    ["insert", "as-comp", "dl-svg", "png-btn", "copy-btn"].forEach(function (id) { $(id).disabled = !hasSel; });
+    renderSelbar();
     $("copy-btn").disabled = !hasSel || many;
     $("stroke-ctl").classList.toggle("disabled", !!FILLED[state.variant]);
     $("stroke").value = state.sw; $("stroke-out").textContent = fa(state.sw);
@@ -510,6 +535,31 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     remember(selected);
   }
   $("insert").addEventListener("click", insert);
+  $("as-comp").addEventListener("click", function () {
+    if (!selected.length) return;
+    parent.postMessage({ pluginMessage: { type: "component", items: selected.map(compItem) } }, "*");
+    remember(selected);
+  });
+
+  // آیکون‌های کاشیِ انتخاب‌شده روی بوم: یک دکمه سبک و اندازهٔ فعلی پنل را رویشان می‌گذارد
+  var canvasSel = [];
+  function renderSelbar() {
+    var bar = $("selbar");
+    if (!inFigma || !canvasSel.length) { bar.hidden = true; return; }
+    bar.hidden = false;
+    var comps = canvasSel.filter(function (c) { return c.kind === "instance"; }).length;
+    var size = comps === canvasSel.length ? compSize() : state.size;
+    $("selbar-text").textContent = fa(canvasSel.length) + " آیکون کاشی روی بوم انتخاب شده";
+    $("selbar-apply").textContent = "تبدیل به " + STYLE_LABELS[state.variant] + "، " + fa(size);
+  }
+  $("selbar-apply").addEventListener("click", function () {
+    var items = canvasSel.map(function (c) {
+      if (c.kind === "instance") return { id: c.id, name: c.name, kind: c.kind, variant: state.variant, size: compSize() };
+      var it = figmaItem(c.name); it.id = c.id; it.kind = c.kind;
+      return it;
+    });
+    parent.postMessage({ pluginMessage: { type: "restyle", items: items } }, "*");
+  });
 
   function download(blob, name) {
     var a = document.createElement("a");
@@ -655,7 +705,10 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
       if (m.state) Object.keys(m.state).forEach(function (k) { if (m.state[k] !== undefined && m.state[k] !== null) state[k] = m.state[k]; });
       boot();
     } else if (m.type === "inserted") {
-      toast(m.count === 1 ? "به فیگما اضافه شد" : fa(m.count) + " آیکون به فیگما اضافه شد");
+      toast(m.component ? (m.count === 1 ? "کامپوننت اضافه شد" : fa(m.count) + " کامپوننت اضافه شد") : m.count === 1 ? "به فیگما اضافه شد" : fa(m.count) + " آیکون به فیگما اضافه شد");
+    } else if (m.type === "selection") {
+      canvasSel = m.items || [];
+      renderSelbar();
     }
   };
 
