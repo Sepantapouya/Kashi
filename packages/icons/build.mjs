@@ -34,6 +34,14 @@ for (const [old, to] of Object.entries(aliases)) {
 }
 const aliasNames = Object.keys(aliases);
 
+// این دو فضای نام نشان رسمی‌اند؛ SVG آن‌ها در شش سبک عیناً یکسان است.
+// exports مسیر سبک را به فایل پایه می‌رساند تا آرشیو npm فایل تکراری نداشته باشد.
+for (const name of [...names, ...aliasNames]) {
+  if (/^(brand-|crypto-)/.test(name) && !icons[aliases[name] ?? name].brand) {
+    throw new Error(`${name}: invariant SVG export prefixes are reserved for brand marks`);
+  }
+}
+
 rmSync("dist", { recursive: true, force: true });
 mkdirSync("dist/svg", { recursive: true });
 for (const v of variants.slice(1)) mkdirSync(`dist/svg/${v}`, { recursive: true });
@@ -179,6 +187,10 @@ for (const n of [...names, ...aliasNames]) {
   const body = icons[aliases[n] ?? n].body;
   writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(body, "light", { uid: `k-${n}` })}</svg>\n`);
   for (const v of variants.slice(1)) writeFileSync(`dist/svg/${v}/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(body, v, { uid: `k-${n}` })}</svg>\n`);
+}
+for (const v of variants.slice(1)) {
+  // فایل‌ها برای ابزارهای محلی ساخته می‌شوند؛ فقط نسخه‌های یکسان در npm بسته‌بندی نمی‌شوند.
+  writeFileSync(`dist/svg/${v}/.npmignore`, "brand-*.svg\ncrypto-*.svg\n");
 }
 for (const v of variants) {
   writeFileSync(

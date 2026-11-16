@@ -28,6 +28,8 @@ searchIcons("کارت"); // ["credit-card", "id-card", ...]
 - اسپرایت سبک‌ها: `@kashi-ui/icons/sprite-bold.svg` و `<use href="sprite-bold.svg#k-search--bold">`
 - همهٔ آیکون‌ها در پلاگین فیگمای کاشی هم هستند (`Icon / search`).
 
+مسیرهای `@kashi-ui/icons/svg/<variant>/brand-*.svg` و `crypto-*.svg` برای نشان‌های رسمی، با `exports` به همان فایل SVG پایه اشاره می‌کنند؛ هندسهٔ این نشان‌ها در هر شش سبک یکسان است. برای واردکردن SVG از مسیر عمومی `@kashi-ui/icons/svg/...` استفاده کنید. اسپرایت‌های هر شش سبک همچنان جداگانه منتشر می‌شوند.
+
 [اسکیل طراحی و بازبینی آیکون‌های کاشی](https://github.com/Sepantapouya/Kashi/blob/main/packages/icons/DESIGN.md)
 
 کد و طرح‌های اصلی کاشی با مجوز MIT منتشر می‌شوند؛ مجوز نشان‌های برند در فایل‌های همراه ثبت شده است.

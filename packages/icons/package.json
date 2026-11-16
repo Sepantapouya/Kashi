@@ -17,7 +17,17 @@
     "./svg/*": "./dist/svg/*",
     "./sprite.svg": "./dist/sprite.svg",
     "./sprite-*.svg": "./dist/sprite-*.svg",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./svg/bold/brand-*.svg": "./dist/svg/brand-*.svg",
+    "./svg/bold/crypto-*.svg": "./dist/svg/crypto-*.svg",
+    "./svg/bulk/brand-*.svg": "./dist/svg/brand-*.svg",
+    "./svg/bulk/crypto-*.svg": "./dist/svg/crypto-*.svg",
+    "./svg/two-tone/brand-*.svg": "./dist/svg/brand-*.svg",
+    "./svg/two-tone/crypto-*.svg": "./dist/svg/crypto-*.svg",
+    "./svg/broken/brand-*.svg": "./dist/svg/brand-*.svg",
+    "./svg/broken/crypto-*.svg": "./dist/svg/crypto-*.svg",
+    "./svg/curved/brand-*.svg": "./dist/svg/brand-*.svg",
+    "./svg/curved/crypto-*.svg": "./dist/svg/crypto-*.svg"
   },
   "files": [
     "dist",
