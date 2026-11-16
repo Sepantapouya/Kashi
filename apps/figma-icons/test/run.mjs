@@ -176,6 +176,11 @@ page.selection = [inst];
 send({ type: "restyle", items: [{ id: inst.id, kind: "instance", name: "heart", variant: "light", size: 48 }] });
 assert.deepEqual(inst.props, { Style: "Curved", Size: "16" });
 assert.match(notes.at(-1), /۱۶ تا ۳۲/);
+// پیام‌ها با زبان پنل
+send({ type: "lang", lang: "en" });
+send({ type: "restyle", items: [{ id: inst.id, kind: "instance", name: "heart", variant: "light", size: 48 }] });
+assert.match(notes.at(-1), /sizes 16 to 32/);
+send({ type: "lang", lang: "fa" });
 
 // ۸) پنل دکمهٔ کامپوننت و نوار انتخاب دارد
 assert.ok(ui.includes('id="as-comp"') && ui.includes('id="selbar"'));

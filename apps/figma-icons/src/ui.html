@@ -41,7 +41,7 @@ html.figma-dark, html.dark {
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
-body { background: var(--bg); color: var(--fg); font: 12px/1.6 "Vazirmatn", Tahoma, system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow: hidden; }
+body { background: var(--bg); color: var(--fg); font: 12px/1.6 "Inter", "Vazirmatn", Tahoma, system-ui, sans-serif; font-feature-settings: "cv11", "ss01"; -webkit-font-smoothing: antialiased; overflow: hidden; }
 button, input { font: inherit; color: inherit; }
 button { cursor: pointer; border: 0; background: none; padding: 0; }
 :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 8px; }
@@ -58,6 +58,7 @@ svg { display: block; }
 .top-actions { margin-inline-start: auto; display: flex; gap: 4px; }
 .ghost { inline-size: 30px; block-size: 30px; border-radius: 9px; display: grid; place-items: center; color: var(--muted); transition: background 0.15s, color 0.15s, transform 0.1s; }
 .ghost:hover { background: var(--tile); color: var(--fg); }
+.ghost.lang { inline-size: auto; padding-inline: 8px; font-size: 11px; font-weight: 800; letter-spacing: .02em; }
 .ghost:active { transform: scale(0.94); }
 .ghost svg { inline-size: 18px; block-size: 18px; }
 
@@ -74,10 +75,10 @@ svg { display: block; }
 .search.has-q .clear { display: grid; }
 .search .clear:hover { background: var(--tile); }
 
-.styles { display: flex; gap: 6px; padding: 10px 14px 8px; overflow-x: auto; scrollbar-width: none; }
+.styles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; padding: 10px 14px 8px; }
 .styles::-webkit-scrollbar { display: none; }
-.style { flex: none; display: flex; align-items: center; gap: 6px; block-size: 32px; padding: 0 11px 0 12px; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s; white-space: nowrap; }
-.style svg { inline-size: 18px; block-size: 18px; }
+.style { min-width: 0; display: flex; align-items: center; justify-content: center; gap: 5px; block-size: 32px; padding: 0 6px; font-size: 11.5px; overflow: hidden; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s; white-space: nowrap; }
+.style svg { flex: none; inline-size: 16px; block-size: 16px; }
 .style:hover { color: var(--fg); background: var(--tile); }
 .style:active { transform: scale(0.96); }
 .style[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); color: var(--bg); }
@@ -95,10 +96,11 @@ svg { display: block; }
 .cat[aria-current="true"] em { color: var(--brand); }
 
 .content { overflow-y: auto; padding: 4px 12px 16px; min-width: 0; scrollbar-width: thin; }
-.content-head { position: sticky; top: 0; z-index: 2; background: var(--bg); display: flex; align-items: baseline; gap: 8px; padding: 10px 2px 8px; }
-.content-head b { font-size: 13px; font-weight: 800; }
+.content-head { position: sticky; top: 0; z-index: 2; background: var(--bg); display: flex; align-items: baseline; gap: 8px; padding: 10px 2px 8px; min-width: 0; }
+.content-head b { flex: 0 1 auto; font-size: 13px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 3em; }
+.content-head > span { white-space: nowrap; }
 .content-head span { color: var(--faint); font-size: 11px; }
-.content-head .hint { margin-inline-start: auto; font-size: 10.5px; color: var(--faint); }
+.content-head .hint { flex: 1 1 0; margin-inline-start: auto; text-align: end; white-space: nowrap; font-size: 10.5px; color: var(--faint); min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); gap: 6px; }
 .tile { position: relative; aspect-ratio: 1; border-radius: var(--r); background: var(--tile); display: grid; place-items: center; color: var(--fg); transition: background 0.15s, transform 0.15s var(--ease), box-shadow 0.15s; }
 .tile svg { inline-size: 24px; block-size: 24px; pointer-events: none; }
@@ -122,9 +124,9 @@ svg { display: block; }
 .meta { min-width: 0; flex: 1; }
 .meta b { display: block; font-size: 13.5px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .meta button.name { font: 11px/1.6 ui-monospace, Menlo, monospace; color: var(--muted); direction: ltr; padding: 0 6px; margin-inline-start: -6px; border-radius: 6px; max-inline-size: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
-.meta button.name.hint { font: 11px/1.6 "Vazirmatn", Tahoma, sans-serif; direction: rtl; }
+.meta button.name.hint { font: 11px/1.6 "Inter", "Vazirmatn", Tahoma, sans-serif; direction: inherit; }
 .meta button.name:hover { background: var(--tile); color: var(--fg); }
-.star { inline-size: 34px; block-size: 34px; border-radius: 10px; display: grid; place-items: center; color: var(--faint); border: 1px solid var(--line); transition: color 0.15s, background 0.15s, transform 0.15s var(--ease); }
+.star { flex: none; inline-size: 34px; block-size: 34px; border-radius: 10px; display: grid; place-items: center; color: var(--faint); border: 1px solid var(--line); transition: color 0.15s, background 0.15s, transform 0.15s var(--ease); }
 .star svg { inline-size: 18px; block-size: 18px; }
 .star:hover { color: #f5b544; }
 .star[aria-pressed="true"] { color: #f5b544; background: rgba(245, 181, 68, 0.12); border-color: rgba(245, 181, 68, 0.4); }
@@ -156,11 +158,11 @@ input[type="range"] { inline-size: 84px; accent-color: var(--brand); }
 .selbar #selbar-text { flex: 1; min-inline-size: 0; }
 .selbar .btn { block-size: 30px; padding: 0 10px; font-size: 12px; }
 @keyframes selbar-in { from { opacity: 0; transform: translateY(4px); } }
-.btn { block-size: 36px; padding: 0 14px; border-radius: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--line); background: var(--bg); transition: background 0.15s, transform 0.1s, box-shadow 0.15s, opacity 0.15s; white-space: nowrap; }
+.btn { flex: none; block-size: 36px; padding: 0 11px; border-radius: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--line); background: var(--bg); transition: background 0.15s, transform 0.1s, box-shadow 0.15s, opacity 0.15s; white-space: nowrap; }
 .btn svg { inline-size: 16px; block-size: 16px; }
 .btn:hover { background: var(--tile); }
 .btn:active { transform: scale(0.97); }
-.btn.primary { flex: 1; background: var(--brand); color: var(--brand-fg); border-color: transparent; box-shadow: 0 4px 14px var(--ring); }
+.btn.primary { flex: 1 1 auto; min-width: 0; background: var(--brand); color: var(--brand-fg); border-color: transparent; box-shadow: 0 4px 14px var(--ring); }
 .btn.primary:hover { filter: brightness(1.06); }
 .btn[disabled] { opacity: 0.45; pointer-events: none; }
 .menu-wrap { position: relative; }
@@ -187,8 +189,14 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
 @media (max-width: 420px) {
   .main { grid-template-columns: 1fr; }
   .side { display: none; }
-  .btn { padding: 0 10px; gap: 4px; }
+  .btn { padding: 0 9px; gap: 4px; font-size: 11.5px; }
   .controls { gap: 8px 10px; }
+  .style svg { display: none; }
+  .content-head .hint { display: none; }
+  .controls { flex-wrap: wrap; }
+  /* پنل باریک: دکمه‌های فرعی فقط آیکون؛ متنشان در title هست */
+  .actions .btn:not(.primary) { font-size: 0; gap: 0; padding: 0 10px; }
+  .actions .btn:not(.primary) svg { inline-size: 17px; block-size: 17px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -200,26 +208,27 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
   <header>
     <div class="top">
       <div class="logo" aria-hidden="true"><svg viewBox="0 0 32 32"><path fill="currentColor" fill-rule="evenodd" d="M16 1 11.61 5.39H5.39v6.22L1 16l4.39 4.39v6.22h6.22L16 31l4.39-4.39h6.22v-6.22L31 16l-4.39-4.39V5.39h-6.22Z M16 8.8 13.89 10.91H10.91v2.98L8.8 16l2.11 2.11v2.98h2.98L16 23.2l2.11-2.11h2.98v-2.98L23.2 16l-2.11-2.11v-2.98h-2.98Z"/></svg></div>
-      <div class="brand"><b>آیکون‌های کاشی</b><span id="total"></span></div>
+      <div class="brand"><b data-t="brand">آیکون‌های کاشی</b><span id="total"></span></div>
       <div class="top-actions">
-        <button class="ghost only-figma" id="size-toggle" title="اندازهٔ پنل" aria-label="تغییر اندازهٔ پنل"></button>
-        <button class="ghost only-web" id="theme-toggle" title="روشن / تیره" aria-label="روشن یا تیره"></button>
+        <button class="ghost lang" id="lang-toggle" title="English / فارسی" aria-label="Switch language / تغییر زبان"></button>
+        <button class="ghost only-figma" id="size-toggle" data-t-title="panelSize" data-t-aria="panelSizeAria" title="اندازهٔ پنل" aria-label="تغییر اندازهٔ پنل"></button>
+        <button class="ghost only-web" id="theme-toggle" data-t-title="theme" data-t-aria="theme" title="روشن / تیره" aria-label="روشن یا تیره"></button>
       </div>
     </div>
     <div class="search" id="search-box">
       <span class="s-icon" data-icon="search"></span>
-      <input id="q" type="search" placeholder="جست‌وجو در آیکون‌ها، فارسی یا انگلیسی" autocomplete="off" spellcheck="false" aria-label="جست‌وجو">
+      <input id="q" type="search" data-t-ph="searchPh" data-t-aria="search" placeholder="جست‌وجو در آیکون‌ها، فارسی یا انگلیسی" autocomplete="off" spellcheck="false" aria-label="جست‌وجو">
       <kbd>/</kbd>
-      <button class="clear" id="clear" aria-label="پاک کردن جست‌وجو" data-icon="close"></button>
+      <button class="clear" id="clear" data-t-aria="clear" aria-label="پاک کردن جست‌وجو" data-icon="close"></button>
     </div>
-    <div class="styles" id="styles" role="toolbar" aria-label="سبک آیکون"></div>
+    <div class="styles" id="styles" role="toolbar" data-t-aria="style" aria-label="سبک آیکون"></div>
   </header>
 
   <div class="main">
-    <nav class="side" id="side" aria-label="دسته‌ها"></nav>
+    <nav class="side" id="side" data-t-aria="cats" aria-label="دسته‌ها"></nav>
     <section class="content" id="content">
-      <div class="content-head"><b id="view-title"></b><span id="view-count"></span><span class="hint only-figma">برای افزودن دوبار بزنید یا بکشید روی بوم</span></div>
-      <div class="grid" id="grid" role="listbox" aria-multiselectable="true" aria-label="آیکون‌ها"></div>
+      <div class="content-head"><b id="view-title"></b><span id="view-count"></span><span class="hint only-figma" data-t="hint">برای افزودن دوبار بزنید یا بکشید روی بوم</span></div>
+      <div class="grid" id="grid" role="listbox" aria-multiselectable="true" data-t-aria="icons" aria-label="آیکون‌ها"></div>
       <div class="more" id="more"></div>
     </section>
   </div>
@@ -232,34 +241,34 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
   <footer class="inspector" id="inspector">
     <div class="ins-head">
       <div class="preview" id="preview"></div>
-      <div class="meta"><b id="ins-title"></b><button class="name" id="ins-name" title="کپی نام"></button></div>
-      <button class="star" id="star" aria-pressed="false" title="علاقه‌مندی" data-icon="star"></button>
+      <div class="meta"><b id="ins-title"></b><button class="name" id="ins-name" data-t-title="copyName" title="کپی نام"></button></div>
+      <button class="star" id="star" aria-pressed="false" data-t-title="fav" title="علاقه‌مندی" data-icon="star"></button>
     </div>
     <div class="controls">
-      <div class="ctl"><label>رنگ</label><div class="swatches" id="swatches"></div></div>
-      <div class="ctl"><label>اندازه</label><div class="seg" id="sizes"></div></div>
-      <div class="ctl" id="stroke-ctl"><label>ضخامت</label><input type="range" id="stroke" min="1" max="2.5" step="0.25"><output id="stroke-out"></output></div>
+      <div class="ctl"><label data-t="color">رنگ</label><div class="swatches" id="swatches"></div></div>
+      <div class="ctl"><label data-t="size">اندازه</label><div class="seg" id="sizes"></div></div>
+      <div class="ctl" id="stroke-ctl"><label data-t="stroke">ضخامت</label><input type="range" id="stroke" min="1" max="2.5" step="0.25"><output id="stroke-out"></output></div>
     </div>
     <div class="actions">
       <button class="btn primary only-figma" id="insert"><span data-icon="plus"></span><span id="insert-label">افزودن به فیگما</span></button>
-      <button class="btn only-figma" id="as-comp" title="کامپوننت با ویژگی‌های Style و Size؛ رنگ از متغیر «Kashi Icons / icon»"><span data-icon="component"></span>کامپوننت</button>
-      <button class="btn" id="dl-svg" title="دانلود SVG"><span data-icon="download"></span>SVG</button>
+      <button class="btn only-figma" id="as-comp" data-t-title="compTitle" title="کامپوننت با ویژگی‌های Style و Size؛ رنگ از متغیر «Kashi Icons / icon»"><span data-icon="component"></span><span data-t="comp">کامپوننت</span></button>
+      <button class="btn" id="dl-svg" data-t-title="dlSvg" title="دانلود SVG"><span data-icon="download"></span>SVG</button>
       <div class="menu-wrap">
-        <button class="btn" id="png-btn" aria-haspopup="menu"><span data-icon="image"></span>PNG</button>
+        <button class="btn" id="png-btn" aria-haspopup="menu" title="PNG"><span data-icon="image"></span>PNG</button>
         <div class="menu" id="png-menu" role="menu">
-          <button data-scale="1">PNG ۱× <small id="px1"></small></button>
-          <button data-scale="2">PNG ۲× <small id="px2"></small></button>
-          <button data-scale="3">PNG ۳× <small id="px3"></small></button>
+          <button data-scale="1">PNG 1× <small id="px1"></small></button>
+          <button data-scale="2">PNG 2× <small id="px2"></small></button>
+          <button data-scale="3">PNG 3× <small id="px3"></small></button>
         </div>
       </div>
       <div class="menu-wrap">
-        <button class="btn" id="copy-btn" aria-haspopup="menu"><span data-icon="copy"></span>کپی</button>
+        <button class="btn" id="copy-btn" aria-haspopup="menu" data-t-title="copy"><span data-icon="copy"></span><span data-t="copy">کپی</span></button>
         <div class="menu" id="copy-menu" role="menu">
-          <button data-copy="svg">کد SVG</button>
-          <button data-copy="react">کد React <small>@kashi-ui/icons</small></button>
-          <button data-copy="html">کد HTML <small>iconSvg</small></button>
+          <button data-copy="svg" data-t="codeSvg">کد SVG</button>
+          <button data-copy="react"><span data-t="codeReact">کد React</span> <small>@kashi-ui/icons</small></button>
+          <button data-copy="html"><span data-t="codeHtml">کد HTML</span> <small>iconSvg</small></button>
           <hr>
-          <button data-copy="name">نام آیکون</button>
+          <button data-copy="name" data-t="iconName">نام آیکون</button>
         </div>
       </div>
     </div>
@@ -273,12 +282,77 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
 (function () {
   "use strict";
   var $ = function (id) { return document.getElementById(id); };
-  var fa = function (n) { return Number(n).toLocaleString("fa-IR"); };
+  var fa = function (n) { return Number(n).toLocaleString(state.lang === "en" ? "en-US" : "fa-IR"); };
   var inFigma = window.parent !== window;
-  var STYLE_LABELS = { light: "خطی", bold: "توپر", bulk: "حجمی", "two-tone": "دورنگ", broken: "شکسته", curved: "منحنی" };
+  // متن‌های پنل در دو زبان؛ زبان از تنظیمات ذخیره‌شده یا زبان سیستم می‌آید
+  var STRINGS = {
+    fa: {
+      brand: "آیکون‌های کاشی", panelSize: "اندازهٔ پنل", panelSizeAria: "تغییر اندازهٔ پنل", theme: "روشن / تیره",
+      searchPh: "جست‌وجو در آیکون‌ها، فارسی یا انگلیسی", search: "جست‌وجو", clear: "پاک کردن جست‌وجو", style: "سبک آیکون", cats: "دسته‌ها", icons: "آیکون‌ها",
+      hint: "برای افزودن دوبار بزنید یا بکشید روی بوم", copyName: "کپی نام", fav: "علاقه‌مندی", color: "رنگ", size: "اندازه", stroke: "ضخامت",
+      comp: "کامپوننت", compTitle: "کامپوننت با ویژگی‌های Style و Size؛ رنگ از متغیر «Kashi Icons / icon»", dlSvg: "دانلود SVG", copy: "کپی",
+      codeSvg: "کد SVG", codeReact: "کد React", codeHtml: "کد HTML", iconName: "نام آیکون",
+      all: "همه", favs: "علاقه‌مندی‌ها", recent: "استفادهٔ اخیر", allIcons: "همهٔ آیکون‌ها", result: "نتیجهٔ «%s»", nIcons: "%n آیکون",
+      noResult: "آیکونی با این نام پیدا نشد", noFav: "هنوز علاقه‌مندی ندارید", noRecent: "هنوز آیکونی استفاده نکرده‌اید",
+      noResultSub: "واژهٔ دیگری امتحان کنید؛ فارسی و انگلیسی هر دو کار می‌کنند.", noFavSub: "روی ستارهٔ پایین پنل بزنید تا آیکون اینجا بماند.", noRecentSub: "آیکون‌هایی که اضافه یا دانلود می‌کنید اینجا می‌آیند.",
+      pick: "یک آیکون انتخاب کنید", nSelected: "%n آیکون انتخاب شده", hintFigma: "دوبار کلیک یا کشیدن: افزودن", hintWeb: "⌘ کلیک: چند آیکون با هم", hintMany: "⌘ کلیک: افزودن یا برداشتن",
+      add: "افزودن به فیگما", addN: "افزودن %n آیکون", dlSvgWeb: "دانلود SVG", customColor: "رنگ دلخواه",
+      favAdded: "به علاقه‌مندی‌ها اضافه شد", favRemoved: "از علاقه‌مندی‌ها برداشته شد",
+      selbar: "%n آیکون کاشی روی بوم انتخاب شده", convert: "تبدیل به %s، %n",
+      svgDone: "SVG دانلود شد", svgZip: "%n SVG در یک فایل ZIP", pngDone: "PNG دانلود شد", pngZip: "%n PNG در یک فایل ZIP",
+      svgCopied: "کد SVG کپی شد", reactCopied: "کد React کپی شد", htmlCopied: "کد HTML کپی شد", nameCopied: "نام کپی شد",
+      compAdded: "کامپوننت اضافه شد", compAddedN: "%n کامپوننت اضافه شد", added: "به فیگما اضافه شد", addedN: "%n آیکون به فیگما اضافه شد",
+      total: "%n آیکون · ۶ سبک",
+      styles: { light: "خطی", bold: "توپر", bulk: "حجمی", "two-tone": "دورنگ", broken: "شکسته", curved: "منحنی" },
+      colors: ["رنگ متن", "سیاه", "سفید", "فیروزه‌ای", "لاجوردی", "زعفرانی", "اناری"],
+    },
+    en: {
+      brand: "Kashi Icons", panelSize: "Panel size", panelSizeAria: "Change panel size", theme: "Light / dark",
+      searchPh: "Search icons in English or Persian", search: "Search", clear: "Clear search", style: "Icon style", cats: "Categories", icons: "Icons",
+      hint: "Double-click or drag onto the canvas", copyName: "Copy name", fav: "Favorite", color: "Color", size: "Size", stroke: "Stroke",
+      comp: "Component", compTitle: "Component with Style and Size properties; color from the “Kashi Icons / icon” variable", dlSvg: "Download SVG", copy: "Copy",
+      codeSvg: "SVG code", codeReact: "React code", codeHtml: "HTML code", iconName: "Icon name",
+      all: "All", favs: "Favorites", recent: "Recently used", allIcons: "All icons", result: "Results for “%s”", nIcons: "%n icons",
+      noResult: "No icon with that name", noFav: "No favorites yet", noRecent: "No recent icons yet",
+      noResultSub: "Try another word. English and Persian both work.", noFavSub: "Tap the star at the bottom of the panel to keep an icon here.", noRecentSub: "Icons you add or download show up here.",
+      pick: "Select an icon", nSelected: "%n icons selected", hintFigma: "Double-click or drag to add", hintWeb: "⌘-click to pick several", hintMany: "⌘-click to add or remove",
+      add: "Add to Figma", addN: "Add %n icons", dlSvgWeb: "Download SVG", customColor: "Custom color",
+      favAdded: "Added to favorites", favRemoved: "Removed from favorites",
+      selbar: "%n Kashi icons selected on canvas", convert: "Make %s, %n",
+      svgDone: "SVG downloaded", svgZip: "%n SVGs in one ZIP", pngDone: "PNG downloaded", pngZip: "%n PNGs in one ZIP",
+      svgCopied: "SVG code copied", reactCopied: "React code copied", htmlCopied: "HTML code copied", nameCopied: "Name copied",
+      compAdded: "Component added", compAddedN: "%n components added", added: "Added to Figma", addedN: "%n icons added to Figma",
+      total: "%n icons · 6 styles",
+      styles: { light: "Light", bold: "Bold", bulk: "Bulk", "two-tone": "Two-tone", broken: "Broken", curved: "Curved" },
+      colors: ["Text color", "Black", "White", "Teal", "Blue", "Saffron", "Red"],
+    },
+  };
+  var GROUP_EN = { interface: "Interface", documents: "Files & work", communication: "Communication", media: "Media", tech: "Tech & data", money: "Money & shopping", place: "Time, place & travel", home: "Home & life", health: "Health, sport & games", world: "Science & nature", culture: "Culture & events", letters: "Letters & numbers", brands: "Apps & brands", crypto: "Crypto & web3", "iranian-brands": "Iranian brands" };
+  var CAT_EN = { "persian-letters": "Persian letters", "latin-letters": "Latin letters", persian: "Persian culture", "iran-banks": "Iranian banks", "iran-payment-gateways": "Iranian payment gateways", "iran-website-applications": "Iranian apps", "iran-isp": "Iranian ISPs", "iran-social-media": "Iranian messengers", "iran-vod": "Iranian streaming", "iran-app-store": "Iranian app stores", "iran-tech-companies": "Iranian tech companies", "iran-transportation": "Iranian airlines", "iran-media-news": "Iranian media", "iran-insurance": "Iranian insurance", "iran-business-chain-stores": "Iranian chain stores", ai: "AI", cad: "CAD", "smart-home": "Smart home", "home-life": "Home life" };
+  function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+  function human(slug) { return cap(slug.replace(/-/g, " ")); }
+  function t(k, n, x) {
+    var v = STRINGS[state.lang][k];
+    if (n !== undefined) v = v.replace("%n", fa(n));
+    if (x !== undefined) v = v.replace("%s", x);
+    if (state.lang === "en" && n === 1) v = v.replace(/\b(icons|components|SVGs|PNGs)\b/, function (w) { return w.slice(0, -1); });
+    return v;
+  }
+  function styleLabel(v) { return STRINGS[state.lang].styles[v]; }
+  function catLabel(c) {
+    if (state.lang === "fa") return CAT_LABEL[c];
+    if (CAT_EN[c]) return CAT_EN[c];
+    if (c.indexOf("brand-") === 0) return human(c.slice(6)) + " brands";
+    return human(c);
+  }
+  var IR_PREFIX = /^ir-(banks|payment-gateways|website-applications|isp|social-media|vod|app-store|tech-companies|transportation|media-news|insurance|business-chain-stores)-/;
+  function titleOf(n) {
+    if (state.lang === "fa") return BY[n].t;
+    return human(n.replace(/^brand-/, "").replace(IR_PREFIX, "").replace(/^crypto-/, ""));
+  }
   var FILLED = { bold: true, bulk: true };
   var SIZES = [16, 20, 24, 32, 48];
-  var COLORS = [["currentColor", "رنگ متن"], ["#15171c", "سیاه"], ["#ffffff", "سفید"], ["#0b8077", "فیروزه‌ای"], ["#2740ed", "لاجوردی"], ["#f98307", "زعفرانی"], ["#e51d2a", "اناری"]];
+  var COLORS = ["currentColor", "#15171c", "#ffffff", "#0b8077", "#2740ed", "#f98307", "#e51d2a"];
 
   // ---------- داده ----------
   var NAMES = [], BY = {}, CAT_COUNT = {};
@@ -297,12 +371,12 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
   }
   var INDEX = null;
   function index() {
-    if (!INDEX) INDEX = NAMES.map(function (n) { var i = BY[n]; return [n, fold(n + "|" + i.t + "|" + i.k + "|" + CAT_LABEL[i.c])]; });
+    if (!INDEX) INDEX = NAMES.map(function (n) { var i = BY[n]; return [n, fold(n + "|" + i.t + "|" + i.k + "|" + CAT_LABEL[i.c] + "|" + i.c)]; });
     return INDEX;
   }
 
   // ---------- وضعیت ----------
-  var state = { variant: "light", size: 24, sw: 1.5, color: "currentColor", cat: "all", favs: [], recent: [], theme: null, panel: "normal" };
+  var state = { variant: "light", size: 24, sw: 1.5, color: "currentColor", cat: "all", favs: [], recent: [], theme: null, panel: "normal", lang: /^fa\b/i.test(navigator.language || "") ? "fa" : "en" };
   var q = "";
   var selected = [];
   var focus = null;
@@ -311,7 +385,7 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
   var PAGE = 168;
 
   function save() {
-    var s = { variant: state.variant, size: state.size, sw: state.sw, color: state.color, favs: state.favs, recent: state.recent, theme: state.theme, panel: state.panel };
+    var s = { variant: state.variant, size: state.size, sw: state.sw, color: state.color, favs: state.favs, recent: state.recent, theme: state.theme, panel: state.panel, lang: state.lang };
     if (inFigma) parent.postMessage({ pluginMessage: { type: "save", state: s } }, "*");
     else try { localStorage.setItem("kashi-icons", JSON.stringify(s)); } catch (e) {}
   }
@@ -346,7 +420,7 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     };
   }
   function figmaItem(name) {
-    return { name: name, label: "Kashi / " + name + (state.variant === "light" ? "" : " / " + STYLE_LABELS[state.variant]), variant: state.variant, size: state.size, svg: exportSvg(name, { forFigma: true }) };
+    return { name: name, label: "Kashi / " + name + (state.variant === "light" ? "" : " / " + STRINGS.en.styles[state.variant]), variant: state.variant, size: state.size, svg: exportSvg(name, { forFigma: true }) };
   }
 
   // ---------- دکمه‌های آیکونی ثابت ----------
@@ -361,7 +435,7 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
   function renderStyles() {
     var pv = BY["heart"] ? "heart" : NAMES[0];
     $("styles").innerHTML = KashiRender.variants.map(function (v) {
-      return '<button class="style" data-v="' + v + '" aria-pressed="' + (state.variant === v) + '"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + KashiRender.renderBody(BY[pv].b, v, { uid: "s-" + v }) + "</svg>" + STYLE_LABELS[v] + "</button>";
+      return '<button class="style" data-v="' + v + '" aria-pressed="' + (state.variant === v) + '"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + KashiRender.renderBody(BY[pv].b, v, { uid: "s-" + v }) + "</svg>" + styleLabel(v) + "</button>";
     }).join("");
   }
   $("styles").addEventListener("click", function (e) {
@@ -376,9 +450,9 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
   }
   function firstOf(cat) { for (var i = 0; i < NAMES.length; i++) if (BY[NAMES[i]].c === cat) return NAMES[i]; }
   function renderSide() {
-    var h = catButton("all", "همه", NAMES.length, "apps") + catButton("fav", "علاقه‌مندی‌ها", state.favs.length, "star") + catButton("recent", "استفادهٔ اخیر", state.recent.length, "clock");
+    var h = catButton("all", t("all"), NAMES.length, "apps") + catButton("fav", t("favs"), state.favs.length, "star") + catButton("recent", t("recent"), state.recent.length, "clock");
     DATA.groups.forEach(function (g) {
-      h += "<h4>" + g[0] + "</h4>" + g[1].map(function (c) { return catButton(c, CAT_LABEL[c], CAT_COUNT[c] || 0, firstOf(c)); }).join("");
+      h += "<h4>" + (state.lang === "en" ? GROUP_EN[g[2]] || g[0] : g[0]) + "</h4>" + g[1].map(function (c) { return catButton(c, catLabel(c), CAT_COUNT[c] || 0, firstOf(c)); }).join("");
     });
     $("side").innerHTML = h;
   }
@@ -397,25 +471,25 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     if (q) {
       var f = fold(q);
       list = index().filter(function (r) { return r[1].indexOf(f) !== -1; }).map(function (r) { return r[0]; });
-      title = "نتیجهٔ «" + q + "»";
-    } else if (state.cat === "fav") { list = state.favs.filter(function (n) { return BY[n]; }); title = "علاقه‌مندی‌ها"; }
-    else if (state.cat === "recent") { list = state.recent.filter(function (n) { return BY[n]; }); title = "استفادهٔ اخیر"; }
-    else if (state.cat === "all") { list = NAMES; title = "همهٔ آیکون‌ها"; }
-    else { list = NAMES.filter(function (n) { return BY[n].c === state.cat; }); title = CAT_LABEL[state.cat]; }
+      title = t("result", undefined, q);
+    } else if (state.cat === "fav") { list = state.favs.filter(function (n) { return BY[n]; }); title = t("favs"); }
+    else if (state.cat === "recent") { list = state.recent.filter(function (n) { return BY[n]; }); title = t("recent"); }
+    else if (state.cat === "all") { list = NAMES; title = t("allIcons"); }
+    else { list = NAMES.filter(function (n) { return BY[n].c === state.cat; }); title = catLabel(state.cat); }
     $("view-title").textContent = title;
-    $("view-count").textContent = fa(list.length) + " آیکون";
+    $("view-count").textContent = t("nIcons", list.length);
     shown = 0;
     $("grid").innerHTML = "";
     if (!list.length) {
-      var msg = q ? "آیکونی با این نام پیدا نشد" : state.cat === "fav" ? "هنوز علاقه‌مندی ندارید" : "هنوز آیکونی استفاده نکرده‌اید";
-      var sub = q ? "واژهٔ دیگری امتحان کنید؛ فارسی و انگلیسی هر دو کار می‌کنند." : state.cat === "fav" ? "روی ستارهٔ پایین پنل بزنید تا آیکون اینجا بماند." : "آیکون‌هایی که اضافه یا دانلود می‌کنید اینجا می‌آیند.";
+      var msg = q ? t("noResult") : state.cat === "fav" ? t("noFav") : t("noRecent");
+      var sub = q ? t("noResultSub") : state.cat === "fav" ? t("noFavSub") : t("noRecentSub");
       $("grid").innerHTML = '<div class="empty" style="grid-column:1/-1">' + chrome(q ? "search" : state.cat === "fav" ? "star" : "clock", 40) + "<b>" + msg + "</b>" + sub + "</div>";
     }
     more();
   }
   function tileHtml(n) {
     var sel = selected.indexOf(n) !== -1;
-    return '<button class="tile" role="option" draggable="true" data-n="' + n + '" aria-selected="' + sel + '" title="' + BY[n].t + '">' + uiSvg(n, 24) + (state.favs.indexOf(n) !== -1 ? '<i class="fav"></i>' : "") + "</button>";
+    return '<button class="tile" role="option" draggable="true" data-n="' + n + '" aria-selected="' + sel + '" title="' + titleOf(n) + '">' + uiSvg(n, 24) + (state.favs.indexOf(n) !== -1 ? '<i class="fav"></i>' : "") + "</button>";
   }
   function more() {
     if (shown >= list.length) return;
@@ -478,14 +552,14 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     $("preview").innerHTML = uiSvg(n, 32) + (many ? "<b>" + fa(selected.length) + "</b>" : "");
     var none = !selected.length;
     $("inspector").classList.toggle("ins-empty", none);
-    $("ins-title").textContent = none ? "یک آیکون انتخاب کنید" : many ? fa(selected.length) + " آیکون انتخاب شده" : BY[n].t;
-    $("ins-name").textContent = none ? (inFigma ? "دوبار کلیک یا کشیدن: افزودن" : "⌘ کلیک: چند آیکون با هم") : many ? "⌘ کلیک: افزودن یا برداشتن" : n;
+    $("ins-title").textContent = none ? t("pick") : many ? t("nSelected", selected.length) : titleOf(n);
+    $("ins-name").textContent = none ? (inFigma ? t("hintFigma") : t("hintWeb")) : many ? t("hintMany") : n;
     $("ins-name").disabled = many || none;
     $("ins-name").classList.toggle("hint", many || none);
     $("star").style.display = many || none ? "none" : "";
     $("star").setAttribute("aria-pressed", state.favs.indexOf(n) !== -1);
-    $("insert-label").textContent = many ? "افزودن " + fa(selected.length) + " آیکون" : "افزودن به فیگما";
-    $("dl-svg").lastChild.textContent = many ? "ZIP" : inFigma ? "SVG" : "دانلود SVG";
+    $("insert-label").textContent = many ? t("addN", selected.length) : t("add");
+    $("dl-svg").lastChild.textContent = many ? "ZIP" : inFigma ? "SVG" : t("dlSvgWeb");
     $("png-btn").lastChild.textContent = many ? "PNG ZIP" : "PNG";
     var hasSel = selected.length > 0;
     ["insert", "as-comp", "dl-svg", "png-btn", "copy-btn"].forEach(function (id) { $(id).disabled = !hasSel; });
@@ -499,10 +573,11 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
   }
   function renderControls() {
     $("sizes").innerHTML = SIZES.map(function (s) { return '<button data-s="' + s + '">' + fa(s) + "</button>"; }).join("");
-    $("swatches").innerHTML = COLORS.map(function (c) {
-      var bg = c[0] === "currentColor" ? "background:linear-gradient(135deg,var(--fg) 50%,var(--bg) 50%)" : "background:" + c[0];
-      return '<button class="sw" data-c="' + c[0] + '" title="' + c[1] + '" aria-label="' + c[1] + '" style="' + bg + '"></button>';
-    }).join("") + '<label class="sw pick" title="رنگ دلخواه"><input type="color" id="custom-color" aria-label="رنگ دلخواه"></label>';
+    $("swatches").innerHTML = COLORS.map(function (c, i) {
+      var bg = c === "currentColor" ? "background:linear-gradient(135deg,var(--fg) 50%,var(--bg) 50%)" : "background:" + c;
+      var name = STRINGS[state.lang].colors[i];
+      return '<button class="sw" data-c="' + c + '" title="' + name + '" aria-label="' + name + '" style="' + bg + '"></button>';
+    }).join("") + '<label class="sw pick" title="' + t("customColor") + '"><input type="color" id="custom-color" aria-label="' + t("customColor") + '"></label>';
   }
   $("sizes").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; state.size = +b.getAttribute("data-s"); renderInspector(); save(); });
   $("swatches").addEventListener("click", function (e) { var b = e.target.closest(".sw[data-c]"); if (!b) return; state.color = b.getAttribute("data-c"); renderInspector(); save(); });
@@ -515,7 +590,7 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     if (i === -1) state.favs.unshift(n); else state.favs.splice(i, 1);
     $("star").classList.remove("pop"); void $("star").offsetWidth; $("star").classList.add("pop");
     renderInspector(); renderSideCounts(); redrawTiles(); save();
-    toast(i === -1 ? "به علاقه‌مندی‌ها اضافه شد" : "از علاقه‌مندی‌ها برداشته شد");
+    toast(i === -1 ? t("favAdded") : t("favRemoved"));
     if (state.cat === "fav") filter();
   });
   function renderSideCounts() {
@@ -549,8 +624,8 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     bar.hidden = false;
     var comps = canvasSel.filter(function (c) { return c.kind === "instance"; }).length;
     var size = comps === canvasSel.length ? compSize() : state.size;
-    $("selbar-text").textContent = fa(canvasSel.length) + " آیکون کاشی روی بوم انتخاب شده";
-    $("selbar-apply").textContent = "تبدیل به " + STYLE_LABELS[state.variant] + "، " + fa(size);
+    $("selbar-text").textContent = t("selbar", canvasSel.length);
+    $("selbar-apply").textContent = t("convert", size, styleLabel(state.variant));
   }
   $("selbar-apply").addEventListener("click", function () {
     var items = canvasSel.map(function (c) {
@@ -582,8 +657,8 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     });
   }
   $("dl-svg").addEventListener("click", function () {
-    if (selected.length === 1) { download(new Blob([exportSvg(selected[0])], { type: "image/svg+xml" }), fileName(selected[0], "svg")); toast("SVG دانلود شد"); }
-    else { download(zip(selected.map(function (n) { return [fileName(n, "svg"), enc(exportSvg(n))]; })), "kashi-icons-" + state.variant + ".zip"); toast(fa(selected.length) + " SVG در یک فایل ZIP"); }
+    if (selected.length === 1) { download(new Blob([exportSvg(selected[0])], { type: "image/svg+xml" }), fileName(selected[0], "svg")); toast(t("svgDone")); }
+    else { download(zip(selected.map(function (n) { return [fileName(n, "svg"), enc(exportSvg(n))]; })), "kashi-icons-" + state.variant + ".zip"); toast(t("svgZip", selected.length)); }
     remember(selected);
   });
   $("png-menu").addEventListener("click", function (e) {
@@ -591,10 +666,10 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     var s = +b.getAttribute("data-scale"); closeMenus();
     var names = selected.slice();
     Promise.all(names.map(function (n) { return png(n, s); })).then(function (blobs) {
-      if (blobs.length === 1) { download(blobs[0], fileName(names[0], s > 1 ? "@" + s + "x.png" : "png").replace(".@", "@")); toast("PNG دانلود شد"); return; }
+      if (blobs.length === 1) { download(blobs[0], fileName(names[0], s > 1 ? "@" + s + "x.png" : "png").replace(".@", "@")); toast(t("pngDone")); return; }
       return Promise.all(blobs.map(function (b) { return b.arrayBuffer(); })).then(function (bufs) {
         download(zip(names.map(function (n, i) { return [fileName(n, "png").replace(".png", s > 1 ? "@" + s + "x.png" : ".png"), new Uint8Array(bufs[i])]; })), "kashi-icons-png-" + s + "x.zip");
-        toast(fa(names.length) + " PNG در یک فایل ZIP");
+        toast(t("pngZip", names.length));
       });
     });
     remember(names);
@@ -615,13 +690,13 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
     var size = state.size === 20 ? "" : " size={" + state.size + "}";
     var sw = state.sw === 1.5 || FILLED[state.variant] ? "" : " strokeWidth={" + state.sw + "}";
     var color = state.color === "currentColor" ? "" : ' color="' + state.color + '"';
-    if (k === "svg") copyText(exportSvg(n), "کد SVG کپی شد");
-    else if (k === "react") copyText('import { ' + BY[n].comp + ' } from "@kashi-ui/icons/react";\n\n<' + BY[n].comp + size + v + sw + color + " />", "کد React کپی شد");
-    else if (k === "html") copyText('import { iconSvg } from "@kashi-ui/icons";\n\niconSvg("' + n + '", { size: ' + state.size + (state.variant === "light" ? "" : ', variant: "' + state.variant + '"') + " });", "کد HTML کپی شد");
-    else copyText(n, "نام کپی شد");
+    if (k === "svg") copyText(exportSvg(n), t("svgCopied"));
+    else if (k === "react") copyText('import { ' + BY[n].comp + ' } from "@kashi-ui/icons/react";\n\n<' + BY[n].comp + size + v + sw + color + " />", t("reactCopied"));
+    else if (k === "html") copyText('import { iconSvg } from "@kashi-ui/icons";\n\niconSvg("' + n + '", { size: ' + state.size + (state.variant === "light" ? "" : ', variant: "' + state.variant + '"') + " });", t("htmlCopied"));
+    else copyText(n, t("nameCopied"));
     remember([n]);
   });
-  $("ins-name").addEventListener("click", function () { if (selected.length <= 1 && focus) copyText(focus, "نام کپی شد"); });
+  $("ins-name").addEventListener("click", function () { if (selected.length <= 1 && focus) copyText(focus, t("nameCopied")); });
 
   // منوها
   function closeMenus() { document.querySelectorAll(".menu.open").forEach(function (m) { m.classList.remove("open"); }); }
@@ -705,20 +780,40 @@ body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); bo
       if (m.state) Object.keys(m.state).forEach(function (k) { if (m.state[k] !== undefined && m.state[k] !== null) state[k] = m.state[k]; });
       boot();
     } else if (m.type === "inserted") {
-      toast(m.component ? (m.count === 1 ? "کامپوننت اضافه شد" : fa(m.count) + " کامپوننت اضافه شد") : m.count === 1 ? "به فیگما اضافه شد" : fa(m.count) + " آیکون به فیگما اضافه شد");
+      toast(m.component ? (m.count === 1 ? t("compAdded") : t("compAddedN", m.count)) : m.count === 1 ? t("added") : t("addedN", m.count));
     } else if (m.type === "selection") {
       canvasSel = m.items || [];
       renderSelbar();
     }
   };
 
+  // زبان: متن‌های ثابت با data-t، جهت صفحه، و بازسازی بخش‌های پویا
+  function applyLang() {
+    var en = state.lang === "en";
+    document.documentElement.lang = state.lang;
+    document.documentElement.dir = en ? "ltr" : "rtl";
+    document.querySelectorAll("[data-t]").forEach(function (el) { el.textContent = t(el.getAttribute("data-t")); });
+    document.querySelectorAll("[data-t-title]").forEach(function (el) { el.title = t(el.getAttribute("data-t-title")); });
+    document.querySelectorAll("[data-t-aria]").forEach(function (el) { el.setAttribute("aria-label", t(el.getAttribute("data-t-aria"))); });
+    document.querySelectorAll("[data-t-ph]").forEach(function (el) { el.placeholder = t(el.getAttribute("data-t-ph")); });
+    document.title = t("brand");
+    $("lang-toggle").textContent = en ? "فا" : "EN";
+    $("total").innerHTML = t("total", NAMES.length) + ' · <bdi dir="ltr">v' + DATA.version + "</bdi>";
+    renderStyles(); renderSide(); renderControls();
+    if (booted) { filter(); renderInspector(); }
+    if (inFigma) parent.postMessage({ pluginMessage: { type: "lang", lang: state.lang } }, "*");
+  }
+  $("lang-toggle").addEventListener("click", function () {
+    state.lang = state.lang === "en" ? "fa" : "en";
+    applyLang(); save();
+  });
+
   var booted = false;
   function boot() {
     if (booted) return; booted = true;
     if (!inFigma) { document.body.classList.add("web"); try { var s = JSON.parse(localStorage.getItem("kashi-icons") || "null"); if (s) Object.keys(s).forEach(function (k) { state[k] = s[k]; }); } catch (e) {} }
     if (inFigma && state.panel !== "normal") parent.postMessage({ pluginMessage: { type: "resize", size: state.panel } }, "*");
-    $("total").innerHTML = fa(NAMES.length) + " آیکون · ۶ سبک · <bdi dir=\"ltr\">v" + DATA.version + "</bdi>";
-    fillIcons(); renderStyles(); renderSide(); renderControls(); applyTheme();
+    fillIcons(); applyTheme(); applyLang();
     $("size-toggle").innerHTML = chrome(state.panel === "wide" ? "minimize-diagonal" : "maximize-diagonal", 18);
     filter(); renderInspector();
   }

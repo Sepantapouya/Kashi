@@ -5,6 +5,13 @@
 
 var UI_SIZES = { compact: [380, 600], normal: [520, 680], wide: [720, 720] };
 var STORE_KEY = "kashi-icons:v1";
+// زبان پیام‌ها همان زبان پنل است (پیام «lang» از پنل)
+var LANG = "fa";
+var MSG = {
+  fa: { added: "آیکون اضافه شد", addedN: "%n آیکون اضافه شد", compMade: "کامپوننت با سبک و اندازه در صفحهٔ «Kashi Icons» ساخته شد", compReused: "از کامپوننت موجود استفاده شد", sizeSkip: "%n آیکون این اندازه را ندارد؛ کامپوننت‌ها ۱۶ تا ۳۲ دارند", restyled: "%n آیکون عوض شد" },
+  en: { added: "Icon added", addedN: "%n icons added", compMade: "Component with Style and Size created on the “Kashi Icons” page", compReused: "Used the existing component", sizeSkip: "%n icons skipped: components come in sizes 16 to 32", restyled: "%n icons changed" },
+};
+function msgOf(key, n) { return MSG[LANG][key].replace("%n", String(n)); }
 
 figma.showUI(__html__, { width: UI_SIZES.normal[0], height: UI_SIZES.normal[1], themeColors: true, title: "Kashi Icons" });
 
@@ -243,17 +250,19 @@ figma.on("drop", function (event) {
 figma.ui.onmessage = function (msg) {
   if (msg.type === "insert") {
     var count = insert(msg.items);
-    figma.notify(count === 1 ? "آیکون اضافه شد" : count + " آیکون اضافه شد", { timeout: 1600 });
+    figma.notify(count === 1 ? msgOf("added") : msgOf("addedN", count), { timeout: 1600 });
     figma.ui.postMessage({ type: "inserted", count: count });
   } else if (msg.type === "component") {
     addComponents(msg.items).then(function (r) {
-      figma.notify(r.made ? "کامپوننت با سبک و اندازه در صفحهٔ «" + COMP_PAGE + "» ساخته شد" : "از کامپوننت موجود استفاده شد", { timeout: 2200 });
+      figma.notify(r.made ? msgOf("compMade") : msgOf("compReused"), { timeout: 2200 });
       figma.ui.postMessage({ type: "inserted", count: r.count, component: true });
     });
   } else if (msg.type === "restyle") {
     var r = restyle(msg.items);
-    figma.notify(r.skipped ? r.skipped + " آیکون این اندازه را ندارد؛ کامپوننت‌ها ۱۶ تا ۳۲ دارند" : r.count + " آیکون عوض شد", { timeout: 1800 });
+    figma.notify(r.skipped ? msgOf("sizeSkip", r.skipped) : msgOf("restyled", r.count), { timeout: 1800 });
     reportSelection();
+  } else if (msg.type === "lang") {
+    if (MSG[msg.lang]) LANG = msg.lang;
   } else if (msg.type === "notify") {
     figma.notify(msg.text, { timeout: 1600 });
   } else if (msg.type === "resize" && UI_SIZES[msg.size]) {
@@ -262,6 +271,7 @@ figma.ui.onmessage = function (msg) {
     figma.clientStorage.setAsync(STORE_KEY, msg.state);
   } else if (msg.type === "ready") {
     figma.clientStorage.getAsync(STORE_KEY).then(function (state) {
+      if (state && MSG[state.lang]) LANG = state.lang;
       figma.ui.postMessage({ type: "state", state: state || null, inFigma: true });
       reportSelection();
     });

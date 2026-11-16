@@ -19,7 +19,7 @@ const catIndex = Object.fromEntries(catIds.map((c, i) => [c, i]));
 const data = {
   version,
   cats: catIds.map((c) => [c, categories[c]]),
-  groups: categoryGroups.map((g) => [g.title, g.categories]),
+  groups: categoryGroups.map((g) => [g.title, g.categories, g.id]),
   // [نام، عنوان فارسی، دسته، کلیدواژه‌ها، بدنهٔ SVG، نام کامپوننت React]
   icons: Object.entries(icons).map(([n, i]) => [n, i.title, catIndex[i.category], i.keywords.join(" "), i.body, i.component]),
 };
@@ -28,9 +28,13 @@ const data = {
 const renderSrc = readFileSync(join(root, "packages/icons/src/render.js"), "utf8").replace(/^export /gm, "");
 const render = `var KashiRender = (function () {\n${renderSrc}\nreturn { renderBody, variants };\n})();`;
 const fontB64 = readFileSync(join(root, "packages/css/dist/fonts/Vazirmatn.woff2")).toString("base64");
+// Inter برای متن لاتین (فقط زیرمجموعهٔ لاتین، حدود ۴۸ کیلوبایت)؛ متن فارسی با وزیرمتن
+const interDir = join(root, "node_modules/@fontsource-variable/inter");
+const interB64 = readFileSync(join(interDir, "files/inter-latin-wght-normal.woff2")).toString("base64");
 
 const ui = withIconHtmlNotice(readFileSync(join(here, "src/ui.html"), "utf8")
-  .replace("/*KASHI_FONT*/", () => `@font-face { font-family: "Vazirmatn"; src: url(data:font/woff2;base64,${fontB64}) format("woff2"); font-weight: 100 900; font-display: block; }`)
+  .replace("/*KASHI_FONT*/", () => `@font-face { font-family: "Vazirmatn"; src: url(data:font/woff2;base64,${fontB64}) format("woff2"); font-weight: 100 900; font-display: block; }
+@font-face { font-family: "Inter"; src: url(data:font/woff2;base64,${interB64}) format("woff2"); font-weight: 100 900; font-display: block; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }`)
   .replace("/*KASHI_DATA*/", () => `var DATA = ${JSON.stringify(data)};`)
   .replace("/*KASHI_RENDER*/", () => render));
 
@@ -83,6 +87,7 @@ mkdirSync(downloads, { recursive: true });
 writeFileSync(join(downloads, "kashi-icons-figma-plugin.zip"), zip([
   ...["manifest.json", "code.js", "ui.html"].map((f) => [`kashi-icons-figma-plugin/${f}`, readFileSync(join(out, f))]),
   ...iconLicenseZipEntries("kashi-icons-figma-plugin"),
+  ["kashi-icons-figma-plugin/Inter-OFL.txt", readFileSync(join(interDir, "LICENSE"))],
 ]));
 // همان پنل به‌صورت صفحهٔ وب: دانلود SVG و PNG و کپی کد بیرون از فیگما
 writeFileSync(join(root, "apps/docs/public/icon-exporter.html"), ui);
