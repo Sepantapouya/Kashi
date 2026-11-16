@@ -317,8 +317,13 @@ export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}
       const nested = nestedIn(shape);
       const top = shape.filter((s) => !nested.includes(s));
       const { inner, crossing } = classify(top, detail), outer = detail.filter((d) => !inner.includes(d));
-      const holes = nested.join("") + inner.join("").replace(/<circle\b/g, '<circle fill="#000" stroke="none"')
-        + (crossing.length ? `<g stroke-width="${n(weight + 1.2)}">${crossing.join("")}</g>` : "");
+      const innerHoles = inner.map((el) => el.startsWith("<circle")
+        ? el.replace(/\s(?:fill|stroke)="[^"]*"/g, "").replace("<circle", '<circle fill="#000" stroke="none"')
+        : el).join("");
+      // ماسک باید مستقل از رنگ آیکون باشد؛ currentColor روشن نباید سوراخ را پُر کند.
+      const holes = (nested.join("") + innerHoles
+        + (crossing.length ? `<g stroke-width="${n(weight + 1.2)}">${crossing.join("")}</g>` : ""))
+        .replace(/fill="currentColor"/g, 'fill="#000"');
       const fill = `fill="currentColor" stroke-width="${n(sw / 3)}"`;
       const silhouette = holes
         ? `<defs><mask id="${uid}-a" ${box}>${bg}<g stroke="#000">${holes}</g></mask></defs><g ${fill} mask="url(#${uid}-a)">${S}</g>`

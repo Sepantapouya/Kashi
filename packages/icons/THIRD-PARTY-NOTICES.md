@@ -99,3 +99,11 @@ Tabler: Copyright (c) 2020–2026 Paweł Kuna. The full license is distributed i
 Iconoir: Copyright (c) 2021 Luca Burgio. The full license is distributed in `Iconoir-MIT.txt`.
 
 The source manifest records the original file, pinned version or revision, original SVG checksums and normalized body checksum for every drawing. Coordinates are fitted to the 20×20 grid, strokes use the 1.5 reference weight, and rectangle elements use Kashi's continuous corners. Where available, upstream filled artwork is used for the bold variant. Non-rendering clip definitions are excluded from visible geometry; actual source fill and stroke instructions and even-odd holes are preserved.
+
+## Hugeicons 4.4.0 — MIT
+
+801 general drawings are adapted from @hugeicons/core-free-icons 4.4.0. Copyright © 2025 Hugeicons. The full license accompanies this package in Hugeicons-MIT.txt. File-specific source URLs and checksums are in general-sources.json.
+
+## Natural Earth 5.1.1 — public domain
+
+168 country silhouettes and 31 Iranian province silhouettes are simplified from Natural Earth admin-0/admin-1 data. Scope, source feature identity, projection and geometry adaptations are recorded in general-sources.json. See Natural-Earth-PUBLIC-DOMAIN.txt.

@@ -48,7 +48,9 @@
     "audits/vazirmatn-glyphs.json",
     "general-sources.json",
     "Tabler-MIT.txt",
-    "Iconoir-MIT.txt"
+    "Iconoir-MIT.txt",
+    "Hugeicons-MIT.txt",
+    "Natural-Earth-PUBLIC-DOMAIN.txt"
   ],
   "sideEffects": false,
   "scripts": {

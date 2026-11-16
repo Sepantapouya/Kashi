@@ -1,0 +1,5 @@
+Natural Earth 5.1.1 geographic data is in the public domain.
+Source: https://www.naturalearthdata.com/
+Terms: https://www.naturalearthdata.com/about/terms-of-use/
+
+Kashi creates simplified outer silhouettes at icon scale using a local equirectangular projection. Minor islands and interior holes are omitted. The United States, France Norway and Ecuador icons use the named mainland scope. Province records use Natural Earth feature identifiers, not current ISO province codes. Per-feature sources, archive checksums and adaptations are recorded in general-sources.json.

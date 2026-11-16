@@ -6,7 +6,8 @@ import { icons, iconNames, aliases, iconSvg, searchIcons, categoryGroups } from 
 
 const json = (file) => JSON.parse(readFileSync(new URL(`../${file}`, import.meta.url)));
 const audit = json("audits/added-11000-batch.json");
-const sources = json("general-sources.json");
+const batchNames = new Set(audit.icons.map(i => i.name));
+const sources = { icons: json("general-sources.json").icons.filter(i => batchNames.has(i.name)) };
 
 test("800 additions preserve all published names and compatibility aliases", () => {
   assert.equal(audit.addedCount, 800);
