@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { iconNames } from '../../packages/icons/dist/index.js';
 
 // Focus on hydration and interactions without cross-document transition races.
 test.use({ reducedMotion: 'reduce' });
@@ -11,9 +12,9 @@ test('icon categories, Iranian search and SVG code hydrate without errors', asyn
   await page.goto('/docs/icons/');
   await page.locator('astro-island[component-export="IconCatalog"]:not([ssr])').waitFor();
   const search = page.getByRole('textbox', { name: 'جستجوی آیکون' });
-  const counts = await page.locator('.ic-cat__count').allTextContents();
+  const counts = await page.locator('.ix-cat__count').allTextContents();
   const total = counts.reduce((sum, text) => sum + number(text), 0);
-  expect(total).toBe(number((await search.getAttribute('placeholder')).match(/[۰-۹٬,]+/)[0]));
+  expect(total).toBe(iconNames.length);
   await search.fill('بانک ملی');
   await page.locator('.ib-cell[href="/docs/icons/brand-ir-banks-melli/"]').click();
   await page.locator('astro-island[component-export="IconDetail"]:not([ssr])').waitFor();

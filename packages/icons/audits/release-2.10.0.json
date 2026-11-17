@@ -1,0 +1,33 @@
+{
+  "version": "2.10.0",
+  "canonicalIcons": 12000,
+  "workspaces": 9,
+  "unitTests": "All workspace tests and size budgets passed",
+  "consumer": {
+    "passed": true,
+    "seconds": 281,
+    "next": "16.4.6",
+    "shadcnComponents": 91,
+    "serverAndClientProductionBuild": true
+  },
+  "figma": "Both plugin tests passed; archives rebuilt with 2.10.0 metadata",
+  "package": {
+    "files": 63275,
+    "publicSvgImportsVerified": 72246,
+    "artifactIntegrity": "All nine prepared archives verified"
+  },
+  "visual": {
+    "fullRunPassed": 168,
+    "fullRunFailed": 18,
+    "missingReferenceImages": 22,
+    "knownComponentDifferences": [
+      "table in light and dark",
+      "appointment in light and dark"
+    ],
+    "obsoleteIconChecks": "Updated category selector and replaced the obsolete numeric-placeholder check with the catalog API count; both interaction tests now pass.",
+    "boldCutouts": "Four light/dark checks passed",
+    "referencesUpdated": false,
+    "componentCssAndSourceUnchanged": true
+  },
+  "publication": "Prepared; public registry verification recorded separately after upload."
+}

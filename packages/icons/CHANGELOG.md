@@ -1,5 +1,12 @@
 # @kashi-ui/icons
 
+## 2.10.0
+
+### Minor Changes
+
+- 8c8f807: Add 1000 reviewed general icon drawings: 801 adapted from Hugeicons and 199 geographic silhouettes from Natural Earth, reaching 12000 canonical icons while preserving all published names and aliases. Exclude near-identical prospective drawings, retain structurally distinct variants, include Persian search metadata and source licenses, and update the documentation and Figma catalogs. Fix filled-detail cutouts in bold icons on light and dark backgrounds.
+- a20681b: آیکون‌ها برای Vue و Svelte: `@kashi-ui/icons/vue` با یک کامپوننت برای هر آیکون (`IconSearch`، …) و `<Icon name>`، و `@kashi-ui/icons/svelte` با `Icon.svelte` و دادهٔ هر آیکون (`iconSearch`، …). مثل React فقط آیکون‌های استفاده‌شده در باندل می‌مانند. Vue و Svelte وابستگی اختیاری‌اند.
+
 ## 2.9.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # @kashi-ui/mcp
 
+## 2.10.0
+
+### Patch Changes
+
+- 8c8f807: Add 1000 reviewed general icon drawings: 801 adapted from Hugeicons and 199 geographic silhouettes from Natural Earth, reaching 12000 canonical icons while preserving all published names and aliases. Exclude near-identical prospective drawings, retain structurally distinct variants, include Persian search metadata and source licenses, and update the documentation and Figma catalogs. Fix filled-detail cutouts in bold icons on light and dark backgrounds.
+- Updated dependencies [8c8f807]
+- Updated dependencies [a20681b]
+  - @kashi-ui/icons@2.10.0
+  - @kashi-ui/persian@2.10.0
+  - @kashi-ui/tokens@2.10.0
+
 ## 2.9.0
 
 ### Patch Changes
