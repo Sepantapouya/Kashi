@@ -78,7 +78,7 @@ test("every icon renders in all six variants", async () => {
   assert.match(html, /data-variant="bulk"/);
   const bold = readFileSync(new URL("../dist/sprite-bold.svg", import.meta.url), "utf8");
   assert.ok(bold.includes('id="k-home--bold"'));
-  assert.equal(readdirSync(new URL("../dist/svg/curved/", import.meta.url)).filter(f => f.endsWith(".svg")).length, iconNames.length + Object.keys(aliases).length);
+  // All public curved SVG paths, including redirects, are checked in svg-exports.test.mjs.
 });
 
 test("bold leaves room between open strokes and keeps small rings open", () => {

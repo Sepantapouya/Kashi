@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 
 const iconFile = (name) => new URL(`../packages/icons/${name}`, import.meta.url);
-const notices = ["LICENSE", "THIRD-PARTY-NOTICES.md", "Tabler-MIT.txt", "Iconoir-MIT.txt", "Hugeicons-MIT.txt", "Natural-Earth-PUBLIC-DOMAIN.txt", "Vazirmatn-OFL.txt"];
+const notices = ["LICENSE", "THIRD-PARTY-NOTICES.md", "Tabler-MIT.txt", "Iconoir-MIT.txt", "Hugeicons-MIT.txt", "IconPark-Apache-2.0.txt", "Natural-Earth-PUBLIC-DOMAIN.txt", "Vazirmatn-OFL.txt"];
 const records = [...notices, "general-sources.json", "brand-sources.json"];
 
 // مجوزها همراه فایل‌های مستقل هم می‌مانند؛ دانلود پلاگین به نصب npm وابسته نیست.

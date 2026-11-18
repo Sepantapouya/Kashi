@@ -20,7 +20,7 @@ for (const name of [...Object.keys(icons), ...Object.keys(aliases)]) for (const 
   assert.ok(files.has(path), `Published SVG export is missing: ${suffix} -> ${path}`);
   checked++;
 }
-for (const file of ["general-sources.json", "brand-sources.json", "Tabler-MIT.txt", "Iconoir-MIT.txt", "Hugeicons-MIT.txt", "Natural-Earth-PUBLIC-DOMAIN.txt", "Vazirmatn-OFL.txt"]) assert.ok(files.has(file), file);
+for (const file of ["general-sources.json", "brand-sources.json", "Tabler-MIT.txt", "Iconoir-MIT.txt", "Hugeicons-MIT.txt", "IconPark-Apache-2.0.txt", "Natural-Earth-PUBLIC-DOMAIN.txt", "Vazirmatn-OFL.txt"]) assert.ok(files.has(file), file);
 for (const variant of variants) assert.ok(files.has(`dist/sprite${variant === "light" ? "" : `-${variant}`}.svg`));
 assert.ok(!info.files.some(f => /^dist\/svg\/(bold|bulk|broken|curved|two-tone)\/(brand-|crypto-)/.test(f.path)), "Identical brand SVG copies should not be shipped");
 console.log(`Icon package: ${info.entryCount} files; ${checked} SVG imports verified; six sprites and artwork licenses present.`);

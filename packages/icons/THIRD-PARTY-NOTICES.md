@@ -107,3 +107,7 @@ The source manifest records the original file, pinned version or revision, origi
 ## Natural Earth 5.1.1 — public domain
 
 168 country silhouettes and 31 Iranian province silhouettes are simplified from Natural Earth admin-0/admin-1 data. Scope, source feature identity, projection and geometry adaptations are recorded in general-sources.json. See Natural-Earth-PUBLIC-DOMAIN.txt.
+
+## IconPark 1.4.2 — Apache-2.0
+
+Drawings from [IconPark](https://github.com/bytedance/IconPark) are adapted to the Kashi 20×20 grid and stroke conventions. The Apache 2.0 license is included in IconPark-Apache-2.0.txt. Source paths, checksums and versions are in general-sources.json.

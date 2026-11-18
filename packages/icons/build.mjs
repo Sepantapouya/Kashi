@@ -6,7 +6,7 @@
 //   dist/render.js     ساخت شش سبک (light، bold، bulk، two-tone، broken، curved) از طرح خطی
 //   dist/svg/*.svg     فایل جدا برای هر آیکون؛ سبک‌های دیگر در dist/svg/<variant>/
 //   dist/sprite.svg    همهٔ آیکون‌ها به شکل <symbol> برای <use href>؛ سبک‌های دیگر در dist/sprite-<variant>.svg
-import { mkdirSync, writeFileSync, rmSync, copyFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync, rmSync, copyFileSync } from "node:fs";
 import { icons, categories, categoryGroups, aliases } from "./src/icons.js";
 // هر دسته دقیقاً در یک گروه
 {
@@ -15,6 +15,7 @@ import { icons, categories, categoryGroups, aliases } from "./src/icons.js";
   for (const c of used) if (!categories[c]) throw new Error(`group has unknown category ${c}`);
 }
 import { renderBody, variants } from "./src/render.js";
+import { identicalSvgVariants } from "./src/svg-deduplication.js";
 
 const pascal = (name) => "Icon" + name.replace(/(^|-)([a-z0-9])/g, (_, __, c) => c.toUpperCase());
 const names = Object.keys(icons);
@@ -42,6 +43,13 @@ for (const name of [...names, ...aliasNames]) {
   if (/^(brand-|crypto-)/.test(name) && !icons[aliases[name] ?? name].brand) {
     throw new Error(`${name}: invariant SVG export prefixes are reserved for brand marks`);
   }
+}
+
+const redirects = identicalSvgVariants(icons);
+const { exports: exportsMap } = JSON.parse(readFileSync("package.json", "utf8"));
+const exact = Object.keys(exportsMap).filter(key => /^\.\/svg\/(?:curved|two-tone)\/[a-z0-9-]+\.svg$/.test(key));
+if (exact.length !== Object.keys(redirects).length || exact.some(key => redirects[key] !== exportsMap[key])) {
+  throw new Error("SVG exports are out of sync. Run node packages/icons/scripts/update-svg-exports.mjs.");
 }
 
 rmSync("dist", { recursive: true, force: true });
@@ -340,10 +348,12 @@ ${[...names, ...aliasNames].map((n) => `export declare const ${dataName(n)}: Kas
 for (const n of [...names, ...aliasNames]) {
   const body = icons[aliases[n] ?? n].body;
   writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(body, "light", { uid: `k-${n}` })}</svg>\n`);
-  for (const v of variants.slice(1)) writeFileSync(`dist/svg/${v}/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(body, v, { uid: `k-${n}` })}</svg>\n`);
+  for (const v of variants.slice(1)) {
+    if (redirects[`./svg/${v}/${n}.svg`]) continue;
+    writeFileSync(`dist/svg/${v}/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(body, v, { uid: `k-${n}` })}</svg>\n`);
+  }
 }
 for (const v of variants.slice(1)) {
-  // فایل‌ها برای ابزارهای محلی ساخته می‌شوند؛ فقط نسخه‌های یکسان در npm بسته‌بندی نمی‌شوند.
   writeFileSync(`dist/svg/${v}/.npmignore`, "brand-*.svg\ncrypto-*.svg\n");
 }
 for (const v of variants) {
