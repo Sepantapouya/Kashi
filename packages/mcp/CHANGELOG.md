@@ -1,5 +1,15 @@
 # @kashi-ui/mcp
 
+## 2.11.0
+
+### Patch Changes
+
+- 7dc61b2: Add 1,000 curated icon drawings and functional variants adapted from IconPark, Hugeicons, Tabler and Iconoir. The catalog reaches 13,000 icons across six styles with Persian titles and search terms. Keep all existing SVG import paths while packing byte-identical variants only once.
+- Updated dependencies [7dc61b2]
+  - @kashi-ui/icons@2.11.0
+  - @kashi-ui/persian@2.11.0
+  - @kashi-ui/tokens@2.11.0
+
 ## 2.10.0
 
 ### Patch Changes

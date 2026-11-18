@@ -14,9 +14,9 @@ export const featured: {
   /** پیش‌نمایش کوچک داخل کارت */
   art: FeaturedArt;
 } = {
-  since: "2.10",
+  since: "2.11",
   href: "/docs/icons/",
-  title: "۱۲٬۰۰۰ آیکون؛ React، Vue و Svelte",
-  text: "۱۰۰۰ طرح تازه؛ شش سبک، جستجوی فارسی و انگلیسی و خروجی هماهنگ برای فیگما.",
+  title: "۱۳٬۰۰۰ آیکون؛ React، Vue و Svelte",
+  text: "۱۰۰۰ طرح بازبینی‌شده در شش سبک با جستجوی فارسی و انگلیسی.",
   art: "icons",
 };
