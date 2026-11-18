@@ -1,31 +1,51 @@
-# کاشی (Kashi)
+<p align="center">
+  <a href="https://kashi.sepantapouya.com">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/hero-dark.svg">
+      <source media="(prefers-color-scheme: light)" srcset=".github/assets/hero-light.svg">
+      <img alt="Kashi (کاشی) — the open-source design system for Persian products" src=".github/assets/hero-light.svg" width="100%">
+    </picture>
+  </a>
+</p>
 
-**مستندات و نمونه‌ها: [kashi.sepantapouya.com](https://kashi.sepantapouya.com)** · **کانال تلگرام: [t.me/kashidesign](https://t.me/kashidesign)**
+<h1 align="center">کاشی · Kashi</h1>
 
-[![CI](https://github.com/Sepantapouya/Kashi/actions/workflows/ci.yml/badge.svg)](https://github.com/Sepantapouya/Kashi/actions/workflows/ci.yml)
-[![npm](https://img.shields.io/npm/v/@kashi-ui/react?color=0b8077&label=npm)](https://www.npmjs.com/package/@kashi-ui/react)
-[![License: MIT](https://img.shields.io/badge/license-MIT-0b8077)](LICENSE)
-[![Telegram](https://img.shields.io/badge/Telegram-@kashidesign-26A5E4?logo=telegram&logoColor=white)](https://t.me/kashidesign)
+<p align="center">
+  <a href="https://kashi.sepantapouya.com"><b>مستندات و نمونه‌ها</b></a> ·
+  <a href="https://kashi.sepantapouya.com/docs/figma/">فیگما</a> ·
+  <a href="https://kashi.sepantapouya.com/docs/ai/">هوش مصنوعی (MCP)</a> ·
+  <a href="https://github.com/Sepantapouya/Kashi/releases">نسخه‌ها</a> ·
+  <a href="https://t.me/kashidesign">کانال تلگرام</a>
+</p>
 
-<!-- آمار زنده: ستاره از GitHub، کلون‌ها از stats.json که GitHub Action در شاخهٔ stats می‌نویسد (گیت‌هاب کلون را روزانه حساب می‌کند) -->
-[![Stars](https://img.shields.io/github/stars/Sepantapouya/Kashi?style=flat&logo=github&label=stars&color=0b8077&cacheSeconds=3600)](https://github.com/Sepantapouya/Kashi/stargazers)
-[![Clones](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FSepantapouya%2FKashi%2Fstats%2Fstats.json&query=%24.clones.total&label=clones%20%28all%20time%29&logo=git&logoColor=white&color=0b8077&cacheSeconds=3600)](https://kashi.sepantapouya.com/#community-title)
-[![Unique cloners](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FSepantapouya%2FKashi%2Fstats%2Fstats.json&query=%24.clones.last14.uniques&label=unique%20cloners%20%2814d%29&color=3d5ef8&cacheSeconds=3600)](https://kashi.sepantapouya.com/#community-title)
-[![npm downloads](https://img.shields.io/npm/dm/@kashi-ui/react?label=downloads%2Fmonth&color=3d5ef8&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/react)
+<p align="center">
+  <a href="https://github.com/Sepantapouya/Kashi/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Sepantapouya/Kashi/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://www.npmjs.com/package/@kashi-ui/react"><img alt="npm" src="https://img.shields.io/npm/v/@kashi-ui/react?color=0b8077&label=npm"></a>
+  <a href="https://www.npmjs.com/package/@kashi-ui/react"><img alt="npm downloads" src="https://img.shields.io/npm/dm/@kashi-ui/react?label=downloads%2Fmonth&color=3d5ef8&cacheSeconds=3600"></a>
+  <a href="https://github.com/Sepantapouya/Kashi/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/Sepantapouya/Kashi?style=flat&logo=github&label=stars&color=0b8077&cacheSeconds=3600"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-0b8077"></a>
+  <a href="https://t.me/kashidesign"><img alt="Telegram" src="https://img.shields.io/badge/Telegram-@kashidesign-26A5E4?logo=telegram&logoColor=white"></a>
+</p>
 
 دیزاین‌سیستم فارسی و متن‌باز — **RTL-first**، **Dark-first**، **دسترس‌پذیر** و **کاملاً قابل‌سفارشی‌سازی**، برای React و هر فریم‌ورک دیگری. با الهام از Untitled UI.
 
-| پکیج | کاربرد |
-|---|---|
-| `@kashi-ui/tokens` | رنگ، فاصله، فونت و… به شکل CSS Variables، JSON و JS |
-| `@kashi-ui/css` | استایل کامپوننت‌ها با CSS خالص — برای هر فریم‌ورکی |
-| `@kashi-ui/persian` | تاریخ شمسی، ارقام فارسی، اعتبارسنجی کد ملی و کارت؛ بدون وابستگی |
-| `@kashi-ui/bank-logos` | لوگوی SVG ۴۰ بانک و ۱۰ درگاه پرداخت ایران (CC0) |
-| `@kashi-ui/icons` | ۱۳۰۰۰ آیکون کاشی در شش سبک؛ React، SVG و اسپرایت |
-| `@kashi-ui/react` | کامپوننت‌های React |
-| `@kashi-ui/elements` | وب کامپوننت‌ها برای Vue، Svelte، Angular، وردپرس و HTML: فیلدهای فارسی، تقویم شمسی، فرم نشانی، نقشهٔ ایران، جدول داده، Combobox، منو، پنجره و اعلان |
-| `@kashi-ui/tailwind` | پریست Tailwind 3 و 4: توکن‌های کاشی به‌شکل کلاس‌های Tailwind، همگام با تم |
-| `@kashi-ui/mcp` | سرور MCP برای Claude، Cursor و دیگر دستیارهای هوش مصنوعی |
+> **In English —** Kashi is an open-source design system for Persian (right-to-left) products: React components, framework-free Web Components, pure-CSS styles, design tokens, a Tailwind preset, 13,000 icons, a Figma kit generated from the code and an MCP server for AI assistants. It ships Persian-specific fields (Jalali date picker, national ID, bank card with bank logos, IBAN, licence plate) and targets WCAG 2.2 AA. Every built-in string also has an English locale: `<KashiProvider locale="en">`. Quick start: `npm i @kashi-ui/react @kashi-ui/css` · [docs](https://kashi.sepantapouya.com) · [releases](https://github.com/Sepantapouya/Kashi/releases).
+
+## پکیج‌ها
+
+همهٔ پکیج‌ها با یک نسخهٔ یکسان منتشر می‌شوند؛ تغییرات هر نسخه در [Releases](https://github.com/Sepantapouya/Kashi/releases).
+
+| پکیج | نسخه | دانلود ماهانه | کاربرد |
+|---|---|---|---|
+| [`@kashi-ui/tokens`](https://www.npmjs.com/package/@kashi-ui/tokens) | [![](https://img.shields.io/npm/v/@kashi-ui/tokens?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/tokens) | ![](https://img.shields.io/npm/dm/@kashi-ui/tokens?label=&color=3d5ef8&cacheSeconds=3600) | رنگ، فاصله، فونت و… به شکل CSS Variables، JSON و JS |
+| [`@kashi-ui/css`](https://www.npmjs.com/package/@kashi-ui/css) | [![](https://img.shields.io/npm/v/@kashi-ui/css?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/css) | ![](https://img.shields.io/npm/dm/@kashi-ui/css?label=&color=3d5ef8&cacheSeconds=3600) | استایل کامپوننت‌ها با CSS خالص — برای هر فریم‌ورکی |
+| [`@kashi-ui/react`](https://www.npmjs.com/package/@kashi-ui/react) | [![](https://img.shields.io/npm/v/@kashi-ui/react?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/react) | ![](https://img.shields.io/npm/dm/@kashi-ui/react?label=&color=3d5ef8&cacheSeconds=3600) | کامپوننت‌های React |
+| [`@kashi-ui/elements`](https://www.npmjs.com/package/@kashi-ui/elements) | [![](https://img.shields.io/npm/v/@kashi-ui/elements?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/elements) | ![](https://img.shields.io/npm/dm/@kashi-ui/elements?label=&color=3d5ef8&cacheSeconds=3600) | وب کامپوننت‌ها برای Vue، Svelte، Angular، وردپرس و HTML: فیلدهای فارسی، تقویم شمسی، فرم نشانی، نقشهٔ ایران، جدول داده، Combobox، منو، پنجره و اعلان |
+| [`@kashi-ui/persian`](https://www.npmjs.com/package/@kashi-ui/persian) | [![](https://img.shields.io/npm/v/@kashi-ui/persian?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/persian) | ![](https://img.shields.io/npm/dm/@kashi-ui/persian?label=&color=3d5ef8&cacheSeconds=3600) | تاریخ شمسی، ارقام فارسی، اعتبارسنجی کد ملی و کارت؛ بدون وابستگی |
+| [`@kashi-ui/icons`](https://www.npmjs.com/package/@kashi-ui/icons) | [![](https://img.shields.io/npm/v/@kashi-ui/icons?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/icons) | ![](https://img.shields.io/npm/dm/@kashi-ui/icons?label=&color=3d5ef8&cacheSeconds=3600) | ۱۳۰۰۰ آیکون کاشی در شش سبک؛ React، SVG و اسپرایت |
+| [`@kashi-ui/bank-logos`](https://www.npmjs.com/package/@kashi-ui/bank-logos) | [![](https://img.shields.io/npm/v/@kashi-ui/bank-logos?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/bank-logos) | ![](https://img.shields.io/npm/dm/@kashi-ui/bank-logos?label=&color=3d5ef8&cacheSeconds=3600) | لوگوی SVG ۴۰ بانک و ۱۰ درگاه پرداخت ایران (CC0) |
+| [`@kashi-ui/tailwind`](https://www.npmjs.com/package/@kashi-ui/tailwind) | [![](https://img.shields.io/npm/v/@kashi-ui/tailwind?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/tailwind) | ![](https://img.shields.io/npm/dm/@kashi-ui/tailwind?label=&color=3d5ef8&cacheSeconds=3600) | پریست Tailwind 3 و 4: توکن‌های کاشی به‌شکل کلاس‌های Tailwind، همگام با تم |
+| [`@kashi-ui/mcp`](https://www.npmjs.com/package/@kashi-ui/mcp) | [![](https://img.shields.io/npm/v/@kashi-ui/mcp?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/mcp) | ![](https://img.shields.io/npm/dm/@kashi-ui/mcp?label=&color=3d5ef8&cacheSeconds=3600) | سرور MCP برای Claude، Cursor و دیگر دستیارهای هوش مصنوعی |
 
 ## پایدار برای محصولات سازمانی (۱.۰)
 
@@ -136,6 +156,10 @@ const css = createTheme({ brand: "#7c3aed", radius: 1.5, density: 0.875 });
 ## مشارکت
 
 مخزن: [github.com/Sepantapouya/Kashi](https://github.com/Sepantapouya/Kashi)
+
+<!-- آمار زنده: ستاره از GitHub، کلون‌ها از stats.json که GitHub Action در شاخهٔ stats می‌نویسد (گیت‌هاب کلون را روزانه حساب می‌کند) -->
+[![Clones](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FSepantapouya%2FKashi%2Fstats%2Fstats.json&query=%24.clones.total&label=clones%20%28all%20time%29&logo=git&logoColor=white&color=0b8077&cacheSeconds=3600)](https://kashi.sepantapouya.com/#community-title)
+[![Unique cloners](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FSepantapouya%2FKashi%2Fstats%2Fstats.json&query=%24.clones.last14.uniques&label=unique%20cloners%20%2814d%29&color=3d5ef8&cacheSeconds=3600)](https://kashi.sepantapouya.com/#community-title)
 
 کانال تلگرام کاشی برای خبر نسخه‌ها، کامپوننت‌های تازه و نکته‌های طراحی فارسی: [t.me/kashidesign](https://t.me/kashidesign)
 

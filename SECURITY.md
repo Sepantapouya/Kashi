@@ -15,11 +15,12 @@ https://github.com/Sepantapouya/Kashi/security/advisories/new
 
 | نسخه | رفع امنیتی |
 |---|---|
-| 1.x | ✓ |
+| 2.x | ✓ |
+| 1.x | ✓ (تا ۱۲ ماه پس از ۲.۰) |
 | 0.x | ✗ |
 
 پس از انتشار ۲.۰، نسخهٔ ۱.x تا ۱۲ ماه رفع امنیتی می‌گیرد. جزئیات: https://kashi.sepantapouya.com/docs/security/
 
 ---
 
-Please report vulnerabilities privately through GitHub Security Advisories (link above), not in public issues. We acknowledge reports within 3 business days and fix critical and high severity issues within 14 days. Version 1.x receives security fixes; after 2.0 ships, 1.x keeps receiving them for 12 months.
+Please report vulnerabilities privately through GitHub Security Advisories (link above), not in public issues. We acknowledge reports within 3 business days and fix critical and high severity issues within 14 days. Version 2.x receives security fixes, and 1.x keeps receiving them for 12 months after 2.0 shipped.
