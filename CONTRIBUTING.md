@@ -126,3 +126,5 @@ Describe what changed and why; for visual changes add dark and light screenshots
 ### Translating the docs
 
 English pages live in `apps/docs/src/pages/en/docs/`. To translate a component page, copy the Persian page into `en/docs/components/`, translate the text, leave the code and demos as they are, and open a pull request.
+
+با مشارکت در کاشی، [آیین‌نامهٔ رفتاری](CODE_OF_CONDUCT.md) را می‌پذیرید. · By contributing you agree to the [Code of Conduct](CODE_OF_CONDUCT.md).
