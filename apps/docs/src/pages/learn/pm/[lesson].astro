@@ -1,0 +1,54 @@
+---
+import Course from "../../../layouts/Course.astro";
+import { lessons, fa, fa2 } from "../../../learn/pm";
+import { iconSvg } from "@kashi-ui/icons";
+import Def from "../../../components/learn/Def.astro";
+import Kashi from "../../../components/learn/Kashi.astro";
+import Note from "../../../components/learn/Note.astro";
+import Actions from "../../../components/learn/Actions.astro";
+import Act from "../../../components/learn/Act.astro";
+import Okr from "../../../components/learn/Okr.astro";
+import Kr from "../../../components/learn/Kr.astro";
+import Tree from "../../../components/learn/Tree.astro";
+import Roadmap from "../../../components/learn/Roadmap.astro";
+import Lane from "../../../components/learn/Lane.astro";
+import Item from "../../../components/learn/Item.astro";
+
+export function getStaticPaths() {
+  return lessons.map((lesson) => ({ params: { lesson: lesson.slug }, props: { lesson } }));
+}
+
+const { lesson } = Astro.props;
+const prev = lessons[lesson.n - 2];
+const next = lessons[lesson.n];
+const { Content } = lesson;
+const components = { Def, Kashi, Note, Actions, Act, Okr, Kr, Tree, Roadmap, Lane, Item };
+---
+<Course title={lesson.title} current={lesson.slug} description={lesson.summary}>
+  <article class="prose pm-lesson">
+    <header class="pm-lesson__head">
+      <p class="pm-eyebrow">
+        <span class="pm-eyebrow__num">درس {fa2(lesson.n)}</span>
+        <span>از {fa(lessons.length)}</span>
+        <span class="pm-eyebrow__dot" aria-hidden="true"></span>
+        <span class="pm-eyebrow__time"><Fragment set:html={iconSvg("clock", { size: 14 })} />{fa(lesson.minutes)} دقیقه</span>
+      </p>
+      <h1 class="pm-lesson__title">{lesson.title}</h1>
+      <p class="pm-lesson__lead">{lesson.summary}</p>
+    </header>
+    <Content components={components} />
+  </article>
+
+  <div class="pm-finish">
+    <button type="button" class="k-btn k-btn--primary k-btn--lg pm-finish__btn" data-complete={lesson.slug} aria-pressed="false">
+      <Fragment set:html={iconSvg("check", { size: 18 })} />
+      <span data-complete-label>این درس را تمام کردم</span>
+    </button>
+    <p class="pm-finish__hint">پیشرفت فقط در همین مرورگر ذخیره می‌شود.</p>
+  </div>
+
+  <nav class="pager pm-pager" aria-label="درس‌های مجاور">
+    {prev ? <a class="pager__link" href={prev.href} rel="prev"><span>درس قبلی</span>{prev.title}</a> : <a class="pager__link" href="/learn/pm/"><span>بازگشت</span>نمای دوره</a>}
+    {next ? <a class="pager__link pager__link--next" href={next.href} rel="next"><span>درس بعدی</span>{next.title}</a> : <a class="pager__link pager__link--next" href="/learn/pm/"><span>پایان دوره</span>نمای دوره</a>}
+  </nav>
+</Course>

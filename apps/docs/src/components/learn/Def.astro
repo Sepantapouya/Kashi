@@ -1,0 +1,9 @@
+---
+// تعریف یک اصطلاح؛ در متن درس با <Def term="…">…</Def>
+const { term } = Astro.props as { term: string };
+---
+<aside class="pm-def" aria-label={`تعریف: ${term}`}>
+  <p class="pm-def__label">تعریف</p>
+  <p class="pm-def__term">{term}</p>
+  <div class="pm-def__body"><slot /></div>
+</aside>

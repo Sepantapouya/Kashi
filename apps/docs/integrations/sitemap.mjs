@@ -3,7 +3,8 @@
 import { writeFileSync, readFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
-const SKIP = [/^\/test\//, /^\/promo\/?$/, /^\/404/, /^\/r\//, /\.(json|txt|xml)$/];
+// /learn/ دورهٔ خصوصی و رمزدار است و هرگز در نقشهٔ سایت نمی‌آید
+const SKIP = [/^\/learn\//, /^\/test\//, /^\/promo\/?$/, /^\/404/, /^\/r\//, /\.(json|txt|xml)$/];
 
 export default function sitemap({ site, lastmod = {} }) {
   return {

@@ -1,0 +1,73 @@
+---
+// پوستهٔ دورهٔ خصوصی مدیریت محصول (/learn/pm/): بدون ایندکس، بدون آمار، با فهرست درس‌ها و پیشرفت
+import Base from "./Base.astro";
+import Logo from "../components/Logo.astro";
+import LessonNav from "../components/learn/LessonNav.astro";
+import { iconSvg } from "@kashi-ui/icons";
+import { lessons, fa } from "../learn/pm";
+import "../styles/learn.css";
+
+interface Props { title: string; current?: string; description?: string }
+const { title, current, description = "دورهٔ خصوصی مدیریت محصول بر پایهٔ کاشی" } = Astro.props;
+const total = lessons.length;
+const cur = lessons.find((l) => l.slug === current);
+---
+<Base title={title} seoTitle={`${title} · مدرسهٔ محصول کاشی`} description={description} noindex>
+  <div class="pm" data-pm data-total={total}>
+    <header class="pm-top">
+      <div class="pm-top__inner">
+        <a class="pm-brand" href="/learn/pm/">
+          <Logo size={26} />
+          <span class="pm-brand__name">کاشی</span>
+          <span class="pm-brand__sep" aria-hidden="true"></span>
+          <span class="pm-brand__course">مدرسهٔ محصول</span>
+        </a>
+        <div class="pm-top__end">
+          <p class="pm-top__progress" aria-live="polite"><span data-pm-done>{fa(0)}</span> از {fa(total)} درس</p>
+          <button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm pm-icon-btn" data-theme-toggle aria-label="تم روشن">
+            <Fragment set:html={iconSvg("sun", { size: 18, className: "icon-sun" })} />
+            <Fragment set:html={iconSvg("moon", { size: 18, className: "icon-moon" })} />
+          </button>
+          <a class="k-btn k-btn--secondary k-btn--sm pm-logout" href="/learn/pm/logout/"><Fragment set:html={iconSvg("logout", { size: 16 })} /><span>خروج</span></a>
+        </div>
+      </div>
+    </header>
+
+    <div class="pm-shell">
+      <aside class="pm-side" aria-label="درس‌های دوره">
+        <div class="pm-side__sticky">
+          <p class="pm-side__title">مدیریت محصول، با کاشی</p>
+          <div class="pm-side__progress">
+            <div class="k-progress k-progress--sm" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="پیشرفت دوره" data-pm-bar>
+              <div class="k-progress__bar" style="--k-value: 0%"></div>
+            </div>
+            <span class="pm-side__pct" data-pm-pct>{fa(0)}٪</span>
+          </div>
+          <a class="pm-side__home" href="/learn/pm/" aria-current={current ? undefined : "page"}><Fragment set:html={iconSvg("compass", { size: 16 })} />نمای دوره</a>
+          <LessonNav current={current} />
+        </div>
+      </aside>
+
+      <details class="pm-mnav">
+        <summary class="pm-mnav__summary">
+          <span class="pm-mnav__label">{cur ? `درس ${fa(cur.n)} از ${fa(total)}` : "درس‌های دوره"}</span>
+          <span class="pm-mnav__title">{cur ? cur.title : "نمای دوره"}</span>
+          <Fragment set:html={iconSvg("chevron-down", { size: 18, className: "pm-mnav__chev" })} />
+        </summary>
+        <div class="pm-mnav__panel">
+          <a class="pm-side__home" href="/learn/pm/" aria-current={current ? undefined : "page"}><Fragment set:html={iconSvg("compass", { size: 16 })} />نمای دوره</a>
+          <LessonNav current={current} />
+        </div>
+      </details>
+
+      <main id="main" class="pm-main" tabindex="-1">
+        <slot />
+      </main>
+    </div>
+  </div>
+</Base>
+
+<script>
+  import { initProgress } from "../scripts/pm-progress";
+  initProgress();
+</script>

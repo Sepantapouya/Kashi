@@ -4,5 +4,25 @@
   "buildCommand": "npm run docs:build",
   "outputDirectory": "dist",
   "trailingSlash": true,
-  "git": { "deploymentEnabled": { "stats": false, "status": false } }
+  "git": {
+    "deploymentEnabled": {
+      "stats": false,
+      "status": false
+    }
+  },
+  "headers": [
+    {
+      "source": "/learn/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
+      ]
+    }
+  ]
 }
