@@ -1,0 +1,88 @@
+---
+import Course from "../../../layouts/Course.astro";
+import { lessons, fa, fa2, totalMinutes } from "../../../learn/pm";
+import { iconSvg } from "@kashi-ui/icons";
+
+const parts = [
+  { title: "پایه", text: "نقش مدیر محصول و کاشی به‌عنوان محصول", slugs: ["basics"] },
+  { title: "معیارها", text: "یک عدد برای جهت، چند عدد برای حرکت و سلامت", slugs: ["north-star", "input-metrics", "okr", "kpi"] },
+  { title: "کشف و تصمیم", text: "چه چیزی بسازیم و به چه ترتیبی", slugs: ["discovery", "prioritization", "roadmap"] },
+  { title: "اجرا", text: "سنجیدن و یک ریتم کار پایدار", slugs: ["analytics", "rhythm"] },
+];
+const bySlug = Object.fromEntries(lessons.map((l) => [l.slug, l]));
+const totalActs = lessons.reduce((s, l) => s + l.actions, 0);
+const terms = [
+  { k: "North Star", t: "ستارهٔ شمالی", d: "یک عدد که ارزش گرفته‌شده توسط کاربر را می‌شمارد. جهت را نشان می‌دهد.", href: "/learn/pm/north-star/" },
+  { k: "OKR", t: "هدف و نتایج کلیدی", d: "یک تا سه هدف برای این فصل، هر کدام با عددهای قابل سنجش.", href: "/learn/pm/okr/" },
+  { k: "KPI", t: "شاخص سلامت", d: "عددهایی که دائم پایش می‌شوند تا چیزی بی‌صدا خراب نشود.", href: "/learn/pm/kpi/" },
+];
+---
+<Course title="مدیریت محصول، با کاشی">
+  <section class="pm-hero" aria-labelledby="pm-hero-title">
+    <p class="pm-pill"><Fragment set:html={iconSvg("lock", { size: 14 })} />دورهٔ خصوصی</p>
+    <h1 id="pm-hero-title" class="pm-hero__title">مدیریت محصول، <span class="pm-grad">با کاشی</span></h1>
+    <p class="pm-hero__lead">از ستارهٔ شمالی و هدف‌گذاری فصلی تا شاخص‌های سلامت، کشف، اولویت‌بندی و نقشهٔ راه. هر مفهوم با تعریفش، روی وضعیت واقعی کاشی، و با فهرست کارهایی که باید بکنیم.</p>
+    <dl class="pm-stats">
+      <div><dt>درس</dt><dd>{fa(lessons.length)}</dd></div>
+      <div><dt>دقیقه مطالعه</dt><dd>{fa(totalMinutes)}</dd></div>
+      <div><dt>کار برای کاشی</dt><dd>{fa(totalActs)}</dd></div>
+    </dl>
+    <div class="pm-hero__actions">
+      <a class="k-btn k-btn--primary k-btn--lg" href={lessons[0].href} data-pm-continue><span data-continue-label>شروع دوره</span><Fragment set:html={iconSvg("arrow-left", { size: 18 })} /></a>
+      <div class="pm-hero__progress">
+        <div class="k-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="پیشرفت دوره" data-pm-bar><div class="k-progress__bar" style="--k-value: 0%"></div></div>
+        <p><span data-pm-done>{fa(0)}</span> از {fa(lessons.length)} درس خوانده شده</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pm-terms" aria-labelledby="pm-terms-title">
+    <h2 id="pm-terms-title" class="pm-h2">سه مفهوم، سه کار متفاوت</h2>
+    <ul class="pm-terms__grid" role="list">
+      {terms.map((x) => (
+        <li><a class="pm-term" href={x.href}>
+          <span class="pm-term__k" dir="ltr">{x.k}</span>
+          <span class="pm-term__t">{x.t}</span>
+          <span class="pm-term__d">{x.d}</span>
+        </a></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="pm-path" aria-labelledby="pm-path-title">
+    <div class="pm-path__head">
+      <h2 id="pm-path-title" class="pm-h2">مسیر دوره</h2>
+      <button type="button" class="k-btn k-btn--tertiary k-btn--sm" data-pm-reset>پاک کردن پیشرفت</button>
+    </div>
+    {parts.map((p, i) => (
+      <div class="pm-part">
+        <div class="pm-part__head">
+          <span class="pm-part__n">بخش {fa(i + 1)}</span>
+          <h3 class="pm-part__title">{p.title}</h3>
+          <p class="pm-part__text">{p.text}</p>
+        </div>
+        <ol class="pm-cards" role="list">
+          {p.slugs.map((s) => bySlug[s]).map((l) => (
+            <li>
+              <a class="pm-card" href={l.href} data-lesson-card={l.slug} data-acts={l.actions}>
+                <span class="pm-card__num" aria-hidden="true">{fa2(l.n)}</span>
+                <span class="pm-card__body">
+                  <span class="pm-card__title">{l.title}</span>
+                  <span class="pm-card__text">{l.summary}</span>
+                  <span class="pm-card__meta">
+                    <span>{fa(l.minutes)} دقیقه</span>
+                    <span>{fa(l.actions)} کار</span>
+                    <span class="pm-card__status" data-card-status></span>
+                  </span>
+                </span>
+                <span class="pm-card__go" aria-hidden="true"><Fragment set:html={iconSvg("arrow-left", { size: 18 })} /></span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    ))}
+  </section>
+
+  <p class="pm-foot">این دوره خصوصی است و در موتورهای جستجو نمایش داده نمی‌شود. عددهایی که در درس‌ها نیامده عمداً خالی مانده‌اند: جای آن‌ها خط پایه‌ای است که باید خودتان بسنجید.</p>
+</Course>

@@ -1,0 +1,12 @@
+---
+const { objective, kind } = Astro.props as { objective: string; kind: "متعهد" | "جاه‌طلب" };
+---
+<article class="pm-okr">
+  <header class="pm-okr__head">
+    <p class="pm-okr__label">هدف</p>
+    <span class={`k-badge k-badge--sm ${kind === "متعهد" ? "k-badge--info" : "k-badge--brand"}`}>{kind}</span>
+  </header>
+  <h3 class="pm-okr__objective">{objective}</h3>
+  <p class="pm-okr__label pm-okr__label--krs">نتایج کلیدی</p>
+  <ol class="pm-okr__krs" role="list"><slot /></ol>
+</article>

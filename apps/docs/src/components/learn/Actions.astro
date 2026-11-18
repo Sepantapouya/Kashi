@@ -1,0 +1,18 @@
+---
+// «کارهایی که باید بکنیم»؛ تیک‌ها در localStorage همین مرورگر می‌مانند
+import { iconSvg } from "@kashi-ui/icons";
+const { lesson } = Astro.props as { lesson: string };
+---
+<section class="pm-actions" data-actions={lesson} aria-labelledby={`actions-${lesson}`}>
+  <header class="pm-actions__head">
+    <span class="pm-actions__icon" aria-hidden="true"><Fragment set:html={iconSvg("list-checks", { size: 20 })} /></span>
+    <div>
+      <h2 id={`actions-${lesson}`} class="pm-actions__title">کارهایی که باید بکنیم</h2>
+      <p class="pm-actions__count" data-actions-count aria-live="polite"></p>
+    </div>
+  </header>
+  <div class="k-progress k-progress--sm pm-actions__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="پیشرفت کارهای این درس" data-actions-bar>
+    <div class="k-progress__bar" style="--k-value: 0%"></div>
+  </div>
+  <ol class="pm-actions__list" role="list"><slot /></ol>
+</section>

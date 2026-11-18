@@ -1,0 +1,27 @@
+---
+// درخت متریک کاشی: ستارهٔ شمالی در ریشه، پنج متریک ورودی زیرش
+import { iconSvg } from "@kashi-ui/icons";
+const inputs = [
+  { n: "۱", name: "کشف", metric: "بازدیدکنندهٔ تازهٔ هفتگی", src: "GA4", icon: "search" },
+  { n: "۲", name: "فعال‌سازی", metric: "نرخ کپی کد در صفحهٔ نصب", src: "GA4، رویداد تازه", icon: "sparkles" },
+  { n: "۳", name: "ماندگاری", metric: "سهم دانلود دو minor آخر", src: "npm", icon: "activity" },
+  { n: "۴", name: "عمق", metric: "کامپوننت در هر محصول", src: "شمارش", icon: "layers" },
+  { n: "۵", name: "اعتماد", metric: "زمان پاسخ و بازخورد مثبت", src: "گیت‌هاب و GA4", icon: "users" },
+];
+---
+<figure class="pm-tree" aria-label="درخت متریک کاشی">
+  <div class="pm-tree__root">
+    <span class="pm-tree__kicker"><Fragment set:html={iconSvg("star", { size: 14 })} />ستارهٔ شمالی</span>
+    <strong>محصولات زنده با کاشی در ۳۰ روز</strong>
+  </div>
+  <ul class="pm-tree__inputs" role="list">
+    {inputs.map((i) => (
+      <li class="pm-tree__node">
+        <span class="pm-tree__icon" aria-hidden="true"><Fragment set:html={iconSvg(i.icon, { size: 16 })} /></span>
+        <span class="pm-tree__name">{i.n}. {i.name}</span>
+        <span class="pm-tree__metric">{i.metric}</span>
+        <span class="pm-tree__src">{i.src}</span>
+      </li>
+    ))}
+  </ul>
+</figure>

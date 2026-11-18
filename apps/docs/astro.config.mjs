@@ -1,13 +1,15 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
+import { pmGateDev } from "./src/lib/pm-gate-dev.ts";
 import sitemap from "./integrations/sitemap.mjs";
 import { articleDates } from "./integrations/article-dates.mjs";
 import { aliases as iconAliases } from "@kashi-ui/icons";
 
 export default defineConfig({
   site: "https://kashi.sepantapouya.com",
-  integrations: [mdx(), react(), sitemap({ site: "https://kashi.sepantapouya.com", lastmod: articleDates() })],
+  // pmGateDev فقط سرور توسعه را رمزدار می‌کند؛ در بیلد ایستا کاری نمی‌کند
+  integrations: [mdx(), react(), pmGateDev(), sitemap({ site: "https://kashi.sepantapouya.com", lastmod: articleDates() })],
   devToolbar: { enabled: false },
   redirects: {
     "/en/": "/en/docs/",

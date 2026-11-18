@@ -1,0 +1,7 @@
+---
+import { iconSvg } from "@kashi-ui/icons";
+---
+<div class="k-alert k-alert--info k-alert--tinted pm-note" role="note">
+  <span class="k-alert__icon" aria-hidden="true"><Fragment set:html={iconSvg("info", { size: 20 })} /></span>
+  <div class="k-alert__content"><div class="k-alert__description"><slot /></div></div>
+</div>

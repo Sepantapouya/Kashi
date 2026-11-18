@@ -1,0 +1,9 @@
+---
+// کاربرد درس روی وضعیت واقعی کاشی
+import Logo from "../Logo.astro";
+const { title = "در کاشی" } = Astro.props as { title?: string };
+---
+<aside class="pm-kashi">
+  <p class="pm-kashi__label"><Logo size={18} />{title}</p>
+  <div class="pm-kashi__body"><slot /></div>
+</aside>

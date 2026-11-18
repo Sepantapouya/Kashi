@@ -10,3 +10,9 @@ node_modules
 scripts/.size-entry.mjs
 tests/visual/report/
 tests/visual/results/
+
+# رمزها و متغیرهای محیطی (مثل KASHI_PM_PASSWORD) هرگز در مخزن نمی‌آیند
+.env
+.env.*
+!.env.example
+.vercel
