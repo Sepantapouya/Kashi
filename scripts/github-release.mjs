@@ -131,15 +131,30 @@ const latest = versions.at(-1);
 
 if (!DRY && !TOKEN) { console.error("GITHUB_TOKEN is required (or pass --dry-run)"); process.exit(1); }
 
+const failed = [];
 for (const ver of versions) {
   const tag = `v${ver}`;
   const sha = targetSha(ver);
   if (DRY) { console.log(`\n===== Kashi ${ver}  (${tag} → ${sha.slice(0, 7) || "?"})\n${notes(ver)}`); continue; }
   if (await gh("GET", `/releases/tags/${tag}`)) { console.log(`skip ${tag}: release exists`); continue; }
-  if (!sha) { console.log(`skip ${tag}: no commit found`); continue; }
-  await gh("POST", "/releases", {
-    tag_name: tag, target_commitish: sha, name: `Kashi ${ver}`, body: notes(ver),
-    make_latest: ver === latest ? "true" : "false",
-  });
-  console.log(`created ${tag}`);
+  // If the tag already exists, attach the release to it and send no target:
+  // the workflow token may not create or point refs at old commits whose
+  // .github/workflows differ from main (GitHub answers 403).
+  const tagExists = Boolean(await gh("GET", `/git/ref/tags/${tag}`));
+  if (!tagExists && !sha) { console.log(`skip ${tag}: no commit found`); continue; }
+  try {
+    await gh("POST", "/releases", {
+      tag_name: tag, ...(tagExists ? {} : { target_commitish: sha }), name: `Kashi ${ver}`, body: notes(ver),
+      make_latest: ver === latest ? "true" : "false",
+    });
+    console.log(`created ${tag}`);
+  } catch (e) {
+    console.error(`failed ${tag}: ${e.message}`);
+    failed.push(tag);
+  }
+}
+if (failed.length) {
+  console.error(`\n${failed.length} release(s) failed: ${failed.join(", ")}`);
+  console.error("Old versions may need their tag pushed once by a maintainer: git tag vX.Y.Z <sha> && git push origin vX.Y.Z");
+  process.exit(1);
 }
