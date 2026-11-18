@@ -47,14 +47,14 @@
     "lightbulb-wifi": "smart-bulb"
   },
   "types": {
-    "base": 828,
-    "action": 164,
+    "base": 826,
+    "action": 166,
     "type": 8
   },
   "upstream": {
-    "IconPark": 468,
-    "Hugeicons": 300,
-    "Iconoir": 108,
+    "IconPark": 478,
+    "Hugeicons": 294,
+    "Iconoir": 104,
     "Tabler": 124
   },
   "method": "Screened against the previous catalog and against other additions using normalized raster similarity, source names and Persian title review. Kept meaningful actions and distinct silhouettes.",
@@ -964,12 +964,12 @@
       "kind": "base"
     },
     {
-      "name": "flip-vertically",
+      "name": "mail-unpacking",
       "nearest": {
-        "name": "spider-web",
-        "score": 0.7764
+        "name": "budget-envelope-allocation",
+        "score": 0.8716
       },
-      "kind": "base"
+      "kind": "action"
     },
     {
       "name": "rss-feed",
@@ -2332,10 +2332,10 @@
       "kind": "base"
     },
     {
-      "name": "orange-slice",
+      "name": "gauze",
       "nearest": {
-        "name": "yoga-mat",
-        "score": 0.7703
+        "name": "latte-art",
+        "score": 0.8847
       },
       "kind": "base"
     },
@@ -2868,10 +2868,10 @@
       "kind": "base"
     },
     {
-      "name": "locking-computer",
+      "name": "anchor-squre",
       "nearest": {
-        "name": "display-external-only",
-        "score": 0.8258
+        "name": "vector-bezier",
+        "score": 0.8215
       },
       "kind": "base"
     },
@@ -3572,10 +3572,10 @@
       "kind": "base"
     },
     {
-      "name": "rotating-forward",
+      "name": "future-build-two",
       "nearest": {
-        "name": "sync",
-        "score": 0.8398
+        "name": "letter-i-plain",
+        "score": 0.8345
       },
       "kind": "base"
     },
@@ -3732,10 +3732,10 @@
       "kind": "base"
     },
     {
-      "name": "stickers",
+      "name": "eeg",
       "nearest": {
-        "name": "clock-timer-quarter-sector",
-        "score": 0.8426
+        "name": "service-health",
+        "score": 0.8816
       },
       "kind": "base"
     },
@@ -4516,10 +4516,10 @@
       "kind": "base"
     },
     {
-      "name": "koala-bear",
+      "name": "endocrine",
       "nearest": {
-        "name": "bear",
-        "score": 0.8552
+        "name": "fire-02",
+        "score": 0.8517
       },
       "kind": "base"
     },
@@ -4564,10 +4564,10 @@
       "kind": "base"
     },
     {
-      "name": "cast-screen",
+      "name": "straw-hat",
       "nearest": {
-        "name": "cast",
-        "score": 0.8566
+        "name": "chick",
+        "score": 0.866
       },
       "kind": "base"
     },
@@ -5004,10 +5004,10 @@
       "kind": "base"
     },
     {
-      "name": "baby-taste",
+      "name": "slippers",
       "nearest": {
-        "name": "baby",
-        "score": 0.8655
+        "name": "pom-pom-hat",
+        "score": 0.8448
       },
       "kind": "base"
     },
@@ -5020,10 +5020,10 @@
       "kind": "base"
     },
     {
-      "name": "sailboat-offshore",
+      "name": "curling",
       "nearest": {
-        "name": "profile-bust-square-shoulders",
-        "score": 0.8206
+        "name": "payment-cash-register-flat",
+        "score": 0.8818
       },
       "kind": "base"
     },
@@ -5252,10 +5252,10 @@
       "kind": "base"
     },
     {
-      "name": "contrast-view-circle",
+      "name": "barber-clippers",
       "nearest": {
-        "name": "privacy-partitioned-cookie",
-        "score": 0.8684
+        "name": "light-recessed-square",
+        "score": 0.8852
       },
       "kind": "base"
     },
@@ -5476,10 +5476,10 @@
       "kind": "base"
     },
     {
-      "name": "clipboard-pen-line",
+      "name": "signal-tower",
       "nearest": {
-        "name": "digit-0-plain",
-        "score": 0.8276
+        "name": "message-mail-inbox-tray",
+        "score": 0.7995
       },
       "kind": "base"
     },
@@ -5748,10 +5748,10 @@
       "kind": "base"
     },
     {
-      "name": "pull-requests",
+      "name": "goblet-cracking",
       "nearest": {
-        "name": "git-pull-request-conflict",
-        "score": 0.8767
+        "name": "glass-gin",
+        "score": 0.8559
       },
       "kind": "base"
     },
@@ -6108,12 +6108,12 @@
       "kind": "base"
     },
     {
-      "name": "replay-music",
+      "name": "playback-progress",
       "nearest": {
-        "name": "refund",
-        "score": 0.8836
+        "name": "wardrobe-03",
+        "score": 0.8639
       },
-      "kind": "base"
+      "kind": "action"
     },
     {
       "name": "drop-shadow-down",
@@ -6276,10 +6276,10 @@
       "kind": "action"
     },
     {
-      "name": "binocular",
+      "name": "bloom",
       "nearest": {
-        "name": "binoculars",
-        "score": 0.8418
+        "name": "hockey-puck",
+        "score": 0.7942
       },
       "kind": "base"
     },
@@ -6652,10 +6652,10 @@
       "kind": "base"
     },
     {
-      "name": "radar-chart",
+      "name": "three-d-glasses",
       "nearest": {
-        "name": "chart-radar-soft-pentagon",
-        "score": 0.8924
+        "name": "eyeglass",
+        "score": 0.8919
       },
       "kind": "base"
     },
@@ -7276,10 +7276,10 @@
       "kind": "action"
     },
     {
-      "name": "tower-control",
+      "name": "drone-one",
       "nearest": {
-        "name": "air-traffic-control",
-        "score": 0.8609
+        "name": "street-food",
+        "score": 0.7569
       },
       "kind": "base"
     },
@@ -7468,10 +7468,10 @@
       "kind": "base"
     },
     {
-      "name": "laptop-video",
+      "name": "chafing-dish",
       "nearest": {
-        "name": "city-public-charging-shelf",
-        "score": 0.8651
+        "name": "fitness-weight-plate-carry-slot",
+        "score": 0.8728
       },
       "kind": "base"
     },
@@ -7612,12 +7612,12 @@
       "kind": "action"
     },
     {
-      "name": "settings-profiles",
+      "name": "security-stall",
       "nearest": {
-        "name": "code-review",
-        "score": 0.8731
+        "name": "graduated-cylinder",
+        "score": 0.8494
       },
-      "kind": "action"
+      "kind": "base"
     },
     {
       "name": "knight-shield",
@@ -7692,12 +7692,12 @@
       "kind": "action"
     },
     {
-      "name": "id-not-verified",
+      "name": "inbox-download-r",
       "nearest": {
-        "name": "ramekin",
-        "score": 0.8765
+        "name": "kitchen-french-door-fridge",
+        "score": 0.885
       },
-      "kind": "base"
+      "kind": "action"
     },
     {
       "name": "glass-half",
@@ -7996,10 +7996,10 @@
       "kind": "base"
     },
     {
-      "name": "wifi-tag",
+      "name": "memory-card",
       "nearest": {
-        "name": "wifi-square",
-        "score": 0.8932
+        "name": "floppy-disk",
+        "score": 0.8852
       },
       "kind": "base"
     },
@@ -8020,10 +8020,10 @@
       "kind": "base"
     },
     {
-      "name": "delivery-sent-01",
+      "name": "disk-two",
       "nearest": {
-        "name": "ambulance",
-        "score": 0.8941
+        "name": "care-blood-pressure-cuff-wrap",
+        "score": 0.8765
       },
       "kind": "base"
     },
@@ -8060,17 +8060,434 @@
       "kind": "base"
     }
   ],
+  "duplicateRecheck": {
+    "baselineCount": 12000,
+    "newCount": 1000,
+    "flaggedPairs": 823,
+    "method": "Compare aligned ink bounds in the generic catalog and the new batch, including mirrored layouts. Review flagged candidates at equal size in outline and bold. Keep directions and statuses whose visual difference communicates a distinct function.",
+    "decisions": [
+      {
+        "removed": "tower-control",
+        "replacement": "drone-one",
+        "comparedWith": [
+          {
+            "name": "airport-tower",
+            "score": 0.998
+          },
+          {
+            "name": "air-traffic-control",
+            "score": 0.861
+          }
+        ]
+      },
+      {
+        "removed": "orange-slice",
+        "replacement": "gauze",
+        "comparedWith": [
+          {
+            "name": "orange-slice-alt",
+            "score": 0.956
+          }
+        ]
+      },
+      {
+        "removed": "stickers",
+        "replacement": "eeg",
+        "comparedWith": [
+          {
+            "name": "cliparts",
+            "score": 0.991
+          }
+        ]
+      },
+      {
+        "removed": "clipboard-pen-line",
+        "replacement": "signal-tower",
+        "comparedWith": [
+          {
+            "name": "clipboard-pen",
+            "score": 0.94
+          }
+        ]
+      },
+      {
+        "removed": "settings-profiles",
+        "replacement": "security-stall",
+        "comparedWith": [
+          {
+            "name": "new-releases",
+            "score": 0.99
+          }
+        ]
+      },
+      {
+        "removed": "laptop-video",
+        "replacement": "chafing-dish",
+        "comparedWith": [
+          {
+            "name": "laptop-performance",
+            "score": 0.966
+          },
+          {
+            "name": "device-laptop",
+            "score": 0.852
+          },
+          {
+            "name": "setting-laptop",
+            "score": 0.798
+          },
+          {
+            "name": "ai-laptop",
+            "score": 0.795
+          }
+        ]
+      },
+      {
+        "removed": "sailboat-offshore",
+        "replacement": "curling",
+        "comparedWith": [
+          {
+            "name": "sailboat-coastal",
+            "score": 0.948
+          }
+        ]
+      },
+      {
+        "removed": "contrast-view-circle",
+        "replacement": "barber-clippers",
+        "comparedWith": [
+          {
+            "name": "contrast",
+            "score": 0.895
+          },
+          {
+            "name": "chart-pie-half",
+            "score": 0.953
+          }
+        ]
+      },
+      {
+        "removed": "wifi-tag",
+        "replacement": "memory-card",
+        "comparedWith": [
+          {
+            "name": "wifi-square",
+            "score": 0.893
+          },
+          {
+            "name": "fx-tag",
+            "score": 0.901
+          },
+          {
+            "name": "vr-tag",
+            "score": 0.892
+          },
+          {
+            "name": "resolution-4k",
+            "score": 0.932
+          }
+        ]
+      },
+      {
+        "removed": "radar-chart",
+        "replacement": "three-d-glasses",
+        "comparedWith": [
+          {
+            "name": "chart-radar-soft-pentagon",
+            "score": 0.892
+          }
+        ]
+      },
+      {
+        "removed": "cast-screen",
+        "replacement": "straw-hat",
+        "comparedWith": [
+          {
+            "name": "cast",
+            "score": 0.857
+          },
+          {
+            "name": "mirroring-screen",
+            "score": 0.832
+          },
+          {
+            "name": "media-cast-source-selection",
+            "score": 0.773
+          }
+        ]
+      },
+      {
+        "removed": "flip-vertically",
+        "replacement": "mail-unpacking",
+        "comparedWith": [
+          {
+            "name": "flip-vertical",
+            "score": 0.909
+          }
+        ]
+      },
+      {
+        "removed": "pull-requests",
+        "replacement": "goblet-cracking",
+        "comparedWith": [
+          {
+            "name": "git-pull-request-conflict",
+            "score": 0.877
+          },
+          {
+            "name": "git-pull-request",
+            "score": 0.86
+          },
+          {
+            "name": "git-pull-request-closed",
+            "score": 0.806
+          },
+          {
+            "name": "git-pull-request-draft",
+            "score": 0.802
+          }
+        ]
+      },
+      {
+        "removed": "id-not-verified",
+        "replacement": "inbox-download-r",
+        "comparedWith": [
+          {
+            "name": "id-verified",
+            "score": 0.984
+          },
+          {
+            "name": "id-badge",
+            "score": 0.814
+          }
+        ]
+      },
+      {
+        "removed": "baby-taste",
+        "replacement": "slippers",
+        "comparedWith": [
+          {
+            "name": "crying-baby",
+            "score": 0.914
+          },
+          {
+            "name": "baby",
+            "score": 0.866
+          }
+        ]
+      },
+      {
+        "removed": "rotating-forward",
+        "replacement": "future-build-two",
+        "comparedWith": [
+          {
+            "name": "reverse-rotation",
+            "score": 0.953
+          },
+          {
+            "name": "rotating-add",
+            "score": 0.879
+          }
+        ]
+      },
+      {
+        "removed": "replay-music",
+        "replacement": "playback-progress",
+        "comparedWith": [
+          {
+            "name": "replay",
+            "score": 0.876
+          }
+        ]
+      },
+      {
+        "removed": "locking-computer",
+        "replacement": "anchor-squre",
+        "comparedWith": [
+          {
+            "name": "lock-computer",
+            "score": 0.905
+          },
+          {
+            "name": "setting-computer",
+            "score": 0.911
+          },
+          {
+            "name": "download-computer",
+            "score": 0.901
+          },
+          {
+            "name": "code-computer",
+            "score": 0.874
+          },
+          {
+            "name": "computer",
+            "score": 0.818
+          },
+          {
+            "name": "computer-ethernet",
+            "score": 0.839
+          }
+        ]
+      },
+      {
+        "removed": "delivery-sent-01",
+        "replacement": "disk-two",
+        "comparedWith": [
+          {
+            "name": "container-truck-01",
+            "score": 0.966
+          },
+          {
+            "name": "shop-delivery-van-rounded",
+            "score": 0.829
+          },
+          {
+            "name": "delivery-delay-01",
+            "score": 0.795
+          }
+        ]
+      },
+      {
+        "removed": "binocular",
+        "replacement": "bloom",
+        "comparedWith": [
+          {
+            "name": "binoculars",
+            "score": 0.842
+          }
+        ]
+      },
+      {
+        "removed": "koala-bear",
+        "replacement": "endocrine",
+        "comparedWith": [
+          {
+            "name": "bear",
+            "score": 0.855
+          },
+          {
+            "name": "koala",
+            "score": 0.817
+          }
+        ]
+      }
+    ],
+    "replacementNearestMatches": [
+      {
+        "name": "drone-one",
+        "closest": "street-food",
+        "similarity": 0.7569
+      },
+      {
+        "name": "gauze",
+        "closest": "latte-art",
+        "similarity": 0.8847
+      },
+      {
+        "name": "eeg",
+        "closest": "service-health",
+        "similarity": 0.8816
+      },
+      {
+        "name": "signal-tower",
+        "closest": "message-mail-inbox-tray",
+        "similarity": 0.7995
+      },
+      {
+        "name": "security-stall",
+        "closest": "graduated-cylinder",
+        "similarity": 0.8494
+      },
+      {
+        "name": "chafing-dish",
+        "closest": "fitness-weight-plate-carry-slot",
+        "similarity": 0.8728
+      },
+      {
+        "name": "curling",
+        "closest": "payment-cash-register-flat",
+        "similarity": 0.8818
+      },
+      {
+        "name": "barber-clippers",
+        "closest": "light-recessed-square",
+        "similarity": 0.8852
+      },
+      {
+        "name": "memory-card",
+        "closest": "floppy-disk",
+        "similarity": 0.8852
+      },
+      {
+        "name": "three-d-glasses",
+        "closest": "eyeglass",
+        "similarity": 0.8919
+      },
+      {
+        "name": "straw-hat",
+        "closest": "chick",
+        "similarity": 0.866
+      },
+      {
+        "name": "mail-unpacking",
+        "closest": "budget-envelope-allocation",
+        "similarity": 0.8716
+      },
+      {
+        "name": "goblet-cracking",
+        "closest": "glass-gin",
+        "similarity": 0.8559
+      },
+      {
+        "name": "inbox-download-r",
+        "closest": "kitchen-french-door-fridge",
+        "similarity": 0.885
+      },
+      {
+        "name": "slippers",
+        "closest": "pom-pom-hat",
+        "similarity": 0.8448
+      },
+      {
+        "name": "future-build-two",
+        "closest": "letter-i-plain",
+        "similarity": 0.8345
+      },
+      {
+        "name": "playback-progress",
+        "closest": "wardrobe-03",
+        "similarity": 0.8639
+      },
+      {
+        "name": "anchor-squre",
+        "closest": "vector-bezier",
+        "similarity": 0.8215
+      },
+      {
+        "name": "disk-two",
+        "closest": "care-blood-pressure-cuff-wrap",
+        "similarity": 0.8765
+      },
+      {
+        "name": "bloom",
+        "closest": "hockey-puck",
+        "similarity": 0.7942
+      },
+      {
+        "name": "endocrine",
+        "closest": "fire-02",
+        "similarity": 0.8517
+      }
+    ]
+  },
   "validation": {
     "svgCases": 36000,
     "lightAndDarkComposites": 72000,
     "svgImportPaths": 78246,
-    "packFileCount": 62304,
+    "packFileCount": 62302,
     "categories": 153,
-    "densityReview": [
-      "union-selection",
-      "freezing-line-column",
-      "hdmi-cable",
-      "toml"
-    ]
+    "bothFigmaPlugins": "passed",
+    "iconTests": "passed"
   }
 }

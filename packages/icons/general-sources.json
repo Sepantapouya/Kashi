@@ -31290,17 +31290,17 @@
       "normalizedBodySha256": "02153dd6d871660f009df0333db1aec25646fc48bd4e34046d7ffe1f7723272a"
     },
     {
-      "name": "flip-vertically",
-      "title": "وارونه‌کردن عمودی",
-      "category": "editor",
-      "kind": "base",
+      "name": "mail-unpacking",
+      "title": "بازکردن پاکت پستی",
+      "category": "communication",
+      "kind": "action",
       "upstream": "IconPark",
       "version": "1.4.2",
       "license": "Apache-2.0",
-      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/FlipVertically.js",
-      "outlineSha256": "9f911b67ee24ae50ba8392f241b2e47480548647b93177db9d82b8fb08c97584",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/MailUnpacking.js",
+      "outlineSha256": "090208a63d54d0c3fc5b5a684701d475c2f569f6cf080780ec1c68361aa06e1b",
       "filledSha256": null,
-      "normalizedBodySha256": "628ebcaf1b158e4e2c087b4d9c8cc5f9ef18c0ca88b54bd570eed4dc73a71024"
+      "normalizedBodySha256": "2a08259e4b47b50a509662fadf1ae1433287c914e964a9ea19016c8e0aa3ea8f"
     },
     {
       "name": "rss-feed",
@@ -33513,17 +33513,17 @@
       "normalizedBodySha256": "1660cd4bde1a7c47afa03dc7047737435a7455df9655c92a7a03d14b124a262c"
     },
     {
-      "name": "orange-slice",
-      "title": "برش پرتقال",
-      "category": "ingredients",
+      "name": "gauze",
+      "title": "گاز پانسمان",
+      "category": "medical-care",
       "kind": "base",
-      "upstream": "Iconoir",
-      "version": "7.12.2",
-      "license": "MIT",
-      "source": "https://github.com/iconoir-icons/iconoir/blob/39834e3f193bc0cca2c36bebb6a650471977433d/icons/regular/orange-slice.svg",
-      "outlineSha256": "a7419a8dcbc4aafa6057c5d816e8ca088ca74431a188a78806e279cbeb48d1a9",
+      "upstream": "IconPark",
+      "version": "1.4.2",
+      "license": "Apache-2.0",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/Gauze.js",
+      "outlineSha256": "60c4ce20e9764eaddeef141c2a957c3a857eb74f0bba13064bc8b1a6ef01e403",
       "filledSha256": null,
-      "normalizedBodySha256": "39e50363f3b766005bd2145bc1ce8a8031057b8642c31391aaf3ad45b115b622"
+      "normalizedBodySha256": "6bf89d28f42daac252420eda346782466554c7d0898929a8e29aae0a9f2cf4ab"
     },
     {
       "name": "hanging-clock",
@@ -34384,17 +34384,17 @@
       "normalizedBodySha256": "ecf06f65a7b84b315bb495a51a196038a426c9d26a540c34954ef62fc5788b00"
     },
     {
-      "name": "locking-computer",
-      "title": "قفل‌کردن کامپیوتر",
-      "category": "device-tools",
+      "name": "anchor-squre",
+      "title": "گره مربعی منحنی برداری",
+      "category": "design-tools",
       "kind": "base",
       "upstream": "IconPark",
       "version": "1.4.2",
       "license": "Apache-2.0",
-      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/LockingComputer.js",
-      "outlineSha256": "37ca18227e60525b3bcd380d89cfd410660e4ad5d1998b8f74a410770b654354",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/AnchorSqure.js",
+      "outlineSha256": "f36ca697c837d21e98bc77c549441d108767028f1c892c6eb4aaa286fec4de53",
       "filledSha256": null,
-      "normalizedBodySha256": "4135d69fab2054603dda49213f50a631b61234390182241f988666bdcbe0a56c"
+      "normalizedBodySha256": "4ef73d5d40a5b6b3d97335de9fe27678620c7d47ae3cdc33b83e63493d1e599e"
     },
     {
       "name": "chart-column-increasing",
@@ -35528,17 +35528,17 @@
       "normalizedBodySha256": "fce0c0ede45512740bacf5a019a1adf95fff10da4e4ba2637aeef979b85769c6"
     },
     {
-      "name": "rotating-forward",
-      "title": "چرخش رو به جلو",
-      "category": "actions",
+      "name": "future-build-two",
+      "title": "برج با بدنهٔ مدور",
+      "category": "city-services",
       "kind": "base",
       "upstream": "IconPark",
       "version": "1.4.2",
       "license": "Apache-2.0",
-      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/RotatingForward.js",
-      "outlineSha256": "eaca8e31da20fc970d7b9d1fedaa0b20b53121b33da6276b203def8e8bf0daab",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/FutureBuildTwo.js",
+      "outlineSha256": "b0c0e87efa9478c00ae5778f444d5bee4e2134f33ea69a8358455fa9c7557635",
       "filledSha256": null,
-      "normalizedBodySha256": "043ad47be9383d34a292b5bacc9fc6c4e0b7a56bebf2d01fdb6b994a57e989fc"
+      "normalizedBodySha256": "3a6a5d5bde89952259d1d34f6bc4cb57560040d7a336857c2112fbb946042bdd"
     },
     {
       "name": "increase",
@@ -35788,17 +35788,17 @@
       "normalizedBodySha256": "38a83ba3e34eb056439fde7fbd6912fe19ff4e74bcaed251e413b161d9a5f1a5"
     },
     {
-      "name": "stickers",
-      "title": "برچسب‌های تصویری",
-      "category": "actions",
+      "name": "eeg",
+      "title": "ثبت امواج مغزی",
+      "category": "medical-care",
       "kind": "base",
       "upstream": "IconPark",
       "version": "1.4.2",
       "license": "Apache-2.0",
-      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/Stickers.js",
-      "outlineSha256": "81ca24e2338b03494347891d857ba3a943a6ea1f461961f9d85e555d7ae0f64a",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/Eeg.js",
+      "outlineSha256": "b05f6e281fc8fd91534e39275a756aad35428f3001f6d36cf39fed65ea126205",
       "filledSha256": null,
-      "normalizedBodySha256": "a95668ddf48f0b0d7728ff05d1095c0182d34908010c2940e21287ea9f05d3a6"
+      "normalizedBodySha256": "670a538cea4f87fadfc47d8118e8358eb5cc3cb3a4109116538df920f76206c6"
     },
     {
       "name": "flight-airflow",
@@ -37062,17 +37062,17 @@
       "normalizedBodySha256": "51830c638eee025d7953b4582501581f540b83452ad70782fba6ab67fd079538"
     },
     {
-      "name": "koala-bear",
-      "title": "خرس کوالا",
-      "category": "animals",
+      "name": "endocrine",
+      "title": "نشان دستگاه غدد درون‌ریز",
+      "category": "anatomy",
       "kind": "base",
       "upstream": "IconPark",
       "version": "1.4.2",
       "license": "Apache-2.0",
-      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/KoalaBear.js",
-      "outlineSha256": "8699fe3ce7024b195538113a2321d534938570fbb9020dd4b8f7cb6392bcebda",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/Endocrine.js",
+      "outlineSha256": "ac6bf5f2fd36ee3ea1ca4f7fa62811a76b5ed0855bb26981bcc8a0a33a30372b",
       "filledSha256": null,
-      "normalizedBodySha256": "5ffeb8a3d2276177cc3117ce629a2622a7f29ae3685a27db19c17b3dcec5dd63"
+      "normalizedBodySha256": "f346bfe143e4ca7a168463dda5ba9281dd3c3f5ac10266467d2901005ff54aa2"
     },
     {
       "name": "vertically-centered",
@@ -37140,17 +37140,17 @@
       "normalizedBodySha256": "0bead4bedbdc79b67b9f8cc801332c8c3077b4cec91ac710b83810de5482c870"
     },
     {
-      "name": "cast-screen",
-      "title": "ارسال تصویر صفحه",
-      "category": "actions",
+      "name": "straw-hat",
+      "title": "کلاه حصیری لبه‌پهن",
+      "category": "fashion",
       "kind": "base",
       "upstream": "IconPark",
       "version": "1.4.2",
       "license": "Apache-2.0",
-      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/CastScreen.js",
-      "outlineSha256": "74d092fade81687b7d79804411159da5d91b226ee59e34e9d7085d9aa08bd1d5",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/StrawHat.js",
+      "outlineSha256": "87e65148dd2376e837459a43de966c634a0e22e8723d83d234a01b6d3be6502f",
       "filledSha256": null,
-      "normalizedBodySha256": "f66143658beed80aa3377f26d49d7f70eccc951a8e0cb1bea18288b1958cedf7"
+      "normalizedBodySha256": "f0cb01e89ca718a2e9e16dd728636c2014967698bb7a7e66ef9308f70f489dc2"
     },
     {
       "name": "folder-success-one",
@@ -37855,17 +37855,17 @@
       "normalizedBodySha256": "4d47d3c455826f173dec443f2e2be3d2db9d9dbc482c22e26db6b5efe3a647e9"
     },
     {
-      "name": "baby-taste",
-      "title": "چشیدن غذا توسط کودک",
-      "category": "kids",
+      "name": "slippers",
+      "title": "دمپایی‌های روفرشی",
+      "category": "fashion",
       "kind": "base",
       "upstream": "IconPark",
       "version": "1.4.2",
       "license": "Apache-2.0",
-      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/BabyTaste.js",
-      "outlineSha256": "c0e2d743558e02d84a9e9cb991a2f6a1611aa7668a1c8db9cb328e235fc1c34c",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/Slippers.js",
+      "outlineSha256": "ccd1ff5dbe79476da1b050536214e5a1f09a3a3a975b9016dbeb165769985d64",
       "filledSha256": null,
-      "normalizedBodySha256": "312739930cba2a7f39709828fb466513053206128c206bea46c97f460e3afb0d"
+      "normalizedBodySha256": "8a86cebf3b96bfcc26023c405b8b583556d7ccac1a7993b5776fac753a0d98c3"
     },
     {
       "name": "concern",
@@ -37881,17 +37881,17 @@
       "normalizedBodySha256": "92b32df10ad737c384b245ba393c7bd276e7a622b774e2b3a527c4049637b658"
     },
     {
-      "name": "sailboat-offshore",
-      "title": "قایق بادبانی دور از ساحل",
-      "category": "traffic",
+      "name": "curling",
+      "title": "سنگ بازی کرلینگ",
+      "category": "sports",
       "kind": "base",
-      "upstream": "Hugeicons",
-      "version": "4.4.0",
-      "license": "MIT",
-      "source": "https://unpkg.com/@hugeicons/core-free-icons@4.4.0/dist/esm/SailboatOffshoreIcon.js",
-      "outlineSha256": "a2ec95502c9778c6dad6b795035c510fa13af982aebb758d58a9e47bb7e6f8cb",
+      "upstream": "IconPark",
+      "version": "1.4.2",
+      "license": "Apache-2.0",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/Curling.js",
+      "outlineSha256": "e9e6e25d2a681a9c77d36da1960d973b5d4e51c2c83c17a50664353469d63a03",
       "filledSha256": null,
-      "normalizedBodySha256": "48daa5e030a39d47020eabce9b14aed28488b750d82f366fecc44f43a63a66df"
+      "normalizedBodySha256": "1cc272df5c3a4ce316b9a6f95dbe6610d87558ccaa005dc79e90faf1c87d522c"
     },
     {
       "name": "mail-fast",
@@ -38258,17 +38258,17 @@
       "normalizedBodySha256": "8df3d0d034094a3127a6bad931951aa29e471355625226cbbde144f56aa8e25e"
     },
     {
-      "name": "contrast-view-circle",
-      "title": "سنجش تضاد در قاب دایره",
-      "category": "actions",
+      "name": "barber-clippers",
+      "title": "ماشین کوتاهی مو",
+      "category": "beauty",
       "kind": "base",
       "upstream": "IconPark",
       "version": "1.4.2",
       "license": "Apache-2.0",
-      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/ContrastViewCircle.js",
-      "outlineSha256": "55a108ec19ea40d69d715eb7e64f5497ffd3ceea8481898689cb2a97c822ebc8",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/BarberClippers.js",
+      "outlineSha256": "672f179d3b8a8a9395d364c0b6ce57b8102ba67ac1968096c080a7cdf4f49984",
       "filledSha256": null,
-      "normalizedBodySha256": "e8e5d2f6053dbf6a4732215f7e678171e9a1f886d87015b2185778ecb563e6f0"
+      "normalizedBodySha256": "ff5cc21e210e9e06920ec356f9c8c778fe9382326cb9537cad662ab35d91db45"
     },
     {
       "name": "reminder-hand-gesture",
@@ -38622,17 +38622,17 @@
       "normalizedBodySha256": "a4990589b4957cd7b2ee87ea6ce55711befc8af06a6a761698139ab0dc706c03"
     },
     {
-      "name": "clipboard-pen-line",
-      "title": "تخته‌گیره با قلم خطی",
-      "category": "documents",
+      "name": "signal-tower",
+      "title": "دکل با موج‌های مخابراتی",
+      "category": "connectivity",
       "kind": "base",
-      "upstream": "Hugeicons",
-      "version": "4.4.0",
-      "license": "MIT",
-      "source": "https://unpkg.com/@hugeicons/core-free-icons@4.4.0/dist/esm/ClipboardPenLineIcon.js",
-      "outlineSha256": "70a08dc6baee8b08d2175ae8b23e49b51c83394265e49b7310ed8774ff2de7c5",
+      "upstream": "IconPark",
+      "version": "1.4.2",
+      "license": "Apache-2.0",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/SignalTower.js",
+      "outlineSha256": "03a49d62ce944eed90087489ea18ada88a52fc333ea66b0ca1c92411684eb06c",
       "filledSha256": null,
-      "normalizedBodySha256": "eac97b61ef290d32a25826cb74071c61ea5e0fa5d6b05c9ef801f4dfd08019a8"
+      "normalizedBodySha256": "08a1e914e84ea5498caea14bd0445712df8bb20a503c080b107c8b2188976031"
     },
     {
       "name": "package-sent-01",
@@ -39064,17 +39064,17 @@
       "normalizedBodySha256": "5982a6ca0c03707505216746c1d9de816fa4589a6ff00759681c970a8c31977e"
     },
     {
-      "name": "pull-requests",
-      "title": "درخواست‌های ادغام گیت",
-      "category": "connectivity",
+      "name": "goblet-cracking",
+      "title": "جام ترک‌خورده",
+      "category": "food-service",
       "kind": "base",
       "upstream": "IconPark",
       "version": "1.4.2",
       "license": "Apache-2.0",
-      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/PullRequests.js",
-      "outlineSha256": "d569424eaefa832c9eb54afb4081555149261b00d18c454087c3b4d3cea1c38e",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/GobletCracking.js",
+      "outlineSha256": "e6c9f9be3ec5e83b9112e47580c945436ae10def0f3b79d9bc0bfece145f3dfe",
       "filledSha256": null,
-      "normalizedBodySha256": "59c7d43c43b96b1705a5b217616c2944d09e352642de1154a825d190190f8672"
+      "normalizedBodySha256": "7bb0cc9076c2b6ac1ab1da302901610c56a971bd72b55a1a94c757f3cd9ef798"
     },
     {
       "name": "between-vertical-start",
@@ -39649,17 +39649,17 @@
       "normalizedBodySha256": "b332257ed2f3316c34b2739d813d85410fbbe1e8e3f65b37671519bd49a11870"
     },
     {
-      "name": "replay-music",
-      "title": "پخش دوبارهٔ موسیقی",
-      "category": "audio",
-      "kind": "base",
+      "name": "playback-progress",
+      "title": "نوار پیشرفت پخش",
+      "category": "media",
+      "kind": "action",
       "upstream": "IconPark",
       "version": "1.4.2",
       "license": "Apache-2.0",
-      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/ReplayMusic.js",
-      "outlineSha256": "98329a36b9319ccef65a34bca71869b4000b4d2a63b3d4e4f36563532ef13b19",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/PlaybackProgress.js",
+      "outlineSha256": "5232e35b931cf44012af59fdd9f74b01fa7399b2db4cf7f4f16e85ba62bb8974",
       "filledSha256": null,
-      "normalizedBodySha256": "bc3cf8c4e8167ddb8fbe3e750160ea99b024298f6ff911ddcafd2efb620b9dac"
+      "normalizedBodySha256": "bf7472d8198ba34d18f7adc0cdcb1fa08ba2255032afdc35c7269c3dabf5b85a"
     },
     {
       "name": "drop-shadow-down",
@@ -39922,17 +39922,17 @@
       "normalizedBodySha256": "152a1a95b0c46406d1f619e8301d33499b4555af223ba035ee104c86b2312f31"
     },
     {
-      "name": "binocular",
-      "title": "دوربین دوچشمی",
-      "category": "design-tools",
+      "name": "bloom",
+      "title": "گل بازشده با ساقه و برگ",
+      "category": "nature",
       "kind": "base",
-      "upstream": "Iconoir",
-      "version": "7.12.2",
-      "license": "MIT",
-      "source": "https://github.com/iconoir-icons/iconoir/blob/39834e3f193bc0cca2c36bebb6a650471977433d/icons/regular/binocular.svg",
-      "outlineSha256": "5521aa8e157fe044f3ab2da4607552454eb78b91abf65b72994e2173b2915eb4",
+      "upstream": "IconPark",
+      "version": "1.4.2",
+      "license": "Apache-2.0",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/Bloom.js",
+      "outlineSha256": "18fee42c9db6436d5f1f39448e9947ee9ca94fa91f3f2518b13f510c8f452fa8",
       "filledSha256": null,
-      "normalizedBodySha256": "29a9418f674bd1a4486e3609ed6b3f96524fb09a6f105cd9e89221a304c58064"
+      "normalizedBodySha256": "6ba4f699763d18565510731f0f52a33662ded20154860f41753bb43e677eb4c7"
     },
     {
       "name": "two-finger-01",
@@ -40533,17 +40533,17 @@
       "normalizedBodySha256": "81e3c33ff8c0a9e278b5fd0d3701f8ae95d00d2e57c1810760467a61fada4179"
     },
     {
-      "name": "radar-chart",
-      "title": "نمودار رادار",
-      "category": "charts",
+      "name": "three-d-glasses",
+      "title": "عینک سه‌بعدی با قاب چهارگوش",
+      "category": "media",
       "kind": "base",
       "upstream": "IconPark",
       "version": "1.4.2",
       "license": "Apache-2.0",
-      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/RadarChart.js",
-      "outlineSha256": "df355c598b8088357b33ea7f7f0496d29d6978e40f51605bd55ad1a24bb9111f",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/ThreeDGlasses.js",
+      "outlineSha256": "5184825fa93e1b6fbd8734c0423e1db95e3665557f859c596809d678181a8929",
       "filledSha256": null,
-      "normalizedBodySha256": "a85eea8cfb6ad6e34dc561d2f8a65e2ab6c848b3df7c48f6f5caa4e6fc9dd521"
+      "normalizedBodySha256": "51084c08a9341e164c939d049f4cdaae5fa5395b692bdad883798e3d23a82efb"
     },
     {
       "name": "wallet-done-01",
@@ -41547,17 +41547,17 @@
       "normalizedBodySha256": "d91414ff5f841ec6e68c8749601f2dafdc20af3172ca93ad917cd965069872a7"
     },
     {
-      "name": "tower-control",
-      "title": "برج کنترل پرواز",
-      "category": "city-services",
+      "name": "drone-one",
+      "title": "پهپاد با ملخ‌ها از روبه‌رو",
+      "category": "hardware",
       "kind": "base",
-      "upstream": "Hugeicons",
-      "version": "4.4.0",
-      "license": "MIT",
-      "source": "https://unpkg.com/@hugeicons/core-free-icons@4.4.0/dist/esm/TowerControlIcon.js",
-      "outlineSha256": "e736f03a4e0bf1baa7155abbd8912eec61a43bd96c7bd9e24588043c3b6070a6",
+      "upstream": "IconPark",
+      "version": "1.4.2",
+      "license": "Apache-2.0",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/DroneOne.js",
+      "outlineSha256": "1c1c48ad1846f27393a1193bd27138f94558e4fae0a8a9530fe3bf7dfa11a40e",
       "filledSha256": null,
-      "normalizedBodySha256": "b8252298ed7d1946e6fbc4ee2d1f9600c763bb986d6226500aa56f6b4a7a2def"
+      "normalizedBodySha256": "84faf3af5af12c88d0f7e8acc7abc7a836f3c70e88c145d7f26f9cf1c5ce52da"
     },
     {
       "name": "avi-format",
@@ -41859,17 +41859,17 @@
       "normalizedBodySha256": "b292ea31c246db0f43e8d4d065b88457fd7c1abc85cb12efc193d46aef832f07"
     },
     {
-      "name": "laptop-video",
-      "title": "پخش ویدیو روی لپ‌تاپ",
-      "category": "device-tools",
+      "name": "chafing-dish",
+      "title": "دیگ دوخانه از نمای بالا",
+      "category": "food-service",
       "kind": "base",
-      "upstream": "Hugeicons",
-      "version": "4.4.0",
-      "license": "MIT",
-      "source": "https://unpkg.com/@hugeicons/core-free-icons@4.4.0/dist/esm/LaptopVideoIcon.js",
-      "outlineSha256": "9323ec0697d05cc97ddd62b4742c2d4a7c48fd304dafe73ac081dceb72eaac6c",
+      "upstream": "IconPark",
+      "version": "1.4.2",
+      "license": "Apache-2.0",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/ChafingDish.js",
+      "outlineSha256": "1d5e63e7644715e6d522418005f3b87548ce4c2f07d033d2f66e432544642f78",
       "filledSha256": null,
-      "normalizedBodySha256": "938f1d19706654aada2c99d9f4dcec25f32d46475b0663929147062e4b99b788"
+      "normalizedBodySha256": "728a07976cb32a0759b6facd2f1e21f49e3bf577f8368ea748db1dbb77013533"
     },
     {
       "name": "kanban-board",
@@ -42093,17 +42093,17 @@
       "normalizedBodySha256": "d3a1953727b56b1150bbe8ac175a7cddd3508e5e8c2413608af949d9a80669e4"
     },
     {
-      "name": "settings-profiles",
-      "title": "تنظیم نمایه‌ها",
-      "category": "design-tools",
-      "kind": "action",
-      "upstream": "Iconoir",
-      "version": "7.12.2",
-      "license": "MIT",
-      "source": "https://github.com/iconoir-icons/iconoir/blob/39834e3f193bc0cca2c36bebb6a650471977433d/icons/regular/settings-profiles.svg",
-      "outlineSha256": "e071138d174ed2abdf6368738d67a3128f959d107d43def42dc6c01a9e17ec61",
+      "name": "security-stall",
+      "title": "اتاقک نگهبانی",
+      "category": "city-services",
+      "kind": "base",
+      "upstream": "IconPark",
+      "version": "1.4.2",
+      "license": "Apache-2.0",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/SecurityStall.js",
+      "outlineSha256": "e8bc2480cc145d2e87fccfa51d157a11eb2d0b4106bc8610f4b2c8d6adcb00a8",
       "filledSha256": null,
-      "normalizedBodySha256": "ed43dc035fb010af5dd7b1de44996e301459847223bcfb562fa1c691d18bc6f8"
+      "normalizedBodySha256": "bf22dc68fb3d651eed0fed44e7205699bc04bc74ba8eac131eefb23d3e675c96"
     },
     {
       "name": "knight-shield",
@@ -42223,17 +42223,17 @@
       "normalizedBodySha256": "33123789f1ff25b0b5d5607ab88f44457b928de07f6df29efb925d93b6d489d8"
     },
     {
-      "name": "id-not-verified",
-      "title": "هویت تأییدنشده",
-      "category": "security",
-      "kind": "base",
-      "upstream": "Hugeicons",
-      "version": "4.4.0",
-      "license": "MIT",
-      "source": "https://unpkg.com/@hugeicons/core-free-icons@4.4.0/dist/esm/IdNotVerifiedIcon.js",
-      "outlineSha256": "ee9d91229b04c140cbfae47ae4060bc56843bf5953dec0c35b75b267564b7d33",
+      "name": "inbox-download-r",
+      "title": "صندوق ورودی با پیکان دریافت",
+      "category": "communication",
+      "kind": "action",
+      "upstream": "IconPark",
+      "version": "1.4.2",
+      "license": "Apache-2.0",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/InboxDownloadR.js",
+      "outlineSha256": "7ade7f24593ac4f2cd5aa36b3328d404e2ca8e9975faf707f452fbd81ef49b48",
       "filledSha256": null,
-      "normalizedBodySha256": "f790e2b52451a332efd29b5ccd8ea9faa8f9bdf151d671a4e7b12eb140da896f"
+      "normalizedBodySha256": "68e5d59a8d33de97eaef723402a8fbabba0a6c9c0f62ecf086db49640e366ec3"
     },
     {
       "name": "glass-half",
@@ -42717,17 +42717,17 @@
       "normalizedBodySha256": "288ce1b002a00bfdceb476ad8b1c0db418b5112ebd683f3277dabac1acc303eb"
     },
     {
-      "name": "wifi-tag",
-      "title": "برچسب وای‌فای",
-      "category": "design-tools",
+      "name": "memory-card",
+      "title": "کارت حافظه با کنتاکت‌های بالا",
+      "category": "device-tools",
       "kind": "base",
-      "upstream": "Iconoir",
-      "version": "7.12.2",
-      "license": "MIT",
-      "source": "https://github.com/iconoir-icons/iconoir/blob/39834e3f193bc0cca2c36bebb6a650471977433d/icons/regular/wifi-tag.svg",
-      "outlineSha256": "c41a48e9c8abe462bead3fb5fba2362371519786baa823c16868d777cd5abfae",
-      "filledSha256": "efe6fef2e549453228824d49dd0c7bf82ce94e8075de1bc00978b149b628d8e4",
-      "normalizedBodySha256": "4e68a37109008e0ba5e50aea2b3d17d1b27387a5fa58fb8c55409c7221a8ba01"
+      "upstream": "IconPark",
+      "version": "1.4.2",
+      "license": "Apache-2.0",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/MemoryCard.js",
+      "outlineSha256": "2ea3d767d20d2fb8ce795f81dda87c764ee80b9a71f2f9e956035a638dd0e416",
+      "filledSha256": null,
+      "normalizedBodySha256": "0f4ee32223ef53492eeb51a528b802a76614afb0a792f2ff03b6d01653d4d434"
     },
     {
       "name": "frame-alt",
@@ -42756,17 +42756,17 @@
       "normalizedBodySha256": "62ffb91e05852a2c13466150326d8dbd970572060edc678fa4403578505a7409"
     },
     {
-      "name": "delivery-sent-01",
-      "title": "سفارش تحویل پیک شده",
-      "category": "checkout",
+      "name": "disk-two",
+      "title": "حافظهٔ فلش با بدنهٔ چهارگوش",
+      "category": "device-tools",
       "kind": "base",
-      "upstream": "Hugeicons",
-      "version": "4.4.0",
-      "license": "MIT",
-      "source": "https://unpkg.com/@hugeicons/core-free-icons@4.4.0/dist/esm/DeliverySent01Icon.js",
-      "outlineSha256": "6d01103659196cb9ee7029bece1898edf97123c5a352ea42e3cbad86432b84fa",
+      "upstream": "IconPark",
+      "version": "1.4.2",
+      "license": "Apache-2.0",
+      "source": "https://unpkg.com/@icon-park/svg@1.4.2/lib/icons/DiskTwo.js",
+      "outlineSha256": "6cc4af25e4964ef31431d8cc39de3fa3df2a47383d24a1ed1fd5d5fb0779eb32",
       "filledSha256": null,
-      "normalizedBodySha256": "a0e599efddc9a04b1d40bf2cafc25ae4934932d65cb7fe1ddc7b2a80c2d46668"
+      "normalizedBodySha256": "e8ae13a2be4ead203821dc017ebe59e95591b0916a8c3f6027fd97ed533cdf37"
     },
     {
       "name": "package-open",
