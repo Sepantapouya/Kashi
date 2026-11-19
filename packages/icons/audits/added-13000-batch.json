@@ -108,12 +108,13 @@
       "kind": "action"
     },
     {
-      "name": "surveillance-cameras-one",
+      "name": "surveillance-cameras",
       "nearest": {
         "name": "utility-knife",
         "score": 0.711
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "surveillance-cameras-one"
     },
     {
       "name": "sort-amount-down",
@@ -284,20 +285,22 @@
       "kind": "action"
     },
     {
-      "name": "loading-one",
+      "name": "loading",
       "nearest": {
         "name": "fitness-massage-ball-texture",
         "score": 0.7395
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "loading-one"
     },
     {
-      "name": "root-01",
+      "name": "root",
       "nearest": {
         "name": "workspace-headset-hanger-underdesk",
         "score": 0.6952
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "root-01"
     },
     {
       "name": "import-and-export",
@@ -332,20 +335,22 @@
       "kind": "base"
     },
     {
-      "name": "solar-energy-one",
+      "name": "solar-energy",
       "nearest": {
         "name": "learn-pencil-hex-grip",
         "score": 0.7447
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "solar-energy-one"
     },
     {
-      "name": "thunderstorm-one",
+      "name": "thunderstorm",
       "nearest": {
         "name": "meeting-facilitator-time-card",
         "score": 0.7457
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "thunderstorm-one"
     },
     {
       "name": "escalators",
@@ -356,28 +361,31 @@
       "kind": "base"
     },
     {
-      "name": "imbalance",
+      "name": "scale-unbalanced",
       "nearest": {
         "name": "symmetry",
         "score": 0.747
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "imbalance"
     },
     {
-      "name": "text-style-one",
+      "name": "text-style",
       "nearest": {
         "name": "folding-ruler",
         "score": 0.7477
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "text-style-one"
     },
     {
-      "name": "riding-one",
+      "name": "riding",
       "nearest": {
         "name": "ramekin",
         "score": 0.7477
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "riding-one"
     },
     {
       "name": "move-three-d",
@@ -390,8 +398,9 @@
     {
       "name": "edit-name",
       "nearest": {
-        "name": "structure-01",
-        "score": 0.7486
+        "name": "structure",
+        "score": 0.7486,
+        "previousName": "structure-01"
       },
       "kind": "action"
     },
@@ -476,12 +485,13 @@
       "kind": "base"
     },
     {
-      "name": "steoller",
+      "name": "pram",
       "nearest": {
         "name": "scorpion",
         "score": 0.7528
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "steoller"
     },
     {
       "name": "handwashing",
@@ -492,12 +502,13 @@
       "kind": "base"
     },
     {
-      "name": "parabola-01",
+      "name": "parabola",
       "nearest": {
         "name": "wash-very-gentle",
         "score": 0.7079
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "parabola-01"
     },
     {
       "name": "tangent",
@@ -628,12 +639,13 @@
       "kind": "base"
     },
     {
-      "name": "rewind-forward-5",
+      "name": "rewind-forward",
       "nearest": {
         "name": "map-slovenia",
         "score": 0.717
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "rewind-forward-5"
     },
     {
       "name": "pointer-x",
@@ -652,12 +664,13 @@
       "kind": "base"
     },
     {
-      "name": "enquire",
+      "name": "info-request",
       "nearest": {
         "name": "window-shutter-open-pair",
         "score": 0.7649
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "enquire"
     },
     {
       "name": "path-arrow",
@@ -684,12 +697,13 @@
       "kind": "action"
     },
     {
-      "name": "sorting-01",
+      "name": "sorting",
       "nearest": {
         "name": "manual-gearbox",
         "score": 0.7218
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "sorting-01"
     },
     {
       "name": "user-bag",
@@ -724,12 +738,13 @@
       "kind": "base"
     },
     {
-      "name": "sum",
+      "name": "value-sum",
       "nearest": {
         "name": "product-swatch-pattern-repeat",
         "score": 0.7693
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "sum"
     },
     {
       "name": "switch-track",
@@ -780,12 +795,13 @@
       "kind": "base"
     },
     {
-      "name": "cursor-remove-selection-01",
+      "name": "cursor-remove-selection",
       "nearest": {
         "name": "file-folder-twin-pocket",
         "score": 0.7258
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "cursor-remove-selection-01"
     },
     {
       "name": "diving",
@@ -828,12 +844,13 @@
       "kind": "base"
     },
     {
-      "name": "rope-skipping-one",
+      "name": "rope-skipping",
       "nearest": {
         "name": "city-public-charging-shelf",
         "score": 0.7715
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "rope-skipping-one"
     },
     {
       "name": "add-team",
@@ -844,12 +861,13 @@
       "kind": "action"
     },
     {
-      "name": "cursor-circle-selection-01",
+      "name": "cursor-circle-selection",
       "nearest": {
         "name": "tool-strap-wrench",
         "score": 0.7266
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "cursor-circle-selection-01"
     },
     {
       "name": "cloud-moon-rain",
@@ -868,12 +886,13 @@
       "kind": "base"
     },
     {
-      "name": "search-list-01",
+      "name": "search-list",
       "nearest": {
         "name": "pdf-flatten-form-fields",
         "score": 0.7292
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "search-list-01"
     },
     {
       "name": "border-bottom",
@@ -900,20 +919,22 @@
       "kind": "base"
     },
     {
-      "name": "diagonal-scroll-point-01",
+      "name": "diagonal-scroll-point",
       "nearest": {
         "name": "course-prerequisite",
         "score": 0.7298
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "diagonal-scroll-point-01"
     },
     {
-      "name": "workflow-circle-01",
+      "name": "workflow-circle",
       "nearest": {
         "name": "civic-bike-repair-post",
         "score": 0.7302
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "workflow-circle-01"
     },
     {
       "name": "tabletennis",
@@ -924,12 +945,14 @@
       "kind": "base"
     },
     {
-      "name": "cursor-edit-01",
+      "name": "cursor-edit",
       "nearest": {
-        "name": "car-04",
-        "score": 0.7305
+        "name": "car-three-quarter",
+        "score": 0.7305,
+        "previousName": "car-04"
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "cursor-edit-01"
     },
     {
       "name": "edit-road",
@@ -1012,20 +1035,22 @@
       "kind": "base"
     },
     {
-      "name": "min",
+      "name": "value-min",
       "nearest": {
         "name": "allen-key",
         "score": 0.7776
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "min"
     },
     {
-      "name": "rewind-backward-5",
+      "name": "rewind-backward",
       "nearest": {
         "name": "cart-check",
         "score": 0.7339
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "rewind-backward-5"
     },
     {
       "name": "transporter",
@@ -1060,12 +1085,13 @@
       "kind": "base"
     },
     {
-      "name": "people-search-one",
+      "name": "people-search",
       "nearest": {
         "name": "lab-sample-aliquot",
         "score": 0.7807
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "people-search-one"
     },
     {
       "name": "obtuse",
@@ -1092,12 +1118,13 @@
       "kind": "base"
     },
     {
-      "name": "exposure-minus-2",
+      "name": "exposure-minus",
       "nearest": {
         "name": "dev-webhook-delivery-attempt",
         "score": 0.7365
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "exposure-minus-2"
     },
     {
       "name": "electric-drill",
@@ -1148,12 +1175,13 @@
       "kind": "base"
     },
     {
-      "name": "file-removal-one",
+      "name": "file-removal",
       "nearest": {
         "name": "tablet-pencil",
         "score": 0.7829
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "file-removal-one"
     },
     {
       "name": "bell-code",
@@ -1196,12 +1224,13 @@
       "kind": "base"
     },
     {
-      "name": "cutting-one",
+      "name": "cutting",
       "nearest": {
         "name": "puddle",
         "score": 0.785
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "cutting-one"
     },
     {
       "name": "analysis-text-link",
@@ -1212,12 +1241,13 @@
       "kind": "base"
     },
     {
-      "name": "average",
+      "name": "value-average",
       "nearest": {
         "name": "control-tabs-raised-center",
         "score": 0.7852
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "average"
     },
     {
       "name": "aviation",
@@ -1244,20 +1274,22 @@
       "kind": "base"
     },
     {
-      "name": "edit-multiple-01",
+      "name": "edit-multiple",
       "nearest": {
         "name": "map-jamaica",
         "score": 0.7414
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "edit-multiple-01"
     },
     {
-      "name": "microphone-one",
+      "name": "microphone",
       "nearest": {
         "name": "butterfly-net",
         "score": 0.7867
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "microphone-one"
     },
     {
       "name": "mindmap-map",
@@ -1388,12 +1420,13 @@
       "kind": "base"
     },
     {
-      "name": "power-supply-one",
+      "name": "power-supply",
       "nearest": {
         "name": "desk-fan",
         "score": 0.7918
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "power-supply-one"
     },
     {
       "name": "reverse-rotation",
@@ -1436,12 +1469,13 @@
       "kind": "base"
     },
     {
-      "name": "cursor-progress-01",
+      "name": "cursor-progress",
       "nearest": {
         "name": "bookmark-tassel",
         "score": 0.7499
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "cursor-progress-01"
     },
     {
       "name": "row-height",
@@ -1612,12 +1646,13 @@
       "kind": "base"
     },
     {
-      "name": "user-add-01",
+      "name": "user-add",
       "nearest": {
         "name": "profile-user-outline-open",
         "score": 0.754
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "user-add-01"
     },
     {
       "name": "baby-mobile",
@@ -1636,12 +1671,13 @@
       "kind": "base"
     },
     {
-      "name": "cursor-magic-selection-01",
+      "name": "cursor-magic-selection",
       "nearest": {
         "name": "drill-bit",
         "score": 0.7541
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "cursor-magic-selection-01"
     },
     {
       "name": "baseball-cap",
@@ -1764,20 +1800,22 @@
       "kind": "action"
     },
     {
-      "name": "maximum",
+      "name": "value-max",
       "nearest": {
         "name": "building-housekeeping-door-flag",
         "score": 0.8025
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "maximum"
     },
     {
-      "name": "folder-failed-one",
+      "name": "folder-failed",
       "nearest": {
         "name": "folder-x",
         "score": 0.8027
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "folder-failed-one"
     },
     {
       "name": "baby-app",
@@ -1796,12 +1834,13 @@
       "kind": "base"
     },
     {
-      "name": "touch-interaction-01",
+      "name": "touch-interaction",
       "nearest": {
         "name": "warp-pipe",
         "score": 0.7592
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "touch-interaction-01"
     },
     {
       "name": "ai-magic",
@@ -1820,12 +1859,13 @@
       "kind": "base"
     },
     {
-      "name": "file-staff-one",
+      "name": "file-staff",
       "nearest": {
         "name": "tablet-pencil",
         "score": 0.8043
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "file-staff-one"
     },
     {
       "name": "pencil-x",
@@ -1876,20 +1916,22 @@
       "kind": "base"
     },
     {
-      "name": "rotation-one",
+      "name": "rotation",
       "nearest": {
         "name": "graph-down",
         "score": 0.805
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "rotation-one"
     },
     {
-      "name": "image-done-01",
+      "name": "image-done",
       "nearest": {
         "name": "print-spot-varnish-area",
         "score": 0.7601
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "image-done-01"
     },
     {
       "name": "entertainment",
@@ -1918,8 +1960,9 @@
     {
       "name": "right-user",
       "nearest": {
-        "name": "structure-01",
-        "score": 0.8056
+        "name": "structure",
+        "score": 0.8056,
+        "previousName": "structure-01"
       },
       "kind": "base"
     },
@@ -2004,12 +2047,13 @@
       "kind": "base"
     },
     {
-      "name": "check-unread-01",
+      "name": "check-unread",
       "nearest": {
         "name": "close",
         "score": 0.7633
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "check-unread-01"
     },
     {
       "name": "link-interrupt",
@@ -2028,12 +2072,13 @@
       "kind": "base"
     },
     {
-      "name": "file-hiding-one",
+      "name": "file-hiding",
       "nearest": {
         "name": "file-access-request-gate",
         "score": 0.8088
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "file-hiding-one"
     },
     {
       "name": "folder-transfer",
@@ -2076,12 +2121,13 @@
       "kind": "base"
     },
     {
-      "name": "thin",
+      "name": "line-weight-thin",
       "nearest": {
         "name": "pommel-horse",
         "score": 0.8096
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "thin"
     },
     {
       "name": "battery-eco",
@@ -2092,12 +2138,13 @@
       "kind": "base"
     },
     {
-      "name": "chart-dots-3",
+      "name": "chart-scatter-axes",
       "nearest": {
         "name": "car-4wd",
         "score": 0.7647
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "chart-dots-3"
     },
     {
       "name": "volume-notice",
@@ -2212,12 +2259,13 @@
       "kind": "base"
     },
     {
-      "name": "chart-dots-2",
+      "name": "chart-dot",
       "nearest": {
         "name": "crm-sales-forecast",
         "score": 0.7668
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "chart-dots-2"
     },
     {
       "name": "filter-code",
@@ -2236,12 +2284,13 @@
       "kind": "base"
     },
     {
-      "name": "clothes-gloves-two",
+      "name": "clothes-gloves",
       "nearest": {
         "name": "fez",
         "score": 0.8124
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "clothes-gloves-two"
     },
     {
       "name": "credit-card-pos",
@@ -2292,12 +2341,13 @@
       "kind": "action"
     },
     {
-      "name": "saturn-01",
+      "name": "saturn",
       "nearest": {
         "name": "ammonite",
         "score": 0.769
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "saturn-01"
     },
     {
       "name": "ai-co-editing",
@@ -2348,12 +2398,13 @@
       "kind": "base"
     },
     {
-      "name": "hot-pot-one",
+      "name": "hot-pot",
       "nearest": {
         "name": "stamp",
         "score": 0.8154
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "hot-pot-one"
     },
     {
       "name": "download-computer",
@@ -2412,12 +2463,13 @@
       "kind": "base"
     },
     {
-      "name": "folder-git-2",
+      "name": "folder-git",
       "nearest": {
         "name": "folder-up",
         "score": 0.7721
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "folder-git-2"
     },
     {
       "name": "waves-right",
@@ -2436,12 +2488,13 @@
       "kind": "base"
     },
     {
-      "name": "image-add-01",
+      "name": "image-add",
       "nearest": {
         "name": "file-check",
         "score": 0.7723
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "image-add-01"
     },
     {
       "name": "language-hiragana",
@@ -2452,12 +2505,13 @@
       "kind": "base"
     },
     {
-      "name": "dim-sum-01",
+      "name": "dim-sum",
       "nearest": {
         "name": "billiards",
         "score": 0.7725
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "dim-sum-01"
     },
     {
       "name": "eye-x",
@@ -2468,12 +2522,13 @@
       "kind": "base"
     },
     {
-      "name": "image-remove-01",
+      "name": "image-remove",
       "nearest": {
         "name": "file-folder-soft-tab",
         "score": 0.7726
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "image-remove-01"
     },
     {
       "name": "basket-code",
@@ -2500,12 +2555,13 @@
       "kind": "base"
     },
     {
-      "name": "connect-address-two",
+      "name": "connect-address",
       "nearest": {
         "name": "anchor",
         "score": 0.8182
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "connect-address-two"
     },
     {
       "name": "enter-key",
@@ -2564,12 +2620,13 @@
       "kind": "base"
     },
     {
-      "name": "preview-close-one",
+      "name": "preview-close",
       "nearest": {
         "name": "eye-off",
         "score": 0.8199
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "preview-close-one"
     },
     {
       "name": "link-share",
@@ -2588,12 +2645,13 @@
       "kind": "action"
     },
     {
-      "name": "waterfall-down-01",
+      "name": "waterfall-down",
       "nearest": {
         "name": "graph-down",
         "score": 0.7752
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "waterfall-down-01"
     },
     {
       "name": "teeth",
@@ -2628,20 +2686,22 @@
       "kind": "base"
     },
     {
-      "name": "file-quality-one",
+      "name": "file-quality",
       "nearest": {
         "name": "file-export",
         "score": 0.8208
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "file-quality-one"
     },
     {
-      "name": "align-bottom-two",
+      "name": "align-bottom",
       "nearest": {
         "name": "hotel-pay-at-property",
         "score": 0.8215
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "align-bottom-two"
     },
     {
       "name": "reverse-lens",
@@ -2652,20 +2712,22 @@
       "kind": "base"
     },
     {
-      "name": "call-outgoing-01",
+      "name": "call-outgoing",
       "nearest": {
         "name": "form-conditional-section",
         "score": 0.7767
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "call-outgoing-01"
     },
     {
-      "name": "call-incoming-01",
+      "name": "call-incoming",
       "nearest": {
         "name": "form-conditional-section",
         "score": 0.7768
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "call-incoming-01"
     },
     {
       "name": "folder-symlink",
@@ -2756,12 +2818,13 @@
       "kind": "base"
     },
     {
-      "name": "newlybuild",
+      "name": "new-building",
       "nearest": {
         "name": "file-spreadsheet-row-labels",
         "score": 0.8246
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "newlybuild"
     },
     {
       "name": "move-to",
@@ -2812,12 +2875,13 @@
       "kind": "base"
     },
     {
-      "name": "soccer-one",
+      "name": "soccer",
       "nearest": {
         "name": "run",
         "score": 0.8252
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "soccer-one"
     },
     {
       "name": "book-copy",
@@ -2828,20 +2892,22 @@
       "kind": "action"
     },
     {
-      "name": "cursor-rectangle-selection-01",
+      "name": "cursor-rectangle-selection",
       "nearest": {
         "name": "zoom-in-area",
         "score": 0.7804
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "cursor-rectangle-selection-01"
     },
     {
-      "name": "inequality-01",
+      "name": "inequality",
       "nearest": {
         "name": "haze",
         "score": 0.7805
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "inequality-01"
     },
     {
       "name": "camp",
@@ -2868,12 +2934,13 @@
       "kind": "base"
     },
     {
-      "name": "anchor-squre",
+      "name": "anchor-square",
       "nearest": {
         "name": "vector-bezier",
         "score": 0.8215
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "anchor-squre"
     },
     {
       "name": "chart-column-increasing",
@@ -2884,28 +2951,31 @@
       "kind": "base"
     },
     {
-      "name": "backward-01",
+      "name": "backward",
       "nearest": {
         "name": "volume-low",
         "score": 0.781
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "backward-01"
     },
     {
-      "name": "message-multiple-01",
+      "name": "message-multiple",
       "nearest": {
         "name": "message-schedule",
         "score": 0.7811
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "message-multiple-01"
     },
     {
-      "name": "hold-locked-01",
+      "name": "hold-locked",
       "nearest": {
         "name": "crayon",
         "score": 0.7816
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "hold-locked-01"
     },
     {
       "name": "eyebrow",
@@ -2988,12 +3058,13 @@
       "kind": "base"
     },
     {
-      "name": "connection-point-two",
+      "name": "connection-point",
       "nearest": {
         "name": "route-square",
         "score": 0.8279
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "connection-point-two"
     },
     {
       "name": "ai-editing",
@@ -3028,12 +3099,13 @@
       "kind": "base"
     },
     {
-      "name": "cursor-info-01",
+      "name": "cursor-info",
       "nearest": {
         "name": "travel-luggage-wheel-replacement",
         "score": 0.7838
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "cursor-info-01"
     },
     {
       "name": "cloud-pin",
@@ -3084,20 +3156,22 @@
       "kind": "base"
     },
     {
-      "name": "tickets-two",
+      "name": "tickets",
       "nearest": {
         "name": "design-grid-subdivision",
         "score": 0.8293
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "tickets-two"
     },
     {
-      "name": "file-music-one",
+      "name": "file-music",
       "nearest": {
         "name": "letter-d-plain",
         "score": 0.8294
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "file-music-one"
     },
     {
       "name": "data-transfer-both",
@@ -3148,18 +3222,20 @@
       "kind": "base"
     },
     {
-      "name": "icecream-three",
+      "name": "icecream",
       "nearest": {
         "name": "blimp",
         "score": 0.8308
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "icecream-three"
     },
     {
       "name": "file-validation",
       "nearest": {
-        "name": "store-verified-01",
-        "score": 0.786
+        "name": "store-verified",
+        "score": 0.786,
+        "previousName": "store-verified-01"
       },
       "kind": "action"
     },
@@ -3236,20 +3312,22 @@
       "kind": "base"
     },
     {
-      "name": "boxing-one",
+      "name": "boxing",
       "nearest": {
         "name": "property-pass-through-kitchen",
         "score": 0.8329
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "boxing-one"
     },
     {
-      "name": "tick-double-01",
+      "name": "tick-double",
       "nearest": {
         "name": "access-tactile-wayfinding",
         "score": 0.788
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "tick-double-01"
     },
     {
       "name": "women-coat",
@@ -3268,12 +3346,13 @@
       "kind": "base"
     },
     {
-      "name": "sine-01",
+      "name": "sine",
       "nearest": {
         "name": "grid-4x4",
         "score": 0.7886
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "sine-01"
     },
     {
       "name": "phone-telephone",
@@ -3284,12 +3363,13 @@
       "kind": "base"
     },
     {
-      "name": "folder-block-one",
+      "name": "folder-block",
       "nearest": {
         "name": "file-folder-soft-tab",
         "score": 0.8338
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "folder-block-one"
     },
     {
       "name": "route-block",
@@ -3300,28 +3380,32 @@
       "kind": "base"
     },
     {
-      "name": "delivery-delay-01",
+      "name": "delivery-delay",
       "nearest": {
-        "name": "car-04",
-        "score": 0.7889
+        "name": "car-three-quarter",
+        "score": 0.7889,
+        "previousName": "car-04"
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "delivery-delay-01"
     },
     {
-      "name": "paragraph-break-two",
+      "name": "paragraph-break",
       "nearest": {
         "name": "transit-live-arrival-board",
         "score": 0.834
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "paragraph-break-two"
     },
     {
-      "name": "battery-vertical-charging-2",
+      "name": "battery-vertical-charging",
       "nearest": {
         "name": "traffic-lights",
         "score": 0.7892
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "battery-vertical-charging-2"
     },
     {
       "name": "folder-share",
@@ -3356,20 +3440,22 @@
       "kind": "base"
     },
     {
-      "name": "people-delete-one",
+      "name": "people-delete",
       "nearest": {
         "name": "user-x",
         "score": 0.8351
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "people-delete-one"
     },
     {
-      "name": "auto-height-one",
+      "name": "auto-height",
       "nearest": {
         "name": "viewport-tall",
         "score": 0.8354
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "auto-height-one"
     },
     {
       "name": "list-end",
@@ -3396,12 +3482,13 @@
       "kind": "action"
     },
     {
-      "name": "mouse-left-click-01",
+      "name": "mouse-left-click",
       "nearest": {
         "name": "paper-disc-bound-notebook",
         "score": 0.7912
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "mouse-left-click-01"
     },
     {
       "name": "share-sys",
@@ -3444,12 +3531,13 @@
       "kind": "base"
     },
     {
-      "name": "time-setting-01",
+      "name": "time-setting",
       "nearest": {
         "name": "watch-round",
         "score": 0.7927
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "time-setting-01"
     },
     {
       "name": "access-point",
@@ -3484,20 +3572,22 @@
       "kind": "base"
     },
     {
-      "name": "move-in-one",
+      "name": "move-in",
       "nearest": {
         "name": "picture-in-picture-on",
         "score": 0.8382
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "move-in-one"
     },
     {
-      "name": "minus-plus-01",
+      "name": "minus-plus",
       "nearest": {
         "name": "letter-t-plain",
         "score": 0.7932
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "minus-plus-01"
     },
     {
       "name": "applet-closed",
@@ -3516,12 +3606,13 @@
       "kind": "action"
     },
     {
-      "name": "file-editing-one",
+      "name": "file-editing",
       "nearest": {
         "name": "file-rounded-fold-low",
         "score": 0.8384
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "file-editing-one"
     },
     {
       "name": "root-first-bracket",
@@ -3540,28 +3631,31 @@
       "kind": "base"
     },
     {
-      "name": "badge-two",
+      "name": "badge",
       "nearest": {
         "name": "award",
         "score": 0.8395
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "badge-two"
     },
     {
-      "name": "touch-01",
+      "name": "touch",
       "nearest": {
         "name": "hand-pointer",
         "score": 0.7946
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "touch-01"
     },
     {
-      "name": "doc-search-two",
+      "name": "doc-search",
       "nearest": {
         "name": "ui-persistent-bottom-action-bar",
         "score": 0.8396
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "doc-search-two"
     },
     {
       "name": "phone-paused",
@@ -3572,12 +3666,13 @@
       "kind": "base"
     },
     {
-      "name": "future-build-two",
+      "name": "future-build",
       "nearest": {
         "name": "letter-i-plain",
         "score": 0.8345
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "future-build-two"
     },
     {
       "name": "increase",
@@ -3756,12 +3851,13 @@
       "kind": "base"
     },
     {
-      "name": "expenses-one",
+      "name": "expenses",
       "nearest": {
         "name": "picture-in-picture-on",
         "score": 0.8427
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "expenses-one"
     },
     {
       "name": "cooperative-handshake",
@@ -3780,20 +3876,22 @@
       "kind": "action"
     },
     {
-      "name": "file-tips-one",
+      "name": "file-tips",
       "nearest": {
         "name": "auth-session-expiry-warning",
         "score": 0.8431
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "file-tips-one"
     },
     {
-      "name": "align-top-two",
+      "name": "align-top",
       "nearest": {
         "name": "dialpad",
         "score": 0.8431
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "align-top-two"
     },
     {
       "name": "road-sign-both",
@@ -3820,12 +3918,13 @@
       "kind": "base"
     },
     {
-      "name": "sort-descending-2",
+      "name": "sort-descending",
       "nearest": {
         "name": "network-per-app-permission",
         "score": 0.7988
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "sort-descending-2"
     },
     {
       "name": "format",
@@ -3940,12 +4039,13 @@
       "kind": "base"
     },
     {
-      "name": "call-ringing-01",
+      "name": "call-ringing",
       "nearest": {
         "name": "rating-stars",
         "score": 0.8007
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "call-ringing-01"
     },
     {
       "name": "golf-course",
@@ -3964,12 +4064,13 @@
       "kind": "base"
     },
     {
-      "name": "tailoring-two",
+      "name": "tailoring",
       "nearest": {
         "name": "frame",
         "score": 0.8463
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "tailoring-two"
     },
     {
       "name": "block-eight",
@@ -3996,12 +4097,13 @@
       "kind": "base"
     },
     {
-      "name": "horizonal-scroll-point",
+      "name": "horizontal-scroll-point",
       "nearest": {
         "name": "data-join-inner",
         "score": 0.8021
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "horizonal-scroll-point"
     },
     {
       "name": "video-conference",
@@ -4012,12 +4114,13 @@
       "kind": "base"
     },
     {
-      "name": "message-done-01",
+      "name": "message-done",
       "nearest": {
         "name": "btn-menu",
         "score": 0.8024
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "message-done-01"
     },
     {
       "name": "table-rows-split",
@@ -4092,20 +4195,22 @@
       "kind": "base"
     },
     {
-      "name": "afferent-two",
+      "name": "afferent",
       "nearest": {
         "name": "computer",
         "score": 0.8484
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "afferent-two"
     },
     {
-      "name": "victory-finger-01",
+      "name": "victory-finger",
       "nearest": {
         "name": "rabbit",
         "score": 0.8035
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "victory-finger-01"
     },
     {
       "name": "shield-share",
@@ -4116,12 +4221,13 @@
       "kind": "action"
     },
     {
-      "name": "boy-one",
+      "name": "boy",
       "nearest": {
         "name": "olympic-torch",
         "score": 0.8486
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "boy-one"
     },
     {
       "name": "open-an-account",
@@ -4172,12 +4278,13 @@
       "kind": "base"
     },
     {
-      "name": "pay-code-one",
+      "name": "pay-code",
       "nearest": {
         "name": "orthogonal-view",
         "score": 0.8494
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "pay-code-one"
     },
     {
       "name": "cellular-network-offline",
@@ -4236,12 +4343,13 @@
       "kind": "base"
     },
     {
-      "name": "sort-ascending-2",
+      "name": "sort-ascending",
       "nearest": {
         "name": "network-per-app-permission",
         "score": 0.8057
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "sort-ascending-2"
     },
     {
       "name": "distribute-vertical-center",
@@ -4324,12 +4432,13 @@
       "kind": "base"
     },
     {
-      "name": "do-not-touch-01",
+      "name": "do-not-touch",
       "nearest": {
         "name": "rasp",
         "score": 0.8069
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "do-not-touch-01"
     },
     {
       "name": "table-columns-split",
@@ -4436,12 +4545,13 @@
       "kind": "base"
     },
     {
-      "name": "subtract-selection-one",
+      "name": "subtract-selection",
       "nearest": {
         "name": "combine",
         "score": 0.8544
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "subtract-selection-one"
     },
     {
       "name": "message-user",
@@ -4452,12 +4562,13 @@
       "kind": "base"
     },
     {
-      "name": "bottom-bar-one",
+      "name": "bottom-bar",
       "nearest": {
         "name": "flippers",
         "score": 0.8545
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "bottom-bar-one"
     },
     {
       "name": "message-circle-share",
@@ -4518,8 +4629,9 @@
     {
       "name": "endocrine",
       "nearest": {
-        "name": "fire-02",
-        "score": 0.8517
+        "name": "fire",
+        "score": 0.8517,
+        "previousName": "fire-02"
       },
       "kind": "base"
     },
@@ -4556,12 +4668,13 @@
       "kind": "base"
     },
     {
-      "name": "tap-01",
+      "name": "tap",
       "nearest": {
         "name": "pointing-up",
         "score": 0.8115
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "tap-01"
     },
     {
       "name": "straw-hat",
@@ -4572,12 +4685,13 @@
       "kind": "base"
     },
     {
-      "name": "folder-success-one",
+      "name": "folder-success",
       "nearest": {
         "name": "file-folder-soft-tab",
         "score": 0.8568
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "folder-success-one"
     },
     {
       "name": "network-tree",
@@ -4606,8 +4720,9 @@
     {
       "name": "clipboard-clock",
       "nearest": {
-        "name": "task-edit-01",
-        "score": 0.8133
+        "name": "task-edit",
+        "score": 0.8133,
+        "previousName": "task-edit-01"
       },
       "kind": "base"
     },
@@ -4700,12 +4815,13 @@
       "kind": "base"
     },
     {
-      "name": "waterfall-up-01",
+      "name": "waterfall-up",
       "nearest": {
         "name": "metric-baseline",
         "score": 0.8152
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "waterfall-up-01"
     },
     {
       "name": "reply-to-message",
@@ -4716,12 +4832,13 @@
       "kind": "action"
     },
     {
-      "name": "mail-validation-01",
+      "name": "mail-validation",
       "nearest": {
         "name": "mail-lock",
         "score": 0.8153
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "mail-validation-01"
     },
     {
       "name": "search-replace",
@@ -4756,12 +4873,13 @@
       "kind": "action"
     },
     {
-      "name": "chat-favourite-01",
+      "name": "chat-favourite",
       "nearest": {
         "name": "message-three-square-dots",
         "score": 0.8162
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "chat-favourite-01"
     },
     {
       "name": "hold-phone",
@@ -4844,12 +4962,13 @@
       "kind": "base"
     },
     {
-      "name": "two-dimensional-code-two",
+      "name": "two-dimensional-code",
       "nearest": {
         "name": "chart-table-row-bars",
         "score": 0.8624
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "two-dimensional-code-two"
     },
     {
       "name": "vegetables",
@@ -4860,12 +4979,13 @@
       "kind": "base"
     },
     {
-      "name": "wallet-not-found-01",
+      "name": "wallet-not-found",
       "nearest": {
         "name": "dry-clean-off",
         "score": 0.8177
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "wallet-not-found-01"
     },
     {
       "name": "shoulder-bag",
@@ -4892,12 +5012,13 @@
       "kind": "action"
     },
     {
-      "name": "ai-phone-01",
+      "name": "ai-phone",
       "nearest": {
         "name": "file-rounded-fold-low",
         "score": 0.8187
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "ai-phone-01"
     },
     {
       "name": "bring-forward",
@@ -4980,12 +5101,13 @@
       "kind": "base"
     },
     {
-      "name": "mouse-right-click-01",
+      "name": "mouse-right-click",
       "nearest": {
         "name": "card-pair-club",
         "score": 0.8201
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "mouse-right-click-01"
     },
     {
       "name": "armored-boot",
@@ -5036,12 +5158,13 @@
       "kind": "base"
     },
     {
-      "name": "message-notification-01",
+      "name": "message-notification",
       "nearest": {
         "name": "btn-menu",
         "score": 0.8209
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "message-notification-01"
     },
     {
       "name": "forward-message",
@@ -5060,12 +5183,13 @@
       "kind": "action"
     },
     {
-      "name": "massage-chair-one",
+      "name": "massage-chair",
       "nearest": {
         "name": "pottery-wheel",
         "score": 0.8661
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "massage-chair-one"
     },
     {
       "name": "intersection",
@@ -5204,20 +5328,22 @@
       "kind": "base"
     },
     {
-      "name": "book-up-2",
+      "name": "book-up",
       "nearest": {
         "name": "tablet-pencil",
         "score": 0.8228
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "book-up-2"
     },
     {
-      "name": "material-three",
+      "name": "material",
       "nearest": {
         "name": "kitchen-jar-vacuum-sealer",
         "score": 0.8678
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "material-three"
     },
     {
       "name": "border-sides",
@@ -5380,12 +5506,13 @@
       "kind": "action"
     },
     {
-      "name": "package-dimensions-01",
+      "name": "package-dimensions",
       "nearest": {
         "name": "paper-saddle-stitch-booklet",
         "score": 0.8262
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "package-dimensions-01"
     },
     {
       "name": "seo-folder",
@@ -5404,12 +5531,13 @@
       "kind": "base"
     },
     {
-      "name": "sun-cloud-01",
+      "name": "sun-cloud",
       "nearest": {
         "name": "cloud",
         "score": 0.8265
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "sun-cloud-01"
     },
     {
       "name": "message-emoji",
@@ -5420,12 +5548,13 @@
       "kind": "base"
     },
     {
-      "name": "account-setting-01",
+      "name": "account-setting",
       "nearest": {
         "name": "atom",
         "score": 0.8269
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "account-setting-01"
     },
     {
       "name": "conditioner",
@@ -5484,12 +5613,13 @@
       "kind": "base"
     },
     {
-      "name": "package-sent-01",
+      "name": "package-sent",
       "nearest": {
         "name": "web-programming",
         "score": 0.8279
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "package-sent-01"
     },
     {
       "name": "doc-magnifying-glass",
@@ -5660,12 +5790,13 @@
       "kind": "base"
     },
     {
-      "name": "border-style-2",
+      "name": "border-style-double",
       "nearest": {
         "name": "swim-lane",
         "score": 0.8304
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "border-style-2"
     },
     {
       "name": "job-share",
@@ -5692,12 +5823,13 @@
       "kind": "base"
     },
     {
-      "name": "touch-locked-01",
+      "name": "touch-locked",
       "nearest": {
         "name": "fa-he-plain",
         "score": 0.8307
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "touch-locked-01"
     },
     {
       "name": "minimize-screen",
@@ -5716,12 +5848,13 @@
       "kind": "base"
     },
     {
-      "name": "pic-one",
+      "name": "pic",
       "nearest": {
         "name": "stationery-craft-eyelet-rivet",
         "score": 0.876
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "pic-one"
     },
     {
       "name": "email-push",
@@ -5796,12 +5929,13 @@
       "kind": "base"
     },
     {
-      "name": "microphone-2",
+      "name": "microphone-short",
       "nearest": {
         "name": "eye-dropper",
         "score": 0.8321
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "microphone-2"
     },
     {
       "name": "link-break",
@@ -5836,12 +5970,13 @@
       "kind": "base"
     },
     {
-      "name": "i-mac",
+      "name": "all-in-one-computer",
       "nearest": {
         "name": "exam-desk-number",
         "score": 0.878
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "i-mac"
     },
     {
       "name": "upload-logs",
@@ -5884,12 +6019,13 @@
       "kind": "base"
     },
     {
-      "name": "monument-two",
+      "name": "monument",
       "nearest": {
         "name": "tower",
         "score": 0.8795
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "monument-two"
     },
     {
       "name": "merge-cells",
@@ -6110,8 +6246,9 @@
     {
       "name": "playback-progress",
       "nearest": {
-        "name": "wardrobe-03",
-        "score": 0.8639
+        "name": "wardrobe-drawer",
+        "score": 0.8639,
+        "previousName": "wardrobe-03"
       },
       "kind": "action"
     },
@@ -6124,12 +6261,13 @@
       "kind": "action"
     },
     {
-      "name": "geometric-shapes-01",
+      "name": "geometric-shapes",
       "nearest": {
         "name": "layout-card-masonry-row",
         "score": 0.8387
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "geometric-shapes-01"
     },
     {
       "name": "mini-sd-card",
@@ -6212,12 +6350,13 @@
       "kind": "base"
     },
     {
-      "name": "chat-done-01",
+      "name": "chat-done",
       "nearest": {
         "name": "ai-chat",
         "score": 0.841
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "chat-done-01"
     },
     {
       "name": "haji",
@@ -6284,20 +6423,22 @@
       "kind": "base"
     },
     {
-      "name": "two-finger-01",
+      "name": "two-finger",
       "nearest": {
         "name": "hand-click",
         "score": 0.8418
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "two-finger-01"
     },
     {
-      "name": "speed-one",
+      "name": "speed",
       "nearest": {
         "name": "control-knob-top-notch",
         "score": 0.8868
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "speed-one"
     },
     {
       "name": "address-book",
@@ -6316,12 +6457,13 @@
       "kind": "base"
     },
     {
-      "name": "dividing-line-one",
+      "name": "dividing-line",
       "nearest": {
         "name": "swim-lane",
         "score": 0.8872
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "dividing-line-one"
     },
     {
       "name": "basketball-stand",
@@ -6340,12 +6482,13 @@
       "kind": "base"
     },
     {
-      "name": "topology-star-3",
+      "name": "topology-star",
       "nearest": {
         "name": "range-slider",
         "score": 0.8425
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "topology-star-3"
     },
     {
       "name": "perfumer-bottle",
@@ -6412,12 +6555,13 @@
       "kind": "base"
     },
     {
-      "name": "dumbbel-line",
+      "name": "dumbbell-line",
       "nearest": {
         "name": "arrow-left-right",
         "score": 0.8883
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "dumbbel-line"
     },
     {
       "name": "battery-charge",
@@ -6484,20 +6628,23 @@
       "kind": "base"
     },
     {
-      "name": "usb-not-connected-01",
+      "name": "usb-not-connected",
       "nearest": {
-        "name": "usb-connected-01",
-        "score": 0.8449
+        "name": "usb-connected",
+        "score": 0.8449,
+        "previousName": "usb-connected-01"
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "usb-not-connected-01"
     },
     {
-      "name": "image-not-found-01",
+      "name": "image-not-found",
       "nearest": {
         "name": "dry-clean-off",
         "score": 0.8452
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "image-not-found-01"
     },
     {
       "name": "experiment",
@@ -6548,12 +6695,13 @@
       "kind": "base"
     },
     {
-      "name": "chat-unlock-01",
+      "name": "chat-unlock",
       "nearest": {
         "name": "ai-chat",
         "score": 0.8459
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "chat-unlock-01"
     },
     {
       "name": "ai-replace",
@@ -6596,12 +6744,13 @@
       "kind": "base"
     },
     {
-      "name": "balance-two",
+      "name": "balance",
       "nearest": {
         "name": "jewelry-scale",
         "score": 0.8917
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "balance-two"
     },
     {
       "name": "alignment-left-bottom",
@@ -6660,12 +6809,13 @@
       "kind": "base"
     },
     {
-      "name": "wallet-done-01",
+      "name": "wallet-done",
       "nearest": {
         "name": "credit-cards",
         "score": 0.8475
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "wallet-done-01"
     },
     {
       "name": "add-music",
@@ -6684,12 +6834,13 @@
       "kind": "base"
     },
     {
-      "name": "mail-reply-all-01",
+      "name": "mail-reply-all",
       "nearest": {
         "name": "mail-plus",
         "score": 0.8479
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "mail-reply-all-01"
     },
     {
       "name": "bubble-chat-notification",
@@ -6700,12 +6851,13 @@
       "kind": "base"
     },
     {
-      "name": "mail-at-sign-01",
+      "name": "mail-at-sign",
       "nearest": {
         "name": "mail-clock",
         "score": 0.8481
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "mail-at-sign-01"
     },
     {
       "name": "christmas-ball",
@@ -6724,20 +6876,22 @@
       "kind": "action"
     },
     {
-      "name": "comment-remove-01",
+      "name": "comment-remove",
       "nearest": {
         "name": "chat-dot",
         "score": 0.8483
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "comment-remove-01"
     },
     {
-      "name": "margin-one",
+      "name": "margin",
       "nearest": {
         "name": "text-square",
         "score": 0.8933
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "margin-one"
     },
     {
       "name": "digital-watches",
@@ -6908,12 +7062,13 @@
       "kind": "base"
     },
     {
-      "name": "auto-width-one",
+      "name": "auto-width",
       "nearest": {
         "name": "travel-itinerary-day-divider",
         "score": 0.8956
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "auto-width-one"
     },
     {
       "name": "ai-camera",
@@ -6948,20 +7103,22 @@
       "kind": "base"
     },
     {
-      "name": "move-diagonal-01",
+      "name": "move-diagonal",
       "nearest": {
         "name": "white-cane",
         "score": 0.8524
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "move-diagonal-01"
     },
     {
-      "name": "delivery-tracking-01",
+      "name": "delivery-tracking",
       "nearest": {
         "name": "web-programming",
         "score": 0.8527
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "delivery-tracking-01"
     },
     {
       "name": "rotate-three-d",
@@ -6988,20 +7145,22 @@
       "kind": "base"
     },
     {
-      "name": "mail-voice-01",
+      "name": "mail-voice",
       "nearest": {
         "name": "mail-clock",
         "score": 0.853
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "mail-voice-01"
     },
     {
-      "name": "album-not-found-01",
+      "name": "album-not-found",
       "nearest": {
         "name": "tumble-dry-slash",
         "score": 0.8533
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "album-not-found-01"
     },
     {
       "name": "device-ipad-horizontal-code",
@@ -7044,12 +7203,13 @@
       "kind": "action"
     },
     {
-      "name": "shopping-basket-secure-01",
+      "name": "shopping-basket-secure",
       "nearest": {
         "name": "shopping-bag-star",
         "score": 0.8545
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "shopping-basket-secure-01"
     },
     {
       "name": "insert-row",
@@ -7060,12 +7220,13 @@
       "kind": "action"
     },
     {
-      "name": "paragraph-bullets-point-01",
+      "name": "paragraph-bullets-point",
       "nearest": {
         "name": "list-details",
         "score": 0.8546
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "paragraph-bullets-point-01"
     },
     {
       "name": "tickets-plane",
@@ -7140,20 +7301,22 @@
       "kind": "action"
     },
     {
-      "name": "package-delivered-01",
+      "name": "package-delivered",
       "nearest": {
         "name": "wallet-check",
         "score": 0.858
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "package-delivered-01"
     },
     {
-      "name": "css-file-01",
+      "name": "css-file",
       "nearest": {
         "name": "file-svg",
         "score": 0.858
       },
-      "kind": "type"
+      "kind": "type",
+      "previousName": "css-file-01"
     },
     {
       "name": "frameworks",
@@ -7204,12 +7367,13 @@
       "kind": "action"
     },
     {
-      "name": "mail-receive-01",
+      "name": "mail-receive",
       "nearest": {
         "name": "mail-check",
         "score": 0.8592
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "mail-receive-01"
     },
     {
       "name": "laptop-fix",
@@ -7252,12 +7416,13 @@
       "kind": "base"
     },
     {
-      "name": "car-fan-3",
+      "name": "car-fan",
       "nearest": {
         "name": "pinwheel",
         "score": 0.8607
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "car-fan-3"
     },
     {
       "name": "pin-end",
@@ -7268,20 +7433,22 @@
       "kind": "base"
     },
     {
-      "name": "wallet-add-01",
+      "name": "wallet-add",
       "nearest": {
         "name": "credit-cards",
         "score": 0.8608
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "wallet-add-01"
     },
     {
-      "name": "drone-one",
+      "name": "drone-front",
       "nearest": {
         "name": "street-food",
         "score": 0.7569
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "drone-one"
     },
     {
       "name": "avi-format",
@@ -7372,12 +7539,13 @@
       "kind": "base"
     },
     {
-      "name": "chat-translate-01",
+      "name": "chat-translate",
       "nearest": {
         "name": "ai-chat",
         "score": 0.8623
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "chat-translate-01"
     },
     {
       "name": "security-block",
@@ -7516,12 +7684,13 @@
       "kind": "base"
     },
     {
-      "name": "comment-block-01",
+      "name": "comment-block",
       "nearest": {
         "name": "chat-dot",
         "score": 0.8666
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "comment-block-01"
     },
     {
       "name": "ai-network",
@@ -7628,12 +7797,13 @@
       "kind": "base"
     },
     {
-      "name": "star-award-01",
+      "name": "star-award",
       "nearest": {
         "name": "best-seller",
         "score": 0.875
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "star-award-01"
     },
     {
       "name": "train-front",
@@ -7708,20 +7878,22 @@
       "kind": "base"
     },
     {
-      "name": "presentation-line-chart-01",
+      "name": "presentation-line-chart",
       "nearest": {
         "name": "education-equipment-borrowing-tag",
         "score": 0.8776
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "presentation-line-chart-01"
     },
     {
-      "name": "checkmark-badge-01",
+      "name": "checkmark-badge",
       "nearest": {
         "name": "brightness-half",
         "score": 0.8777
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "checkmark-badge-01"
     },
     {
       "name": "health-shield",
@@ -7796,12 +7968,13 @@
       "kind": "base"
     },
     {
-      "name": "bookmark-remove-01",
+      "name": "bookmark-remove",
       "nearest": {
         "name": "video-save-watch-later",
         "score": 0.8802
       },
-      "kind": "action"
+      "kind": "action",
+      "previousName": "bookmark-remove-01"
     },
     {
       "name": "maximize-screen",
@@ -8012,20 +8185,22 @@
       "kind": "base"
     },
     {
-      "name": "layer-mask-01",
+      "name": "layer-mask",
       "nearest": {
         "name": "no-dry-clean",
         "score": 0.8941
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "layer-mask-01"
     },
     {
-      "name": "disk-two",
+      "name": "disk",
       "nearest": {
         "name": "care-blood-pressure-cuff-wrap",
         "score": 0.8765
       },
-      "kind": "base"
+      "kind": "base",
+      "previousName": "disk-two"
     },
     {
       "name": "package-open",
@@ -8335,16 +8510,18 @@
         "replacement": "disk-two",
         "comparedWith": [
           {
-            "name": "container-truck-01",
-            "score": 0.966
+            "name": "container-truck",
+            "score": 0.966,
+            "previousName": "container-truck-01"
           },
           {
             "name": "shop-delivery-van-rounded",
             "score": 0.829
           },
           {
-            "name": "delivery-delay-01",
-            "score": 0.795
+            "name": "delivery-delay",
+            "score": 0.795,
+            "previousName": "delivery-delay-01"
           }
         ]
       },
@@ -8375,9 +8552,10 @@
     ],
     "replacementNearestMatches": [
       {
-        "name": "drone-one",
+        "name": "drone-front",
         "closest": "street-food",
-        "similarity": 0.7569
+        "similarity": 0.7569,
+        "previousName": "drone-one"
       },
       {
         "name": "gauze",
@@ -8450,9 +8628,10 @@
         "similarity": 0.8448
       },
       {
-        "name": "future-build-two",
+        "name": "future-build",
         "closest": "letter-i-plain",
-        "similarity": 0.8345
+        "similarity": 0.8345,
+        "previousName": "future-build-two"
       },
       {
         "name": "playback-progress",
@@ -8460,14 +8639,16 @@
         "similarity": 0.8639
       },
       {
-        "name": "anchor-squre",
+        "name": "anchor-square",
         "closest": "vector-bezier",
-        "similarity": 0.8215
+        "similarity": 0.8215,
+        "previousName": "anchor-squre"
       },
       {
-        "name": "disk-two",
+        "name": "disk",
         "closest": "care-blood-pressure-cuff-wrap",
-        "similarity": 0.8765
+        "similarity": 0.8765,
+        "previousName": "disk-two"
       },
       {
         "name": "bloom",

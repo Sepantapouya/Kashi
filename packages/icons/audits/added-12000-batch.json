@@ -11944,7 +11944,7 @@
       ]
     },
     {
-      "name": "activity-02",
+      "name": "activity-panel",
       "title": "نمودار فعالیت در پنل باز",
       "category": "charts",
       "kind": "base",
@@ -11972,7 +11972,8 @@
           "cosine": 0.7546,
           "blurCosine": 0.7951
         }
-      ]
+      ],
+      "previousName": "activity-02"
     },
     {
       "name": "activity-circle",
@@ -12068,7 +12069,7 @@
       ]
     },
     {
-      "name": "advertisiment",
+      "name": "advertisement",
       "title": "برچسب تبلیغ AD",
       "category": "business",
       "kind": "type",
@@ -12096,7 +12097,8 @@
           "cosine": 0.8809,
           "blurCosine": 0.9016
         }
-      ]
+      ],
+      "previousName": "advertisiment"
     },
     {
       "name": "adzan",
@@ -12192,7 +12194,7 @@
       ]
     },
     {
-      "name": "airplane-landing-01",
+      "name": "airplane-landing",
       "title": "هواپیمای فرودآمده روی باند",
       "category": "travel",
       "kind": "base",
@@ -12220,7 +12222,8 @@
           "cosine": 0.6923,
           "blurCosine": 0.7361
         }
-      ]
+      ],
+      "previousName": "airplane-landing-01"
     },
     {
       "name": "airplane-mode",
@@ -12254,7 +12257,7 @@
       ]
     },
     {
-      "name": "airpod-01",
+      "name": "airpod",
       "title": "کیس هدفون با در یکپارچه",
       "category": "hardware",
       "kind": "base",
@@ -12282,10 +12285,11 @@
           "cosine": 0.8679,
           "blurCosine": 0.8919
         }
-      ]
+      ],
+      "previousName": "airpod-01"
     },
     {
-      "name": "airport-02",
+      "name": "airport-terminal",
       "title": "پایانهٔ فرودگاه با برج جانبی",
       "category": "buildings",
       "kind": "base",
@@ -12313,7 +12317,8 @@
           "cosine": 0.7295,
           "blurCosine": 0.7863
         }
-      ]
+      ],
+      "previousName": "airport-02"
     },
     {
       "name": "airport-tower",
@@ -12347,7 +12352,7 @@
       ]
     },
     {
-      "name": "album-01",
+      "name": "album",
       "title": "آلبوم عکس با دو جلد",
       "category": "camera",
       "kind": "base",
@@ -12375,7 +12380,8 @@
           "cosine": 0.8335,
           "blurCosine": 0.8666
         }
-      ]
+      ],
+      "previousName": "album-01"
     },
     {
       "name": "algorithm",
@@ -12471,7 +12477,7 @@
       ]
     },
     {
-      "name": "analytics-02",
+      "name": "analytics-bars",
       "title": "آمار میله‌ای در پنل باز",
       "category": "charts",
       "kind": "base",
@@ -12499,7 +12505,8 @@
           "cosine": 0.755,
           "blurCosine": 0.7975
         }
-      ]
+      ],
+      "previousName": "analytics-02"
     },
     {
       "name": "analytics-down",
@@ -12595,7 +12602,7 @@
       ]
     },
     {
-      "name": "appointment-01",
+      "name": "appointment",
       "title": "تقویم با پیکان نوبت بعد",
       "category": "calendar",
       "kind": "action",
@@ -12623,7 +12630,8 @@
           "cosine": 0.8594,
           "blurCosine": 0.8889
         }
-      ]
+      ],
+      "previousName": "appointment-01"
     },
     {
       "name": "archer",
@@ -12657,7 +12665,7 @@
       ]
     },
     {
-      "name": "archive-01",
+      "name": "archive-files",
       "title": "بایگانی با ستون پرونده‌ها",
       "category": "folders",
       "kind": "base",
@@ -12685,7 +12693,8 @@
           "cosine": 0.8592,
           "blurCosine": 0.8941
         }
-      ]
+      ],
+      "previousName": "archive-01"
     },
     {
       "name": "arrange",
@@ -12750,7 +12759,7 @@
       ]
     },
     {
-      "name": "artificial-intelligence-01",
+      "name": "artificial-intelligence",
       "title": "نیم‌رخ انسان با مدار مغزی",
       "category": "ai",
       "kind": "base",
@@ -12778,7 +12787,8 @@
           "cosine": 0.6965,
           "blurCosine": 0.7456
         }
-      ]
+      ],
+      "previousName": "artificial-intelligence-01"
     },
     {
       "name": "assignments",
@@ -12812,7 +12822,7 @@
       ]
     },
     {
-      "name": "asteroid-01",
+      "name": "asteroid-craters",
       "title": "سیارک نامنظم با دهانه‌ها",
       "category": "space",
       "kind": "base",
@@ -12840,10 +12850,11 @@
           "cosine": 0.7076,
           "blurCosine": 0.7556
         }
-      ]
+      ],
+      "previousName": "asteroid-01"
     },
     {
-      "name": "astronaut-01",
+      "name": "astronaut-collar",
       "title": "کلاه فضانورد با یقهٔ پهن",
       "category": "space",
       "kind": "base",
@@ -12871,10 +12882,11 @@
           "cosine": 0.8185,
           "blurCosine": 0.8507
         }
-      ]
+      ],
+      "previousName": "astronaut-01"
     },
     {
-      "name": "atm-01",
+      "name": "atm-cash-out",
       "title": "خروج اسکناس از دهانهٔ خودپرداز",
       "category": "banking",
       "kind": "base",
@@ -12902,10 +12914,11 @@
           "cosine": 0.796,
           "blurCosine": 0.8313
         }
-      ]
+      ],
+      "previousName": "atm-01"
     },
     {
-      "name": "atom-01",
+      "name": "atom-broken-orbit",
       "title": "اتم با مدار دایره‌ای گسسته",
       "category": "science",
       "kind": "base",
@@ -12933,7 +12946,8 @@
           "cosine": 0.8785,
           "blurCosine": 0.8936
         }
-      ]
+      ],
+      "previousName": "atom-01"
     },
     {
       "name": "auction",
@@ -12967,7 +12981,7 @@
       ]
     },
     {
-      "name": "audio-book-02",
+      "name": "audio-book",
       "title": "کتاب صوتی با هدفون دور جلد",
       "category": "education",
       "kind": "base",
@@ -12995,7 +13009,8 @@
           "cosine": 0.8699,
           "blurCosine": 0.8972
         }
-      ]
+      ],
+      "previousName": "audio-book-02"
     },
     {
       "name": "audio-waveform",
@@ -13029,7 +13044,7 @@
       ]
     },
     {
-      "name": "audit-01",
+      "name": "audit",
       "title": "فهرست ممیزی با نشان بازبینی",
       "category": "business",
       "kind": "base",
@@ -13057,7 +13072,8 @@
           "cosine": 0.7641,
           "blurCosine": 0.8051
         }
-      ]
+      ],
+      "previousName": "audit-01"
     },
     {
       "name": "augmented-reality-ar",
@@ -13184,7 +13200,7 @@
       ]
     },
     {
-      "name": "baby-bed-01",
+      "name": "baby-bed",
       "title": "تخت نوزاد با نرده‌های عمودی",
       "category": "kids",
       "kind": "base",
@@ -13212,7 +13228,8 @@
           "cosine": 0.7808,
           "blurCosine": 0.8309
         }
-      ]
+      ],
+      "previousName": "baby-bed-01"
     },
     {
       "name": "baby-boy-dress",
@@ -13308,7 +13325,7 @@
       ]
     },
     {
-      "name": "backpack-01",
+      "name": "backpack-round",
       "title": "کولهٔ گرد با جیب پیشانی",
       "category": "fashion",
       "kind": "base",
@@ -13336,7 +13353,8 @@
           "cosine": 0.8079,
           "blurCosine": 0.8493
         }
-      ]
+      ],
+      "previousName": "backpack-01"
     },
     {
       "name": "badminton",
@@ -13496,7 +13514,7 @@
       ]
     },
     {
-      "name": "beach-02",
+      "name": "beach-palm",
       "title": "نخل جزیره با تنهٔ خمیده",
       "category": "travel",
       "kind": "base",
@@ -13524,7 +13542,8 @@
           "cosine": 0.6483,
           "blurCosine": 0.6993
         }
-      ]
+      ],
+      "previousName": "beach-02"
     },
     {
       "name": "bean",
@@ -13620,7 +13639,7 @@
       ]
     },
     {
-      "name": "bed-single-01",
+      "name": "bed-single",
       "title": "تخت تک‌نفره با تاج گرد",
       "category": "interiors",
       "kind": "base",
@@ -13648,10 +13667,11 @@
           "cosine": 0.7536,
           "blurCosine": 0.7975
         }
-      ]
+      ],
+      "previousName": "bed-single-01"
     },
     {
-      "name": "bedug-01",
+      "name": "bedug",
       "title": "طبل بشکه‌ای روی پایه",
       "category": "music",
       "kind": "base",
@@ -13679,7 +13699,8 @@
           "cosine": 0.7512,
           "blurCosine": 0.7944
         }
-      ]
+      ],
+      "previousName": "bedug-01"
     },
     {
       "name": "beef",
@@ -13775,7 +13796,7 @@
       ]
     },
     {
-      "name": "billiard-01",
+      "name": "billiard",
       "title": "چوب بیلیارد کنار توپ",
       "category": "sports",
       "kind": "base",
@@ -13803,7 +13824,8 @@
           "cosine": 0.6799,
           "blurCosine": 0.7307
         }
-      ]
+      ],
+      "previousName": "billiard-01"
     },
     {
       "name": "bio-energy",
@@ -13899,7 +13921,7 @@
       ]
     },
     {
-      "name": "black-hole-01",
+      "name": "black-hole-ring",
       "title": "سیاه‌چاله با حلقهٔ پهن مورب",
       "category": "space",
       "kind": "base",
@@ -13927,10 +13949,11 @@
           "cosine": 0.7592,
           "blurCosine": 0.815
         }
-      ]
+      ],
+      "previousName": "black-hole-01"
     },
     {
-      "name": "blockchain-02",
+      "name": "blockchain",
       "title": "سه بلوک زنجیره‌ای با اتصال مرکزی",
       "category": "infrastructure",
       "kind": "base",
@@ -13958,7 +13981,8 @@
           "cosine": 0.7354,
           "blurCosine": 0.7827
         }
-      ]
+      ],
+      "previousName": "blockchain-02"
     },
     {
       "name": "blood-bottle",
@@ -14085,7 +14109,7 @@
       ]
     },
     {
-      "name": "blush-brush-01",
+      "name": "blush-brush",
       "title": "براش آرایشی با سر مورب",
       "category": "beauty",
       "kind": "base",
@@ -14113,7 +14137,8 @@
           "cosine": 0.72,
           "blurCosine": 0.7808
         }
-      ]
+      ],
+      "previousName": "blush-brush-01"
     },
     {
       "name": "board-math",
@@ -14457,7 +14482,7 @@
       ]
     },
     {
-      "name": "books-01",
+      "name": "books-stack",
       "title": "پشتهٔ کتاب‌های افقی با لبهٔ باز",
       "category": "education",
       "kind": "base",
@@ -14485,10 +14510,11 @@
           "cosine": 0.8154,
           "blurCosine": 0.8468
         }
-      ]
+      ],
+      "previousName": "books-01"
     },
     {
-      "name": "bookshelf-01",
+      "name": "bookshelf-two-tier",
       "title": "کتابخانهٔ دوطبقه با کتاب‌های ایستاده",
       "category": "interiors",
       "kind": "base",
@@ -14516,7 +14542,8 @@
           "cosine": 0.8627,
           "blurCosine": 0.8839
         }
-      ]
+      ],
+      "previousName": "bookshelf-01"
     },
     {
       "name": "bot-message-square",
@@ -14643,7 +14670,7 @@
       ]
     },
     {
-      "name": "boxing-glove-01",
+      "name": "boxing-glove-wide",
       "title": "دستکش بوکس با سر گرد و مچ پهن",
       "category": "sports",
       "kind": "base",
@@ -14671,10 +14698,11 @@
           "cosine": 0.6904,
           "blurCosine": 0.739
         }
-      ]
+      ],
+      "previousName": "boxing-glove-01"
     },
     {
-      "name": "brain-01",
+      "name": "brain-hemispheres",
       "title": "دو نیمکرهٔ مغز با شیارهای خمیده",
       "category": "anatomy",
       "kind": "base",
@@ -14702,7 +14730,8 @@
           "cosine": 0.6996,
           "blurCosine": 0.7452
         }
-      ]
+      ],
+      "previousName": "brain-01"
     },
     {
       "name": "brain-circuit",
@@ -14736,7 +14765,7 @@
       ]
     },
     {
-      "name": "bread-01",
+      "name": "bread-loaf",
       "title": "نان کشیده با برش‌های مورب",
       "category": "bakery",
       "kind": "base",
@@ -14764,7 +14793,8 @@
           "cosine": 0.6473,
           "blurCosine": 0.7021
         }
-      ]
+      ],
+      "previousName": "bread-01"
     },
     {
       "name": "breast-pump",
@@ -14984,7 +15014,7 @@
       ]
     },
     {
-      "name": "building-01",
+      "name": "tower-arched",
       "title": "برج باریک با سقف قوسی",
       "category": "real-estate",
       "kind": "base",
@@ -15012,7 +15042,8 @@
           "cosine": 0.7686,
           "blurCosine": 0.8059
         }
-      ]
+      ],
+      "previousName": "building-01"
     },
     {
       "name": "bulb-charging",
@@ -15139,7 +15170,7 @@
       ]
     },
     {
-      "name": "cabinet-01",
+      "name": "drawer-cabinet",
       "title": "کشوی ایستاده با دو دستگیره",
       "category": "interiors",
       "kind": "base",
@@ -15167,7 +15198,8 @@
           "cosine": 0.8301,
           "blurCosine": 0.8601
         }
-      ]
+      ],
+      "previousName": "cabinet-01"
     },
     {
       "name": "caduceus",
@@ -15294,7 +15326,7 @@
       ]
     },
     {
-      "name": "camera-automatically-01",
+      "name": "camera-automatically",
       "title": "دوربین با نشان A خودکار",
       "category": "camera",
       "kind": "action",
@@ -15322,10 +15354,11 @@
           "cosine": 0.8602,
           "blurCosine": 0.8837
         }
-      ]
+      ],
+      "previousName": "camera-automatically-01"
     },
     {
-      "name": "camera-night-mode-01",
+      "name": "camera-night-mode",
       "title": "دوربین با هلال روی بدنه",
       "category": "camera",
       "kind": "action",
@@ -15353,10 +15386,11 @@
           "cosine": 0.8554,
           "blurCosine": 0.8817
         }
-      ]
+      ],
+      "previousName": "camera-night-mode-01"
     },
     {
-      "name": "camera-smile-01",
+      "name": "camera-smile",
       "title": "دوربین با چهرهٔ خندان روی لنز",
       "category": "camera",
       "kind": "action",
@@ -15384,7 +15418,8 @@
           "cosine": 0.8847,
           "blurCosine": 0.9111
         }
-      ]
+      ],
+      "previousName": "camera-smile-01"
     },
     {
       "name": "camera-tripod",
@@ -15418,7 +15453,7 @@
       ]
     },
     {
-      "name": "candelier-01",
+      "name": "chandelier-arms",
       "title": "لوستر سه‌شاخه با چراغ‌های آویز",
       "category": "interiors",
       "kind": "base",
@@ -15446,7 +15481,8 @@
           "cosine": 0.7434,
           "blurCosine": 0.7902
         }
-      ]
+      ],
+      "previousName": "candelier-01"
     },
     {
       "name": "canvas",
@@ -15480,7 +15516,7 @@
       ]
     },
     {
-      "name": "car-parking-01",
+      "name": "car-parking",
       "title": "خودرو داخل جایگاه سرپوشیده",
       "category": "traffic",
       "kind": "base",
@@ -15508,7 +15544,8 @@
           "cosine": 0.8004,
           "blurCosine": 0.8351
         }
-      ]
+      ],
+      "previousName": "car-parking-01"
     },
     {
       "name": "car-taxi-front",
@@ -15573,7 +15610,7 @@
       ]
     },
     {
-      "name": "card-exchange-01",
+      "name": "card-exchange",
       "title": "تبادل دو کارت در جهت مخالف",
       "category": "banking",
       "kind": "action",
@@ -15601,10 +15638,11 @@
           "cosine": 0.7911,
           "blurCosine": 0.8325
         }
-      ]
+      ],
+      "previousName": "card-exchange-01"
     },
     {
-      "name": "cardiogram-01",
+      "name": "cardiogram",
       "title": "مانیتور قلب با موج و پایهٔ کناری",
       "category": "medical-care",
       "kind": "base",
@@ -15632,10 +15670,11 @@
           "cosine": 0.8653,
           "blurCosine": 0.8966
         }
-      ]
+      ],
+      "previousName": "cardiogram-01"
     },
     {
-      "name": "cards-01",
+      "name": "playing-cards-pair",
       "title": "دو کارت بازی با نشان خال",
       "category": "board-games",
       "kind": "base",
@@ -15663,7 +15702,8 @@
           "cosine": 0.7931,
           "blurCosine": 0.8304
         }
-      ]
+      ],
+      "previousName": "cards-01"
     },
     {
       "name": "caring",
@@ -15697,7 +15737,7 @@
       ]
     },
     {
-      "name": "cash-01",
+      "name": "cash",
       "title": "اسکناس با گوشه‌ها و مهر مرکزی",
       "category": "billing",
       "kind": "base",
@@ -15725,10 +15765,11 @@
           "cosine": 0.8309,
           "blurCosine": 0.8666
         }
-      ]
+      ],
+      "previousName": "cash-01"
     },
     {
-      "name": "cashier-02",
+      "name": "cashier",
       "title": "صندوق فروش با صفحهٔ بالایی",
       "category": "retail",
       "kind": "base",
@@ -15756,10 +15797,11 @@
           "cosine": 0.7775,
           "blurCosine": 0.8068
         }
-      ]
+      ],
+      "previousName": "cashier-02"
     },
     {
-      "name": "castle-01",
+      "name": "castle-keep",
       "title": "قلعه با برج میانی و جان‌پناه",
       "category": "buildings",
       "kind": "base",
@@ -15787,7 +15829,8 @@
           "cosine": 0.776,
           "blurCosine": 0.8219
         }
-      ]
+      ],
+      "previousName": "castle-01"
     },
     {
       "name": "catalogue",
@@ -15945,7 +15988,7 @@
       ]
     },
     {
-      "name": "certificate-01",
+      "name": "certificate-seal",
       "title": "گواهی با نشان آویز کنار متن",
       "category": "education",
       "kind": "base",
@@ -15973,7 +16016,8 @@
           "cosine": 0.7922,
           "blurCosine": 0.828
         }
-      ]
+      ],
+      "previousName": "certificate-01"
     },
     {
       "name": "chair-barber",
@@ -16410,7 +16454,7 @@
       ]
     },
     {
-      "name": "chatting-01",
+      "name": "chatting",
       "title": "گفتگو با سه پیامِ گرد هم‌پوشان",
       "category": "chat",
       "kind": "base",
@@ -16438,10 +16482,11 @@
           "cosine": 0.7002,
           "blurCosine": 0.7452
         }
-      ]
+      ],
+      "previousName": "chatting-01"
     },
     {
-      "name": "cheese-cake-01",
+      "name": "cheese-cake",
       "title": "برش چیزکیک با لایهٔ زیرین",
       "category": "bakery",
       "kind": "base",
@@ -16469,7 +16514,8 @@
           "cosine": 0.7586,
           "blurCosine": 0.7902
         }
-      ]
+      ],
+      "previousName": "cheese-cake-01"
     },
     {
       "name": "chef",
@@ -16503,7 +16549,7 @@
       ]
     },
     {
-      "name": "chemistry-01",
+      "name": "chemistry",
       "title": "نماد آزمایش شیمی با دو لوله",
       "category": "science",
       "kind": "base",
@@ -16531,7 +16577,8 @@
           "cosine": 0.6927,
           "blurCosine": 0.7418
         }
-      ]
+      ],
+      "previousName": "chemistry-01"
     },
     {
       "name": "chicken-thighs",
@@ -16627,7 +16674,7 @@
       ]
     },
     {
-      "name": "city-01",
+      "name": "city-two-buildings",
       "title": "دو ساختمان شهری با ارتفاع متفاوت",
       "category": "real-estate",
       "kind": "base",
@@ -16655,10 +16702,11 @@
           "cosine": 0.7769,
           "blurCosine": 0.8092
         }
-      ]
+      ],
+      "previousName": "city-01"
     },
     {
-      "name": "clapping-01",
+      "name": "clapping",
       "title": "کف‌زدن با دو کفِ مورب",
       "category": "social",
       "kind": "action",
@@ -16686,7 +16734,8 @@
           "cosine": 0.7198,
           "blurCosine": 0.7656
         }
-      ]
+      ],
+      "previousName": "clapping-01"
     },
     {
       "name": "clean",
@@ -17003,7 +17052,7 @@
       ]
     },
     {
-      "name": "coins-01",
+      "name": "coins-stack",
       "title": "سکه‌های انباشته با لبهٔ نمایان",
       "category": "billing",
       "kind": "base",
@@ -17031,7 +17080,8 @@
           "cosine": 0.7725,
           "blurCosine": 0.8189
         }
-      ]
+      ],
+      "previousName": "coins-01"
     },
     {
       "name": "column-insert",
@@ -17065,7 +17115,7 @@
       ]
     },
     {
-      "name": "comet-01",
+      "name": "comet-trails",
       "title": "دنباله‌دار با سه رد موازی",
       "category": "space",
       "kind": "base",
@@ -17093,10 +17143,11 @@
           "cosine": 0.6716,
           "blurCosine": 0.7194
         }
-      ]
+      ],
+      "previousName": "comet-01"
     },
     {
-      "name": "coming-soon-01",
+      "name": "coming-soon",
       "title": "نوشتهٔ SOON با ساعت بالای آن",
       "category": "time",
       "kind": "type",
@@ -17124,10 +17175,11 @@
           "cosine": 0.7876,
           "blurCosine": 0.8313
         }
-      ]
+      ],
+      "previousName": "coming-soon-01"
     },
     {
-      "name": "compass-01",
+      "name": "drawing-compass",
       "title": "پرگار ترسیم با پایهٔ پهن",
       "category": "cad",
       "kind": "base",
@@ -17155,7 +17207,8 @@
           "cosine": 0.7302,
           "blurCosine": 0.7732
         }
-      ]
+      ],
+      "previousName": "compass-01"
     },
     {
       "name": "complaint",
@@ -17189,7 +17242,7 @@
       ]
     },
     {
-      "name": "computer-desk-01",
+      "name": "computer-desk",
       "title": "میز کامپیوتر با تکیه‌گاه نمایشگر",
       "category": "interiors",
       "kind": "base",
@@ -17217,7 +17270,8 @@
           "cosine": 0.7218,
           "blurCosine": 0.7532
         }
-      ]
+      ],
+      "previousName": "computer-desk-01"
     },
     {
       "name": "computer-ethernet",
@@ -17251,7 +17305,7 @@
       ]
     },
     {
-      "name": "computer-programming-01",
+      "name": "computer-programming",
       "title": "کد روی نمایشگر رومیزی",
       "category": "development",
       "kind": "base",
@@ -17279,7 +17333,8 @@
           "cosine": 0.8478,
           "blurCosine": 0.8756
         }
-      ]
+      ],
+      "previousName": "computer-programming-01"
     },
     {
       "name": "conference",
@@ -17313,7 +17368,7 @@
       ]
     },
     {
-      "name": "configuration-01",
+      "name": "configuration",
       "title": "آچار درون حلقهٔ تنظیم",
       "category": "navigation",
       "kind": "base",
@@ -17341,7 +17396,8 @@
           "cosine": 0.7324,
           "blurCosine": 0.7893
         }
-      ]
+      ],
+      "previousName": "configuration-01"
     },
     {
       "name": "connect",
@@ -17468,7 +17524,7 @@
       ]
     },
     {
-      "name": "container-truck-01",
+      "name": "container-truck",
       "title": "کامیون با بدنهٔ بارِ مستطیلی",
       "category": "traffic",
       "kind": "base",
@@ -17496,7 +17552,8 @@
           "cosine": 0.836,
           "blurCosine": 0.8766
         }
-      ]
+      ],
+      "previousName": "container-truck-01"
     },
     {
       "name": "content-writing",
@@ -17592,7 +17649,7 @@
       ]
     },
     {
-      "name": "coordinate-01",
+      "name": "coordinate",
       "title": "دو محور با نشانهٔ جهت",
       "category": "cad",
       "kind": "base",
@@ -17620,7 +17677,8 @@
           "cosine": 0.6636,
           "blurCosine": 0.6932
         }
-      ]
+      ],
+      "previousName": "coordinate-01"
     },
     {
       "name": "copy-link",
@@ -17685,7 +17743,7 @@
       ]
     },
     {
-      "name": "coupon-01",
+      "name": "coupon-percent",
       "title": "کوپن سوراخ‌دار با علامت درصد",
       "category": "retail",
       "kind": "base",
@@ -17713,7 +17771,8 @@
           "cosine": 0.844,
           "blurCosine": 0.879
         }
-      ]
+      ],
+      "previousName": "coupon-01"
     },
     {
       "name": "course",
@@ -17995,7 +18054,7 @@
       ]
     },
     {
-      "name": "cupcake-01",
+      "name": "cupcake-wrapper",
       "title": "کاپ‌کیک با کاغذِ پایه و رویهٔ گرد",
       "category": "bakery",
       "kind": "base",
@@ -18023,7 +18082,8 @@
           "cosine": 0.7609,
           "blurCosine": 0.809
         }
-      ]
+      ],
+      "previousName": "cupcake-01"
     },
     {
       "name": "cursor-in-window",
@@ -18057,7 +18117,7 @@
       ]
     },
     {
-      "name": "customer-service-01",
+      "name": "customer-service",
       "title": "هدست خدمات مشتری با دو گوشی",
       "category": "support",
       "kind": "base",
@@ -18085,7 +18145,8 @@
           "cosine": 0.7732,
           "blurCosine": 0.8082
         }
-      ]
+      ],
+      "previousName": "customer-service-01"
     },
     {
       "name": "customer-support",
@@ -18181,7 +18242,7 @@
       ]
     },
     {
-      "name": "dashboard-speed-01",
+      "name": "dashboard-speed",
       "title": "سنجش سرعت در قاب چهارگوش",
       "category": "charts",
       "kind": "base",
@@ -18209,10 +18270,11 @@
           "cosine": 0.8639,
           "blurCosine": 0.9009
         }
-      ]
+      ],
+      "previousName": "dashboard-speed-01"
     },
     {
-      "name": "dashboard-square-02",
+      "name": "dashboard-square",
       "title": "داشبورد چهارتکه با خانهٔ کشیده",
       "category": "layout",
       "kind": "base",
@@ -18240,7 +18302,8 @@
           "cosine": 0.8441,
           "blurCosine": 0.8798
         }
-      ]
+      ],
+      "previousName": "dashboard-square-02"
     },
     {
       "name": "data-recovery",
@@ -18429,7 +18492,7 @@
       ]
     },
     {
-      "name": "departement",
+      "name": "department",
       "title": "ساختمان سازمانی با دو ستون پنجره",
       "category": "real-estate",
       "kind": "base",
@@ -18457,10 +18520,11 @@
           "cosine": 0.816,
           "blurCosine": 0.8603
         }
-      ]
+      ],
+      "previousName": "departement"
     },
     {
-      "name": "desk-01",
+      "name": "desk-drawer",
       "title": "میز با کشوی یک‌طرفه",
       "category": "interiors",
       "kind": "base",
@@ -18488,7 +18552,8 @@
           "cosine": 0.8026,
           "blurCosine": 0.8253
         }
-      ]
+      ],
+      "previousName": "desk-01"
     },
     {
       "name": "dessert",
@@ -18553,7 +18618,7 @@
       ]
     },
     {
-      "name": "dialpad-circle-01",
+      "name": "dialpad-circle",
       "title": "صفحه‌کلید شماره‌گیری با دکمه‌های حلقه‌ای",
       "category": "calls",
       "kind": "base",
@@ -18581,7 +18646,8 @@
           "cosine": 0.7911,
           "blurCosine": 0.8432
         }
-      ]
+      ],
+      "previousName": "dialpad-circle-01"
     },
     {
       "name": "dices",
@@ -18708,7 +18774,7 @@
       ]
     },
     {
-      "name": "directions-01",
+      "name": "signpost-two",
       "title": "دو تابلوی جهت روی پایهٔ عمودی",
       "category": "location",
       "kind": "base",
@@ -18736,10 +18802,11 @@
           "cosine": 0.6938,
           "blurCosine": 0.736
         }
-      ]
+      ],
+      "previousName": "directions-01"
     },
     {
-      "name": "dish-02",
+      "name": "dish",
       "title": "بشقاب و چنگال کنار هم",
       "category": "kitchen",
       "kind": "base",
@@ -18767,7 +18834,8 @@
           "cosine": 0.6566,
           "blurCosine": 0.7131
         }
-      ]
+      ],
+      "previousName": "dish-02"
     },
     {
       "name": "distribution",
@@ -18801,7 +18869,7 @@
       ]
     },
     {
-      "name": "dna-01",
+      "name": "dna-strands",
       "title": "دو رشتهٔ DNA با چرخش متقاطع",
       "category": "science",
       "kind": "base",
@@ -18829,10 +18897,11 @@
           "cosine": 0.6478,
           "blurCosine": 0.6967
         }
-      ]
+      ],
+      "previousName": "dna-01"
     },
     {
-      "name": "doctor-01",
+      "name": "doctor-stethoscope",
       "title": "پزشک با گوشی دور گردن",
       "category": "medical-care",
       "kind": "base",
@@ -18860,7 +18929,8 @@
           "cosine": 0.7436,
           "blurCosine": 0.7914
         }
-      ]
+      ],
+      "previousName": "doctor-01"
     },
     {
       "name": "document-validation",
@@ -18894,7 +18964,7 @@
       ]
     },
     {
-      "name": "door-01",
+      "name": "door-ajar",
       "title": "درِ نیمه‌باز با دستگیرهٔ گرد",
       "category": "interiors",
       "kind": "base",
@@ -18922,7 +18992,8 @@
           "cosine": 0.8475,
           "blurCosine": 0.8679
         }
-      ]
+      ],
+      "previousName": "door-01"
     },
     {
       "name": "door-closed",
@@ -19049,7 +19120,7 @@
       ]
     },
     {
-      "name": "dress-01",
+      "name": "dress-short-sleeve",
       "title": "پیراهن زنانهٔ آستین‌کوتاه",
       "category": "fashion",
       "kind": "base",
@@ -19077,10 +19148,11 @@
           "cosine": 0.7663,
           "blurCosine": 0.8032
         }
-      ]
+      ],
+      "previousName": "dress-01"
     },
     {
-      "name": "dressing-table-01",
+      "name": "dressing-table",
       "title": "میز آرایش با آینهٔ قوسی",
       "category": "interiors",
       "kind": "base",
@@ -19108,7 +19180,8 @@
           "cosine": 0.7787,
           "blurCosine": 0.8245
         }
-      ]
+      ],
+      "previousName": "dressing-table-01"
     },
     {
       "name": "drink",
@@ -19235,7 +19308,7 @@
       ]
     },
     {
-      "name": "dumbbell-01",
+      "name": "dumbbell-plates",
       "title": "دمبل با وزنه‌های چندلایهٔ مورب",
       "category": "fitness",
       "kind": "base",
@@ -19263,10 +19336,11 @@
           "cosine": 0.7088,
           "blurCosine": 0.7685
         }
-      ]
+      ],
+      "previousName": "dumbbell-01"
     },
     {
-      "name": "ear-rings-01",
+      "name": "ear-rings",
       "title": "گوشواره‌های آویز با نقش قلب",
       "category": "fashion",
       "kind": "base",
@@ -19294,7 +19368,8 @@
           "cosine": 0.6735,
           "blurCosine": 0.7189
         }
-      ]
+      ],
+      "previousName": "ear-rings-01"
     },
     {
       "name": "eco-energy",
@@ -19328,7 +19403,7 @@
       ]
     },
     {
-      "name": "eco-lab-01",
+      "name": "eco-lab",
       "title": "لولهٔ آزمایش با جوانهٔ بیرون‌زده",
       "category": "science",
       "kind": "base",
@@ -19356,7 +19431,8 @@
           "cosine": 0.812,
           "blurCosine": 0.8402
         }
-      ]
+      ],
+      "previousName": "eco-lab-01"
     },
     {
       "name": "eco-power",
@@ -19452,7 +19528,7 @@
       ]
     },
     {
-      "name": "electric-home-01",
+      "name": "electric-home",
       "title": "خانه با صاعقه روی دیوار",
       "category": "smart-home",
       "kind": "base",
@@ -19480,7 +19556,8 @@
           "cosine": 0.8094,
           "blurCosine": 0.8492
         }
-      ]
+      ],
+      "previousName": "electric-home-01"
     },
     {
       "name": "electric-plugs",
@@ -19514,7 +19591,7 @@
       ]
     },
     {
-      "name": "electric-tower-01",
+      "name": "electric-tower",
       "title": "دکل برق با تیرهای متقاطع",
       "category": "energy",
       "kind": "base",
@@ -19542,7 +19619,8 @@
           "cosine": 0.8502,
           "blurCosine": 0.8773
         }
-      ]
+      ],
+      "previousName": "electric-tower-01"
     },
     {
       "name": "electric-wire",
@@ -19762,7 +19840,7 @@
       ]
     },
     {
-      "name": "equipment-gym-01",
+      "name": "equipment-gym",
       "title": "دستگاه بدنسازی با تکیه‌گاه عمودی",
       "category": "fitness",
       "kind": "base",
@@ -19790,7 +19868,8 @@
           "cosine": 0.7566,
           "blurCosine": 0.8049
         }
-      ]
+      ],
+      "previousName": "equipment-gym-01"
     },
     {
       "name": "equipment-weightlifting",
@@ -19824,7 +19903,7 @@
       ]
     },
     {
-      "name": "eraser-01",
+      "name": "erase-box",
       "title": "پاک‌کردن با نشان ضربدر در قاب",
       "category": "design",
       "kind": "base",
@@ -19852,7 +19931,8 @@
           "cosine": 0.7694,
           "blurCosine": 0.8025
         }
-      ]
+      ],
+      "previousName": "eraser-01"
     },
     {
       "name": "eraser-auto",
@@ -19886,7 +19966,7 @@
       ]
     },
     {
-      "name": "estimate-01",
+      "name": "estimate",
       "title": "ماشین‌حساب برآورد هزینه",
       "category": "billing",
       "kind": "base",
@@ -19914,7 +19994,8 @@
           "cosine": 0.8064,
           "blurCosine": 0.8479
         }
-      ]
+      ],
+      "previousName": "estimate-01"
     },
     {
       "name": "ev-charging",
@@ -19948,7 +20029,7 @@
       ]
     },
     {
-      "name": "exchange-01",
+      "name": "exchange-loop",
       "title": "تبادل در حلقهٔ دو پیکان باز",
       "category": "arrow-actions",
       "kind": "action",
@@ -19976,7 +20057,8 @@
           "cosine": 0.8853,
           "blurCosine": 0.9003
         }
-      ]
+      ],
+      "previousName": "exchange-01"
     },
     {
       "name": "expand-paragraph",
@@ -20010,7 +20092,7 @@
       ]
     },
     {
-      "name": "fan-01",
+      "name": "fan",
       "title": "پروانهٔ سه‌پره با مرکز گرد",
       "category": "hardware",
       "kind": "base",
@@ -20038,7 +20120,8 @@
           "cosine": 0.7101,
           "blurCosine": 0.7559
         }
-      ]
+      ],
+      "previousName": "fan-01"
     },
     {
       "name": "fast-wind",
@@ -20103,7 +20186,7 @@
       ]
     },
     {
-      "name": "files-01",
+      "name": "files-soft",
       "title": "دو برگه با لبه‌های نرمِ هم‌پوشان",
       "category": "files",
       "kind": "base",
@@ -20131,10 +20214,11 @@
           "cosine": 0.782,
           "blurCosine": 0.8139
         }
-      ]
+      ],
+      "previousName": "files-01"
     },
     {
-      "name": "film-roll-01",
+      "name": "film-roll-strip",
       "title": "حلقهٔ فیلم با نوار آویزان",
       "category": "camera",
       "kind": "base",
@@ -20162,7 +20246,8 @@
           "cosine": 0.7294,
           "blurCosine": 0.7748
         }
-      ]
+      ],
+      "previousName": "film-roll-01"
     },
     {
       "name": "fins",
@@ -20196,7 +20281,7 @@
       ]
     },
     {
-      "name": "fire-02",
+      "name": "fire",
       "title": "شعله با هستهٔ توخالیِ خمیده",
       "category": "energy",
       "kind": "base",
@@ -20224,7 +20309,8 @@
           "cosine": 0.7998,
           "blurCosine": 0.8289
         }
-      ]
+      ],
+      "previousName": "fire-02"
     },
     {
       "name": "fireworks",
@@ -20351,7 +20437,7 @@
       ]
     },
     {
-      "name": "flim-slate",
+      "name": "film-slate",
       "title": "کلاکت با نوارهای موربِ درباز",
       "category": "camera",
       "kind": "base",
@@ -20379,10 +20465,11 @@
           "cosine": 0.8087,
           "blurCosine": 0.8463
         }
-      ]
+      ],
+      "previousName": "flim-slate"
     },
     {
-      "name": "flip-horizontal-01",
+      "name": "mirror-horizontal",
       "title": "وارونگی افقی با دو سطح متقارن",
       "category": "design",
       "kind": "action",
@@ -20410,10 +20497,11 @@
           "cosine": 0.7764,
           "blurCosine": 0.8194
         }
-      ]
+      ],
+      "previousName": "flip-horizontal-01"
     },
     {
-      "name": "flip-vertical-01",
+      "name": "mirror-vertical",
       "title": "وارونگی عمودی با دو سطح متقارن",
       "category": "design",
       "kind": "action",
@@ -20441,7 +20529,8 @@
           "cosine": 0.7409,
           "blurCosine": 0.787
         }
-      ]
+      ],
+      "previousName": "flip-vertical-01"
     },
     {
       "name": "flow-connection",
@@ -20475,7 +20564,7 @@
       ]
     },
     {
-      "name": "flower-01",
+      "name": "flower-stem",
       "title": "گل پنج‌پر با ساقه و دو برگ",
       "category": "nature",
       "kind": "base",
@@ -20503,7 +20592,8 @@
           "cosine": 0.7973,
           "blurCosine": 0.8377
         }
-      ]
+      ],
+      "previousName": "flower-01"
     },
     {
       "name": "flower-pot",
@@ -20661,7 +20751,7 @@
       ]
     },
     {
-      "name": "french-fries-01",
+      "name": "french-fries",
       "title": "سیب‌زمینی سرخ‌کرده در پاکت مثلثی",
       "category": "meals",
       "kind": "base",
@@ -20689,10 +20779,11 @@
           "cosine": 0.7734,
           "blurCosine": 0.8084
         }
-      ]
+      ],
+      "previousName": "french-fries-01"
     },
     {
-      "name": "fuel-01",
+      "name": "fuel-jerrycan",
       "title": "ظرف سوخت با دستهٔ کناری",
       "category": "energy",
       "kind": "base",
@@ -20720,7 +20811,8 @@
           "cosine": 0.8042,
           "blurCosine": 0.8375
         }
-      ]
+      ],
+      "previousName": "fuel-01"
     },
     {
       "name": "full-signal",
@@ -21157,7 +21249,7 @@
       ]
     },
     {
-      "name": "globe-02",
+      "name": "globe-grid",
       "title": "کره با شبکهٔ عرضیِ فشرده",
       "category": "location",
       "kind": "base",
@@ -21185,7 +21277,8 @@
           "cosine": 0.8696,
           "blurCosine": 0.8892
         }
-      ]
+      ],
+      "previousName": "globe-02"
     },
     {
       "name": "gold-buy",
@@ -21343,7 +21436,7 @@
       ]
     },
     {
-      "name": "gps-signal-01",
+      "name": "gps-signal",
       "title": "آنتن GPS با موج‌های کناری",
       "category": "connectivity",
       "kind": "base",
@@ -21371,7 +21464,8 @@
           "cosine": 0.6831,
           "blurCosine": 0.7187
         }
-      ]
+      ],
+      "previousName": "gps-signal-01"
     },
     {
       "name": "graduate-female",
@@ -21655,7 +21749,7 @@
       ]
     },
     {
-      "name": "hamburger-01",
+      "name": "hamburger",
       "title": "همبرگر با نانِ دوشیاره",
       "category": "meals",
       "kind": "base",
@@ -21683,10 +21777,11 @@
           "cosine": 0.8139,
           "blurCosine": 0.8513
         }
-      ]
+      ],
+      "previousName": "hamburger-01"
     },
     {
-      "name": "hammer-01",
+      "name": "claw-hammer",
       "title": "چکش با سر دوشاخهٔ مایل",
       "category": "tools",
       "kind": "base",
@@ -21714,10 +21809,11 @@
           "cosine": 0.6636,
           "blurCosine": 0.7045
         }
-      ]
+      ],
+      "previousName": "hammer-01"
     },
     {
-      "name": "hand-bag-01",
+      "name": "hand-bag",
       "title": "کیف زنانه با دو دسته و بند میانی",
       "category": "fashion",
       "kind": "base",
@@ -21745,7 +21841,8 @@
           "cosine": 0.8059,
           "blurCosine": 0.8503
         }
-      ]
+      ],
+      "previousName": "hand-bag-01"
     },
     {
       "name": "hand-beater",
@@ -22120,7 +22217,7 @@
       ]
     },
     {
-      "name": "hierarchy-circle-02",
+      "name": "hierarchy-circle",
       "title": "درخت سلسله‌مراتب با گره‌های گرد",
       "category": "business",
       "kind": "base",
@@ -22148,7 +22245,8 @@
           "cosine": 0.7849,
           "blurCosine": 0.8294
         }
-      ]
+      ],
+      "previousName": "hierarchy-circle-02"
     },
     {
       "name": "hierarchy-files",
@@ -22182,7 +22280,7 @@
       ]
     },
     {
-      "name": "hierarchy-square-01",
+      "name": "hierarchy-square",
       "title": "درخت سلسله‌مراتب با گره‌های چهارگوش",
       "category": "business",
       "kind": "base",
@@ -22210,10 +22308,11 @@
           "cosine": 0.7533,
           "blurCosine": 0.807
         }
-      ]
+      ],
+      "previousName": "hierarchy-square-01"
     },
     {
-      "name": "high-heels-01",
+      "name": "high-heels",
       "title": "بوت پاشنه‌بلند با رویهٔ بسته",
       "category": "fashion",
       "kind": "base",
@@ -22241,7 +22340,8 @@
           "cosine": 0.6768,
           "blurCosine": 0.7174
         }
-      ]
+      ],
+      "previousName": "high-heels-01"
     },
     {
       "name": "hijab",
@@ -22306,7 +22406,7 @@
       ]
     },
     {
-      "name": "honey-01",
+      "name": "honey",
       "title": "شیشهٔ عسل با برچسب قطره",
       "category": "ingredients",
       "kind": "base",
@@ -22334,7 +22434,8 @@
           "cosine": 0.8665,
           "blurCosine": 0.8942
         }
-      ]
+      ],
+      "previousName": "honey-01"
     },
     {
       "name": "horse-head",
@@ -22399,7 +22500,7 @@
       ]
     },
     {
-      "name": "hospital-01",
+      "name": "hospital-wings",
       "title": "بیمارستان با دو بال و درِ میانی",
       "category": "medical-care",
       "kind": "base",
@@ -22427,10 +22528,11 @@
           "cosine": 0.7949,
           "blurCosine": 0.8346
         }
-      ]
+      ],
+      "previousName": "hospital-01"
     },
     {
-      "name": "hospital-bed-01",
+      "name": "stretcher-wheeled",
       "title": "برانکارد چرخ‌دار با پایهٔ ضربدری",
       "category": "medical-care",
       "kind": "base",
@@ -22458,7 +22560,8 @@
           "cosine": 0.7447,
           "blurCosine": 0.7941
         }
-      ]
+      ],
+      "previousName": "hospital-bed-01"
     },
     {
       "name": "hospital-location",
@@ -22554,7 +22657,7 @@
       ]
     },
     {
-      "name": "hotel-01",
+      "name": "hotel-arched",
       "title": "هتل با ورودی قوسی و پنجره‌های دوطرفه",
       "category": "travel",
       "kind": "base",
@@ -22582,7 +22685,8 @@
           "cosine": 0.7842,
           "blurCosine": 0.8218
         }
-      ]
+      ],
+      "previousName": "hotel-01"
     },
     {
       "name": "hotel-bell",
@@ -22647,7 +22751,7 @@
       ]
     },
     {
-      "name": "house-01",
+      "name": "house-block",
       "title": "خانهٔ حجمی با دو نمای پنجره‌دار",
       "category": "real-estate",
       "kind": "base",
@@ -22675,7 +22779,8 @@
           "cosine": 0.768,
           "blurCosine": 0.8047
         }
-      ]
+      ],
+      "previousName": "house-01"
     },
     {
       "name": "house-plug",
@@ -22957,7 +23062,7 @@
       ]
     },
     {
-      "name": "idea-01",
+      "name": "idea",
       "title": "لامپ ایده با پرتوهای کوتاه",
       "category": "business",
       "kind": "base",
@@ -22985,7 +23090,8 @@
           "cosine": 0.7639,
           "blurCosine": 0.8121
         }
-      ]
+      ],
+      "previousName": "idea-01"
     },
     {
       "name": "image-actual-size",
@@ -23579,7 +23685,7 @@
       ]
     },
     {
-      "name": "installing-updates-01",
+      "name": "installing-updates",
       "title": "نصب به‌روزرسانی با پیکان حلقوی",
       "category": "infrastructure",
       "kind": "action",
@@ -23607,10 +23713,11 @@
           "cosine": 0.7728,
           "blurCosine": 0.8153
         }
-      ]
+      ],
+      "previousName": "installing-updates-01"
     },
     {
-      "name": "internet-antenna-03",
+      "name": "internet-antenna",
       "title": "آنتن اینترنت با موج‌های افقی",
       "category": "connectivity",
       "kind": "base",
@@ -23638,7 +23745,8 @@
           "cosine": 0.8721,
           "blurCosine": 0.8877
         }
-      ]
+      ],
+      "previousName": "internet-antenna-03"
     },
     {
       "name": "investigation",
@@ -23798,7 +23906,7 @@
       ]
     },
     {
-      "name": "justice-scale-01",
+      "name": "justice-scale",
       "title": "ترازوی عدالت با پایهٔ پهن",
       "category": "legal",
       "kind": "base",
@@ -23826,10 +23934,11 @@
           "cosine": 0.7902,
           "blurCosine": 0.8411
         }
-      ]
+      ],
+      "previousName": "justice-scale-01"
     },
     {
-      "name": "key-01",
+      "name": "key-hex",
       "title": "کلید با سرِ چندضلعی",
       "category": "security",
       "kind": "base",
@@ -23857,7 +23966,8 @@
           "cosine": 0.6802,
           "blurCosine": 0.7329
         }
-      ]
+      ],
+      "previousName": "key-01"
     },
     {
       "name": "key-generator-fob",
@@ -24015,7 +24125,7 @@
       ]
     },
     {
-      "name": "knife-01",
+      "name": "kitchen-knife",
       "title": "چاقوی آشپزخانه با دستهٔ دوپرچ",
       "category": "kitchen",
       "kind": "base",
@@ -24043,7 +24153,8 @@
           "cosine": 0.6727,
           "blurCosine": 0.7352
         }
-      ]
+      ],
+      "previousName": "knife-01"
     },
     {
       "name": "knife-bread",
@@ -24108,7 +24219,7 @@
       ]
     },
     {
-      "name": "knowledge-01",
+      "name": "knowledge",
       "title": "کتاب دانش با سیب بالای آن",
       "category": "education",
       "kind": "base",
@@ -24136,7 +24247,8 @@
           "cosine": 0.7774,
           "blurCosine": 0.8195
         }
-      ]
+      ],
+      "previousName": "knowledge-01"
     },
     {
       "name": "labor",
@@ -24201,7 +24313,7 @@
       ]
     },
     {
-      "name": "lamp-01",
+      "name": "pendant-dome-lamp",
       "title": "چراغ آویز با کلاهک گنبدی",
       "category": "interiors",
       "kind": "base",
@@ -24229,7 +24341,8 @@
           "cosine": 0.7308,
           "blurCosine": 0.7727
         }
-      ]
+      ],
+      "previousName": "lamp-01"
     },
     {
       "name": "lamp-ceiling",
@@ -24449,7 +24562,7 @@
       ]
     },
     {
-      "name": "leaf-01",
+      "name": "leaf-vein",
       "title": "برگ با رگبرگ میانی خمیده",
       "category": "nature",
       "kind": "base",
@@ -24477,7 +24590,8 @@
           "cosine": 0.6188,
           "blurCosine": 0.662
         }
-      ]
+      ],
+      "previousName": "leaf-01"
     },
     {
       "name": "leafy-green",
@@ -24573,7 +24687,7 @@
       ]
     },
     {
-      "name": "legal-01",
+      "name": "legal",
       "title": "چکش قضاوت با پایهٔ کوتاه",
       "category": "legal",
       "kind": "base",
@@ -24601,10 +24715,11 @@
           "cosine": 0.659,
           "blurCosine": 0.7096
         }
-      ]
+      ],
+      "previousName": "legal-01"
     },
     {
-      "name": "legal-document-01",
+      "name": "legal-document",
       "title": "سند حقوقی با نقش چکش",
       "category": "legal",
       "kind": "base",
@@ -24632,7 +24747,8 @@
           "cosine": 0.8839,
           "blurCosine": 0.9131
         }
-      ]
+      ],
+      "previousName": "legal-document-01"
     },
     {
       "name": "legal-hammer",
@@ -24883,7 +24999,7 @@
       ]
     },
     {
-      "name": "live-streaming-01",
+      "name": "live-streaming",
       "title": "پخش زنده با قاب موج‌دار",
       "category": "media",
       "kind": "base",
@@ -24911,7 +25027,8 @@
           "cosine": 0.8195,
           "blurCosine": 0.8535
         }
-      ]
+      ],
+      "previousName": "live-streaming-01"
     },
     {
       "name": "lock-computer",
@@ -24945,7 +25062,7 @@
       ]
     },
     {
-      "name": "locker-01",
+      "name": "locker-vent",
       "title": "کمد قفل‌دار با دریچهٔ بالایی",
       "category": "interiors",
       "kind": "base",
@@ -24973,7 +25090,8 @@
           "cosine": 0.8099,
           "blurCosine": 0.8531
         }
-      ]
+      ],
+      "previousName": "locker-01"
     },
     {
       "name": "long-sleeve-shirt",
@@ -25069,7 +25187,7 @@
       ]
     },
     {
-      "name": "magic-wand-01",
+      "name": "magic-wand-star",
       "title": "چوب جادو با سر ستاره‌ای",
       "category": "design",
       "kind": "base",
@@ -25097,7 +25215,8 @@
           "cosine": 0.6575,
           "blurCosine": 0.6985
         }
-      ]
+      ],
+      "previousName": "magic-wand-01"
     },
     {
       "name": "mails",
@@ -25193,7 +25312,7 @@
       ]
     },
     {
-      "name": "maps-location-01",
+      "name": "maps-location",
       "title": "نقشهٔ تاخورده با نشان مکان",
       "category": "location",
       "kind": "base",
@@ -25221,7 +25340,8 @@
           "cosine": 0.7572,
           "blurCosine": 0.8094
         }
-      ]
+      ],
+      "previousName": "maps-location-01"
     },
     {
       "name": "market-analysis",
@@ -25317,7 +25437,7 @@
       ]
     },
     {
-      "name": "mask-theater-01",
+      "name": "mask-theater",
       "title": "جفت ماسک تئاتر با صورت‌های جدا",
       "category": "events",
       "kind": "base",
@@ -25345,7 +25465,8 @@
           "cosine": 0.7798,
           "blurCosine": 0.8229
         }
-      ]
+      ],
+      "previousName": "mask-theater-01"
     },
     {
       "name": "material-and-texture",
@@ -25441,7 +25562,7 @@
       ]
     },
     {
-      "name": "medicine-01",
+      "name": "medicine",
       "title": "قرص بالای دستِ دریافت‌کننده",
       "category": "medical-care",
       "kind": "base",
@@ -25469,7 +25590,8 @@
           "cosine": 0.7518,
           "blurCosine": 0.7968
         }
-      ]
+      ],
+      "previousName": "medicine-01"
     },
     {
       "name": "meeting-room",
@@ -25782,7 +25904,7 @@
       ]
     },
     {
-      "name": "mining-01",
+      "name": "mining",
       "title": "واگن چرخ‌دار معدن با سنگ بارگیری‌شده",
       "category": "tools",
       "kind": "base",
@@ -25810,7 +25932,8 @@
           "cosine": 0.7776,
           "blurCosine": 0.8226
         }
-      ]
+      ],
+      "previousName": "mining-01"
     },
     {
       "name": "mirroring-screen",
@@ -25875,7 +25998,7 @@
       ]
     },
     {
-      "name": "mobile-programming-01",
+      "name": "mobile-programming",
       "title": "کدنویسی روی صفحهٔ تلفن",
       "category": "hardware",
       "kind": "base",
@@ -25903,7 +26026,8 @@
           "cosine": 0.8004,
           "blurCosine": 0.8376
         }
-      ]
+      ],
+      "previousName": "mobile-programming-01"
     },
     {
       "name": "mobile-protection",
@@ -26216,7 +26340,7 @@
       ]
     },
     {
-      "name": "mortarboard-01",
+      "name": "mortarboard",
       "title": "کلاه فارغ‌التحصیلی با منگولهٔ آویزان",
       "category": "education",
       "kind": "base",
@@ -26244,10 +26368,11 @@
           "cosine": 0.718,
           "blurCosine": 0.7595
         }
-      ]
+      ],
+      "previousName": "mortarboard-01"
     },
     {
-      "name": "mosque-01",
+      "name": "mosque-minarets",
       "title": "مسجد با گنبد و مناره‌های کناری",
       "category": "religion",
       "kind": "base",
@@ -26275,7 +26400,8 @@
           "cosine": 0.7985,
           "blurCosine": 0.8326
         }
-      ]
+      ],
+      "previousName": "mosque-01"
     },
     {
       "name": "mosque-location",
@@ -26309,7 +26435,7 @@
       ]
     },
     {
-      "name": "motion-01",
+      "name": "motion",
       "title": "حرکت شکل میان دو جایگاه",
       "category": "design",
       "kind": "base",
@@ -26337,10 +26463,11 @@
           "cosine": 0.7576,
           "blurCosine": 0.7959
         }
-      ]
+      ],
+      "previousName": "motion-01"
     },
     {
-      "name": "mushroom-01",
+      "name": "mushroom-wide",
       "title": "قارچ با کلاهک پهن و ساقهٔ کوتاه",
       "category": "ingredients",
       "kind": "base",
@@ -26368,10 +26495,11 @@
           "cosine": 0.7523,
           "blurCosine": 0.7958
         }
-      ]
+      ],
+      "previousName": "mushroom-01"
     },
     {
-      "name": "music-note-square-01",
+      "name": "music-note-square",
       "title": "نت موسیقی در قاب چهارگوشِ باز",
       "category": "audio",
       "kind": "base",
@@ -26399,7 +26527,8 @@
           "cosine": 0.8945,
           "blurCosine": 0.912
         }
-      ]
+      ],
+      "previousName": "music-note-square-01"
     },
     {
       "name": "nano-technology",
@@ -26433,7 +26562,7 @@
       ]
     },
     {
-      "name": "napkins-01",
+      "name": "napkins",
       "title": "دستمال‌های تاخورده با لبهٔ بیرون‌زده",
       "category": "kitchen",
       "kind": "base",
@@ -26461,7 +26590,8 @@
           "cosine": 0.767,
           "blurCosine": 0.8149
         }
-      ]
+      ],
+      "previousName": "napkins-01"
     },
     {
       "name": "natural-food",
@@ -26495,7 +26625,7 @@
       ]
     },
     {
-      "name": "navigation-02",
+      "name": "navigation-split",
       "title": "جهت‌یاب با بدنهٔ شکافته",
       "category": "location",
       "kind": "base",
@@ -26523,10 +26653,11 @@
           "cosine": 0.8654,
           "blurCosine": 0.8913
         }
-      ]
+      ],
+      "previousName": "navigation-02"
     },
     {
-      "name": "navigator-01",
+      "name": "navigator",
       "title": "نشان جهت میان دو خط راهنما",
       "category": "location",
       "kind": "base",
@@ -26554,7 +26685,8 @@
           "cosine": 0.747,
           "blurCosine": 0.7866
         }
-      ]
+      ],
+      "previousName": "navigator-01"
     },
     {
       "name": "neural-network",
@@ -26898,7 +27030,7 @@
       ]
     },
     {
-      "name": "online-learning-01",
+      "name": "online-learning",
       "title": "کتاب آموزش آنلاین با موج اتصال",
       "category": "education",
       "kind": "base",
@@ -26926,7 +27058,8 @@
           "cosine": 0.81,
           "blurCosine": 0.8545
         }
-      ]
+      ],
+      "previousName": "online-learning-01"
     },
     {
       "name": "open-source",
@@ -26991,7 +27124,7 @@
       ]
     },
     {
-      "name": "orbit-02",
+      "name": "orbit-bodies",
       "title": "مدار بیضی با جرم‌های پیرامونی",
       "category": "science",
       "kind": "base",
@@ -27019,7 +27152,8 @@
           "cosine": 0.8609,
           "blurCosine": 0.89
         }
-      ]
+      ],
+      "previousName": "orbit-02"
     },
     {
       "name": "origami",
@@ -27146,7 +27280,7 @@
       ]
     },
     {
-      "name": "pan-01",
+      "name": "pan",
       "title": "تابه با دستهٔ بلند از نمای بالا",
       "category": "kitchen",
       "kind": "base",
@@ -27174,7 +27308,8 @@
           "cosine": 0.7337,
           "blurCosine": 0.7837
         }
-      ]
+      ],
+      "previousName": "pan-01"
     },
     {
       "name": "paragliding",
@@ -27394,7 +27529,7 @@
       ]
     },
     {
-      "name": "payment-01",
+      "name": "payment",
       "title": "پرداخت با کارت و نشان مبادله",
       "category": "checkout",
       "kind": "action",
@@ -27422,10 +27557,11 @@
           "cosine": 0.7966,
           "blurCosine": 0.828
         }
-      ]
+      ],
+      "previousName": "payment-01"
     },
     {
-      "name": "payment-success-01",
+      "name": "payment-success",
       "title": "پرداخت موفق با نشان تأیید",
       "category": "checkout",
       "kind": "action",
@@ -27453,10 +27589,11 @@
           "cosine": 0.7774,
           "blurCosine": 0.8089
         }
-      ]
+      ],
+      "previousName": "payment-success-01"
     },
     {
-      "name": "peer-to-peer-01",
+      "name": "peer-to-peer",
       "title": "ارتباط همتابه‌همتا میان دو دستگاه",
       "category": "connectivity",
       "kind": "base",
@@ -27484,7 +27621,8 @@
           "cosine": 0.7609,
           "blurCosine": 0.808
         }
-      ]
+      ],
+      "previousName": "peer-to-peer-01"
     },
     {
       "name": "pen-connect-usb",
@@ -27520,7 +27658,7 @@
       ]
     },
     {
-      "name": "pen-tool-02",
+      "name": "pen-tool-handles",
       "title": "نوک قلم برداری با دو دستگیره",
       "category": "design",
       "kind": "base",
@@ -27548,7 +27686,8 @@
           "cosine": 0.7656,
           "blurCosine": 0.8009
         }
-      ]
+      ],
+      "previousName": "pen-tool-02"
     },
     {
       "name": "permanent-job",
@@ -27737,7 +27876,7 @@
       ]
     },
     {
-      "name": "playlist-01",
+      "name": "playlist-note",
       "title": "فهرست موسیقی با نت کناری",
       "category": "audio",
       "kind": "base",
@@ -27765,10 +27904,11 @@
           "cosine": 0.85,
           "blurCosine": 0.8852
         }
-      ]
+      ],
+      "previousName": "playlist-01"
     },
     {
-      "name": "plug-03",
+      "name": "plug-round",
       "title": "دوشاخه با بدنهٔ گرد و دو پایه",
       "category": "energy",
       "kind": "base",
@@ -27796,7 +27936,8 @@
           "cosine": 0.7529,
           "blurCosine": 0.7883
         }
-      ]
+      ],
+      "previousName": "plug-03"
     },
     {
       "name": "plug-socket",
@@ -28016,7 +28157,7 @@
       ]
     },
     {
-      "name": "pot-01",
+      "name": "pot",
       "title": "قابلمهٔ دودسته با درِ گنبدی",
       "category": "kitchen",
       "kind": "base",
@@ -28044,7 +28185,8 @@
           "cosine": 0.836,
           "blurCosine": 0.875
         }
-      ]
+      ],
+      "previousName": "pot-01"
     },
     {
       "name": "power-service",
@@ -28078,7 +28220,7 @@
       ]
     },
     {
-      "name": "power-socket-02",
+      "name": "power-socket",
       "title": "پریز دوخانه در قاب چهارگوش",
       "category": "energy",
       "kind": "base",
@@ -28106,7 +28248,8 @@
           "cosine": 0.8873,
           "blurCosine": 0.9271
         }
-      ]
+      ],
+      "previousName": "power-socket-02"
     },
     {
       "name": "file-ppt",
@@ -28171,7 +28314,7 @@
       ]
     },
     {
-      "name": "prayer-rug-01",
+      "name": "prayer-rug",
       "title": "سجاده با نقش محراب",
       "category": "religion",
       "kind": "base",
@@ -28199,7 +28342,8 @@
           "cosine": 0.7637,
           "blurCosine": 0.8026
         }
-      ]
+      ],
+      "previousName": "prayer-rug-01"
     },
     {
       "name": "prescriptions",
@@ -28233,7 +28377,7 @@
       ]
     },
     {
-      "name": "presentation-01",
+      "name": "presentation-easel",
       "title": "پردهٔ ارائهٔ ساده روی پایهٔ سه‌شاخه",
       "category": "meetings",
       "kind": "base",
@@ -28261,10 +28405,11 @@
           "cosine": 0.8292,
           "blurCosine": 0.8571
         }
-      ]
+      ],
+      "previousName": "presentation-01"
     },
     {
-      "name": "presentation-bar-chart-01",
+      "name": "presentation-bar-chart",
       "title": "پردهٔ ارائه با نمودار ستونی",
       "category": "meetings",
       "kind": "base",
@@ -28292,7 +28437,8 @@
           "cosine": 0.8328,
           "blurCosine": 0.8658
         }
-      ]
+      ],
+      "previousName": "presentation-bar-chart-01"
     },
     {
       "name": "presentation-online",
@@ -28512,7 +28658,7 @@
       ]
     },
     {
-      "name": "progress-02",
+      "name": "progress",
       "title": "پیشرفت با حلقهٔ مرحله‌ای",
       "category": "charts",
       "kind": "base",
@@ -28542,10 +28688,11 @@
           "cosine": 0.8649,
           "blurCosine": 0.8717
         }
-      ]
+      ],
+      "previousName": "progress-02"
     },
     {
-      "name": "projector-01",
+      "name": "video-projector",
       "title": "ویدیوپروژکتور با لنز و پایه",
       "category": "hardware",
       "kind": "base",
@@ -28573,7 +28720,8 @@
           "cosine": 0.7119,
           "blurCosine": 0.759
         }
-      ]
+      ],
+      "previousName": "projector-01"
     },
     {
       "name": "promotion",
@@ -28669,7 +28817,7 @@
       ]
     },
     {
-      "name": "punching-ball-01",
+      "name": "punching-ball",
       "title": "کیسهٔ بوکس گلابی‌شکلِ آویزان",
       "category": "fitness",
       "kind": "base",
@@ -28697,10 +28845,11 @@
           "cosine": 0.8089,
           "blurCosine": 0.8437
         }
-      ]
+      ],
+      "previousName": "punching-ball-01"
     },
     {
-      "name": "purse-01",
+      "name": "purse",
       "title": "کیف دستی با قفل دوگوی",
       "category": "fashion",
       "kind": "base",
@@ -28728,7 +28877,8 @@
           "cosine": 0.8229,
           "blurCosine": 0.8686
         }
-      ]
+      ],
+      "previousName": "purse-01"
     },
     {
       "name": "push-up-bar",
@@ -28762,7 +28912,7 @@
       ]
     },
     {
-      "name": "pyramid-structure-01",
+      "name": "pyramid-structure",
       "title": "هرم لایه‌ای با طبقات جدا",
       "category": "business",
       "kind": "base",
@@ -28790,10 +28940,11 @@
           "cosine": 0.8542,
           "blurCosine": 0.8928
         }
-      ]
+      ],
+      "previousName": "pyramid-structure-01"
     },
     {
-      "name": "quill-write-01",
+      "name": "quill-write",
       "title": "نوشتن با پر و مسیر جوهر",
       "category": "documents",
       "kind": "action",
@@ -28821,10 +28972,11 @@
           "cosine": 0.6612,
           "blurCosine": 0.699
         }
-      ]
+      ],
+      "previousName": "quill-write-01"
     },
     {
-      "name": "quiz-01",
+      "name": "quiz-badge",
       "title": "نشان آزمون با علامت پرسش در قاب",
       "category": "education",
       "kind": "base",
@@ -28852,10 +29004,11 @@
           "cosine": 0.8207,
           "blurCosine": 0.8732
         }
-      ]
+      ],
+      "previousName": "quiz-01"
     },
     {
-      "name": "quran-01",
+      "name": "quran",
       "title": "قرآن باز روی رحل",
       "category": "religion",
       "kind": "base",
@@ -28883,10 +29036,11 @@
           "cosine": 0.7653,
           "blurCosine": 0.8183
         }
-      ]
+      ],
+      "previousName": "quran-01"
     },
     {
-      "name": "radio-01",
+      "name": "radio-set",
       "title": "رادیو با بلندگوی گرد و صفحهٔ تنظیم",
       "category": "audio",
       "kind": "base",
@@ -28914,7 +29068,8 @@
           "cosine": 0.8016,
           "blurCosine": 0.8395
         }
-      ]
+      ],
+      "previousName": "radio-01"
     },
     {
       "name": "rail-symbol",
@@ -28979,7 +29134,7 @@
       ]
     },
     {
-      "name": "ramadhan-01",
+      "name": "ramadhan",
       "title": "هلال رمضان با ستارهٔ کناری",
       "category": "religion",
       "kind": "base",
@@ -29007,7 +29162,8 @@
           "cosine": 0.7759,
           "blurCosine": 0.7946
         }
-      ]
+      ],
+      "previousName": "ramadhan-01"
     },
     {
       "name": "ranking",
@@ -29072,7 +29228,7 @@
       ]
     },
     {
-      "name": "real-estate-02",
+      "name": "real-estate",
       "title": "ساختمان ملک با سقف و نمای پلکانی",
       "category": "real-estate",
       "kind": "base",
@@ -29100,7 +29256,8 @@
           "cosine": 0.7496,
           "blurCosine": 0.7933
         }
-      ]
+      ],
+      "previousName": "real-estate-02"
     },
     {
       "name": "recovery-mail",
@@ -29229,7 +29386,7 @@
       ]
     },
     {
-      "name": "renewable-energy-01",
+      "name": "renewable-energy",
       "title": "انرژی تجدیدپذیر با برگ و صاعقه",
       "category": "energy",
       "kind": "base",
@@ -29257,7 +29414,8 @@
           "cosine": 0.7298,
           "blurCosine": 0.7812
         }
-      ]
+      ],
+      "previousName": "renewable-energy-01"
     },
     {
       "name": "repair",
@@ -29322,7 +29480,7 @@
       ]
     },
     {
-      "name": "restaurant-01",
+      "name": "restaurant-cutlery",
       "title": "رستوران با نشان قاشق و چنگال",
       "category": "kitchen",
       "kind": "base",
@@ -29350,7 +29508,8 @@
           "cosine": 0.6989,
           "blurCosine": 0.7489
         }
-      ]
+      ],
+      "previousName": "restaurant-01"
     },
     {
       "name": "restaurant-table",
@@ -29508,7 +29667,7 @@
       ]
     },
     {
-      "name": "road-location-01",
+      "name": "road-location",
       "title": "نشان مکان روی مسیر جاده",
       "category": "location",
       "kind": "base",
@@ -29536,7 +29695,8 @@
           "cosine": 0.8221,
           "blurCosine": 0.8679
         }
-      ]
+      ],
+      "previousName": "road-location-01"
     },
     {
       "name": "road-wayside",
@@ -29570,7 +29730,7 @@
       ]
     },
     {
-      "name": "robot-01",
+      "name": "robot-base",
       "title": "سر ربات بالای پایهٔ بیضی",
       "category": "hardware",
       "kind": "base",
@@ -29598,10 +29758,11 @@
           "cosine": 0.7753,
           "blurCosine": 0.825
         }
-      ]
+      ],
+      "previousName": "robot-01"
     },
     {
-      "name": "rocket-01",
+      "name": "rocket-short",
       "title": "موشک با بدنهٔ کوتاه و باله‌های جدا",
       "category": "science",
       "kind": "base",
@@ -29629,7 +29790,8 @@
           "cosine": 0.675,
           "blurCosine": 0.738
         }
-      ]
+      ],
+      "previousName": "rocket-01"
     },
     {
       "name": "row-insert",
@@ -29663,7 +29825,7 @@
       ]
     },
     {
-      "name": "rss-connected-01",
+      "name": "rss-connected",
       "title": "نشان RSS با گرهٔ اتصال",
       "category": "connectivity",
       "kind": "base",
@@ -29691,7 +29853,8 @@
           "cosine": 0.5735,
           "blurCosine": 0.6153
         }
-      ]
+      ],
+      "previousName": "rss-connected-01"
     },
     {
       "name": "running-shoes",
@@ -29725,7 +29888,7 @@
       ]
     },
     {
-      "name": "safe-delivery-01",
+      "name": "safe-delivery",
       "title": "بستهٔ ایمن روی کف دست",
       "category": "checkout",
       "kind": "action",
@@ -29753,7 +29916,8 @@
           "cosine": 0.7102,
           "blurCosine": 0.7624
         }
-      ]
+      ],
+      "previousName": "safe-delivery-01"
     },
     {
       "name": "sailboat-coastal",
@@ -29818,7 +29982,7 @@
       ]
     },
     {
-      "name": "satellite-01",
+      "name": "satellite-panels",
       "title": "ماهواره با دو پنل و آنتن",
       "category": "science",
       "kind": "base",
@@ -29846,7 +30010,8 @@
           "cosine": 0.7251,
           "blurCosine": 0.7778
         }
-      ]
+      ],
+      "previousName": "satellite-01"
     },
     {
       "name": "save-all",
@@ -29880,7 +30045,7 @@
       ]
     },
     {
-      "name": "save-energy-01",
+      "name": "save-energy",
       "title": "انرژی در چرخهٔ دو دست",
       "category": "energy",
       "kind": "base",
@@ -29908,7 +30073,8 @@
           "cosine": 0.703,
           "blurCosine": 0.7574
         }
-      ]
+      ],
+      "previousName": "save-energy-01"
     },
     {
       "name": "savings",
@@ -30035,7 +30201,7 @@
       ]
     },
     {
-      "name": "school-01",
+      "name": "school-clock-tower",
       "title": "مدرسه با ورودی و برج ساعت",
       "category": "education",
       "kind": "base",
@@ -30063,7 +30229,8 @@
           "cosine": 0.7914,
           "blurCosine": 0.8354
         }
-      ]
+      ],
+      "previousName": "school-01"
     },
     {
       "name": "school-report-card",
@@ -30128,7 +30295,7 @@
       ]
     },
     {
-      "name": "scooter-01",
+      "name": "motor-scooter",
       "title": "موتور اسکوتر از نمای کنار",
       "category": "traffic",
       "kind": "base",
@@ -30156,7 +30323,8 @@
           "cosine": 0.6859,
           "blurCosine": 0.7294
         }
-      ]
+      ],
+      "previousName": "scooter-01"
     },
     {
       "name": "scratch-card",
@@ -30376,7 +30544,7 @@
       ]
     },
     {
-      "name": "select-01",
+      "name": "select",
       "title": "انتخاب محدوده با گوشه‌های باز",
       "category": "design",
       "kind": "action",
@@ -30404,7 +30572,8 @@
           "cosine": 0.6367,
           "blurCosine": 0.6681
         }
-      ]
+      ],
+      "previousName": "select-01"
     },
     {
       "name": "self-transfer",
@@ -30469,7 +30638,7 @@
       ]
     },
     {
-      "name": "send-to-mobile-02",
+      "name": "send-to-mobile",
       "title": "ارسال به تلفن با پیکان ورودی",
       "category": "hardware",
       "kind": "action",
@@ -30497,7 +30666,8 @@
           "cosine": 0.8081,
           "blurCosine": 0.8345
         }
-      ]
+      ],
+      "previousName": "send-to-mobile-02"
     },
     {
       "name": "sending-order",
@@ -30562,7 +30732,7 @@
       ]
     },
     {
-      "name": "server-stack-02",
+      "name": "server-stack",
       "title": "پشتهٔ سرور با سه طبقهٔ جدا",
       "category": "infrastructure",
       "kind": "base",
@@ -30590,7 +30760,8 @@
           "cosine": 0.8033,
           "blurCosine": 0.8474
         }
-      ]
+      ],
+      "previousName": "server-stack-02"
     },
     {
       "name": "service",
@@ -30655,7 +30826,7 @@
       ]
     },
     {
-      "name": "setup-01",
+      "name": "setup",
       "title": "چرخهٔ راه‌اندازی پیرامون چرخ‌دنده",
       "category": "interface",
       "kind": "action",
@@ -30683,7 +30854,8 @@
           "cosine": 0.844,
           "blurCosine": 0.8733
         }
-      ]
+      ],
+      "previousName": "setup-01"
     },
     {
       "name": "file-7z",
@@ -30748,7 +30920,7 @@
       ]
     },
     {
-      "name": "shapes-01",
+      "name": "shapes-triangle-square",
       "title": "شکل‌های هندسی با مثلث و چهارگوش",
       "category": "design",
       "kind": "base",
@@ -30776,10 +30948,11 @@
           "cosine": 0.77,
           "blurCosine": 0.8173
         }
-      ]
+      ],
+      "previousName": "shapes-01"
     },
     {
-      "name": "share-01",
+      "name": "share-out",
       "title": "اشتراک با پیکان خارج‌شونده از قاب",
       "category": "social",
       "kind": "action",
@@ -30807,7 +30980,8 @@
           "cosine": 0.765,
           "blurCosine": 0.811
         }
-      ]
+      ],
+      "previousName": "share-01"
     },
     {
       "name": "share-knowledge",
@@ -30996,7 +31170,7 @@
       ]
     },
     {
-      "name": "sheriff-01",
+      "name": "sheriff",
       "title": "چهرهٔ کلانتر با کلاه لبه‌دار",
       "category": "legal",
       "kind": "base",
@@ -31024,7 +31198,8 @@
           "cosine": 0.7465,
           "blurCosine": 0.8037
         }
-      ]
+      ],
+      "previousName": "sheriff-01"
     },
     {
       "name": "shipment-tracking",
@@ -31182,7 +31357,7 @@
       ]
     },
     {
-      "name": "simcard-01",
+      "name": "simcard",
       "title": "سیم‌کارت با شبکهٔ اتصال داخلی",
       "category": "hardware",
       "kind": "base",
@@ -31210,7 +31385,8 @@
           "cosine": 0.842,
           "blurCosine": 0.8657
         }
-      ]
+      ],
+      "previousName": "simcard-01"
     },
     {
       "name": "simcard-dual",
@@ -31709,7 +31885,7 @@
       ]
     },
     {
-      "name": "speach-to-text",
+      "name": "voice-transcript",
       "title": "تبدیل گفتار به متن در دو بخش",
       "category": "audio",
       "kind": "action",
@@ -31737,7 +31913,8 @@
           "cosine": 0.6283,
           "blurCosine": 0.682
         }
-      ]
+      ],
+      "previousName": "speach-to-text"
     },
     {
       "name": "speech",
@@ -31771,7 +31948,7 @@
       ]
     },
     {
-      "name": "speed-train-01",
+      "name": "speed-train",
       "title": "قطار سریع‌السیر با دماغهٔ کشیده",
       "category": "traffic",
       "kind": "base",
@@ -31799,7 +31976,8 @@
           "cosine": 0.7375,
           "blurCosine": 0.7894
         }
-      ]
+      ],
+      "previousName": "speed-train-01"
     },
     {
       "name": "spline-pointer",
@@ -31926,7 +32104,7 @@
       ]
     },
     {
-      "name": "stamp-02",
+      "name": "office-stamp",
       "title": "مهر اداری با دستهٔ پایه‌پهن",
       "category": "documents",
       "kind": "base",
@@ -31954,10 +32132,11 @@
           "cosine": 0.774,
           "blurCosine": 0.8065
         }
-      ]
+      ],
+      "previousName": "stamp-02"
     },
     {
-      "name": "start-up-01",
+      "name": "start-up",
       "title": "راه‌اندازی کسب‌وکار با موشک و پایه",
       "category": "business",
       "kind": "base",
@@ -31985,7 +32164,8 @@
           "cosine": 0.7557,
           "blurCosine": 0.8056
         }
-      ]
+      ],
+      "previousName": "start-up-01"
     },
     {
       "name": "stationery",
@@ -32019,7 +32199,7 @@
       ]
     },
     {
-      "name": "sticky-note-01",
+      "name": "note-hanging",
       "title": "یادداشت آویخته با حلقهٔ بالایی",
       "category": "documents",
       "kind": "base",
@@ -32047,7 +32227,8 @@
           "cosine": 0.8616,
           "blurCosine": 0.8864
         }
-      ]
+      ],
+      "previousName": "sticky-note-01"
     },
     {
       "name": "stop-loss-order",
@@ -32081,7 +32262,7 @@
       ]
     },
     {
-      "name": "store-location-01",
+      "name": "store-pin-center",
       "title": "نشان مکان با فروشگاه در مرکز",
       "category": "retail",
       "kind": "base",
@@ -32109,10 +32290,11 @@
           "cosine": 0.7929,
           "blurCosine": 0.8335
         }
-      ]
+      ],
+      "previousName": "store-location-01"
     },
     {
-      "name": "store-management-01",
+      "name": "store-management",
       "title": "مدیریت فروشگاه با نشان تنظیم",
       "category": "retail",
       "kind": "action",
@@ -32140,10 +32322,11 @@
           "cosine": 0.7995,
           "blurCosine": 0.8357
         }
-      ]
+      ],
+      "previousName": "store-management-01"
     },
     {
-      "name": "store-verified-01",
+      "name": "store-verified",
       "title": "فروشگاه تأییدشده با نشان تیک",
       "category": "retail",
       "kind": "action",
@@ -32171,7 +32354,8 @@
           "cosine": 0.7117,
           "blurCosine": 0.7565
         }
-      ]
+      ],
+      "previousName": "store-verified-01"
     },
     {
       "name": "street-food",
@@ -32205,7 +32389,7 @@
       ]
     },
     {
-      "name": "structure-01",
+      "name": "structure",
       "title": "ساختار گره‌ها با اتصال‌های زاویه‌دار",
       "category": "business",
       "kind": "base",
@@ -32233,7 +32417,8 @@
           "cosine": 0.7479,
           "blurCosine": 0.801
         }
-      ]
+      ],
+      "previousName": "structure-01"
     },
     {
       "name": "structure-fail",
@@ -32360,7 +32545,7 @@
       ]
     },
     {
-      "name": "suit-01",
+      "name": "suit",
       "title": "کت رسمی با یقهٔ برگردان",
       "category": "fashion",
       "kind": "base",
@@ -32388,10 +32573,11 @@
           "cosine": 0.8259,
           "blurCosine": 0.8625
         }
-      ]
+      ],
+      "previousName": "suit-01"
     },
     {
-      "name": "sushi-01",
+      "name": "sushi-rolls",
       "title": "قطعه‌های سوشی با سطح مقطع گرد",
       "category": "meals",
       "kind": "base",
@@ -32419,7 +32605,8 @@
           "cosine": 0.8427,
           "blurCosine": 0.8726
         }
-      ]
+      ],
+      "previousName": "sushi-01"
     },
     {
       "name": "sustainable-energy",
@@ -32546,7 +32733,7 @@
       ]
     },
     {
-      "name": "system-update-01",
+      "name": "system-update",
       "title": "به‌روزرسانی سیستم با چرخه و چرخ‌دنده",
       "category": "infrastructure",
       "kind": "action",
@@ -32574,10 +32761,11 @@
           "cosine": 0.8119,
           "blurCosine": 0.8707
         }
-      ]
+      ],
+      "previousName": "system-update-01"
     },
     {
-      "name": "table-01",
+      "name": "table-drawer",
       "title": "میز کشودار با دو پایهٔ پهن",
       "category": "interiors",
       "kind": "base",
@@ -32605,10 +32793,11 @@
           "cosine": 0.7324,
           "blurCosine": 0.7676
         }
-      ]
+      ],
+      "previousName": "table-01"
     },
     {
-      "name": "table-lamp-01",
+      "name": "table-lamp",
       "title": "چراغ رومیزی روی میز کوچک",
       "category": "interiors",
       "kind": "base",
@@ -32636,7 +32825,8 @@
           "cosine": 0.7488,
           "blurCosine": 0.785
         }
-      ]
+      ],
+      "previousName": "table-lamp-01"
     },
     {
       "name": "table-of-contents",
@@ -32887,7 +33077,7 @@
       ]
     },
     {
-      "name": "task-daily-01",
+      "name": "task-daily",
       "title": "کار روزانه با برگه و نشان تقویم",
       "category": "office",
       "kind": "base",
@@ -32915,10 +33105,11 @@
           "cosine": 0.8321,
           "blurCosine": 0.8585
         }
-      ]
+      ],
+      "previousName": "task-daily-01"
     },
     {
-      "name": "task-edit-01",
+      "name": "task-edit",
       "title": "ویرایش کار با قلم روی برگه",
       "category": "office",
       "kind": "action",
@@ -32946,7 +33137,8 @@
           "cosine": 0.8051,
           "blurCosine": 0.8465
         }
-      ]
+      ],
+      "previousName": "task-edit-01"
     },
     {
       "name": "taxes",
@@ -33631,7 +33823,7 @@
       ]
     },
     {
-      "name": "toilet-01",
+      "name": "toilet-tank",
       "title": "توالت فرنگی با مخزنِ پشتی",
       "category": "bathroom",
       "kind": "base",
@@ -33659,7 +33851,8 @@
           "cosine": 0.7085,
           "blurCosine": 0.7465
         }
-      ]
+      ],
+      "previousName": "toilet-01"
     },
     {
       "name": "tool-case",
@@ -33693,7 +33886,7 @@
       ]
     },
     {
-      "name": "tornado-01",
+      "name": "tornado-rings",
       "title": "گردباد با حلقه‌های کاهنده",
       "category": "weather",
       "kind": "base",
@@ -33721,7 +33914,8 @@
           "cosine": 0.7582,
           "blurCosine": 0.7992
         }
-      ]
+      ],
+      "previousName": "tornado-01"
     },
     {
       "name": "towels",
@@ -33786,7 +33980,7 @@
       ]
     },
     {
-      "name": "traffic-jam-01",
+      "name": "traffic-jam",
       "title": "ترافیک با خودروهای پشت‌سرهم",
       "category": "traffic",
       "kind": "base",
@@ -33814,7 +34008,8 @@
           "cosine": 0.7569,
           "blurCosine": 0.7931
         }
-      ]
+      ],
+      "previousName": "traffic-jam-01"
     },
     {
       "name": "train-front-tunnel",
@@ -34065,7 +34260,7 @@
       ]
     },
     {
-      "name": "trolley-01",
+      "name": "shopping-trolley",
       "title": "چرخ‌دستی فروشگاهی با سبد جلویی",
       "category": "retail",
       "kind": "base",
@@ -34093,7 +34288,8 @@
           "cosine": 0.7054,
           "blurCosine": 0.7547
         }
-      ]
+      ],
+      "previousName": "trolley-01"
     },
     {
       "name": "tropical-storm",
@@ -34127,7 +34323,7 @@
       ]
     },
     {
-      "name": "tropical-storm-tracks-01",
+      "name": "tropical-storm-tracks",
       "title": "مسیر حرکت توفان با نقاط متوالی",
       "category": "weather",
       "kind": "base",
@@ -34155,7 +34351,8 @@
           "cosine": 0.7593,
           "blurCosine": 0.8132
         }
-      ]
+      ],
+      "previousName": "tropical-storm-tracks-01"
     },
     {
       "name": "truck-electric",
@@ -34377,7 +34574,7 @@
       ]
     },
     {
-      "name": "underpants-01",
+      "name": "underpants",
       "title": "لباس زیر با نوار بالایی",
       "category": "fashion",
       "kind": "base",
@@ -34405,7 +34602,8 @@
           "cosine": 0.8414,
           "blurCosine": 0.869
         }
-      ]
+      ],
+      "previousName": "underpants-01"
     },
     {
       "name": "ungroup",
@@ -34501,7 +34699,7 @@
       ]
     },
     {
-      "name": "usb-connected-01",
+      "name": "usb-connected",
       "title": "اتصال USB با کابل و نشان پیوند",
       "category": "hardware",
       "kind": "base",
@@ -34529,7 +34727,8 @@
           "cosine": 0.6766,
           "blurCosine": 0.7209
         }
-      ]
+      ],
+      "previousName": "usb-connected-01"
     },
     {
       "name": "validation-approval",
@@ -34780,7 +34979,7 @@
       ]
     },
     {
-      "name": "villa-01",
+      "name": "villa-porch",
       "title": "ویلا با بام شیب‌دار و ایوان",
       "category": "real-estate",
       "kind": "base",
@@ -34808,10 +35007,11 @@
           "cosine": 0.7751,
           "blurCosine": 0.7984
         }
-      ]
+      ],
+      "previousName": "villa-01"
     },
     {
-      "name": "virtual-reality-vr-01",
+      "name": "virtual-reality-vr",
       "title": "هدست واقعیت مجازی با قاب خمیده",
       "category": "hardware",
       "kind": "type",
@@ -34839,7 +35039,8 @@
           "cosine": 0.8363,
           "blurCosine": 0.8633
         }
-      ]
+      ],
+      "previousName": "virtual-reality-vr-01"
     },
     {
       "name": "vision",
@@ -34997,7 +35198,7 @@
       ]
     },
     {
-      "name": "vynil-02",
+      "name": "vynil",
       "title": "صفحهٔ گرامافون با حلقه‌های هم‌مرکز",
       "category": "audio",
       "kind": "base",
@@ -35025,7 +35226,8 @@
           "cosine": 0.7915,
           "blurCosine": 0.8109
         }
-      ]
+      ],
+      "previousName": "vynil-02"
     },
     {
       "name": "waiter",
@@ -35121,7 +35323,7 @@
       ]
     },
     {
-      "name": "walpaper",
+      "name": "wallpaper-roll",
       "title": "تصویر پس‌زمینه روی نمایشگر",
       "category": "interiors",
       "kind": "base",
@@ -35149,7 +35351,8 @@
           "cosine": 0.8442,
           "blurCosine": 0.8681
         }
-      ]
+      ],
+      "previousName": "walpaper"
     },
     {
       "name": "file-wav",
@@ -35214,7 +35417,7 @@
       ]
     },
     {
-      "name": "waving-hand-01",
+      "name": "waving-hand",
       "title": "دستِ تکان‌خورده با انگشتان باز",
       "category": "social",
       "kind": "action",
@@ -35242,7 +35445,8 @@
           "cosine": 0.6924,
           "blurCosine": 0.7434
         }
-      ]
+      ],
+      "previousName": "waving-hand-01"
     },
     {
       "name": "waypoints",
@@ -35276,7 +35480,7 @@
       ]
     },
     {
-      "name": "web-design-01",
+      "name": "web-design",
       "title": "طراحی وب با پنجره و قلم",
       "category": "design",
       "kind": "base",
@@ -35304,7 +35508,8 @@
           "cosine": 0.885,
           "blurCosine": 0.9046
         }
-      ]
+      ],
+      "previousName": "web-design-01"
     },
     {
       "name": "web-programming",
@@ -35431,7 +35636,7 @@
       ]
     },
     {
-      "name": "weight-scale-01",
+      "name": "weight-scale",
       "title": "ترازوی دوکفه با نشانگر مرکزی",
       "category": "science",
       "kind": "base",
@@ -35459,7 +35664,8 @@
           "cosine": 0.8077,
           "blurCosine": 0.8541
         }
-      ]
+      ],
+      "previousName": "weight-scale-01"
     },
     {
       "name": "wellness",
@@ -35524,7 +35730,7 @@
       ]
     },
     {
-      "name": "wifi-connected-01",
+      "name": "wifi-connected",
       "title": "وای‌فای با گرهٔ اتصال در پایین",
       "category": "connectivity",
       "kind": "base",
@@ -35552,10 +35758,11 @@
           "cosine": 0.7516,
           "blurCosine": 0.815
         }
-      ]
+      ],
+      "previousName": "wifi-connected-01"
     },
     {
-      "name": "wifi-disconnected-01",
+      "name": "wifi-disconnected",
       "title": "وای‌فای با گرهٔ جداشده در پایین",
       "category": "connectivity",
       "kind": "action",
@@ -35583,7 +35790,8 @@
           "cosine": 0.6841,
           "blurCosine": 0.7278
         }
-      ]
+      ],
+      "previousName": "wifi-disconnected-01"
     },
     {
       "name": "wifi-location",
@@ -35710,7 +35918,7 @@
       ]
     },
     {
-      "name": "wind-power-01",
+      "name": "wind-power",
       "title": "توربین باد با سه پره و پایه",
       "category": "energy",
       "kind": "base",
@@ -35738,7 +35946,8 @@
           "cosine": 0.7803,
           "blurCosine": 0.8242
         }
-      ]
+      ],
+      "previousName": "wind-power-01"
     },
     {
       "name": "wind-surf",
@@ -36144,7 +36353,7 @@
       ]
     },
     {
-      "name": "yoga-01",
+      "name": "yoga-seated",
       "title": "تمرین یوگا با نشستن چهارزانو",
       "category": "fitness",
       "kind": "base",
@@ -36172,7 +36381,8 @@
           "cosine": 0.7802,
           "blurCosine": 0.8241
         }
-      ]
+      ],
+      "previousName": "yoga-01"
     },
     {
       "name": "file-svg",
@@ -36330,7 +36540,7 @@
       ]
     },
     {
-      "name": "bookshelf-02",
+      "name": "bookcase-drawer",
       "title": "کتابخانه با کتاب‌های بالایی و کشوی زیرین",
       "category": "interiors",
       "kind": "base",
@@ -36358,10 +36568,11 @@
           "cosine": 0.8488,
           "blurCosine": 0.8823
         }
-      ]
+      ],
+      "previousName": "bookshelf-02"
     },
     {
-      "name": "chair-05",
+      "name": "chair-spindle",
       "title": "صندلی با میله‌های پشتی و پایهٔ باز",
       "category": "interiors",
       "kind": "base",
@@ -36389,10 +36600,11 @@
           "cosine": 0.812,
           "blurCosine": 0.8479
         }
-      ]
+      ],
+      "previousName": "chair-05"
     },
     {
-      "name": "dressing-table-03",
+      "name": "vanity-mirror",
       "title": "میز آرایش با آینه و کشوی پایینی",
       "category": "interiors",
       "kind": "base",
@@ -36420,10 +36632,11 @@
           "cosine": 0.7689,
           "blurCosine": 0.8146
         }
-      ]
+      ],
+      "previousName": "dressing-table-03"
     },
     {
-      "name": "ear-rings-02",
+      "name": "hoop-earrings",
       "title": "گوشوارهٔ حلقه‌ای با میخ بالایی",
       "category": "fashion",
       "kind": "base",
@@ -36453,10 +36666,11 @@
           "cosine": 0.7627,
           "blurCosine": 0.8053
         }
-      ]
+      ],
+      "previousName": "ear-rings-02"
     },
     {
-      "name": "high-heels-02",
+      "name": "high-heels-open",
       "title": "کفش پاشنه‌بلند با رویهٔ باز",
       "category": "fashion",
       "kind": "base",
@@ -36484,10 +36698,11 @@
           "cosine": 0.6881,
           "blurCosine": 0.7351
         }
-      ]
+      ],
+      "previousName": "high-heels-02"
     },
     {
-      "name": "factory-02",
+      "name": "factory-sawtooth",
       "title": "کارخانه با سقف دندانه‌ای و دودکش کناری",
       "category": "infrastructure",
       "kind": "base",
@@ -36515,10 +36730,11 @@
           "cosine": 0.7532,
           "blurCosine": 0.7889
         }
-      ]
+      ],
+      "previousName": "factory-02"
     },
     {
-      "name": "building-04",
+      "name": "building-wing",
       "title": "ساختمان با نمای شیب‌دار و بال جانبی",
       "category": "real-estate",
       "kind": "base",
@@ -36546,10 +36762,11 @@
           "cosine": 0.7604,
           "blurCosine": 0.8131
         }
-      ]
+      ],
+      "previousName": "building-04"
     },
     {
-      "name": "hand-bag-02",
+      "name": "hand-bag-flap",
       "title": "کیف دستی با بند کوتاه و لبهٔ تاخورده",
       "category": "fashion",
       "kind": "base",
@@ -36577,10 +36794,11 @@
           "cosine": 0.811,
           "blurCosine": 0.8384
         }
-      ]
+      ],
+      "previousName": "hand-bag-02"
     },
     {
-      "name": "motorbike-02",
+      "name": "sport-motorbike",
       "title": "موتورسیکلت با بدنهٔ اسپرت و پوشش جلو",
       "category": "traffic",
       "kind": "base",
@@ -36608,10 +36826,11 @@
           "cosine": 0.7487,
           "blurCosine": 0.7976
         }
-      ]
+      ],
+      "previousName": "motorbike-02"
     },
     {
-      "name": "pan-02",
+      "name": "frying-pan-side",
       "title": "تابهٔ کم‌عمق با دسته از نمای کنار",
       "category": "kitchen",
       "kind": "base",
@@ -36639,10 +36858,11 @@
           "cosine": 0.6556,
           "blurCosine": 0.6978
         }
-      ]
+      ],
+      "previousName": "pan-02"
     },
     {
-      "name": "wardrobe-03",
+      "name": "wardrobe-drawer",
       "title": "کمد لباس با دو در و کشوی زیرین",
       "category": "interiors",
       "kind": "base",
@@ -36670,10 +36890,11 @@
           "cosine": 0.8308,
           "blurCosine": 0.8562
         }
-      ]
+      ],
+      "previousName": "wardrobe-03"
     },
     {
-      "name": "dress-03",
+      "name": "dress-tiered",
       "title": "پیراهن زنانه با دامن چندلایه",
       "category": "fashion",
       "kind": "base",
@@ -36701,10 +36922,11 @@
           "cosine": 0.7641,
           "blurCosine": 0.8106
         }
-      ]
+      ],
+      "previousName": "dress-03"
     },
     {
-      "name": "car-04",
+      "name": "car-three-quarter",
       "title": "خودرو از نمای سه‌رخ با سقف برجسته",
       "category": "traffic",
       "kind": "base",
@@ -36732,7 +36954,8 @@
           "cosine": 0.7668,
           "blurCosine": 0.8046
         }
-      ]
+      ],
+      "previousName": "car-04"
     },
     {
       "name": "map-iran",
