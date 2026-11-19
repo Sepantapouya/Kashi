@@ -59,7 +59,8 @@ test("search works in Persian and English, Arabic letters normalized", () => {
 
 test("svg files and sprite contain every icon", () => {
   const files = readdirSync(new URL("../dist/svg/", import.meta.url)).filter((f) => f.endsWith(".svg"));
-  assert.equal(files.length, iconNames.length + Object.keys(aliases).length);
+  // نام‌های منسوخ فایل جدا ندارند؛ exports مسیرشان را به فایل نام اصلی می‌رساند (svg-exports.test.mjs)
+  assert.equal(files.length, iconNames.length);
   const sprite = readFileSync(new URL("../dist/sprite.svg", import.meta.url), "utf8");
   for (const n of iconNames) assert.ok(sprite.includes(`id="k-${n}"`), n);
 });

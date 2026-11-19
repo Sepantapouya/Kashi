@@ -45,9 +45,9 @@ for (const name of [...names, ...aliasNames]) {
   }
 }
 
-const redirects = identicalSvgVariants(icons);
+const redirects = identicalSvgVariants(icons, aliases);
 const { exports: exportsMap } = JSON.parse(readFileSync("package.json", "utf8"));
-const exact = Object.keys(exportsMap).filter(key => /^\.\/svg\/(?:curved|two-tone)\/[a-z0-9-]+\.svg$/.test(key));
+const exact = Object.keys(exportsMap).filter(key => /^\.\/svg\/(?:[a-z-]+\/)?[a-z0-9-]+\.svg$/.test(key));
 if (exact.length !== Object.keys(redirects).length || exact.some(key => redirects[key] !== exportsMap[key])) {
   throw new Error("SVG exports are out of sync. Run node packages/icons/scripts/update-svg-exports.mjs.");
 }
@@ -344,8 +344,8 @@ export declare class Icon extends SvelteComponent<IconProps> {}
 ${[...names, ...aliasNames].map((n) => `export declare const ${dataName(n)}: KashiIconData;`).join("\n")}
 `);
 
-// فایل SVG و نماد اسپرایتِ نام‌های قدیمی هم ساخته می‌شود تا مسیرهای قبلی نشکنند؛ در فهرست و شمارش نیستند
-for (const n of [...names, ...aliasNames]) {
+// نام‌های قدیمی فایل SVG جدا ندارند (exports آن‌ها را به فایل نام اصلی می‌رساند) ولی نماد اسپرایتشان ساخته می‌شود
+for (const n of names) {
   const body = icons[aliases[n] ?? n].body;
   writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(body, "light", { uid: `k-${n}` })}</svg>\n`);
   for (const v of variants.slice(1)) {

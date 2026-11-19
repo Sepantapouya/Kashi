@@ -16,7 +16,7 @@ test("every public SVG path resolves to exactly its generated variant", () => {
     for (const variant of variants) {
       const suffix = variant === "light" ? `${name}.svg` : `${variant}/${name}.svg`;
       const resolved = require.resolve(`@kashi-ui/icons/svg/${suffix}`);
-      const body = renderBody(icon.body, variant, { uid: `k-${name}` });
+      const body = renderBody(icon.body, variant, { uid: `k-${aliases[name] ?? name}` });
       const generated = `<svg ${attrs} width="20" height="20">${body}</svg>\n`;
       assert.equal(readFileSync(resolved, "utf8"), generated, `${name} ${variant}`);
       if (icon.brand) assert.deepEqual(readFileSync(resolved), readFileSync(new URL(`../dist/svg/${name}.svg`, import.meta.url)));
