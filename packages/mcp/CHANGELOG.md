@@ -1,5 +1,20 @@
 # @kashi-ui/mcp
 
+## 2.12.0
+
+### Minor Changes
+
+- c59a15a: ۳۶۵ آیکون اختصاصی در شش سبک اضافه شد. کاتالوگ آیکون‌های کاشی حالا ۱۴٬۰۰۰ طرح دارد.
+- f087fa2: ۶۳۵ آیکون اختصاصی به کاشی اضافه شد. طرح‌ها روی شبکهٔ ۲۰×۲۰ با خط مرجع ۱٫۵ و در شش سبک عرضه می‌شوند. فهرست سایت و پلاگین‌های فیگما ۱۳٬۶۳۵ آیکون دارند.
+
+### Patch Changes
+
+- Updated dependencies [c59a15a]
+- Updated dependencies [f087fa2]
+  - @kashi-ui/icons@2.12.0
+  - @kashi-ui/persian@2.12.0
+  - @kashi-ui/tokens@2.12.0
+
 ## 2.11.1
 
 ### Patch Changes

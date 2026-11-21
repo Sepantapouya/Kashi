@@ -1,5 +1,11 @@
 # @kashi-ui/css
 
+## 2.12.0
+
+### Patch Changes
+
+- @kashi-ui/tokens@2.12.0
+
 ## 2.11.1
 
 ### Patch Changes
