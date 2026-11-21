@@ -3,9 +3,12 @@
 import Docs from "../../../layouts/Docs.astro";
 import { IconCatalog } from "../../../components/IconCatalog";
 import { icons, categories, categoryGroups, variants } from "@kashi-ui/icons";
+import { latestIconRelease } from "../../../data/newIcons";
 
 const n = (x: number) => x.toLocaleString("fa-IR");
+// ۲۴ آیکون تازهٔ آخرین نسخه برای نوار «آیکون‌های تازه»؛ فهرست کامل در /docs/icons/new/
+const fresh = latestIconRelease && { version: latestIconRelease.version, count: latestIconRelease.added.length, names: latestIconRelease.added.filter((_, i, a) => i % Math.max(1, Math.floor(a.length / 24)) === 0).slice(0, 24) };
 ---
 <Docs title="آیکون‌های کاشی" description={`${n(Object.keys(icons).length)} آیکون در ${n(categoryGroups.length)} گروه، ${n(Object.keys(categories).length)} دسته و ${n(variants.length)} سبک؛ برای React، HTML، هر فریم‌ورک دیگر و فیگما.`}>
-  <IconCatalog client:load />
+  <IconCatalog client:load fresh={fresh} />
 </Docs>

@@ -355,3 +355,38 @@
 .ib-more__rest { color: var(--k-text-tertiary); font-weight: var(--k-weight-regular, 400); }
 .ix-browse { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--k-space-10); }
 .ix-browse[hidden] { display: none; }
+
+/* آیکون‌های تازهٔ آخرین نسخه: نوار صفحهٔ اصلی و صفحهٔ /docs/icons/new/ */
+.ix-new { position: relative; padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: radial-gradient(30rem 12rem at 100% 0%, rgb(15 168 155 / 0.1), transparent 70%), var(--k-bg-secondary); }
+.ix-new__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--k-space-3); margin-block-end: var(--k-space-4); }
+.ix-new__head .ix-h { margin-block-end: 0 !important; }
+.ix-new__all { gap: var(--k-space-1); }
+.ix-new__all svg { transition: translate var(--k-duration-fast) var(--k-ease-standard); }
+.ix-new__all:hover svg { translate: -3px 0; }
+.ix-new__list { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--k-space-2); }
+.ix-new__tile { display: grid; place-items: center; aspect-ratio: 1; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); color: var(--k-text-primary); transition: border-color var(--k-duration-fast), color var(--k-duration-fast), translate var(--k-duration-fast) var(--k-ease-standard); }
+.ix-new__tile:hover { border-color: var(--k-border-brand); color: var(--k-text-brand); }
+.ix-new__tile:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: 2px; }
+.ix-jump__chip--new { color: var(--k-text-brand); }
+.ix-jump__chip--new svg { color: currentColor; }
+@media (prefers-reduced-motion: no-preference) {
+  .ix-new__tile:hover { translate: 0 -2px; }
+  .ix-new__list li { animation: ix-pop 380ms var(--k-ease-standard) both; animation-delay: calc(var(--i) * 18ms); }
+}
+@media (max-width: 56rem) { .ix-new__list { grid-template-columns: repeat(8, minmax(0, 1fr)); } .ix-new__list li:nth-child(n + 17) { display: none; } }
+@media (max-width: 40rem) { .ix-new { padding: var(--k-space-4); } .ix-new__list { grid-template-columns: repeat(6, minmax(0, 1fr)); } .ix-new__list li:nth-child(n + 13) { display: none; } }
+
+/* صفحهٔ /docs/icons/new/ */
+.nw-versions { display: flex; flex-wrap: wrap; gap: var(--k-space-2); margin-block: var(--k-space-4) var(--k-space-6); }
+.nw-versions a { display: inline-flex; align-items: baseline; gap: var(--k-space-2); padding: 0.375rem 0.875rem; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); color: var(--k-text-secondary); font-size: var(--k-text-sm); text-decoration: none; transition: border-color var(--k-duration-fast), color var(--k-duration-fast); }
+.nw-versions a:hover { border-color: var(--k-border-primary); color: var(--k-text-primary); }
+.nw-versions a[aria-current="page"] { border-color: var(--k-border-brand); background: var(--k-bg-brand-subtle); color: var(--k-text-brand); font-weight: var(--k-weight-semibold); }
+.nw-versions small { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.nw-cat { margin-block-start: var(--k-space-8); }
+.nw-cat h2 { display: flex; align-items: baseline; gap: var(--k-space-2); margin: 0 0 var(--k-space-3); color: var(--k-text-primary); font-size: var(--k-text-lg); }
+.nw-cat h2 span { color: var(--k-text-tertiary); font-size: var(--k-text-sm); font-weight: var(--k-weight-regular, 400); }
+.nw-cat h2 a { color: inherit; text-decoration: none; }
+.nw-cat h2 a:hover { color: var(--k-text-brand); }
+.nw-cat .ib-grid { margin: 0; padding: 0; list-style: none; }
+.nw-cat .ib-cell { --ib-size: 24px; }
+.nw-cat .ib-cell svg { inline-size: 24px; block-size: 24px; }

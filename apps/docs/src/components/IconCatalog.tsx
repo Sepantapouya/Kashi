@@ -66,7 +66,11 @@ function Specimen({ variant, onPick }: { variant: IconVariant; onPick: (v: IconV
   );
 }
 
-export function IconCatalog() {
+/** آیکون‌های تازهٔ آخرین نسخه‌ای که آیکون اضافه کرده؛ از صفحهٔ astro می‌آید */
+export interface FreshIcons { version: string; count: number; names: IconName[] }
+const faVer = (v: string) => v.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+
+export function IconCatalog({ fresh }: { fresh?: FreshIcons }) {
   const [query, setQuery] = useState("");
   const [variant, setVariant] = useVariant();
   const [size, setSize] = useState("24");
@@ -207,6 +211,28 @@ export function IconCatalog() {
         </section>
       )}
       <div className="ix-browse" hidden={!!q}>
+          {fresh && fresh.names.length > 0 && (
+            <section id="new" className="ix-new" aria-labelledby="ix-new-title">
+              <div className="ix-new__head">
+                <h2 id="ix-new-title" className="ix-h">
+                  <span className="ix-h__icon" aria-hidden="true"><Icon name="sparkle" size={18} /></span>
+                  آیکون‌های تازه
+                  <span>{faNum(fresh.count)} آیکون در نسخهٔ <bdi>{faVer(fresh.version)}</bdi></span>
+                </h2>
+                <a className="k-btn k-btn--secondary k-btn--sm ix-new__all" href="/docs/icons/new/">دیدن همه<Icon name="arrow-left" size={14} /></a>
+              </div>
+              <ul className="ix-new__list" role="list">
+                {fresh.names.map((n, i) => (
+                  <li key={n} style={{ "--i": i } as React.CSSProperties}>
+                    <a className="ix-new__tile" href={withVariant(`/docs/icons/${n}/`, variant)} title={icons[n].title} aria-label={`${icons[n].title} (${n})`}>
+                      <Icon name={n} size={22} variant={variant} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <section className="ix-iran" aria-labelledby="ix-iran-title">
             <h2 id="ix-iran-title" className="ix-h">ویژهٔ ایران<span>آنچه در مجموعه‌های خارجی پیدا نمی‌کنید</span></h2>
             <ul className="ix-iran__list" role="list">
@@ -229,6 +255,9 @@ export function IconCatalog() {
 
           <nav ref={jumpRef} className="ix-jump" aria-label="پرش به گروه">
             <div className="ix-jump__list">
+              {fresh && fresh.names.length > 0 && (
+                <a href="#new" className="ix-jump__chip ix-jump__chip--new"><Icon name="sparkle" size={16} />تازه‌ها</a>
+              )}
               {categoryGroups.map((g) => (
                 <a key={g.id} data-g={g.id} href={`#g-${g.id}`} className="ix-jump__chip" aria-current={active === g.id ? "true" : undefined}>
                   <Icon name={groupIcon[g.id] ?? "grid"} size={16} />{g.title}

@@ -45,6 +45,8 @@ npm publish -w @kashi-ui/react
 
 بستهٔ آیکون‌ها پیش از انتشار با `npm run check:icon-package` بررسی می‌شود: شمار فایل‌ها باید کمتر از ۶۴۰۰۰ باشد و تمام مسیرهای عمومی SVG، اسپرایت‌ها و مجوزها در آرشیو موجود باشند. فایل SVG نشان‌های رسمی در سبک‌های مختلف یکسان است. نسخه‌های منحنی و دورنگِ عیناً یکسان با SVG پایه هم از طریق `exports` به فایل پایه اشاره می‌کنند. پس از تغییر هندسه یا موتور سبک‌ها، با `node packages/icons/scripts/update-svg-exports.mjs` نگاشت‌ها را به‌روز کنید.
 
+> **آیکون‌های تازه:** پس از `npx changeset version` (یا در PR «نسخهٔ جدید کاشی»)، `node packages/icons/scripts/releases.mjs` را اجرا و `packages/icons/releases.json` را کامیت کنید. صفحهٔ «آیکون‌های تازه» (`/docs/icons/new/`) و نوار همان در صفحهٔ آیکون‌ها از این فایل می‌خوانند؛ تست `releases.test.mjs` اگر فایل با نسخهٔ بسته یکی نباشد شکست می‌خورد.
+
 1. همراه هر تغییر، یک changeset بسازید:
    ```bash
    npx changeset
