@@ -156,6 +156,9 @@ server.registerTool(
   async ({ query, category, limit }) => {
     let names = searchIcons(query);
     if (category) names = names.filter((n) => icons[n].category === category);
+    const exactQuery = fold(query);
+    const exact = names.find((n) => fold(n) === exactQuery || fold(icons[n].title) === exactQuery);
+    if (exact) names = [exact, ...names.filter((n) => n !== exact)];
     names = names.slice(0, limit || 20);
     if (!names.length) return text(`آیکونی برای «${query}» پیدا نشد.`);
     return text(`${names.map((n) => `- \`${n}\` — ${icons[n].title} — <${icons[n].component} /> — ${categories[icons[n].category]}`).join("\n")}\n\nimport { ${icons[names[0]].component} } from "@kashi-ui/icons/react";\nسبک‌ها: ${variants.join(", ")} (prop به نام variant)`);
