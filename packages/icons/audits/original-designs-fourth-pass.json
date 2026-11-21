@@ -1,0 +1,473 @@
+{
+  "baseline": 13059,
+  "candidates": 32,
+  "added": 21,
+  "active": 13080,
+  "review": {
+    "light": 0.88,
+    "bold": 0.92
+  },
+  "accepted": {
+    "notification-hide-app-count": {
+      "light": {
+        "catalog": "form-field-optional",
+        "score": 0.8139,
+        "batch": "calendar-drag-event-keep-duration",
+        "batchScore": 0.7357
+      },
+      "bold": {
+        "catalog": "notification",
+        "score": 0.8759,
+        "batch": "browser-default-opening-width",
+        "batchScore": 0.7673
+      }
+    },
+    "notification-open-app-instead-of-message": {
+      "light": {
+        "catalog": "caption-track-download",
+        "score": 0.8489,
+        "batch": "media-auto-hide-controls-delay",
+        "batchScore": 0.826
+      },
+      "bold": {
+        "catalog": "video-ai",
+        "score": 0.8687,
+        "batch": "media-auto-hide-controls-delay",
+        "batchScore": 0.8517
+      }
+    },
+    "file-unzip-in-place": {
+      "light": {
+        "catalog": "file-folder-soft-tab",
+        "score": 0.8571,
+        "batch": "download-choose-save-folder-each-time",
+        "batchScore": 0.7524
+      },
+      "bold": {
+        "catalog": "folder-share",
+        "score": 0.8292,
+        "batch": "download-choose-save-folder-each-time",
+        "batchScore": 0.8268
+      }
+    },
+    "file-open-show-default-app": {
+      "light": {
+        "catalog": "file-pen-line",
+        "score": 0.8133,
+        "batch": "file-next-name-conflict",
+        "batchScore": 0.7893
+      },
+      "bold": {
+        "catalog": "rename-and-keep-extension",
+        "score": 0.8319,
+        "batch": "file-next-name-conflict",
+        "batchScore": 0.8318
+      }
+    },
+    "chat-insert-saved-answer": {
+      "light": {
+        "catalog": "garment-patch-pocket",
+        "score": 0.791,
+        "batch": "browser-clear-data-only-for-this-site",
+        "batchScore": 0.8105
+      },
+      "bold": {
+        "catalog": "unread-next-in-thread",
+        "score": 0.8597,
+        "batch": "browser-clear-data-only-for-this-site",
+        "batchScore": 0.8281
+      }
+    },
+    "editor-select-paragraph-around-caret": {
+      "light": {
+        "catalog": "image-background-cutout",
+        "score": 0.8751,
+        "batch": "browser-default-opening-width",
+        "batchScore": 0.7762
+      },
+      "bold": {
+        "catalog": "scan-barcode",
+        "score": 0.9016,
+        "batch": "browser-restore-scroll-only",
+        "batchScore": 0.7682
+      }
+    },
+    "editor-keep-heading-with-next": {
+      "light": {
+        "catalog": "chart-series-order-ranking",
+        "score": 0.8501,
+        "batch": "calendar-drag-event-keep-duration",
+        "batchScore": 0.4904
+      },
+      "bold": {
+        "catalog": "dev-log-correlation-lines",
+        "score": 0.8636,
+        "batch": "browser-default-opening-width",
+        "batchScore": 0.6475
+      }
+    },
+    "editor-remove-extra-blank-lines": {
+      "light": {
+        "catalog": "align-left",
+        "score": 0.8771,
+        "batch": "editor-move-item-to-list-start",
+        "batchScore": 0.6564
+      },
+      "bold": {
+        "catalog": "align-left",
+        "score": 0.8584,
+        "batch": "editor-move-item-to-list-start",
+        "batchScore": 0.7621
+      }
+    },
+    "editor-show-line-breaks": {
+      "light": {
+        "catalog": "privacy-signed-document-seal",
+        "score": 0.7932,
+        "batch": "browser-restore-scroll-only",
+        "batchScore": 0.7133
+      },
+      "bold": {
+        "catalog": "warehouse-nesting-parts-bins",
+        "score": 0.7791,
+        "batch": "browser-restore-scroll-only",
+        "batchScore": 0.7353
+      }
+    },
+    "editor-copy-line-number-with-code": {
+      "light": {
+        "catalog": "web-validation",
+        "score": 0.8117,
+        "batch": "form-copy-selected-section",
+        "batchScore": 0.808
+      },
+      "bold": {
+        "catalog": "web-validation",
+        "score": 0.8256,
+        "batch": "form-copy-selected-section",
+        "batchScore": 0.8477
+      }
+    },
+    "editor-move-item-to-list-start": {
+      "light": {
+        "catalog": "editor-previous-search-match",
+        "score": 0.8338,
+        "batch": "editor-remove-extra-blank-lines",
+        "batchScore": 0.6564
+      },
+      "bold": {
+        "catalog": "outdent",
+        "score": 0.8176,
+        "batch": "editor-remove-extra-blank-lines",
+        "batchScore": 0.7621
+      }
+    },
+    "browser-clear-data-only-for-this-site": {
+      "light": {
+        "catalog": "settings-workspace-lock",
+        "score": 0.8569,
+        "batch": "browser-restore-scroll-only",
+        "batchScore": 0.8369
+      },
+      "bold": {
+        "catalog": "password-autofill-current-site-only",
+        "score": 0.8598,
+        "batch": "browser-restore-scroll-only",
+        "batchScore": 0.8469
+      }
+    },
+    "form-copy-selected-section": {
+      "light": {
+        "catalog": "image-to-video",
+        "score": 0.8242,
+        "batch": "editor-copy-line-number-with-code",
+        "batchScore": 0.808
+      },
+      "bold": {
+        "catalog": "image-to-video",
+        "score": 0.8543,
+        "batch": "editor-copy-line-number-with-code",
+        "batchScore": 0.8477
+      }
+    },
+    "form-remove-saved-value-for-this-field": {
+      "light": {
+        "catalog": "browser-close-other-tabs",
+        "score": 0.8553,
+        "batch": "editor-fill-down-selected-cells",
+        "batchScore": 0.836
+      },
+      "bold": {
+        "catalog": "fill-only-empty-fields",
+        "score": 0.8888,
+        "batch": "browser-default-opening-width",
+        "batchScore": 0.8339
+      }
+    },
+    "form-jump-to-required-field": {
+      "light": {
+        "catalog": "file-spreadsheet-row-labels",
+        "score": 0.8573,
+        "batch": "browser-default-opening-width",
+        "batchScore": 0.8485
+      },
+      "bold": {
+        "catalog": "adjacent-item",
+        "score": 0.8512,
+        "batch": "form-remove-saved-value-for-this-field",
+        "batchScore": 0.8082
+      }
+    },
+    "checkout-switch-to-saved-payment": {
+      "light": {
+        "catalog": "brand-ir-banks-iran-europe",
+        "score": 0.808,
+        "batch": "form-copy-selected-section",
+        "batchScore": 0.7917
+      },
+      "bold": {
+        "catalog": "action-copy-offset-sheets",
+        "score": 0.8454,
+        "batch": "form-copy-selected-section",
+        "batchScore": 0.6984
+      }
+    },
+    "settings-reset-current-section": {
+      "light": {
+        "catalog": "control-preferences-two-rails",
+        "score": 0.7559,
+        "batch": "form-jump-to-required-field",
+        "batchScore": 0.5982
+      },
+      "bold": {
+        "catalog": "nav-settings-horizontal-dual",
+        "score": 0.7902,
+        "batch": "form-copy-selected-section",
+        "batchScore": 0.6513
+      }
+    },
+    "media-auto-hide-controls-delay": {
+      "light": {
+        "catalog": "mail-clock",
+        "score": 0.8776,
+        "batch": "device-restore-window-layout",
+        "batchScore": 0.882
+      },
+      "bold": {
+        "catalog": "device-ipad-horizontal-code",
+        "score": 0.8464,
+        "batch": "notification-open-app-instead-of-message",
+        "batchScore": 0.8517
+      }
+    },
+    "audio-monitor-input-before-recording": {
+      "light": {
+        "catalog": "dictation-auto-punctuation",
+        "score": 0.8677,
+        "batch": "editor-fill-down-selected-cells",
+        "batchScore": 0.6531
+      },
+      "bold": {
+        "catalog": "dictation-auto-punctuation",
+        "score": 0.891,
+        "batch": "notification-vibrate-without-banner",
+        "batchScore": 0.6727
+      }
+    },
+    "device-restore-window-layout": {
+      "light": {
+        "catalog": "key-card-lock",
+        "score": 0.842,
+        "batch": "media-auto-hide-controls-delay",
+        "batchScore": 0.882
+      },
+      "bold": {
+        "catalog": "message-search",
+        "score": 0.8156,
+        "batch": "browser-clear-data-only-for-this-site",
+        "batchScore": 0.8169
+      }
+    },
+    "location-mark-building-entrance": {
+      "light": {
+        "catalog": "brand-applepodcasts",
+        "score": 0.7877,
+        "batch": "browser-default-opening-width",
+        "batchScore": 0.7197
+      },
+      "bold": {
+        "catalog": "billing-address",
+        "score": 0.8114,
+        "batch": "browser-clear-data-only-for-this-site",
+        "batchScore": 0.7128
+      }
+    }
+  },
+  "excluded": {
+    "notification-vibrate-without-banner": {
+      "light": {
+        "catalog": "phone-vibrate",
+        "score": 0.9065,
+        "batch": "checkout-switch-to-saved-payment",
+        "batchScore": 0.6551
+      },
+      "bold": {
+        "catalog": "access-haptic-feedback-strength",
+        "score": 0.888,
+        "batch": "checkout-switch-to-saved-payment",
+        "batchScore": 0.6787
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "download-choose-save-folder-each-time": {
+      "light": {
+        "catalog": "folder-star",
+        "score": 0.8395,
+        "batch": "file-unzip-in-place",
+        "batchScore": 0.7524
+      },
+      "bold": {
+        "catalog": "folder-block-one",
+        "score": 0.8746,
+        "batch": "file-unzip-in-place",
+        "batchScore": 0.8268
+      },
+      "reason": "Folder with a download arrow does not convey prompting for a location each time"
+    },
+    "file-next-name-conflict": {
+      "light": {
+        "catalog": "export-only-current-page",
+        "score": 0.9002,
+        "batch": "file-open-show-default-app",
+        "batchScore": 0.7893
+      },
+      "bold": {
+        "catalog": "export-only-current-page",
+        "score": 0.905,
+        "batch": "file-open-show-default-app",
+        "batchScore": 0.8318
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "attachment-replace-keep-caption": {
+      "light": {
+        "catalog": "forward-original-attachment",
+        "score": 0.8373,
+        "batch": "form-copy-selected-section",
+        "batchScore": 0.5939
+      },
+      "bold": {
+        "catalog": "forward-original-attachment",
+        "score": 0.8403,
+        "batch": "browser-default-opening-width",
+        "batchScore": 0.7147
+      },
+      "reason": "Paperclip and arrow are too close to forward-original-attachment"
+    },
+    "chat-forward-without-caption": {
+      "light": {
+        "catalog": "unread-next-in-thread",
+        "score": 0.8494,
+        "batch": "notification-open-app-instead-of-message",
+        "batchScore": 0.7908
+      },
+      "bold": {
+        "catalog": "forward-message",
+        "score": 0.8258,
+        "batch": "chat-insert-saved-answer",
+        "batchScore": 0.7952
+      },
+      "reason": "Small variant is too close to forward-message"
+    },
+    "editor-insert-soft-hyphen": {
+      "light": {
+        "catalog": "brand-ir-payment-gateways-aghay-pardakht",
+        "score": 0.7647,
+        "batch": "audio-monitor-input-before-recording",
+        "batchScore": 0.5408
+      },
+      "bold": {
+        "catalog": "language-switch",
+        "score": 0.8,
+        "batch": "audio-monitor-input-before-recording",
+        "batchScore": 0.6191
+      },
+      "reason": "Reads as A minus 1 rather than an optional hyphen"
+    },
+    "editor-fill-down-selected-cells": {
+      "light": {
+        "catalog": "settings-sliders-panel",
+        "score": 0.9111,
+        "batch": "browser-default-opening-width",
+        "batchScore": 0.8975
+      },
+      "bold": {
+        "catalog": "settings-sliders-panel",
+        "score": 0.9145,
+        "batch": "browser-default-opening-width",
+        "batchScore": 0.9172
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "browser-default-opening-width": {
+      "light": {
+        "catalog": "inventory-count",
+        "score": 0.9272,
+        "batch": "editor-fill-down-selected-cells",
+        "batchScore": 0.8975
+      },
+      "bold": {
+        "catalog": "table-cell-format",
+        "score": 0.9463,
+        "batch": "editor-fill-down-selected-cells",
+        "batchScore": 0.9172
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "browser-restore-scroll-only": {
+      "light": {
+        "catalog": "web-protection",
+        "score": 0.8834,
+        "batch": "browser-clear-data-only-for-this-site",
+        "batchScore": 0.8369
+      },
+      "bold": {
+        "catalog": "browser-restore-window-tabs",
+        "score": 0.8786,
+        "batch": "browser-clear-data-only-for-this-site",
+        "batchScore": 0.8469
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "password-fill-username-only": {
+      "light": {
+        "catalog": "paper-saddle-stitch-booklet",
+        "score": 0.8849,
+        "batch": "form-remove-saved-value-for-this-field",
+        "batchScore": 0.76
+      },
+      "bold": {
+        "catalog": "bottom-sheet",
+        "score": 0.897,
+        "batch": "browser-default-opening-width",
+        "batchScore": 0.7973
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "calendar-drag-event-keep-duration": {
+      "light": {
+        "catalog": "calendar-event-reminder-before-travel",
+        "score": 0.8607,
+        "batch": "notification-hide-app-count",
+        "batchScore": 0.7357
+      },
+      "bold": {
+        "catalog": "calendar-event-reminder-before-travel",
+        "score": 0.8878,
+        "batch": "password-fill-username-only",
+        "batchScore": 0.7854
+      },
+      "reason": "Calendar and arrow are too close to calendar-event-reminder-before-travel"
+    }
+  }
+}

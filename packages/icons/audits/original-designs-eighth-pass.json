@@ -1,0 +1,362 @@
+{
+  "baseline": 13123,
+  "candidates": 24,
+  "added": 12,
+  "active": 13135,
+  "review": {
+    "light": 0.88,
+    "bold": 0.92
+  },
+  "accepted": {
+    "editor-invert-text-selection": {
+      "light": {
+        "catalog": "dev-log-correlation-lines",
+        "score": 0.8259,
+        "batch": "search-exclude-one-folder",
+        "batchScore": 0.6774
+      },
+      "bold": {
+        "catalog": "dev-log-correlation-lines",
+        "score": 0.8534,
+        "batch": "search-exclude-one-folder",
+        "batchScore": 0.714
+      }
+    },
+    "editor-copy-visible-rows-only": {
+      "light": {
+        "catalog": "wallet-show-expiring-balance-first",
+        "score": 0.8687,
+        "batch": "table-copy-row-with-headers",
+        "batchScore": 0.9305
+      },
+      "bold": {
+        "catalog": "browser-clear-data-only-for-this-site",
+        "score": 0.887,
+        "batch": "table-copy-row-with-headers",
+        "batchScore": 0.9374
+      }
+    },
+    "image-feather-mask-edge": {
+      "light": {
+        "catalog": "chat-pin",
+        "score": 0.764,
+        "batch": "chats-download-only-original-photos",
+        "batchScore": 0.7568
+      },
+      "bold": {
+        "catalog": "filter-preset-remove",
+        "score": 0.8068,
+        "batch": "table-copy-row-with-headers",
+        "batchScore": 0.7883
+      }
+    },
+    "screenshot-include-pointer": {
+      "light": {
+        "catalog": "automation-run-dry",
+        "score": 0.8057,
+        "batch": "forms-undo-last-autofilled-field",
+        "batchScore": 0.6572
+      },
+      "bold": {
+        "catalog": "focus",
+        "score": 0.8588,
+        "batch": "design-lock-resize-aspect",
+        "batchScore": 0.6267
+      }
+    },
+    "share-show-presenter-video-only": {
+      "light": {
+        "catalog": "tv-play",
+        "score": 0.8733,
+        "batch": "finance-compare-expected-and-actual-payment",
+        "batchScore": 0.7587
+      },
+      "bold": {
+        "catalog": "heart-rate-monitor",
+        "score": 0.8731,
+        "batch": "table-copy-row-with-headers",
+        "batchScore": 0.7513
+      }
+    },
+    "editor-move-selection-without-format": {
+      "light": {
+        "catalog": "congruent-to",
+        "score": 0.7,
+        "batch": "media-mix-system-and-mic",
+        "batchScore": 0.583
+      },
+      "bold": {
+        "catalog": "schedule",
+        "score": 0.8089,
+        "batch": "editor-open-page-thumbnails",
+        "batchScore": 0.6247
+      }
+    },
+    "search-exclude-one-folder": {
+      "light": {
+        "catalog": "super-intelligence-folder",
+        "score": 0.8003,
+        "batch": "download-open-containing-folder",
+        "batchScore": 0.8326
+      },
+      "bold": {
+        "catalog": "super-intelligence-folder",
+        "score": 0.8998,
+        "batch": "download-open-containing-folder",
+        "batchScore": 0.8504
+      }
+    },
+    "accessibility-read-linked-text-after-label": {
+      "light": {
+        "catalog": "brand-printables",
+        "score": 0.7121,
+        "batch": "editor-move-selection-without-format",
+        "batchScore": 0.5265
+      },
+      "bold": {
+        "catalog": "cloud-sync",
+        "score": 0.8231,
+        "batch": "editor-move-selection-without-format",
+        "batchScore": 0.5952
+      }
+    },
+    "document-mark-signature-location": {
+      "light": {
+        "catalog": "permission-read-only",
+        "score": 0.8033,
+        "batch": "document-export-annotations-only",
+        "batchScore": 0.8395
+      },
+      "bold": {
+        "catalog": "file-open-show-default-app",
+        "score": 0.892,
+        "batch": "document-export-annotations-only",
+        "batchScore": 0.8532
+      }
+    },
+    "finance-compare-expected-and-actual-payment": {
+      "light": {
+        "catalog": "input-autofill-suggestion",
+        "score": 0.8488,
+        "batch": "share-show-presenter-video-only",
+        "batchScore": 0.7587
+      },
+      "bold": {
+        "catalog": "view-structure-up",
+        "score": 0.8491,
+        "batch": "export-preserve-transparent-background",
+        "batchScore": 0.8223
+      }
+    },
+    "cursor-snap-to-ruler-mark": {
+      "light": {
+        "catalog": "row-remove",
+        "score": 0.8129,
+        "batch": "table-copy-row-with-headers",
+        "batchScore": 0.7271
+      },
+      "bold": {
+        "catalog": "block-eight",
+        "score": 0.8851,
+        "batch": "finance-compare-expected-and-actual-payment",
+        "batchScore": 0.6886
+      }
+    },
+    "media-mix-system-and-mic": {
+      "light": {
+        "catalog": "ramekin",
+        "score": 0.7892,
+        "batch": "editor-invert-text-selection",
+        "batchScore": 0.6472
+      },
+      "bold": {
+        "catalog": "access-voice-navigation",
+        "score": 0.8286,
+        "batch": "export-preserve-transparent-background",
+        "batchScore": 0.7167
+      }
+    }
+  },
+  "excluded": {
+    "table-copy-row-with-headers": {
+      "light": {
+        "catalog": "settings-workspace-lock",
+        "score": 0.8747,
+        "batch": "editor-copy-visible-rows-only",
+        "batchScore": 0.9305
+      },
+      "bold": {
+        "catalog": "browser-clear-data-only-for-this-site",
+        "score": 0.8921,
+        "batch": "editor-copy-visible-rows-only",
+        "batchScore": 0.9374
+      },
+      "reason": "Too close to editor-copy-visible-rows-only in both line and filled styles"
+    },
+    "design-lock-resize-aspect": {
+      "light": {
+        "catalog": "brick-wall-fire",
+        "score": 0.8179,
+        "batch": "editor-copy-visible-rows-only",
+        "batchScore": 0.8139
+      },
+      "bold": {
+        "catalog": "fingerprint-window",
+        "score": 0.8454,
+        "batch": "editor-copy-visible-rows-only",
+        "batchScore": 0.8249
+      },
+      "reason": "Existing concept: image-aspect-lock and layout-aspect-ratio-canvas"
+    },
+    "document-export-annotations-only": {
+      "light": {
+        "catalog": "file-open-show-default-app",
+        "score": 0.9108,
+        "batch": "document-mark-signature-location",
+        "batchScore": 0.8395
+      },
+      "bold": {
+        "catalog": "file-open-show-default-app",
+        "score": 0.9071,
+        "batch": "document-mark-signature-location",
+        "batchScore": 0.8532
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "forms-undo-last-autofilled-field": {
+      "light": {
+        "catalog": "form-remove-saved-value-for-this-field",
+        "score": 0.8701,
+        "batch": "calendar-show-gaps-between-events",
+        "batchScore": 0.7737
+      },
+      "bold": {
+        "catalog": "form-remove-saved-value-for-this-field",
+        "score": 0.9158,
+        "batch": "editor-open-page-thumbnails",
+        "batchScore": 0.7733
+      },
+      "reason": "At 20 pixels it is too close to form-remove-saved-value-for-this-field"
+    },
+    "calendar-show-gaps-between-events": {
+      "light": {
+        "catalog": "calendar-reschedule",
+        "score": 0.9135,
+        "batch": "editor-open-page-thumbnails",
+        "batchScore": 0.7903
+      },
+      "bold": {
+        "catalog": "calendar-todo",
+        "score": 0.9559,
+        "batch": "editor-open-page-thumbnails",
+        "batchScore": 0.7985
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "browser-preview-open-file-before-downloading": {
+      "light": {
+        "catalog": "wallet-show-expiring-balance-first",
+        "score": 0.9193,
+        "batch": "editor-copy-visible-rows-only",
+        "batchScore": 0.8834
+      },
+      "bold": {
+        "catalog": "browser-clear-data-only-for-this-site",
+        "score": 0.9133,
+        "batch": "editor-copy-visible-rows-only",
+        "batchScore": 0.8806
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "devices-route-stereo-to-one-ear": {
+      "light": {
+        "catalog": "u-turn",
+        "score": 0.7618,
+        "batch": "document-export-annotations-only",
+        "batchScore": 0.7037
+      },
+      "bold": {
+        "catalog": "search-filter",
+        "score": 0.8162,
+        "batch": "document-mark-signature-location",
+        "batchScore": 0.7182
+      },
+      "reason": "Both earpieces are emphasized equally; the one-ear setting is unclear"
+    },
+    "editor-open-page-thumbnails": {
+      "light": {
+        "catalog": "navigation-side-rail",
+        "score": 0.9068,
+        "batch": "export-preserve-transparent-background",
+        "batchScore": 0.8085
+      },
+      "bold": {
+        "catalog": "navigation-side-rail",
+        "score": 0.9588,
+        "batch": "export-preserve-transparent-background",
+        "batchScore": 0.8346
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "chats-download-only-original-photos": {
+      "light": {
+        "catalog": "photo-export-before-and-after",
+        "score": 0.869,
+        "batch": "image-feather-mask-edge",
+        "batchScore": 0.7568
+      },
+      "bold": {
+        "catalog": "photo-keep-original-when-exporting",
+        "score": 0.9213,
+        "batch": "image-feather-mask-edge",
+        "batchScore": 0.7769
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "download-open-containing-folder": {
+      "light": {
+        "catalog": "browser-import-bookmarks",
+        "score": 0.7701,
+        "batch": "search-exclude-one-folder",
+        "batchScore": 0.8326
+      },
+      "bold": {
+        "catalog": "super-intelligence-folder",
+        "score": 0.8185,
+        "batch": "search-exclude-one-folder",
+        "batchScore": 0.8504
+      },
+      "reason": "The flag shape does not clearly indicate opening the folder"
+    },
+    "export-preserve-transparent-background": {
+      "light": {
+        "catalog": "film-contact-sheet",
+        "score": 0.9538,
+        "batch": "editor-open-page-thumbnails",
+        "batchScore": 0.8085
+      },
+      "bold": {
+        "catalog": "ludo-board",
+        "score": 0.9672,
+        "batch": "editor-open-page-thumbnails",
+        "batchScore": 0.8346
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "browser-replace-preview-image": {
+      "light": {
+        "catalog": "credit-card-minus",
+        "score": 0.9068,
+        "batch": "calendar-show-gaps-between-events",
+        "batchScore": 0.7476
+      },
+      "bold": {
+        "catalog": "support-queue-priority",
+        "score": 0.865,
+        "batch": "table-copy-row-with-headers",
+        "batchScore": 0.7922
+      },
+      "reason": "Close visual match in the catalog"
+    }
+  }
+}

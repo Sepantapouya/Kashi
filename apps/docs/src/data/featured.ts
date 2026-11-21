@@ -16,7 +16,7 @@ export const featured: {
 } = {
   since: "2.11",
   href: "/docs/icons/",
-  title: "۱۳٬۰۰۰ آیکون؛ React، Vue و Svelte",
+  title: "۱۳٬۶۳۵ آیکون؛ React، Vue و Svelte",
   text: "۱۰۰۰ طرح بازبینی‌شده در شش سبک با جستجوی فارسی و انگلیسی.",
   art: "icons",
 };

@@ -1,0 +1,358 @@
+{
+  "baseline": 13021,
+  "candidates": 24,
+  "added": 16,
+  "active": 13037,
+  "review": {
+    "light": 0.88,
+    "bold": 0.92
+  },
+  "accepted": {
+    "compose-as-alias": {
+      "light": {
+        "catalog": "mail-receive-01",
+        "score": 0.8585,
+        "batch": "browser-restore-window-tabs",
+        "batchScore": 0.736
+      },
+      "bold": {
+        "catalog": "income",
+        "score": 0.8202,
+        "batch": "browser-restore-window-tabs",
+        "batchScore": 0.7523
+      }
+    },
+    "settings-apply-once": {
+      "light": {
+        "catalog": "device-computer-camera-2",
+        "score": 0.8712,
+        "batch": "cart-price-freeze",
+        "batchScore": 0.6476
+      },
+      "bold": {
+        "catalog": "feature-rollout-toggle",
+        "score": 0.8972,
+        "batch": "cart-price-freeze",
+        "batchScore": 0.7027
+      }
+    },
+    "compare-receipt-to-total": {
+      "light": {
+        "catalog": "print-duplex-long-edge",
+        "score": 0.805,
+        "batch": "order-delivery-use-entrance",
+        "batchScore": 0.7745
+      },
+      "bold": {
+        "catalog": "out-of-office-scheduled",
+        "score": 0.8563,
+        "batch": "order-delivery-use-entrance",
+        "batchScore": 0.7723
+      }
+    },
+    "cart-price-freeze": {
+      "light": {
+        "catalog": "shop-cart-deep-basket",
+        "score": 0.8616,
+        "batch": "settings-apply-once",
+        "batchScore": 0.6476
+      },
+      "bold": {
+        "catalog": "shop-cart-deep-basket",
+        "score": 0.879,
+        "batch": "settings-apply-once",
+        "batchScore": 0.7027
+      }
+    },
+    "store-credit-first": {
+      "light": {
+        "catalog": "settings-workspace",
+        "score": 0.8406,
+        "batch": "fill-only-empty-fields",
+        "batchScore": 0.7906
+      },
+      "bold": {
+        "catalog": "mail-validation-01",
+        "score": 0.8752,
+        "batch": "compose-as-alias",
+        "batchScore": 0.7417
+      }
+    },
+    "move-form-field-down": {
+      "light": {
+        "catalog": "stationery-pencil-sharpener-crank",
+        "score": 0.8609,
+        "batch": "fill-only-empty-fields",
+        "batchScore": 0.7454
+      },
+      "bold": {
+        "catalog": "between-horizontal-start",
+        "score": 0.8673,
+        "batch": "fill-only-empty-fields",
+        "batchScore": 0.7179
+      }
+    },
+    "repeat-current-sentence": {
+      "light": {
+        "catalog": "drop-down-list",
+        "score": 0.8043,
+        "batch": "unread-next-in-thread",
+        "batchScore": 0.6722
+      },
+      "bold": {
+        "catalog": "drop-down-list",
+        "score": 0.8502,
+        "batch": "phone-reading-position",
+        "batchScore": 0.6531
+      }
+    },
+    "unread-next-in-thread": {
+      "light": {
+        "catalog": "caption-track-download",
+        "score": 0.7967,
+        "batch": "store-credit-first",
+        "batchScore": 0.7341
+      },
+      "bold": {
+        "catalog": "playback-queue-add",
+        "score": 0.8052,
+        "batch": "compare-receipt-to-total",
+        "batchScore": 0.6651
+      }
+    },
+    "compress-images-in-message": {
+      "light": {
+        "catalog": "smart-meter",
+        "score": 0.8735,
+        "batch": "fill-only-empty-fields",
+        "batchScore": 0.7128
+      },
+      "bold": {
+        "catalog": "text-box",
+        "score": 0.8602,
+        "batch": "browser-restore-window-tabs",
+        "batchScore": 0.7384
+      }
+    },
+    "forward-original-attachment": {
+      "light": {
+        "catalog": "brand-wechat",
+        "score": 0.755,
+        "batch": "copy-link-without-tracking",
+        "batchScore": 0.6516
+      },
+      "bold": {
+        "catalog": "rotate-3d",
+        "score": 0.7908,
+        "batch": "copy-link-without-tracking",
+        "batchScore": 0.698
+      }
+    },
+    "media-resume-after-call": {
+      "light": {
+        "catalog": "bias-tape-maker",
+        "score": 0.7813,
+        "batch": "move-form-field-down",
+        "batchScore": 0.6289
+      },
+      "bold": {
+        "catalog": "fast-forward",
+        "score": 0.8667,
+        "batch": "battery-pause-until-morning",
+        "batchScore": 0.6741
+      }
+    },
+    "rename-and-keep-extension": {
+      "light": {
+        "catalog": "file-staff-one",
+        "score": 0.8328,
+        "batch": "export-only-current-page",
+        "batchScore": 0.7394
+      },
+      "bold": {
+        "catalog": "doc-magnifying-glass",
+        "score": 0.9018,
+        "batch": "export-only-current-page",
+        "batchScore": 0.761
+      }
+    },
+    "fill-only-empty-fields": {
+      "light": {
+        "catalog": "kitchen-double-basket-fryer",
+        "score": 0.8749,
+        "batch": "browser-restore-window-tabs",
+        "batchScore": 0.8072
+      },
+      "bold": {
+        "catalog": "network-tree",
+        "score": 0.8612,
+        "batch": "browser-restore-window-tabs",
+        "batchScore": 0.7502
+      }
+    },
+    "export-only-current-page": {
+      "light": {
+        "catalog": "permission-read-only",
+        "score": 0.7923,
+        "batch": "rename-and-keep-extension",
+        "batchScore": 0.7394
+      },
+      "bold": {
+        "catalog": "file-access-request-gate",
+        "score": 0.8048,
+        "batch": "rename-and-keep-extension",
+        "batchScore": 0.761
+      }
+    },
+    "browser-restore-window-tabs": {
+      "light": {
+        "catalog": "pack-padded-mailer",
+        "score": 0.8464,
+        "batch": "fill-only-empty-fields",
+        "batchScore": 0.8072
+      },
+      "bold": {
+        "catalog": "fingerprint-window",
+        "score": 0.8819,
+        "batch": "compose-as-alias",
+        "batchScore": 0.7523
+      }
+    },
+    "location-share-coordinates-only": {
+      "light": {
+        "catalog": "map-pin-plus",
+        "score": 0.8314,
+        "batch": "phone-reading-position",
+        "batchScore": 0.623
+      },
+      "bold": {
+        "catalog": "zoom-in",
+        "score": 0.8108,
+        "batch": "phone-reading-position",
+        "batchScore": 0.6827
+      }
+    }
+  },
+  "excluded": {
+    "copy-link-without-tracking": {
+      "light": {
+        "catalog": "link-check",
+        "score": 0.7622,
+        "batch": "forward-original-attachment",
+        "batchScore": 0.6516
+      },
+      "bold": {
+        "catalog": "dew",
+        "score": 0.7585,
+        "batch": "forward-original-attachment",
+        "batchScore": 0.698
+      },
+      "reason": "Minus mark does not distinguish removal of tracking from removing the link"
+    },
+    "phone-reading-position": {
+      "light": {
+        "catalog": "smart-lock",
+        "score": 0.9167,
+        "batch": "location-share-coordinates-only",
+        "batchScore": 0.623
+      },
+      "bold": {
+        "catalog": "rehab-hand-grip-dynamometer",
+        "score": 0.9333,
+        "batch": "location-share-coordinates-only",
+        "batchScore": 0.6827
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "quote-selected-words": {
+      "light": {
+        "catalog": "touch-target-size",
+        "score": 0.9033,
+        "batch": "compress-images-in-message",
+        "batchScore": 0.6216
+      },
+      "bold": {
+        "catalog": "healthy-recognition",
+        "score": 0.9079,
+        "batch": "compress-images-in-message",
+        "batchScore": 0.6491
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "hide-image-location": {
+      "light": {
+        "catalog": "brand-chatbot",
+        "score": 0.8056,
+        "batch": "compose-as-alias",
+        "batchScore": 0.7063
+      },
+      "bold": {
+        "catalog": "pack-folding-lid-box",
+        "score": 0.8085,
+        "batch": "compose-as-alias",
+        "batchScore": 0.7282
+      },
+      "reason": "Existing concept: photo-remove-location-metadata"
+    },
+    "order-delivery-use-entrance": {
+      "light": {
+        "catalog": "out-of-office-scheduled",
+        "score": 0.8007,
+        "batch": "compare-receipt-to-total",
+        "batchScore": 0.7745
+      },
+      "bold": {
+        "catalog": "delivery-instructions",
+        "score": 0.7689,
+        "batch": "compare-receipt-to-total",
+        "batchScore": 0.7723
+      },
+      "reason": "Existing concept: delivery-doorstep-drop"
+    },
+    "battery-pause-until-morning": {
+      "light": {
+        "catalog": "camcorder",
+        "score": 0.7973,
+        "batch": "forward-original-attachment",
+        "batchScore": 0.5944
+      },
+      "bold": {
+        "catalog": "car-engine",
+        "score": 0.8678,
+        "batch": "media-resume-after-call",
+        "batchScore": 0.6741
+      },
+      "reason": "Pause form does not convey the morning condition"
+    },
+    "preview-webcam-without-joining": {
+      "light": {
+        "catalog": "message-two-dialog-panels",
+        "score": 0.796,
+        "batch": "store-credit-first",
+        "batchScore": 0.6159
+      },
+      "bold": {
+        "catalog": "heating-pad",
+        "score": 0.7859,
+        "batch": "move-form-field-down",
+        "batchScore": 0.6139
+      },
+      "reason": "Check mark reads as camera approved, without conveying preview"
+    },
+    "withdraw-reaction-history": {
+      "light": {
+        "catalog": "smile",
+        "score": 0.8861,
+        "batch": "fill-only-empty-fields",
+        "batchScore": 0.6018
+      },
+      "bold": {
+        "catalog": "restaurant-portion-small",
+        "score": 0.8455,
+        "batch": "store-credit-first",
+        "batchScore": 0.6396
+      },
+      "reason": "Close visual match in the catalog"
+    }
+  }
+}

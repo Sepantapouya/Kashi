@@ -1,0 +1,331 @@
+{
+  "baseline": 13080,
+  "candidates": 22,
+  "added": 13,
+  "active": 13093,
+  "review": {
+    "light": 0.88,
+    "bold": 0.92
+  },
+  "accepted": {
+    "keyboard-dismiss-suggestions": {
+      "light": {
+        "catalog": "employee-work-anniversary",
+        "score": 0.8515,
+        "batch": "calendar-preview-event-without-opening",
+        "batchScore": 0.6721
+      },
+      "bold": {
+        "catalog": "layout-header",
+        "score": 0.9109,
+        "batch": "layout-show-gap-size",
+        "batchScore": 0.7959
+      }
+    },
+    "text-expand-one-abbreviation": {
+      "light": {
+        "catalog": "dev-schema-field-deprecation",
+        "score": 0.7401,
+        "batch": "layout-show-gap-size",
+        "batchScore": 0.6526
+      },
+      "bold": {
+        "catalog": "notice-notification-rollup-window",
+        "score": 0.7797,
+        "batch": "layout-show-gap-size",
+        "batchScore": 0.6798
+      }
+    },
+    "text-swap-selected-lines": {
+      "light": {
+        "catalog": "chat-thread-unread-anchor",
+        "score": 0.8368,
+        "batch": "image-lock-crop-center",
+        "batchScore": 0.5274
+      },
+      "bold": {
+        "catalog": "editor-keep-heading-with-next",
+        "score": 0.8531,
+        "batch": "layout-show-gap-size",
+        "batchScore": 0.6536
+      }
+    },
+    "image-export-current-crop": {
+      "light": {
+        "catalog": "crop",
+        "score": 0.8102,
+        "batch": "image-lock-crop-center",
+        "batchScore": 0.8403
+      },
+      "bold": {
+        "catalog": "crop",
+        "score": 0.8542,
+        "batch": "image-lock-crop-center",
+        "batchScore": 0.8617
+      }
+    },
+    "playlist-remove-played-items": {
+      "light": {
+        "catalog": "editor-paragraph-drop-cap",
+        "score": 0.8275,
+        "batch": "calendar-preview-event-without-opening",
+        "batchScore": 0.6561
+      },
+      "bold": {
+        "catalog": "align-justify",
+        "score": 0.8838,
+        "batch": "calendar-preview-event-without-opening",
+        "batchScore": 0.7411
+      }
+    },
+    "video-seek-to-next-caption": {
+      "light": {
+        "catalog": "subtitles-ai",
+        "score": 0.8614,
+        "batch": "photo-keep-original-when-exporting",
+        "batchScore": 0.7888
+      },
+      "bold": {
+        "catalog": "subtitles-ai",
+        "score": 0.8491,
+        "batch": "meeting-share-captions-separately",
+        "batchScore": 0.7835
+      }
+    },
+    "audio-mute-voice-feedback": {
+      "light": {
+        "catalog": "identity-physical-key-nfc",
+        "score": 0.7338,
+        "batch": "layout-show-gap-size",
+        "batchScore": 0.5861
+      },
+      "bold": {
+        "catalog": "send-2",
+        "score": 0.7603,
+        "batch": "meeting-share-captions-separately",
+        "batchScore": 0.667
+      }
+    },
+    "meeting-share-captions-separately": {
+      "light": {
+        "catalog": "view-structure-up",
+        "score": 0.8156,
+        "batch": "photo-keep-original-when-exporting",
+        "batchScore": 0.8339
+      },
+      "bold": {
+        "catalog": "diploma",
+        "score": 0.8309,
+        "batch": "photo-keep-original-when-exporting",
+        "batchScore": 0.8546
+      }
+    },
+    "account-limit-login-to-one-device": {
+      "light": {
+        "catalog": "dental-care",
+        "score": 0.8231,
+        "batch": "photo-keep-original-when-exporting",
+        "batchScore": 0.7463
+      },
+      "bold": {
+        "catalog": "tool-hacksaw-compact-frame",
+        "score": 0.8292,
+        "batch": "photo-keep-original-when-exporting",
+        "batchScore": 0.7495
+      }
+    },
+    "device-inspect-wifi-before-switch": {
+      "light": {
+        "catalog": "wifi-disconnected-01",
+        "score": 0.8074,
+        "batch": "image-lock-crop-center",
+        "batchScore": 0.5828
+      },
+      "bold": {
+        "catalog": "wifi-sync",
+        "score": 0.8802,
+        "batch": "layout-show-gap-size",
+        "batchScore": 0.6234
+      }
+    },
+    "calendar-preview-event-without-opening": {
+      "light": {
+        "catalog": "calendar-agenda-split-page",
+        "score": 0.8679,
+        "batch": "browser-switch-to-existing-tab-instance",
+        "batchScore": 0.7362
+      },
+      "bold": {
+        "catalog": "mail-validation-01",
+        "score": 0.9007,
+        "batch": "browser-switch-to-existing-tab-instance",
+        "batchScore": 0.8001
+      }
+    },
+    "compose-copy-signature-only": {
+      "light": {
+        "catalog": "mail-ask-for-reply",
+        "score": 0.8664,
+        "batch": "photo-keep-original-when-exporting",
+        "batchScore": 0.8232
+      },
+      "bold": {
+        "catalog": "mail-ask-for-reply",
+        "score": 0.8794,
+        "batch": "photo-keep-original-when-exporting",
+        "batchScore": 0.8572
+      }
+    },
+    "photo-keep-original-when-exporting": {
+      "light": {
+        "catalog": "media-auto-hide-controls-delay",
+        "score": 0.8545,
+        "batch": "meeting-share-captions-separately",
+        "batchScore": 0.8339
+      },
+      "bold": {
+        "catalog": "photo-copy-edits-only",
+        "score": 0.8769,
+        "batch": "compose-copy-signature-only",
+        "batchScore": 0.8572
+      }
+    }
+  },
+  "excluded": {
+    "image-lock-crop-center": {
+      "light": {
+        "catalog": "ladder",
+        "score": 0.8214,
+        "batch": "image-export-current-crop",
+        "batchScore": 0.8403
+      },
+      "bold": {
+        "catalog": "crop",
+        "score": 0.8757,
+        "batch": "image-export-current-crop",
+        "batchScore": 0.8617
+      },
+      "reason": "A small ring reads as changing the crop center rather than locking it"
+    },
+    "call-use-same-mic-as-system": {
+      "light": {
+        "catalog": "dictation-auto-punctuation",
+        "score": 0.8435,
+        "batch": "video-seek-to-next-caption",
+        "batchScore": 0.5558
+      },
+      "bold": {
+        "catalog": "dictation-auto-punctuation",
+        "score": 0.8635,
+        "batch": "keyboard-dismiss-suggestions",
+        "batchScore": 0.6413
+      },
+      "reason": "The equals mark is hard to distinguish from dictation-auto-punctuation in the light and bold silhouettes"
+    },
+    "meeting-save-chat-transcript-only": {
+      "light": {
+        "catalog": "unread-next-in-thread",
+        "score": 0.8733,
+        "batch": "meeting-share-captions-separately",
+        "batchScore": 0.7545
+      },
+      "bold": {
+        "catalog": "unread-next-in-thread",
+        "score": 0.9142,
+        "batch": "photo-keep-original-when-exporting",
+        "batchScore": 0.7646
+      },
+      "reason": "Chat and down arrow are too close to unread-next-in-thread at normal icon size"
+    },
+    "browser-switch-to-existing-tab-instance": {
+      "light": {
+        "catalog": "browser-clear-data-only-for-this-site",
+        "score": 0.8827,
+        "batch": "compose-copy-signature-only",
+        "batchScore": 0.778
+      },
+      "bold": {
+        "catalog": "browser-clear-data-only-for-this-site",
+        "score": 0.8925,
+        "batch": "compose-copy-signature-only",
+        "batchScore": 0.8023
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "shopping-compare-price-per-unit": {
+      "light": {
+        "catalog": "brand-saltproject",
+        "score": 0.7082,
+        "batch": "calendar-preview-event-without-opening",
+        "batchScore": 0.5436
+      },
+      "bold": {
+        "catalog": "theater-masks",
+        "score": 0.7785,
+        "batch": "image-lock-crop-center",
+        "batchScore": 0.6077
+      },
+      "reason": "Existing concept: product-unit-price"
+    },
+    "checkout-show-duties-separately": {
+      "light": {
+        "catalog": "compare-receipt-to-total",
+        "score": 0.827,
+        "batch": "table-sticky-first-column-temporarily",
+        "batchScore": 0.7274
+      },
+      "bold": {
+        "catalog": "compare-receipt-to-total",
+        "score": 0.8697,
+        "batch": "calendar-preview-event-without-opening",
+        "batchScore": 0.7439
+      },
+      "reason": "Too close to compare-receipt-to-total at 20 pixels"
+    },
+    "table-sticky-first-column-temporarily": {
+      "light": {
+        "catalog": "layout-x",
+        "score": 0.8849,
+        "batch": "checkout-show-duties-separately",
+        "batchScore": 0.7274
+      },
+      "bold": {
+        "catalog": "chart-cohort",
+        "score": 0.8442,
+        "batch": "calendar-preview-event-without-opening",
+        "batchScore": 0.7471
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "layout-show-gap-size": {
+      "light": {
+        "catalog": "it-data-residency-region",
+        "score": 0.9092,
+        "batch": "calendar-preview-event-without-opening",
+        "batchScore": 0.6895
+      },
+      "bold": {
+        "catalog": "map-courtyard-shortcut",
+        "score": 0.9461,
+        "batch": "keyboard-dismiss-suggestions",
+        "batchScore": 0.7959
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "print-scale-to-printable-region": {
+      "light": {
+        "catalog": "scan-barcode",
+        "score": 0.8785,
+        "batch": "meeting-share-captions-separately",
+        "batchScore": 0.7532
+      },
+      "bold": {
+        "catalog": "screenshot",
+        "score": 0.8989,
+        "batch": "meeting-share-captions-separately",
+        "batchScore": 0.7175
+      },
+      "reason": "The outline and center rectangle are too close to screenshot"
+    }
+  }
+}
