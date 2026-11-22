@@ -1,0 +1,117 @@
+---
+layout: ../../../../layouts/DocsEn.astro
+title: Button
+description: Triggers an action. Seven variants for visual hierarchy, several sizes and an accessible loading state.
+fa: /docs/components/button/
+---
+import Demo from "../../../../components/Demo.astro";
+import Props from "../../../../components/Props.astro";
+import Vars from "../../../../components/Vars.astro";
+import { Button } from "@kashi-ui/react";
+import { ButtonIcons, ButtonExtrasDemo } from "../../../../components/demos";
+
+```tsx
+import { Button } from "@kashi-ui/react";
+```
+
+## Variants
+
+Use only one `primary` button per section of the page. An important second action (such as "Contact sales" next to "Get started") takes `outline`, and every other action takes `secondary` or `tertiary`.
+
+<Demo code={`<Button variant="primary">ذخیره</Button>
+<Button variant="outline">تماس با فروش</Button>
+<Button variant="secondary">پیش‌نمایش</Button>
+<Button variant="tertiary">انصراف</Button>
+<Button variant="link">اطلاعات بیشتر</Button>
+<Button variant="danger">حذف</Button>
+<Button variant="danger-secondary">بایگانی</Button>`}>
+  <Button variant="primary">ذخیره</Button>
+  <Button variant="outline">تماس با فروش</Button>
+  <Button variant="secondary">پیش‌نمایش</Button>
+  <Button variant="tertiary">انصراف</Button>
+  <Button variant="link">اطلاعات بیشتر</Button>
+  <Button variant="danger">حذف</Button>
+  <Button variant="danger-secondary">بایگانی</Button>
+</Demo>
+
+## Sizes
+
+<Demo code={`<Button variant="primary" size="sm">کوچک</Button>
+<Button variant="primary">متوسط</Button>
+<Button variant="primary" size="lg">بزرگ</Button>
+<Button variant="primary" size="xl">خیلی بزرگ</Button>`}>
+  <Button variant="primary" size="sm">کوچک</Button>
+  <Button variant="primary">متوسط</Button>
+  <Button variant="primary" size="lg">بزرگ</Button>
+  <Button variant="primary" size="xl">خیلی بزرگ</Button>
+</Demo>
+
+## With an icon
+
+In RTL, `iconStart` sits on the right and `iconEnd` on the left. Mark directional icons such as arrows with `data-k-mirror` so they flip in RTL.
+
+<Demo example="ButtonIcons" code={`<Button variant="primary" iconStart={<PlusIcon />}>پروژهٔ جدید</Button>
+<Button iconEnd={<ArrowIcon />}>ادامه</Button>
+<Button iconOnly aria-label="جستجو"><SearchIcon /></Button>
+<Button variant="danger-secondary" iconOnly aria-label="حذف"><TrashIcon /></Button>`}>
+  <ButtonIcons />
+</Demo>
+
+## States
+
+<Demo code={`<Button variant="primary" loading>پرداخت</Button>
+<Button disabled>غیرفعال</Button>`}>
+  <Button variant="primary" loading>پرداخت</Button>
+  <Button disabled>غیرفعال</Button>
+</Demo>
+
+## Shape, size and links
+
+With `href` the button becomes a real link (`<a>`). With `as` you can pass your router's link component, such as `as={Link}` in Next.js.
+
+<Demo example="ButtonExtrasDemo" code={`<Button variant="primary" shape="pill">کاملاً گرد</Button>
+<Button shape="square">گوشهٔ کم</Button>
+<Button size="xs">خیلی کوچک</Button>
+<Button href="/docs" variant="link">دکمهٔ لینکی</Button>
+<Button as={Link} href="/pricing">با Link در Next.js</Button>`}>
+  <ButtonExtrasDemo />
+</Demo>
+
+<Props caption="New props" rows={[
+  ["shape", '"default" | "pill" | "square"', '"default"', "Corner shape"],
+  ["size", '"xs" | "sm" | "md" | "lg" | "xl"', '"md"', "The xs size (28 px) was added"],
+  ["href / target / rel", "string", "", "Renders as a link; with disabled, href is removed and aria-disabled is set"],
+  ["as", "ElementType", "", "Any element or component"],
+]} />
+
+## Props
+
+<Props rows={[
+  ["variant", '"primary" | "secondary" | "outline" | "tertiary" | "link" | "danger" | "danger-secondary"', '"secondary"', "Visual style and importance of the action; outline has a brand border, for the second action beside the main button"],
+  ["size", '"sm" | "md" | "lg" | "xl"', '"md"', "Size; heights are 36, 40, 44 and 48 px"],
+  ["loading", "boolean", "false", "Shows a spinner; the button stays focusable but ignores clicks"],
+  ["loadingLabel", "string", '"در حال بارگذاری"', "Text announced by screen readers while loading"],
+  ["iconStart", "ReactNode", "", "Icon at the start of the text"],
+  ["iconEnd", "ReactNode", "", "Icon at the end of the text"],
+  ["iconOnly", "boolean", "false", "Square icon-only button; aria-label is required"],
+  ["block", "boolean", "false", "Full width"],
+]} />
+
+Other `<button>` props such as `onClick`, `type` and `disabled` are supported too. `type` defaults to `"button"` so forms are not submitted by accident.
+
+## CSS variables
+
+<Vars rows={[
+  ["--k-btn-height-{sm,md,lg,xl}", "2.25rem to 3rem × density", "Height of each size"],
+  ["--k-btn-padding-{sm,md,lg,xl}", "0.75rem to 1.25rem × density", "Inner horizontal padding"],
+  ["--k-btn-radius", "var(--k-radius-md)", "Corner radius"],
+  ["--k-btn-font-weight", "600", "Text weight"],
+  ["--k-btn-gap", "var(--k-space-1_5)", "Space between icon and text"],
+]} />
+
+## Accessibility
+
+- While `loading`, `aria-disabled` is used instead of `disabled` so keyboard focus is not lost, and the text "در حال بارگذاری" (loading) is announced with `role="status"`.
+- An `iconOnly` button without `aria-label` warns in development.
+- The minimum touch target is 24×24 px, and the focus ring stays visible in Windows high-contrast mode.
+- To navigate to another page, use a link (`<a class="k-btn">`), not a button.
