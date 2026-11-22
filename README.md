@@ -29,7 +29,24 @@
 
 دیزاین‌سیستم فارسی و متن‌باز — **RTL-first**، **Dark-first**، **دسترس‌پذیر** و **کاملاً قابل‌سفارشی‌سازی**، برای React و هر فریم‌ورک دیگری. با الهام از Untitled UI.
 
-> **In English —** Kashi is an open-source design system for Persian (right-to-left) products: React components, framework-free Web Components, pure-CSS styles, design tokens, a Tailwind preset, 14,000 icons, a Figma kit generated from the code and an MCP server for AI assistants. It ships Persian-specific fields (Jalali date picker, national ID, bank card with bank logos, IBAN, licence plate) and targets WCAG 2.2 AA. Every built-in string also has an English locale: `<KashiProvider locale="en">`. Quick start: `npm i @kashi-ui/react @kashi-ui/css` · [docs](https://kashi.sepantapouya.com) · [releases](https://github.com/Sepantapouya/Kashi/releases).
+## English
+
+Kashi (کاشی) is an open-source design system for Persian (right-to-left) products. It ships React components, framework-free Web Components, pure-CSS styles, design tokens, a Tailwind preset, 14,000 icons, a Figma kit generated from the code, and an MCP server for AI assistants. It includes Persian-specific fields (Jalali date picker, national ID, bank card with bank logos, IBAN, licence plate) and targets WCAG 2.2 AA. Every built-in string also has an English locale.
+
+```bash
+npm i @kashi-ui/react @kashi-ui/css
+```
+
+```tsx
+import "@kashi-ui/css";
+import { Button, KashiProvider } from "@kashi-ui/react";
+
+<KashiProvider locale="en">
+  <Button variant="primary">Sign up</Button>
+</KashiProvider>
+```
+
+[English docs](https://kashi.sepantapouya.com/en/docs/) · [Releases](https://github.com/Sepantapouya/Kashi/releases) · [Contributing](CONTRIBUTING.md)
 
 ## پکیج‌ها
 
