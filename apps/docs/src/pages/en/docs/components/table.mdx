@@ -1,0 +1,113 @@
+---
+layout: ../../../../layouts/DocsEn.astro
+title: Data table
+description: A table with sorting, row selection, numeric columns, an empty state and virtual scrolling.
+fa: /docs/components/table/
+---
+import Demo from "../../../../components/Demo.astro";
+import Props from "../../../../components/Props.astro";
+import { TableDemo, TableExtrasDemo, VirtualTableDemo } from "../../../../components/demos";
+
+```tsx
+import { DataTable } from "@kashi-ui/react";
+```
+
+## Example
+
+Click the "مشتری" (Customer) or "مبلغ" (Amount) column header to sort. Names are sorted in Persian alphabetical order.
+
+<Demo html={false} code={`<DataTable
+  caption="تراکنش‌های اخیر"
+  description="آخرین پرداخت‌های مشتریان در این ماه"
+  rows={transactions}
+  getRowId={(r) => r.id}
+  selectable
+  selected={selected}
+  onSelectedChange={setSelected}
+  defaultSort={{ key: "amount", direction: "descending" }}
+  columns={[
+    { key: "customer", header: "مشتری", sortable: true },
+    { key: "date", header: "تاریخ" },
+    { key: "status", header: "وضعیت", render: (r) => <Badge tone="success" dot>…</Badge> },
+    { key: "amount", header: "مبلغ (تومان)", sortable: true, numeric: true,
+      render: (r) => formatNumber(r.amount) },
+  ]}
+/>`}>
+  <TableDemo client:load />
+</Demo>
+
+## Loading, stripes, sticky header and pagination
+
+Click "بارگذاری دوباره" (Reload) to see the skeleton rows, and click any row to see the click event. Scroll the table: the header stays in place.
+
+<Demo html={false} code={`<DataTable
+  …
+  striped
+  stickyHeader
+  maxHeight="16rem"
+  loading={isLoading ? 4 : false}
+  onRowClick={(row) => open(row)}
+  columns={[
+    { key: "date", header: "تاریخ", hideBelow: "sm" },
+    { key: "status", header: "وضعیت", align: "center" },
+    …
+  ]}
+  footer={<Pagination page={page} total={8} onChange={setPage} />}
+/>`}>
+  <TableExtrasDemo client:load />
+</Demo>
+
+<Props caption="New props" rows={[
+  ["striped", "boolean", "false", "Striped rows"],
+  ["stickyHeader / maxHeight", "boolean / string", "", "Header stays fixed while scrolling"],
+  ["loading", "boolean | number", "false", "Skeleton rows; a number sets the row count"],
+  ["onRowClick", "(row) => void", "", "Row click (clicks on buttons and links inside the row are not handled)"],
+  ["footer", "ReactNode", "", "Content below the table"],
+  ["align / hideBelow / className (column)", "", "", "Alignment, hiding on mobile, class for the cells"],
+  ["classNames", "{ root, table, row, cell, header, footer }", "", "Custom class for each part"],
+]} />
+
+CSS variables: `--k-table-radius`, `--k-table-cell-px`, `--k-table-cell-py`, `--k-table-header-bg`, `--k-table-stripe`, `--k-table-row-hover`.
+
+## Tens of thousands of rows with virtual scrolling
+
+With `virtual`, only the rows in view are rendered, plus a few above and below. Ten thousand or a hundred thousand rows scroll as smoothly as twenty. Sorting, selection and the sticky header work as before, and screen readers announce the total and each row's position through `aria-rowcount` and `aria-rowindex`.
+
+<Demo html={false} code={`<DataTable
+  caption="۱۰٬۰۰۰ سفارش"
+  rows={orders}
+  getRowId={(r) => r.id}
+  columns={columns}
+  virtual
+  maxHeight="22rem"
+/>`}>
+  <VirtualTableDemo client:load />
+</Demo>
+
+- The table height comes from `maxHeight` (default 28rem).
+- Rows must have equal height. The real row height is measured automatically; if your rows have a fixed height, pass it with `virtual={{ rowHeight: 48 }}`.
+- Rows that are not rendered cannot be found with the browser's search (Ctrl+F). If users need to search all rows, put a search field above the table.
+- For data that arrives from the server page by page, [pagination](/docs/components/pagination/) is usually simpler.
+
+## Props
+
+<Props rows={[
+  ["virtual", "boolean | { rowHeight?: number; overscan?: number }", "false", "Virtual scrolling for thousands of rows; overscan is the number of extra rows above and below (default 6)"],
+  ["columns", "Column[]", "", "Columns: key, header, render, sortable, sortValue, numeric, width"],
+  ["rows", "T[]", "", "Rows"],
+  ["getRowId", "(row) => string", "", "Unique ID of each row"],
+  ["caption", "ReactNode", "", "Table title; required, for screen readers"],
+  ["description / hideCaption", "ReactNode / boolean", "", "Description under the title / visually hide the title"],
+  ["selectable", "boolean", "false", "Selection column with a \"select all\" checkbox"],
+  ["selected / onSelectedChange", "string[]", "", "Selected rows"],
+  ["sort / defaultSort / onSortChange", "{ key, direction } | null", "", "Sorting; controlled mode for server-side sorting"],
+  ["empty", "ReactNode", "", "Content for an empty table, for example an EmptyState"],
+  ["compact", "boolean", "false", "Compact rows"],
+]} />
+
+## Accessibility
+
+- A real HTML table with a `<caption>` and `scope="col"` headers, so screen readers can move between cells.
+- The sorted header has `aria-sort`, and sorting is done with a real button.
+- Each row's checkbox gets its own name (`labels.selectRow`), such as "انتخاب تراکنش سارا احمدی" (Select transaction Sara Ahmadi).
+- On narrow screens the table container scrolls horizontally and can be scrolled with the keyboard (Tab).
