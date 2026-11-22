@@ -1,0 +1,517 @@
+---
+layout: ../../../../layouts/DocsEn.astro
+title: Persian input
+description: "One component for all Persian data: national ID, company ID, mobile, landline, card, IBAN, price, postal code, time, licence plate and text with keyboard-layout correction."
+fa: /docs/persian/input/
+---
+import Demo from "../../../../components/Demo.astro";
+import Props from "../../../../components/Props.astro";
+import { PersianInputDemo, CardNumberDemo, IbanDemo, KeyboardFixDemo, LandlineDemo, LegalIdDemo, MobileDemo, NationalIdDemo, PlateDemo, PostalDemo, PriceDemo, TimeDemo } from "../../../../components/demos";
+
+```tsx
+import { PersianInput } from "@kashi-ui/react";
+```
+
+## Example
+
+<Demo html={false} code={`<PersianInput kind="iban" name="iban" />
+<PersianInput kind="price" min={10000} />
+<PersianInput kind="postal" label="کد پستی محل کار" />
+<PersianInput kind="text" label="جستجو" />   {/* با پیشنهاد «sghl» ← «سلام» */}`}>
+  <PersianInputDemo client:load />
+</Demo>
+
+Instead of remembering the names of eleven components, build one field with `kind`. Each kind has its own Persian label, format, validation and error message. The other props are those of the specialised component, and TypeScript suggests them based on `kind`. For example, `showBank` is only allowed for `card` and `iban`.
+
+| kind | Data | Specialised component |
+|---|---|---|
+| `text` | Text with keyboard-layout correction | [KeyboardFixInput](#text) |
+| `national-id` | National ID (کد ملی) | [NationalIdInput](#national-id) |
+| `legal-id` | Company national ID | [LegalIdInput](#legal-id) |
+| `mobile` | Mobile number with operator | [MobileInput](#mobile) |
+| `landline` | Landline with province | [LandlineInput](#landline) |
+| `card` | Card number with bank | [CardNumberInput](#card) |
+| `iban` | IBAN (Sheba) with bank | [IbanInput](#iban) |
+| `price` | Amount in words | [PriceInput](#price) |
+| `postal` | Postal code | [PostalCodeInput](#postal) |
+| `time` | Time | [TimeInput](#time) |
+| `plate` | Car licence plate | [PlateInput](#plate) |
+
+If you give no label, the default label of the kind is used ("شمارهٔ شبا", "کد پستی" and so on). With `aria-label` the label is not shown. The list of labels is in `PERSIAN_INPUT_LABELS`.
+
+## Bundle size
+
+`PersianInput` imports all eleven fields. If a page needs only one, import the specialised component directly to load less code.
+
+<Props rows={[
+  ["kind", '"text" | "national-id" | "legal-id" | "mobile" | "landline" | "card" | "iban" | "price" | "postal" | "time" | "plate"', "", "Kind of data"],
+  ["…", "", "", "Props of the specialised component for that kind"],
+]} />
+
+## Props of each kind
+
+The sections below show the example and the specific props of each kind. Every kind also accepts the `Input` props such as `label`, `hint`, `error`, `required` and `disabled`.
+
+<span id="national-id" class="kind-anchor"></span>
+
+## National ID field
+
+A national ID (کد ملی) field with check-digit validation; it accepts Persian and Latin digits.
+
+```tsx
+<PersianInput kind="national-id" />   // یا مستقیم: <NationalIdInput />
+```
+
+A valid test national ID: `0013542419`. Change the last digit to see the error.
+
+<Demo html={false} code={`<PersianInput kind="national-id"
+  label="کد ملی"
+  name="nationalId"
+  onValueChange={(value, valid) => console.log(value, valid)}
+/>`}>
+  <NationalIdDemo client:load />
+</Demo>
+
+#### Behaviour
+
+- **Digits:** the user can type with a Persian or an English keyboard. The display uses Persian digits (`digits="latin"` for English), but the value is always given to you in English digits.
+- **Limits:** every non-digit character is removed and more than 10 digits are not accepted. On phones, the numeric keyboard opens.
+- **Validation:** the tenth digit is checked with the official check-digit algorithm. The error message shows only after the user leaves the field or completes 10 digits, not while typing.
+- **Forms:** with `name`, the value is submitted in English digits in a hidden field.
+
+> Check-digit validation only shows that the structure of the code is correct, not that it exists. To verify identity, check the code with the official service.
+
+#### Props
+
+<Props rows={[
+  ["value", "string", "", "Controlled value in English digits"],
+  ["defaultValue", "string", '""', "Initial value"],
+  ["onValueChange", "(value: string, valid: boolean) => void", "", "On every change"],
+  ["digits", '"fa" | "latin"', '"fa"', "Script of the displayed digits"],
+  ["invalidMessage", "ReactNode", '"کد ملی معتبر نیست."', "Error message"],
+  ["name", "string", "", "Name of the hidden form field"],
+]} />
+
+All `Input` props such as `label`, `hint`, `error` and `required` are supported too.
+
+#### Without React
+
+```ts
+isValidNationalId("۰۰۱۳۵۴۲۴۱۹"); // true
+isValidNationalId("1111111111"); // false
+```
+
+#### Accessibility
+
+- The error is connected to the field with `aria-invalid` and `aria-describedby`.
+- The field uses `dir="ltr"` so the order of the digits does not shift while typing.
+
+<span id="legal-id" class="kind-anchor"></span>
+
+## Company national ID
+
+The 11-digit national ID of legal entities, with check-digit validation.
+
+```tsx
+<PersianInput kind="legal-id" />   // یا مستقیم: <LegalIdInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="legal-id" label="شناسهٔ ملی شرکت" name="legalId"
+  onValueChange={(value, valid) => …} />`}>
+  <LegalIdDemo client:load />
+</Demo>
+
+The national ID of companies, institutions and organisations has 11 digits, and the last one is a check digit. It is needed in B2B forms, official invoices and seller registration on marketplaces. Persian and English digits are accepted. Without React it is available as `isValidLegalId` from `@kashi-ui/persian`:
+
+```ts
+isValidLegalId("10380284790"); // true
+```
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "Latin digits"],
+  ["onValueChange", "(value: string, valid: boolean) => void", "", ""],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "«شناسهٔ ملی معتبر نیست.»", ""],
+  ["name", "string", "", "Hidden field with 11 Latin digits"],
+]} />
+
+#### Accessibility
+
+The error shows after the user leaves the field or completes 11 digits, and is connected to the field with `aria-describedby`.
+
+<span id="mobile" class="kind-anchor"></span>
+
+## Mobile number
+
+An Iranian mobile number field with automatic +98 conversion, grouping and operator detection.
+
+```tsx
+<PersianInput kind="mobile" />   // یا مستقیم: <MobileInput />
+```
+
+Type or paste the number in any form: `09123456789`, `+98 912 345 6789` or `00989123456789`.
+
+<Demo html={false} code={`<PersianInput kind="mobile"
+  label="شماره موبایل"
+  name="mobile"
+  onValueChange={(mobile, valid, operator) => console.log(mobile, valid, operator)}
+/>`}>
+  <MobileDemo client:load />
+</Demo>
+
+#### Behaviour
+
+- **Normalisation:** `+98`, `0098`, `98` and a number without the leading zero (`912…`) become the standard `09xxxxxxxxx`.
+- **Operator:** MCI (Hamrah-e Avval), Irancell and Rightel are detected from the prefix. Because numbers can be ported between operators, the operator is only a hint.
+- **Keyboard:** on phones the phone keypad opens, and the browser can suggest the saved number.
+
+#### Props
+
+<Props rows={[
+  ["value", "string", "", "Controlled value, in any form"],
+  ["defaultValue", "string", "", "Initial value"],
+  ["onValueChange", "(mobile: string, valid: boolean, operator: string | null) => void", "", "Value in the form 09xxxxxxxxx"],
+  ["digits", '"fa" | "latin"', '"fa"', "Script of the displayed digits"],
+  ["showOperator", "boolean", "true", "Show the operator name"],
+  ["invalidMessage", "ReactNode", '"شماره موبایل معتبر نیست."', "Error message"],
+  ["name", "string", "", "Name of the hidden form field"],
+]} />
+
+#### Without React
+
+```ts
+normalizeMobile("+98 912 345 6789"); // "09123456789"
+getMobileOperator("0935")?.name;     // "ایرانسل"
+formatMobile("09123456789");         // "0912 345 6789"
+```
+
+<span id="landline" class="kind-anchor"></span>
+
+## Landline number
+
+A landline number with area code, grouping and province detection.
+
+```tsx
+<PersianInput kind="landline" />   // یا مستقیم: <LandlineInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="landline" label="تلفن ثابت" name="tel"
+  onValueChange={(value, valid, province) => …} />`}>
+  <LandlineDemo client:load />
+</Demo>
+
++98 and 0098 are converted to 0, and the province name is shown next to the field from the three-digit area code (such as 031 for Isfahan). The area codes of all 31 provinces are in `getLandlineProvince`.
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "For example 02188776655"],
+  ["onValueChange", "(value, valid, province) => void", "", ""],
+  ["showProvince", "boolean", "true", "Province name next to the field"],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "«شمارهٔ تلفن ثابت معتبر نیست.»", ""],
+  ["name", "string", "", "Hidden field with 11 Latin digits"],
+]} />
+
+#### Accessibility
+
+The province name is connected to the field with `aria-describedby`. `autocomplete="tel-national"` and the phone's numeric keypad are enabled.
+
+<span id="card" class="kind-anchor"></span>
+
+## Card number
+
+A bank card number field with automatic grouping, bank detection and Luhn validation.
+
+```tsx
+<PersianInput kind="card" />   // یا مستقیم: <CardNumberInput />
+```
+
+Type the first six digits, for example `603799` or `610433`, to see the bank logo and name.
+
+<Demo html={false} code={`<PersianInput kind="card"
+  label="شماره کارت"
+  name="card"
+  onValueChange={(value, valid, bank) => console.log(value, valid, bank)}
+/>`}>
+  <CardNumberDemo client:load />
+</Demo>
+
+#### Behaviour
+
+- **Grouping:** digits are shown automatically in groups of four. When you edit the middle of the number, the cursor stays in the right place.
+- **Pasting:** a number copied with spaces, hyphens or Persian digits is read correctly too.
+- **Bank detection:** the bank logo and name are detected from the first six digits (BIN). Logos are loaded only when the bank is recognised, so they do not add to the initial bundle ([bank logos](/docs/persian/bank-logos/)). The list of banks may be incomplete; use it only as a hint for the user.
+- **Validation:** the 16-digit number is checked with the Luhn algorithm.
+- **Autofill:** with `autocomplete="cc-number"`, the browser can suggest a saved card.
+
+> This field only formats the number in the browser. A card number is sensitive data; send it only over HTTPS and do not store it unless you need to.
+
+#### Props
+
+<Props rows={[
+  ["value", "string", "", "Controlled value: 16 English digits without spaces"],
+  ["defaultValue", "string", '""', "Initial value"],
+  ["onValueChange", "(value: string, valid: boolean, bank: string | null) => void", "", "On every change"],
+  ["digits", '"fa" | "latin"', '"fa"', "Script of the displayed digits"],
+  ["showBank", "boolean", "true", "Show the bank name"],
+  ["showBankLogo", "boolean", "true", "Show the bank logo (lazy loaded)"],
+  ["invalidMessage", "ReactNode", '"شماره کارت معتبر نیست."', "Error message"],
+  ["name", "string", "", "Name of the hidden form field, with digits and no spaces"],
+]} />
+
+#### Without React
+
+```ts
+formatCardNumber("6037991234567890"); // "6037 9912 3456 7890"
+getBankByCard("603799")?.name;        // "بانک ملی"
+isValidCardNumber("4111 1111 1111 1111"); // true
+```
+
+#### Accessibility
+
+- The bank name is connected to the field with `aria-describedby`, and screen readers read it together with the field.
+- The error shows after the user leaves the field or completes 16 digits, not while typing.
+
+<span id="iban" class="kind-anchor"></span>
+
+## IBAN (Sheba)
+
+An Iranian IBAN (Sheba) field with automatic IR prefix, grouping, bank logo and name, and check-digit validation.
+
+```tsx
+<PersianInput kind="iban" />   // یا مستقیم: <IbanInput />
+```
+
+Type only the digits; "IR" is added automatically. When you type digits 3 to 5 (the bank code), the bank logo and name are shown.
+
+<Demo html={false} code={`<PersianInput kind="iban"
+  label="شماره شبا"
+  name="iban"
+  onValueChange={(iban, valid, bank) => console.log(iban, valid, bank)}
+/>`}>
+  <IbanDemo client:load />
+</Demo>
+
+#### Behaviour
+
+- **Free input:** an IBAN is accepted with or without "IR", with or without spaces, and with Persian or English digits.
+- **Validation:** the check digits are verified with ISO 13616 (remainder 97); any wrong digit or swap of adjacent digits is detected.
+- **Value:** always given to you as `IR` plus 24 digits with no spaces.
+- **Digits:** an IBAN is usually written in English digits; pass `digits="fa"` for Persian digits.
+
+#### Props
+
+<Props rows={[
+  ["value", "string", "", "Controlled IBAN, with or without IR"],
+  ["defaultValue", "string", "", "Initial value"],
+  ["onValueChange", "(iban: string, valid: boolean, bank: string | null) => void", "", "On every change"],
+  ["digits", '"fa" | "latin"', '"latin"', "Script of the displayed digits"],
+  ["showBank", "boolean", "true", "Show the bank name"],
+  ["showBankLogo", "boolean", "true", "Show the bank logo (lazy loaded)"],
+  ["invalidMessage", "ReactNode", '"شماره شبا معتبر نیست."', "Error message"],
+  ["name", "string", "", "Name of the hidden form field with the value IR…"],
+]} />
+
+#### Without React
+
+```ts
+isValidIban("IR06 2960 0000 0010 0324 2000 01");
+getBankByIban("IR..0170...")?.name;   // "بانک ملی"
+formatIban("062960000000100324200001"); // "IR06 2960 0000 0010 0324 2000 01"
+```
+
+#### Accessibility
+
+- The bank name is connected to the field with `aria-describedby`; the logo is decorative (`alt=""`) so screen readers do not read the bank name twice.
+
+<span id="price" class="kind-anchor"></span>
+
+## Price field
+
+An amount field with a Persian thousands separator, a currency unit and the amount shown in words.
+
+```tsx
+<PersianInput kind="price" />   // یا مستقیم: <PriceInput />
+```
+
+The amount in words is shown under the field so the user can be sure they entered the zeros correctly, a common and costly mistake in payments.
+
+<Demo html={false} code={`<PersianInput kind="price"
+  label="مبلغ پرداخت"
+  name="amount"
+  max={500_000_000}
+  onValueChange={(amount) => console.log(amount)}
+/>`}>
+  <PriceDemo client:load />
+</Demo>
+
+#### Behaviour
+
+- **Formatting:** the Persian thousands separator (`٬`) is added while typing, and the cursor stays in place.
+- **In words:** "یک میلیون و دویست و پنجاه هزار تومان" (one million two hundred and fifty thousand tomans). Turn it off with `showWords={false}`.
+- **Unit:** "تومان" (toman) by default; change it with `unit="ریال"` (rial) or any other text.
+- **Value:** a number, or `null` for an empty field. Leading zeros are removed. Up to 15 digits.
+- **Range:** with `min` and `max`, an error message shows after the user leaves the field.
+
+#### Props
+
+<Props rows={[
+  ["value", "number | null", "", "Controlled value"],
+  ["defaultValue", "number | null", "", "Initial value"],
+  ["onValueChange", "(value: number | null) => void", "", "On every change"],
+  ["unit", "ReactNode", '"تومان"', "Currency unit next to the field"],
+  ["showWords", "boolean", "true", "Show the amount in words in the hint text"],
+  ["min / max", "number", "", "Allowed range"],
+  ["rangeMessage", "(min?, max?) => ReactNode", "automatic", "Range error message"],
+  ["digits", '"fa" | "latin"', '"fa"', "Script of the displayed digits"],
+  ["name", "string", "", "Name of the hidden form field with the raw numeric value"],
+]} />
+
+#### Without React
+
+```ts
+numberToWords(1250000); // "یک میلیون و دویست و پنجاه هزار"
+formatNumber(1250000);  // "۱٬۲۵۰٬۰۰۰"
+```
+
+#### Accessibility
+
+- The amount in words is in the hint text and is connected to the field with `aria-describedby`; screen readers read it after the field name.
+- The currency unit is shown next to the field; repeat it in the label if it is needed to understand the field.
+
+<span id="postal" class="kind-anchor"></span>
+
+## Postal code
+
+An Iranian 10-digit postal code in the format 12345-67890, with its rules checked.
+
+```tsx
+<PersianInput kind="postal" />   // یا مستقیم: <PostalCodeInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="postal" label="کد پستی" name="postal"
+  onValueChange={(value, valid) => …} />`}>
+  <PostalDemo client:load />
+</Demo>
+
+Persian and English digits are accepted and the hyphen is added automatically. An Iranian postal code has no 0 or 2 in its first five digits and no four identical digits in a row; `isValidPostalCode` checks these rules. This check does not guarantee that the code really exists.
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "Latin digits"],
+  ["onValueChange", "(value: string, valid: boolean) => void", "", ""],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "«کد پستی معتبر نیست.»", ""],
+  ["name", "string", "", "Hidden field with 10 Latin digits"],
+]} />
+
+#### Accessibility
+
+It has `autocomplete="postal-code"` so the browser can fill it in. The error shows after the user leaves the field or completes 10 digits, not while typing.
+
+<span id="time" class="kind-anchor"></span>
+
+## Time field
+
+24-hour time entry with Persian digits, quick typing and ↑↓ steps.
+
+```tsx
+<PersianInput kind="time" />   // یا مستقیم: <TimeInput />
+```
+
+The user can type "۹۳۰", "۹:۳۰" or "9.30"; after leaving the field it becomes "۰۹:۳۰". <kbd>↑</kbd>/<kbd>↓</kbd> jump to the next or previous step.
+
+<Demo html={false} code={`<PersianInput kind="time" label="ساعت شروع جلسه" min="08:00" max="20:00" value={t} onChange={setT} name="start" />`}>
+  <TimeDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["value / defaultValue", '"HH:MM" | null', "null", "In Latin digits"],
+  ["onChange", "(value: string | null) => void", "", ""],
+  ["step", "number", "15", "↑↓ step in minutes"],
+  ["min / max", '"HH:MM"', "", "Allowed range"],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "", "Message for an invalid time"],
+  ["rangeMessage", "(min, max) => ReactNode", "«ساعت باید بین … و … باشد.»", "Message for a time outside the range"],
+]} />
+
+The `parseTime` and `formatTime` helpers are also available in `@kashi-ui/persian`.
+
+#### Accessibility
+
+A plain text field with a label and hint; unlike `<input type="time">`, it works the same in every browser and with Persian digits. The error shows after the user leaves the field and is connected to it.
+
+<span id="plate" class="kind-anchor"></span>
+
+## Licence plate
+
+Entry of an Iranian car licence plate that looks like the real plate: two digits, a letter, three digits and the province code.
+
+```tsx
+<PersianInput kind="plate" />   // یا مستقیم: <PlateInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="plate" label="پلاک خودرو" name="car"
+  onChange={(plate, valid) => …} />
+// plate = { first: "12", letter: "ب", middle: "345", region: "67" }`}>
+  <PlateDemo client:load />
+</Demo>
+
+The plate has the real 520 by 110 mm proportion, and its colour is set from the letter, like a real plate (`plateType`):
+
+| Letter | Type | Colour |
+|---|---|---|
+| ب, ج, د, س… | Private | White |
+| ت / ع / ک | Taxi / public / agricultural | Yellow |
+| الف | Government | Red |
+| پ / ث | Police / IRGC | Green |
+| ش | Army | Light brown |
+| ز / ف | Ministry of Defence / General Staff | Light blue |
+| ژ | People with disabilities | White |
+
+The height changes with `--k-plate-height` (default 3.5rem) and the width changes in proportion. When a part is full, focus moves to the next part, and <kbd>Backspace</kbd> in an empty part goes back to the previous one. `formatPlate` produces readable text: "۱۲ ب ۳۴۵ ایران ۶۷".
+
+<Props rows={[
+  ["value / defaultValue", "{ first, letter, middle, region }", "", "Latin digits"],
+  ["onChange", "(plate, valid: boolean) => void", "", ""],
+  ["name", "string", "", "Four hidden fields: name_first, name_letter, name_middle, name_region"],
+  ["labels", "{ first?, letter?, middle?, region? }", "", "Name of each part for screen readers"],
+  ["invalidMessage", "ReactNode", "«پلاک خودرو معتبر نیست.»", ""],
+]} />
+
+#### Accessibility
+
+A `role="group"` named "پلاک خودرو" (car licence plate) and four controls, each with its own name ("دو رقم اول پلاک", "حرف پلاک"…). The letter is chosen with a native `<select>`. When the plate is complete and valid, its full text is read with `aria-live`.
+
+<span id="text" class="kind-anchor"></span>
+
+## Keyboard-layout correction
+
+If the user types Persian with an English keyboard layout, it suggests the right form: sghl → سلام.
+
+```tsx
+<PersianInput kind="text" />   // یا مستقیم: <KeyboardFixInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="text" label="جستجو" value={query} onValueChange={setQuery} />`}>
+  <KeyboardFixDemo client:load />
+</Demo>
+
+Persian speakers often forget to switch the keyboard language and type "سلام" as "sghl". This field suggests the Persian form under the field and replaces it with one click. It is most useful for search.
+
+Detection is a heuristic by default (`suggest="auto"`): Latin words with no vowels, or with `;`, `'` and `[` in the middle of a word, are suspicious. To suggest for any Latin text, use `suggest="always"`. The conversion is based on the standard Persian keyboard layout.
+
+```ts
+fixKeyboardLayout("sghl o,fd?");       // "سلام خوبی؟"
+fixKeyboardLayout("لخخلمث", "en");    // "google"
+looksLikeWrongLayout("sghl");          // true
+```
+
+<Props rows={[
+  ["value / defaultValue", "string", "", ""],
+  ["onValueChange", "(value: string) => void", "", ""],
+  ["suggest", '"auto" | "always"', '"auto"', ""],
+  ["renderSuggestion", "(fixed, apply) => ReactNode", "", "Custom suggestion text"],
+]} />
+
+#### Accessibility
+
+The suggestion is in a `role="status"` region so screen readers announce it, and its button is reachable by keyboard. After the replacement, focus returns to the field.
