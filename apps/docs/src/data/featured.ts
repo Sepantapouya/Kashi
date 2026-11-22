@@ -14,9 +14,9 @@ export const featured: {
   /** پیش‌نمایش کوچک داخل کارت */
   art: FeaturedArt;
 } = {
-  since: "2.12",
-  href: "/docs/icons/",
-  title: "۱۴٬۰۰۰ آیکون؛ React، Vue و Svelte",
-  text: "۱٬۰۰۰ طرح دست‌ساز تازه در شش سبک با جستجوی فارسی و انگلیسی.",
+  since: "2.13",
+  href: "/docs/icons/#g-money",
+  title: "آیکون‌های بلک فرایدی",
+  text: "۱۲ طرح دست‌ساز در شش سبک، برای حراج، کوپن و پیشنهادهای فروشگاهی.",
   art: "icons",
 };
