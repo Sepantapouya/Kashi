@@ -26,9 +26,11 @@ const links = [
   { href: "/en/docs/components/", label: "Components", current: path.startsWith("/en/docs/components/") },
   { href: author.repo, label: "GitHub" },
 ];
+// Every English page, listed in the mobile menu (the sidebar is hidden on narrow screens).
+const pages = EN_NAV.map((n) => ({ href: n.href, label: n.title, current: n.href === path }));
 ---
 <Base lang="en" title={fm.title} description={fm.description} seoTitle={fm.seoTitle} alternate={fa}>
-  <EnNav client:load version={pkg.version} fa={fa} links={links} />
+  <EnNav client:load version={pkg.version} fa={fa} links={links} pages={pages} />
   <div class="docs docs--en">
     <aside class="docs__sidebar en-side" aria-label="Documentation">
       <p class="en-side__title">English docs</p>
@@ -62,6 +64,11 @@ const links = [
 
 <style is:global>
   .en-nav { --k-navbar-max-width: 90rem; }
+  .en-menu-pages { margin-block-end: var(--k-space-3); }
+  .en-menu-pages ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+  .en-menu-pages a { display: block; padding: var(--k-space-2) var(--k-space-3); border-radius: var(--k-radius-md); color: var(--k-text-secondary); font-size: var(--k-text-sm); text-decoration: none; }
+  .en-menu-pages a:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+  .en-menu-pages a[aria-current="page"] { background: var(--k-bg-brand-subtle); color: var(--k-text-brand); font-weight: var(--k-weight-semibold); }
   .en-brand { display: inline-flex; align-items: center; gap: 0.5rem; }
   .en-brand__ver { font: 500 0.75rem/1 var(--k-font-mono); color: var(--k-text-quaternary); }
   .docs--en { direction: ltr; }
