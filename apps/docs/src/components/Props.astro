@@ -4,12 +4,16 @@
 import { splitType } from "../lib/split-type";
 
 interface Props { rows: [string, string, string, string][]; caption?: string }
-const { rows, caption = "ویژگی‌ها (props)" } = Astro.props;
+const isEnglish = Astro.url.pathname.startsWith("/en/");
+const labels = isEnglish
+  ? { caption: "Props", name: "Name", description: "Description, type and default", type: "Type: ", default: "Default" }
+  : { caption: "ویژگی‌ها (props)", name: "نام", description: "توضیح، نوع و پیش‌فرض", type: "نوع: ", default: "پیش‌فرض" };
+const { rows, caption = labels.caption } = Astro.props;
 ---
 <div class="table-wrap props" role="region" aria-label={caption} tabindex="0">
   <table class="ref-table props__table">
     <caption class="k-sr-only">{caption}</caption>
-    <thead class="k-sr-only"><tr><th scope="col">نام</th><th scope="col">توضیح، نوع و پیش‌فرض</th></tr></thead>
+    <thead class="k-sr-only"><tr><th scope="col">{labels.name}</th><th scope="col">{labels.description}</th></tr></thead>
     <tbody>
       {rows.map(([name, type, def, desc]) => (
         <tr>
@@ -18,8 +22,8 @@ const { rows, caption = "ویژگی‌ها (props)" } = Astro.props;
             {desc && <p class="props__desc">{desc}</p>}
             {(type || def) && (
               <p class="props__meta">
-                {type && <span class="props__types"><span class="k-sr-only">نوع: </span>{splitType(type).map((t) => <code class="type" dir="ltr">{t}</code>)}</span>}
-                {def && <span class="props__def">پیش‌فرض <code dir="ltr">{def}</code></span>}
+                {type && <span class="props__types"><span class="k-sr-only">{labels.type}</span>{splitType(type).map((t) => <code class="type" dir="ltr">{t}</code>)}</span>}
+                {def && <span class="props__def">{labels.default} <code dir="ltr">{def}</code></span>}
               </p>
             )}
           </td>
