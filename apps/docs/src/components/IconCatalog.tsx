@@ -121,7 +121,7 @@ export function IconCatalog({ fresh }: { fresh?: FreshIcons }) {
                       const list = inCat(c);
                       return (
                         <li key={c}>
-                          <a className="ix-cat" href={withVariant(`/docs/icons/category/${c}/`, variant)}>
+                          <a className={c === "black-friday" ? "ix-cat ix-cat--black-friday" : "ix-cat"} href={withVariant(`/docs/icons/category/${c}/`, variant)}>
                             <span className="ix-cat__preview" aria-hidden="true">
                               {list.slice(0, 12).map((n, i) => <span key={n} style={{ "--i": i } as React.CSSProperties}><Icon name={n} variant={variant} size={22} /></span>)}
                             </span>

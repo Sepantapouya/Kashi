@@ -54,6 +54,7 @@ export const categories = {
   "documents": "اسناد و یادداشت",
   "banking": "بانک و پرداخت",
   "shopping": "خرید",
+  "black-friday": "بلک فرایدی",
   "charts": "نمودار و آمار",
   "time": "ساعت و زمان",
   "security": "امنیت و هویت",
@@ -198,7 +199,7 @@ export const categoryGroups = [
   {"id":"communication","title":"ارتباط","categories":["communication","calls","social","connectivity","chat","support","meetings"]},
   {"id":"media","title":"رسانه","categories":["camera","media","audio","music","photo-editing"]},
   {"id":"tech","title":"فناوری و داده","categories":["development","charts","ai","devices","security","smart-home","design","browser","infrastructure","privacy","hardware","cad","design-tools","device-tools","network-tools"]},
-  {"id":"money","title":"پول و خرید","categories":["banking","shopping","real-estate","checkout","retail","billing"]},
+  {"id":"money","title":"پول و خرید","categories":["banking","shopping","black-friday","real-estate","checkout","retail","billing"]},
   {"id":"place","title":"زمان، مکان و سفر","categories":["time","location","weather","travel","travel-details","transport","space","calendar","traffic","cycling","country-maps","province-maps","city-services"]},
   {"id":"home","title":"خانه و زندگی","categories":["home-life","buildings","kitchen","food","bathroom","laundry","fashion","beauty","kids","smoking","interiors","ingredients","bakery","meals","cleaning","food-service"]},
   {"id":"health","title":"سلامت، ورزش و بازی","categories":["health","sports","gaming","fitness","board-games","medical-care","anatomy"]},
@@ -211,6 +212,56 @@ export const categoryGroups = [
 ];
 
 export const icons = {
+  // طرح‌های اختصاصی بلک فرایدی
+  "black-friday-banner": { title: "پرچم بلک فرایدی", category: "black-friday", keywords: ["black friday", "sale banner", "جمعه سیاه", "پرچم حراج"], body: withBold(
+    '<path d="M2.75 3.5h14.5M5 3.5v11.8c0 .65.6.95 1.15.65L10 13.9l3.85 2.05c.55.3 1.15 0 1.15-.65V3.5M8 11l4-4M8.25 7.25h.01m3.5 3.5h.01"/>',
+    filled("M4.4 4.2h11.2v11.25c0 .9-.95 1.5-1.75 1.05L10 14.45 6.15 16.5c-.8.45-1.75-.15-1.75-1.05Zm3.3 6.65 4.15-4.15 1.05 1.05-4.15 4.15Z" + disk(8.05, 7.25, .87) + disk(11.95, 11.2, .87)) + '<path d="M2.75 3.25h14.5"/>',
+  ) },
+  "black-friday-flash-sale": { title: "حراج برق‌آسا", category: "black-friday", keywords: ["flash sale", "lightning deal", "فروش لحظه‌ای", "تخفیف فوری", "جمعه سیاه"], body: withBold(
+    '<path d="M9.05 4.25h5.35l-2.45 4.4h4.7l-7.35 7.1.8-4.95H6Zm-6.1 2.6H5.1m-2.85 4H4m-.3 4h2.1"/>',
+    filled("M9 3.8h5.95l-2.5 4.45h4.15c.55 0 .75.6.35 1l-7.1 7.1c-.5.5-1.1.05-1-.5l.8-4.6H6.2c-.5 0-.75-.45-.5-.9Z") + '<path d="M2.95 6.85H5.1m-2.85 4H4m-.3 4h2.1"/>',
+  ) },
+  "black-friday-early-access": { title: "ورود زودهنگام به حراج", category: "black-friday", keywords: ["early access", "member presale", "پیش‌فروش اعضا", "ورود ویژه", "جمعه سیاه"], body: withBold(
+    '<path d="M7 17H4V8.15a5 5 0 0 1 10 0V10m-7 6.9V8.15a2 2 0 0 1 2-2m.8 7.45h7.45m-2.45-2.45 2.45 2.45-2.45 2.45"/>',
+    filled("M3.25 8.15a5.75 5.75 0 0 1 11.5 0v1.3h-3.1v-1.3a2.65 2.65 0 0 0-5.3 0v9.6h-3.1Z") + '<path d="M9.2 13.6h8m-2.45-2.45 2.45 2.45-2.45 2.45"/>',
+  ) },
+  "black-friday-sale-deadline": { title: "مهلت پایان حراج", category: "black-friday", keywords: ["sale deadline", "sale countdown", "شمارش معکوس حراج", "آخرین فرصت", "جمعه سیاه"], body: withBold(
+    '<path d="M8.15 2.75h3.7M10 2.75V5m4.3 1.35 1.5-1.45M17.1 11.4a7.1 7.1 0 0 0-14.2 0c0 1.5.5 2.9 1.35 4.05h11.5a6.9 6.9 0 0 0 1.35-4.05ZM10 8.05v3.4l2.7 1.15"/>',
+    filled("M17.8 11.35a7.8 7.8 0 1 0-14.2 4.55h12.8c.9-1.3 1.4-2.85 1.4-4.55ZM9.2 7.45h1.6v3.45l2.5 1.1-.65 1.45-3.45-1.5Z") + '<path d="M8.15 2.65h3.7M10 2.65v1.9m4.45 1.8 1.35-1.4"/>',
+  ) },
+  "black-friday-peel-coupon": { title: "کوپن برچسبیِ حراج", category: "black-friday", keywords: ["peel-off coupon", "coupon sticker", "کوپن چسبی", "استیکر تخفیف", "جمعه سیاه"], body: withBold(
+    '<path d="M3 6.3c0-1.75 1.2-2.8 2.85-2.8h8.3c1.65 0 2.85 1.05 2.85 2.8v4.65l-5.55 5.55h-5.6C4.2 16.5 3 15.45 3 13.7Zm8.45 10.2v-2.9c0-1.65 1.15-2.65 2.7-2.65H17M6.35 11.75l3.65-4m-3.63.25h.01m3.6 3.65h.01"/>',
+    filled("M5.7 2.9h8.6c1.95 0 3.3 1.35 3.3 3.3v3.6h-3.45c-2.3 0-3.8 1.55-3.8 3.8v3.5H5.7c-1.95 0-3.3-1.35-3.3-3.3V6.2c0-1.95 1.35-3.3 3.3-3.3Zm.1 8.7 4.05-4.45 1.12 1.02-4.05 4.45Z" + disk(6.5, 7.7, .8) + disk(9.9, 11.7, .8)) + filled("M11.9 16.8v-3.2c0-1.4.9-2.25 2.25-2.25h3.2Z"),
+  ) },
+  "black-friday-compare-deals": { title: "مقایسهٔ پیشنهادهای حراج", category: "black-friday", keywords: ["compare deals", "compare offers", "مقایسه تخفیف", "مقایسه پیشنهاد", "جمعه سیاه"], body: withBold(
+    '<path d="M3 7h4.2l1.2 1.2v6.5H3Zm8.6-2.5h4.2L17 5.7v9h-5.4ZM4.8 11.8h1.8m6.8-3.5h1.8m-1.8 3.5h1.8M3 17.3h14"/>',
+    filled("M2.6 6.6h4.8l1.45 1.45v7.1H2.6Zm1.45 4.5v1.4H7.4v-1.4Zm7.1-7h4.8l1.45 1.45v9.6h-6.25Zm1.45 3.45v1.4h3.35v-1.4Zm0 3.55v1.4h3.35v-1.4Z") + '<path d="M3 17.3h14"/>',
+  ) },
+  "black-friday-buy-one-get-one": { title: "یکی بخر، دوتا ببر", category: "black-friday", keywords: ["buy one get one", "BOGO", "two for one", "دومی رایگان", "جمعه سیاه"], body: withBold(
+    '<path d="M3 7.25h5.4l.8 8.4H2.2Zm9.05 0h4.9l.85 8.4h-6.6Z"/><path d="M4.1 4.45H7.3m5.8 0h2.8M4.6 10.2h2.2m7.7-.65v3.5m-1.75-1.75h3.5"/>',
+    filled("M3 7h5.4l.95 8.8H2.05Zm.95 2.65v1.4h3.6v-1.4ZM12.05 7h4.9l1 8.8h-6.9Zm1.75 2.2v1.45h-1.45v1.45h1.45v1.45h1.4V12.1h1.45v-1.45H15.2V9.2Z") + '<path d="M4.1 4.45H7.3m5.8 0h2.8"/>',
+  ) },
+  "black-friday-low-stock": { title: "آخرین موجودی حراج", category: "black-friday", keywords: ["last units", "low stock", "موجودی محدود", "آخرین کالاها", "جمعه سیاه"], body: withBold(
+    '<path d="M2.75 12.75h14.5m-13.5 0 .85 3.05h10.8l.85-3.05M4.15 10.05V7.3l2.1-1.3 2.1 1.3v2.75Zm6.95-.85h1.9m2.3 0H17"/>',
+    filled("M2.7 12.25h14.6l-1.1 4.05H3.8Zm1.1-5.1 2.45-1.55L8.7 7.15v3.45H3.8Z") + '<path d="M11.1 9.2H13m2.3 0H17"/>',
+  ) },
+  "black-friday-savings-total": { title: "جمع صرفه‌جویی خرید", category: "black-friday", keywords: ["total savings", "discount total", "مجموع تخفیف‌ها", "مبلغ صرفه‌جویی", "جمعه سیاه"], body: withBold(
+    '<path d="M4 11.2V5.6c0-1.35.9-2.25 2.25-2.25h7.5C15.1 3.35 16 4.25 16 5.6v5.6M7 6.4h6m-6 2.75h3.2"/>' + sq(2.75, 11.2, 14.5, 5.45, 1.7) + '<path d="M8.2 13.95h3.6"/>',
+    filled("M3.55 10V5.6c0-1.6 1.05-2.65 2.65-2.65h7.6c1.6 0 2.65 1.05 2.65 2.65V10ZM6.6 5.45v1.4h6.8v-1.4Zm0 2.3v1.4h4.2v-1.4Z" + sqPath(2.4, 11.3, 15.2, 5.65, 1.8) + "M7.6 13.35v1.55h4.8v-1.55Z"),
+  ) },
+  "black-friday-deal-preview": { title: "پیش‌نمایش حراج", category: "black-friday", keywords: ["sale preview", "deal sneak peek", "رونمایی تخفیف", "پیش‌نمایش تخفیف", "جمعه سیاه"], body: withBold(
+    '<path d="M2.75 4h14.5m-13 0c0 3.6 1.75 6.25 4.25 7.5L4.25 15Zm11.5 0c0 3.6-1.75 6.25-4.25 7.5L15.75 15V4M10 6.6v1.55m-2.1 8.1h4.2"/>',
+    filled("M3.65 4.65h2c.2 2.8 1.5 4.95 3.75 6.35.35.2.35.65.05.9l-5.8 4.15Zm10.7 0h2v11.4l-5.8-4.15c-.3-.25-.3-.7.05-.9 2.25-1.4 3.55-3.55 3.75-6.35Z") + '<path d="M2.75 3.55h14.5M10 6.1v1.65m-2.1 8.5h4.2"/>',
+  ) },
+  "black-friday-gift-with-purchase": { title: "هدیه همراه خرید حراج", category: "black-friday", keywords: ["gift with purchase", "bonus gift", "هدیه اشانتیون", "هدیه همراه سفارش", "جمعه سیاه"], body: withBold(
+    '<path d="M3.65 9.15h12.7l-.95 5.25c-.25 1.5-1.1 2.25-2.55 2.25h-5.7c-1.45 0-2.3-.75-2.55-2.25Zm6.35 0c-4.1 0-5.15-2.4-3.8-3.85 1.2-1.25 3.05.3 3.8 3.85Zm0 0c4.1 0 5.15-2.4 3.8-3.85-1.2-1.25-3.05.3-3.8 3.85Zm0 .2v7.3"/>',
+    filled("M3.25 8.7H9.25v8.55H7.2c-1.75 0-2.9-1-3.2-2.75Zm7.5 0h6l-.75 5.8c-.3 1.75-1.45 2.75-3.2 2.75h-2.05Z") + '<path d="M9.25 8.65C6 8.35 5.1 6.25 6.2 5.15c1.05-1.05 2.45.15 3.05 3.5Zm1.5 0c3.25-.3 4.15-2.4 3.05-3.5-1.05-1.05-2.45.15-3.05 3.5Z"/>',
+  ) },
+  "black-friday-deal-unlocked": { title: "باز شدن تخفیف ویژه", category: "black-friday", keywords: ["deal unlocked", "unlock a discount", "فعال شدن تخفیف", "باز شدن پیشنهاد ویژه", "جمعه سیاه"], body: withBold(
+    '<path d="M7.2 8.3V6.1a3.1 3.1 0 0 1 6.2 0v.25"/>' + sq(2.75, 8.3, 14.5, 8.35, 2.15) + '<path d="m8.05 14.35 3.9-3.9m-3.8.15h.01m3.7 3.65h.01"/>',
+    filled(sqPath(2.35, 8, 15.3, 9, 2.4) + "M7.45 14.2l4.3-4.3 1.05 1.05-4.3 4.3Z" + disk(8.1, 10.5, .82) + disk(11.9, 14.3, .82)) + '<path d="M7.2 8V6.1a3.1 3.1 0 0 1 6.2 0v.25"/>',
+  ) },
+
   // طرح‌های اختصاصی کاشی تا ۱۴٬۰۰۰ آیکون
   "inbox-archive-only-seen-items": {"title":"بایگانی فقط موارد دیده‌شده","category":"communication","keywords":["inbox archive only seen items","بایگانی","فقط","موارد","دیده‌شده"],"body":"<path d=\"M3 13l2-7h10l2 7v4H3Zm0 0h4l1.5 2h3l1.5-2h4M7 9c1.8-2 4.2-2 6 0-1.8 2-4.2 2-6 0Zm3 0h.1\"/>"},
   "inbox-show-messages-outside-folders": {"title":"نمایش پیام‌های بیرون از پوشه‌ها","category":"communication","keywords":["inbox show messages outside folders","نمایش","پیام‌های","بیرون","از","پوشه‌ها"],"body":"<path d=\"M3 6h5l2 2h6v7H3Zm2 3v3h5m2-8h5v2h-5\"/>"},

@@ -74,7 +74,7 @@ export function IconBrowser({ category }: { category: Category }) {
   }, [q, inCat]);
 
   return (
-    <div className="ib">
+    <div className={category === "black-friday" ? "ib ib--black-friday" : "ib"}>
       <div className="ib-bar">
         <div className="ib-bar__search">
           <Input

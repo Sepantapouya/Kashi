@@ -298,6 +298,40 @@
 .ix-cat:hover .ix-cat__preview span { color: var(--k-text-primary); }
 .ix-cat:hover .ix-cat__arrow { color: var(--k-text-brand); }
 
+/* بلک فرایدی در هر دو تم ظاهر تیرهٔ خودش را دارد. */
+.ix-cat--black-friday,
+.ib--black-friday .ib-grid {
+  --bf-gold: #ffe080;
+  --bf-border: #8a6933;
+  --bf-ink: #151311;
+  --bf-glow: radial-gradient(ellipse at 100% 0%, #3a2b17, transparent 73%);
+  border: 1px solid var(--bf-border);
+  border-block-start: 2px solid var(--bf-gold);
+  background: var(--bf-ink);
+}
+.ix-cat--black-friday .ix-cat__preview {
+  color: var(--bf-gold);
+  background: var(--bf-glow), repeating-linear-gradient(135deg, #ffe0800d 0 1px, transparent 1px 10px);
+}
+.ix-cat--black-friday .ix-cat__foot { border-color: #ffe08035; }
+.ix-cat--black-friday .ix-cat__title { color: #fff7e8; }
+.ix-cat--black-friday .ix-cat__count { border-color: var(--bf-border); background: #2b2214; color: var(--bf-gold); }
+.ix-cat--black-friday .ix-cat__arrow { color: var(--bf-gold); }
+.ix-cat--black-friday:hover,
+.ix-cat--black-friday:focus-visible { border-color: var(--bf-gold); }
+.ix-cat--black-friday:hover .ix-cat__preview span,
+.ix-cat--black-friday:hover .ix-cat__arrow { color: #fff7e8; }
+.ib--black-friday .ib-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(8.75rem, 100%), 1fr));
+  padding: var(--k-space-3);
+  border-radius: var(--k-radius-xl);
+  background-image: var(--bf-glow);
+}
+.ib--black-friday .ib-cell { border-color: #493b25; background: #1d1913; color: var(--bf-gold); }
+.ib--black-friday .ib-cell:hover { border-color: var(--bf-gold); background: #282013; }
+.ib--black-friday .ib-cell__title { color: #fff7e8; }
+.ib--black-friday .ib-cell__name { color: #c4b396; }
+
 /* پیوندهای پایان صفحه */
 .ix-next { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-3); }
 .ix-next a { display: flex; align-items: center; gap: var(--k-space-3); padding: var(--k-space-4) var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-secondary); transition: border-color var(--k-duration-fast); }
