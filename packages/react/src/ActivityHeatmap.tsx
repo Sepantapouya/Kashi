@@ -45,7 +45,8 @@ export function ActivityHeatmap({ data, year = toJalali(new Date()).jy, label, u
 
   return (
     <figure ref={box} className={cx("k-heatmap", className)} style={{ margin: 0 }} onPointerLeave={() => setTip(null)}>
-      <div className="k-heatmap__scroll">
+      {/* ناحیهٔ اسکرول با صفحه‌کلید هم پیمایش‌پذیر است (WCAG 2.1.1) */}
+      <div className="k-heatmap__scroll" tabIndex={0} role="region" aria-label={name}>
         <div role="img" aria-label={`${name}: ${num(total)} ${unit}`}>
           <div className="k-heatmap__months" aria-hidden="true">
             {monthStarts.map((m) => <span key={m.name} style={{ gridColumn: m.col + 1 }}>{m.name}</span>)}

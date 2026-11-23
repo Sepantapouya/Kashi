@@ -35,6 +35,9 @@ function niceTicks(max: number, count = 4): number[] {
 
 export interface TipRow { name?: string; value: string; color?: string }
 /** راهنمای شناور مشترک نمودارها؛ x و y نسبت به ظرف نمودار */
+/** هشت رنگ دسته‌ای با ترتیب ثابت (--k-chart-1..8)؛ سری نهم به بعد رنگ خنثی می‌گیرد («سایر») */
+export const chartColor = (i: number) => (i < 8 ? `var(--k-chart-${i + 1})` : "var(--k-text-quaternary)");
+
 export function ChartTip({ x, y, title, rows, width }: { x: number; y: number; title?: ReactNode; rows: TipRow[]; width?: number }) {
   // داخل ظرف بماند
   const cx = width ? Math.min(Math.max(x, 80), width - 80) : x;
@@ -119,7 +122,7 @@ export function BarChart({ title, data, series, labels, format, labelMax = true,
   const ticks = niceTicks(max);
   const top = ticks[ticks.length - 1] || 1;
   const maxIndex = totals.indexOf(max);
-  const color = (i: number) => ({ "--_c": `var(--k-chart-${i + 1})` }) as CSSProperties;
+  const color = (i: number) => ({ "--_c": chartColor(i) }) as CSSProperties;
   const describe = (i: number) =>
     stacked ? `${cats[i]}: ${stacked.map((s) => `${s.name} ${format!(s.values[i] ?? 0)}`).join(M.common.list)}${M.common.list}${M.common.total} ${format!(totals[i])}` : `${cats[i]}: ${format(totals[i])}`;
   const box = useRef<HTMLDivElement>(null);
@@ -174,7 +177,7 @@ export function BarChart({ title, data, series, labels, format, labelMax = true,
             width={box.current?.clientWidth}
             title={cats[tip.i]}
             rows={stacked
-              ? [...stacked.map((s, si) => ({ name: s.name, value: format(s.values[tip.i] ?? 0), color: `var(--k-chart-${si + 1})` })), { name: M.common.total, value: format(totals[tip.i]) }]
+              ? [...stacked.map((s, si) => ({ name: s.name, value: format(s.values[tip.i] ?? 0), color: chartColor(si) })), { name: M.common.total, value: format(totals[tip.i]) }]
               : [{ value: format(totals[tip.i]) }]}
           />
         )}
@@ -256,7 +259,7 @@ export function ProportionBar({ title, data, percent = true, format, className, 
   const parts = data.slice(0, 4);
   const total = parts.reduce((n, d) => n + d.value, 0) || 1;
   const pct = (v: number) => T.pct(v, total);
-  const color = (i: number) => ({ "--_c": `var(--k-chart-${i + 1})` }) as CSSProperties;
+  const color = (i: number) => ({ "--_c": chartColor(i) }) as CSSProperties;
   const box = useRef<HTMLDivElement>(null);
   const [tip, setTip] = useState<Tip>(null);
   if (loading || !data?.length) return <ChartPlaceholder title={title} loading={loading} emptyMessage={emptyMessage} className={className} />;
@@ -276,7 +279,7 @@ export function ProportionBar({ title, data, percent = true, format, className, 
             />
           ))}
         </div>
-        {tip && <ChartTip x={tip.x} y={tip.y} width={box.current?.clientWidth} rows={[{ name: parts[tip.i].label, value: pct(parts[tip.i].value), color: `var(--k-chart-${tip.i + 1})` }, { name: M.chart.count, value: format(parts[tip.i].value) }]} />}
+        {tip && <ChartTip x={tip.x} y={tip.y} width={box.current?.clientWidth} rows={[{ name: parts[tip.i].label, value: pct(parts[tip.i].value), color: chartColor(tip.i) }, { name: M.chart.count, value: format(parts[tip.i].value) }]} />}
       </div>
       <ul className="k-proportion__legend">
         {parts.map((d, i) => (
@@ -324,7 +327,8 @@ export function PieChart({ title, data, variant = "donut", format, totalLabel, s
   const parts = sorted.length > 5 ? [...sorted.slice(0, 4), { label: M.common.other, value: sorted.slice(4).reduce((n, d) => n + d.value, 0) }] : sorted;
   const total = parts.reduce((n, d) => n + d.value, 0) || 1;
   const pct = (v: number) => T.pct(v, total);
-  const slot = (i: number) => (i < 4 ? `var(--k-chart-${i + 1})` : "var(--k-text-quaternary)");
+  // چهار برش رنگی، بقیه در «سایر» با رنگ خنثی جمع می‌شوند
+  const slot = (i: number) => (i < 4 ? chartColor(i) : "var(--k-text-quaternary)");
   const donut = variant === "donut";
   // دایره با stroke-dasharray: هر بخش یک کمان؛ برای pie، شعاع نصف و ضخامت برابر قطر
   const R = 50, r = donut ? 40 : 25, w = donut ? 16 : 50;
@@ -493,7 +497,7 @@ export function LineChart({ title, labels, series, format, area, height, classNa
     return Object.fromEntries(order.map((o) => [o.i, o.y]));
   })();
   const endX = (i: number) => x(i) + (size.rtl ? -8 : 8);
-  const color = (i: number) => ({ "--_c": `var(--k-chart-${i + 1})` }) as CSSProperties;
+  const color = (i: number) => ({ "--_c": chartColor(i) }) as CSSProperties;
 
   const pick = (clientX: number) => {
     const r = plot.current!.getBoundingClientRect();
@@ -567,7 +571,7 @@ export function LineChart({ title, labels, series, format, area, height, classNa
             y={Math.min(...shown.map((s) => y(s.values[active]))) - 6}
             width={size.w}
             title={labels[active]}
-            rows={shown.map((s, si) => ({ name: s.name, value: format(s.values[active]), color: `var(--k-chart-${si + 1})` }))}
+            rows={shown.map((s, si) => ({ name: s.name, value: format(s.values[active]), color: chartColor(si) }))}
           />
         )}
       </div>

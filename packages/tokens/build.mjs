@@ -1,6 +1,7 @@
 // توکن‌ها را از src/tokens.js به CSS، JSON و JS تبدیل می‌کند.
 import { mkdirSync, writeFileSync, copyFileSync, readFileSync } from "node:fs";
 import * as t from "./src/tokens.js";
+import { writeDtcg } from "./dtcg.mjs";
 
 const key = (k) => String(k).replace(".", "_");
 const decls = (prefix, obj) =>
@@ -23,7 +24,10 @@ const primitives = [
   ...decls("duration-", t.motion.duration),
   ...decls("ease-", t.motion.easing),
   ...decls("z-", t.zIndex),
+  ...decls("breakpoint-", t.breakpoint),
 ];
+
+const hc = (name, indent) => decls("", t.contrastThemes[name]).map((d) => indent + d.trim()).join("\n");
 
 const css = `/* @kashi-ui/tokens — این فایل خودکار ساخته شده است */
 :root {
@@ -39,11 +43,36 @@ ${decls("", t.themes.dark).join("\n")}
   color-scheme: light;
 ${decls("", t.themes.light).join("\n")}
 }
+
+/* کنتراست بالا: خودکار با تنظیم سیستم‌عامل، مگر data-contrast="normal" روی ریشه */
+@media (prefers-contrast: more) {
+  :root:not([data-contrast="normal"]),
+  :root:not([data-contrast="normal"]) [data-theme="dark"] {
+${hc("dark", "    ")}
+  }
+  :root:not([data-contrast="normal"])[data-theme="light"],
+  :root:not([data-contrast="normal"]) [data-theme="light"] {
+${hc("light", "    ")}
+  }
+}
+
+/* کنتراست بالا به انتخاب کاربر: data-contrast="more" (بهتر است روی <html>) */
+[data-contrast="more"],
+[data-contrast="more"] [data-theme="dark"],
+[data-theme="dark"] [data-contrast="more"] {
+${hc("dark", "  ")}
+}
+[data-contrast="more"][data-theme="light"],
+[data-contrast="more"] [data-theme="light"],
+[data-theme="light"] [data-contrast="more"] {
+${hc("light", "  ")}
+}
 `;
 
 mkdirSync("dist", { recursive: true });
 writeFileSync("dist/tokens.css", css);
 writeFileSync("dist/tokens.json", JSON.stringify(t, null, 2));
+const dtcgFiles = writeDtcg(t, "dist/dtcg");
 copyFileSync("src/tokens.js", "dist/tokens.js");
 copyFileSync("src/theme.js", "dist/theme.js");
 writeFileSync("dist/index.js", 'export * from "./tokens.js";\nexport { createTheme, brandScale, fontFace, fontStack, FALLBACK_SANS } from "./theme.js";\n');
@@ -53,4 +82,4 @@ writeFileSync(
     .map((name) => `export declare const ${name}: ${JSON.stringify(t[name], null, 2)};`)
     .join("\n\n") + "\n\n" + readFileSync("src/theme.d.ts", "utf8"),
 );
-console.log(`tokens: ${primitives.length} primitives, ${Object.keys(t.themes.dark).length} semantic`);
+console.log(`tokens: ${primitives.length} primitives, ${Object.keys(t.themes.dark).length} semantic, ${dtcgFiles.length} DTCG files`);

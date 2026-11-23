@@ -87,3 +87,8 @@
 .k-color__row .k-input { flex: 1; }
 .k-color__contrast { display: flex; flex-wrap: wrap; gap: var(--k-space-2); margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
 .k-color__sample { display: inline-flex; align-items: center; gap: var(--k-space-1); padding: 0.125rem 0.5rem; border-radius: var(--k-radius-sm); background: var(--_sw); color: var(--_ink); font-weight: var(--k-weight-semibold); }
+/* حالت رنگ اجباری (High Contrast ویندوز): زمینه و سایه حذف می‌شوند؛ حالت با رنگ‌های سیستمی نشان داده می‌شود */
+@media (forced-colors: active) {
+  .k-color__swatch, .k-color__preview, .k-color__area { forced-color-adjust: none; border: 1px solid CanvasText; }
+  :is(.k-color__swatch, .k-color__preview, .k-color__area):is(:focus-visible, :has(:focus-visible)) { outline: 2px solid Highlight; outline-offset: 2px; }
+}

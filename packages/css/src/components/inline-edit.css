@@ -23,3 +23,7 @@
 .k-inline-edit__placeholder { color: var(--k-text-tertiary); }
 .k-inline-edit .k-input { --_h: 2.25rem; min-inline-size: 12rem; }
 .k-inline-edit__actions { display: inline-flex; gap: 2px; }
+/* حالت رنگ اجباری (High Contrast ویندوز): زمینه و سایه حذف می‌شوند؛ حالت با رنگ‌های سیستمی نشان داده می‌شود */
+@media (forced-colors: active) {
+  .k-inline-edit__view:focus-visible { outline-color: Highlight; }
+}

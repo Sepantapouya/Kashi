@@ -44,6 +44,31 @@ jobs:
             (cd packages/$p && npm pack --dry-run --json > /dev/null)
           done
 
+  browser:
+    name: Accessibility (axe) and keyboard tests
+    # سایت مستندات ساخته می‌شود و axe روی همهٔ نمونه‌ها (روشن، تیره، کنتراست بالا) و تست‌های صفحه‌کلید در Chromium اجرا می‌شوند
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run build -w @kashi-ui/docs
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:a11y
+      - run: npm run test:interaction
+      - name: Upload report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: tests/visual/report
+          retention-days: 7
+
   consumer:
     name: Install in a Next.js app (npm + shadcn)
     # کاشیِ همین کامیت را مثل یک کاربر در پروژهٔ Next.js نصب و بیلد می‌کند: scripts/consumer-test.mjs

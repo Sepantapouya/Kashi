@@ -111,3 +111,65 @@ document.documentElement.dataset.theme = dark ? "dark" : "light";
 ```
 
 > طیفی که `createTheme()` می‌سازد خودکار از نظر کنتراست بررسی نمی‌شود. پس از انتخاب رنگ برند، کنتراست دکمهٔ اصلی را بررسی کنید.
+
+## کنتراست بالا
+
+کاشی یک حالت کنتراست بالا برای هر دو تم دارد: همهٔ متن‌ها دست‌کم **۷ به ۱** (WCAG AAA)، حاشیهٔ کنترل‌ها دست‌کم **۴٫۵ به ۱**، و حلقهٔ فوکوس دوخطی که روی هر زمینه‌ای دیده می‌شود. این عددها در هر بیلد بررسی می‌شوند و اگر یکی کم شود، بیلد شکست می‌خورد.
+
+اگر کاربر در سیستم‌عامل کنتراست بیشتر خواسته باشد (`prefers-contrast: more`)، این حالت خودکار روشن می‌شود. برای یک گزینهٔ «کنتراست بالا» در تنظیمات برنامه‌تان:
+
+```html
+<html data-theme="light" data-contrast="more">   <!-- همیشه کنتراست بالا -->
+<html data-contrast="normal">                    <!-- حتی با تنظیم سیستم، عادی -->
+```
+
+`data-contrast` را روی `<html>` بگذارید. حالت رنگ اجباری ویندوز (`forced-colors`) جداست و کامپوننت‌ها در آن رنگ‌های سیستم را می‌گیرند.
+
+## نقطه‌های شکست و لایه‌ها
+
+نقطه‌های شکست همان مقادیر Tailwind‌اند، به‌اضافهٔ `xs`. متغیر CSS در `@media` کار نمی‌کند، پس این‌ها برای جاوااسکریپت و ابزارهای طراحی‌اند:
+
+| نام | مقدار | پیکسل |
+| --- | --- | --- |
+| `xs` | `30rem` | ۴۸۰ |
+| `sm` | `40rem` | ۶۴۰ |
+| `md` | `48rem` | ۷۶۸ |
+| `lg` | `64rem` | ۱۰۲۴ |
+| `xl` | `80rem` | ۱۲۸۰ |
+| `2xl` | `96rem` | ۱۵۳۶ |
+
+```js
+import { breakpoint, zIndex } from "@kashi-ui/tokens";
+
+const wide = matchMedia(`(min-width: ${breakpoint.md})`).matches;
+```
+
+لایه‌ها (`--k-z-*`) ترتیب روی هم قرار گرفتن را ثابت می‌کنند تا منوی باز زیر سربرگ چسبان نرود: `base` ۰، `raised` ۱ (داخل یک کامپوننت)، `dropdown` ۱۰۰۰، `sticky` ۱۱۰۰، `overlay` ۱۳۰۰، `modal` ۱۴۰۰ و `toast` ۱۵۰۰. به‌جای عدد دستی از همین‌ها استفاده کنید: `z-index: var(--k-z-sticky)`.
+
+## خروجی برای فیگما و ابزارهای طراحی
+
+همهٔ توکن‌ها با قالب استاندارد [W3C Design Tokens](https://www.designtokens.org/) (نسخهٔ ۲۰۲۵.۱۰) هم منتشر می‌شوند، تا فیگما، Style Dictionary و Tokens Studio از همان منبعی بخوانند که کد کاشی:
+
+| فایل | محتوا |
+| --- | --- |
+| `@kashi-ui/tokens/dtcg/kashi.tokens.json` | مقادیر پایه: رنگ‌ها، فاصله، گوشه، فونت، حرکت، لایه و نقطهٔ شکست |
+| `…/dtcg/theme-dark.tokens.json` | توکن‌های معنایی تم تیره، با ارجاع به مقادیر پایه |
+| `…/dtcg/theme-light.tokens.json` | تم روشن |
+| `…/dtcg/theme-dark-contrast.tokens.json` و `theme-light-contrast` | دو تم با کنتراست بالا |
+
+هر فایل تم کامل است، پس در فیگما یک مجموعهٔ «تم» با چهار حالت می‌سازد. با Style Dictionary:
+
+```js
+import StyleDictionary from "style-dictionary";
+
+const sd = new StyleDictionary({
+  source: [
+    "node_modules/@kashi-ui/tokens/dist/dtcg/kashi.tokens.json",
+    "node_modules/@kashi-ui/tokens/dist/dtcg/theme-light.tokens.json",
+  ],
+  platforms: { ios: { transformGroup: "ios-swift", buildPath: "build/", files: [{ destination: "Kashi.swift", format: "ios-swift/class.swift" }] } },
+});
+await sd.buildAllPlatforms();
+```
+
+گوشه‌ها و اندازهٔ متن با ضریب پیش‌فرض (۱) حساب شده‌اند.

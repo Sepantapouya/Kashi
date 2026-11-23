@@ -116,7 +116,34 @@ import { BarChart, BarList, LineChart, PieChart, ProportionBar, Sparkline } from
 
 ## رنگ‌ها
 
-چهار رنگ دسته‌ای با ترتیب ثابت، برای تم تیره و روشن جداگانه انتخاب و با شبیه‌سازی کوررنگی بررسی شده‌اند (فاصلهٔ رنگی دست‌کم ۸). رنگ همیشه به نام سری وابسته است، نه به جایگاهش. نمودار دومحوره نداریم؛ دو مقیاس متفاوت را در دو نمودار جدا نشان دهید.
+پالت نمودار جزو توکن‌های کاشی است و برای هر تم جداگانه انتخاب شده، نه با برعکس کردن خودکار. همهٔ رنگ‌ها با شبیه‌سازی کوررنگی روی سطح واقعی کاشی بررسی شده‌اند و با تم روشن و تیره و [کنتراست بالا](/docs/theming/#کنتراست-بالا) خودکار عوض می‌شوند.
+
+**دسته‌ای (`--k-chart-1` تا `--k-chart-8`):** برای سری‌های جدا از هم. ترتیب ثابت است و رنگ به نام سری می‌چسبد، نه به جایگاهش. فاصلهٔ رنگی هر دو رنگ کنار هم برای کوررنگی دست‌کم ۸ است. نمودارهای آمادهٔ کاشی حداکثر چهار سری نشان می‌دهند (دایره‌ای: چهار برش و «سایر» خاکستری)؛ هشت رنگ برای نمودارهای خودتان است. سری نهم به بعد رنگ خنثی می‌گیرد؛ آن‌ها را در «سایر» جمع کنید یا نمودار را چند تکه کنید.
+
+<div style={{ display: "flex", flexWrap: "wrap", gap: "6px", margin: "12px 0 20px" }} aria-hidden="true"><span title="--k-chart-1" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-1)" }} /><span title="--k-chart-2" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-2)" }} /><span title="--k-chart-3" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-3)" }} /><span title="--k-chart-4" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-4)" }} /><span title="--k-chart-5" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-5)" }} /><span title="--k-chart-6" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-6)" }} /><span title="--k-chart-7" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-7)" }} /><span title="--k-chart-8" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-8)" }} /></div>
+
+**ترتیبی (`--k-chart-seq-1` تا `--k-chart-seq-5`):** برای مقدار کم تا زیاد، مثل نقشهٔ ایران و نقشهٔ فعالیت. یک رنگ است، با رنگ برند، پس با `createTheme` همراه برند عوض می‌شود. در تم تیره «زیاد» روشن‌تر است.
+
+<div style={{ display: "flex", flexWrap: "wrap", gap: "6px", margin: "12px 0 20px" }} aria-hidden="true"><span title="--k-chart-seq-1" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-seq-1)" }} /><span title="--k-chart-seq-2" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-seq-2)" }} /><span title="--k-chart-seq-3" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-seq-3)" }} /><span title="--k-chart-seq-4" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-seq-4)" }} /><span title="--k-chart-seq-5" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-seq-5)" }} /></div>
+
+**واگرا (`--k-chart-div-1` تا `--k-chart-div-7`):** برای مقدارهایی که دو طرف یک صفر دارند، مثل رشد و افت. اناری برای منفی، لاجوردی برای مثبت و خاکستری برای وسط.
+
+<div style={{ display: "flex", flexWrap: "wrap", gap: "6px", margin: "12px 0 20px" }} aria-hidden="true"><span title="--k-chart-div-1" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-div-1)" }} /><span title="--k-chart-div-2" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-div-2)" }} /><span title="--k-chart-div-3" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-div-3)" }} /><span title="--k-chart-div-4" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-div-4)" }} /><span title="--k-chart-div-5" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-div-5)" }} /><span title="--k-chart-div-6" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-div-6)" }} /><span title="--k-chart-div-7" style={{ inlineSize: "2.25rem", blockSize: "1.5rem", borderRadius: "6px", background: "var(--k-chart-div-7)" }} /></div>
+
+```tsx
+import { chartColor } from "@kashi-ui/react";
+
+chartColor(0); // "var(--k-chart-1)"
+chartColor(9); // رنگ خنثی برای «سایر»
+```
+
+```css
+/* نمودار خودتان با همان پالت */
+.my-legend li:nth-child(1) { --dot: var(--k-chart-1); }
+.my-map [data-level="3"] { fill: var(--k-chart-seq-3); }
+```
+
+نمودار دومحوره نداریم؛ دو مقیاس متفاوت را در دو نمودار جدا نشان دهید.
 
 ## دسترس‌پذیری
 

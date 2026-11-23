@@ -53,3 +53,8 @@
 @media (prefers-reduced-motion: reduce) {
   .k-sheet { transition: none; }
 }
+/* حالت رنگ اجباری (High Contrast ویندوز): زمینه و سایه حذف می‌شوند؛ حالت با رنگ‌های سیستمی نشان داده می‌شود */
+@media (forced-colors: active) {
+  .k-sheet__handle::after { background: CanvasText; }
+  .k-sheet__handle:focus-visible { outline: 2px solid Highlight; outline-offset: 2px; }
+}

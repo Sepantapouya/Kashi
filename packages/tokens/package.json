@@ -12,6 +12,7 @@
     },
     "./tokens.css": "./dist/tokens.css",
     "./tokens.json": "./dist/tokens.json",
+    "./dtcg/*": "./dist/dtcg/*",
     "./package.json": "./package.json"
   },
   "files": [
