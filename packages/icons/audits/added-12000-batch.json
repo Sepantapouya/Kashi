@@ -11140,7 +11140,8 @@
     "interiors": "فضا و مبلمان",
     "cad": "مدل‌سازی و ترسیم فنی"
   },
-  "preservedCatalogSha256": "aa6550193ef2dfa52fb6612919fa23c4a60c65da019b904d0f02f3aa6d5a5985",
+  "preservedCatalogSha256": "669b08e6350f0b2220bab0cef939498412d03f511c83c5ac97be9a82a930424e",
+  "preservedCatalogNote": "Updated in 2.15.1: src/cut-cleanup.js removes base fragments left beside corner badges; without that pass the previous hash aa6550193ef2… still matches",
   "aliasesPreserved": {
     "lock-clock": "lock-timer",
     "lightbulb-check": "idea-check",

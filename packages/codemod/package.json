@@ -1,0 +1,46 @@
+{
+  "name": "@kashi-ui/codemod",
+  "version": "2.15.0",
+  "description": "ابزار خودکار مهاجرت کاشی: کد منسوخ را با جایگزینش عوض می‌کند، بدون به‌هم‌ریختن قالب‌بندی کد شما",
+  "type": "module",
+  "bin": {
+    "kashi-codemod": "./src/cli.mjs"
+  },
+  "exports": {
+    ".": "./src/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.29.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "codemod",
+    "migration",
+    "design-system",
+    "persian",
+    "rtl",
+    "kashi"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sepantapouya/Kashi.git",
+    "directory": "packages/codemod"
+  },
+  "homepage": "https://kashi.sepantapouya.com/docs/migration/",
+  "bugs": "https://github.com/Sepantapouya/Kashi/issues",
+  "author": "Sepanta Pouya (https://sepantapouya.com)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

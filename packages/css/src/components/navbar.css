@@ -3,8 +3,10 @@
  * متغیرها: --k-navbar-height  --k-navbar-max-width  --k-navbar-bg */
 .k-navbar {
   position: relative;
-  z-index: 40;
+  z-index: var(--k-z-sticky);
   inline-size: 100%;
+  /* شکست به منو بر اساس عرض خود نوار، نه فقط صفحه: در ستون باریک یا قاب پیش‌نمایش هم پیوندها روی دکمه‌ها نمی‌افتند */
+  container: k-navbar / inline-size;
   border-block-end: 1px solid transparent;
   background: var(--k-navbar-bg, var(--k-bg-primary));
   transition: background-color var(--k-duration-normal) var(--k-ease-standard), border-color var(--k-duration-normal) var(--k-ease-standard), box-shadow var(--k-duration-normal) var(--k-ease-standard);
@@ -62,6 +64,8 @@
 }
 .k-navbar__link {
   position: relative;
+  /* صریحاً بالای پیل لغزان (که translate دارد و لایهٔ جدا می‌سازد) */
+  z-index: var(--k-z-raised);
   display: inline-flex;
   align-items: center;
   gap: var(--k-space-2);
@@ -133,6 +137,18 @@
   .k-navbar--collapse-md .k-navbar__menu { display: inline-flex; }
 }
 @media (max-width: 64rem) {
+  .k-navbar--collapse-lg .k-navbar__nav { display: none; }
+  .k-navbar--collapse-lg .k-navbar__menu { display: inline-flex; }
+}
+@container k-navbar (max-width: 40rem) {
+  .k-navbar--collapse-sm .k-navbar__nav { display: none; }
+  .k-navbar--collapse-sm .k-navbar__menu { display: inline-flex; }
+}
+@container k-navbar (max-width: 48rem) {
+  .k-navbar--collapse-md .k-navbar__nav { display: none; }
+  .k-navbar--collapse-md .k-navbar__menu { display: inline-flex; }
+}
+@container k-navbar (max-width: 64rem) {
   .k-navbar--collapse-lg .k-navbar__nav { display: none; }
   .k-navbar--collapse-lg .k-navbar__menu { display: inline-flex; }
 }

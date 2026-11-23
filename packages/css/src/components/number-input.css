@@ -18,3 +18,7 @@
 .k-number__step:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
 .k-number__step:disabled { color: var(--k-text-quaternary); cursor: not-allowed; }
 .k-number__step svg { inline-size: 1rem; block-size: 1rem; }
+/* حالت رنگ اجباری (High Contrast ویندوز): زمینه و سایه حذف می‌شوند؛ حالت با رنگ‌های سیستمی نشان داده می‌شود */
+@media (forced-colors: active) {
+  .k-number__step:focus-visible { outline-color: Highlight; }
+}

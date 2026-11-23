@@ -34,7 +34,7 @@
 
 Kashi (کاشی) is built for Persian products from the start, not simply an English interface flipped to right-to-left. Its Persian-first components cover practical details that ordinary UI kits often leave to each product team: Jalali dates, national IDs, bank cards with bank logos, IBANs, and licence plates.
 
-It is an open-source design system with React components, framework-free Web Components, pure-CSS styles, design tokens, a Tailwind preset, 14,000 icons, a code-generated Figma kit, and an MCP server for AI assistants. For example, its Jalali date picker handles the Persian calendar, while its banking inputs address Iranian payment details. Kashi targets WCAG 2.2 AA and includes an English locale for built-in strings.
+It is an open-source design system with React components, framework-free Web Components, pure-CSS styles, design tokens, a Tailwind preset, 15,000 icons, a code-generated Figma kit, and an MCP server for AI assistants. For example, its Jalali date picker handles the Persian calendar, while its banking inputs address Iranian payment details. Kashi targets WCAG 2.2 AA and includes an English locale for built-in strings.
 
 ### Quick start
 
@@ -65,15 +65,16 @@ For an English, left-to-right page, set `dir="ltr"` on the root `<html>` element
 
 | پکیج | نسخه | دانلود ماهانه | کاربرد |
 |---|---|---|---|
-| [`@kashi-ui/tokens`](https://www.npmjs.com/package/@kashi-ui/tokens) | [![](https://img.shields.io/npm/v/@kashi-ui/tokens?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/tokens) | ![](https://img.shields.io/npm/dm/@kashi-ui/tokens?label=&color=3d5ef8&cacheSeconds=3600) | رنگ، فاصله، فونت و… به شکل CSS Variables، JSON و JS |
+| [`@kashi-ui/tokens`](https://www.npmjs.com/package/@kashi-ui/tokens) | [![](https://img.shields.io/npm/v/@kashi-ui/tokens?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/tokens) | ![](https://img.shields.io/npm/dm/@kashi-ui/tokens?label=&color=3d5ef8&cacheSeconds=3600) | رنگ، فاصله، فونت و… به شکل CSS Variables، JSON، JS و DTCG (فیگما و Style Dictionary) |
 | [`@kashi-ui/css`](https://www.npmjs.com/package/@kashi-ui/css) | [![](https://img.shields.io/npm/v/@kashi-ui/css?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/css) | ![](https://img.shields.io/npm/dm/@kashi-ui/css?label=&color=3d5ef8&cacheSeconds=3600) | استایل کامپوننت‌ها با CSS خالص — برای هر فریم‌ورکی |
 | [`@kashi-ui/react`](https://www.npmjs.com/package/@kashi-ui/react) | [![](https://img.shields.io/npm/v/@kashi-ui/react?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/react) | ![](https://img.shields.io/npm/dm/@kashi-ui/react?label=&color=3d5ef8&cacheSeconds=3600) | کامپوننت‌های React |
 | [`@kashi-ui/elements`](https://www.npmjs.com/package/@kashi-ui/elements) | [![](https://img.shields.io/npm/v/@kashi-ui/elements?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/elements) | ![](https://img.shields.io/npm/dm/@kashi-ui/elements?label=&color=3d5ef8&cacheSeconds=3600) | وب کامپوننت‌ها برای Vue، Svelte، Angular، وردپرس و HTML: فیلدهای فارسی، تقویم شمسی، فرم نشانی، نقشهٔ ایران، جدول داده، Combobox، منو، پنجره و اعلان |
 | [`@kashi-ui/persian`](https://www.npmjs.com/package/@kashi-ui/persian) | [![](https://img.shields.io/npm/v/@kashi-ui/persian?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/persian) | ![](https://img.shields.io/npm/dm/@kashi-ui/persian?label=&color=3d5ef8&cacheSeconds=3600) | تاریخ شمسی، ارقام فارسی، اعتبارسنجی کد ملی و کارت؛ بدون وابستگی |
-| [`@kashi-ui/icons`](https://www.npmjs.com/package/@kashi-ui/icons) | [![](https://img.shields.io/npm/v/@kashi-ui/icons?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/icons) | ![](https://img.shields.io/npm/dm/@kashi-ui/icons?label=&color=3d5ef8&cacheSeconds=3600) | ۱۴٬۰۰۰ آیکون کاشی در شش سبک؛ React، SVG و اسپرایت |
+| [`@kashi-ui/icons`](https://www.npmjs.com/package/@kashi-ui/icons) | [![](https://img.shields.io/npm/v/@kashi-ui/icons?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/icons) | ![](https://img.shields.io/npm/dm/@kashi-ui/icons?label=&color=3d5ef8&cacheSeconds=3600) | ۱۵٬۰۰۰ آیکون کاشی در شش سبک؛ React، SVG و اسپرایت |
 | [`@kashi-ui/bank-logos`](https://www.npmjs.com/package/@kashi-ui/bank-logos) | [![](https://img.shields.io/npm/v/@kashi-ui/bank-logos?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/bank-logos) | ![](https://img.shields.io/npm/dm/@kashi-ui/bank-logos?label=&color=3d5ef8&cacheSeconds=3600) | لوگوی SVG ۴۰ بانک و ۱۰ درگاه پرداخت ایران (CC0) |
 | [`@kashi-ui/tailwind`](https://www.npmjs.com/package/@kashi-ui/tailwind) | [![](https://img.shields.io/npm/v/@kashi-ui/tailwind?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/tailwind) | ![](https://img.shields.io/npm/dm/@kashi-ui/tailwind?label=&color=3d5ef8&cacheSeconds=3600) | پریست Tailwind 3 و 4: توکن‌های کاشی به‌شکل کلاس‌های Tailwind، همگام با تم |
 | [`@kashi-ui/mcp`](https://www.npmjs.com/package/@kashi-ui/mcp) | [![](https://img.shields.io/npm/v/@kashi-ui/mcp?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/mcp) | ![](https://img.shields.io/npm/dm/@kashi-ui/mcp?label=&color=3d5ef8&cacheSeconds=3600) | سرور MCP برای Claude، Cursor و دیگر دستیارهای هوش مصنوعی |
+| [`@kashi-ui/codemod`](https://www.npmjs.com/package/@kashi-ui/codemod) | [![](https://img.shields.io/npm/v/@kashi-ui/codemod?label=&color=0b8077&cacheSeconds=3600)](https://www.npmjs.com/package/@kashi-ui/codemod) | ![](https://img.shields.io/npm/dm/@kashi-ui/codemod?label=&color=3d5ef8&cacheSeconds=3600) | مهاجرت خودکار: کد منسوخ را پیش از حذف با جایگزینش عوض می‌کند |
 
 ## پایدار برای محصولات سازمانی (۱.۰)
 
@@ -179,7 +180,7 @@ const css = createTheme({ brand: "#7c3aed", radius: 1.5, density: 0.875 });
 
 ## دسترس‌پذیری
 
-هدف WCAG 2.2 AA است. کنتراست همهٔ جفت‌رنگ‌ها در هر بیلد خودکار بررسی می‌شود، و فوکوس کیبورد، صفحه‌خوان، `forced-colors`، `prefers-contrast` و `prefers-reduced-motion` پشتیبانی می‌شوند.
+هدف WCAG 2.2 AA است. کنتراست همهٔ جفت‌رنگ‌ها در هر بیلد خودکار بررسی می‌شود و حالت کنتراست بالا (`prefers-contrast: more` یا `data-contrast="more"`) متن AAA دارد. در هر تغییر، axe همهٔ نمونه‌ها را در تم روشن، تیره و کنتراست بالا بررسی می‌کند و تست‌های صفحه‌کلید فوکوس پنجره‌ها و ناوبری فهرست‌ها را می‌آزمایند. فوکوس کیبورد، صفحه‌خوان، `forced-colors` و `prefers-reduced-motion` هم پشتیبانی می‌شوند.
 
 ## مشارکت
 

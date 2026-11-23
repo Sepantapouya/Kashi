@@ -1,13 +1,15 @@
-// تست تصویری: از نمونه‌های هر صفحهٔ کامپوننت در سایت مستندات (تم روشن و تیره) عکس گرفته و با عکس ذخیره‌شده مقایسه می‌شود.
-//   npm run test:visual           مقایسه (اول سایت را بسازید: npm run docs:build)
+// همهٔ تست‌های مرورگری روی خروجی ساخته‌شدهٔ سایت مستندات (اول: npm run docs:build)
+//   npm run test:visual           تست تصویری: از نمونه‌های هر صفحه در تم روشن و تیره عکس گرفته و با عکس ذخیره‌شده مقایسه می‌شود
 //   npm run test:visual:update    عکس‌های مرجع تازه، وقتی تغییر ظاهری عمدی است
+//   npm run test:a11y             axe روی همهٔ نمونه‌ها در روشن، تیره و کنتراست بالا (tests/a11y)
+//   npm run test:interaction      صفحه‌کلید، تلهٔ فوکوس و رفتار کامپوننت‌ها (tests/interaction)
 // عکس‌ها به سیستم‌عامل وابسته‌اند (فونت و رندر)؛ برای هر سیستم جدا ذخیره می‌شوند.
 import { defineConfig } from "@playwright/test";
 
 // پورت جدا از سرورهای توسعه؛ اگر اشغال باشد تست خطا می‌دهد (به سرور دیگری وصل نمی‌شود)
 const PORT = 4417;
 export default defineConfig({
-  testDir: "tests/visual",
+  testDir: "tests",
   snapshotPathTemplate: "tests/visual/__screenshots__/{platform}/{projectName}/{arg}{ext}",
   fullyParallel: true,
   workers: process.env.CI ? 2 : 4,
@@ -25,8 +27,12 @@ export default defineConfig({
     channel: process.env.CI ? undefined : "chrome",
   },
   projects: [
-    { name: "light", use: { colorScheme: "light" } },
-    { name: "dark", use: { colorScheme: "dark" } },
+    { name: "light", testDir: "tests/visual", use: { colorScheme: "light" } },
+    { name: "dark", testDir: "tests/visual", use: { colorScheme: "dark" } },
+    { name: "a11y-light", testDir: "tests/a11y", metadata: { theme: "light" }, use: { colorScheme: "light", reducedMotion: "reduce" } },
+    { name: "a11y-dark", testDir: "tests/a11y", metadata: { theme: "dark" }, use: { colorScheme: "dark", reducedMotion: "reduce" } },
+    { name: "a11y-contrast", testDir: "tests/a11y", metadata: { theme: "dark", contrast: true }, use: { colorScheme: "dark", reducedMotion: "reduce" } },
+    { name: "interaction", testDir: "tests/interaction", use: { colorScheme: "dark", reducedMotion: "reduce" } },
   ],
   webServer: {
     command: `node tests/visual/serve.mjs ${PORT}`,

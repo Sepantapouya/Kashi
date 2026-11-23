@@ -61,3 +61,8 @@
 .k-multiselect .k-option[aria-selected="true"] { background: none; }
 .k-multiselect .k-option[aria-selected="true"][data-active] { background: var(--k-bg-hover); }
 .k-multiselect .k-input__action { margin-inline-start: auto; }
+/* حالت رنگ اجباری (High Contrast ویندوز): زمینه و سایه حذف می‌شوند؛ حالت با رنگ‌های سیستمی نشان داده می‌شود */
+@media (forced-colors: active) {
+  .k-option[data-active] { background: Highlight; color: HighlightText; forced-color-adjust: none; }
+  .k-option[aria-selected="true"] .k-multiselect__box { background: Highlight; border-color: Highlight; forced-color-adjust: none; }
+}

@@ -36,10 +36,15 @@ npm publish -w @kashi-ui/react
    - Organization or user: `Sepantapouya`
    - Repository: `Kashi`
    - Workflow filename: `release.yml`
-2. در GitHub: Settings ← Actions ← General ← گزینهٔ **Allow GitHub Actions to create and approve pull requests** را فعال کنید.
+2. در GitHub: Settings ← Actions ← General ← بخش Workflow permissions: گزینهٔ **Read and write permissions** را انتخاب و **Allow GitHub Actions to create and approve pull requests** را فعال کنید. بدون این، Release با خطای «GitHub Actions is not permitted to create or approve pull requests» شکست می‌خورد.
 3. در GitHub: Settings ← Secrets and variables ← Actions ← Variables، متغیر `NPM_PUBLISH` را با مقدار `true` بسازید.
 
 (روش جایگزین: یک Granular Access Token در npm بسازید و آن را با نام `NPM_TOKEN` در Secrets ذخیره کنید.)
+
+> **نکته‌ها:**
+> - بدون متغیر `NPM_PUBLISH=true` گردش کار Release در هر push به `main` «skipped» می‌شود و هیچ نسخه‌ای منتشر نمی‌شود، حتی اگر نسخهٔ پکیج‌ها در مخزن بالا رفته باشد. وضعیت را در تب Actions ببینید.
+> - توکن npm باید گزینهٔ **Bypass two-factor authentication** را داشته باشد؛ وگرنه انتشار از GitHub با `E403` رد می‌شود.
+> - Trusted Publishing فقط برای پکیجی که از قبل روی npm هست کار می‌کند. پکیج تازه (مثل `@kashi-ui/codemod`) اولین بار با توکن یا دستی منتشر می‌شود و بعد می‌توان Trusted Publisher را برایش تنظیم کرد.
 
 ## هر بار: انتشار نسخهٔ جدید
 

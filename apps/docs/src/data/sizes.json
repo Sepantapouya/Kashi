@@ -1,7 +1,7 @@
 {
   "react": {
     "accordion": 406,
-    "activity-heatmap": 7639,
+    "activity-heatmap": 7654,
     "address-form": 23661,
     "alert": 5964,
     "appointment-picker": 8834,
@@ -18,7 +18,7 @@
     "card": 601,
     "card-number-input": 9565,
     "carousel": 7987,
-    "chart": 10122,
+    "chart": 10139,
     "checkbox": 833,
     "chip-group": 673,
     "city-select": 14799,
@@ -105,18 +105,18 @@
     "table": 12418,
     "forms": 24732,
     "pickers": 18769,
-    "charts": 13174,
+    "charts": 13187,
     "nav": 14987,
     "basic": 8598,
     "appointment": 10130,
-    "cdn-loader": 2493
+    "cdn-loader": 2492
   },
   "icons": {
     "react-one": 4702,
     "react-three": 4896
   },
   "css": {
-    "all": 48072
+    "all": 49496
   },
   "core": {
     "react": 5125,
@@ -124,7 +124,7 @@
   },
   "own": {
     "accordion": 100,
-    "activity-heatmap": 2514,
+    "activity-heatmap": 2529,
     "address-form": 18536,
     "alert": 839,
     "appointment-picker": 3709,
@@ -141,7 +141,7 @@
     "card": 100,
     "card-number-input": 4440,
     "carousel": 2862,
-    "chart": 4997,
+    "chart": 5014,
     "checkbox": 100,
     "chip-group": 100,
     "city-select": 9674,

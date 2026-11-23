@@ -15,6 +15,7 @@
       "@kashi-ui/react",
       "@kashi-ui/elements",
       "@kashi-ui/mcp",
+      "@kashi-ui/codemod",
       "@kashi-ui/tailwind"
     ]
   ],

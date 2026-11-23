@@ -13,7 +13,7 @@ import { Skeleton } from "@kashi-ui/react";
 
 ## نمونه
 
-<Demo code={`<div aria-busy="true" aria-label="در حال بارگذاری">
+<Demo code={`<div role="status" aria-busy="true" aria-label="در حال بارگذاری">
   <Skeleton circle width={40} />
   <Skeleton lines={2} />
   <Skeleton height={120} />
@@ -32,4 +32,4 @@ import { Skeleton } from "@kashi-ui/react";
 
 ## دسترس‌پذیری
 
-اسکلت تزئینی است (`aria-hidden`). روی ظرف بارگذاری `aria-busy="true"` و یک `aria-label` بگذارید تا صفحه‌خوان بداند محتوا در راه است. با `prefers-reduced-motion` درخشش متوقف می‌شود.
+اسکلت تزئینی است (`aria-hidden`). روی ظرف بارگذاری `role="status"`، `aria-busy="true"` و یک `aria-label` بگذارید (`aria-label` روی `div` بدون نقش نادیده گرفته می‌شود) تا صفحه‌خوان بداند محتوا در راه است. با `prefers-reduced-motion` درخشش متوقف می‌شود.

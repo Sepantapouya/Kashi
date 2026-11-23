@@ -19,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          # releases.mjs آیکون‌های تازه را از تگ‌های نسخه‌های قبل حساب می‌کند
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
@@ -29,10 +32,10 @@ jobs:
       # با ادغام آن PR، پکیج‌ها روی npm منتشر می‌شوند.
       - uses: changesets/action@v2.1.2
         with:
-          version: npm run version-packages
-          publish: npm run release
-          title: "نسخهٔ جدید کاشی"
-          commit: "chore: version packages"
+          version-script: npm run version-packages
+          publish-script: npm run release
+          pr-title: "نسخهٔ جدید کاشی"
+          commit-message: "chore: version packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # تا پیش از تنظیم Trusted Publishing در npm، از توکن استفاده می‌شود

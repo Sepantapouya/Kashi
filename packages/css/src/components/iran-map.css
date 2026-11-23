@@ -10,7 +10,8 @@
   vector-effect: non-scaling-stroke;
   transition: fill var(--k-duration-fast), opacity var(--k-duration-fast);
 }
-.k-iran-map__province[data-l] { fill: color-mix(in srgb, var(--k-bg-brand) var(--_p, 60%), var(--k-bg-tertiary)); }
+/* طیف ترتیبی توکن‌ها (--k-chart-seq-1..5): کم = seq-1، زیاد = seq-5 */
+.k-iran-map__province[data-l] { fill: color-mix(in oklab, var(--k-chart-seq-5) var(--_p, 60%), var(--k-chart-seq-1)); }
 .k-iran-map__province[data-active] { stroke: var(--k-text-primary); stroke-width: 2; paint-order: stroke; }
 .k-iran-map__svg:has([data-active]) .k-iran-map__province:not([data-active], [data-selected]) { opacity: 0.75; }
 .k-iran-map--selectable .k-iran-map__province { cursor: pointer; }
@@ -19,7 +20,7 @@
 .k-iran-map__province[data-selected] { fill: var(--k-iran-map-selected, var(--k-bg-brand)); stroke: var(--k-text-primary); stroke-width: 2; }
 .k-iran-map__legend { display: flex; align-items: center; justify-content: center; gap: var(--k-space-2); color: var(--k-text-tertiary); }
 .k-iran-map__scale { display: inline-flex; gap: 2px; }
-.k-iran-map__scale i { inline-size: 1.5rem; block-size: 0.625rem; background: color-mix(in srgb, var(--k-bg-brand) var(--_p, 60%), var(--k-bg-tertiary)); }
+.k-iran-map__scale i { inline-size: 1.5rem; block-size: 0.625rem; background: color-mix(in oklab, var(--k-chart-seq-5) var(--_p, 60%), var(--k-chart-seq-1)); }
 .k-iran-map__scale i:first-child { border-start-start-radius: var(--k-radius-full); border-end-start-radius: var(--k-radius-full); }
 .k-iran-map__scale i:last-child { border-start-end-radius: var(--k-radius-full); border-end-end-radius: var(--k-radius-full); }
 .k-iran-map .k-chart__tip { pointer-events: none; }

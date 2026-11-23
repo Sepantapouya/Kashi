@@ -83,6 +83,17 @@ Check every one of these before showing work:
   - **Usage guide.** Every component page gets an entry in `apps/docs/src/data/guidelines.ts`: when to use, when not (with a link to the right alternative), at least one do/don't pair (static `k-*` previews via the `btn`/`field`/`badge`/`alert`/`check` helpers when it helps), and component-specific text tips. `UsageSection.astro` renders it after the page content, and the same text goes to llms.txt and MCP (`guidelineMarkdown`). `packages/mcp/test/guidelines.test.mjs` fails for a page without one. Write it by `/docs/writing/` (tone «شما», verb button labels, errors say what happened and what to do) and check every prop you name exists.
   - **Policy.** Never remove or rename a prop, class, tag, attribute, event or message key in a minor release: deprecate first with `deprecate(id, message)` from `packages/react/src/utils.ts` (dev-only warning), mark it on the page, remove only in the next major with a migration page. See `/docs/versioning/`.
 
+### Icon catalog pitfalls (2026-11-23 audit)
+
+Read `packages/icons/DESIGN.md` before drawing or changing icons. These bugs shipped once; check for them on every batch:
+
+- **Fragments beside corner badges.** State icons are `<g data-cut="cx cy r">base</g>badge`; the circle under the badge is cut out of the base. A base stroke that is almost fully under it, or a short piece the circle splits off a long stroke, is left as a broken scrap next to the badge (`input-character-limit-info` showed half a «/» beside the «i»). `src/cut-cleanup.js` now removes these from open strokes at build time and `test/cut-cleanup.test.mjs` guards it, but **closed shapes are not touched** (opening them would break the bold fill): fix those in the base drawing (`catalogStateSubjects`) or move the shape away from the badge. Growing the cut radius only widens the empty gap.
+- **Bold falls apart when inner lines cross a whole shape.** In bold every inner line inside a filled shape becomes a white cut. A divider that runs edge to edge splits the shape into blocks (`hardware-cable-bridge-corner`); draw it as a short notch instead. A sole line across a shoe is the library's normal style and is fine.
+- **Mask ids in static SVGs.** Files in `dist/svg` get mask ids from a hash of their own output (`staticSvgBody`), so bold and bulk of one icon can sit on the same page. Never go back to `k-<name>` for every style: 290 bulk icons rendered with the bold mask.
+- **Malformed paths.** A command with too few numbers (`m.5-7-3v-1`) makes browsers stop drawing at that point. Validate every `d` when adding icons.
+- **npm file cap.** The icons package must stay under 64,000 files (`npm run check:icon-package`); every style that differs from light is one more SVG. At 15,000 icons it is about 60k; 17,000 is over. Check the count before planning a big batch.
+- **After a version bump** the publish runs every test, so generated files must match the new version: `releases.json`, the Figma plugins and the docs "New in" card (`apps/docs/src/data/featured.ts`). `version-packages` regenerates the first two; the card is a human choice and goes in with the version merge.
+
 ## 5. Promo images and channel posts
 
 Images (1280×720 layout, rendered at 2× = 2560×1440):

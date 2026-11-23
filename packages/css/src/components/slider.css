@@ -15,7 +15,9 @@
   -webkit-appearance: none;
   appearance: none;
   position: absolute;
-  inset: 0;
+  /* ناحیهٔ لمس دست‌کم ۲۴ پیکسل (WCAG 2.5.8)، هرچند دستگیره و ریل ۲۰ پیکسل‌اند */
+  inset-inline: 0;
+  inset-block: min(0px, calc((var(--_thumb) - 1.5rem) / 2));
   inline-size: 100%;
   margin: 0;
   background: none;

@@ -44,7 +44,10 @@ const COLOR_SCOPES = {
   bg: ["FRAME_FILL", "SHAPE_FILL"],
   text: ["TEXT_FILL"],
   border: ["STROKE_COLOR"],
+  chart: ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"],
 };
+// حالت‌های مجموعهٔ تم ← کلید TOKENS.themes؛ دو حالت کنتراست بالا روی پلن رایگان فیگما ساخته نمی‌شوند
+const THEME_MODES = [["Dark", "dark"], ["Light", "light"], ["Dark · High contrast", "dark-contrast"], ["Light · High contrast", "light-contrast"]];
 const rgbaObj = ([r, g, b, a]) => ({ r, g, b, a });
 
 async function buildVariables() {
@@ -69,11 +72,14 @@ async function buildVariables() {
   }
 
   // ---- تم تیره و روشن
-  const theme = await getCollection("Kashi · Theme", S.theme === "light" ? ["Light", "Dark"] : ["Dark", "Light"]);
+  const theme = await getCollection(
+    "Kashi · Theme",
+    S.theme === "light" ? ["Light", "Dark", "Light · High contrast", "Dark · High contrast"] : ["Dark", "Light", "Dark · High contrast", "Light · High contrast"],
+  );
   for (const token of Object.keys(TOKENS.themes.dark)) {
     const scopes = COLOR_SCOPES[token.split("-")[0]] || ["ALL_SCOPES"];
-    const v = await getVariable(theme.c, token.replace(/^(bg|text|border)-/, "$1/"), "COLOR", scopes);
-    for (const [mode, key] of [["Dark", "dark"], ["Light", "light"]]) {
+    const v = await getVariable(theme.c, token.replace(/^(bg|text|border|chart)-/, "$1/"), "COLOR", scopes);
+    for (const [mode, key] of THEME_MODES) {
       const val = TOKENS.themes[key][token];
       setVal(v, theme.ids, mode, val.alias ? figma.variables.createVariableAlias(S.vars[`color/${val.alias[0]}/${val.alias[1]}`]) : rgbaObj(val.rgba));
     }
@@ -160,13 +166,12 @@ async function buildEffectVariables() {
   const theme = S.collections["Kashi · Theme"];
   const tokens = Object.keys(TOKENS.effects.dark);
   for (const token of tokens) {
-    const dark = TOKENS.effects.dark[token] || [];
-    const light = TOKENS.effects.light[token] || [];
-    const n = Math.max(dark.length, light.length);
+    const layersOf = (key) => TOKENS.effects[key][token] || [];
+    const n = Math.max(...THEME_MODES.map(([, key]) => layersOf(key).length));
     EFFECT_LAYERS[token] = [];
     for (let i = 0; i < n; i++) {
-      const pickLayer = (mode) => (mode === "dark" ? dark : light)[i] || null;
-      const type = (dark[i] || light[i]).type;
+      const pickLayer = (mode) => layersOf(mode)[i] || null;
+      const type = THEME_MODES.map(([, key]) => layersOf(key)[i]).find(Boolean).type;
       const base = `effect/${token}/${i + 1}`;
       const vars = {
         color: await getVariable(theme.node, `${base}/color`, "COLOR", ["EFFECT_COLOR"]),
@@ -175,7 +180,7 @@ async function buildEffectVariables() {
         blur: await getVariable(theme.node, `${base}/blur`, "FLOAT", ["EFFECT_FLOAT"]),
         spread: await getVariable(theme.node, `${base}/spread`, "FLOAT", ["EFFECT_FLOAT"]),
       };
-      for (const [mode, key] of [["Dark", "dark"], ["Light", "light"]]) {
+      for (const [mode, key] of THEME_MODES) {
         const l = pickLayer(key) || { x: 0, y: 0, blur: 0, spread: 0, rgba: [0, 0, 0, 0] };
         setVal(vars.color, theme.modes, mode, rgbaObj(l.rgba));
         setVal(vars.x, theme.modes, mode, l.x);

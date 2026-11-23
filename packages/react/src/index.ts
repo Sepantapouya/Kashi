@@ -128,7 +128,7 @@ export { MonthPicker } from "./MonthPicker.js";
 export type { JalaliMonth, MonthPickerProps } from "./MonthPicker.js";
 export { LandlineInput } from "./LandlineInput.js";
 export type { LandlineInputProps } from "./LandlineInput.js";
-export { BarChart, BarList, LineChart, PieChart, ProportionBar, Sparkline } from "./Chart.js";
+export { BarChart, BarList, LineChart, PieChart, ProportionBar, Sparkline, chartColor } from "./Chart.js";
 export type { BarChartProps, BarListProps, LineChartProps, LineSeries, PieChartProps, ProportionBarProps, SparklineProps } from "./Chart.js";
 export { ActivityHeatmap } from "./ActivityHeatmap.js";
 export type { ActivityHeatmapProps } from "./ActivityHeatmap.js";
