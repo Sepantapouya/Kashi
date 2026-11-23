@@ -46,12 +46,14 @@ npm i @kashi-ui/react @kashi-ui/css
 
 ```tsx
 import "@kashi-ui/css";
-import { Button, KashiProvider } from "@kashi-ui/react";
+import { DatePicker, KashiProvider } from "@kashi-ui/react";
 
 <KashiProvider locale="en">
-  <Button variant="primary">Sign up</Button>
+  <DatePicker label="Start date" />
 </KashiProvider>
 ```
+
+Open the date picker to see its built-in calendar controls and accessible labels in English. The `Start date` field label above is provided by your app.
 
 For an English, left-to-right page, set `dir="ltr"` on the root `<html>` element. The `locale="en"` setting controls Kashi's built-in strings; page direction is a separate choice.
 
