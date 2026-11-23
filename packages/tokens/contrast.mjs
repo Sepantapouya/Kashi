@@ -1,5 +1,5 @@
 // بررسی خودکار کنتراست WCAG 2.2 برای هر دو تم. اگر جفتی رد شود بیلد شکست می‌خورد.
-import { palette, themes } from "./src/tokens.js";
+import { palette, themes, contrastThemes } from "./src/tokens.js";
 
 const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 const lin = (c) => ((c /= 255) <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
@@ -13,6 +13,7 @@ const over = (fg, a, bg) => fg.map((c, i) => Math.round(c * a + bg[i] * (1 - a))
 /** مقدار یک توکن را به RGB تبدیل می‌کند؛ رنگ‌های شفاف روی backdrop ترکیب می‌شوند */
 function resolve(theme, value, backdrop) {
   let m;
+  if (/^#[0-9a-f]{6}$/i.test(value)) return hex(value);
   if ((m = value.match(/^var\(--k-([a-z]+)-(\d+)\)$/))) {
     const scale = m[1] === "brand" ? "firoozeh" : m[1];
     return hex(palette[scale][m[2]]);
@@ -48,20 +49,45 @@ const PAIRS = [
   ["border-error", "bg-primary", 3],
 ];
 
+// کنتراست بالا: متن‌ها AAA (۷:۱)، حاشیهٔ کنترل‌ها و حلقهٔ فوکوس ۴.۵:۱، حاشیه‌های تزئینی ۳:۱
+const HIGH = [
+  ...["text-primary", "text-secondary", "text-tertiary", "text-brand", "text-error", "text-warning", "text-success", "text-info"]
+    .flatMap((fg) => ["bg-primary", "bg-secondary", "bg-tertiary", "bg-elevated"].map((bg) => [fg, bg, 7])),
+  ...["text-brand", "text-error", "text-warning", "text-success", "text-info"].map((fg) => [fg, fg.replace("text-", "bg-") + "-subtle", 7]),
+  ["text-quaternary", "bg-primary", 4.5],
+  ["text-primary", "bg-hover", 7],
+  ["text-primary", "bg-active", 7],
+  ["text-on-brand", "bg-brand", 7],
+  ["text-on-brand", "bg-brand-hover", 7],
+  ["text-on-error", "bg-error", 7],
+  ["text-on-error", "bg-error-hover", 7],
+  ...["border-input", "border-control", "border-brand", "border-error", "border-primary"]
+    .flatMap((b) => ["bg-primary", "bg-secondary", "bg-elevated"].map((bg) => [b, bg, 4.5])),
+  ["border-secondary", "bg-primary", 3],
+];
+
+// رنگ‌های دسته‌ای نمودار در تم تیره همه ≥ ۳:۱ (در روشن سه رنگ زیر ۳:۱ با راهنما و جدول جبران می‌شوند)
+const CHART = [1, 2, 3, 4, 5, 6, 7, 8].map((i) => [`chart-${i}`, "bg-primary", 3]);
+
 let failed = 0;
-for (const [name, theme] of Object.entries(themes)) {
+const check = (label, theme, pairs) => {
   const base = resolve(theme, theme["bg-primary"], [0, 0, 0]);
-  for (const [fg, bg, min] of PAIRS) {
+  for (const [fg, bg, min] of pairs) {
     const b = resolve(theme, theme[bg], base);
     const r = ratio(resolve(theme, theme[fg], b), b);
     if (r < min) {
       failed++;
-      console.error(`  ✗ ${name}: ${fg} on ${bg} = ${r.toFixed(2)} (min ${min})`);
+      console.error(`  ✗ ${label}: ${fg} on ${bg} = ${r.toFixed(2)} (min ${min})`);
     }
   }
+};
+for (const [name, theme] of Object.entries(themes)) {
+  check(name, theme, PAIRS);
+  check(`${name} high-contrast`, { ...theme, ...contrastThemes[name] }, HIGH);
 }
+check("dark chart", themes.dark, CHART);
 if (failed) {
-  console.error(`contrast: ${failed} pair(s) fail WCAG AA`);
+  console.error(`contrast: ${failed} pair(s) fail`);
   process.exit(1);
 }
-console.log(`contrast: ${PAIRS.length * 2} pairs pass WCAG AA`);
+console.log(`contrast: ${PAIRS.length * 2} pairs pass WCAG AA, ${HIGH.length * 2} high-contrast pairs pass AAA, ${CHART.length} chart colors pass 3:1`);

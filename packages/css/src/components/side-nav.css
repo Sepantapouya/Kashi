@@ -50,3 +50,8 @@
 .k-sidenav__footer { margin-block-start: auto; }
 .k-sidenav--collapsed :is(.k-sidenav__text, .k-sidenav__label, .k-sidenav__chevron, .k-sidenav__item .k-badge, .k-sidenav__sub) { display: none; }
 .k-sidenav--collapsed .k-sidenav__item { justify-content: center; padding-inline: 0; }
+/* حالت رنگ اجباری (High Contrast ویندوز): زمینه و سایه حذف می‌شوند؛ حالت با رنگ‌های سیستمی نشان داده می‌شود */
+@media (forced-colors: active) {
+  .k-sidenav__item[aria-current="page"] { background: Highlight; color: HighlightText; forced-color-adjust: none; }
+  .k-sidenav__item[aria-current="page"] svg { color: HighlightText; }
+}

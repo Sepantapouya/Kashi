@@ -9,7 +9,7 @@
   box-shadow: var(--k-shadow-xs), var(--k-highlight);
 }
 .k-table-wrap--sticky { overflow-y: auto; }
-.k-table-wrap--sticky thead th { position: sticky; inset-block-start: 0; z-index: 1; box-shadow: 0 1px 0 var(--k-border-secondary); }
+.k-table-wrap--sticky thead th { position: sticky; inset-block-start: 0; z-index: var(--k-z-raised); box-shadow: 0 1px 0 var(--k-border-secondary); }
 .k-table-wrap:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: 2px; }
 .k-table { inline-size: 100%; border-collapse: collapse; font-size: var(--k-text-sm); }
 .k-table caption { padding: var(--k-space-5) var(--k-space-6) var(--k-space-4); text-align: start; caption-side: top; }

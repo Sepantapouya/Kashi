@@ -50,7 +50,7 @@ import { Navbar } from "@kashi-ui/react";
 
 ## در گوشی
 
-زیر عرض `collapseBelow` پیوندها در یک [کشو](/docs/components/drawer/) جمع می‌شوند و دکمهٔ منو جایشان را می‌گیرد. `menuFooter` پایین همان کشو است، مثلاً دکمهٔ ثبت‌نام.
+وقتی عرض صفحه یا خود نوار کمتر از `collapseBelow` باشد، پیوندها در یک [کشو](/docs/components/drawer/) جمع می‌شوند و دکمهٔ منو جایشان را می‌گیرد. چون عرض خود نوار هم حساب می‌شود، در ستون باریک یا پیش‌نمایش موبایل هم پیوندها روی دکمه‌ها نمی‌افتند. `menuFooter` پایین همان کشو است، مثلاً دکمهٔ ثبت‌نام.
 
 <Demo html={false} code={`<Navbar collapseBelow="md" menuFooter={<Button variant="primary">ثبت‌نام</Button>} … />`}>
   <NavbarDemo client:load narrow />
@@ -80,7 +80,7 @@ import Link from "next/link";
   ["centered", "boolean", "false", "پیوندها وسط نوار"],
   ["floating", "boolean", "false", "نوار شناور با گوشهٔ گرد و فاصله از لبه‌ها"],
   ["transparent", "boolean", "false", "بی‌رنگ روی هیرو تا وقتی صفحه اسکرول شود"],
-  ["collapseBelow", '"sm" | "md" | "lg"', '"md"', "زیر ۶۴۰، ۷۶۸ یا ۱۰۲۴ پیکسل پیوندها به منو می‌روند"],
+  ["collapseBelow", '"sm" | "md" | "lg"', '"md"', "زیر ۶۴۰، ۷۶۸ یا ۱۰۲۴ پیکسل (عرض صفحه یا خود نوار) پیوندها به منو می‌روند"],
   ["menuFooter", "ReactNode", "", "پایین منوی گوشی"],
   ["linkAs", "ElementType", '"a"', "کامپوننت پیوند، مثل Link در Next.js"],
   ["aria-label", "string", '"ناوبری اصلی"', "نام ناحیهٔ ناوبری"],

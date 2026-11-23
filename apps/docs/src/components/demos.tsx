@@ -390,7 +390,7 @@ export const KbdDemo = () => (
 );
 
 export const SkeletonDemo = () => (
-  <div aria-busy="true" aria-label="در حال بارگذاری" className="k-card" style={{ inlineSize: "min(100%, 24rem)", padding: "1.5rem", display: "grid", gap: "1rem" }}>
+  <div role="status" aria-busy="true" aria-label="در حال بارگذاری" className="k-card" style={{ inlineSize: "min(100%, 24rem)", padding: "1.5rem", display: "grid", gap: "1rem" }}>
     <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
       <Skeleton circle width={40} />
       <div style={{ flex: 1 }}><Skeleton lines={2} /></div>

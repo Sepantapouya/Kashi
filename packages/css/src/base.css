@@ -81,14 +81,7 @@
   white-space: nowrap;
 }
 
-/* کاربرانی که کنتراست بیشتر خواسته‌اند */
-@media (prefers-contrast: more) {
-  :root {
-    --k-text-tertiary: var(--k-text-secondary);
-    --k-border-primary: var(--k-text-tertiary);
-    --k-border-secondary: var(--k-border-primary);
-  }
-}
+/* کنتراست بالا (prefers-contrast: more و data-contrast="more") در توکن‌هاست: @kashi-ui/tokens، contrastThemes */
 
 /* متن پاراگراف‌ها بدون تک‌کلمهٔ تنها در خط آخر */
 :where(p, li, figcaption) { text-wrap: pretty; }

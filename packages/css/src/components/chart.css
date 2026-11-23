@@ -1,19 +1,7 @@
 /* نمودارها (BarChart، LineChart) — طبق روش dataviz: نشانه‌های باریک، شبکهٔ کم‌رنگ، رنگ دسته‌ای با ترتیب ثابت
- * پالت: چهار رنگ اول پالت مرجع، اعتبارسنجی‌شده روی سطح کاشی در هر دو تم (CVD ΔE ≥ ۸)
- * متغیرها: --k-chart-1..4  --k-chart-height
+ * رنگ‌ها توکن‌اند (@kashi-ui/tokens): --k-chart-1..8 دسته‌ای، --k-chart-seq-1..5 ترتیبی، --k-chart-div-1..7 واگرا
+ * سری نهم به بعد رنگ خنثی می‌گیرد («سایر»)، نه رنگ ساختگی. متغیر دیگر: --k-chart-height
  */
-:root, [data-theme="dark"] {
-  --k-chart-1: #3987e5;
-  --k-chart-2: #d95926;
-  --k-chart-3: #199e70;
-  --k-chart-4: #c98500;
-}
-[data-theme="light"] {
-  --k-chart-1: #2a78d6;
-  --k-chart-2: #eb6834;
-  --k-chart-3: #1baf7a;
-  --k-chart-4: #eda100;
-}
 .k-chart { position: relative; display: grid; gap: var(--k-space-3); font-size: var(--k-text-xs); }
 .k-chart__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--k-space-2) var(--k-space-4); }
 .k-chart__title { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }

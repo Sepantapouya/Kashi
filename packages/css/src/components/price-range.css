@@ -35,3 +35,7 @@
 .k-price-range__input:disabled { color: var(--k-text-quaternary); }
 .k-price-range__slider { padding-inline: var(--k-space-1); }
 .k-price-range__ends { display: flex; justify-content: space-between; margin-block-start: calc(-1 * var(--k-space-2)); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+/* حالت رنگ اجباری (High Contrast ویندوز): زمینه و سایه حذف می‌شوند؛ حالت با رنگ‌های سیستمی نشان داده می‌شود */
+@media (forced-colors: active) {
+  .k-price-range__field:focus-within { outline: 2px solid Highlight; outline-offset: 1px; }
+}

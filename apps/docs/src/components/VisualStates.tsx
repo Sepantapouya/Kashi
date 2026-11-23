@@ -55,7 +55,7 @@ export function WideTabs({ variant = "line" }: { variant?: "line" | "pill" | "se
       </TabList>
       {TAB_NAMES.map((t, i) => (
         <TabPanel key={t} value={`t${i}`}>
-          <pre dir="ltr" style={{ margin: 0, overflowX: "auto" }}>npm i @kashi-ui/react @kashi-ui/css @kashi-ui/icons @kashi-ui/persian</pre>
+          <pre dir="ltr" tabIndex={0} style={{ margin: 0, overflowX: "auto" }}>npm i @kashi-ui/react @kashi-ui/css @kashi-ui/icons @kashi-ui/persian</pre>
         </TabPanel>
       ))}
     </Tabs>

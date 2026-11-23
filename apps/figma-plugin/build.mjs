@@ -3,7 +3,7 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, copyFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { palette, space, radius, font, shadow, themes } from "../../packages/tokens/src/tokens.js";
+import { palette, space, radius, font, shadow, themes, contrastThemes } from "../../packages/tokens/src/tokens.js";
 import { icons as ICON_SOURCE, categories as ICON_CATEGORIES } from "../../packages/icons/src/icons.js";
 import { renderBody, variants as ICON_VARIANTS } from "../../packages/icons/src/render.js";
 import { withIconHtmlNotice, iconJsNotice, iconLicenseZipEntries } from "../../scripts/icon-attribution.mjs";
@@ -26,11 +26,13 @@ const varRef = (s) => {
 const scaleOf = (name) => (name === "brand" ? "firoozeh" : name);
 const lookup = ([scale, step]) => palette[scaleOf(scale)][step];
 
-/** هر رنگ CSS کاشی را به {alias} یا {rgba} تبدیل می‌کند */
-function color(s) {
+/** هر رنگ CSS کاشی را به {alias} یا {rgba} تبدیل می‌کند؛ ctx = توکن‌های همان تم برای var(--k-bg-primary) و مانند آن */
+function color(s, ctx) {
   s = s.trim();
   const ref = varRef(s);
   if (ref) return { alias: ref };
+  const sem = /^var\(--k-([a-z-]+)\)$/.exec(s);
+  if (sem && ctx?.[sem[1]]) return color(ctx[sem[1]], ctx);
   if (s.startsWith("#")) return { rgba: hex(s) };
   let m = /^rgb\((\d+) (\d+) (\d+)(?: \/ ([\d.]+))?\)$/.exec(s);
   if (m) return { rgba: [m[1] / 255, m[2] / 255, m[3] / 255, m[4] === undefined ? 1 : Number(m[4])] };
@@ -57,14 +59,14 @@ const splitTop = (s) => {
 const px = (v) => (v.endsWith("rem") ? parseFloat(v) * REM : parseFloat(v) || 0);
 
 /** "0 1px 2px rgb(...)" → افکت فیگما */
-function effects(s) {
+function effects(s, ctx) {
   return splitTop(s).flatMap((part) => {
     if (part === "0 0 #0000" || part === "none") return [];
     const inset = part.startsWith("inset ");
     const body = inset ? part.slice(6) : part;
     const i = body.search(/(rgb|#|color-mix|var)/);
     const nums = body.slice(0, i).trim().split(/\s+/).map(px);
-    const c = color(body.slice(i));
+    const c = color(body.slice(i), ctx);
     const [x, y, blur, spread = 0] = nums;
     return [{ type: inset ? "INNER_SHADOW" : "DROP_SHADOW", x, y, blur, spread, rgba: c.rgba ?? hex(lookup(c.alias)) }];
   });
@@ -72,13 +74,19 @@ function effects(s) {
 
 const isEffect = (k) => k.startsWith("shadow") || k.startsWith("ring") || k === "highlight";
 
+// چهار حالت مجموعهٔ تم در فیگما: تیره، روشن و هر دو با کنتراست بالا (کل تم، نه فقط تفاوت‌ها)
+const allThemes = {
+  ...themes,
+  "dark-contrast": { ...themes.dark, ...contrastThemes.dark },
+  "light-contrast": { ...themes.light, ...contrastThemes.light },
+};
 const themeOut = {};
 const effectOut = {};
-for (const [mode, values] of Object.entries(themes)) {
+for (const [mode, values] of Object.entries(allThemes)) {
   themeOut[mode] = {};
   effectOut[mode] = {};
   for (const [k, v] of Object.entries(values)) {
-    if (isEffect(k)) effectOut[mode][k] = effects(v);
+    if (isEffect(k)) effectOut[mode][k] = effects(v, values);
     else themeOut[mode][k] = color(v);
   }
 }

@@ -4,7 +4,7 @@
 .k-steps__step { position: relative; flex: 1; display: grid; justify-items: center; gap: var(--k-space-2); text-align: center; min-inline-size: 0; }
 .k-steps__marker {
   position: relative;
-  z-index: 1;
+  z-index: var(--k-z-raised);
   display: grid;
   place-items: center;
   inline-size: var(--k-step-size, 2rem);

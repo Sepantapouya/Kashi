@@ -105,7 +105,7 @@
 
 /* نشانگر لغزان (وقتی JavaScript جای زبانهٔ فعال را اندازه گرفت) */
 .k-tabs__indicator { position: absolute; left: var(--_ix); top: var(--_iy); inline-size: var(--_iw); block-size: var(--_ih); pointer-events: none; transition: left var(--k-duration-slow) var(--k-ease-spring), top var(--k-duration-slow) var(--k-ease-spring), inline-size var(--k-duration-slow) var(--k-ease-standard), block-size var(--k-duration-slow) var(--k-ease-standard); }
-.k-tabs__list[data-indicator] .k-tabs__tab { z-index: 1; }
+.k-tabs__list[data-indicator] .k-tabs__tab { z-index: var(--k-z-raised); }
 /* خطی */
 .k-tabs--line .k-tabs__list[data-indicator] .k-tabs__tab[aria-selected="true"]::after { content: none; }
 .k-tabs--line .k-tabs__indicator { top: auto; bottom: -1px; block-size: 2px; border-radius: 2px; background: var(--k-tabs-indicator, var(--k-border-brand)); }

@@ -35,3 +35,8 @@
 .k-splitter__handle:focus-visible::after { box-shadow: var(--k-ring-brand); border-color: var(--k-border-brand); }
 .k-splitter[data-dragging] { user-select: none; cursor: col-resize; }
 .k-splitter--vertical[data-dragging] { cursor: row-resize; }
+/* حالت رنگ اجباری (High Contrast ویندوز): زمینه و سایه حذف می‌شوند؛ حالت با رنگ‌های سیستمی نشان داده می‌شود */
+@media (forced-colors: active) {
+  .k-splitter__handle { background: CanvasText; }
+  .k-splitter__handle:focus-visible { outline: 2px solid Highlight; outline-offset: 2px; }
+}
