@@ -4,6 +4,7 @@
 // آدم‌ها شکل بستهٔ نرم‌اند و جزئیات ریز با نقطه نشان داده می‌شوند.
 
 import { sqPath } from "./render.js";
+import { catalogDrawings, catalogStates, catalogStateSubjects, stateMarks } from "./catalog-additions.js";
 
 /** مستطیل با گوشهٔ پیوسته؛ data-sq به build می‌گوید این قاب در سبک curved گردتر کشیده شود */
 /** جابه‌جایی کل آیکون برای هم‌مرکز شدن، بی‌آن‌که مختصات دوباره نوشته شوند */
@@ -52,6 +53,7 @@ export const categories = {
   "files": "فایل‌ها",
   "folders": "پوشه و بایگانی",
   "documents": "اسناد و یادداشت",
+  "document-workflows": "عملیات و وضعیت سند",
   "banking": "بانک و پرداخت",
   "shopping": "خرید",
   "black-friday": "بلک فرایدی",
@@ -195,7 +197,7 @@ export const categories = {
 /** گروه‌های دسته‌ها برای مرور در مستندات و افزونهٔ فیگما؛ شناسه‌های دسته‌ها پایدار می‌مانند */
 export const categoryGroups = [
   {"id":"interface","title":"رابط کاربری","categories":["interface","actions","arrows","arrow-actions","chevrons","navigation","layout","editor","alerts","notifications","tables","forms","accessibility","editing-controls","product-actions"]},
-  {"id":"documents","title":"فایل، کار و ابزار","categories":["files","folders","documents","office","business","legal","tools","workshop","formats"]},
+  {"id":"documents","title":"فایل، کار و ابزار","categories":["files","folders","documents","document-workflows","office","business","legal","tools","workshop","formats"]},
   {"id":"communication","title":"ارتباط","categories":["communication","calls","social","connectivity","chat","support","meetings"]},
   {"id":"media","title":"رسانه","categories":["camera","media","audio","music","photo-editing"]},
   {"id":"tech","title":"فناوری و داده","categories":["development","charts","ai","devices","security","smart-home","design","browser","infrastructure","privacy","hardware","cad","design-tools","device-tools","network-tools"]},
@@ -14958,4 +14960,21 @@ export const aliases = {
 for (const [old, to] of Object.entries(aliases)) {
   if (!icons[to]) throw new Error(`alias ${old} → unknown ${to}`);
   if (icons[old]) { icons[to].keywords = [...new Set([...icons[to].keywords, ...icons[old].keywords, old.replace(/-/g, " ")])]; delete icons[old]; }
+}
+
+// داده‌های تازه بعد از تعیین نام‌های اصلی، از بدنهٔ آیکون پایه استفاده می‌کنند.
+Object.assign(icons, catalogDrawings);
+for (const [base, category, states] of catalogStates) {
+  const icon = icons[base];
+  const subject = catalogStateSubjects[base] ?? icon.body;
+  for (const [state, title] of states) {
+    const [fa, en, symbol] = stateMarks[state];
+    const name = `${base}-${state}`;
+    icons[name] = {
+      title,
+      category,
+      keywords: [...new Set([title, `${base.replaceAll("-", " ")} ${en}`, fa, en, ...icon.keywords])],
+      body: withCorner(subject, symbol, "15 15 4.55"),
+    };
+  }
 }
