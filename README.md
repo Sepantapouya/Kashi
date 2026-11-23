@@ -11,6 +11,7 @@
 <h1 align="center">کاشی · Kashi</h1>
 
 <p align="center">
+  <a href="#english">English</a> ·
   <a href="https://kashi.sepantapouya.com"><b>مستندات و نمونه‌ها</b></a> ·
   <a href="https://kashi.sepantapouya.com/docs/figma/">فیگما</a> ·
   <a href="https://kashi.sepantapouya.com/docs/ai/">هوش مصنوعی (MCP)</a> ·
@@ -31,7 +32,13 @@
 
 ## English
 
-Kashi (کاشی) is an open-source design system for Persian (right-to-left) products. It ships React components, framework-free Web Components, pure-CSS styles, design tokens, a Tailwind preset, 14,000 icons, a Figma kit generated from the code, and an MCP server for AI assistants. It includes Persian-specific fields (Jalali date picker, national ID, bank card with bank logos, IBAN, licence plate) and targets WCAG 2.2 AA. Every built-in string also has an English locale.
+Kashi (کاشی) is built for Persian products from the start, not simply an English interface flipped to right-to-left. Its Persian-first components cover practical details that ordinary UI kits often leave to each product team: Jalali dates, national IDs, bank cards with bank logos, IBANs, and licence plates.
+
+It is an open-source design system with React components, framework-free Web Components, pure-CSS styles, design tokens, a Tailwind preset, 14,000 icons, a code-generated Figma kit, and an MCP server for AI assistants. For example, its Jalali date picker handles the Persian calendar, while its banking inputs address Iranian payment details. Kashi targets WCAG 2.2 AA and includes an English locale for built-in strings.
+
+### Quick start
+
+Install the React components and styles:
 
 ```bash
 npm i @kashi-ui/react @kashi-ui/css
@@ -45,6 +52,8 @@ import { Button, KashiProvider } from "@kashi-ui/react";
   <Button variant="primary">Sign up</Button>
 </KashiProvider>
 ```
+
+For an English, left-to-right page, set `dir="ltr"` on the root `<html>` element. The `locale="en"` setting controls Kashi's built-in strings; page direction is a separate choice.
 
 [English docs](https://kashi.sepantapouya.com/en/docs/) · [Releases](https://github.com/Sepantapouya/Kashi/releases) · [Contributing](CONTRIBUTING.md)
 
