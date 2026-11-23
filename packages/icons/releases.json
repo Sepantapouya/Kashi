@@ -2,6 +2,12 @@
  "generated": "node packages/icons/scripts/releases.mjs",
  "releases": [
   {
+   "version": "2.14.0",
+   "date": "2026-11-23",
+   "total": 14012,
+   "added": []
+  },
+  {
    "version": "2.13.0",
    "date": "2026-11-22",
    "total": 14012,
@@ -3856,12 +3862,6 @@
   },
   {
    "version": "2.8.1",
-   "date": "2026-11-15",
-   "total": 10200,
-   "added": []
-  },
-  {
-   "version": "2.8.0",
    "date": "2026-11-15",
    "total": 10200,
    "added": []
