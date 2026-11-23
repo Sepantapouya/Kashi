@@ -36,7 +36,7 @@ npm publish -w @kashi-ui/react
    - Organization or user: `Sepantapouya`
    - Repository: `Kashi`
    - Workflow filename: `release.yml`
-2. در GitHub: Settings ← Actions ← General ← گزینهٔ **Allow GitHub Actions to create and approve pull requests** را فعال کنید.
+2. در GitHub: Settings ← Actions ← General ← بخش Workflow permissions: گزینهٔ **Read and write permissions** را انتخاب و **Allow GitHub Actions to create and approve pull requests** را فعال کنید. بدون این، Release با خطای «GitHub Actions is not permitted to create or approve pull requests» شکست می‌خورد.
 3. در GitHub: Settings ← Secrets and variables ← Actions ← Variables، متغیر `NPM_PUBLISH` را با مقدار `true` بسازید.
 
 (روش جایگزین: یک Granular Access Token در npm بسازید و آن را با نام `NPM_TOKEN` در Secrets ذخیره کنید.)
