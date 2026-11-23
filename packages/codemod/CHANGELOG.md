@@ -1,5 +1,9 @@
 # @kashi-ui/codemod
 
+## 2.15.0
+
+No changes in this release.
+
 ## 2.14.0
 
 ### Minor Changes
