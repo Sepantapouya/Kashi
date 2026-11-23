@@ -1,5 +1,9 @@
 # @kashi-ui/bank-logos
 
+## 2.15.1
+
+No changes in this release.
+
 ## 2.15.0
 
 No changes in this release.
