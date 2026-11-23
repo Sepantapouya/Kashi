@@ -5,6 +5,7 @@
 
 import { sqPath } from "./render.js";
 import { catalogDrawings, catalogStates, catalogStateSubjects, stateMarks } from "./catalog-additions.js";
+import { trimCutBody } from "./cut-cleanup.js";
 
 /** مستطیل با گوشهٔ پیوسته؛ data-sq به build می‌گوید این قاب در سبک curved گردتر کشیده شود */
 /** جابه‌جایی کل آیکون برای هم‌مرکز شدن، بی‌آن‌که مختصات دوباره نوشته شوند */
@@ -14977,4 +14978,10 @@ for (const [base, category, states] of catalogStates) {
       body: withCorner(subject, symbol, "15 15 4.55"),
     };
   }
+}
+
+// در آیکون‌های نشان‌دار، خط‌های پایه‌ای که تقریباً کامل زیر نشان می‌روند حذف می‌شوند
+// تا تکهٔ کوتاه باقی‌مانده کنار نشان دیده نشود (src/cut-cleanup.js).
+for (const icon of Object.values(icons)) {
+  if (icon.body.startsWith("<g data-cut=")) icon.body = trimCutBody(icon.body);
 }
