@@ -15,7 +15,7 @@ import { icons, categories, categoryGroups, aliases } from "./src/icons.js";
   for (const c of used) if (!categories[c]) throw new Error(`group has unknown category ${c}`);
 }
 import { renderBody, variants } from "./src/render.js";
-import { identicalSvgVariants } from "./src/svg-deduplication.js";
+import { identicalSvgVariants, staticSvgBody } from "./src/svg-deduplication.js";
 
 const pascal = (name) => "Icon" + name.replace(/(^|-)([a-z0-9])/g, (_, __, c) => c.toUpperCase());
 const names = Object.keys(icons);
@@ -347,10 +347,10 @@ ${[...names, ...aliasNames].map((n) => `export declare const ${dataName(n)}: Kas
 // نام‌های قدیمی فایل SVG جدا ندارند (exports آن‌ها را به فایل نام اصلی می‌رساند) ولی نماد اسپرایتشان ساخته می‌شود
 for (const n of names) {
   const body = icons[aliases[n] ?? n].body;
-  writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(body, "light", { uid: `k-${n}` })}</svg>\n`);
+  writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${staticSvgBody(body, "light", aliases[n] ?? n)}</svg>\n`);
   for (const v of variants.slice(1)) {
     if (redirects[`./svg/${v}/${n}.svg`]) continue;
-    writeFileSync(`dist/svg/${v}/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(body, v, { uid: `k-${n}` })}</svg>\n`);
+    writeFileSync(`dist/svg/${v}/${n}.svg`, `<svg ${attrs} width="20" height="20">${staticSvgBody(body, v, aliases[n] ?? n)}</svg>\n`);
   }
 }
 for (const v of variants.slice(1)) {
