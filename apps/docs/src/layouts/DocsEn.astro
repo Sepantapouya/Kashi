@@ -64,6 +64,19 @@ const pages = EN_NAV.map((n) => ({ href: n.href, label: n.title, current: n.href
 
 <style is:global>
   .en-nav { --k-navbar-max-width: 90rem; }
+  /* Keep the header links, page links and language switch in ONE scroll
+     container. Drawer normally pins its footer, leaving only ~44px for links
+     in landscape at 667×375; here the entire drawer scrolls instead. */
+  .en-nav .k-navbar__drawer.k-dialog--start { overflow-y: auto; overscroll-behavior: contain; }
+  .en-nav .k-navbar__drawer.k-dialog--start .k-drawer__header {
+    position: sticky; inset-block-start: 0; z-index: 1; background: var(--k-bg-elevated);
+  }
+  .en-nav .k-navbar__drawer.k-dialog--start .k-drawer__body {
+    flex: none; overflow: visible;
+  }
+  .en-nav .k-navbar__drawer.k-dialog--start .k-drawer__footer {
+    flex: none; overflow: visible;
+  }
   .en-menu-pages { margin-block-end: var(--k-space-3); }
   .en-menu-pages ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
   .en-menu-pages a { display: block; padding: var(--k-space-2) var(--k-space-3); border-radius: var(--k-radius-md); color: var(--k-text-secondary); font-size: var(--k-text-sm); text-decoration: none; }
