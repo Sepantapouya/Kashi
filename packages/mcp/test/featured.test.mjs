@@ -16,7 +16,7 @@ test("کارت «تازه در» با نسخهٔ فعلی یکی است", () => 
 });
 
 test("پیوند کارت «تازه در» به صفحه‌ای واقعی می‌رود", () => {
-  const slug = featured.href.replace(/^\/|\/$/g, "").replace(/#.*$/, "");
+  const slug = featured.href.replace(/#.*$/, "").replace(/^\/|\/$/g, "");
   const base = new URL(`../../../apps/docs/src/pages/${slug}`, import.meta.url).pathname;
   assert.ok([".mdx", ".astro", "/index.mdx", "/index.astro"].some((x) => existsSync(base + x)), `${featured.href} صفحه ندارد`);
 });

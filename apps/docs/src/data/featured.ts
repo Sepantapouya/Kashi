@@ -14,9 +14,9 @@ export const featured: {
   /** پیش‌نمایش کوچک داخل کارت */
   art: FeaturedArt;
 } = {
-  since: "2.13",
-  href: "/docs/icons/#g-money",
-  title: "آیکون‌های بلک فرایدی",
-  text: "۱۲ طرح دست‌ساز در شش سبک، برای حراج، کوپن و پیشنهادهای فروشگاهی.",
-  art: "icons",
+  since: "2.14",
+  href: "/docs/theming/#کنتراست-بالا",
+  title: "حالت کنتراست بالا",
+  text: "متن‌ها دست‌کم ۷ به ۱ در هر دو تم؛ با تنظیم سیستم خودکار روشن می‌شود یا با data-contrast.",
+  art: "sheet",
 };
