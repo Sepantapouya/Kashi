@@ -14,9 +14,9 @@ export const featured: {
   /** پیش‌نمایش کوچک داخل کارت */
   art: FeaturedArt;
 } = {
-  since: "2.14",
-  href: "/docs/theming/#کنتراست-بالا",
-  title: "حالت کنتراست بالا",
-  text: "متن‌ها دست‌کم ۷ به ۱ در هر دو تم؛ با تنظیم سیستم خودکار روشن می‌شود یا با data-contrast.",
-  art: "sheet",
+  since: "2.15",
+  href: "/docs/icons/",
+  title: "۱۵٬۰۰۰ آیکون",
+  text: "۹۸۸ آیکون تازه در شش سبک؛ کاتالوگ آیکون‌های کاشی به ۱۵٬۰۰۰ طرح رسید.",
+  art: "icons",
 };
