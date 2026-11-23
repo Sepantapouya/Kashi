@@ -2,15 +2,10 @@
 import DocsEn from "../../../../layouts/DocsEn.astro";
 import { EN_COMPONENTS, EN_PERSIAN } from "../../../../data/en";
 
-// Link to an English translation only when that MDX page exists in this branch.
-// All other cards retain the Persian destination instead of pointing to 404s.
-const englishPages = new Set(
-  Object.keys(import.meta.glob("./*.mdx"))
-    .map((file) => `/docs/components/${file.slice(2, -4)}/`)
-    .concat(
-      Object.keys(import.meta.glob("../persian/*.mdx"))
-        .map((file) => `/docs/persian/${file.slice(11, -4)}/`)
-    )
+// Pages that already have an English translation link to /en/docs/...; the rest link to the Persian page.
+const translated = new Set(
+  Object.keys(import.meta.glob("./*.mdx")).map((f) => `/docs/components/${f.slice(2, -4)}/`)
+    .concat(Object.keys(import.meta.glob("../persian/*.mdx")).map((f) => `/docs/persian/${f.slice(11, -4)}/`)),
 );
 
 const groups = [
@@ -33,7 +28,7 @@ const headings = groups.map((g) => ({ depth: 2, slug: g.title.toLowerCase().repl
       <ul class="en-cards" role="list">
         {g.items.map(([slug, name, text]) => (
           <li>
-            {englishPages.has(`${g.base}${slug}/`)
+            {translated.has(`${g.base}${slug}/`)
               ? <a href={`/en${g.base}${slug}/`}><b>{name}</b><span>{text}</span></a>
               : <a href={`${g.base}${slug}/`} hreflang="fa"><b>{name}</b><span>{text}</span></a>}
           </li>
