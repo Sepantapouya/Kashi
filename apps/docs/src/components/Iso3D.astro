@@ -1,0 +1,115 @@
+---
+// تصویرسازی سه‌بعدی ایزومتریک، ساخته‌شده از توکن‌ها و آیکون‌های واقعی کاشی (تزئینی، aria-hidden).
+// variant:
+//   stack   — چهار لایهٔ توکن، باز و شناور (نسخهٔ کوچک صفحهٔ /tokens/)
+//   palette — شهر رنگ: هر پلهٔ پالت یک ستون که ارتفاعش با پررنگی بالا می‌رود
+//   icons   — کاشی‌های آیکون که مثل موج بالا و پایین می‌روند
+import { iconSvg } from "@kashi-ui/icons";
+
+interface Props { variant: "stack" | "palette" | "icons"; size?: "sm" | "md" | "lg"; class?: string; icons?: string[] }
+const { variant, size = "md", class: cls, icons: iconNames } = Astro.props;
+
+const STEPS = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950"];
+const RAMPS = ["brand", "lajvard", "zafaran", "anar", "pesteh", "shab"];
+const ICONS = (iconNames ?? ["home", "calendar", "wallet", "chat", "samovar", "heart", "bell", "kashi-tile", "camera", "search", "star", "pomegranate"]).filter((n) => iconSvg(n));
+---
+<div class:list={["iso", `iso--${variant}`, `iso--${size}`, cls]} aria-hidden="true" data-iso>
+  <div class="iso__floor"></div>
+  <div class="iso__world">
+    {variant === "stack" && (
+      <Fragment>
+        <div class="iso__plate" style="--z: 0">
+          {RAMPS.slice(0, 4).map((r, y) => STEPS.slice(1, 10).map((s, x) => <i class="iso__tile" style={`--x:${x};--y:${y};background:var(--k-${r}-${s})`}></i>))}
+          <b class="iso__tag">palette</b>
+        </div>
+        <div class="iso__plate" style="--z: 1">
+          {[2, 3, 4, 6, 8].map((s, y) => <i class="iso__bar" style={`--y:${y};inline-size:calc(var(--k-space-${s}) * 3.2)`}></i>)}
+          <i class="iso__corner"></i>
+          <b class="iso__tag">scale</b>
+        </div>
+        <div class="iso__plate" style="--z: 2">
+          {["bg-brand", "text-primary", "border-brand", "bg-elevated", "text-brand", "border-primary"].map((t, k) => (
+            <span class="iso__chip" style={`--x:${k % 2};--y:${Math.floor(k / 2)};--v:var(--k-${t})`}><i></i><code>{t}</code></span>
+          ))}
+          <b class="iso__tag">semantic</b>
+        </div>
+        <div class="iso__plate iso__plate--top" style="--z: 3">
+          <span class="k-btn k-btn--primary k-btn--sm iso__btn">ثبت</span>
+          <span class="iso__card"><i></i><i></i><i></i></span>
+          <input class="k-switch iso__switch" type="checkbox" role="switch" checked tabindex="-1" />
+          <b class="iso__tag">components</b>
+        </div>
+        <span class="iso__beam"></span>
+      </Fragment>
+    )}
+    {variant === "palette" && RAMPS.map((r, y) => STEPS.map((s, x) => (
+      <i class="iso__col" style={`--x:${x};--y:${y};--c:var(--k-${r}-${s});--h:${8 + x * 9};--d:${(x + y) * 40}ms`}><b></b><u></u><s></s></i>
+    )))}
+    {variant === "icons" && ICONS.map((n, k) => (
+      <span class="iso__itile" style={`--x:${k % 4};--y:${Math.floor(k / 4)};--d:${(k % 4 + Math.floor(k / 4)) * -0.35}s`}>
+        <span class="iso__iface" set:html={iconSvg(n, { size: 30 })} /><u></u><s></s>
+      </span>
+    ))}
+  </div>
+</div>
+
+<style>
+  @property --iso-h { syntax: "<number>"; inherits: true; initial-value: 0; }
+  .iso { --s: 1; position: relative; inline-size: 100%; block-size: var(--iso-box, 22rem); perspective: 2000px; pointer-events: none; }
+  .iso--sm { --s: 0.6; --iso-box: 18rem; }
+  .iso--lg { --s: 1.2; --iso-box: 28rem; }
+  .iso__floor { position: absolute; inset: 15% 10%; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--k-brand-500) 22%, transparent), transparent); filter: blur(20px); }
+  .iso__world { position: absolute; inset-inline-start: 50%; inset-block-start: 58%; inline-size: 0; block-size: 0; transform-style: preserve-3d; transform: scale(var(--s)) rotateX(60deg) rotateZ(-45deg); direction: ltr; }
+
+  /* ── stack ── */
+  .iso--stack .iso__world { inset-block-start: 70%; }
+  .iso__plate { position: absolute; inset-inline-start: -150px; inset-block-start: -110px; inline-size: 300px; block-size: 220px; border: 1px solid color-mix(in srgb, var(--k-text-primary) 14%, transparent); border-radius: 16px; background: color-mix(in srgb, var(--k-bg-elevated) 78%, transparent); box-shadow: 0 40px 50px -24px rgb(0 0 0 / 0.45); transform: translateZ(calc(var(--z) * 58px)); animation: iso-float 6s var(--k-ease-standard) infinite; animation-delay: calc(var(--z) * -0.6s); }
+  .iso__plate--top { background: color-mix(in srgb, var(--k-bg-primary) 85%, transparent); }
+  @keyframes iso-float { 50% { translate: 0 0 10px; } }
+  .iso__tile { position: absolute; inset-inline-start: calc(26px + var(--x) * 27px); inset-block-start: calc(46px + var(--y) * 27px); inline-size: 22px; block-size: 22px; border-radius: 5px; }
+  .iso__tag { position: absolute; inset-inline-end: 14px; inset-block-start: 12px; color: var(--k-text-tertiary); font: 600 11px var(--k-font-mono); }
+  .iso__bar { position: absolute; inset-inline-start: 26px; inset-block-start: calc(52px + var(--y) * 24px); block-size: 10px; border-radius: 3px; background: color-mix(in srgb, var(--k-brand-500) 60%, transparent); }
+  .iso__corner { position: absolute; inset-inline-end: 34px; inset-block-start: 80px; inline-size: 64px; block-size: 64px; border: 3px solid var(--k-text-brand); border-radius: var(--k-radius-xl); border-block-end-color: transparent; border-inline-start-color: transparent; }
+  .iso__chip { position: absolute; inset-inline-start: calc(22px + var(--x) * 138px); inset-block-start: calc(48px + var(--y) * 50px); display: inline-flex; align-items: center; gap: 6px; padding: 5px 8px; border: 1px solid var(--k-border-secondary); border-radius: 8px; background: var(--k-bg-primary); }
+  .iso__chip i { inline-size: 14px; block-size: 14px; border-radius: 4px; background: var(--v); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--k-text-primary) 18%, transparent); }
+  .iso__chip code { color: var(--k-text-secondary); font: 600 10px var(--k-font-mono); }
+  .iso__btn { position: absolute; inset-inline-start: 24px; inset-block-start: 48px; }
+  .iso__card { position: absolute; inset-inline-start: 24px; inset-block-start: 104px; display: grid; gap: 7px; inline-size: 150px; padding: 12px; border: 1px solid var(--k-border-secondary); border-radius: 12px; background: var(--k-bg-elevated); }
+  .iso__card i { display: block; block-size: 7px; border-radius: 4px; background: var(--k-border-primary); }
+  .iso__card i:first-child { inline-size: 70%; background: var(--k-text-secondary); }
+  .iso__card i:last-child { inline-size: 45%; }
+  .iso__switch { position: absolute; inset-inline-end: 34px; inset-block-start: 112px; }
+  .iso__beam { position: absolute; inset-inline-start: -108px; inset-block-start: -50px; inline-size: 3px; block-size: 174px; transform-origin: 50% 0; transform: rotateX(90deg); background: linear-gradient(to bottom, transparent, var(--k-brand-400) 15%, var(--k-brand-300) 85%, transparent); box-shadow: 0 0 12px var(--k-brand-400); }
+
+  /* ── palette: ستون‌های مکعبی ── */
+  .iso--palette .iso__world { inset-block-start: 62%; }
+  .iso__col { --w: 26px; --g: 6px; --hh: calc(var(--h) * var(--iso-h) * 1px); position: absolute; inset-inline-start: calc((var(--x) - 5.5) * (var(--w) + var(--g))); inset-block-start: calc((var(--y) - 3) * (var(--w) + var(--g))); inline-size: var(--w); block-size: var(--w); transform-style: preserve-3d; }
+  .iso__col b, .iso__col u, .iso__col s { position: absolute; display: block; text-decoration: none; }
+  .iso__col b { inset: 0; border-radius: 3px; background: var(--c); transform: translateZ(var(--hh)); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12); }
+  .iso__col u { inset-inline-start: 0; inset-block-start: var(--w); inline-size: var(--w); block-size: var(--hh); transform-origin: 50% 0; transform: rotateX(90deg); background: color-mix(in srgb, var(--c) 72%, #000); }
+  .iso__col s { inset-inline-start: var(--w); inset-block-start: 0; inline-size: var(--hh); block-size: var(--w); transform-origin: 0 50%; transform: rotateY(-90deg); background: color-mix(in srgb, var(--c) 55%, #000); }
+  .iso--palette { --iso-h: 1; transition: --iso-h 1.4s var(--k-ease-emphasized); }
+  .iso--palette:not(.is-in) { --iso-h: 0.08; }
+
+  /* ── icons: کاشی‌های شناور ── */
+  .iso__itile { --w: 66px; position: absolute; inset-inline-start: calc((var(--x) - 2) * 80px); inset-block-start: calc((var(--y) - 1.5) * 80px); inline-size: var(--w); block-size: var(--w); transform-style: preserve-3d; animation: iso-wave 3.2s ease-in-out infinite; animation-delay: var(--d); }
+  .iso__iface { position: absolute; inset: 0; display: grid; place-items: center; border: 1px solid var(--k-border-secondary); border-radius: 14px; background: var(--k-bg-elevated); color: var(--k-text-primary); transform: translateZ(14px); }
+  .iso__itile:nth-child(3n + 1) .iso__iface { background: var(--k-bg-brand); border-color: transparent; color: var(--k-text-on-brand); }
+  .iso__iface :global(svg) { transform: rotateZ(45deg); }
+  .iso__itile u, .iso__itile s { position: absolute; display: block; background: color-mix(in srgb, var(--k-bg-elevated) 60%, #000); }
+  .iso__itile u { inset-inline-start: 4px; inset-block-start: var(--w); inline-size: calc(var(--w) - 8px); block-size: 14px; transform-origin: 50% 0; transform: rotateX(90deg); }
+  .iso__itile s { inset-inline-start: var(--w); inset-block-start: 4px; inline-size: 14px; block-size: calc(var(--w) - 8px); transform-origin: 0 50%; transform: rotateY(-90deg); filter: brightness(0.8); }
+  @keyframes iso-wave { 50% { translate: 0 0 26px; } }
+
+  @media (max-width: 48rem) { .iso { --s: 0.72; --iso-box: 17rem; } .iso--sm { --s: 0.5; --iso-box: 12rem; } }
+  @media (prefers-reduced-motion: reduce) {
+    .iso__plate, .iso__itile { animation: none; }
+    .iso--palette, .iso--palette:not(.is-in) { --iso-h: 1; transition: none; }
+  }
+</style>
+
+<script>
+  // ستون‌های پالت وقتی دیده می‌شوند بالا می‌آیند
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }), { threshold: 0.3 });
+  document.querySelectorAll("[data-iso]").forEach((el) => io.observe(el));
+</script>

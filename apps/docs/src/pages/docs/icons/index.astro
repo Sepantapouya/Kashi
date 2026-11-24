@@ -1,6 +1,7 @@
 ---
 // فهرست آیکون‌ها: معرفی با جستجو و نمونهٔ زندهٔ سبک‌ها، ویژهٔ ایران و کارت دسته‌ها در گروه‌ها
 import Docs from "../../../layouts/Docs.astro";
+import IsoBanner from "../../../components/IsoBanner.astro";
 import { IconCatalog } from "../../../components/IconCatalog";
 import { icons, categories, categoryGroups, variants } from "@kashi-ui/icons";
 import { latestIconRelease } from "../../../data/newIcons";
@@ -10,5 +11,6 @@ const n = (x: number) => x.toLocaleString("fa-IR");
 const fresh = latestIconRelease && { version: latestIconRelease.version, count: latestIconRelease.added.length, names: latestIconRelease.added.filter((_, i, a) => i % Math.max(1, Math.floor(a.length / 24)) === 0).slice(0, 24) };
 ---
 <Docs title="آیکون‌های کاشی" description={`${n(Object.keys(icons).length)} آیکون در ${n(categoryGroups.length)} گروه، ${n(Object.keys(categories).length)} دسته و ${n(variants.length)} سبک؛ برای React، HTML، هر فریم‌ورک دیگر و فیگما.`}>
+  <IsoBanner variant="icons" title={`${n(Object.keys(icons).length)} آیکون، یک زبان بصری`} text="همه روی شبکهٔ ۲۰×۲۰، با همان گوشه‌های نرم کامپوننت‌ها و در شش سبک؛ از خانه و کیف پول تا سماور و انار." href="/docs/icons/usage/" link="راهنمای استفاده" />
   <IconCatalog client:load fresh={fresh} />
 </Docs>

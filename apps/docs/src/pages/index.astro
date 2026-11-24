@@ -5,6 +5,7 @@ import Install from "../components/Install.astro";
 import Footer from "../components/Footer.astro";
 import Logo from "../components/Logo.astro";
 import HeroApp from "../components/HeroApp";
+import Iso3D from "../components/Iso3D.astro";
 import { BentoCalendar, BentoDirection, BentoPlate } from "../components/HomeBento";
 import { nav } from "../data/nav";
 import { author } from "../data/author";
@@ -14,7 +15,7 @@ import pkg from "@kashi-ui/react/package.json";
 import releases from "../data/releases.json";
 import { fetchStats, clonesChart, faNum } from "../data/github-stats";
 
-const fa = (n: number | string) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+const fa = (n: number | string) => (typeof n === "number" ? n.toLocaleString("fa-IR") : String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]));
 const count = (o: object): number => Object.values(o).reduce((n: number, v) => n + (typeof v === "object" ? count(v) : 1), 0);
 const { themes, ...primitives } = tokens as Record<string, any>;
 delete primitives.createTheme;
@@ -183,6 +184,16 @@ const faq = [
   ["برای راه‌اندازی در سازمان پشتیبانی دارید؟", "گزارش مشکل و پیشنهاد در GitHub بررسی می‌شود. برای ارزیابی، راه‌اندازی یا سفارشی‌سازی سازمانی، در تلگرام مستقیم با نگه‌دارندهٔ کاشی صحبت کنید."],
 ];
 
+// فصل‌های ویدیوی معرفی (ثانیه در فایل)
+const filmChapters = [
+  { t: 0, label: "0:00", title: "معرفی" },
+  { t: 13, label: "0:13", title: "کامپوننت‌ها" },
+  { t: 19.1, label: "0:19", title: "ابزارهای فارسی" },
+  { t: 26.1, label: "0:26", title: "آیکون‌ها" },
+  { t: 33.7, label: "0:34", title: "اکوسیستم" },
+  { t: 40.7, label: "0:41", title: "آمار و سازنده" },
+];
+
 const chips = [
   { icon: "calendar", label: "تقویم شمسی", value: "پنجشنبه ۷ آبان ۱۴۰۵" },
   { icon: "bank", label: "شبا معتبر", value: "IR06 0170 0000 …", ltr: true },
@@ -234,6 +245,7 @@ const chips = [
               <span><b data-gh="stars">{gh ? faNum(gh.stars) : "—"}</b> ستاره</span>
               <span class="k-sr-only"> (در پنجرهٔ جدید)</span>
             </a>
+            <a class="proof__film" href="#film"><span class="proof__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5L8 5.5Z" fill="currentColor"/></svg></span>ویدیوی یک‌دقیقه‌ای</a>
             <span class="proof__item" data-gh-wait={gh?.clones?.total ? undefined : ""}><span class="proof__dot" aria-hidden="true"></span><b data-gh="clones">{gh?.clones?.total ? faNum(gh.clones.total) : "—"}</b> کلون از GitHub</span>
           </div>
       </div>
@@ -307,12 +319,47 @@ const chips = [
       </div>
     </section>
 
-    <!-- ───── ۰۱ قابلیت‌ها ───── -->
+
+    <!-- ───── ۰۱ ویدیو ───── -->
+    <section class="band band--alt film" id="film" aria-labelledby="film-title">
+      <div class="wrap film__grid">
+        <div class="film__text" data-reveal>
+          <p class="kicker"><span class="kicker__n">۰۱</span>ویدیو</p>
+          <h2 id="film-title">کاشی در یک دقیقه</h2>
+          <p class="band__lead">از لوگو تا آخرین آمار: کامپوننت‌ها، ابزارهای فارسی، آیکون‌ها و اکوسیستم، در کمتر از یک دقیقه. هر فصل را بزنید تا مستقیم همان‌جا برود.</p>
+          <ol class="film__chapters" role="list">
+            {filmChapters.map((c, k) => (
+              <li><button type="button" class="film__chapter" data-seek={c.t} aria-pressed={k === 0 ? "true" : "false"}>
+                <span class="film__time" dir="ltr">{c.label}</span><span>{c.title}</span>
+              </button></li>
+            ))}
+          </ol>
+        </div>
+        <div class="film__stage" data-reveal>
+          <div class="film__phone" data-film-phone>
+            <video class="film__video" data-film src="/videos/kashi-intro.mp4" poster="/videos/kashi-intro-poster.jpg" muted playsinline loop preload="none" aria-label="ویدیوی معرفی کاشی، ۵۴ ثانیه، بدون گفتار"></video>
+            <button type="button" class="film__play" data-film-play aria-label="پخش ویدیو با صدا">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5L8 5.5Z" fill="currentColor"/></svg>
+            </button>
+            <button type="button" class="film__sound" data-film-sound aria-pressed="false" aria-label="روشن کردن صدا">
+              <span set:html={iconSvg("volume-off", { size: 18 }) ?? iconSvg("bell", { size: 18 })} data-film-ico-off />
+              <span set:html={iconSvg("volume", { size: 18 }) ?? iconSvg("bell", { size: 18 })} data-film-ico-on hidden />
+            </button>
+            <span class="film__bar"><i data-film-bar></i></span>
+          </div>
+          <span class="film__float film__float--a"><b>{fa(componentCount)}</b> کامپوننت</span>
+          <span class="film__float film__float--b"><b>{fa(iconCount)}</b> آیکون</span>
+          <span class="film__float film__float--c" set:html={iconSvg("kashi-tile", { size: 26 })} />
+        </div>
+      </div>
+    </section>
+
+    <!-- ───── ۰۲ قابلیت‌ها ───── -->
     <section class="band" aria-labelledby="features-title">
       <div class="wrap">
         <header class="band__head band__head--center" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۱</span>قابلیت‌ها</p>
+            <p class="kicker"><span class="kicker__n">۰۲</span>قابلیت‌ها</p>
             <h2 id="features-title">ساخته‌شده برای فارسی، نه ترجمه‌شده</h2>
           </div>
           <p class="band__lead">هر چیزی که یک محصول فارسی از روز اول لازم دارد، به شکل کامپوننت آماده و تست‌شده. هر بخش را باز کنید و نمونهٔ زنده‌اش را ببینید.</p>
@@ -371,7 +418,7 @@ const chips = [
     <section class="band band--alt aiband" aria-labelledby="ai-title">
       <div class="wrap aiband__grid">
         <div class="aiband__copy" data-reveal>
-          <p class="kicker"><span class="kicker__n">۰۲</span>هوش مصنوعی</p>
+          <p class="kicker"><span class="kicker__n">۰۳</span>هوش مصنوعی</p>
           <h2 id="ai-title">کاشی در دستیار هوش مصنوعی شما</h2>
           <p class="band__lead">Claude، Cursor و Copilot با سرور MCP کاشی مستندات هر کامپوننت، {fa(iconCount)} آیکون، توکن‌ها و ابزارهای فارسی را مستقیم می‌خوانند و کدی می‌نویسند که همان بار اول اجرا می‌شود؛ بدون حدس زدن prop ها.</p>
           <ul class="aiband__points" role="list">
@@ -408,7 +455,7 @@ const chips = [
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۳</span>آیکون‌ها</p>
+            <p class="kicker"><span class="kicker__n">۰۴</span>آیکون‌ها</p>
             <h2 id="icons-title">{fa(iconCount)} آیکون، شش سبک، یک زبان بصری</h2>
           </div>
           <p class="band__lead">از فلش و فرم تا سماور و بادگیر؛ همه روی شبکهٔ ۲۰×۲۰ و با همان گوشه‌های نرم کامپوننت‌ها. هر آیکون در شش سبک هست و با یک prop عوض می‌شود.</p>
@@ -463,11 +510,21 @@ const chips = [
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۴</span>پلتفرم</p>
+            <p class="kicker"><span class="kicker__n">۰۵</span>پلتفرم</p>
             <h2 id="platform-title">یک پلتفرم، از فیگما تا تولید</h2>
           </div>
           <p class="band__lead">کاشی لایه‌لایه ساخته شده: هر تیم فقط همان بخشی را برمی‌دارد که لازم دارد، و همه از یک منبع توکن تغذیه می‌شوند.</p>
         </header>
+
+        <a class="tkteaser" href="/tokens/" data-reveal>
+          <div class="tkteaser__art"><Iso3D variant="stack" size="sm" /></div>
+          <div class="tkteaser__text">
+            <span class="tkteaser__tag">تازه</span>
+            <b>معماری توکن‌ها، سه‌بعدی</b>
+            <span>ببینید یک رنگ چطور از پالت تا دکمه بالا می‌رود؛ رنگ برند را عوض کنید و همهٔ لایه‌ها را زنده دنبال کنید.</span>
+            <span class="tkteaser__more">دیدن لایه‌ها <span aria-hidden="true" data-k-mirror="">←</span></span>
+          </div>
+        </a>
 
         <div class="arch" data-reveal>
           <ol class="arch__stack" role="list" aria-label="لایه‌های کاشی">
@@ -503,7 +560,7 @@ const chips = [
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۵</span>برای سازمان‌ها</p>
+            <p class="kicker"><span class="kicker__n">۰۶</span>برای سازمان‌ها</p>
             <h2 id="enterprise-title">برای تیم‌هایی که در مقیاس می‌سازند</h2>
           </div>
           <p class="band__lead">چند محصول، چند تیم و یک زبان طراحی. کاشی طوری ساخته شده که بدون بازنویسی وارد محصول فعلی شود و سال‌ها قابل نگه‌داری بماند.</p>
@@ -543,7 +600,7 @@ const chips = [
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۶</span>کیفیت و نگه‌داری</p>
+            <p class="kicker"><span class="kicker__n">۰۷</span>کیفیت و نگه‌داری</p>
             <h2 id="quality-title">کیفیت در فرایند ساخت، نه در وعده</h2>
           </div>
           <p class="band__lead">هر تغییر در کاشی از یک مسیر خودکار می‌گذرد. چیزی که این مسیر را رد نکند، به دست تیم شما نمی‌رسد.</p>
@@ -590,7 +647,7 @@ const chips = [
       <div class="wrap">
         <header class="band__head" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۷</span>مقایسه</p>
+            <p class="kicker"><span class="kicker__n">۰۸</span>مقایسه</p>
             <h2 id="vs-title">کاشی در کنار دیزاین‌سیستم‌های جهانی</h2>
           </div>
           <p class="band__lead">بر اساس مستندات عمومی هر پروژه؛ با صداقت دربارهٔ جایی که کاشی بهترین انتخاب نیست.</p>
@@ -637,7 +694,7 @@ const chips = [
       <div class="wrap">
         <header class="band__head band__head--center" data-reveal>
           <div>
-            <p class="kicker"><span class="kicker__n">۰۸</span>متن‌باز</p>
+            <p class="kicker"><span class="kicker__n">۰۹</span>متن‌باز</p>
             <h2 id="community-title">ساخته‌شده در فضای باز، با همراهی شما</h2>
           </div>
           <p class="band__lead">کد، نقشهٔ راه و همهٔ تصمیم‌ها در GitHub است. عددهای زیر زنده از خود GitHub می‌آیند؛ ستاره‌ها لحظه‌ای و کلون‌ها روزانه.</p>
@@ -703,7 +760,7 @@ const chips = [
     <section class="band" aria-labelledby="faq-title">
       <div class="wrap faq">
         <header class="faq__head" data-reveal>
-          <p class="kicker"><span class="kicker__n">۰۹</span>پرسش‌های رایج</p>
+          <p class="kicker"><span class="kicker__n">۱۰</span>پرسش‌های رایج</p>
           <h2 id="faq-title">پیش از انتخاب کاشی</h2>
           <p class="band__lead">پاسخ پرسش‌هایی که تیم‌ها معمولاً پیش از استفاده می‌پرسند. پرسش دیگری دارید؟ <a href={author.telegram.href} target="_blank" rel="noopener">در تلگرام بپرسید<span class="k-sr-only"> (در پنجرهٔ جدید)</span></a>.</p>
         </header>
@@ -1284,6 +1341,63 @@ const chips = [
     .product :global(.app__table) { font-size: var(--k-text-xs); }
     .product :global(.app__table) :is(th, td) { padding-inline: var(--k-space-2); }
   }
+
+  /* ── ویدیو: قاب گوشی سه‌بعدی ── */
+  .film__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(2rem, 6vw, 5rem); }
+  .film h2 { margin: var(--k-space-3) 0 0; color: var(--k-text-primary); font-size: clamp(var(--k-text-2xl), 3.4vw, 2.5rem); font-weight: var(--k-weight-bold); line-height: 1.35; }
+  .film .band__lead { margin-block-start: var(--k-space-3); }
+  .film__chapters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--k-space-2); margin: var(--k-space-6) 0 0; padding: 0; list-style: none; }
+  .film__chapter { display: flex; align-items: center; gap: var(--k-space-3); inline-size: 100%; padding: var(--k-space-3) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); color: var(--k-text-secondary); font: inherit; font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); text-align: start; cursor: pointer; transition: border-color var(--k-duration-fast), color var(--k-duration-fast), background var(--k-duration-fast); }
+  .film__chapter:hover { border-color: var(--k-border-primary); color: var(--k-text-primary); }
+  .film__chapter[aria-pressed="true"] { border-color: var(--k-border-brand); background: color-mix(in srgb, var(--k-brand-500) 9%, var(--k-bg-primary)); color: var(--k-text-primary); }
+  .film__chapter:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: 2px; }
+  .film__time { color: var(--k-text-brand); font-family: var(--k-font-mono); font-size: var(--k-text-xs); }
+  .film__stage { position: relative; display: grid; place-items: center; perspective: 1800px; padding-block: var(--k-space-6); }
+  .film__stage::before { content: ""; position: absolute; inset: 10% 15%; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--k-brand-500) 30%, transparent), transparent); filter: blur(30px); }
+  .film__phone {
+    position: relative; inline-size: min(100%, 20rem); aspect-ratio: 9 / 16; overflow: hidden;
+    border: 8px solid color-mix(in srgb, var(--k-bg-primary) 60%, #000); border-radius: 2.4rem;
+    background: #000; box-shadow: 0 0 0 1px var(--k-border-primary), 30px 40px 80px -30px rgb(0 0 0 / 0.65), -12px 0 0 -4px color-mix(in srgb, var(--k-brand-500) 30%, transparent);
+    transform: rotateY(-22deg) rotateX(8deg) rotateZ(2deg); transform-style: preserve-3d;
+    transition: transform 0.8s var(--k-ease-standard);
+  }
+  .film__stage:hover .film__phone, .film__phone.is-playing { transform: none; }
+  .film__video { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .film__play { position: absolute; inset-block-start: 50%; inset-inline-start: 50%; display: grid; place-items: center; inline-size: 4.5rem; block-size: 4.5rem; margin: -2.25rem 0 0 -2.25rem; border: 0; border-radius: 50%; background: var(--k-bg-brand); color: var(--k-text-on-brand); box-shadow: 0 0 0 10px color-mix(in srgb, var(--k-brand-500) 25%, transparent); cursor: pointer; transition: scale var(--k-duration-normal) var(--k-ease-spring), opacity var(--k-duration-normal); }
+  .film__play svg { inline-size: 1.8rem; block-size: 1.8rem; translate: -2px 0; }
+  .film__play:hover { scale: 1.08; }
+  .film__play:focus-visible, .film__sound:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+  .film__phone.is-playing .film__play { opacity: 0; pointer-events: none; }
+  .film__sound { position: absolute; inset-block-end: 1.1rem; inset-inline-start: 0.9rem; display: grid; place-items: center; inline-size: 2.4rem; block-size: 2.4rem; border: 0; border-radius: 50%; background: rgb(0 0 0 / 0.55); color: #fff; cursor: pointer; backdrop-filter: blur(6px); }
+  .film__bar { position: absolute; inset-inline: 0; inset-block-end: 0; block-size: 4px; background: rgb(255 255 255 / 0.15); }
+  .film__bar i { display: block; block-size: 100%; inline-size: 100%; transform-origin: left; transform: scaleX(0); background: var(--k-brand-400); }
+  .film__float { position: absolute; display: inline-flex; align-items: center; gap: var(--k-space-2); padding: var(--k-space-2) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-elevated); color: var(--k-text-secondary); font-size: var(--k-text-sm); box-shadow: var(--k-shadow-lg); transform: translateZ(60px); animation: film-float 5s var(--k-ease-standard) infinite; }
+  .film__float b { color: var(--k-text-primary); font-size: var(--k-text-lg); }
+  .film__float--a { inset-block-start: 14%; inset-inline-end: 6%; }
+  .film__float--b { inset-block-end: 16%; inset-inline-start: 4%; animation-delay: -2s; }
+  .film__float--c { inset-block-start: 8%; inset-inline-start: 14%; padding: var(--k-space-2); color: var(--k-text-brand); animation-delay: -3.5s; }
+  @keyframes film-float { 50% { translate: 0 -10px; } }
+  .proof__film { display: inline-flex; align-items: center; gap: var(--k-space-2); color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); text-decoration: none; }
+  .proof__film:hover { color: var(--k-text-primary); }
+  .proof__play { display: grid; place-items: center; inline-size: 1.5rem; block-size: 1.5rem; border-radius: 50%; background: var(--k-bg-brand); color: var(--k-text-on-brand); }
+  .proof__play svg { inline-size: 0.8rem; block-size: 0.8rem; }
+
+  /* ── معرفی صفحهٔ توکن‌ها در بخش پلتفرم ── */
+  .tkteaser { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: var(--k-space-6); margin-block-end: var(--k-space-6); padding: var(--k-space-4) var(--k-space-6); overflow: hidden; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-2xl); background: radial-gradient(70% 120% at 0% 50%, color-mix(in srgb, var(--k-brand-500) 14%, transparent), transparent 70%), var(--k-bg-primary); color: inherit; text-decoration: none; transition: border-color var(--k-duration-fast), translate var(--k-duration-normal) var(--k-ease-standard); }
+  .tkteaser:hover { border-color: var(--k-border-brand); translate: 0 -2px; }
+  .tkteaser__art { order: 2; }
+  .tkteaser__text { display: grid; justify-items: start; gap: var(--k-space-2); }
+  .tkteaser__tag { padding: 0 var(--k-space-2); border-radius: var(--k-radius-full); background: var(--k-bg-brand); color: var(--k-text-on-brand); font-size: var(--k-text-xs); line-height: 1.8; }
+  .tkteaser__text b { color: var(--k-text-primary); font-size: var(--k-text-2xl); }
+  .tkteaser__text > span:not(.tkteaser__tag):not(.tkteaser__more) { color: var(--k-text-tertiary); line-height: 1.9; }
+  .tkteaser__more { color: var(--k-text-brand); font-weight: var(--k-weight-semibold); }
+  @media (max-width: 64rem) {
+    .film__grid, .tkteaser { grid-template-columns: 1fr; }
+    .film__stage { order: -1; }
+    .tkteaser__art { order: 0; }
+  }
+  @media (max-width: 30rem) { .film__chapters { grid-template-columns: 1fr; } .film__float--a, .film__float--b { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .film__float { animation: none; } .film__phone { transform: none; transition: none; } }
 </style>
 
 <script>
@@ -1371,7 +1485,7 @@ const chips = [
   // موشن هیرو و ریزتعامل‌ها؛ با prefers-reduced-motion همه خاموش می‌شوند
   const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const fine = matchMedia("(pointer: fine)").matches;
-  const faNum = (n: number) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+  const faNum = (n: number) => n.toLocaleString("fa-IR");
 
   // شمارش عددها وقتی دیده می‌شوند
   const counters = document.querySelectorAll<HTMLElement>("[data-count]");
@@ -1432,5 +1546,40 @@ const chips = [
       heroEl.style.setProperty("--hx", `${e.clientX - r.left}px`);
       heroEl.style.setProperty("--hy", `${e.clientY - r.top}px`);
     }, { passive: true });
+  }
+</script>
+
+<script>
+  // ویدیوی معرفی: پخش بی‌صدا وقتی دیده می‌شود، دکمهٔ پخش با صدا، فصل‌ها و نوار پیشرفت
+  const film = document.querySelector<HTMLVideoElement>("[data-film]");
+  const phone = document.querySelector<HTMLElement>("[data-film-phone]");
+  if (film && phone) {
+    const calmFilm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const play = document.querySelector<HTMLButtonElement>("[data-film-play]")!;
+    const sound = document.querySelector<HTMLButtonElement>("[data-film-sound]")!;
+    const bar = document.querySelector<HTMLElement>("[data-film-bar]")!;
+    const chapters = [...document.querySelectorAll<HTMLButtonElement>("[data-seek]")];
+    const setSound = (on: boolean) => {
+      film.muted = !on;
+      sound.setAttribute("aria-pressed", String(on));
+      sound.setAttribute("aria-label", on ? "بستن صدا" : "روشن کردن صدا");
+      sound.querySelector<HTMLElement>("[data-film-ico-on]")!.hidden = !on;
+      sound.querySelector<HTMLElement>("[data-film-ico-off]")!.hidden = on;
+    };
+    film.addEventListener("play", () => phone.classList.add("is-playing"));
+    film.addEventListener("pause", () => phone.classList.remove("is-playing"));
+    film.addEventListener("timeupdate", () => {
+      bar.style.transform = `scaleX(${film.currentTime / (film.duration || 1)})`;
+      let k = 0; chapters.forEach((c, i) => { if (film.currentTime >= Number(c.dataset.seek) - 0.2) k = i; });
+      chapters.forEach((c, i) => c.setAttribute("aria-pressed", String(i === k)));
+    });
+    play.addEventListener("click", () => { setSound(true); film.play(); });
+    sound.addEventListener("click", () => { setSound(film.muted); if (film.paused) film.play(); });
+    film.addEventListener("click", () => (film.paused ? film.play() : film.pause()));
+    chapters.forEach((c) => c.addEventListener("click", () => { film.currentTime = Number(c.dataset.seek); film.play(); }));
+    if (!calmFilm) {
+      // بی‌صدا شروع می‌شود و بیرون از دید متوقف؛ مصرف داده فقط وقتی بخش دیده شود
+      new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { if (film.muted) film.play().catch(() => {}); } else film.pause(); }), { threshold: 0.5 }).observe(phone);
+    }
   }
 </script>

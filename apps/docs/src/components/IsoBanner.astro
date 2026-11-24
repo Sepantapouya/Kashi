@@ -1,0 +1,24 @@
+---
+// کارت معرفی با تصویرسازی سه‌بعدی کاشی؛ برای بالای صفحه‌های مستندات (رنگ‌ها، آیکون‌ها، تم)
+import Iso3D from "./Iso3D.astro";
+interface Props { variant: "stack" | "palette" | "icons"; title: string; text: string; href?: string; link?: string }
+const { variant, title, text, href, link } = Astro.props;
+---
+<div class="isob not-prose">
+  <div class="isob__art"><Iso3D variant={variant} size="sm" /></div>
+  <div class="isob__text">
+    <p class="isob__title">{title}</p>
+    <p class="isob__lead">{text}</p>
+    {href && <a class="isob__more" href={href}>{link} <span aria-hidden="true" data-k-mirror="">←</span></a>}
+  </div>
+</div>
+
+<style>
+  .isob { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: var(--k-space-4); margin-block: var(--k-space-4) var(--k-space-8); padding-inline: var(--k-space-6); overflow: hidden; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-2xl); background: radial-gradient(80% 120% at 0% 60%, color-mix(in srgb, var(--k-brand-500) 15%, transparent), transparent 70%), var(--k-bg-elevated); }
+  .isob__art { order: 2; min-inline-size: 0; }
+  .isob__title { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-xl); font-weight: var(--k-weight-bold); }
+  .isob__lead { margin: var(--k-space-2) 0 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.9; }
+  .isob__more { display: inline-block; margin-block-start: var(--k-space-3); color: var(--k-text-brand); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); text-decoration: none; }
+  .isob__more:hover { text-decoration: underline; }
+  @media (max-width: 48rem) { .isob { grid-template-columns: 1fr; padding: var(--k-space-4); } .isob__art { order: 0; } }
+</style>
