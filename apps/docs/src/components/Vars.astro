@@ -1,18 +1,22 @@
 ---
 // جدول متغیرهای CSS: [نام، پیش‌فرض، توضیح]؛ همان چیدمان دوستونی Props
 interface Props { rows: [string, string, string][] }
+const isEnglish = Astro.url.pathname.startsWith("/en/");
+const labels = isEnglish
+  ? { caption: "CSS variables", variable: "Variable", usage: "Usage and default", default: "Default" }
+  : { caption: "متغیرهای CSS", variable: "متغیر", usage: "کاربرد و پیش‌فرض", default: "پیش‌فرض" };
 ---
-<div class="table-wrap props" role="region" aria-label="متغیرهای CSS" tabindex="0">
+<div class="table-wrap props" role="region" aria-label={labels.caption} tabindex="0">
   <table class="ref-table props__table">
-    <caption class="k-sr-only">متغیرهای CSS</caption>
-    <thead class="k-sr-only"><tr><th scope="col">متغیر</th><th scope="col">کاربرد و پیش‌فرض</th></tr></thead>
+    <caption class="k-sr-only">{labels.caption}</caption>
+    <thead class="k-sr-only"><tr><th scope="col">{labels.variable}</th><th scope="col">{labels.usage}</th></tr></thead>
     <tbody>
       {Astro.props.rows.map(([name, def, desc]) => (
         <tr>
           <th scope="row"><code class="props__name" dir="ltr">{name}</code></th>
           <td>
             {desc && <p class="props__desc">{desc}</p>}
-            {def && <p class="props__meta"><span class="props__def">پیش‌فرض <code dir="ltr">{def}</code></span></p>}
+            {def && <p class="props__meta"><span class="props__def">{labels.default} <code dir="ltr">{def}</code></span></p>}
           </td>
         </tr>
       ))}

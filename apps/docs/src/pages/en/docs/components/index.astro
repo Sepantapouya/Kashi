@@ -2,6 +2,12 @@
 import DocsEn from "../../../../layouts/DocsEn.astro";
 import { EN_COMPONENTS, EN_PERSIAN } from "../../../../data/en";
 
+// Pages that already have an English translation link to /en/docs/...; the rest link to the Persian page.
+const translated = new Set(
+  Object.keys(import.meta.glob("./*.mdx")).map((f) => `/docs/components/${f.slice(2, -4)}/`)
+    .concat(Object.keys(import.meta.glob("../persian/*.mdx")).map((f) => `/docs/persian/${f.slice(11, -4)}/`)),
+);
+
 const groups = [
   ...EN_COMPONENTS.map((g) => ({ ...g, base: "/docs/components/" })),
   ...EN_PERSIAN.map((g) => ({ ...g, base: "/docs/persian/" })),
@@ -21,7 +27,11 @@ const headings = groups.map((g) => ({ depth: 2, slug: g.title.toLowerCase().repl
       <h2 id={headings[i].slug}>{g.title}</h2>
       <ul class="en-cards" role="list">
         {g.items.map(([slug, name, text]) => (
-          <li><a href={`${g.base}${slug}/`} hreflang="fa"><b>{name}</b><span>{text}</span></a></li>
+          <li>
+            {translated.has(`${g.base}${slug}/`)
+              ? <a href={`/en${g.base}${slug}/`}><b>{name}</b><span>{text}</span></a>
+              : <a href={`${g.base}${slug}/`} hreflang="fa"><b>{name}</b><span>{text}</span></a>}
+          </li>
         ))}
       </ul>
     </section>
