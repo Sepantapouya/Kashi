@@ -103,9 +103,19 @@ export async function pmGate(request: Request, password: string | undefined): Pr
 /** Same as next() from @vercel/functions: lets the request through to the static page. */
 const passThrough = () => new Response(null, { headers: { "x-middleware-next": "1" } });
 
-export const config = { matcher: ["/learn", "/learn/:path*"] };
+/** Same as rewrite() from @vercel/functions: serves another URL without changing the address bar. */
+const rewriteTo = (url: string) => new Response(null, { headers: { "x-middleware-rewrite": url } });
+
+// Kashi Academy lives in the Skills app; /academy and its Next.js assets are proxied there.
+const ACADEMY_ORIGIN = "https://skills.sepantapouya.com";
+
+export const config = { matcher: ["/learn", "/learn/:path*", "/academy", "/academy/:path*", "/_next/:path*"] };
 
 export default async function middleware(request: Request) {
+  const url = new URL(request.url);
+  if (url.pathname === "/academy" || url.pathname.startsWith("/academy/") || url.pathname.startsWith("/_next/")) {
+    return rewriteTo(ACADEMY_ORIGIN + url.pathname + url.search);
+  }
   try {
     const env = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env;
     const res = await pmGate(request, env?.KASHI_PM_PASSWORD);
