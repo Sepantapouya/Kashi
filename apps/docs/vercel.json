@@ -23,6 +23,29 @@
           "value": "private, no-store"
         }
       ]
+    },
+    {
+      "source": "/academy/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/academy",
+      "destination": "https://skills.sepantapouya.com/academy/"
+    },
+    {
+      "source": "/academy/:path*",
+      "destination": "https://skills.sepantapouya.com/academy/:path*"
+    },
+    {
+      "source": "/_next/:path*",
+      "destination": "https://skills.sepantapouya.com/_next/:path*"
     }
   ]
 }

@@ -202,11 +202,10 @@ const chips = [
 ];
 ---
 <Base>
-  <a class="announce" href={author.channel.href} target="_blank" rel="noopener">
+  <a class="announce" href="/academy/">
     <span class="announce__tag">تازه</span>
-    <span class="announce__text">کانال تلگرام کاشی راه افتاد: نسخه‌های تازه، کامپوننت‌های جدید و نکته‌های طراحی فارسی</span>
-    <span class="announce__more">عضو شوید <span aria-hidden="true">←</span></span>
-    <span class="k-sr-only"> (در پنجرهٔ جدید)</span>
+    <span class="announce__text">کاشی آکادمی: دورهٔ جامع دیزاین سیستم در ۱۰۰ درس؛ سه درس اول رایگان</span>
+    <span class="announce__more">شروع کنید <span aria-hidden="true">←</span></span>
   </a>
   <Header />
   <main id="main" tabindex="-1" class="home">
@@ -351,6 +350,27 @@ const chips = [
           <span class="film__float film__float--b"><b>{fa(iconCount)}</b> آیکون</span>
           <span class="film__float film__float--c" set:html={iconSvg("kashi-tile", { size: 26 })} />
         </div>
+      </div>
+    </section>
+
+
+    <!-- ───── کاشی آکادمی (تبلیغ، با تم کاغذ و جوهر خود آکادمی) ───── -->
+    <section class="acad" aria-labelledby="acad-title">
+      <div class="wrap">
+        <a class="acad__card" href="/academy/" data-reveal>
+          <div class="acad__text">
+            <span class="acad__tag">تازه · کاشی آکادمی</span>
+            <h2 id="acad-title">دیزاین سیستم را <mark>از صفر تا مقیاس</mark> یاد بگیرید.</h2>
+            <p>همان راهی که کاشی با آن ساخته شد، در ۱۰۰ درس با ویدیو، متن کامل، تصویر و تمرین. سه درس اول برای همه رایگان است.</p>
+            <span class="acad__cta">دیدن درس اول، رایگان <span aria-hidden="true" data-k-mirror="">←</span></span>
+          </div>
+          <div class="acad__art" aria-hidden="true">
+            <div class="acad__stack">
+              <i style="--z:0">تمرین</i><i style="--z:1">تصویر</i><i style="--z:2">متن</i><i style="--z:3">ویدیو</i>
+            </div>
+            <ul class="acad__stats"><li><b>۱۰۰</b>درس</li><li><b>۱۰</b>فصل</li><li><b>۳</b>رایگان</li></ul>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -1398,6 +1418,28 @@ const chips = [
   }
   @media (max-width: 30rem) { .film__chapters { grid-template-columns: 1fr; } .film__float--a, .film__float--b { display: none; } }
   @media (prefers-reduced-motion: reduce) { .film__float { animation: none; } .film__phone { transform: none; transition: none; } }
+
+  /* ── تبلیغ کاشی آکادمی: تم کاغذ و جوهر خود آکادمی، عمداً متفاوت از بقیهٔ صفحه ── */
+  .acad { padding-block: clamp(3rem, 6vw, 4.5rem); border-block-end: 1px solid var(--k-border-secondary); }
+  .acad__card { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: center; gap: clamp(1.5rem, 4vw, 3rem); padding: clamp(1.5rem, 4vw, 2.75rem); border: 3px solid #16130f; border-radius: 28px; background: #f3eee4; color: #16130f; text-decoration: none; box-shadow: 10px 10px 0 #ff6a1a, 10px 10px 0 3px #16130f; transition: transform .2s var(--k-ease-standard), box-shadow .2s var(--k-ease-standard); }
+  .acad__card:hover { transform: translate(-3px, -3px); box-shadow: 14px 14px 0 #ff6a1a, 14px 14px 0 3px #16130f; }
+  .acad__card:active { transform: translate(4px, 4px); box-shadow: 4px 4px 0 #ff6a1a, 4px 4px 0 3px #16130f; }
+  .acad__card:focus-visible { outline: 3px solid #2e3bff; outline-offset: 6px; }
+  .acad__tag { display: inline-block; padding: .2rem .8rem; border: 2px solid #16130f; border-radius: 999px; background: #d4ff3a; font-size: var(--k-text-sm); font-weight: 800; }
+  .acad h2 { margin: var(--k-space-4) 0 0; font-size: clamp(1.7rem, 3.6vw, 2.6rem); font-weight: 900; line-height: 1.35; color: #16130f; }
+  .acad mark { padding: 0 .2em; border-radius: .15em; background: #d4ff3a; color: #16130f; }
+  .acad p { margin: var(--k-space-3) 0 0; max-inline-size: 34rem; color: #4a433a; line-height: 1.95; }
+  .acad__cta { display: inline-flex; align-items: center; gap: .5rem; margin-block-start: var(--k-space-5); padding: .7rem 1.3rem; border: 2px solid #16130f; border-radius: 14px; background: #ff6a1a; font-weight: 800; box-shadow: 3px 3px 0 #16130f; }
+  .acad__art { display: grid; justify-items: center; gap: var(--k-space-5); }
+  .acad__stack { position: relative; inline-size: 260px; block-size: 200px; perspective: 1200px; }
+  .acad__stack i { position: absolute; inset: 20% 8%; display: grid; place-items: end start; padding: .6rem 1rem; border: 3px solid #16130f; border-radius: 18px; background: #fbf8f2; font-style: normal; font-weight: 800; font-size: var(--k-text-sm); transform: rotateX(58deg) rotateZ(-40deg) translateZ(calc(var(--z) * 34px)); box-shadow: 6px 6px 0 #16130f; transition: transform .5s var(--k-ease-standard); }
+  .acad__stack i:nth-child(3) { background: #d4ff3a; }
+  .acad__stack i:nth-child(4) { background: #2e3bff; color: #fbf8f2; }
+  .acad__card:hover .acad__stack i { transform: rotateX(58deg) rotateZ(-40deg) translateZ(calc(var(--z) * 48px)); }
+  .acad__stats { display: flex; gap: var(--k-space-5); margin: 0; padding: 0; list-style: none; color: #4a433a; font-size: var(--k-text-sm); }
+  .acad__stats b { display: block; color: #16130f; font-size: var(--k-text-2xl); font-weight: 900; }
+  @media (max-width: 64rem) { .acad__card { grid-template-columns: 1fr; } .acad__art { justify-items: start; } }
+  @media (prefers-reduced-motion: reduce) { .acad__card, .acad__stack i { transition: none; } }
 </style>
 
 <script>
