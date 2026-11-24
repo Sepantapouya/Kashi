@@ -1,6 +1,6 @@
 {
   "name": "@kashi-ui/icons",
-  "version": "2.15.0",
+  "version": "2.15.1",
   "description": "آیکون‌های کاشی در شش سبک؛ SVG، اسپرایت و کامپوننت React، Vue و Svelte",
   "type": "module",
   "main": "./dist/index.js",
