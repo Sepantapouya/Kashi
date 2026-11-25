@@ -27,10 +27,15 @@ const version = JSON.parse(readFileSync(join(root, "packages/react/package.json"
 const work = mkdtempSync(join(tmpdir(), "kashi-consumer-"));
 // بیرون از پوشه‌های کاری؛ npx خودِ verdaccio را باید از npm واقعی بگیرد، نه از رجیستری‌ای که هنوز بالا نیامده
 const npmrc = join(work, "npm-config");
+// فقط @kashi-ui از رجیستری موقت می‌آید؛ بقیهٔ پکیج‌ها (next، shadcn، …) مستقیم از npm واقعی.
+// قبلاً همه‌چیز از پروکسی verdaccio رد می‌شد و گاهی E404 می‌داد ("file doesn't exist on uplink" / "no such package available").
 // verdaccio برای انتشار بی‌نام هم یک توکن می‌خواهد؛ مقدارش مهم نیست
-writeFileSync(npmrc, `registry=${NPM}/\n//localhost:${NPM_PORT}/:_authToken=consumer-test\n`);
+writeFileSync(
+  npmrc,
+  `registry=https://registry.npmjs.org/\n@kashi-ui:registry=${NPM}/\n//localhost:${NPM_PORT}/:_authToken=consumer-test\n`,
+);
 const overrides = {
-  npm_config_registry: `${NPM}/`,
+  npm_config_registry: "https://registry.npmjs.org/",
   npm_config_userconfig: npmrc,
   // انتشار آزمایشی در verdaccio provenance نمی‌پذیرد (E400)؛ گردش کار Release آن را با NPM_CONFIG_PROVENANCE روشن می‌کند
   npm_config_provenance: "false",
