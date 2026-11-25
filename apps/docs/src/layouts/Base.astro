@@ -2,6 +2,7 @@
 import "../styles/layers.css";
 import "@kashi-ui/css";
 import "../styles/site.css";
+import "../styles/depth.css";
 
 interface Props { title?: string; description?: string }
 const { title, description = "کاشی — دیزاین‌سیستم فارسی، متن‌باز، راست‌به‌چپ و دسترس‌پذیر برای React و هر فریم‌ورک دیگری." } = Astro.props;
@@ -43,6 +44,10 @@ const fullTitle = title ? `${title} · کاشی` : "کاشی — دیزاین‌
     <a class="k-skip-link" href="#main">رفتن به محتوای اصلی</a>
     <slot />
     <div class="k-sr-only" aria-live="polite" id="live-region"></div>
+
+    <script>
+      import "../scripts/depth";
+    </script>
 
     <script>
       const root = document.documentElement;

@@ -4,6 +4,7 @@ import Header from "../components/Header.astro";
 import Install from "../components/Install.astro";
 import Footer from "../components/Footer.astro";
 import Logo from "../components/Logo.astro";
+import Tile3D from "../components/Tile3D.astro";
 import HeroApp from "../components/HeroApp";
 import { BentoCalendar, BentoDirection, BentoPlate } from "../components/HomeBento";
 import { nav } from "../data/nav";
@@ -200,7 +201,7 @@ const chips = [
     <!-- ───── هیرو ───── -->
     <div class="scroll-progress" aria-hidden="true"></div>
     <section class="hero" aria-labelledby="hero-title" data-hero>
-      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="floor3d hero__floor" aria-hidden="true"></div>
       <div class="hero__glow" aria-hidden="true"></div>
 
       <div class="wrap hero__grid">
@@ -235,7 +236,11 @@ const chips = [
           </div>
         </div>
 
-        <aside class="sysmap" data-enter style="--d: 3" aria-labelledby="sysmap-title">
+        <div class="sysmap-stage" data-enter style="--d: 3">
+          <div class="sysmap-ghost sysmap-ghost--2" aria-hidden="true"></div>
+          <div class="sysmap-ghost sysmap-ghost--1" aria-hidden="true"></div>
+          <Tile3D size={190} class="sysmap-emblem" />
+        <aside class="sysmap" aria-labelledby="sysmap-title">
           <header class="sysmap__head">
             <span id="sysmap-title" class="sysmap__title">اکوسیستم کاشی</span>
             <span class="sysmap__status"><span class="proof__dot" aria-hidden="true"></span>پایدار</span>
@@ -260,6 +265,7 @@ const chips = [
           </ul>
           <footer class="sysmap__foot">همهٔ پکیج‌ها با یک شمارهٔ نسخه منتشر می‌شوند · <bdi dir="ltr">SemVer · MIT</bdi></footer>
         </aside>
+        </div>
       </div>
 
       <!-- عددها با شمارش زنده -->
@@ -1282,6 +1288,86 @@ const chips = [
     .product :global(.app__table) { font-size: var(--k-text-xs); }
     .product :global(.app__table) :is(th, td) { padding-inline: var(--k-space-2); }
   }
+  /* ───── هیرو سه‌بعدی ───── */
+  .hero__floor { block-size: 46rem; }
+  .hero__title { text-shadow: 0 1px 0 color-mix(in srgb, #fff 6%, transparent), 0 18px 40px rgb(0 0 0 / 0.35); }
+  .hero__accent {
+    background: linear-gradient(90deg, #3d8bf0, #2fd3c0 60%, var(--k-text-brand));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 6px 24px color-mix(in srgb, #2fd3c0 35%, transparent));
+  }
+  :global([data-theme="light"]) .hero__title { text-shadow: none; }
+  :global([data-theme="light"]) .hero__accent { background-image: linear-gradient(90deg, #1d5fd0, #0b8077); filter: none; }
+
+  /* نقشهٔ اکوسیستم: کارت در فضا، با دو لایهٔ سایه‌وار پشتش و نشان کاشی شناور */
+  .sysmap-stage { position: relative; perspective: 1600px; transform-style: preserve-3d; padding-block: 1.5rem; }
+  .sysmap-stage > .sysmap, .sysmap-ghost {
+    transform: rotateY(-16deg) rotateX(7deg) rotateZ(-1deg);
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  :global(:root[dir="rtl"]) .sysmap-stage > .sysmap, :global(:root[dir="rtl"]) .sysmap-ghost { transform: rotateY(12deg) rotateX(5deg) rotateZ(0.5deg); }
+  .sysmap-stage > .sysmap { position: relative; z-index: 2; }
+  .sysmap-ghost {
+    position: absolute; inset: 1.5rem 0; z-index: 1;
+    border: 1px solid color-mix(in srgb, var(--k-text-brand) 25%, var(--k-border-secondary));
+    border-radius: var(--k-radius-xl);
+    background: linear-gradient(160deg, color-mix(in srgb, var(--k-text-brand) 10%, var(--k-bg-secondary)), var(--k-bg-primary));
+    box-shadow: inset 0 1px 0 var(--d-edge), var(--d-slab);
+  }
+  .sysmap-ghost--1 { translate: -1.1rem 1.1rem; opacity: 0.65; }
+  .sysmap-ghost--2 { translate: -2.2rem 2.2rem; opacity: 0.35; }
+  .sysmap-stage > :global(.sysmap-emblem) { position: absolute; z-index: 3; inset-block-start: -4.5rem; inset-inline-end: -3.5rem; }
+  .sysmap-stage:hover > .sysmap, .sysmap-stage:focus-within > .sysmap { transform: rotateY(0) rotateX(0) rotateZ(0); }
+  .sysmap-stage:hover .sysmap-ghost--1 { translate: -0.6rem 0.6rem; }
+  .sysmap-stage:hover .sysmap-ghost--2 { translate: -1.2rem 1.2rem; }
+  .sysmap { background: color-mix(in srgb, var(--k-bg-primary) 82%, transparent); backdrop-filter: blur(14px); }
+  .sysmap__row { transition: background-color var(--k-duration-fast), transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .sysmap__row:hover { transform: translateZ(18px) translateX(-4px); background: color-mix(in srgb, var(--k-text-brand) 8%, var(--k-bg-hover)); }
+
+  /* نمای محصول: با رسیدن به آن، از حالت خوابیده صاف می‌شود */
+  .stage { perspective: 1400px; perspective-origin: 50% 0%; }
+  .product { box-shadow: inset 0 1px 0 var(--d-edge), var(--d-slab), 0 60px 120px -40px color-mix(in srgb, var(--k-text-brand) 30%, rgb(0 0 0 / 0.6)); }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .product { animation: product-rise linear both; animation-timeline: view(); animation-range: entry 0% cover 45%; }
+      .chip { animation: chip-rise linear both; animation-timeline: view(); animation-range: entry 10% cover 40%; }
+    }
+  }
+  @keyframes product-rise { from { rotate: x 24deg; scale: 0.92; opacity: 0.4; } to { rotate: x 0deg; scale: 1; opacity: 1; } }
+  @keyframes chip-rise { from { translate: 0 2.5rem; opacity: 0; } to { translate: 0 0; opacity: 1; } }
+  .chip { backdrop-filter: blur(10px); background: color-mix(in srgb, var(--k-bg-elevated) 85%, transparent); box-shadow: inset 0 1px 0 var(--d-edge), var(--d-slab); }
+  .chip__icon { box-shadow: inset 0 1px 0 var(--d-edge), 0 4px 10px -4px color-mix(in srgb, var(--k-text-brand) 50%, transparent); }
+
+  /* استانداردها و عددها: آیکون‌ها مثل کاشی برجسته */
+  .standards__icon {
+    background: linear-gradient(160deg, color-mix(in srgb, var(--k-text-brand) 22%, var(--k-bg-elevated)), var(--k-bg-brand-subtle));
+    box-shadow: inset 0 1px 0 var(--d-edge), inset 0 -2px 0 color-mix(in srgb, #000 18%, transparent), 0 6px 14px -6px color-mix(in srgb, var(--k-text-brand) 55%, transparent);
+  }
+  .standards__list li:hover .standards__icon { transform: translateY(-3px) rotateX(12deg); }
+  .metrics { background: linear-gradient(180deg, var(--k-bg-secondary), var(--k-bg-primary)); }
+  .metrics dd span { background: linear-gradient(180deg, var(--k-text-primary), color-mix(in srgb, var(--k-text-primary) 55%, var(--k-text-brand))); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* بخش دعوت: کف شبکه‌ای در پرسپکتیو زیر کارت */
+  .cta { position: relative; isolation: isolate; }
+  .cta::before {
+    content: ""; position: absolute; inset: 40% -10% 0; z-index: -1; pointer-events: none;
+    transform: perspective(500px) rotateX(70deg); transform-origin: 50% 0;
+    background:
+      linear-gradient(color-mix(in srgb, var(--k-text-brand) 28%, transparent) 1px, transparent 1px) 0 0 / 56px 56px,
+      linear-gradient(90deg, color-mix(in srgb, var(--k-text-brand) 28%, transparent) 1px, transparent 1px) 0 0 / 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 50% 70% at 50% 0%, #000, transparent 70%);
+    mask-image: radial-gradient(ellipse 50% 70% at 50% 0%, #000, transparent 70%);
+    opacity: 0.5;
+  }
+  .step__n { text-shadow: 0 8px 24px color-mix(in srgb, var(--k-text-brand) 45%, transparent); }
+
+  @media (max-width: 64rem) {
+    .sysmap-stage > .sysmap, .sysmap-ghost, :global(:root[dir="rtl"]) .sysmap-stage > .sysmap, :global(:root[dir="rtl"]) .sysmap-ghost { transform: none; }
+    .sysmap-ghost, .sysmap-stage > :global(.sysmap-emblem) { display: none; }
+    .sysmap-stage { padding-block: 0; }
+  }
+
 </style>
 
 <script>

@@ -1,0 +1,93 @@
+---
+// نشان سه‌بعدی کاشی: سه لایهٔ شیشه‌ای (توکن، استایل، کامپوننت) با شمسه روی لایهٔ بالا.
+// فقط تزئینی است؛ با prefers-reduced-motion ثابت می‌ماند.
+interface Props { size?: number; labels?: string[]; class?: string }
+const { size = 220, labels = [], class: cls = "" } = Astro.props;
+const STAR = "M16 1 11.61 5.39H5.39v6.22L1 16l4.39 4.39v6.22h6.22L16 31l4.39-4.39h6.22v-6.22L31 16l-4.39-4.39V5.39h-6.22Z";
+const INNER = "M16 8.8 13.89 10.91h-2.98v2.98L8.8 16l2.11 2.11v2.98h2.98L16 23.2l2.11-2.11h2.98v-2.98L23.2 16l-2.11-2.11v-2.98h-2.98Z";
+---
+<div class={`t3d ${cls}`} style={`--s: ${size}px`} aria-hidden="true">
+  <div class="t3d__shadow"></div>
+  <div class="t3d__scene">
+    {[0, 1, 2].map((i) => (
+      <div class={`t3d__plate t3d__plate--${i}`} style={`--i: ${i}`}>
+        {i === 2 ? (
+          <svg viewBox="0 0 32 32" class="t3d__star">
+            <path d={STAR} fill="var(--k-bg-brand)" />
+            <path d={INNER} fill="var(--k-brand-200)" />
+          </svg>
+        ) : (
+          <span class="t3d__grid"></span>
+        )}
+        {labels[i] && <span class="t3d__label" dir="ltr">{labels[i]}</span>}
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  :where(.t3d) { position: relative; }
+  .t3d { --s: 220px; inline-size: var(--s); block-size: var(--s); perspective: calc(var(--s) * 6); pointer-events: none; }
+  .t3d__scene {
+    position: absolute; inset: 0; transform-style: preserve-3d;
+    transform: rotateX(58deg) rotateZ(-45deg) translateZ(calc(var(--s) * -0.08));
+  }
+  .t3d__plate {
+    position: absolute; inset: 18%;
+    border-radius: calc(var(--s) * 0.09);
+    border: 1px solid color-mix(in srgb, var(--k-text-brand) 45%, transparent);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, #fff 14%, transparent), transparent 45%),
+      color-mix(in srgb, var(--k-bg-elevated) 70%, color-mix(in srgb, var(--k-text-brand) 22%, transparent));
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, #fff 25%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--k-bg-primary) 40%, transparent),
+      0 calc(var(--s) * 0.06) calc(var(--s) * 0.12) -0.02px rgb(0 0 0 / 0.28);
+    transform: translateZ(calc(var(--i) * var(--s) * 0.13));
+    backdrop-filter: blur(6px);
+    transition: transform 0.6s var(--k-ease-emphasized, cubic-bezier(.2,.8,.2,1));
+  }
+  .t3d__plate--0 { opacity: 0.55; }
+  .t3d__plate--1 { opacity: 0.8; }
+  .t3d__plate--2 {
+    display: grid; place-items: center;
+    border-color: color-mix(in srgb, var(--k-text-brand) 70%, transparent);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, #fff 22%, transparent), transparent 50%),
+      color-mix(in srgb, var(--k-bg-elevated) 55%, color-mix(in srgb, var(--k-text-brand) 30%, transparent));
+    box-shadow:
+      inset 0 1px 0 color-mix(in srgb, #fff 35%, transparent),
+      0 0 calc(var(--s) * 0.2) color-mix(in srgb, var(--k-text-brand) 35%, transparent);
+  }
+  .t3d__grid {
+    position: absolute; inset: 12%; border-radius: inherit; opacity: 0.6;
+    background:
+      linear-gradient(color-mix(in srgb, var(--k-text-brand) 35%, transparent) 1px, transparent 1px) 0 0 / 20% 20%,
+      linear-gradient(90deg, color-mix(in srgb, var(--k-text-brand) 35%, transparent) 1px, transparent 1px) 0 0 / 20% 20%;
+  }
+  .t3d__star { inline-size: 58%; block-size: 58%; filter: drop-shadow(0 calc(var(--s) * 0.02) calc(var(--s) * 0.03) rgb(0 0 0 / 0.35)); }
+  .t3d__label {
+    position: absolute; inset-block-end: 6%; inset-inline-end: 8%;
+    color: var(--k-text-secondary); font: 600 calc(var(--s) * 0.045) var(--k-font-mono); letter-spacing: 0.02em;
+  }
+  .t3d__shadow {
+    position: absolute; inset: 30% 10% 4%; border-radius: 50%;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--k-text-brand) 30%, transparent), transparent);
+    filter: blur(calc(var(--s) * 0.06)); opacity: 0.7;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .t3d__scene { animation: t3d-float 7s ease-in-out infinite; }
+    .t3d__plate { animation: t3d-breathe 7s ease-in-out infinite; animation-delay: calc(var(--i) * -0.4s); }
+    .t3d__shadow { animation: t3d-shadow 7s ease-in-out infinite; }
+  }
+  @keyframes t3d-float {
+    0%, 100% { transform: rotateX(58deg) rotateZ(-45deg) translateZ(calc(var(--s) * -0.08)); }
+    50% { transform: rotateX(54deg) rotateZ(-38deg) translateZ(calc(var(--s) * -0.02)); }
+  }
+  @keyframes t3d-breathe {
+    0%, 100% { transform: translateZ(calc(var(--i) * var(--s) * 0.13)); }
+    50% { transform: translateZ(calc(var(--i) * var(--s) * 0.18)); }
+  }
+  @keyframes t3d-shadow { 50% { opacity: 0.45; scale: 0.92; } }
+</style>
