@@ -1,0 +1,51 @@
+---
+layout: ../../../layouts/Docs.astro
+title: متن کلمه‌به‌کلمه
+description: متنی که کلمه‌به‌کلمه نوشته می‌شود، برای پاسخ زندهٔ دستیار هوش مصنوعی؛ با نشانگر چشمک‌زن و بدون خواندن تک‌تک کلمه‌ها برای صفحه‌خوان.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { StreamingDemo, StreamingLiveDemo } from "../../../components/demos-extra";
+
+```tsx
+import { StreamingText } from "@kashi-ui/react";
+```
+
+## پاسخ زندهٔ مدل
+
+هر بار که تکهٔ تازه‌ای از پاسخ می‌رسد، `text` را بلندتر کنید و تا پایان پاسخ `streaming` را `true` نگه دارید. فقط کلمه‌های تازه نرم ظاهر می‌شوند؛ کلمه‌هایی که قبلاً دیده شده‌اند دوباره انیمیشن نمی‌گیرند.
+
+<Demo html={false} code={`const [text, setText] = useState("");
+const [streaming, setStreaming] = useState(true);
+
+for await (const chunk of stream) setText((t) => t + chunk);
+setStreaming(false);
+
+<StreamingText text={text} streaming={streaming} />`}>
+  <StreamingLiveDemo client:only="react" />
+</Demo>
+
+## پاسخی که یک‌جا رسیده
+
+اگر کل پاسخ یک‌جا رسیده ولی می‌خواهید حس نوشتن داشته باشد، `speed` (کلمه در ثانیه) بدهید. پایان نمایش با `onDone` خبر داده می‌شود.
+
+<Demo html={false} code={`<StreamingText text={answer} speed={14} onDone={() => setDone(true)} />`}>
+  <StreamingDemo client:only="react" />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["text", "string", "", "متن تا این لحظه"],
+  ["streaming", "boolean", "false", "هنوز در حال نوشتن است"],
+  ["speed", "number", "", "نمایش خودکار کلمه‌به‌کلمه؛ کلمه در ثانیه"],
+  ["onDone", "() => void", "", "پایان نمایش در حالت speed"],
+  ["cursor", "boolean", "true", "نشانگر انتهای متن"],
+  ["as", "ElementType", '"p"', "عنصر بیرونی"],
+]} />
+
+## دسترس‌پذیری
+
+- تا پایان نوشتن، متن `aria-busy` است و صفحه‌خوان کلمه‌به‌کلمه نمی‌خواندش؛ پایان پاسخ یک بار اعلام می‌شود («پاسخ کامل شد»).
+- نیم‌فاصله جزو کلمه است، پس «می‌شود» دو تکه نمی‌شود.
+- با «کاهش حرکت»، متن بی‌انیمیشن و یک‌جا نمایش داده می‌شود و نشانگر چشمک نمی‌زند.

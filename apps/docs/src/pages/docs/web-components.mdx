@@ -57,11 +57,11 @@ import "@kashi-ui/elements"; // همه؛ یا فقط یک بخش، مثل "@kash
 
 ## کامپوننت‌ها
 
-۶۶ عنصر؛ روی نام هر کامپوننت بزنید تا نصب، نمونه، ویژگی‌ها و رویدادهایش را ببینید.
+۶۹ عنصر؛ روی نام هر کامپوننت بزنید تا نصب، نمونه، ویژگی‌ها و رویدادهایش را ببینید.
 
 | کامپوننت | عنصرها | بخش npm |
 |---|---|---|
-| [فیلدهای فارسی](/docs/persian/input/#وب-کامپوننت) | `<kashi-national-id>`، `<kashi-legal-id>`، `<kashi-mobile>`، `<kashi-landline>`، `<kashi-card-number>`، `<kashi-iban>`، `<kashi-postal-code>`، `<kashi-price>` | `inputs.js` |
+| [فیلدهای فارسی](/docs/persian/input/#وب-کامپوننت) | `<kashi-national-id>`، `<kashi-legal-id>`، `<kashi-mobile>`، `<kashi-landline>`، `<kashi-card-number>`، `<kashi-iban>`، `<kashi-postal-code>`، `<kashi-price>`، `<kashi-sayad>`، `<kashi-economic-code>`، `<kashi-tax-id>` | `inputs.js` |
 | [ساعت و پلاک خودرو](/docs/persian/input/#وب-کامپوننت) | `<kashi-time-input>`، `<kashi-plate-input>` | `forms.js` |
 | [ویرایش نگارشی](/docs/persian/text-fix/#وب-کامپوننت) | `<kashi-persian-textarea>`، `<kashi-keyboard-fix>` | `forms.js` |
 | [بازهٔ تاریخ شمسی](/docs/persian/date-range/#وب-کامپوننت) | `<kashi-date-range-picker>` | `pickers.js` |
@@ -191,7 +191,7 @@ export default {
 
 بیشتر کامپوننت‌های دیگر کاشی (دکمه، کارت، نشان، هشدار، آکاردئون، مراحل، پیشرفت، فیلد متنی و…) به JavaScript نیاز ندارند و با کلاس‌های `@kashi-ui/css` ساخته می‌شوند؛ کد HTML هر کدام در تب «HTML» صفحهٔ همان کامپوننت آمده است.
 
-تقریباً همهٔ کامپوننت‌های تعاملی کاشی نسخهٔ وب کامپوننت دارند. کشوی کناری با همان `<kashi-dialog placement="end">` ساخته می‌شود. [برگهٔ پایین](/docs/components/bottom-sheet/)، [نوار ناوبری](/docs/components/navbar/) و [اعتبارسنجی فرم](/docs/components/form/) فعلاً فقط برای React هستند؛ در HTML برای فرم از [اعتبارسنجی بومی](#ارسال-فرم-و-اعتبارسنجی) استفاده کنید.
+تقریباً همهٔ کامپوننت‌های تعاملی کاشی نسخهٔ وب کامپوننت دارند. کشوی کناری با همان `<kashi-dialog placement="end">` ساخته می‌شود. [برگهٔ پایین](/docs/components/bottom-sheet/)، [نوار ناوبری](/docs/components/navbar/)، [اعتبارسنجی فرم](/docs/components/form/)، [ساعت کاری](/docs/persian/business-hours/)، کامپوننت‌های گفتگو ([گفتگو](/docs/components/chat/)، [کادر پیام](/docs/components/chat-composer/)، [متن کلمه‌به‌کلمه](/docs/components/streaming-text/)، [بلوک کد](/docs/components/code-block/))، [فهرست کشیدنی](/docs/components/sortable/)، [کانبان](/docs/components/kanban/)، [گالری تصاویر](/docs/components/gallery/)، [ویرایشگر متن](/docs/components/rich-text/)، [مرکز اعلان‌ها](/docs/components/notifications/)، [کد QR](/docs/components/qr-code/) و [برنامهٔ زمانی](/docs/components/scheduler/) فعلاً فقط برای React هستند؛ در HTML برای فرم از [اعتبارسنجی بومی](#ارسال-فرم-و-اعتبارسنجی) استفاده کنید.
 
 ## حجم
 

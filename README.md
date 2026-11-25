@@ -86,9 +86,9 @@ For an English, left-to-right page, set `dir="ltr"` on the root `<html>` element
 
 ## کامپوننت‌ها
 
-Button · Input · Textarea · Select · Checkbox · RadioGroup · Switch · Badge · Card · Alert · Avatar · AvatarGroup · Tabs · Dialog · Toast · Tooltip · DropdownMenu · DataTable · Pagination · Breadcrumb · Accordion · Stepper · Progress · Spinner · Skeleton · EmptyState · Divider · Kbd · RelativeTime · Combobox · MultiSelect · CommandPalette · TagInput · FileUpload · Slider · NumberInput · Popover · StatCard · Timeline · SideNav · SegmentedControl · CopyButton · Banner · Rating · TreeView · ButtonGroup · ChipGroup · PasswordStrength · BarChart · LineChart · ContextMenu · InlineEdit · PieChart · BarList · ProportionBar · Sparkline · Carousel · ColorPicker · Tour · Meter · Splitter
+Button · Input · Textarea · Select · Checkbox · RadioGroup · Switch · Badge · Card · Alert · Avatar · AvatarGroup · Tabs · Dialog · Toast · Tooltip · DropdownMenu · DataTable · Pagination · Breadcrumb · Accordion · Stepper · Progress · Spinner · Skeleton · EmptyState · Divider · Kbd · RelativeTime · Combobox · MultiSelect · CommandPalette · TagInput · FileUpload · Slider · NumberInput · Popover · StatCard · Timeline · SideNav · SegmentedControl · CopyButton · Banner · Rating · TreeView · ButtonGroup · ChipGroup · PasswordStrength · BarChart · LineChart · ContextMenu · InlineEdit · PieChart · BarList · ProportionBar · Sparkline · Carousel · ColorPicker · Tour · Meter · Splitter · ChatThread · ChatMessage · TypingIndicator · ChatComposer · StreamingText · CodeBlock · SortableList · Kanban · Gallery · Lightbox · RichTextEditor · NotificationCenter · QRCode · Scheduler
 
-**فارسی:** DatePicker و Calendar شمسی · DateRangePicker (بازهٔ تاریخ شمسی) · TimeInput (ساعت) · PostalCodeInput (کد پستی) · PlateInput (پلاک خودرو) · LandlineInput (تلفن ثابت) · MonthPicker (ماه شمسی) · Countdown (شمارش معکوس) · ActivityHeatmap (نقشهٔ فعالیت شمسی) · ProvinceSelect (استان) · NationalIdInput (کد ملی) · CardNumberInput (شماره کارت با لوگوی بانک) · IbanInput (شبا) · MobileInput (موبایل) · PriceInput (مبلغ به حروف) · OtpInput (کد تأیید) · ابزارهای `@kashi-ui/persian`
+**فارسی:** DatePicker و Calendar شمسی · DateRangePicker (بازهٔ تاریخ شمسی) · TimeInput (ساعت) · PostalCodeInput (کد پستی) · PlateInput (پلاک خودرو) · LandlineInput (تلفن ثابت) · MonthPicker (ماه شمسی) · Countdown (شمارش معکوس) · ActivityHeatmap (نقشهٔ فعالیت شمسی) · ProvinceSelect (استان) · NationalIdInput (کد ملی) · CardNumberInput (شماره کارت با لوگوی بانک) · IbanInput (شبا) · MobileInput (موبایل) · PriceInput (مبلغ به حروف) · OtpInput (کد تأیید) · SayadInput (شناسهٔ صیادی چک) · EconomicCodeInput (کد اقتصادی) · TaxIdInput (شمارهٔ مالیاتی فاکتور) · BusinessHours (ساعت کاری) · WeekdayPicker (روزهای هفته) · ابزارهای `@kashi-ui/persian`
 
 ## نصب
 
@@ -144,7 +144,7 @@ claude mcp add kashi -- npx -y @kashi-ui/mcp
 
 پلاگین **Kashi UI Kit** کل دیزاین‌سیستم را از روی همین کد در فیگما می‌سازد:
 - حدود ۲۷۰ Variable با تم تیره/روشن، گردی، تراکم، فونت و سایه؛ بدون Style
-- بیش از ۷۰ کامپوننت با حدود ۷۰۰ variant، هر کدام در یک صفحه، شامل کامپوننت‌های فارسی و لوگوی همهٔ بانک‌ها
+- بیش از ۹۰ کامپوننت با حدود ۸۳۰ variant، هر کدام در یک صفحه، شامل کامپوننت‌های فارسی و لوگوی همهٔ بانک‌ها
 - به‌روزرسانی درجا با هر نسخهٔ جدید
 
 دانلود و راهنما: [kashi.sepantapouya.com/docs/figma](https://kashi.sepantapouya.com/docs/figma/)

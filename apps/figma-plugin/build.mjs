@@ -148,6 +148,10 @@ const appointment = Array.from({ length: 7 }, (_, i) => {
   return { weekday: P.WEEKDAYS[(d.getDay() + 1) % 7], day: j.jd, month: P.JALALI_MONTHS[j.jm - 1], closed: !!P.getIranHoliday(d), full: P.formatJalali(d, { style: "full" }) };
 });
 
+// کد QR نمونه از همان سازندهٔ کتابخانهٔ React، تا فیگما و کد یکی باشند
+const { encodeQr } = await import("../../packages/react/dist/qr.js");
+const qrSample = encodeQr("https://kashi.sepantapouya.com", "H");
+
 // صفحه‌های مستندات، برای لینک «Documentation» هر کامپوننت در فیگما
 const docsDir = join(root, "apps/docs/src/pages/docs");
 const docPages = {};
@@ -160,6 +164,7 @@ const TOKENS = {
   calendar,
   iranMap,
   appointment,
+  qrSample,
   palette,
   brandScale: "firoozeh",
   themes: themeOut,

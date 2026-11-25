@@ -1,0 +1,62 @@
+---
+layout: ../../../layouts/Docs.astro
+title: ویرایشگر متن
+description: ویرایشگر متن غنی سبک و فارسی؛ پررنگ، عنوان، فهرست، نقل‌قول و پیوند، جهت جدا برای هر بند، نیم‌فاصله با Shift+Space و پاک‌سازی متن چسبانده‌شده.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { RichTextDemo, RichTextMiniDemo } from "../../../components/demos-extra";
+
+```tsx
+import { RichTextEditor } from "@kashi-ui/react";
+```
+
+## نمونه
+
+Shift+Space نیم‌فاصله می‌گذارد. دکمهٔ جهت، بند فعلی را چپ‌به‌راست یا راست‌به‌چپ می‌کند تا جملهٔ انگلیسی وسط متن فارسی درست بنشیند. Ctrl+B و Ctrl+I و Ctrl+K (پیوند) هم کار می‌کنند. نوار ابزار یک توقف Tab است و با کلیدهای جهت بین دکمه‌ها حرکت می‌کنید.
+
+<Demo align="stretch" html={false} code={`<RichTextEditor
+  label="توضیحات محصول"
+  defaultValue={html}
+  onChange={(html, text) => save(html)}
+  hint="متن چسبانده‌شده پاک‌سازی می‌شود."
+  name="description"
+/>`}>
+  <RichTextDemo client:only="react" />
+</Demo>
+
+خروجی HTML پاک‌شده است: فقط بند، عنوان دو و سه، پررنگ، کج، زیرخط، خط‌خورده، فهرست، نقل‌قول، کد و پیوند `http`، `https` یا `mailto` می‌ماند و هر ویژگی دیگری (مثل `style` یا `onclick`) حذف می‌شود. متنی که از Word یا سایت دیگری چسبانده شود هم همین‌طور پاک می‌شود. HTML را در سرور هم دوباره پاک کنید؛ تابع `sanitizeRichText` برای همین در دسترس است.
+
+## ابزار کمتر
+
+با `tools` فقط ابزارهای لازم را بگذارید؛ `"|"` جداکننده است.
+
+<Demo html={false} code={`<RichTextEditor aria-label="نظر" placeholder="نظرتان را بنویسید…" tools={["bold", "italic", "link"]} minHeight="4rem" showCount={false} />`}>
+  <RichTextMiniDemo client:only="react" />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "HTML؛ پیش از نمایش پاک می‌شود"],
+  ["onChange", "(html: string, text: string) => void", "", "با هر تغییر"],
+  ["label", "string", "", "برچسب بالای ویرایشگر"],
+  ["placeholder", "string", '"بنویسید…"', ""],
+  ["tools", '("bold" | "italic" | "underline" | "strike" | "heading" | "quote" | "bullet" | "ordered" | "link" | "direction" | "undo" | "clear" | "|")[]', "همه", "ابزارهای نوار"],
+  ["minHeight", "string", '"8rem"', "کمترین ارتفاع"],
+  ["showCount", "boolean", "true", "شمار کلمه و نویسه"],
+  ["name", "string", "", "HTML در فرم ارسال می‌شود"],
+  ["hint / error", "ReactNode", "", "راهنما یا خطای زیر ویرایشگر"],
+  ["disabled", "boolean", "false", ""],
+]} />
+
+<Vars rows={[
+  ["--k-rte-max-height", "28rem", "بیشترین ارتفاع پیش از اسکرول"],
+]} />
+
+## دسترس‌پذیری
+
+- ناحیهٔ نوشتن `role="textbox"` با `aria-multiline` است و برچسب و راهنما به آن وصل‌اند.
+- نوار ابزار `role="toolbar"` با فوکوس گردشی است؛ دکمه‌های قالب `aria-pressed` دارند و همراه مکان‌نما به‌روز می‌شوند.
+- میان‌بر نیم‌فاصله در متن راهنما هم برای صفحه‌خوان نوشته شده است.

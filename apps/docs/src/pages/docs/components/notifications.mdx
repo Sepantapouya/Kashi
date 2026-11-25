@@ -1,0 +1,63 @@
+---
+layout: ../../../layouts/Docs.astro
+title: مرکز اعلان‌ها
+description: دکمهٔ زنگ با شمار اعلان‌های خوانده‌نشده و فهرست اعلان‌ها با زبانه‌های «همه» و «خوانده‌نشده»، گروه امروز و دیروز و زمان نسبی فارسی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { NotificationCenterDemo, NotificationListDemo } from "../../../components/demos-extra";
+
+```tsx
+import { NotificationCenter, NotificationList } from "@kashi-ui/react";
+```
+
+## نمونه
+
+زنگ شمار اعلان‌های خوانده‌نشده را دارد و با رسیدن اعلان تازه یک بار تکان می‌خورد. کلیک روی اعلان آن را خوانده می‌کند؛ نقطهٔ کنار هر اعلان هم همین کار را بدون باز کردنش انجام می‌دهد.
+
+<Demo html={false} code={`const [items, setItems] = useState(notifications);
+
+<NotificationCenter
+  items={items}
+  onRead={(id) => setItems((l) => l.map((x) => (x.id === id ? { ...x, read: true } : x)))}
+  onReadAll={() => setItems((l) => l.map((x) => ({ ...x, read: true })))}
+  onSettings={openSettings}
+  viewAllHref="/notifications"
+/>`}>
+  <NotificationCenterDemo client:only="react" />
+</Demo>
+
+## فهرست تنها
+
+برای صفحهٔ کامل اعلان‌ها یا کشوی کناری، `NotificationList` را بدون زنگ استفاده کنید.
+
+<Demo html={false} code={`<NotificationList items={items} onRead={markRead} onReadAll={markAllRead} />`}>
+  <NotificationListDemo client:only="react" />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["items", "{ id, title, body?, time: Date, read?, icon?, tone?, href? }[]", "", "اعلان‌ها"],
+  ["onRead", "(id: string) => void", "", "خوانده شدن یک اعلان"],
+  ["onReadAll", "() => void", "", "دکمهٔ «خواندن همه»"],
+  ["onSelect", "(item) => void", "", "کلیک روی اعلانی که href ندارد"],
+  ["onSettings", "() => void", "", "دکمهٔ تنظیمات کنار عنوان"],
+  ["viewAllHref", "string", "", "پیوند «دیدن همهٔ اعلان‌ها»"],
+  ["title", "ReactNode", '"اعلان‌ها"', "عنوان فهرست"],
+  ["now", "Date", "اکنون", "مبنای زمان نسبی و گروه امروز و دیروز"],
+  ["open / onOpenChange", "boolean", "", "فقط NotificationCenter: باز بودن پاپ‌اور"],
+  ["placement", '"bottom-start" | "bottom-end"', '"bottom-end"', "فقط NotificationCenter"],
+]} />
+
+<Vars rows={[
+  ["--k-notif-height", "26rem", "بیشترین ارتفاع فهرست پیش از اسکرول"],
+]} />
+
+## دسترس‌پذیری
+
+- نام دکمهٔ زنگ تعداد خوانده‌نشده‌ها را می‌گوید («اعلان‌ها، ۲ خوانده‌نشده»)؛ عدد روی زنگ برای صفحه‌خوان تکرار نمی‌شود.
+- پاپ‌اور `role="dialog"` است، با Escape بسته می‌شود و فوکوس به زنگ برمی‌گردد.
+- هر اعلان یک دکمه یا پیوند است و زمانش در عنصر `<time>` با تاریخ دقیق است. گروه‌ها عنوان دارند.
+- اعلان خوانده‌نشده فقط با رنگ نشان داده نمی‌شود؛ دکمهٔ «علامت خوانده‌شده» کنارش است.

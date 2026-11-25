@@ -1,0 +1,86 @@
+/* فهرست کشیدنی و تابلوی کانبان
+ * <ul class="k-sortable"><li class="k-sortable__item" data-flip="id"><button class="k-sortable__handle">…</button>…</li></ul>
+ * <div class="k-kanban"><section class="k-kanban__col">…<li class="k-kanban__card">…</li></section></div> */
+.k-sortable { display: grid; gap: var(--k-space-2); margin: 0; padding: 0; list-style: none; }
+.k-sortable__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-2);
+  min-block-size: 3rem;
+  padding: var(--k-space-2) var(--k-space-3);
+  padding-inline-start: var(--k-space-1);
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-lg);
+  background: var(--k-bg-elevated);
+  color: var(--k-text-primary);
+  font-size: var(--k-text-sm);
+  transition: translate var(--k-duration-normal) var(--k-ease-emphasized), box-shadow var(--k-duration-normal) var(--k-ease-standard), scale var(--k-duration-normal) var(--k-ease-spring), border-color var(--k-duration-fast);
+}
+.k-sortable__item[data-dragging] { z-index: var(--k-z-raised); border-color: var(--k-border-brand); box-shadow: var(--k-shadow-lg); scale: 1.02; }
+.k-sortable__item[data-dragging][data-mode="pointer"] { transition: box-shadow var(--k-duration-normal), scale var(--k-duration-normal) var(--k-ease-spring); cursor: grabbing; }
+.k-sortable__label { flex: 1; min-inline-size: 0; }
+.k-sortable__handle, .k-kanban__handle {
+  display: grid;
+  flex: none;
+  place-items: center;
+  inline-size: 1.75rem;
+  block-size: 2rem;
+  border: 0;
+  border-radius: var(--k-radius-md);
+  background: none;
+  color: var(--k-text-quaternary);
+  cursor: grab;
+  touch-action: none;
+  transition: background-color var(--k-duration-fast), color var(--k-duration-fast);
+}
+.k-sortable__handle svg, .k-kanban__handle svg { inline-size: 1.125rem; block-size: 1.125rem; }
+.k-sortable__handle:hover, .k-kanban__handle:hover { background: var(--k-bg-hover); color: var(--k-text-secondary); }
+.k-sortable__handle:focus-visible, .k-kanban__handle:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-sortable__handle[aria-pressed="true"], .k-kanban__handle[aria-pressed="true"] { background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+.k-sortable__handle:disabled { cursor: not-allowed; opacity: 0.5; }
+.k-sortable[data-dragging], .k-kanban[data-dragging] { user-select: none; }
+
+.k-kanban { display: grid; grid-auto-columns: minmax(11.5rem, 1fr); grid-auto-flow: column; align-items: start; gap: var(--k-space-3); overflow-x: auto; padding-block-end: var(--k-space-2); overscroll-behavior-inline: contain; }
+.k-kanban__col { display: grid; gap: var(--k-space-2); min-inline-size: 0; padding: var(--k-space-3); border-radius: var(--k-radius-xl); background: var(--k-bg-secondary); transition: background-color var(--k-duration-normal) var(--k-ease-standard), box-shadow var(--k-duration-normal); }
+.k-kanban__col[data-target] { box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--k-border-brand) 55%, transparent); }
+.k-kanban__col[data-over] .k-kanban__count { background: var(--k-bg-error-subtle); color: var(--k-text-error); }
+.k-kanban__head { display: flex; align-items: center; gap: var(--k-space-2); padding-inline: var(--k-space-1); }
+.k-kanban__dot { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; }
+.k-kanban__title { flex: 1; margin: 0; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+.k-kanban__count { padding: 0 var(--k-space-2); border-radius: var(--k-radius-full); background: var(--k-bg-tertiary); color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-variant-numeric: tabular-nums; line-height: 1.5rem; transition: background-color var(--k-duration-fast), color var(--k-duration-fast); }
+.k-kanban__list { display: grid; gap: var(--k-space-2); min-block-size: 3.5rem; margin: 0; padding: 0; list-style: none; }
+.k-kanban__card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--k-space-1);
+  padding: var(--k-space-3);
+  padding-inline-start: var(--k-space-1);
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-lg);
+  background: var(--k-bg-elevated);
+  color: var(--k-text-primary);
+  font-size: var(--k-text-sm);
+  box-shadow: var(--k-shadow-xs);
+  cursor: grab;
+  touch-action: pan-y;
+  transition: translate var(--k-duration-normal) var(--k-ease-emphasized), box-shadow var(--k-duration-normal), rotate var(--k-duration-normal) var(--k-ease-spring), scale var(--k-duration-normal) var(--k-ease-spring), border-color var(--k-duration-fast);
+}
+.k-kanban__card:hover { border-color: var(--k-border-primary); }
+.k-kanban__card[data-dragging] { z-index: var(--k-z-dropdown); border-color: var(--k-border-brand); box-shadow: var(--k-shadow-xl, var(--k-shadow-lg)); }
+.k-kanban__card[data-dragging][data-mode="pointer"] { rotate: -2deg; scale: 1.03; cursor: grabbing; transition: box-shadow var(--k-duration-normal), rotate var(--k-duration-normal) var(--k-ease-spring), scale var(--k-duration-normal) var(--k-ease-spring); }
+.k-kanban__label { flex: 1; min-inline-size: 0; padding-block: 0.3rem; }
+.k-kanban__empty { display: grid; place-items: center; min-block-size: 3.5rem; padding: var(--k-space-3); border: 1px dashed var(--k-border-primary); border-radius: var(--k-radius-lg); color: var(--k-text-tertiary); font-size: var(--k-text-xs); text-align: center; }
+.k-kanban__add { display: inline-flex; align-items: center; gap: var(--k-space-1_5); block-size: 2.25rem; padding-inline: var(--k-space-2); border: 0; border-radius: var(--k-radius-md); background: none; color: var(--k-text-tertiary); font: inherit; font-size: var(--k-text-sm); cursor: pointer; transition: background-color var(--k-duration-fast), color var(--k-duration-fast); }
+.k-kanban__add:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-kanban__add:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-kanban__add svg { inline-size: 1rem; block-size: 1rem; }
+@media (prefers-reduced-motion: reduce) {
+  .k-sortable__item, .k-kanban__card { transition: none; }
+  .k-sortable__item[data-dragging], .k-kanban__card[data-dragging][data-mode="pointer"] { scale: 1; rotate: 0deg; }
+}
+@media (forced-colors: active) {
+  .k-sortable__item[data-dragging], .k-kanban__card[data-dragging] { outline: 2px solid Highlight; }
+  .k-kanban__col { border: 1px solid CanvasText; }
+}

@@ -32,7 +32,7 @@ const FIELD: [string, string, string, string][] = [
 
 export const ELEMENT_DOCS: Record<string, ElementDoc> = {
   "/docs/persian/input/": {
-    tags: ["kashi-national-id", "kashi-mobile", "kashi-card-number", "kashi-iban", "kashi-price", "kashi-postal-code", "kashi-landline", "kashi-legal-id", "kashi-time-input", "kashi-plate-input"],
+    tags: ["kashi-national-id", "kashi-mobile", "kashi-card-number", "kashi-iban", "kashi-price", "kashi-postal-code", "kashi-landline", "kashi-legal-id", "kashi-time-input", "kashi-plate-input", "kashi-sayad", "kashi-economic-code", "kashi-tax-id"],
     module: "inputs",
     html: `<kashi-national-id name="national_id" required></kashi-national-id>
 <kashi-mobile name="mobile"></kashi-mobile>
@@ -50,6 +50,9 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
       ["kashi-price", "مبلغ با جداکنندهٔ هزارگان و مبلغ به حروف زیر فیلد"],
       ["kashi-time-input", "ساعت ۲۴ساعته؛ ↑↓ با گام step دقیقه، min و max؛ بخش npm: forms.js"],
       ["kashi-plate-input", "پلاک خودرو در چهار بخش؛ با name فیلدهای name_first، name_letter، name_middle و name_region؛ بخش npm: forms.js"],
+      ["kashi-sayad", "شناسهٔ صیادی چک، ۱۶ رقم در گروه‌های چهارتایی"],
+      ["kashi-economic-code", "کد اقتصادی؛ کد ملی، شناسهٔ ملی یا کد ۱۲ رقمی قدیمی، با نوع کنار فیلد"],
+      ["kashi-tax-id", "شمارهٔ مالیاتی فاکتور در سامانهٔ مودیان، ۲۲ نویسهٔ لاتین با حروف بزرگ خودکار"],
     ],
     attrs: [
       ...FIELD,
@@ -60,7 +63,7 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
       ["unit / min / max / show-words", "", "تومان", "فقط مبلغ: واحد، محدوده و نمایش به حروف"],
     ],
     api: [
-      ["kashi-change", "با هر تغییر؛ detail: { value, valid } و برای موبایل operator، کارت و شبا bank، تلفن ثابت province"],
+      ["kashi-change", "با هر تغییر؛ detail: { value, valid } و برای موبایل operator، کارت و شبا bank، تلفن ثابت province، کد اقتصادی type"],
       ["element.value / element.valid", "مقدار خام و معتبر بودن؛ مبلغ element.valueAsNumber هم دارد"],
     ],
   },

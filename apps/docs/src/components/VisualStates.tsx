@@ -1,6 +1,10 @@
 // حالت‌هایی که نمونه‌های مستندات نشان نمی‌دهند ولی باگ‌های ظاهری معمولاً همان‌جاست:
 // خطا کنار فیلد بی‌خطا، برچسب اختیاری، متن بلند، غیرفعال، و همان کامپوننت‌ها به انگلیسی. فقط برای تست تصویری.
 import { PriceRange, SearchSuggest, SwatchGroup } from "@kashi-ui/react";
+import {
+  BusinessHours, ChatComposer, ChatMessage, ChatThread, CodeBlock, EconomicCodeInput, Kanban, NotificationList, SayadInput, Scheduler, SortableList,
+  TaxIdInput, TypingIndicator, WeekdayPicker,
+} from "@kashi-ui/react";
 import { DataTable, EmptyState, Navbar } from "@kashi-ui/react";
 import {
   AddressForm, Alert, Badge, Button, CardNumberInput, Checkbox, DatePicker, Input, KashiProvider, NationalIdInput,
@@ -165,6 +169,50 @@ export default function VisualStates() {
         <DataTable caption="۲۰۰۰ ردیف" virtual maxHeight="12rem" striped compact selectable getRowId={(r) => r.id}
           rows={Array.from({ length: 2000 }, (_, i) => ({ id: String(i), name: `مشتری شمارهٔ ${i + 1}`, amount: (i * 7919) % 100000 }))}
           columns={[{ key: "name", header: "نام" }, { key: "amount", header: "مبلغ", numeric: true }]} />
+      </section>
+      <section data-visual="v214-chat" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
+        <ChatThread style={{ maxBlockSize: "none" }}>
+          <ChatMessage from="user" status="failed" onRetry={noop} edited time="۱۰:۲۲">پیامی که ارسال نشد و متنش آن‌قدر بلند است که به چند خط می‌شکند تا شکستن خط دیده شود.</ChatMessage>
+          <ChatMessage from="assistant" copyText="x" onFeedback={noop} feedback="down">Mixed: کاشی supports RTL and English inside one message. https://kashi.sepantapouya.com/docs/components/chat/</ChatMessage>
+          <ChatMessage from="system">سارا محمدی به گروه پیوست</ChatMessage>
+          <TypingIndicator name="دستیار" showLabel />
+        </ChatThread>
+        <KashiProvider locale="en">
+          <div style={{ display: "grid", gap: 16 }} dir="ltr">
+            <ChatThread style={{ maxBlockSize: "none" }}>
+              <ChatMessage from="user" status="read" time="10:22">Hello in English</ChatMessage>
+              <ChatMessage from="assistant" copyText="x" onRetry={noop}>سلام؛ پاسخ فارسی در رابط انگلیسی.</ChatMessage>
+            </ChatThread>
+            <ChatComposer onSend={noop} attach showHint maxLength={20} value="This message is too long for the limit" />
+          </div>
+        </KashiProvider>
+      </section>
+      <section data-visual="v214-composer-code" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
+        <ChatComposer onSend={noop} streaming disabled={false} value="در حال پاسخ…" />
+        <CodeBlock language="ts" lineNumbers highlightLines={[2]} wrap code={'// توضیح فارسی کنار کد\nconst veryLongVariableNameThatShouldWrapWhenWrapIsOn = "یک رشتهٔ فارسی بلند داخل کد که باید بشکند";\nexport default veryLongVariableNameThatShouldWrapWhenWrapIsOn;'} />
+      </section>
+      <section data-visual="v214-persian-fields" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, alignItems: "start" }}>
+        <SayadInput label="شناسهٔ صیادی" error="شناسهٔ صیادی باید ۱۶ رقم باشد." defaultValue="12345678" />
+        <EconomicCodeInput label="کد اقتصادی" defaultValue="10380284790" />
+        <TaxIdInput label="شمارهٔ مالیاتی فاکتور" defaultValue="A1123456" error="شمارهٔ مالیاتی فاکتور باید ۲۲ نویسه از ارقام و حروف لاتین باشد." />
+      </section>
+      <section data-visual="v214-hours" style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 24, alignItems: "start" }}>
+        <BusinessHours now={new Date(2026, 10, 7, 10)} value={[{ open: true, ranges: [{ from: "17:00", to: "09:00" }] }, { open: true, ranges: [{ from: "09:00", to: "13:00" }, { from: "16:00", to: "20:00" }] }, ...Array.from({ length: 5 }, () => ({ open: false, ranges: [] }))]} />
+        <div style={{ display: "grid", gap: 16 }}>
+          <WeekdayPicker defaultValue={[0, 6]} />
+          <KashiProvider locale="en"><div dir="ltr"><WeekdayPicker defaultValue={[1, 2]} format="long" /></div></KashiProvider>
+        </div>
+      </section>
+      <section data-visual="v214-work" style={{ display: "grid", gap: 24 }}>
+        <Kanban aria-label="تابلو" getId={(t: { id: string }) => t.id} getLabel={(t: { id: string; title: string }) => t.title} onChange={noop} onAdd={noop}
+          columns={[{ id: "a", title: "ستونی با عنوان خیلی بلند برای آزمایش", limit: 1, items: [{ id: "1", title: "کارت اول با متن طولانی که به چند خط می‌شکند" }, { id: "2", title: "کارت دوم" }] }, { id: "b", title: "خالی", items: [] }, { id: "c", title: "انجام شد", items: [{ id: "3", title: "Done in English" }] }]} />
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
+          <SortableList aria-label="فهرست" items={[{ id: "a", t: "مورد با متن بلند که باید درست کنار دستگیره بشکند و بیرون نزند" }, { id: "b", t: "Second item" }]} getId={(x) => x.id} getLabel={(x) => x.t} onReorder={noop} disabled />
+          <div style={{ border: "1px solid var(--k-border-secondary)", borderRadius: 12 }}>
+            <NotificationList now={day} items={[{ id: "1", title: "اعلانی با عنوان خیلی بلند که باید به چند خط بشکند و با نقطهٔ خوانده‌نشده هم‌پوشانی نداشته باشد", time: day }, { id: "2", title: "Read one", time: new Date(2026, 9, 1), read: true }]} onReadAll={noop} />
+          </div>
+        </div>
+        <KashiProvider locale="en"><div dir="ltr"><Scheduler events={[{ id: "1", title: "Overlap A", start: new Date(2026, 10, 7, 9), end: new Date(2026, 10, 7, 11) }, { id: "2", title: "Overlap B", start: new Date(2026, 10, 7, 10), end: new Date(2026, 10, 7, 12) }]} date={day} now={new Date(2026, 10, 7, 10, 30)} startHour={8} endHour={13} hourHeight="2.5rem" /></div></KashiProvider>
       </section>
       <section data-visual="tabs-narrow" style={{ display: "grid", gap: 24, inlineSize: 343 }}>
         <WideTabs />

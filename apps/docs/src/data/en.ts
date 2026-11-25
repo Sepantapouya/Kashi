@@ -28,6 +28,7 @@ export const EN_COMPONENTS: { title: string; items: Entry[] }[] = [
       ["search-suggest", "Search suggest", "Search field with suggestions, recent searches and loading."],
       ["tag-input", "Tag input", "Type and add tags; submitted as a hidden field."],
       ["file-upload", "File upload", "Drop zone with type and size checks, progress and image resizing."],
+      ["rich-text", "Rich text editor", "Light Persian editor: per-paragraph direction, ZWNJ shortcut and sanitized paste."],
       ["slider", "Slider", "Single value or range slider."],
       ["number-input", "Number input", "Spinbutton with thousands separators and Persian digits."],
       ["segmented-control", "Segmented control", "A small set of mutually exclusive options."],
@@ -58,6 +59,26 @@ export const EN_COMPONENTS: { title: string; items: Entry[] }[] = [
       ["skeleton", "Skeleton", "Placeholders while content loads."],
       ["empty-state", "Empty state", "Six ready presets (no data, no results, error, offline, no access, done) with sizes."],
       ["divider", "Divider and Kbd", "Separators and keyboard shortcut labels."],
+      ["gallery", "Image gallery", "Thumbnail grid with a full-screen lightbox, swipe and zoom."],
+      ["qr-code", "QR code", "Dependency-free SVG QR code with Persian text, error levels and a center logo."],
+    ],
+  },
+  {
+    title: "Chat and AI",
+    items: [
+      ["chat", "Chat", "Message bubbles, day dividers and a typing indicator; RTL with auto direction per message."],
+      ["chat-composer", "Chat composer", "Auto-growing message box with Enter to send, attachments and a stop button."],
+      ["streaming-text", "Streaming text", "Word-by-word text for live AI responses, quiet for screen readers until done."],
+      ["code-block", "Code block", "Always-LTR code with language label, copy, line numbers and wrap."],
+    ],
+  },
+  {
+    title: "Work and collaboration",
+    items: [
+      ["kanban", "Kanban", "Drag cards between columns with mouse, touch or keyboard; WIP limits."],
+      ["sortable", "Sortable list", "Reorder by dragging or with the keyboard, with announcements."],
+      ["scheduler", "Scheduler", "Week and day calendar on the Jalali calendar with overlapping events and a now line."],
+      ["notifications", "Notification center", "Bell with unread count and a grouped notification list."],
     ],
   },
   {
@@ -96,7 +117,7 @@ export const EN_PERSIAN: { title: string; items: Entry[] }[] = [
   {
     title: "Persian fields",
     items: [
-      ["input", "Persian input", "National ID, company ID, mobile (with operator), landline, card, IBAN, money, postal code, time, plate and text in one component."],
+      ["input", "Persian input", "National ID, company ID, mobile (with operator), landline, card, IBAN, money, postal code, time, plate, cheque Sayad ID, economic code, invoice tax ID and text in one component."],
       ["province", "Province select", "All 31 provinces with search by province or city."],
       ["otp", "OTP", "One-time code input with SMS autofill."],
     ],
@@ -115,6 +136,7 @@ export const EN_PERSIAN: { title: string; items: Entry[] }[] = [
       ["date-range", "Date range", "Start and end dates with Persian shortcuts."],
       ["month-picker", "Month picker", "Choose a Jalali month and year."],
       ["appointment", "Appointment picker", "Days and time slots with capacity."],
+      ["business-hours", "Business hours", "Weekly opening hours, Saturday to Friday, with several ranges a day and an open-now status."],
       ["date-tile", "Date tile", "Calendar-page style date."],
       ["countdown", "Countdown", "Days, hours, minutes and seconds left."],
       ["activity-heatmap", "Activity heatmap", "GitHub-style year view on the Jalali calendar."],

@@ -10,6 +10,9 @@ import { MobileInput, type MobileInputProps } from "./MobileInput.js";
 import { NationalIdInput, type NationalIdInputProps } from "./NationalIdInput.js";
 import { PostalCodeInput, type PostalCodeInputProps } from "./PostalCodeInput.js";
 import { PlateInput, type PlateInputProps } from "./PlateInput.js";
+import { SayadInput, type SayadInputProps } from "./SayadInput.js";
+import { EconomicCodeInput, type EconomicCodeInputProps } from "./EconomicCodeInput.js";
+import { TaxIdInput, type TaxIdInputProps } from "./TaxIdInput.js";
 import { PriceInput, type PriceInputProps } from "./PriceInput.js";
 import { TimeInput, type TimeInputProps } from "./TimeInput.js";
 import { useKashi } from "./KashiProvider.js";
@@ -27,6 +30,9 @@ export interface PersianInputKinds {
   postal: PostalCodeInputProps;
   time: TimeInputProps;
   plate: PlateInputProps;
+  sayad: SayadInputProps;
+  "economic-code": EconomicCodeInputProps;
+  "tax-id": TaxIdInputProps;
 }
 export type PersianInputKind = keyof PersianInputKinds;
 export type PersianInputProps = { [K in PersianInputKind]: { kind: K } & PersianInputKinds[K] }[PersianInputKind];
@@ -44,6 +50,9 @@ export const PERSIAN_INPUT_LABELS: Record<PersianInputKind, string> = {
   postal: "کد پستی",
   time: "ساعت",
   plate: "پلاک خودرو",
+  sayad: "شناسهٔ صیادی چک",
+  "economic-code": "کد اقتصادی",
+  "tax-id": "شمارهٔ مالیاتی فاکتور",
 };
 
 const COMPONENTS = {
@@ -58,6 +67,9 @@ const COMPONENTS = {
   postal: PostalCodeInput,
   time: TimeInput,
   plate: PlateInput,
+  sayad: SayadInput,
+  "economic-code": EconomicCodeInput,
+  "tax-id": TaxIdInput,
 } as const;
 
 /**

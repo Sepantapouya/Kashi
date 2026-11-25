@@ -271,3 +271,40 @@ test("formatAddress: یک خط با ارقام فارسی؛ شهرِ هم‌نا
   assert.equal(P.formatAddress({ province: "تهران", city: "تهران", street: "میدان آزادی" }), "تهران، میدان آزادی");
   assert.equal(P.formatAddress(P.EMPTY_ADDRESS), "");
 });
+
+test("شناسهٔ صیادی: ۱۶ رقم با هر خطی، قالب چهارتایی", () => {
+  assert.equal(P.isValidSayad("۱۲۳۴ ۵۶۷۸ ۹۰۱۲ ۳۴۵۶"), true);
+  assert.equal(P.isValidSayad("123456789012345"), false);
+  assert.equal(P.isValidSayad("0000000000000000"), false);
+  assert.equal(P.formatSayad("1234567890123456"), "1234 5678 9012 3456");
+});
+
+test("کد اقتصادی: کد ملی، شناسهٔ ملی یا ۱۲ رقم قدیمی", () => {
+  assert.equal(P.economicCodeType("0499370899"), "person");
+  assert.equal(P.isValidEconomicCode("0499370899"), true);
+  assert.equal(P.isValidEconomicCode("0499370898"), false);
+  assert.equal(P.isValidEconomicCode("10380284790"), true);
+  assert.equal(P.economicCodeType("411111111111"), "legacy");
+  assert.equal(P.isValidEconomicCode("411111111111"), true);
+  assert.equal(P.isValidEconomicCode("12345"), false);
+});
+
+test("شمارهٔ مالیاتی فاکتور: ۲۲ نویسه، حروف بزرگ و ارقام لاتین", () => {
+  assert.equal(P.normalizeTaxId("a11 2b3-۴۵"), "A112B345");
+  assert.equal(P.isValidTaxId("A11234567890123456789F"), true);
+  assert.equal(P.isValidTaxId("a11234567890123456789f"), true);
+  assert.equal(P.isValidTaxId("A1123456789012345678"), false);
+});
+
+test("ساعت کاری: باز بودن، بازهٔ شبانه، خطا و خلاصه", () => {
+  const week = P.defaultWeekHours();
+  // ۱۶ آبان ۱۴۰۵ شنبه است
+  assert.equal(P.isOpenAt(week, new Date(2026, 10, 7, 10, 0)), true);
+  assert.equal(P.isOpenAt(week, new Date(2026, 10, 7, 18, 0)), false);
+  assert.equal(P.isOpenAt(week, new Date(2026, 10, 13, 10, 0)), false, "جمعه");
+  const night = week.map(() => ({ open: true, ranges: [{ from: "22:00", to: "02:00" }] }));
+  assert.equal(P.isOpenAt(night, new Date(2026, 10, 8, 1, 0)), true);
+  assert.deepEqual(P.invalidRanges({ open: true, ranges: [{ from: "10:00", to: "09:00" }, { from: "12:00", to: "14:00" }, { from: "13:00", to: "15:00" }] }), [0, 1, 2]);
+  assert.equal(P.summarizeHours(week), "شنبه تا چهارشنبه ۰۹:۰۰ تا ۱۷:۰۰؛ پنجشنبه ۰۹:۰۰ تا ۱۳:۰۰؛ جمعه تعطیل");
+  assert.equal(P.summarizeHours(week, { locale: "en" }), "Saturday–Wednesday: 09:00–17:00; Thursday: 09:00–13:00; Friday: closed");
+});

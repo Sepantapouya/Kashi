@@ -16,12 +16,15 @@ const HELPERS: Record<string, string> = {
   icons: "آیکون‌های داخلی کامپوننت‌ها",
   "use-digits-input": "هوک فیلدهای عددی فارسی",
   "iran-map-data": "مرز استان‌های ایران",
+  dnd: "حرکت نرم و ابزار کشیدن و رها کردن",
+  qr: "سازندهٔ ماتریس کد QR",
 };
 // فیلدهای فارسی همه در یک صفحه‌اند
 const PAGE: Record<string, string> = Object.fromEntries(
   Object.entries({
     "national-id": "national-id", "legal-id": "legal-id", mobile: "mobile", landline: "landline", "card-number": "card", iban: "iban",
     price: "price", "postal-code": "postal", time: "time", plate: "plate", "keyboard-fix": "text",
+    sayad: "sayad", "economic-code": "economic-code", "tax-id": "tax-id",
   }).map(([file, hash]) => [`${file}-input`, `/docs/persian/input/#${hash}`]),
 );
 

@@ -1,0 +1,78 @@
+---
+layout: ../../../layouts/Docs.astro
+title: ساعت کاری
+description: تنظیم ساعت کاری هفتگی با روزهای شمسی از شنبه تا جمعه؛ هر روز باز یا تعطیل، چند بازه در روز (صبح و عصر)، خلاصهٔ خوانا و وضعیت «الان باز است».
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { BusinessHoursDemo, WeekdayPickerDemo } from "../../../components/demos-extra";
+
+```tsx
+import { BusinessHours, WeekdayPicker } from "@kashi-ui/react";
+```
+
+## نمونه
+
+پیش‌فرض ساعت کاری رایج ایران است: شنبه تا چهارشنبه ۹ تا ۱۷، پنجشنبه ۹ تا ۱۳ و جمعه تعطیل. با سوییچ هر روز را باز یا بسته کنید و با «افزودن بازهٔ دیگر» شیفت عصر بگذارید. ساعت‌ها با کلیدهای ↑↓ نیم‌ساعت جابه‌جا می‌شوند. بازه‌ای که پایانش پیش از شروع است یا روی بازهٔ دیگر می‌افتد، خطای فارسی می‌گیرد و فرم با آن ارسال نمی‌شود.
+
+<Demo align="stretch" html={false} code={`const [hours, setHours] = useState<WeekHours>();
+
+<BusinessHours name="hours" value={hours} onChange={(week, valid) => valid && setHours(week)} />`}>
+  <BusinessHoursDemo client:only="react" />
+</Demo>
+
+مقدار، آرایهٔ هفت‌تایی از شنبه تا جمعه است: `{ open: boolean, ranges: { from: "09:00", to: "17:00" }[] }`. بازه‌ای مثل `22:00` تا `02:00` از نیمه‌شب می‌گذرد و تا بامداد روز بعد حساب می‌شود. با `name` کل هفته به شکل JSON در فرم ارسال می‌شود.
+
+## ابزارها برای سرور و نمایش
+
+```ts
+import { isOpenAt, summarizeHours, defaultWeekHours } from "@kashi-ui/persian";
+
+isOpenAt(hours);              // الان باز است؟
+summarizeHours(hours);        // «شنبه تا چهارشنبه ۰۹:۰۰ تا ۱۷:۰۰؛ پنجشنبه ۰۹:۰۰ تا ۱۳:۰۰؛ جمعه تعطیل»
+summarizeHours(hours, { locale: "en" });
+```
+
+## انتخاب روزهای هفته
+
+اگر فقط روزها را لازم دارید (روزهای ارسال، روزهای کلاس)، `WeekdayPicker` را استفاده کنید. مقدار شمارهٔ روزهاست: ۰ شنبه تا ۶ جمعه.
+
+<Demo html={false} code={`const [days, setDays] = useState([0, 1, 2, 3, 4]);
+
+<WeekdayPicker value={days} onChange={setDays} />
+<WeekdayPicker value={days} onChange={setDays} format="long" />`}>
+  <WeekdayPickerDemo client:only="react" />
+</Demo>
+
+## ویژگی‌ها
+
+### BusinessHours
+
+<Props rows={[
+  ["value / defaultValue", "WeekHours", "شنبه تا چهارشنبه ۹ تا ۱۷، پنجشنبه ۹ تا ۱۳", "هفت روز از شنبه"],
+  ["onChange", "(week: WeekHours, valid: boolean) => void", "", "با هر تغییر"],
+  ["label", "string", '"ساعت کاری"', "عنوان گروه"],
+  ["step", "number", "30", "گام ساعت با ↑↓ به دقیقه"],
+  ["maxRanges", "number", "3", "حداکثر بازه در هر روز"],
+  ["summary", "boolean", "true", "خلاصه، وضعیت «الان باز است» و دکمهٔ «همین ساعت برای همهٔ روزها»"],
+  ["now", "Date", "اکنون", "مبنای «الان باز است»"],
+  ["name", "string", "", "مقدار JSON در فرم"],
+  ["digits", '"fa" | "latin"', '"fa"', "خط ارقام"],
+  ["disabled", "boolean", "false", ""],
+]} />
+
+### WeekdayPicker
+
+<Props rows={[
+  ["value / defaultValue", "number[]", "[]", "روزهای انتخاب‌شده؛ ۰ شنبه تا ۶ جمعه"],
+  ["onChange", "(days: number[]) => void", "", ""],
+  ["format", '"short" | "long"', '"short"', "«ش» یا «شنبه»"],
+  ["aria-label", "string", '"روزهای کاری"', "نام گروه"],
+]} />
+
+## دسترس‌پذیری
+
+- کل فرم یک `<fieldset>` با عنوان است و هر روز سوییچ واقعی (`role="switch"`) با نام همان روز دارد.
+- هر بازه گروهی با نام «بازهٔ ۱ شنبه» است و فیلدهای ساعت نام کامل دارند («بازهٔ ۱ شنبه، از»).
+- خطای بازه به فیلدهای همان روز وصل است (`aria-describedby`).
+- در `WeekdayPicker` هر روز دکمه‌ای با `aria-pressed` است و نام کامل روز را دارد، حتی وقتی فقط «ش» دیده می‌شود.

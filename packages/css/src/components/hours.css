@@ -1,0 +1,109 @@
+/* ساعت کاری هفتگی و انتخاب روزهای هفته
+ * <fieldset class="k-hours"> … <div class="k-hours__day" data-open> سوییچ روز + بازه‌های k-hours__range
+ * <div class="k-weekdays" role="group"><button class="k-weekdays__day" aria-pressed="true">ش</button> … */
+.k-weekdays { display: flex; flex-wrap: wrap; gap: var(--k-space-1_5); }
+.k-weekdays__day {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: 2.25rem;
+  block-size: 2.25rem;
+  padding-inline: var(--k-space-2);
+  border: 1px solid var(--k-border-primary);
+  border-radius: var(--k-radius-full);
+  background: var(--k-bg-elevated);
+  color: var(--k-text-secondary);
+  font: inherit;
+  font-size: var(--k-text-sm);
+  font-weight: var(--k-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--k-duration-fast) var(--k-ease-standard), border-color var(--k-duration-fast), color var(--k-duration-fast), scale var(--k-duration-fast) var(--k-ease-spring);
+}
+.k-weekdays--long .k-weekdays__day { padding-inline: var(--k-space-3); }
+.k-weekdays__day:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-weekdays__day:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-weekdays__day:active:not(:disabled) { scale: 0.92; }
+.k-weekdays__day[data-friday] { color: var(--k-text-error); }
+.k-weekdays__day[aria-pressed="true"] { border-color: transparent; background: var(--k-bg-brand); color: var(--k-text-on-brand, #fff); animation: k-weekdays-pop var(--k-duration-normal) var(--k-ease-spring); }
+.k-weekdays__day:disabled { color: var(--k-text-quaternary); cursor: not-allowed; }
+
+.k-hours { display: grid; gap: var(--k-space-3); min-inline-size: 0; margin: 0; padding: 0; border: 0; }
+.k-hours__legend { margin-block-end: var(--k-space-1); padding: 0; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+.k-hours__days { display: grid; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); }
+.k-hours__day {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  align-items: start;
+  gap: var(--k-space-3);
+  padding: var(--k-space-3) var(--k-space-4);
+  transition: background-color var(--k-duration-normal) var(--k-ease-standard);
+}
+.k-hours__day + .k-hours__day { border-block-start: 1px solid var(--k-border-secondary); }
+.k-hours__day:not([data-open]) { background: var(--k-bg-secondary); }
+.k-hours__day:first-child { border-start-start-radius: inherit; border-start-end-radius: inherit; }
+.k-hours__day:last-child { border-end-start-radius: inherit; border-end-end-radius: inherit; }
+.k-hours__toggle { display: inline-flex; align-items: center; gap: var(--k-space-2_5, 0.625rem); min-block-size: 2rem; cursor: pointer; }
+.k-hours__name { color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); transition: color var(--k-duration-fast); }
+.k-hours__day:not([data-open]) .k-hours__name { color: var(--k-text-tertiary); }
+/* باز و بسته شدن نرم بدنهٔ روز */
+.k-hours__body { display: grid; grid-template-rows: 1fr; transition: grid-template-rows var(--k-duration-normal) var(--k-ease-emphasized); }
+.k-hours__inner { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-2); min-block-size: 2rem; min-inline-size: 0; }
+.k-hours__range { display: inline-flex; align-items: center; gap: var(--k-space-2); animation: k-hours-in var(--k-duration-normal) var(--k-ease-emphasized); }
+.k-hours__range .k-field { inline-size: 5.5rem; }
+.k-hours__range[data-invalid] .k-input { border-color: var(--k-border-error); }
+.k-hours__sep { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.k-hours__icon, .k-hours__add {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-1);
+  border: 0;
+  border-radius: var(--k-radius-md);
+  background: none;
+  color: var(--k-text-tertiary);
+  font: inherit;
+  font-size: var(--k-text-xs);
+  cursor: pointer;
+  transition: background-color var(--k-duration-fast), color var(--k-duration-fast), scale var(--k-duration-fast) var(--k-ease-spring);
+}
+.k-hours__icon { justify-content: center; inline-size: 1.75rem; block-size: 1.75rem; }
+.k-hours__add { block-size: 2rem; padding-inline: var(--k-space-2); color: var(--k-text-brand); font-weight: var(--k-weight-medium); }
+.k-hours__icon svg, .k-hours__add svg { inline-size: 1rem; block-size: 1rem; }
+.k-hours__icon:hover { background: var(--k-bg-error-subtle); color: var(--k-text-error); }
+.k-hours__add:hover { background: var(--k-bg-brand-subtle); }
+.k-hours__icon:active, .k-hours__add:active { scale: 0.94; }
+.k-hours__icon:focus-visible, .k-hours__add:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-hours__closed { color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 2rem; animation: k-hours-in var(--k-duration-normal) var(--k-ease-standard); }
+.k-hours__error { flex-basis: 100%; margin: 0; }
+.k-hours__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-2) var(--k-space-3); }
+.k-hours__status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-1_5);
+  padding: 0.125rem var(--k-space-2_5, 0.625rem);
+  border-radius: var(--k-radius-full);
+  background: var(--k-bg-tertiary);
+  color: var(--k-text-tertiary);
+  font-size: var(--k-text-xs);
+  font-weight: var(--k-weight-medium);
+}
+.k-hours__status[data-open] { background: var(--k-bg-success-subtle); color: var(--k-text-success); }
+.k-hours__dot { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background: currentColor; }
+.k-hours__status[data-open] .k-hours__dot { animation: k-hours-pulse 2s var(--k-ease-standard) infinite; }
+.k-hours__summary { flex: 1 1 14rem; margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.7; }
+.k-hours__copy { margin-inline-start: auto; }
+@keyframes k-weekdays-pop { from { scale: 0.86; } }
+@keyframes k-hours-in { from { opacity: 0; translate: 0 -4px; } }
+@keyframes k-hours-pulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent); } 60% { box-shadow: 0 0 0 5px transparent; } }
+@container (max-width: 30rem) {
+  .k-hours__day { grid-template-columns: 1fr; gap: var(--k-space-2); }
+}
+@media (max-width: 30rem) {
+  .k-hours__day { grid-template-columns: 1fr; gap: var(--k-space-2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .k-hours__range, .k-hours__closed, .k-hours__status[data-open] .k-hours__dot, .k-weekdays__day[aria-pressed="true"] { animation: none; }
+  .k-weekdays__day, .k-hours__day, .k-hours__body { transition: none; }
+}
+@media (forced-colors: active) {
+  .k-weekdays__day[aria-pressed="true"] { border: 2px solid Highlight; background: Highlight; color: HighlightText; }
+  .k-hours__days { border-color: CanvasText; }
+}

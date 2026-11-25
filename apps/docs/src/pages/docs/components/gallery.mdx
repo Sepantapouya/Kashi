@@ -1,0 +1,73 @@
+---
+layout: ../../../layouts/Docs.astro
+title: گالری تصاویر
+description: شبکهٔ تصویرهای کوچک که در نمایش تمام‌صفحه (Lightbox) باز می‌شوند؛ با فلش‌ها، کشیدن انگشت، بزرگ‌نمایی و نوار تصویرهای کوچک.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { GalleryDemo, GalleryMaxDemo } from "../../../components/demos-extra";
+
+```tsx
+import { Gallery, Lightbox } from "@kashi-ui/react";
+```
+
+## نمونه
+
+روی هر تصویر بزنید. در نمایش تمام‌صفحه کلیدهای جهت (در راست‌به‌چپ، چپ یعنی بعدی)، Home و End، کشیدن انگشت و نوار پایین کار می‌کنند. با کلیک روی تصویر همان نقطه بزرگ می‌شود و Escape اول بزرگ‌نمایی و بعد خود پنجره را می‌بندد.
+
+<Demo html={false} code={`<Gallery
+  aspect="4 / 3"
+  images={[
+    { src: "/photos/1.jpg", alt: "نمای مسجد", caption: "مسجد شیخ لطف‌الله", width: 1200, height: 900 },
+    …
+  ]}
+/>`}>
+  <GalleryDemo client:only="react" />
+</Demo>
+
+## تعداد محدود
+
+با `max` فقط چند تصویر اول نشان داده می‌شود و روی آخری «+۳» می‌آید؛ همهٔ تصویرها در نمایش تمام‌صفحه هستند. `loop` از آخر به اول برمی‌گرداند.
+
+<Demo html={false} code={`<Gallery images={photos} columns={3} max={3} loop />`}>
+  <GalleryMaxDemo client:only="react" />
+</Demo>
+
+## فقط نمایش تمام‌صفحه
+
+اگر شبکهٔ تصویرها را خودتان می‌سازید (مثلاً صفحهٔ محصول)، `Lightbox` را جدا استفاده کنید:
+
+```tsx
+const [open, setOpen] = useState<number | null>(null);
+
+<button onClick={() => setOpen(0)}><img src={photos[0].thumb} alt="" /></button>
+<Lightbox images={photos} index={open} onIndexChange={setOpen} />
+```
+
+## ویژگی‌ها
+
+### Gallery
+
+<Props rows={[
+  ["images", "{ src, alt, caption?, thumb?, width?, height? }[]", "", "تصویرها"],
+  ["columns", "number", "خودکار", "تعداد ستون"],
+  ["aspect", "string", '"1 / 1"', "نسبت تصویرهای کوچک"],
+  ["max", "number", "", "تعداد تصویر نمایش‌داده‌شده؛ بقیه با «+n»"],
+  ["loop", "boolean", "false", "از آخر به اول"],
+]} />
+
+### Lightbox
+
+<Props rows={[
+  ["images", "LightboxImage[]", "", "تصویرها"],
+  ["index / onIndexChange", "number | null", "", "تصویر باز؛ null یعنی بسته"],
+  ["thumbnails", "boolean", "true", "نوار تصویرهای کوچک"],
+  ["loop", "boolean", "false", ""],
+]} />
+
+## دسترس‌پذیری
+
+- نمایش تمام‌صفحه روی `<dialog>` بومی است: فوکوس داخلش می‌ماند و پس از بستن به همان تصویر کوچک برمی‌گردد.
+- هر تصویر کوچک دکمه‌ای با نام «بزرگ کردن …» است؛ `alt` را حتماً بدهید.
+- شمارندهٔ «۲ از ۶» با `aria-live` اعلام می‌شود و دکمه‌های قبلی و بعدی و بزرگ‌نمایی نام دارند.
+- تصویرهای کنار تصویر فعلی از قبل بارگذاری می‌شوند تا جابه‌جایی بی‌مکث باشد.

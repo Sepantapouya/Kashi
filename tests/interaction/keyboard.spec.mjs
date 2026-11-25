@@ -158,3 +158,61 @@ test("accordion: Enter باز می‌کند و در حالت single بقیه ب�
   await expect(details.nth(1)).toHaveAttribute("open", "");
   await expect(details.first()).not.toHaveAttribute("open", "");
 });
+
+test("sortable: فاصله برمی‌دارد، فلش جابه‌جا می‌کند، فاصله رها می‌کند و فوکوس می‌ماند", async ({ page }) => {
+  const handle = page.locator('[data-fixture="sortable"]').getByRole("button", { name: "جابه‌جا کردن الف" });
+  await handle.focus();
+  await page.keyboard.press("Space");
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("ArrowDown");
+  await expect(page.locator('[data-fixture="sortable"]').getByRole("button", { name: "جابه‌جا کردن الف" })).toBeFocused();
+  await page.keyboard.press("Space");
+  await expect(page.locator("#sortable-value")).toHaveText("bca");
+  // Escape لغو می‌کند
+  await page.keyboard.press("Space");
+  await page.keyboard.press("ArrowUp");
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#sortable-value")).toHaveText("bca");
+});
+
+test("kanban: کارت با فلش چپ (در راست‌به‌چپ، ستون بعد) جابه‌جا می‌شود", async ({ page }) => {
+  const handle = page.locator('[data-fixture="kanban"] .k-kanban__handle').first();
+  await handle.focus();
+  await page.keyboard.press("Space");
+  await page.keyboard.press("ArrowLeft");
+  await page.keyboard.press("Space");
+  await expect(page.locator("#kanban-value")).toHaveText("|k1");
+  await expect(page.locator('[data-fixture="kanban"] .k-kanban__handle').first()).toBeFocused();
+});
+
+test("composer: Enter می‌فرستد و Shift+Enter خط تازه می‌سازد", async ({ page }) => {
+  const box = page.locator('[data-fixture="composer"] textarea');
+  await box.fill("سلام");
+  await box.press("Shift+Enter");
+  await box.type("دنیا");
+  await box.press("Enter");
+  await expect(page.locator("#composer-value")).toHaveText("سلام\nدنیا");
+  await expect(box).toHaveValue("");
+});
+
+test("lightbox: با Enter باز، فلش چپ تصویر بعد، Escape بسته و فوکوس به تصویر کوچک برمی‌گردد", async ({ page }) => {
+  const thumb = page.locator('[data-fixture="gallery"]').getByRole("button", { name: "بزرگ کردن یک" });
+  await thumb.focus();
+  await page.keyboard.press("Enter");
+  const dlg = page.locator("dialog.k-lightbox");
+  await expect(dlg).toBeVisible();
+  await page.keyboard.press("ArrowLeft");
+  await expect(dlg.locator(".k-lightbox__counter")).toHaveText("۲ از ۲");
+  await page.keyboard.press("Escape");
+  await expect(dlg).toBeHidden();
+  await expect(thumb).toBeFocused();
+});
+
+test("scheduler: فوکوس گردشی خانه‌ها و Enter رویداد می‌سازد", async ({ page }) => {
+  const first = page.locator('[data-fixture="scheduler"] .k-sched__slot[tabindex="0"]');
+  await first.focus();
+  await page.keyboard.press("ArrowDown");
+  await page.keyboard.press("ArrowLeft");
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#scheduler-value")).toHaveText("8-8:30");
+});

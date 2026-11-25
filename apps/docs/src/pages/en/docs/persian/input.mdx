@@ -1,11 +1,12 @@
 ---
 layout: ../../../../layouts/DocsEn.astro
 title: Persian input
-description: "One component for all Persian data: national ID, company ID, mobile, landline, card, IBAN, price, postal code, time, licence plate and text with keyboard-layout correction."
+description: "One component for all Persian data: national ID, company ID, mobile, landline, card, IBAN, price, postal code, time, licence plate, cheque Sayad ID, economic code, invoice tax ID and text with keyboard-layout correction."
 fa: /docs/persian/input/
 ---
 import Demo from "../../../../components/Demo.astro";
 import Props from "../../../../components/Props.astro";
+import { SayadDemo, EconomicCodeDemo, TaxIdDemo } from "../../../../components/demos-extra";
 import { PersianInputDemo, CardNumberDemo, IbanDemo, KeyboardFixDemo, LandlineDemo, LegalIdDemo, MobileDemo, NationalIdDemo, PlateDemo, PostalDemo, PriceDemo, TimeDemo } from "../../../../components/demos";
 
 ```tsx
@@ -21,7 +22,7 @@ import { PersianInput } from "@kashi-ui/react";
   <PersianInputDemo client:load />
 </Demo>
 
-Instead of remembering the names of eleven components, build one field with `kind`. Each kind has its own Persian label, format, validation and error message. The other props are those of the specialised component, and TypeScript suggests them based on `kind`. For example, `showBank` is only allowed for `card` and `iban`.
+Instead of remembering the names of fourteen components, build one field with `kind`. Each kind has its own Persian label, format, validation and error message. The other props are those of the specialised component, and TypeScript suggests them based on `kind`. For example, `showBank` is only allowed for `card` and `iban`.
 
 | kind | Data | Specialised component |
 |---|---|---|
@@ -36,15 +37,18 @@ Instead of remembering the names of eleven components, build one field with `kin
 | `postal` | Postal code | [PostalCodeInput](#postal) |
 | `time` | Time | [TimeInput](#time) |
 | `plate` | Car licence plate | [PlateInput](#plate) |
+| `sayad` | Cheque Sayad ID | [SayadInput](#sayad) |
+| `economic-code` | Invoice economic code | [EconomicCodeInput](#economic-code) |
+| `tax-id` | Invoice tax ID (Moadian) | [TaxIdInput](#tax-id) |
 
 If you give no label, the default label of the kind is used ("شمارهٔ شبا", "کد پستی" and so on). With `aria-label` the label is not shown. The list of labels is in `PERSIAN_INPUT_LABELS`.
 
 ## Bundle size
 
-`PersianInput` imports all eleven fields. If a page needs only one, import the specialised component directly to load less code.
+`PersianInput` imports all fourteen fields. If a page needs only one, import the specialised component directly to load less code.
 
 <Props rows={[
-  ["kind", '"text" | "national-id" | "legal-id" | "mobile" | "landline" | "card" | "iban" | "price" | "postal" | "time" | "plate"', "", "Kind of data"],
+  ["kind", '"text" | "national-id" | "legal-id" | "mobile" | "landline" | "card" | "iban" | "price" | "postal" | "time" | "plate" | "sayad" | "economic-code" | "tax-id"', "", "Kind of data"],
   ["…", "", "", "Props of the specialised component for that kind"],
 ]} />
 
@@ -480,6 +484,98 @@ The height changes with `--k-plate-height` (default 3.5rem) and the width change
 #### Accessibility
 
 A `role="group"` named "پلاک خودرو" (car licence plate) and four controls, each with its own name ("دو رقم اول پلاک", "حرف پلاک"…). The letter is chosen with a native `<select>`. When the plate is complete and valid, its full text is read with `aria-live`.
+
+<span id="sayad" class="kind-anchor"></span>
+
+## Cheque Sayad ID
+
+The 16-digit ID printed at the bottom of every Iranian cheque leaf, in groups of four.
+
+```tsx
+<PersianInput kind="sayad" />   // or directly: <SayadInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="sayad" name="sayad" hint="۱۶ رقم پایین برگهٔ چک" />`}>
+  <SayadDemo client:load />
+</Demo>
+
+Registering, confirming or transferring a cheque in the Sayad system needs this ID. Its check-digit algorithm is not public, so the field only checks that it has 16 digits; verify the cheque itself with the Sayad system.
+
+```ts
+isValidSayad("1234 5678 9012 3456"); // true
+formatSayad("1234567890123456");      // "1234 5678 9012 3456"
+```
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "Latin digits"],
+  ["onValueChange", "(value: string, valid: boolean) => void", "", ""],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "«شناسهٔ صیادی باید ۱۶ رقم باشد.»", ""],
+  ["name", "string", "", "Hidden field with 16 Latin digits, no spaces"],
+]} />
+
+<span id="economic-code" class="kind-anchor"></span>
+
+## Economic code
+
+The buyer's or seller's economic code on an official invoice, with the type shown next to the field.
+
+```tsx
+<PersianInput kind="economic-code" />   // or directly: <EconomicCodeInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="economic-code" label="کد اقتصادی خریدار"
+  onValueChange={(value, valid, type) => …} />   // type: "person" | "company" | "legacy"`}>
+  <EconomicCodeDemo client:load />
+</Demo>
+
+Since 1398 (2019) the economic code of an individual is their national ID (10 digits) and that of a company is its national ID (11 digits); both are checked with their own check digit. The old 12-digit code still appears on older invoices and is checked for length only.
+
+```ts
+isValidEconomicCode("10380284790"); // true
+economicCodeType("0499370899");     // "person"
+```
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "Latin digits"],
+  ["onValueChange", "(value, valid, type) => void", "", ""],
+  ["showType", "boolean", "true", "Show the code type next to the field"],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "", ""],
+  ["name", "string", "", "Hidden field with Latin digits"],
+]} />
+
+<span id="tax-id" class="kind-anchor"></span>
+
+## Invoice tax ID
+
+The unique tax ID of an e-invoice in the Moadian system, 22 characters.
+
+```tsx
+<PersianInput kind="tax-id" />   // or directly: <TaxIdInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="tax-id" name="taxId" hint="از سامانهٔ مودیان" />`}>
+  <TaxIdDemo client:load />
+</Demo>
+
+Letters become uppercase, Persian digits become Latin, and spaces and dashes are removed, so a pasted ID always fits. Only the shape (22 Latin letters and digits) is checked; only the Moadian system can confirm the ID itself.
+
+```ts
+normalizeTaxId("a11 2b3-۴۵"); // "A112B345"
+isValidTaxId(taxId);          // 22 allowed characters?
+```
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "Uppercase letters and Latin digits"],
+  ["onValueChange", "(value: string, valid: boolean) => void", "", ""],
+  ["invalidMessage", "ReactNode", "", ""],
+  ["name", "string", "", "Hidden field with the normalised value"],
+]} />
+
+#### Accessibility
+
+All three fields show their error after the user leaves the field or completes the length, connected with `aria-describedby`. The economic-code type is connected to the field too, so screen readers read it.
 
 <span id="text" class="kind-anchor"></span>
 
