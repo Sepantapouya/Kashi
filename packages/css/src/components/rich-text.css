@@ -50,7 +50,7 @@
 .k-rte__area ul, .k-rte__area ol { padding-inline-start: var(--k-space-6); }
 .k-rte__area a { color: var(--k-text-brand); text-decoration: underline; text-underline-offset: 3px; }
 .k-rte__area code { padding: 0 0.3em; border-radius: var(--k-radius-sm); background: var(--k-bg-tertiary); font-family: var(--k-font-mono); font-size: 0.9em; }
-.k-rte__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-1_5); padding: var(--k-space-1_5) var(--k-space-4); border-block-start: 1px solid var(--k-border-secondary); color: var(--k-text-quaternary); font-size: var(--k-text-xs); }
+.k-rte__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-1_5); padding: var(--k-space-1_5) var(--k-space-4); border-block-start: 1px solid var(--k-border-secondary); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
 .k-rte__tip { margin-inline-start: auto; }
 .k-rte__help:empty { display: none; }
 .k-rte__help .k-hint { margin: 0; }

@@ -59,7 +59,7 @@
 .k-notif__item-title strong { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
 .k-notif__item[data-unread] .k-notif__item-title { color: var(--k-text-primary); }
 .k-notif__body { color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.7; }
-.k-notif__time { color: var(--k-text-quaternary); font-size: var(--k-text-xs); }
+.k-notif__time { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
 .k-notif__dot { position: absolute; inset-block-start: var(--k-space-3); inset-inline-end: var(--k-space-2); display: grid; place-items: center; inline-size: 1.5rem; block-size: 1.5rem; border: 0; border-radius: 50%; background: none; cursor: pointer; }
 .k-notif__dot span { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background: var(--k-bg-brand); transition: scale var(--k-duration-fast) var(--k-ease-spring); }
 .k-notif__dot:hover span { scale: 1.4; }

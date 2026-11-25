@@ -26,7 +26,7 @@
 .k-sched__dayhead[data-today] .k-sched__daynum { background: var(--k-bg-brand); color: var(--k-text-on-brand); }
 .k-sched__dayhead[data-today] .k-sched__weekday { color: var(--k-text-brand); font-weight: var(--k-weight-semibold); }
 .k-sched__times { position: sticky; inset-inline-start: 0; z-index: var(--k-z-raised); display: grid; grid-auto-rows: var(--k-sched-hour); background: var(--k-bg-elevated); }
-.k-sched__time { position: relative; inset-block-start: -0.55em; padding-inline-end: var(--k-space-2); color: var(--k-text-quaternary); font-size: 0.6875rem; font-variant-numeric: tabular-nums; text-align: end; }
+.k-sched__time { position: relative; inset-block-start: -0.55em; padding-inline-end: var(--k-space-2); color: var(--k-text-tertiary); font-size: 0.6875rem; font-variant-numeric: tabular-nums; text-align: end; }
 .k-sched__time:first-child { visibility: hidden; }
 .k-sched__body { display: contents; }
 .k-sched__col { position: relative; display: grid; grid-template-rows: repeat(var(--k-sched-slots), 1fr); block-size: calc(var(--k-sched-hour) * var(--k-sched-hours)); border-inline-start: 1px solid var(--k-border-secondary); }

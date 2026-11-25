@@ -71,7 +71,7 @@
 .k-hours__add:hover { background: var(--k-bg-brand-subtle); }
 .k-hours__icon:active, .k-hours__add:active { scale: 0.94; }
 .k-hours__icon:focus-visible, .k-hours__add:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
-.k-hours__closed { color: var(--k-text-quaternary); font-size: var(--k-text-sm); line-height: 2rem; animation: k-hours-in var(--k-duration-normal) var(--k-ease-standard); }
+.k-hours__closed { color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 2rem; animation: k-hours-in var(--k-duration-normal) var(--k-ease-standard); }
 .k-hours__error { flex-basis: 100%; margin: 0; }
 .k-hours__foot { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-2) var(--k-space-3); }
 .k-hours__status {

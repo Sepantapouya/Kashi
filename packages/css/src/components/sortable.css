@@ -71,7 +71,7 @@
 .k-kanban__card[data-dragging] { z-index: var(--k-z-dropdown); border-color: var(--k-border-brand); box-shadow: var(--k-shadow-xl, var(--k-shadow-lg)); }
 .k-kanban__card[data-dragging][data-mode="pointer"] { rotate: -2deg; scale: 1.03; cursor: grabbing; transition: box-shadow var(--k-duration-normal), rotate var(--k-duration-normal) var(--k-ease-spring), scale var(--k-duration-normal) var(--k-ease-spring); }
 .k-kanban__label { flex: 1; min-inline-size: 0; padding-block: 0.3rem; }
-.k-kanban__empty { display: grid; place-items: center; min-block-size: 3.5rem; padding: var(--k-space-3); border: 1px dashed var(--k-border-primary); border-radius: var(--k-radius-lg); color: var(--k-text-quaternary); font-size: var(--k-text-xs); text-align: center; }
+.k-kanban__empty { display: grid; place-items: center; min-block-size: 3.5rem; padding: var(--k-space-3); border: 1px dashed var(--k-border-primary); border-radius: var(--k-radius-lg); color: var(--k-text-tertiary); font-size: var(--k-text-xs); text-align: center; }
 .k-kanban__add { display: inline-flex; align-items: center; gap: var(--k-space-1_5); block-size: 2.25rem; padding-inline: var(--k-space-2); border: 0; border-radius: var(--k-radius-md); background: none; color: var(--k-text-tertiary); font: inherit; font-size: var(--k-text-sm); cursor: pointer; transition: background-color var(--k-duration-fast), color var(--k-duration-fast); }
 .k-kanban__add:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
 .k-kanban__add:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }

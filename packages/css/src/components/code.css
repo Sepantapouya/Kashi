@@ -52,12 +52,13 @@
 .k-code__line { display: flex; padding-inline: var(--k-space-4); }
 .k-code__text { flex: 1; white-space: pre; }
 .k-code[data-wrap] .k-code__text { white-space: pre-wrap; overflow-wrap: anywhere; }
-.k-code__line[data-marked] { background: color-mix(in srgb, var(--k-brand-500) 12%, transparent); box-shadow: inset 2px 0 0 var(--k-border-brand); }
+.k-code__line[data-marked] { background: color-mix(in srgb, var(--k-brand-500) 7%, transparent); box-shadow: inset 2px 0 0 var(--k-border-brand); }
 .k-code__num { flex: none; inline-size: 2.5ch; margin-inline-end: var(--k-space-4); color: var(--k-text-quaternary); text-align: right; user-select: none; }
-.k-code__t-keyword { color: var(--k-chart-7); }
-.k-code__t-string { color: var(--k-chart-3); }
-.k-code__t-number { color: var(--k-chart-4); }
+/* رنگ‌های متنی با کنتراست بررسی‌شده؛ رنگ‌های نمودار فقط برای گرافیک (۳:۱) سنجیده شده‌اند */
+.k-code__t-keyword { color: var(--k-text-info); }
+.k-code__t-string { color: var(--k-text-success); }
+.k-code__t-number { color: var(--k-text-warning); }
 .k-code__t-comment { color: var(--k-text-tertiary); }
-.k-code__t-fn { color: var(--k-chart-1); }
+.k-code__t-fn { color: var(--k-text-brand); }
 @media (prefers-reduced-motion: reduce) { .k-code__btn[data-done] svg { animation: none; } }
 @media (forced-colors: active) { .k-code { border-color: CanvasText; } .k-code__line[data-marked] { outline: 1px solid Highlight; } }

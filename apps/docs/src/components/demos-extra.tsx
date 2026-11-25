@@ -9,6 +9,8 @@ import {
 import { summarizeHours } from "@kashi-ui/persian";
 
 const ago = (min: number) => new Date(Date.now() - min * 60_000);
+// در تست تصویری (مرورگر خودکار) متن‌های زنده یک‌جا کامل نشان داده می‌شوند تا عکس به زمان وابسته نباشد
+const automated = () => typeof navigator !== "undefined" && navigator.webdriver;
 
 /* ---------- گفتگو ---------- */
 const ANSWER = "برای نصب کاشی کافی است پکیج React را نصب کنید و فایل CSS را یک بار در ریشهٔ برنامه وارد کنید. همهٔ کامپوننت‌ها راست‌به‌چپ و با ارقام فارسی آماده‌اند.";
@@ -69,7 +71,7 @@ export function StreamingDemo() {
   return (
     <div style={{ display: "grid", gap: "0.75rem", inlineSize: "min(100%, 34rem)" }}>
       <div className="k-msg__bubble" style={{ background: "var(--k-bg-secondary)" }}>
-        <StreamingText key={key} speed={14} onDone={() => setDone(true)} text="کاشی برای فارسی ساخته شده است، نه ترجمه شده. تقویم شمسی، کد ملی، شبا، پلاک و نیم‌فاصله همه از اول در آن هستند." />
+        <StreamingText key={key} speed={automated() ? undefined : 14} onDone={() => setDone(true)} text="کاشی برای فارسی ساخته شده است، نه ترجمه شده. تقویم شمسی، کد ملی، شبا، پلاک و نیم‌فاصله همه از اول در آن هستند." />
       </div>
       <button type="button" className="k-btn k-btn--secondary k-btn--sm" style={{ justifySelf: "start" }} disabled={!done} onClick={() => { setDone(false); setKey((k) => k + 1); }}>
         دوباره
@@ -84,10 +86,11 @@ export function StreamingLiveDemo() {
   const [text, setText] = useState("");
   const [run, setRun] = useState(0);
   useEffect(() => {
+    if (automated()) return setText(full);
     let i = 0;
     setText("");
     const t = setInterval(() => {
-      i += 3 + Math.floor(Math.random() * 6);
+      i += 3 + (i % 5);
       setText(full.slice(0, i));
       if (i >= full.length) clearInterval(t);
     }, 90);
