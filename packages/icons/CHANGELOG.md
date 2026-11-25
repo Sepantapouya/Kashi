@@ -1,5 +1,9 @@
 # @kashi-ui/icons
 
+## 2.16.0
+
+No changes in this release.
+
 ## 2.15.1
 
 ### Patch Changes
