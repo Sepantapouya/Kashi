@@ -36,6 +36,9 @@ const ATTRS = {
   "kashi-tour": "",
   "kashi-file-upload": "name=\"f\" required max-dimension=\"1600\"",
   "kashi-color-picker": "",
+  "kashi-economic-code": 'value="10380284790"',
+  "kashi-sayad": 'value="1234567890123456"',
+  "kashi-tax-id": 'value="a1123456789012345678"',
 };
 const CHILDREN = {
   "kashi-multi-select": '<option value="a">A</option><option value="b">B</option>',

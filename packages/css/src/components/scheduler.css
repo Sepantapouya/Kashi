@@ -1,0 +1,80 @@
+/* برنامهٔ هفتگی و روزانه با تقویم شمسی
+ * <div class="k-sched"><div class="k-sched__bar">…</div><div class="k-sched__grid">…<div class="k-sched__col">…</div></div></div>
+ * متغیر: --k-sched-hour ارتفاع هر ساعت */
+.k-sched { --k-sched-hour: 3.5rem; display: grid; gap: var(--k-space-3); min-inline-size: 0; }
+.k-sched__bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--k-space-2) var(--k-space-3); }
+.k-sched__nav { display: inline-flex; align-items: center; gap: var(--k-space-1); }
+.k-sched__icon { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border: 0; border-radius: var(--k-radius-md); background: none; color: var(--k-text-secondary); cursor: pointer; transition: background-color var(--k-duration-fast), scale var(--k-duration-fast) var(--k-ease-spring); }
+.k-sched__icon svg { inline-size: 1.125rem; block-size: 1.125rem; }
+.k-sched__icon:dir(ltr) svg { scale: -1 1; }
+.k-sched__icon:hover { background: var(--k-bg-hover); }
+.k-sched__icon:active { scale: 0.9; }
+.k-sched__icon:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-sched__title { flex: 1; margin: 0; color: var(--k-text-primary); font-size: var(--k-text-md); font-weight: var(--k-weight-semibold); }
+.k-sched__scroll { max-block-size: var(--k-sched-height, 36rem); overflow: auto; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); overscroll-behavior: contain; }
+.k-sched__grid { display: grid; grid-template-columns: 3.5rem repeat(var(--k-sched-days), minmax(4.75rem, 1fr)); min-inline-size: max-content; }
+.k-sched[data-view="day"] .k-sched__grid { min-inline-size: 0; grid-template-columns: 3.5rem 1fr; }
+.k-sched__corner, .k-sched__dayhead { position: sticky; inset-block-start: 0; z-index: var(--k-z-sticky); border-block-end: 1px solid var(--k-border-secondary); background: var(--k-bg-elevated); }
+.k-sched__corner { inset-inline-start: 0; z-index: calc(var(--k-z-sticky) + 1); }
+.k-sched__dayhead { display: grid; justify-items: center; gap: 2px; padding: var(--k-space-2) var(--k-space-1); border-inline-start: 1px solid var(--k-border-secondary); }
+.k-sched__weekday { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.k-sched__daynum { display: grid; place-items: center; min-inline-size: 2rem; block-size: 2rem; padding-inline: var(--k-space-1); border: 0; border-radius: var(--k-radius-full); background: none; color: var(--k-text-primary); font: inherit; font-size: var(--k-text-md); font-weight: var(--k-weight-semibold); cursor: pointer; transition: background-color var(--k-duration-fast), scale var(--k-duration-fast) var(--k-ease-spring); }
+.k-sched__daynum:hover { background: var(--k-bg-hover); }
+.k-sched__daynum:active { scale: 0.92; }
+.k-sched__daynum:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-sched__dayhead[data-holiday] .k-sched__weekday, .k-sched__dayhead[data-holiday] .k-sched__daynum { color: var(--k-text-error); }
+.k-sched__dayhead[data-today] .k-sched__daynum { background: var(--k-bg-brand); color: var(--k-text-on-brand); }
+.k-sched__dayhead[data-today] .k-sched__weekday { color: var(--k-text-brand); font-weight: var(--k-weight-semibold); }
+.k-sched__times { position: sticky; inset-inline-start: 0; z-index: var(--k-z-raised); display: grid; grid-auto-rows: var(--k-sched-hour); background: var(--k-bg-elevated); }
+.k-sched__time { position: relative; inset-block-start: -0.55em; padding-inline-end: var(--k-space-2); color: var(--k-text-quaternary); font-size: 0.6875rem; font-variant-numeric: tabular-nums; text-align: end; }
+.k-sched__time:first-child { visibility: hidden; }
+.k-sched__body { display: contents; }
+.k-sched__col { position: relative; display: grid; grid-template-rows: repeat(var(--k-sched-slots), 1fr); block-size: calc(var(--k-sched-hour) * var(--k-sched-hours)); border-inline-start: 1px solid var(--k-border-secondary); }
+.k-sched__col[data-holiday] { background: repeating-linear-gradient(135deg, transparent 0 8px, color-mix(in srgb, var(--k-text-error) 4%, transparent) 8px 9px); }
+.k-sched__col[data-today] { background: color-mix(in srgb, var(--k-brand-500) 4%, transparent); }
+.k-sched__slot { display: block; inline-size: 100%; min-block-size: 0; padding: 0; border: 0; border-block-start: 1px dashed color-mix(in srgb, var(--k-border-secondary) 60%, transparent); background: none; cursor: cell; transition: background-color var(--k-duration-fast); }
+.k-sched__slot[data-hour] { border-block-start-style: solid; border-block-start-color: var(--k-border-secondary); }
+.k-sched__slot:hover { background: var(--k-bg-hover); }
+.k-sched__slot:focus-visible { position: relative; z-index: var(--k-z-raised); outline: 2px solid var(--k-border-brand); outline-offset: -2px; background: var(--k-bg-brand-subtle); }
+.k-sched__event {
+  --_inset: 3px;
+  position: absolute;
+  inset-block-start: calc(var(--k-sched-top) * 100% + 1px);
+  block-size: calc(var(--k-sched-len) * 100% - 2px);
+  inset-inline-start: calc(var(--k-sched-col) / var(--k-sched-cols) * 100% + var(--_inset));
+  inline-size: calc(100% / var(--k-sched-cols) - var(--_inset) * 2);
+  z-index: var(--k-z-raised);
+  display: grid;
+  align-content: start;
+  gap: 1px;
+  padding: var(--k-space-1) var(--k-space-2);
+  overflow: hidden;
+  border: 0;
+  border-inline-start: 3px solid var(--k-sched-color);
+  border-radius: var(--k-radius-md);
+  background: color-mix(in srgb, var(--k-sched-color) 18%, var(--k-bg-elevated));
+  color: var(--k-text-primary);
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+  animation: k-sched-in var(--k-duration-normal) var(--k-ease-emphasized) both;
+  transition: box-shadow var(--k-duration-fast), translate var(--k-duration-fast) var(--k-ease-standard), background-color var(--k-duration-fast);
+}
+.k-sched__event:hover { background: color-mix(in srgb, var(--k-sched-color) 26%, var(--k-bg-elevated)); box-shadow: var(--k-shadow-md); translate: 0 -1px; z-index: calc(var(--k-z-raised) + 1); }
+.k-sched__event:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); z-index: calc(var(--k-z-raised) + 1); }
+.k-sched__event-title { overflow: hidden; font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); text-overflow: ellipsis; white-space: nowrap; }
+.k-sched__event-time, .k-sched__event-desc { overflow: hidden; color: var(--k-text-secondary); font-size: 0.6875rem; text-overflow: ellipsis; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.k-sched__event[data-short] { grid-auto-flow: column; justify-content: start; align-items: center; gap: var(--k-space-1); padding-block: 0; }
+.k-sched__event[data-short] .k-sched__event-desc { display: none; }
+.k-sched__now { position: absolute; inset-inline: 0; inset-block-start: calc(var(--k-sched-top) * 100%); z-index: calc(var(--k-z-raised) + 2); block-size: 2px; background: var(--k-text-error); pointer-events: none; }
+.k-sched__now::before { content: ""; position: absolute; inset-inline-start: -5px; inset-block-start: -4px; inline-size: 10px; block-size: 10px; border-radius: 50%; background: inherit; animation: k-hours-pulse 2s var(--k-ease-standard) infinite; color: var(--k-text-error); }
+@keyframes k-sched-in { from { opacity: 0; scale: 0.96; } }
+@media (prefers-reduced-motion: reduce) {
+  .k-sched__event, .k-sched__now::before { animation: none; }
+  .k-sched__event { transition: none; }
+}
+@media (forced-colors: active) {
+  .k-sched__event { border: 1px solid CanvasText; border-inline-start-width: 4px; }
+  .k-sched__now { background: Highlight; }
+  .k-sched__dayhead[data-today] .k-sched__daynum { outline: 2px solid Highlight; }
+}

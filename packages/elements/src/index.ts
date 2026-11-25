@@ -1,7 +1,7 @@
 // @kashi-ui/elements — وب کامپوننت‌های کاشی برای HTML، Vue، Svelte، Angular و هر فریم‌ورک دیگر.
 // با import کردن این فایل همهٔ عنصرها ثبت می‌شوند؛ استایل از @kashi-ui/css می‌آید.
 import {
-  KashiCardNumber, KashiIban, KashiLandline, KashiLegalId, KashiMobile, KashiNationalId, KashiPostalCode, KashiPrice,
+  KashiCardNumber, KashiIban, KashiLandline, KashiLegalId, KashiMobile, KashiNationalId, KashiPostalCode, KashiPrice, KashiSayad, KashiEconomicCode, KashiTaxId,
 } from "./inputs.js";
 import { KashiOtp } from "./fields.js";
 import { KashiCitySelect, KashiCombobox, KashiProvinceSelect } from "./combobox.js";
@@ -27,7 +27,7 @@ import { KashiToaster, toast } from "./toast.js";
 import { KashiPriceRange, KashiSearchSuggest, KashiSwatchGroup } from "./commerce.js";
 
 export {
-  KashiCardNumber, KashiIban, KashiLandline, KashiLegalId, KashiMobile, KashiNationalId, KashiPostalCode, KashiPrice,
+  KashiCardNumber, KashiIban, KashiLandline, KashiLegalId, KashiMobile, KashiNationalId, KashiPostalCode, KashiPrice, KashiSayad, KashiEconomicCode, KashiTaxId,
   KashiOtp, KashiProvinceSelect, KashiCombobox, KashiCitySelect, KashiIranMap, KashiAddressForm, KashiCalendar, KashiDatePicker,
   KashiCountdown, KashiDate, KashiMoney, KashiRelativeTime,
   KashiCopyButton, KashiDialog, KashiTabs, KashiTooltip, KashiToaster, toast,
@@ -63,12 +63,16 @@ export const KASHI_ELEMENTS = [
   "kashi-command-palette", "kashi-context-menu", "kashi-carousel", "kashi-tree-view", "kashi-tour", "kashi-splitter", "kashi-side-nav",
   "kashi-input", "kashi-textarea", "kashi-banner", "kashi-appointment-picker",
   "kashi-price-range", "kashi-swatch-group", "kashi-search-suggest",
+  "kashi-sayad", "kashi-economic-code", "kashi-tax-id",
 ] as const;
 
 declare global {
   interface HTMLElementTagNameMap {
     "kashi-national-id": KashiNationalId;
     "kashi-legal-id": KashiLegalId;
+    "kashi-sayad": KashiSayad;
+    "kashi-economic-code": KashiEconomicCode;
+    "kashi-tax-id": KashiTaxId;
     "kashi-mobile": KashiMobile;
     "kashi-landline": KashiLandline;
     "kashi-card-number": KashiCardNumber;

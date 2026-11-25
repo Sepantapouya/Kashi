@@ -4,6 +4,7 @@ import { useState } from "react";
 import {
   Accordion, AccordionItem, Button, Combobox, Dialog, Drawer, DropdownMenu, Input, MenuItem,
   Radio, RadioGroup, Select, Tab, TabList, TabPanel, Tabs,
+  ChatComposer, Gallery, Kanban, Scheduler, SortableList, type KanbanColumn,
 } from "@kashi-ui/react";
 
 const CITIES = [
@@ -18,9 +19,35 @@ export default function InteractionFixtures() {
   const [drawer, setDrawer] = useState(false);
   const [city, setCity] = useState<string | null>(null);
   const [picked, setPicked] = useState("");
+  const [order, setOrder] = useState([{ id: "a", t: "الف" }, { id: "b", t: "ب" }, { id: "c", t: "پ" }]);
+  const [cols, setCols] = useState<KanbanColumn<{ id: string; t: string }>[]>([
+    { id: "todo", title: "انجام", items: [{ id: "k1", t: "کارت یک" }] },
+    { id: "done", title: "تمام", items: [] },
+  ]);
+  const [sent, setSent] = useState("");
+  const [slot, setSlot] = useState("");
 
   return (
     <main style={{ display: "grid", gap: "32px", padding: "24px", maxInlineSize: "40rem" }}>
+      <section data-fixture="sortable">
+        <SortableList aria-label="ترتیب" items={order} getId={(x) => x.id} getLabel={(x) => x.t} onReorder={setOrder} />
+        <output id="sortable-value">{order.map((x) => x.id).join("")}</output>
+      </section>
+      <section data-fixture="kanban">
+        <Kanban columns={cols} onChange={setCols} getId={(x) => x.id} getLabel={(x) => x.t} />
+        <output id="kanban-value">{cols.map((c) => c.items.map((x) => x.id).join(",")).join("|")}</output>
+      </section>
+      <section data-fixture="composer">
+        <ChatComposer onSend={({ text }) => setSent(text)} />
+        <output id="composer-value">{sent}</output>
+      </section>
+      <section data-fixture="gallery">
+        <Gallery images={[{ src: "/demo/tile-1.svg", alt: "یک" }, { src: "/demo/tile-2.svg", alt: "دو" }]} />
+      </section>
+      <section data-fixture="scheduler">
+        <Scheduler events={[]} date={new Date(2026, 10, 7)} now={new Date(2026, 10, 7, 9)} startHour={8} endHour={10} onSlotClick={(d) => setSlot(`${d.getDate()}-${d.getHours()}:${d.getMinutes()}`)} />
+        <output id="scheduler-value">{slot}</output>
+      </section>
       <section data-fixture="dialog">
         <Button id="dialog-trigger" onClick={() => setDialog(true)}>باز کردن پنجره</Button>
         <button type="button" id="outside">دکمهٔ بیرون</button>

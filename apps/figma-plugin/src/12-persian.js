@@ -138,6 +138,83 @@ function buildPersian() {
     });
   }));
 
+  safe("Sayad", () => section(root, "Sayad input · شناسهٔ صیادی چک", "۱۶ رقم پایین برگهٔ چک در گروه‌های چهارتایی.", (h) => {
+    componentSet(h, "Sayad input", {
+      axes: { State: ["Empty", "Filled", "Invalid"] },
+      build: (p) => field({
+        label: "شناسهٔ صیادی چک",
+        hint: p.State === "Invalid" ? undefined : "۱۶ رقم پایین برگهٔ چک",
+        error: p.State === "Invalid" ? "شناسهٔ صیادی باید ۱۶ رقم باشد." : undefined,
+        control: inputBox({ state: p.State === "Invalid" ? "Error" : "Default", text: p.State === "Empty" ? "" : p.State === "Filled" ? "۱۲۳۴ ۵۶۷۸ ۹۰۱۲ ۳۴۵۶" : "۱۲۳۴ ۵۶۷۸ ۹۰", placeholder: "۰۰۰۰ ۰۰۰۰ ۰۰۰۰ ۰۰۰۰", ltr: true }),
+      }),
+      docs: "sayad-input",
+    });
+  }));
+
+  safe("EconomicCode", () => section(root, "Economic code input · کد اقتصادی", "کد ملی، شناسهٔ ملی یا کد ۱۲ رقمی قدیمی؛ نوع کنار فیلد می‌آید.", (h) => {
+    const types = { Company: ["۱۰۳۸۰۲۸۴۷۹۰", "شخص حقوقی"], Person: ["۰۴۹۹۳۷۰۸۹۹", "شخص حقیقی"], Legacy: ["۴۱۱۱۱۱۱۱۱۱۱۱", "کد قدیمی"] };
+    componentSet(h, "Economic code input", {
+      axes: { Type: ["Empty", "Company", "Person", "Legacy", "Invalid"] },
+      build: (p) => {
+        const t = types[p.Type];
+        return field({
+          label: "کد اقتصادی",
+          error: p.Type === "Invalid" ? "کد اقتصادی معتبر نیست؛ کد ملی، شناسهٔ ملی یا کد ۱۲ رقمی قدیمی را وارد کنید." : undefined,
+          control: inputBox({ state: p.Type === "Invalid" ? "Error" : "Default", text: t ? t[0] : p.Type === "Invalid" ? "۱۰۳۸۰۲۸۴۷۹۱" : "", placeholder: "۰۰۰۰۰۰۰۰۰۰۰", ltr: true, end: t ? [T(t[1], { style: "Text sm/Regular", color: "text-tertiary" })] : [] }),
+        });
+      },
+      cols: 5,
+      docs: "economic-code-input",
+    });
+  }));
+
+  safe("TaxId", () => section(root, "Tax ID input · شمارهٔ مالیاتی فاکتور", "۲۲ نویسهٔ لاتین سامانهٔ مودیان؛ حروف خودکار بزرگ می‌شوند.", (h) => {
+    componentSet(h, "Tax ID input", {
+      axes: { State: ["Empty", "Filled", "Invalid"] },
+      build: (p) => field({
+        label: "شمارهٔ مالیاتی فاکتور", w: 360,
+        hint: p.State === "Invalid" ? undefined : "از سامانهٔ مودیان",
+        error: p.State === "Invalid" ? "شمارهٔ مالیاتی فاکتور باید ۲۲ نویسه از ارقام و حروف لاتین باشد." : undefined,
+        control: inputBox({ state: p.State === "Invalid" ? "Error" : "Default", text: p.State === "Empty" ? "" : p.State === "Filled" ? "A11234567890123456789F" : "A1123456", placeholder: "A1B2C3…", ltr: true }),
+      }),
+      docs: "tax-id-input",
+    });
+  }));
+
+  safe("BusinessHours", () => section(root, "Business hours · ساعت کاری", "هر روز باز یا تعطیل، با یک یا چند بازه؛ خلاصه و وضعیت «الان باز است».", (h) => {
+    const days = ["شنبه", "یکشنبه", "دوشنبه", "سه‌شنبه", "چهارشنبه", "پنجشنبه", "جمعه"];
+    const time = (t, bad) => F({ name: "Time", dir: "H", gap: "space/1.5", px: 10, h: 32, w: 88, cross: "center", radius: "radius/md", fill: "bg-primary", stroke: bad ? "border-error" : "border-input" }, [
+      I("clock", 16, "text-tertiary"), T(t, { style: "Text sm/Regular", color: "text-primary", ltr: true }),
+    ]);
+    componentSet(h, "Business hours", {
+      axes: { State: ["Default", "Split shift", "Invalid"] },
+      build: (p) => F({ name: "Business hours", dir: "V", gap: "space/3", w: 560 }, [
+        T("ساعت کاری", { style: "Text sm/Semibold", color: "text-primary" }),
+        F({ name: "Days", dir: "V", gap: 0, w: "fill", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", clip: true }, days.map((d, i) => {
+          const open = i < 6;
+          const split = p.State === "Split shift" && i < 5;
+          const bad = p.State === "Invalid" && i === 1;
+          return F({ name: d, dir: "H", gap: "space/3", py: "space/3", px: "space/4", w: "fill", cross: "start", fill: open ? undefined : "bg-secondary", sides: i ? [1, 0, 0, 0] : undefined, stroke: i ? "border-secondary" : undefined }, [
+            F({ name: "Toggle", dir: "H", gap: 10, w: 136, h: 32, cross: "center" }, [switchTrack({ checked: open ? "On" : "Off", size: "sm" }), T(d, { style: "Text sm/Medium", color: open ? "text-primary" : "text-tertiary" })]),
+            open
+              ? F({ name: "Ranges", dir: "V", gap: "space/2", grow: true }, [
+                F({ name: "Range", dir: "H", gap: "space/2", cross: "center" }, [time(bad ? "۱۷:۰۰" : "۰۹:۰۰", bad), T("تا", { style: "Text xs/Regular", color: "text-tertiary" }), time(bad ? "۰۹:۰۰" : split ? "۱۳:۰۰" : i === 5 ? "۱۳:۰۰" : "۱۷:۰۰", bad)]),
+                split && F({ name: "Range 2", dir: "H", gap: "space/2", cross: "center" }, [time("۱۶:۰۰"), T("تا", { style: "Text xs/Regular", color: "text-tertiary" }), time("۲۰:۰۰")]),
+                bad && T("ساعت پایان باید بعد از شروع باشد و بازه‌ها روی هم نیفتند.", { style: "Text xs/Regular", color: "text-error" }),
+              ])
+              : T("تعطیل", { style: "Text sm/Regular", color: "text-quaternary" }),
+          ]);
+        })),
+        F({ name: "Foot", dir: "H", gap: "space/3", w: "fill", cross: "center" }, [
+          F({ name: "Status", dir: "H", gap: "space/1.5", px: 10, h: 22, cross: "center", radius: "radius/full", fill: "bg-success-subtle" }, [R({ ellipse: true, w: 8, h: 8, fill: "text-success" }), T("الان باز است", { style: "Text xs/Medium", color: "text-success" })]),
+          T("شنبه تا چهارشنبه ۰۹:۰۰ تا ۱۷:۰۰؛ پنجشنبه ۰۹:۰۰ تا ۱۳:۰۰؛ جمعه تعطیل", { style: "Text xs/Regular", color: "text-tertiary", grow: true }),
+        ]),
+      ]),
+      cols: 1,
+      docs: "business-hours",
+    });
+  }));
+
   safe("Mobile", () => section(root, "Mobile input · شمارهٔ موبایل", "+۹۸ و ۰۰۹۸ خودکار نرمال می‌شوند؛ اپراتور تشخیص داده می‌شود.", (h) => {
     const ops = { "همراه اول": ["۰۹۱۲ ۳۴۵ ۶۷۸۹", "lajvard"], "ایرانسل": ["۰۹۳۵ ۱۲۳ ۴۵۶۷", "zafaran"], "رایتل": ["۰۹۲۱ ۱۲۳ ۴۵۶۷", "anar"] };
     componentSet(h, "Mobile input", {

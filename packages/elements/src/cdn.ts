@@ -5,7 +5,7 @@ export { toast } from "./toast.js";
 export { setLocale } from "./base.js";
 
 const MODULES: [string[], () => Promise<unknown>][] = [
-  [["kashi-national-id", "kashi-legal-id", "kashi-mobile", "kashi-landline", "kashi-card-number", "kashi-iban", "kashi-postal-code", "kashi-price"], () => import("./inputs.js")],
+  [["kashi-national-id", "kashi-legal-id", "kashi-mobile", "kashi-landline", "kashi-card-number", "kashi-iban", "kashi-postal-code", "kashi-price", "kashi-sayad", "kashi-economic-code", "kashi-tax-id"], () => import("./inputs.js")],
   [["kashi-otp"], () => import("./fields.js")],
   [["kashi-combobox", "kashi-province-select", "kashi-city-select"], () => import("./combobox.js")],
   [["kashi-iran-map", "kashi-address-form"], () => import("./map.js")],

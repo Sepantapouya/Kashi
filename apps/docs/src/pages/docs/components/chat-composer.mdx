@@ -1,0 +1,61 @@
+---
+layout: ../../../layouts/Docs.astro
+title: کادر پیام
+description: کادر نوشتن پیام برای چت و دستیار هوش مصنوعی؛ بلند شدن خودکار، Enter برای ارسال، پیوست فایل و تصویر، و دکمهٔ توقف هنگام پاسخ.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { ComposerDemo } from "../../../components/demos-extra";
+
+```tsx
+import { ChatComposer } from "@kashi-ui/react";
+```
+
+## نمونه
+
+Enter پیام را می‌فرستد و Shift+Enter خط تازه می‌سازد. وقتی با صفحه‌کلید IME (مثلاً ژاپنی یا چینی) در حال ترکیب حروف هستید، Enter ارسال نمی‌کند. کادر تا `maxRows` ردیف بلند می‌شود و بعد اسکرول می‌خورد. تصویری که در کادر بچسبانید هم پیوست می‌شود.
+
+<Demo html={false} code={`const [streaming, setStreaming] = useState(false);
+
+<ChatComposer
+  attach="image/*,.pdf"
+  maxSize={5 * 1024 * 1024}
+  showHint
+  streaming={streaming}
+  onStop={() => controller.abort()}
+  onSend={async ({ text, files }) => {
+    setStreaming(true);
+    await ask(text, files);
+    setStreaming(false);
+  }}
+/>`}>
+  <ComposerDemo client:only="react" />
+</Demo>
+
+تا وقتی پاسخ در حال نوشتن است (`streaming`)، دکمهٔ ارسال به «توقف» تبدیل می‌شود. فایل بزرگ‌تر از `maxSize` یا بیشتر از `maxFiles` با پیام خطای فارسی رد می‌شود.
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["onSend", "({ text, files }) => void", "", "ارسال با Enter یا دکمه"],
+  ["streaming", "boolean", "false", "پاسخ در حال نوشتن است؛ دکمهٔ ارسال «توقف» می‌شود"],
+  ["onStop", "() => void", "", "با دکمهٔ توقف"],
+  ["value / onValueChange", "string", "", "متن کنترل‌شده"],
+  ["attach", "boolean | string", "", "دکمهٔ پیوست؛ رشته همان accept است، مثل \"image/*\""],
+  ["maxFiles", "number", "5", "حداکثر پیوست"],
+  ["maxSize", "number", "", "حداکثر حجم هر فایل به بایت"],
+  ["maxLength", "number", "", "حداکثر طول متن؛ شمارنده نزدیک سقف"],
+  ["maxRows", "number", "8", "ارتفاع پیش از اسکرول، به ردیف"],
+  ["placeholder", "string", '"پیامتان را بنویسید…"', ""],
+  ["label", "string", '"پیام"', "نام دسترس‌پذیر کادر"],
+  ["showHint", "boolean", "false", "راهنمای کلیدها زیر کادر"],
+  ["tools", "ReactNode", "", "دکمه‌های دلخواه کنار پیوست، مثل انتخاب مدل"],
+  ["disabled / autoFocus", "boolean", "", ""],
+]} />
+
+## دسترس‌پذیری
+
+- کادر `<textarea>` بومی با نام دسترس‌پذیر است و راهنمای کلیدها با `aria-describedby` به آن وصل است.
+- دکمه‌های فقط‌آیکون (پیوست، ارسال، توقف، حذف پیوست) نام فارسی دارند؛ دکمهٔ حذف نام فایل را هم می‌گوید.
+- خطای پیوست با `role="alert"` همان لحظه خوانده می‌شود.
+- جهت متن خودکار است: پیام انگلیسی چپ‌چین می‌شود.

@@ -1,0 +1,55 @@
+---
+layout: ../../../layouts/Docs.astro
+title: کد QR
+description: کد QR بدون کتابخانهٔ جانبی، به شکل SVG؛ متن فارسی با UTF-8، چهار سطح تصحیح خطا، لوگوی وسط و گوشه‌های گرد.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { QRCodeDemo, QRCodePersianDemo } from "../../../components/demos-extra";
+
+```tsx
+import { QRCode } from "@kashi-ui/react";
+```
+
+## نمونه
+
+کد همیشه تیره روی روشن است تا همهٔ دوربین‌ها و برنامه‌های اسکن بخوانندش، حتی در تم تیره. با `logo` سطح تصحیح خطا خودکار به بالاترین (H) می‌رود تا جای خالی وسط خواندن را خراب نکند.
+
+<Demo html={false} code={`<QRCode value="https://kashi.sepantapouya.com" size={168} />
+<QRCode value="https://kashi.sepantapouya.com" size={168} logo={<KashiLogo />} />`}>
+  <QRCodeDemo client:only="react" />
+</Demo>
+
+## متن فارسی و وای‌فای
+
+متن فارسی با UTF-8 کد می‌شود و برنامه‌های اسکن امروزی درست می‌خوانندش. برای اتصال به وای‌فای، قالب `WIFI:` را بدهید. برای چاپ روی کاغذ یا لیزر، `rounded={false}` خانه‌های مربعی تیز می‌دهد.
+
+<Demo html={false} code={`<QRCode value="سلام! این کد QR متن فارسی دارد." size={128} />
+<QRCode value="WIFI:T:WPA;S:Kashi;P:12345678;;" size={128} rounded={false} level="Q" />`}>
+  <QRCodePersianDemo client:only="react" />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["value", "string", "", "متن یا نشانی"],
+  ["size", "number", "160", "اندازه به پیکسل"],
+  ["level", '"L" | "M" | "Q" | "H"', '"M"', "سطح تصحیح خطا: ۷، ۱۵، ۲۵ یا ۳۰ درصد"],
+  ["margin", "number", "4", "حاشیهٔ خالی به تعداد خانه"],
+  ["logo", "ReactNode", "", "لوگوی وسط؛ سطح را H می‌کند"],
+  ["rounded", "boolean", "true", "گوشه‌های گرد"],
+  ["aria-label", "string", '"کد QR برای …"', "نام دسترس‌پذیر"],
+]} />
+
+<Vars rows={[
+  ["--k-qr-fg", "#0d0e11", "رنگ خانه‌های تیره"],
+  ["--k-qr-bg", "#fff", "پس‌زمینه"],
+]} />
+
+تابع `encodeQr(text, level)` ماتریس خام را برمی‌گرداند تا مثلاً روی Canvas بکشیدش. متن خیلی بلند (بیش از حدود ۲٬۳۰۰ بایت در سطح M) جا نمی‌شود و پیام خطا نشان داده می‌شود.
+
+## دسترس‌پذیری
+
+- کد `role="img"` با نام «کد QR برای …» است. اگر نشانی را کنار کد هم می‌نویسید (که بهتر است، برای کسی که دوربین ندارد)، نام کوتاه‌تری بدهید.
+- در حالت رنگ اجباری ویندوز رنگ کد عوض نمی‌شود تا خوانا بماند.

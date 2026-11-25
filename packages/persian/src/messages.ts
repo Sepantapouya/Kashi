@@ -88,6 +88,8 @@ export const faMessages = {
   input: { clear: "پاک کردن", show: "نمایش رمز", hide: "پنهان کردن رمز", checking: "در حال بررسی" },
   invalid: {
     card: "شماره کارت معتبر نیست.", iban: "شماره شبا معتبر نیست.", nationalId: "کد ملی معتبر نیست.", legalId: "شناسهٔ ملی معتبر نیست.",
+    sayad: "شناسهٔ صیادی باید ۱۶ رقم باشد.", economicCode: "کد اقتصادی معتبر نیست؛ کد ملی، شناسهٔ ملی یا کد ۱۲ رقمی قدیمی را وارد کنید.",
+    taxId: "شمارهٔ مالیاتی فاکتور باید ۲۲ نویسه از ارقام و حروف لاتین باشد.",
     mobile: "شماره موبایل معتبر نیست.", landline: "شمارهٔ تلفن ثابت معتبر نیست.", postal: "کد پستی معتبر نیست.", plate: "پلاک خودرو معتبر نیست.",
     time: "ساعت معتبر نیست؛ آن را به شکل ۰۹:۳۰ وارد کنید.", timeRange: (a: string, b: string) => `ساعت باید بین ${a} و ${b} باشد.`,
     priceMin: (n: string) => `مبلغ باید حداقل ${n} باشد.`, priceMax: (n: string) => `مبلغ باید حداکثر ${n} باشد.`,
@@ -129,7 +131,9 @@ export const faMessages = {
   persianInput: {
     text: "متن", "national-id": "کد ملی", "legal-id": "شناسهٔ ملی شرکت", mobile: "شمارهٔ موبایل", landline: "تلفن ثابت",
     card: "شمارهٔ کارت", iban: "شمارهٔ شبا", price: "مبلغ", postal: "کد پستی", time: "ساعت", plate: "پلاک خودرو",
+    sayad: "شناسهٔ صیادی چک", "economic-code": "کد اقتصادی", "tax-id": "شمارهٔ مالیاتی فاکتور",
   },
+  taxCode: { person: "شخص حقیقی", company: "شخص حقوقی", legacy: "کد قدیمی" },
   textFix: {
     fix: "اصلاح نگارش", clean: "نگارش متن درست است.", count: (n: string, summary: string) => `${n} مورد قابل اصلاح: ${summary}`,
     arabic: "حرف عربی", zwnj: "نیم‌فاصله", punctuation: "علامت", digits: "رقم", spacing: "فاصله",
@@ -160,6 +164,60 @@ export const faMessages = {
   address: {
     legend: "نشانی", province: "استان", city: "شهر", street: "نشانی", plaque: "پلاک", unit: "واحد", postalCode: "کد پستی",
     provinceSearch: "جستجوی استان", streetHint: "خیابان، کوچه، نام ساختمان",
+  },
+  businessHours: {
+    label: "ساعت کاری", weekdays: "روزهای کاری", open: "باز", closed: "تعطیل", from: "از", to: "تا",
+    addRange: "افزودن بازهٔ دیگر", removeRange: "حذف این بازه", copyAll: "همین ساعت برای همهٔ روزهای باز",
+    invalid: "ساعت پایان باید بعد از شروع باشد و بازه‌ها روی هم نیفتند.", openNow: "الان باز است", closedNow: "الان بسته است",
+    rangeOf: (day: string, n: string) => `بازهٔ ${n} ${day}`,
+  },
+  chat: {
+    thread: "گفتگو", you: "شما", assistant: "دستیار", typing: (name: string) => `${name} در حال نوشتن است`, typingShort: "در حال نوشتن",
+    copy: "کپی پیام", copied: "کپی شد", retry: "تلاش دوباره", like: "پاسخ خوب بود", dislike: "پاسخ خوب نبود", actions: "کارهای پیام",
+    sending: "در حال ارسال", sent: "ارسال شد", delivered: "رسید", read: "خوانده شد", failed: "ارسال نشد", edited: "ویرایش‌شده",
+    scrollDown: "رفتن به آخرین پیام", newMessages: (n: string) => `${n} پیام تازه`,
+  },
+  composer: {
+    label: "پیام", placeholder: "پیامتان را بنویسید…", send: "ارسال", stop: "توقف پاسخ", attach: "پیوست فایل",
+    attachments: "پیوست‌ها", removeAttachment: (name: string) => `حذف ${name}`, hint: "Enter برای ارسال، Shift+Enter برای خط تازه",
+    tooMany: (n: string) => `حداکثر ${n} پیوست.`, tooLarge: (name: string, size: string) => `${name} بیشتر از ${size} است.`,
+  },
+  streaming: { writing: "در حال نوشتن پاسخ", done: "پاسخ کامل شد" },
+  codeBlock: { copy: "کپی کد", copied: "کپی شد", code: (lang: string) => `کد ${lang}`, wrap: "شکستن خط‌های بلند", lines: (n: string) => `${n} خط` },
+  sortable: {
+    handle: (item: string) => `جابه‌جا کردن ${item}`, instructions: "برای جابه‌جایی فاصله را بزنید؛ با کلیدهای جهت حرکت دهید، دوباره فاصله برای رها کردن و Escape برای لغو.",
+    grabbed: (item: string, pos: string, total: string) => `${item} برداشته شد؛ جای ${pos} از ${total}.`,
+    moved: (item: string, pos: string, total: string) => `${item}، جای ${pos} از ${total}`,
+    dropped: (item: string, pos: string, total: string) => `${item} در جای ${pos} از ${total} گذاشته شد.`,
+    cancelled: (item: string) => `جابه‌جایی ${item} لغو شد.`,
+  },
+  kanban: {
+    label: "تابلو", add: "افزودن کارت", count: (n: string) => `${n} کارت`, empty: "کارتی در این ستون نیست؛ کارتی را اینجا بکشید.",
+    instructions: "برای جابه‌جایی کارت فاصله را بزنید؛ بالا و پایین داخل ستون، چپ و راست بین ستون‌ها، دوباره فاصله برای رها کردن و Escape برای لغو.",
+    grabbed: (item: string, col: string) => `${item} از ستون ${col} برداشته شد.`,
+    moved: (item: string, col: string, pos: string) => `${item}، ستون ${col}، جای ${pos}`,
+    dropped: (item: string, col: string, pos: string) => `${item} در ستون ${col}، جای ${pos} گذاشته شد.`,
+    cancelled: (item: string) => `جابه‌جایی ${item} لغو شد.`,
+  },
+  lightbox: {
+    gallery: "گالری تصاویر", label: "نمایش تصویر", open: (alt: string) => `بزرگ کردن ${alt}`, close: "بستن", prev: "تصویر قبلی", next: "تصویر بعدی",
+    counter: (n: string, total: string) => `${n} از ${total}`, zoomIn: "بزرگ‌نمایی", zoomOut: "اندازهٔ عادی",
+  },
+  richText: {
+    label: "ویرایشگر متن", toolbar: "قالب‌بندی", bold: "پررنگ", italic: "کج", underline: "زیرخط", strike: "خط‌خورده", heading: "عنوان",
+    quote: "نقل‌قول", bullet: "فهرست نقطه‌ای", ordered: "فهرست شماره‌دار", link: "پیوند", linkUrl: "نشانی پیوند", apply: "ثبت", unlink: "حذف پیوند",
+    rtl: "راست‌به‌چپ", ltr: "چپ‌به‌راست", undo: "واگرد", redo: "ازنو", clear: "پاک کردن قالب", placeholder: "بنویسید…",
+    zwnj: "Shift+Space نیم‌فاصله می‌گذارد", words: (n: string) => `${n} کلمه`, chars: (n: string) => `${n} نویسه`,
+  },
+  notifications: {
+    label: "اعلان‌ها", button: (n: string) => `اعلان‌ها، ${n} خوانده‌نشده`, all: "همه", unread: "خوانده‌نشده", markAll: "خواندن همه",
+    markRead: "علامت خوانده‌شده", empty: "اعلانی ندارید.", emptyUnread: "همهٔ اعلان‌ها را خوانده‌اید.", today: "امروز", yesterday: "دیروز",
+    earlier: "قبل‌تر", settings: "تنظیمات اعلان‌ها", viewAll: "دیدن همهٔ اعلان‌ها", unreadDot: "خوانده‌نشده",
+  },
+  qr: { label: (value: string) => `کد QR برای ${value}`, tooLong: "این متن برای کد QR خیلی طولانی است.", download: "دانلود کد QR" },
+  scheduler: {
+    label: "برنامهٔ زمانی", week: "هفته", day: "روز", prevWeek: "هفتهٔ قبل", nextWeek: "هفتهٔ بعد", prevDay: "روز قبل", nextDay: "روز بعد",
+    now: "اکنون", view: "نما", events: (n: string) => `${n} رویداد`, noEvents: "بدون رویداد", slot: (day: string, time: string) => `${day} ساعت ${time}، افزودن رویداد`,
   },
 };
 
@@ -247,6 +305,8 @@ export const enMessages: KashiMessages = {
   input: { clear: "Clear", show: "Show password", hide: "Hide password", checking: "Checking" },
   invalid: {
     card: "Invalid card number.", iban: "Invalid IBAN.", nationalId: "Invalid national ID.", legalId: "Invalid company ID.",
+    sayad: "A Sayad ID has 16 digits.", economicCode: "Invalid economic code; enter a national ID, company ID or the old 12-digit code.",
+    taxId: "An invoice tax ID has 22 Latin letters and digits.",
     mobile: "Invalid mobile number.", landline: "Invalid phone number.", postal: "Invalid postal code.", plate: "Invalid license plate.",
     time: "Invalid time; enter it like 09:30.", timeRange: (a, b) => `Time must be between ${a} and ${b}.`,
     priceMin: (n) => `Amount must be at least ${n}.`, priceMax: (n) => `Amount must be at most ${n}.`,
@@ -288,7 +348,9 @@ export const enMessages: KashiMessages = {
   persianInput: {
     text: "Text", "national-id": "National ID", "legal-id": "Company ID", mobile: "Mobile number", landline: "Phone number",
     card: "Card number", iban: "IBAN", price: "Amount", postal: "Postal code", time: "Time", plate: "License plate",
+    sayad: "Cheque Sayad ID", "economic-code": "Economic code", "tax-id": "Invoice tax ID",
   },
+  taxCode: { person: "Individual", company: "Company", legacy: "Old code" },
   textFix: {
     fix: "Fix writing", clean: "The text looks right.", count: (n, summary) => `${n} fixable: ${summary}`,
     arabic: "Arabic letters", zwnj: "half-spaces", punctuation: "punctuation", digits: "digits", spacing: "spacing",
@@ -319,6 +381,60 @@ export const enMessages: KashiMessages = {
   address: {
     legend: "Address", province: "Province", city: "City", street: "Street address", plaque: "No.", unit: "Unit", postalCode: "Postal code",
     provinceSearch: "Search provinces", streetHint: "Street, alley, building name",
+  },
+  businessHours: {
+    label: "Business hours", weekdays: "Working days", open: "Open", closed: "Closed", from: "From", to: "To",
+    addRange: "Add another range", removeRange: "Remove this range", copyAll: "Use these hours for all open days",
+    invalid: "End time must be after the start time and ranges can't overlap.", openNow: "Open now", closedNow: "Closed now",
+    rangeOf: (day, n) => `${day}, range ${n}`,
+  },
+  chat: {
+    thread: "Conversation", you: "You", assistant: "Assistant", typing: (name) => `${name} is typing`, typingShort: "Typing",
+    copy: "Copy message", copied: "Copied", retry: "Try again", like: "Good response", dislike: "Bad response", actions: "Message actions",
+    sending: "Sending", sent: "Sent", delivered: "Delivered", read: "Read", failed: "Not sent", edited: "edited",
+    scrollDown: "Jump to latest message", newMessages: (n) => `${n} new messages`,
+  },
+  composer: {
+    label: "Message", placeholder: "Write a message…", send: "Send", stop: "Stop response", attach: "Attach file",
+    attachments: "Attachments", removeAttachment: (name) => `Remove ${name}`, hint: "Enter to send, Shift+Enter for a new line",
+    tooMany: (n) => `Up to ${n} attachments.`, tooLarge: (name, size) => `${name} is larger than ${size}.`,
+  },
+  streaming: { writing: "Writing a response", done: "Response complete" },
+  codeBlock: { copy: "Copy code", copied: "Copied", code: (lang) => `${lang} code`, wrap: "Wrap long lines", lines: (n) => `${n} lines` },
+  sortable: {
+    handle: (item) => `Move ${item}`, instructions: "Press Space to pick up; use arrow keys to move, Space again to drop and Escape to cancel.",
+    grabbed: (item, pos, total) => `Picked up ${item}; position ${pos} of ${total}.`,
+    moved: (item, pos, total) => `${item}, position ${pos} of ${total}`,
+    dropped: (item, pos, total) => `Dropped ${item} at position ${pos} of ${total}.`,
+    cancelled: (item) => `Move of ${item} cancelled.`,
+  },
+  kanban: {
+    label: "Board", add: "Add card", count: (n) => `${n} cards`, empty: "No cards here; drag one in.",
+    instructions: "Press Space to pick up a card; up and down within a column, left and right between columns, Space again to drop and Escape to cancel.",
+    grabbed: (item, col) => `Picked up ${item} from ${col}.`,
+    moved: (item, col, pos) => `${item}, ${col}, position ${pos}`,
+    dropped: (item, col, pos) => `Dropped ${item} in ${col}, position ${pos}.`,
+    cancelled: (item) => `Move of ${item} cancelled.`,
+  },
+  lightbox: {
+    gallery: "Image gallery", label: "Image viewer", open: (alt) => `Enlarge ${alt}`, close: "Close", prev: "Previous image", next: "Next image",
+    counter: (n, total) => `${n} of ${total}`, zoomIn: "Zoom in", zoomOut: "Actual size",
+  },
+  richText: {
+    label: "Text editor", toolbar: "Formatting", bold: "Bold", italic: "Italic", underline: "Underline", strike: "Strikethrough", heading: "Heading",
+    quote: "Quote", bullet: "Bulleted list", ordered: "Numbered list", link: "Link", linkUrl: "Link URL", apply: "Apply", unlink: "Remove link",
+    rtl: "Right to left", ltr: "Left to right", undo: "Undo", redo: "Redo", clear: "Clear formatting", placeholder: "Write…",
+    zwnj: "Shift+Space inserts a zero-width non-joiner", words: (n) => `${n} words`, chars: (n) => `${n} characters`,
+  },
+  notifications: {
+    label: "Notifications", button: (n) => `Notifications, ${n} unread`, all: "All", unread: "Unread", markAll: "Mark all as read",
+    markRead: "Mark as read", empty: "You have no notifications.", emptyUnread: "You're all caught up.", today: "Today", yesterday: "Yesterday",
+    earlier: "Earlier", settings: "Notification settings", viewAll: "View all notifications", unreadDot: "Unread",
+  },
+  qr: { label: (value) => `QR code for ${value}`, tooLong: "This text is too long for a QR code.", download: "Download QR code" },
+  scheduler: {
+    label: "Schedule", week: "Week", day: "Day", prevWeek: "Previous week", nextWeek: "Next week", prevDay: "Previous day", nextDay: "Next day",
+    now: "Now", view: "View", events: (n) => `${n} events`, noEvents: "No events", slot: (day, time) => `${day} at ${time}, add event`,
   },
 };
 

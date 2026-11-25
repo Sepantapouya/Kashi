@@ -1,0 +1,70 @@
+---
+layout: ../../../layouts/Docs.astro
+title: فهرست کشیدنی
+description: فهرستی که ترتیبش را با کشیدن عوض می‌کنید؛ با ماوس، لمس و کیبورد، با حرکت نرم موارد و اعلام هر جابه‌جایی برای صفحه‌خوان.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { SortableDemo, SortableCustomDemo } from "../../../components/demos-extra";
+
+```tsx
+import { SortableList } from "@kashi-ui/react";
+```
+
+## نمونه
+
+از دستگیره بکشید؛ بقیهٔ موارد نرم کنار می‌روند. با کیبورد: روی دستگیره فاصله بزنید، با کلیدهای جهت جابه‌جا کنید، دوباره فاصله برای رها کردن و Escape برای لغو.
+
+<Demo html={false} code={`const [items, setItems] = useState(tasks);
+
+<SortableList
+  aria-label="اولویت کارها"
+  items={items}
+  getId={(t) => t.id}
+  getLabel={(t) => t.title}
+  onReorder={setItems}
+/>`}>
+  <SortableDemo client:only="react" />
+</Demo>
+
+`onReorder` فقط با رها کردن صدا زده می‌شود و آرایهٔ مرتب تازه را می‌دهد؛ در حین کشیدن ترتیب فقط پیش‌نمایش است. Escape یا لغو اشاره‌گر همه چیز را برمی‌گرداند.
+
+## محتوای دلخواه
+
+با `renderItem` محتوای هر ردیف را خودتان بچینید و دستگیره را هر جا خواستید بگذارید.
+
+<Demo html={false} code={`<SortableList
+  items={days}
+  getId={(d) => d.id}
+  getLabel={(d) => d.title}
+  onReorder={setDays}
+  renderItem={(d, { handle, index }) => (
+    <>
+      {handle}
+      <span>{index + 1}</span>
+      <span style={{ flex: 1 }}>{d.title}</span>
+      <Badge>{d.n} سفارش</Badge>
+    </>
+  )}
+/>`}>
+  <SortableCustomDemo client:only="react" />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["items", "T[]", "", "موارد به ترتیب فعلی"],
+  ["getId", "(item: T) => string", "", "شناسهٔ یکتا"],
+  ["getLabel", "(item: T) => string", "", "نام مورد برای صفحه‌خوان"],
+  ["onReorder", "(items: T[]) => void", "", "با رها کردن؛ ترتیب تازه"],
+  ["renderItem", "(item, { handle, dragging, index }) => ReactNode", "", "محتوای ردیف"],
+  ["aria-label", "string", "", "نام فهرست"],
+  ["disabled", "boolean", "false", ""],
+]} />
+
+## دسترس‌پذیری
+
+- همه چیز با کیبورد شدنی است و هر قدم با `aria-live` اعلام می‌شود: «طراحی صفحهٔ ورود برداشته شد؛ جای ۱ از ۴»، «… جای ۳ از ۴»، «… گذاشته شد».
+- دستگیره دکمهٔ واقعی با نام «جابه‌جا کردن …» است و در حالت برداشته `aria-pressed` می‌گیرد.
+- اگر فوکوس از فهرست بیرون برود، جابه‌جایی لغو می‌شود.
+- با «کاهش حرکت»، موارد بی‌انیمیشن جابه‌جا می‌شوند.

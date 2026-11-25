@@ -1,0 +1,63 @@
+/* بلوک کد: همیشه چپ‌به‌راست، با برچسب زبان، کپی و شکستن خط
+ * <figure class="k-code"><figcaption class="k-code__head">…</figcaption><pre class="k-code__pre" dir="ltr"><code>…</code></pre></figure> */
+.k-code {
+  --_bg: var(--k-code-bg, var(--k-bg-secondary));
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-lg);
+  background: var(--_bg);
+  font-size: var(--k-text-xs);
+}
+.k-code__head { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-2); padding-block: var(--k-space-1); padding-inline: var(--k-space-3) var(--k-space-1); border-block-end: 1px solid var(--k-border-secondary); }
+.k-code__lang { color: var(--k-text-tertiary); font-family: var(--k-font-mono); font-size: var(--k-text-xs); }
+.k-code__tools { display: inline-flex; gap: 2px; }
+.k-code__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-1);
+  block-size: 1.75rem;
+  min-inline-size: 1.75rem;
+  justify-content: center;
+  padding-inline: var(--k-space-2);
+  border: 0;
+  border-radius: var(--k-radius-md);
+  background: none;
+  color: var(--k-text-tertiary);
+  font: inherit;
+  font-size: var(--k-text-xs);
+  cursor: pointer;
+  transition: background-color var(--k-duration-fast), color var(--k-duration-fast), scale var(--k-duration-fast) var(--k-ease-spring);
+}
+.k-code__btn svg { inline-size: 0.95rem; block-size: 0.95rem; }
+.k-code__btn:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-code__btn:active { scale: 0.92; }
+.k-code__btn:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-code__btn[aria-pressed="true"], .k-code__btn[data-done] { color: var(--k-text-brand); }
+.k-code__btn[data-done] svg { animation: k-check-pop var(--k-duration-normal) var(--k-ease-spring); }
+.k-code__pre {
+  margin: 0;
+  padding: var(--k-space-3) 0;
+  overflow: auto;
+  color: var(--k-text-primary);
+  font-family: var(--k-font-mono);
+  font-size: var(--k-text-xs);
+  line-height: 1.75;
+  text-align: left;
+  tab-size: 2;
+}
+.k-code__pre:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: -2px; }
+.k-code__pre code { display: block; min-inline-size: max-content; font: inherit; }
+.k-code[data-wrap] .k-code__pre code { min-inline-size: 0; }
+.k-code__line { display: flex; padding-inline: var(--k-space-4); }
+.k-code__text { flex: 1; white-space: pre; }
+.k-code[data-wrap] .k-code__text { white-space: pre-wrap; overflow-wrap: anywhere; }
+.k-code__line[data-marked] { background: color-mix(in srgb, var(--k-brand-500) 12%, transparent); box-shadow: inset 2px 0 0 var(--k-border-brand); }
+.k-code__num { flex: none; inline-size: 2.5ch; margin-inline-end: var(--k-space-4); color: var(--k-text-quaternary); text-align: right; user-select: none; }
+.k-code__t-keyword { color: var(--k-chart-7); }
+.k-code__t-string { color: var(--k-chart-3); }
+.k-code__t-number { color: var(--k-chart-4); }
+.k-code__t-comment { color: var(--k-text-tertiary); }
+.k-code__t-fn { color: var(--k-chart-1); }
+@media (prefers-reduced-motion: reduce) { .k-code__btn[data-done] svg { animation: none; } }
+@media (forced-colors: active) { .k-code { border-color: CanvasText; } .k-code__line[data-marked] { outline: 1px solid Highlight; } }

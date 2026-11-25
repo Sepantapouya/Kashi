@@ -1,0 +1,63 @@
+---
+layout: ../../../layouts/Docs.astro
+title: بلوک کد
+description: نمایش کد در پاسخ دستیار یا مستندات؛ همیشه چپ‌به‌راست حتی در صفحهٔ فارسی، با نام زبان، دکمهٔ کپی، شمارهٔ خط و شکستن خط‌های بلند.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { CodeBlockDemo, CodeInChatDemo } from "../../../components/demos-extra";
+
+```tsx
+import { CodeBlock } from "@kashi-ui/react";
+```
+
+## نمونه
+
+کد در صفحهٔ راست‌به‌چپ هم چپ‌به‌راست می‌ماند، ولی توضیح فارسی داخلش درست خوانده می‌شود. رنگ‌آمیزی سبک و بی‌وابستگی است و از رنگ‌های نمودار کاشی استفاده می‌کند، پس در تم تیره و کنتراست بالا هم درست است.
+
+<Demo align="stretch" html={false} code={`<CodeBlock
+  language="tsx"
+  filename="App.tsx"
+  lineNumbers
+  highlightLines={[4]}
+  code={source}
+/>`}>
+  <CodeBlockDemo client:only="react" />
+</Demo>
+
+دکمهٔ شکستن خط بین اسکرول افقی و شکستن خط‌های بلند جابه‌جا می‌کند. برای رنگ‌آمیزی کامل‌تر (مثلاً با Shiki)، خروجی را خودتان بسازید و فقط از کلاس‌های `k-code` استفاده کنید.
+
+## داخل پیام دستیار
+
+<Demo align="stretch" html={false} code={`<ChatMessage from="assistant" copyText={command}>
+  با این دستور نصب کنید:
+  <CodeBlock language="bash" code={command} />
+</ChatMessage>`}>
+  <CodeInChatDemo client:only="react" />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["code", "string", "", "کد"],
+  ["language", "string", "", "نام زبان؛ برچسب و رنگ‌آمیزی"],
+  ["filename", "string", "", "نام فایل به‌جای نام زبان"],
+  ["lineNumbers", "boolean", "false", "شمارهٔ خط‌ها"],
+  ["highlightLines", "number[]", "", "خط‌های برجسته، از ۱"],
+  ["wrap", "boolean", "false", "شکستن خط‌های بلند در شروع"],
+  ["highlight", "boolean", "true", "رنگ‌آمیزی کلمه‌ها"],
+  ["maxHeight", "string", "", "بیشترین ارتفاع پیش از اسکرول"],
+]} />
+
+<Vars rows={[
+  ["--k-code-bg", "var(--k-bg-secondary)", "پس‌زمینهٔ بلوک"],
+]} />
+
+تابع `highlightCode(code, language)` هم جدا در دسترس است.
+
+## دسترس‌پذیری
+
+- ناحیهٔ کد با Tab فوکوس می‌گیرد تا کاربر صفحه‌کلید بتواند کد بلند را افقی اسکرول کند.
+- «کپی شد» برای صفحه‌خوان هم اعلام می‌شود؛ دکمهٔ شکستن خط `aria-pressed` دارد.
+- شمارهٔ خط‌ها از صفحه‌خوان و از متن کپی‌شده بیرون است.

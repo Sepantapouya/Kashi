@@ -1,0 +1,11 @@
+/* کد QR؛ همیشه تیره روی روشن تا همهٔ دوربین‌ها بخوانند
+ * <span class="k-qr"><svg role="img">…</svg></span>  متغیرها: --k-qr-fg  --k-qr-bg */
+.k-qr { position: relative; display: inline-grid; place-items: center; flex: none; animation: k-qr-in var(--k-duration-slow) var(--k-ease-emphasized); }
+.k-qr svg { display: block; inline-size: 100%; block-size: 100%; }
+.k-qr__bg { fill: var(--k-qr-bg, #fff); }
+.k-qr__fg { fill: var(--k-qr-fg, #0d0e11); }
+.k-qr__logo { position: absolute; display: grid; place-items: center; aspect-ratio: 1; padding: 4%; border-radius: 22%; background: var(--k-qr-bg, #fff); }
+.k-qr__logo > * { inline-size: 100%; block-size: 100%; }
+@keyframes k-qr-in { from { opacity: 0; scale: 0.96; } }
+@media (prefers-reduced-motion: reduce) { .k-qr { animation: none; } }
+@media (forced-colors: active) { .k-qr { forced-color-adjust: none; } }

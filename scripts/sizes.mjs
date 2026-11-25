@@ -18,7 +18,7 @@ const update = process.argv.includes("--update");
 
 const kebab = (f) => f.replace(/\.js$/, "").replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 // فایل‌های کمکی که خودشان کامپوننت نیستند (همان HELPERS رجیستری)
-const HELPERS = new Set(["cx", "utils", "icons", "use-digits-input", "iran-map-data", "index"]);
+const HELPERS = new Set(["cx", "utils", "icons", "use-digits-input", "iran-map-data", "index", "dnd", "qr"]);
 const gz = (code) => gzipSync(code, { level: 9 }).length;
 
 async function bundle(input, external) {

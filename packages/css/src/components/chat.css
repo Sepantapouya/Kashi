@@ -1,0 +1,217 @@
+/* رابط گفتگو و دستیار هوش مصنوعی
+ * <div class="k-chat"><div class="k-chat__scroll" role="log"> <div class="k-msg" data-from="user">…</div> </div></div>
+ * k-typing «در حال نوشتن»، k-stream متن کلمه‌به‌کلمه، k-composer کادر پیام */
+.k-chat { position: relative; display: grid; min-block-size: 0; }
+.k-chat__scroll {
+  display: flex;
+  flex-direction: column;
+  gap: var(--k-space-4);
+  min-block-size: 0;
+  max-block-size: var(--k-chat-height, 32rem);
+  padding: var(--k-space-4);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+}
+.k-chat__scroll:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: -2px; border-radius: var(--k-radius-lg); }
+.k-chat__jump {
+  position: absolute;
+  inset-block-end: var(--k-space-3);
+  inset-inline-start: calc(50% - 1.125rem);
+  display: grid;
+  place-items: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border: 1px solid var(--k-border-secondary);
+  border-radius: 50%;
+  background: var(--k-bg-elevated);
+  color: var(--k-text-secondary);
+  box-shadow: var(--k-shadow-md);
+  cursor: pointer;
+  opacity: 0;
+  translate: 0 8px;
+  pointer-events: none;
+  transition: opacity var(--k-duration-fast) var(--k-ease-standard), translate var(--k-duration-normal) var(--k-ease-emphasized), background-color var(--k-duration-fast);
+}
+.k-chat__jump[data-show] { opacity: 1; translate: 0 0; pointer-events: auto; }
+.k-chat__jump:hover { background: var(--k-bg-hover); }
+.k-chat__jump:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-chat__jump svg { inline-size: 1.125rem; block-size: 1.125rem; }
+.k-chat__divider { display: flex; align-items: center; gap: var(--k-space-3); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.k-chat__divider::before, .k-chat__divider::after { content: ""; flex: 1; block-size: 1px; background: var(--k-border-secondary); }
+.k-chat__system { align-self: center; max-inline-size: 85%; padding: var(--k-space-1) var(--k-space-3); border-radius: var(--k-radius-full); background: var(--k-bg-tertiary); color: var(--k-text-tertiary); font-size: var(--k-text-xs); text-align: center; }
+
+/* پیام */
+.k-msg { display: flex; align-items: flex-end; gap: var(--k-space-2); max-inline-size: min(85%, 42rem); animation: k-msg-in var(--k-duration-normal) var(--k-ease-emphasized) both; }
+.k-msg[data-from="user"] { flex-direction: row-reverse; align-self: flex-end; }
+.k-msg[data-from="assistant"] { align-self: flex-start; }
+.k-msg__avatar { flex: none; margin-block-end: 1.375rem; }
+.k-msg__main { display: grid; gap: var(--k-space-1); min-inline-size: 0; }
+.k-msg[data-from="user"] .k-msg__main { justify-items: end; }
+.k-msg__name { padding-inline: var(--k-space-1); color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-weight: var(--k-weight-medium); }
+.k-msg__bubble {
+  padding: var(--k-space-2_5, 0.625rem) var(--k-space-4);
+  border-radius: var(--k-radius-xl);
+  background: var(--k-bg-secondary);
+  color: var(--k-text-primary);
+  font-size: var(--k-text-sm);
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.k-msg__bubble > :first-child { margin-block-start: 0; }
+.k-msg__bubble > :last-child { margin-block-end: 0; }
+.k-msg__bubble .k-code { margin-block: var(--k-space-2); white-space: normal; }
+.k-msg[data-from="assistant"] .k-msg__bubble { border-end-start-radius: var(--k-radius-sm); }
+.k-msg[data-from="user"] .k-msg__bubble { border-end-end-radius: var(--k-radius-sm); background: var(--k-bg-brand); color: var(--k-text-on-brand); }
+.k-msg[data-status="failed"] .k-msg__bubble { opacity: 0.75; box-shadow: inset 0 0 0 1px var(--k-border-error); }
+.k-msg[data-status="sending"] .k-msg__bubble { opacity: 0.7; }
+.k-msg__meta { display: inline-flex; align-items: center; gap: var(--k-space-1_5); padding-inline: var(--k-space-1); color: var(--k-text-quaternary); font-size: var(--k-text-xs); }
+.k-msg__status { display: inline-flex; color: var(--k-text-tertiary); }
+.k-msg__status svg { inline-size: 1rem; block-size: 1rem; }
+.k-msg__status[data-status="read"] { color: var(--k-text-brand); }
+.k-msg__status[data-status="failed"] { color: var(--k-text-error); }
+.k-msg__status svg path { stroke-dasharray: 24; animation: k-msg-tick var(--k-duration-slow) var(--k-ease-emphasized); }
+.k-msg__actions { display: inline-flex; gap: 2px; opacity: 0.001; transition: opacity var(--k-duration-fast) var(--k-ease-standard); }
+.k-msg:hover .k-msg__actions, .k-msg:focus-within .k-msg__actions, .k-msg:last-child .k-msg__actions { opacity: 1; }
+@media (hover: none) { .k-msg__actions { opacity: 1; } }
+.k-msg__action {
+  display: grid;
+  place-items: center;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  border: 0;
+  border-radius: var(--k-radius-md);
+  background: none;
+  color: var(--k-text-tertiary);
+  cursor: pointer;
+  transition: background-color var(--k-duration-fast), color var(--k-duration-fast), scale var(--k-duration-fast) var(--k-ease-spring);
+}
+.k-msg__action svg { inline-size: 1rem; block-size: 1rem; }
+.k-msg__action:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-msg__action:active { scale: 0.88; }
+.k-msg__action:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-msg__action[aria-pressed="true"], .k-msg__action[data-done] { color: var(--k-text-brand); }
+.k-msg__action[aria-pressed="true"] svg, .k-msg__action[data-done] svg { animation: k-msg-pop var(--k-duration-normal) var(--k-ease-spring); }
+
+/* در حال نوشتن */
+.k-typing { display: inline-flex; align-items: center; gap: var(--k-space-2); align-self: flex-start; color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.k-typing__dots { display: inline-flex; align-items: center; gap: 4px; padding: var(--k-space-3) var(--k-space-4); border-radius: var(--k-radius-xl); border-end-start-radius: var(--k-radius-sm); background: var(--k-bg-secondary); }
+.k-typing__dots i { inline-size: 0.4rem; block-size: 0.4rem; border-radius: 50%; background: var(--k-text-tertiary); animation: k-typing 1.2s var(--k-ease-standard) infinite; }
+.k-typing__dots i:nth-child(2) { animation-delay: 0.15s; }
+.k-typing__dots i:nth-child(3) { animation-delay: 0.3s; }
+
+/* متن کلمه‌به‌کلمه */
+.k-stream { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.k-stream__word { animation: k-stream-in var(--k-duration-slow) var(--k-ease-standard) both; }
+.k-stream__cursor { display: inline-block; inline-size: 0.5em; block-size: 1em; margin-inline-start: 2px; border-radius: 2px; background: var(--k-text-brand); vertical-align: -0.12em; animation: k-stream-blink 1s steps(1) infinite; }
+
+/* کادر پیام */
+.k-composer {
+  display: grid;
+  gap: var(--k-space-2);
+  padding: var(--k-space-2);
+  border: 1px solid var(--k-border-primary);
+  border-radius: var(--k-radius-2xl);
+  background: var(--k-bg-elevated);
+  box-shadow: var(--k-shadow-sm);
+  transition: border-color var(--k-duration-fast), box-shadow var(--k-duration-normal) var(--k-ease-standard);
+}
+.k-composer:focus-within { border-color: var(--k-border-brand); box-shadow: var(--k-shadow-sm), var(--k-ring-brand); }
+.k-composer[data-invalid] { border-color: var(--k-border-error); }
+.k-composer[data-disabled] { opacity: 0.6; }
+.k-composer__input {
+  inline-size: 100%;
+  min-block-size: 2.75rem;
+  padding: var(--k-space-2) var(--k-space-3);
+  border: 0;
+  background: none;
+  color: var(--k-text-primary);
+  font: inherit;
+  font-size: var(--k-text-sm);
+  line-height: 1.75;
+  resize: none;
+  outline: none;
+}
+.k-composer__input::placeholder { color: var(--k-text-quaternary); }
+.k-composer__bar { display: flex; align-items: center; gap: var(--k-space-1); }
+.k-composer__tool {
+  display: grid;
+  place-items: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border: 0;
+  border-radius: var(--k-radius-full);
+  background: none;
+  color: var(--k-text-tertiary);
+  cursor: pointer;
+  transition: background-color var(--k-duration-fast), color var(--k-duration-fast), rotate var(--k-duration-normal) var(--k-ease-spring);
+}
+.k-composer__tool:hover:not(:disabled) { background: var(--k-bg-hover); color: var(--k-text-primary); rotate: -12deg; }
+.k-composer__tool:focus-visible, .k-composer__send:focus-visible, .k-composer__remove:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-composer__tool:disabled { color: var(--k-text-quaternary); cursor: not-allowed; }
+.k-composer__tool svg, .k-composer__send svg { inline-size: 1.25rem; block-size: 1.25rem; }
+.k-composer__count { margin-inline-start: auto; color: var(--k-text-tertiary); font-size: var(--k-text-xs); font-variant-numeric: tabular-nums; }
+.k-composer__count[data-over] { color: var(--k-text-error); }
+.k-composer__send {
+  display: grid;
+  place-items: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  margin-inline-start: auto;
+  border: 0;
+  border-radius: var(--k-radius-full);
+  background: var(--k-bg-brand);
+  color: var(--k-text-on-brand);
+  cursor: pointer;
+  transition: background-color var(--k-duration-fast), scale var(--k-duration-fast) var(--k-ease-spring), opacity var(--k-duration-fast);
+}
+.k-composer__count + .k-composer__send { margin-inline-start: var(--k-space-2); }
+.k-composer__send:hover:not(:disabled) { background: var(--k-bg-brand-hover); }
+.k-composer__send:active:not(:disabled) { scale: 0.9; }
+.k-composer__send:disabled { background: var(--k-bg-tertiary); color: var(--k-text-quaternary); cursor: not-allowed; }
+.k-composer__send:not(:disabled) svg { animation: k-msg-pop var(--k-duration-normal) var(--k-ease-spring); }
+.k-composer__send[data-stop] { background: var(--k-text-primary); color: var(--k-bg-primary); }
+.k-composer__files { display: flex; flex-wrap: wrap; gap: var(--k-space-2); margin: 0; padding: var(--k-space-1) var(--k-space-1) 0; list-style: none; }
+.k-composer__file {
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-2);
+  max-inline-size: 15rem;
+  padding: var(--k-space-1);
+  padding-inline-end: var(--k-space-1);
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-lg);
+  background: var(--k-bg-secondary);
+  animation: k-msg-in var(--k-duration-normal) var(--k-ease-emphasized) both;
+}
+.k-composer__thumb { display: grid; flex: none; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; border-radius: var(--k-radius-md); background: var(--k-bg-tertiary); color: var(--k-text-tertiary); object-fit: cover; }
+.k-composer__thumb svg { inline-size: 1.125rem; block-size: 1.125rem; }
+.k-composer__file-text { display: grid; min-inline-size: 0; }
+.k-composer__file-name { overflow: hidden; color: var(--k-text-primary); font-size: var(--k-text-xs); font-weight: var(--k-weight-medium); text-overflow: ellipsis; white-space: nowrap; }
+.k-composer__file-size { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+.k-composer__remove { display: grid; flex: none; place-items: center; inline-size: 1.5rem; block-size: 1.5rem; border: 0; border-radius: 50%; background: none; color: var(--k-text-tertiary); cursor: pointer; transition: background-color var(--k-duration-fast), color var(--k-duration-fast); }
+.k-composer__remove:hover { background: var(--k-bg-hover); color: var(--k-text-error); }
+.k-composer__remove svg { inline-size: 0.875rem; block-size: 0.875rem; }
+.k-composer__error { margin: 0; padding-inline: var(--k-space-3); }
+.k-composer__hint { margin: 0; padding-inline: var(--k-space-3); color: var(--k-text-quaternary); font-size: var(--k-text-xs); }
+
+@keyframes k-msg-in { from { opacity: 0; translate: 0 6px; scale: 0.98; } }
+@keyframes k-msg-pop { 0% { scale: 0.6; } 60% { scale: 1.15; } }
+@keyframes k-msg-tick { from { stroke-dashoffset: 24; } }
+@keyframes k-typing { 0%, 60%, 100% { translate: 0 0; opacity: 0.45; } 30% { translate: 0 -4px; opacity: 1; } }
+@keyframes k-stream-in { from { opacity: 0; filter: blur(2px); } }
+@keyframes k-stream-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .k-msg, .k-composer__file, .k-stream__word, .k-msg__status svg path, .k-msg__action svg, .k-composer__send svg { animation: none; }
+  .k-typing__dots i { animation-duration: 2.4s; }
+  .k-stream__cursor { animation: none; }
+  .k-chat__scroll { scroll-behavior: auto; }
+  .k-chat__jump, .k-composer__tool { transition: none; }
+}
+@media (forced-colors: active) {
+  .k-msg__bubble { border: 1px solid CanvasText; }
+  .k-msg[data-from="user"] .k-msg__bubble { border-color: Highlight; }
+  .k-composer { border-color: CanvasText; }
+  .k-typing__dots i, .k-stream__cursor { background: CanvasText; }
+}
