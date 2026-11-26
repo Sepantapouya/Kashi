@@ -3,8 +3,8 @@ import assert from "node:assert/strict";
 import { createTheme, fontFace, fontStack } from "../dist/index.js";
 
 test("fontStack: نام تنها با فونت‌های جایگزین کامل می‌شود", () => {
-  assert.equal(fontStack("IRANSans"), 'IRANSans, "Vazirmatn", Tahoma, system-ui, sans-serif');
-  assert.equal(fontStack("Yekan Bakh"), '"Yekan Bakh", "Vazirmatn", Tahoma, system-ui, sans-serif');
+  assert.equal(fontStack("IRANSans"), 'IRANSans, "Kashi", Tahoma, system-ui, sans-serif');
+  assert.equal(fontStack("Yekan Bakh"), '"Yekan Bakh", "Kashi", Tahoma, system-ui, sans-serif');
   assert.equal(fontStack('"Inter", "Estedad", sans-serif'), '"Inter", "Estedad", sans-serif'); // فهرست کامل دست‌نخورده
 });
 
@@ -26,7 +26,7 @@ test("createTheme: فونت پولی خودمیزبان + فونت عنوان + 
   });
   // @font-face بیرون از انتخاب‌گر و پیش از آن
   assert.ok(css.indexOf("@font-face") < css.indexOf(":root {"));
-  assert.match(css, /--k-font-sans: IRANSansX, "Vazirmatn", Tahoma, system-ui, sans-serif;/);
+  assert.match(css, /--k-font-sans: IRANSansX, "Kashi", Tahoma, system-ui, sans-serif;/);
   assert.match(css, /--k-font-display: Lalezar, var\(--k-font-sans\);/);
   assert.match(css, /--k-text-scale: 0.95;/);
 });

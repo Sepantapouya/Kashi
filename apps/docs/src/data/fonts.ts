@@ -15,7 +15,8 @@ export interface FontOption {
 }
 
 export const fonts: FontOption[] = [
-  { id: "vazirmatn", name: "وزیرمتن", family: "Vazirmatn", pkg: "vazirmatn", kind: "متن", license: "OFL", note: "پیش‌فرض کاشی؛ متغیر ۱۰۰ تا ۹۰۰، همراه پکیج" },
+  { id: "kashi", name: "کاشی", family: "Kashi", pkg: "@kashi-ui/font", kind: "متن", license: "OFL", note: "پیش‌فرض کاشی؛ متغیر در وزن و پهنا، سه سبک نقطه، همراه پکیج" },
+  { id: "vazirmatn", name: "وزیرمتن", family: "Vazirmatn", pkg: "vazirmatn", kind: "متن", license: "OFL", note: "پیش‌فرض نسخه‌های قبلی کاشی؛ متغیر ۱۰۰ تا ۹۰۰، همراه پکیج" },
   { id: "estedad", name: "استعداد", family: "Estedad Variable", pkg: "@fontsource-variable/estedad", css: "@fontsource-variable/estedad@5.3.0/index.css", kind: "متن", license: "OFL", note: "متغیر، مدرن و خوانا" },
   { id: "shabnam", name: "شبنم", family: "Shabnam", pkg: "shabnam-font", css: "shabnam-font@5.0.0/dist/font-face.css", kind: "متن", license: "OFL", note: "ساده و آشنا برای رابط کاربری" },
   { id: "sahel", name: "ساحل", family: "Sahel", pkg: "sahel-font", css: "sahel-font@3.4.0/dist/font-face.css", kind: "متن", license: "OFL", note: "مناسب متن‌های طولانی" },

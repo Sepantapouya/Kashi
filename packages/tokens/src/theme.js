@@ -7,7 +7,7 @@ const STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 const MIX = { 50: 92, 100: 82, 200: 64, 300: 44, 400: 22, 500: 0, 600: -18, 700: -34, 800: -48, 900: -60, 950: -76 };
 
 /** فونت‌های جایگزین وقتی فونت اصلی هنوز بارگذاری نشده یا حرفی را ندارد */
-export const FALLBACK_SANS = '"Vazirmatn", Tahoma, system-ui, sans-serif';
+export const FALLBACK_SANS = '"Kashi", Tahoma, system-ui, sans-serif';
 
 /** یک طیف ۱۱ پله‌ای از یک رنگ می‌سازد (با color-mix در فضای oklch) */
 export function brandScale(color) {
@@ -22,7 +22,7 @@ export function brandScale(color) {
 
 const quote = (name) => (/^["']|^[\w-]+$/.test(name) && !/\s/.test(name) ? name : `"${name.replace(/"/g, "")}"`);
 
-/** «IRANSans» → '"IRANSans", "Vazirmatn", Tahoma, …'؛ فهرست کامل (با کاما) دست‌نخورده می‌ماند */
+/** «IRANSans» → '"IRANSans", "Kashi", Tahoma, …'؛ فهرست کامل (با کاما) دست‌نخورده می‌ماند */
 export function fontStack(family, fallback = FALLBACK_SANS) {
   return family.includes(",") ? family : `${quote(family.trim())}, ${fallback}`;
 }
@@ -74,7 +74,7 @@ export function createTheme({
   if (textScale != null) vars["--k-text-scale"] = String(textScale);
   if (fontFamily) vars["--k-font-sans"] = fontStack(fontFamily);
   if (displayFontFamily) vars["--k-font-display"] = fontStack(displayFontFamily, "var(--k-font-sans)");
-  if (monoFontFamily) vars["--k-font-mono"] = fontStack(monoFontFamily, 'ui-monospace, Menlo, Consolas, "Vazirmatn", monospace');
+  if (monoFontFamily) vars["--k-font-mono"] = fontStack(monoFontFamily, 'ui-monospace, Menlo, Consolas, "Kashi", monospace');
   const faces = fonts.map(fontFace).join("\n\n");
   const body = Object.entries(vars).map(([k, v]) => `  ${k}: ${v};`).join("\n");
   const rule = body ? `${selector} {\n${body}\n}\n` : "";

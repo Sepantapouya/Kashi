@@ -1,4 +1,16 @@
-/* فونت وزیرمتن (Variable، وزن ۱۰۰ تا ۹۰۰) — لایسنس OFL */
+/* فونت کاشی (Variable، وزن ۱۰۰ تا ۹۰۰، پهنای معمولی) — فونت پیش‌فرض کاشی؛ لایسنس OFL (fonts/Kashi-OFL.txt)
+   پهنای کشیده، نسخهٔ FaNum و NoEn در پکیج @kashi-ui/font است */
+@font-face {
+  font-family: "Kashi";
+  src: url("./fonts/Kashi.woff2") format("woff2-variations"),
+       url("./fonts/Kashi.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 100%;
+  font-style: normal;
+  font-display: swap;
+}
+/* وزیرمتن، فونت پیش‌فرض نسخه‌های قبلی؛ برای پروژه‌هایی که نامش را مستقیم به کار برده‌اند.
+   مرورگر فقط وقتی دانلودش می‌کند که واقعاً جایی استفاده شود. لایسنس OFL (fonts/Vazirmatn-OFL.txt) */
 @font-face {
   font-family: "Vazirmatn";
   src: url("./fonts/Vazirmatn.woff2") format("woff2-variations"),

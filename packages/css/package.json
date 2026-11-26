@@ -24,7 +24,8 @@
     "@kashi-ui/tokens": "^2.16.0"
   },
   "devDependencies": {
-    "vazirmatn": "^33.0.3"
+    "vazirmatn": "^33.0.3",
+    "@kashi-ui/font": "*"
   },
   "license": "MIT",
   "repository": {

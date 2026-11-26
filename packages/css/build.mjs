@@ -10,6 +10,10 @@ const components = readdirSync("src/components").filter((f) => f.endsWith(".css"
 mkdirSync("dist/fonts", { recursive: true });
 mkdirSync("dist/components", { recursive: true });
 
+// فونت کاشی، پیش‌فرض: نسخهٔ متغیرِ وزن با پهنای معمولی (سبک‌تر از فایل دومحوره)
+const kashiDir = dirname(require.resolve("@kashi-ui/font/package.json"));
+copyFileSync(join(kashiDir, "fonts/Main/Kashi/Webfonts/Kashi-Variable-Normal.woff2"), "dist/fonts/Kashi.woff2");
+copyFileSync(join(kashiDir, "OFL.txt"), "dist/fonts/Kashi-OFL.txt");
 const vazirDir = dirname(require.resolve("vazirmatn/package.json"));
 copyFileSync(join(vazirDir, "fonts/webfonts/Vazirmatn[wght].woff2"), "dist/fonts/Vazirmatn.woff2");
 // فونت وزیرمتن تحت لایسنس OFL است و لایسنسش باید همراهش توزیع شود
@@ -32,7 +36,7 @@ const core = [
   layer("components", components.map((f) => read(`src/components/${f}`)).join("\n")),
 ];
 writeFileSync("dist/kashi.css", [core[0], font, ...core.slice(1)].join("\n"));
-// بدون فونت وزیرمتن: برای تیم‌هایی که فونت دیگری (رایگان یا خریداری‌شده) استفاده می‌کنند
+// بدون فونت: برای تیم‌هایی که فونت دیگری (رایگان یا خریداری‌شده) استفاده می‌کنند
 writeFileSync(
   "dist/kashi.nofont.css",
   ["/* @kashi-ui/css بدون فونت؛ فونت خود را با @font-face و --k-font-sans تعریف کنید */\n", ...core].join("\n"),

@@ -67,11 +67,12 @@ const t = (rem) => `calc(${rem}rem * var(--k-text-scale))`;
 
 export const font = {
   family: {
-    sans: '"Vazirmatn", "Vazir", Tahoma, system-ui, sans-serif',
+    // فونت کاشی (@kashi-ui/font)، همراه @kashi-ui/css؛ وزیرمتن عمداً در فهرست نیست تا برای نویسه‌ای که کاشی ندارد دانلود نشود
+    sans: '"Kashi", Tahoma, system-ui, sans-serif',
     // فونت عنوان‌ها؛ پیش‌فرض همان فونت متن
     display: "var(--k-font-sans)",
-    // وزیرمتن به‌عنوان جایگزین تا متن فارسی داخل کد هم یکدست باشد
-    mono: 'ui-monospace, "SF Mono", Menlo, Consolas, "Vazirmatn", monospace',
+    // کاشی به‌عنوان جایگزین تا متن فارسی داخل کد هم یکدست باشد
+    mono: 'ui-monospace, "SF Mono", Menlo, Consolas, "Kashi", monospace',
   },
   // متن فارسی در اندازه‌های یکسان کمی کوچک‌تر از لاتین دیده می‌شود؛ پایه ۱۵px است
   size: {

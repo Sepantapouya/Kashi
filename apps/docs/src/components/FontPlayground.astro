@@ -118,7 +118,7 @@ const displayFonts = [{ id: "same", name: "همان فونت متن", family: ""
 
     const imports = [body, display].filter((f): f is F => !!f?.css).map((f) => `import "${f.css!.replace(/@[\d.]+\//, "/")}"; // npm i ${f.pkg}`);
     const opts = [
-      body.id !== "vazirmatn" ? `  fontFamily: "${body.family}",` : null,
+      body.id !== "kashi" ? `  fontFamily: "${body.family}",` : null,
       display ? `  displayFontFamily: "${display.family}",` : null,
       scale !== "1" ? `  textScale: ${scale},` : null,
     ].filter(Boolean);
@@ -127,7 +127,7 @@ const displayFonts = [{ id: "same", name: "همان فونت متن", family: ""
       imports.length ? "" : null,
       `import { createTheme } from "@kashi-ui/tokens";`,
       "",
-      opts.length ? `const css = createTheme({\n${opts.join("\n")}\n});` : "// وزیرمتن پیش‌فرض است و تنظیمی لازم ندارد",
+      opts.length ? `const css = createTheme({\n${opts.join("\n")}\n});` : "// فونت کاشی پیش‌فرض است و تنظیمی لازم ندارد",
     ].filter((l) => l !== null).join("\n");
     pre.textContent = code;
     copy.dataset.copy = code;

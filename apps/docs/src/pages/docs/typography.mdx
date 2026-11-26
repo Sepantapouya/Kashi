@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Docs.astro
 title: فونت و تایپوگرافی
-description: وزیرمتن پیش‌فرض است، ولی هر فونتی، رایگان یا خریداری‌شده، با یک خط قابل‌جایگزینی است.
+description: فونت کاشی پیش‌فرض دیزاین‌سیستم است و همراه پکیج می‌آید؛ هر فونت دیگری، رایگان یا خریداری‌شده، با یک خط جایش می‌نشیند.
 ---
 import FontPlayground from "../../components/FontPlayground.astro";
 import Props from "../../components/Props.astro";
@@ -13,13 +13,34 @@ import { fonts } from "../../data/fonts";
 
 <FontPlayground />
 
+## فونت کاشی
+
+**فونت کاشی** فونت پیش‌فرض دیزاین‌سیستم است و همراه `@kashi-ui/css` نصب می‌شود؛ تنظیمی لازم ندارد. متغیر در وزن (۱۰۰ تا ۹۰۰)، با سه سبک نقطه و مجوز آزاد OFL. خود این سایت هم با آن نوشته شده.
+
+```css
+@import "@kashi-ui/css"; /* فونت کاشی، همهٔ وزن‌ها در یک فایل حدود ۱۹۰ کیلوبایتی */
+```
+
+برای نسخهٔ کشیده، ارقام فارسیِ خودکار (FaNum) یا نسخهٔ بدون لاتین (NoEn)، پکیج کامل فونت را هم وارد کنید:
+
+```css
+@import "@kashi-ui/font"; /* npm i @kashi-ui/font */
+.hero  { font-family: var(--k-font-kashi-expanded); } /* کشیده */
+.price { font-family: var(--k-font-kashi-fanum); }    /* ارقام فارسی */
+.dots  { font-feature-settings: "ss04"; }             /* نقطه‌های گرد */
+```
+
+> **از نسخه‌های قبل می‌آیید؟** پیش‌فرض قبلی وزیرمتن بود. هنوز همراه پکیج تعریف شده؛ اگر می‌خواهید بماند، یک خط کافی است: `:root { --k-font-sans: "Vazirmatn", Tahoma, sans-serif; }`
+
+راهنمای کامل نصب (وب، React و Next.js، Tailwind، فیگما، ویندوز و مک) و دانلود فایل‌ها در [صفحهٔ فونت کاشی](/font/#install) است.
+
 ## سه متغیر برای فونت
 
 | متغیر | پیش‌فرض | کاربرد |
 |---|---|---|
-| `--k-font-sans` | وزیرمتن | متن و همهٔ کامپوننت‌ها |
+| `--k-font-sans` | کاشی | متن و همهٔ کامپوننت‌ها |
 | `--k-font-display` | همان `--k-font-sans` | عنوان‌ها (h1 تا h6) |
-| `--k-font-mono` | فونت سیستم + وزیرمتن | کد |
+| `--k-font-mono` | فونت سیستم + کاشی | کد |
 | `--k-text-scale` | `1` | ضریب اندازهٔ همهٔ متن‌ها |
 
 ## فونت رایگان
@@ -37,7 +58,7 @@ const css = createTheme({ fontFamily: "Estedad Variable" });
 
 ```css
 @import "@fontsource-variable/estedad";
-:root { --k-font-sans: "Estedad Variable", "Vazirmatn", Tahoma, sans-serif; }
+:root { --k-font-sans: "Estedad Variable", "Kashi", Tahoma, sans-serif; }
 ```
 
 <div class="table-wrap" role="region" aria-label="فونت‌های رایگان پیشنهادی" tabindex="0">
@@ -77,16 +98,16 @@ const css = createTheme({
 // css شامل قواعد @font-face و متغیرهاست؛ آن را در یک <style> یا فایل CSS بگذارید
 ```
 
-نام تنها (مثل `"IRANSansX"`) خودکار با وزیرمتن و فونت‌های سیستم کامل می‌شود تا تا زمان بارگذاری فونت اصلی، متن نامرئی نباشد.
+نام تنها (مثل `"IRANSansX"`) خودکار با فونت کاشی و فونت‌های سیستم کامل می‌شود تا تا زمان بارگذاری فونت اصلی، متن نامرئی نباشد.
 
-> **حجم:** اگر از وزیرمتن استفاده نمی‌کنید، به‌جای `@kashi-ui/css` فایل `@kashi-ui/css/kashi.nofont.css` را وارد کنید تا فایل فونت (حدود ۱۱۰ کیلوبایت) در خروجی شما نیاید. مرورگر به‌هرحال فقط فونتی را دانلود می‌کند که واقعاً استفاده شود.
+> **حجم:** اگر فونت دیگری استفاده می‌کنید، به‌جای `@kashi-ui/css` فایل `@kashi-ui/css/kashi.nofont.css` را وارد کنید تا فایل‌های فونت در خروجی شما نیاید. مرورگر به‌هرحال فقط فونتی را دانلود می‌کند که واقعاً استفاده شود.
 
 ## حروف لاتین با فونت جدا
 
 بیشتر فونت‌های فارسی حروف لاتین هم دارند. اگر برای متن انگلیسی فونت دیگری می‌خواهید، آن را **اول** بیاورید؛ مرورگر هر حرف را از اولین فونتی که آن را دارد می‌گیرد و چون Inter حروف فارسی ندارد، فارسی از فونت دوم خوانده می‌شود:
 
 ```css
-:root { --k-font-sans: "Inter", "Vazirmatn", Tahoma, sans-serif; }
+:root { --k-font-sans: "Inter", "Kashi", Tahoma, sans-serif; }
 ```
 
 ## اندازه و ارتفاع خط
