@@ -1,0 +1,300 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import CodeBlock from "../components/CodeBlock.astro";
+import { Button, Badge } from "@kashi-ui/react";
+import { iconSvg } from "@kashi-ui/icons";
+import "@kashi-ui/font";
+import "../styles/font.css";
+
+const fa = (n: number | string) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+const weights: [number, string, string][] = [
+  [100, "Thin", "نازک"], [200, "ExtraLight", "خیلی سبک"], [300, "Light", "سبک"],
+  [400, "Regular", "معمولی"], [500, "Medium", "متوسط"], [600, "SemiBold", "نیمه‌پررنگ"],
+  [700, "Bold", "پررنگ"], [800, "ExtraBold", "خیلی پررنگ"], [900, "Black", "سیاه"],
+];
+const stats = [
+  ["۹", "وزن، از نازک تا سیاه"], ["۲", "پهنا: معمولی و کشیده"], ["۳", "سبک نقطه: کاشی، گرد و مربع"],
+  ["۱٬۷۷۲", "گلیف فارسی، عربی و لاتین"], ["۱", "فایل متغیر با دو محور"],
+];
+const gallery = [
+  { src: "/images/font/weights.webp", alt: "نُه وزن فونت کاشی، از نازک ۱۰۰ تا سیاه ۹۰۰", cap: "نُه وزن در یک خانواده؛ و هر وزنی بینشان، در نسخهٔ متغیر.", wide: true },
+  { src: "/images/font/expanded.webp", alt: "عبارت کاشی کشیده در سه پهنای ۱۰۰، ۱۱۲ و ۱۲۵", cap: "محور پهنا: از معمولی تا کشیده، برای عنوان‌هایی که جا می‌خواهند." },
+  { src: "/images/font/dots.webp", alt: "واژهٔ پژوهش با سه سبک نقطه: کاشی، گرد و مربع تیز", cap: "سه سبک نقطه در یک فونت: کاشی، گرد (ss04) و مربع تیز (ss05)." },
+  { src: "/images/font/anatomy.webp", alt: "ساختار حرف ش در فونت کاشی با نقطه‌های مربعیِ گوشه‌گرد", cap: "منحنی‌های هندسی و نقطه‌هایی مثل کاشی لعاب‌خورده." },
+  { src: "/images/font/interp.webp", alt: "حرف ه در نُه وزن روی هم", cap: "یک حرف، نُه وزن؛ ساقه‌ها هماهنگ ضخیم می‌شوند." },
+  { src: "/images/font/billboard.webp", alt: "بیلبورد شبانه با عنوان تابستان داغ در نسخهٔ کشیده", cap: "روی بیلبورد، با نسخهٔ کشیده و وزن سیاه.", wide: true },
+  { src: "/images/font/ui.webp", alt: "دو صفحهٔ اپلیکیشن موبایل با فونت کاشی: کیف پول و فروشگاه", cap: "ساخته‌شده برای رابط: دکمه، فرم، قیمت و فهرست." },
+  { src: "/images/font/chat.webp", alt: "اپلیکیشن گفت‌وگو در حالت تیره با فونت کاشی", cap: "در حالت تیره هم آرام و خوانا." },
+  { src: "/images/font/dash.webp", alt: "داشبورد گزارش فروش با عددهای فارسی و نمودار", cap: "داشبورد و جدول؛ عددهای فارسی کنار هم، بدون فاصلهٔ اضافه.", wide: true },
+  { src: "/images/font/pack.webp", alt: "سه بستهٔ دمنوش، چای و قهوه با تایپوگرافی کاشی", cap: "بسته‌بندی، با نقش‌هایی از کاشی." },
+  { src: "/images/font/book.webp", alt: "دو جلد کتاب فارسی با فونت کاشی", cap: "جلد کتاب، از وزن نازک تا سیاه." },
+  { src: "/images/font/sign.webp", alt: "تابلوی راهنمای مترو با نام ایستگاه به فارسی و انگلیسی", cap: "تابلوی راهنما؛ فارسی و لاتین هم‌قد و هماهنگ." },
+  { src: "/images/font/cards.webp", alt: "کارت ویزیت با فونت کاشی", cap: "کارت ویزیت و هویت بصری." },
+  { src: "/images/font/numbers.webp", alt: "ارقام فارسی فونت کاشی و نشانهٔ تومان", cap: "ارقام فارسی و نشانهٔ تومان با ss02." },
+  { src: "/images/font/social.webp", alt: "سه پست شبکهٔ اجتماعی با فونت کاشی", cap: "پست‌های شبکه‌های اجتماعی." },
+  { src: "/images/font/glyphs.webp", alt: "جدول حروف، ارقام و نشانه‌های فونت کاشی", cap: "فارسی، عربی، اردو و لاتین؛ با ارقام و نشانه‌های کامل.", wide: true },
+  { src: "/images/font/poster.webp", alt: "پوستر جشنوارهٔ کاشی‌کاری ایرانی با وزن‌های سیاه و خیلی سبک", cap: "در وزن‌های دور، فونتی برای پوستر و عنوان." },
+  { src: "/images/font/sizes.webp", alt: "متن فارسی در اندازه‌های ۱۲ تا ۹۶ پیکسل", cap: "از ۱۲ تا ۹۶ پیکسل، خوانا." },
+  { src: "/images/font/text.webp", alt: "متن فارسی طولانی با فونت کاشی در اندازه‌های مختلف", cap: "در متن بلند و اندازه‌های کوچک هم آرام و خوانا.", wide: true },
+];
+const faqs = [
+  ["استفادهٔ تجاری آزاد است؟", "بله. در وب‌سایت، اپ، چاپ، لوگو، بسته‌بندی، ویدیو و کار مشتری، بدون پرداخت و بدون نیاز به اجازه."],
+  ["می‌توانم فونت را بفروشم؟", "خود فایل‌های فونت را نه. مجوز OFL فروش فونت به‌تنهایی را اجازه نمی‌دهد؛ اما فروش محصولی که با آن ساخته‌اید (سایت، اپ، پوستر، کتاب) آزاد است."],
+  ["اگر فونت را تغییر دهم؟", "آزاد است. نسخهٔ تغییریافته هم باید با همین مجوز OFL منتشر شود و اطلاعیهٔ کپی‌رایت وزیرمتن، دستخط و کاشی در آن بماند."],
+  ["فرق Kashi، Kashi FaNum و Kashi NoEn چیست؟", "Kashi فارسی و لاتین دارد. در FaNum عددهای لاتین داخل داده به‌شکل فارسی دیده می‌شوند؛ برای قیمت و جدول. NoEn حروف لاتین ندارد تا متن انگلیسی با فونت لاتین دلخواه شما نمایش داده شود."],
+  ["در فیگما چطور استفاده کنم؟", "فایل ZIP را بگیرید و فونت‌های پوشهٔ Main/Kashi/TTF را نصب کنید؛ Kashi و Kashi Expanded جدا نصب می‌شوند. سبک نقطه را از بخش OpenType فیگما (Stylistic sets) عوض کنید. فونت ثابت و متغیر یک خانواده را با هم نصب نکنید."],
+  ["نسخهٔ کشیده را چطور فعال کنم؟", "در وب با font-stretch: 125% یا خانوادهٔ «Kashi Expanded»؛ در نرم‌افزارهای طراحی، فونت‌های KashiExpanded را نصب کنید. نسخهٔ متغیر هر پهنایی بین ۱۰۰ و ۱۲۵ را هم می‌سازد."],
+  ["کاشی بر پایهٔ چه فونتی است؟", "بر پایهٔ دستخط از دستیار، که خودش بر پایهٔ وزیرمتن اثر صابر راستی‌کردار است. منحنی‌ها هندسی‌تر، بدنهٔ حروف کوتاه‌تر و دنباله‌ها کم‌عمق‌تر شده‌اند و نقطه‌ها کاشی‌شکل؛ حروف لاتین از Roboto آمده‌اند."],
+];
+const zipSize = "۱۱";
+const CDN = "https://cdn.jsdelivr.net/gh/Sepantapouya/Kashi@main/packages/font";
+const guide = [
+  { key: "cdn", label: "وب، بدون نصب", intro: "ساده‌ترین راه: یک خط در <head>. فایل‌های WOFF2 از CDN می‌آیند و فقط وزن و نسخه‌ای که استفاده کنید دانلود می‌شود.", steps: [
+    ["در <head> صفحه", "html", `<link rel="stylesheet" href="${CDN}/kashi.css">`],
+    ["در CSS", "css", `body   { font-family: var(--k-font-kashi); }\n.price { font-family: var(--k-font-kashi-fanum); }    /* ارقام فارسی */\n.hero  { font-family: var(--k-font-kashi-expanded); } /* کشیده */`],
+  ], tip: "می‌خواهید فایل‌ها روی سرور خودتان باشد؟ ZIP را بگیرید، پوشهٔ fonts و فایل kashi.css را کنار هم در پروژه بگذارید و همان kashi.css را لینک کنید." },
+  { key: "npm", label: "npm", intro: "برای پروژه‌هایی که bundler دارند (Vite، Astro، webpack). فایل‌های فونت خودکار در خروجی کپی می‌شوند.", steps: [
+    ["نصب", "bash", "npm i @kashi-ui/font"],
+    ["در فایل CSS یا JS اصلی", "css", `@import "@kashi-ui/font";            /* متغیر: وزن ۱۰۰ تا ۹۰۰، پهنا ۱۰۰٪ تا ۱۲۵٪ */\n/* یا: @import "@kashi-ui/font/static.css";  ۹ وزن ثابت در دو پهنا */\n\nbody { font-family: var(--k-font-kashi); }`],
+  ], tip: "فونت متغیر یک فایل حدود ۳۳۰ کیلوبایتی برای همهٔ وزن‌ها و پهناهاست. اگر فقط دو سه وزن لازم دارید، static.css سبک‌تر است: هر وزن حدود ۷۰ کیلوبایت، و مرورگر فقط وزن‌های استفاده‌شده را می‌گیرد." },
+  { key: "react", label: "React و Next.js", intro: "با کامپوننت‌های کاشی، فونت کاشی خودش همراه @kashi-ui/css می‌آید و تنظیمی لازم ندارد. بدون کامپوننت‌ها، فقط پکیج فونت را وارد کنید.", steps: [
+    ["Next.js، app/layout.tsx", "tsx", `import "@kashi-ui/css";  // کامپوننت‌ها + فونت کاشی\nimport "@kashi-ui/font"; // اختیاری: کشیده، FaNum و NoEn\n\nexport default function RootLayout({ children }) {\n  return (\n    <html lang="fa" dir="rtl">\n      <body>{children}</body>\n    </html>\n  );\n}`],
+    ["بدون کامپوننت‌های کاشی", "tsx", `import "@kashi-ui/font"; // در layout.tsx یا main.tsx\n\n// و در CSS:  body { font-family: var(--k-font-kashi); }`],
+  ], tip: "در Vite یا Create React App همین importها را در main.tsx بگذارید. فونت قبلی (وزیرمتن) را می‌خواهید؟ :root { --k-font-sans: \"Vazirmatn\", Tahoma, sans-serif; }" },
+  { key: "tailwind", label: "Tailwind", intro: "فونت را وارد و به‌عنوان فونت پیش‌فرض Tailwind تعریف کنید؛ کلاس font-sans و همهٔ متن‌ها کاشی می‌شوند.", steps: [
+    ["Tailwind v4، در CSS اصلی", "css", `@import "tailwindcss";\n@import "@kashi-ui/font";\n\n@theme {\n  --font-sans: "Kashi", Tahoma, system-ui, sans-serif;\n  --font-display: "Kashi Expanded", "Kashi", sans-serif;\n}`],
+    ["Tailwind v3، tailwind.config.js", "js", `module.exports = {\n  theme: {\n    extend: {\n      fontFamily: {\n        sans: ["Kashi", "Tahoma", "system-ui", "sans-serif"],\n        display: ["Kashi Expanded", "Kashi", "sans-serif"],\n      },\n    },\n  },\n};`],
+  ], tip: "با پریست @kashi-ui/tailwind، font-sans از --k-font-sans می‌خواند که پیش‌فرضش همین فونت کاشی است؛ تنظیم جداگانه لازم نیست." },
+  { key: "desktop", label: "فیگما و دسکتاپ", intro: "برای فیگما، فتوشاپ، ایلاستریتور و آفیس، فونت را روی سیستم نصب کنید.", list: [
+    ["دانلود", "فایل ZIP را بگیرید و باز کنید. فونت‌ها در پوشهٔ fonts/Main/Kashi/TTF هستند: ۹ وزن Kashi و ۹ وزن Kashi Expanded."],
+    ["مک", "همهٔ فایل‌های TTF را انتخاب کنید، دوبار کلیک کنید و در Font Book دکمهٔ Install را بزنید."],
+    ["ویندوز", "فایل‌ها را انتخاب کنید، کلیک راست و «Install for all users». بدون دسترسی مدیر، «Install» کافی است."],
+    ["فیگما", "نسخهٔ دسکتاپ فونت نصب‌شده را خودش می‌شناسد؛ در نسخهٔ وب، Figma Font Installer را یک بار نصب کنید. سبک نقطه را از پنل Type ‹ Details › Stylistic sets عوض کنید."],
+    ["یک نکته", "فونت ثابت و متغیر یک خانواده را با هم نصب نکنید؛ نام‌هایشان یکی است و نرم‌افزار گیج می‌شود. برای طراحی، نسخهٔ ثابت (TTF) بهتر است."],
+  ] },
+  { key: "features", label: "ویژگی‌ها", intro: "همهٔ ویژگی‌ها با CSS استاندارد روشن می‌شوند و متن اصلی دست نمی‌خورد.", rows: [
+    ["وزن", "font-weight: 100 … 900", "هر عددی بین ۱۰۰ و ۹۰۰ در نسخهٔ متغیر"],
+    ["پهنا", "font-stretch: 100% … 125%", "یا خانوادهٔ Kashi Expanded برای کشیده"],
+    ["نقطهٔ گرد", "font-feature-settings: \"ss04\"", "همهٔ نقطه‌ها دایره‌ای می‌شوند"],
+    ["نقطهٔ مربع تیز", "font-feature-settings: \"ss05\"", "نقطه‌های مربعی بی‌گوشهٔ نرم"],
+    ["نشانهٔ تومان و ریال", "font-feature-settings: \"ss02\"", "واژهٔ «تومان» و «ریال» به نشانه تبدیل می‌شوند"],
+    ["نشانهٔ واژه‌ای", "font-feature-settings: \"ss03\"", "تومان به نشانهٔ دوطبقه، ریال به ﷼"],
+    ["ارقام هم‌عرض", "font-variant-numeric: tabular-nums", "برای ستون‌های عدد در جدول"],
+    ["ارقام فارسی", "font-family: \"Kashi FaNum\"", "عدد لاتین داده، فارسی دیده می‌شود"],
+    ["فقط فارسی", "font-family: \"Kashi NoEn\", \"Inter\"", "لاتین با فونت دلخواه شما"],
+  ] },
+];
+const jsonLd = [{
+  "@context": "https://schema.org", "@type": "SoftwareApplication", name: "فونت کاشی (Kashi)",
+  applicationCategory: "DesignApplication", operatingSystem: "Web, Windows, macOS, Linux",
+  license: "https://openfontlicense.org", offers: { "@type": "Offer", price: "0", priceCurrency: "IRR" },
+}];
+---
+<Base title="فونت کاشی — فونت فارسی متغیر و رایگان" seoTitle="فونت کاشی — فونت فارسی متغیر، ۹ وزن، رایگان و متن‌باز" description="فونت کاشی، فونت فارسی و لاتین رابط کاربری: متغیر از ۱۰۰ تا ۹۰۰، نُه وزن، ارقام فارسی و نشانهٔ تومان. رایگان برای استفادهٔ تجاری با مجوز OFL." ogImage="/images/font/og.png" ogImageAlt="فونت کاشی، متغیر و رایگان" jsonLd={jsonLd}>
+<Header />
+<main id="main" class="kf">
+
+ <section class="kf-hero">
+  <div class="kf-hero__pattern" aria-hidden="true"></div>
+  <div class="kf-hero__top">
+   <span class="kf-kicker"><i class="kf-tile"></i> فونت رسمی دیزاین‌سیستم کاشی</span>
+   <Badge tone="brand" size="sm">نسخهٔ ۱٫۰</Badge>
+  </div>
+  <h1 class="kf-hero__word" id="kf-hero-word" style="--w:900">کاشی<i class="kf-tile kf-tile--big" aria-hidden="true"></i></h1>
+  <div class="kf-hero__row">
+   <p class="kf-hero__lead">فونت فارسی و لاتین برای رابط کاربری؛ با منحنی‌های هندسی، نقطه‌هایی به‌شکل کاشی، نسخهٔ کشیده و هر وزنی از <b>۱۰۰</b> تا <b>۹۰۰</b> در یک فایل. رایگان، حتی برای کار تجاری.</p>
+   <div class="kf-hero__actions">
+    <Button href="/downloads/kashi-font.zip" variant="primary" size="lg" download>
+     <span set:html={iconSvg("download", { size: 18 })} /> دانلود رایگان
+    </Button>
+    <a class="kf-link" href="#install">راهنمای نصب <span set:html={iconSvg("arrow-down", { size: 16 })} /></a>
+    <a class="kf-link" href="#tester">امتحانش کنید <span set:html={iconSvg("arrow-down", { size: 16 })} /></a>
+   </div>
+  </div>
+  <div class="kf-hero__axis" aria-hidden="true">
+   <span>۱۰۰</span><div class="kf-axis"><i id="kf-axis-dot"></i></div><span>۹۰۰</span>
+  </div>
+ </section>
+
+ <section class="kf-video" aria-label="ویدیوی معرفی فونت کاشی">
+  <video src="/videos/kashi-font.mp4" poster="/videos/kashi-font-poster.jpg" controls playsinline preload="metadata" width="1920" height="1080"></video>
+ </section>
+
+ <ul class="kf-stats">
+  {stats.map(([n, t]) => <li><b>{n}</b><span>{t}</span></li>)}
+ </ul>
+
+ <section class="kf-tester" id="tester" aria-labelledby="tester-title">
+  <div class="kf-head"><span class="kf-kicker">آزمایش زنده</span><h2 id="tester-title">بنویسید، ببینید.</h2></div>
+  <div class="kf-tester__box">
+   <div class="kf-tester__controls">
+    <label>وزن <output id="kf-w-out">۴۰۰</output><input type="range" id="kf-w" min="100" max="900" step="1" value="400" /></label>
+    <label>اندازه <output id="kf-s-out">۵۶</output><input type="range" id="kf-s" min="14" max="140" step="1" value="56" /></label>
+    <label>پهنا <output id="kf-x-out">۱۰۰</output><input type="range" id="kf-x" min="100" max="125" step="1" value="100" /></label>
+    <div class="kf-seg" role="group" aria-label="سبک نقطه">
+     <button type="button" aria-pressed="true" data-dots="">کاشی</button>
+     <button type="button" aria-pressed="false" data-dots="ss04">گرد</button>
+     <button type="button" aria-pressed="false" data-dots="ss05">مربع</button>
+    </div>
+    <div class="kf-seg kf-seg--fam" role="group" aria-label="نسخه">
+     <button type="button" aria-pressed="true" data-fam="Kashi">Kashi</button>
+     <button type="button" aria-pressed="false" data-fam="Kashi FaNum">FaNum</button>
+     <button type="button" aria-pressed="false" data-fam="Kashi NoEn">NoEn</button>
+    </div>
+    <label class="kf-check"><input type="checkbox" id="kf-ss02" /> نشانهٔ تومان (ss02)</label>
+   </div>
+   <div class="kf-tester__text" id="kf-text" contenteditable="true" spellcheck="false" role="textbox" aria-multiline="true" aria-label="متن آزمایشی؛ قابل ویرایش">نقش کاشی، رنگ آسمان. قیمت: 250,000 تومان</div>
+  </div>
+ </section>
+
+ <section class="kf-gallery" aria-label="نمونه‌های فونت کاشی">
+  <figure class="kf-fig kf-fig--wide"><img src="/images/font/hero.webp" alt="واژهٔ کاشی با وزن سیاه روی زمینهٔ فیروزه‌ای و نقش شمسه" width="2400" height="1500" loading="lazy" decoding="async" /></figure>
+  {gallery.map((g) => (
+   <figure class:list={["kf-fig", { "kf-fig--wide": g.wide }]}>
+    <img src={g.src} alt={g.alt} width="2400" height="1500" loading="lazy" decoding="async" />
+    <figcaption>{g.cap}</figcaption>
+   </figure>
+  ))}
+ </section>
+
+ <section class="kf-weights" aria-labelledby="weights-title">
+  <div class="kf-head"><span class="kf-kicker">خانواده</span><h2 id="weights-title">نُه وزن، یک صدا.</h2></div>
+  <ol>
+   {weights.map(([w, en, f]) => (
+    <li style={`--w:${w}`}><span class="kf-weights__meta"><b>{fa(w)}</b><span dir="ltr">{en}</span></span><span class="kf-weights__s">{f}: رنگ فیروزه، نقش لاجورد</span></li>
+   ))}
+  </ol>
+ </section>
+
+ <section class="kf-why" aria-labelledby="why-title">
+  <div class="kf-head"><span class="kf-kicker">چه چیزی آن را کاشی می‌کند</span><h2 id="why-title">ساده مثل یک تکه کاشی؛<br />منظم مثل یک دیوار.</h2></div>
+  <div class="kf-why__grid">
+   <article><div class="kf-why__art kf-why__art--dots" aria-hidden="true"><i></i><i></i><i></i></div><h3>سه سبک نقطه</h3><p>پیش‌فرض، مربع‌هایی با گوشهٔ نرم مثل کاشی؛ با ss04 گرد و با ss05 مربع تیز، در همهٔ حروف نقطه‌دار.</p></article>
+   <article><div class="kf-why__art kf-why__art--wide" aria-hidden="true">سبب</div><h3>هندسی، پهن و کشیده</h3><p>منحنی‌های هندسی و آرام، حروف باز و یک محور پهنا از معمولی تا کشیده؛ ضخامت ساقه‌ها در هر پهنا هماهنگ می‌ماند.</p></article>
+   <article><div class="kf-why__art kf-why__art--num" aria-hidden="true">۲۴۷</div><h3>ارقام برای داده</h3><p>ارقام فارسی با فاصلهٔ طبیعی، ارقام هم‌عرض فشرده با tnum، نسخهٔ FaNum برای قیمت‌ها و نشانهٔ تومان و ریال با ss02 و ss03.</p></article>
+   <article><div class="kf-why__art kf-why__art--var" aria-hidden="true">Aa</div><h3>یک فایل، همهٔ وزن‌ها</h3><p>نسخهٔ متغیر هر وزن (۱۰۰ تا ۹۰۰) و هر پهنایی (۱۰۰ تا ۱۲۵) را می‌سازد؛ و ۱۸ فایل ثابت برای نرم‌افزارهایی که متغیر نمی‌خوانند.</p></article>
+  </div>
+ </section>
+
+ <section class="kf-use" id="install" aria-labelledby="use-title">
+  <div class="kf-head"><span class="kf-kicker">راهنمای نصب</span><h2 id="use-title">در پروژهٔ شما، در یک دقیقه.</h2></div>
+  <div class="k-tabs kf-guide">
+   <div class="k-tabs__list kf-guide__list" role="tablist" aria-label="روش نصب">
+    {guide.map((g, i) => <button type="button" role="tab" class="k-tabs__tab" id={`kg-t-${g.key}`} aria-controls={`kg-p-${g.key}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1}>{g.label}</button>)}
+   </div>
+   {guide.map((g, i) => (
+    <div class="k-tabs__panel kf-guide__panel" role="tabpanel" id={`kg-p-${g.key}`} aria-labelledby={`kg-t-${g.key}`} tabindex="0" hidden={i !== 0}>
+     <p class="kf-guide__intro">{g.intro}</p>
+     {g.steps && <ol class="kf-steps">{g.steps.map(([title, lang, code]) => <li><h3>{title}</h3><CodeBlock code={code} lang={lang} /></li>)}</ol>}
+     {g.list && <ol class="kf-steps kf-steps--text">{g.list.map(([title, text]) => <li><h3>{title}</h3><p>{text}</p></li>)}</ol>}
+     {g.rows && <div class="table-wrap" role="region" aria-label="ویژگی‌های فونت کاشی" tabindex="0"><table class="ref-table kf-feat"><thead><tr><th scope="col">ویژگی</th><th scope="col">CSS</th><th scope="col">نتیجه</th></tr></thead><tbody>{g.rows.map(([n, c, r]) => <tr><th scope="row">{n}</th><td><code dir="ltr">{c}</code></td><td>{r}</td></tr>)}</tbody></table></div>}
+     {g.tip && <p class="kf-guide__tip"><span set:html={iconSvg("info", { size: 16 })} />{g.tip}</p>}
+    </div>
+   ))}
+  </div>
+  <div class="kf-files">
+   <a href="/downloads/kashi-font.zip" download><span set:html={iconSvg("download", { size: 18 })} /><b>همهٔ فایل‌ها</b><small>ZIP · {zipSize} مگابایت · TTF، متغیر و WOFF2</small></a>
+   <a href="https://github.com/Sepantapouya/Kashi/tree/main/packages/font" rel="noopener"><span set:html={iconSvg("code", { size: 18 })} /><b>منبع و ساخت</b><small dir="auto">GitHub · packages/font</small></a>
+   <a href="/docs/typography/"><span set:html={iconSvg("type", { size: 18 })} /><b>تایپوگرافی کاشی</b><small>اندازه‌ها، ارقام و فونت‌های دیگر</small></a>
+  </div>
+ </section>
+
+ <section class="kf-license" aria-labelledby="license-title">
+  <div class="kf-license__badge" aria-hidden="true">OFL</div>
+  <div>
+   <h2 id="license-title">رایگان و متن‌باز، با مجوز SIL Open Font License 1.1</h2>
+   <ul>
+    <li class="ok">استفاده در هر کاری، از جمله کار تجاری، لوگو و کار مشتری</li>
+    <li class="ok">تعبیه در وب‌سایت، اپ و نرم‌افزار، و پخش همراه آن</li>
+    <li class="ok">تغییر فونت و انتشار نسخهٔ تغییریافته با همین مجوز</li>
+    <li class="no">فروش خود فایل‌های فونت به‌تنهایی، یا انتشار با مجوزی دیگر</li>
+   </ul>
+   <p>کاشی بر پایهٔ <a href="https://github.com/dastyar-io/dastkhat-font" rel="noopener">دستخط</a> از دستیار ساخته شده، که خودش بر پایهٔ <a href="https://github.com/rastikerdar/vazirmatn" rel="noopener">وزیرمتن</a> اثر صابر راستی‌کردار است. حروف لاتین از Roboto (مجوز Apache 2.0) آمده‌اند. با سپاس از هر دو پروژه.</p>
+  </div>
+ </section>
+
+ <section class="kf-faq" aria-labelledby="faq-title">
+  <div><span class="kf-kicker">پرسش‌ها</span><h2 id="faq-title">پیش از استفاده.</h2></div>
+  <div>{faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</div>
+ </section>
+
+ <section class="kf-cta">
+  <h2>کاشی را در محصول بعدی‌تان بچینید.</h2>
+  <div><Button href="/downloads/kashi-font.zip" variant="primary" size="lg" download><span set:html={iconSvg("download", { size: 18 })} /> دانلود رایگان</Button><Button href="/docs/typography/" variant="secondary" size="lg">راهنمای تایپوگرافی</Button></div>
+ </section>
+</main>
+<Footer />
+</Base>
+
+<script>
+  const fa = (n: number | string) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]);
+  const text = document.getElementById("kf-text") as HTMLElement;
+  const w = document.getElementById("kf-w") as HTMLInputElement;
+  const s = document.getElementById("kf-s") as HTMLInputElement;
+  const ss = document.getElementById("kf-ss02") as HTMLInputElement;
+  const x = document.getElementById("kf-x") as HTMLInputElement;
+  let dots = "";
+  const apply = () => {
+    text.style.fontWeight = w.value;
+    text.style.fontSize = `${s.value}px`;
+    text.style.fontStretch = `${x.value}%`;
+    const feats = [ss.checked && '"ss02"', dots && `"${dots}"`].filter(Boolean);
+    text.style.fontFeatureSettings = feats.length ? feats.join(", ") : "normal";
+    document.getElementById("kf-w-out")!.textContent = fa(w.value);
+    document.getElementById("kf-s-out")!.textContent = fa(s.value);
+    document.getElementById("kf-x-out")!.textContent = fa(x.value);
+  };
+  [w, s, ss, x].forEach((el) => el.addEventListener("input", apply));
+  document.querySelectorAll<HTMLButtonElement>("[data-dots]").forEach((b, _, all) =>
+    b.addEventListener("click", () => {
+      all.forEach((y) => y.setAttribute("aria-pressed", String(y === b)));
+      dots = b.dataset.dots ?? "";
+      apply();
+    }));
+  document.querySelectorAll<HTMLButtonElement>(".kf-seg--fam button").forEach((b, _, all) =>
+    b.addEventListener("click", () => {
+      all.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      text.style.fontFamily = `"${b.dataset.fam}", Tahoma, sans-serif`;
+    }));
+  apply();
+
+  // زبانه‌های راهنمای نصب: کلیک و کلیدهای جهت (در راست‌به‌چپ، چپ یعنی بعدی)
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>(".kf-guide [role=tab]")];
+  const select = (t: HTMLButtonElement) => {
+    tabs.forEach((x) => {
+      const on = x === t;
+      x.setAttribute("aria-selected", String(on));
+      x.tabIndex = on ? 0 : -1;
+      document.getElementById(x.getAttribute("aria-controls")!)!.hidden = !on;
+    });
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => select(t));
+    t.addEventListener("keydown", (e) => {
+      const d = e.key === "ArrowLeft" ? 1 : e.key === "ArrowRight" ? -1 : e.key === "Home" ? -i : e.key === "End" ? tabs.length - 1 - i : 0;
+      if (!d) return;
+      e.preventDefault();
+      const n = tabs[(i + d + tabs.length) % tabs.length];
+      select(n);
+      n.focus();
+    });
+  });
+
+  // وزن واژهٔ بزرگ با حرکت آرام، اگر کاربر حرکت کم را نخواسته باشد
+  const word = document.getElementById("kf-hero-word");
+  const dot = document.getElementById("kf-axis-dot");
+  if (word && dot && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let start = 0;
+    const tick = (t: number) => {
+      start ||= t;
+      const p = 0.5 - 0.5 * Math.cos(((t - start) / 7000) * Math.PI * 2);
+      const v = 900 - 800 * p;
+      word.style.setProperty("--w", String(Math.round(v)));
+      dot.style.insetInlineStart = `${((v - 100) / 800) * 100}%`;
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+</script>

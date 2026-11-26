@@ -1,0 +1,45 @@
+{
+  "name": "@kashi-ui/font",
+  "version": "0.0.0",
+  "description": "فونت کاشی — فونت فارسی و لاتین رابط کاربری، متغیر با وزن ۱۰۰ تا ۹۰۰، بر پایهٔ دستخط و وزیرمتن",
+  "style": "./kashi.css",
+  "exports": {
+    ".": "./kashi.css",
+    "./kashi.css": "./kashi.css",
+    "./static.css": "./static.css",
+    "./fonts/*": "./fonts/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "kashi.css",
+    "static.css",
+    "fonts",
+    "OFL.txt",
+    "FONTLOG.txt",
+    "THIRD-PARTY-NOTICES.txt",
+    "README.md"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "test": "node test.mjs"
+  },
+  "keywords": [
+    "font",
+    "persian",
+    "farsi",
+    "arabic",
+    "rtl",
+    "variable-font",
+    "kashi",
+    "فونت"
+  ],
+  "license": "OFL-1.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sepantapouya/Kashi.git",
+    "directory": "packages/font"
+  },
+  "homepage": "https://kashi.sepantapouya.com/font/"
+}

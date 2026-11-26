@@ -1,0 +1,127 @@
+/* فونت کاشی، ۹ وزن ثابت در دو پهنا؛ برای جاهایی که فونت متغیر پشتیبانی نمی‌شود. مجوز: SIL OFL 1.1 */
+@font-face {
+  font-family: "Kashi";
+  src: url("./fonts/Main/Kashi/Webfonts/Kashi-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi";
+  src: url("./fonts/Main/Kashi/Webfonts/Kashi-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi";
+  src: url("./fonts/Main/Kashi/Webfonts/Kashi-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi";
+  src: url("./fonts/Main/Kashi/Webfonts/Kashi-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi";
+  src: url("./fonts/Main/Kashi/Webfonts/Kashi-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi";
+  src: url("./fonts/Main/Kashi/Webfonts/Kashi-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi";
+  src: url("./fonts/Main/Kashi/Webfonts/Kashi-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi";
+  src: url("./fonts/Main/Kashi/Webfonts/Kashi-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi";
+  src: url("./fonts/Main/Kashi/Webfonts/Kashi-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi Expanded";
+  src: url("./fonts/Main/Kashi/Webfonts/KashiExpanded-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi Expanded";
+  src: url("./fonts/Main/Kashi/Webfonts/KashiExpanded-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi Expanded";
+  src: url("./fonts/Main/Kashi/Webfonts/KashiExpanded-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi Expanded";
+  src: url("./fonts/Main/Kashi/Webfonts/KashiExpanded-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi Expanded";
+  src: url("./fonts/Main/Kashi/Webfonts/KashiExpanded-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi Expanded";
+  src: url("./fonts/Main/Kashi/Webfonts/KashiExpanded-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi Expanded";
+  src: url("./fonts/Main/Kashi/Webfonts/KashiExpanded-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi Expanded";
+  src: url("./fonts/Main/Kashi/Webfonts/KashiExpanded-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi Expanded";
+  src: url("./fonts/Main/Kashi/Webfonts/KashiExpanded-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

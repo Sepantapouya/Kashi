@@ -1,0 +1,22 @@
+THIRD-PARTY NOTICES - Kashi font
+================================
+
+1. Dastkhat
+   Copyright 2026 The Dastkhat Project Authors
+   (https://github.com/dastyar-io/dastkhat-font), published by Dastyar.
+   Kashi is derived from Dastkhat v1.220 (commit 19f4a12). Dastkhat is
+   licensed under the SIL Open Font License 1.1, and Kashi, as its
+   derivative, is distributed under the same license (see OFL.txt).
+
+2. Vazirmatn
+   Copyright 2015 The Vazirmatn Project Authors
+   (https://github.com/rastikerdar/vazirmatn), designed by Saber Rastikerdar.
+   Dastkhat is derived from Vazirmatn v33.003, licensed under the SIL Open
+   Font License 1.1 (https://openfontlicense.org).
+
+3. Roboto
+   The Latin glyphs inherited through Vazirmatn and Dastkhat derive from
+   Roboto, Copyright Google LLC, licensed under the Apache License,
+   Version 2.0. You may obtain a copy of that license at
+   https://www.apache.org/licenses/LICENSE-2.0
+   Roboto is provided "AS IS", without warranties or conditions of any kind.

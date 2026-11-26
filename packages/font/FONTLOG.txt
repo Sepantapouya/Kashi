@@ -1,0 +1,91 @@
+FONTLOG for Kashi
+=================
+
+This file provides detailed information on the Kashi font software.
+
+
+Basic Font Information
+----------------------
+
+Kashi (کاشی) is the Persian and Latin user-interface typeface of the Kashi
+design system (https://kashi.sepantapouya.com). It is made for product
+interfaces: buttons, forms, tables, dashboards and dense Persian text on
+screens.
+
+- Scripts: Arabic script (Persian, Arabic, Urdu basic coverage), Latin
+- Weights: 9 (Thin 100 to Black 900) in two widths, plus a variable font
+  with two axes: wght 100-900 and wdth 100-125 (Normal to Expanded)
+- Builds:
+    Kashi        full Persian + Latin (static: Kashi and Kashi Expanded)
+    Kashi FaNum  Latin digits 0-9 display as Persian digits ۰-۹
+    Kashi NoEn   Latin letters removed, so English text uses a fallback font
+- Formats: TTF (static + variable), WOFF2
+- OpenType: init/medi/fina, rlig, calt, mark/mkmk, kern, tnum, frac,
+  ss02 (toman and rial signs), ss03 (word signs), ss04 (round dots),
+  ss05 (sharp square dots) and the rest of Dastkhat's features
+
+Kashi is a derivative of Dastkhat by Dastyar (SIL OFL 1.1), which is a
+derivative of Vazirmatn by Saber Rastikerdar (SIL OFL 1.1). The Latin glyphs
+derive from Roboto (Apache License 2.0).
+
+
+What Kashi changes
+------------------
+
+Kashi is built from the Dastkhat v1.220 sources by sources/derive.py. Every
+step is a rule applied the same way in every master:
+
+1. Geometric curves. In the Persian letters, each curve's off-curve points
+   move 40% of the way toward the corner of its tangents, so bowls and loops
+   become calmer and more geometric while keeping Vazirmatn's softness.
+2. Low body, shallow descenders. Heights between the baseline stroke and the
+   top of the bowls scale by 0.86, so bowls and teeth sit lower while the
+   ascenders keep their height; the air inside bowls below the baseline
+   scales by 0.86. The baseline, top and bottom stroke bands move without
+   squashing, so every stroke keeps its thickness. Dots and anchors move with
+   the letter.
+3. Latin at Vazirmatn's size. Latin, punctuation and symbols scale up by 5%
+   (Dastkhat had made them smaller), blended toward the lighter master so
+   they keep their weight; kerning scales with them.
+4. Width axis. The Expanded masters stretch every glyph by 20%; each glyph is
+   first blended toward the neighbouring master so the vertical stems end up
+   only 8% heavier than in the normal width.
+5. Tile dots. Every square dot becomes a soft square tile, corners 18% of its
+   side. ss04 swaps in round dots and ss05 sharp square dots, in every
+   dotted glyph.
+6. Tighter tabular digits. Dastkhat's tnum cell is far wider than its digits;
+   Kashi's is the widest digit's ink plus a small margin, each digit centred.
+7. New names: Kashi, Kashi FaNum, Kashi NoEn, and Kashi Expanded for the
+   static expanded width.
+
+
+License
+-------
+
+Kashi is free and open source, licensed under the SIL Open Font License,
+Version 1.1 (OFL.txt). Free for personal and commercial use. The font may
+be modified and redistributed under the same license, but not sold by itself.
+
+
+ChangeLog
+---------
+
+2026-11-26 (Kashi) Kashi v1.000
+- First release: Kashi, Kashi FaNum and Kashi NoEn, each as a variable font
+  (wght + wdth) and 9 static weights in two widths, TTF and WOFF2.
+
+
+Acknowledgements
+----------------
+
+N: Saber Rastikerdar
+W: https://github.com/rastikerdar/vazirmatn
+D: Designer of Vazirmatn, the base of Dastkhat and Kashi
+
+N: Dastyar
+W: https://dastyar.io
+D: Dastkhat, the direct base of Kashi
+
+N: Sepanta Pouya
+W: https://kashi.sepantapouya.com
+D: Kashi

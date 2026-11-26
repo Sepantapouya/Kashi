@@ -1,0 +1,54 @@
+/* فونت کاشی، متغیر: وزن ۱۰۰ تا ۹۰۰ و پهنای ۱۰۰٪ تا ۱۲۵٪. مجوز: SIL OFL 1.1 (OFL.txt)
+   Kashi: فارسی و لاتین · Kashi FaNum: ارقام لاتین به‌شکل فارسی · Kashi NoEn: فقط فارسی
+   نسخهٔ کشیده: font-stretch: 125% یا خانوادهٔ «Kashi Expanded»
+   نقطه‌ها: پیش‌فرض کاشی‌شکل؛ font-feature-settings: "ss04" گرد، "ss05" مربع تیز */
+@font-face {
+  font-family: "Kashi";
+  src: url("./fonts/Main/Kashi/Webfonts/Kashi-Variable.woff2") format("woff2-variations"),
+       url("./fonts/Main/Kashi/Webfonts/Kashi-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 100% 125%;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi FaNum";
+  src: url("./fonts/FaNum/KashiFaNum/Webfonts/KashiFaNum-Variable.woff2") format("woff2-variations"),
+       url("./fonts/FaNum/KashiFaNum/Webfonts/KashiFaNum-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 100% 125%;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi NoEn";
+  src: url("./fonts/NoEn/KashiNoEn/Webfonts/KashiNoEn-Variable.woff2") format("woff2-variations"),
+       url("./fonts/NoEn/KashiNoEn/Webfonts/KashiNoEn-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 100% 125%;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi Expanded";
+  src: url("./fonts/Main/Kashi/Webfonts/Kashi-Variable.woff2") format("woff2-variations"),
+       url("./fonts/Main/Kashi/Webfonts/Kashi-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 125%;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Kashi Expanded FaNum";
+  src: url("./fonts/FaNum/KashiFaNum/Webfonts/KashiFaNum-Variable.woff2") format("woff2-variations"),
+       url("./fonts/FaNum/KashiFaNum/Webfonts/KashiFaNum-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 125%;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --k-font-kashi: "Kashi", Tahoma, system-ui, sans-serif;
+  --k-font-kashi-fanum: "Kashi FaNum", "Kashi", Tahoma, system-ui, sans-serif;
+  --k-font-kashi-expanded: "Kashi Expanded", "Kashi", Tahoma, system-ui, sans-serif;
+}
