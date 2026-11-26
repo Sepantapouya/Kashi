@@ -2,7 +2,7 @@
 // با هر نسخهٔ جزئی تازه (۲.۹، ۳.۰ …) این را عوض کنید؛ packages/mcp/test/featured.test.mjs
 // اگر `since` با نسخهٔ فعلی @kashi-ui/react یکی نباشد، یا `href` به صفحه‌ای نرود، شکست می‌خورد.
 
-export type FeaturedArt = "sheet" | "icons" | "bars";
+export type FeaturedArt = "sheet" | "icons" | "bars" | "type";
 
 export const featured: {
   /** نسخهٔ جزئی، مثل "2.8"؛ در کارت با ارقام فارسی نشان داده می‌شود */
@@ -14,9 +14,9 @@ export const featured: {
   /** پیش‌نمایش کوچک داخل کارت */
   art: FeaturedArt;
 } = {
-  since: "2.16",
-  href: "/docs/components/chat/",
-  title: "گفتگو و دستیار هوش مصنوعی",
-  text: "۱۶ کامپوننت تازه: گفتگو با پاسخ کلمه‌به‌کلمه، کانبان کشیدنی، ویرایشگر متن فارسی و ورودی‌های صیادی و مودیان.",
-  art: "sheet",
+  since: "2.17",
+  href: "/font/",
+  title: "فونت کاشی",
+  text: "فونت پیش‌فرض تازهٔ کاشی: نُه وزن، دو پهنا و سه سبک نقطه در یک فایل متغیر.",
+  art: "type",
 };

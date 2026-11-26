@@ -169,6 +169,13 @@
 }
 
 /* پیش‌نمایش «sheet»: گوشی کوچک با برگهٔ پایین که بالا می‌آید */
+/* نمونهٔ فونت: «کاشی» در سه وزن، آخری با رنگ برند */
+.hd__feature-art--type { display: grid; align-content: center; justify-items: center; gap: 0; flex: 1; margin-block: var(--k-space-3); padding: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); color: var(--k-text-primary); font-family: "Kashi", var(--k-font-sans); font-size: 1.75rem; line-height: 1.35; }
+.hd__feature-art--type span { font-weight: var(--w); }
+.hd__feature-art--type span:last-child { color: var(--k-text-brand); }
+@media (prefers-reduced-motion: no-preference) {
+  .hd__mega:not([hidden]) .hd__feature-art--type span { animation: hd-item-in 360ms var(--k-ease-standard) both; animation-delay: calc(var(--i) * 60ms + 200ms); }
+}
 .hd__feature-art--sheet { display: grid; place-items: center; flex: 1; margin-block: var(--k-space-3); }
 .hd__phone { position: relative; overflow: hidden; display: grid; align-content: start; gap: 6px; inline-size: 8.5rem; block-size: 12.5rem; padding: 1.25rem 0.75rem; border: 1px solid var(--k-border-primary); border-radius: 1.5rem; background: var(--k-bg-primary); box-shadow: var(--k-shadow-lg); }
 .hd__phone > i { block-size: 0.45rem; border-radius: 3px; background: var(--k-bg-tertiary); }
