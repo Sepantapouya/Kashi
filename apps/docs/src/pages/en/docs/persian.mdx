@@ -1,0 +1,69 @@
+---
+layout: ../../../layouts/DocsEn.astro
+title: Persian & Iranian features
+description: The parts of Kashi you won't find in other UI libraries — Jalali dates, Iranian ID and bank validation, Persian digits and text fixes — as components and framework-free functions.
+fa: /docs/persian/utilities/
+---
+
+Everything here is in `@kashi-ui/persian`, a dependency-free package that works in any JavaScript environment. The React components and web components use the same functions.
+
+```bash
+npm i @kashi-ui/persian
+```
+
+## Jalali (Solar Hijri) dates
+
+```ts
+import { toJalali, toGregorian, formatJalali, parseJalali, toISODate } from "@kashi-ui/persian";
+
+toJalali(new Date(2024, 7, 2));        // { jy: 1403, jm: 5, jd: 12 }
+toGregorian(1403, 5, 12);               // Date: 2024-08-02
+formatJalali(date, { style: "long" });  // "۱۲ مرداد ۱۴۰۳"
+parseJalali("۱۴۰۳/۵/۱۲");               // Date (Persian or Latin digits, / - or .)
+toISODate(date);                        // "2024-08-02" in local time, for your API
+```
+
+Conversion is tested against the browser's ICU Persian calendar for all 72,970 days from 1300 to 1500.
+
+> **Time zone trap:** don't send dates with `date.toISOString()`. It converts to UTC and, because Iran is UTC+3:30, turns midnight into the previous day. Use `toISODate(date)`.
+
+## Validation
+
+```ts
+import { isValidNationalId, isValidIban, isValidCardNumber, getBankByCard, isValidMobile, getMobileOperator, isValidPostalCode } from "@kashi-ui/persian";
+
+isValidNationalId("0013542419");          // true (checksum)
+isValidIban("IR062960000000100324200001"); // true
+isValidCardNumber("6104337812345678");     // Luhn check
+getBankByCard("610433");                   // { name: "بانک ملت", slug: "mellat" }
+isValidMobile("+98 912 345 6789");         // true
+getMobileOperator("0935")?.name;           // "ایرانسل"
+isValidPostalCode("1193653471");           // true
+```
+
+In forms, use the ready rules in [`useForm`](/docs/components/form/): `rules.nationalId()`, `rules.mobile()`, `rules.iban()`, `rules.card()`, `rules.postalCode()`, with Persian and English messages.
+
+## Digits, numbers and money
+
+```ts
+import { toFaDigits, toEnDigits, formatNumber, numberToWords, formatMoney } from "@kashi-ui/persian";
+
+toFaDigits("2024");                        // "۲۰۲۴"
+toEnDigits("۰۹۱۲");                        // "0912"
+formatNumber(1250000);                     // "۱٬۲۵۰٬۰۰۰"
+numberToWords(1250000);                    // "یک میلیون و دویست و پنجاه هزار"
+formatMoney(125000000, { from: "rial", compact: true }); // "۱۲٫۵ میلیون تومان"
+```
+
+## Components
+
+| Component | What it does |
+|---|---|
+| [Persian input](/docs/persian/input/) | National ID, company ID, mobile with operator, landline, card with bank logo, IBAN, money, postal code, time, plate |
+| [Jalali date picker](/docs/persian/date-picker/) | Calendar with official holidays; also [date range](/docs/persian/date-range/) and [month picker](/docs/persian/month-picker/) |
+| [Address form](/docs/persian/address/) | Province, city (1,200+ cities), street, plaque, unit and postal code |
+| [Iran map](/docs/persian/iran-map/) | 31 provinces as a choropleth or a picker |
+| [Money](/docs/persian/money/) and [bank card](/docs/persian/bank-card/) | Toman/Rial display, amounts in words, cards in the bank's colors |
+| [Text fix](/docs/persian/text-fix/) | Arabic ي/ك, half-spaces and text typed on the wrong keyboard layout |
+
+See [all components](/en/docs/components/) for the full list.

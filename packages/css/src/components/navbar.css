@@ -1,0 +1,202 @@
+/* نوار ناوبری بالای سایت
+ * k-navbar--sticky چسبیده به بالا؛ data-scrolled پس از اسکرول — k-navbar--collapse-sm|md|lg عرض شکست به منوی کشو
+ * متغیرها: --k-navbar-height  --k-navbar-max-width  --k-navbar-bg */
+.k-navbar {
+  position: relative;
+  z-index: var(--k-z-sticky);
+  inline-size: 100%;
+  /* شکست به منو بر اساس عرض خود نوار، نه فقط صفحه: در ستون باریک یا قاب پیش‌نمایش هم پیوندها روی دکمه‌ها نمی‌افتند */
+  container: k-navbar / inline-size;
+  border-block-end: 1px solid transparent;
+  background: var(--k-navbar-bg, var(--k-bg-primary));
+  transition: background-color var(--k-duration-normal) var(--k-ease-standard), border-color var(--k-duration-normal) var(--k-ease-standard), box-shadow var(--k-duration-normal) var(--k-ease-standard);
+}
+.k-navbar--sticky { position: sticky; inset-block-start: 0; }
+.k-navbar[data-scrolled] {
+  border-block-end-color: var(--k-border-secondary);
+  background: color-mix(in oklab, var(--k-navbar-bg, var(--k-bg-primary)) 82%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px);
+  box-shadow: var(--k-shadow-sm);
+}
+.k-navbar__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-6);
+  max-inline-size: var(--k-navbar-max-width, 80rem);
+  block-size: var(--k-navbar-height, 4rem);
+  margin-inline: auto;
+  padding-inline: var(--k-space-4);
+}
+.k-navbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-2);
+  flex: none;
+  color: var(--k-text-primary);
+  font-weight: var(--k-weight-bold);
+  font-size: var(--k-text-md);
+  text-decoration: none;
+  border-radius: var(--k-radius-sm);
+}
+.k-navbar__brand:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: 3px; }
+
+.k-navbar__nav {
+  --_pill-x: 0px;
+  --_pill-w: 0px;
+  --_pill-o: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-1);
+  min-inline-size: 0;
+}
+.k-navbar__pill {
+  position: absolute;
+  inset-block: 0.25rem;
+  left: 0;
+  inline-size: var(--_pill-w);
+  translate: var(--_pill-x) 0;
+  border-radius: var(--k-radius-md);
+  background: var(--k-bg-hover);
+  opacity: var(--_pill-o);
+  pointer-events: none;
+  transition: translate var(--k-duration-normal) var(--k-ease-emphasized), inline-size var(--k-duration-normal) var(--k-ease-emphasized), opacity var(--k-duration-fast) var(--k-ease-standard);
+}
+.k-navbar__link {
+  position: relative;
+  /* صریحاً بالای پیل لغزان (که translate دارد و لایهٔ جدا می‌سازد) */
+  z-index: var(--k-z-raised);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--k-space-2);
+  padding: var(--k-space-2) var(--k-space-3);
+  border-radius: var(--k-radius-md);
+  color: var(--k-text-tertiary);
+  font-size: var(--k-text-sm);
+  font-weight: var(--k-weight-medium);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--k-duration-fast) var(--k-ease-standard);
+}
+.k-navbar__link:hover, .k-navbar__link:focus-visible { color: var(--k-text-primary); }
+.k-navbar__link:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: 1px; }
+.k-navbar__link[aria-current="page"] { color: var(--k-text-primary); }
+/* خط زیر پیوند فعلی */
+.k-navbar__link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  inset-inline: var(--k-space-3);
+  inset-block-end: -0.7rem;
+  block-size: 2px;
+  border-radius: 2px;
+  background: var(--k-text-brand);
+}
+.k-navbar__icon { display: inline-flex; color: var(--k-text-quaternary); }
+.k-navbar__icon svg { inline-size: 1.125rem; block-size: 1.125rem; }
+.k-navbar__badge {
+  padding: 0 var(--k-space-1-5, 0.375rem);
+  border-radius: var(--k-radius-full);
+  background: var(--k-bg-brand-subtle);
+  color: var(--k-text-brand);
+  font-size: var(--k-text-xs);
+  font-weight: var(--k-weight-semibold);
+  line-height: 1.5;
+}
+.k-navbar__actions { display: flex; align-items: center; gap: var(--k-space-2); margin-inline-start: auto; flex: none; }
+.k-navbar__menu { display: none; }
+
+/* منوی گوشی */
+.k-navbar__mobile { display: grid; gap: var(--k-space-1); }
+.k-navbar__mobile-link {
+  display: flex;
+  align-items: center;
+  gap: var(--k-space-3);
+  padding: var(--k-space-3);
+  border-radius: var(--k-radius-md);
+  color: var(--k-text-secondary);
+  font-weight: var(--k-weight-medium);
+  text-decoration: none;
+  transition: background-color var(--k-duration-fast) var(--k-ease-standard), color var(--k-duration-fast) var(--k-ease-standard);
+}
+.k-navbar__mobile-link:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+.k-navbar__mobile-link[aria-current="page"] { background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+.k-navbar__mobile-link .k-navbar__badge { margin-inline-start: auto; }
+.k-navbar__drawer[open] .k-navbar__mobile-link { animation: k-navbar-item var(--k-duration-slow) var(--k-ease-emphasized) both; }
+.k-navbar__drawer[open] .k-navbar__mobile-link:nth-child(2) { animation-delay: 30ms; }
+.k-navbar__drawer[open] .k-navbar__mobile-link:nth-child(3) { animation-delay: 60ms; }
+.k-navbar__drawer[open] .k-navbar__mobile-link:nth-child(4) { animation-delay: 90ms; }
+.k-navbar__drawer[open] .k-navbar__mobile-link:nth-child(n + 5) { animation-delay: 120ms; }
+@keyframes k-navbar-item { from { opacity: 0; translate: 0 6px; } }
+
+@media (max-width: 40rem) {
+  .k-navbar--collapse-sm .k-navbar__nav { display: none; }
+  .k-navbar--collapse-sm .k-navbar__menu { display: inline-flex; }
+}
+@media (max-width: 48rem) {
+  .k-navbar--collapse-md .k-navbar__nav { display: none; }
+  .k-navbar--collapse-md .k-navbar__menu { display: inline-flex; }
+}
+@media (max-width: 64rem) {
+  .k-navbar--collapse-lg .k-navbar__nav { display: none; }
+  .k-navbar--collapse-lg .k-navbar__menu { display: inline-flex; }
+}
+@container k-navbar (max-width: 40rem) {
+  .k-navbar--collapse-sm .k-navbar__nav { display: none; }
+  .k-navbar--collapse-sm .k-navbar__menu { display: inline-flex; }
+}
+@container k-navbar (max-width: 48rem) {
+  .k-navbar--collapse-md .k-navbar__nav { display: none; }
+  .k-navbar--collapse-md .k-navbar__menu { display: inline-flex; }
+}
+@container k-navbar (max-width: 64rem) {
+  .k-navbar--collapse-lg .k-navbar__nav { display: none; }
+  .k-navbar--collapse-lg .k-navbar__menu { display: inline-flex; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .k-navbar, .k-navbar__pill, .k-navbar__link { transition: none; }
+  .k-navbar__drawer[open] .k-navbar__mobile-link { animation: none; }
+}
+@media (forced-colors: active) {
+  .k-navbar__link[aria-current="page"]::after { background: Highlight; }
+}
+
+/* ---- مدل‌ها ---- */
+/* قرص: صفحهٔ فعلی با پس‌زمینهٔ برند، بدون خط زیر */
+.k-navbar--pill .k-navbar__link[aria-current="page"] { color: var(--k-text-brand); }
+.k-navbar--pill .k-navbar__link[aria-current="page"]::after { display: none; }
+.k-navbar--pill .k-navbar__link[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: var(--k-radius-full);
+  background: var(--k-bg-brand-subtle);
+}
+.k-navbar--pill .k-navbar__link { isolation: isolate; border-radius: var(--k-radius-full); }
+.k-navbar--pill .k-navbar__pill { border-radius: var(--k-radius-full); }
+
+/* وسط‌چین: لوگو و دکمه‌ها در دو سر، پیوندها دقیقاً وسط */
+.k-navbar--centered .k-navbar__inner { display: grid; grid-template-columns: 1fr auto 1fr; }
+.k-navbar--centered .k-navbar__brand { justify-self: start; }
+.k-navbar--centered .k-navbar__actions { justify-self: end; margin-inline-start: 0; }
+
+/* شناور: قاب جدا از لبه‌ها */
+.k-navbar--floating { padding: var(--k-space-3) var(--k-space-4) 0; border: 0; background: transparent; }
+.k-navbar--floating .k-navbar__inner {
+  max-inline-size: var(--k-navbar-max-width, 64rem);
+  block-size: var(--k-navbar-height, 3.5rem);
+  padding-inline: var(--k-space-3) var(--k-space-2);
+  border: 1px solid var(--k-border-secondary);
+  border-radius: var(--k-radius-2xl);
+  background: color-mix(in oklab, var(--k-navbar-bg, var(--k-bg-elevated)) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px);
+  box-shadow: var(--k-shadow-md), var(--k-highlight, inset 0 1px 0 rgb(255 255 255 / 0.04));
+  transition: box-shadow var(--k-duration-normal) var(--k-ease-standard), max-inline-size var(--k-duration-slow) var(--k-ease-emphasized);
+}
+.k-navbar--floating[data-scrolled] { border: 0; background: transparent; backdrop-filter: none; box-shadow: none; }
+.k-navbar--floating[data-scrolled] .k-navbar__inner { box-shadow: var(--k-shadow-lg); }
+.k-navbar--floating .k-navbar__link[aria-current="page"]::after { inset-block-end: -0.45rem; }
+
+/* شفاف: روی هیرو بی‌رنگ، با اسکرول پس‌زمینه می‌گیرد */
+.k-navbar--transparent:not([data-scrolled]) { border-color: transparent; background: transparent; backdrop-filter: none; box-shadow: none; }
+.k-navbar--transparent.k-navbar--floating:not([data-scrolled]) .k-navbar__inner { border-color: transparent; background: transparent; backdrop-filter: none; box-shadow: none; }

@@ -22,6 +22,10 @@ export interface MultiSelectProps {
   filter?: (option: ComboboxOption, query: string) => boolean;
   /** @default "نتیجه‌ای پیدا نشد." */
   emptyMessage?: ReactNode;
+  /** فقط‌خواندنی: انتخاب‌ها دیده و ارسال می‌شوند ولی فهرست باز و چیزی حذف نمی‌شود */
+  readOnly?: boolean;
+  /** گزینه‌ها در حال بارگذاری‌اند؛ ردیف‌های اسکلتی در فهرست */
+  loading?: boolean;
   disabled?: boolean;
   /** با name، یک فیلد پنهان برای هر مقدار */
   name?: string;
@@ -38,7 +42,7 @@ const Check = () => <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" s
  */
 export function MultiSelect({
   label, hint, error, options, value, defaultValue = [], onChange, placeholder, max, filter = defaultFilter,
-  emptyMessage, disabled, name, id, className, labels = {},
+  emptyMessage, disabled, readOnly, loading, name, id, className, labels = {},
 }: MultiSelectProps) {
   const { messages: M, n: N } = useKashi();
   emptyMessage ??= M.common.noResults;
@@ -99,9 +103,9 @@ export function MultiSelect({
         data-open={open ? "" : undefined}
         onBlur={(e) => !wrap.current?.contains(e.relatedTarget as Node) && setOpen(false)}
       >
-        <div className="k-tag-input" data-invalid={error ? "" : undefined} onClick={() => input.current?.focus()}>
+        <div className="k-tag-input" data-invalid={error ? "" : undefined} data-readonly={readOnly || undefined} aria-busy={loading || undefined} onClick={() => input.current?.focus()}>
           {chosen.map((v) => (
-            <Badge key={v} tone="brand" onRemove={disabled ? undefined : () => set(chosen.filter((x) => x !== v))} removeLabel={remove(labelOf(v))}>{labelOf(v)}</Badge>
+            <Badge key={v} tone="brand" onRemove={disabled || readOnly ? undefined : () => set(chosen.filter((x) => x !== v))} removeLabel={remove(labelOf(v))}>{labelOf(v)}</Badge>
           ))}
           <input
             ref={input}
@@ -115,25 +119,28 @@ export function MultiSelect({
             aria-describedby={describedBy(inputId, hint, error, `${inputId}-count`)}
             aria-invalid={error ? true : undefined}
             autoComplete="off"
-            placeholder={chosen.length ? undefined : placeholder}
+            placeholder={chosen.length || readOnly ? undefined : placeholder}
             disabled={disabled}
+            readOnly={readOnly}
             value={query}
             onChange={(e) => {
+              if (readOnly) return;
               setQuery(e.target.value);
               setOpen(true);
               setActive(0);
             }}
-            onFocus={() => setOpen(true)}
-            onKeyDown={onKey}
+            onFocus={() => !readOnly && setOpen(true)}
+            onKeyDown={readOnly ? undefined : onKey}
           />
-          {chosen.length > 1 && !disabled && (
+          {chosen.length > 1 && !disabled && !readOnly && (
             <button type="button" className="k-input__action" aria-label={clear} onClick={() => { set([]); input.current?.focus(); }}>
               <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" aria-hidden="true"><path d="m6 6 8 8M14 6l-8 8" /></svg>
             </button>
           )}
         </div>
         <ul id={listId} role="listbox" aria-multiselectable="true" aria-label={typeof label === "string" ? label : undefined} className="k-listbox" hidden={!open} style={{ insetBlockStart: "calc(100% + 6px)" }}>
-          {filtered.length === 0 && <li className="k-listbox__empty" role="presentation">{emptyMessage}</li>}
+          {loading && filtered.length === 0 && [0, 1, 2].map((k) => <li key={`l${k}`} className="k-listbox__loading" role="presentation" />)}
+          {!loading && filtered.length === 0 && <li className="k-listbox__empty" role="presentation">{emptyMessage}</li>}
           {filtered.map((o, i) => {
             const on = chosen.includes(o.value);
             return (

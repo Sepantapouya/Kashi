@@ -5,7 +5,7 @@ export { toast } from "./toast.js";
 export { setLocale } from "./base.js";
 
 const MODULES: [string[], () => Promise<unknown>][] = [
-  [["kashi-national-id", "kashi-legal-id", "kashi-mobile", "kashi-landline", "kashi-card-number", "kashi-iban", "kashi-postal-code", "kashi-price"], () => import("./inputs.js")],
+  [["kashi-national-id", "kashi-legal-id", "kashi-mobile", "kashi-landline", "kashi-card-number", "kashi-iban", "kashi-postal-code", "kashi-price", "kashi-sayad", "kashi-economic-code", "kashi-tax-id"], () => import("./inputs.js")],
   [["kashi-otp"], () => import("./fields.js")],
   [["kashi-combobox", "kashi-province-select", "kashi-city-select"], () => import("./combobox.js")],
   [["kashi-iran-map", "kashi-address-form"], () => import("./map.js")],
@@ -20,6 +20,7 @@ const MODULES: [string[], () => Promise<unknown>][] = [
   [["kashi-bar-chart", "kashi-line-chart", "kashi-pie-chart", "kashi-bar-list", "kashi-proportion-bar", "kashi-sparkline", "kashi-activity-heatmap"], () => import("./charts.js")],
   [["kashi-input", "kashi-textarea", "kashi-banner"], () => import("./basic.js")],
   [["kashi-appointment-picker"], () => import("./appointment.js")],
+  [["kashi-price-range", "kashi-swatch-group", "kashi-search-suggest"], () => import("./commerce.js")],
   [["kashi-command-palette", "kashi-context-menu", "kashi-carousel", "kashi-tree-view", "kashi-tour", "kashi-splitter", "kashi-side-nav"], () => import("./nav.js")],
 ];
 

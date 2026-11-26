@@ -69,24 +69,24 @@ const findSet = (fig, name) => fig.root.findAll((n) => n.type === "COMPONENT_SET
 // هم‌خوانی پیکسلی با نسخهٔ کد: اعداد زیر از CSS واقعی در مرورگر اندازه‌گیری شده‌اند
 // (getBoundingClientRect و getComputedStyle روی سایت مستندات، تم تیره)
 const CSS = {
-  "Button|Variant=Primary, Size=xs, State=Default": { h: 28, pl: 8, r: 8 },
-  "Button|Variant=Primary, Size=sm, State=Default": { h: 36, pl: 12, r: 8 },
-  "Button|Variant=Primary, Size=md, State=Default": { h: 40, pl: 14, r: 8 },
-  "Button|Variant=Primary, Size=lg, State=Default": { h: 44, pl: 18, r: 8 },
-  "Button|Variant=Primary, Size=xl, State=Default": { h: 48, pl: 20, r: 8 },
-  "Icon button|Variant=Secondary, Size=md, State=Default, Shape=Square": { h: 40, w: 40, r: 8 },
+  "Button|Variant=Primary, Size=xs, State=Default": { h: 28, pl: 8, r: 12 },
+  "Button|Variant=Primary, Size=sm, State=Default": { h: 36, pl: 12, r: 12 },
+  "Button|Variant=Primary, Size=md, State=Default": { h: 40, pl: 14, r: 12 },
+  "Button|Variant=Primary, Size=lg, State=Default": { h: 44, pl: 18, r: 12 },
+  "Button|Variant=Primary, Size=xl, State=Default": { h: 48, pl: 20, r: 12 },
+  "Icon button|Variant=Secondary, Size=md, State=Default, Shape=Square": { h: 40, w: 40, r: 12 },
   "Badge|Tone=Success, Variant=Soft, Size=sm": { h: 24, pl: 8, r: 9999 },
   "Badge|Tone=Success, Variant=Soft, Size=md": { h: 27, pl: 10, r: 9999 },
   "Badge|Tone=Success, Variant=Soft, Size=lg": { h: 31, pl: 12, r: 9999 },
   "Avatar|Size=md, Type=Initials, Status=None": { h: 40, w: 40, r: 9999 },
   "Chip|Selected=Off, State=Default": { h: 32, pl: 12, r: 9999 },
-  "Alert|Tone=Success, Layout=Default": { pl: 16, pt: 16, r: 16, gap: 16 },
-  "Card|Variant=Default, Padding=md": { r: 16 },
-  "Dialog|Type=Default": { r: 24 },
-  "Tooltip|Placement=Top, Style=Short": { child: "Bubble", h: 31, pl: 12, r: 8 },
-  "Tabs|Variant=Segmented, Orientation=Horizontal": { pl: 3, r: 11 },
+  "Alert|Tone=Success, Layout=Default": { pl: 16, pt: 16, r: 20, gap: 16 },
+  "Card|Variant=Default, Padding=md": { r: 20 },
+  "Dialog|Type=Default": { r: 28 },
+  "Tooltip|Placement=Top, Style=Short": { child: "Bubble", h: 31, pl: 12, r: 12 },
+  "Tabs|Variant=Segmented, Orientation=Horizontal": { pl: 3, r: 12 },
 };
-const SUB = { "Input|Size=md, State=Default, Content=Placeholder": ["Input", { h: 40, pl: 14, r: 8, gap: 8 }], "Input|Size=sm, State=Default, Content=Placeholder": ["Input", { h: 36 }], "Input|Size=lg, State=Default, Content=Placeholder": ["Input", { h: 44 }], "Checkbox|Checked=Off, State=Default, Size=md": ["Checkbox", { h: 18, w: 18, r: 5 }], "Radio|Checked=Off, State=Default": ["Radio", { h: 18, w: 18 }], "Switch|Checked=Off, State=Default, Size=md": ["Switch", { h: 20, w: 36, pl: 2 }], "Dropdown menu|Type=Actions": ["Menu item", { h: 36, pl: 10, r: 8 }] };
+const SUB = { "Input|Size=md, State=Default, Content=Placeholder": ["Input", { h: 40, pl: 14, r: 12, gap: 8 }], "Input|Size=sm, State=Default, Content=Placeholder": ["Input", { h: 36 }], "Input|Size=lg, State=Default, Content=Placeholder": ["Input", { h: 44 }], "Checkbox|Checked=Off, State=Default, Size=md": ["Checkbox", { h: 18, w: 18, r: 5 }], "Radio|Checked=Off, State=Default": ["Radio", { h: 18, w: 18 }], "Switch|Checked=Off, State=Default, Size=md": ["Switch", { h: 20, w: 36, pl: 2 }], "Dropdown menu|Type=Actions": ["Menu item", { h: 36, pl: 10, r: 12 }] };
 const varVal = (b) => { const v = full.figma._variables.find((x) => x.id === b.id); return Object.values(v.valuesByMode)[0]; };
 const val = (n, field, plain) => (n.boundVariables[field] ? varVal(n.boundVariables[field]) : plain);
 const measure = (n) => ({ h: val(n, "height", n.height), w: val(n, "width", n.width), pl: val(n, "paddingLeft", n.paddingLeft), pt: val(n, "paddingTop", n.paddingTop), r: val(n, "topLeftRadius", n.topLeftRadius), gap: val(n, "itemSpacing", n.itemSpacing) });
@@ -142,7 +142,7 @@ assert.ok(kitPagesList.length > 80, `expected 80+ kit pages, got ${kitPagesList.
 // ویژگی‌های کامپوننت دکمه
 const buttonSet = findSet(full.figma, "Button");
 assert.ok(buttonSet, "Button set exists");
-assert.equal(buttonSet.children.length, 6 * 5 * 4);
+assert.equal(buttonSet.children.length, 7 * 5 * 4);
 const props = Object.keys(buttonSet.componentPropertyDefinitions).map((k) => k.split("#")[0]);
 assert.deepEqual(props.sort(), ["Icon end", "Icon start", "Label"]);
 const label = buttonSet.children[0].findOne((n) => n.name === "Label");

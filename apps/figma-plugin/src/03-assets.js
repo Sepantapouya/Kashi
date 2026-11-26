@@ -71,6 +71,10 @@ function iconCell(grid, name, label, style, stroke) {
   comp.clipsContent = false;
   for (const n of comp.findAll(() => true)) {
     if ("constraints" in n) n.constraints = { horizontal: "SCALE", vertical: "SCALE" };
+    // ماسک و تمام فرزندانش باید شدت اصلی خود را نگه دارند.
+    let maskLayer = n;
+    while (maskLayer && maskLayer !== comp && !maskLayer.isMask) maskLayer = maskLayer.parent;
+    if (maskLayer && maskLayer !== comp) continue;
     if ("strokes" in n && n.strokes.length) n.strokes = [paint("text-secondary")];
     // بخش‌های توپر سبک‌های bold و bulk همان رنگ خط را می‌گیرند؛ لایه‌های ماسک دست نمی‌خورند
     if (n.type !== "FRAME" && !n.isMask && "fills" in n && Array.isArray(n.fills) && n.fills.some((f) => f.type === "SOLID" && f.color.r < 0.5)) n.fills = [paint("text-secondary")];

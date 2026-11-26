@@ -1,0 +1,448 @@
+{
+  "baseline": 13093,
+  "candidates": 30,
+  "added": 16,
+  "active": 13109,
+  "review": {
+    "light": 0.88,
+    "bold": 0.92
+  },
+  "accepted": {
+    "alarm-skip-one-occurrence": {
+      "light": {
+        "catalog": "slug",
+        "score": 0.7009,
+        "batch": "timer-repeat-last-duration",
+        "batchScore": 0.6598
+      },
+      "bold": {
+        "catalog": "folder-transfer",
+        "score": 0.7524,
+        "batch": "timer-repeat-last-duration",
+        "batchScore": 0.6945
+      }
+    },
+    "timer-repeat-last-duration": {
+      "light": {
+        "catalog": "dashboard-annotation-pin",
+        "score": 0.7303,
+        "batch": "alarm-skip-one-occurrence",
+        "batchScore": 0.6598
+      },
+      "bold": {
+        "catalog": "report",
+        "score": 0.7375,
+        "batch": "alarm-skip-one-occurrence",
+        "batchScore": 0.6945
+      }
+    },
+    "workout-record-rest-as-lap": {
+      "light": {
+        "catalog": "service-health-degraded",
+        "score": 0.8501,
+        "batch": "photo-export-before-and-after",
+        "batchScore": 0.763
+      },
+      "bold": {
+        "catalog": "notification-open-app-instead-of-message",
+        "score": 0.8316,
+        "batch": "wallet-show-expiring-balance-first",
+        "batchScore": 0.832
+      }
+    },
+    "fitness-resume-after-auto-pause": {
+      "light": {
+        "catalog": "brand-ripple",
+        "score": 0.7054,
+        "batch": "alarm-skip-one-occurrence",
+        "batchScore": 0.5429
+      },
+      "bold": {
+        "catalog": "brand-fluentd",
+        "score": 0.7295,
+        "batch": "camera-keep-previous-exposure",
+        "batchScore": 0.5716
+      }
+    },
+    "camera-capture-after-stabilizing": {
+      "light": {
+        "catalog": "camera-lock",
+        "score": 0.8198,
+        "batch": "camera-keep-previous-exposure",
+        "batchScore": 0.8248
+      },
+      "bold": {
+        "catalog": "control-radio-concentric-ring",
+        "score": 0.7992,
+        "batch": "camera-keep-previous-exposure",
+        "batchScore": 0.9342
+      }
+    },
+    "photo-export-before-and-after": {
+      "light": {
+        "catalog": "audio-track-download",
+        "score": 0.8294,
+        "batch": "video-open-at-chapter-start",
+        "batchScore": 0.7684
+      },
+      "bold": {
+        "catalog": "recovery-code-download",
+        "score": 0.8379,
+        "batch": "workout-record-rest-as-lap",
+        "batchScore": 0.7896
+      }
+    },
+    "video-open-at-chapter-start": {
+      "light": {
+        "catalog": "notification-open-app-instead-of-message",
+        "score": 0.8532,
+        "batch": "video-copy-current-frame",
+        "batchScore": 0.8201
+      },
+      "bold": {
+        "catalog": "photo-keep-original-when-exporting",
+        "score": 0.8883,
+        "batch": "video-copy-current-frame",
+        "batchScore": 0.8737
+      }
+    },
+    "audio-skip-single-silent-section": {
+      "light": {
+        "catalog": "dumbbell",
+        "score": 0.8117,
+        "batch": "audio-start-at-loudness-match",
+        "batchScore": 0.6502
+      },
+      "bold": {
+        "catalog": "dumbbell",
+        "score": 0.8107,
+        "batch": "audio-start-at-loudness-match",
+        "batchScore": 0.6859
+      }
+    },
+    "wallet-show-expiring-balance-first": {
+      "light": {
+        "catalog": "browser-clear-data-only-for-this-site",
+        "score": 0.8774,
+        "batch": "payment-disable-card-for-one-store",
+        "batchScore": 0.9002
+      },
+      "bold": {
+        "catalog": "calendar-preview-event-without-opening",
+        "score": 0.9093,
+        "batch": "payment-disable-card-for-one-store",
+        "batchScore": 0.8514
+      }
+    },
+    "receipt-include-only-tax-lines": {
+      "light": {
+        "catalog": "sticky-note",
+        "score": 0.8682,
+        "batch": "receipt-hide-customer-details",
+        "batchScore": 0.804
+      },
+      "bold": {
+        "catalog": "history-query",
+        "score": 0.8794,
+        "batch": "travel-notify-when-gate-opens",
+        "batchScore": 0.7803
+      }
+    },
+    "delivery-change-recipient-without-address-change": {
+      "light": {
+        "catalog": "order-cancel-before-packing",
+        "score": 0.8259,
+        "batch": "search-use-exact-phrase-once",
+        "batchScore": 0.704
+      },
+      "bold": {
+        "catalog": "checkout-save-delivery-instructions",
+        "score": 0.8321,
+        "batch": "receipt-hide-customer-details",
+        "batchScore": 0.7496
+      }
+    },
+    "travel-notify-when-gate-opens": {
+      "light": {
+        "catalog": "location-mark-building-entrance",
+        "score": 0.83,
+        "batch": "maps-report-entrance-closed",
+        "batchScore": 0.9002
+      },
+      "bold": {
+        "catalog": "stage",
+        "score": 0.8081,
+        "batch": "maps-report-entrance-closed",
+        "batchScore": 0.8894
+      }
+    },
+    "travel-keep-ticket-offline": {
+      "light": {
+        "catalog": "send-to-mobile-02",
+        "score": 0.8068,
+        "batch": "payment-disable-card-for-one-store",
+        "batchScore": 0.6684
+      },
+      "bold": {
+        "catalog": "restaurant-queue-number-display",
+        "score": 0.8598,
+        "batch": "receipt-hide-customer-details",
+        "batchScore": 0.7736
+      }
+    },
+    "maps-reverse-two-route-stops": {
+      "light": {
+        "catalog": "editor-merge-change-conflict",
+        "score": 0.8012,
+        "batch": "photo-live-frame-pick",
+        "batchScore": 0.6237
+      },
+      "bold": {
+        "catalog": "task-circular-dependency",
+        "score": 0.8435,
+        "batch": "travel-choose-earlier-connection",
+        "batchScore": 0.7538
+      }
+    },
+    "maps-report-entrance-closed": {
+      "light": {
+        "catalog": "media-auto-hide-controls-delay",
+        "score": 0.8454,
+        "batch": "travel-notify-when-gate-opens",
+        "batchScore": 0.9002
+      },
+      "bold": {
+        "catalog": "location-mark-building-entrance",
+        "score": 0.8151,
+        "batch": "travel-notify-when-gate-opens",
+        "batchScore": 0.8894
+      }
+    },
+    "document-remove-signature-copy": {
+      "light": {
+        "catalog": "file-request-fulfilled",
+        "score": 0.8105,
+        "batch": "receipt-include-only-tax-lines",
+        "batchScore": 0.6203
+      },
+      "bold": {
+        "catalog": "export-only-current-page",
+        "score": 0.795,
+        "batch": "receipt-hide-customer-details",
+        "batchScore": 0.6597
+      }
+    }
+  },
+  "excluded": {
+    "alarm-follow-weekend-schedule": {
+      "light": {
+        "catalog": "mail-block-sender-address",
+        "score": 0.7831,
+        "batch": "delivery-change-recipient-without-address-change",
+        "batchScore": 0.6686
+      },
+      "bold": {
+        "catalog": "meeting-workshop-sticky-vote",
+        "score": 0.8491,
+        "batch": "search-use-exact-phrase-once",
+        "batchScore": 0.7962
+      },
+      "reason": "Reads as pausing the alarm, with no clear weekend cue"
+    },
+    "workout-replace-movement": {
+      "light": {
+        "catalog": "finance-personal-net-worth",
+        "score": 0.801,
+        "batch": "payment-check-recipient-before-send",
+        "batchScore": 0.674
+      },
+      "bold": {
+        "catalog": "dev-blue-green-slot",
+        "score": 0.8656,
+        "batch": "travel-choose-earlier-connection",
+        "batchScore": 0.7536
+      },
+      "reason": "Existing concept: workout-replace-exercise"
+    },
+    "camera-keep-previous-exposure": {
+      "light": {
+        "catalog": "payment-success-01",
+        "score": 0.8132,
+        "batch": "camera-capture-after-stabilizing",
+        "batchScore": 0.8248
+      },
+      "bold": {
+        "catalog": "camera-moon",
+        "score": 0.8241,
+        "batch": "camera-capture-after-stabilizing",
+        "batchScore": 0.9342
+      },
+      "reason": "Return arrow does not distinguish retaining exposure from returning to camera"
+    },
+    "photo-live-frame-pick": {
+      "light": {
+        "catalog": "carousel",
+        "score": 0.8595,
+        "batch": "delivery-change-recipient-without-address-change",
+        "batchScore": 0.6434
+      },
+      "bold": {
+        "catalog": "carousel",
+        "score": 0.9354,
+        "batch": "travel-choose-earlier-connection",
+        "batchScore": 0.746
+      },
+      "reason": "Existing concept: photo-live-frame-key-selection"
+    },
+    "video-copy-current-frame": {
+      "light": {
+        "catalog": "meeting-share-captions-separately",
+        "score": 0.8562,
+        "batch": "video-open-at-chapter-start",
+        "batchScore": 0.8201
+      },
+      "bold": {
+        "catalog": "meeting-share-captions-separately",
+        "score": 0.8618,
+        "batch": "video-open-at-chapter-start",
+        "batchScore": 0.8737
+      },
+      "reason": "Too close to meeting-share-captions-separately in the filled silhouette"
+    },
+    "audio-start-at-loudness-match": {
+      "light": {
+        "catalog": "garden-drip-flush-end-cap",
+        "score": 0.8022,
+        "batch": "audio-skip-single-silent-section",
+        "batchScore": 0.6502
+      },
+      "bold": {
+        "catalog": "pill",
+        "score": 0.9076,
+        "batch": "audio-skip-single-silent-section",
+        "batchScore": 0.6859
+      },
+      "reason": "Existing concept: audio-loudness-normalization"
+    },
+    "audio-place-mark-while-recording": {
+      "light": {
+        "catalog": "audio-monitor-input-before-recording",
+        "score": 0.8911,
+        "batch": "delivery-change-recipient-without-address-change",
+        "batchScore": 0.6353
+      },
+      "bold": {
+        "catalog": "audio-monitor-input-before-recording",
+        "score": 0.9139,
+        "batch": "receipt-hide-customer-details",
+        "batchScore": 0.6962
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "payment-check-recipient-before-send": {
+      "light": {
+        "catalog": "password-autofill-current-site-only",
+        "score": 0.95,
+        "batch": "wallet-show-expiring-balance-first",
+        "batchScore": 0.8356
+      },
+      "bold": {
+        "catalog": "password-autofill-current-site-only",
+        "score": 0.9717,
+        "batch": "payment-disable-card-for-one-store",
+        "batchScore": 0.8088
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "payment-disable-card-for-one-store": {
+      "light": {
+        "catalog": "payment-retry-schedule",
+        "score": 0.8842,
+        "batch": "wallet-show-expiring-balance-first",
+        "batchScore": 0.9002
+      },
+      "bold": {
+        "catalog": "mail-at-sign-01",
+        "score": 0.8711,
+        "batch": "wallet-show-expiring-balance-first",
+        "batchScore": 0.8514
+      },
+      "reason": "The storefront shows merchant payment but no disabled state"
+    },
+    "receipt-hide-customer-details": {
+      "light": {
+        "catalog": "tax-withholding-summary",
+        "score": 0.882,
+        "batch": "receipt-include-only-tax-lines",
+        "batchScore": 0.804
+      },
+      "bold": {
+        "catalog": "tax-withholding-summary",
+        "score": 0.9566,
+        "batch": "travel-keep-ticket-offline",
+        "batchScore": 0.7736
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "delivery-place-behind-gate": {
+      "light": {
+        "catalog": "entry-folding-bifold-door",
+        "score": 0.8489,
+        "batch": "video-open-at-chapter-start",
+        "batchScore": 0.7413
+      },
+      "bold": {
+        "catalog": "brand-ir-insurance-pasargad",
+        "score": 0.8325,
+        "batch": "receipt-hide-customer-details",
+        "batchScore": 0.7593
+      },
+      "reason": "Too close in meaning to delivery-doorstep-drop for a general-purpose icon"
+    },
+    "travel-choose-earlier-connection": {
+      "light": {
+        "catalog": "store-digital-queue-ticket",
+        "score": 0.9429,
+        "batch": "camera-capture-after-stabilizing",
+        "batchScore": 0.6757
+      },
+      "bold": {
+        "catalog": "store-digital-queue-ticket",
+        "score": 0.9402,
+        "batch": "maps-reverse-two-route-stops",
+        "batchScore": 0.7538
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "search-use-exact-phrase-once": {
+      "light": {
+        "catalog": "search-empty",
+        "score": 0.9673,
+        "batch": "delivery-change-recipient-without-address-change",
+        "batchScore": 0.704
+      },
+      "bold": {
+        "catalog": "search-empty",
+        "score": 0.9789,
+        "batch": "alarm-follow-weekend-schedule",
+        "batchScore": 0.7962
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "translate-paste-only-selected-sentence": {
+      "light": {
+        "catalog": "screenshot",
+        "score": 0.8953,
+        "batch": "video-copy-current-frame",
+        "batchScore": 0.6761
+      },
+      "bold": {
+        "catalog": "screenshot",
+        "score": 0.9206,
+        "batch": "maps-report-entrance-closed",
+        "batchScore": 0.7119
+      },
+      "reason": "Close visual match in the catalog"
+    }
+  }
+}

@@ -79,7 +79,7 @@ const server = new McpServer(
   { name: "kashi", title: "Kashi Design System", version },
   {
     instructions: [
-      "Kashi (کاشی) is an open-source, RTL-first Persian design system: React components (@kashi-ui/react), framework-agnostic CSS (@kashi-ui/css), design tokens, 4500 icons in six styles and Persian utilities (Jalali dates, national ID, IBAN/Sheba, card, plate).",
+      "Kashi (کاشی) is an open-source, RTL-first Persian design system: React components (@kashi-ui/react), framework-agnostic CSS (@kashi-ui/css), design tokens, 15000 icons in six styles and Persian utilities (Jalali dates, national ID, IBAN/Sheba, card, plate).",
       "Before writing Kashi code, call kashi_get_docs for each component you use and follow its exact props; never guess prop names. Use kashi_search_docs when you are not sure which component fits.",
       "Setup: `npm i @kashi-ui/react @kashi-ui/css`, import \"@kashi-ui/css\" once at the app root, and set <html lang=\"fa\" dir=\"rtl\">. Without React, use the k-* CSS classes shown in each component's HTML example.",
       "In Tailwind projects add @kashi-ui/tailwind (import it before tailwindcss) and use Kashi's token classes such as bg-secondary, text-tertiary, border-brand, rounded-lg and shadow-md instead of arbitrary values; see kashi_get_docs(\"tailwind\").",
@@ -156,6 +156,9 @@ server.registerTool(
   async ({ query, category, limit }) => {
     let names = searchIcons(query);
     if (category) names = names.filter((n) => icons[n].category === category);
+    const exactQuery = fold(query);
+    const exact = names.find((n) => fold(n) === exactQuery || fold(icons[n].title) === exactQuery);
+    if (exact) names = [exact, ...names.filter((n) => n !== exact)];
     names = names.slice(0, limit || 20);
     if (!names.length) return text(`آیکونی برای «${query}» پیدا نشد.`);
     return text(`${names.map((n) => `- \`${n}\` — ${icons[n].title} — <${icons[n].component} /> — ${categories[icons[n].category]}`).join("\n")}\n\nimport { ${icons[names[0]].component} } from "@kashi-ui/icons/react";\nسبک‌ها: ${variants.join(", ")} (prop به نام variant)`);

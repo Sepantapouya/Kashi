@@ -4,7 +4,7 @@
 .k-timeline__item:last-child { padding-block-end: 0; }
 .k-timeline__marker {
   position: relative;
-  z-index: 1;
+  z-index: var(--k-z-raised);
   display: grid;
   place-items: center;
   inline-size: 2rem;

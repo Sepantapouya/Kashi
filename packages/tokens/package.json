@@ -1,6 +1,6 @@
 {
   "name": "@kashi-ui/tokens",
-  "version": "1.0.0",
+  "version": "2.16.0",
   "description": "توکن‌های طراحی کاشی — رنگ، فاصله، فونت",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,6 +12,7 @@
     },
     "./tokens.css": "./dist/tokens.css",
     "./tokens.json": "./dist/tokens.json",
+    "./dtcg/*": "./dist/dtcg/*",
     "./package.json": "./package.json"
   },
   "files": [

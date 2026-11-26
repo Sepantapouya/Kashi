@@ -3,6 +3,7 @@ import {
   bankName, getBankByCard, getBankByIban, getLandlineProvince, getMobileOperator, operatorName,
   isValidCardNumber, isValidIban, isValidLandline, isValidLegalId, isValidMobile, isValidNationalId, isValidPostalCode,
   normalizeLandline, normalizeMobile, numberToWords, onlyDigits, toFaDigits, type Bank,
+  economicCodeType, formatSayad, isValidEconomicCode, isValidSayad, isValidTaxId, normalizeTaxId,
 } from "@kashi-ui/persian";
 import { bool, define, emit, esc, fieldHTML, HTMLBase, lang, msg, num, setMessages, syncHidden, uid } from "./base.js";
 
@@ -30,7 +31,9 @@ interface Kind {
   placeholder: { fa: string; latin: string };
   digits: "fa" | "latin";
   type?: "text" | "tel";
-  inputMode?: "numeric" | "tel";
+  inputMode?: "numeric" | "tel" | "text";
+  /** حروف لاتین هم مجازند و قالب افزوده ندارد (شمارهٔ مالیاتی) */
+  alnum?: boolean;
   autocomplete?: string;
   meta?: (raw: string, host: Element) => Meta;
   /** مقداری که در فرم ارسال می‌شود */
@@ -93,6 +96,7 @@ export abstract class KashiDigitsInput extends HTMLBase {
 
   protected clean(text: string): string {
     const k = this.kind;
+    if (k.alnum) return normalizeTaxId(text).slice(0, k.maxDigits);
     return (k.normalize ?? ((d: string) => d))(onlyDigits(text)).slice(0, k.maxDigits);
   }
 
@@ -132,10 +136,11 @@ export abstract class KashiDigitsInput extends HTMLBase {
     const el = this.input;
     const before = el.value.slice(0, el.selectionStart ?? el.value.length);
     const next = this.clean(el.value);
-    const caret = Math.min(onlyDigits(before).length, next.length);
+    const alnum = this.kind.alnum;
+    const caret = Math.min((alnum ? this.clean(before) : onlyDigits(before)).length, next.length);
     this.setRaw(next, true);
     if (el.ownerDocument.activeElement === el) {
-      const pos = caretAfter(el.value, caret);
+      const pos = alnum ? caret : caretAfter(el.value, caret);
       el.setSelectionRange(pos, pos);
     }
   }
@@ -374,7 +379,56 @@ export class KashiPrice extends KashiDigitsInput {
   }
 }
 
+/** شناسهٔ صیادی چک: ۱۶ رقم در گروه‌های چهارتایی؛ رقم کنترل عمومی ندارد، فقط طول بررسی می‌شود */
+export class KashiSayad extends KashiDigitsInput {
+  protected kind: Kind = {
+    label: () => msg().persianInput.sayad,
+    maxDigits: 16,
+    format: formatSayad,
+    valid: (d) => isValidSayad(d),
+    invalidMessage: () => msg().invalid.sayad,
+    placeholder: { fa: "۰۰۰۰ ۰۰۰۰ ۰۰۰۰ ۰۰۰۰", latin: "0000 0000 0000 0000" },
+    digits: "fa",
+  };
+}
+
+/** کد اقتصادی: کد ملی (۱۰)، شناسهٔ ملی (۱۱) یا کد قدیمی (۱۲ رقم)، با نوع کنار فیلد */
+export class KashiEconomicCode extends KashiDigitsInput {
+  protected kind: Kind = {
+    label: () => msg().persianInput["economic-code"],
+    maxDigits: 12,
+    format: (d) => d,
+    valid: (d) => isValidEconomicCode(d),
+    invalidMessage: () => msg().invalid.economicCode,
+    placeholder: { fa: "۰۰۰۰۰۰۰۰۰۰۰", latin: "00000000000" },
+    digits: "fa",
+    meta: (d) => {
+      const t = economicCodeType(d);
+      return t && isValidEconomicCode(d) ? { text: msg().taxCode[t] } : null;
+    },
+    detail: (d) => ({ type: economicCodeType(d) }),
+  };
+}
+
+/** شمارهٔ منحصربه‌فرد مالیاتی فاکتور (سامانهٔ مودیان): ۲۲ نویسهٔ لاتین؛ حروف بزرگ و ارقام فارسی لاتین می‌شوند */
+export class KashiTaxId extends KashiDigitsInput {
+  protected kind: Kind = {
+    label: () => msg().persianInput["tax-id"],
+    maxDigits: 22,
+    format: (d) => d,
+    valid: (d) => isValidTaxId(d),
+    invalidMessage: () => msg().invalid.taxId,
+    placeholder: { fa: "A1B2C3…", latin: "A1B2C3…" },
+    digits: "latin",
+    inputMode: "text",
+    alnum: true,
+  };
+}
+
 define("kashi-national-id", KashiNationalId, "block");
+define("kashi-sayad", KashiSayad, "block");
+define("kashi-economic-code", KashiEconomicCode, "block");
+define("kashi-tax-id", KashiTaxId, "block");
 define("kashi-legal-id", KashiLegalId, "block");
 define("kashi-mobile", KashiMobile, "block");
 define("kashi-landline", KashiLandline, "block");

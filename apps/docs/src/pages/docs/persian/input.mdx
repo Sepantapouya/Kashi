@@ -1,10 +1,11 @@
 ---
 layout: ../../../layouts/Docs.astro
 title: فیلد فارسی
-description: یک کامپوننت برای همهٔ داده‌های فارسی؛ کد ملی، شناسهٔ شرکت، موبایل، تلفن، کارت، شبا، مبلغ، کد پستی، ساعت، پلاک و متن با اصلاح زبان صفحه‌کلید.
+description: یک کامپوننت برای همهٔ داده‌های فارسی؛ کد ملی، شناسهٔ شرکت، موبایل، تلفن، کارت، شبا، مبلغ، کد پستی، ساعت، پلاک، شناسهٔ صیادی چک، کد اقتصادی، شمارهٔ مالیاتی فاکتور و متن با اصلاح زبان صفحه‌کلید.
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
+import { SayadDemo, EconomicCodeDemo, TaxIdDemo } from "../../../components/demos-extra";
 import { PersianInputDemo, CardNumberDemo, IbanDemo, KeyboardFixDemo, LandlineDemo, LegalIdDemo, MobileDemo, NationalIdDemo, PlateDemo, PostalDemo, PriceDemo, TimeDemo } from "../../../components/demos";
 
 ```tsx
@@ -20,7 +21,7 @@ import { PersianInput } from "@kashi-ui/react";
   <PersianInputDemo client:load />
 </Demo>
 
-به جای به خاطر سپردن نام یازده کامپوننت، یک فیلد با `kind` بسازید. هر نوع برچسب، قالب، اعتبارسنجی و پیام خطای فارسی خودش را دارد. ویژگی‌های دیگر همان کامپوننت تخصصی است و TypeScript بر اساس `kind` آن‌ها را پیشنهاد می‌دهد. مثلاً `showBank` فقط برای `card` و `iban` مجاز است.
+به جای به خاطر سپردن نام چهارده کامپوننت، یک فیلد با `kind` بسازید. هر نوع برچسب، قالب، اعتبارسنجی و پیام خطای فارسی خودش را دارد. ویژگی‌های دیگر همان کامپوننت تخصصی است و TypeScript بر اساس `kind` آن‌ها را پیشنهاد می‌دهد. مثلاً `showBank` فقط برای `card` و `iban` مجاز است.
 
 | kind | داده | کامپوننت تخصصی |
 |---|---|---|
@@ -35,15 +36,18 @@ import { PersianInput } from "@kashi-ui/react";
 | `postal` | کد پستی | [PostalCodeInput](#postal) |
 | `time` | ساعت | [TimeInput](#time) |
 | `plate` | پلاک خودرو | [PlateInput](#plate) |
+| `sayad` | شناسهٔ صیادی چک | [SayadInput](#sayad) |
+| `economic-code` | کد اقتصادی فاکتور | [EconomicCodeInput](#economic-code) |
+| `tax-id` | شمارهٔ مالیاتی فاکتور (مودیان) | [TaxIdInput](#tax-id) |
 
 اگر برچسب ندهید، برچسب پیش‌فرض همان نوع («شمارهٔ شبا»، «کد پستی» و…) گذاشته می‌شود. با `aria-label` برچسب دیده نمی‌شود. فهرست برچسب‌ها در `PERSIAN_INPUT_LABELS` است.
 
 ## حجم بارگذاری
 
-`PersianInput` همهٔ یازده فیلد را import می‌کند. اگر در صفحه فقط یکی را لازم دارید، کامپوننت تخصصی را مستقیم import کنید تا حجم کمتری بارگذاری شود.
+`PersianInput` همهٔ چهارده فیلد را import می‌کند. اگر در صفحه فقط یکی را لازم دارید، کامپوننت تخصصی را مستقیم import کنید تا حجم کمتری بارگذاری شود.
 
 <Props rows={[
-  ["kind", '"text" | "national-id" | "legal-id" | "mobile" | "landline" | "card" | "iban" | "price" | "postal" | "time" | "plate"', "", "نوع داده"],
+  ["kind", '"text" | "national-id" | "legal-id" | "mobile" | "landline" | "card" | "iban" | "price" | "postal" | "time" | "plate" | "sayad" | "economic-code" | "tax-id"', "", "نوع داده"],
   ["…", "", "", "ویژگی‌های کامپوننت تخصصی همان نوع"],
 ]} />
 
@@ -479,6 +483,98 @@ formatNumber(1250000);  // "۱٬۲۵۰٬۰۰۰"
 #### دسترس‌پذیری
 
 یک `role="group"` با نام «پلاک خودرو» و چهار کنترل که هرکدام نام خودش را دارد («دو رقم اول پلاک»، «حرف پلاک»…). حرف با `<select>` بومی انتخاب می‌شود. وقتی پلاک کامل و معتبر شد، متن کامل آن با `aria-live` خوانده می‌شود.
+
+<span id="sayad" class="kind-anchor"></span>
+
+## شناسهٔ صیادی چک
+
+شناسهٔ ۱۶ رقمی پایین برگهٔ چک، در گروه‌های چهارتایی.
+
+```tsx
+<PersianInput kind="sayad" />   // یا مستقیم: <SayadInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="sayad" name="sayad" hint="۱۶ رقم پایین برگهٔ چک" />`}>
+  <SayadDemo client:load />
+</Demo>
+
+برای ثبت، تأیید یا انتقال چک در سامانهٔ صیاد، شناسهٔ ۱۶ رقمی برگهٔ چک لازم است. الگوریتم رقم کنترل این شناسه عمومی منتشر نشده است، پس فیلد فقط ۱۶ رقمی بودن را بررسی می‌کند؛ اصالت چک را با استعلام از خود سامانه بسنجید.
+
+```ts
+isValidSayad("1234 5678 9012 3456"); // true
+formatSayad("1234567890123456");      // "1234 5678 9012 3456"
+```
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "ارقام لاتین"],
+  ["onValueChange", "(value: string, valid: boolean) => void", "", ""],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "«شناسهٔ صیادی باید ۱۶ رقم باشد.»", ""],
+  ["name", "string", "", "فیلد پنهان با ۱۶ رقم لاتین بدون فاصله"],
+]} />
+
+<span id="economic-code" class="kind-anchor"></span>
+
+## کد اقتصادی
+
+کد اقتصادی خریدار یا فروشنده روی فاکتور رسمی، با تشخیص حقیقی یا حقوقی.
+
+```tsx
+<PersianInput kind="economic-code" />   // یا مستقیم: <EconomicCodeInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="economic-code" label="کد اقتصادی خریدار"
+  onValueChange={(value, valid, type) => …} />   // type: "person" | "company" | "legacy"`}>
+  <EconomicCodeDemo client:load />
+</Demo>
+
+از ۱۳۹۸ کد اقتصادی اشخاص حقیقی همان کد ملی (۱۰ رقم) و اشخاص حقوقی همان شناسهٔ ملی (۱۱ رقم) است و هر دو با رقم کنترل خودشان بررسی می‌شوند. کد ۱۲ رقمی قدیمی هنوز روی فاکتورهای قدیمی دیده می‌شود و فقط طولش بررسی می‌شود. نوع کد کنار فیلد نوشته می‌شود («شخص حقیقی»، «شخص حقوقی»، «کد قدیمی»).
+
+```ts
+isValidEconomicCode("10380284790"); // true
+economicCodeType("0499370899");     // "person"
+```
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "ارقام لاتین"],
+  ["onValueChange", "(value, valid, type) => void", "", ""],
+  ["showType", "boolean", "true", "نمایش نوع کد کنار فیلد"],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["invalidMessage", "ReactNode", "", ""],
+  ["name", "string", "", "فیلد پنهان با ارقام لاتین"],
+]} />
+
+<span id="tax-id" class="kind-anchor"></span>
+
+## شمارهٔ مالیاتی فاکتور
+
+شمارهٔ منحصربه‌فرد مالیاتی صورت‌حساب الکترونیکی در سامانهٔ مودیان، ۲۲ نویسه.
+
+```tsx
+<PersianInput kind="tax-id" />   // یا مستقیم: <TaxIdInput />
+```
+
+<Demo html={false} code={`<PersianInput kind="tax-id" name="taxId" hint="از سامانهٔ مودیان" />`}>
+  <TaxIdDemo client:load />
+</Demo>
+
+حروف خودکار بزرگ و ارقام فارسی لاتین می‌شوند و فاصله و خط تیره حذف می‌شود، پس شماره را از هر جایی کپی کنید درست می‌نشیند. فقط شکل شماره (۲۲ نویسه از ارقام و حروف لاتین) بررسی می‌شود؛ درستی آن را فقط خود سامانه تأیید می‌کند.
+
+```ts
+normalizeTaxId("a11 2b3-۴۵"); // "A112B345"
+isValidTaxId(taxId);          // ۲۲ نویسهٔ مجاز؟
+```
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "حروف بزرگ و ارقام لاتین"],
+  ["onValueChange", "(value: string, valid: boolean) => void", "", ""],
+  ["invalidMessage", "ReactNode", "", ""],
+  ["name", "string", "", "فیلد پنهان با مقدار یکدست‌شده"],
+]} />
+
+#### دسترس‌پذیری
+
+هر سه فیلد خطا را پس از خروج از فیلد یا کامل شدن طول نشان می‌دهند و با `aria-describedby` به فیلد وصل‌اند. نوع کد اقتصادی هم به فیلد وصل است تا صفحه‌خوان آن را بخواند.
 
 <span id="text" class="kind-anchor"></span>
 

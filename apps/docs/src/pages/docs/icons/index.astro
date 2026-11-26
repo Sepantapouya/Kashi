@@ -1,20 +1,16 @@
 ---
-// فهرست آیکون‌ها: فقط کارت دسته‌ها؛ هر کارت به صفحهٔ همان دسته می‌رود
+// فهرست آیکون‌ها: معرفی با جستجو و نمونهٔ زندهٔ سبک‌ها، ویژهٔ ایران و کارت دسته‌ها در گروه‌ها
 import Docs from "../../../layouts/Docs.astro";
+import IsoBanner from "../../../components/IsoBanner.astro";
 import { IconCatalog } from "../../../components/IconCatalog";
-import { icons, categories, variants } from "@kashi-ui/icons";
-import { toFaDigits } from "@kashi-ui/persian";
+import { icons, categories, categoryGroups, variants } from "@kashi-ui/icons";
+import { latestIconRelease } from "../../../data/newIcons";
 
-const count = toFaDigits(String(Object.keys(icons).length));
+const n = (x: number) => x.toLocaleString("fa-IR");
+// ۲۴ آیکون تازهٔ آخرین نسخه برای نوار «آیکون‌های تازه»؛ فهرست کامل در /docs/icons/new/
+const fresh = latestIconRelease && { version: latestIconRelease.version, count: latestIconRelease.added.length, names: latestIconRelease.added.filter((_, i, a) => i % Math.max(1, Math.floor(a.length / 24)) === 0).slice(0, 24) };
 ---
-<Docs title="آیکون‌های کاشی" description={`${count} آیکون در ${toFaDigits(String(Object.keys(categories).length))} دسته و ${toFaDigits(String(variants.length))} سبک؛ برای React، HTML، هر فریم‌ورک دیگر و فیگما.`}>
-  <p class="icx-lead">
-    یک دسته را باز کنید تا همهٔ آیکون‌هایش را با سبک، اندازه و ضخامت دلخواه ببینید.
-    <a href="/docs/icons/usage/">راهنمای نصب و استفاده</a>
-  </p>
-  <IconCatalog client:load />
+<Docs title="آیکون‌های کاشی" description={`${n(Object.keys(icons).length)} آیکون در ${n(categoryGroups.length)} گروه، ${n(Object.keys(categories).length)} دسته و ${n(variants.length)} سبک؛ برای React، HTML، هر فریم‌ورک دیگر و فیگما.`}>
+  <IsoBanner variant="icons" title={`${n(Object.keys(icons).length)} آیکون، یک زبان بصری`} text="همه روی شبکهٔ ۲۰×۲۰، با همان گوشه‌های نرم کامپوننت‌ها و در شش سبک؛ از خانه و کیف پول تا سماور و انار." href="/docs/icons/usage/" link="راهنمای استفاده" />
+  <IconCatalog client:load fresh={fresh} />
 </Docs>
-
-<style>
-  .icx-lead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--k-space-2); margin: 0; color: var(--k-text-secondary); font-size: var(--k-text-sm); }
-</style>

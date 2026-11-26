@@ -1,0 +1,31 @@
+name: گزارش باگ · Bug report
+description: چیزی درست کار نمی‌کند · Something doesn't work as expected
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: چه اتفاقی افتاد؟ · What happened?
+      description: چه انتظاری داشتید و چه دیدید · What you expected and what you saw
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: نمونهٔ کد یا مراحل · Code or steps to reproduce
+      description: کوتاه‌ترین کدی که مشکل را نشان می‌دهد؛ لینک StackBlitz عالی است · The smallest code that shows it; a StackBlitz link is ideal
+      render: tsx
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: نسخهٔ کاشی · Kashi version
+      placeholder: "2.8.0"
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: مرورگر و فریم‌ورک · Browser and framework
+      placeholder: "Chrome 142, Next.js 16"

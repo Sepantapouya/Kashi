@@ -270,21 +270,21 @@ function buildData() {
     });
   }));
 
-  safe("Accordion", () => section(root, "Accordion · آکاردئون", "پرسش‌های متداول در یک کارت؛ یک یا چند بخش باز.", (h) => {
-    const item = (q, a, open, last) => F({ name: "Item", dir: "V", gap: 0, w: "fill", stroke: last ? undefined : "border-secondary", sides: last ? undefined : [0, 0, 1, 0] }, [
-      // k-accordion__trigger: فاصلهٔ ۱۶/۲۰، متن ۱۵ Semibold
-      F({ name: "Trigger", dir: "H", gap: "space/4", py: "space/4", px: "space/5", w: "fill", align: "between", cross: "center", css: "k-accordion__trigger", cssCheck: ["pad", "gap"] }, [
+  safe("Accordion", () => section(root, "Accordion · آکاردئون", "نسخهٔ ۲: هر پرسش یک کارت نرم و جدا، بدون حاشیه؛ یک یا چند بخش باز.", (h) => {
+    const item = (q, a, open) => F({ name: "Item", dir: "V", gap: 0, w: "fill", radius: "radius/xl", fill: "bg-secondary", clip: true, css: "k-accordion__item", cssCheck: ["radius", "bg"] }, [
+      // k-accordion__trigger: فاصلهٔ ۲۰/۲۴، متن ۱۵ Semibold
+      F({ name: "Trigger", dir: "H", gap: "space/4", py: "space/5", px: "space/6", w: "fill", align: "between", cross: "center", css: "k-accordion__trigger", cssCheck: ["pad", "gap"] }, [
         T(q, { style: "Text md/Semibold", color: "text-primary", name: "Question", css: "k-accordion__trigger" }),
-        I("chevron-down", 20, "text-tertiary"),
+        I(open ? "chevron-up" : "chevron-down", 20, "text-primary"),
       ]),
-      open && F({ name: "Content", dir: "V", pt: 0, px: "space/5", pb: "space/5", w: "fill", css: "k-accordion__content", cssCheck: ["pad"] }, [T(a, { style: "Text md/Regular", color: "text-tertiary", w: "fill", name: "Answer" })]),
+      open && F({ name: "Content", dir: "V", pt: 0, px: "space/6", pb: "space/5", w: "fill", css: "k-accordion__content", cssCheck: ["pad"] }, [T(a, { style: "Text md/Regular", color: "text-secondary", w: "fill", name: "Answer" })]),
     ]);
     componentSet(h, "Accordion", {
       axes: { State: ["Collapsed", "Expanded"] },
-      build: (p) => F({ name: "Accordion", dir: "V", gap: 0, w: 480, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Surface", clip: true, css: "k-accordion" }, [
-        item("کاشی رایگان است؟", "بله. کاشی متن‌باز و با مجوز MIT است و در پروژه‌های تجاری هم می‌توانید از آن استفاده کنید.", p.State === "Expanded", false),
-        item("با Vue هم کار می‌کند؟", "", false, false),
-        item("تقویم شمسی دارد؟", "", false, true),
+      build: (p) => F({ name: "Accordion", dir: "V", gap: "space/3", w: 480, css: "k-accordion", cssCheck: ["gap"] }, [
+        item("کاشی رایگان است؟", "بله. کاشی متن‌باز و با مجوز MIT است و در پروژه‌های تجاری هم می‌توانید از آن استفاده کنید.", p.State === "Expanded"),
+        item("با Vue هم کار می‌کند؟", "", false),
+        item("تقویم شمسی دارد؟", "", false),
       ]),
       docs: "accordion",
     });
@@ -351,9 +351,24 @@ function buildData() {
     });
   }));
 
-  safe("Carousel", () => section(root, "Carousel · کاروسل", "با دکمه‌ها و نقطه‌های راهنما؛ با کیبورد هم کار می‌کند.", (h) => {
+  safe("Carousel", () => section(root, "Carousel · کاروسل", "با دکمه‌ها و نقطه‌های راهنما؛ با کیبورد هم کار می‌کند. گالری: محو شدن (fade)، نوار پیشرفت پخش خودکار، دکمهٔ توقف و نمای بزرگ، و تصویرهای کوچک.", (h) => {
     componentSet(h, "Carousel", {
-      build: () => F({ name: "Carousel", dir: "V", gap: "space/3", w: 480, cross: "center" }, [
+      axes: { Type: ["Default", "Gallery"] },
+      build: (p) => p.Type === "Gallery" ? F({ name: "Carousel", dir: "V", gap: "space/3", w: 480 }, [
+        // effect="fade": عکس‌ها روی هم محو می‌شوند (opacity)، نه جابه‌جایی؛ Safari عکس بزرگِ transform‌دار را تکه‌تکه رسم می‌کند
+        R({ w: 480, h: 270, radius: "radius/xl", fill: "firoozeh/700", name: "Photo" }),
+        F({ name: "Progress", dir: "H", w: "fill", h: 2, radius: "radius/full", fill: "bg-tertiary", clip: true }, [R({ w: 190, h: 2, fill: "bg-brand", name: "Value" })]),
+        F({ name: "Thumbnails", dir: "H", gap: "space/2" }, ["firoozeh/700", "lajvard/600", "zafaran/600", "anar/600"].map((c, i) => R({ w: 64, h: 64, radius: "radius/md", fill: c, stroke: i === 0 ? "border-brand" : "border-secondary", sw: i === 0 ? 2 : 1, name: "Thumb" }))),
+        F({ name: "Bar", dir: "H", w: "fill", align: "between", cross: "center" }, [
+          F({ name: "Dots", dir: "H", gap: 6 }, [1, 2, 3, 4].map((i) => R({ w: i === 1 ? 24 : 8, h: 8, radius: "radius/full", fill: i === 1 ? "bg-brand" : "border-primary", name: "Dot" }))),
+          F({ name: "Nav", dir: "H", gap: "space/1.5" }, [
+            button({ variant: "Tertiary", size: "sm", iconOnly: "pause" }),
+            button({ variant: "Tertiary", size: "sm", iconOnly: "expand" }),
+            button({ variant: "Secondary", size: "sm", iconOnly: "chevron-right" }),
+            button({ variant: "Secondary", size: "sm", iconOnly: "chevron-left" }),
+          ]),
+        ]),
+      ]) : F({ name: "Carousel", dir: "V", gap: "space/3", w: 480, cross: "center" }, [
         F({ name: "Viewport", dir: "H", w: "fill", h: 240, radius: "radius/xl", fill: "firoozeh/800", align: "between", cross: "center", px: "space/4" }, [
           button({ variant: "Secondary", size: "sm", iconOnly: "chevron-right", pill: true }),
           T("اسلاید ۲ از ۵", { style: "Text md/Semibold", color: "#ffffff" }),

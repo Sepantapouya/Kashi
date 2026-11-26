@@ -1,0 +1,59 @@
+---
+layout: ../../../layouts/Docs.astro
+title: جستجو با پیشنهاد
+description: جعبهٔ جستجو با جستجوهای اخیر و پرطرفدار و پیشنهاد هنگام تایپ؛ الگوی جستجوی فروشگاه‌های اینترنتی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { SearchSuggestDemo } from "../../../components/demos";
+
+```tsx
+import { SearchSuggest } from "@kashi-ui/react";
+```
+
+## نمونه
+
+روی فیلد بزنید: با فیلد خالی، جستجوهای اخیر (با «پاک کردن») و جستجوهای پرطرفدار با آیکون روند دیده می‌شوند. با تایپ، پیشنهادها با قسمت پیداشدهٔ پررنگ می‌آیند.
+
+<Demo html={false} align="stretch" code={`<SearchSuggest
+  placeholder="جستجو در همهٔ کالاها"
+  recent={recent}
+  onClearRecent={() => setRecent([])}
+  popular={["ساعت مچی زنانه", "عروسک", "اسکوتر برقی"]}
+  suggestions={products}
+  onSearch={(q) => router.push(\`/search?q=\${q}\`)}
+/>`}>
+  <SearchSuggestDemo client:load />
+</Demo>
+
+## ذخیرهٔ خودکار جستجوهای اخیر
+
+اگر جستجوهای اخیر را خودتان نگه نمی‌دارید، `storageKey` بدهید. هر جستجو (حداکثر ۸ مورد) در مرورگر کاربر ذخیره می‌شود و «پاک کردن» همه را حذف می‌کند.
+
+```tsx
+<SearchSuggest storageKey="shop-recent" popular={popular} onSearch={search} />
+```
+
+## پیشنهاد از سرور
+
+به‌جای آرایه، تابعی بدهید که برای هر عبارت فهرست برگرداند؛ مثلاً از نتیجهٔ آخرین درخواست. جستجوی آرایه‌ای «ی» و «ک» عربی و نیم‌فاصله را یکسان می‌بیند.
+
+```tsx
+<SearchSuggest suggestions={(q) => results[q] ?? []} onChange={fetchSuggestions} />
+```
+
+<Props rows={[
+  ["value / defaultValue", "string", "", "متن جستجو"],
+  ["onChange", "(query: string) => void", "", "با هر تایپ"],
+  ["onSearch", "(query: string) => void", "", "با Enter یا انتخاب پیشنهاد، جستجوی اخیر یا پرطرفدار"],
+  ["recent", "string[]", "", "جستجوهای اخیر (کنترل‌شده)"],
+  ["onClearRecent", "() => void", "", "دکمهٔ «پاک کردن»"],
+  ["storageKey", "string", "", "ذخیرهٔ خودکار جستجوهای اخیر در localStorage"],
+  ["popular", "string[]", "[]", "جستجوهای پرطرفدار"],
+  ["suggestions", "string[] | (query) => string[]", "", "پیشنهادها هنگام تایپ (حداکثر ۸)"],
+  ["placeholder / label / name", "string", "", "label برای صفحه‌خوان؛ پیش‌فرض «جستجو»"],
+]} />
+
+## دسترس‌پذیری
+
+فیلد نقش `combobox` دارد و پیشنهادها `listbox` هستند؛ با <kbd>↓</kbd> و <kbd>↑</kbd> بین پیشنهادها جابه‌جا می‌شوید، <kbd>Enter</kbd> جستجو می‌کند و <kbd>Escape</kbd> پنل را می‌بندد (و بار دوم متن را پاک می‌کند). جستجوهای اخیر و پرطرفدار دکمه‌اند و با <kbd>Tab</kbd> در دسترس‌اند. فرم نقش `search` دارد تا صفحه‌خوان آن را به‌عنوان بخش جستجو بشناسد.

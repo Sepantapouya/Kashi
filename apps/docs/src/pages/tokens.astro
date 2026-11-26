@@ -1,0 +1,488 @@
+---
+// معماری توکن‌های کاشی: چهار لایه، به شکل یک تصویرسازی ایزومتریک سه‌بعدی و زنده.
+// همهٔ رنگ‌ها، نام‌ها و عددها از خود @kashi-ui/tokens خوانده می‌شوند تا با هر انتشار درست بمانند.
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import * as tokens from "@kashi-ui/tokens";
+import { iconSvg } from "@kashi-ui/icons";
+import { nav } from "../data/nav";
+
+const fa = (n: number) => n.toLocaleString("fa-IR");
+const { palette, space, radius, font, shadow, motion, zIndex, breakpoint, themes } = tokens as Record<string, any>;
+const count = (o: object): number => Object.values(o).reduce((n: number, v) => n + (typeof v === "object" ? count(v) : 1), 0);
+
+const paletteCount = count(palette);
+const scaleCount = count(space) + count(radius) + count(font) + count(shadow) + count(motion) + count(zIndex) + count(breakpoint);
+const semanticCount = Object.keys(themes.dark).length;
+const componentCount = nav
+  .filter((g) => g.title === "کامپوننت‌ها" || g.title === "فارسی")
+  .flatMap((g) => g.items)
+  .filter((i) => !i.href.includes("utilities") && !i.href.includes("bank-logos")).length;
+
+// ── لایهٔ ۱: پالت. ردیف اول رنگ برند است (همان فیروزه‌ای، با تم‌ساز عوض می‌شود)
+const STEPS = ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950"];
+const ramps: [string, string][] = [["brand", "برند"], ["lajvard", "لاجوردی"], ["zafaran", "زعفرانی"], ["anar", "اناری"], ["pesteh", "پسته‌ای"], ["shab", "شب"]];
+
+// مختصات مشترک دو «ردّ» عمودی روی همهٔ صفحه‌ها (px داخل صفحهٔ ۶۲۰×۴۲۰)
+// ردّ A: دکمهٔ اصلی ← bg-brand ← radius-md ← brand-600 · ردّ B: عنوان کارت ← text-primary ← text-lg ← shab-50
+const TILE = 40, GAP = 6, X0 = 44, Y0 = 92;
+const tileX = (i: number) => X0 + i * (TILE + GAP);
+const tileY = (r: number) => Y0 + r * (TILE + GAP);
+const A = { x: tileX(6) + TILE / 2, y: tileY(0) + TILE / 2 };
+const B = { x: tileX(1) + TILE / 2, y: tileY(5) + TILE / 2 };
+
+const semantic: { name: string; x: number; y: number; trace?: "a" | "b"; kind: "bg" | "text" | "border" }[] = [
+  { name: "bg-brand", ...A, trace: "a", kind: "bg" },
+  { name: "text-primary", ...B, trace: "b", kind: "text" },
+  { name: "bg-primary", x: 470, y: 112, kind: "bg" },
+  { name: "bg-elevated", x: 470, y: 182, kind: "bg" },
+  { name: "text-brand", x: 300, y: 222, kind: "text" },
+  { name: "border-primary", x: 470, y: 252, kind: "border" },
+  { name: "text-tertiary", x: 300, y: 300, kind: "text" },
+  { name: "border-brand", x: 470, y: 322, kind: "border" },
+];
+
+const layers = [
+  { n: "۰۴", key: "comp", title: "کامپوننت‌ها", count: componentCount, unit: "کامپوننت", text: "فقط توکن‌های معنایی را می‌شناسند؛ هیچ کد رنگی داخلشان نیست.", code: ".k-btn--primary {\n  --_bg: var(--k-bg-brand);\n  border-radius: var(--k-radius-control);\n}" },
+  { n: "۰۳", key: "sem", title: "توکن‌های معنایی", count: semanticCount, unit: "نقش", text: "نقش هر رنگ را می‌گویند، نه خود رنگ را؛ در تم تیره و روشن مقدار جدا دارند.", code: "--k-bg-brand: var(--k-brand-600);\n--k-text-primary: var(--k-shab-50);" },
+  { n: "۰۲", key: "scale", title: "مقیاس‌ها", count: scaleCount, unit: "توکن", text: "فاصله، گردی، اندازهٔ متن، سایه و حرکت؛ با سه ضریب کل محصول جمع‌وجورتر یا گردتر می‌شود.", code: "--k-radius-md: calc(0.75rem * var(--k-radius-factor));\n--k-space-4: 1rem;" },
+  { n: "۰۱", key: "pal", title: "پالت پایه", count: paletteCount, unit: "رنگ", text: "رنگ‌های خام با نام‌های ایرانی: فیروزه، لاجورد، زعفران، انار، پسته و شب.", code: "--k-firoozeh-600: #0b8077;\n--k-shab-50: #f6f7f9;" },
+];
+
+const outputs: { icon: string; title: string; code: string; text: string }[] = [
+  { icon: "code", title: "CSS Variables", code: '@import "@kashi-ui/tokens/tokens.css";', text: "برای هر فریم‌ورک و حتی HTML ساده" },
+  { icon: "braces", title: "JSON", code: "@kashi-ui/tokens/tokens.json", text: "برای اسکریپت‌ها و ابزارهای ساخت" },
+  { icon: "terminal", title: "JS و TypeScript", code: 'import { palette } from "@kashi-ui/tokens";', text: "با تایپ کامل و createTheme" },
+  { icon: "wind", title: "Tailwind", code: '@import "@kashi-ui/tailwind";', text: "توکن‌ها به‌شکل کلاس، همگام با تم" },
+  { icon: "layers", title: "W3C DTCG", code: "@kashi-ui/tokens/dtcg/kashi.tokens.json", text: "برای Tokens Studio و Style Dictionary" },
+  { icon: "pen-tool", title: "Figma Variables", code: "Kashi UI Kit", text: "همان توکن‌ها، در فایل فیگمای شما" },
+];
+
+const brands = [
+  { name: "فیروزه‌ای", value: "" },
+  { name: "لاجوردی", value: "#3d5ef8" },
+  { name: "زعفرانی", value: "#dd5e02" },
+  { name: "اناری", value: "#e51d2a" },
+  { name: "بنفش", value: "#7c3aed" },
+];
+const ic = (n: string, size = 20) => iconSvg(n, { size }) ?? iconSvg("sparkle", { size }) ?? "";
+---
+<Base title="معماری توکن‌ها" description={`کامپوننت‌های کاشی روی چهار لایه توکن ساخته شده‌اند: ${fa(paletteCount)} رنگ پایه، ${fa(scaleCount)} مقیاس، ${fa(semanticCount)} نقش معنایی و ${fa(componentCount)} کامپوننت. ببینید یک رنگ چطور تا یک دکمه بالا می‌رود.`}>
+  <Header />
+  <main id="main" class="tk">
+    <!-- ───── هیرو و صحنهٔ سه‌بعدی ───── -->
+    <section class="tk-hero" aria-labelledby="tk-title">
+      <div class="tk-hero__bg" aria-hidden="true"></div>
+      <div class="tk-wrap tk-hero__head">
+        <p class="tk-eyebrow"><span class="tk-eyebrow__dot" aria-hidden="true"></span>معماری توکن‌ها <bdi dir="ltr" class="tk-eyebrow__pkg">@kashi-ui/tokens</bdi></p>
+        <h1 id="tk-title">از یک رنگ تا یک دکمه،<br /><span class="tk-grad">لایه‌به‌لایه.</span></h1>
+        <p class="tk-lead">هر کامپوننت کاشی روی چهار لایه توکن ساخته شده. رنگ برند را عوض کنید و ببینید تغییر از پایین‌ترین لایه تا دکمهٔ بالایی می‌رود.</p>
+      </div>
+
+      <div class="tk-wrap tk-scene-wrap">
+        <div class="tk-controls" role="group" aria-label="کنترل صحنه">
+          <div class="tk-brands" role="group" aria-label="رنگ برند">
+            {brands.map((b, j) => (
+              <button type="button" class="tk-sw" data-brand={b.value} aria-pressed={j === 0 ? "true" : "false"} style={`--sw: ${b.value || "var(--k-firoozeh-600)"}`}>
+                <span class="tk-sw__dot" aria-hidden="true"></span><span>{b.name}</span>
+              </button>
+            ))}
+          </div>
+          <button type="button" class="k-btn k-btn--secondary k-btn--sm tk-explode" aria-pressed="true" data-explode>
+            <span set:html={ic("layers", 18)} /><span data-explode-label>جمع کردن لایه‌ها</span>
+          </button>
+        </div>
+
+        <div class="tk-scene" data-scene data-tk-stage>
+          <ol class="tk-legend" role="list" aria-label="لایه‌ها، از بالا به پایین">
+            {layers.map((l) => (
+              <li><button type="button" class="tk-legend__item" data-layer={l.key}>
+                <span class="tk-legend__n">{l.n}</span>
+                <span class="tk-legend__body"><b>{l.title}</b><small>{fa(l.count)} {l.unit}</small></span>
+              </button></li>
+            ))}
+          </ol>
+
+          <div class="tk-view" aria-hidden="true">
+            <div class="tk-stack" data-stack>
+              <!-- ۰۱ پالت -->
+              <div class="tk-plate" data-plate="pal" style="--z: 0">
+                <span class="tk-plate__label"><em>۰۱</em> پالت پایه</span>
+                {ramps.map(([key], r) => STEPS.map((s, i) => (
+                  <i class:list={["tk-tile", { "tk-tile--a": key === "brand" && s === "600", "tk-tile--b": key === "shab" && s === "50" }]}
+                     style={`left:${tileX(i)}px;top:${tileY(r)}px;background:var(--k-${key}-${s})`}></i>
+                )))}
+                {ramps.map(([, name], r) => <span class="tk-ramp" style={`top:${tileY(r) + 12}px`}>{name}</span>)}
+                <span class="tk-chipnote tk-chipnote--a" style={`left:${A.x}px;top:${A.y - 38}px`}>brand-600</span>
+                <span class="tk-chipnote" style={`left:${B.x}px;top:${B.y + 26}px`}>shab-50</span>
+                <span class="tk-edge tk-edge--r"></span><span class="tk-edge tk-edge--b"></span>
+              </div>
+
+              <!-- ۰۲ مقیاس‌ها -->
+              <div class="tk-plate" data-plate="scale" style="--z: 1">
+                <span class="tk-plate__label"><em>۰۲</em> مقیاس‌ها</span>
+                <div class="tk-radius" style={`left:${A.x - 34}px;top:${A.y - 22}px`}><span>radius-md</span></div>
+                <div class="tk-type" style={`left:${B.x - 40}px;top:${B.y - 26}px`}><b>Aa</b><span>text-lg</span></div>
+                <div class="tk-spaces" style="left:250px;top:86px">
+                  {[1, 2, 3, 4, 6, 8, 12].map((s) => <i style={`inline-size:calc(var(--k-space-${s}) * 1.6)`}></i>)}
+                  <span>space</span>
+                </div>
+                <div class="tk-shadows" style="left:250px;top:250px">
+                  {["sm", "md", "lg", "xl"].map((s) => <i style={`box-shadow:var(--k-shadow-${s})`}></i>)}
+                  <span>shadow</span>
+                </div>
+                <div class="tk-easew" style="left:470px;top:110px"><svg class="tk-ease" viewBox="0 0 100 100" width="96" height="96"><path d="M8 92 C 28 92, 30 8, 92 8" /></svg><span>ease</span></div>
+                <span class="tk-edge tk-edge--r"></span><span class="tk-edge tk-edge--b"></span>
+              </div>
+
+              <!-- ۰۳ معنایی -->
+              <div class="tk-plate" data-plate="sem" style="--z: 2">
+                <span class="tk-plate__label"><em>۰۳</em> توکن‌های معنایی</span>
+                {semantic.map((s) => (
+                  <span class:list={["tk-sem", `tk-sem--${s.kind}`, { [`tk-sem--${s.trace}`]: s.trace }]} style={`left:${s.x}px;top:${s.y}px;--v:var(--k-${s.name})`}>
+                    <i></i><code>{s.name}</code>
+                  </span>
+                ))}
+                <span class="tk-edge tk-edge--r"></span><span class="tk-edge tk-edge--b"></span>
+              </div>
+
+              <!-- ۰۴ کامپوننت‌ها: کامپوننت‌های واقعی کاشی -->
+              <div class="tk-plate tk-plate--top" data-plate="comp" style="--z: 3">
+                <span class="tk-plate__label"><em>۰۴</em> کامپوننت‌ها</span>
+                <span class="k-btn k-btn--primary k-btn--md tk-c-btn" style={`left:${A.x}px;top:${A.y}px`}>ثبت سفارش</span>
+                <div class="k-card tk-c-card" style={`left:${B.x - 34}px;top:${B.y - 74}px`}>
+                  <b class="tk-c-title">سفارش #۱۲۸۴</b>
+                  <small>پرداخت‌شده · ۳٬۹۰۰٬۰۰۰ تومان</small>
+                </div>
+                <span class="k-badge k-badge--success tk-c-badge" style="left:470px;top:112px">پرداخت‌شده</span>
+                <span class="tk-c-switch" style="left:470px;top:190px"><input class="k-switch" type="checkbox" role="switch" checked tabindex="-1" aria-hidden="true" /></span>
+                <span class="tk-c-input" style="left:450px;top:300px"><span class="k-input k-input--sm"><input class="k-input__control" value="۰۹۱۲ ۱۲۳ ۴۵۶۷" tabindex="-1" readonly /></span></span>
+                <span class="tk-edge tk-edge--r"></span><span class="tk-edge tk-edge--b"></span>
+              </div>
+
+              <!-- دو ستون نور: مسیر یک رنگ از پالت تا کامپوننت -->
+              <span class="tk-beam tk-beam--a" style={`left:${A.x}px;top:${A.y}px`}><i></i></span>
+              <span class="tk-beam tk-beam--b" style={`left:${B.x}px;top:${B.y}px`}><i></i></span>
+            </div>
+          </div>
+        </div>
+        <p class="tk-caption">صحنهٔ بالا زنده است: رنگ‌ها و کامپوننت‌ها همان توکن‌ها و کلاس‌های واقعی کاشی‌اند و با تم سایت تیره یا روشن می‌شوند.</p>
+      </div>
+    </section>
+
+    <!-- ───── چهار لایه ───── -->
+    <section class="tk-band" aria-labelledby="tk-layers-title">
+      <div class="tk-wrap">
+        <header class="tk-head">
+          <p class="tk-kicker"><span>۰۱</span>چهار لایه</p>
+          <h2 id="tk-layers-title">هر لایه فقط با لایهٔ زیرش حرف می‌زند</h2>
+          <p class="tk-band__lead">برای همین یک تغییر در پایین، بدون دست زدن به هیچ کامپوننتی، همه‌جا اعمال می‌شود.</p>
+        </header>
+        <ol class="tk-rows" role="list">
+          {layers.map((l) => (
+            <li class="tk-row" data-layer-row={l.key}>
+              <span class="tk-row__n" aria-hidden="true">{l.n}</span>
+              <div class="tk-row__body">
+                <h3>{l.title}</h3>
+                <p>{l.text}</p>
+                <p class="tk-row__count"><b>{fa(l.count)}</b> {l.unit}</p>
+              </div>
+              <pre class="tk-row__code" dir="ltr"><code>{l.code}</code></pre>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ───── یک منبع، شش خروجی ───── -->
+    <section class="tk-band tk-band--alt" aria-labelledby="tk-out-title">
+      <div class="tk-wrap">
+        <header class="tk-head">
+          <p class="tk-kicker"><span>۰۲</span>خروجی‌ها</p>
+          <h2 id="tk-out-title">یک منبع، هر جا که کار می‌کنید</h2>
+          <p class="tk-band__lead">توکن‌ها یک بار تعریف می‌شوند و با هر انتشار به همهٔ این قالب‌ها ساخته می‌شوند.</p>
+        </header>
+        <ul class="tk-outs" role="list">
+          {outputs.map((o) => (
+            <li class="tk-out">
+              <span class="tk-out__icon" set:html={ic(o.icon)} />
+              <b dir="auto">{o.title}</b>
+              <small>{o.text}</small>
+              <code dir="ltr">{o.code}</code>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ───── پایان ───── -->
+    <section class="tk-cta" aria-labelledby="tk-cta-title">
+      <div class="tk-wrap tk-cta__box">
+        <div>
+          <h2 id="tk-cta-title">رنگ برند خودتان را بگذارید.</h2>
+          <p>تم‌ساز طیف یازده‌پله‌ای برند را می‌سازد و هر چهار لایه هماهنگ می‌شوند.</p>
+        </div>
+        <div class="tk-cta__actions">
+          <a class="k-btn k-btn--primary" href="/docs/theming/">باز کردن تم‌ساز</a>
+          <a class="k-btn k-btn--secondary" href="/docs/colors/">دیدن پالت و کنتراست</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .tk { --max: 76rem; --gutter: clamp(1rem, 4vw, 2rem); overflow-x: clip; }
+  .tk-wrap { max-inline-size: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+
+  /* ── هیرو ── */
+  .tk-hero { position: relative; padding-block: clamp(3.5rem, 8vw, 6rem) clamp(2.5rem, 6vw, 4rem); border-block-end: 1px solid var(--k-border-secondary); isolation: isolate; }
+  .tk-hero__bg {
+    position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(50rem 26rem at 50% 62%, color-mix(in srgb, var(--k-brand-500) 18%, transparent), transparent 70%),
+      radial-gradient(36rem 20rem at 15% 20%, color-mix(in srgb, var(--k-lajvard-500) 10%, transparent), transparent 70%),
+      linear-gradient(var(--k-border-secondary) 1px, transparent 1px) 0 0 / 48px 48px,
+      linear-gradient(90deg, var(--k-border-secondary) 1px, transparent 1px) 0 0 / 48px 48px;
+    mask-image: radial-gradient(70% 70% at 50% 45%, #000 30%, transparent 85%);
+    opacity: 0.9;
+  }
+  .tk-hero__head { text-align: center; }
+  .tk-eyebrow { display: inline-flex; align-items: center; gap: var(--k-space-2); margin: 0; padding: var(--k-space-1) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); background: var(--k-bg-elevated); color: var(--k-text-secondary); font-size: var(--k-text-sm); font-weight: var(--k-weight-medium); }
+  .tk-eyebrow__dot { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background: var(--k-brand-400); box-shadow: 0 0 0 4px var(--k-bg-brand-subtle); }
+  .tk-eyebrow__pkg { color: var(--k-text-brand); font-family: var(--k-font-mono); font-size: var(--k-text-xs); }
+  .tk h1 { margin: var(--k-space-5) 0 0; color: var(--k-text-primary); font-size: clamp(2.2rem, 5.6vw, 4.2rem); font-weight: var(--k-weight-black); line-height: 1.25; letter-spacing: -0.02em; }
+  .tk-grad { background: linear-gradient(90deg, #3d8bf0, #2fd3c0); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tk-lead { max-inline-size: 40rem; margin: var(--k-space-4) auto 0; color: var(--k-text-tertiary); font-size: var(--k-text-lg); line-height: 1.95; }
+
+  .tk-scene-wrap { margin-block-start: clamp(2rem, 4vw, 3rem); }
+  .tk-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--k-space-3); }
+  .tk-brands { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--k-space-1); padding: var(--k-space-1); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-full); background: var(--k-bg-elevated); }
+  .tk-sw { display: inline-flex; align-items: center; gap: var(--k-space-2); padding: var(--k-space-1) var(--k-space-3); border: 0; border-radius: var(--k-radius-full); background: transparent; color: var(--k-text-secondary); font: inherit; font-size: var(--k-text-sm); cursor: pointer; transition: background var(--k-duration-fast), color var(--k-duration-fast); }
+  .tk-sw:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+  .tk-sw[aria-pressed="true"] { background: var(--k-bg-raised, var(--k-bg-tertiary)); color: var(--k-text-primary); }
+  .tk-sw:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: 2px; }
+  .tk-sw__dot { inline-size: 0.85rem; block-size: 0.85rem; border-radius: 50%; background: var(--sw); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.25); transition: scale var(--k-duration-normal) var(--k-ease-spring); }
+  .tk-sw[aria-pressed="true"] .tk-sw__dot { scale: 1.2; }
+  .tk-explode :global(svg) { inline-size: 1.1em; block-size: 1.1em; }
+
+  /* صحنه: راهنما در یک سو، تصویر ایزومتریک در سوی دیگر */
+  .tk-scene { position: relative; display: grid; grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr); align-items: center; gap: var(--k-space-6); margin-block-start: var(--k-space-6); }
+  .tk-legend { display: grid; gap: var(--k-space-2); margin: 0; padding: 0; list-style: none; }
+  .tk-legend__item { display: flex; align-items: center; gap: var(--k-space-3); inline-size: 100%; padding: var(--k-space-3) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-elevated); color: inherit; font: inherit; text-align: start; cursor: pointer; transition: border-color var(--k-duration-fast), background var(--k-duration-fast), translate var(--k-duration-normal) var(--k-ease-standard); }
+  .tk-legend__item:hover, .tk-legend__item.is-on { border-color: var(--k-border-brand); background: color-mix(in srgb, var(--k-brand-500) 8%, var(--k-bg-elevated)); translate: -4px 0; }
+  .tk-legend__item:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: 2px; }
+  .tk-legend__n { color: var(--k-text-brand); font-family: var(--k-font-mono); font-size: var(--k-text-xs); }
+  .tk-legend__body { display: grid; }
+  .tk-legend__body b { color: var(--k-text-primary); font-size: var(--k-text-md); }
+  .tk-legend__body small { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+
+  .tk-view { --s: 0.92; position: relative; block-size: 49rem; perspective: 2600px; perspective-origin: 50% 30%; }
+  .tk-stack {
+    --gap: 9rem; --rx: 60deg; --rz: -42deg;
+    position: absolute; inset-inline-start: 50%; inset-block-start: 63%;
+    inline-size: 620px; block-size: 420px; margin: -210px 0 0 -310px;
+    transform-style: preserve-3d;
+    transform: scale(var(--s)) rotateX(var(--rx)) rotateZ(var(--rz));
+    transition: transform 0.9s var(--k-ease-standard);
+    direction: ltr;
+  }
+  .tk-plate {
+    --lift: 0px;
+    position: absolute; inset: 0;
+    transform-style: preserve-3d;
+    transform: translateZ(calc(var(--z) * var(--gap) + var(--lift)));
+    border: 1px solid color-mix(in srgb, var(--k-text-primary) 14%, transparent);
+    border-radius: 22px;
+    background: color-mix(in srgb, var(--k-bg-elevated) 74%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--k-brand-500) 6%, transparent), 0 60px 80px -30px rgb(0 0 0 / 0.45);
+    transition: transform 0.9s var(--k-ease-standard), opacity 0.35s, border-color 0.35s, box-shadow 0.35s;
+  }
+  .tk-plate--top { background: color-mix(in srgb, var(--k-bg-primary) 80%, transparent); }
+  .tk-plate__label { position: absolute; inset-inline-end: 22px; inset-block-start: 20px; direction: rtl; color: var(--k-text-secondary); font-size: 15px; font-weight: var(--k-weight-bold); white-space: nowrap; }
+  .tk-plate__label em { margin-inline-end: 6px; color: var(--k-text-brand); font-family: var(--k-font-mono); font-size: 12px; font-style: normal; }
+  /* لبهٔ صفحه برای حس ضخامت، مثل تصویرسازی ایزومتریک */
+  .tk-edge { position: absolute; background: color-mix(in srgb, var(--k-bg-elevated) 55%, var(--k-text-primary) 10%); }
+  .tk-edge--r { inset-block: 18px; inset-inline-end: 0; inline-size: 12px; transform-origin: right center; transform: rotateY(90deg); border-radius: 0 4px 4px 0; }
+  .tk-edge--b { inset-inline: 18px; inset-block-end: 0; block-size: 12px; transform-origin: center bottom; transform: rotateX(-90deg); border-radius: 0 0 4px 4px; filter: brightness(0.8); }
+
+  /* تمرکز روی یک لایه */
+  .tk-stack[data-focus] .tk-plate { opacity: 0.32; }
+  .tk-stack[data-focus="pal"] [data-plate="pal"], .tk-stack[data-focus="scale"] [data-plate="scale"],
+  .tk-stack[data-focus="sem"] [data-plate="sem"], .tk-stack[data-focus="comp"] [data-plate="comp"] { --lift: 2.2rem; opacity: 1; border-color: var(--k-border-brand); box-shadow: 0 0 0 4px var(--k-bg-brand-subtle), 0 80px 90px -30px rgb(0 0 0 / 0.5); }
+
+  /* ۰۱ پالت */
+  .tk-tile { position: absolute; inline-size: 40px; block-size: 40px; border-radius: 9px; box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06); transition: background 0.5s var(--k-ease-standard); }
+  .tk-tile--a, .tk-tile--b { outline: 2px solid var(--k-text-primary); outline-offset: 3px; }
+  .tk-ramp { position: absolute; inset-inline-start: calc(44px + 11 * 46px + 6px); direction: rtl; color: var(--k-text-tertiary); font-size: 12px; white-space: nowrap; }
+  .tk-chipnote { position: absolute; translate: -50% 0; padding: 2px 8px; border-radius: 6px; background: var(--k-bg-primary); color: var(--k-text-secondary); font: 600 11px var(--k-font-mono); white-space: nowrap; box-shadow: 0 0 0 1px var(--k-border-secondary); }
+  .tk-chipnote--a { color: var(--k-text-brand); }
+
+  /* ۰۲ مقیاس‌ها */
+  .tk-radius { position: absolute; display: grid; place-items: center; inline-size: 68px; block-size: 44px; border: 2px dashed var(--k-text-brand); border-radius: var(--k-radius-md); }
+  .tk-radius span, .tk-type span, .tk-spaces span, .tk-shadows span, .tk-easew span { color: var(--k-text-tertiary); font: 600 11px var(--k-font-mono); white-space: nowrap; }
+  .tk-radius span { translate: 0 34px; }
+  .tk-type { position: absolute; display: grid; justify-items: center; inline-size: 80px; }
+  .tk-type b { color: var(--k-text-primary); font-size: 34px; line-height: 1.1; }
+  .tk-spaces { position: absolute; display: grid; gap: 7px; }
+  .tk-spaces i { display: block; block-size: 9px; border-radius: 3px; background: color-mix(in srgb, var(--k-brand-500) 55%, transparent); }
+  .tk-shadows { position: absolute; display: grid; grid-template-columns: repeat(4, 34px); gap: 12px; align-items: end; }
+  .tk-shadows i { block-size: 34px; border-radius: 8px; background: var(--k-bg-primary); }
+  .tk-shadows span { grid-column: 1 / -1; }
+  .tk-easew { position: absolute; display: grid; justify-items: center; gap: 4px; }
+  .tk-ease { overflow: visible; }
+  .tk-ease path { fill: none; stroke: var(--k-text-brand); stroke-width: 4; stroke-linecap: round; }
+
+  /* ۰۳ معنایی */
+  .tk-sem { position: absolute; display: inline-flex; align-items: center; gap: 7px; translate: -50% -50%; padding: 6px 10px 6px 7px; border: 1px solid var(--k-border-secondary); border-radius: 10px; background: var(--k-bg-primary); white-space: nowrap; }
+  .tk-sem i { inline-size: 18px; block-size: 18px; border-radius: 5px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--k-text-primary) 18%, transparent); }
+  .tk-sem--bg i { background: var(--v); }
+  .tk-sem--text i { background: var(--v); }
+  .tk-sem--border i { background: transparent; box-shadow: inset 0 0 0 3px var(--v); }
+  .tk-sem code { color: var(--k-text-secondary); font: 600 12px var(--k-font-mono); }
+  .tk-sem--a, .tk-sem--b { border-color: var(--k-border-brand); box-shadow: 0 0 0 3px var(--k-bg-brand-subtle); }
+  .tk-sem--a code, .tk-sem--b code { color: var(--k-text-primary); }
+
+  /* ۰۴ کامپوننت‌ها (کلاس‌های واقعی k-*) */
+  .tk-c-btn { position: absolute; translate: -50% -50%; pointer-events: none; }
+  .tk-c-card { position: absolute; display: grid; gap: 2px; inline-size: 210px; padding: 12px 14px; direction: rtl; text-align: start; }
+  .tk-c-title { color: var(--k-text-primary); font-size: 16px; }
+  .tk-c-card small { color: var(--k-text-tertiary); font-size: 12px; }
+  .tk-c-badge, .tk-c-switch, .tk-c-input { position: absolute; translate: -50% -50%; pointer-events: none; direction: rtl; }
+  .tk-c-input { inline-size: 170px; }
+  .tk-c-input :global(input) { direction: rtl; }
+
+  /* ستون‌های نور */
+  .tk-beam { position: absolute; inline-size: 0; block-size: 0; transform-style: preserve-3d; }
+  .tk-beam i {
+    position: absolute; inset-inline-start: -2px; inset-block-start: 0;
+    inline-size: 4px; block-size: calc(3 * var(--gap));
+    transform-origin: 50% 0; transform: rotateX(90deg);
+    border-radius: 2px;
+    background: linear-gradient(to bottom, transparent, var(--k-brand-400) 10%, var(--k-brand-300) 90%, transparent);
+    box-shadow: 0 0 14px var(--k-brand-400);
+    transition: block-size 0.9s var(--k-ease-standard);
+  }
+  .tk-beam--b i { background: linear-gradient(to bottom, transparent, var(--k-text-secondary) 10%, var(--k-text-primary) 90%, transparent); box-shadow: 0 0 10px color-mix(in srgb, var(--k-text-primary) 50%, transparent); }
+  .tk-beam i::after { content: ""; position: absolute; inset-inline: -3px; block-size: 18px; border-radius: 5px; background: #fff; box-shadow: 0 0 16px 4px var(--k-brand-300); opacity: 0.9; animation: tk-rise 2.6s var(--k-ease-standard) infinite; }
+  .tk-beam--b i::after { animation-delay: 1.3s; box-shadow: 0 0 14px 3px color-mix(in srgb, var(--k-text-primary) 60%, transparent); }
+  @keyframes tk-rise { from { inset-block-start: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } to { inset-block-start: calc(100% - 18px); opacity: 0; } }
+
+  .tk-stack.is-flat { --gap: 0.9rem; }
+  .tk-stack.is-flat .tk-beam i::after { animation: none; opacity: 0; }
+
+  .tk-caption { margin: var(--k-space-4) auto 0; color: var(--k-text-quaternary); font-size: var(--k-text-xs); text-align: center; }
+
+  /* ── بخش‌ها ── */
+  .tk-band { padding-block: clamp(4rem, 8vw, 6rem); border-block-end: 1px solid var(--k-border-secondary); }
+  .tk-band--alt { background: var(--k-bg-secondary); }
+  .tk-head { max-inline-size: 44rem; margin-block-end: clamp(2rem, 4vw, 3rem); }
+  .tk-kicker { display: flex; align-items: center; gap: var(--k-space-2); margin: 0; color: var(--k-text-brand); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
+  .tk-kicker span { padding-inline-end: var(--k-space-2); border-inline-end: 1px solid var(--k-border-primary); color: var(--k-text-quaternary); font-family: var(--k-font-mono); font-size: var(--k-text-xs); }
+  .tk-head h2 { margin: var(--k-space-3) 0 0; color: var(--k-text-primary); font-size: clamp(1.6rem, 3.4vw, 2.3rem); font-weight: var(--k-weight-bold); line-height: 1.4; }
+  .tk-band__lead { margin: var(--k-space-3) 0 0; color: var(--k-text-tertiary); line-height: 1.9; }
+
+  .tk-rows { display: grid; gap: var(--k-space-3); margin: 0; padding: 0; list-style: none; }
+  .tk-row { display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: var(--k-space-4) var(--k-space-6); padding: var(--k-space-5) var(--k-space-6); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-elevated); transition: border-color var(--k-duration-fast), translate var(--k-duration-normal) var(--k-ease-standard); }
+  .tk-row:hover { border-color: var(--k-border-primary); translate: 0 -2px; }
+  .tk-row__n { color: var(--k-text-brand); font: 700 var(--k-text-2xl) var(--k-font-mono); }
+  .tk-row h3 { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-lg); font-weight: var(--k-weight-bold); }
+  .tk-row__body p { margin: var(--k-space-1) 0 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.85; }
+  .tk-row__body .tk-row__count { color: var(--k-text-secondary); }
+  .tk-row__count b { color: var(--k-text-primary); font-size: var(--k-text-lg); }
+  .tk-row__code { margin: 0; overflow-x: auto; padding: var(--k-space-3) var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-secondary); color: var(--k-text-secondary); font: 13px/1.8 var(--k-font-mono); text-align: left; }
+
+  .tk-outs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--k-space-3); margin: 0; padding: 0; list-style: none; }
+  .tk-out { display: grid; align-content: start; gap: var(--k-space-1); padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); transition: border-color var(--k-duration-fast), translate var(--k-duration-normal) var(--k-ease-standard); }
+  .tk-out:hover { border-color: var(--k-border-brand); translate: 0 -2px; }
+  .tk-out__icon { display: grid; place-items: center; inline-size: 2.5rem; block-size: 2.5rem; margin-block-end: var(--k-space-2); border-radius: var(--k-radius-md); background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+  .tk-out b { color: var(--k-text-primary); font-size: var(--k-text-md); }
+  .tk-out small { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .tk-out code { margin-block-start: var(--k-space-3); overflow: hidden; padding: var(--k-space-2) var(--k-space-3); border-radius: var(--k-radius-sm); background: var(--k-bg-secondary); color: var(--k-text-secondary); font: 12px var(--k-font-mono); text-align: left; text-overflow: ellipsis; white-space: nowrap; }
+
+  .tk-cta { padding-block: clamp(3.5rem, 7vw, 5rem); }
+  .tk-cta__box { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--k-space-6); }
+  .tk-cta__box > div:first-child { padding: 0; }
+  .tk-cta h2 { margin: 0; color: var(--k-text-primary); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: var(--k-weight-bold); }
+  .tk-cta p { margin: var(--k-space-2) 0 0; color: var(--k-text-tertiary); }
+  .tk-cta__actions { display: flex; flex-wrap: wrap; gap: var(--k-space-2); }
+
+  @media (max-width: 64rem) {
+    .tk-scene { grid-template-columns: 1fr; }
+    .tk-legend { grid-template-columns: repeat(4, minmax(0, 1fr)); order: 2; }
+    .tk-legend__item:hover, .tk-legend__item.is-on { translate: 0 -2px; }
+    .tk-view { --s: 0.8; block-size: 38rem; }
+  }
+  @media (max-width: 48rem) {
+    .tk-legend { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tk-view { --s: 0.5; block-size: 26rem; }
+    .tk-stack { --gap: 5.5rem; }
+    .tk-row { grid-template-columns: auto minmax(0, 1fr); }
+    .tk-row__code { grid-column: 1 / -1; }
+    .tk-outs { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 30rem) { .tk-view { --s: 0.42; block-size: 22rem; } }
+  @media (prefers-reduced-motion: reduce) {
+    .tk-stack, .tk-plate, .tk-beam i { transition: none; }
+    .tk-beam i::after { animation: none; opacity: 0; }
+  }
+</style>
+
+<script>
+  import { createTheme } from "@kashi-ui/tokens";
+
+  const stage = document.querySelector<HTMLElement>("[data-tk-stage]");
+  const stack = document.querySelector<HTMLElement>("[data-stack]");
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // رنگ برند کل صفحه با createTheme واقعی کاشی (توکن‌های معنایی روی :root حل می‌شوند)
+  const style = document.createElement("style");
+  document.head.append(style);
+  const sws = document.querySelectorAll<HTMLButtonElement>(".tk-sw");
+  sws.forEach((btn) => btn.addEventListener("click", () => {
+    const v = btn.dataset.brand;
+    style.textContent = v ? createTheme({ brand: v }) : "";
+    sws.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+  }));
+
+  // باز و جمع کردن لایه‌ها
+  const ex = document.querySelector<HTMLButtonElement>("[data-explode]");
+  const exLabel = document.querySelector<HTMLElement>("[data-explode-label]");
+  ex?.addEventListener("click", () => {
+    const flat = stack!.classList.toggle("is-flat");
+    ex.setAttribute("aria-pressed", String(!flat));
+    if (exLabel) exLabel.textContent = flat ? "باز کردن لایه‌ها" : "جمع کردن لایه‌ها";
+  });
+
+  // تمرکز روی یک لایه از راهنما
+  const items = document.querySelectorAll<HTMLButtonElement>("[data-layer]");
+  const focus = (key: string | null) => {
+    if (key) stack!.dataset.focus = key; else delete stack!.dataset.focus;
+    items.forEach((i) => i.classList.toggle("is-on", i.dataset.layer === key));
+  };
+  items.forEach((i) => {
+    i.addEventListener("mouseenter", () => focus(i.dataset.layer!));
+    i.addEventListener("focus", () => focus(i.dataset.layer!));
+    i.addEventListener("mouseleave", () => focus(null));
+    i.addEventListener("blur", () => focus(null));
+    i.addEventListener("click", () => focus(stack!.dataset.focus === i.dataset.layer ? null : i.dataset.layer!));
+  });
+
+  // ورود: لایه‌ها از حالت جمع باز می‌شوند؛ کمی چرخش با حرکت ماوس
+  if (!calm && stack) {
+    stack.classList.add("is-flat");
+    const io = new IntersectionObserver((es) => { if (es[0].isIntersecting) { setTimeout(() => stack.classList.remove("is-flat"), 250); io.disconnect(); } }, { threshold: 0.35 });
+    io.observe(stack);
+    if (matchMedia("(pointer: fine)").matches && stage) {
+      stage.addEventListener("pointermove", (e) => {
+        const r = stage.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+        stack.style.setProperty("--rz", `${-42 + x * 8}deg`);
+        stack.style.setProperty("--rx", `${58 - y * 6}deg`);
+      });
+      stage.addEventListener("pointerleave", () => { stack.style.removeProperty("--rz"); stack.style.removeProperty("--rx"); });
+    }
+  }
+</script>

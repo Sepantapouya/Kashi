@@ -39,8 +39,11 @@
   border-radius: var(--k-radius-full);
   background: var(--k-switch-thumb, #fff);
   box-shadow: 0 1px 3px rgb(10 13 18 / 0.2), 0 1px 2px rgb(10 13 18 / 0.12);
-  transition: margin-inline-start var(--k-duration-normal) var(--k-ease-emphasized);
+  transition: margin-inline-start var(--k-duration-normal) var(--k-ease-spring), inline-size var(--k-duration-fast) var(--k-ease-standard);
 }
+/* ریزتعامل: هنگام فشردن، دستگیره به سمت مقصد کش می‌آید */
+.k-switch:active:not(:disabled)::before { inline-size: calc(var(--_h) - var(--_pad) * 2 + 4px); }
+.k-switch:checked:active:not(:disabled)::before { margin-inline-start: calc(var(--_w) - var(--_h) - 4px); }
 
 .k-switch:hover { --_track: color-mix(in srgb, var(--k-switch-track-off, var(--k-border-input)), var(--k-text-primary) 12%); }
 

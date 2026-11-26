@@ -1,0 +1,45 @@
+---
+layout: ../../../layouts/Docs.astro
+title: بازهٔ قیمت
+description: فیلتر قیمت با دو فیلد «از» و «تا» به تومان و اسلایدر دودستگیره که با هم هماهنگ‌اند.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { PriceRangeDemo } from "../../../components/demos";
+
+```tsx
+import { PriceRange } from "@kashi-ui/react";
+```
+
+## نمونه
+
+عدد را تایپ کنید یا دستگیره‌ها را بکشید. فیلدها ارقام فارسی و انگلیسی را می‌پذیرند، جداکنندهٔ هزارگان خودکار می‌آید و با خروج از فیلد یا <kbd>Enter</kbd> عدد به گام نزدیک گرد و داخل بازه نگه داشته می‌شود؛ «از» هیچ‌وقت از «تا» بیشتر نمی‌شود.
+
+<Demo html={false} align="stretch" code={`<PriceRange
+  label="قیمت"
+  min={0}
+  max={25_000_000}
+  step={100_000}
+  value={range}
+  onChange={setRange}
+  name="price"
+/>`}>
+  <PriceRangeDemo client:load />
+</Demo>
+
+با `name="price"`، دو فیلد `price_min` و `price_max` در فرم ارسال می‌شوند.
+
+<Props rows={[
+  ["min / max", "number", "", "کمترین و بیشترین قیمت ممکن"],
+  ["value / defaultValue", "[number, number]", "[min, max]", "بازهٔ انتخاب‌شده"],
+  ["onChange", "(value: [number, number]) => void", "", ""],
+  ["step", "number", "1000", "گام اسلایدر و گرد کردن عدد تایپ‌شده"],
+  ["label", "ReactNode", "", "عنوان فیلتر، مثل «قیمت»"],
+  ["unit", "ReactNode", "«تومان»", "واحد کنار فیلدها"],
+  ["name", "string", "", "دو فیلد name_min و name_max در فرم"],
+  ["labels", "{ from?, to?, min?, max? }", "", "متن «از»، «تا»، «ارزان‌ترین» و «گران‌ترین»"],
+]} />
+
+## دسترس‌پذیری
+
+کل فیلتر یک گروه با نام برچسب است. هر فیلد و هر دستگیره نام جدا دارد («از قیمت»، «تا قیمت») و دستگیره‌ها `input type="range"` بومی‌اند، پس با فلش‌ها و <kbd>Home</kbd>/<kbd>End</kbd> کار می‌کنند و صفحه‌خوان مبلغ را به تومان می‌خواند.

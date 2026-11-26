@@ -1,0 +1,825 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>آیکون‌های کاشی</title>
+<style>
+/*KASHI_FONT*/
+:root {
+  --bg: var(--figma-color-bg, #ffffff);
+  --panel: var(--figma-color-bg-secondary, #f6f7f9);
+  --fg: var(--figma-color-text, #15171c);
+  --muted: var(--figma-color-text-secondary, #687491);
+  --faint: var(--figma-color-text-tertiary, #8792ab);
+  --line: var(--figma-color-border, #e6e8ee);
+  /* کاشی‌ها از رنگ متن و زمینه ساخته می‌شوند تا با هر پوستهٔ فیگما درست بمانند */
+  --tile: color-mix(in srgb, var(--fg) 6%, var(--bg));
+  --tile-hover: color-mix(in srgb, var(--fg) 11%, var(--bg));
+  --brand: #0b8077;
+  --brand-fg: #ffffff;
+  --brand-soft: rgba(15, 168, 155, 0.12);
+  --ring: rgba(15, 168, 155, 0.35);
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 8px 24px rgba(16, 24, 40, 0.08);
+  --r: 12px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  color-scheme: light;
+}
+html.figma-dark, html.dark {
+  --bg: var(--figma-color-bg, #17191e);
+  --panel: var(--figma-color-bg-secondary, #1f2228);
+  --fg: var(--figma-color-text, #f1f3f6);
+  --muted: var(--figma-color-text-secondary, #9aa3b8);
+  --faint: var(--figma-color-text-tertiary, #6f7890);
+  --line: var(--figma-color-border, #2c3038);
+  --brand: #22c2b4;
+  --brand-fg: #04201e;
+  --brand-soft: rgba(34, 194, 180, 0.14);
+  --ring: rgba(34, 194, 180, 0.4);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--fg); font: 12px/1.6 "Inter", "Vazirmatn", Tahoma, system-ui, sans-serif; font-feature-settings: "cv11", "ss01"; -webkit-font-smoothing: antialiased; overflow: hidden; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; border: 0; background: none; padding: 0; }
+:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 8px; }
+svg { display: block; }
+.app { display: grid; grid-template-rows: auto auto 1fr auto; grid-template-columns: minmax(0, 1fr); height: 100vh; }
+.app > * { min-width: 0; }
+
+/* ---------- بالا ---------- */
+.top { display: flex; align-items: center; gap: 10px; padding: 12px 14px 10px; }
+.logo { inline-size: 30px; block-size: 30px; border-radius: 9px; display: grid; place-items: center; background: linear-gradient(135deg, #0fa89b, #2740ed); color: #fff; flex: none; box-shadow: 0 4px 12px rgba(15, 168, 155, 0.3); }
+.logo svg { inline-size: 18px; block-size: 18px; }
+.brand b { font-size: 14px; font-weight: 800; display: block; line-height: 1.3; }
+.brand span { font-size: 11px; color: var(--muted); }
+.top-actions { margin-inline-start: auto; display: flex; gap: 4px; }
+.ghost { inline-size: 30px; block-size: 30px; border-radius: 9px; display: grid; place-items: center; color: var(--muted); transition: background 0.15s, color 0.15s, transform 0.1s; }
+.ghost:hover { background: var(--tile); color: var(--fg); }
+.ghost.lang { inline-size: auto; padding-inline: 8px; font-size: 11px; font-weight: 800; letter-spacing: .02em; }
+.ghost:active { transform: scale(0.94); }
+.ghost svg { inline-size: 18px; block-size: 18px; }
+
+.search { position: relative; margin: 0 14px; }
+.search input { inline-size: 100%; block-size: 38px; border-radius: 11px; border: 1px solid var(--line); background: var(--panel); padding: 0 38px 0 64px; outline: none; transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
+.search input::-webkit-search-cancel-button { display: none; }
+.search input::placeholder { color: var(--faint); }
+.search input:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--ring); background: var(--bg); }
+.search .s-icon { z-index: 1; position: absolute; inset-inline-start: 12px; inset-block-start: 10px; color: var(--faint); pointer-events: none; }
+.search .s-icon svg { inline-size: 18px; block-size: 18px; }
+.search kbd { position: absolute; inset-inline-end: 10px; inset-block-start: 9px; font: 11px/20px ui-monospace, Menlo, monospace; padding: 0 7px; border-radius: 6px; border: 1px solid var(--line); color: var(--faint); background: var(--bg); }
+.search .clear { position: absolute; inset-inline-end: 8px; inset-block-start: 7px; inline-size: 24px; block-size: 24px; border-radius: 7px; display: none; place-items: center; color: var(--muted); }
+.search.has-q kbd { display: none; }
+.search.has-q .clear { display: grid; }
+.search .clear:hover { background: var(--tile); }
+
+.styles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; padding: 10px 14px 8px; }
+.styles::-webkit-scrollbar { display: none; }
+.style { min-width: 0; display: flex; align-items: center; justify-content: center; gap: 5px; block-size: 32px; padding: 0 6px; font-size: 11.5px; overflow: hidden; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s; white-space: nowrap; }
+.style svg { flex: none; inline-size: 16px; block-size: 16px; }
+.style:hover { color: var(--fg); background: var(--tile); }
+.style:active { transform: scale(0.96); }
+.style[aria-pressed="true"] { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+
+/* ---------- میانه ---------- */
+.main { display: grid; grid-template-columns: clamp(186px, 30%, 210px) minmax(0, 1fr); min-height: 0; border-top: 1px solid var(--line); }
+.side { overflow-y: auto; padding: 8px 8px 16px; border-inline-end: 1px solid var(--line); scrollbar-width: thin; }
+.side h4 { margin: 12px 8px 4px; font-size: 10.5px; font-weight: 700; color: var(--faint); letter-spacing: 0.2px; }
+.cat { inline-size: 100%; display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 9px; color: var(--muted); text-align: start; transition: background 0.12s, color 0.12s; }
+.cat svg { inline-size: 16px; block-size: 16px; flex: none; }
+.cat span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cat em { font-style: normal; font-size: 10px; color: var(--faint); flex: none; }
+.cat:hover { background: var(--tile); color: var(--fg); }
+.cat[aria-current="true"] { background: var(--brand-soft); color: var(--brand); font-weight: 700; }
+.cat[aria-current="true"] em { color: var(--brand); }
+
+.content { overflow-y: auto; padding: 4px 12px 16px; min-width: 0; scrollbar-width: thin; }
+.content-head { position: sticky; top: 0; z-index: 2; background: var(--bg); display: flex; align-items: baseline; gap: 8px; padding: 10px 2px 8px; min-width: 0; }
+.content-head b { flex: 0 1 auto; font-size: 13px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 3em; }
+.content-head > span { white-space: nowrap; }
+.content-head span { color: var(--faint); font-size: 11px; }
+.content-head .hint { flex: 1 1 0; margin-inline-start: auto; text-align: end; white-space: nowrap; font-size: 10.5px; color: var(--faint); min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(46px, 1fr)); gap: 6px; }
+.tile { position: relative; aspect-ratio: 1; border-radius: var(--r); background: var(--tile); display: grid; place-items: center; color: var(--fg); transition: background 0.15s, transform 0.15s var(--ease), box-shadow 0.15s; }
+.tile svg { inline-size: 24px; block-size: 24px; pointer-events: none; }
+.tile:hover { background: var(--tile-hover); transform: translateY(-1px); }
+.tile:active { transform: scale(0.94); }
+.tile[aria-selected="true"] { background: var(--brand-soft); color: var(--brand); box-shadow: inset 0 0 0 1.5px var(--brand); }
+.tile .fav { position: absolute; inset-block-start: 4px; inset-inline-end: 4px; inline-size: 6px; block-size: 6px; border-radius: 50%; background: #f5b544; }
+.tile.dragging { opacity: 0.5; }
+.more { block-size: 1px; }
+.empty { padding: 48px 12px; text-align: center; color: var(--muted); }
+.empty svg { inline-size: 40px; block-size: 40px; margin: 0 auto 10px; color: var(--faint); }
+.empty b { display: block; color: var(--fg); font-size: 13px; margin-bottom: 4px; }
+
+/* ---------- بازرس پایین ---------- */
+.inspector { border-top: 1px solid var(--line); background: var(--bg); padding: 12px 14px 14px; display: grid; gap: 10px; box-shadow: 0 -8px 24px rgba(16, 24, 40, 0.04); }
+.ins-head { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.preview { inline-size: 56px; block-size: 56px; border-radius: 14px; flex: none; display: grid; place-items: center; background: var(--panel); border: 1px solid var(--line); background-image: linear-gradient(45deg, var(--tile) 25%, transparent 25%, transparent 75%, var(--tile) 75%), linear-gradient(45deg, var(--tile) 25%, transparent 25%, transparent 75%, var(--tile) 75%); background-size: 10px 10px; background-position: 0 0, 5px 5px; }
+.preview svg { inline-size: 32px; block-size: 32px; }
+.preview.stack { position: relative; }
+.preview.stack b { position: absolute; inset-block-end: -6px; inset-inline-start: -6px; min-inline-size: 22px; block-size: 22px; padding: 0 6px; border-radius: 11px; background: var(--brand); color: var(--brand-fg); font-size: 11px; display: grid; place-items: center; border: 2px solid var(--bg); }
+.meta { min-width: 0; flex: 1; }
+.meta b { display: block; font-size: 13.5px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.meta button.name { font: 11px/1.6 ui-monospace, Menlo, monospace; color: var(--muted); direction: ltr; padding: 0 6px; margin-inline-start: -6px; border-radius: 6px; max-inline-size: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: block; }
+.meta button.name.hint { font: 11px/1.6 "Inter", "Vazirmatn", Tahoma, sans-serif; direction: inherit; }
+.meta button.name:hover { background: var(--tile); color: var(--fg); }
+.star { flex: none; inline-size: 34px; block-size: 34px; border-radius: 10px; display: grid; place-items: center; color: var(--faint); border: 1px solid var(--line); transition: color 0.15s, background 0.15s, transform 0.15s var(--ease); }
+.star svg { inline-size: 18px; block-size: 18px; }
+.star:hover { color: #f5b544; }
+.star[aria-pressed="true"] { color: #f5b544; background: rgba(245, 181, 68, 0.12); border-color: rgba(245, 181, 68, 0.4); }
+.star.pop { animation: pop 0.35s var(--ease); }
+@keyframes pop { 40% { transform: scale(1.18); } }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.ctl { display: flex; align-items: center; gap: 6px; }
+.ctl label { font-size: 11px; color: var(--muted); }
+.swatches { display: flex; gap: 4px; }
+.sw { inline-size: 20px; block-size: 20px; border-radius: 50%; border: 1px solid var(--line); box-shadow: inset 0 0 0 2px var(--bg); transition: transform 0.12s; }
+.sw:hover { transform: scale(1.12); }
+.sw[aria-pressed="true"] { outline: 2px solid var(--brand); outline-offset: 1px; }
+.sw.pick { position: relative; overflow: hidden; background: conic-gradient(#e51d2a, #f98307, #ffd788, #518b25, #0fa89b, #2740ed, #8b5cf6, #e51d2a); }
+.sw.pick input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.seg { display: flex; background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 2px; }
+.seg button { min-inline-size: 28px; block-size: 24px; padding: 0 6px; border-radius: 7px; font-size: 11px; color: var(--muted); transition: background 0.12s, color 0.12s; }
+.seg button:hover { color: var(--fg); }
+.seg button[aria-pressed="true"] { background: var(--bg); color: var(--fg); font-weight: 700; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12); }
+input[type="range"] { inline-size: 84px; accent-color: var(--brand); }
+.ctl output { font-size: 11px; color: var(--muted); min-inline-size: 24px; }
+.ctl.disabled { opacity: 0.4; pointer-events: none; }
+
+.actions { display: flex; gap: 6px; }
+.selbar { display: flex; align-items: center; gap: 8px; margin: 0 12px 8px; padding: 8px 8px 8px 12px; padding-inline: 12px 8px; border: 1px solid var(--brand); border-radius: 12px; background: color-mix(in srgb, var(--brand) 10%, var(--bg)); font-size: 12px; animation: selbar-in 0.2s ease-out; }
+.selbar[hidden] { display: none; }
+.selbar > span:first-child { display: grid; color: var(--brand); }
+.selbar > span:first-child svg { inline-size: 16px; block-size: 16px; }
+.selbar #selbar-text { flex: 1; min-inline-size: 0; }
+.selbar .btn { block-size: 30px; padding: 0 10px; font-size: 12px; }
+@keyframes selbar-in { from { opacity: 0; transform: translateY(4px); } }
+.btn { flex: none; block-size: 36px; padding: 0 11px; border-radius: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--line); background: var(--bg); transition: background 0.15s, transform 0.1s, box-shadow 0.15s, opacity 0.15s; white-space: nowrap; }
+.btn svg { inline-size: 16px; block-size: 16px; }
+.btn:hover { background: var(--tile); }
+.btn:active { transform: scale(0.97); }
+.btn.primary { flex: 1 1 auto; min-width: 0; background: var(--brand); color: var(--brand-fg); border-color: transparent; box-shadow: 0 4px 14px var(--ring); }
+.btn.primary:hover { filter: brightness(1.06); }
+.btn[disabled] { opacity: 0.45; pointer-events: none; }
+.menu-wrap { position: relative; }
+.menu { position: absolute; inset-block-end: calc(100% + 6px); inset-inline-end: 0; min-inline-size: 168px; padding: 5px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); box-shadow: var(--shadow); display: none; z-index: 10; transform-origin: bottom left; }
+.menu.open { display: block; animation: menuIn 0.16s var(--ease); }
+@keyframes menuIn { from { opacity: 0; transform: translateY(4px) scale(0.98); } }
+.menu button { inline-size: 100%; display: flex; align-items: center; gap: 8px; padding: 7px 9px; border-radius: 8px; text-align: start; }
+.menu button:hover { background: var(--tile); }
+.menu button small { margin-inline-start: auto; color: var(--faint); font-size: 10.5px; direction: ltr; }
+.menu hr { border: 0; border-top: 1px solid var(--line); margin: 4px 2px; }
+
+.toast { position: fixed; inset-inline: 0; inset-block-end: 200px; margin: auto; inline-size: max-content; max-inline-size: 80%; padding: 8px 14px; border-radius: 10px; background: var(--fg); color: var(--bg); font-weight: 600; box-shadow: var(--shadow); opacity: 0; transform: translateY(6px); transition: opacity 0.18s, transform 0.18s var(--ease); pointer-events: none; z-index: 20; }
+.toast.show { opacity: 1; transform: none; }
+
+.standalone-note { display: none; }
+body.web .only-figma { display: none !important; }
+body:not(.web) .only-web { display: none !important; }
+body.web .standalone-note { display: inline; }
+body.web #dl-svg { flex: 1; background: var(--brand); color: var(--brand-fg); border-color: transparent; box-shadow: 0 4px 14px var(--ring); }
+.brand bdi { font-family: ui-monospace, Menlo, monospace; font-size: 10.5px; }
+.ins-empty .meta b { color: var(--muted); font-weight: 700; }
+.ins-empty .preview svg { opacity: 0.35; }
+
+@media (max-width: 420px) {
+  .main { grid-template-columns: 1fr; }
+  .side { display: none; }
+  .btn { padding: 0 9px; gap: 4px; font-size: 11.5px; }
+  .controls { gap: 8px 10px; }
+  .style svg { display: none; }
+  .content-head .hint { display: none; }
+  .controls { flex-wrap: wrap; }
+  /* پنل باریک: دکمه‌های فرعی فقط آیکون؛ متنشان در title هست */
+  .actions .btn:not(.primary) { font-size: 0; gap: 0; padding: 0 10px; }
+  .actions .btn:not(.primary) svg { inline-size: 17px; block-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="top">
+      <div class="logo" aria-hidden="true"><svg viewBox="0 0 32 32"><path fill="currentColor" fill-rule="evenodd" d="M16 1 11.61 5.39H5.39v6.22L1 16l4.39 4.39v6.22h6.22L16 31l4.39-4.39h6.22v-6.22L31 16l-4.39-4.39V5.39h-6.22Z M16 8.8 13.89 10.91H10.91v2.98L8.8 16l2.11 2.11v2.98h2.98L16 23.2l2.11-2.11h2.98v-2.98L23.2 16l-2.11-2.11v-2.98h-2.98Z"/></svg></div>
+      <div class="brand"><b data-t="brand">آیکون‌های کاشی</b><span id="total"></span></div>
+      <div class="top-actions">
+        <button class="ghost lang" id="lang-toggle" title="English / فارسی" aria-label="Switch language / تغییر زبان"></button>
+        <button class="ghost only-figma" id="size-toggle" data-t-title="panelSize" data-t-aria="panelSizeAria" title="اندازهٔ پنل" aria-label="تغییر اندازهٔ پنل"></button>
+        <button class="ghost only-web" id="theme-toggle" data-t-title="theme" data-t-aria="theme" title="روشن / تیره" aria-label="روشن یا تیره"></button>
+      </div>
+    </div>
+    <div class="search" id="search-box">
+      <span class="s-icon" data-icon="search"></span>
+      <input id="q" type="search" data-t-ph="searchPh" data-t-aria="search" placeholder="جست‌وجو در آیکون‌ها، فارسی یا انگلیسی" autocomplete="off" spellcheck="false" aria-label="جست‌وجو">
+      <kbd>/</kbd>
+      <button class="clear" id="clear" data-t-aria="clear" aria-label="پاک کردن جست‌وجو" data-icon="close"></button>
+    </div>
+    <div class="styles" id="styles" role="toolbar" data-t-aria="style" aria-label="سبک آیکون"></div>
+  </header>
+
+  <div class="main">
+    <nav class="side" id="side" data-t-aria="cats" aria-label="دسته‌ها"></nav>
+    <section class="content" id="content">
+      <div class="content-head"><b id="view-title"></b><span id="view-count"></span><span class="hint only-figma" data-t="hint">برای افزودن دوبار بزنید یا بکشید روی بوم</span></div>
+      <div class="grid" id="grid" role="listbox" aria-multiselectable="true" data-t-aria="icons" aria-label="آیکون‌ها"></div>
+      <div class="more" id="more"></div>
+    </section>
+  </div>
+
+  <div class="selbar only-figma" id="selbar" hidden>
+    <span data-icon="refresh"></span>
+    <span id="selbar-text"></span>
+    <button class="btn" id="selbar-apply"></button>
+  </div>
+  <footer class="inspector" id="inspector">
+    <div class="ins-head">
+      <div class="preview" id="preview"></div>
+      <div class="meta"><b id="ins-title"></b><button class="name" id="ins-name" data-t-title="copyName" title="کپی نام"></button></div>
+      <button class="star" id="star" aria-pressed="false" data-t-title="fav" title="علاقه‌مندی" data-icon="star"></button>
+    </div>
+    <div class="controls">
+      <div class="ctl"><label data-t="color">رنگ</label><div class="swatches" id="swatches"></div></div>
+      <div class="ctl"><label data-t="size">اندازه</label><div class="seg" id="sizes"></div></div>
+      <div class="ctl" id="stroke-ctl"><label data-t="stroke">ضخامت</label><input type="range" id="stroke" min="1" max="2.5" step="0.25"><output id="stroke-out"></output></div>
+    </div>
+    <div class="actions">
+      <button class="btn primary only-figma" id="insert"><span data-icon="plus"></span><span id="insert-label">افزودن به فیگما</span></button>
+      <button class="btn only-figma" id="as-comp" data-t-title="compTitle" title="کامپوننت با ویژگی‌های Style و Size؛ رنگ از متغیر «Kashi Icons / icon»"><span data-icon="component"></span><span data-t="comp">کامپوننت</span></button>
+      <button class="btn" id="dl-svg" data-t-title="dlSvg" title="دانلود SVG"><span data-icon="download"></span>SVG</button>
+      <div class="menu-wrap">
+        <button class="btn" id="png-btn" aria-haspopup="menu" title="PNG"><span data-icon="image"></span>PNG</button>
+        <div class="menu" id="png-menu" role="menu">
+          <button data-scale="1">PNG 1× <small id="px1"></small></button>
+          <button data-scale="2">PNG 2× <small id="px2"></small></button>
+          <button data-scale="3">PNG 3× <small id="px3"></small></button>
+        </div>
+      </div>
+      <div class="menu-wrap">
+        <button class="btn" id="copy-btn" aria-haspopup="menu" data-t-title="copy"><span data-icon="copy"></span><span data-t="copy">کپی</span></button>
+        <div class="menu" id="copy-menu" role="menu">
+          <button data-copy="svg" data-t="codeSvg">کد SVG</button>
+          <button data-copy="react"><span data-t="codeReact">کد React</span> <small>@kashi-ui/icons</small></button>
+          <button data-copy="html"><span data-t="codeHtml">کد HTML</span> <small>iconSvg</small></button>
+          <hr>
+          <button data-copy="name" data-t="iconName">نام آیکون</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/*KASHI_DATA*/
+/*KASHI_RENDER*/
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var fa = function (n) { return Number(n).toLocaleString(state.lang === "en" ? "en-US" : "fa-IR"); };
+  var inFigma = window.parent !== window;
+  // متن‌های پنل در دو زبان؛ زبان از تنظیمات ذخیره‌شده یا زبان سیستم می‌آید
+  var STRINGS = {
+    fa: {
+      brand: "آیکون‌های کاشی", panelSize: "اندازهٔ پنل", panelSizeAria: "تغییر اندازهٔ پنل", theme: "روشن / تیره",
+      searchPh: "جست‌وجو در آیکون‌ها، فارسی یا انگلیسی", search: "جست‌وجو", clear: "پاک کردن جست‌وجو", style: "سبک آیکون", cats: "دسته‌ها", icons: "آیکون‌ها",
+      hint: "برای افزودن دوبار بزنید یا بکشید روی بوم", copyName: "کپی نام", fav: "علاقه‌مندی", color: "رنگ", size: "اندازه", stroke: "ضخامت",
+      comp: "کامپوننت", compTitle: "کامپوننت با ویژگی‌های Style و Size؛ رنگ از متغیر «Kashi Icons / icon»", dlSvg: "دانلود SVG", copy: "کپی",
+      codeSvg: "کد SVG", codeReact: "کد React", codeHtml: "کد HTML", iconName: "نام آیکون",
+      all: "همه", favs: "علاقه‌مندی‌ها", recent: "استفادهٔ اخیر", allIcons: "همهٔ آیکون‌ها", result: "نتیجهٔ «%s»", nIcons: "%n آیکون",
+      noResult: "آیکونی با این نام پیدا نشد", noFav: "هنوز علاقه‌مندی ندارید", noRecent: "هنوز آیکونی استفاده نکرده‌اید",
+      noResultSub: "واژهٔ دیگری امتحان کنید؛ فارسی و انگلیسی هر دو کار می‌کنند.", noFavSub: "روی ستارهٔ پایین پنل بزنید تا آیکون اینجا بماند.", noRecentSub: "آیکون‌هایی که اضافه یا دانلود می‌کنید اینجا می‌آیند.",
+      pick: "یک آیکون انتخاب کنید", nSelected: "%n آیکون انتخاب شده", hintFigma: "دوبار کلیک یا کشیدن: افزودن", hintWeb: "⌘ کلیک: چند آیکون با هم", hintMany: "⌘ کلیک: افزودن یا برداشتن",
+      add: "افزودن به فیگما", addN: "افزودن %n آیکون", dlSvgWeb: "دانلود SVG", customColor: "رنگ دلخواه",
+      favAdded: "به علاقه‌مندی‌ها اضافه شد", favRemoved: "از علاقه‌مندی‌ها برداشته شد",
+      selbar: "%n آیکون کاشی روی بوم انتخاب شده", convert: "تبدیل به %s، %n",
+      svgDone: "SVG دانلود شد", svgZip: "%n SVG در یک فایل ZIP", pngDone: "PNG دانلود شد", pngZip: "%n PNG در یک فایل ZIP",
+      svgCopied: "کد SVG کپی شد", reactCopied: "کد React کپی شد", htmlCopied: "کد HTML کپی شد", nameCopied: "نام کپی شد",
+      compAdded: "کامپوننت اضافه شد", compAddedN: "%n کامپوننت اضافه شد", added: "به فیگما اضافه شد", addedN: "%n آیکون به فیگما اضافه شد",
+      total: "%n آیکون · ۶ سبک",
+      styles: { light: "خطی", bold: "توپر", bulk: "حجمی", "two-tone": "دورنگ", broken: "شکسته", curved: "منحنی" },
+      colors: ["رنگ متن", "سیاه", "سفید", "فیروزه‌ای", "لاجوردی", "زعفرانی", "اناری"],
+    },
+    en: {
+      brand: "Kashi Icons", panelSize: "Panel size", panelSizeAria: "Change panel size", theme: "Light / dark",
+      searchPh: "Search icons in English or Persian", search: "Search", clear: "Clear search", style: "Icon style", cats: "Categories", icons: "Icons",
+      hint: "Double-click or drag onto the canvas", copyName: "Copy name", fav: "Favorite", color: "Color", size: "Size", stroke: "Stroke",
+      comp: "Component", compTitle: "Component with Style and Size properties; color from the “Kashi Icons / icon” variable", dlSvg: "Download SVG", copy: "Copy",
+      codeSvg: "SVG code", codeReact: "React code", codeHtml: "HTML code", iconName: "Icon name",
+      all: "All", favs: "Favorites", recent: "Recently used", allIcons: "All icons", result: "Results for “%s”", nIcons: "%n icons",
+      noResult: "No icon with that name", noFav: "No favorites yet", noRecent: "No recent icons yet",
+      noResultSub: "Try another word. English and Persian both work.", noFavSub: "Tap the star at the bottom of the panel to keep an icon here.", noRecentSub: "Icons you add or download show up here.",
+      pick: "Select an icon", nSelected: "%n icons selected", hintFigma: "Double-click or drag to add", hintWeb: "⌘-click to pick several", hintMany: "⌘-click to add or remove",
+      add: "Add to Figma", addN: "Add %n icons", dlSvgWeb: "Download SVG", customColor: "Custom color",
+      favAdded: "Added to favorites", favRemoved: "Removed from favorites",
+      selbar: "%n Kashi icons selected on canvas", convert: "Make %s, %n",
+      svgDone: "SVG downloaded", svgZip: "%n SVGs in one ZIP", pngDone: "PNG downloaded", pngZip: "%n PNGs in one ZIP",
+      svgCopied: "SVG code copied", reactCopied: "React code copied", htmlCopied: "HTML code copied", nameCopied: "Name copied",
+      compAdded: "Component added", compAddedN: "%n components added", added: "Added to Figma", addedN: "%n icons added to Figma",
+      total: "%n icons · 6 styles",
+      styles: { light: "Light", bold: "Bold", bulk: "Bulk", "two-tone": "Two-tone", broken: "Broken", curved: "Curved" },
+      colors: ["Text color", "Black", "White", "Teal", "Blue", "Saffron", "Red"],
+    },
+  };
+  var GROUP_EN = { interface: "Interface", documents: "Files & work", communication: "Communication", media: "Media", tech: "Tech & data", money: "Money & shopping", place: "Time, place & travel", home: "Home & life", health: "Health, sport & games", world: "Science & nature", culture: "Culture & events", letters: "Letters & numbers", brands: "Apps & brands", crypto: "Crypto & web3", "iranian-brands": "Iranian brands" };
+  var CAT_EN = { "persian-letters": "Persian letters", "latin-letters": "Latin letters", persian: "Persian culture", "iran-banks": "Iranian banks", "iran-payment-gateways": "Iranian payment gateways", "iran-website-applications": "Iranian apps", "iran-isp": "Iranian ISPs", "iran-social-media": "Iranian messengers", "iran-vod": "Iranian streaming", "iran-app-store": "Iranian app stores", "iran-tech-companies": "Iranian tech companies", "iran-transportation": "Iranian airlines", "iran-media-news": "Iranian media", "iran-insurance": "Iranian insurance", "iran-business-chain-stores": "Iranian chain stores", ai: "AI", cad: "CAD", "smart-home": "Smart home", "home-life": "Home life" };
+  function cap(w) { return w.charAt(0).toUpperCase() + w.slice(1); }
+  function human(slug) { return cap(slug.replace(/-/g, " ")); }
+  function t(k, n, x) {
+    var v = STRINGS[state.lang][k];
+    if (n !== undefined) v = v.replace("%n", fa(n));
+    if (x !== undefined) v = v.replace("%s", x);
+    if (state.lang === "en" && n === 1) v = v.replace(/\b(icons|components|SVGs|PNGs)\b/, function (w) { return w.slice(0, -1); });
+    return v;
+  }
+  function styleLabel(v) { return STRINGS[state.lang].styles[v]; }
+  function catLabel(c) {
+    if (state.lang === "fa") return CAT_LABEL[c];
+    if (CAT_EN[c]) return CAT_EN[c];
+    if (c.indexOf("brand-") === 0) return human(c.slice(6)) + " brands";
+    return human(c);
+  }
+  var IR_PREFIX = /^ir-(banks|payment-gateways|website-applications|isp|social-media|vod|app-store|tech-companies|transportation|media-news|insurance|business-chain-stores)-/;
+  function titleOf(n) {
+    if (state.lang === "fa") return BY[n].t;
+    return human(n.replace(/^brand-/, "").replace(IR_PREFIX, "").replace(/^crypto-/, ""));
+  }
+  var FILLED = { bold: true, bulk: true };
+  var SIZES = [16, 20, 24, 32, 48];
+  var COLORS = ["currentColor", "#15171c", "#ffffff", "#0b8077", "#2740ed", "#f98307", "#e51d2a"];
+
+  // ---------- داده ----------
+  var NAMES = [], BY = {}, CAT_COUNT = {};
+  DATA.icons.forEach(function (row) {
+    var icon = { n: row[0], t: row[1], c: DATA.cats[row[2]][0], k: row[3], b: row[4], comp: row[5] };
+    NAMES.push(icon.n); BY[icon.n] = icon;
+    CAT_COUNT[icon.c] = (CAT_COUNT[icon.c] || 0) + 1;
+  });
+  var CAT_LABEL = {}; DATA.cats.forEach(function (c) { CAT_LABEL[c[0]] = c[1]; });
+  function fold(s) {
+    return String(s || "").toLowerCase()
+      .replace(/[يى]/g, "ی").replace(/ك/g, "ک").replace(/[ةۀ]/g, "ه").replace(/[آأإٱ]/g, "ا").replace(/ؤ/g, "و")
+      .replace(/[ً-ٰٟ]/g, "")
+      .replace(/[۰-۹]/g, function (d) { return "۰۱۲۳۴۵۶۷۸۹".indexOf(d); }).replace(/[٠-٩]/g, function (d) { return "٠١٢٣٤٥٦٧٨٩".indexOf(d); })
+      .replace(/[\s‌‍ـ_\-.،,]/g, "");
+  }
+  var INDEX = null;
+  function index() {
+    if (!INDEX) INDEX = NAMES.map(function (n) { var i = BY[n]; return [n, fold(n + "|" + i.t + "|" + i.k + "|" + CAT_LABEL[i.c] + "|" + i.c)]; });
+    return INDEX;
+  }
+
+  // ---------- وضعیت ----------
+  var state = { variant: "light", size: 24, sw: 1.5, color: "currentColor", cat: "all", favs: [], recent: [], theme: null, panel: "normal", lang: /^fa\b/i.test(navigator.language || "") ? "fa" : "en" };
+  var q = "";
+  var selected = [];
+  var focus = null;
+  var list = [];
+  var shown = 0;
+  var PAGE = 168;
+
+  function save() {
+    var s = { variant: state.variant, size: state.size, sw: state.sw, color: state.color, favs: state.favs, recent: state.recent, theme: state.theme, panel: state.panel, lang: state.lang };
+    if (inFigma) parent.postMessage({ pluginMessage: { type: "save", state: s } }, "*");
+    else try { localStorage.setItem("kashi-icons", JSON.stringify(s)); } catch (e) {}
+  }
+
+  // ---------- ساخت SVG ----------
+  var uid = 0;
+  function body(name, variant, sw) { return KashiRender.renderBody(BY[name].b, variant, { uid: "k" + (++uid), sw: sw }); }
+  function uiSvg(name, px) {
+    return '<svg viewBox="0 0 20 20" width="' + px + '" height="' + px + '" fill="none" stroke="currentColor" stroke-width="' + state.sw + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + body(name, state.variant, state.sw) + "</svg>";
+  }
+  function chrome(name, px) {
+    return '<svg viewBox="0 0 20 20" width="' + px + '" height="' + px + '" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + KashiRender.renderBody(BY[name].b, "light", { uid: "c" + (++uid) }) + "</svg>";
+  }
+  // SVG تمیز برای خروجی: رنگ واقعی، اندازهٔ واقعی، شناسه‌های یکتا و ثابت
+  function exportSvg(name, opts) {
+    opts = opts || {};
+    var color = opts.color || (state.color === "currentColor" ? (opts.forFigma ? "#000000" : "currentColor") : state.color);
+    var size = opts.size || state.size;
+    var variant = opts.variant || state.variant;
+    var sw = opts.sw || state.sw;
+    var inner = KashiRender.renderBody(BY[name].b, variant, { uid: "kashi-" + name, sw: sw }).replace(/currentColor/g, color);
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 20 20" fill="none" stroke="' + color + '" stroke-width="' + sw + '" stroke-linecap="round" stroke-linejoin="round">' + inner + "</svg>";
+  }
+  function fileName(name, ext) { return "kashi-" + name + (state.variant === "light" ? "" : "-" + state.variant) + "." + ext; }
+  // کامپوننت: شش سبک با خط ۱٫۵ و رنگ سیاه (بعداً به متغیر رنگ وصل می‌شود)؛ اندازه‌ها در فیگما از همین ساخته می‌شوند
+  var COMP_SIZES = [16, 20, 24, 32];
+  function compSize() { return COMP_SIZES.indexOf(state.size) !== -1 ? state.size : 24; }
+  function compItem(name) {
+    return {
+      name: name, title: BY[name].t, variant: state.variant, size: compSize(), sizes: COMP_SIZES,
+      styles: KashiRender.variants.map(function (v) { return { variant: v, svg: exportSvg(name, { forFigma: true, variant: v, sw: 1.5, size: 20, color: "#000000" }) }; }),
+    };
+  }
+  function figmaItem(name) {
+    return { name: name, label: "Kashi / " + name + (state.variant === "light" ? "" : " / " + STRINGS.en.styles[state.variant]), variant: state.variant, size: state.size, svg: exportSvg(name, { forFigma: true }) };
+  }
+
+  // ---------- دکمه‌های آیکونی ثابت ----------
+  function fillIcons(root) {
+    (root || document).querySelectorAll("[data-icon]").forEach(function (el) {
+      var n = el.getAttribute("data-icon");
+      if (BY[n]) el.innerHTML = chrome(n, 18) + (el.tagName === "SPAN" ? "" : el.innerHTML.replace(/<svg[\s\S]*?<\/svg>/, ""));
+    });
+  }
+
+  // ---------- سبک‌ها ----------
+  function renderStyles() {
+    var pv = BY["heart"] ? "heart" : NAMES[0];
+    $("styles").innerHTML = KashiRender.variants.map(function (v) {
+      return '<button class="style" data-v="' + v + '" aria-pressed="' + (state.variant === v) + '"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + KashiRender.renderBody(BY[pv].b, v, { uid: "s-" + v }) + "</svg>" + styleLabel(v) + "</button>";
+    }).join("");
+  }
+  $("styles").addEventListener("click", function (e) {
+    var b = e.target.closest(".style"); if (!b) return;
+    state.variant = b.getAttribute("data-v");
+    renderStyles(); redrawTiles(); renderInspector(); save();
+  });
+
+  // ---------- دسته‌ها ----------
+  function catButton(id, label, count, icon) {
+    return '<button class="cat" data-cat="' + id + '" title="' + label + '" aria-current="' + (state.cat === id) + '">' + (icon && BY[icon] ? chrome(icon, 16) : "") + "<span>" + label + "</span><em>" + fa(count) + "</em></button>";
+  }
+  function firstOf(cat) { for (var i = 0; i < NAMES.length; i++) if (BY[NAMES[i]].c === cat) return NAMES[i]; }
+  function renderSide() {
+    var h = catButton("all", t("all"), NAMES.length, "apps") + catButton("fav", t("favs"), state.favs.length, "star") + catButton("recent", t("recent"), state.recent.length, "clock");
+    DATA.groups.forEach(function (g) {
+      h += "<h4>" + (state.lang === "en" ? GROUP_EN[g[2]] || g[0] : g[0]) + "</h4>" + g[1].map(function (c) { return catButton(c, catLabel(c), CAT_COUNT[c] || 0, firstOf(c)); }).join("");
+    });
+    $("side").innerHTML = h;
+  }
+  $("side").addEventListener("click", function (e) {
+    var b = e.target.closest(".cat"); if (!b) return;
+    state.cat = b.getAttribute("data-cat");
+    if (q) { q = ""; $("q").value = ""; syncSearch(); }
+    $("side").querySelectorAll(".cat").forEach(function (x) { x.setAttribute("aria-current", x === b); });
+    filter();
+    $("content").scrollTop = 0;
+  });
+
+  // ---------- فهرست ----------
+  function filter() {
+    var title;
+    if (q) {
+      var f = fold(q);
+      list = index().filter(function (r) { return r[1].indexOf(f) !== -1; }).map(function (r) { return r[0]; });
+      title = t("result", undefined, q);
+    } else if (state.cat === "fav") { list = state.favs.filter(function (n) { return BY[n]; }); title = t("favs"); }
+    else if (state.cat === "recent") { list = state.recent.filter(function (n) { return BY[n]; }); title = t("recent"); }
+    else if (state.cat === "all") { list = NAMES; title = t("allIcons"); }
+    else { list = NAMES.filter(function (n) { return BY[n].c === state.cat; }); title = catLabel(state.cat); }
+    $("view-title").textContent = title;
+    $("view-count").textContent = t("nIcons", list.length);
+    shown = 0;
+    $("grid").innerHTML = "";
+    if (!list.length) {
+      var msg = q ? t("noResult") : state.cat === "fav" ? t("noFav") : t("noRecent");
+      var sub = q ? t("noResultSub") : state.cat === "fav" ? t("noFavSub") : t("noRecentSub");
+      $("grid").innerHTML = '<div class="empty" style="grid-column:1/-1">' + chrome(q ? "search" : state.cat === "fav" ? "star" : "clock", 40) + "<b>" + msg + "</b>" + sub + "</div>";
+    }
+    more();
+  }
+  function tileHtml(n) {
+    var sel = selected.indexOf(n) !== -1;
+    return '<button class="tile" role="option" draggable="true" data-n="' + n + '" aria-selected="' + sel + '" title="' + titleOf(n) + '">' + uiSvg(n, 24) + (state.favs.indexOf(n) !== -1 ? '<i class="fav"></i>' : "") + "</button>";
+  }
+  function more() {
+    if (shown >= list.length) return;
+    var next = list.slice(shown, shown + PAGE);
+    $("grid").insertAdjacentHTML("beforeend", next.map(tileHtml).join(""));
+    shown += next.length;
+  }
+  new IntersectionObserver(function (es) { if (es[0].isIntersecting) more(); }, { root: $("content"), rootMargin: "400px" }).observe($("more"));
+  function redrawTiles() {
+    $("grid").querySelectorAll(".tile").forEach(function (t) { var n = t.getAttribute("data-n"); t.innerHTML = uiSvg(n, 24) + (state.favs.indexOf(n) !== -1 ? '<i class="fav"></i>' : ""); });
+  }
+  function syncSelection() {
+    $("grid").querySelectorAll(".tile").forEach(function (t) { t.setAttribute("aria-selected", selected.indexOf(t.getAttribute("data-n")) !== -1); });
+  }
+
+  // انتخاب: کلیک ساده یکی، ⌘/Ctrl چندتایی، Shift بازه
+  var anchor = null;
+  $("grid").addEventListener("click", function (e) {
+    var t = e.target.closest(".tile"); if (!t) return;
+    var n = t.getAttribute("data-n");
+    if (e.metaKey || e.ctrlKey) {
+      var i = selected.indexOf(n);
+      if (i === -1) selected.push(n); else selected.splice(i, 1);
+      anchor = n;
+    } else if (e.shiftKey && anchor) {
+      var a = list.indexOf(anchor), b = list.indexOf(n);
+      selected = list.slice(Math.min(a, b), Math.max(a, b) + 1);
+    } else { selected = [n]; anchor = n; }
+    focus = selected.length ? selected[selected.length - 1] : n;
+    syncSelection(); renderInspector();
+  });
+  $("grid").addEventListener("dblclick", function (e) {
+    var t = e.target.closest(".tile"); if (!t || !inFigma) return;
+    selected = [t.getAttribute("data-n")]; focus = selected[0]; syncSelection(); renderInspector(); insert();
+  });
+
+  // کشیدن روی بوم فیگما
+  $("grid").addEventListener("dragstart", function (e) {
+    var t = e.target.closest(".tile"); if (!t) return;
+    var n = t.getAttribute("data-n");
+    if (selected.indexOf(n) === -1) { selected = [n]; focus = n; syncSelection(); renderInspector(); }
+    t.classList.add("dragging");
+    if (!inFigma) { e.dataTransfer.setData("text/plain", exportSvg(n)); e.dataTransfer.setData("image/svg+xml", exportSvg(n)); }
+  });
+  $("grid").addEventListener("dragend", function (e) {
+    var t = e.target.closest(".tile"); if (t) t.classList.remove("dragging");
+    if (!inFigma || e.view.length === 0) return;
+    var items = selected.map(figmaItem);
+    parent.postMessage({ pluginDrop: { clientX: e.clientX, clientY: e.clientY, items: [], dropMetadata: { kashi: true, items: items } } }, "*");
+    remember(selected);
+  });
+
+  // ---------- بازرس ----------
+  function renderInspector() {
+    var many = selected.length > 1;
+    var n = focus && BY[focus] ? focus : null;
+    if (!n) { n = list[0] || NAMES[0]; }
+    $("preview").className = "preview" + (many ? " stack" : "");
+    $("preview").style.color = state.color === "currentColor" ? "" : state.color;
+    $("preview").innerHTML = uiSvg(n, 32) + (many ? "<b>" + fa(selected.length) + "</b>" : "");
+    var none = !selected.length;
+    $("inspector").classList.toggle("ins-empty", none);
+    $("ins-title").textContent = none ? t("pick") : many ? t("nSelected", selected.length) : titleOf(n);
+    $("ins-name").textContent = none ? (inFigma ? t("hintFigma") : t("hintWeb")) : many ? t("hintMany") : n;
+    $("ins-name").disabled = many || none;
+    $("ins-name").classList.toggle("hint", many || none);
+    $("star").style.display = many || none ? "none" : "";
+    $("star").setAttribute("aria-pressed", state.favs.indexOf(n) !== -1);
+    $("insert-label").textContent = many ? t("addN", selected.length) : t("add");
+    $("dl-svg").lastChild.textContent = many ? "ZIP" : inFigma ? "SVG" : t("dlSvgWeb");
+    $("png-btn").lastChild.textContent = many ? "PNG ZIP" : "PNG";
+    var hasSel = selected.length > 0;
+    ["insert", "as-comp", "dl-svg", "png-btn", "copy-btn"].forEach(function (id) { $(id).disabled = !hasSel; });
+    renderSelbar();
+    $("copy-btn").disabled = !hasSel || many;
+    $("stroke-ctl").classList.toggle("disabled", !!FILLED[state.variant]);
+    $("stroke").value = state.sw; $("stroke-out").textContent = fa(state.sw);
+    $("sizes").querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", +b.getAttribute("data-s") === state.size); });
+    $("swatches").querySelectorAll(".sw[data-c]").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-c") === state.color); });
+    [1, 2, 3].forEach(function (s) { $("px" + s).textContent = state.size * s + "px"; });
+  }
+  function renderControls() {
+    $("sizes").innerHTML = SIZES.map(function (s) { return '<button data-s="' + s + '">' + fa(s) + "</button>"; }).join("");
+    $("swatches").innerHTML = COLORS.map(function (c, i) {
+      var bg = c === "currentColor" ? "background:linear-gradient(135deg,var(--fg) 50%,var(--bg) 50%)" : "background:" + c;
+      var name = STRINGS[state.lang].colors[i];
+      return '<button class="sw" data-c="' + c + '" title="' + name + '" aria-label="' + name + '" style="' + bg + '"></button>';
+    }).join("") + '<label class="sw pick" title="' + t("customColor") + '"><input type="color" id="custom-color" aria-label="' + t("customColor") + '"></label>';
+  }
+  $("sizes").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; state.size = +b.getAttribute("data-s"); renderInspector(); save(); });
+  $("swatches").addEventListener("click", function (e) { var b = e.target.closest(".sw[data-c]"); if (!b) return; state.color = b.getAttribute("data-c"); renderInspector(); save(); });
+  $("swatches").addEventListener("input", function (e) { if (e.target.id === "custom-color") { state.color = e.target.value; renderInspector(); save(); } });
+  $("stroke").addEventListener("input", function (e) { state.sw = +e.target.value; renderInspector(); redrawTiles(); });
+  $("stroke").addEventListener("change", save);
+  $("star").addEventListener("click", function () {
+    var n = focus; if (!n) return;
+    var i = state.favs.indexOf(n);
+    if (i === -1) state.favs.unshift(n); else state.favs.splice(i, 1);
+    $("star").classList.remove("pop"); void $("star").offsetWidth; $("star").classList.add("pop");
+    renderInspector(); renderSideCounts(); redrawTiles(); save();
+    toast(i === -1 ? t("favAdded") : t("favRemoved"));
+    if (state.cat === "fav") filter();
+  });
+  function renderSideCounts() {
+    var f = $("side").querySelector('[data-cat="fav"] em'), r = $("side").querySelector('[data-cat="recent"] em');
+    if (f) f.textContent = fa(state.favs.length); if (r) r.textContent = fa(state.recent.length);
+  }
+  function remember(names) {
+    names.slice().reverse().forEach(function (n) { var i = state.recent.indexOf(n); if (i !== -1) state.recent.splice(i, 1); state.recent.unshift(n); });
+    state.recent = state.recent.slice(0, 60);
+    renderSideCounts(); save();
+  }
+
+  // ---------- افزودن، دانلود، کپی ----------
+  function insert() {
+    if (!selected.length) return;
+    parent.postMessage({ pluginMessage: { type: "insert", items: selected.map(figmaItem) } }, "*");
+    remember(selected);
+  }
+  $("insert").addEventListener("click", insert);
+  $("as-comp").addEventListener("click", function () {
+    if (!selected.length) return;
+    parent.postMessage({ pluginMessage: { type: "component", items: selected.map(compItem) } }, "*");
+    remember(selected);
+  });
+
+  // آیکون‌های کاشیِ انتخاب‌شده روی بوم: یک دکمه سبک و اندازهٔ فعلی پنل را رویشان می‌گذارد
+  var canvasSel = [];
+  function renderSelbar() {
+    var bar = $("selbar");
+    if (!inFigma || !canvasSel.length) { bar.hidden = true; return; }
+    bar.hidden = false;
+    var comps = canvasSel.filter(function (c) { return c.kind === "instance"; }).length;
+    var size = comps === canvasSel.length ? compSize() : state.size;
+    $("selbar-text").textContent = t("selbar", canvasSel.length);
+    $("selbar-apply").textContent = t("convert", size, styleLabel(state.variant));
+  }
+  $("selbar-apply").addEventListener("click", function () {
+    var items = canvasSel.map(function (c) {
+      if (c.kind === "instance") return { id: c.id, name: c.name, kind: c.kind, variant: state.variant, size: compSize() };
+      var it = figmaItem(c.name); it.id = c.id; it.kind = c.kind;
+      return it;
+    });
+    parent.postMessage({ pluginMessage: { type: "restyle", items: items } }, "*");
+  });
+
+  function download(blob, name) {
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+  }
+  function png(name, scale) {
+    return new Promise(function (resolve, reject) {
+      var px = state.size * scale;
+      var img = new Image();
+      img.onload = function () {
+        var c = document.createElement("canvas"); c.width = px; c.height = px;
+        c.getContext("2d").drawImage(img, 0, 0, px, px);
+        c.toBlob(resolve, "image/png");
+      };
+      img.onerror = reject;
+      var color = state.color === "currentColor" ? "#000000" : state.color;
+      img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(exportSvg(name, { color: color, size: px }));
+    });
+  }
+  $("dl-svg").addEventListener("click", function () {
+    if (selected.length === 1) { download(new Blob([exportSvg(selected[0])], { type: "image/svg+xml" }), fileName(selected[0], "svg")); toast(t("svgDone")); }
+    else { download(zip(selected.map(function (n) { return [fileName(n, "svg"), enc(exportSvg(n))]; })), "kashi-icons-" + state.variant + ".zip"); toast(t("svgZip", selected.length)); }
+    remember(selected);
+  });
+  $("png-menu").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-scale]"); if (!b) return;
+    var s = +b.getAttribute("data-scale"); closeMenus();
+    var names = selected.slice();
+    Promise.all(names.map(function (n) { return png(n, s); })).then(function (blobs) {
+      if (blobs.length === 1) { download(blobs[0], fileName(names[0], s > 1 ? "@" + s + "x.png" : "png").replace(".@", "@")); toast(t("pngDone")); return; }
+      return Promise.all(blobs.map(function (b) { return b.arrayBuffer(); })).then(function (bufs) {
+        download(zip(names.map(function (n, i) { return [fileName(n, "png").replace(".png", s > 1 ? "@" + s + "x.png" : ".png"), new Uint8Array(bufs[i])]; })), "kashi-icons-png-" + s + "x.zip");
+        toast(t("pngZip", names.length));
+      });
+    });
+    remember(names);
+  });
+  function copyText(text, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    var ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+    ta.remove();
+    if (!ok && navigator.clipboard) navigator.clipboard.writeText(text);
+    toast(done);
+  }
+  $("copy-menu").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-copy]"); if (!b) return;
+    var n = selected[0], k = b.getAttribute("data-copy"); closeMenus();
+    var v = state.variant === "light" ? "" : ' variant="' + state.variant + '"';
+    var size = state.size === 20 ? "" : " size={" + state.size + "}";
+    var sw = state.sw === 1.5 || FILLED[state.variant] ? "" : " strokeWidth={" + state.sw + "}";
+    var color = state.color === "currentColor" ? "" : ' color="' + state.color + '"';
+    if (k === "svg") copyText(exportSvg(n), t("svgCopied"));
+    else if (k === "react") copyText('import { ' + BY[n].comp + ' } from "@kashi-ui/icons/react";\n\n<' + BY[n].comp + size + v + sw + color + " />", t("reactCopied"));
+    else if (k === "html") copyText('import { iconSvg } from "@kashi-ui/icons";\n\niconSvg("' + n + '", { size: ' + state.size + (state.variant === "light" ? "" : ', variant: "' + state.variant + '"') + " });", t("htmlCopied"));
+    else copyText(n, t("nameCopied"));
+    remember([n]);
+  });
+  $("ins-name").addEventListener("click", function () { if (selected.length <= 1 && focus) copyText(focus, t("nameCopied")); });
+
+  // منوها
+  function closeMenus() { document.querySelectorAll(".menu.open").forEach(function (m) { m.classList.remove("open"); }); }
+  [["png-btn", "png-menu"], ["copy-btn", "copy-menu"]].forEach(function (p) {
+    $(p[0]).addEventListener("click", function (e) { e.stopPropagation(); var m = $(p[1]), open = m.classList.contains("open"); closeMenus(); if (!open) m.classList.add("open"); });
+  });
+  document.addEventListener("click", closeMenus);
+
+  // ---------- ZIP ساده (بدون فشرده‌سازی) ----------
+  function enc(s) { return new TextEncoder().encode(s); }
+  var CRC = (function () { var t = new Uint32Array(256); for (var n = 0; n < 256; n++) { var c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  function crc32(b) { var c = 0xffffffff; for (var i = 0; i < b.length; i++) c = CRC[(c ^ b[i]) & 0xff] ^ (c >>> 8); return (c ^ 0xffffffff) >>> 0; }
+  function zip(files) {
+    var parts = [], central = [], offset = 0;
+    files.forEach(function (f) {
+      var name = enc(f[0]), data = f[1], crc = crc32(data);
+      var h = new DataView(new ArrayBuffer(30));
+      h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x0800, true);
+      h.setUint32(14, crc, true); h.setUint32(18, data.length, true); h.setUint32(22, data.length, true); h.setUint16(26, name.length, true);
+      var c = new DataView(new ArrayBuffer(46));
+      c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0x0800, true);
+      c.setUint32(16, crc, true); c.setUint32(20, data.length, true); c.setUint32(24, data.length, true); c.setUint16(28, name.length, true); c.setUint32(42, offset, true);
+      parts.push(h, name, data); central.push(c, name);
+      offset += 30 + name.length + data.length;
+    });
+    var size = central.reduce(function (s, p) { return s + p.byteLength; }, 0);
+    var end = new DataView(new ArrayBuffer(22));
+    end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+    end.setUint32(12, size, true); end.setUint32(16, offset, true);
+    return new Blob(parts.concat(central, [end]), { type: "application/zip" });
+  }
+
+  // ---------- جست‌وجو و میانبرها ----------
+  var timer;
+  function syncSearch() { $("search-box").classList.toggle("has-q", !!q); }
+  $("q").addEventListener("input", function (e) {
+    q = e.target.value.trim(); syncSearch();
+    clearTimeout(timer); timer = setTimeout(function () { filter(); $("content").scrollTop = 0; }, 90);
+  });
+  $("clear").addEventListener("click", function () { q = ""; $("q").value = ""; syncSearch(); filter(); $("q").focus(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "/" && document.activeElement !== $("q")) { e.preventDefault(); $("q").focus(); $("q").select(); }
+    else if (e.key === "Escape") { if (q) $("clear").click(); else { selected = []; syncSelection(); renderInspector(); } closeMenus(); }
+    else if (e.key === "Enter" && document.activeElement === $("q") && list.length) { selected = [list[0]]; focus = list[0]; syncSelection(); renderInspector(); if (inFigma) insert(); }
+    else if ((e.metaKey || e.ctrlKey) && e.key === "a" && document.activeElement !== $("q")) { e.preventDefault(); selected = list.slice(0, 200); focus = selected[0]; syncSelection(); renderInspector(); }
+  });
+
+  // ---------- پوسته و اندازهٔ پنل ----------
+  var PANELS = ["compact", "normal", "wide"];
+  function applyTheme() {
+    var html = document.documentElement;
+    if (!inFigma) html.classList.toggle("dark", state.theme !== "light");
+    else {
+      // در فیگما پوسته را از رنگ واقعی زمینه می‌خوانیم؛ کلاس figma-dark همیشه سر وقت نمی‌رسد
+      var m = (getComputedStyle(document.body).backgroundColor.match(/\d+(\.\d+)?/g) || [255, 255, 255]).map(Number);
+      var dark = 0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2] < 128;
+      if (html.classList.contains("dark") !== dark) html.classList.toggle("dark", dark);
+    }
+    $("theme-toggle").innerHTML = chrome(isDark() ? "sun" : "moon", 18);
+  }
+  if (inFigma) new MutationObserver(function () { applyTheme(); }).observe(document.documentElement, { attributes: true, attributeFilter: ["class", "style"] });
+  function isDark() { var c = document.documentElement.classList; return c.contains("dark") || c.contains("figma-dark"); }
+  $("theme-toggle").addEventListener("click", function () { state.theme = isDark() ? "light" : "dark"; applyTheme(); save(); });
+  $("size-toggle").addEventListener("click", function () {
+    state.panel = PANELS[(PANELS.indexOf(state.panel) + 1) % PANELS.length];
+    parent.postMessage({ pluginMessage: { type: "resize", size: state.panel } }, "*");
+    $("size-toggle").innerHTML = chrome(state.panel === "wide" ? "minimize-diagonal" : "maximize-diagonal", 18);
+    save();
+  });
+
+  var toastTimer;
+  function toast(text) {
+    var t = $("toast"); t.style.insetBlockEnd = $("inspector").offsetHeight + 12 + "px"; t.textContent = text; t.classList.add("show");
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.classList.remove("show"); }, 1500);
+  }
+
+  // ---------- پیام‌های فیگما ----------
+  window.onmessage = function (e) {
+    var m = e.data && e.data.pluginMessage; if (!m) return;
+    if (m.type === "state") {
+      if (m.state) Object.keys(m.state).forEach(function (k) { if (m.state[k] !== undefined && m.state[k] !== null) state[k] = m.state[k]; });
+      boot();
+    } else if (m.type === "inserted") {
+      toast(m.component ? (m.count === 1 ? t("compAdded") : t("compAddedN", m.count)) : m.count === 1 ? t("added") : t("addedN", m.count));
+    } else if (m.type === "selection") {
+      canvasSel = m.items || [];
+      renderSelbar();
+    }
+  };
+
+  // زبان: متن‌های ثابت با data-t، جهت صفحه، و بازسازی بخش‌های پویا
+  function applyLang() {
+    var en = state.lang === "en";
+    document.documentElement.lang = state.lang;
+    document.documentElement.dir = en ? "ltr" : "rtl";
+    document.querySelectorAll("[data-t]").forEach(function (el) { el.textContent = t(el.getAttribute("data-t")); });
+    document.querySelectorAll("[data-t-title]").forEach(function (el) { el.title = t(el.getAttribute("data-t-title")); });
+    document.querySelectorAll("[data-t-aria]").forEach(function (el) { el.setAttribute("aria-label", t(el.getAttribute("data-t-aria"))); });
+    document.querySelectorAll("[data-t-ph]").forEach(function (el) { el.placeholder = t(el.getAttribute("data-t-ph")); });
+    document.title = t("brand");
+    $("lang-toggle").textContent = en ? "فا" : "EN";
+    $("total").innerHTML = t("total", NAMES.length) + ' · <bdi dir="ltr">v' + DATA.version + "</bdi>";
+    renderStyles(); renderSide(); renderControls();
+    if (booted) { filter(); renderInspector(); }
+    if (inFigma) parent.postMessage({ pluginMessage: { type: "lang", lang: state.lang } }, "*");
+  }
+  $("lang-toggle").addEventListener("click", function () {
+    state.lang = state.lang === "en" ? "fa" : "en";
+    applyLang(); save();
+  });
+
+  var booted = false;
+  function boot() {
+    if (booted) return; booted = true;
+    if (!inFigma) { document.body.classList.add("web"); try { var s = JSON.parse(localStorage.getItem("kashi-icons") || "null"); if (s) Object.keys(s).forEach(function (k) { state[k] = s[k]; }); } catch (e) {} }
+    if (inFigma && state.panel !== "normal") parent.postMessage({ pluginMessage: { type: "resize", size: state.panel } }, "*");
+    fillIcons(); applyTheme(); applyLang();
+    $("size-toggle").innerHTML = chrome(state.panel === "wide" ? "minimize-diagonal" : "maximize-diagonal", 18);
+    filter(); renderInspector();
+  }
+  if (inFigma) { parent.postMessage({ pluginMessage: { type: "ready" } }, "*"); setTimeout(boot, 800); }
+  else boot();
+})();
+</script>
+</body>
+</html>

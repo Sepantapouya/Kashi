@@ -3,9 +3,10 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, copyFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { palette, space, radius, font, shadow, themes } from "../../packages/tokens/src/tokens.js";
+import { palette, space, radius, font, shadow, themes, contrastThemes } from "../../packages/tokens/src/tokens.js";
 import { icons as ICON_SOURCE, categories as ICON_CATEGORIES } from "../../packages/icons/src/icons.js";
 import { renderBody, variants as ICON_VARIANTS } from "../../packages/icons/src/render.js";
+import { withIconHtmlNotice, iconJsNotice, iconLicenseZipEntries } from "../../scripts/icon-attribution.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = join(here, "../..");
@@ -25,11 +26,13 @@ const varRef = (s) => {
 const scaleOf = (name) => (name === "brand" ? "firoozeh" : name);
 const lookup = ([scale, step]) => palette[scaleOf(scale)][step];
 
-/** هر رنگ CSS کاشی را به {alias} یا {rgba} تبدیل می‌کند */
-function color(s) {
+/** هر رنگ CSS کاشی را به {alias} یا {rgba} تبدیل می‌کند؛ ctx = توکن‌های همان تم برای var(--k-bg-primary) و مانند آن */
+function color(s, ctx) {
   s = s.trim();
   const ref = varRef(s);
   if (ref) return { alias: ref };
+  const sem = /^var\(--k-([a-z-]+)\)$/.exec(s);
+  if (sem && ctx?.[sem[1]]) return color(ctx[sem[1]], ctx);
   if (s.startsWith("#")) return { rgba: hex(s) };
   let m = /^rgb\((\d+) (\d+) (\d+)(?: \/ ([\d.]+))?\)$/.exec(s);
   if (m) return { rgba: [m[1] / 255, m[2] / 255, m[3] / 255, m[4] === undefined ? 1 : Number(m[4])] };
@@ -56,14 +59,14 @@ const splitTop = (s) => {
 const px = (v) => (v.endsWith("rem") ? parseFloat(v) * REM : parseFloat(v) || 0);
 
 /** "0 1px 2px rgb(...)" → افکت فیگما */
-function effects(s) {
+function effects(s, ctx) {
   return splitTop(s).flatMap((part) => {
     if (part === "0 0 #0000" || part === "none") return [];
     const inset = part.startsWith("inset ");
     const body = inset ? part.slice(6) : part;
     const i = body.search(/(rgb|#|color-mix|var)/);
     const nums = body.slice(0, i).trim().split(/\s+/).map(px);
-    const c = color(body.slice(i));
+    const c = color(body.slice(i), ctx);
     const [x, y, blur, spread = 0] = nums;
     return [{ type: inset ? "INNER_SHADOW" : "DROP_SHADOW", x, y, blur, spread, rgba: c.rgba ?? hex(lookup(c.alias)) }];
   });
@@ -71,13 +74,19 @@ function effects(s) {
 
 const isEffect = (k) => k.startsWith("shadow") || k.startsWith("ring") || k === "highlight";
 
+// چهار حالت مجموعهٔ تم در فیگما: تیره، روشن و هر دو با کنتراست بالا (کل تم، نه فقط تفاوت‌ها)
+const allThemes = {
+  ...themes,
+  "dark-contrast": { ...themes.dark, ...contrastThemes.dark },
+  "light-contrast": { ...themes.light, ...contrastThemes.light },
+};
 const themeOut = {};
 const effectOut = {};
-for (const [mode, values] of Object.entries(themes)) {
+for (const [mode, values] of Object.entries(allThemes)) {
   themeOut[mode] = {};
   effectOut[mode] = {};
   for (const [k, v] of Object.entries(values)) {
-    if (isEffect(k)) effectOut[mode][k] = effects(v);
+    if (isEffect(k)) effectOut[mode][k] = effects(v, values);
     else themeOut[mode][k] = color(v);
   }
 }
@@ -139,6 +148,10 @@ const appointment = Array.from({ length: 7 }, (_, i) => {
   return { weekday: P.WEEKDAYS[(d.getDay() + 1) % 7], day: j.jd, month: P.JALALI_MONTHS[j.jm - 1], closed: !!P.getIranHoliday(d), full: P.formatJalali(d, { style: "full" }) };
 });
 
+// کد QR نمونه از همان سازندهٔ کتابخانهٔ React، تا فیگما و کد یکی باشند
+const { encodeQr } = await import("../../packages/react/dist/qr.js");
+const qrSample = encodeQr("https://kashi.sepantapouya.com", "H");
+
 // صفحه‌های مستندات، برای لینک «Documentation» هر کامپوننت در فیگما
 const docsDir = join(root, "apps/docs/src/pages/docs");
 const docPages = {};
@@ -151,6 +164,7 @@ const TOKENS = {
   calendar,
   iranMap,
   appointment,
+  qrSample,
   palette,
   brandScale: "firoozeh",
   themes: themeOut,
@@ -206,14 +220,14 @@ if (modern) throw new Error(`unsupported syntax in src/: "${body.slice(modern.in
 
 const out = join(here, "plugin");
 mkdirSync(out, { recursive: true });
-writeFileSync(join(out, "code.js"), code);
+writeFileSync(join(out, "code.js"), iconJsNotice + code);
 // پنل پلاگین: فونت وزیرمتن جاسازی می‌شود (فیگما فونت سیستم را به iframe نمی‌دهد) و پیش‌نمایش شش سبک
 const fontB64 = readFileSync(join(root, "packages/css/dist/fonts/Vazirmatn.woff2")).toString("base64");
 const previewIcon = ICON_SOURCE["heart"] ? "heart" : Object.keys(ICON_SOURCE)[0];
 const previews = Object.fromEntries(ICON_VARIANTS.map((v) => [v, `<svg viewBox="0 0 20 20" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${renderBody(ICON_SOURCE[previewIcon].body, v, { uid: `p-${v}` })}</svg>`]));
-const ui = readFileSync(join(here, "src/ui.html"), "utf8")
+const ui = withIconHtmlNotice(readFileSync(join(here, "src/ui.html"), "utf8")
   .replace("/*KASHI_FONT*/", `@font-face { font-family: "Vazirmatn"; src: url(data:font/woff2;base64,${fontB64}) format("woff2"); font-weight: 100 900; font-display: block; }`)
-  .replace("/*KASHI_PREVIEWS*/", `const PREVIEWS = ${JSON.stringify(previews)}; const ICON_TOTAL = ${Object.keys(ICON_SOURCE).length};`);
+  .replace("/*KASHI_PREVIEWS*/", `const PREVIEWS = ${JSON.stringify(previews)}; const ICON_TOTAL = ${Object.keys(ICON_SOURCE).length};`));
 writeFileSync(join(out, "ui.html"), ui);
 // هر دو manifest کار می‌کنند: ریشه به plugin/ اشاره می‌کند و این یکی به فایل‌های کنار خودش
 const manifest = JSON.parse(readFileSync(join(here, "manifest.json"), "utf8"));
@@ -254,6 +268,9 @@ function zip(files) {
 }
 const downloads = join(root, "apps/docs/public/downloads");
 mkdirSync(downloads, { recursive: true });
-writeFileSync(join(downloads, "kashi-figma-plugin.zip"), zip(["manifest.json", "code.js", "ui.html"].map((f) => [`kashi-figma-plugin/${f}`, readFileSync(join(out, f))])));
+writeFileSync(join(downloads, "kashi-figma-plugin.zip"), zip([
+  ...["manifest.json", "code.js", "ui.html"].map((f) => [`kashi-figma-plugin/${f}`, readFileSync(join(out, f))]),
+  ...iconLicenseZipEntries("kashi-figma-plugin"),
+]));
 
 console.log(`figma-plugin:${parts.length} source files, ${banks.length} bank logos, ${(code.length / 1024).toFixed(0)} KB`);

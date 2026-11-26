@@ -1,5 +1,125 @@
 # @kashi-ui/bank-logos
 
+## 2.16.0
+
+No changes in this release.
+
+## 2.15.1
+
+No changes in this release.
+
+## 2.15.0
+
+No changes in this release.
+
+## 2.14.0
+
+No changes in this release.
+
+## 2.13.0
+
+No changes in this release.
+
+## 2.12.0
+
+No changes in this release.
+
+## 2.11.1
+
+No changes in this release.
+
+## 2.11.0
+
+No changes in this release.
+
+## 2.10.0
+
+No changes in this release.
+
+## 2.9.0
+
+No changes in this release.
+
+## 2.8.1
+
+No changes in this release.
+
+## 2.8.0
+
+No changes in this release.
+
+## 2.7.0
+
+No changes in this release.
+
+## 2.6.0
+
+No changes in this release.
+
+## 2.5.0
+
+No changes in this release.
+
+## 2.4.1
+
+No changes in this release.
+
+## 2.4.0
+
+No changes in this release.
+
+## 2.3.0
+
+No changes in this release.
+
+## 2.2.0
+
+No changes in this release.
+
+## 2.1.0
+
+No changes in this release.
+
+## 2.0.0
+
+No changes in this release.
+
+## 1.8.0
+
+No changes in this release.
+
+## 1.7.0
+
+No changes in this release.
+
+## 1.6.0
+
+No changes in this release.
+
+## 1.5.0
+
+No changes in this release.
+
+## 1.4.0
+
+No changes in this release.
+
+## 1.3.0
+
+No changes in this release.
+
+## 1.2.1
+
+No changes in this release.
+
+## 1.2.0
+
+No changes in this release.
+
+## 1.1.0
+
+No changes in this release.
+
 ## 1.0.0
 
 ### Major Changes

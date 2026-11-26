@@ -43,17 +43,47 @@ const rows: { group: string; label: string; cells: Cell[] }[] = [
     { m: "part", t: "در حال شکل‌گیری" }, { m: "part", t: "در حال رشد" }, { m: "yes" }, { m: "yes" }, { m: "yes" } ] },
 ];
 const groups = [...new Set(rows.map((r) => r.group))];
+// امتیاز هر سامانه از همین جدول: «دارد» یک، «بخشی» نیم؛ «اعلام نشده» صفر
+const fa = (n: number | string) => String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d]).replace(".", "٫");
+const scoreOf = (i: number) => rows.reduce((n, r) => n + (r.cells[i].m === "yes" ? 1 : r.cells[i].m === "part" ? 0.5 : 0), 0);
+const scores = systems.map((sys, i) => ({ ...sys, score: scoreOf(i), persian: rows.filter((r) => r.group === "فارسی و راست‌به‌چپ").reduce((n, r) => n + (r.cells[i].m === "yes" ? 1 : r.cells[i].m === "part" ? 0.5 : 0), 0) }));
+const persianTotal = rows.filter((r) => r.group === "فارسی و راست‌به‌چپ").length;
 const MARK = { yes: "دارد", part: "بخشی یا با تنظیم", no: "ندارد", na: "اعلام نشده" } as const;
 const PATHS = { yes: "m5 10.5 3.2 3L15 7", part: "M5 10h10", no: "m6 6 8 8M14 6l-8 8", na: "M5.5 10h.01M10 10h.01M14.5 10h.01" };
 const icon = (m: Mark) => `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="${PATHS[m]}"/></svg>`;
 const headings = [
+  { depth: 2, slug: "score", text: "خلاصه" },
   { depth: 2, slug: "table", text: "جدول مقایسه" },
   { depth: 2, slug: "when", text: "کی سراغ کدام برویم" },
   { depth: 2, slug: "method", text: "روش ارزیابی" },
 ];
 ---
 <Docs title="مقایسه با دیگران" description="کاشی در کنار دیزاین‌سیستم‌های فارسی و بین‌المللی؛ با صداقت دربارهٔ جایی که بهترین انتخاب نیست." headings={headings}>
+  <h2 id="score">خلاصه</h2>
+  <p>امتیاز هر سامانه از همین جدول پایین حساب شده: «دارد» یک امتیاز، «بخشی یا با تنظیم» نیم امتیاز. نوار دوم فقط معیارهای فارسی و راست‌به‌چپ است.</p>
+  <ul class="cmp-score" role="list">
+    {scores.map((sc, i) => (
+      <li class:list={["cmp-score__item", { "cmp-score__item--us": i === 0 }]} style={`--i: ${i}`} data-col={i}>
+        <div class="cmp-score__head"><b>{sc.name}</b><span class="k-badge k-badge--sm">{sc.kind}</span></div>
+        <div class="k-meter" role="meter" aria-valuemin="0" aria-valuemax={rows.length} aria-valuenow={sc.score} aria-label={`امتیاز کل ${sc.name}`}>
+          <div class="k-meter__head"><span class="k-meter__label">همهٔ معیارها</span><span class="k-meter__value">{fa(sc.score)} <span>از {fa(rows.length)}</span></span></div>
+          <div class="k-meter__track"><div class="k-meter__fill" style={`inline-size: ${(sc.score / rows.length) * 100}%`}></div></div>
+        </div>
+        <div class="k-meter cmp-score__fa" role="meter" aria-valuemin="0" aria-valuemax={persianTotal} aria-valuenow={sc.persian} aria-label={`امتیاز فارسی ${sc.name}`}>
+          <div class="k-meter__head"><span class="k-meter__label">فارسی و RTL</span><span class="k-meter__value">{fa(sc.persian)} <span>از {fa(persianTotal)}</span></span></div>
+          <div class="k-meter__track"><div class="k-meter__fill" style={`inline-size: ${(sc.persian / persianTotal) * 100}%`}></div></div>
+        </div>
+      </li>
+    ))}
+  </ul>
+
   <h2 id="table">جدول مقایسه</h2>
+  <div class="cmp-tools">
+    <div class="k-chips" role="group" aria-label="گروه معیارها">
+      <button type="button" class="k-chip" aria-pressed="true" data-cmp-group="all">همه</button>
+      {groups.map((g) => <button type="button" class="k-chip" aria-pressed="false" data-cmp-group={g}>{g}</button>)}
+    </div>
+  </div>
   <ul class="cmp-legend" role="list">
     {(["yes", "part", "no", "na"] as const).map((m) => <li><span class={`mk mk--${m}`} aria-hidden="true" set:html={icon(m)} />{MARK[m]}</li>)}
   </ul>
@@ -64,7 +94,7 @@ const headings = [
         <tr>
           <th scope="col" class="cmp__corner">ویژگی</th>
           {systems.map((s) => (
-            <th scope="col" class:list={["cmp__sys", { "cmp__sys--us": s.key === "kashi" }]}>
+            <th scope="col" class:list={["cmp__sys", { "cmp__sys--us": s.key === "kashi" }]} data-col={systems.indexOf(s)}>
               <span class="cmp__name">{s.name}</span>
               <span class="cmp__kind">{s.kind}</span>
             </th>
@@ -72,13 +102,13 @@ const headings = [
         </tr>
       </thead>
       {groups.map((g) => (
-        <tbody>
+        <tbody data-group={g}>
           <tr class="cmp__group"><th scope="rowgroup" colspan={systems.length + 1}>{g}</th></tr>
           {rows.filter((r) => r.group === g).map((r) => (
             <tr>
               <th scope="row">{r.label}</th>
               {r.cells.map((c, i) => (
-                <td class:list={{ "cmp__us": i === 0 }}>
+                <td class:list={{ "cmp__us": i === 0 }} data-col={i}>
                   <span class="cmp__cell">
                     <span class={`mk mk--${c.m}`} aria-hidden="true" set:html={icon(c.m)} />
                     <span class="k-sr-only">{MARK[c.m]}{c.t ? "، " : ""}</span>
@@ -96,6 +126,7 @@ const headings = [
   <h2 id="when">کی سراغ کدام برویم</h2>
   <div class="cmp-cards">
     <article class="cmp-card cmp-card--us">
+      <span class="cmp-card__logo" aria-hidden="true">ک</span>
       <h3>کاشی را انتخاب کنید اگر</h3>
       <ul>
         <li>محصول شما فارسی و راست‌به‌چپ است و نمی‌خواهید RTL را بعداً وصله کنید.</li>
@@ -106,6 +137,7 @@ const headings = [
       </ul>
     </article>
     <article class="cmp-card">
+      <span class="cmp-card__logo" aria-hidden="true">M</span>
       <h3>MUI یا Ant Design بهتر است اگر</h3>
       <ul>
         <li>به صدها کامپوننت پیشرفته مثل جدول داده با ویرایش و گروه‌بندی نیاز دارید.</li>
@@ -114,6 +146,7 @@ const headings = [
       </ul>
     </article>
     <article class="cmp-card">
+      <span class="cmp-card__logo" aria-hidden="true">F</span>
       <h3>Farsi UI بهتر است اگر</h3>
       <ul>
         <li>پروژه با React و Tailwind است و می‌خواهید کد هر کامپوننت را مستقیم در پروژه داشته باشید و تغییرش دهید.</li>
@@ -122,6 +155,7 @@ const headings = [
       </ul>
     </article>
     <article class="cmp-card">
+      <span class="cmp-card__logo" aria-hidden="true">s</span>
       <h3>shadcn/ui بهتر است اگر</h3>
       <ul>
         <li>محصول بین‌المللی است و فارسی فقط یکی از زبان‌هاست.</li>
@@ -141,7 +175,52 @@ const headings = [
   </ul>
 </Docs>
 
+<script>
+  const table = document.querySelector<HTMLTableElement>(".cmp");
+  if (table) {
+    // فیلتر گروه و «فقط تفاوت‌ها»
+    const chips = [...document.querySelectorAll<HTMLButtonElement>("[data-cmp-group]")];
+    let group = "all";
+    const apply = () => {
+      table.querySelectorAll<HTMLElement>("tbody").forEach((tb) => (tb.hidden = group !== "all" && tb.dataset.group !== group));
+    };
+    chips.forEach((c) => c.addEventListener("click", () => {
+      group = c.dataset.cmpGroup!;
+      chips.forEach((x) => x.setAttribute("aria-pressed", String(x === c)));
+      apply();
+    }));
+
+    // نگه داشتن ماوس روی سرستون یا کارت امتیاز، کل ستون را روشن می‌کند
+    const light = (col: string | null) => table.querySelectorAll<HTMLElement>("[data-col]").forEach((el) => el.toggleAttribute("data-lit", col !== null && el.dataset.col === col));
+    document.querySelectorAll<HTMLElement>(".cmp__sys, .cmp-score__item").forEach((el) => {
+      el.addEventListener("pointerenter", () => light(el.dataset.col ?? null));
+      el.addEventListener("pointerleave", () => light(null));
+    });
+  }
+</script>
+
 <style>
+  .cmp-score { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: var(--k-space-3); margin: var(--k-space-5) 0 var(--k-space-8); padding: 0; list-style: none; }
+  .cmp-score__item { display: grid; align-content: start; gap: var(--k-space-3); padding: var(--k-space-4) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-primary); transition: border-color var(--k-duration-normal), translate var(--k-duration-slow) var(--k-ease-spring); }
+  .cmp-score__item:hover { border-color: var(--k-border-primary); }
+  .cmp-score__item--us { border-color: color-mix(in srgb, var(--k-text-brand) 45%, transparent); background: linear-gradient(180deg, color-mix(in srgb, var(--k-text-brand) 9%, transparent), transparent 60%), var(--k-bg-primary); box-shadow: 0 24px 50px -30px color-mix(in srgb, var(--k-text-brand) 45%, transparent); }
+  .cmp-score__head { display: grid; justify-items: start; gap: var(--k-space-1); }
+  .cmp-score .k-meter__head { flex-wrap: nowrap; }
+  .cmp-score .k-meter__label, .cmp-score .k-meter__value { font-size: var(--k-text-xs); white-space: nowrap; }
+  .cmp-score__head b { color: var(--k-text-primary); }
+  .cmp-score__item:not(.cmp-score__item--us) .k-meter__fill { background: var(--k-text-tertiary); }
+  .cmp-score__fa .k-meter__fill { background: var(--k-text-info) !important; }
+  .cmp-score__item--us .cmp-score__fa .k-meter__fill { background: var(--k-text-brand) !important; opacity: 0.7; }
+  @media (prefers-reduced-motion: no-preference) {
+    .cmp-score .k-meter__fill { animation: cmp-grow 900ms var(--k-ease-standard) both; animation-delay: calc(var(--i) * 90ms + 200ms); }
+    .cmp-score__item:hover { translate: 0 -2px; }
+  }
+  @keyframes cmp-grow { from { inline-size: 0; } }
+
+  .cmp-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--k-space-3); margin-block: var(--k-space-4) var(--k-space-2); }
+  .cmp [data-lit] { box-shadow: inset 0 0 0 9999px color-mix(in srgb, var(--k-text-brand) 7%, transparent); }
+  .cmp thead [data-lit] .cmp__name { color: var(--k-text-brand); }
+  .cmp tbody tr { transition: opacity var(--k-duration-normal); }
   .cmp-legend { display: flex; flex-wrap: wrap; gap: var(--k-space-2) var(--k-space-5); margin: var(--k-space-4) 0; padding: 0; list-style: none; color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
   .cmp-legend li { display: inline-flex; align-items: center; gap: var(--k-space-1_5); }
   .cmp-wrap { margin-block: var(--k-space-4) var(--k-space-6); overflow-x: auto; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); box-shadow: var(--k-shadow-xs), var(--k-highlight); scrollbar-width: thin; }
@@ -172,7 +251,15 @@ const headings = [
   .mk--na { background: var(--k-bg-tertiary); color: var(--k-text-tertiary); }
 
   .cmp-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--k-space-4); margin-block: var(--k-space-6); }
-  .cmp-card { padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-secondary); }
+  .cmp-card { position: relative; padding: var(--k-space-5); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-bg-secondary); transition: border-color var(--k-duration-normal), translate var(--k-duration-slow) var(--k-ease-spring); }
+  .cmp-card:hover { border-color: var(--k-border-primary); }
+  @media (prefers-reduced-motion: no-preference) { .cmp-card:hover { translate: 0 -2px; } }
+  .cmp-card__logo { display: grid; place-items: center; inline-size: 2.25rem; block-size: 2.25rem; margin-block-end: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-md); background: var(--k-bg-primary); color: var(--k-text-secondary); font-weight: var(--k-weight-black); font-family: var(--k-font-sans); }
+  .cmp-card--us .cmp-card__logo { border-color: transparent; background: var(--k-bg-brand); color: var(--k-text-on-brand, #fff); box-shadow: 0 8px 20px -8px var(--k-bg-brand); }
+  .cmp-card ul { list-style: none; padding-inline-start: 0 !important; }
+  .cmp-card li { position: relative; padding-inline-start: var(--k-space-5); }
+  .cmp-card li::before { content: ""; position: absolute; inset-inline-start: 0; inset-block-start: 0.7em; inline-size: 0.4rem; block-size: 0.4rem; border-radius: 50%; background: var(--k-text-quaternary); }
+  .cmp-card--us li::before { background: var(--k-text-brand); box-shadow: 0 0 6px var(--k-text-brand); }
   .cmp-card--us { border-color: color-mix(in srgb, var(--k-border-brand) 60%, transparent); background: color-mix(in srgb, var(--k-bg-brand) 7%, var(--k-bg-secondary)); }
   .cmp-card h3 { margin: 0 0 var(--k-space-3); color: var(--k-text-primary); font-size: var(--k-text-md); }
   .cmp-card ul { display: grid; gap: var(--k-space-2); margin: 0; padding-inline-start: var(--k-space-5); color: var(--k-text-secondary); font-size: var(--k-text-sm); line-height: 1.8; }

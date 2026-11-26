@@ -1,12 +1,70 @@
 // حالت‌هایی که نمونه‌های مستندات نشان نمی‌دهند ولی باگ‌های ظاهری معمولاً همان‌جاست:
 // خطا کنار فیلد بی‌خطا، برچسب اختیاری، متن بلند، غیرفعال، و همان کامپوننت‌ها به انگلیسی. فقط برای تست تصویری.
+import { PriceRange, SearchSuggest, SwatchGroup } from "@kashi-ui/react";
+import {
+  BusinessHours, ChatComposer, ChatMessage, ChatThread, CodeBlock, EconomicCodeInput, Kanban, NotificationList, SayadInput, Scheduler, SortableList,
+  TaxIdInput, TypingIndicator, WeekdayPicker,
+} from "@kashi-ui/react";
+import { DataTable, EmptyState, Navbar } from "@kashi-ui/react";
 import {
   AddressForm, Alert, Badge, Button, CardNumberInput, Checkbox, DatePicker, Input, KashiProvider, NationalIdInput,
-  Pagination, PriceInput, RadioGroup, Radio, Select, Switch, Textarea, TimeInput,
+  Pagination, PriceInput, RadioGroup, Radio, Select, Switch, Tab, TabList, TabPanel, Tabs, Textarea, TimeInput,
+  Card, CardBody, Carousel, Kbd, SegmentedControl, SideNav, Tooltip,
 } from "@kashi-ui/react";
 
 const day = new Date(2026, 10, 7);
 const noop = () => {};
+
+const tile = (a: string, b: string, label = "") => (
+  <div style={{ display: "grid", placeItems: "end start", aspectRatio: "16 / 9", padding: 12, background: `linear-gradient(135deg, ${a}, ${b})`, color: "#fff", fontWeight: 700 }}>{label}</div>
+);
+const thumb = (a: string, b: string) => <div style={{ aspectRatio: "1", background: `linear-gradient(135deg, ${a}, ${b})` }} />;
+const COLORS: [string, string][] = [["#0b8077", "#2740ed"], ["#dd5e02", "#7c3aed"], ["#166534", "#0ea5e9"]];
+
+/** موبایل: کنترل تکه‌ای با پنج گزینه، منوی کناری در ستون ۲۵۰ پیکسلی، تولتیپ داخل کارت بریده، کلید در متن فارسی و دکمهٔ ساده */
+export function MobileExtras() {
+  return (
+    <>
+      <SegmentedControl aria-label="بازه" defaultValue="week" options={[
+        { value: "day", label: "امروز" }, { value: "week", label: "این هفته" }, { value: "month", label: "این ماه" }, { value: "season", label: "این فصل" }, { value: "year", label: "امسال" },
+      ]} />
+      <div data-visual="sidenav-250" style={{ inlineSize: 250, border: "1px dashed var(--k-border-primary)" }}>
+        <SideNav sections={[{ label: "فروشگاه", items: [
+          { label: "سفارش‌های در انتظار بررسی", href: "#", current: true, badge: <Badge size="sm" tone="brand">۱۲۸</Badge> },
+          { label: "اسکیل‌ها", href: "#", badge: <Badge size="sm">۴۲</Badge> },
+        ] }]} />
+      </div>
+      <Card data-visual="tooltip-card" style={{ overflow: "hidden" }}>
+        <CardBody style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <strong>فروشگاه نارون</strong>
+          <Tooltip content="هویت فروشنده با مدارک رسمی بررسی شده است" delay={0}>
+            <button type="button" className="k-btn k-btn--tertiary k-btn--sm" data-tip-trigger="">تأییدشده</button>
+          </Tooltip>
+        </CardBody>
+      </Card>
+      <p data-visual="kbd-in-text" style={{ margin: 0 }}>برای جستجو <Kbd>Ctrl</Kbd>+<Kbd>K</Kbd> را بزنید، سپس نام را بنویسید.</p>
+      <button type="button" data-plain-button="">دکمهٔ سادهٔ بدون کلاس</button>
+    </>
+  );
+}
+
+const TAB_NAMES = ["اطلاعات حساب", "امنیت و ورود", "اعلان‌ها", "روش‌های پرداخت", "نشانی‌ها", "تاریخچهٔ سفارش"];
+
+/** زبانه‌های بیشتر از عرض و محتوای پهن پنل؛ نباید ظرف ۳۷۵ پیکسلی (یا ستون auto) را پهن کنند */
+export function WideTabs({ variant = "line" }: { variant?: "line" | "pill" | "segmented" }) {
+  return (
+    <Tabs defaultValue="t0" variant={variant}>
+      <TabList aria-label="تنظیمات">
+        {TAB_NAMES.map((t, i) => <Tab key={t} value={`t${i}`}>{t}</Tab>)}
+      </TabList>
+      {TAB_NAMES.map((t, i) => (
+        <TabPanel key={t} value={`t${i}`}>
+          <pre dir="ltr" tabIndex={0} style={{ margin: 0, overflowX: "auto" }}>npm i @kashi-ui/react @kashi-ui/css @kashi-ui/icons @kashi-ui/persian</pre>
+        </TabPanel>
+      ))}
+    </Tabs>
+  );
+}
 
 function Fields() {
   return (
@@ -64,6 +122,103 @@ export default function VisualStates() {
           </section>
         </KashiProvider>
       </div>
+      {/* آخر صفحه تا ارتفاعش جای بخش‌های دیگر را جابه‌جا نکند. ستون auto: پیش از رفع باگ، زبانه‌ها و پنل این ظرف ۳۴۳ پیکسلی را پهن‌تر می‌کردند */}
+      {/* ۱.۶: فیلد کد، کارت رادیو با نشان و قیمت، گالری محو شونده با تصویرهای کوچک */}
+      <section data-visual="v16-forms" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, alignItems: "start" }}>
+        <div style={{ display: "grid", gap: 16 }}>
+          <Input label="کد تخفیف" variant="code" placeholder="مثلاً NOWRUZ-1405" />
+          <Input label="کلید لایسنس" variant="code" defaultValue="KASHI-7F3Q-0O1L" error="این کلید قبلاً استفاده شده است." />
+          <div dir="ltr" lang="en"><KashiProvider locale="en"><Input label="Coupon" variant="code" placeholder="e.g. SPRING-25" defaultValue="" /></KashiProvider></div>
+        </div>
+        <RadioGroup label="نوع لایسنس" variant="cards" defaultValue="team">
+          <Radio value="solo" label="شخصی" description="یک نفر" meta="۹۰ هزار تومان" />
+          <Radio value="team" label="تیمی" badge="پیشنهادی" description="تا ۱۰ نفر، با به‌روزرسانی یک‌ساله که متنش بلند است" meta="۴۹۰ هزار تومان" />
+          <Radio value="org" label="سازمانی" description="بدون محدودیت" meta="تماس بگیرید" disabled />
+        </RadioGroup>
+      </section>
+      <section data-visual="v16-gallery" style={{ inlineSize: 420 }}>
+        <Carousel label="گالری" effect="fade" lightbox thumbnails={COLORS.map(([a, b]) => thumb(a, b))}>
+          {COLORS.map(([a, b], i) => <div key={i}>{tile(a, b, `عکس ${["۱", "۲", "۳"][i]}`)}</div>)}
+        </Carousel>
+      </section>
+      <section data-visual="v2-commerce" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
+        <div style={{ display: "grid", gap: 16 }}>
+          <Select label="شهر محل تحویل کالا که برچسبش بلند است" placeholder="انتخاب کنید" options={[{ value: "a", label: "تهران، منطقهٔ یک، شمیران و حومهٔ آن با نام بلند" }, { value: "b", label: "اصفهان" }]} defaultValue="a" />
+          <Select label="نقش" error="یک نقش انتخاب کنید." placeholder="انتخاب کنید" required options={[{ value: "x", label: "مدیر" }]} />
+          <Select label="غیرفعال" disabled options={[{ value: "x", label: "مدیر" }]} />
+          <SearchSuggest placeholder="جستجو در همهٔ کالاها" defaultValue="ساعت مچی زنانهٔ بند فلزی" />
+        </div>
+        <div style={{ display: "grid", gap: 16, inlineSize: 300 }}>
+          <PriceRange label="قیمت" min={0} max={2_500_000_000} step={1_000_000} defaultValue={[125_000_000, 2_480_000_000]} />
+          <SwatchGroup label="رنگ" defaultValue={["silver"]} options={[{ value: "white", label: "سفید", color: "#fff" }, { value: "silver", label: "نقره‌ای متالیک براق", color: "radial-gradient(#fff, #a9adb3)" }, { value: "x", label: "ناموجود", color: "#111", disabled: true }]} />
+        </div>
+      </section>
+      <section data-visual="v28-navbar" style={{ display: "grid", gap: 16 }}>
+        <Navbar sticky={false} collapseBelow="sm" brand="فروشگاه کاشی با نام بلند" links={[{ href: "#", label: "خانه" }, { href: "#", label: "محصولات و خدمات", current: true }, { href: "#", label: "وبلاگ", badge: "جدید" }]} actions={<Button size="sm" variant="primary">ثبت‌نام</Button>} />
+        <div style={{ inlineSize: 375 }}><Navbar sticky={false} collapseBelow="lg" brand="کاشی" links={[{ href: "#", label: "خانه", current: true }]} actions={<Button size="sm">ورود</Button>} /></div>
+        <KashiProvider locale="en"><Navbar sticky={false} brand="Kashi" links={[{ href: "#", label: "Home", current: true }, { href: "#", label: "Docs" }]} /></KashiProvider>
+        <Navbar sticky={false} collapseBelow="sm" variant="pill" centered brand="کاشی" links={[{ href: "#", label: "خانه" }, { href: "#", label: "محصولات", current: true }, { href: "#", label: "وبلاگ" }]} actions={<Button size="sm">ورود</Button>} />
+        <div style={{ padding: 12, background: "var(--k-bg-secondary)" }}><Navbar sticky={false} collapseBelow="sm" floating variant="pill" brand="کاشی" links={[{ href: "#", label: "خانه", current: true }, { href: "#", label: "قیمت‌ها" }]} actions={<Button size="sm" variant="primary">ثبت‌نام</Button>} /></div>
+      </section>
+      <section data-visual="v28-empty" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, alignItems: "start" }}>
+        <EmptyState preset="noResults" size="sm" bordered actions={<Button size="sm" variant="secondary">پاک کردن فیلترها</Button>} />
+        <EmptyState preset="error" bordered title="بارگذاری سفارش‌ها با یک عنوان خیلی بلند انجام نشد" />
+        <KashiProvider locale="en"><EmptyState preset="offline" size="lg" /></KashiProvider>
+      </section>
+      <section data-visual="v28-virtual-table" style={{ inlineSize: 520 }}>
+        <DataTable caption="۲۰۰۰ ردیف" virtual maxHeight="12rem" striped compact selectable getRowId={(r) => r.id}
+          rows={Array.from({ length: 2000 }, (_, i) => ({ id: String(i), name: `مشتری شمارهٔ ${i + 1}`, amount: (i * 7919) % 100000 }))}
+          columns={[{ key: "name", header: "نام" }, { key: "amount", header: "مبلغ", numeric: true }]} />
+      </section>
+      <section data-visual="v214-chat" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
+        <ChatThread style={{ maxBlockSize: "none" }}>
+          <ChatMessage from="user" status="failed" onRetry={noop} edited time="۱۰:۲۲">پیامی که ارسال نشد و متنش آن‌قدر بلند است که به چند خط می‌شکند تا شکستن خط دیده شود.</ChatMessage>
+          <ChatMessage from="assistant" copyText="x" onFeedback={noop} feedback="down">Mixed: کاشی supports RTL and English inside one message. https://kashi.sepantapouya.com/docs/components/chat/</ChatMessage>
+          <ChatMessage from="system">سارا محمدی به گروه پیوست</ChatMessage>
+          <TypingIndicator name="دستیار" showLabel />
+        </ChatThread>
+        <KashiProvider locale="en">
+          <div style={{ display: "grid", gap: 16 }} dir="ltr">
+            <ChatThread style={{ maxBlockSize: "none" }}>
+              <ChatMessage from="user" status="read" time="10:22">Hello in English</ChatMessage>
+              <ChatMessage from="assistant" copyText="x" onRetry={noop}>سلام؛ پاسخ فارسی در رابط انگلیسی.</ChatMessage>
+            </ChatThread>
+            <ChatComposer onSend={noop} attach showHint maxLength={20} value="This message is too long for the limit" />
+          </div>
+        </KashiProvider>
+      </section>
+      <section data-visual="v214-composer-code" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
+        <ChatComposer onSend={noop} streaming disabled={false} value="در حال پاسخ…" />
+        <CodeBlock language="ts" lineNumbers highlightLines={[2]} wrap code={'// توضیح فارسی کنار کد\nconst veryLongVariableNameThatShouldWrapWhenWrapIsOn = "یک رشتهٔ فارسی بلند داخل کد که باید بشکند";\nexport default veryLongVariableNameThatShouldWrapWhenWrapIsOn;'} />
+      </section>
+      <section data-visual="v214-persian-fields" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16, alignItems: "start" }}>
+        <SayadInput label="شناسهٔ صیادی" error="شناسهٔ صیادی باید ۱۶ رقم باشد." defaultValue="12345678" />
+        <EconomicCodeInput label="کد اقتصادی" defaultValue="10380284790" />
+        <TaxIdInput label="شمارهٔ مالیاتی فاکتور" defaultValue="A1123456" error="شمارهٔ مالیاتی فاکتور باید ۲۲ نویسه از ارقام و حروف لاتین باشد." />
+      </section>
+      <section data-visual="v214-hours" style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 24, alignItems: "start" }}>
+        <BusinessHours now={new Date(2026, 10, 7, 10)} value={[{ open: true, ranges: [{ from: "17:00", to: "09:00" }] }, { open: true, ranges: [{ from: "09:00", to: "13:00" }, { from: "16:00", to: "20:00" }] }, ...Array.from({ length: 5 }, () => ({ open: false, ranges: [] }))]} />
+        <div style={{ display: "grid", gap: 16 }}>
+          <WeekdayPicker defaultValue={[0, 6]} />
+          <KashiProvider locale="en"><div dir="ltr"><WeekdayPicker defaultValue={[1, 2]} format="long" /></div></KashiProvider>
+        </div>
+      </section>
+      <section data-visual="v214-work" style={{ display: "grid", gap: 24 }}>
+        <Kanban aria-label="تابلو" getId={(t: { id: string }) => t.id} getLabel={(t: { id: string; title: string }) => t.title} onChange={noop} onAdd={noop}
+          columns={[{ id: "a", title: "ستونی با عنوان خیلی بلند برای آزمایش", limit: 1, items: [{ id: "1", title: "کارت اول با متن طولانی که به چند خط می‌شکند" }, { id: "2", title: "کارت دوم" }] }, { id: "b", title: "خالی", items: [] }, { id: "c", title: "انجام شد", items: [{ id: "3", title: "Done in English" }] }]} />
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "start" }}>
+          <SortableList aria-label="فهرست" items={[{ id: "a", t: "مورد با متن بلند که باید درست کنار دستگیره بشکند و بیرون نزند" }, { id: "b", t: "Second item" }]} getId={(x) => x.id} getLabel={(x) => x.t} onReorder={noop} disabled />
+          <div style={{ border: "1px solid var(--k-border-secondary)", borderRadius: 12 }}>
+            <NotificationList now={day} items={[{ id: "1", title: "اعلانی با عنوان خیلی بلند که باید به چند خط بشکند و با نقطهٔ خوانده‌نشده هم‌پوشانی نداشته باشد", time: day }, { id: "2", title: "Read one", time: new Date(2026, 9, 1), read: true }]} onReadAll={noop} />
+          </div>
+        </div>
+        <KashiProvider locale="en"><div dir="ltr"><Scheduler events={[{ id: "1", title: "Overlap A", start: new Date(2026, 10, 7, 9), end: new Date(2026, 10, 7, 11) }, { id: "2", title: "Overlap B", start: new Date(2026, 10, 7, 10), end: new Date(2026, 10, 7, 12) }]} date={day} now={new Date(2026, 10, 7, 10, 30)} startHour={8} endHour={13} hourHeight="2.5rem" /></div></KashiProvider>
+      </section>
+      <section data-visual="tabs-narrow" style={{ display: "grid", gap: 24, inlineSize: 343 }}>
+        <WideTabs />
+        <WideTabs variant="pill" />
+        <WideTabs variant="segmented" />
+      </section>
     </div>
   );
 }

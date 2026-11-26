@@ -1,0 +1,52 @@
+{
+  "updated": 86,
+  "total": 10200,
+  "namesPreserved": true,
+  "unrelatedIconsUnchanged": true,
+  "tests": 26,
+  "browser": {
+    "cases": 6192,
+    "failures": [],
+    "checks": [
+      "nonempty rendering",
+      "no clipping at canvas edge"
+    ],
+    "sizes": [
+      16,
+      20,
+      24
+    ],
+    "strokeWidths": [
+      1.5,
+      2
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "variants": [
+      "light",
+      "bold",
+      "bulk",
+      "two-tone",
+      "broken",
+      "curved"
+    ]
+  },
+  "wholeCatalog": {
+    "offCentre": 0,
+    "edge": 0,
+    "small": 0,
+    "dense": 550,
+    "glyphDense": [
+      "digit-0-plain (0.67)"
+    ],
+    "reviewed": {
+      "digit-0-plain": "The Persian zero is an intentionally filled font dot, not a dense multi-detail drawing. Preserve the actual Vazirmatn contour."
+    }
+  },
+  "figma": [
+    "full kit passed",
+    "icon browser passed"
+  ]
+}

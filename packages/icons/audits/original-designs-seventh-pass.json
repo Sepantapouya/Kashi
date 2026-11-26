@@ -1,0 +1,390 @@
+{
+  "baseline": 13109,
+  "candidates": 26,
+  "added": 14,
+  "active": 13123,
+  "review": {
+    "light": 0.88,
+    "bold": 0.92
+  },
+  "accepted": {
+    "usb-c-magnetic-tip": {
+      "light": {
+        "catalog": "progress-bar",
+        "score": 0.8533,
+        "batch": "desktop-power-rail",
+        "batchScore": 0.6566
+      },
+      "bold": {
+        "catalog": "brand-apachesuperset",
+        "score": 0.8401,
+        "batch": "desktop-power-rail",
+        "batchScore": 0.7665
+      }
+    },
+    "reusable-cup-deposit-return": {
+      "light": {
+        "catalog": "travel-board-gate-zone-lanes",
+        "score": 0.7631,
+        "batch": "parcel-tamper-seal",
+        "batchScore": 0.5537
+      },
+      "bold": {
+        "catalog": "message-thread-connected-bubbles",
+        "score": 0.8264,
+        "batch": "bus-card-tap-out-reader",
+        "batchScore": 0.7398
+      }
+    },
+    "water-bottle-refill-counter": {
+      "light": {
+        "catalog": "calendar-preview-event-without-opening",
+        "score": 0.8406,
+        "batch": "coffee-machine-dregs-drawer",
+        "batchScore": 0.7046
+      },
+      "bold": {
+        "catalog": "fingerprint-window",
+        "score": 0.8869,
+        "batch": "luggage-wrap-station",
+        "batchScore": 0.7367
+      }
+    },
+    "hotel-express-key-drop": {
+      "light": {
+        "catalog": "clinic-reception-desk",
+        "score": 0.8126,
+        "batch": "phone-lock-pouch",
+        "batchScore": 0.6791
+      },
+      "bold": {
+        "catalog": "office-task-handoff-tray",
+        "score": 0.8785,
+        "batch": "coat-check-number-token",
+        "batchScore": 0.7449
+      }
+    },
+    "luggage-wrap-station": {
+      "light": {
+        "catalog": "briefcase-lock",
+        "score": 0.7908,
+        "batch": "parcel-tamper-seal",
+        "batchScore": 0.6642
+      },
+      "bold": {
+        "catalog": "stationery-desk-paper-jogger",
+        "score": 0.8492,
+        "batch": "coat-check-number-token",
+        "batchScore": 0.7591
+      }
+    },
+    "transit-seat-layout-folding": {
+      "light": {
+        "catalog": "chart-no-axes-column",
+        "score": 0.7341,
+        "batch": "bookshelf-label-holder",
+        "batchScore": 0.6422
+      },
+      "bold": {
+        "catalog": "lullaby",
+        "score": 0.8122,
+        "batch": "shoe-drying-wall-rack",
+        "batchScore": 0.7136
+      }
+    },
+    "parking-lift-platform": {
+      "light": {
+        "catalog": "brand-ir-website-applications-shab",
+        "score": 0.8186,
+        "batch": "quiet-room-occupied-slider",
+        "batchScore": 0.7099
+      },
+      "bold": {
+        "catalog": "camera-lens-hood-profile",
+        "score": 0.8041,
+        "batch": "quiet-room-occupied-slider",
+        "batchScore": 0.6938
+      }
+    },
+    "smart-lock-guest-code-keypad": {
+      "light": {
+        "catalog": "privacy-clear-clipboard-timer",
+        "score": 0.8454,
+        "batch": "water-bottle-refill-counter",
+        "batchScore": 0.6466
+      },
+      "bold": {
+        "catalog": "security-revoke-lost-key",
+        "score": 0.8951,
+        "batch": "bus-card-tap-out-reader",
+        "batchScore": 0.7668
+      }
+    },
+    "desk-cable-label-ring": {
+      "light": {
+        "catalog": "brand-fluentd",
+        "score": 0.7082,
+        "batch": "smart-lock-guest-code-keypad",
+        "batchScore": 0.524
+      },
+      "bold": {
+        "catalog": "brand-fluentd",
+        "score": 0.7342,
+        "batch": "bus-card-tap-out-reader",
+        "batchScore": 0.5921
+      }
+    },
+    "bookshelf-label-holder": {
+      "light": {
+        "catalog": "crypto-network-boba-sepolia",
+        "score": 0.7679,
+        "batch": "qr-menu-table-stand",
+        "batchScore": 0.7292
+      },
+      "bold": {
+        "catalog": "address-book-delivery",
+        "score": 0.801,
+        "batch": "bus-card-tap-out-reader",
+        "batchScore": 0.7512
+      }
+    },
+    "range-hood-grease-filter": {
+      "light": {
+        "catalog": "brand-alpinelinux",
+        "score": 0.8449,
+        "batch": "clinic-ticket-printer",
+        "batchScore": 0.8325
+      },
+      "bold": {
+        "catalog": "receipt-printer",
+        "score": 0.8924,
+        "batch": "clinic-ticket-printer",
+        "batchScore": 0.8736
+      }
+    },
+    "washing-machine-inline-lint-trap": {
+      "light": {
+        "catalog": "chart-percentile-whiskers",
+        "score": 0.8475,
+        "batch": "quiet-room-occupied-slider",
+        "batchScore": 0.693
+      },
+      "bold": {
+        "catalog": "payment-banknote-center-oval",
+        "score": 0.9003,
+        "batch": "clinic-ticket-printer",
+        "batchScore": 0.6994
+      }
+    },
+    "shoe-drying-wall-rack": {
+      "light": {
+        "catalog": "arg-e-karim-khan",
+        "score": 0.7955,
+        "batch": "luggage-wrap-station",
+        "batchScore": 0.6587
+      },
+      "bold": {
+        "catalog": "travel-rail-cabin-ladder",
+        "score": 0.8757,
+        "batch": "quiet-room-occupied-slider",
+        "batchScore": 0.7319
+      }
+    },
+    "bike-frame-battery-release": {
+      "light": {
+        "catalog": "pin-off",
+        "score": 0.7264,
+        "batch": "coffee-machine-dregs-drawer",
+        "batchScore": 0.5462
+      },
+      "bold": {
+        "catalog": "filter-plus",
+        "score": 0.7959,
+        "batch": "coat-check-number-token",
+        "batchScore": 0.6005
+      }
+    }
+  },
+  "excluded": {
+    "phone-lock-pouch": {
+      "light": {
+        "catalog": "washing-machine",
+        "score": 0.893,
+        "batch": "qr-menu-table-stand",
+        "batchScore": 0.7972
+      },
+      "bold": {
+        "catalog": "mailbag",
+        "score": 0.9247,
+        "batch": "coat-check-number-token",
+        "batchScore": 0.8761
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "portable-pen-scanner": {
+      "light": {
+        "catalog": "edit",
+        "score": 0.8272,
+        "batch": "medicine-dropper-dose-stop",
+        "batchScore": 0.5742
+      },
+      "bold": {
+        "catalog": "edit",
+        "score": 0.8511,
+        "batch": "medicine-dropper-dose-stop",
+        "batchScore": 0.6924
+      },
+      "reason": "At 20 pixels it reads as the existing edit pencil"
+    },
+    "clip-mount-webcam-cover": {
+      "light": {
+        "catalog": "video-watch-party",
+        "score": 0.8378,
+        "batch": "coffee-machine-dregs-drawer",
+        "batchScore": 0.8267
+      },
+      "bold": {
+        "catalog": "video-watch-party",
+        "score": 0.9105,
+        "batch": "coffee-machine-dregs-drawer",
+        "batchScore": 0.8994
+      },
+      "reason": "Filled version is too close to video-watch-party"
+    },
+    "desktop-power-rail": {
+      "light": {
+        "catalog": "live-badge",
+        "score": 0.9017,
+        "batch": "quiet-room-occupied-slider",
+        "batchScore": 0.8449
+      },
+      "bold": {
+        "catalog": "button-ui",
+        "score": 0.9057,
+        "batch": "quiet-room-occupied-slider",
+        "batchScore": 0.9131
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "qr-menu-table-stand": {
+      "light": {
+        "catalog": "cook-book",
+        "score": 0.8989,
+        "batch": "phone-lock-pouch",
+        "batchScore": 0.7972
+      },
+      "bold": {
+        "catalog": "learn-calculator-two-columns",
+        "score": 0.9093,
+        "batch": "phone-lock-pouch",
+        "batchScore": 0.8503
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "bus-card-tap-out-reader": {
+      "light": {
+        "catalog": "visa-expiry-reminder",
+        "score": 0.9079,
+        "batch": "phone-lock-pouch",
+        "batchScore": 0.6925
+      },
+      "bold": {
+        "catalog": "electronic-door-lock",
+        "score": 0.9335,
+        "batch": "coat-check-number-token",
+        "batchScore": 0.7831
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "parcel-tamper-seal": {
+      "light": {
+        "catalog": "build-artifact",
+        "score": 0.9378,
+        "batch": "clinic-ticket-printer",
+        "batchScore": 0.7302
+      },
+      "bold": {
+        "catalog": "package",
+        "score": 0.9152,
+        "batch": "bus-card-tap-out-reader",
+        "batchScore": 0.7282
+      },
+      "reason": "Existing concept: tamper-seal; parcel silhouette is very close to build-artifact"
+    },
+    "clinic-ticket-printer": {
+      "light": {
+        "catalog": "printer",
+        "score": 0.9273,
+        "batch": "range-hood-grease-filter",
+        "batchScore": 0.8325
+      },
+      "bold": {
+        "catalog": "printer",
+        "score": 0.9319,
+        "batch": "range-hood-grease-filter",
+        "batchScore": 0.8736
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "medicine-dropper-dose-stop": {
+      "light": {
+        "catalog": "stylus",
+        "score": 0.8354,
+        "batch": "qr-menu-table-stand",
+        "batchScore": 0.5747
+      },
+      "bold": {
+        "catalog": "map-morocco",
+        "score": 0.7993,
+        "batch": "portable-pen-scanner",
+        "batchScore": 0.6924
+      },
+      "reason": "The dose stop is ambiguous at 16 pixels and outline looks like a stylus"
+    },
+    "coffee-machine-dregs-drawer": {
+      "light": {
+        "catalog": "atm",
+        "score": 0.8764,
+        "batch": "clip-mount-webcam-cover",
+        "batchScore": 0.8267
+      },
+      "bold": {
+        "catalog": "support-customer-satisfaction",
+        "score": 0.9233,
+        "batch": "clip-mount-webcam-cover",
+        "batchScore": 0.8994
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "quiet-room-occupied-slider": {
+      "light": {
+        "catalog": "input-leading-prefix",
+        "score": 0.9123,
+        "batch": "desktop-power-rail",
+        "batchScore": 0.8449
+      },
+      "bold": {
+        "catalog": "field-pocket-screw-gauge",
+        "score": 0.9622,
+        "batch": "desktop-power-rail",
+        "batchScore": 0.9131
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "coat-check-number-token": {
+      "light": {
+        "catalog": "file-corner-fold-wide",
+        "score": 0.9019,
+        "batch": "phone-lock-pouch",
+        "batchScore": 0.7508
+      },
+      "bold": {
+        "catalog": "crypto-network-boba-sepolia",
+        "score": 0.9357,
+        "batch": "phone-lock-pouch",
+        "batchScore": 0.8761
+      },
+      "reason": "Close visual match in the catalog"
+    }
+  }
+}

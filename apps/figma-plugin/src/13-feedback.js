@@ -267,7 +267,31 @@ function buildFeedback() {
         ]),
         F({ name: "Footer", dir: "H", gap: "space/3", p: "space/6", w: "fill", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [button({ variant: "Secondary", label: "پاک کردن", w: "fill" }), button({ variant: "Primary", label: "اعمال", w: "fill" })]),
       ]),
-      docs: "dialog",
+      docs: "drawer",
+    });
+    componentSet(h, "Bottom sheet", {
+      axes: { Type: ["Options", "Snap"] },
+      // k-sheet: گوشهٔ بالای ۲۴، دستگیرهٔ ۴۴×۲۴ با نوار ۴ پیکسلی
+      build: (p) => {
+        const snap = p.Type === "Snap";
+        const row = (label, on) => F({ name: "Option", dir: "H", gap: "space/3", py: "space/3", px: "space/3", w: "fill", radius: "radius/md", fill: on ? "bg-brand-subtle" : undefined, cross: "center" }, [
+          T(label, { style: on ? "Text sm/Semibold" : "Text sm/Medium", color: on ? "text-brand" : "text-secondary", grow: true }),
+          on && I("check", 18, "text-brand"),
+        ]);
+        return F({ name: "Bottom sheet", dir: "V", gap: 0, w: 375, h: snap ? 420 : undefined, fill: "bg-elevated", stroke: "border-secondary", sides: [1, 1, 0, 1], radius: ["radius/2xl", "radius/2xl", 0, 0], shadow: "Dialog", clip: true }, [
+          F({ name: "Handle", dir: "H", w: "fill", h: 24, align: "center", cross: "center" }, [R({ w: 36, h: 4, radius: 2, fill: "border-primary", name: "Bar" })]),
+          F({ name: "Header", dir: "V", gap: "space/1", px: "space/6", pb: "space/4", w: "fill" }, [
+            T(snap ? "نظر خریداران" : "مرتب‌سازی", { style: "Text lg/Semibold", color: "text-primary", name: "Title" }),
+            snap && T("دستگیره را بالا بکشید تا همه را ببینید.", { style: "Text sm/Regular", color: "text-tertiary", name: "Description" }),
+          ]),
+          snap
+            ? F({ name: "Body", dir: "V", gap: "space/3", px: "space/6", w: "fill", grow: true, clip: true }, ["کیفیت عالی، دقیقاً مثل عکس بود.", "ارسال یک روز دیرتر رسید ولی بسته‌بندی خوب بود.", "رنگش کمی روشن‌تر از تصویر است."].map((t) =>
+                F({ name: "Review", dir: "V", gap: "space/1", p: "space/4", w: "fill", radius: "radius/lg", fill: "bg-primary", stroke: "border-secondary" }, [T(t, { style: "Text sm/Regular", color: "text-secondary", w: "fill" })])))
+            : F({ name: "Options", dir: "V", gap: 2, px: "space/3", pb: "space/6", w: "fill" }, [row("جدیدترین", true), row("ارزان‌ترین"), row("گران‌ترین"), row("پرفروش‌ترین")]),
+          snap && F({ name: "Footer", dir: "H", p: "space/6", w: "fill", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [button({ variant: "Primary", label: "نوشتن نظر", w: "fill" })]),
+        ]);
+      },
+      docs: "bottom-sheet",
     });
   }));
 

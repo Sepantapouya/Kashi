@@ -1,0 +1,95 @@
+---
+layout: ../../../layouts/Docs.astro
+title: نوار ناوبری
+description: نوار بالای سایت با لوگو، پیوندها و دکمه‌ها؛ نشانگر لغزان روی پیوندها، سایه هنگام اسکرول و منوی کشو در گوشی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { NavbarDemo, NavbarVariantsDemo } from "../../../components/demos";
+
+```tsx
+import { Navbar } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`<Navbar
+  brand={<><Logo />فروشگاه کاشی</>}
+  links={[
+    { href: "/", label: "خانه" },
+    { href: "/products", label: "محصولات", current: true },
+    { href: "/pricing", label: "قیمت‌ها" },
+    { href: "/blog", label: "وبلاگ", badge: "جدید" },
+  ]}
+  actions={<>
+    <Button size="sm" variant="tertiary">ورود</Button>
+    <Button size="sm" variant="primary">ثبت‌نام</Button>
+  </>}
+/>`}>
+  <NavbarDemo client:load />
+</Demo>
+
+نشانگر را روی پیوندها ببرید: پس‌زمینهٔ ملایم زیر نشانگر می‌لغزد و وقتی بیرون بروید به صفحهٔ فعلی برمی‌گردد. با کیبورد هم همین‌طور است.
+
+## مدل‌ها
+
+چهار انتخاب که با هم ترکیب می‌شوند: نشان صفحهٔ فعلی با `variant` (خط یا قرص)، `centered` برای پیوندهای وسط نوار، `floating` برای نوار جدا از لبه‌ها با گوشهٔ گرد، و `transparent` برای نوار بی‌رنگ روی هیرو که با اسکرول پس‌زمینه می‌گیرد.
+
+<Demo html={false} align="start" code={`<Navbar variant="pill" … />
+<Navbar centered variant="pill" … />
+<Navbar floating variant="pill" … />
+<Navbar transparent … />   // روی تصویر یا هیرو`}>
+  <NavbarVariantsDemo client:load />
+</Demo>
+
+- **پیش‌فرض** برای سایت محتوایی و مستندات؛ آرام‌ترین مدل.
+- **قرص** برای اپ و فروشگاه؛ صفحهٔ فعلی پررنگ‌تر دیده می‌شود.
+- **وسط‌چین** وقتی لوگو و دکمه‌ها کم‌اند و پیوندها اصل ماجرا هستند، مثل صفحهٔ معرفی محصول.
+- **شناور** برای صفحهٔ فرود؛ با اسکرول جدا از محتوا می‌ماند و سایه‌اش بیشتر می‌شود.
+- **شفاف** فقط روی تصویر یا هیروی تیره؛ رنگ متن لوگو را خودتان با پس‌زمینه هماهنگ کنید.
+
+## در گوشی
+
+وقتی عرض صفحه یا خود نوار کمتر از `collapseBelow` باشد، پیوندها در یک [کشو](/docs/components/drawer/) جمع می‌شوند و دکمهٔ منو جایشان را می‌گیرد. چون عرض خود نوار هم حساب می‌شود، در ستون باریک یا پیش‌نمایش موبایل هم پیوندها روی دکمه‌ها نمی‌افتند. `menuFooter` پایین همان کشو است، مثلاً دکمهٔ ثبت‌نام.
+
+<Demo html={false} code={`<Navbar collapseBelow="md" menuFooter={<Button variant="primary">ثبت‌نام</Button>} … />`}>
+  <NavbarDemo client:load narrow />
+</Demo>
+
+## با Next.js و روترها
+
+پیوندها پیش‌فرض `<a>` هستند. برای پیمایش بدون بارگذاری دوباره، کامپوننت پیوند روتر را بدهید:
+
+```tsx
+import Link from "next/link";
+
+<Navbar linkAs={Link} links={links} brand={…} />
+```
+
+`current` را از مسیر فعلی بسازید، مثلاً `current: pathname.startsWith(href)`.
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["brand", "ReactNode", "", "لوگو و نام"],
+  ["brandHref", "string", '"/"', "پیوند لوگو"],
+  ["links", "{ href, label, current?, icon?, badge? }[]", "", "پیوندها؛ current صفحهٔ فعلی است"],
+  ["actions", "ReactNode", "", "دکمه‌ها و آیکون‌ها، مثل ورود یا جست‌وجو"],
+  ["sticky", "boolean", "true", "چسبیدن به بالای صفحه؛ با اسکرول سایه و پس‌زمینهٔ مات می‌گیرد"],
+  ["variant", '"line" | "pill"', '"line"', "نشان صفحهٔ فعلی: خط زیر پیوند یا قرص رنگی"],
+  ["centered", "boolean", "false", "پیوندها وسط نوار"],
+  ["floating", "boolean", "false", "نوار شناور با گوشهٔ گرد و فاصله از لبه‌ها"],
+  ["transparent", "boolean", "false", "بی‌رنگ روی هیرو تا وقتی صفحه اسکرول شود"],
+  ["collapseBelow", '"sm" | "md" | "lg"', '"md"', "زیر ۶۴۰، ۷۶۸ یا ۱۰۲۴ پیکسل (عرض صفحه یا خود نوار) پیوندها به منو می‌روند"],
+  ["menuFooter", "ReactNode", "", "پایین منوی گوشی"],
+  ["linkAs", "ElementType", '"a"', "کامپوننت پیوند، مثل Link در Next.js"],
+  ["aria-label", "string", '"ناوبری اصلی"', "نام ناحیهٔ ناوبری"],
+]} />
+
+متغیرهای CSS: `--k-navbar-height` (پیش‌فرض ۴rem)، `--k-navbar-max-width` (پیش‌فرض ۸۰rem) و `--k-navbar-bg`.
+
+## دسترس‌پذیری
+
+- پیوندها داخل `<nav>` با نام «ناوبری اصلی» هستند و صفحهٔ فعلی `aria-current="page"` دارد.
+- دکمهٔ منو `aria-expanded` و `aria-haspopup="dialog"` دارد و منوی گوشی همان کشوی دسترس‌پذیر است.
+- اگر صفحه پیوند «پرش به محتوا» دارد، آن را پیش از نوار بگذارید.

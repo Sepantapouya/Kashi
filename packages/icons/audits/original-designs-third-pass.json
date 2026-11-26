@@ -1,0 +1,442 @@
+{
+  "baseline": 13037,
+  "candidates": 30,
+  "added": 22,
+  "active": 13059,
+  "review": {
+    "light": 0.88,
+    "bold": 0.92
+  },
+  "accepted": {
+    "mail-ask-for-reply": {
+      "light": {
+        "catalog": "mail-alert",
+        "score": 0.8314,
+        "batch": "password-autofill-current-site-only",
+        "batchScore": 0.7641
+      },
+      "bold": {
+        "catalog": "mail-voice-01",
+        "score": 0.8146,
+        "batch": "password-autofill-current-site-only",
+        "batchScore": 0.7914
+      }
+    },
+    "chat-mark-unread-from-here": {
+      "light": {
+        "catalog": "license-pin",
+        "score": 0.7454,
+        "batch": "receipt-compare-two-currencies",
+        "batchScore": 0.7484
+      },
+      "bold": {
+        "catalog": "tool-hacksaw-compact-frame",
+        "score": 0.7664,
+        "batch": "receipt-compare-two-currencies",
+        "batchScore": 0.7495
+      }
+    },
+    "clipboard-pin-text-item": {
+      "light": {
+        "catalog": "clipboard-edit",
+        "score": 0.8731,
+        "batch": "add-parking-entrance-to-route",
+        "batchScore": 0.6257
+      },
+      "bold": {
+        "catalog": "task-edit-01",
+        "score": 0.8278,
+        "batch": "receipt-compare-two-currencies",
+        "batchScore": 0.7447
+      }
+    },
+    "photo-copy-edits-only": {
+      "light": {
+        "catalog": "comment-resolve-reopen",
+        "score": 0.791,
+        "batch": "mail-ask-for-reply",
+        "batchScore": 0.7323
+      },
+      "bold": {
+        "catalog": "photo-ai",
+        "score": 0.8073,
+        "batch": "mail-ask-for-reply",
+        "batchScore": 0.7619
+      }
+    },
+    "saved-search-alert-frequency": {
+      "light": {
+        "catalog": "rattle",
+        "score": 0.7922,
+        "batch": "form-repeat-section",
+        "batchScore": 0.6793
+      },
+      "bold": {
+        "catalog": "male-symbol",
+        "score": 0.8694,
+        "batch": "form-repeat-section",
+        "batchScore": 0.7736
+      }
+    },
+    "form-repeat-section": {
+      "light": {
+        "catalog": "out-of-office-scheduled",
+        "score": 0.8087,
+        "batch": "receipt-compare-two-currencies",
+        "batchScore": 0.7231
+      },
+      "bold": {
+        "catalog": "device-backup-pending",
+        "score": 0.8328,
+        "batch": "saved-search-alert-frequency",
+        "batchScore": 0.7736
+      }
+    },
+    "enter-manually-instead-of-scan": {
+      "light": {
+        "catalog": "server",
+        "score": 0.8543,
+        "batch": "reader-hide-interactive-sidebars",
+        "batchScore": 0.7247
+      },
+      "bold": {
+        "catalog": "view-list",
+        "score": 0.8532,
+        "batch": "photo-copy-edits-only",
+        "batchScore": 0.6975
+      }
+    },
+    "dictation-auto-punctuation": {
+      "light": {
+        "catalog": "device-microphone-input-selector",
+        "score": 0.7736,
+        "batch": "location-copy-map-pin-label",
+        "batchScore": 0.5822
+      },
+      "bold": {
+        "catalog": "conference-push-to-talk",
+        "score": 0.8436,
+        "batch": "meeting-clear-raised-hands",
+        "batchScore": 0.7937
+      }
+    },
+    "notification-only-priority-people": {
+      "light": {
+        "catalog": "map-iran-khuzestan",
+        "score": 0.7706,
+        "batch": "form-repeat-section",
+        "batchScore": 0.6391
+      },
+      "bold": {
+        "catalog": "audio-spatial-head-tracking",
+        "score": 0.8122,
+        "batch": "checkout-save-delivery-instructions",
+        "batchScore": 0.7123
+      }
+    },
+    "meeting-join-listen-only": {
+      "light": {
+        "catalog": "music-pop-filter-arm",
+        "score": 0.7515,
+        "batch": "saved-search-alert-frequency",
+        "batchScore": 0.6306
+      },
+      "bold": {
+        "catalog": "zoom-reset",
+        "score": 0.8172,
+        "batch": "form-repeat-section",
+        "batchScore": 0.6376
+      }
+    },
+    "meeting-clear-raised-hands": {
+      "light": {
+        "catalog": "brand-rumble",
+        "score": 0.7883,
+        "batch": "calendar-view-hidden-invitees",
+        "batchScore": 0.6271
+      },
+      "bold": {
+        "catalog": "smart-home-humidity-control",
+        "score": 0.8896,
+        "batch": "dictation-auto-punctuation",
+        "batchScore": 0.7937
+      }
+    },
+    "payment-split-with-existing-credit": {
+      "light": {
+        "catalog": "seat-storage-bench",
+        "score": 0.8268,
+        "batch": "calendar-event-reminder-before-travel",
+        "batchScore": 0.7848
+      },
+      "bold": {
+        "catalog": "mail-reply-all-01",
+        "score": 0.878,
+        "batch": "calendar-event-reminder-before-travel",
+        "batchScore": 0.8049
+      }
+    },
+    "receipt-compare-two-currencies": {
+      "light": {
+        "catalog": "it-dependency-license-review",
+        "score": 0.8447,
+        "batch": "chat-mark-unread-from-here",
+        "batchScore": 0.7484
+      },
+      "bold": {
+        "catalog": "license-maintenance",
+        "score": 0.8411,
+        "batch": "chat-mark-unread-from-here",
+        "batchScore": 0.7495
+      }
+    },
+    "file-compare-metadata-only": {
+      "light": {
+        "catalog": "browser-allow-popup-window",
+        "score": 0.7964,
+        "batch": "checkout-save-delivery-instructions",
+        "batchScore": 0.7279
+      },
+      "bold": {
+        "catalog": "squares-diagonal",
+        "score": 0.8263,
+        "batch": "password-autofill-current-site-only",
+        "batchScore": 0.7037
+      }
+    },
+    "print-blank-pages-exclude": {
+      "light": {
+        "catalog": "printer-wifi",
+        "score": 0.8672,
+        "batch": "reader-hide-interactive-sidebars",
+        "batchScore": 0.6916
+      },
+      "bold": {
+        "catalog": "brand-junit5",
+        "score": 0.8293,
+        "batch": "add-parking-entrance-to-route",
+        "batchScore": 0.6816
+      }
+    },
+    "password-autofill-current-site-only": {
+      "light": {
+        "catalog": "payment-installments-late",
+        "score": 0.8264,
+        "batch": "mail-ask-for-reply",
+        "batchScore": 0.7641
+      },
+      "bold": {
+        "catalog": "reply-to-message",
+        "score": 0.8366,
+        "batch": "mail-ask-for-reply",
+        "batchScore": 0.7914
+      }
+    },
+    "calendar-event-reminder-before-travel": {
+      "light": {
+        "catalog": "installment",
+        "score": 0.8493,
+        "batch": "calendar-view-hidden-invitees",
+        "batchScore": 0.8167
+      },
+      "bold": {
+        "catalog": "compose-as-alias",
+        "score": 0.8474,
+        "batch": "calendar-view-hidden-invitees",
+        "batchScore": 0.9159
+      }
+    },
+    "cursor-resume-last-edit": {
+      "light": {
+        "catalog": "list-setting",
+        "score": 0.7692,
+        "batch": "password-autofill-current-site-only",
+        "batchScore": 0.6318
+      },
+      "bold": {
+        "catalog": "playlist",
+        "score": 0.8128,
+        "batch": "add-parking-entrance-to-route",
+        "batchScore": 0.6906
+      }
+    },
+    "checkout-save-delivery-instructions": {
+      "light": {
+        "catalog": "package-clock",
+        "score": 0.7885,
+        "batch": "shipping-add-delivery-backup",
+        "batchScore": 0.7788
+      },
+      "bold": {
+        "catalog": "package-export",
+        "score": 0.894,
+        "batch": "shipping-add-delivery-backup",
+        "batchScore": 0.9208
+      }
+    },
+    "account-use-different-billing-profile": {
+      "light": {
+        "catalog": "brand-wechat",
+        "score": 0.7905,
+        "batch": "video-lock-playback-speed",
+        "batchScore": 0.6379
+      },
+      "bold": {
+        "catalog": "passkey",
+        "score": 0.8328,
+        "batch": "meeting-clear-raised-hands",
+        "batchScore": 0.6843
+      }
+    },
+    "video-lock-playback-speed": {
+      "light": {
+        "catalog": "brand-paramountplus",
+        "score": 0.7822,
+        "batch": "checkout-save-delivery-instructions",
+        "batchScore": 0.6797
+      },
+      "bold": {
+        "catalog": "brand-airtable",
+        "score": 0.8316,
+        "batch": "checkout-save-delivery-instructions",
+        "batchScore": 0.7611
+      }
+    },
+    "location-copy-map-pin-label": {
+      "light": {
+        "catalog": "map-pin-star",
+        "score": 0.8692,
+        "batch": "form-repeat-section",
+        "batchScore": 0.6939
+      },
+      "bold": {
+        "catalog": "zoom-in",
+        "score": 0.8212,
+        "batch": "shipping-add-delivery-backup",
+        "batchScore": 0.7767
+      }
+    }
+  },
+  "excluded": {
+    "sound-boost-quiet-dialogue": {
+      "light": {
+        "catalog": "laser-level",
+        "score": 0.8044,
+        "batch": "meeting-clear-raised-hands",
+        "batchScore": 0.5185
+      },
+      "bold": {
+        "catalog": "garden-quick-hose-coupler",
+        "score": 0.8835,
+        "batch": "meeting-clear-raised-hands",
+        "batchScore": 0.6619
+      },
+      "reason": "Existing concept: audio-dialogue-enhancement"
+    },
+    "calendar-view-hidden-invitees": {
+      "light": {
+        "catalog": "calendar-mortarboard",
+        "score": 0.8992,
+        "batch": "calendar-event-reminder-before-travel",
+        "batchScore": 0.8167
+      },
+      "bold": {
+        "catalog": "store-management-01",
+        "score": 0.8516,
+        "batch": "calendar-event-reminder-before-travel",
+        "batchScore": 0.9159
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "cart-limit-quantity": {
+      "light": {
+        "catalog": "cart-price-freeze",
+        "score": 0.8871,
+        "batch": "reader-hide-interactive-sidebars",
+        "batchScore": 0.5576
+      },
+      "bold": {
+        "catalog": "cart-price-freeze",
+        "score": 0.9007,
+        "batch": "checkout-save-delivery-instructions",
+        "batchScore": 0.6069
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "shipping-add-delivery-backup": {
+      "light": {
+        "catalog": "package-export",
+        "score": 0.9195,
+        "batch": "checkout-save-delivery-instructions",
+        "batchScore": 0.7788
+      },
+      "bold": {
+        "catalog": "package-export",
+        "score": 0.9284,
+        "batch": "checkout-save-delivery-instructions",
+        "batchScore": 0.9208
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "maps-recenter-on-selected-stop": {
+      "light": {
+        "catalog": "live-view",
+        "score": 0.963,
+        "batch": "enter-manually-instead-of-scan",
+        "batchScore": 0.691
+      },
+      "bold": {
+        "catalog": "live-view",
+        "score": 0.964,
+        "batch": "enter-manually-instead-of-scan",
+        "batchScore": 0.6602
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "audio-switch-to-earpiece": {
+      "light": {
+        "catalog": "call-back-queue",
+        "score": 0.9129,
+        "batch": "reader-hide-interactive-sidebars",
+        "batchScore": 0.5429
+      },
+      "bold": {
+        "catalog": "call-back-queue",
+        "score": 0.9091,
+        "batch": "reader-hide-interactive-sidebars",
+        "batchScore": 0.5708
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "reader-hide-interactive-sidebars": {
+      "light": {
+        "catalog": "layout-sidebars",
+        "score": 0.9373,
+        "batch": "enter-manually-instead-of-scan",
+        "batchScore": 0.7247
+      },
+      "bold": {
+        "catalog": "layout-sidebars",
+        "score": 0.9475,
+        "batch": "clipboard-pin-text-item",
+        "batchScore": 0.6939
+      },
+      "reason": "Close visual match in the catalog"
+    },
+    "add-parking-entrance-to-route": {
+      "light": {
+        "catalog": "credit-card-pay",
+        "score": 0.8548,
+        "batch": "calendar-event-reminder-before-travel",
+        "batchScore": 0.7007
+      },
+      "bold": {
+        "catalog": "credit-card-pay",
+        "score": 0.8716,
+        "batch": "payment-split-with-existing-credit",
+        "batchScore": 0.759
+      },
+      "reason": "Small size reads as adding a payment card instead of a parking entrance"
+    }
+  }
+}

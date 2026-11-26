@@ -4,12 +4,12 @@
 .k-table-wrap {
   overflow-x: auto;
   border: 1px solid var(--k-border-secondary);
-  border-radius: var(--k-table-radius, var(--k-radius-xl));
+  border-radius: var(--k-table-radius, var(--k-radius-surface));
   background: var(--k-bg-elevated);
   box-shadow: var(--k-shadow-xs), var(--k-highlight);
 }
 .k-table-wrap--sticky { overflow-y: auto; }
-.k-table-wrap--sticky thead th { position: sticky; inset-block-start: 0; z-index: 1; box-shadow: 0 1px 0 var(--k-border-secondary); }
+.k-table-wrap--sticky thead th { position: sticky; inset-block-start: 0; z-index: var(--k-z-raised); box-shadow: 0 1px 0 var(--k-border-secondary); }
 .k-table-wrap:focus-visible { outline: 2px solid var(--k-border-brand); outline-offset: 2px; }
 .k-table { inline-size: 100%; border-collapse: collapse; font-size: var(--k-text-sm); }
 .k-table caption { padding: var(--k-space-5) var(--k-space-6) var(--k-space-4); text-align: start; caption-side: top; }
@@ -18,10 +18,10 @@
 .k-table th, .k-table td { padding: var(--k-table-cell-py, var(--k-space-3)) var(--k-table-cell-px, var(--k-space-6)); text-align: start; vertical-align: middle; border-block-end: 1px solid var(--k-border-secondary); }
 .k-table thead th {
   padding-block: var(--k-space-3);
-  background: var(--k-table-header-bg, var(--k-bg-secondary));
+  background: var(--k-table-header-bg, var(--k-bg-muted));
   color: var(--k-text-tertiary);
-  font-size: var(--k-text-xs);
-  font-weight: var(--k-weight-semibold);
+  font-size: var(--k-text-sm);
+  font-weight: var(--k-weight-medium);
   white-space: nowrap;
 }
 .k-table tbody tr { transition: background-color var(--k-duration-fast); }
@@ -74,3 +74,10 @@
 [aria-sort] .k-table__sort { color: var(--k-text-primary); }
 .k-table__empty td { padding: 0; }
 @media (forced-colors: active) { .k-table-wrap { border-color: CanvasText; } .k-table tbody tr[aria-selected="true"] { outline: 2px solid Highlight; } }
+
+/* اسکرول مجازی: ردیف‌های فاصله‌انداز و راه‌راه بر اساس شمارهٔ واقعی ردیف */
+.k-table-wrap--virtual { overflow-anchor: none; }
+.k-table-wrap--virtual .k-table--striped tbody tr:nth-child(even) { background: none; }
+.k-table-wrap--virtual .k-table--striped tbody tr.k-table__row--odd { background: var(--k-table-stripe, var(--k-bg-secondary)); }
+.k-table__spacer, .k-table__spacer:hover { background: none !important; }
+.k-table__spacer td { border: 0; }

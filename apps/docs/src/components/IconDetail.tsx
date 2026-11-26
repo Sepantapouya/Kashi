@@ -18,12 +18,13 @@ function Code({ code }: { code: string }) {
 }
 
 export function IconDetail({ name }: { name: IconName }) {
+  const codeId = "code-" + name;
   const [stroke, setStroke] = useState(1);
   const [variant, setVariant] = useVariant();
   const vp = variant === "light" ? "" : ` variant="${variant}"`;
   const icon = icons[name];
   const sw = (stroke === 1.5 ? "" : ` strokeWidth={${stroke}}`) + vp;
-  const svgCode = iconSvg(name, { size: 24, strokeWidth: stroke, variant }) ?? "";
+  const svgCode = iconSvg(name, { size: 24, strokeWidth: stroke, variant, idPrefix: codeId }) ?? "";
 
   return (
     <div className="ib-detail">

@@ -1,0 +1,8674 @@
+{
+  "baselineCount": 12000,
+  "addedCount": 1000,
+  "activeCount": 13000,
+  "baselineSha256": "3d0f1cc2278f2bd37f96f2fb12263d90625460775da484d6dfc1c6e0bcf22b17",
+  "baselineAliases": {
+    "lock-clock": "lock-timer",
+    "lightbulb-check": "idea-check",
+    "plane-clock": "flight-delay",
+    "store-pin": "store-location",
+    "btn-circle-square": "btn-capture",
+    "file-down": "file-download",
+    "share-nodes": "share",
+    "chart-bar-horizontal": "bar-chart",
+    "dashboard-gauge": "dashboard",
+    "letter-tray": "inbox-tray",
+    "suitcase-wheels": "luggage",
+    "elder": "elderly",
+    "voice-message": "chat-voice",
+    "arcade-cabinet": "arcade",
+    "arrow-split": "split",
+    "sonbol": "hyacinth",
+    "film-roll": "film-reel",
+    "tombak": "tonbak",
+    "rosewater-sprinkler": "golabpash",
+    "ghalamkar": "qalamkar",
+    "ghalamdan": "qalamdan",
+    "polo-mallet": "chogan",
+    "well": "chah",
+    "newtons-cradle": "newton-cradle",
+    "popsicle": "ice-pop",
+    "slide-playground": "slide",
+    "photo-frame": "picture-frame",
+    "warning-light": "beacon",
+    "beer-mug": "mug-foam",
+    "rocking-cradle": "cradle",
+    "hotel-key": "room-key",
+    "walker": "walker-frame",
+    "meeting-table": "conference-table",
+    "charging-pad": "wireless-charger",
+    "tool-belt": "toolbelt",
+    "sports-bag": "duffel-bag",
+    "pie-dish": "pie",
+    "tv-wifi": "smart-tv",
+    "water-cooler": "water-dispenser",
+    "user-pin": "pin-user",
+    "lightbulb-wifi": "smart-bulb"
+  },
+  "types": {
+    "base": 826,
+    "action": 166,
+    "type": 8
+  },
+  "upstream": {
+    "IconPark": 478,
+    "Hugeicons": 294,
+    "Iconoir": 104,
+    "Tabler": 124
+  },
+  "method": "Screened against the previous catalog and against other additions using normalized raster similarity, source names and Persian title review. Kept meaningful actions and distinct silhouettes.",
+  "icons": [
+    {
+      "name": "loader-quarter",
+      "nearest": {
+        "name": "monitor-arm",
+        "score": 0.5716
+      },
+      "kind": "base"
+    },
+    {
+      "name": "rss-unlocked",
+      "nearest": {
+        "name": "pacman-chase",
+        "score": 0.641
+      },
+      "kind": "action"
+    },
+    {
+      "name": "language-katakana",
+      "nearest": {
+        "name": "map-malawi",
+        "score": 0.6486
+      },
+      "kind": "base"
+    },
+    {
+      "name": "switch-themes",
+      "nearest": {
+        "name": "design-pixel-density-scale",
+        "score": 0.7016
+      },
+      "kind": "base"
+    },
+    {
+      "name": "switching-done",
+      "nearest": {
+        "name": "map-chile",
+        "score": 0.7048
+      },
+      "kind": "action"
+    },
+    {
+      "name": "sort-amount-up",
+      "nearest": {
+        "name": "caulk-gun",
+        "score": 0.7088
+      },
+      "kind": "action"
+    },
+    {
+      "name": "surveillance-cameras",
+      "nearest": {
+        "name": "utility-knife",
+        "score": 0.711
+      },
+      "kind": "base",
+      "previousName": "surveillance-cameras-one"
+    },
+    {
+      "name": "sort-amount-down",
+      "nearest": {
+        "name": "payment-safe-offset-dial",
+        "score": 0.7137
+      },
+      "kind": "action"
+    },
+    {
+      "name": "border-none",
+      "nearest": {
+        "name": "box-margin",
+        "score": 0.6729
+      },
+      "kind": "base"
+    },
+    {
+      "name": "rss-error",
+      "nearest": {
+        "name": "care-dental-mirror-handle",
+        "score": 0.6738
+      },
+      "kind": "action"
+    },
+    {
+      "name": "less-than-or-equal",
+      "nearest": {
+        "name": "dollar",
+        "score": 0.6755
+      },
+      "kind": "base"
+    },
+    {
+      "name": "n-th-root",
+      "nearest": {
+        "name": "building-downpipe-cleanout-hatch",
+        "score": 0.6778
+      },
+      "kind": "base"
+    },
+    {
+      "name": "payment-method",
+      "nearest": {
+        "name": "theme-toggle",
+        "score": 0.7244
+      },
+      "kind": "base"
+    },
+    {
+      "name": "gastrointestinal",
+      "nearest": {
+        "name": "jet-ski",
+        "score": 0.7251
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pregnant-women",
+      "nearest": {
+        "name": "digit-0-plain",
+        "score": 0.7255
+      },
+      "kind": "base"
+    },
+    {
+      "name": "skate",
+      "nearest": {
+        "name": "shop-purchase-limit-per-person",
+        "score": 0.7264
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cloud-sun-rain",
+      "nearest": {
+        "name": "backhoe",
+        "score": 0.6821
+      },
+      "kind": "base"
+    },
+    {
+      "name": "a-cane",
+      "nearest": {
+        "name": "milk-frother",
+        "score": 0.7293
+      },
+      "kind": "base"
+    },
+    {
+      "name": "approximately-equal",
+      "nearest": {
+        "name": "team-role-assigned",
+        "score": 0.6857
+      },
+      "kind": "base"
+    },
+    {
+      "name": "increase-the-scale",
+      "nearest": {
+        "name": "chat-message-audience-preview",
+        "score": 0.7308
+      },
+      "kind": "base"
+    },
+    {
+      "name": "guide-board",
+      "nearest": {
+        "name": "map-fiji",
+        "score": 0.7343
+      },
+      "kind": "base"
+    },
+    {
+      "name": "volume-up",
+      "nearest": {
+        "name": "volume-plus",
+        "score": 0.7347
+      },
+      "kind": "action"
+    },
+    {
+      "name": "phone-video-call",
+      "nearest": {
+        "name": "light-recessed-square",
+        "score": 0.735
+      },
+      "kind": "base"
+    },
+    {
+      "name": "negative-dynamics",
+      "nearest": {
+        "name": "chart-bars-three-rounded",
+        "score": 0.7354
+      },
+      "kind": "base"
+    },
+    {
+      "name": "swiss-franc",
+      "nearest": {
+        "name": "man",
+        "score": 0.6908
+      },
+      "kind": "base"
+    },
+    {
+      "name": "period",
+      "nearest": {
+        "name": "pinned",
+        "score": 0.736
+      },
+      "kind": "base"
+    },
+    {
+      "name": "soap-bubble",
+      "nearest": {
+        "name": "churro",
+        "score": 0.7379
+      },
+      "kind": "base"
+    },
+    {
+      "name": "text-rotation-down",
+      "nearest": {
+        "name": "chevron-left",
+        "score": 0.739
+      },
+      "kind": "action"
+    },
+    {
+      "name": "loading",
+      "nearest": {
+        "name": "fitness-massage-ball-texture",
+        "score": 0.7395
+      },
+      "kind": "action",
+      "previousName": "loading-one"
+    },
+    {
+      "name": "root",
+      "nearest": {
+        "name": "workspace-headset-hanger-underdesk",
+        "score": 0.6952
+      },
+      "kind": "base",
+      "previousName": "root-01"
+    },
+    {
+      "name": "import-and-export",
+      "nearest": {
+        "name": "store-shopping-basket-nesting",
+        "score": 0.7416
+      },
+      "kind": "base"
+    },
+    {
+      "name": "border-radius",
+      "nearest": {
+        "name": "dry-in-shade",
+        "score": 0.6973
+      },
+      "kind": "base"
+    },
+    {
+      "name": "greater-than-or-equal",
+      "nearest": {
+        "name": "ointment",
+        "score": 0.6988
+      },
+      "kind": "base"
+    },
+    {
+      "name": "link-code",
+      "nearest": {
+        "name": "link-lock",
+        "score": 0.6991
+      },
+      "kind": "base"
+    },
+    {
+      "name": "solar-energy",
+      "nearest": {
+        "name": "learn-pencil-hex-grip",
+        "score": 0.7447
+      },
+      "kind": "base",
+      "previousName": "solar-energy-one"
+    },
+    {
+      "name": "thunderstorm",
+      "nearest": {
+        "name": "meeting-facilitator-time-card",
+        "score": 0.7457
+      },
+      "kind": "base",
+      "previousName": "thunderstorm-one"
+    },
+    {
+      "name": "escalators",
+      "nearest": {
+        "name": "map-new-zealand",
+        "score": 0.7464
+      },
+      "kind": "base"
+    },
+    {
+      "name": "scale-unbalanced",
+      "nearest": {
+        "name": "symmetry",
+        "score": 0.747
+      },
+      "kind": "base",
+      "previousName": "imbalance"
+    },
+    {
+      "name": "text-style",
+      "nearest": {
+        "name": "folding-ruler",
+        "score": 0.7477
+      },
+      "kind": "base",
+      "previousName": "text-style-one"
+    },
+    {
+      "name": "riding",
+      "nearest": {
+        "name": "ramekin",
+        "score": 0.7477
+      },
+      "kind": "base",
+      "previousName": "riding-one"
+    },
+    {
+      "name": "move-three-d",
+      "nearest": {
+        "name": "taxi-stand",
+        "score": 0.7028
+      },
+      "kind": "action"
+    },
+    {
+      "name": "edit-name",
+      "nearest": {
+        "name": "structure",
+        "score": 0.7486,
+        "previousName": "structure-01"
+      },
+      "kind": "action"
+    },
+    {
+      "name": "up-and-down",
+      "nearest": {
+        "name": "calendar-hanging-single-loop",
+        "score": 0.7492
+      },
+      "kind": "action"
+    },
+    {
+      "name": "text-wrap-overflow",
+      "nearest": {
+        "name": "breadcrumb",
+        "score": 0.7496
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-paintbrush",
+      "nearest": {
+        "name": "wind-chime",
+        "score": 0.7055
+      },
+      "kind": "base"
+    },
+    {
+      "name": "quotes",
+      "nearest": {
+        "name": "magnet-letters",
+        "score": 0.706
+      },
+      "kind": "base"
+    },
+    {
+      "name": "reflex",
+      "nearest": {
+        "name": "hedge-trimmer",
+        "score": 0.706
+      },
+      "kind": "base"
+    },
+    {
+      "name": "homestay",
+      "nearest": {
+        "name": "circular-saw",
+        "score": 0.7511
+      },
+      "kind": "base"
+    },
+    {
+      "name": "abdominal",
+      "nearest": {
+        "name": "waist",
+        "score": 0.7514
+      },
+      "kind": "base"
+    },
+    {
+      "name": "heavy-wind",
+      "nearest": {
+        "name": "ambulance",
+        "score": 0.7515
+      },
+      "kind": "base"
+    },
+    {
+      "name": "plug-x",
+      "nearest": {
+        "name": "fa-he-plain",
+        "score": 0.7067
+      },
+      "kind": "base"
+    },
+    {
+      "name": "chart-no-axes-combined",
+      "nearest": {
+        "name": "signal",
+        "score": 0.7074
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pram",
+      "nearest": {
+        "name": "scorpion",
+        "score": 0.7528
+      },
+      "kind": "base",
+      "previousName": "steoller"
+    },
+    {
+      "name": "handwashing",
+      "nearest": {
+        "name": "yoga-mat",
+        "score": 0.7529
+      },
+      "kind": "base"
+    },
+    {
+      "name": "parabola",
+      "nearest": {
+        "name": "wash-very-gentle",
+        "score": 0.7079
+      },
+      "kind": "base",
+      "previousName": "parabola-01"
+    },
+    {
+      "name": "tangent",
+      "nearest": {
+        "name": "map-united-kingdom",
+        "score": 0.7084
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-elements",
+      "nearest": {
+        "name": "map-kuwait",
+        "score": 0.7089
+      },
+      "kind": "base"
+    },
+    {
+      "name": "reduce-decimal-places",
+      "nearest": {
+        "name": "map-united-kingdom",
+        "score": 0.7539
+      },
+      "kind": "base"
+    },
+    {
+      "name": "git-branch-x",
+      "nearest": {
+        "name": "mail-trim-quoted-history",
+        "score": 0.7116
+      },
+      "kind": "base"
+    },
+    {
+      "name": "waistline",
+      "nearest": {
+        "name": "kitchen-rolling-pin-rings",
+        "score": 0.7569
+      },
+      "kind": "base"
+    },
+    {
+      "name": "adjustments-code",
+      "nearest": {
+        "name": "ramekin",
+        "score": 0.7127
+      },
+      "kind": "base"
+    },
+    {
+      "name": "u-turn-right",
+      "nearest": {
+        "name": "bacteria",
+        "score": 0.7579
+      },
+      "kind": "base"
+    },
+    {
+      "name": "paragraph-unfold",
+      "nearest": {
+        "name": "kitchen-sink-colander-bridge",
+        "score": 0.759
+      },
+      "kind": "action"
+    },
+    {
+      "name": "headwear",
+      "nearest": {
+        "name": "garden-plant-tie-soft-loop",
+        "score": 0.7594
+      },
+      "kind": "base"
+    },
+    {
+      "name": "round-trip",
+      "nearest": {
+        "name": "drill-bit",
+        "score": 0.7597
+      },
+      "kind": "base"
+    },
+    {
+      "name": "vegan",
+      "nearest": {
+        "name": "device-panoramic-webcam",
+        "score": 0.7149
+      },
+      "kind": "base"
+    },
+    {
+      "name": "holding-hands",
+      "nearest": {
+        "name": "fa-che-plain",
+        "score": 0.76
+      },
+      "kind": "base"
+    },
+    {
+      "name": "check-in",
+      "nearest": {
+        "name": "hiking",
+        "score": 0.7602
+      },
+      "kind": "base"
+    },
+    {
+      "name": "diving-suit",
+      "nearest": {
+        "name": "usb-c",
+        "score": 0.7603
+      },
+      "kind": "base"
+    },
+    {
+      "name": "music-menu",
+      "nearest": {
+        "name": "folder-flatten-structure",
+        "score": 0.7605
+      },
+      "kind": "base"
+    },
+    {
+      "name": "versus",
+      "nearest": {
+        "name": "vs-badge",
+        "score": 0.7162
+      },
+      "kind": "base"
+    },
+    {
+      "name": "rewind-forward",
+      "nearest": {
+        "name": "map-slovenia",
+        "score": 0.717
+      },
+      "kind": "base",
+      "previousName": "rewind-forward-5"
+    },
+    {
+      "name": "pointer-x",
+      "nearest": {
+        "name": "map-bangladesh",
+        "score": 0.7194
+      },
+      "kind": "base"
+    },
+    {
+      "name": "auto-flash",
+      "nearest": {
+        "name": "map-sweden",
+        "score": 0.7198
+      },
+      "kind": "base"
+    },
+    {
+      "name": "info-request",
+      "nearest": {
+        "name": "window-shutter-open-pair",
+        "score": 0.7649
+      },
+      "kind": "base",
+      "previousName": "enquire"
+    },
+    {
+      "name": "path-arrow",
+      "nearest": {
+        "name": "camera-lens",
+        "score": 0.7205
+      },
+      "kind": "base"
+    },
+    {
+      "name": "baseball-bat",
+      "nearest": {
+        "name": "white-cane",
+        "score": 0.7657
+      },
+      "kind": "base"
+    },
+    {
+      "name": "remove-pi",
+      "nearest": {
+        "name": "watch-clock",
+        "score": 0.721
+      },
+      "kind": "action"
+    },
+    {
+      "name": "sorting",
+      "nearest": {
+        "name": "manual-gearbox",
+        "score": 0.7218
+      },
+      "kind": "base",
+      "previousName": "sorting-01"
+    },
+    {
+      "name": "user-bag",
+      "nearest": {
+        "name": "users-lock",
+        "score": 0.722
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mind-mapping",
+      "nearest": {
+        "name": "breakpoint",
+        "score": 0.7672
+      },
+      "kind": "base"
+    },
+    {
+      "name": "clue",
+      "nearest": {
+        "name": "music-piano-pedal-trio",
+        "score": 0.7685
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-translate",
+      "nearest": {
+        "name": "wind-chime",
+        "score": 0.7241
+      },
+      "kind": "base"
+    },
+    {
+      "name": "value-sum",
+      "nearest": {
+        "name": "product-swatch-pattern-repeat",
+        "score": 0.7693
+      },
+      "kind": "base",
+      "previousName": "sum"
+    },
+    {
+      "name": "switch-track",
+      "nearest": {
+        "name": "rugby-post",
+        "score": 0.7693
+      },
+      "kind": "base"
+    },
+    {
+      "name": "receiver",
+      "nearest": {
+        "name": "mail-ai",
+        "score": 0.7694
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-eraser",
+      "nearest": {
+        "name": "team-work",
+        "score": 0.7244
+      },
+      "kind": "base"
+    },
+    {
+      "name": "arrange-by-letters-az",
+      "nearest": {
+        "name": "sort-az",
+        "score": 0.7247
+      },
+      "kind": "base"
+    },
+    {
+      "name": "adjustments-x",
+      "nearest": {
+        "name": "wc",
+        "score": 0.7248
+      },
+      "kind": "base"
+    },
+    {
+      "name": "home-temperature-out",
+      "nearest": {
+        "name": "measure-probe-tip-thermistor",
+        "score": 0.7252
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cursor-remove-selection",
+      "nearest": {
+        "name": "file-folder-twin-pocket",
+        "score": 0.7258
+      },
+      "kind": "action",
+      "previousName": "cursor-remove-selection-01"
+    },
+    {
+      "name": "diving",
+      "nearest": {
+        "name": "invoice-tax-breakdown",
+        "score": 0.7709
+      },
+      "kind": "base"
+    },
+    {
+      "name": "dots-diagonal",
+      "nearest": {
+        "name": "strategy",
+        "score": 0.7259
+      },
+      "kind": "base"
+    },
+    {
+      "name": "align-text-top",
+      "nearest": {
+        "name": "boot",
+        "score": 0.7709
+      },
+      "kind": "action"
+    },
+    {
+      "name": "plastic-surgery",
+      "nearest": {
+        "name": "fitness-weight-plate-carry-slot",
+        "score": 0.7709
+      },
+      "kind": "base"
+    },
+    {
+      "name": "swallow",
+      "nearest": {
+        "name": "map-chile",
+        "score": 0.7715
+      },
+      "kind": "base"
+    },
+    {
+      "name": "rope-skipping",
+      "nearest": {
+        "name": "city-public-charging-shelf",
+        "score": 0.7715
+      },
+      "kind": "base",
+      "previousName": "rope-skipping-one"
+    },
+    {
+      "name": "add-team",
+      "nearest": {
+        "name": "walker-rollator",
+        "score": 0.7266
+      },
+      "kind": "action"
+    },
+    {
+      "name": "cursor-circle-selection",
+      "nearest": {
+        "name": "tool-strap-wrench",
+        "score": 0.7266
+      },
+      "kind": "base",
+      "previousName": "cursor-circle-selection-01"
+    },
+    {
+      "name": "cloud-moon-rain",
+      "nearest": {
+        "name": "bandage",
+        "score": 0.7272
+      },
+      "kind": "base"
+    },
+    {
+      "name": "in-flight",
+      "nearest": {
+        "name": "chess-rook-black",
+        "score": 0.7742
+      },
+      "kind": "base"
+    },
+    {
+      "name": "search-list",
+      "nearest": {
+        "name": "pdf-flatten-form-fields",
+        "score": 0.7292
+      },
+      "kind": "action",
+      "previousName": "search-list-01"
+    },
+    {
+      "name": "border-bottom",
+      "nearest": {
+        "name": "tactile-paving",
+        "score": 0.7294
+      },
+      "kind": "base"
+    },
+    {
+      "name": "turkish-lira",
+      "nearest": {
+        "name": "manhole",
+        "score": 0.7296
+      },
+      "kind": "base"
+    },
+    {
+      "name": "boots",
+      "nearest": {
+        "name": "scroll",
+        "score": 0.7748
+      },
+      "kind": "base"
+    },
+    {
+      "name": "diagonal-scroll-point",
+      "nearest": {
+        "name": "course-prerequisite",
+        "score": 0.7298
+      },
+      "kind": "base",
+      "previousName": "diagonal-scroll-point-01"
+    },
+    {
+      "name": "workflow-circle",
+      "nearest": {
+        "name": "civic-bike-repair-post",
+        "score": 0.7302
+      },
+      "kind": "base",
+      "previousName": "workflow-circle-01"
+    },
+    {
+      "name": "tabletennis",
+      "nearest": {
+        "name": "sandbox",
+        "score": 0.7753
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cursor-edit",
+      "nearest": {
+        "name": "car-three-quarter",
+        "score": 0.7305,
+        "previousName": "car-04"
+      },
+      "kind": "action",
+      "previousName": "cursor-edit-01"
+    },
+    {
+      "name": "edit-road",
+      "nearest": {
+        "name": "smart-home-window-contact",
+        "score": 0.7305
+      },
+      "kind": "action"
+    },
+    {
+      "name": "resize-field",
+      "nearest": {
+        "name": "background",
+        "score": 0.7309
+      },
+      "kind": "action"
+    },
+    {
+      "name": "cook",
+      "nearest": {
+        "name": "tea-pod",
+        "score": 0.7763
+      },
+      "kind": "base"
+    },
+    {
+      "name": "massage-table",
+      "nearest": {
+        "name": "map-indonesia",
+        "score": 0.7764
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mail-unpacking",
+      "nearest": {
+        "name": "budget-envelope-allocation",
+        "score": 0.8716
+      },
+      "kind": "action"
+    },
+    {
+      "name": "rss-feed",
+      "nearest": {
+        "name": "rss",
+        "score": 0.7317
+      },
+      "kind": "base"
+    },
+    {
+      "name": "spikedshoes",
+      "nearest": {
+        "name": "loafer",
+        "score": 0.7767
+      },
+      "kind": "base"
+    },
+    {
+      "name": "add-text",
+      "nearest": {
+        "name": "text-size",
+        "score": 0.7771
+      },
+      "kind": "action"
+    },
+    {
+      "name": "fish-symbol",
+      "nearest": {
+        "name": "solar-water-heater",
+        "score": 0.7323
+      },
+      "kind": "base"
+    },
+    {
+      "name": "tub",
+      "nearest": {
+        "name": "bath-freestanding-tub-oval",
+        "score": 0.7776
+      },
+      "kind": "base"
+    },
+    {
+      "name": "value-min",
+      "nearest": {
+        "name": "allen-key",
+        "score": 0.7776
+      },
+      "kind": "base",
+      "previousName": "min"
+    },
+    {
+      "name": "rewind-backward",
+      "nearest": {
+        "name": "cart-check",
+        "score": 0.7339
+      },
+      "kind": "base",
+      "previousName": "rewind-backward-5"
+    },
+    {
+      "name": "transporter",
+      "nearest": {
+        "name": "garden-trellis-net-square",
+        "score": 0.7794
+      },
+      "kind": "base"
+    },
+    {
+      "name": "bachelor-cap",
+      "nearest": {
+        "name": "map-argentina",
+        "score": 0.7795
+      },
+      "kind": "base"
+    },
+    {
+      "name": "text-rotation-none",
+      "nearest": {
+        "name": "tweezers",
+        "score": 0.7802
+      },
+      "kind": "base"
+    },
+    {
+      "name": "super-intelligence-speech",
+      "nearest": {
+        "name": "audio-auto-gain-control",
+        "score": 0.7355
+      },
+      "kind": "base"
+    },
+    {
+      "name": "people-search",
+      "nearest": {
+        "name": "lab-sample-aliquot",
+        "score": 0.7807
+      },
+      "kind": "action",
+      "previousName": "people-search-one"
+    },
+    {
+      "name": "obtuse",
+      "nearest": {
+        "name": "computer-retractable-usb-cable",
+        "score": 0.7358
+      },
+      "kind": "base"
+    },
+    {
+      "name": "asterisk-simple",
+      "nearest": {
+        "name": "milad-tower",
+        "score": 0.7362
+      },
+      "kind": "base"
+    },
+    {
+      "name": "call-internal",
+      "nearest": {
+        "name": "phone-forward",
+        "score": 0.7362
+      },
+      "kind": "base"
+    },
+    {
+      "name": "exposure-minus",
+      "nearest": {
+        "name": "dev-webhook-delivery-attempt",
+        "score": 0.7365
+      },
+      "kind": "base",
+      "previousName": "exposure-minus-2"
+    },
+    {
+      "name": "electric-drill",
+      "nearest": {
+        "name": "map-guinea-bissau",
+        "score": 0.7815
+      },
+      "kind": "base"
+    },
+    {
+      "name": "boy-stroller",
+      "nearest": {
+        "name": "scorpion",
+        "score": 0.7819
+      },
+      "kind": "base"
+    },
+    {
+      "name": "fx",
+      "nearest": {
+        "name": "kitchen-pot-handle-grip",
+        "score": 0.7374
+      },
+      "kind": "base"
+    },
+    {
+      "name": "droplet-code",
+      "nearest": {
+        "name": "map-bhutan",
+        "score": 0.7374
+      },
+      "kind": "base"
+    },
+    {
+      "name": "title-level",
+      "nearest": {
+        "name": "heading-2",
+        "score": 0.7826
+      },
+      "kind": "base"
+    },
+    {
+      "name": "stock-market",
+      "nearest": {
+        "name": "candlestick-chart",
+        "score": 0.7828
+      },
+      "kind": "base"
+    },
+    {
+      "name": "file-removal",
+      "nearest": {
+        "name": "tablet-pencil",
+        "score": 0.7829
+      },
+      "kind": "base",
+      "previousName": "file-removal-one"
+    },
+    {
+      "name": "bell-code",
+      "nearest": {
+        "name": "kabadeh",
+        "score": 0.738
+      },
+      "kind": "base"
+    },
+    {
+      "name": "remove-formatting",
+      "nearest": {
+        "name": "clear-formatting",
+        "score": 0.7381
+      },
+      "kind": "action"
+    },
+    {
+      "name": "baby-meal",
+      "nearest": {
+        "name": "security-encrypted-backup-key",
+        "score": 0.7836
+      },
+      "kind": "base"
+    },
+    {
+      "name": "user-to-user-transmission",
+      "nearest": {
+        "name": "hand-plane",
+        "score": 0.7839
+      },
+      "kind": "base"
+    },
+    {
+      "name": "high-heeled-shoes",
+      "nearest": {
+        "name": "device-soundbar-subwoofer",
+        "score": 0.7844
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cutting",
+      "nearest": {
+        "name": "puddle",
+        "score": 0.785
+      },
+      "kind": "base",
+      "previousName": "cutting-one"
+    },
+    {
+      "name": "analysis-text-link",
+      "nearest": {
+        "name": "chart-covariate",
+        "score": 0.7402
+      },
+      "kind": "base"
+    },
+    {
+      "name": "value-average",
+      "nearest": {
+        "name": "control-tabs-raised-center",
+        "score": 0.7852
+      },
+      "kind": "base",
+      "previousName": "average"
+    },
+    {
+      "name": "aviation",
+      "nearest": {
+        "name": "fish-bone",
+        "score": 0.7853
+      },
+      "kind": "base"
+    },
+    {
+      "name": "wand-sparkles",
+      "nearest": {
+        "name": "multitool",
+        "score": 0.7406
+      },
+      "kind": "base"
+    },
+    {
+      "name": "network-drive",
+      "nearest": {
+        "name": "file-corner-fold-wide",
+        "score": 0.7862
+      },
+      "kind": "base"
+    },
+    {
+      "name": "edit-multiple",
+      "nearest": {
+        "name": "map-jamaica",
+        "score": 0.7414
+      },
+      "kind": "action",
+      "previousName": "edit-multiple-01"
+    },
+    {
+      "name": "microphone",
+      "nearest": {
+        "name": "butterfly-net",
+        "score": 0.7867
+      },
+      "kind": "base",
+      "previousName": "microphone-one"
+    },
+    {
+      "name": "mindmap-map",
+      "nearest": {
+        "name": "indent-decrease",
+        "score": 0.7867
+      },
+      "kind": "base"
+    },
+    {
+      "name": "industrial-scales",
+      "nearest": {
+        "name": "island",
+        "score": 0.7869
+      },
+      "kind": "base"
+    },
+    {
+      "name": "start-time-sort",
+      "nearest": {
+        "name": "meeting-facilitator-time-card",
+        "score": 0.7871
+      },
+      "kind": "action"
+    },
+    {
+      "name": "line-squiggle",
+      "nearest": {
+        "name": "manhole",
+        "score": 0.7423
+      },
+      "kind": "base"
+    },
+    {
+      "name": "call-unlocked",
+      "nearest": {
+        "name": "ear-plugs",
+        "score": 0.7429
+      },
+      "kind": "action"
+    },
+    {
+      "name": "sickbed",
+      "nearest": {
+        "name": "map-ukraine",
+        "score": 0.788
+      },
+      "kind": "base"
+    },
+    {
+      "name": "border-corner-pill",
+      "nearest": {
+        "name": "corner-radius",
+        "score": 0.7432
+      },
+      "kind": "base"
+    },
+    {
+      "name": "soil-moisture-global",
+      "nearest": {
+        "name": "expense-approval-chain",
+        "score": 0.7435
+      },
+      "kind": "base"
+    },
+    {
+      "name": "s-turn-down",
+      "nearest": {
+        "name": "music-piano-pedal-trio",
+        "score": 0.7889
+      },
+      "kind": "action"
+    },
+    {
+      "name": "ai-sketch",
+      "nearest": {
+        "name": "map-israel",
+        "score": 0.7441
+      },
+      "kind": "base"
+    },
+    {
+      "name": "moon-angled-rain-zap",
+      "nearest": {
+        "name": "camera-strip-softbox",
+        "score": 0.7447
+      },
+      "kind": "base"
+    },
+    {
+      "name": "weightlifting",
+      "nearest": {
+        "name": "disc-golf",
+        "score": 0.7899
+      },
+      "kind": "base"
+    },
+    {
+      "name": "flip-camera",
+      "nearest": {
+        "name": "cello",
+        "score": 0.7901
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sunbath",
+      "nearest": {
+        "name": "treadmill",
+        "score": 0.7909
+      },
+      "kind": "base"
+    },
+    {
+      "name": "navigation-code",
+      "nearest": {
+        "name": "chart-density-curve",
+        "score": 0.7462
+      },
+      "kind": "base"
+    },
+    {
+      "name": "chest",
+      "nearest": {
+        "name": "headphones",
+        "score": 0.7914
+      },
+      "kind": "base"
+    },
+    {
+      "name": "power-supply",
+      "nearest": {
+        "name": "desk-fan",
+        "score": 0.7918
+      },
+      "kind": "base",
+      "previousName": "power-supply-one"
+    },
+    {
+      "name": "reverse-rotation",
+      "nearest": {
+        "name": "dry-clean-off",
+        "score": 0.7935
+      },
+      "kind": "base"
+    },
+    {
+      "name": "search-area",
+      "nearest": {
+        "name": "invoice-currency-rate",
+        "score": 0.7485
+      },
+      "kind": "action"
+    },
+    {
+      "name": "positive-dynamics",
+      "nearest": {
+        "name": "chart-growth-over-bars",
+        "score": 0.7939
+      },
+      "kind": "base"
+    },
+    {
+      "name": "key-back",
+      "nearest": {
+        "name": "trumpet",
+        "score": 0.749
+      },
+      "kind": "base"
+    },
+    {
+      "name": "voice-input",
+      "nearest": {
+        "name": "chess-check",
+        "score": 0.7941
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cursor-progress",
+      "nearest": {
+        "name": "bookmark-tassel",
+        "score": 0.7499
+      },
+      "kind": "base",
+      "previousName": "cursor-progress-01"
+    },
+    {
+      "name": "row-height",
+      "nearest": {
+        "name": "chat-selected-message-range",
+        "score": 0.795
+      },
+      "kind": "base"
+    },
+    {
+      "name": "tree-list",
+      "nearest": {
+        "name": "tetris-z",
+        "score": 0.7952
+      },
+      "kind": "base"
+    },
+    {
+      "name": "land-surveying",
+      "nearest": {
+        "name": "tripod",
+        "score": 0.7952
+      },
+      "kind": "base"
+    },
+    {
+      "name": "soybean-milk-maker",
+      "nearest": {
+        "name": "kitchen-moka-angular-pot",
+        "score": 0.7956
+      },
+      "kind": "base"
+    },
+    {
+      "name": "neural",
+      "nearest": {
+        "name": "ribbon-roll",
+        "score": 0.7957
+      },
+      "kind": "base"
+    },
+    {
+      "name": "redo-action",
+      "nearest": {
+        "name": "arcade-button",
+        "score": 0.7507
+      },
+      "kind": "base"
+    },
+    {
+      "name": "parenting-book",
+      "nearest": {
+        "name": "contract-sign",
+        "score": 0.7961
+      },
+      "kind": "base"
+    },
+    {
+      "name": "coffee-machine",
+      "nearest": {
+        "name": "like-post",
+        "score": 0.7961
+      },
+      "kind": "base"
+    },
+    {
+      "name": "chart-line-area",
+      "nearest": {
+        "name": "chart-area",
+        "score": 0.7964
+      },
+      "kind": "base"
+    },
+    {
+      "name": "filter-2-code",
+      "nearest": {
+        "name": "seo-search-snippet",
+        "score": 0.7514
+      },
+      "kind": "base"
+    },
+    {
+      "name": "undo-action",
+      "nearest": {
+        "name": "tabs-ui",
+        "score": 0.7515
+      },
+      "kind": "base"
+    },
+    {
+      "name": "accessibility-sign",
+      "nearest": {
+        "name": "bath-bubbles",
+        "score": 0.7517
+      },
+      "kind": "base"
+    },
+    {
+      "name": "traditional-chinese-medicine",
+      "nearest": {
+        "name": "potty",
+        "score": 0.7968
+      },
+      "kind": "base"
+    },
+    {
+      "name": "function-of-x",
+      "nearest": {
+        "name": "vacuum",
+        "score": 0.7518
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pen-connect-bluetooth",
+      "nearest": {
+        "name": "pen-connect-wifi",
+        "score": 0.752
+      },
+      "kind": "action"
+    },
+    {
+      "name": "skates",
+      "nearest": {
+        "name": "ice-skate",
+        "score": 0.7971
+      },
+      "kind": "base"
+    },
+    {
+      "name": "comments",
+      "nearest": {
+        "name": "trailer",
+        "score": 0.7971
+      },
+      "kind": "base"
+    },
+    {
+      "name": "user-positioning",
+      "nearest": {
+        "name": "meeting-camera-framing-guide",
+        "score": 0.7978
+      },
+      "kind": "base"
+    },
+    {
+      "name": "file-shredder",
+      "nearest": {
+        "name": "file-secure-shred",
+        "score": 0.7531
+      },
+      "kind": "base"
+    },
+    {
+      "name": "multi-bubble",
+      "nearest": {
+        "name": "table-tennis-bat",
+        "score": 0.7536
+      },
+      "kind": "base"
+    },
+    {
+      "name": "not-equal-sign",
+      "nearest": {
+        "name": "cycle-folding-bike-hinge-lock",
+        "score": 0.7537
+      },
+      "kind": "base"
+    },
+    {
+      "name": "user-add",
+      "nearest": {
+        "name": "profile-user-outline-open",
+        "score": 0.754
+      },
+      "kind": "action",
+      "previousName": "user-add-01"
+    },
+    {
+      "name": "baby-mobile",
+      "nearest": {
+        "name": "vector-bezier",
+        "score": 0.799
+      },
+      "kind": "base"
+    },
+    {
+      "name": "fire-security",
+      "nearest": {
+        "name": "paint-bucket",
+        "score": 0.7541
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cursor-magic-selection",
+      "nearest": {
+        "name": "drill-bit",
+        "score": 0.7541
+      },
+      "kind": "base",
+      "previousName": "cursor-magic-selection-01"
+    },
+    {
+      "name": "baseball-cap",
+      "nearest": {
+        "name": "chess-king-black",
+        "score": 0.7992
+      },
+      "kind": "base"
+    },
+    {
+      "name": "folder-stats",
+      "nearest": {
+        "name": "folder-edit",
+        "score": 0.7543
+      },
+      "kind": "base"
+    },
+    {
+      "name": "rotate-crop",
+      "nearest": {
+        "name": "file-byte-range-selection",
+        "score": 0.7547
+      },
+      "kind": "action"
+    },
+    {
+      "name": "hanfu-chinese-style",
+      "nearest": {
+        "name": "power-up",
+        "score": 0.7997
+      },
+      "kind": "base"
+    },
+    {
+      "name": "electronic-locks-open",
+      "nearest": {
+        "name": "sippy-cup",
+        "score": 0.7999
+      },
+      "kind": "action"
+    },
+    {
+      "name": "level-four-title",
+      "nearest": {
+        "name": "heading-2",
+        "score": 0.8
+      },
+      "kind": "base"
+    },
+    {
+      "name": "align-text-bottom",
+      "nearest": {
+        "name": "plunger",
+        "score": 0.8002
+      },
+      "kind": "action"
+    },
+    {
+      "name": "check-line",
+      "nearest": {
+        "name": "chart-covariate",
+        "score": 0.7557
+      },
+      "kind": "base"
+    },
+    {
+      "name": "speakerphone",
+      "nearest": {
+        "name": "range-slider",
+        "score": 0.7558
+      },
+      "kind": "base"
+    },
+    {
+      "name": "skiing-nordic",
+      "nearest": {
+        "name": "sorna",
+        "score": 0.8009
+      },
+      "kind": "base"
+    },
+    {
+      "name": "horizontal-spacing-between-items",
+      "nearest": {
+        "name": "report-group-by-time-grain",
+        "score": 0.8011
+      },
+      "kind": "base"
+    },
+    {
+      "name": "border-top",
+      "nearest": {
+        "name": "soil",
+        "score": 0.7562
+      },
+      "kind": "base"
+    },
+    {
+      "name": "user-pen",
+      "nearest": {
+        "name": "user-settings",
+        "score": 0.7566
+      },
+      "kind": "base"
+    },
+    {
+      "name": "stack-light",
+      "nearest": {
+        "name": "drill-bit",
+        "score": 0.8019
+      },
+      "kind": "base"
+    },
+    {
+      "name": "stand-up",
+      "nearest": {
+        "name": "disabled-2",
+        "score": 0.8024
+      },
+      "kind": "action"
+    },
+    {
+      "name": "value-max",
+      "nearest": {
+        "name": "building-housekeeping-door-flag",
+        "score": 0.8025
+      },
+      "kind": "base",
+      "previousName": "maximum"
+    },
+    {
+      "name": "folder-failed",
+      "nearest": {
+        "name": "folder-x",
+        "score": 0.8027
+      },
+      "kind": "base",
+      "previousName": "folder-failed-one"
+    },
+    {
+      "name": "baby-app",
+      "nearest": {
+        "name": "beehive",
+        "score": 0.8029
+      },
+      "kind": "base"
+    },
+    {
+      "name": "dome-light",
+      "nearest": {
+        "name": "blizzard",
+        "score": 0.8033
+      },
+      "kind": "base"
+    },
+    {
+      "name": "touch-interaction",
+      "nearest": {
+        "name": "warp-pipe",
+        "score": 0.7592
+      },
+      "kind": "base",
+      "previousName": "touch-interaction-01"
+    },
+    {
+      "name": "ai-magic",
+      "nearest": {
+        "name": "map-israel",
+        "score": 0.7592
+      },
+      "kind": "base"
+    },
+    {
+      "name": "data-user",
+      "nearest": {
+        "name": "vacuum-no-go-zone",
+        "score": 0.8043
+      },
+      "kind": "base"
+    },
+    {
+      "name": "file-staff",
+      "nearest": {
+        "name": "tablet-pencil",
+        "score": 0.8043
+      },
+      "kind": "base",
+      "previousName": "file-staff-one"
+    },
+    {
+      "name": "pencil-x",
+      "nearest": {
+        "name": "highlight",
+        "score": 0.7593
+      },
+      "kind": "base"
+    },
+    {
+      "name": "creation-date-sort",
+      "nearest": {
+        "name": "meeting-facilitator-time-card",
+        "score": 0.8044
+      },
+      "kind": "action"
+    },
+    {
+      "name": "setting-computer",
+      "nearest": {
+        "name": "computer",
+        "score": 0.8044
+      },
+      "kind": "action"
+    },
+    {
+      "name": "area-map",
+      "nearest": {
+        "name": "retail-checkout-counter-belt",
+        "score": 0.8044
+      },
+      "kind": "base"
+    },
+    {
+      "name": "drop-down-list",
+      "nearest": {
+        "name": "garment-patch-pocket",
+        "score": 0.8045
+      },
+      "kind": "action"
+    },
+    {
+      "name": "flight-safety",
+      "nearest": {
+        "name": "drill-bit",
+        "score": 0.8046
+      },
+      "kind": "base"
+    },
+    {
+      "name": "rotation",
+      "nearest": {
+        "name": "graph-down",
+        "score": 0.805
+      },
+      "kind": "base",
+      "previousName": "rotation-one"
+    },
+    {
+      "name": "image-done",
+      "nearest": {
+        "name": "print-spot-varnish-area",
+        "score": 0.7601
+      },
+      "kind": "action",
+      "previousName": "image-done-01"
+    },
+    {
+      "name": "entertainment",
+      "nearest": {
+        "name": "bamieh",
+        "score": 0.8053
+      },
+      "kind": "base"
+    },
+    {
+      "name": "people-speak",
+      "nearest": {
+        "name": "user-admin",
+        "score": 0.8053
+      },
+      "kind": "base"
+    },
+    {
+      "name": "coffee-cup",
+      "nearest": {
+        "name": "hot-cocoa",
+        "score": 0.7605
+      },
+      "kind": "base"
+    },
+    {
+      "name": "right-user",
+      "nearest": {
+        "name": "structure",
+        "score": 0.8056,
+        "previousName": "structure-01"
+      },
+      "kind": "base"
+    },
+    {
+      "name": "tent-banner",
+      "nearest": {
+        "name": "sorna",
+        "score": 0.8062
+      },
+      "kind": "base"
+    },
+    {
+      "name": "git-pull-request-arrow",
+      "nearest": {
+        "name": "git-pull-request",
+        "score": 0.7619
+      },
+      "kind": "base"
+    },
+    {
+      "name": "u-turn-left",
+      "nearest": {
+        "name": "map-turkey",
+        "score": 0.8076
+      },
+      "kind": "base"
+    },
+    {
+      "name": "add-female",
+      "nearest": {
+        "name": "bowler-hat",
+        "score": 0.7626
+      },
+      "kind": "action"
+    },
+    {
+      "name": "user-love",
+      "nearest": {
+        "name": "user-clock",
+        "score": 0.7627
+      },
+      "kind": "base"
+    },
+    {
+      "name": "assembly-line",
+      "nearest": {
+        "name": "file-hidden-extension-segment",
+        "score": 0.8078
+      },
+      "kind": "base"
+    },
+    {
+      "name": "recent-views-sort",
+      "nearest": {
+        "name": "table-fit-column-to-content",
+        "score": 0.8078
+      },
+      "kind": "action"
+    },
+    {
+      "name": "booster-car-seat",
+      "nearest": {
+        "name": "bath-bomb",
+        "score": 0.808
+      },
+      "kind": "base"
+    },
+    {
+      "name": "eye-pin",
+      "nearest": {
+        "name": "audio-headphone-safe-volume",
+        "score": 0.7631
+      },
+      "kind": "base"
+    },
+    {
+      "name": "link-pin",
+      "nearest": {
+        "name": "car-pin",
+        "score": 0.7632
+      },
+      "kind": "base"
+    },
+    {
+      "name": "check-unread",
+      "nearest": {
+        "name": "close",
+        "score": 0.7633
+      },
+      "kind": "base",
+      "previousName": "check-unread-01"
+    },
+    {
+      "name": "link-interrupt",
+      "nearest": {
+        "name": "file-byte-range-selection",
+        "score": 0.8083
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sea-waves",
+      "nearest": {
+        "name": "camp-folding-stove-windscreen",
+        "score": 0.7637
+      },
+      "kind": "base"
+    },
+    {
+      "name": "file-hiding",
+      "nearest": {
+        "name": "file-access-request-gate",
+        "score": 0.8088
+      },
+      "kind": "base",
+      "previousName": "file-hiding-one"
+    },
+    {
+      "name": "folder-transfer",
+      "nearest": {
+        "name": "navigation-context-switch",
+        "score": 0.7642
+      },
+      "kind": "base"
+    },
+    {
+      "name": "baby-car-seat",
+      "nearest": {
+        "name": "mop",
+        "score": 0.8092
+      },
+      "kind": "base"
+    },
+    {
+      "name": "list-start",
+      "nearest": {
+        "name": "stationery-cutting-mat-grid",
+        "score": 0.7643
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-background-eraser",
+      "nearest": {
+        "name": "slot-machine",
+        "score": 0.7643
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mobile-voice",
+      "nearest": {
+        "name": "hotel-late-arrival",
+        "score": 0.7645
+      },
+      "kind": "base"
+    },
+    {
+      "name": "line-weight-thin",
+      "nearest": {
+        "name": "pommel-horse",
+        "score": 0.8096
+      },
+      "kind": "base",
+      "previousName": "thin"
+    },
+    {
+      "name": "battery-eco",
+      "nearest": {
+        "name": "ice-pop",
+        "score": 0.7647
+      },
+      "kind": "base"
+    },
+    {
+      "name": "chart-scatter-axes",
+      "nearest": {
+        "name": "car-4wd",
+        "score": 0.7647
+      },
+      "kind": "base",
+      "previousName": "chart-dots-3"
+    },
+    {
+      "name": "volume-notice",
+      "nearest": {
+        "name": "privacy-partitioned-cookie",
+        "score": 0.8098
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mosaic",
+      "nearest": {
+        "name": "sos",
+        "score": 0.81
+      },
+      "kind": "base"
+    },
+    {
+      "name": "potentiometer",
+      "nearest": {
+        "name": "desiccator",
+        "score": 0.8103
+      },
+      "kind": "base"
+    },
+    {
+      "name": "data-display",
+      "nearest": {
+        "name": "vacuum-no-go-zone",
+        "score": 0.8103
+      },
+      "kind": "base"
+    },
+    {
+      "name": "hammer-and-anvil",
+      "nearest": {
+        "name": "walkman",
+        "score": 0.8104
+      },
+      "kind": "base"
+    },
+    {
+      "name": "eye-code",
+      "nearest": {
+        "name": "audio-cable-reel-drum",
+        "score": 0.7655
+      },
+      "kind": "base"
+    },
+    {
+      "name": "navigation-pin",
+      "nearest": {
+        "name": "caret-up",
+        "score": 0.7658
+      },
+      "kind": "base"
+    },
+    {
+      "name": "baby-sling",
+      "nearest": {
+        "name": "best-seller",
+        "score": 0.8109
+      },
+      "kind": "base"
+    },
+    {
+      "name": "step-forward",
+      "nearest": {
+        "name": "museum-cloakroom-claim-token",
+        "score": 0.766
+      },
+      "kind": "base"
+    },
+    {
+      "name": "renal",
+      "nearest": {
+        "name": "crystal",
+        "score": 0.8111
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sailing",
+      "nearest": {
+        "name": "chess-knight-black",
+        "score": 0.8112
+      },
+      "kind": "base"
+    },
+    {
+      "name": "battery-vertical-eco",
+      "nearest": {
+        "name": "browser-import-bookmarks",
+        "score": 0.7663
+      },
+      "kind": "base"
+    },
+    {
+      "name": "level-adjustment",
+      "nearest": {
+        "name": "greek-theta",
+        "score": 0.8116
+      },
+      "kind": "base"
+    },
+    {
+      "name": "list-todo",
+      "nearest": {
+        "name": "list-numbers",
+        "score": 0.7668
+      },
+      "kind": "base"
+    },
+    {
+      "name": "chart-dot",
+      "nearest": {
+        "name": "crm-sales-forecast",
+        "score": 0.7668
+      },
+      "kind": "base",
+      "previousName": "chart-dots-2"
+    },
+    {
+      "name": "filter-code",
+      "nearest": {
+        "name": "filter-plus",
+        "score": 0.767
+      },
+      "kind": "base"
+    },
+    {
+      "name": "uterus",
+      "nearest": {
+        "name": "tool-spokeshave",
+        "score": 0.8123
+      },
+      "kind": "base"
+    },
+    {
+      "name": "clothes-gloves",
+      "nearest": {
+        "name": "fez",
+        "score": 0.8124
+      },
+      "kind": "base",
+      "previousName": "clothes-gloves-two"
+    },
+    {
+      "name": "credit-card-pos",
+      "nearest": {
+        "name": "pen-tool",
+        "score": 0.7675
+      },
+      "kind": "base"
+    },
+    {
+      "name": "rotating-add",
+      "nearest": {
+        "name": "no-dry-clean",
+        "score": 0.8125
+      },
+      "kind": "action"
+    },
+    {
+      "name": "ai-crop",
+      "nearest": {
+        "name": "grid-4x4",
+        "score": 0.7678
+      },
+      "kind": "action"
+    },
+    {
+      "name": "mobile-fingerprint",
+      "nearest": {
+        "name": "hotel-breakfast-hours",
+        "score": 0.7685
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sorting-one-nine",
+      "nearest": {
+        "name": "shovel-pitchforks",
+        "score": 0.7685
+      },
+      "kind": "base"
+    },
+    {
+      "name": "eye-share",
+      "nearest": {
+        "name": "privacy-session-viewer-count",
+        "score": 0.7687
+      },
+      "kind": "action"
+    },
+    {
+      "name": "saturn",
+      "nearest": {
+        "name": "ammonite",
+        "score": 0.769
+      },
+      "kind": "base",
+      "previousName": "saturn-01"
+    },
+    {
+      "name": "ai-co-editing",
+      "nearest": {
+        "name": "greenhouse",
+        "score": 0.7693
+      },
+      "kind": "base"
+    },
+    {
+      "name": "tower-no-access",
+      "nearest": {
+        "name": "wash-gentle",
+        "score": 0.7695
+      },
+      "kind": "base"
+    },
+    {
+      "name": "border-br",
+      "nearest": {
+        "name": "scale-frame-reduce",
+        "score": 0.7698
+      },
+      "kind": "base"
+    },
+    {
+      "name": "short-skirt",
+      "nearest": {
+        "name": "egg",
+        "score": 0.8152
+      },
+      "kind": "base"
+    },
+    {
+      "name": "gauze",
+      "nearest": {
+        "name": "latte-art",
+        "score": 0.8847
+      },
+      "kind": "base"
+    },
+    {
+      "name": "hanging-clock",
+      "nearest": {
+        "name": "volleyball-net",
+        "score": 0.7703
+      },
+      "kind": "base"
+    },
+    {
+      "name": "hot-pot",
+      "nearest": {
+        "name": "stamp",
+        "score": 0.8154
+      },
+      "kind": "base",
+      "previousName": "hot-pot-one"
+    },
+    {
+      "name": "download-computer",
+      "nearest": {
+        "name": "computer",
+        "score": 0.8154
+      },
+      "kind": "action"
+    },
+    {
+      "name": "border-tr",
+      "nearest": {
+        "name": "cast",
+        "score": 0.7707
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sunshade",
+      "nearest": {
+        "name": "pill-organizer",
+        "score": 0.8163
+      },
+      "kind": "base"
+    },
+    {
+      "name": "game-handle",
+      "nearest": {
+        "name": "kiddie-pool",
+        "score": 0.8166
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mounted",
+      "nearest": {
+        "name": "light-recessed-square",
+        "score": 0.8167
+      },
+      "kind": "base"
+    },
+    {
+      "name": "truck-green",
+      "nearest": {
+        "name": "release-platform-matrix",
+        "score": 0.7719
+      },
+      "kind": "base"
+    },
+    {
+      "name": "led-diode",
+      "nearest": {
+        "name": "zoolbia",
+        "score": 0.8169
+      },
+      "kind": "base"
+    },
+    {
+      "name": "folder-git",
+      "nearest": {
+        "name": "folder-up",
+        "score": 0.7721
+      },
+      "kind": "base",
+      "previousName": "folder-git-2"
+    },
+    {
+      "name": "waves-right",
+      "nearest": {
+        "name": "media-equalizer-five-round",
+        "score": 0.8172
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-speech",
+      "nearest": {
+        "name": "media-equalizer-five-round",
+        "score": 0.7723
+      },
+      "kind": "base"
+    },
+    {
+      "name": "image-add",
+      "nearest": {
+        "name": "file-check",
+        "score": 0.7723
+      },
+      "kind": "action",
+      "previousName": "image-add-01"
+    },
+    {
+      "name": "language-hiragana",
+      "nearest": {
+        "name": "map-cuba",
+        "score": 0.7724
+      },
+      "kind": "base"
+    },
+    {
+      "name": "dim-sum",
+      "nearest": {
+        "name": "billiards",
+        "score": 0.7725
+      },
+      "kind": "base",
+      "previousName": "dim-sum-01"
+    },
+    {
+      "name": "eye-x",
+      "nearest": {
+        "name": "best-seller",
+        "score": 0.7726
+      },
+      "kind": "base"
+    },
+    {
+      "name": "image-remove",
+      "nearest": {
+        "name": "file-folder-soft-tab",
+        "score": 0.7726
+      },
+      "kind": "action",
+      "previousName": "image-remove-01"
+    },
+    {
+      "name": "basket-code",
+      "nearest": {
+        "name": "utility-knife",
+        "score": 0.7727
+      },
+      "kind": "base"
+    },
+    {
+      "name": "chart-column-decreasing",
+      "nearest": {
+        "name": "repair-corner-clamp-frame",
+        "score": 0.7727
+      },
+      "kind": "base"
+    },
+    {
+      "name": "border-bl",
+      "nearest": {
+        "name": "scale-frame-reduce",
+        "score": 0.7729
+      },
+      "kind": "base"
+    },
+    {
+      "name": "connect-address",
+      "nearest": {
+        "name": "anchor",
+        "score": 0.8182
+      },
+      "kind": "action",
+      "previousName": "connect-address-two"
+    },
+    {
+      "name": "enter-key",
+      "nearest": {
+        "name": "document-comment",
+        "score": 0.8185
+      },
+      "kind": "base"
+    },
+    {
+      "name": "expand-left-and-right",
+      "nearest": {
+        "name": "text-wrap-column",
+        "score": 0.8186
+      },
+      "kind": "base"
+    },
+    {
+      "name": "change-date-sort",
+      "nearest": {
+        "name": "meeting-facilitator-time-card",
+        "score": 0.8186
+      },
+      "kind": "action"
+    },
+    {
+      "name": "shopping-bag-code",
+      "nearest": {
+        "name": "shopping-bag-minus",
+        "score": 0.7739
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mobile-security",
+      "nearest": {
+        "name": "folders",
+        "score": 0.7743
+      },
+      "kind": "base"
+    },
+    {
+      "name": "engineering-vehicle",
+      "nearest": {
+        "name": "ambulance",
+        "score": 0.8194
+      },
+      "kind": "base"
+    },
+    {
+      "name": "coconut-tree",
+      "nearest": {
+        "name": "microtube-rack",
+        "score": 0.8195
+      },
+      "kind": "base"
+    },
+    {
+      "name": "preview-close",
+      "nearest": {
+        "name": "eye-off",
+        "score": 0.8199
+      },
+      "kind": "action",
+      "previousName": "preview-close-one"
+    },
+    {
+      "name": "link-share",
+      "nearest": {
+        "name": "link-x",
+        "score": 0.7749
+      },
+      "kind": "action"
+    },
+    {
+      "name": "ios-face-recognition",
+      "nearest": {
+        "name": "focus-centered",
+        "score": 0.8201
+      },
+      "kind": "action"
+    },
+    {
+      "name": "waterfall-down",
+      "nearest": {
+        "name": "graph-down",
+        "score": 0.7752
+      },
+      "kind": "action",
+      "previousName": "waterfall-down-01"
+    },
+    {
+      "name": "teeth",
+      "nearest": {
+        "name": "tooth",
+        "score": 0.8204
+      },
+      "kind": "base"
+    },
+    {
+      "name": "whistling",
+      "nearest": {
+        "name": "map-lithuania",
+        "score": 0.8205
+      },
+      "kind": "base"
+    },
+    {
+      "name": "email-block",
+      "nearest": {
+        "name": "cash-coin",
+        "score": 0.8205
+      },
+      "kind": "base"
+    },
+    {
+      "name": "filter-pin",
+      "nearest": {
+        "name": "filter-plus",
+        "score": 0.7756
+      },
+      "kind": "base"
+    },
+    {
+      "name": "file-quality",
+      "nearest": {
+        "name": "file-export",
+        "score": 0.8208
+      },
+      "kind": "base",
+      "previousName": "file-quality-one"
+    },
+    {
+      "name": "align-bottom",
+      "nearest": {
+        "name": "hotel-pay-at-property",
+        "score": 0.8215
+      },
+      "kind": "action",
+      "previousName": "align-bottom-two"
+    },
+    {
+      "name": "reverse-lens",
+      "nearest": {
+        "name": "hotdog",
+        "score": 0.8215
+      },
+      "kind": "base"
+    },
+    {
+      "name": "call-outgoing",
+      "nearest": {
+        "name": "form-conditional-section",
+        "score": 0.7767
+      },
+      "kind": "base",
+      "previousName": "call-outgoing-01"
+    },
+    {
+      "name": "call-incoming",
+      "nearest": {
+        "name": "form-conditional-section",
+        "score": 0.7768
+      },
+      "kind": "base",
+      "previousName": "call-incoming-01"
+    },
+    {
+      "name": "folder-symlink",
+      "nearest": {
+        "name": "dev-queue-dead-letter-route",
+        "score": 0.7768
+      },
+      "kind": "base"
+    },
+    {
+      "name": "bullet-map",
+      "nearest": {
+        "name": "books",
+        "score": 0.8219
+      },
+      "kind": "base"
+    },
+    {
+      "name": "home-link",
+      "nearest": {
+        "name": "nav-home-wide-entry",
+        "score": 0.777
+      },
+      "kind": "base"
+    },
+    {
+      "name": "lung",
+      "nearest": {
+        "name": "igloo",
+        "score": 0.8226
+      },
+      "kind": "base"
+    },
+    {
+      "name": "coins-swap",
+      "nearest": {
+        "name": "retail-variant-sample-strip",
+        "score": 0.7777
+      },
+      "kind": "base"
+    },
+    {
+      "name": "electric-iron",
+      "nearest": {
+        "name": "browser-translate-webpage",
+        "score": 0.8232
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-drawing",
+      "nearest": {
+        "name": "alarm-24",
+        "score": 0.7784
+      },
+      "kind": "base"
+    },
+    {
+      "name": "tea-drink",
+      "nearest": {
+        "name": "coffee",
+        "score": 0.8234
+      },
+      "kind": "base"
+    },
+    {
+      "name": "message-search",
+      "nearest": {
+        "name": "service-health-degraded",
+        "score": 0.824
+      },
+      "kind": "action"
+    },
+    {
+      "name": "color-card",
+      "nearest": {
+        "name": "chart-table-row-bars",
+        "score": 0.8241
+      },
+      "kind": "base"
+    },
+    {
+      "name": "home-hand",
+      "nearest": {
+        "name": "map-senegal",
+        "score": 0.7793
+      },
+      "kind": "base"
+    },
+    {
+      "name": "new-building",
+      "nearest": {
+        "name": "file-spreadsheet-row-labels",
+        "score": 0.8246
+      },
+      "kind": "base",
+      "previousName": "newlybuild"
+    },
+    {
+      "name": "move-to",
+      "nearest": {
+        "name": "seo-search-snippet",
+        "score": 0.7797
+      },
+      "kind": "action"
+    },
+    {
+      "name": "clothes-pants-sweat",
+      "nearest": {
+        "name": "trousers",
+        "score": 0.8249
+      },
+      "kind": "base"
+    },
+    {
+      "name": "radio-nanny",
+      "nearest": {
+        "name": "luggage-tag",
+        "score": 0.825
+      },
+      "kind": "base"
+    },
+    {
+      "name": "baggage-delay",
+      "nearest": {
+        "name": "pill-organizer",
+        "score": 0.825
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cloud-sunny",
+      "nearest": {
+        "name": "pet-bed",
+        "score": 0.7801
+      },
+      "kind": "base"
+    },
+    {
+      "name": "auto-line-width",
+      "nearest": {
+        "name": "chart-slope-change-comparison",
+        "score": 0.8252
+      },
+      "kind": "base"
+    },
+    {
+      "name": "soccer",
+      "nearest": {
+        "name": "run",
+        "score": 0.8252
+      },
+      "kind": "base",
+      "previousName": "soccer-one"
+    },
+    {
+      "name": "book-copy",
+      "nearest": {
+        "name": "device-mobile-message",
+        "score": 0.7804
+      },
+      "kind": "action"
+    },
+    {
+      "name": "cursor-rectangle-selection",
+      "nearest": {
+        "name": "zoom-in-area",
+        "score": 0.7804
+      },
+      "kind": "base",
+      "previousName": "cursor-rectangle-selection-01"
+    },
+    {
+      "name": "inequality",
+      "nearest": {
+        "name": "haze",
+        "score": 0.7805
+      },
+      "kind": "base",
+      "previousName": "inequality-01"
+    },
+    {
+      "name": "camp",
+      "nearest": {
+        "name": "pyramid",
+        "score": 0.8257
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sign-language-c",
+      "nearest": {
+        "name": "chart-pie-half",
+        "score": 0.7807
+      },
+      "kind": "base"
+    },
+    {
+      "name": "background-color",
+      "nearest": {
+        "name": "design-layer-isolation-stack",
+        "score": 0.8258
+      },
+      "kind": "base"
+    },
+    {
+      "name": "anchor-square",
+      "nearest": {
+        "name": "vector-bezier",
+        "score": 0.8215
+      },
+      "kind": "base",
+      "previousName": "anchor-squre"
+    },
+    {
+      "name": "chart-column-increasing",
+      "nearest": {
+        "name": "expense-unusual-spending",
+        "score": 0.7808
+      },
+      "kind": "base"
+    },
+    {
+      "name": "backward",
+      "nearest": {
+        "name": "volume-low",
+        "score": 0.781
+      },
+      "kind": "base",
+      "previousName": "backward-01"
+    },
+    {
+      "name": "message-multiple",
+      "nearest": {
+        "name": "message-schedule",
+        "score": 0.7811
+      },
+      "kind": "base",
+      "previousName": "message-multiple-01"
+    },
+    {
+      "name": "hold-locked",
+      "nearest": {
+        "name": "crayon",
+        "score": 0.7816
+      },
+      "kind": "action",
+      "previousName": "hold-locked-01"
+    },
+    {
+      "name": "eyebrow",
+      "nearest": {
+        "name": "ramekin",
+        "score": 0.8269
+      },
+      "kind": "base"
+    },
+    {
+      "name": "music-list",
+      "nearest": {
+        "name": "align-justify",
+        "score": 0.827
+      },
+      "kind": "base"
+    },
+    {
+      "name": "transport",
+      "nearest": {
+        "name": "sim-tray",
+        "score": 0.8271
+      },
+      "kind": "base"
+    },
+    {
+      "name": "brake-pads",
+      "nearest": {
+        "name": "brake-disc",
+        "score": 0.8273
+      },
+      "kind": "base"
+    },
+    {
+      "name": "super-intelligence-robot",
+      "nearest": {
+        "name": "saved-search",
+        "score": 0.7824
+      },
+      "kind": "base"
+    },
+    {
+      "name": "filter-2-x",
+      "nearest": {
+        "name": "text-direction-auto-enable",
+        "score": 0.7825
+      },
+      "kind": "base"
+    },
+    {
+      "name": "natural-mode",
+      "nearest": {
+        "name": "corn",
+        "score": 0.8276
+      },
+      "kind": "base"
+    },
+    {
+      "name": "computer-protection",
+      "nearest": {
+        "name": "display-external-only",
+        "score": 0.7827
+      },
+      "kind": "base"
+    },
+    {
+      "name": "input-ai",
+      "nearest": {
+        "name": "account-recovery-code-expired",
+        "score": 0.7827
+      },
+      "kind": "base"
+    },
+    {
+      "name": "microphone-speaking",
+      "nearest": {
+        "name": "disc-golf",
+        "score": 0.7829
+      },
+      "kind": "base"
+    },
+    {
+      "name": "connection-point",
+      "nearest": {
+        "name": "route-square",
+        "score": 0.8279
+      },
+      "kind": "base",
+      "previousName": "connection-point-two"
+    },
+    {
+      "name": "ai-editing",
+      "nearest": {
+        "name": "wand",
+        "score": 0.783
+      },
+      "kind": "base"
+    },
+    {
+      "name": "file-pen-line",
+      "nearest": {
+        "name": "file-edit",
+        "score": 0.7831
+      },
+      "kind": "base"
+    },
+    {
+      "name": "shopping-cart-pin",
+      "nearest": {
+        "name": "learn-stapler-open-jaw",
+        "score": 0.7835
+      },
+      "kind": "base"
+    },
+    {
+      "name": "clothes-hoodie",
+      "nearest": {
+        "name": "hair-clipper",
+        "score": 0.8286
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cursor-info",
+      "nearest": {
+        "name": "travel-luggage-wheel-replacement",
+        "score": 0.7838
+      },
+      "kind": "base",
+      "previousName": "cursor-info-01"
+    },
+    {
+      "name": "cloud-pin",
+      "nearest": {
+        "name": "cloud-lock",
+        "score": 0.784
+      },
+      "kind": "base"
+    },
+    {
+      "name": "space-colony",
+      "nearest": {
+        "name": "rapid-test",
+        "score": 0.829
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pencil-ai",
+      "nearest": {
+        "name": "highlight",
+        "score": 0.7841
+      },
+      "kind": "base"
+    },
+    {
+      "name": "link-out",
+      "nearest": {
+        "name": "control-slider-center-grip",
+        "score": 0.8291
+      },
+      "kind": "base"
+    },
+    {
+      "name": "file-isr",
+      "nearest": {
+        "name": "computer-trackball-thumb",
+        "score": 0.7842
+      },
+      "kind": "base"
+    },
+    {
+      "name": "vertical-timeline",
+      "nearest": {
+        "name": "living-window-two-panes",
+        "score": 0.8293
+      },
+      "kind": "base"
+    },
+    {
+      "name": "tickets",
+      "nearest": {
+        "name": "design-grid-subdivision",
+        "score": 0.8293
+      },
+      "kind": "base",
+      "previousName": "tickets-two"
+    },
+    {
+      "name": "file-music",
+      "nearest": {
+        "name": "letter-d-plain",
+        "score": 0.8294
+      },
+      "kind": "base",
+      "previousName": "file-music-one"
+    },
+    {
+      "name": "data-transfer-both",
+      "nearest": {
+        "name": "mobiledata",
+        "score": 0.7845
+      },
+      "kind": "base"
+    },
+    {
+      "name": "format-brush",
+      "nearest": {
+        "name": "repair-paint-roller-edge-guide",
+        "score": 0.83
+      },
+      "kind": "base"
+    },
+    {
+      "name": "wingsuit-flying",
+      "nearest": {
+        "name": "anchor",
+        "score": 0.8302
+      },
+      "kind": "base"
+    },
+    {
+      "name": "male",
+      "nearest": {
+        "name": "coffee-break",
+        "score": 0.7852
+      },
+      "kind": "base"
+    },
+    {
+      "name": "book-clone",
+      "nearest": {
+        "name": "retail-bakery-glass-case",
+        "score": 0.7852
+      },
+      "kind": "base"
+    },
+    {
+      "name": "bathroom",
+      "nearest": {
+        "name": "file-note-torn-bottom",
+        "score": 0.7855
+      },
+      "kind": "base"
+    },
+    {
+      "name": "icecream",
+      "nearest": {
+        "name": "blimp",
+        "score": 0.8308
+      },
+      "kind": "base",
+      "previousName": "icecream-three"
+    },
+    {
+      "name": "file-validation",
+      "nearest": {
+        "name": "store-verified",
+        "score": 0.786,
+        "previousName": "store-verified-01"
+      },
+      "kind": "action"
+    },
+    {
+      "name": "home-shield",
+      "nearest": {
+        "name": "nav-home-wide-entry",
+        "score": 0.786
+      },
+      "kind": "base"
+    },
+    {
+      "name": "electronic-door-lock",
+      "nearest": {
+        "name": "support-public-status-link",
+        "score": 0.8313
+      },
+      "kind": "base"
+    },
+    {
+      "name": "step-over",
+      "nearest": {
+        "name": "phone-wifi",
+        "score": 0.7863
+      },
+      "kind": "base"
+    },
+    {
+      "name": "building-code",
+      "nearest": {
+        "name": "building-star",
+        "score": 0.7864
+      },
+      "kind": "base"
+    },
+    {
+      "name": "shade",
+      "nearest": {
+        "name": "hyacinth",
+        "score": 0.8315
+      },
+      "kind": "base"
+    },
+    {
+      "name": "magic-hat",
+      "nearest": {
+        "name": "bag-drawstring-sack",
+        "score": 0.8318
+      },
+      "kind": "base"
+    },
+    {
+      "name": "zip",
+      "nearest": {
+        "name": "checkout-billing-country",
+        "score": 0.7869
+      },
+      "kind": "type"
+    },
+    {
+      "name": "water-no",
+      "nearest": {
+        "name": "toilet-brush",
+        "score": 0.8326
+      },
+      "kind": "base"
+    },
+    {
+      "name": "skating",
+      "nearest": {
+        "name": "loafer",
+        "score": 0.8328
+      },
+      "kind": "base"
+    },
+    {
+      "name": "boxing",
+      "nearest": {
+        "name": "property-pass-through-kitchen",
+        "score": 0.8329
+      },
+      "kind": "base",
+      "previousName": "boxing-one"
+    },
+    {
+      "name": "tick-double",
+      "nearest": {
+        "name": "access-tactile-wayfinding",
+        "score": 0.788
+      },
+      "kind": "base",
+      "previousName": "tick-double-01"
+    },
+    {
+      "name": "women-coat",
+      "nearest": {
+        "name": "chart-percentile-whiskers",
+        "score": 0.8331
+      },
+      "kind": "base"
+    },
+    {
+      "name": "overall-reduction",
+      "nearest": {
+        "name": "ai-embedding-neighbor-search",
+        "score": 0.8332
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sine",
+      "nearest": {
+        "name": "grid-4x4",
+        "score": 0.7886
+      },
+      "kind": "base",
+      "previousName": "sine-01"
+    },
+    {
+      "name": "phone-telephone",
+      "nearest": {
+        "name": "spreadsheet-reference",
+        "score": 0.8336
+      },
+      "kind": "base"
+    },
+    {
+      "name": "folder-block",
+      "nearest": {
+        "name": "file-folder-soft-tab",
+        "score": 0.8338
+      },
+      "kind": "base",
+      "previousName": "folder-block-one"
+    },
+    {
+      "name": "route-block",
+      "nearest": {
+        "name": "route",
+        "score": 0.7889
+      },
+      "kind": "base"
+    },
+    {
+      "name": "delivery-delay",
+      "nearest": {
+        "name": "car-three-quarter",
+        "score": 0.7889,
+        "previousName": "car-04"
+      },
+      "kind": "base",
+      "previousName": "delivery-delay-01"
+    },
+    {
+      "name": "paragraph-break",
+      "nearest": {
+        "name": "transit-live-arrival-board",
+        "score": 0.834
+      },
+      "kind": "base",
+      "previousName": "paragraph-break-two"
+    },
+    {
+      "name": "battery-vertical-charging",
+      "nearest": {
+        "name": "traffic-lights",
+        "score": 0.7892
+      },
+      "kind": "action",
+      "previousName": "battery-vertical-charging-2"
+    },
+    {
+      "name": "folder-share",
+      "nearest": {
+        "name": "video-x",
+        "score": 0.7893
+      },
+      "kind": "action"
+    },
+    {
+      "name": "screen-add-to-home",
+      "nearest": {
+        "name": "notebook-spiral",
+        "score": 0.7895
+      },
+      "kind": "action"
+    },
+    {
+      "name": "block-five",
+      "nearest": {
+        "name": "chart-cohort",
+        "score": 0.8346
+      },
+      "kind": "base"
+    },
+    {
+      "name": "planet-sat",
+      "nearest": {
+        "name": "audiobook",
+        "score": 0.7899
+      },
+      "kind": "base"
+    },
+    {
+      "name": "people-delete",
+      "nearest": {
+        "name": "user-x",
+        "score": 0.8351
+      },
+      "kind": "action",
+      "previousName": "people-delete-one"
+    },
+    {
+      "name": "auto-height",
+      "nearest": {
+        "name": "viewport-tall",
+        "score": 0.8354
+      },
+      "kind": "base",
+      "previousName": "auto-height-one"
+    },
+    {
+      "name": "list-end",
+      "nearest": {
+        "name": "word-wrap",
+        "score": 0.7905
+      },
+      "kind": "base"
+    },
+    {
+      "name": "petrol",
+      "nearest": {
+        "name": "parcel-reusable-mailer",
+        "score": 0.8358
+      },
+      "kind": "base"
+    },
+    {
+      "name": "distribute-vertical-top",
+      "nearest": {
+        "name": "pack-spray-bottle-trigger",
+        "score": 0.7909
+      },
+      "kind": "action"
+    },
+    {
+      "name": "mouse-left-click",
+      "nearest": {
+        "name": "paper-disc-bound-notebook",
+        "score": 0.7912
+      },
+      "kind": "base",
+      "previousName": "mouse-left-click-01"
+    },
+    {
+      "name": "share-sys",
+      "nearest": {
+        "name": "ramekin",
+        "score": 0.8367
+      },
+      "kind": "action"
+    },
+    {
+      "name": "layer-send-to-back",
+      "nearest": {
+        "name": "tree-deciduous",
+        "score": 0.792
+      },
+      "kind": "action"
+    },
+    {
+      "name": "tickets-checked",
+      "nearest": {
+        "name": "pregnancy-test",
+        "score": 0.8373
+      },
+      "kind": "base"
+    },
+    {
+      "name": "bread-machine",
+      "nearest": {
+        "name": "medal-first",
+        "score": 0.8375
+      },
+      "kind": "base"
+    },
+    {
+      "name": "chart-dots",
+      "nearest": {
+        "name": "gantt",
+        "score": 0.7927
+      },
+      "kind": "base"
+    },
+    {
+      "name": "time-setting",
+      "nearest": {
+        "name": "watch-round",
+        "score": 0.7927
+      },
+      "kind": "action",
+      "previousName": "time-setting-01"
+    },
+    {
+      "name": "access-point",
+      "nearest": {
+        "name": "api-key",
+        "score": 0.7928
+      },
+      "kind": "base"
+    },
+    {
+      "name": "clothes-turtleneck",
+      "nearest": {
+        "name": "beach-hut",
+        "score": 0.8379
+      },
+      "kind": "base"
+    },
+    {
+      "name": "micro-slr-camera",
+      "nearest": {
+        "name": "retail-variant-sample-strip",
+        "score": 0.8381
+      },
+      "kind": "base"
+    },
+    {
+      "name": "anti-corrosion",
+      "nearest": {
+        "name": "tanoor",
+        "score": 0.8382
+      },
+      "kind": "base"
+    },
+    {
+      "name": "move-in",
+      "nearest": {
+        "name": "picture-in-picture-on",
+        "score": 0.8382
+      },
+      "kind": "action",
+      "previousName": "move-in-one"
+    },
+    {
+      "name": "minus-plus",
+      "nearest": {
+        "name": "letter-t-plain",
+        "score": 0.7932
+      },
+      "kind": "base",
+      "previousName": "minus-plus-01"
+    },
+    {
+      "name": "applet-closed",
+      "nearest": {
+        "name": "close",
+        "score": 0.8382
+      },
+      "kind": "base"
+    },
+    {
+      "name": "bell-share",
+      "nearest": {
+        "name": "cowbell",
+        "score": 0.7933
+      },
+      "kind": "action"
+    },
+    {
+      "name": "file-editing",
+      "nearest": {
+        "name": "file-rounded-fold-low",
+        "score": 0.8384
+      },
+      "kind": "base",
+      "previousName": "file-editing-one"
+    },
+    {
+      "name": "root-first-bracket",
+      "nearest": {
+        "name": "api-key",
+        "score": 0.7935
+      },
+      "kind": "base"
+    },
+    {
+      "name": "file-headphone",
+      "nearest": {
+        "name": "file-money",
+        "score": 0.7944
+      },
+      "kind": "base"
+    },
+    {
+      "name": "badge",
+      "nearest": {
+        "name": "award",
+        "score": 0.8395
+      },
+      "kind": "base",
+      "previousName": "badge-two"
+    },
+    {
+      "name": "touch",
+      "nearest": {
+        "name": "hand-pointer",
+        "score": 0.7946
+      },
+      "kind": "base",
+      "previousName": "touch-01"
+    },
+    {
+      "name": "doc-search",
+      "nearest": {
+        "name": "ui-persistent-bottom-action-bar",
+        "score": 0.8396
+      },
+      "kind": "action",
+      "previousName": "doc-search-two"
+    },
+    {
+      "name": "phone-paused",
+      "nearest": {
+        "name": "message-phone-round-grip",
+        "score": 0.7948
+      },
+      "kind": "base"
+    },
+    {
+      "name": "future-build",
+      "nearest": {
+        "name": "letter-i-plain",
+        "score": 0.8345
+      },
+      "kind": "base",
+      "previousName": "future-build-two"
+    },
+    {
+      "name": "increase",
+      "nearest": {
+        "name": "return-guarantee",
+        "score": 0.8399
+      },
+      "kind": "base"
+    },
+    {
+      "name": "quote-open",
+      "nearest": {
+        "name": "design-hand-off-measure-callout",
+        "score": 0.7951
+      },
+      "kind": "action"
+    },
+    {
+      "name": "list-restart",
+      "nearest": {
+        "name": "menu",
+        "score": 0.7951
+      },
+      "kind": "action"
+    },
+    {
+      "name": "login-method",
+      "nearest": {
+        "name": "garden-gnome",
+        "score": 0.7951
+      },
+      "kind": "base"
+    },
+    {
+      "name": "vertical-spacing-between-items",
+      "nearest": {
+        "name": "settings-linked-slider-pair",
+        "score": 0.8404
+      },
+      "kind": "base"
+    },
+    {
+      "name": "list-video",
+      "nearest": {
+        "name": "swim-lane",
+        "score": 0.7957
+      },
+      "kind": "base"
+    },
+    {
+      "name": "iron-disable",
+      "nearest": {
+        "name": "inbox-tray",
+        "score": 0.8407
+      },
+      "kind": "base"
+    },
+    {
+      "name": "basketball-clothes",
+      "nearest": {
+        "name": "home-courtyard-gallery",
+        "score": 0.8408
+      },
+      "kind": "base"
+    },
+    {
+      "name": "greek-helmet",
+      "nearest": {
+        "name": "world-download",
+        "score": 0.7958
+      },
+      "kind": "base"
+    },
+    {
+      "name": "headphone-sound",
+      "nearest": {
+        "name": "kabadeh",
+        "score": 0.8408
+      },
+      "kind": "base"
+    },
+    {
+      "name": "acute",
+      "nearest": {
+        "name": "nose",
+        "score": 0.7959
+      },
+      "kind": "base"
+    },
+    {
+      "name": "medical-mark",
+      "nearest": {
+        "name": "garden-vertical-trellis-panel",
+        "score": 0.8416
+      },
+      "kind": "base"
+    },
+    {
+      "name": "congruent-to",
+      "nearest": {
+        "name": "file-folder-twin-pocket",
+        "score": 0.7968
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cruise",
+      "nearest": {
+        "name": "gheychak",
+        "score": 0.8419
+      },
+      "kind": "base"
+    },
+    {
+      "name": "media-image-folder",
+      "nearest": {
+        "name": "dominoes",
+        "score": 0.7969
+      },
+      "kind": "base"
+    },
+    {
+      "name": "message-sent",
+      "nearest": {
+        "name": "message-circle-dots",
+        "score": 0.8422
+      },
+      "kind": "base"
+    },
+    {
+      "name": "circus",
+      "nearest": {
+        "name": "bag-doctor-frame",
+        "score": 0.8425
+      },
+      "kind": "base"
+    },
+    {
+      "name": "men-jacket",
+      "nearest": {
+        "name": "sweater",
+        "score": 0.8426
+      },
+      "kind": "base"
+    },
+    {
+      "name": "facial-cleanser",
+      "nearest": {
+        "name": "body-lotion",
+        "score": 0.8426
+      },
+      "kind": "base"
+    },
+    {
+      "name": "eeg",
+      "nearest": {
+        "name": "service-health",
+        "score": 0.8816
+      },
+      "kind": "base"
+    },
+    {
+      "name": "flight-airflow",
+      "nearest": {
+        "name": "snow-globe",
+        "score": 0.8426
+      },
+      "kind": "base"
+    },
+    {
+      "name": "remind",
+      "nearest": {
+        "name": "fez",
+        "score": 0.8427
+      },
+      "kind": "base"
+    },
+    {
+      "name": "expenses",
+      "nearest": {
+        "name": "picture-in-picture-on",
+        "score": 0.8427
+      },
+      "kind": "base",
+      "previousName": "expenses-one"
+    },
+    {
+      "name": "cooperative-handshake",
+      "nearest": {
+        "name": "hand-fan",
+        "score": 0.8428
+      },
+      "kind": "base"
+    },
+    {
+      "name": "insert-card",
+      "nearest": {
+        "name": "smart-speaker",
+        "score": 0.8428
+      },
+      "kind": "action"
+    },
+    {
+      "name": "file-tips",
+      "nearest": {
+        "name": "auth-session-expiry-warning",
+        "score": 0.8431
+      },
+      "kind": "base",
+      "previousName": "file-tips-one"
+    },
+    {
+      "name": "align-top",
+      "nearest": {
+        "name": "dialpad",
+        "score": 0.8431
+      },
+      "kind": "action",
+      "previousName": "align-top-two"
+    },
+    {
+      "name": "road-sign-both",
+      "nearest": {
+        "name": "shawarma",
+        "score": 0.8432
+      },
+      "kind": "base"
+    },
+    {
+      "name": "inspection",
+      "nearest": {
+        "name": "service-maintenance-window",
+        "score": 0.8433
+      },
+      "kind": "base"
+    },
+    {
+      "name": "bright-crown",
+      "nearest": {
+        "name": "uv-index",
+        "score": 0.7987
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sort-descending",
+      "nearest": {
+        "name": "network-per-app-permission",
+        "score": 0.7988
+      },
+      "kind": "action",
+      "previousName": "sort-descending-2"
+    },
+    {
+      "name": "format",
+      "nearest": {
+        "name": "storage-fabric-bin-handles",
+        "score": 0.8438
+      },
+      "kind": "base"
+    },
+    {
+      "name": "handwashing-fluid",
+      "nearest": {
+        "name": "moneybag-move-back",
+        "score": 0.844
+      },
+      "kind": "base"
+    },
+    {
+      "name": "hotspot-offline",
+      "nearest": {
+        "name": "shahr-e-farang",
+        "score": 0.7992
+      },
+      "kind": "base"
+    },
+    {
+      "name": "whole-site-accelerator",
+      "nearest": {
+        "name": "topology-star-ring",
+        "score": 0.8445
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-auto-rotate",
+      "nearest": {
+        "name": "shield-x",
+        "score": 0.7996
+      },
+      "kind": "action"
+    },
+    {
+      "name": "history-query",
+      "nearest": {
+        "name": "table-merged-cells-split",
+        "score": 0.8446
+      },
+      "kind": "base"
+    },
+    {
+      "name": "avatar",
+      "nearest": {
+        "name": "stationery-wax-seal-stamp-handle",
+        "score": 0.8447
+      },
+      "kind": "base"
+    },
+    {
+      "name": "bedside",
+      "nearest": {
+        "name": "aquarium",
+        "score": 0.8449
+      },
+      "kind": "base"
+    },
+    {
+      "name": "baby-pants",
+      "nearest": {
+        "name": "traffic-light",
+        "score": 0.8452
+      },
+      "kind": "base"
+    },
+    {
+      "name": "permissions",
+      "nearest": {
+        "name": "scanner",
+        "score": 0.8453
+      },
+      "kind": "base"
+    },
+    {
+      "name": "security",
+      "nearest": {
+        "name": "light-pleated-table",
+        "score": 0.8453
+      },
+      "kind": "base"
+    },
+    {
+      "name": "orthopedic",
+      "nearest": {
+        "name": "device-wireless-earbud-stems",
+        "score": 0.8454
+      },
+      "kind": "base"
+    },
+    {
+      "name": "halal-lab",
+      "nearest": {
+        "name": "orthogonal-view",
+        "score": 0.8004
+      },
+      "kind": "base"
+    },
+    {
+      "name": "trousers-bell-bottoms",
+      "nearest": {
+        "name": "device-vertical-docking-station",
+        "score": 0.8455
+      },
+      "kind": "base"
+    },
+    {
+      "name": "call-ringing",
+      "nearest": {
+        "name": "rating-stars",
+        "score": 0.8007
+      },
+      "kind": "base",
+      "previousName": "call-ringing-01"
+    },
+    {
+      "name": "golf-course",
+      "nearest": {
+        "name": "dongle",
+        "score": 0.8458
+      },
+      "kind": "base"
+    },
+    {
+      "name": "success-picture",
+      "nearest": {
+        "name": "media-image-double-peaks",
+        "score": 0.8462
+      },
+      "kind": "base"
+    },
+    {
+      "name": "tailoring",
+      "nearest": {
+        "name": "frame",
+        "score": 0.8463
+      },
+      "kind": "base",
+      "previousName": "tailoring-two"
+    },
+    {
+      "name": "block-eight",
+      "nearest": {
+        "name": "chat-delete-for-everyone",
+        "score": 0.8464
+      },
+      "kind": "base"
+    },
+    {
+      "name": "keyframe-position",
+      "nearest": {
+        "name": "field-safety-strap-anchor",
+        "score": 0.8016
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sorcerer-hat",
+      "nearest": {
+        "name": "greek-delta-upper",
+        "score": 0.847
+      },
+      "kind": "base"
+    },
+    {
+      "name": "horizontal-scroll-point",
+      "nearest": {
+        "name": "data-join-inner",
+        "score": 0.8021
+      },
+      "kind": "base",
+      "previousName": "horizonal-scroll-point"
+    },
+    {
+      "name": "video-conference",
+      "nearest": {
+        "name": "layout-header",
+        "score": 0.8472
+      },
+      "kind": "base"
+    },
+    {
+      "name": "message-done",
+      "nearest": {
+        "name": "btn-menu",
+        "score": 0.8024
+      },
+      "kind": "action",
+      "previousName": "message-done-01"
+    },
+    {
+      "name": "table-rows-split",
+      "nearest": {
+        "name": "photocopier",
+        "score": 0.8026
+      },
+      "kind": "action"
+    },
+    {
+      "name": "list-success",
+      "nearest": {
+        "name": "navigation-section-index",
+        "score": 0.8477
+      },
+      "kind": "base"
+    },
+    {
+      "name": "remind-disable",
+      "nearest": {
+        "name": "space-capsule",
+        "score": 0.8477
+      },
+      "kind": "base"
+    },
+    {
+      "name": "right-expand",
+      "nearest": {
+        "name": "access-contrasting-door-frame",
+        "score": 0.8478
+      },
+      "kind": "base"
+    },
+    {
+      "name": "database-backup",
+      "nearest": {
+        "name": "receipt-clock",
+        "score": 0.8028
+      },
+      "kind": "action"
+    },
+    {
+      "name": "perspective",
+      "nearest": {
+        "name": "learn-map-coordinate-worksheet",
+        "score": 0.8478
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pizza-slice",
+      "nearest": {
+        "name": "pointer-2",
+        "score": 0.8031
+      },
+      "kind": "base"
+    },
+    {
+      "name": "lotion",
+      "nearest": {
+        "name": "scroll",
+        "score": 0.8482
+      },
+      "kind": "base"
+    },
+    {
+      "name": "detection",
+      "nearest": {
+        "name": "stationery-bone-folder-tip",
+        "score": 0.8483
+      },
+      "kind": "base"
+    },
+    {
+      "name": "afferent",
+      "nearest": {
+        "name": "computer",
+        "score": 0.8484
+      },
+      "kind": "base",
+      "previousName": "afferent-two"
+    },
+    {
+      "name": "victory-finger",
+      "nearest": {
+        "name": "rabbit",
+        "score": 0.8035
+      },
+      "kind": "base",
+      "previousName": "victory-finger-01"
+    },
+    {
+      "name": "shield-share",
+      "nearest": {
+        "name": "heart-x",
+        "score": 0.8035
+      },
+      "kind": "action"
+    },
+    {
+      "name": "boy",
+      "nearest": {
+        "name": "olympic-torch",
+        "score": 0.8486
+      },
+      "kind": "base",
+      "previousName": "boy-one"
+    },
+    {
+      "name": "open-an-account",
+      "nearest": {
+        "name": "task-assignee-change",
+        "score": 0.8487
+      },
+      "kind": "action"
+    },
+    {
+      "name": "ai-collage-template",
+      "nearest": {
+        "name": "recycle-battery-collection-tube",
+        "score": 0.8037
+      },
+      "kind": "base"
+    },
+    {
+      "name": "shield-pin",
+      "nearest": {
+        "name": "shield-bolt",
+        "score": 0.8038
+      },
+      "kind": "base"
+    },
+    {
+      "name": "clothes-sweater",
+      "nearest": {
+        "name": "cardigan",
+        "score": 0.8488
+      },
+      "kind": "base"
+    },
+    {
+      "name": "broadcast-radio",
+      "nearest": {
+        "name": "score-draw",
+        "score": 0.849
+      },
+      "kind": "base"
+    },
+    {
+      "name": "paragraph-cut",
+      "nearest": {
+        "name": "crib",
+        "score": 0.8493
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pay-code",
+      "nearest": {
+        "name": "orthogonal-view",
+        "score": 0.8494
+      },
+      "kind": "base",
+      "previousName": "pay-code-one"
+    },
+    {
+      "name": "cellular-network-offline",
+      "nearest": {
+        "name": "conference-mute-all-microphones",
+        "score": 0.8044
+      },
+      "kind": "base"
+    },
+    {
+      "name": "remove-male",
+      "nearest": {
+        "name": "stationery-wax-seal-stamp-handle",
+        "score": 0.8046
+      },
+      "kind": "action"
+    },
+    {
+      "name": "chart-no-axes-column",
+      "nearest": {
+        "name": "arg-e-karim-khan",
+        "score": 0.8046
+      },
+      "kind": "base"
+    },
+    {
+      "name": "smartphone-wifi",
+      "nearest": {
+        "name": "hairspray",
+        "score": 0.8049
+      },
+      "kind": "base"
+    },
+    {
+      "name": "frigate",
+      "nearest": {
+        "name": "toothpaste",
+        "score": 0.8501
+      },
+      "kind": "base"
+    },
+    {
+      "name": "distribute-horizontal-spacing",
+      "nearest": {
+        "name": "property-side-yard-setback",
+        "score": 0.8505
+      },
+      "kind": "action"
+    },
+    {
+      "name": "auto-line-height",
+      "nearest": {
+        "name": "layout-pane-snap-grid",
+        "score": 0.8505
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sort-ascending",
+      "nearest": {
+        "name": "network-per-app-permission",
+        "score": 0.8057
+      },
+      "kind": "action",
+      "previousName": "sort-ascending-2"
+    },
+    {
+      "name": "distribute-vertical-center",
+      "nearest": {
+        "name": "student",
+        "score": 0.8057
+      },
+      "kind": "action"
+    },
+    {
+      "name": "view-360-arrow",
+      "nearest": {
+        "name": "balloon",
+        "score": 0.8057
+      },
+      "kind": "base"
+    },
+    {
+      "name": "accept-email",
+      "nearest": {
+        "name": "clutch-bag",
+        "score": 0.8507
+      },
+      "kind": "base"
+    },
+    {
+      "name": "database-position",
+      "nearest": {
+        "name": "grill-pan",
+        "score": 0.8508
+      },
+      "kind": "base"
+    },
+    {
+      "name": "thermos-cup",
+      "nearest": {
+        "name": "hole-saw",
+        "score": 0.851
+      },
+      "kind": "base"
+    },
+    {
+      "name": "shopping-code",
+      "nearest": {
+        "name": "workout-set-counter",
+        "score": 0.8061
+      },
+      "kind": "base"
+    },
+    {
+      "name": "poker",
+      "nearest": {
+        "name": "shahnameh",
+        "score": 0.8512
+      },
+      "kind": "base"
+    },
+    {
+      "name": "filter-2-pin",
+      "nearest": {
+        "name": "seo-search-snippet",
+        "score": 0.8063
+      },
+      "kind": "base"
+    },
+    {
+      "name": "truck-length",
+      "nearest": {
+        "name": "learn-interactive-flip-card",
+        "score": 0.8066
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-concert",
+      "nearest": {
+        "name": "audio-shock-mount-suspension",
+        "score": 0.8068
+      },
+      "kind": "base"
+    },
+    {
+      "name": "do-not-touch",
+      "nearest": {
+        "name": "rasp",
+        "score": 0.8069
+      },
+      "kind": "base",
+      "previousName": "do-not-touch-01"
+    },
+    {
+      "name": "table-columns-split",
+      "nearest": {
+        "name": "loom",
+        "score": 0.8069
+      },
+      "kind": "action"
+    },
+    {
+      "name": "pencil-share",
+      "nearest": {
+        "name": "highlight",
+        "score": 0.807
+      },
+      "kind": "action"
+    },
+    {
+      "name": "child-with-pacifier",
+      "nearest": {
+        "name": "fitness-massage-ball-texture",
+        "score": 0.8522
+      },
+      "kind": "base"
+    },
+    {
+      "name": "distribute-horizontal-center",
+      "nearest": {
+        "name": "circuit-switch-closed",
+        "score": 0.8075
+      },
+      "kind": "action"
+    },
+    {
+      "name": "database-point",
+      "nearest": {
+        "name": "ramekin",
+        "score": 0.8526
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cloud-storage",
+      "nearest": {
+        "name": "laundry-mesh-wash-bag",
+        "score": 0.8529
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-watermark",
+      "nearest": {
+        "name": "shoe-horn",
+        "score": 0.8079
+      },
+      "kind": "base"
+    },
+    {
+      "name": "thinking-problem",
+      "nearest": {
+        "name": "map-pin-edit",
+        "score": 0.8531
+      },
+      "kind": "base"
+    },
+    {
+      "name": "newspaper-folding",
+      "nearest": {
+        "name": "referee-cards",
+        "score": 0.8534
+      },
+      "kind": "base"
+    },
+    {
+      "name": "spa-candle",
+      "nearest": {
+        "name": "seedling-tray",
+        "score": 0.8537
+      },
+      "kind": "base"
+    },
+    {
+      "name": "children-cap",
+      "nearest": {
+        "name": "warehouse-pallet-corner-posts",
+        "score": 0.8537
+      },
+      "kind": "base"
+    },
+    {
+      "name": "income",
+      "nearest": {
+        "name": "security-vault-unlock-policy",
+        "score": 0.8537
+      },
+      "kind": "base"
+    },
+    {
+      "name": "call-paused",
+      "nearest": {
+        "name": "form-conditional-section",
+        "score": 0.809
+      },
+      "kind": "base"
+    },
+    {
+      "name": "subtract-selection",
+      "nearest": {
+        "name": "combine",
+        "score": 0.8544
+      },
+      "kind": "base",
+      "previousName": "subtract-selection-one"
+    },
+    {
+      "name": "message-user",
+      "nearest": {
+        "name": "api-book",
+        "score": 0.8095
+      },
+      "kind": "base"
+    },
+    {
+      "name": "bottom-bar",
+      "nearest": {
+        "name": "flippers",
+        "score": 0.8545
+      },
+      "kind": "base",
+      "previousName": "bottom-bar-one"
+    },
+    {
+      "name": "message-circle-share",
+      "nearest": {
+        "name": "chat-x",
+        "score": 0.8096
+      },
+      "kind": "action"
+    },
+    {
+      "name": "vacation",
+      "nearest": {
+        "name": "table-round-pedestal",
+        "score": 0.8548
+      },
+      "kind": "base"
+    },
+    {
+      "name": "new-section",
+      "nearest": {
+        "name": "dropzone",
+        "score": 0.8099
+      },
+      "kind": "base"
+    },
+    {
+      "name": "factory-building",
+      "nearest": {
+        "name": "image-contact-sheet",
+        "score": 0.855
+      },
+      "kind": "base"
+    },
+    {
+      "name": "juice",
+      "nearest": {
+        "name": "bubble-tea-2",
+        "score": 0.8551
+      },
+      "kind": "base"
+    },
+    {
+      "name": "add-print",
+      "nearest": {
+        "name": "beard-trimmer",
+        "score": 0.8551
+      },
+      "kind": "action"
+    },
+    {
+      "name": "drop-shadow-right",
+      "nearest": {
+        "name": "toggle",
+        "score": 0.8552
+      },
+      "kind": "base"
+    },
+    {
+      "name": "endocrine",
+      "nearest": {
+        "name": "fire",
+        "score": 0.8517,
+        "previousName": "fire-02"
+      },
+      "kind": "base"
+    },
+    {
+      "name": "vertically-centered",
+      "nearest": {
+        "name": "street-contraflow-cycle-lane",
+        "score": 0.8552
+      },
+      "kind": "base"
+    },
+    {
+      "name": "insert-top-image",
+      "nearest": {
+        "name": "gamepad-tv",
+        "score": 0.8105
+      },
+      "kind": "action"
+    },
+    {
+      "name": "http-options",
+      "nearest": {
+        "name": "console-wings",
+        "score": 0.8107
+      },
+      "kind": "base"
+    },
+    {
+      "name": "the-prophets-mosque",
+      "nearest": {
+        "name": "release-staged-rollout",
+        "score": 0.8114
+      },
+      "kind": "base"
+    },
+    {
+      "name": "tap",
+      "nearest": {
+        "name": "pointing-up",
+        "score": 0.8115
+      },
+      "kind": "base",
+      "previousName": "tap-01"
+    },
+    {
+      "name": "straw-hat",
+      "nearest": {
+        "name": "chick",
+        "score": 0.866
+      },
+      "kind": "base"
+    },
+    {
+      "name": "folder-success",
+      "nearest": {
+        "name": "file-folder-soft-tab",
+        "score": 0.8568
+      },
+      "kind": "base",
+      "previousName": "folder-success-one"
+    },
+    {
+      "name": "network-tree",
+      "nearest": {
+        "name": "kitchen-scale",
+        "score": 0.857
+      },
+      "kind": "base"
+    },
+    {
+      "name": "oscillator",
+      "nearest": {
+        "name": "table-fit-column-to-content",
+        "score": 0.8571
+      },
+      "kind": "base"
+    },
+    {
+      "name": "universal",
+      "nearest": {
+        "name": "print-color-registration-target",
+        "score": 0.858
+      },
+      "kind": "base"
+    },
+    {
+      "name": "clipboard-clock",
+      "nearest": {
+        "name": "task-edit",
+        "score": 0.8133,
+        "previousName": "task-edit-01"
+      },
+      "kind": "base"
+    },
+    {
+      "name": "shield-code",
+      "nearest": {
+        "name": "letter-q-plain",
+        "score": 0.8136
+      },
+      "kind": "base"
+    },
+    {
+      "name": "medical-files",
+      "nearest": {
+        "name": "paper-embossed-seal-sheet",
+        "score": 0.8587
+      },
+      "kind": "base"
+    },
+    {
+      "name": "list-collapse",
+      "nearest": {
+        "name": "letter-e-plain",
+        "score": 0.8139
+      },
+      "kind": "base"
+    },
+    {
+      "name": "railway",
+      "nearest": {
+        "name": "latte-glass",
+        "score": 0.8591
+      },
+      "kind": "base"
+    },
+    {
+      "name": "date-comes-back",
+      "nearest": {
+        "name": "entry-double-arched-door",
+        "score": 0.8591
+      },
+      "kind": "base"
+    },
+    {
+      "name": "building-share",
+      "nearest": {
+        "name": "garment-rolled-cuff",
+        "score": 0.8141
+      },
+      "kind": "action"
+    },
+    {
+      "name": "alt",
+      "nearest": {
+        "name": "console-wings",
+        "score": 0.8143
+      },
+      "kind": "base"
+    },
+    {
+      "name": "hotel-please-clean",
+      "nearest": {
+        "name": "kitchen-bread-bin-rolltop",
+        "score": 0.8595
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ok-finger",
+      "nearest": {
+        "name": "electric-toothbrush",
+        "score": 0.8148
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mail-review",
+      "nearest": {
+        "name": "layout-scroll-snap",
+        "score": 0.8601
+      },
+      "kind": "base"
+    },
+    {
+      "name": "editor",
+      "nearest": {
+        "name": "prescription",
+        "score": 0.8601
+      },
+      "kind": "base"
+    },
+    {
+      "name": "waterfall-up",
+      "nearest": {
+        "name": "metric-baseline",
+        "score": 0.8152
+      },
+      "kind": "action",
+      "previousName": "waterfall-up-01"
+    },
+    {
+      "name": "reply-to-message",
+      "nearest": {
+        "name": "budget",
+        "score": 0.8152
+      },
+      "kind": "action"
+    },
+    {
+      "name": "mail-validation",
+      "nearest": {
+        "name": "mail-lock",
+        "score": 0.8153
+      },
+      "kind": "action",
+      "previousName": "mail-validation-01"
+    },
+    {
+      "name": "search-replace",
+      "nearest": {
+        "name": "search",
+        "score": 0.8154
+      },
+      "kind": "action"
+    },
+    {
+      "name": "crying-baby",
+      "nearest": {
+        "name": "dice-d12",
+        "score": 0.8608
+      },
+      "kind": "base"
+    },
+    {
+      "name": "clothes-diapers",
+      "nearest": {
+        "name": "urinal",
+        "score": 0.861
+      },
+      "kind": "base"
+    },
+    {
+      "name": "inbox-success",
+      "nearest": {
+        "name": "inbox-zero",
+        "score": 0.861
+      },
+      "kind": "action"
+    },
+    {
+      "name": "chat-favourite",
+      "nearest": {
+        "name": "message-three-square-dots",
+        "score": 0.8162
+      },
+      "kind": "base",
+      "previousName": "chat-favourite-01"
+    },
+    {
+      "name": "hold-phone",
+      "nearest": {
+        "name": "climbing-rope-coil",
+        "score": 0.8162
+      },
+      "kind": "base"
+    },
+    {
+      "name": "outdoor",
+      "nearest": {
+        "name": "mountain-sun",
+        "score": 0.8612
+      },
+      "kind": "base"
+    },
+    {
+      "name": "scroll-text",
+      "nearest": {
+        "name": "paper-tube-blueprint-roll",
+        "score": 0.8163
+      },
+      "kind": "base"
+    },
+    {
+      "name": "vertical-merge",
+      "nearest": {
+        "name": "nav-explore-petal",
+        "score": 0.8166
+      },
+      "kind": "action"
+    },
+    {
+      "name": "access",
+      "nearest": {
+        "name": "drill-bit",
+        "score": 0.8167
+      },
+      "kind": "base"
+    },
+    {
+      "name": "invert-camera",
+      "nearest": {
+        "name": "trade-mark",
+        "score": 0.8617
+      },
+      "kind": "base"
+    },
+    {
+      "name": "emoji-sing-right-note",
+      "nearest": {
+        "name": "refresh",
+        "score": 0.8169
+      },
+      "kind": "base"
+    },
+    {
+      "name": "gravity",
+      "nearest": {
+        "name": "pear",
+        "score": 0.817
+      },
+      "kind": "base"
+    },
+    {
+      "name": "code-computer",
+      "nearest": {
+        "name": "computer",
+        "score": 0.8622
+      },
+      "kind": "base"
+    },
+    {
+      "name": "union-selection",
+      "nearest": {
+        "name": "ayeneh-kari",
+        "score": 0.8623
+      },
+      "kind": "base"
+    },
+    {
+      "name": "two-dimensional-code",
+      "nearest": {
+        "name": "chart-table-row-bars",
+        "score": 0.8624
+      },
+      "kind": "base",
+      "previousName": "two-dimensional-code-two"
+    },
+    {
+      "name": "vegetables",
+      "nearest": {
+        "name": "drill-bit",
+        "score": 0.8626
+      },
+      "kind": "base"
+    },
+    {
+      "name": "wallet-not-found",
+      "nearest": {
+        "name": "dry-clean-off",
+        "score": 0.8177
+      },
+      "kind": "base",
+      "previousName": "wallet-not-found-01"
+    },
+    {
+      "name": "shoulder-bag",
+      "nearest": {
+        "name": "serum",
+        "score": 0.8633
+      },
+      "kind": "base"
+    },
+    {
+      "name": "horizontal-tidy-up",
+      "nearest": {
+        "name": "access-voice-control-numbering",
+        "score": 0.8634
+      },
+      "kind": "action"
+    },
+    {
+      "name": "list-add",
+      "nearest": {
+        "name": "dev-queue-visibility-timeout",
+        "score": 0.8636
+      },
+      "kind": "action"
+    },
+    {
+      "name": "ai-phone",
+      "nearest": {
+        "name": "file-rounded-fold-low",
+        "score": 0.8187
+      },
+      "kind": "base",
+      "previousName": "ai-phone-01"
+    },
+    {
+      "name": "bring-forward",
+      "nearest": {
+        "name": "candle-jar",
+        "score": 0.8639
+      },
+      "kind": "action"
+    },
+    {
+      "name": "document-code",
+      "nearest": {
+        "name": "smartphone-home-button",
+        "score": 0.8192
+      },
+      "kind": "base"
+    },
+    {
+      "name": "facial-mask",
+      "nearest": {
+        "name": "greek-theta",
+        "score": 0.8642
+      },
+      "kind": "base"
+    },
+    {
+      "name": "engineering-brand",
+      "nearest": {
+        "name": "workspace-pen-tablet-mapping",
+        "score": 0.8643
+      },
+      "kind": "base"
+    },
+    {
+      "name": "consignment",
+      "nearest": {
+        "name": "textile-floor-runner-border",
+        "score": 0.8645
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-clothes",
+      "nearest": {
+        "name": "files-down",
+        "score": 0.8196
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sea-and-sun",
+      "nearest": {
+        "name": "workspace-desk-edge-wrist-pad",
+        "score": 0.8197
+      },
+      "kind": "base"
+    },
+    {
+      "name": "list-alphabet",
+      "nearest": {
+        "name": "align-justify",
+        "score": 0.8648
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cardioelectric",
+      "nearest": {
+        "name": "health-heart-pulse-wide",
+        "score": 0.8648
+      },
+      "kind": "base"
+    },
+    {
+      "name": "vertical-scroll-point",
+      "nearest": {
+        "name": "speed-limit",
+        "score": 0.8198
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mouse-right-click",
+      "nearest": {
+        "name": "card-pair-club",
+        "score": 0.8201
+      },
+      "kind": "base",
+      "previousName": "mouse-right-click-01"
+    },
+    {
+      "name": "armored-boot",
+      "nearest": {
+        "name": "tetris-l",
+        "score": 0.8204
+      },
+      "kind": "base"
+    },
+    {
+      "name": "block-ten",
+      "nearest": {
+        "name": "chocolate",
+        "score": 0.8654
+      },
+      "kind": "base"
+    },
+    {
+      "name": "slippers",
+      "nearest": {
+        "name": "pom-pom-hat",
+        "score": 0.8448
+      },
+      "kind": "base"
+    },
+    {
+      "name": "concern",
+      "nearest": {
+        "name": "kitchen-rolling-pin-rings",
+        "score": 0.8656
+      },
+      "kind": "base"
+    },
+    {
+      "name": "curling",
+      "nearest": {
+        "name": "payment-cash-register-flat",
+        "score": 0.8818
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mail-fast",
+      "nearest": {
+        "name": "gift-card",
+        "score": 0.8207
+      },
+      "kind": "base"
+    },
+    {
+      "name": "message-notification",
+      "nearest": {
+        "name": "btn-menu",
+        "score": 0.8209
+      },
+      "kind": "base",
+      "previousName": "message-notification-01"
+    },
+    {
+      "name": "forward-message",
+      "nearest": {
+        "name": "mail-edit",
+        "score": 0.8209
+      },
+      "kind": "base"
+    },
+    {
+      "name": "close-wifi",
+      "nearest": {
+        "name": "wifi-off",
+        "score": 0.866
+      },
+      "kind": "action"
+    },
+    {
+      "name": "massage-chair",
+      "nearest": {
+        "name": "pottery-wheel",
+        "score": 0.8661
+      },
+      "kind": "base",
+      "previousName": "massage-chair-one"
+    },
+    {
+      "name": "intersection",
+      "nearest": {
+        "name": "duplicate",
+        "score": 0.8661
+      },
+      "kind": "base"
+    },
+    {
+      "name": "nutrition",
+      "nearest": {
+        "name": "potty",
+        "score": 0.8662
+      },
+      "kind": "base"
+    },
+    {
+      "name": "between-horizontal-start",
+      "nearest": {
+        "name": "form-confirm-value-twice",
+        "score": 0.8212
+      },
+      "kind": "base"
+    },
+    {
+      "name": "view-360-number",
+      "nearest": {
+        "name": "ci-pipeline",
+        "score": 0.8213
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-expand",
+      "nearest": {
+        "name": "error-log-export",
+        "score": 0.8215
+      },
+      "kind": "base"
+    },
+    {
+      "name": "vegetable-basket",
+      "nearest": {
+        "name": "calendar-hanging-single-loop",
+        "score": 0.8667
+      },
+      "kind": "base"
+    },
+    {
+      "name": "stone",
+      "nearest": {
+        "name": "greek-theta",
+        "score": 0.8217
+      },
+      "kind": "base"
+    },
+    {
+      "name": "drop-shadow-left",
+      "nearest": {
+        "name": "three-points-circle",
+        "score": 0.8667
+      },
+      "kind": "base"
+    },
+    {
+      "name": "home-infinity",
+      "nearest": {
+        "name": "home-inset-roof-balcony",
+        "score": 0.8219
+      },
+      "kind": "base"
+    },
+    {
+      "name": "message-circle-pin",
+      "nearest": {
+        "name": "chat-clock",
+        "score": 0.8219
+      },
+      "kind": "base"
+    },
+    {
+      "name": "children-pyramid",
+      "nearest": {
+        "name": "khoncheh",
+        "score": 0.8669
+      },
+      "kind": "base"
+    },
+    {
+      "name": "voice-scan",
+      "nearest": {
+        "name": "image-dust-removal-spot",
+        "score": 0.822
+      },
+      "kind": "action"
+    },
+    {
+      "name": "browser-share",
+      "nearest": {
+        "name": "environment-variables-lock",
+        "score": 0.822
+      },
+      "kind": "action"
+    },
+    {
+      "name": "arena",
+      "nearest": {
+        "name": "rubik-cube",
+        "score": 0.8671
+      },
+      "kind": "base"
+    },
+    {
+      "name": "beauty-instrument",
+      "nearest": {
+        "name": "computer-usbc-magnetic-tip",
+        "score": 0.8673
+      },
+      "kind": "base"
+    },
+    {
+      "name": "read-book",
+      "nearest": {
+        "name": "checkout-gift-wrap-flat",
+        "score": 0.8674
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cuvette",
+      "nearest": {
+        "name": "putty-knife",
+        "score": 0.8677
+      },
+      "kind": "base"
+    },
+    {
+      "name": "book-up",
+      "nearest": {
+        "name": "tablet-pencil",
+        "score": 0.8228
+      },
+      "kind": "action",
+      "previousName": "book-up-2"
+    },
+    {
+      "name": "material",
+      "nearest": {
+        "name": "kitchen-jar-vacuum-sealer",
+        "score": 0.8678
+      },
+      "kind": "base",
+      "previousName": "material-three"
+    },
+    {
+      "name": "border-sides",
+      "nearest": {
+        "name": "octagon",
+        "score": 0.8229
+      },
+      "kind": "base"
+    },
+    {
+      "name": "tire-swing",
+      "nearest": {
+        "name": "clicker",
+        "score": 0.868
+      },
+      "kind": "base"
+    },
+    {
+      "name": "music-code",
+      "nearest": {
+        "name": "music-star",
+        "score": 0.823
+      },
+      "kind": "base"
+    },
+    {
+      "name": "hard-disk",
+      "nearest": {
+        "name": "layout-toolbar-below-content",
+        "score": 0.8681
+      },
+      "kind": "base"
+    },
+    {
+      "name": "barber-clippers",
+      "nearest": {
+        "name": "light-recessed-square",
+        "score": 0.8852
+      },
+      "kind": "base"
+    },
+    {
+      "name": "reminder-hand-gesture",
+      "nearest": {
+        "name": "card-pair-club",
+        "score": 0.8235
+      },
+      "kind": "base"
+    },
+    {
+      "name": "link-in",
+      "nearest": {
+        "name": "control-slider-center-grip",
+        "score": 0.8686
+      },
+      "kind": "base"
+    },
+    {
+      "name": "layer-send-backward",
+      "nearest": {
+        "name": "input-password-peek-hold",
+        "score": 0.8236
+      },
+      "kind": "action"
+    },
+    {
+      "name": "vertical-tidy-up",
+      "nearest": {
+        "name": "cupcake-box",
+        "score": 0.8687
+      },
+      "kind": "action"
+    },
+    {
+      "name": "distribute-vertical-spacing",
+      "nearest": {
+        "name": "street-contraflow-cycle-lane",
+        "score": 0.8688
+      },
+      "kind": "action"
+    },
+    {
+      "name": "online-meeting",
+      "nearest": {
+        "name": "restaurant-queue-number-display",
+        "score": 0.8688
+      },
+      "kind": "base"
+    },
+    {
+      "name": "rice",
+      "nearest": {
+        "name": "soup-tureen",
+        "score": 0.8689
+      },
+      "kind": "base"
+    },
+    {
+      "name": "post",
+      "nearest": {
+        "name": "planner",
+        "score": 0.8243
+      },
+      "kind": "base"
+    },
+    {
+      "name": "usb-error",
+      "nearest": {
+        "name": "usb-bugs",
+        "score": 0.8249
+      },
+      "kind": "action"
+    },
+    {
+      "name": "boom",
+      "nearest": {
+        "name": "map-czech-republic",
+        "score": 0.8251
+      },
+      "kind": "base"
+    },
+    {
+      "name": "credit",
+      "nearest": {
+        "name": "moving-box",
+        "score": 0.8704
+      },
+      "kind": "base"
+    },
+    {
+      "name": "cloud-snow",
+      "nearest": {
+        "name": "suit-spade",
+        "score": 0.8255
+      },
+      "kind": "base"
+    },
+    {
+      "name": "full-dress-longuette",
+      "nearest": {
+        "name": "putty-knife",
+        "score": 0.8706
+      },
+      "kind": "base"
+    },
+    {
+      "name": "devices-pin",
+      "nearest": {
+        "name": "video-heart",
+        "score": 0.8259
+      },
+      "kind": "base"
+    },
+    {
+      "name": "setting-laptop",
+      "nearest": {
+        "name": "warehouse-pallet-corner-posts",
+        "score": 0.8709
+      },
+      "kind": "action"
+    },
+    {
+      "name": "package-dimensions",
+      "nearest": {
+        "name": "paper-saddle-stitch-booklet",
+        "score": 0.8262
+      },
+      "kind": "base",
+      "previousName": "package-dimensions-01"
+    },
+    {
+      "name": "seo-folder",
+      "nearest": {
+        "name": "file-folder-contents-preview",
+        "score": 0.8714
+      },
+      "kind": "base"
+    },
+    {
+      "name": "compression",
+      "nearest": {
+        "name": "learn-folder-workbook-tabs",
+        "score": 0.8714
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sun-cloud",
+      "nearest": {
+        "name": "cloud",
+        "score": 0.8265
+      },
+      "kind": "base",
+      "previousName": "sun-cloud-01"
+    },
+    {
+      "name": "message-emoji",
+      "nearest": {
+        "name": "message-rounded-text-pair",
+        "score": 0.8717
+      },
+      "kind": "base"
+    },
+    {
+      "name": "account-setting",
+      "nearest": {
+        "name": "atom",
+        "score": 0.8269
+      },
+      "kind": "action",
+      "previousName": "account-setting-01"
+    },
+    {
+      "name": "conditioner",
+      "nearest": {
+        "name": "gas-stove",
+        "score": 0.8719
+      },
+      "kind": "base"
+    },
+    {
+      "name": "root-second-bracket",
+      "nearest": {
+        "name": "wring",
+        "score": 0.827
+      },
+      "kind": "base"
+    },
+    {
+      "name": "super-intelligence-folder",
+      "nearest": {
+        "name": "file-folder-soft-tab",
+        "score": 0.827
+      },
+      "kind": "base"
+    },
+    {
+      "name": "healthy-recognition",
+      "nearest": {
+        "name": "privacy-mask-screenshot-segment",
+        "score": 0.8721
+      },
+      "kind": "action"
+    },
+    {
+      "name": "distribute-vertical-bottom",
+      "nearest": {
+        "name": "chess-pawn",
+        "score": 0.8273
+      },
+      "kind": "action"
+    },
+    {
+      "name": "page-template",
+      "nearest": {
+        "name": "print-odd-even-pages",
+        "score": 0.8723
+      },
+      "kind": "base"
+    },
+    {
+      "name": "signal-tower",
+      "nearest": {
+        "name": "message-mail-inbox-tray",
+        "score": 0.7995
+      },
+      "kind": "base"
+    },
+    {
+      "name": "package-sent",
+      "nearest": {
+        "name": "web-programming",
+        "score": 0.8279
+      },
+      "kind": "base",
+      "previousName": "package-sent-01"
+    },
+    {
+      "name": "doc-magnifying-glass",
+      "nearest": {
+        "name": "phone-heart",
+        "score": 0.828
+      },
+      "kind": "base"
+    },
+    {
+      "name": "makeups",
+      "nearest": {
+        "name": "emoji-nerd",
+        "score": 0.873
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-swap",
+      "nearest": {
+        "name": "navigation-context-switch",
+        "score": 0.8281
+      },
+      "kind": "base"
+    },
+    {
+      "name": "text-message",
+      "nearest": {
+        "name": "chat-spoiler-hidden-content",
+        "score": 0.8731
+      },
+      "kind": "base"
+    },
+    {
+      "name": "edit-movie",
+      "nearest": {
+        "name": "video-color-bars",
+        "score": 0.8733
+      },
+      "kind": "action"
+    },
+    {
+      "name": "page-flip",
+      "nearest": {
+        "name": "contact-form",
+        "score": 0.8284
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-scan",
+      "nearest": {
+        "name": "map-viewport-fit",
+        "score": 0.8287
+      },
+      "kind": "action"
+    },
+    {
+      "name": "photo-shield",
+      "nearest": {
+        "name": "mail-clock",
+        "score": 0.8287
+      },
+      "kind": "base"
+    },
+    {
+      "name": "scan-code",
+      "nearest": {
+        "name": "photo-scan",
+        "score": 0.8739
+      },
+      "kind": "action"
+    },
+    {
+      "name": "party-balloon",
+      "nearest": {
+        "name": "light-ring-desk",
+        "score": 0.874
+      },
+      "kind": "base"
+    },
+    {
+      "name": "degree-hat",
+      "nearest": {
+        "name": "graduation-cap",
+        "score": 0.8741
+      },
+      "kind": "base"
+    },
+    {
+      "name": "people-top-card",
+      "nearest": {
+        "name": "exam-desk-number",
+        "score": 0.8742
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-template",
+      "nearest": {
+        "name": "ai-document",
+        "score": 0.8293
+      },
+      "kind": "base"
+    },
+    {
+      "name": "clothes-crew-neck",
+      "nearest": {
+        "name": "style-border",
+        "score": 0.8744
+      },
+      "kind": "base"
+    },
+    {
+      "name": "express-delivery",
+      "nearest": {
+        "name": "action-paste-clipboard-open",
+        "score": 0.8745
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pisa-tower",
+      "nearest": {
+        "name": "chess-bishop-black",
+        "score": 0.8296
+      },
+      "kind": "base"
+    },
+    {
+      "name": "currency",
+      "nearest": {
+        "name": "greek-phi-circle",
+        "score": 0.8748
+      },
+      "kind": "base"
+    },
+    {
+      "name": "waves-left",
+      "nearest": {
+        "name": "media-equalizer-five-round",
+        "score": 0.8748
+      },
+      "kind": "base"
+    },
+    {
+      "name": "medium-signal",
+      "nearest": {
+        "name": "chart-bars-three-rounded",
+        "score": 0.8299
+      },
+      "kind": "base"
+    },
+    {
+      "name": "credit-card-validation",
+      "nearest": {
+        "name": "thermos",
+        "score": 0.8299
+      },
+      "kind": "action"
+    },
+    {
+      "name": "peace-hand",
+      "nearest": {
+        "name": "sub-sandwich",
+        "score": 0.8301
+      },
+      "kind": "base"
+    },
+    {
+      "name": "border-style-double",
+      "nearest": {
+        "name": "swim-lane",
+        "score": 0.8304
+      },
+      "kind": "base",
+      "previousName": "border-style-2"
+    },
+    {
+      "name": "job-share",
+      "nearest": {
+        "name": "suitcase-heart",
+        "score": 0.8304
+      },
+      "kind": "action"
+    },
+    {
+      "name": "lens-alignment",
+      "nearest": {
+        "name": "topology-complex",
+        "score": 0.8755
+      },
+      "kind": "base"
+    },
+    {
+      "name": "device-desktop-x",
+      "nearest": {
+        "name": "session-remote-end",
+        "score": 0.8306
+      },
+      "kind": "base"
+    },
+    {
+      "name": "touch-locked",
+      "nearest": {
+        "name": "fa-he-plain",
+        "score": 0.8307
+      },
+      "kind": "action",
+      "previousName": "touch-locked-01"
+    },
+    {
+      "name": "minimize-screen",
+      "nearest": {
+        "name": "game-move",
+        "score": 0.8308
+      },
+      "kind": "base"
+    },
+    {
+      "name": "image-files",
+      "nearest": {
+        "name": "journal-page",
+        "score": 0.8759
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pic",
+      "nearest": {
+        "name": "stationery-craft-eyelet-rivet",
+        "score": 0.876
+      },
+      "kind": "base",
+      "previousName": "pic-one"
+    },
+    {
+      "name": "email-push",
+      "nearest": {
+        "name": "shop-gift-message-envelope",
+        "score": 0.876
+      },
+      "kind": "base"
+    },
+    {
+      "name": "spartan-helmet",
+      "nearest": {
+        "name": "home-balcony-over-entry",
+        "score": 0.8313
+      },
+      "kind": "base"
+    },
+    {
+      "name": "road-cone",
+      "nearest": {
+        "name": "putty-knife",
+        "score": 0.8766
+      },
+      "kind": "base"
+    },
+    {
+      "name": "goblet-cracking",
+      "nearest": {
+        "name": "glass-gin",
+        "score": 0.8559
+      },
+      "kind": "base"
+    },
+    {
+      "name": "between-vertical-start",
+      "nearest": {
+        "name": "lab-home-sample-collection",
+        "score": 0.8317
+      },
+      "kind": "base"
+    },
+    {
+      "name": "freezing-line-column",
+      "nearest": {
+        "name": "ui-table-column-reorder-grip",
+        "score": 0.8767
+      },
+      "kind": "base"
+    },
+    {
+      "name": "international",
+      "nearest": {
+        "name": "barometer",
+        "score": 0.8767
+      },
+      "kind": "base"
+    },
+    {
+      "name": "border-style",
+      "nearest": {
+        "name": "corner-radius",
+        "score": 0.8319
+      },
+      "kind": "base"
+    },
+    {
+      "name": "airplane-rotation",
+      "nearest": {
+        "name": "btn-square",
+        "score": 0.8319
+      },
+      "kind": "base"
+    },
+    {
+      "name": "microphone-short",
+      "nearest": {
+        "name": "eye-dropper",
+        "score": 0.8321
+      },
+      "kind": "base",
+      "previousName": "microphone-2"
+    },
+    {
+      "name": "link-break",
+      "nearest": {
+        "name": "notice-silence-until-next-opening",
+        "score": 0.8776
+      },
+      "kind": "base"
+    },
+    {
+      "name": "data-arrival",
+      "nearest": {
+        "name": "scale-frame-reduce",
+        "score": 0.8777
+      },
+      "kind": "base"
+    },
+    {
+      "name": "endpoint-displacement",
+      "nearest": {
+        "name": "vector-square",
+        "score": 0.8778
+      },
+      "kind": "base"
+    },
+    {
+      "name": "left-expand",
+      "nearest": {
+        "name": "scrollbar",
+        "score": 0.8779
+      },
+      "kind": "base"
+    },
+    {
+      "name": "all-in-one-computer",
+      "nearest": {
+        "name": "exam-desk-number",
+        "score": 0.878
+      },
+      "kind": "base",
+      "previousName": "i-mac"
+    },
+    {
+      "name": "upload-logs",
+      "nearest": {
+        "name": "team-note",
+        "score": 0.8782
+      },
+      "kind": "action"
+    },
+    {
+      "name": "viencharts",
+      "nearest": {
+        "name": "color-filter",
+        "score": 0.8788
+      },
+      "kind": "base"
+    },
+    {
+      "name": "door-closed-locked",
+      "nearest": {
+        "name": "arcade",
+        "score": 0.834
+      },
+      "kind": "action"
+    },
+    {
+      "name": "alignment-left-top",
+      "nearest": {
+        "name": "freeze-column",
+        "score": 0.8791
+      },
+      "kind": "base"
+    },
+    {
+      "name": "message-unread",
+      "nearest": {
+        "name": "display-input-selector",
+        "score": 0.8794
+      },
+      "kind": "base"
+    },
+    {
+      "name": "monument",
+      "nearest": {
+        "name": "tower",
+        "score": 0.8795
+      },
+      "kind": "base",
+      "previousName": "monument-two"
+    },
+    {
+      "name": "merge-cells",
+      "nearest": {
+        "name": "device-dual-sim-data-default",
+        "score": 0.8795
+      },
+      "kind": "action"
+    },
+    {
+      "name": "filter-alt",
+      "nearest": {
+        "name": "tonbak",
+        "score": 0.8348
+      },
+      "kind": "base"
+    },
+    {
+      "name": "clothes-short-sleeve",
+      "nearest": {
+        "name": "retail-stack-height-limit",
+        "score": 0.8799
+      },
+      "kind": "base"
+    },
+    {
+      "name": "unordered-list",
+      "nearest": {
+        "name": "list-ordered",
+        "score": 0.8799
+      },
+      "kind": "base"
+    },
+    {
+      "name": "delete-put-back",
+      "nearest": {
+        "name": "living-trash-pedal-bin",
+        "score": 0.8349
+      },
+      "kind": "action"
+    },
+    {
+      "name": "insert-bottom-image",
+      "nearest": {
+        "name": "wireless",
+        "score": 0.8351
+      },
+      "kind": "action"
+    },
+    {
+      "name": "question-mark",
+      "nearest": {
+        "name": "spoon",
+        "score": 0.8352
+      },
+      "kind": "base"
+    },
+    {
+      "name": "termination-file",
+      "nearest": {
+        "name": "transaction-history",
+        "score": 0.8806
+      },
+      "kind": "base"
+    },
+    {
+      "name": "local-pin",
+      "nearest": {
+        "name": "flight-stick",
+        "score": 0.8807
+      },
+      "kind": "base"
+    },
+    {
+      "name": "manual-gear",
+      "nearest": {
+        "name": "manual-gearbox",
+        "score": 0.8807
+      },
+      "kind": "base"
+    },
+    {
+      "name": "database-stats",
+      "nearest": {
+        "name": "build-cache",
+        "score": 0.8358
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pesticide",
+      "nearest": {
+        "name": "water-bottle",
+        "score": 0.881
+      },
+      "kind": "base"
+    },
+    {
+      "name": "open-in-browser",
+      "nearest": {
+        "name": "help-article",
+        "score": 0.8361
+      },
+      "kind": "action"
+    },
+    {
+      "name": "booth",
+      "nearest": {
+        "name": "lab-vial-crimp-cap",
+        "score": 0.8811
+      },
+      "kind": "base"
+    },
+    {
+      "name": "honor",
+      "nearest": {
+        "name": "stationery-carpenter-pencil",
+        "score": 0.8362
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-programming",
+      "nearest": {
+        "name": "folder-code",
+        "score": 0.8364
+      },
+      "kind": "base"
+    },
+    {
+      "name": "collection-records",
+      "nearest": {
+        "name": "clock-trash",
+        "score": 0.8814
+      },
+      "kind": "base"
+    },
+    {
+      "name": "split-cells",
+      "nearest": {
+        "name": "code-source-map-link",
+        "score": 0.8815
+      },
+      "kind": "action"
+    },
+    {
+      "name": "relational-graph",
+      "nearest": {
+        "name": "kabadeh",
+        "score": 0.8815
+      },
+      "kind": "base"
+    },
+    {
+      "name": "hdmi-cable",
+      "nearest": {
+        "name": "ram",
+        "score": 0.8818
+      },
+      "kind": "base"
+    },
+    {
+      "name": "trunk",
+      "nearest": {
+        "name": "medical-saline-bag-hanger",
+        "score": 0.882
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sound-wave",
+      "nearest": {
+        "name": "table-column-type",
+        "score": 0.8823
+      },
+      "kind": "base"
+    },
+    {
+      "name": "new-picture",
+      "nearest": {
+        "name": "theater",
+        "score": 0.8824
+      },
+      "kind": "base"
+    },
+    {
+      "name": "paper-ship",
+      "nearest": {
+        "name": "lotus",
+        "score": 0.8825
+      },
+      "kind": "base"
+    },
+    {
+      "name": "high-light",
+      "nearest": {
+        "name": "shop-bag-arched-handle",
+        "score": 0.8828
+      },
+      "kind": "base"
+    },
+    {
+      "name": "borobudur",
+      "nearest": {
+        "name": "hard-hat",
+        "score": 0.8379
+      },
+      "kind": "base"
+    },
+    {
+      "name": "big-clock",
+      "nearest": {
+        "name": "jukebox",
+        "score": 0.8832
+      },
+      "kind": "base"
+    },
+    {
+      "name": "playback-progress",
+      "nearest": {
+        "name": "wardrobe-drawer",
+        "score": 0.8639,
+        "previousName": "wardrobe-03"
+      },
+      "kind": "action"
+    },
+    {
+      "name": "drop-shadow-down",
+      "nearest": {
+        "name": "crystal-ball",
+        "score": 0.8836
+      },
+      "kind": "action"
+    },
+    {
+      "name": "geometric-shapes",
+      "nearest": {
+        "name": "layout-card-masonry-row",
+        "score": 0.8387
+      },
+      "kind": "base",
+      "previousName": "geometric-shapes-01"
+    },
+    {
+      "name": "mini-sd-card",
+      "nearest": {
+        "name": "device-sd-card",
+        "score": 0.8839
+      },
+      "kind": "base"
+    },
+    {
+      "name": "lip-tattoo",
+      "nearest": {
+        "name": "record",
+        "score": 0.8842
+      },
+      "kind": "base"
+    },
+    {
+      "name": "airplay-line",
+      "nearest": {
+        "name": "monitor",
+        "score": 0.8393
+      },
+      "kind": "base"
+    },
+    {
+      "name": "carousel-video",
+      "nearest": {
+        "name": "fuse",
+        "score": 0.8843
+      },
+      "kind": "base"
+    },
+    {
+      "name": "locking-picture",
+      "nearest": {
+        "name": "media-image-double-peaks",
+        "score": 0.8846
+      },
+      "kind": "base"
+    },
+    {
+      "name": "damage-map",
+      "nearest": {
+        "name": "browser-pin-tab",
+        "score": 0.8847
+      },
+      "kind": "base"
+    },
+    {
+      "name": "girl",
+      "nearest": {
+        "name": "doll",
+        "score": 0.8848
+      },
+      "kind": "base"
+    },
+    {
+      "name": "shaving",
+      "nearest": {
+        "name": "dice-cup",
+        "score": 0.8852
+      },
+      "kind": "base"
+    },
+    {
+      "name": "fingernail",
+      "nearest": {
+        "name": "sound-microphone-shock-mount",
+        "score": 0.8855
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mail-out",
+      "nearest": {
+        "name": "procurement-request-for-quote",
+        "score": 0.8407
+      },
+      "kind": "base"
+    },
+    {
+      "name": "chat-done",
+      "nearest": {
+        "name": "ai-chat",
+        "score": 0.841
+      },
+      "kind": "action",
+      "previousName": "chat-done-01"
+    },
+    {
+      "name": "haji",
+      "nearest": {
+        "name": "mistletoe",
+        "score": 0.8413
+      },
+      "kind": "base"
+    },
+    {
+      "name": "shopping-bag-favorite",
+      "nearest": {
+        "name": "database-sync",
+        "score": 0.8414
+      },
+      "kind": "base"
+    },
+    {
+      "name": "bin-half",
+      "nearest": {
+        "name": "diaper",
+        "score": 0.8415
+      },
+      "kind": "base"
+    },
+    {
+      "name": "device-mobile-code",
+      "nearest": {
+        "name": "bookmark-minus",
+        "score": 0.8416
+      },
+      "kind": "base"
+    },
+    {
+      "name": "fail-picture",
+      "nearest": {
+        "name": "care-home-medicine-cabinet",
+        "score": 0.8866
+      },
+      "kind": "base"
+    },
+    {
+      "name": "split-area",
+      "nearest": {
+        "name": "workspace-pen-tablet-mapping",
+        "score": 0.8417
+      },
+      "kind": "action"
+    },
+    {
+      "name": "receive",
+      "nearest": {
+        "name": "egg-carton",
+        "score": 0.8867
+      },
+      "kind": "action"
+    },
+    {
+      "name": "bloom",
+      "nearest": {
+        "name": "hockey-puck",
+        "score": 0.7942
+      },
+      "kind": "base"
+    },
+    {
+      "name": "two-finger",
+      "nearest": {
+        "name": "hand-click",
+        "score": 0.8418
+      },
+      "kind": "base",
+      "previousName": "two-finger-01"
+    },
+    {
+      "name": "speed",
+      "nearest": {
+        "name": "control-knob-top-notch",
+        "score": 0.8868
+      },
+      "kind": "base",
+      "previousName": "speed-one"
+    },
+    {
+      "name": "address-book",
+      "nearest": {
+        "name": "card-back",
+        "score": 0.887
+      },
+      "kind": "base"
+    },
+    {
+      "name": "text-wrap-truncation",
+      "nearest": {
+        "name": "lane",
+        "score": 0.8871
+      },
+      "kind": "base"
+    },
+    {
+      "name": "dividing-line",
+      "nearest": {
+        "name": "swim-lane",
+        "score": 0.8872
+      },
+      "kind": "base",
+      "previousName": "dividing-line-one"
+    },
+    {
+      "name": "basketball-stand",
+      "nearest": {
+        "name": "game-over",
+        "score": 0.8872
+      },
+      "kind": "base"
+    },
+    {
+      "name": "general-branch",
+      "nearest": {
+        "name": "subscription-proration",
+        "score": 0.8873
+      },
+      "kind": "base"
+    },
+    {
+      "name": "topology-star",
+      "nearest": {
+        "name": "range-slider",
+        "score": 0.8425
+      },
+      "kind": "base",
+      "previousName": "topology-star-3"
+    },
+    {
+      "name": "perfumer-bottle",
+      "nearest": {
+        "name": "security-key-usb",
+        "score": 0.8876
+      },
+      "kind": "base"
+    },
+    {
+      "name": "banknote-x",
+      "nearest": {
+        "name": "audio-track-download",
+        "score": 0.8429
+      },
+      "kind": "base"
+    },
+    {
+      "name": "city-gate",
+      "nearest": {
+        "name": "circus-tent",
+        "score": 0.888
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mail-question-mark",
+      "nearest": {
+        "name": "mail-search",
+        "score": 0.843
+      },
+      "kind": "base"
+    },
+    {
+      "name": "border-inner",
+      "nearest": {
+        "name": "plus",
+        "score": 0.8431
+      },
+      "kind": "base"
+    },
+    {
+      "name": "local",
+      "nearest": {
+        "name": "pin-area",
+        "score": 0.8881
+      },
+      "kind": "base"
+    },
+    {
+      "name": "layer-bring-forward",
+      "nearest": {
+        "name": "joystick-iso",
+        "score": 0.8432
+      },
+      "kind": "action"
+    },
+    {
+      "name": "analysis",
+      "nearest": {
+        "name": "report-pinned-comparison-row",
+        "score": 0.8882
+      },
+      "kind": "base"
+    },
+    {
+      "name": "dumbbell-line",
+      "nearest": {
+        "name": "arrow-left-right",
+        "score": 0.8883
+      },
+      "kind": "base",
+      "previousName": "dumbbel-line"
+    },
+    {
+      "name": "battery-charge",
+      "nearest": {
+        "name": "energy-battery-state-of-health",
+        "score": 0.8887
+      },
+      "kind": "base"
+    },
+    {
+      "name": "internal-reduction",
+      "nearest": {
+        "name": "post-share",
+        "score": 0.889
+      },
+      "kind": "base"
+    },
+    {
+      "name": "photo-ai",
+      "nearest": {
+        "name": "picture-in-picture-on",
+        "score": 0.8441
+      },
+      "kind": "base"
+    },
+    {
+      "name": "shield-add",
+      "nearest": {
+        "name": "shield-fingerprint",
+        "score": 0.8891
+      },
+      "kind": "action"
+    },
+    {
+      "name": "kagi-map",
+      "nearest": {
+        "name": "histogram",
+        "score": 0.8893
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mars-stroke",
+      "nearest": {
+        "name": "banjo",
+        "score": 0.8443
+      },
+      "kind": "base"
+    },
+    {
+      "name": "document-folder",
+      "nearest": {
+        "name": "jail",
+        "score": 0.8893
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ironing",
+      "nearest": {
+        "name": "retail-inventory-bin-partition",
+        "score": 0.8445
+      },
+      "kind": "base"
+    },
+    {
+      "name": "usb-not-connected",
+      "nearest": {
+        "name": "usb-connected",
+        "score": 0.8449,
+        "previousName": "usb-connected-01"
+      },
+      "kind": "base",
+      "previousName": "usb-not-connected-01"
+    },
+    {
+      "name": "image-not-found",
+      "nearest": {
+        "name": "dry-clean-off",
+        "score": 0.8452
+      },
+      "kind": "base",
+      "previousName": "image-not-found-01"
+    },
+    {
+      "name": "experiment",
+      "nearest": {
+        "name": "flask",
+        "score": 0.8905
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sound-min",
+      "nearest": {
+        "name": "music-orchestra-mute-insert",
+        "score": 0.8455
+      },
+      "kind": "base"
+    },
+    {
+      "name": "protect",
+      "nearest": {
+        "name": "privacy-consent",
+        "score": 0.8906
+      },
+      "kind": "action"
+    },
+    {
+      "name": "movie",
+      "nearest": {
+        "name": "centrifuge",
+        "score": 0.8907
+      },
+      "kind": "base"
+    },
+    {
+      "name": "device-desktop-code",
+      "nearest": {
+        "name": "monitor-lock",
+        "score": 0.8457
+      },
+      "kind": "base"
+    },
+    {
+      "name": "invalid-files",
+      "nearest": {
+        "name": "vault-door",
+        "score": 0.8908
+      },
+      "kind": "base"
+    },
+    {
+      "name": "chat-unlock",
+      "nearest": {
+        "name": "ai-chat",
+        "score": 0.8459
+      },
+      "kind": "base",
+      "previousName": "chat-unlock-01"
+    },
+    {
+      "name": "ai-replace",
+      "nearest": {
+        "name": "pill",
+        "score": 0.8461
+      },
+      "kind": "base"
+    },
+    {
+      "name": "search-code",
+      "nearest": {
+        "name": "film-reel",
+        "score": 0.8461
+      },
+      "kind": "action"
+    },
+    {
+      "name": "pearl-of-the-orient",
+      "nearest": {
+        "name": "chess-pawn-black",
+        "score": 0.8911
+      },
+      "kind": "base"
+    },
+    {
+      "name": "public-toilet",
+      "nearest": {
+        "name": "friends",
+        "score": 0.8915
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ruler-combine",
+      "nearest": {
+        "name": "layout-left",
+        "score": 0.8465
+      },
+      "kind": "base"
+    },
+    {
+      "name": "balance",
+      "nearest": {
+        "name": "jewelry-scale",
+        "score": 0.8917
+      },
+      "kind": "base",
+      "previousName": "balance-two"
+    },
+    {
+      "name": "alignment-left-bottom",
+      "nearest": {
+        "name": "navigation-bottom-bar",
+        "score": 0.8918
+      },
+      "kind": "base"
+    },
+    {
+      "name": "twin-tower",
+      "nearest": {
+        "name": "message-quote-rounded-lines",
+        "score": 0.8468
+      },
+      "kind": "base"
+    },
+    {
+      "name": "health-products",
+      "nearest": {
+        "name": "doorbell-camera",
+        "score": 0.8918
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pathfinder-merge",
+      "nearest": {
+        "name": "photo-video",
+        "score": 0.847
+      },
+      "kind": "action"
+    },
+    {
+      "name": "ai-generative",
+      "nearest": {
+        "name": "file-folder-soft-tab",
+        "score": 0.8471
+      },
+      "kind": "base"
+    },
+    {
+      "name": "http-get",
+      "nearest": {
+        "name": "console-wings",
+        "score": 0.8471
+      },
+      "kind": "base"
+    },
+    {
+      "name": "three-d-glasses",
+      "nearest": {
+        "name": "eyeglass",
+        "score": 0.8919
+      },
+      "kind": "base"
+    },
+    {
+      "name": "wallet-done",
+      "nearest": {
+        "name": "credit-cards",
+        "score": 0.8475
+      },
+      "kind": "action",
+      "previousName": "wallet-done-01"
+    },
+    {
+      "name": "add-music",
+      "nearest": {
+        "name": "voice-recognition",
+        "score": 0.8928
+      },
+      "kind": "action"
+    },
+    {
+      "name": "gallery-horizontal-end",
+      "nearest": {
+        "name": "versions",
+        "score": 0.8479
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mail-reply-all",
+      "nearest": {
+        "name": "mail-plus",
+        "score": 0.8479
+      },
+      "kind": "action",
+      "previousName": "mail-reply-all-01"
+    },
+    {
+      "name": "bubble-chat-notification",
+      "nearest": {
+        "name": "lemon-2",
+        "score": 0.848
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mail-at-sign",
+      "nearest": {
+        "name": "mail-clock",
+        "score": 0.8481
+      },
+      "kind": "base",
+      "previousName": "mail-at-sign-01"
+    },
+    {
+      "name": "christmas-ball",
+      "nearest": {
+        "name": "baby",
+        "score": 0.8482
+      },
+      "kind": "base"
+    },
+    {
+      "name": "package-receive",
+      "nearest": {
+        "name": "package",
+        "score": 0.8482
+      },
+      "kind": "action"
+    },
+    {
+      "name": "comment-remove",
+      "nearest": {
+        "name": "chat-dot",
+        "score": 0.8483
+      },
+      "kind": "action",
+      "previousName": "comment-remove-01"
+    },
+    {
+      "name": "margin",
+      "nearest": {
+        "name": "text-square",
+        "score": 0.8933
+      },
+      "kind": "base",
+      "previousName": "margin-one"
+    },
+    {
+      "name": "digital-watches",
+      "nearest": {
+        "name": "watch-forward",
+        "score": 0.8934
+      },
+      "kind": "base"
+    },
+    {
+      "name": "wifi-medium-signal",
+      "nearest": {
+        "name": "guitar-pick",
+        "score": 0.8486
+      },
+      "kind": "base"
+    },
+    {
+      "name": "agreement",
+      "nearest": {
+        "name": "prescription",
+        "score": 0.8937
+      },
+      "kind": "base"
+    },
+    {
+      "name": "adjacent-item",
+      "nearest": {
+        "name": "table-reorder-rows-grip",
+        "score": 0.8937
+      },
+      "kind": "base"
+    },
+    {
+      "name": "central-shaheed-minar",
+      "nearest": {
+        "name": "santur",
+        "score": 0.8488
+      },
+      "kind": "base"
+    },
+    {
+      "name": "submit-document",
+      "nearest": {
+        "name": "tablet-check",
+        "score": 0.8489
+      },
+      "kind": "base"
+    },
+    {
+      "name": "headset-help",
+      "nearest": {
+        "name": "fitness-pilates-ring-pad",
+        "score": 0.849
+      },
+      "kind": "base"
+    },
+    {
+      "name": "alignment-top-right",
+      "nearest": {
+        "name": "shortcut-square",
+        "score": 0.894
+      },
+      "kind": "base"
+    },
+    {
+      "name": "macadamia-nut",
+      "nearest": {
+        "name": "greek-theta",
+        "score": 0.894
+      },
+      "kind": "base"
+    },
+    {
+      "name": "delete-mode",
+      "nearest": {
+        "name": "brightness-half",
+        "score": 0.8943
+      },
+      "kind": "action"
+    },
+    {
+      "name": "pin-code",
+      "nearest": {
+        "name": "letter-c-plain",
+        "score": 0.8493
+      },
+      "kind": "base"
+    },
+    {
+      "name": "lot-of-cash",
+      "nearest": {
+        "name": "index-card",
+        "score": 0.8493
+      },
+      "kind": "base"
+    },
+    {
+      "name": "announcement",
+      "nearest": {
+        "name": "lunchbox",
+        "score": 0.8943
+      },
+      "kind": "base"
+    },
+    {
+      "name": "notebook-and-pen",
+      "nearest": {
+        "name": "handheld-hybrid",
+        "score": 0.8944
+      },
+      "kind": "base"
+    },
+    {
+      "name": "the-single-shoulder-bag",
+      "nearest": {
+        "name": "stacking-rings",
+        "score": 0.8945
+      },
+      "kind": "base"
+    },
+    {
+      "name": "woolen-hat",
+      "nearest": {
+        "name": "desk-bell",
+        "score": 0.8946
+      },
+      "kind": "base"
+    },
+    {
+      "name": "between-horizontal-end",
+      "nearest": {
+        "name": "office-print-release-station",
+        "score": 0.85
+      },
+      "kind": "base"
+    },
+    {
+      "name": "jpg-format",
+      "nearest": {
+        "name": "hourglass-empty",
+        "score": 0.8501
+      },
+      "kind": "type"
+    },
+    {
+      "name": "connection-box",
+      "nearest": {
+        "name": "access-reading-mask-band",
+        "score": 0.8951
+      },
+      "kind": "base"
+    },
+    {
+      "name": "paella",
+      "nearest": {
+        "name": "manhole",
+        "score": 0.8502
+      },
+      "kind": "base"
+    },
+    {
+      "name": "home-hospital",
+      "nearest": {
+        "name": "nav-home-central-round-window",
+        "score": 0.8502
+      },
+      "kind": "base"
+    },
+    {
+      "name": "auto-width",
+      "nearest": {
+        "name": "travel-itinerary-day-divider",
+        "score": 0.8956
+      },
+      "kind": "base",
+      "previousName": "auto-width-one"
+    },
+    {
+      "name": "ai-camera",
+      "nearest": {
+        "name": "camera",
+        "score": 0.8515
+      },
+      "kind": "base"
+    },
+    {
+      "name": "multiple-pages",
+      "nearest": {
+        "name": "smart-oven",
+        "score": 0.8515
+      },
+      "kind": "base"
+    },
+    {
+      "name": "hop",
+      "nearest": {
+        "name": "garden-root-ball-wrap",
+        "score": 0.8517
+      },
+      "kind": "base"
+    },
+    {
+      "name": "heart-handshake",
+      "nearest": {
+        "name": "fitness-heart-rate-zone",
+        "score": 0.8517
+      },
+      "kind": "base"
+    },
+    {
+      "name": "move-diagonal",
+      "nearest": {
+        "name": "white-cane",
+        "score": 0.8524
+      },
+      "kind": "action",
+      "previousName": "move-diagonal-01"
+    },
+    {
+      "name": "delivery-tracking",
+      "nearest": {
+        "name": "web-programming",
+        "score": 0.8527
+      },
+      "kind": "base",
+      "previousName": "delivery-tracking-01"
+    },
+    {
+      "name": "rotate-three-d",
+      "nearest": {
+        "name": "orbits",
+        "score": 0.8527
+      },
+      "kind": "action"
+    },
+    {
+      "name": "tiff-format",
+      "nearest": {
+        "name": "layout-stacked-pane-split",
+        "score": 0.8528
+      },
+      "kind": "type"
+    },
+    {
+      "name": "super-intelligence-file",
+      "nearest": {
+        "name": "file-rounded-fold-low",
+        "score": 0.853
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mail-voice",
+      "nearest": {
+        "name": "mail-clock",
+        "score": 0.853
+      },
+      "kind": "base",
+      "previousName": "mail-voice-01"
+    },
+    {
+      "name": "album-not-found",
+      "nearest": {
+        "name": "tumble-dry-slash",
+        "score": 0.8533
+      },
+      "kind": "base",
+      "previousName": "album-not-found-01"
+    },
+    {
+      "name": "device-ipad-horizontal-code",
+      "nearest": {
+        "name": "repository",
+        "score": 0.8533
+      },
+      "kind": "base"
+    },
+    {
+      "name": "phone-erase",
+      "nearest": {
+        "name": "code-lint-diagnostics",
+        "score": 0.8535
+      },
+      "kind": "base"
+    },
+    {
+      "name": "card-shield",
+      "nearest": {
+        "name": "camper",
+        "score": 0.8539
+      },
+      "kind": "base"
+    },
+    {
+      "name": "package-process",
+      "nearest": {
+        "name": "package-clock",
+        "score": 0.8541
+      },
+      "kind": "base"
+    },
+    {
+      "name": "insert-center-image",
+      "nearest": {
+        "name": "dev-lan-patch-panel-row",
+        "score": 0.8545
+      },
+      "kind": "action"
+    },
+    {
+      "name": "shopping-basket-secure",
+      "nearest": {
+        "name": "shopping-bag-star",
+        "score": 0.8545
+      },
+      "kind": "base",
+      "previousName": "shopping-basket-secure-01"
+    },
+    {
+      "name": "insert-row",
+      "nearest": {
+        "name": "kitchen-double-basket-fryer",
+        "score": 0.8546
+      },
+      "kind": "action"
+    },
+    {
+      "name": "paragraph-bullets-point",
+      "nearest": {
+        "name": "list-details",
+        "score": 0.8546
+      },
+      "kind": "base",
+      "previousName": "paragraph-bullets-point-01"
+    },
+    {
+      "name": "tickets-plane",
+      "nearest": {
+        "name": "briefcase",
+        "score": 0.8549
+      },
+      "kind": "base"
+    },
+    {
+      "name": "media-image-list",
+      "nearest": {
+        "name": "instant-photo",
+        "score": 0.855
+      },
+      "kind": "base"
+    },
+    {
+      "name": "http-trace",
+      "nearest": {
+        "name": "auth-2fa",
+        "score": 0.8551
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sin",
+      "nearest": {
+        "name": "power-strip-individual-outlets",
+        "score": 0.8552
+      },
+      "kind": "base"
+    },
+    {
+      "name": "server-connection",
+      "nearest": {
+        "name": "plant-label",
+        "score": 0.8565
+      },
+      "kind": "base"
+    },
+    {
+      "name": "love-korean-finger",
+      "nearest": {
+        "name": "beet",
+        "score": 0.8566
+      },
+      "kind": "base"
+    },
+    {
+      "name": "device-ipad-horizontal-share",
+      "nearest": {
+        "name": "repository",
+        "score": 0.8571
+      },
+      "kind": "action"
+    },
+    {
+      "name": "bubble-chat-temporary",
+      "nearest": {
+        "name": "message-circle",
+        "score": 0.858
+      },
+      "kind": "base"
+    },
+    {
+      "name": "list-setting",
+      "nearest": {
+        "name": "playback-queue",
+        "score": 0.858
+      },
+      "kind": "action"
+    },
+    {
+      "name": "package-delivered",
+      "nearest": {
+        "name": "wallet-check",
+        "score": 0.858
+      },
+      "kind": "base",
+      "previousName": "package-delivered-01"
+    },
+    {
+      "name": "css-file",
+      "nearest": {
+        "name": "file-svg",
+        "score": 0.858
+      },
+      "kind": "type",
+      "previousName": "css-file-01"
+    },
+    {
+      "name": "frameworks",
+      "nearest": {
+        "name": "vector-bezier-arc",
+        "score": 0.8581
+      },
+      "kind": "base"
+    },
+    {
+      "name": "database-monitor",
+      "nearest": {
+        "name": "database-export",
+        "score": 0.8582
+      },
+      "kind": "base"
+    },
+    {
+      "name": "license-pin",
+      "nearest": {
+        "name": "payment-receipt-paperless",
+        "score": 0.8586
+      },
+      "kind": "base"
+    },
+    {
+      "name": "wash-press",
+      "nearest": {
+        "name": "camera-lens-hood-profile",
+        "score": 0.859
+      },
+      "kind": "base"
+    },
+    {
+      "name": "search-x",
+      "nearest": {
+        "name": "zoom-in",
+        "score": 0.859
+      },
+      "kind": "action"
+    },
+    {
+      "name": "ai-setting",
+      "nearest": {
+        "name": "settings-gear-compact",
+        "score": 0.8592
+      },
+      "kind": "action"
+    },
+    {
+      "name": "mail-receive",
+      "nearest": {
+        "name": "mail-check",
+        "score": 0.8592
+      },
+      "kind": "action",
+      "previousName": "mail-receive-01"
+    },
+    {
+      "name": "laptop-fix",
+      "nearest": {
+        "name": "file-available-offline",
+        "score": 0.8594
+      },
+      "kind": "base"
+    },
+    {
+      "name": "script-x",
+      "nearest": {
+        "name": "script",
+        "score": 0.8597
+      },
+      "kind": "base"
+    },
+    {
+      "name": "male-symbol",
+      "nearest": {
+        "name": "shot-put",
+        "score": 0.8601
+      },
+      "kind": "base"
+    },
+    {
+      "name": "world-www",
+      "nearest": {
+        "name": "manhole",
+        "score": 0.8601
+      },
+      "kind": "base"
+    },
+    {
+      "name": "character-phonetic",
+      "nearest": {
+        "name": "storage-glass-display-case",
+        "score": 0.8604
+      },
+      "kind": "base"
+    },
+    {
+      "name": "car-fan",
+      "nearest": {
+        "name": "pinwheel",
+        "score": 0.8607
+      },
+      "kind": "base",
+      "previousName": "car-fan-3"
+    },
+    {
+      "name": "pin-end",
+      "nearest": {
+        "name": "task-assignee",
+        "score": 0.8607
+      },
+      "kind": "base"
+    },
+    {
+      "name": "wallet-add",
+      "nearest": {
+        "name": "credit-cards",
+        "score": 0.8608
+      },
+      "kind": "action",
+      "previousName": "wallet-add-01"
+    },
+    {
+      "name": "drone-front",
+      "nearest": {
+        "name": "street-food",
+        "score": 0.7569
+      },
+      "kind": "base",
+      "previousName": "drone-one"
+    },
+    {
+      "name": "avi-format",
+      "nearest": {
+        "name": "privacy-window-redaction-stripe",
+        "score": 0.8609
+      },
+      "kind": "type"
+    },
+    {
+      "name": "radial",
+      "nearest": {
+        "name": "button",
+        "score": 0.8611
+      },
+      "kind": "base"
+    },
+    {
+      "name": "less-than",
+      "nearest": {
+        "name": "chevron-left",
+        "score": 0.8613
+      },
+      "kind": "base"
+    },
+    {
+      "name": "tif-format",
+      "nearest": {
+        "name": "privacy-window-redaction-stripe",
+        "score": 0.8613
+      },
+      "kind": "type"
+    },
+    {
+      "name": "subtitles-ai",
+      "nearest": {
+        "name": "field-optional-add",
+        "score": 0.8613
+      },
+      "kind": "base"
+    },
+    {
+      "name": "shield-broken",
+      "nearest": {
+        "name": "wash-timer",
+        "score": 0.8614
+      },
+      "kind": "base"
+    },
+    {
+      "name": "insert-column",
+      "nearest": {
+        "name": "ui-number-scrub-handle",
+        "score": 0.8616
+      },
+      "kind": "action"
+    },
+    {
+      "name": "keffiyeh",
+      "nearest": {
+        "name": "taco",
+        "score": 0.8617
+      },
+      "kind": "base"
+    },
+    {
+      "name": "log-in",
+      "nearest": {
+        "name": "arrow-square-right",
+        "score": 0.8618
+      },
+      "kind": "base"
+    },
+    {
+      "name": "frame-alt-empty",
+      "nearest": {
+        "name": "grid-4x4",
+        "score": 0.8619
+      },
+      "kind": "base"
+    },
+    {
+      "name": "greater-than",
+      "nearest": {
+        "name": "chevron-right",
+        "score": 0.862
+      },
+      "kind": "base"
+    },
+    {
+      "name": "chat-translate",
+      "nearest": {
+        "name": "ai-chat",
+        "score": 0.8623
+      },
+      "kind": "base",
+      "previousName": "chat-translate-01"
+    },
+    {
+      "name": "security-block",
+      "nearest": {
+        "name": "dry-clean-off",
+        "score": 0.8624
+      },
+      "kind": "base"
+    },
+    {
+      "name": "mpeg-format",
+      "nearest": {
+        "name": "sub-sandwich",
+        "score": 0.8625
+      },
+      "kind": "type"
+    },
+    {
+      "name": "keyframes-double",
+      "nearest": {
+        "name": "eye",
+        "score": 0.863
+      },
+      "kind": "base"
+    },
+    {
+      "name": "eye-table",
+      "nearest": {
+        "name": "door-open",
+        "score": 0.8635
+      },
+      "kind": "base"
+    },
+    {
+      "name": "wash",
+      "nearest": {
+        "name": "stock-pot",
+        "score": 0.8636
+      },
+      "kind": "base"
+    },
+    {
+      "name": "wanted",
+      "nearest": {
+        "name": "peanut-butter",
+        "score": 0.8636
+      },
+      "kind": "base"
+    },
+    {
+      "name": "china-temple",
+      "nearest": {
+        "name": "birthday-candle",
+        "score": 0.8637
+      },
+      "kind": "base"
+    },
+    {
+      "name": "historic-shield",
+      "nearest": {
+        "name": "shareplay",
+        "score": 0.8637
+      },
+      "kind": "base"
+    },
+    {
+      "name": "in-love",
+      "nearest": {
+        "name": "zipper-mouth",
+        "score": 0.8638
+      },
+      "kind": "base"
+    },
+    {
+      "name": "virtual-space",
+      "nearest": {
+        "name": "office-phone-booth-pod",
+        "score": 0.8638
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pin-invoke",
+      "nearest": {
+        "name": "love-letter",
+        "score": 0.8648
+      },
+      "kind": "base"
+    },
+    {
+      "name": "chafing-dish",
+      "nearest": {
+        "name": "fitness-weight-plate-carry-slot",
+        "score": 0.8728
+      },
+      "kind": "base"
+    },
+    {
+      "name": "kanban-board",
+      "nearest": {
+        "name": "stats-report",
+        "score": 0.8656
+      },
+      "kind": "base"
+    },
+    {
+      "name": "equal-sign",
+      "nearest": {
+        "name": "transit-tactile-edge-strip",
+        "score": 0.8657
+      },
+      "kind": "base"
+    },
+    {
+      "name": "trulli",
+      "nearest": {
+        "name": "gingerbread-house",
+        "score": 0.866
+      },
+      "kind": "base"
+    },
+    {
+      "name": "toml",
+      "nearest": {
+        "name": "chess-rook-black",
+        "score": 0.8661
+      },
+      "kind": "type"
+    },
+    {
+      "name": "stroke-center",
+      "nearest": {
+        "name": "computer-right-angle-adapter",
+        "score": 0.8661
+      },
+      "kind": "base"
+    },
+    {
+      "name": "comment-block",
+      "nearest": {
+        "name": "chat-dot",
+        "score": 0.8666
+      },
+      "kind": "base",
+      "previousName": "comment-block-01"
+    },
+    {
+      "name": "ai-network",
+      "nearest": {
+        "name": "media-theater-mode",
+        "score": 0.8667
+      },
+      "kind": "base"
+    },
+    {
+      "name": "work-history",
+      "nearest": {
+        "name": "briefcase-clock",
+        "score": 0.8667
+      },
+      "kind": "base"
+    },
+    {
+      "name": "device-watch-share",
+      "nearest": {
+        "name": "watch-x",
+        "score": 0.8684
+      },
+      "kind": "action"
+    },
+    {
+      "name": "home-secure",
+      "nearest": {
+        "name": "home-alt-slim-horiz",
+        "score": 0.8686
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-laptop",
+      "nearest": {
+        "name": "warehouse-pallet-corner-posts",
+        "score": 0.8696
+      },
+      "kind": "base"
+    },
+    {
+      "name": "log-no-access",
+      "nearest": {
+        "name": "power-bank",
+        "score": 0.8698
+      },
+      "kind": "base"
+    },
+    {
+      "name": "moon-sat",
+      "nearest": {
+        "name": "thumbstick-l",
+        "score": 0.8703
+      },
+      "kind": "base"
+    },
+    {
+      "name": "security-validation",
+      "nearest": {
+        "name": "wax-seal",
+        "score": 0.8706
+      },
+      "kind": "action"
+    },
+    {
+      "name": "screen-share",
+      "nearest": {
+        "name": "monitor",
+        "score": 0.8707
+      },
+      "kind": "action"
+    },
+    {
+      "name": "bed-ready",
+      "nearest": {
+        "name": "panel-top",
+        "score": 0.8715
+      },
+      "kind": "base"
+    },
+    {
+      "name": "open-new-window",
+      "nearest": {
+        "name": "opacity",
+        "score": 0.8729
+      },
+      "kind": "action"
+    },
+    {
+      "name": "security-stall",
+      "nearest": {
+        "name": "graduated-cylinder",
+        "score": 0.8494
+      },
+      "kind": "base"
+    },
+    {
+      "name": "knight-shield",
+      "nearest": {
+        "name": "privacy-consent",
+        "score": 0.8745
+      },
+      "kind": "base"
+    },
+    {
+      "name": "star-award",
+      "nearest": {
+        "name": "best-seller",
+        "score": 0.875
+      },
+      "kind": "base",
+      "previousName": "star-award-01"
+    },
+    {
+      "name": "train-front",
+      "nearest": {
+        "name": "tram",
+        "score": 0.8752
+      },
+      "kind": "base"
+    },
+    {
+      "name": "stroke-top",
+      "nearest": {
+        "name": "towel-happy",
+        "score": 0.8753
+      },
+      "kind": "base"
+    },
+    {
+      "name": "sms-code",
+      "nearest": {
+        "name": "product-allergen-label",
+        "score": 0.8754
+      },
+      "kind": "base"
+    },
+    {
+      "name": "non-binary",
+      "nearest": {
+        "name": "ring",
+        "score": 0.8754
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-voice-generator",
+      "nearest": {
+        "name": "audio-track-download",
+        "score": 0.8757
+      },
+      "kind": "base"
+    },
+    {
+      "name": "chat-secure",
+      "nearest": {
+        "name": "fire-blanket",
+        "score": 0.876
+      },
+      "kind": "base"
+    },
+    {
+      "name": "filter-share",
+      "nearest": {
+        "name": "filter-x",
+        "score": 0.8762
+      },
+      "kind": "action"
+    },
+    {
+      "name": "inbox-download-r",
+      "nearest": {
+        "name": "kitchen-french-door-fridge",
+        "score": 0.885
+      },
+      "kind": "action"
+    },
+    {
+      "name": "glass-half",
+      "nearest": {
+        "name": "computer-displayport-cable-head",
+        "score": 0.8775
+      },
+      "kind": "base"
+    },
+    {
+      "name": "presentation-line-chart",
+      "nearest": {
+        "name": "education-equipment-borrowing-tag",
+        "score": 0.8776
+      },
+      "kind": "base",
+      "previousName": "presentation-line-chart-01"
+    },
+    {
+      "name": "checkmark-badge",
+      "nearest": {
+        "name": "brightness-half",
+        "score": 0.8777
+      },
+      "kind": "base",
+      "previousName": "checkmark-badge-01"
+    },
+    {
+      "name": "health-shield",
+      "nearest": {
+        "name": "wash-timer",
+        "score": 0.8777
+      },
+      "kind": "base"
+    },
+    {
+      "name": "report-columns",
+      "nearest": {
+        "name": "gallery-wall",
+        "score": 0.8784
+      },
+      "kind": "base"
+    },
+    {
+      "name": "http-connect",
+      "nearest": {
+        "name": "sos",
+        "score": 0.8787
+      },
+      "kind": "action"
+    },
+    {
+      "name": "cinema-old",
+      "nearest": {
+        "name": "centrifuge",
+        "score": 0.8793
+      },
+      "kind": "base"
+    },
+    {
+      "name": "database-setting",
+      "nearest": {
+        "name": "database-sync",
+        "score": 0.8793
+      },
+      "kind": "action"
+    },
+    {
+      "name": "india-gate",
+      "nearest": {
+        "name": "gas-station",
+        "score": 0.8794
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pencil-code",
+      "nearest": {
+        "name": "highlight",
+        "score": 0.8795
+      },
+      "kind": "base"
+    },
+    {
+      "name": "vr-tag",
+      "nearest": {
+        "name": "bath-mat",
+        "score": 0.8795
+      },
+      "kind": "base"
+    },
+    {
+      "name": "time-quarter-pass",
+      "nearest": {
+        "name": "btn-plus",
+        "score": 0.8797
+      },
+      "kind": "base"
+    },
+    {
+      "name": "bookmark-remove",
+      "nearest": {
+        "name": "video-save-watch-later",
+        "score": 0.8802
+      },
+      "kind": "action",
+      "previousName": "bookmark-remove-01"
+    },
+    {
+      "name": "maximize-screen",
+      "nearest": {
+        "name": "scale-frame-enlarge",
+        "score": 0.8805
+      },
+      "kind": "base"
+    },
+    {
+      "name": "time-management",
+      "nearest": {
+        "name": "pdf-split-document",
+        "score": 0.8807
+      },
+      "kind": "base"
+    },
+    {
+      "name": "property-view",
+      "nearest": {
+        "name": "notification-digest-pending",
+        "score": 0.8812
+      },
+      "kind": "base"
+    },
+    {
+      "name": "frame-simple",
+      "nearest": {
+        "name": "living-cushion-four-darts",
+        "score": 0.8821
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pentagram",
+      "nearest": {
+        "name": "wreath",
+        "score": 0.8822
+      },
+      "kind": "base"
+    },
+    {
+      "name": "kissing",
+      "nearest": {
+        "name": "emoji-kiss",
+        "score": 0.8826
+      },
+      "kind": "base"
+    },
+    {
+      "name": "database-expand",
+      "nearest": {
+        "name": "ai-embedding-neighbor-search",
+        "score": 0.8839
+      },
+      "kind": "base"
+    },
+    {
+      "name": "fx-tag",
+      "nearest": {
+        "name": "id-card",
+        "score": 0.8841
+      },
+      "kind": "base"
+    },
+    {
+      "name": "jupiter",
+      "nearest": {
+        "name": "chip-cross",
+        "score": 0.8844
+      },
+      "kind": "base"
+    },
+    {
+      "name": "pause-window",
+      "nearest": {
+        "name": "brightness-window",
+        "score": 0.8851
+      },
+      "kind": "base"
+    },
+    {
+      "name": "electronics-chip",
+      "nearest": {
+        "name": "gamepad-mobile",
+        "score": 0.8863
+      },
+      "kind": "base"
+    },
+    {
+      "name": "code-dots",
+      "nearest": {
+        "name": "brackets",
+        "score": 0.8881
+      },
+      "kind": "base"
+    },
+    {
+      "name": "reports",
+      "nearest": {
+        "name": "chart-bar-popular",
+        "score": 0.8891
+      },
+      "kind": "base"
+    },
+    {
+      "name": "fingerprint-window",
+      "nearest": {
+        "name": "brightness-window",
+        "score": 0.8893
+      },
+      "kind": "base"
+    },
+    {
+      "name": "security-pass",
+      "nearest": {
+        "name": "chevron-circle-down",
+        "score": 0.8895
+      },
+      "kind": "base"
+    },
+    {
+      "name": "bubble-income",
+      "nearest": {
+        "name": "message-circle",
+        "score": 0.8898
+      },
+      "kind": "base"
+    },
+    {
+      "name": "enlarge",
+      "nearest": {
+        "name": "maximize-diagonal",
+        "score": 0.8901
+      },
+      "kind": "base"
+    },
+    {
+      "name": "percent-rotate-out",
+      "nearest": {
+        "name": "btn-cross",
+        "score": 0.8903
+      },
+      "kind": "action"
+    },
+    {
+      "name": "ruler-arrows",
+      "nearest": {
+        "name": "layout-align-middle",
+        "score": 0.8905
+      },
+      "kind": "base"
+    },
+    {
+      "name": "home-temperature-in",
+      "nearest": {
+        "name": "home-alt-slim-horiz",
+        "score": 0.8906
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-browser",
+      "nearest": {
+        "name": "wallet-down",
+        "score": 0.8906
+      },
+      "kind": "base"
+    },
+    {
+      "name": "shield-loading",
+      "nearest": {
+        "name": "bread",
+        "score": 0.8922
+      },
+      "kind": "action"
+    },
+    {
+      "name": "chat-feedback",
+      "nearest": {
+        "name": "meeting-whiteboard-follow",
+        "score": 0.893
+      },
+      "kind": "base"
+    },
+    {
+      "name": "wallet-cards",
+      "nearest": {
+        "name": "building-housekeeping-door-flag",
+        "score": 0.8931
+      },
+      "kind": "base"
+    },
+    {
+      "name": "memory-card",
+      "nearest": {
+        "name": "floppy-disk",
+        "score": 0.8852
+      },
+      "kind": "base"
+    },
+    {
+      "name": "frame-alt",
+      "nearest": {
+        "name": "grid-4x4",
+        "score": 0.8936
+      },
+      "kind": "base"
+    },
+    {
+      "name": "layer-mask",
+      "nearest": {
+        "name": "no-dry-clean",
+        "score": 0.8941
+      },
+      "kind": "base",
+      "previousName": "layer-mask-01"
+    },
+    {
+      "name": "disk",
+      "nearest": {
+        "name": "care-blood-pressure-cuff-wrap",
+        "score": 0.8765
+      },
+      "kind": "base",
+      "previousName": "disk-two"
+    },
+    {
+      "name": "package-open",
+      "nearest": {
+        "name": "delivery-attempt",
+        "score": 0.8945
+      },
+      "kind": "action"
+    },
+    {
+      "name": "nurse",
+      "nearest": {
+        "name": "recycle-battery-collection-tube",
+        "score": 0.8946
+      },
+      "kind": "base"
+    },
+    {
+      "name": "ai-search-lines",
+      "nearest": {
+        "name": "ai-document",
+        "score": 0.8947
+      },
+      "kind": "action"
+    },
+    {
+      "name": "shop-four-tiles",
+      "nearest": {
+        "name": "file-box",
+        "score": 0.8949
+      },
+      "kind": "base"
+    }
+  ],
+  "duplicateRecheck": {
+    "baselineCount": 12000,
+    "newCount": 1000,
+    "flaggedPairs": 823,
+    "method": "Compare aligned ink bounds in the generic catalog and the new batch, including mirrored layouts. Review flagged candidates at equal size in outline and bold. Keep directions and statuses whose visual difference communicates a distinct function.",
+    "decisions": [
+      {
+        "removed": "tower-control",
+        "replacement": "drone-one",
+        "comparedWith": [
+          {
+            "name": "airport-tower",
+            "score": 0.998
+          },
+          {
+            "name": "air-traffic-control",
+            "score": 0.861
+          }
+        ]
+      },
+      {
+        "removed": "orange-slice",
+        "replacement": "gauze",
+        "comparedWith": [
+          {
+            "name": "orange-slice-alt",
+            "score": 0.956
+          }
+        ]
+      },
+      {
+        "removed": "stickers",
+        "replacement": "eeg",
+        "comparedWith": [
+          {
+            "name": "cliparts",
+            "score": 0.991
+          }
+        ]
+      },
+      {
+        "removed": "clipboard-pen-line",
+        "replacement": "signal-tower",
+        "comparedWith": [
+          {
+            "name": "clipboard-pen",
+            "score": 0.94
+          }
+        ]
+      },
+      {
+        "removed": "settings-profiles",
+        "replacement": "security-stall",
+        "comparedWith": [
+          {
+            "name": "new-releases",
+            "score": 0.99
+          }
+        ]
+      },
+      {
+        "removed": "laptop-video",
+        "replacement": "chafing-dish",
+        "comparedWith": [
+          {
+            "name": "laptop-performance",
+            "score": 0.966
+          },
+          {
+            "name": "device-laptop",
+            "score": 0.852
+          },
+          {
+            "name": "setting-laptop",
+            "score": 0.798
+          },
+          {
+            "name": "ai-laptop",
+            "score": 0.795
+          }
+        ]
+      },
+      {
+        "removed": "sailboat-offshore",
+        "replacement": "curling",
+        "comparedWith": [
+          {
+            "name": "sailboat-coastal",
+            "score": 0.948
+          }
+        ]
+      },
+      {
+        "removed": "contrast-view-circle",
+        "replacement": "barber-clippers",
+        "comparedWith": [
+          {
+            "name": "contrast",
+            "score": 0.895
+          },
+          {
+            "name": "chart-pie-half",
+            "score": 0.953
+          }
+        ]
+      },
+      {
+        "removed": "wifi-tag",
+        "replacement": "memory-card",
+        "comparedWith": [
+          {
+            "name": "wifi-square",
+            "score": 0.893
+          },
+          {
+            "name": "fx-tag",
+            "score": 0.901
+          },
+          {
+            "name": "vr-tag",
+            "score": 0.892
+          },
+          {
+            "name": "resolution-4k",
+            "score": 0.932
+          }
+        ]
+      },
+      {
+        "removed": "radar-chart",
+        "replacement": "three-d-glasses",
+        "comparedWith": [
+          {
+            "name": "chart-radar-soft-pentagon",
+            "score": 0.892
+          }
+        ]
+      },
+      {
+        "removed": "cast-screen",
+        "replacement": "straw-hat",
+        "comparedWith": [
+          {
+            "name": "cast",
+            "score": 0.857
+          },
+          {
+            "name": "mirroring-screen",
+            "score": 0.832
+          },
+          {
+            "name": "media-cast-source-selection",
+            "score": 0.773
+          }
+        ]
+      },
+      {
+        "removed": "flip-vertically",
+        "replacement": "mail-unpacking",
+        "comparedWith": [
+          {
+            "name": "flip-vertical",
+            "score": 0.909
+          }
+        ]
+      },
+      {
+        "removed": "pull-requests",
+        "replacement": "goblet-cracking",
+        "comparedWith": [
+          {
+            "name": "git-pull-request-conflict",
+            "score": 0.877
+          },
+          {
+            "name": "git-pull-request",
+            "score": 0.86
+          },
+          {
+            "name": "git-pull-request-closed",
+            "score": 0.806
+          },
+          {
+            "name": "git-pull-request-draft",
+            "score": 0.802
+          }
+        ]
+      },
+      {
+        "removed": "id-not-verified",
+        "replacement": "inbox-download-r",
+        "comparedWith": [
+          {
+            "name": "id-verified",
+            "score": 0.984
+          },
+          {
+            "name": "id-badge",
+            "score": 0.814
+          }
+        ]
+      },
+      {
+        "removed": "baby-taste",
+        "replacement": "slippers",
+        "comparedWith": [
+          {
+            "name": "crying-baby",
+            "score": 0.914
+          },
+          {
+            "name": "baby",
+            "score": 0.866
+          }
+        ]
+      },
+      {
+        "removed": "rotating-forward",
+        "replacement": "future-build-two",
+        "comparedWith": [
+          {
+            "name": "reverse-rotation",
+            "score": 0.953
+          },
+          {
+            "name": "rotating-add",
+            "score": 0.879
+          }
+        ]
+      },
+      {
+        "removed": "replay-music",
+        "replacement": "playback-progress",
+        "comparedWith": [
+          {
+            "name": "replay",
+            "score": 0.876
+          }
+        ]
+      },
+      {
+        "removed": "locking-computer",
+        "replacement": "anchor-squre",
+        "comparedWith": [
+          {
+            "name": "lock-computer",
+            "score": 0.905
+          },
+          {
+            "name": "setting-computer",
+            "score": 0.911
+          },
+          {
+            "name": "download-computer",
+            "score": 0.901
+          },
+          {
+            "name": "code-computer",
+            "score": 0.874
+          },
+          {
+            "name": "computer",
+            "score": 0.818
+          },
+          {
+            "name": "computer-ethernet",
+            "score": 0.839
+          }
+        ]
+      },
+      {
+        "removed": "delivery-sent-01",
+        "replacement": "disk-two",
+        "comparedWith": [
+          {
+            "name": "container-truck",
+            "score": 0.966,
+            "previousName": "container-truck-01"
+          },
+          {
+            "name": "shop-delivery-van-rounded",
+            "score": 0.829
+          },
+          {
+            "name": "delivery-delay",
+            "score": 0.795,
+            "previousName": "delivery-delay-01"
+          }
+        ]
+      },
+      {
+        "removed": "binocular",
+        "replacement": "bloom",
+        "comparedWith": [
+          {
+            "name": "binoculars",
+            "score": 0.842
+          }
+        ]
+      },
+      {
+        "removed": "koala-bear",
+        "replacement": "endocrine",
+        "comparedWith": [
+          {
+            "name": "bear",
+            "score": 0.855
+          },
+          {
+            "name": "koala",
+            "score": 0.817
+          }
+        ]
+      }
+    ],
+    "replacementNearestMatches": [
+      {
+        "name": "drone-front",
+        "closest": "street-food",
+        "similarity": 0.7569,
+        "previousName": "drone-one"
+      },
+      {
+        "name": "gauze",
+        "closest": "latte-art",
+        "similarity": 0.8847
+      },
+      {
+        "name": "eeg",
+        "closest": "service-health",
+        "similarity": 0.8816
+      },
+      {
+        "name": "signal-tower",
+        "closest": "message-mail-inbox-tray",
+        "similarity": 0.7995
+      },
+      {
+        "name": "security-stall",
+        "closest": "graduated-cylinder",
+        "similarity": 0.8494
+      },
+      {
+        "name": "chafing-dish",
+        "closest": "fitness-weight-plate-carry-slot",
+        "similarity": 0.8728
+      },
+      {
+        "name": "curling",
+        "closest": "payment-cash-register-flat",
+        "similarity": 0.8818
+      },
+      {
+        "name": "barber-clippers",
+        "closest": "light-recessed-square",
+        "similarity": 0.8852
+      },
+      {
+        "name": "memory-card",
+        "closest": "floppy-disk",
+        "similarity": 0.8852
+      },
+      {
+        "name": "three-d-glasses",
+        "closest": "eyeglass",
+        "similarity": 0.8919
+      },
+      {
+        "name": "straw-hat",
+        "closest": "chick",
+        "similarity": 0.866
+      },
+      {
+        "name": "mail-unpacking",
+        "closest": "budget-envelope-allocation",
+        "similarity": 0.8716
+      },
+      {
+        "name": "goblet-cracking",
+        "closest": "glass-gin",
+        "similarity": 0.8559
+      },
+      {
+        "name": "inbox-download-r",
+        "closest": "kitchen-french-door-fridge",
+        "similarity": 0.885
+      },
+      {
+        "name": "slippers",
+        "closest": "pom-pom-hat",
+        "similarity": 0.8448
+      },
+      {
+        "name": "future-build",
+        "closest": "letter-i-plain",
+        "similarity": 0.8345,
+        "previousName": "future-build-two"
+      },
+      {
+        "name": "playback-progress",
+        "closest": "wardrobe-03",
+        "similarity": 0.8639
+      },
+      {
+        "name": "anchor-square",
+        "closest": "vector-bezier",
+        "similarity": 0.8215,
+        "previousName": "anchor-squre"
+      },
+      {
+        "name": "disk",
+        "closest": "care-blood-pressure-cuff-wrap",
+        "similarity": 0.8765,
+        "previousName": "disk-two"
+      },
+      {
+        "name": "bloom",
+        "closest": "hockey-puck",
+        "similarity": 0.7942
+      },
+      {
+        "name": "endocrine",
+        "closest": "fire-02",
+        "similarity": 0.8517
+      }
+    ]
+  },
+  "validation": {
+    "svgCases": 36000,
+    "lightAndDarkComposites": 72000,
+    "svgImportPaths": 78246,
+    "packFileCount": 62302,
+    "categories": 153,
+    "bothFigmaPlugins": "passed",
+    "iconTests": "passed"
+  }
+}

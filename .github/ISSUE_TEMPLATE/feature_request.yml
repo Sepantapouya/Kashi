@@ -1,0 +1,22 @@
+name: پیشنهاد · Feature request
+description: کامپوننت، ویژگی یا بهبود تازه · A new component, feature or improvement
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: چه مشکلی را حل می‌کند؟ · What problem does it solve?
+      description: کاربرد واقعی را بگویید، نه فقط راه‌حل · Describe the real use case, not only the solution
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: پیشنهاد شما · Your proposal
+      description: API، نمونهٔ ظاهر یا کتابخانه‌ای که این را خوب انجام می‌دهد · API, a sketch, or a library that does it well
+  - type: checkboxes
+    id: help
+    attributes:
+      label: کمک · Help
+      options:
+        - label: می‌خواهم خودم روی آن کار کنم · I'd like to work on this myself

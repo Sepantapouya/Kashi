@@ -1,5 +1,213 @@
 # @kashi-ui/icons
 
+## 2.16.0
+
+No changes in this release.
+
+## 2.15.1
+
+### Patch Changes
+
+- a2ace79: در آیکون‌های نشان‌دار (آیکون پایه با نشان کوچک گوشه، مثل `input-character-limit-info`)، دیگر خرده‌خطی از آیکون پایه کنار نشان نمی‌ماند. خط‌هایی که تقریباً کامل زیر نشان می‌رفتند و تکه‌های کوتاهی که برش از بقیهٔ خط جدا می‌کرد حذف شدند؛ قاب‌ها، شکل‌های بسته و خط‌های بلند دست‌نخورده‌اند.
+
+## 2.15.0
+
+### Minor Changes
+
+- b7aa03c: ۹۸۸ آیکون به کاتالوگ اضافه شد و تعداد طرح‌های اصلی به ۱۵٬۰۰۰ رسید. این مجموعه شامل ۹۶ طرح مستقل و ۸۹۲ حالت کاربردی در شش سبک است.
+
+## 2.14.0
+
+### Patch Changes
+
+- 55db478: شناسهٔ ماسک‌ها در فایل‌های SVG جدا (`@kashi-ui/icons/svg/...`) حالا از روی محتوای خود فایل ساخته می‌شود. پیش‌تر سبک bold و bulk یک آیکون شناسهٔ یکسان با ماسک متفاوت داشتند و اگر هر دو در یک صفحه می‌آمدند (مثل تب فعال و غیرفعال)، ۲۹۰ آیکون در سبک bulk بریدگی‌ها و جزئیاتشان را از دست می‌دادند. کامپوننت‌های React، Vue و Svelte و اسپرایت‌ها تغییری نکرده‌اند.
+
+## 2.13.0
+
+### Minor Changes
+
+- 43dfca3: افزودن دستهٔ بلک فرایدی با ۱۲ آیکون اختصاصی برای حراج و پیشنهادهای فروشگاهی.
+
+## 2.12.0
+
+### Minor Changes
+
+- c59a15a: ۳۶۵ آیکون اختصاصی در شش سبک اضافه شد. کاتالوگ آیکون‌های کاشی حالا ۱۴٬۰۰۰ طرح دارد.
+- f087fa2: ۶۳۵ آیکون اختصاصی به کاشی اضافه شد. طرح‌ها روی شبکهٔ ۲۰×۲۰ با خط مرجع ۱٫۵ و در شش سبک عرضه می‌شوند. فهرست سایت و پلاگین‌های فیگما ۱۳٬۶۳۵ آیکون دارند.
+
+## 2.11.1
+
+### Patch Changes
+
+- نام‌های منسوخ آیکون دیگر فایل SVG جدا ندارند؛ مسیر `@kashi-ui/icons/svg/<نام قدیمی>.svg` در همهٔ سبک‌ها از راه `exports` به فایل نام اصلی می‌رسد. شمار فایل‌های بسته زیر سقف رجیستری npm ماند (۶۲٬۰۵۳ فایل) و همهٔ ۸۰٬۵۸۰ مسیر SVG عمومی بررسی شد.
+- 0493c81: یکدست‌سازی ۲۰۰۰ آیکون اقتباسی نسخه‌های ۲.۱۰ و ۲.۱۱ با بقیهٔ خانوادهٔ کاشی:
+  
+  - ۳۸۹ نام با پسوند شماره (‎-01‎، ‎-one‎)، غلط املایی (مثل `steoller`، `walpaper`) یا نام مبهم (`min`، `sum`) نام تمیز گرفتند؛ نام قدیمی به‌شکل نام منسوخ همچنان کار می‌کند.
+  - ۱۹۹ نقشهٔ کشور و استان: ساحل ساده‌شده، لکه‌های ریزتر از دیده‌شدن حذف (جزیره‌های مجمع‌الجزایرها می‌مانند) و دوباره در کادر ۱۶ واحدی وسط‌چین.
+  - ۱۸ آیکون که بخشی از خطشان به سطح پرشده تبدیل شده بود، با خط واقعی ۱٫۵ دوباره کشیده شدند و با ضخامت خط و سبک توپر درست کار می‌کنند؛ بخش‌های نامرئی ۱۶ آیکون پاک شد.
+  - ۱۱ آیکون شلوغ که در ۲۰ پیکسل خوانا نبودند، ساده‌تر کشیده شدند.
+
+## 2.11.0
+
+### Minor Changes
+
+- 7dc61b2: Add 1,000 curated icon drawings and functional variants adapted from IconPark, Hugeicons, Tabler and Iconoir. The catalog reaches 13,000 icons across six styles with Persian titles and search terms. Keep all existing SVG import paths while packing byte-identical variants only once.
+
+## 2.10.0
+
+### Minor Changes
+
+- 8c8f807: Add 1000 reviewed general icon drawings: 801 adapted from Hugeicons and 199 geographic silhouettes from Natural Earth, reaching 12000 canonical icons while preserving all published names and aliases. Exclude near-identical prospective drawings, retain structurally distinct variants, include Persian search metadata and source licenses, and update the documentation and Figma catalogs. Fix filled-detail cutouts in bold icons on light and dark backgrounds.
+- a20681b: آیکون‌ها برای Vue و Svelte: `@kashi-ui/icons/vue` با یک کامپوننت برای هر آیکون (`IconSearch`، …) و `<Icon name>`، و `@kashi-ui/icons/svelte` با `Icon.svelte` و دادهٔ هر آیکون (`iconSearch`، …). مثل React فقط آیکون‌های استفاده‌شده در باندل می‌مانند. Vue و Svelte وابستگی اختیاری‌اند.
+
+## 2.9.0
+
+### Minor Changes
+
+- 66ddd95: Add 800 curated general-purpose icon drawings adapted from Tabler and Iconoir, reaching 11,000 canonical icons without removing existing names. Include 739 base drawings and 61 functional actions, Persian titles and search terms, source manifests and MIT notices. Add hardware, interiors and CAD browsing categories, update documentation counts and both Figma catalogs, and preserve the Vazirmatn letter and numeral improvements.
+- Keep the npm archive within registry file limits by mapping identical brand SVG variants to their base assets through package exports. Preserve all public SVG import paths and six sprite files; verify every exported SVG target before publishing.
+
+## 2.8.1
+
+### Patch Changes
+
+- 6064f15: Replace 86 existing Persian letter and numeral drawings with Vazirmatn 33.003 outlines, preserving published names. Use true font weights and transparent bold cutouts without requiring runtime font loading. Update both Figma exports and include font attribution and licensing.
+
+## 2.8.0
+
+No changes in this release.
+
+## 2.7.0
+
+- Support an explicit `idPrefix` for deterministic SVG code during server rendering; keep gradient-based logo examples consistent during hydration.
+
+### Minor Changes
+
+- Reach 10,200 canonical icons with 200 hand-drawn everyday-object variants and 1,800 documented application, brand and cryptocurrency marks, organized into 43 new categories. Preserve brand geometry and use currentColor, retaining multicolor contrast with monochrome masks and gradient identity across style and stroke settings; include upstream artwork notices and source manifests. Add 200 Iranian bank, payment, website, app, telecom, transport, media, insurance and retailer marks without removing any of the preceding 10,000 icon names. Existing icon names and compatibility aliases remain available. Update the documentation, MCP catalog and both Figma plugins.
+
+### Patch Changes
+
+- b93d527: پلاگین تازهٔ فیگما «Kashi Icons» برای مرور و خروجی گرفتن از همهٔ آیکون‌ها: جست‌وجوی فارسی و انگلیسی، دسته‌ها، شش سبک، رنگ، اندازه و ضخامت؛ افزودن با کلیک یا کشیدن روی بوم و دانلود SVG، PNG و ZIP یا کپی کد SVG و React. همان پنل به‌صورت صفحهٔ وب برای بیرون از فیگما هم در سایت هست.
+
+## 2.6.0
+
+### Minor Changes
+
+- 482f903: دسته‌بندی دقیق‌تر آیکون‌ها: ۱۷ دستهٔ تازه (۸۸ دسته در کل) و جابه‌جایی ۱۰۶۹ آیکون به دستهٔ درست. دسته‌های شلوغ تقسیم شدند: «اجزای رابط» (۳۴۷) به جدول، فرم و ورودی و دسترس‌پذیری؛ «خرید» (۳۱۲) به سبد خرید و سفارش و فروشگاه و خرده‌فروشی؛ «پیام و ایمیل» به گفتگو و چت، پشتیبانی مشتری و جلسه و همکاری؛ «بازی» به بازی رومیزی؛ «بانک و پرداخت» به صورت‌حساب و هزینه؛ «زمان» به تقویم و رزرو؛ «ورزش» به تناسب اندام؛ «حمل‌ونقل» به دوچرخه و خیابان و ترافیک؛ و دسته‌های تازهٔ مرورگر و وب، سرور و زیرساخت و حریم خصوصی. آیکون‌های دسترس‌پذیری که در پنج دسته پخش بودند یک‌جا آمدند، خانه‌ها به «املاک» و تنظیمات به «ناوبری و تنظیمات» رفتند. کلید دسته‌های قبلی تغییری نکرده است؛ فقط عنوان «communication» به «ایمیل و ارتباط» و «time» به «ساعت و زمان» تغییر کرد. جست‌وجو حالا عنوان دسته را هم می‌خواند و ۵۶ آیکون پایه هم‌معنی‌های فارسی تازه گرفتند.
+
+## 2.5.0
+
+### Minor Changes
+
+- Add 200 independently drawn product and everyday-object icon variants across seating, storage, lighting, bags, footwear, kitchen, tools, devices, bathroom, retail packaging and travel. Reach 8,200 active icons while preserving all existing drawings and 41 compatibility aliases.
+
+## 2.4.1
+
+### Patch Changes
+
+- f0ddf11: دقیق‌تر شدن همهٔ آیکون‌ها: ضخامت خط ۱۰۲۴ آیکون که بین دو استاندارد بود (۱٫۳۵ تا ۱٫۴۵) به ۱٫۳ برای جزئیات ریز و ۱٫۵ برای خط اصلی یکدست شد. دیگر هیچ SVG خروجی‌ای transform ندارد؛ جابه‌جایی‌های هم‌مرکزسازی در همهٔ شش سبک مستقیم در مختصات نوشته می‌شوند (هم در پکیج و هم در پلاگین فیگما، بدون تغییر ظاهری). ۱۸ آیکون شلوغ که در ۲۰ پیکسل خوانا نبودند ساده‌تر کشیده شدند: نقشهٔ حرارتی، تخته‌نرد، آینه‌کاری، پنل آکوستیک، سی‌وسه‌پل، تور دروازه، جای ادویه، آکاردئون، سازدهنی، درام‌ماشین، بنتو، فیوز، بوریتو، طبلک میکرومتر، تراز لیزری، کاهش پژواک اتاق، سیم‌کارت پیش‌فرض اینترنت و زنجیرهٔ پدال افکت.
+
+## 2.4.0
+
+### Minor Changes
+
+- e7c7793: Add 193 visually distinct icon drawings after a side-by-side review of the 300-icon draft. Exclude 107 very close alternatives, preserve the original 7200 icons, and update the documentation and Figma catalog to 7393 icons in six styles. Concept overlap alone no longer rejects useful visual variants.
+- Reach 8,000 active icons with 648 independently drawn workflow icons across 33 groups. Refine shared shopping, file ownership, checkout, security, media and accessibility drawings for small-size legibility. Preserve 41 deprecated aliases and the existing 7,352 canonical drawings.
+- 8a07d56: آیکون‌های تکراری حذف شدند: ۴۱ نام که طرحشان تکرار آیکون دیگری بود حالا نام قدیمیِ منسوخ‌اند و به آیکون اصلی می‌رسند (`aliases`)؛ کد قبلی نمی‌شکند و در نسخهٔ ۳.۰ حذف می‌شوند. ۷۱ عنوان فارسی یکسان یکتا شدند و رخ سیاه، ضبط، صلیب پزشکی، پروندهٔ پزشکی، هلی‌پد و حرف الف طرح جدا گرفتند. آزمونی هم جلوی طرح یا عنوان تکراری را می‌گیرد.
+
+### Patch Changes
+
+- b3994c3: بازبینی کیفیت همهٔ آیکون‌ها: ۳۰۰ آیکون که از مرکز دور بودند یا به لبهٔ بوم چسبیده بودند در مرکز و داخل حاشیهٔ ۲ واحدی قرار گرفتند (۳۴ تا با کوچک‌شدن اندک؛ ضخامت خط همان ۱٫۵ ماند). سنتور، مکعب روبیک، کولوسئوم، تخته‌نرد، آکاردئون و کلک ساده‌تر و خواناتر کشیده شدند و نشان لینکِ «لینک پرداخت» داخل حاشیه آمد.
+
+## 2.3.0
+
+No changes in this release.
+
+## 2.2.0
+
+### Minor Changes
+
+- 81f644a: ۲۰۰ آیکون مستقل در ۱۰ گروه، از خرید و رابط موبایل تا ساختمان، طراحی و تمرین، اضافه شد. کاشی اکنون ۷۲۰۰ آیکون در شش سبک دارد.
+
+## 2.1.0
+
+### Minor Changes
+
+- 89faf6d: ۴۰۰ آیکون مستقل در ۲۰ گروه، از مسیر و داشبورد تا خانه، انرژی و دسترس‌پذیری، اضافه شد. مجموعهٔ کاشی اکنون ۷۰۰۰ آیکون در شش سبک دارد.
+
+## 2.0.0
+
+### Minor Changes
+
+- 99a712f: کاشی ۲.۰: بازطراحی یکپارچه و مینیمال. هیچ prop، کلاس، تگ یا تابعی حذف نشده؛ ظاهر پیش‌فرض عوض شده (راهنما: /docs/migration/).
+  
+  - کنترل‌ها تخت‌اند (بدون سایهٔ اسکئومورفیک)، گوشه‌ها نرم‌تر با دو نقش `--k-radius-control` و `--k-radius-surface`، و یک حاشیه برای همهٔ کنترل‌ها با `--k-border-control`.
+  - سلکت در React فهرست کاشی با صفحه‌کلید کامل و select بومیِ پنهان؛ `native` برای فهرست مرورگر.
+  - سگمنت و زبانه‌های segmented با ریل پُرزمینه (`--k-bg-muted`، `--k-bg-raised`)، آکاردئون با کارت‌های جدا، `danger-secondary` نرم، منو و جدول و راهنمای نمودار آرام‌تر.
+  - ریزتعامل در همهٔ کامپوننت‌ها: فشرده شدن دکمه و کنترل‌ها، تیک و نقطه با فنر، دستگیرهٔ کش‌آمدنی سوییچ، دستگیرهٔ لغزان سگمنت، لرزش و ظاهر شدن نرم خطای فیلد، باز و بسته شدن نرم فهرست و پنجره و آکاردئون، دکمهٔ کپی با تیک؛ توکن‌های تازهٔ `--k-ease-spring` و `--k-ease-exit` و صفحهٔ /docs/motion/. با «کاهش حرکت» همه خاموش می‌شوند.
+  - تازه: دکمهٔ `outline`، کامپوننت‌های SearchSuggest، PriceRange و SwatchGroup (React، وب کامپوننت و فیگما).
+  - آیکون‌ها: `categoryGroups` با ۱۲ گروه؛ دو دسته نام روشن‌تر گرفتند.
+
+## 1.8.0
+
+### Minor Changes
+
+- 5a17f10: ۳۰۰ آیکون مستقل در ۱۵ گروه، از تقویم و فرم تا خانه، تنظیمات و دسترس‌پذیری، اضافه شد. مجموعهٔ کاشی اکنون ۶۶۰۰ آیکون در شش سبک دارد.
+
+## 1.7.0
+
+### Minor Changes
+
+- cc050a5: ۷۰۰ آیکون دست‌کشیده اضافه شد. کاشی حالا ۶۳۰۰ آیکون در شش سبک دارد. آیکون «انتقال تماس پس از معرفی» با نمایش مسیر تماس و گیرنده طراحی شده است.
+
+## 1.6.0
+
+No changes in this release.
+
+## 1.5.0
+
+### Minor Changes
+
+- f4906b4: ۲۰۰ آیکون مستقل برای آموزش، استخدام، سلامت، ورزش، خانه، اقامت، دستگاه‌ها، انتشار وب، رزرو و امور مالی اضافه شد. مجموعه اکنون ۵۶۰۰ آیکون در شش سبک دارد.
+- 2f91379: ۲۰۰ آیکون مستقل برای پیمایش، فرم‌ها، ویرایش متن، خرید، ملک، رفت‌وآمد، همکاری، امنیت، رسانه و گزارش اضافه شد. مجموعه اکنون ۵۴۰۰ آیکون در شش سبک دارد.
+
+## 1.4.0
+
+### Minor Changes
+
+- 3ced8a3: ۲۰۰ آیکون تازه شامل ۱۶۰ طرح دست‌کشیده و ۴۰ آیکون وضعیت اضافه شد. این سری ۱۶ مدل خانه و ۱۶ طرح تنظیمات دارد و کاربردهایی از جدول محوری و ورود داده تا پرداخت، دسترسی، چاپ و زبان رابط را پوشش می‌دهد. مجموعه اکنون ۵۲۰۰ آیکون در شش سبک دارد.
+
+## 1.3.0
+
+### Minor Changes
+
+- 58c44fa: ۲۰۰ آیکون برای کارهای روزمرهٔ رابط کاربری اضافه شد. ۸۰ طرح پایه و ۱۲۰ آیکون وضعیت، برای جست‌وجو، فرم‌ها، همکاری، موجودی، پخش رسانه، تنظیمات موبایل و پشتیبانی. مجموعه اکنون ۵۰۰۰ آیکون در شش سبک دارد.
+
+## 1.2.1
+
+### Patch Changes
+
+- 94d7b1e: - `@kashi-ui/icons/react` دوباره tree-shake می‌شود: هر کامپوننت فقط طرح SVG خودش را دارد و با `/*#__PURE__*/` ساخته می‌شود؛ `import { IconSearch, IconHome, IconUser }` حدود ۴ کیلوبایت gzip به باندل اضافه می‌کند، نه کل آیکون‌ها (حدود ۱٫۷ مگابایت). `<Icon name>` مثل قبل کار می‌کند و برای نام‌های پویا است؛ فقط آن همهٔ آیکون‌ها را می‌آورد.
+  - زبانه‌های افقی (`Tabs`) دیگر ظرفشان را پهن نمی‌کنند: `.k-tabs` ستون `minmax(0, 1fr)` دارد، پنل کوچک می‌شود و فهرست زبانهٔ بلند داخل کادر خودش افقی اسکرول می‌خورد؛ در ۳۷۵ پیکسل صفحه اسکرول افقی نمی‌گیرد.
+  - `.k-skip-link` تا فوکوس نگرفته به یک پیکسلِ بریده (clip-path) پنهان می‌شود، نه با جابه‌جایی بیرون از صفحه که در `dir="rtl"` اسکرول افقی می‌ساخت.
+
+## 1.2.0
+
+### Minor Changes
+
+- ebf7e8c: ۹۰ آیکون به کاشی اضافه شد، در دسته‌هایی مانند دسترس‌پذیری، رفت‌وآمد شهری، ایمنی، انرژی، ارسال، آزمایشگاه، تصویر و صدا، ابزار و دوخت.
+- 8ec94dc: ۲۰۰ آیکون برای جریان‌های پرکاربرد رابط کاربری اضافه شد. این مجموعه ۸۰ طرح پایه و ۱۲۰ آیکون وضعیت دارد. فاصله و خوانایی ۱۶ آیکون در شش خانوادهٔ مرتبط، از جمله بازیابی نسخهٔ فایل، اصلاح شد.
+
+### Patch Changes
+
+- 151055e: هشت آیکون توپر پرکاربرد برای خوانایی در ۲۰ پیکسل بازطراحی شدند، از جمله جست‌وجو، هدیه، دوچرخه، چشم و ویدیو.
+
+## 1.1.0
+
+### Minor Changes
+
+- ce9bda0: ۱۰ آیکون رفت‌وآمد شهری اضافه شد. در سبک توپر، فاصلهٔ خطوط و شکل‌ها بیشتر شده و جزئیات داخل شکل، عدسی ذره‌بین و مرکز چرخ‌ها خواناترند.
+
 ## 1.0.0
 
 ### Major Changes

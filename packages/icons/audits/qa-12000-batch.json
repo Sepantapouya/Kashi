@@ -1,0 +1,57 @@
+{
+  "batch": "added-12000-batch.json",
+  "newDrawings": 1000,
+  "canonicalTotal": 12000,
+  "publishedSourceObjectsPreserved": 11000,
+  "compatibilityAliasesPreserved": 41,
+  "browser": {
+    "decoded": 36000,
+    "themeComposites": 72000,
+    "failures": [],
+    "preview": {
+      "uniqueIconsSeen": 1000,
+      "PersianSearch": true,
+      "EnglishSearch": true,
+      "categoryFilter": true,
+      "sixStyles": true,
+      "stroke2": true,
+      "mobileNoOverflow": true
+    }
+  },
+  "iconTests": {
+    "passed": 42,
+    "failed": 0
+  },
+  "boldCutoutVisualRegressionTests": {
+    "passed": 4,
+    "failed": 0
+  },
+  "figma": {
+    "fullPlugin": "passed",
+    "iconsPlugin": "passed",
+    "canonicalIcons": 12000,
+    "categories": 144,
+    "licensesBundled": true
+  },
+  "package": {
+    "files": 63275,
+    "publicSvgImportsChecked": 72246,
+    "sprites": 6,
+    "conservativeFileBudget": 64000
+  },
+  "wholeCatalogAudit": {
+    "newOffCentre": [],
+    "newEdge": [],
+    "newSmall": [],
+    "newDense": [],
+    "existingDensityExceptionsUnchanged": true
+  },
+  "reviewNote": "Similarity scores and semantic matches selected candidates for side-by-side human inspection. No claim of wholly new concepts; distinct structural forms and functional type glyphs are retained. Candidate exclusions include low-utility and ambiguous drawings, not only duplicates.",
+  "publication": "Prepared for GitHub main; npm release remains pending.",
+  "integration": {
+    "preservedMainCommit": "75bf65eec2127cae09843eb5a55ef70da7703220",
+    "VueAndSvelteTests": "passed",
+    "bilingualFigmaPanel": "preserved and rebuilt",
+    "FigmaCommunityPluginId": "preserved"
+  }
+}

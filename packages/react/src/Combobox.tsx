@@ -62,6 +62,8 @@ export interface ComboboxProps {
   filter?: (option: ComboboxOption, query: string) => boolean;
   /** @default "نتیجه‌ای پیدا نشد." */
   emptyMessage?: ReactNode;
+  /** فقط‌خواندنی: مقدار دیده و ارسال می‌شود ولی فهرست باز و متن عوض نمی‌شود */
+  readOnly?: boolean;
   /** نمایش اسپینر، مثلاً هنگام جستجوی سمت سرور */
   loading?: boolean;
   required?: boolean;
@@ -81,7 +83,7 @@ export interface ComboboxProps {
 export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(function Combobox(
   {
     label, hint, error, options, value, defaultValue = null, onChange, onInputChange, placeholder, filter = defaultFilter,
-    emptyMessage, loading, required, disabled, name, id, className,
+    emptyMessage, loading, required, disabled, readOnly, name, id, className,
     resultsLabel,
   },
   ref,
@@ -120,6 +122,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(function Com
   };
 
   const openList = (at: "first" | "last" | "selected" = "selected") => {
+    if (readOnly) return;
     if (disabled) return;
     setOpen(true);
     const sel = filtered.findIndex((o) => o.value === selected);
@@ -173,6 +176,7 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(function Com
         ref={wrapRef}
         className="k-combobox"
         data-open={open ? "" : undefined}
+        data-readonly={readOnly || undefined}
         onBlur={(e) => {
           if (wrapRef.current?.contains(e.relatedTarget as Node)) return;
           setOpen(false);
@@ -201,7 +205,9 @@ export const Combobox = forwardRef<HTMLInputElement, ComboboxProps>(function Com
             value={query}
             required={required}
             disabled={disabled}
+            readOnly={readOnly}
             onChange={(e) => {
+              if (readOnly) return;
               setQuery(e.target.value);
               setTyping(true);
               setOpen(true);

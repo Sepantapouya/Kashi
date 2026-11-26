@@ -1,0 +1,26 @@
+/* کشوی کناری — روی k-dialog با k-dialog--start | k-dialog--end
+ * اندازه‌ها: k-drawer--sm (۲۰rem) | پیش‌فرض (۲۶rem) | k-drawer--lg (۳۶rem) | k-drawer--full
+ * متغیرها: --k-drawer-width */
+.k-drawer.k-drawer--sm { --k-drawer-width: 20rem; }
+.k-drawer.k-drawer--lg { --k-drawer-width: 36rem; }
+.k-drawer.k-drawer--full { --k-drawer-width: 100vw; }
+.k-drawer .k-drawer__header { padding-block-end: var(--k-space-4); border-block-end: 1px solid var(--k-border-secondary); }
+.k-drawer .k-drawer__body { padding-block-start: var(--k-space-5); }
+
+/* خروج نرم همهٔ پنجره‌ها: modal.ts هنگام بستن data-closing می‌گذارد و پایان انیمیشن را صبر می‌کند */
+.k-dialog[data-closing] { animation: k-dialog-out var(--k-duration-fast) var(--k-ease-standard) forwards; }
+.k-dialog[data-closing]::backdrop { animation: k-fade-out var(--k-duration-fast) var(--k-ease-standard) forwards; }
+.k-dialog--start[data-closing] { animation: k-drawer-start-out var(--k-duration-normal) var(--k-ease-standard) forwards; }
+.k-dialog--end[data-closing] { animation: k-drawer-end-out var(--k-duration-normal) var(--k-ease-standard) forwards; }
+.k-dialog--start[data-closing]:dir(ltr) { animation-name: k-drawer-end-out; }
+.k-dialog--end[data-closing]:dir(ltr) { animation-name: k-drawer-start-out; }
+.k-dialog--bottom[data-closing] { animation: k-sheet-out var(--k-duration-normal) var(--k-ease-standard) forwards; }
+@keyframes k-dialog-out { to { opacity: 0; scale: 0.97; translate: 0 6px; } }
+@keyframes k-fade-out { to { opacity: 0; } }
+@keyframes k-drawer-start-out { to { translate: 100% 0; } }
+@keyframes k-drawer-end-out { to { translate: -100% 0; } }
+@keyframes k-sheet-out { to { translate: 0 100%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .k-dialog[data-closing], .k-dialog[data-closing]::backdrop { animation: none; }
+}

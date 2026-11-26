@@ -1,19 +1,7 @@
 /* نمودارها (BarChart، LineChart) — طبق روش dataviz: نشانه‌های باریک، شبکهٔ کم‌رنگ، رنگ دسته‌ای با ترتیب ثابت
- * پالت: چهار رنگ اول پالت مرجع، اعتبارسنجی‌شده روی سطح کاشی در هر دو تم (CVD ΔE ≥ ۸)
- * متغیرها: --k-chart-1..4  --k-chart-height
+ * رنگ‌ها توکن‌اند (@kashi-ui/tokens): --k-chart-1..8 دسته‌ای، --k-chart-seq-1..5 ترتیبی، --k-chart-div-1..7 واگرا
+ * سری نهم به بعد رنگ خنثی می‌گیرد («سایر»)، نه رنگ ساختگی. متغیر دیگر: --k-chart-height
  */
-:root, [data-theme="dark"] {
-  --k-chart-1: #3987e5;
-  --k-chart-2: #d95926;
-  --k-chart-3: #199e70;
-  --k-chart-4: #c98500;
-}
-[data-theme="light"] {
-  --k-chart-1: #2a78d6;
-  --k-chart-2: #eb6834;
-  --k-chart-3: #1baf7a;
-  --k-chart-4: #eda100;
-}
 .k-chart { position: relative; display: grid; gap: var(--k-space-3); font-size: var(--k-text-xs); }
 .k-chart__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--k-space-2) var(--k-space-4); }
 .k-chart__title { margin: 0; color: var(--k-text-primary); font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); }
@@ -45,49 +33,46 @@
 .k-bars__value { margin-block-end: var(--k-space-1); color: var(--k-text-secondary); font-weight: var(--k-weight-semibold); white-space: nowrap; }
 .k-chart--bar .k-chart__plot { margin-inline-start: 2.5rem; }
 
+/* راهنمای نمودار، نسخهٔ ۲: عنوان (زمان)، خط جداکننده و ردیف هر سری در یک زمینهٔ نرم؛ بدون زبانه */
 .k-chart__tip {
   position: absolute;
   z-index: 2;
   display: grid;
-  gap: 2px;
-  min-inline-size: 8rem;
-  padding: var(--k-space-2) var(--k-space-3);
+  gap: var(--k-space-1);
+  min-inline-size: 10rem;
+  padding: var(--k-space-2);
   border: 1px solid var(--k-border-secondary);
-  border-radius: var(--k-radius-md);
-  background: var(--k-bg-elevated);
+  border-radius: var(--k-radius-lg);
+  background: color-mix(in srgb, var(--k-bg-elevated) 94%, transparent);
+  backdrop-filter: blur(8px);
   box-shadow: var(--k-shadow-lg);
   color: var(--k-text-secondary);
   pointer-events: none;
   white-space: nowrap;
   /* با left جای‌گذاری می‌شود، پس در هر جهتی ‎-50%‎ وسط‌چین می‌کند */
-  translate: -50% calc(-100% - 0.625rem);
-  font-size: var(--k-text-xs);
+  translate: -50% calc(-100% - 0.75rem);
+  font-size: var(--k-text-sm);
   animation: k-tip-in 140ms var(--k-ease-standard);
 }
-/* زبانهٔ کوچک زیر راهنما */
-.k-chart__tip::after {
-  content: "";
-  position: absolute;
-  inset-block-start: 100%;
-  left: 50%;
-  inline-size: 0.625rem;
-  block-size: 0.625rem;
-  margin-block-start: -0.3rem;
-  border: 1px solid var(--k-border-secondary);
-  border-block-start: 0;
-  border-inline-start: 0;
-  background: var(--k-bg-elevated);
-  translate: -50% 0;
-  rotate: 45deg;
+@keyframes k-tip-in { from { opacity: 0; translate: -50% calc(-100% - 0.375rem); } }
+.k-chart__tip-title {
+  padding: var(--k-space-1) var(--k-space-2) var(--k-space-2);
+  border-block-end: 1px solid var(--k-border-secondary);
+  color: var(--k-text-tertiary);
+  font-weight: var(--k-weight-medium);
 }
-@keyframes k-tip-in { from { opacity: 0; translate: -50% calc(-100% - 0.25rem); } }
-.k-chart__tip-title { padding-block-end: 2px; font-weight: var(--k-weight-medium); }
-.k-chart__tip-row strong { font-size: var(--k-text-sm); }
-.k-chart__tip-title { color: var(--k-text-tertiary); }
-.k-chart__tip-row { display: flex; align-items: center; justify-content: space-between; gap: var(--k-space-4); }
-.k-chart__tip-row strong { color: var(--k-text-primary); font-weight: var(--k-weight-semibold); }
-.k-chart__tip-row span { display: inline-flex; align-items: center; gap: var(--k-space-1_5); }
-.k-chart__tip-row i { inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background: var(--_c); }
+.k-chart__tip-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--k-space-6);
+  padding: var(--k-space-1_5) var(--k-space-2);
+  border-radius: calc(var(--k-radius-lg) - 4px);
+  background: var(--k-bg-muted);
+}
+.k-chart__tip-row strong { color: var(--k-text-primary); font-size: var(--k-text-md); font-weight: var(--k-weight-semibold); }
+.k-chart__tip-row span { display: inline-flex; align-items: center; gap: var(--k-space-2); }
+.k-chart__tip-row i { inline-size: 0.625rem; block-size: 0.625rem; border-radius: 50%; background: var(--_c); }
 @media (forced-colors: active) {
   .k-chart__line { stroke: CanvasText; }
   .k-bars__bar { background: CanvasText; }

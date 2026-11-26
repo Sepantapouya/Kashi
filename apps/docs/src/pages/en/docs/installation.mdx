@@ -1,0 +1,112 @@
+---
+layout: ../../../layouts/DocsEn.astro
+title: Installation
+description: Add Kashi to React, Next.js, Vite or any web project with npm, the shadcn registry, Tailwind or plain CSS.
+fa: /docs/installation/
+---
+
+## npm package
+
+The recommended way for most projects. Components come from the package, so fixes and new components arrive when you update.
+
+```bash
+npm i @kashi-ui/react @kashi-ui/css
+```
+
+Import the CSS once at the root of your app and set the page direction:
+
+```tsx
+// main.tsx or app/layout.tsx
+import "@kashi-ui/css";
+```
+
+```html
+<html lang="fa" dir="rtl">   <!-- or lang="en" dir="ltr" for an English product -->
+```
+
+Kashi works with React 18 and 19 and with Next.js, Vite and Remix. In the Next.js App Router you can use components directly in server pages.
+
+## shadcn registry
+
+If you want the component code inside your project so you can change anything, use Kashi's registry with the [shadcn CLI](https://ui.shadcn.com/docs/cli). Files are copied to `components/kashi`, and dependent components, Kashi CSS and the Persian utilities are installed automatically. Kashi is listed in the official shadcn registry directory as `@kashi`:
+
+```bash
+npx shadcn@latest add @kashi/date-picker @kashi/iran-map
+```
+
+With an older shadcn version, use the full item URL (`https://kashi.sepantapouya.com/r/iran-map.json`) or register the registry once in `components.json`:
+
+```json
+{
+  "registries": {
+    "@kashi": "https://kashi.sepantapouya.com/r/{name}.json"
+  }
+}
+```
+
+The project needs `npx shadcn@latest init` first. The full list of items is in [registry.json](/r/registry.json).
+
+| | npm package | shadcn registry |
+|---|---|---|
+| Component code | in `node_modules` | in your project |
+| Customizing | props, classes and CSS variables | edit the file directly |
+| Updating | `npm update` | run the command again (overwrites your edits) |
+
+## Tailwind
+
+Install the preset to get Kashi colors, font, radius and shadows as Tailwind classes (`bg-brand`, `rounded-lg`, `text-secondary`) that follow the dark and light themes:
+
+```bash
+npm i @kashi-ui/tailwind
+```
+
+```css
+@import "@kashi-ui/tailwind";
+@import "tailwindcss";
+@import "@kashi-ui/css";
+```
+
+## HTML and other frameworks
+
+For Vue, Svelte, Angular, WordPress or plain HTML, use `@kashi-ui/css` for the look of every component and `@kashi-ui/elements` for the ones that need JavaScript (Persian fields, Jalali calendar, OTP, address form, Iran map, combobox, data table, menus, dialogs, tabs and toasts):
+
+```bash
+npm i @kashi-ui/css @kashi-ui/elements
+```
+
+Or straight from a CDN:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@kashi-ui/elements/dist/cdn/kashi-elements.js"></script>
+```
+
+```html
+<button class="k-btn k-btn--primary">Sign up</button>
+<kashi-national-id name="national_id" required></kashi-national-id>
+<kashi-date-picker label="Birth date" name="birth"></kashi-date-picker>
+```
+
+The CDN file is about 3 KB gzipped and loads each part only when one of its tags appears on the page.
+
+## AI assistants (MCP)
+
+`@kashi-ui/mcp` gives Claude, Cursor, Copilot and Windsurf the docs, props, icons and tokens, so they write code from Kashi's real API instead of guessing. It runs locally with npx; no API key or account.
+
+```bash
+claude mcp add kashi -- npx -y @kashi-ui/mcp
+```
+
+For Cursor, Claude Desktop or Windsurf, add this to their MCP config file:
+
+```json
+{
+  "mcpServers": {
+    "kashi": { "command": "npx", "args": ["-y", "@kashi-ui/mcp"] }
+  }
+}
+```
+
+## Figma
+
+The Kashi kit plugin builds every component, variable and icon into your Figma file. Download it from the [Figma page](/docs/figma/).

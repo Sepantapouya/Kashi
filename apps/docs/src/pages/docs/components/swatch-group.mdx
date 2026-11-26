@@ -1,0 +1,49 @@
+---
+layout: ../../../layouts/Docs.astro
+title: نمونهٔ رنگ
+description: انتخاب رنگ از میان نمونه‌های رنگی با نام؛ برای فیلتر رنگ در فروشگاه یا انتخاب رنگ کالا.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { SwatchDemo, SwatchSingleDemo } from "../../../components/demos";
+
+```tsx
+import { SwatchGroup } from "@kashi-ui/react";
+```
+
+## فیلتر رنگ (چندانتخابی)
+
+<Demo html={false} align="stretch" code={`<SwatchGroup
+  label="رنگ"
+  value={colors}
+  onChange={setColors}
+  options={[
+    { value: "blue", label: "آبی", color: "#3b6fd4" },
+    { value: "white", label: "سفید", color: "#ffffff" },
+    { value: "silver", label: "نقره‌ای", color: "radial-gradient(#fff, #a9adb3)" },
+  ]}
+/>`}>
+  <SwatchDemo client:load />
+</Demo>
+
+`color` هر مقدار CSS برای `background` است: یک رنگ، گرادیان (مثل چند طیف یک رنگ) یا حتی تصویر بافت پارچه با `url()`.
+
+## رنگ کالا (یک انتخاب)
+
+<Demo html={false} code={`<SwatchGroup single size="sm" label="رنگ کالا" options={colors} value={v} onChange={setV} />`}>
+  <SwatchSingleDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["options", "{ value, label, color, disabled? }[]", "", "نمونه‌ها؛ color هر مقدار background"],
+  ["value / defaultValue", "string[]", "[]", "مقدارهای انتخاب‌شده"],
+  ["onChange", "(value: string[]) => void", "", ""],
+  ["single", "boolean", "false", "فقط یک انتخاب (رادیو)"],
+  ["label", "ReactNode", "", "عنوان گروه (legend)"],
+  ["size", '"sm" | "md" | "lg"', '"md"', "اندازهٔ نمونه‌ها"],
+  ["name", "string", "", "ارسال مقدارها در فرم"],
+]} />
+
+## دسترس‌پذیری
+
+هر نمونه یک چک‌باکس (یا با `single` رادیو) بومی با برچسب متنی است، پس رنگ تنها راه شناختن آن نیست. انتخاب با تیک و حلقهٔ برند هم نشان داده می‌شود و صفحه‌خوان «انتخاب شده» را می‌خواند. همهٔ نمونه‌ها یک حاشیهٔ نازک دارند تا رنگ‌های روشن مثل سفید روی زمینهٔ روشن گم نشوند.

@@ -67,6 +67,7 @@ async function run(opts) {
     buildFeedback();
     buildData();
     buildNavigation();
+    buildWork();
 
     const pages = kitPages();
     const order = [ensurePage(pages, "cover", "📕 Kashi UI Kit")];

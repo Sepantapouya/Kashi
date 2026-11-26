@@ -1,8 +1,8 @@
 // کج شدن سه‌بعدی کارت‌ها با نشانگر، روی همهٔ صفحه‌ها.
 // فقط با موس (pointer: fine) و وقتی کاربر کاهش حرکت نخواسته باشد.
 const SELECTOR = [
-  ".gcard", ".pager__link", ".tile", ".ent__item", ".quality__item", ".step",
-  ".adopt", ".author", ".support", ".home-pro", "[data-tilt3d]",
+  ".gcard", ".pager__link", ".tile", ".ent__item", ".quality__item",
+  ".dh-card", ".ab-card", ".cmp-card", ".home-pro", "[data-tilt3d]",
 ].join(",");
 const MAX = 6; // درجه
 

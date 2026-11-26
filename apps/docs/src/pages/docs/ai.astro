@@ -176,10 +176,10 @@ const headings = [
       <span class="ai-steps__n" aria-hidden="true">۱</span>
       <div class="ai-steps__body">
         <h3>سرور را به دستیارتان اضافه کنید</h3>
-        <div class="ai-tabs" data-ai-tabs>
-          <div class="ai-tabs__list" role="tablist" aria-label="دستیار">
+        <div class="ai-tabs k-tabs k-tabs--segmented k-tabs--sm" data-ai-tabs>
+          <div class="ai-tabs__list k-tabs__list" role="tablist" aria-label="دستیار">
             {clients.map((c, i) => (
-              <button type="button" role="tab" id={`t-${c.id}`} aria-controls={`p-${c.id}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1}>{c.name}</button>
+              <button type="button" role="tab" class="k-tabs__tab" id={`t-${c.id}`} aria-controls={`p-${c.id}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? 0 : -1}>{c.name}</button>
             ))}
           </div>
           {clients.map((c, i) => (
@@ -364,11 +364,9 @@ const headings = [
   .ai-steps h3 { margin: 0.25rem 0 var(--k-space-2); color: var(--k-text-primary); font-size: var(--k-text-md); font-weight: var(--k-weight-semibold); }
   .ai-steps__body > p { margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-sm); line-height: 1.9; }
   .ai-tabs { margin-block-start: var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); overflow: clip; }
-  .ai-tabs__list { display: flex; gap: var(--k-space-1); padding: var(--k-space-2); overflow-x: auto; border-block-end: 1px solid var(--k-border-secondary); background: var(--k-bg-secondary); scrollbar-width: none; }
-  .ai-tabs__list button { flex: none; padding: 0.375rem var(--k-space-3); border: 1px solid transparent; border-radius: var(--k-radius-md); background: none; color: var(--k-text-tertiary); font: inherit; font-size: var(--k-text-sm); font-weight: var(--k-weight-semibold); cursor: pointer; direction: ltr; }
-  .ai-tabs__list button:hover { color: var(--k-text-primary); }
-  .ai-tabs__list button[aria-selected="true"] { border-color: var(--k-border-primary); background: var(--k-bg-primary); box-shadow: var(--k-shadow-xs); color: var(--k-text-primary); }
-  .ai-tabs__list button:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+  .ai-tabs__list { margin: var(--k-space-2); }
+  .ai-tabs__list .k-tabs__tab { direction: ltr; }
+  .ai-tabs { --k-tabs-gap: 0; }
   .ai-tabs__panel { padding: var(--k-space-4); }
   .ai-tabs__panel > p { margin: 0 0 var(--k-space-3); color: var(--k-text-secondary); font-size: var(--k-text-sm); }
   .ai-tabs__panel :global(.codeblock) { margin: 0; }

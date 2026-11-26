@@ -1,36 +1,80 @@
 ---
+import Analytics from "../components/Analytics.astro";
 import "../styles/layers.css";
 import "@kashi-ui/css";
 import "../styles/site.css";
+import "../styles/enterprise.css";
+import "../styles/chrome.css";
 import "../styles/depth.css";
 
-interface Props { title?: string; description?: string }
-const { title, description = "کاشی — دیزاین‌سیستم فارسی، متن‌باز، راست‌به‌چپ و دسترس‌پذیر برای React و هر فریم‌ورک دیگری." } = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+  /** عنوان کامل برای نتایج جستجو و تب مرورگر؛ اگر نباشد از title ساخته می‌شود */
+  seoTitle?: string;
+  /** تصویر اشتراک‌گذاری (PNG یا JPG، ۱۲۰۰×۶۳۰)؛ پیش‌فرض og.png */
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: "website" | "article";
+  /** داده‌های ساختاریافتهٔ مخصوص صفحه؛ Organization و WebSite همیشه هستند */
+  jsonLd?: Record<string, unknown>[];
+  /** متای مقاله */
+  published?: string;
+  modified?: string;
+  /** زبان صفحه؛ «en» صفحه را چپ‌به‌راست و انگلیسی می‌کند */
+  lang?: "fa" | "en";
+  /** نشانی نسخهٔ زبان دیگر همین صفحه (hreflang) */
+  alternate?: string;
+  /** صفحه‌های خصوصی (مثل دورهٔ رمزدار /learn/): بدون ایندکس و بدون آمار */
+  noindex?: boolean;
+}
+const { title, description = "کاشی — دیزاین‌سیستم فارسی، متن‌باز، راست‌به‌چپ و دسترس‌پذیر برای React و هر فریم‌ورک دیگری.", seoTitle, ogImage = "/og.png", ogImageAlt = "کاشی، دیزاین‌سیستم متن‌باز برای محصولات فارسی", ogType = "website", jsonLd = [], published, modified, lang = "fa", alternate, noindex = false } = Astro.props;
+const en = lang === "en";
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const fullTitle = title ? `${title} · کاشی` : "کاشی — دیزاین‌سیستم فارسی";
+// عنوان کوتاه در نتایج گوگل چیزی نمی‌گوید و بلند بریده می‌شود؛ هر دو حالت این‌جا متعادل می‌شوند
+const fullTitle = en ? (seoTitle ?? (title ? `${title} · Kashi Design System` : "Kashi — open-source Persian RTL design system")) : seoTitle ?? (!title ? "کاشی — دیزاین‌سیستم فارسی متن‌باز برای React و HTML"
+  : title.length < 14 ? `${title} · کاشی، دیزاین‌سیستم فارسی`
+  : `${title} · کاشی`.length > 62 ? title : `${title} · کاشی`);
+const ogImageUrl = new URL(ogImage, Astro.site);
+const site = Astro.site!.href.replace(/\/$/, "");
+const graph = [
+  { "@type": "Organization", "@id": `${site}/#org`, name: "کاشی", alternateName: "Kashi", url: `${site}/`, logo: `${site}/favicon.svg`, sameAs: ["https://github.com/Sepantapouya/Kashi", "https://www.npmjs.com/org/kashi-ui", "https://t.me/kashidesign"] },
+  { "@type": "WebSite", "@id": `${site}/#website`, name: "کاشی", alternateName: "Kashi Design System", url: `${site}/`, inLanguage: "fa-IR", publisher: { "@id": `${site}/#org` } },
+  ...jsonLd,
+];
+const ld = JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replace(/</g, "\\u003c");
 ---
 <!doctype html>
-<html lang="fa" dir="rtl" data-theme="dark">
+<html lang={en ? "en" : "fa"} dir={en ? "ltr" : "rtl"} data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow, noarchive" />}
     <meta name="color-scheme" content="dark light" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="canonical" href={canonical} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="کاشی" />
-    <meta property="og:locale" content="fa_IR" />
+    <meta property="og:locale" content={en ? "en_US" : "fa_IR"} />
+    {alternate && <link rel="alternate" hreflang={en ? "fa" : "en"} href={new URL(alternate, Astro.site)} />}
+    {alternate && <link rel="alternate" hreflang={lang} href={canonical} />}
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL("/og.png", Astro.site)} />
+    <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="کاشی، دیزاین‌سیستم متن‌باز برای محصولات فارسی" />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={new URL("/og.png", Astro.site)} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    {published && <meta property="article:published_time" content={published} />}
+    {modified && <meta property="article:modified_time" content={modified} />}
+    <link rel="alternate" type="application/rss+xml" title="مقاله‌های کاشی" href="/articles/rss.xml" />
+    <script type="application/ld+json" set:html={ld} />
     <!-- تم را پیش از نقاشی صفحه اعمال می‌کند تا چشمک نزند. پیش‌فرض: تیره -->
     <script is:inline>
       document.documentElement.classList.add("js");
@@ -39,11 +83,13 @@ const fullTitle = title ? `${title} · کاشی` : "کاشی — دیزاین‌
         if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
       } catch {}
     </script>
+    {!noindex && <Analytics />}
   </head>
   <body>
-    <a class="k-skip-link" href="#main">رفتن به محتوای اصلی</a>
+    <a class="k-skip-link" href="#main">{en ? "Skip to content" : "رفتن به محتوای اصلی"}</a>
     <slot />
     <div class="k-sr-only" aria-live="polite" id="live-region"></div>
+    <button type="button" class="k-btn k-btn--secondary k-btn--icon k-btn--pill to-top" data-to-top aria-label="بازگشت به بالای صفحه" tabindex="-1"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 15.5v-11M5.5 9 10 4.5 14.5 9" /></svg></button>
 
     <script>
       import "../scripts/depth";
@@ -114,7 +160,7 @@ const fullTitle = title ? `${title} · کاشی` : "کاشی — دیزاین‌
       });
 
       // هدر پس از اسکرول شیشه‌ای و سایه‌دار می‌شود
-      const header = document.querySelector(".site-header");
+      const header = document.querySelector("[data-hd]");
       const onScroll = () => header?.toggleAttribute("data-scrolled", scrollY > 8);
       onScroll();
       addEventListener("scroll", onScroll, { passive: true });
@@ -131,6 +177,95 @@ const fullTitle = title ? `${title} · کاشی` : "کاشی — دیزاین‌
         spy();
         addEventListener("scroll", spy, { passive: true });
       }
+
+      const calm = matchMedia("(prefers-reduced-motion: reduce)");
+
+      // قرص لغزان زیر پیوندهای سربرگ
+      const siteNav = document.querySelector<HTMLElement>("[data-hd-nav]");
+      const pill = siteNav?.querySelector<HTMLElement>(".hd__pill");
+      if (siteNav && pill) {
+        siteNav.addEventListener("pointerover", (e) => {
+          const el = (e.target as HTMLElement).closest<HTMLElement>(".hd__link");
+          if (!el) return;
+          pill.style.left = `${el.offsetLeft}px`;
+          pill.style.width = `${el.offsetWidth}px`;
+          pill.toggleAttribute("data-on", true);
+        });
+        siteNav.addEventListener("pointerleave", () => pill.removeAttribute("data-on"));
+      }
+
+      // نور دنبال‌کنندهٔ ماوس روی کارت‌ها
+      document.querySelectorAll<HTMLElement>(".pager__link, .hd__feature, .tile, .pkg, .ent__item, .quality__item, .gcard, .cmp-card, .logo-card").forEach((el) => el.setAttribute("data-spot", ""));
+      document.addEventListener("pointermove", (e) => {
+        const el = (e.target as HTMLElement).closest?.("[data-spot]") as HTMLElement | null;
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+        el.style.setProperty("--my", `${e.clientY - r.top}px`);
+      }, { passive: true });
+
+      // نشانگر لغزان «در این صفحه»
+      const tocList = document.querySelector<HTMLElement>(".toc ul");
+      if (tocList) {
+        const rail = document.createElement("span");
+        rail.className = "toc__rail";
+        rail.setAttribute("aria-hidden", "true");
+        tocList.append(rail);
+        const place = () => {
+          const a = tocList.querySelector<HTMLElement>("a[data-active]");
+          rail.style.opacity = a ? "1" : "0";
+          if (a) { rail.style.top = `${a.offsetTop}px`; rail.style.height = `${a.offsetHeight}px`; }
+        };
+        new MutationObserver(place).observe(tocList, { subtree: true, attributes: true, attributeFilter: ["data-active"] });
+        place();
+      }
+
+      // بازگشت به بالا
+      const toTop = document.querySelector<HTMLButtonElement>("[data-to-top]");
+      if (toTop) {
+        const sync = () => {
+          const show = scrollY > innerHeight * 1.2;
+          toTop.toggleAttribute("data-show", show);
+          toTop.tabIndex = show ? 0 : -1;
+        };
+        sync();
+        addEventListener("scroll", sync, { passive: true });
+        toTop.addEventListener("click", () => {
+          scrollTo({ top: 0, behavior: calm.matches ? "auto" : "smooth" });
+          document.getElementById("main")?.focus({ preventScroll: true });
+        });
+      }
+
+      // پیوند کنار عنوان: کپی نشانی همان بخش
+      document.addEventListener("click", (e) => {
+        const a = (e.target as HTMLElement).closest<HTMLAnchorElement>(".h-anchor");
+        if (!a || !navigator.clipboard) return;
+        navigator.clipboard.writeText(a.href).then(() => {
+          a.dataset.copied = "";
+          announce("پیوند بخش کپی شد");
+          setTimeout(() => delete a.dataset.copied, 1400);
+        });
+      });
+
+      // نشانگر لغزان زبانه‌های کاشی در صفحه‌های ایستا (کامپوننت React خودش این را دارد)
+      document.querySelectorAll<HTMLElement>(".k-tabs__list[role='tablist']").forEach((list) => {
+        if (list.closest("astro-island") || list.querySelector(".k-tabs__indicator")) return;
+        const ind = document.createElement("span");
+        ind.className = "k-tabs__indicator";
+        ind.setAttribute("aria-hidden", "true");
+        const place = () => {
+          const t = list.querySelector<HTMLElement>("[aria-selected='true']");
+          if (!t || !t.offsetWidth) return;
+          list.style.setProperty("--_ix", `${t.offsetLeft}px`);
+          list.style.setProperty("--_iy", `${t.offsetTop}px`);
+          list.style.setProperty("--_iw", `${t.offsetWidth}px`);
+          list.style.setProperty("--_ih", `${t.offsetHeight}px`);
+          if (!ind.isConnected) { list.append(ind); list.setAttribute("data-indicator", ""); }
+        };
+        new MutationObserver(place).observe(list, { subtree: true, attributes: true, attributeFilter: ["aria-selected"] });
+        new ResizeObserver(place).observe(list);
+        place();
+      });
 
       // چک‌باکس‌های نیمه‌انتخاب رندرشده در سرور
       document.querySelectorAll<HTMLInputElement>("input[data-indeterminate]").forEach((el) => (el.indeterminate = true));

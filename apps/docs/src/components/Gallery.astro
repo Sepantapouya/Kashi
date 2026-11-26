@@ -15,16 +15,18 @@ const slugOf = (href: string) => href.split("/").filter(Boolean).pop()!;
 // دسته‌بندی بر اساس کاربرد
 const CATEGORIES: Record<"components" | "persian", { key: string; label: string; text?: string; slugs: string[] }[]> = {
   components: [
-    { key: "form", label: "فرم و ورودی", text: "هر چیزی که کاربر با آن داده وارد می‌کند؛ با برچسب، راهنما و پیام خطای فارسی.", slugs: ["button", "input", "select", "checkbox", "radio", "switch", "combobox", "tag-input", "file-upload", "slider", "number-input", "segmented-control", "button-group", "chips", "copy-button", "password-strength", "rating", "inline-edit", "color-picker", "multi-select"] },
-    { key: "data", label: "نمایش داده", text: "جدول، کارت آمار و خط زمانی برای داشبوردها و پنل‌های مدیریت.", slugs: ["charts", "table", "stat-card", "timeline", "card", "badge", "avatar", "tree-view", "progress", "meter", "carousel", "skeleton", "empty-state", "divider"] },
-    { key: "nav", label: "ناوبری", text: "تب، منو، صفحه‌بندی و کامند پالت، همه با پیمایش کامل کیبورد.", slugs: ["tabs", "side-nav", "breadcrumb", "pagination", "stepper", "command-palette", "dropdown-menu", "context-menu", "accordion", "splitter"] },
-    { key: "feedback", label: "بازخورد و پنجره", text: "پیام‌ها و پنجره‌هایی که فوکوس و صفحه‌خوان را درست مدیریت می‌کنند.", slugs: ["alert", "toast", "banner", "dialog", "popover", "tooltip", "tour"] },
+    { key: "form", label: "فرم و ورودی", text: "هر چیزی که کاربر با آن داده وارد می‌کند؛ با برچسب، راهنما و پیام خطای فارسی.", slugs: ["form", "button", "input", "select", "checkbox", "radio", "switch", "combobox", "tag-input", "file-upload", "slider", "number-input", "segmented-control", "button-group", "chips", "copy-button", "password-strength", "rating", "inline-edit", "color-picker", "multi-select", "search-suggest", "swatch-group", "rich-text"] },
+    { key: "ai", label: "گفتگو و هوش مصنوعی", text: "حباب پیام، کادر پیام با پیوست، متن کلمه‌به‌کلمه و بلوک کد؛ راست‌به‌چپ برای چت‌بات و دستیار فارسی.", slugs: ["chat", "chat-composer", "streaming-text", "code-block"] },
+    { key: "work", label: "کار و همکاری", text: "کانبان، فهرست کشیدنی، برنامهٔ زمانی شمسی و مرکز اعلان‌ها؛ همه با کیبورد هم کار می‌کنند.", slugs: ["kanban", "sortable", "scheduler", "notifications"] },
+    { key: "data", label: "نمایش داده", text: "جدول، کارت آمار و خط زمانی برای داشبوردها و پنل‌های مدیریت.", slugs: ["charts", "table", "stat-card", "timeline", "card", "badge", "avatar", "tree-view", "progress", "meter", "carousel", "gallery", "qr-code", "skeleton", "empty-state", "divider"] },
+    { key: "nav", label: "ناوبری", text: "تب، منو، صفحه‌بندی و کامند پالت، همه با پیمایش کامل کیبورد.", slugs: ["navbar", "tabs", "side-nav", "breadcrumb", "pagination", "stepper", "command-palette", "dropdown-menu", "context-menu", "accordion", "splitter"] },
+    { key: "feedback", label: "بازخورد و پنجره", text: "پیام‌ها و پنجره‌هایی که فوکوس و صفحه‌خوان را درست مدیریت می‌کنند.", slugs: ["alert", "toast", "banner", "dialog", "drawer", "bottom-sheet", "popover", "tooltip", "tour"] },
   ],
   persian: [
-    { key: "input", label: "فیلدهای فارسی", text: "کد ملی، شناسهٔ شرکت، موبایل، تلفن، کارت، شبا، مبلغ، کد پستی، ساعت، پلاک و متن؛ همه در یک کامپوننت با kind.", slugs: ["input", "province", "otp"] },
+    { key: "input", label: "فیلدهای فارسی", text: "کد ملی، شناسهٔ شرکت، موبایل، تلفن، کارت، شبا، مبلغ، کد پستی، ساعت، پلاک، چک صیادی، کد اقتصادی، شمارهٔ مالیاتی و متن؛ همه در یک کامپوننت با kind.", slugs: ["input", "province", "otp"] },
     { key: "map", label: "نقشه و نشانی", text: "نقشهٔ ۳۱ استان ایران و فرم نشانی با فهرست بیش از ۱۲۰۰ شهر.", slugs: ["iran-map", "address"] },
-    { key: "date", label: "تاریخ و زمان", text: "تقویم جلالی دقیق برای سال‌های ۱۳۰۰ تا ۱۵۰۰، بدون کتابخانهٔ جانبی.", slugs: ["date-picker", "date-range", "month-picker", "appointment", "date-tile", "countdown", "activity-heatmap"] },
-    { key: "bank", label: "بانکی و مالی", text: "نمایش مبلغ، کارت بانکی با رنگ و لوگوی بانک، رسید پرداخت و لوگوی ۴۰ بانک.", slugs: ["money", "bank-card", "receipt", "bank-logos"] },
+    { key: "date", label: "تاریخ و زمان", text: "تقویم جلالی دقیق برای سال‌های ۱۳۰۰ تا ۱۵۰۰، بدون کتابخانهٔ جانبی.", slugs: ["date-picker", "date-range", "month-picker", "appointment", "business-hours", "date-tile", "countdown", "activity-heatmap"] },
+    { key: "bank", label: "بانکی و مالی", text: "نمایش مبلغ، فیلتر بازهٔ قیمت، کارت بانکی با رنگ و لوگوی بانک، رسید پرداخت و لوگوی ۴۰ بانک.", slugs: ["money", "price-range", "bank-card", "receipt", "bank-logos"] },
     { key: "text", label: "متن فارسی", text: "نیم‌فاصله، «ي» و «ك» عربی و صفحه‌کلید اشتباه؛ مشکلاتی که فقط متن فارسی دارد.", slugs: ["text-fix"] },
   ],
 };
@@ -56,12 +58,19 @@ const persian = mode === "persian";
           : "هر کارت پیش‌نمایش زندهٔ همان کامپوننت است. برای مستندات، نمونه‌ها و ویژگی‌ها روی آن بزنید."}
       </p>
 
-      {!persian && (
-        <div class="gallery__tools" data-enter style="--d: 3">
+      {persian && (
+        <ul class="gfacts" role="list" data-enter style="--d: 3">
+          {[["۳۱", "استان روی نقشه"], ["۱۲۰۰+", "شهر در فرم نشانی"], ["۴۰", "بانک با لوگو و رنگ"], ["۱۳۰۰ تا ۱۵۰۰", "تقویم جلالی دقیق"], ["۰", "وابستگی جانبی"]].map(([n, t]) => (
+            <li><b>{n}</b><span>{t}</span></li>
+          ))}
+        </ul>
+      )}
+      {(
+        <div class="gallery__tools" data-enter style="--d: 4">
           <label class="gallery__search k-input">
             <span class="k-input__addon"><Fragment set:html={iconSvg("search")} /></span>
             <span class="k-sr-only">جستجوی کامپوننت</span>
-            <input class="k-input__control" type="search" placeholder="جستجو، مثلاً «جدول» یا «منو»" data-gallery-search autocomplete="off" />
+            <input class="k-input__control" type="search" placeholder={persian ? "جستجو، مثلاً «شبا» یا «تقویم»" : "جستجو، مثلاً «جدول» یا «منو»"} data-gallery-search autocomplete="off" />
           </label>
           <div class="k-chips" role="group" aria-label="دسته">
             {filters.map((f, i) => (
@@ -70,7 +79,9 @@ const persian = mode === "persian";
               </button>
             ))}
           </div>
-          <a class="gallery__switch" href="/docs/persian/">ابزارهای فارسی را جدا ببینید <span aria-hidden="true">←</span></a>
+          {persian
+            ? <a class="gallery__switch" href="/docs/components/">کامپوننت‌های عمومی را ببینید <span aria-hidden="true">←</span></a>
+            : <a class="gallery__switch" href="/docs/persian/">ابزارهای فارسی را جدا ببینید <span aria-hidden="true">←</span></a>}
         </div>
       )}
       <p class="k-sr-only" aria-live="polite" data-gallery-status></p>
@@ -114,6 +125,11 @@ numberToWords(<span class="t-n">2500000</span>);                     <span class
 </Base>
 
 <style is:global>
+  .gfacts { display: flex; flex-wrap: wrap; justify-content: center; gap: 1px; margin: var(--k-space-8) auto 0; padding: 0; list-style: none; overflow: hidden; inline-size: fit-content; max-inline-size: 100%; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-xl); background: var(--k-border-secondary); }
+  .gfacts li { display: grid; justify-items: center; gap: 2px; min-inline-size: 8.5rem; padding: var(--k-space-4) var(--k-space-5); background: color-mix(in srgb, var(--k-bg-primary) 92%, transparent); }
+  .gfacts b { color: var(--k-text-primary); font-size: var(--k-text-xl); font-weight: var(--k-weight-black); }
+  .gfacts span { color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
+  @media (max-width: 40rem) { .gfacts li { min-inline-size: 7rem; flex: 1 1 40%; } }
   .gallery { overflow-x: clip; max-inline-size: 84rem; margin-inline: auto; padding: clamp(3rem, 7vw, 5rem) var(--gutter) clamp(4rem, 8vw, 6rem); }
   .gallery__head { position: relative; isolation: isolate; max-inline-size: 48rem; margin: 0 auto clamp(2.5rem, 5vw, 3.5rem); text-align: center; }
   .gallery__head::before { content: ""; position: absolute; inset: -6rem 10% auto; block-size: 16rem; z-index: -1; border-radius: 50%; background: var(--k-brand-500); filter: blur(90px); opacity: 0.16; pointer-events: none; }
@@ -178,6 +194,19 @@ numberToWords(<span class="t-n">2500000</span>);                     <span class
   .gcard__preview .pv-dialog__title { margin: 0; color: var(--k-text-primary); font-weight: var(--k-weight-semibold); font-size: var(--k-text-sm); }
   .gcard__preview .pv-dialog__text { margin: var(--k-space-1) 0 var(--k-space-3); color: var(--k-text-tertiary); font-size: var(--k-text-xs); }
   .gcard__preview .pv-dialog__actions { display: flex; justify-content: flex-end; gap: var(--k-space-2); }
+  .gcard__preview .pv-drawer { position: relative; display: flex; inline-size: 15rem; block-size: 9rem; border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); overflow: hidden; background: var(--k-bg-secondary); }
+  .gcard__preview .pv-drawer__page { flex: 1; background: repeating-linear-gradient(180deg, transparent 0 14px, var(--k-border-secondary) 14px 15px); opacity: .6; }
+  .gcard__preview .pv-drawer__panel { display: grid; align-content: start; gap: var(--k-space-2); inline-size: 9rem; padding: var(--k-space-3); background: var(--k-bg-elevated); border-inline-start: 1px solid var(--k-border-secondary); box-shadow: var(--k-shadow-lg); font-size: var(--k-text-xs); }
+  .gcard__preview .pv-drawer__panel .k-btn { justify-self: stretch; }
+  .gcard__preview .pv-phone { position: relative; inline-size: 8.5rem; block-size: 10rem; border: 1px solid var(--k-border-primary); border-radius: 1.25rem; background: var(--k-bg-secondary); overflow: hidden; }
+  .gcard__preview .pv-sheet { position: absolute; inset: auto 0 0; display: grid; gap: var(--k-space-1-5, 6px); padding: 6px var(--k-space-3) var(--k-space-3); border-radius: 1rem 1rem 0 0; background: var(--k-bg-elevated); border-block-start: 1px solid var(--k-border-secondary); box-shadow: var(--k-shadow-xl); }
+  .gcard__preview .pv-sheet__handle { justify-self: center; inline-size: 1.75rem; block-size: 3px; border-radius: 2px; background: var(--k-border-primary); margin-block-end: 4px; }
+  .gcard__preview .pv-sheet__row { padding: 4px 8px; border-radius: var(--k-radius-sm); font-size: var(--k-text-xs); color: var(--k-text-secondary); }
+  .gcard__preview .pv-sheet__row[data-on] { background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+  .gcard__preview .pv-navbar { display: flex; align-items: center; gap: var(--k-space-3); padding: var(--k-space-2) var(--k-space-3); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-primary); font-size: var(--k-text-xs); color: var(--k-text-tertiary); }
+  .gcard__preview .pv-navbar b { color: var(--k-text-primary); margin-inline-end: var(--k-space-1); }
+  .gcard__preview .pv-navbar span[data-on] { color: var(--k-text-primary); padding: 3px 8px; border-radius: var(--k-radius-sm); background: var(--k-bg-hover); }
+  .gcard__preview .pv-navbar .k-btn { margin-inline-start: auto; }
   .gcard__preview .pv-list { margin-block-start: var(--k-space-1); }
   .gcard__preview .pv-cmd { border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-lg); overflow: hidden; font-size: var(--k-text-sm); }
   .gcard__preview .pv-cmd__search { display: flex; align-items: center; gap: var(--k-space-2); padding: var(--k-space-2) var(--k-space-3); border-block-end: 1px solid var(--k-border-secondary); color: var(--k-text-tertiary); }
@@ -197,6 +226,25 @@ numberToWords(<span class="t-n">2500000</span>);                     <span class
   .gcard__preview .pv-bank { display: grid; place-items: center; inline-size: 3.5rem; block-size: 3.5rem; border: 1px solid var(--k-border-primary); border-radius: var(--k-radius-lg); background: var(--k-bg-elevated); color: var(--k-text-brand); }
   .gcard__preview .pv-bank svg { inline-size: 1.75rem; }
   /* سال کامل در عرض کارت: خانه‌های ریز بدون برچسب */
+  .gcard__preview .pv-chat { display: grid; gap: 6px; inline-size: min(100%, 15rem); font-size: 0.75rem; }
+  .gcard__preview .pv-chat .k-msg { max-inline-size: 90%; animation: none; }
+  .gcard__preview .pv-chat .k-msg__bubble { padding: 4px 10px; font-size: 0.75rem; line-height: 1.7; }
+  .gcard__preview .pv-sort, .gcard__preview .pv-notif { gap: 6px; font-size: 0.75rem; }
+  .gcard__preview .pv-sort .k-sortable__item { min-block-size: 2.25rem; padding-block: 2px; font-size: 0.75rem; }
+  .gcard__preview .pv-kanban { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 6px; inline-size: min(100%, 16rem); }
+  .gcard__preview .pv-kanban .k-kanban__col { gap: 6px; padding: 6px; }
+  .gcard__preview .pv-kanban .k-kanban__card { padding: 6px 8px; font-size: 0.75rem; }
+  .gcard__preview .pv-kanban .k-kanban__title { font-size: 0.75rem; }
+  .gcard__preview .pv-gallery { display: grid; grid-template-columns: repeat(2, 4.5rem); gap: 6px; }
+  .gcard__preview .pv-gallery .k-gallery__item { aspect-ratio: 4 / 3; }
+  .gcard__preview .pv-notif .k-notif__item { animation: none; }
+  .gcard__preview .pv-notif .k-notif__main { padding: 4px 8px; padding-inline-end: 1.75rem; }
+  .gcard__preview .pv-notif .k-notif__item-title { font-size: 0.75rem; line-height: 1.5; }
+  .gcard__preview .pv-notif .k-notif__dot { inset-block-start: 4px; }
+  .gcard__preview .pv-sched { display: grid; grid-template-columns: repeat(4, 3.25rem); gap: 4px; }
+  .gcard__preview .pv-sched__col { display: grid; align-content: start; gap: 4px; block-size: 7rem; padding: 4px; border-radius: 8px; background: var(--k-bg-secondary); }
+  .gcard__preview .pv-sched__day { color: var(--k-text-tertiary); font-size: 0.75rem; text-align: center; }
+  .gcard__preview .pv-sched .k-sched__event { animation: none; padding: 2px 4px; }
   .gcard__preview .pv-appt { display: grid; gap: 8px; inline-size: min(100%, 15rem); font-size: 0.75rem; }
   .gcard__preview .pv-appt__days { display: flex; gap: 6px; }
   .gcard__preview .pv-appt .k-appt__day { inline-size: auto; flex: 1; padding: 4px 2px; }

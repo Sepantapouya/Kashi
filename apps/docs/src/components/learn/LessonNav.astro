@@ -1,0 +1,18 @@
+---
+// فهرست درس‌ها؛ هم در ستون کناری دسکتاپ و هم در منوی بازشوی موبایل
+import { lessons, fa2, fa } from "../../learn/pm";
+const { current } = Astro.props as { current?: string };
+---
+<ol class="pm-nav" role="list">
+  {lessons.map((l) => (
+    <li>
+      <a class="pm-nav__link" href={l.href} data-lesson-link={l.slug} aria-current={l.slug === current ? "page" : undefined}>
+        <span class="pm-nav__num" aria-hidden="true"><span class="pm-nav__digit">{fa2(l.n)}</span><svg class="pm-nav__check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 10.5 3.2 3L15 6.5" /></svg></span>
+        <span class="pm-nav__text">
+          <span class="pm-nav__title">{l.title}</span>
+          <span class="pm-nav__meta">{fa(l.minutes)} دقیقه<span class="pm-nav__done" data-done-label> · خوانده شد</span></span>
+        </span>
+      </a>
+    </li>
+  ))}
+</ol>

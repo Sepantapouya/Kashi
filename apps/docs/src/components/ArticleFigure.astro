@@ -1,0 +1,25 @@
+---
+// تصویر داخل مقاله: /articles/<slug>/fig-<n>.webp با ابعاد واقعی (برای جلوگیری از جابه‌جایی صفحه)
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
+interface Props { n: number; alt: string; caption?: string }
+const { n, alt, caption } = Astro.props;
+const slug = Astro.url.pathname.split("/").filter(Boolean)[1];
+const src = `/articles/${slug}/fig-${n}.webp`;
+
+// ابعاد را از سرآیند WebP می‌خوانیم (VP8، VP8L یا VP8X)
+function webpSize(file: string): [number, number] {
+  const b = readFileSync(file);
+  const kind = b.toString("ascii", 12, 16);
+  if (kind === "VP8X") return [1 + b.readUIntLE(24, 3), 1 + b.readUIntLE(27, 3)];
+  if (kind === "VP8L") { const bits = b.readUInt32LE(21); return [(bits & 0x3fff) + 1, ((bits >> 14) & 0x3fff) + 1]; }
+  return [b.readUInt16LE(26) & 0x3fff, b.readUInt16LE(28) & 0x3fff];
+}
+// مسیر از ریشهٔ پروژهٔ مستندات (هم در dev و هم در build، cwd همین پوشه است)
+const [width, height] = webpSize(join(process.cwd(), "public", src));
+---
+<figure class="art-fig">
+  <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>

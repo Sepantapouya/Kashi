@@ -1,0 +1,66 @@
+---
+layout: ../../../layouts/Docs.astro
+title: برنامهٔ زمانی
+description: تقویم هفتگی و روزانه با تاریخ شمسی و شروع هفته از شنبه؛ رویدادها بر اساس ساعت، رویدادهای هم‌پوشان کنار هم، خط «اکنون» و تعطیلات رسمی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { SchedulerDemo, SchedulerDayDemo } from "../../../components/demos-extra";
+
+```tsx
+import { Scheduler, type SchedulerEvent } from "@kashi-ui/react";
+```
+
+## نمونه
+
+هفته از شنبه شروع می‌شود و جمعه‌ها و تعطیلات رسمی ثابت هاشور قرمز دارند. رویدادهایی که هم‌زمان‌اند کنار هم می‌نشینند و خط قرمز «اکنون» هر دقیقه جلو می‌رود. روی خانهٔ خالی بزنید تا رویداد بسازید و روی شمارهٔ هر روز تا نمای روزانه‌اش باز شود.
+
+<Demo align="stretch" html={false} code={`const [events, setEvents] = useState<SchedulerEvent[]>([
+  { id: "1", title: "جلسهٔ تیم طراحی", start: new Date(2026, 10, 7, 9), end: new Date(2026, 10, 7, 10, 30), color: "var(--k-chart-1)", description: "اتاق ۲" },
+  …
+]);
+
+<Scheduler
+  events={events}
+  startHour={8}
+  endHour={18}
+  onEventClick={(e) => openEvent(e)}
+  onSlotClick={(start) => createEvent(start)}
+/>`}>
+  <SchedulerDemo client:only="react" />
+</Demo>
+
+برای رنگ رویدادها از رنگ‌های نمودار (`var(--k-chart-1)` تا `var(--k-chart-8)`) استفاده کنید؛ برای کوررنگی بررسی شده‌اند و در هر دو تم درست‌اند.
+
+## نمای روزانه
+
+<Demo html={false} code={`<Scheduler events={events} defaultView="day" startHour={9} endHour={15} hourHeight="3rem" />`}>
+  <SchedulerDayDemo client:only="react" />
+</Demo>
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["events", "{ id, title, start: Date, end: Date, color?, description? }[]", "", "رویدادها"],
+  ["date / defaultDate / onDateChange", "Date", "امروز", "روزی که نما دور آن است"],
+  ["view / defaultView / onViewChange", '"week" | "day"', '"week"', "نمای هفتگی یا روزانه"],
+  ["startHour / endHour", "number", "8 / 20", "بازهٔ ساعت‌های جدول"],
+  ["step", "number", "30", "طول هر خانه به دقیقه"],
+  ["onSlotClick", "(start: Date) => void", "", "کلیک یا Enter روی خانهٔ خالی"],
+  ["onEventClick", "(event) => void", "", "کلیک روی رویداد"],
+  ["holidays", "boolean", "true", "رنگ تعطیل برای جمعه‌ها و تعطیلات رسمی ثابت"],
+  ["now", "Date", "اکنون", "مبنای «امروز» و خط اکنون"],
+  ["hourHeight", "string", '"3.5rem"', "ارتفاع هر ساعت"],
+]} />
+
+<Vars rows={[
+  ["--k-sched-height", "36rem", "بیشترین ارتفاع جدول پیش از اسکرول"],
+]} />
+
+## دسترس‌پذیری
+
+- خانه‌های خالی دکمه‌اند با فوکوس گردشی: فقط یکی در ترتیب Tab است و کلیدهای جهت (در راست‌به‌چپ، چپ یعنی روز بعد)، Home و End بینشان حرکت می‌کنند. نام هر خانه روز و ساعت را می‌گوید.
+- هر رویداد دکمه‌ای است که نامش همان متن دیدنی‌اش است: عنوان، بازهٔ زمانی و توضیح («جلسهٔ تیم طراحی، ۰۹:۰۰ – ۱۰:۳۰»)؛ پس با فرمان صوتی هم پیدا می‌شود.
+- عنوان هفته با تغییر هفته اعلام می‌شود و شمارهٔ هر روز تاریخ کامل شمسی را برای صفحه‌خوان دارد.
+- تعطیلی فقط با رنگ نشان داده نمی‌شود؛ هاشور و نام تعطیلی در `title` هم هست.

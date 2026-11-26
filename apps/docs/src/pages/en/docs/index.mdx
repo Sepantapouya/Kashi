@@ -1,0 +1,55 @@
+---
+layout: ../../../layouts/DocsEn.astro
+title: Kashi, the Persian design system
+seoTitle: "Kashi — open-source Persian (Farsi) RTL design system for React and HTML"
+description: Accessible React components, framework-free CSS and web components, 10,000+ icons and Iranian utilities such as Jalali dates and national ID, IBAN and card validation. Free and MIT licensed.
+fa: /docs/
+---
+
+Kashi (کاشی, "tile") is an open-source design system built for products in Persian. It is right-to-left first, but every component works left to right too, and all built-in text switches to English with one setting. If you are building for Iranian users, from Iran or the diaspora, Kashi gives you the pieces every Persian product needs and most UI libraries don't have.
+
+## What's included
+
+- **@kashi-ui/react**: about 90 accessible React components (WCAG 2.2 AA), from buttons and data tables to a Jalali date picker, an Iran map and an address form.
+- **@kashi-ui/css**: the same components as plain CSS classes for any framework or plain HTML.
+- **@kashi-ui/elements**: web components (`<kashi-date-picker>`, `<kashi-national-id>`…) for Vue, Svelte, Angular, WordPress or HTML.
+- **@kashi-ui/persian**: framework-free utilities: Jalali calendar, Persian digits, number to words, money, and validation of national IDs, IBANs, bank cards, mobiles and postal codes.
+- **@kashi-ui/icons**: 10,000+ icons in six styles, as SVG, React components and sprites.
+- **@kashi-ui/tokens** and **@kashi-ui/tailwind**: design tokens (CSS, JSON and W3C DTCG for Figma and Style Dictionary), including a high-contrast theme and a validated chart palette, and a Tailwind preset.
+- **@kashi-ui/mcp**: an MCP server, so Claude, Cursor and Copilot write code against Kashi's real props.
+- **@kashi-ui/codemod**: automatic migration: `npx @kashi-ui/codemod v3 src` rewrites deprecated APIs before they are removed.
+- A Figma kit plugin, a shadcn registry (`@kashi`) and bilingual docs.
+
+## Why Kashi
+
+- **Persian done right.** Correct RTL layout with logical CSS, Vazirmatn typography, Persian digits and separators, and inputs that accept both Persian and Latin digits.
+- **Iranian data built in.** Jalali dates tested against the browser's ICU calendar for every day from 1300 to 1500, Iranian bank detection from card numbers and IBANs, all 31 provinces and 1,200+ cities.
+- **Accessible by default.** Native elements where possible, full keyboard support, focus management in overlays, screen reader text in both languages.
+- **Bilingual.** `KashiProvider locale="en"` turns every built-in label, error and screen reader text into English. See [Using Kashi in English](/en/docs/localization/).
+- **Free.** MIT licensed, no paid tier.
+
+## Start
+
+```bash
+npm i @kashi-ui/react @kashi-ui/css
+```
+
+```tsx
+import "@kashi-ui/css";
+import { Button, NationalIdInput } from "@kashi-ui/react";
+
+export function Signup() {
+  return (
+    <form>
+      <NationalIdInput label="کد ملی" name="nationalId" />
+      <Button type="submit" variant="primary">ثبت‌نام</Button>
+    </form>
+  );
+}
+```
+
+Next: [Installation](/en/docs/installation/) for React, HTML, Tailwind and shadcn, or browse [all components](/en/docs/components/).
+
+## About these docs
+
+The English docs cover setup, localization, the Persian-specific features and a catalogue of every component. Each component's full page, with live demos, code and props, is currently in Persian; the code and prop names are the same in every language. Want to help translate? See [Contributing](/en/docs/contributing/).

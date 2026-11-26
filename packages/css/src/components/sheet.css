@@ -1,0 +1,60 @@
+/* برگهٔ پایین — روی k-dialog--bottom؛ دستگیرهٔ واقعی، ایست‌های ارتفاع و کشیدن
+ * k-sheet--snap: ارتفاع از --k-sheet-height (مثلاً 50dvh) — data-dragging هنگام کشیدن
+ * متغیرها: --k-sheet-height  --k-sheet-radius */
+.k-sheet {
+  display: none;
+  flex-direction: column;
+  inline-size: min(var(--k-dialog-width, 40rem), 100vw);
+  border-start-start-radius: var(--k-sheet-radius, var(--k-radius-2xl));
+  border-start-end-radius: var(--k-sheet-radius, var(--k-radius-2xl));
+  overflow: hidden;
+  overscroll-behavior: contain;
+  transition: block-size var(--k-duration-normal) var(--k-ease-emphasized), translate var(--k-duration-normal) var(--k-ease-emphasized);
+}
+.k-sheet[open] { display: flex; }
+.k-sheet::before { display: none; }
+.k-sheet--snap { block-size: var(--k-sheet-height, 50dvh); max-block-size: 96dvh; }
+.k-sheet[data-dragging] { transition: none; user-select: none; }
+
+.k-sheet__grab { flex: none; touch-action: none; cursor: grab; }
+.k-sheet[data-dragging] .k-sheet__grab { cursor: grabbing; }
+.k-sheet__handle {
+  display: block;
+  inline-size: 2.75rem;
+  block-size: 1.5rem;
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: inherit;
+  position: relative;
+}
+.k-sheet__handle::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline: 0.25rem;
+  block-size: 4px;
+  translate: 0 -50%;
+  border-radius: 2px;
+  background: var(--k-border-primary);
+  transition: background-color var(--k-duration-fast) var(--k-ease-standard), inset-inline var(--k-duration-fast) var(--k-ease-standard);
+}
+.k-sheet__grab:hover .k-sheet__handle::after,
+.k-sheet[data-dragging] .k-sheet__handle::after { background: var(--k-text-quaternary); inset-inline: 0; }
+.k-sheet__handle:focus-visible { outline: none; }
+.k-sheet__handle:focus-visible::after { background: var(--k-border-brand); box-shadow: 0 0 0 3px var(--k-focus-ring, color-mix(in oklab, var(--k-border-brand) 35%, transparent)); }
+
+.k-sheet .k-sheet__header { padding-block-start: var(--k-space-1); }
+.k-sheet .k-sheet__header--hidden { padding: 0; }
+.k-sheet .k-sheet__body { flex: 1; min-block-size: 0; overflow-y: auto; overscroll-behavior: contain; padding-block-end: var(--_p); }
+.k-sheet .k-sheet__footer { flex: none; padding-block-end: max(var(--_p), env(safe-area-inset-bottom)); border-block-start: 1px solid var(--k-border-secondary); padding-block-start: var(--k-space-4); }
+
+@media (prefers-reduced-motion: reduce) {
+  .k-sheet { transition: none; }
+}
+/* حالت رنگ اجباری (High Contrast ویندوز): زمینه و سایه حذف می‌شوند؛ حالت با رنگ‌های سیستمی نشان داده می‌شود */
+@media (forced-colors: active) {
+  .k-sheet__handle::after { background: CanvasText; }
+  .k-sheet__handle:focus-visible { outline: 2px solid Highlight; outline-offset: 2px; }
+}

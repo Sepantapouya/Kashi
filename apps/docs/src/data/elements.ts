@@ -32,7 +32,7 @@ const FIELD: [string, string, string, string][] = [
 
 export const ELEMENT_DOCS: Record<string, ElementDoc> = {
   "/docs/persian/input/": {
-    tags: ["kashi-national-id", "kashi-mobile", "kashi-card-number", "kashi-iban", "kashi-price", "kashi-postal-code", "kashi-landline", "kashi-legal-id", "kashi-time-input", "kashi-plate-input"],
+    tags: ["kashi-national-id", "kashi-mobile", "kashi-card-number", "kashi-iban", "kashi-price", "kashi-postal-code", "kashi-landline", "kashi-legal-id", "kashi-time-input", "kashi-plate-input", "kashi-sayad", "kashi-economic-code", "kashi-tax-id"],
     module: "inputs",
     html: `<kashi-national-id name="national_id" required></kashi-national-id>
 <kashi-mobile name="mobile"></kashi-mobile>
@@ -50,6 +50,9 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
       ["kashi-price", "مبلغ با جداکنندهٔ هزارگان و مبلغ به حروف زیر فیلد"],
       ["kashi-time-input", "ساعت ۲۴ساعته؛ ↑↓ با گام step دقیقه، min و max؛ بخش npm: forms.js"],
       ["kashi-plate-input", "پلاک خودرو در چهار بخش؛ با name فیلدهای name_first، name_letter، name_middle و name_region؛ بخش npm: forms.js"],
+      ["kashi-sayad", "شناسهٔ صیادی چک، ۱۶ رقم در گروه‌های چهارتایی"],
+      ["kashi-economic-code", "کد اقتصادی؛ کد ملی، شناسهٔ ملی یا کد ۱۲ رقمی قدیمی، با نوع کنار فیلد"],
+      ["kashi-tax-id", "شمارهٔ مالیاتی فاکتور در سامانهٔ مودیان، ۲۲ نویسهٔ لاتین با حروف بزرگ خودکار"],
     ],
     attrs: [
       ...FIELD,
@@ -60,7 +63,7 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
       ["unit / min / max / show-words", "", "تومان", "فقط مبلغ: واحد، محدوده و نمایش به حروف"],
     ],
     api: [
-      ["kashi-change", "با هر تغییر؛ detail: { value, valid } و برای موبایل operator، کارت و شبا bank، تلفن ثابت province"],
+      ["kashi-change", "با هر تغییر؛ detail: { value, valid } و برای موبایل operator، کارت و شبا bank، تلفن ثابت province، کد اقتصادی type"],
       ["element.value / element.valid", "مقدار خام و معتبر بودن؛ مبلغ element.valueAsNumber هم دارد"],
     ],
   },
@@ -260,6 +263,7 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
       ["placement", "top | bottom | start | end", "top", "جای راهنما"],
       ["delay", "میلی‌ثانیه", "300", "تأخیر نمایش با hover"],
     ],
+    note: "راهنما در لایهٔ بالایی مرورگر نمایش داده می‌شود؛ `overflow: hidden` والدها آن را نمی‌برد و اگر جا نباشد به سمت مقابل می‌رود.",
   },
   "/docs/components/toast/": {
     tags: ["kashi-toaster"],
@@ -457,6 +461,62 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
     ],
     api: [["kashi-change", "detail: { value }؛ در range آرایهٔ [کمینه، بیشینه]"]],
   },
+  "/docs/components/search-suggest/": {
+    tags: ["kashi-search-suggest"],
+    module: "commerce",
+    html: `<kashi-search-suggest
+  placeholder="جستجو در همهٔ کالاها"
+  popular="ساعت هوشمند، عروسک، اسکوتر برقی"
+  suggestions="ساعت مچی زنانه، ساعت هوشمند، گوشی هوشمند، هدفون بی‌سیم، میز آرایش"
+  storage-key="demo-recent"
+></kashi-search-suggest>`,
+    note: "فهرست‌ها با ویرگول (`,` یا `،`) جدا می‌شوند. با `storage-key` جستجوهای اخیر در مرورگر ذخیره می‌شوند؛ با `action` فرم به همان نشانی و با پارامتر `q` ارسال می‌شود.",
+    attrs: [
+      ["placeholder", "متن", "", "متن راهنمای فیلد"],
+      ["popular", "فهرست", "", "جستجوهای پرطرفدار"],
+      ["suggestions", "فهرست", "", "پیشنهادها هنگام تایپ"],
+      ["recent", "فهرست", "", "جستجوهای اخیر (اگر storage-key ندارید)"],
+      ["storage-key", "متن", "", "ذخیرهٔ خودکار جستجوهای اخیر در localStorage"],
+      ["action", "نشانی", "", "ارسال فرم جستجو به این نشانی"],
+      ["name", "متن", "q", "نام فیلد در فرم"],
+    ],
+    api: [["kashi-search", "detail: { query }"], ["kashi-change", "detail: { value }"], [".value", "متن فعلی"]],
+  },
+  "/docs/components/swatch-group/": {
+    tags: ["kashi-swatch-group"],
+    module: "commerce",
+    html: `<kashi-swatch-group label="رنگ" name="color" value="blue">
+  <option value="blue" data-color="#3b6fd4">آبی</option>
+  <option value="white" data-color="#ffffff">سفید</option>
+  <option value="black" data-color="#111111">مشکی</option>
+  <option value="silver" data-color="radial-gradient(circle at 35% 30%, #fff, #a9adb3)">نقره‌ای</option>
+</kashi-swatch-group>`,
+    note: "هر `<option>` یک نمونه است؛ `data-color` هر مقدار CSS برای background (رنگ یا گرادیان).",
+    attrs: [
+      ["label", "متن", "", "عنوان گروه"],
+      ["value", "فهرست", "", "مقدارهای انتخاب‌شده"],
+      ["single", "بولی", "", "فقط یک انتخاب"],
+      ["size", "sm | md | lg", "md", "اندازهٔ نمونه‌ها"],
+      ["name", "متن", "", "ارسال در فرم"],
+    ],
+    api: [["kashi-change", "detail: { value: [...] }"], [".value", "آرایهٔ مقدارهای انتخاب‌شده"]],
+  },
+  "/docs/persian/price-range/": {
+    tags: ["kashi-price-range"],
+    module: "commerce",
+    html: `<kashi-price-range label="قیمت" min="0" max="25000000" step="100000" value="1500000,18000000" name="price"></kashi-price-range>`,
+    note: "`value` دو عدد با ویرگول است. با `name`، دو فیلد `name_min` و `name_max` در فرم ارسال می‌شوند.",
+    attrs: [
+      ["label", "متن", "", "عنوان فیلتر"],
+      ["min / max", "عدد", "0 / 100000000", "بازهٔ قیمت ممکن"],
+      ["step", "عدد", "1000", "گام اسلایدر و گرد کردن"],
+      ["value", "دو عدد", "min,max", "بازهٔ انتخاب‌شده"],
+      ["unit", "متن", "تومان", "واحد کنار فیلدها"],
+      ["name", "متن", "", "دو فیلد name_min و name_max"],
+      ["disabled", "بولی", "", "غیرفعال"],
+    ],
+    api: [["kashi-change", "detail: { value: [از، تا] }"], [".value", "[از، تا]"]],
+  },
   "/docs/components/chips/": {
     tags: ["kashi-chip-group"],
     module: "forms",
@@ -546,6 +606,9 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
       ["multiple", "false", "", "فقط یک فایل"],
       ["max-size / max-files", "بایت / عدد", "", "بیشترین حجم و تعداد"],
       ["name / hint / label / disabled", "", "", "نام فرم، راهنما و متن دکمه"],
+      ["required", "بولی", "", "با name: فرم بدون فایل ارسال نمی‌شود"],
+      ["preview", "false", "", "بدون پیش‌نمایش تصویر"],
+      ["max-dimension / quality", "پیکسل / ۰ تا ۱", "", "کوچک کردن عکس‌های بزرگ در مرورگر پیش از ارسال"],
     ],
     api: [
       ["element.uploader", "(file, onProgress) => Promise؛ درصد پیشرفت را با onProgress بدهید"],
@@ -643,7 +706,14 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
   <div class="k-card" style="padding: 2rem">محصول ۳</div>
   <div class="k-card" style="padding: 2rem">محصول ۴</div>
 </kashi-carousel>`,
-    attrs: [["label", "متن", "", "نام اسلایدر"], ["per-view", "عدد", "1", "تعداد اسلاید در هر نما"], ["dots", "false", "", "بدون نقطه‌ها"]],
+    note: "برای گالری عکس: `effect=\"fade\"` محو شدن با opacity، `data-thumb=\"…\"` روی هر اسلاید نوار تصویرهای کوچک، `lightbox` نمای بزرگ و `autoplay` پخش خودکار با دکمهٔ توقف.",
+    attrs: [
+      ["label", "متن", "", "نام اسلایدر"], ["per-view", "عدد", "1", "تعداد اسلاید در هر نما"], ["dots", "false", "", "بدون نقطه‌ها"],
+      ["effect", "slide | fade", "slide", "ریل اسکرولی یا محو شدن اسلایدها روی هم (برای عکس‌های بزرگ)"],
+      ["autoplay", "بولی یا میلی‌ثانیه", "", "پخش خودکار؛ بدون عدد هر ۵ ثانیه. با hover، فوکوس و پنهان شدن زبانه مکث می‌کند"],
+      ["lightbox", "بولی", "", "نمای بزرگ تمام‌صفحه با کلیک روی اسلاید"],
+      ["data-thumb (روی اسلاید)", "نشانی تصویر", "", "تصویر کوچک آن اسلاید"],
+    ],
     api: [["element.go(n)", "رفتن به اسلاید n (از صفر)"], ["kashi-change", "detail: { index }"]],
   },
   "/docs/components/tree-view/": {
@@ -729,6 +799,7 @@ export const ELEMENT_DOCS: Record<string, ElementDoc> = {
       ["revealable", "false", "", "رمز بدون دکمهٔ نمایش"],
       ["show-count / maxlength", "بولی / عدد", "", "شمارندهٔ نویسه، مثل «۱۲ / ۲۰۰»"],
       ["loading", "بولی", "", "اسپینر در انتهای فیلد، مثلاً هنگام بررسی نام کاربری"],
+      ["variant", "code", "", "کد، کلید و شناسه: تک‌فاصله و چپ‌به‌راست، placeholder فارسی"],
       ["optional", "متن", "اختیاری", "نشان «اختیاری» کنار برچسب"],
       ["size / required / disabled / readonly", "sm | lg / بولی", "", "اندازه و حالت‌ها"],
     ],

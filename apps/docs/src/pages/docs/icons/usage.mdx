@@ -1,7 +1,7 @@
 ---
 layout: ../../../layouts/Docs.astro
 title: راهنمای آیکون‌ها
-description: ۴۵۰۰ آیکون نرم در شش سبک با گوشه‌های پیوسته، هم‌خانواده با کامپوننت‌های کاشی؛ برای React، HTML، هر فریم‌ورک دیگر و فیگما.
+description: ۱۵٬۰۰۰ آیکون نرم در شش سبک با گوشه‌های پیوسته، هم‌خانواده با کامپوننت‌های کاشی؛ برای React، HTML، هر فریم‌ورک دیگر و فیگما.
 ---
 import Install from "../../../components/Install.astro";
 import { IconPrinciples, IconSpecs } from "../../../components/IconBrowser";
@@ -35,9 +35,11 @@ iconSvg("heart", { variant: "two-tone" });
 
 <IconPrinciples />
 
+[اسکیل طراحی آیکون‌های کاشی](https://github.com/Sepantapouya/Kashi/blob/main/packages/icons/DESIGN.md) اندازهٔ بصری، فضای منفی، نشان وضعیت و مراحل بازبینی طرح را توضیح می‌دهد.
+
 ## React
 
-هر آیکون یک کامپوننت جداست؛ فقط آیکون‌هایی که import می‌کنید در باندل می‌آیند.
+هر آیکون یک کامپوننت جداست و فقط طرح خودش را دارد؛ فقط آیکون‌هایی که import می‌کنید در باندل می‌آیند (سه آیکون حدود ۴ کیلوبایت gzip، همراه کد سبک‌ها).
 
 ```tsx
 import { IconSearch, IconTrash } from "@kashi-ui/icons/react";
@@ -54,6 +56,16 @@ import { Icon } from "@kashi-ui/icons/react";
 <Icon name={item.icon} />
 ```
 
+`Icon` چون هر نامی را می‌پذیرد، **همهٔ** آیکون‌ها را به باندل می‌آورد (چند صد کیلوبایت). اگر نام‌ها از پیش معلوم‌اند، یک نقشهٔ کوچک بسازید تا فقط همان‌ها بیایند:
+
+```tsx
+import { IconHome, IconSearch, IconUser } from "@kashi-ui/icons/react";
+
+const icons = { home: IconHome, search: IconSearch, user: IconUser };
+const C = icons[item.icon];
+<C />
+```
+
 | ویژگی | نوع | پیش‌فرض | توضیح |
 |---|---|---|---|
 | `size` | `number \| string` | `20` | عرض و ارتفاع؛ عدد یعنی پیکسل، یا هر واحد CSS مثل `"1.25em"` |
@@ -64,9 +76,41 @@ import { Icon } from "@kashi-ui/icons/react";
 
 بقیهٔ ویژگی‌های `<svg>` (مثل `className`، `style` و `onClick`) هم پذیرفته می‌شوند و `ref` به خود `<svg>` می‌رسد.
 
+## Vue
+
+همان کامپوننت‌ها و همان propها برای Vue 3. هر آیکون جدا import می‌شود و فقط همان در باندل می‌ماند:
+
+```vue
+<script setup>
+import { IconSearch, IconWallet, Icon } from "@kashi-ui/icons/vue";
+</script>
+<template>
+  <IconSearch :size="20" />
+  <IconWallet variant="bold" class="text-brand" />
+  <Icon name="trash" title="حذف" />
+</template>
+```
+
+`class`، `style` و رویدادها مثل `@click` مستقیم روی `<svg>` می‌نشینند.
+
+## Svelte
+
+یک کامپوننت `Icon` و دادهٔ هر آیکون جدا (`iconSearch`، `iconWallet` …)؛ فقط آیکون‌هایی که import می‌کنید در باندل می‌مانند. با Svelte 4 و 5 کار می‌کند:
+
+```svelte
+<script>
+  import { Icon, iconSearch, iconWallet } from "@kashi-ui/icons/svelte";
+</script>
+
+<Icon icon={iconSearch} size={20} />
+<Icon icon={iconWallet} variant="bold" title="کیف پول" />
+```
+
+نام دادهٔ هر آیکون همان نام کامپوننت React است با `icon` کوچک: `IconArrowLeft` در React، `iconArrowLeft` در Svelte.
+
 ## HTML و فریم‌ورک‌های دیگر
 
-برای Vue، Svelte، Angular یا HTML ساده سه راه دارید.
+برای Angular یا HTML ساده سه راه دارید.
 
 **۱. کد SVG با جاوااسکریپت.** `iconSvg` رشتهٔ SVG برمی‌گرداند:
 
@@ -112,6 +156,18 @@ import { IconPlus, IconSearch } from "@kashi-ui/icons/react";
 
 همهٔ آیکون‌ها در صفحهٔ «🧩 Icons» [پلاگین فیگمای کاشی](/docs/figma/) هم هستند، دسته‌به‌دسته، هر کدام به شکل کامپوننت با نام `Icon / <دسته> / <name>` تا در پنل Assets هم پوشه‌بندی شوند؛ با Instance swap داخل دکمه‌ها و فیلدها عوض می‌شوند. فیگما و کد از یک منبع ساخته می‌شوند، پس شکل آیکون‌ها در هر دو یکی است.
 
-## پیشنهاد آیکون تازه
+### پلاگین آیکون‌های کاشی
 
-آیکونی کم دارید؟ در [GitHub](https://github.com/Sepantapouya/Kashi/issues) بنویسید. آیکون‌های تازه با همین شبکه و ضخامت کشیده می‌شوند تا مجموعه یکدست بماند.
+برای وقتی که فقط آیکون لازم دارید، پلاگین جدای «Kashi Icons» همهٔ آیکون‌ها را با جست‌وجوی فارسی و انگلیسی، دسته‌بندی و هر شش سبک نشان می‌دهد. رنگ، اندازه و ضخامت را انتخاب کنید و آیکون را با دوبار کلیک یا کشیدن روی بوم به فیگما ببرید؛ آیکون داخل فریم انتخاب‌شده می‌نشیند. دکمهٔ «کامپوننت» برای هر آیکون یک Component set با ویژگی‌های Style (شش سبک) و Size (۱۶ تا ۳۲) در صفحهٔ «Kashi Icons» می‌سازد که رنگش به متغیر «Kashi Icons / icon» وصل است. اگر آیکون‌های کاشی را روی بوم انتخاب کنید، پنل پیشنهاد می‌دهد همه را با یک کلیک به سبک و اندازهٔ فعلی ببرد. همان‌جا SVG یا PNG (۱، ۲ یا ۳ برابر) دانلود می‌شود، چند آیکون با هم در یک فایل ZIP، و کد SVG یا React کپی می‌شود.
+
+- [دانلود پلاگین](/downloads/kashi-icons-figma-plugin.zip): فایل را باز کنید و در فیگما از Plugins ← Development ← Import plugin from manifest، فایل `manifest.json` را انتخاب کنید.
+- [نسخهٔ وب، بیرون از فیگما](/icon-exporter.html): همان پنل در مرورگر، برای دانلود و کپی بدون فیگما.
+- [صفحهٔ پلاگین‌های فیگما](/docs/figma/#icons-plugin): مقایسهٔ این پلاگین با کیت کامل و راهنمای نصب.
+
+## درخواست آیکون تازه
+
+آیکونی کم دارید؟ [فرم درخواست آیکون](https://github.com/Sepantapouya/Kashi/issues/new?template=icon_request.yml) را پر کنید. درخواست‌ها هر دو هفته بررسی می‌شوند و آیکون‌های پذیرفته‌شده، با همین شبکه و ضخامت، در نسخهٔ بعدی منتشر می‌شوند. [مقایسهٔ آیکون‌های کاشی با Iconly و Lucide و Phosphor](/docs/icons/compare/) را هم ببینید.
+
+## لوگوی اپ‌ها و رمزارزها
+
+دسته‌های اپ‌ها، برندها و رمزارزها از همان جست‌وجو، کامپوننت React، فایل SVG و پلاگین‌های فیگما در دسترس‌اند. هندسهٔ رسمی نشان‌ها با تغییر سبک یا ضخامت خط ثابت می‌ماند؛ بیشتر نشان‌ها رنگ متن را می‌گیرند و نشان‌های رنگی پالت اصلی خود را حفظ می‌کنند.

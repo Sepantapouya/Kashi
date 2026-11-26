@@ -1,12 +1,21 @@
 // از src/icons.js خروجی‌های پکیج را می‌سازد:
 //   dist/index.js      داده‌ها و iconSvg() بدون وابستگی به فریم‌ورک
 //   dist/react.js      یک کامپوننت React برای هر آیکون (IconSearch، ...) و <Icon name>
+//   dist/vue.js        همان برای Vue 3
+//   dist/svelte/       Icon.svelte و دادهٔ هر آیکون (iconSearch، ...) برای Svelte
 //   dist/render.js     ساخت شش سبک (light، bold، bulk، two-tone، broken، curved) از طرح خطی
 //   dist/svg/*.svg     فایل جدا برای هر آیکون؛ سبک‌های دیگر در dist/svg/<variant>/
 //   dist/sprite.svg    همهٔ آیکون‌ها به شکل <symbol> برای <use href>؛ سبک‌های دیگر در dist/sprite-<variant>.svg
-import { mkdirSync, writeFileSync, rmSync, copyFileSync } from "node:fs";
-import { icons, categories } from "./src/icons.js";
+import { mkdirSync, readFileSync, writeFileSync, rmSync, copyFileSync } from "node:fs";
+import { icons, categories, categoryGroups, aliases } from "./src/icons.js";
+// هر دسته دقیقاً در یک گروه
+{
+  const used = categoryGroups.flatMap((g) => g.categories);
+  for (const c of Object.keys(categories)) if (used.filter((u) => u === c).length !== 1) throw new Error(`category ${c} must be in exactly one group`);
+  for (const c of used) if (!categories[c]) throw new Error(`group has unknown category ${c}`);
+}
 import { renderBody, variants } from "./src/render.js";
+import { identicalSvgVariants, staticSvgBody } from "./src/svg-deduplication.js";
 
 const pascal = (name) => "Icon" + name.replace(/(^|-)([a-z0-9])/g, (_, __, c) => c.toUpperCase());
 const names = Object.keys(icons);
@@ -22,6 +31,26 @@ for (const n of names) {
   if (!categories[i.category]) throw new Error(`${n}: unknown category ${i.category}`);
   if (/<script|\son[a-z]+=|href=/i.test(i.body)) throw new Error(`${n}: unsafe svg`);
 }
+// نام قدیمی نباید با نام اصلی یکی باشد و باید به آیکون موجود برسد
+for (const [old, to] of Object.entries(aliases)) {
+  if (icons[old] || !icons[to] || seen.has(pascal(old))) throw new Error(`bad alias ${old} → ${to}`);
+}
+const aliasNames = Object.keys(aliases);
+
+// این دو فضای نام نشان رسمی‌اند؛ SVG آن‌ها در شش سبک عیناً یکسان است.
+// exports مسیر سبک را به فایل پایه می‌رساند تا آرشیو npm فایل تکراری نداشته باشد.
+for (const name of [...names, ...aliasNames]) {
+  if (/^(brand-|crypto-)/.test(name) && !icons[aliases[name] ?? name].brand) {
+    throw new Error(`${name}: invariant SVG export prefixes are reserved for brand marks`);
+  }
+}
+
+const redirects = identicalSvgVariants(icons, aliases);
+const { exports: exportsMap } = JSON.parse(readFileSync("package.json", "utf8"));
+const exact = Object.keys(exportsMap).filter(key => /^\.\/svg\/(?:[a-z-]+\/)?[a-z0-9-]+\.svg$/.test(key));
+if (exact.length !== Object.keys(redirects).length || exact.some(key => redirects[key] !== exportsMap[key])) {
+  throw new Error("SVG exports are out of sync. Run node packages/icons/scripts/update-svg-exports.mjs.");
+}
 
 rmSync("dist", { recursive: true, force: true });
 mkdirSync("dist/svg", { recursive: true });
@@ -33,8 +62,11 @@ const data = Object.fromEntries(names.map((n) => [n, Object.assign({ component: 
 writeFileSync("dist/index.js", `// @kashi-ui/icons — این فایل خودکار ساخته شده است
 import { renderBody, variants } from "./render.js";
 export const categories = ${JSON.stringify(categories)};
+export const categoryGroups = ${JSON.stringify(categoryGroups)};
 export const icons = ${JSON.stringify(data)};
 export const iconNames = Object.keys(icons);
+/** نام‌های قدیمی (منسوخ) → نام اصلی؛ iconSvg هنوز آن‌ها را می‌شناسد */
+export const aliases = ${JSON.stringify(aliases)};
 export { variants };
 
 let uid = 0;
@@ -42,13 +74,13 @@ let uid = 0;
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
 
 /** کد SVG یک آیکون؛ بدون title برای صفحه‌خوان پنهان است */
-export function iconSvg(name, { size = 20, strokeWidth = 1.5, title, className, mirror = false, variant = "light" } = {}) {
-  const icon = icons[name];
+export function iconSvg(name, { size = 20, strokeWidth = 1.5, title, className, mirror = false, variant = "light", idPrefix } = {}) {
+  const icon = icons[name] ?? icons[aliases[name]];
   if (!icon) return null;
   const a11y = title ? \` role="img" aria-label="\${esc(title)}"\` : ' aria-hidden="true"';
   const cls = className ? \` class="\${esc(className)}"\` : "";
   const flip = mirror ? ' style="transform:scaleX(-1)"' : "";
-  return \`<svg xmlns="http://www.w3.org/2000/svg" width="\${size}" height="\${size}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="\${strokeWidth}" stroke-linecap="round" stroke-linejoin="round"\${cls}\${a11y}\${flip} data-kashi-icon="\${name}"\${variant === "light" ? "" : \` data-variant="\${variant}"\`}>\${title ? \`<title>\${esc(title)}</title>\` : ""}\${renderBody(icon.body, variant, { uid: \`k\${++uid}\`, sw: strokeWidth })}</svg>\`;
+  return \`<svg xmlns="http://www.w3.org/2000/svg" width="\${size}" height="\${size}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="\${strokeWidth}" stroke-linecap="round" stroke-linejoin="round"\${cls}\${a11y}\${flip} data-kashi-icon="\${name}"\${variant === "light" ? "" : \` data-variant="\${variant}"\`}>\${title ? \`<title>\${esc(title)}</title>\` : ""}\${renderBody(icon.body, variant, { uid: idPrefix == null ? \`k\${++uid}\` : String(idPrefix).replace(/[^a-zA-Z0-9_-]/g, ""), sw: strokeWidth })}</svg>\`;
 }
 
 /**
@@ -67,7 +99,7 @@ let index;
 export function searchIcons(query) {
   const q = fold(query);
   if (!q) return iconNames;
-  index ??= iconNames.map((n) => [n, [n, icons[n].title, ...icons[n].keywords].map(fold)]);
+  index ??= iconNames.map((n) => [n, [n, icons[n].title, ...icons[n].keywords, categories[icons[n].category]].map(fold)]);
   return index.filter(([, words]) => words.some((t) => t.includes(q))).map(([n]) => n);
 }
 `);
@@ -75,26 +107,38 @@ export function searchIcons(query) {
 const union = names.map((n) => JSON.stringify(n)).join(" | ");
 writeFileSync("dist/index.d.ts", `export type IconName = ${union};
 export type IconCategory = ${Object.keys(categories).map((c) => JSON.stringify(c)).join(" | ")};
-export interface IconData { title: string; category: IconCategory; keywords: string[]; directional?: boolean; body: string; component: string }
+export interface IconData { title: string; category: IconCategory; keywords: string[]; directional?: boolean; brand?: boolean; body: string; component: string }
 export declare const categories: Record<IconCategory, string>;
+/** گروه‌های دسته‌ها، به ترتیب نمایش */
+export declare const categoryGroups: { id: string; title: string; categories: IconCategory[] }[];
 export declare const icons: Record<IconName, IconData>;
 export declare const iconNames: IconName[];
+/** @deprecated نام‌های قدیمی که طرحشان تکراری بود؛ از نام اصلی استفاده کنید */
+export type IconAlias = ${aliasNames.map((n) => JSON.stringify(n)).join(" | ")};
+export declare const aliases: Record<IconAlias, IconName>;
 export type IconVariant = ${variants.map((v) => JSON.stringify(v)).join(" | ")};
 export declare const variants: IconVariant[];
-export interface IconSvgOptions { size?: number | string; strokeWidth?: number; title?: string; className?: string; mirror?: boolean; variant?: IconVariant }
-export declare function iconSvg(name: IconName | (string & {}), options?: IconSvgOptions): string | null;
+export interface IconSvgOptions { size?: number | string; strokeWidth?: number; title?: string; className?: string; mirror?: boolean; variant?: IconVariant; /** Stable, instance-unique SVG id prefix for SSR */ idPrefix?: string }
+export declare function iconSvg(name: IconName | IconAlias | (string & {}), options?: IconSvgOptions): string | null;
 export declare function searchIcons(query: string): IconName[];
 `);
 
+// هر کامپوننت فقط بدنهٔ SVG خودش را دارد و با /*#__PURE__*/ ساخته می‌شود تا باندلر آیکون‌های استفاده‌نشده را حذف کند؛
+// import { IconSearch } فقط همان آیکون و render.js را می‌آورد. <Icon name> همهٔ آیکون‌ها را می‌خواهد و فقط با import خودش بارگذاری می‌شود.
+// هیچ دستور سطح‌بالایی با اثر جانبی (مثل X.displayName = …) نباید اینجا بیاید؛ همان کافی است تا همه‌چیز در باندل بماند.
 writeFileSync("dist/react.js", `// @kashi-ui/icons/react — این فایل خودکار ساخته شده است
 import { createElement, forwardRef, useId } from "react";
-import { icons } from "./index.js";
 import { renderBody } from "./render.js";
 
-function create(name, displayName) {
-  const C = forwardRef(function KashiIcon({ size = 20, strokeWidth = 1.5, title, mirror = false, variant = "light", style, ...rest }, ref) {
+function named(C, displayName) {
+  C.displayName = displayName;
+  return C;
+}
+
+function create(name, displayName, source) {
+  return named(forwardRef(function KashiIcon({ size = 20, strokeWidth = 1.5, title, mirror = false, variant = "light", style, ...rest }, ref) {
     const uid = "k" + useId().replace(/[^a-zA-Z0-9]/g, "");
-    const body = { __html: renderBody(icons[name].body, variant, { uid, sw: strokeWidth }) };
+    const body = { __html: renderBody(source, variant, { uid, sw: strokeWidth }) };
     return createElement("svg", Object.assign({
       ref,
       xmlns: "http://www.w3.org/2000/svg",
@@ -114,25 +158,22 @@ function create(name, displayName) {
       "data-variant": variant === "light" ? undefined : variant,
       style: mirror ? Object.assign({ transform: "scaleX(-1)" }, style) : style,
     }, rest, { dangerouslySetInnerHTML: body }));
-  });
-  C.displayName = displayName;
-  return C;
+  }), displayName);
 }
 
-${names.map((n) => `export const ${pascal(n)} = create(${JSON.stringify(n)}, ${JSON.stringify(pascal(n))});`).join("\n")}
+${names.map((n) => `export const ${pascal(n)} = /*#__PURE__*/ create(${JSON.stringify(n)}, ${JSON.stringify(pascal(n))}, ${JSON.stringify(icons[n].body)});`).join("\n")}
+/** نام‌های قدیمی (منسوخ) */
+${aliasNames.map((n) => `export const ${pascal(n)} = ${pascal(aliases[n])};`).join("\n")}
 
-const byName = { ${names.map((n) => `${JSON.stringify(n)}: ${pascal(n)}`).join(", ")} };
-
-/** آیکون با نام: <Icon name="search" /> */
-export const Icon = forwardRef(function Icon({ name, ...rest }, ref) {
-  const C = byName[name];
+/** آیکون با نام: <Icon name="search" />؛ همهٔ آیکون‌ها را به باندل می‌آورد، برای نام‌های پویا */
+export const Icon = /*#__PURE__*/ named(/*#__PURE__*/ forwardRef(function Icon({ name, ...rest }, ref) {
+  const C = ({ ${[...names, ...aliasNames].map((n) => `${JSON.stringify(n)}: ${pascal(aliases[n] ?? n)}`).join(", ")} })[name];
   return C ? createElement(C, Object.assign({ ref }, rest)) : null;
-});
-Icon.displayName = "Icon";
+}), "Icon");
 `);
 
 writeFileSync("dist/react.d.ts", `import type { ForwardRefExoticComponent, RefAttributes, SVGProps } from "react";
-import type { IconName, IconVariant } from "./index.js";
+import type { IconName, IconAlias, IconVariant } from "./index.js";
 export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "ref"> {
   /** اندازه به پیکسل یا هر واحد CSS @default 20 */
   size?: number | string;
@@ -147,17 +188,178 @@ export interface IconProps extends Omit<SVGProps<SVGSVGElement>, "ref"> {
 }
 export type KashiIcon = ForwardRefExoticComponent<IconProps & RefAttributes<SVGSVGElement>>;
 ${names.map((n) => `export declare const ${pascal(n)}: KashiIcon;`).join("\n")}
-export declare const Icon: ForwardRefExoticComponent<IconProps & { name: IconName } & RefAttributes<SVGSVGElement>>;
+${aliasNames.map((n) => `/** @deprecated از ${pascal(aliases[n])} استفاده کنید */\nexport declare const ${pascal(n)}: KashiIcon;`).join("\n")}
+export declare const Icon: ForwardRefExoticComponent<IconProps & { name: IconName | IconAlias } & RefAttributes<SVGSVGElement>>;
 `);
 
+// ---- Vue: مثل React، یک کامپوننت برای هر آیکون با /*#__PURE__*/ تا باندلر آیکون‌های استفاده‌نشده را حذف کند
+writeFileSync("dist/vue.js", `// @kashi-ui/icons/vue — این فایل خودکار ساخته شده است
+import * as Vue from "vue";
+import { renderBody } from "./render.js";
+
+let uid = 0;
+const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+const props = {
+  size: { type: [Number, String], default: 20 },
+  strokeWidth: { type: [Number, String], default: 1.5 },
+  title: { type: String, default: undefined },
+  mirror: { type: Boolean, default: false },
+  variant: { type: String, default: "light" },
+};
+
+function create(name, displayName, source) {
+  return Vue.defineComponent({
+    name: displayName,
+    props,
+    setup(p) {
+      const id = "k" + String(Vue.useId ? Vue.useId() : ++uid).replace(/[^a-zA-Z0-9]/g, "");
+      return () => Vue.h("svg", {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: p.size,
+        height: p.size,
+        viewBox: "0 0 20 20",
+        fill: "none",
+        stroke: "currentColor",
+        "stroke-width": p.strokeWidth,
+        "stroke-linecap": "round",
+        "stroke-linejoin": "round",
+        role: p.title ? "img" : undefined,
+        "aria-label": p.title || undefined,
+        "aria-hidden": p.title ? undefined : "true",
+        focusable: "false",
+        "data-kashi-icon": name,
+        "data-variant": p.variant === "light" ? undefined : p.variant,
+        style: p.mirror ? { transform: "scaleX(-1)" } : undefined,
+        innerHTML: (p.title ? "<title>" + esc(p.title) + "</title>" : "") + renderBody(source, p.variant, { uid: id, sw: Number(p.strokeWidth) }),
+      });
+    },
+  });
+}
+
+${names.map((n) => `export const ${pascal(n)} = /*#__PURE__*/ create(${JSON.stringify(n)}, ${JSON.stringify(pascal(n))}, ${JSON.stringify(icons[n].body)});`).join("\n")}
+/** نام‌های قدیمی (منسوخ) */
+${aliasNames.map((n) => `export const ${pascal(n)} = ${pascal(aliases[n])};`).join("\n")}
+
+/** آیکون با نام: <Icon name="search" />؛ همهٔ آیکون‌ها را به باندل می‌آورد، برای نام‌های پویا */
+export const Icon = /*#__PURE__*/ Vue.defineComponent({
+  name: "Icon",
+  inheritAttrs: false,
+  props: { name: { type: String, required: true } },
+  setup(p, { attrs }) {
+    return () => {
+      const C = ({ ${[...names, ...aliasNames].map((n) => `${JSON.stringify(n)}: ${pascal(aliases[n] ?? n)}`).join(", ")} })[p.name];
+      return C ? Vue.h(C, attrs) : null;
+    };
+  },
+});
+`);
+
+writeFileSync("dist/vue.d.ts", `import type { DefineComponent } from "vue";
+import type { IconName, IconAlias, IconVariant } from "./index.js";
+export interface IconProps {
+  /** اندازه به پیکسل یا هر واحد CSS @default 20 */
+  size?: number | string;
+  /** ضخامت خط @default 1.5 */
+  strokeWidth?: number | string;
+  /** متن برای صفحه‌خوان؛ بدون آن آیکون تزئینی و پنهان است */
+  title?: string;
+  /** قرینهٔ افقی؛ برای فلش‌ها در طرح‌های دوجهته */
+  mirror?: boolean;
+  /** سبک آیکون @default "light" */
+  variant?: IconVariant;
+}
+export type KashiIcon = DefineComponent<IconProps>;
+${names.map((n) => `export declare const ${pascal(n)}: KashiIcon;`).join("\n")}
+${aliasNames.map((n) => `/** @deprecated از ${pascal(aliases[n])} استفاده کنید */\nexport declare const ${pascal(n)}: KashiIcon;`).join("\n")}
+export declare const Icon: DefineComponent<IconProps & { name: IconName | IconAlias }>;
+`);
+
+// ---- Svelte: یک کامپوننت عمومی Icon.svelte و دادهٔ هر آیکون جدا (iconSearch، …) تا فقط آیکون‌های استفاده‌شده در باندل بمانند.
+// روش رایج کتابخانه‌های Svelte؛ کامپوننت با نحو Svelte 4 نوشته شده که Svelte 5 هم اجرا می‌کند.
+mkdirSync("dist/svelte", { recursive: true });
+const dataName = (n) => "icon" + pascal(n).slice(4);
+writeFileSync("dist/svelte/Icon.svelte", `<script>
+  // @kashi-ui/icons/svelte — این فایل خودکار ساخته شده است
+  import { renderBody } from "../render.js";
+  /** دادهٔ آیکون، مثل iconSearch از همین بسته */
+  export let icon;
+  export let size = 20;
+  export let strokeWidth = 1.5;
+  /** متن برای صفحه‌خوان؛ بدون آن آیکون تزئینی و پنهان است */
+  export let title = undefined;
+  export let mirror = false;
+  /** light، bold، bulk، two-tone، broken یا curved */
+  export let variant = "light";
+  const uid = "k" + Math.random().toString(36).slice(2, 10);
+  const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  $: body = (title ? "<title>" + esc(title) + "</title>" : "") + (icon ? renderBody(icon.body, variant, { uid, sw: Number(strokeWidth) }) : "");
+</script>
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 20 20"
+  fill="none"
+  stroke="currentColor"
+  stroke-width={strokeWidth}
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  role={title ? "img" : undefined}
+  aria-label={title || undefined}
+  aria-hidden={title ? undefined : "true"}
+  focusable="false"
+  data-kashi-icon={icon && icon.name}
+  data-variant={variant === "light" ? undefined : variant}
+  style={mirror ? "transform:scaleX(-1)" : undefined}
+  {...$$restProps}
+>{@html body}</svg>
+`);
+writeFileSync("dist/svelte/index.js", `// @kashi-ui/icons/svelte — این فایل خودکار ساخته شده است
+export { default as Icon } from "./Icon.svelte";
+export * from "./icons.js";
+`);
+writeFileSync("dist/svelte/icons.js", `// دادهٔ هر آیکون برای Icon.svelte — این فایل خودکار ساخته شده است
+${[...names, ...aliasNames].map((n) => {
+  const real = aliases[n] ?? n;
+  return aliases[n] ? `export const ${dataName(n)} = ${dataName(real)};` : `export const ${dataName(n)} = { name: ${JSON.stringify(n)}, body: ${JSON.stringify(icons[n].body)} };`;
+}).sort((a, b) => (a.includes("= {") ? 0 : 1) - (b.includes("= {") ? 0 : 1)).join("\n")}
+`);
+writeFileSync("dist/svelte/index.d.ts", `import type { SvelteComponent } from "svelte";
+import type { IconVariant } from "../index.js";
+export interface KashiIconData { name: string; body: string }
+export interface IconProps {
+  icon: KashiIconData;
+  /** @default 20 */
+  size?: number | string;
+  /** @default 1.5 */
+  strokeWidth?: number | string;
+  title?: string;
+  mirror?: boolean;
+  /** @default "light" */
+  variant?: IconVariant;
+  [attr: string]: unknown;
+}
+export declare class Icon extends SvelteComponent<IconProps> {}
+${[...names, ...aliasNames].map((n) => `export declare const ${dataName(n)}: KashiIconData;`).join("\n")}
+`);
+
+// نام‌های قدیمی فایل SVG جدا ندارند (exports آن‌ها را به فایل نام اصلی می‌رساند) ولی نماد اسپرایتشان ساخته می‌شود
 for (const n of names) {
-  writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(icons[n].body, "light", { uid: `k-${n}` })}</svg>\n`);
-  for (const v of variants.slice(1)) writeFileSync(`dist/svg/${v}/${n}.svg`, `<svg ${attrs} width="20" height="20">${renderBody(icons[n].body, v, { uid: `k-${n}` })}</svg>\n`);
+  const body = icons[aliases[n] ?? n].body;
+  writeFileSync(`dist/svg/${n}.svg`, `<svg ${attrs} width="20" height="20">${staticSvgBody(body, "light", aliases[n] ?? n)}</svg>\n`);
+  for (const v of variants.slice(1)) {
+    if (redirects[`./svg/${v}/${n}.svg`]) continue;
+    writeFileSync(`dist/svg/${v}/${n}.svg`, `<svg ${attrs} width="20" height="20">${staticSvgBody(body, v, aliases[n] ?? n)}</svg>\n`);
+  }
+}
+for (const v of variants.slice(1)) {
+  writeFileSync(`dist/svg/${v}/.npmignore`, "brand-*.svg\ncrypto-*.svg\n");
 }
 for (const v of variants) {
   writeFileSync(
     `dist/sprite${v === "light" ? "" : `-${v}`}.svg`,
-    `<svg xmlns="http://www.w3.org/2000/svg" style="display:none">\n${names.map((n) => `<symbol id="k-${n}${v === "light" ? "" : `--${v}`}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${renderBody(icons[n].body, v, { uid: `k-${n}-${v}` })}</symbol>`).join("\n")}\n</svg>\n`,
+    `<svg xmlns="http://www.w3.org/2000/svg" style="display:none">\n${[...names, ...aliasNames].map((n) => `<symbol id="k-${n}${v === "light" ? "" : `--${v}`}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${renderBody(icons[aliases[n] ?? n].body, v, { uid: `k-${n}-${v}` })}</symbol>`).join("\n")}\n</svg>\n`,
   );
 }
-console.log(`icons: ${names.length} icons × ${variants.length} variants in ${Object.keys(categories).length} categories`);
+console.log(`icons: ${names.length} icons (+${aliasNames.length} deprecated aliases) × ${variants.length} variants in ${Object.keys(categories).length} categories`);

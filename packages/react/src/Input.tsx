@@ -54,6 +54,12 @@ export interface InputProps extends FieldOwnProps, Omit<InputHTMLAttributes<HTML
   revealable?: boolean;
   /** اسپینر در انتهای فیلد، مثلاً هنگام بررسی نام کاربری */
   loading?: boolean;
+  /**
+   * «code» برای کد تخفیف، کلید لایسنس، شناسه و مقدارهای شبیه شبا: متن تایپ‌شده تک‌فاصله، چپ‌به‌راست و جدا از متن فارسی
+   * (unicode-bidi: isolate) با فاصلهٔ حروف بیشتر، ولی متن placeholder با همان فونت فارسی می‌ماند. غلط‌گیر و حروف بزرگ خودکار خاموش‌اند.
+   * @default "default"
+   */
+  variant?: "default" | "code";
   labels?: { clear?: string; show?: string; hide?: string; loading?: string };
 }
 
@@ -93,7 +99,7 @@ function Counter({ id, length, max }: { id: string; length: number; max?: number
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   {
     label, hint, error, optional, labelEnd, showCount, size = "md", addonStart, addonEnd, clearable, onClear, revealable = true,
-    loading, labels = {}, required, id, type = "text", className, fieldClassName, classNames = {},
+    loading, variant = "default", labels = {}, required, id, type = "text", className, fieldClassName, classNames = {},
     "aria-describedby": ariaDescribedBy, onChange, value, defaultValue, maxLength, disabled, readOnly, ...rest
   },
   ref,
@@ -142,7 +148,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       className={fieldClassName} classNames={classNames}
     >
       <div
-        className={cx("k-input", size !== "md" && `k-input--${size}`, className, classNames.box)}
+        className={cx("k-input", size !== "md" && `k-input--${size}`, variant === "code" && "k-input--code", className, classNames.box)}
         data-size={size}
         data-state={disabled ? "disabled" : error ? "invalid" : undefined}
       >
@@ -160,6 +166,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           readOnly={readOnly}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy(inputId, hint, error, [ariaDescribedBy, showCount ? counterId : undefined].filter(Boolean).join(" ") || undefined)}
+          {...(variant === "code" ? { spellCheck: false, autoCapitalize: "off", autoCorrect: "off", autoComplete: "off" } : {})}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             trackLength(e);
             onChange?.(e);

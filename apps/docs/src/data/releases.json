@@ -1,34 +1,1136 @@
 {
- "generated": "2026-11-05T12:29:30+03:30",
+ "generated": "2026-11-12T22:49:13+03:30",
  "totals": {
-  "commits": 206,
-  "versions": 29,
-  "added": 94217,
+  "commits": 272,
+  "versions": 46,
+  "added": 125012,
   "first": "2026-10-26T23:11:45+03:30"
  },
- "unreleased": [
-  {
-   "sha": "92a7a33b58c44eb7c49ae34df5e9fe68105590e7",
-   "short": "92a7a33",
-   "date": "2026-11-05T12:29:30+03:30",
-   "author": "sepantapouya",
-   "subject": "Docs: usage guide on every component page and a writing guide for interface text",
-   "details": [
-    "- data/guidelines.ts: when to use, when not (with the alternative), do/don't pairs",
-    "with static k-* previews and text tips, for all 71 component pages",
-    "- UsageSection.astro after the page content and in the TOC; guidelineMarkdown sends",
-    "the same text to llms.txt and the MCP server",
-    "- /docs/writing/: tone, button labels, error messages, empty and success states,",
-    "punctuation, numbers and money, English words, screen reader text, checklist",
-    "- MCP test fails for a component page without a usage guide",
-    "- Visual tests: whole-pixel clips so page length no longer shifts sizes by 1px"
-   ],
-   "files": 638,
-   "added": 829,
-   "removed": 16
-  }
- ],
+ "unreleased": [],
  "versions": [
+  {
+   "version": "2.6.0",
+   "date": "2026-11-12T22:49:13+03:30",
+   "releaseCommit": "07aff40",
+   "commits": [
+    {
+     "sha": "07aff4028cc106b0229141749527674588f59e7a",
+     "short": "07aff40",
+     "date": "2026-11-12T22:49:13+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 2.6.0: 88 icon categories, category-aware search",
+     "details": [],
+     "files": 20,
+     "added": 95,
+     "removed": 45
+    },
+    {
+     "sha": "482f9036a4990b081d618d77d95d225a7397d3ec",
+     "short": "482f903",
+     "date": "2026-11-12T22:41:24+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): 17 new categories, 1069 icons recategorized, category-aware search",
+     "details": [
+      "- split crowded categories (interface, shopping, communication, gaming, banking,",
+      "time, sports, transport) into tables, forms, accessibility, checkout, retail,",
+      "chat, support, meetings, board games, billing, calendar, fitness, cycling,",
+      "traffic, browser, infrastructure and privacy; existing category keys unchanged",
+      "- accessibility icons gathered from five categories; houses to real estate,",
+      "settings-* to navigation, ratings gathered",
+      "- searchIcons matches category labels; Persian synonyms for 56 basic icons",
+      "- test guards category size (≤220) and label search; Figma plugin rebuilt"
+     ],
+     "files": 6,
+     "added": 1079,
+     "removed": 1046
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "2.5.0",
+   "date": "2026-11-12T22:34:20+03:30",
+   "releaseCommit": "c7647c5",
+   "commits": [
+    {
+     "sha": "c7647c5463bcf5b9b592da70e73ed1abf60bc51c",
+     "short": "c7647c5",
+     "date": "2026-11-12T22:34:20+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 2.5.0 with 8200 hand-drawn icons",
+     "details": [],
+     "files": 31,
+     "added": 734,
+     "removed": 53
+    },
+    {
+     "sha": "da54d580d60f1579ae0e26b895178d1f14e6c580",
+     "short": "da54d58",
+     "date": "2026-11-12T21:41:26+03:30",
+     "author": "sepantapouya",
+     "subject": "chore(size): budget for icon shift baking in render.js",
+     "details": [],
+     "files": 2,
+     "added": 48,
+     "removed": 48
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "2.4.1",
+   "date": "2026-11-12T21:35:00+03:30",
+   "releaseCommit": "92fbaa1",
+   "commits": [
+    {
+     "sha": "92fbaa101fc3ae929d5a2be11f845d3151e27804",
+     "short": "92fbaa1",
+     "date": "2026-11-12T21:35:00+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 2.4.1: precise icon strokes, no transforms, 18 clearer icons",
+     "details": [],
+     "files": 21,
+     "added": 328,
+     "removed": 179
+    },
+    {
+     "sha": "f0ddf11e184d5851bcf48629d80dcc2fd9d9ce2d",
+     "short": "f0ddf11",
+     "date": "2026-11-12T21:33:36+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(icons): redraw eight more crowded icons, keep render.js Figma-safe",
+     "details": [
+      "- bento, fuse, burrito, micrometer thimble, laser level, room reverb reduction,",
+      "dual-SIM data default and pedalboard redrawn with fewer, larger parts",
+      "- bakeShift avoids ?? so the Figma sandbox build accepts render.js",
+      "- Figma plugin rebuilt; changeset for the patch release"
+     ],
+     "files": 5,
+     "added": 61,
+     "removed": 13
+    },
+    {
+     "sha": "afb679113e97ac5dde754147d2dcceed94bc2866",
+     "short": "afb6791",
+     "date": "2026-11-12T21:27:20+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(icons): bake shifts into coordinates and normalize stroke weights",
+     "details": [
+      "- shift() offsets are now written into path coordinates in every variant, so no",
+      "exported SVG carries a transform (pixel-identical, eye-off baked by hand)",
+      "- 1.35/1.4 fine strokes → 1.3, 1.45 → 1.5, near-1.5 strays harmonized; only",
+      "deliberate heavy marks (bars, dots, petals) stay above 1.75"
+     ],
+     "files": 2,
+     "added": 947,
+     "removed": 906
+    },
+    {
+     "sha": "1938254c8ed50bbf42d61c3b07aa0f682b0e8265",
+     "short": "1938254",
+     "date": "2026-11-12T20:56:39+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(icons): redraw ten dense icons that blurred at 20px",
+     "details": [
+      "heatmap, backgammon, ayeneh-kari, acoustic-panel, si-o-se-pol, goal-net,",
+      "spice-rack, accordion-instrument, harmonica and drum-machine had repeated",
+      "parts too small and too close to read at 16–20px. Following DESIGN.md's",
+      "density rule, repetition is reduced (3×3 tiles → one grid with three",
+      "heat cells, two points per side → one, five holes → four, six pads →",
+      "2×2, nested diamond without the cross) with at least one visible unit",
+      "between separate parts. Audit stays clean (0 off-centre, edge, small);",
+      "dense suspects 150 → 146; tests pass."
+     ],
+     "files": 1,
+     "added": 10,
+     "removed": 10
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "2.4.0",
+   "date": "2026-11-12T20:41:17+03:30",
+   "releaseCommit": "67df7e5",
+   "commits": [
+    {
+     "sha": "67df7e558ca242d59f383322b329f85065bb6721",
+     "short": "67df7e5",
+     "date": "2026-11-12T20:41:17+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 2.4.0 with 8000 reviewed icons",
+     "details": [],
+     "files": 36,
+     "added": 2528,
+     "removed": 79
+    },
+    {
+     "sha": "7fda78c89acf19678d133dce0b6f183d93a4e5a3",
+     "short": "7fda78c",
+     "date": "2026-11-12T19:46:41+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(icons): placement, fit, density and uniqueness rules; whole-set audit",
+     "details": [
+      "- DESIGN.md gains centre (±1 x, ±1.5 y) and edge (≥1) limits, fitting by",
+      "scaling coordinates, a density ceiling, closed silhouettes for filled",
+      "icons, the duplicate/alias policy and a whole-set audit section",
+      "- npm run audit -w @kashi-ui/icons renders every icon and lists",
+      "off-centre, edge, small and dense suspects",
+      "- design-scale.svg shows the centre tolerance box"
+     ],
+     "files": 4,
+     "added": 95,
+     "removed": 3
+    },
+    {
+     "sha": "b3994c3f0e059b7f1cf7cae3a49b887d0333b56d",
+     "short": "b3994c3",
+     "date": "2026-11-12T19:40:32+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(icons): center and fit 300 icons, redraw six crowded ones",
+     "details": [
+      "- 300 icons that sat off-center or touched the canvas edge are moved",
+      "(and 34 slightly scaled) into the 2-unit margin; stroke stays 1.5",
+      "- santur, rubik-cube, colosseum, backgammon, accordion and raft are",
+      "simplified so they read at 20px; payment-link badge fits the margin",
+      "- letters, digits, arrows and corner-badge icons keep their deliberate",
+      "placement"
+     ],
+     "files": 4,
+     "added": 312,
+     "removed": 307
+    },
+    {
+     "sha": "8a07d56bd258cfaf0a3d9662ed994cb7ef1ea58e",
+     "short": "8a07d56",
+     "date": "2026-11-12T19:20:24+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(icons): remove duplicate icons and make every title unique",
+     "details": [
+      "- 41 names whose drawing repeated another icon become deprecated aliases",
+      "that still render the original (iconSvg, React, SVG files, sprite)",
+      "- 71 shared Persian titles made unique",
+      "- chess-rook-black is now a filled silhouette; record, medical-cross,",
+      "file-medical, helipad and fa-alef get their own drawing",
+      "- test guards against duplicate drawings and titles; old icon pages redirect"
+     ],
+     "files": 15,
+     "added": 243,
+     "removed": 178
+    },
+    {
+     "sha": "e7c779333ceb4a7b2f0e39ffe15e50864fd87a13",
+     "short": "e7c7793",
+     "date": "2026-11-12T01:06:17+03:30",
+     "author": "sepantapouya",
+     "subject": "Restore 193 distinct icon drawings after visual duplicate review",
+     "details": [],
+     "files": 17,
+     "added": 1795,
+     "removed": 2141
+    },
+    {
+     "sha": "01bf741d91e26c15c7da37b1510746a932dc37bb",
+     "short": "01bf741",
+     "date": "2026-11-12T00:50:10+03:30",
+     "author": "sepantapouya",
+     "subject": "Reject redundant icon batch and guard against reintroduction",
+     "details": [],
+     "files": 3,
+     "added": 2131,
+     "removed": 0
+    },
+    {
+     "sha": "500f33ca1a159b9d79a1b7632cd2d19c48e2051a",
+     "short": "500f33c",
+     "date": "2026-11-12T00:32:48+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): redesign article covers and figures for the dark site",
+     "details": [
+      "- Covers: deep dark base with category-colored glow, glass card art, gradient title",
+      "- Figures: dark palette matching the site, dotted backdrop with category glow,",
+      "new do/don't tags; IBAN segments and contrast samples made correct on dark"
+     ],
+     "files": 84,
+     "added": 58,
+     "removed": 35
+    },
+    {
+     "sha": "ab09773548733cbae7670a29acd40e7987849bf3",
+     "short": "ab09773",
+     "date": "2026-11-12T00:29:04+03:30",
+     "author": "sepantapouya",
+     "subject": "feat: read-only for number, OTP, date, date range and slider",
+     "details": [],
+     "files": 10,
+     "added": 68,
+     "removed": 25
+    },
+    {
+     "sha": "e8426e656bd06b4e9bc06eaf4725fa752f19a28a",
+     "short": "e8426e6",
+     "date": "2026-11-12T00:22:52+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): redesigned header and footer",
+     "details": [
+      "- Header: three zones, pill nav with sliding hover, one full-width Resources mega",
+      "menu (tools, design and content, stability, featured card), grouped icon actions;",
+      "fixes menu descriptions overflowing the panel",
+      "- Footer: CTA band with install command, brand column with socials and channel,",
+      "five link columns, bottom bar and wordmark",
+      "- Old header/footer CSS removed from site.css and enterprise.css"
+     ],
+     "files": 7,
+     "added": 448,
+     "removed": 401
+    },
+    {
+     "sha": "79a63adc95e044fe9045c47b5d24f673523c6c1b",
+     "short": "79a63ad",
+     "date": "2026-11-11T23:54:14+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(css): loading button no longer shows its label on hover",
+     "details": [
+      "aria-disabled hover rule restored the text color over the spinner."
+     ],
+     "files": 3,
+     "added": 12,
+     "removed": 1
+    }
+   ],
+   "notes": [
+    {
+     "kind": "patch",
+     "text": "فقط‌خواندنی (`readOnly`) برای NumberInput، OtpInput، DatePicker (بدون دکمهٔ تقویم)، DateRangePicker و Slider.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "2.3.0",
+   "date": "2026-11-11T23:52:54+03:30",
+   "releaseCommit": "a8f46e5",
+   "commits": [
+    {
+     "sha": "a8f46e5eaa885a99c0168f40d55f6de1fe28b032",
+     "short": "a8f46e5",
+     "date": "2026-11-11T23:52:54+03:30",
+     "author": "sepantapouya",
+     "subject": "chore: release 2.3.0",
+     "details": [],
+     "files": 23,
+     "added": 108,
+     "removed": 49
+    },
+    {
+     "sha": "31b0dedd2b19af83473418a07b049d868c8a8762",
+     "short": "31b0ded",
+     "date": "2026-11-11T23:37:40+03:30",
+     "author": "sepantapouya",
+     "subject": "chore: changeset for component states",
+     "details": [],
+     "files": 1,
+     "added": 7,
+     "removed": 0
+    },
+    {
+     "sha": "df92041be775deffd2d861113e4da00aa8501e43",
+     "short": "df92041",
+     "date": "2026-11-11T23:37:32+03:30",
+     "author": "sepantapouya",
+     "subject": "feat: loading, empty and read-only states across components",
+     "details": [
+      "- states.css: shared read-only, loading (spinner, skeleton rows) and empty looks",
+      "- React: readOnly on Select, Combobox, MultiSelect, TagInput, Checkbox, Switch,",
+      "RadioGroup, SegmentedControl, ChipGroup, SwatchGroup; loading/emptyMessage on",
+      "Select, MultiSelect, SearchSuggest and all charts; loading on StatCard",
+      "- Messages: common.noOptions, common.noData (fa/en)",
+      "- Docs: /docs/states/ with matrix, guidance and live demos; tests in states.test.mjs"
+     ],
+     "files": 22,
+     "added": 617,
+     "removed": 209
+    },
+    {
+     "sha": "8ad3b5fb0a07695f9211dc00747e83658e8ecd73",
+     "short": "8ad3b5f",
+     "date": "2026-11-11T23:23:29+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(docs): build the versions list from full history on the build server",
+     "details": [
+      "Vercel clones shallow, so releases.mjs kept the committed releases.json and the",
+      "changelog lagged behind releases. Now it fetches full history (origin, then the",
+      "public GitHub URL) before building the list."
+     ],
+     "files": 1,
+     "added": 16,
+     "removed": 2
+    },
+    {
+     "sha": "4b44ff5d08aa51b15453d3a4b147d0e4c682d8c6",
+     "short": "4b44ff5",
+     "date": "2026-11-11T23:20:09+03:30",
+     "author": "sepantapouya",
+     "subject": "docs: record the Kashi 2.2.0 release",
+     "details": [],
+     "files": 1,
+     "added": 75,
+     "removed": 4
+    }
+   ],
+   "notes": [
+    {
+     "kind": "patch",
+     "text": "دکمهٔ در حال بارگذاری (`loading`) با نگه داشتن ماوس، متنش را روی اسپینر نشان می‌داد؛ درست شد.",
+     "sub": [],
+     "packages": [
+      "react",
+      "css"
+     ]
+    },
+    {
+     "kind": "minor",
+     "text": "حالت‌های مشترک کامپوننت‌ها: فقط‌خواندنی (`readOnly`) برای Select، Combobox، MultiSelect، TagInput، Checkbox، Switch، RadioGroup، SegmentedControl، ChipGroup و SwatchGroup؛ بارگذاری و فهرست خالی (`loading`، `emptyMessage`) برای Select، MultiSelect، SearchSuggest و همهٔ نمودارها؛ `loading` برای StatCard. ظاهر مشترک در `states.css` و پیام‌های تازهٔ `common.noOptions` و `common.noData`. راهنما: /docs/states/",
+     "sub": [],
+     "packages": [
+      "react",
+      "css",
+      "persian"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "2.2.0",
+   "date": "2026-11-11T23:20:02+03:30",
+   "releaseCommit": "150cecf",
+   "commits": [
+    {
+     "sha": "150cecfe715e6b08e96eef05d2ad4b15ad4f0354",
+     "short": "150cecf",
+     "date": "2026-11-11T23:20:02+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 2.2.0",
+     "details": [],
+     "files": 22,
+     "added": 96,
+     "removed": 46
+    },
+    {
+     "sha": "a57b67dffa45aea446212a632d935d0f79cea8f0",
+     "short": "a57b67d",
+     "date": "2026-11-11T23:18:35+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 200 independently drawn Kashi icons",
+     "details": [],
+     "files": 12,
+     "added": 237,
+     "removed": 12
+    },
+    {
+     "sha": "231bb45180b489cf96ab0b08f3a3bee18d90fcf8",
+     "short": "231bb45",
+     "date": "2026-11-11T23:21:17+03:30",
+     "author": "sepantapouya",
+     "subject": "feat: link the Kashi Telegram channel (t.me/kashidesign)",
+     "details": [
+      "- Site: header icon, landing announcement bar and channel card, footer, Organization sameAs",
+      "- README: Telegram badge and channel link"
+     ],
+     "files": 7,
+     "added": 42,
+     "removed": 6
+    },
+    {
+     "sha": "513bcdeab054480675ba27276f4d63b0b0a222e4",
+     "short": "513bcde",
+     "date": "2026-11-11T22:14:04+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): brand page with logo, colors, type, name and usage rules",
+     "details": [
+      "- /docs/brand/: logo variants, clear space and minimum size, logo do/don't,",
+      "brand colors, typography, name spelling, voice, usage rules, downloads",
+      "- Brand assets in public/brand (SVG color/white/black, PNG, avatar)",
+      "- Linked from sidebar, header guides menu and footer"
+     ],
+     "files": 9,
+     "added": 279,
+     "removed": 1
+    },
+    {
+     "sha": "f80ed1721c984c07f42474b47a19642853688c11",
+     "short": "f80ed17",
+     "date": "2026-11-10T12:40:11+03:30",
+     "author": "sepantapouya",
+     "subject": "docs: record the Kashi 2.1.0 release",
+     "details": [],
+     "files": 1,
+     "added": 76,
+     "removed": 34
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "2.1.0",
+   "date": "2026-11-10T12:40:07+03:30",
+   "releaseCommit": "845e7f9",
+   "commits": [
+    {
+     "sha": "845e7f9471b7ecaae606c1561383334fcab1dc71",
+     "short": "845e7f9",
+     "date": "2026-11-10T12:40:07+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 2.1.0",
+     "details": [],
+     "files": 22,
+     "added": 96,
+     "removed": 46
+    },
+    {
+     "sha": "89faf6d8421d997b224a17f695df7247a4df642f",
+     "short": "89faf6d",
+     "date": "2026-11-10T12:06:08+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 400 independently drawn Kashi icons",
+     "details": [],
+     "files": 12,
+     "added": 458,
+     "removed": 13
+    },
+    {
+     "sha": "e4c3790dbb7d06ed99a20fac0cbead44d1074c54",
+     "short": "e4c3790",
+     "date": "2026-11-10T11:59:03+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(docs): versions page shows 2.0.0; highlight latest release",
+     "details": [
+      "releases.json had been left at 1.8.0, so the live changelog still listed 1.8.0 as latest."
+     ],
+     "files": 2,
+     "added": 131,
+     "removed": 6
+    },
+    {
+     "sha": "f1e7aa7353542386efe782f7df3be4181c0d6ae9",
+     "short": "f1e7aa7",
+     "date": "2026-11-10T11:33:22+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): redesigned comparison page; sidebar scrollbar only on hover",
+     "details": [],
+     "files": 2,
+     "added": 95,
+     "removed": 4
+    },
+    {
+     "sha": "31187bd694af4087a309fb7aec5a5fe2ec48c5b6",
+     "short": "31187bd",
+     "date": "2026-11-10T11:18:08+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): enterprise redesign of the site",
+     "details": [
+      "- Deeper dark theme, glass header with version badge, page transitions, reading progress, back-to-top",
+      "- Docs shell: collapsible sidebar with filter, breadcrumb and page actions, feedback box, TOC rail",
+      "- Landing: centered hero with aurora and moving grid, flattening product window, package marquee,",
+      "icon showcase, section motion, FAQ on Kashi accordion",
+      "- Component pages: demo toolbar (LTR / opposite theme), redesigned do/don't guidelines",
+      "- Docs home and Persian gallery redesigned; site UI uses Kashi components where they exist"
+     ],
+     "files": 233,
+     "added": 1435,
+     "removed": 218
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "2.0.0",
+   "date": "2026-11-10T01:47:51+03:30",
+   "releaseCommit": "7d29937",
+   "commits": [
+    {
+     "sha": "7d299373bed954ba0ebd9f71128945a828fabb4f",
+     "short": "7d29937",
+     "date": "2026-11-10T01:47:51+03:30",
+     "author": "sepantapouya",
+     "subject": "chore: release 2.0.0",
+     "details": [],
+     "files": 20,
+     "added": 157,
+     "removed": 57
+    },
+    {
+     "sha": "99a712f746b0ef7babab721faa082bffeb455fb0",
+     "short": "99a712f",
+     "date": "2026-11-10T01:47:24+03:30",
+     "author": "sepantapouya",
+     "subject": "feat: Kashi 2.0 — minimal unified redesign, micro-interactions and new commerce components",
+     "details": [
+      "- Flat controls, softer radius scale with control/surface roles, one control border",
+      "- Custom Select listbox (Popover API, full keyboard, hidden native select)",
+      "- Sliding segmented/tabs indicator, spring checks, switch stretch, error shake",
+      "- New: SearchSuggest, PriceRange, SwatchGroup (React, elements, Figma, docs)",
+      "- Icon categories in 12 groups; motion docs page; 2.0 migration guide"
+     ],
+     "files": 155,
+     "added": 5372,
+     "removed": 4853
+    },
+    {
+     "sha": "8ad6802120d0a51b21f09d8c37ceb9809cbc3e20",
+     "short": "8ad6802",
+     "date": "2026-11-10T00:21:06+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): site-wide SEO and an articles section with 20 Persian articles",
+     "details": [
+      "- sitemap.xml (built after the site, real lastmod for articles) and robots.txt",
+      "- Organization and WebSite JSON-LD on every page, BreadcrumbList on docs,",
+      "BlogPosting on articles; og:type, article times and per-page share images",
+      "- clearer search titles for short component names, shorter icon titles,",
+      "fuller descriptions; StackBlitz files moved out of raw HTML (no extra <title>)",
+      "- /articles/ with search (Persian normalisation), category and tag filters",
+      "and sort, kept in the URL; RSS feed; linked from the guides menu and footer",
+      "- 20 articles, each with a share cover and three in-text figures rendered",
+      "from real Kashi components (scripts/article-images)"
+     ],
+     "files": 151,
+     "added": 3148,
+     "removed": 22
+    },
+    {
+     "sha": "61187a3351c5b7240c0045ef49bf451a696f1639",
+     "short": "61187a3",
+     "date": "2026-11-09T23:21:55+03:30",
+     "author": "sepantapouya",
+     "subject": "docs: record the Kashi 1.8.0 release",
+     "details": [],
+     "files": 1,
+     "added": 45,
+     "removed": 4
+    }
+   ],
+   "notes": [
+    {
+     "kind": "major",
+     "text": "کاشی ۲.۰: بازطراحی یکپارچه و مینیمال. هیچ prop، کلاس، تگ یا تابعی حذف نشده؛ ظاهر پیش‌فرض عوض شده (راهنما: /docs/migration/).",
+     "sub": [
+      "کنترل‌ها تخت‌اند (بدون سایهٔ اسکئومورفیک)، گوشه‌ها نرم‌تر با دو نقش `--k-radius-control` و `--k-radius-surface`، و یک حاشیه برای همهٔ کنترل‌ها با `--k-border-control`.",
+      "سلکت در React فهرست کاشی با صفحه‌کلید کامل و select بومیِ پنهان؛ `native` برای فهرست مرورگر.",
+      "سگمنت و زبانه‌های segmented با ریل پُرزمینه (`--k-bg-muted`، `--k-bg-raised`)، آکاردئون با کارت‌های جدا، `danger-secondary` نرم، منو و جدول و راهنمای نمودار آرام‌تر.",
+      "ریزتعامل در همهٔ کامپوننت‌ها: فشرده شدن دکمه و کنترل‌ها، تیک و نقطه با فنر، دستگیرهٔ کش‌آمدنی سوییچ، دستگیرهٔ لغزان سگمنت، لرزش و ظاهر شدن نرم خطای فیلد، باز و بسته شدن نرم فهرست و پنجره و آکاردئون، دکمهٔ کپی با تیک؛ توکن‌های تازهٔ `--k-ease-spring` و `--k-ease-exit` و صفحهٔ /docs/motion/. با «کاهش حرکت» همه خاموش می‌شوند.",
+      "تازه: دکمهٔ `outline`، کامپوننت‌های SearchSuggest، PriceRange و SwatchGroup (React، وب کامپوننت و فیگما).",
+      "آیکون‌ها: `categoryGroups` با ۱۲ گروه؛ دو دسته نام روشن‌تر گرفتند."
+     ],
+     "packages": [
+      "react",
+      "css",
+      "persian",
+      "tokens"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "1.8.0",
+   "date": "2026-11-09T23:21:45+03:30",
+   "releaseCommit": "618ac3f",
+   "commits": [
+    {
+     "sha": "618ac3ff23a980ca76f2854309cac5837b34c919",
+     "short": "618ac3f",
+     "date": "2026-11-09T23:21:45+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.8.0",
+     "details": [],
+     "files": 22,
+     "added": 96,
+     "removed": 46
+    },
+    {
+     "sha": "5a17f1028181194116ccf9e6daf9465c501a54e2",
+     "short": "5a17f10",
+     "date": "2026-11-09T20:54:10+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 300 independently drawn Kashi icons",
+     "details": [],
+     "files": 12,
+     "added": 347,
+     "removed": 12
+    },
+    {
+     "sha": "66f6cc2b677965a9a36d1944d96a7b611fc3e05d",
+     "short": "66f6cc2",
+     "date": "2026-11-09T17:16:12+03:30",
+     "author": "sepantapouya",
+     "subject": "docs: record the Kashi 1.7.0 release",
+     "details": [],
+     "files": 1,
+     "added": 113,
+     "removed": 42
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "1.7.0",
+   "date": "2026-11-09T17:15:39+03:30",
+   "releaseCommit": "bebbcfe",
+   "commits": [
+    {
+     "sha": "bebbcfe4f8b52f0ff7f7360082efa690a5352d96",
+     "short": "bebbcfe",
+     "date": "2026-11-09T17:15:39+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.7.0",
+     "details": [],
+     "files": 22,
+     "added": 96,
+     "removed": 46
+    },
+    {
+     "sha": "cc050a54c948aca2e69323cb289aa05fcce5fc12",
+     "short": "cc050a5",
+     "date": "2026-11-09T17:09:25+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 700 independently drawn Kashi icons",
+     "details": [],
+     "files": 12,
+     "added": 787,
+     "removed": 12
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "1.6.0",
+   "date": "2026-11-09T13:36:36+03:30",
+   "releaseCommit": "68d6d84",
+   "commits": [
+    {
+     "sha": "68d6d849c58f95609d77224b53f8302e8281e9de",
+     "short": "68d6d84",
+     "date": "2026-11-09T13:36:36+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.6.0",
+     "details": [],
+     "files": 23,
+     "added": 201,
+     "removed": 65
+    },
+    {
+     "sha": "5176ef2ae83ba03cc9f748ba5e4bc58a471a4d4a",
+     "short": "5176ef2",
+     "date": "2026-11-09T13:33:18+03:30",
+     "author": "sepantapouya",
+     "subject": "feat: fixes and improvements from building the Skills store",
+     "details": [
+      "Bugs",
+      "- SideNav never grows past its container (max-inline-size: 100%).",
+      "- Tooltip (React and <kashi-tooltip>) renders in the top layer via the",
+      "Popover API with fixed positioning, flips to the other side when there",
+      "is no room, so overflow: hidden ancestors no longer clip it.",
+      "- Base reset: button, input, select, textarea inherit the font.",
+      "- messages: context-menu hint names the action instead of \"click\" and has",
+      "no Latin digits next to Persian; ContextMenu (React + element) now also",
+      "opens on touch long-press.",
+      "- unicode-bidi: isolate for kbd, menu shortcut, file name/ext, hue slider.",
+      "- SegmentedControl scrolls horizontally inside itself on narrow screens.",
+      "Improvements",
+      "- Carousel (React + element): effect=\"fade\" opacity crossfade, thumbnails",
+      "(data-thumb in the element), autoplay with progress bar and pause button",
+      "that pauses on hover/focus/hidden tab, lightbox dialog, touch swipe.",
+      "- FileUpload (React + element): real <input type=file name> for plain",
+      "forms / FormData / Server Actions, required, image preview, client-side",
+      "image downscale (resizeImages / max-dimension + quality).",
+      "- Input variant=\"code\" (React + element): mono LTR isolated value, sans",
+      "placeholder, no spellcheck/autocapitalize.",
+      "- Radio cards: badge and meta (price) slots, stronger selected state.",
+      "- Docs: Safari/iOS warning about 3D transforms on large images.",
+      "fa + en messages, tests (React, elements, mobile visual checks), visual",
+      "baselines for new demos and states, Figma kit, docs, guidelines, element",
+      "docs and size budget updated."
+     ],
+     "files": 78,
+     "added": 1727,
+     "removed": 332
+    }
+   ],
+   "notes": [
+    {
+     "kind": "minor",
+     "text": "رفع مشکل‌ها و بهبودهایی که هنگام ساخت فروشگاه اسکیل‌ها روی کاشی پیدا شد:",
+     "sub": [
+      "**SideNav** دیگر از ظرفش پهن‌تر نمی‌شود: `--k-sidenav-width` (پیش‌فرض ۱۷rem) با `max-inline-size: 100%`؛ در ستون ۲۵۰ پیکسلی نشان مورد بریده نمی‌شود.",
+      "**Tooltip** (و `<kashi-tooltip>`) در لایهٔ بالایی مرورگر (Popover API) نمایش داده می‌شود؛ `overflow: hidden` والدها آن را نمی‌برد و اگر سمت خواسته‌شده جا نداشته باشد، به سمت مقابل می‌رود. کیبورد، hover و ARIA مثل قبل‌اند.",
+      "**پایهٔ CSS**: `button`، `input`، `select` و `textarea` فونت را از صفحه می‌گیرند (`font: inherit`)؛ دکمهٔ سادهٔ بدون کلاس دیگر فونت سیستم ندارد.",
+      "**متن‌ها**: راهنمای منوی راست‌کلیک به‌جای فعل «کلیک» کار را نام می‌برد (دکمهٔ راست ماوس، نگه‌داشتن انگشت) و ارقام لاتین کنار متن فارسی ندارد. منوی راست‌کلیک (React و `<kashi-context-menu>`) حالا با نگه‌داشتن انگشت روی صفحهٔ لمسی هم باز می‌شود.",
+      "**جدا کردن متن چپ‌به‌راست**: `unicode-bidi: isolate` برای کلید (kbd)، میان‌بر منو، نام و پسوند فایل و نوار رنگ‌مایه؛ نشانه‌گذاری متن فارسی اطرافشان دیگر جابه‌جا نمی‌شود.",
+      "**SegmentedControl** با چهار گزینه یا بیشتر در صفحهٔ ۳۷۵ پیکسلی خودش افقی اسکرول می‌خورد (بدون نوار اسکرول پیدا)؛ صفحه پهن نمی‌شود.",
+      "**Carousel** (و `<kashi-carousel>`): `effect=\"fade\"` محو شدن با opacity برای عکس‌های بزرگ، `thumbnails` (در وب کامپوننت `data-thumb`)، `autoplay` با نوار پیشرفت و دکمهٔ توقف که با hover، فوکوس و پنهان شدن زبانه مکث می‌کند، `lightbox` نمای بزرگ تمام‌صفحه با Esc و کلیدهای جهت، و کشیدن انگشت.",
+      "**FileUpload** (و `<kashi-file-upload>`): با `name` فایل‌های پذیرفته‌شده در یک `<input type=\"file\">` واقعی می‌مانند و با فرم معمولی، FormData و Server Action ارسال می‌شوند؛ `required`، پیش‌نمایش تصویر و `resizeImages` (در وب کامپوننت `max-dimension` و `quality`) برای کوچک کردن عکس‌های بزرگ در مرورگر پیش از ارسال. پیام‌های تازه در فارسی و انگلیسی.",
+      "**Input** (و `<kashi-input>`): `variant=\"code\"` برای کد تخفیف، کلید لایسنس و شناسه؛ متن تایپ‌شده تک‌فاصله، چپ‌به‌راست و جدا از متن فارسی، ولی placeholder با فونت فارسی.",
+      "**Radio** در `variant=\"cards\"`: `badge` (مثل «پیشنهادی») و `meta` (قیمت) و حالت انتخاب‌شدهٔ پررنگ‌تر با حلقهٔ فوکوس.",
+      "**مستندات**: هشدار دربارهٔ تبدیل سه‌بعدی روی عکس‌های بزرگ در Safari و iOS در صفحه‌ها و راهنمای کارت و کاروسل."
+     ],
+     "packages": [
+      "react",
+      "css",
+      "persian"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "1.5.0",
+   "date": "2026-11-09T12:39:53+03:30",
+   "releaseCommit": "1309e90",
+   "commits": [
+    {
+     "sha": "1309e90a833058e3b9949068738a723422532593",
+     "short": "1309e90",
+     "date": "2026-11-09T12:39:53+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.5.0",
+     "details": [],
+     "files": 25,
+     "added": 177,
+     "removed": 64
+    },
+    {
+     "sha": "f4906b4ded0999c0940b528d28e4f0a321e880b7",
+     "short": "f4906b4",
+     "date": "2026-11-09T12:36:06+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 200 education, health, and travel icons",
+     "details": [],
+     "files": 9,
+     "added": 233,
+     "removed": 8
+    },
+    {
+     "sha": "2f913796f4135e3089dd01ad895cf41a9ac4d2dc",
+     "short": "2f91379",
+     "date": "2026-11-09T12:36:06+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 200 independent interface icons",
+     "details": [],
+     "files": 9,
+     "added": 233,
+     "removed": 8
+    },
+    {
+     "sha": "4f647f989a51b6423080890163304b2cf3878a00",
+     "short": "4f647f9",
+     "date": "2026-11-09T12:30:17+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): connect Google Analytics 4 on the live site",
+     "details": [],
+     "files": 1,
+     "added": 14,
+     "removed": 7
+    },
+    {
+     "sha": "dda4b5a4ab0fb74ed8248b48e278b346d359c291",
+     "short": "dda4b5a",
+     "date": "2026-11-09T12:25:27+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): add Google Tag Manager on the live site only",
+     "details": [
+      "Loads GTM-TWGR2P8Z through the official gtm.start snippet, skipped on",
+      "localhost and test hosts so development and visual tests stay out of the stats."
+     ],
+     "files": 2,
+     "added": 17,
+     "removed": 0
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "1.4.0",
+   "date": "2026-11-09T00:05:40+03:30",
+   "releaseCommit": "7107dda",
+   "commits": [
+    {
+     "sha": "7107ddaa702e4cbe1333b955a582e0ae18e4fe8a",
+     "short": "7107dda",
+     "date": "2026-11-09T00:05:40+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.4.0",
+     "details": [],
+     "files": 24,
+     "added": 139,
+     "removed": 59
+    },
+    {
+     "sha": "3ced8a35f2f377290648597d03275ef48e2a8bdb",
+     "short": "3ced8a3",
+     "date": "2026-11-08T23:47:26+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 200 home, settings, and workflow icons",
+     "details": [],
+     "files": 9,
+     "added": 254,
+     "removed": 8
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "1.3.0",
+   "date": "2026-11-08T22:36:42+03:30",
+   "releaseCommit": "b9963e1",
+   "commits": [
+    {
+     "sha": "b9963e193f3090d56ed76ab726697e4d9c962c4a",
+     "short": "b9963e1",
+     "date": "2026-11-08T22:36:42+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.3.0",
+     "details": [],
+     "files": 24,
+     "added": 165,
+     "removed": 73
+    },
+    {
+     "sha": "58c44fa0759f9ebc3ace88cf46404b75508245f2",
+     "short": "58c44fa",
+     "date": "2026-11-08T22:34:40+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 200 everyday UI icons",
+     "details": [],
+     "files": 9,
+     "added": 253,
+     "removed": 8
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "1.2.1",
+   "date": "2026-11-08T21:30:28+03:30",
+   "releaseCommit": "a352621",
+   "commits": [
+    {
+     "sha": "a3526217b1c22ee98c68903168194320b07117a9",
+     "short": "a352621",
+     "date": "2026-11-08T21:30:28+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.2.1",
+     "details": [],
+     "files": 23,
+     "added": 190,
+     "removed": 94
+    },
+    {
+     "sha": "94d7b1ee23a222aaace3bb12e46b06b7d4a33d1e",
+     "short": "94d7b1e",
+     "date": "2026-11-08T21:27:28+03:30",
+     "author": "sepantapouya",
+     "subject": "fix: tree-shakeable React icons, Tabs overflow, RTL skip link",
+     "details": [
+      "- @kashi-ui/icons/react: each component carries only its own SVG body and",
+      "is /*#__PURE__*/; three icons bundle to ~4 KB gzip instead of ~1.7 MB.",
+      "<Icon name> stays as the opt-in that loads every icon.",
+      "- .k-tabs uses grid-template-columns: minmax(0, 1fr); the tab list scrolls",
+      "horizontally inside its own box, so wide tabs/panels no longer widen the",
+      "page on mobile.",
+      "- .k-skip-link is clipped to 1px until :focus instead of being translated",
+      "off-screen (caused horizontal scroll in dir=\"rtl\").",
+      "- Tests: icons tree-shake test, /test/mobile/ no-horizontal-scroll visual",
+      "test, tabs-narrow visual state; size budget group for icons; docs, Figma."
+     ],
+     "files": 24,
+     "added": 236,
+     "removed": 25
+    }
+   ],
+   "notes": [
+    {
+     "kind": "patch",
+     "text": "- `@kashi-ui/icons/react` دوباره tree-shake می‌شود: هر کامپوننت فقط طرح SVG خودش را دارد و با `/*#__PURE__*/` ساخته می‌شود؛ `import { IconSearch, IconHome, IconUser }` حدود ۴ کیلوبایت gzip به باندل اضافه می‌کند، نه کل آیکون‌ها (حدود ۱٫۷ مگابایت). `<Icon name>` مثل قبل کار می‌کند و برای نام‌های پویا است؛ فقط آن همهٔ آیکون‌ها را می‌آورد.",
+     "sub": [
+      "زبانه‌های افقی (`Tabs`) دیگر ظرفشان را پهن نمی‌کنند: `.k-tabs` ستون `minmax(0, 1fr)` دارد، پنل کوچک می‌شود و فهرست زبانهٔ بلند داخل کادر خودش افقی اسکرول می‌خورد؛ در ۳۷۵ پیکسل صفحه اسکرول افقی نمی‌گیرد.",
+      "`.k-skip-link` تا فوکوس نگرفته به یک پیکسلِ بریده (clip-path) پنهان می‌شود، نه با جابه‌جایی بیرون از صفحه که در `dir=\"rtl\"` اسکرول افقی می‌ساخت."
+     ],
+     "packages": [
+      "css"
+     ]
+    }
+   ]
+  },
+  {
+   "version": "1.2.0",
+   "date": "2026-11-08T15:47:40+03:30",
+   "releaseCommit": "adf06ac",
+   "commits": [
+    {
+     "sha": "adf06aca4c40bb891b624999b2816c0e86d94492",
+     "short": "adf06ac",
+     "date": "2026-11-08T15:47:40+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.2.0",
+     "details": [],
+     "files": 25,
+     "added": 240,
+     "removed": 130
+    },
+    {
+     "sha": "8ec94dc52835d152a7906697c22ec5d52ffae5a7",
+     "short": "8ec94dc",
+     "date": "2026-11-08T15:43:53+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 200 workflow icons and refine status spacing",
+     "details": [],
+     "files": 13,
+     "added": 304,
+     "removed": 26
+    },
+    {
+     "sha": "489a542efa19fbd679e84a069c4485a7fab4bf9d",
+     "short": "489a542",
+     "date": "2026-11-08T15:27:06+03:30",
+     "author": "sepantapouya",
+     "subject": "docs(icons): define Kashi icon design scale",
+     "details": [],
+     "files": 4,
+     "added": 145,
+     "removed": 0
+    },
+    {
+     "sha": "ebf7e8c14179cb030c49aa15014b5ce17a1221d6",
+     "short": "ebf7e8c",
+     "date": "2026-11-08T14:47:07+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 90 icons across nine themes",
+     "details": [],
+     "files": 12,
+     "added": 125,
+     "removed": 12
+    },
+    {
+     "sha": "151055edd409dbf66bb880cfb90271aa3e421a5d",
+     "short": "151055e",
+     "date": "2026-11-08T14:32:44+03:30",
+     "author": "sepantapouya",
+     "subject": "refine(icons): hand-draw eight bold glyphs",
+     "details": [],
+     "files": 6,
+     "added": 67,
+     "removed": 17
+    }
+   ],
+   "notes": []
+  },
+  {
+   "version": "1.1.0",
+   "date": "2026-11-08T13:55:57+03:30",
+   "releaseCommit": "5eb4f15",
+   "commits": [
+    {
+     "sha": "5eb4f158bed2cce4e9b91fb8825f8595458c1bb3",
+     "short": "5eb4f15",
+     "date": "2026-11-08T13:55:57+03:30",
+     "author": "sepantapouya",
+     "subject": "Release 1.1.0",
+     "details": [],
+     "files": 23,
+     "added": 165,
+     "removed": 49
+    },
+    {
+     "sha": "ce9bda0fb48b26584a389d7649bad86f3f67dc00",
+     "short": "ce9bda0",
+     "date": "2026-11-08T13:52:29+03:30",
+     "author": "sepantapouya",
+     "subject": "fix(icons): improve filled variants across the catalog",
+     "details": [],
+     "files": 7,
+     "added": 123,
+     "removed": 56
+    },
+    {
+     "sha": "70666cf8b49de6c80f8f4943417d22b32124fc39",
+     "short": "70666cf",
+     "date": "2026-11-08T13:35:55+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(icons): add 10 urban mobility icons",
+     "details": [],
+     "files": 11,
+     "added": 22,
+     "removed": 12
+    },
+    {
+     "sha": "37cc8b0af7a062169650f2aabbc9f2d51b1a538c",
+     "short": "37cc8b0",
+     "date": "2026-11-05T23:10:36+03:30",
+     "author": "sepantapouya",
+     "subject": "ci: initialize service monitoring on collector updates",
+     "details": [],
+     "files": 1,
+     "added": 5,
+     "removed": 0
+    },
+    {
+     "sha": "a44d976b9cbdfea1c895bdb82697b4d1db2afc1f",
+     "short": "a44d976",
+     "date": "2026-11-05T23:07:51+03:30",
+     "author": "sepantapouya",
+     "subject": "feat(docs): add Kashi service radar with real availability checks",
+     "details": [],
+     "files": 14,
+     "added": 193,
+     "removed": 3
+    },
+    {
+     "sha": "9d2e32b3302480958fe69d8ab41a9879a16a4446",
+     "short": "9d2e32b",
+     "date": "2026-11-05T13:21:09+03:30",
+     "author": "sepantapouya",
+     "subject": "Docs: full Persian UI writing guide with diagrams; guides menu in header and footer",
+     "details": [
+      "- /docs/writing/ rewritten: principles, voice and tone, every UI element, ZWNJ and",
+      "spacing, spelling, punctuation, numbers and money, word choice, bidi, Persian",
+      "typography, screen readers, product glossary, checklist and sources",
+      "(Persian Academy via Virastaran, ArvanCloud orthography, W3C alreq, Digikala)",
+      "- WritingArt.astro: error message anatomy, tone spectrum, which-message tree,",
+      "button label formula, ZWNJ comparison and punctuation spacing, in both themes",
+      "- Header: «ابزارها» as a 3×2 grid and a new «راهنماها» menu with two sections;",
+      "panels anchored to the nav so they stay on screen; no stray active underline",
+      "inside menus; Latin text in <bdi> so @kashi reads right",
+      "- Footer: five columns (product, tools, guides, stability, community) on a grid"
+     ],
+     "files": 7,
+     "added": 646,
+     "removed": 105
+    },
+    {
+     "sha": "92a7a33b58c44eb7c49ae34df5e9fe68105590e7",
+     "short": "92a7a33",
+     "date": "2026-11-05T12:29:30+03:30",
+     "author": "sepantapouya",
+     "subject": "Docs: usage guide on every component page and a writing guide for interface text",
+     "details": [
+      "- data/guidelines.ts: when to use, when not (with the alternative), do/don't pairs",
+      "with static k-* previews and text tips, for all 71 component pages",
+      "- UsageSection.astro after the page content and in the TOC; guidelineMarkdown sends",
+      "the same text to llms.txt and the MCP server",
+      "- /docs/writing/: tone, button labels, error messages, empty and success states,",
+      "punctuation, numbers and money, English words, screen reader text, checklist",
+      "- MCP test fails for a component page without a usage guide",
+      "- Visual tests: whole-pixel clips so page length no longer shifts sizes by 1px"
+     ],
+     "files": 638,
+     "added": 829,
+     "removed": 16
+    }
+   ],
+   "notes": []
+  },
   {
    "version": "1.0.0",
    "date": "2026-11-04T16:33:10+03:30",

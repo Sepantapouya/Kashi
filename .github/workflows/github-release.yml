@@ -1,0 +1,36 @@
+name: GitHub Release
+
+# One "Kashi X.Y.Z" release per version, built from the package CHANGELOGs.
+# Runs after every push to main that bumps package versions (the merged
+# "نسخهٔ جدید کاشی" PR, or a local `npm run version-packages`), and on demand.
+# The script skips versions that already have a release, so re-runs are safe
+# and the first run backfills every version since 1.0.0.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "packages/*/package.json"
+      - "packages/*/CHANGELOG.md"
+      - "scripts/github-release.mjs"
+      - ".github/workflows/github-release.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: github-release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # needs history and tags to find each version's commit
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - run: node scripts/github-release.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

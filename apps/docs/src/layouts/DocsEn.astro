@@ -1,0 +1,103 @@
+---
+// English docs layout: left-to-right, its own header and sidebar, same tokens, prose styles and components as the Persian site.
+import Base from "./Base.astro";
+import Toc from "../components/Toc.astro";
+import EnNav from "../components/EnNav";
+import { EN_NAV } from "../data/en";
+import { author } from "../data/author";
+import pkg from "@kashi-ui/react/package.json";
+
+interface Props {
+  frontmatter?: { title: string; description?: string; seoTitle?: string; fa?: string };
+  title?: string;
+  description?: string;
+  /** Persian version of this page, for the language switch and hreflang */
+  fa?: string;
+  headings?: { depth: number; slug: string; text: string }[];
+}
+const fm = Astro.props.frontmatter ?? { title: Astro.props.title ?? "", description: Astro.props.description, fa: Astro.props.fa };
+const path = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const fa = fm.fa ?? Astro.props.fa ?? "/docs/";
+const i = EN_NAV.findIndex((n) => n.href === path);
+const prev = EN_NAV[i - 1];
+const next = EN_NAV[i + 1];
+const links = [
+  { href: "/en/docs/", label: "Docs", current: path.startsWith("/en/docs/") && !path.startsWith("/en/docs/components/") },
+  { href: "/en/docs/components/", label: "Components", current: path.startsWith("/en/docs/components/") },
+  { href: author.repo, label: "GitHub" },
+];
+// Every English page, listed in the mobile menu (the sidebar is hidden on narrow screens).
+const pages = EN_NAV.map((n) => ({ href: n.href, label: n.title, current: n.href === path }));
+---
+<Base lang="en" title={fm.title} description={fm.description} seoTitle={fm.seoTitle} alternate={fa}>
+  <EnNav client:load version={pkg.version} fa={fa} links={links} pages={pages} />
+  <div class="docs docs--en">
+    <aside class="docs__sidebar en-side" aria-label="Documentation">
+      <p class="en-side__title">English docs</p>
+      <ul role="list">
+        {EN_NAV.map((n) => <li><a href={n.href} aria-current={n.href === path ? "page" : undefined}>{n.title}</a></li>)}
+      </ul>
+      <p class="en-side__note">Component pages are in Persian; their live demos, code and props are the same in English.</p>
+    </aside>
+    <main id="main" class="docs__main" tabindex="-1">
+      <article class="prose">
+        <header class="page-head">
+          <h1>{fm.title}</h1>
+          {fm.description && <p class="page-head__lead">{fm.description}</p>}
+        </header>
+        <slot />
+      </article>
+      <nav class="pager" aria-label="Adjacent pages">
+        {prev ? <a class="pager__link" href={prev.href} rel="prev"><span>Previous</span>{prev.title}</a> : <span />}
+        {next && <a class="pager__link pager__link--next" href={next.href} rel="next"><span>Next</span>{next.title}</a>}
+      </nav>
+    </main>
+    <aside class="docs__toc">
+      <Toc headings={Astro.props.headings ?? []} label="On this page" />
+    </aside>
+  </div>
+  <footer class="en-foot">
+    <span>© 2026 Kashi contributors · MIT license</span>
+    <span><a href={author.repo}>GitHub</a> · <a href="https://www.npmjs.com/org/kashi-ui">npm</a> · <a href={author.channel.href}>Telegram</a> · <a href={fa} hreflang="fa" lang="fa">فارسی</a></span>
+  </footer>
+</Base>
+
+<style is:global>
+  .en-nav { --k-navbar-max-width: 90rem; }
+  /* Keep the header links, page links and language switch in ONE scroll
+     container. Drawer normally pins its footer, leaving only ~44px for links
+     in landscape at 667×375; here the entire drawer scrolls instead. */
+  .en-nav .k-navbar__drawer.k-dialog--start { overflow-y: auto; overscroll-behavior: contain; }
+  .en-nav .k-navbar__drawer.k-dialog--start .k-drawer__header {
+    position: sticky; inset-block-start: 0; z-index: 1; background: var(--k-bg-elevated);
+  }
+  .en-nav .k-navbar__drawer.k-dialog--start .k-drawer__body {
+    flex: none; overflow: visible;
+  }
+  .en-nav .k-navbar__drawer.k-dialog--start .k-drawer__footer {
+    flex: none; overflow: visible;
+  }
+  .en-menu-pages { margin-block-end: var(--k-space-3); }
+  .en-menu-pages ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+  .en-menu-pages a { display: block; padding: var(--k-space-2) var(--k-space-3); border-radius: var(--k-radius-md); color: var(--k-text-secondary); font-size: var(--k-text-sm); text-decoration: none; }
+  .en-menu-pages a:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+  .en-menu-pages a[aria-current="page"] { background: var(--k-bg-brand-subtle); color: var(--k-text-brand); font-weight: var(--k-weight-semibold); }
+  .en-brand { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .en-brand__ver { font: 500 0.75rem/1 var(--k-font-mono); color: var(--k-text-quaternary); }
+  .docs--en { direction: ltr; }
+  .en-side { padding-block: var(--k-space-6); }
+  .en-side__title { margin: 0 0 var(--k-space-2); padding-inline: var(--k-space-3); color: var(--k-text-quaternary); font-size: var(--k-text-xs); font-weight: var(--k-weight-semibold); letter-spacing: 0.04em; text-transform: uppercase; }
+  .en-side ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+  .en-side a { display: block; padding: var(--k-space-2) var(--k-space-3); border-radius: var(--k-radius-md); color: var(--k-text-secondary); font-size: var(--k-text-sm); text-decoration: none; }
+  .en-side a:hover { background: var(--k-bg-hover); color: var(--k-text-primary); }
+  .en-side a[aria-current="page"] { background: var(--k-bg-brand-subtle); color: var(--k-text-brand); font-weight: var(--k-weight-semibold); }
+  .en-side__note { margin: var(--k-space-6) var(--k-space-3) 0; color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.7; }
+  .en-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--k-space-3); max-inline-size: 90rem; margin: var(--k-space-12) auto 0; padding: var(--k-space-6) var(--k-space-4); border-block-start: 1px solid var(--k-border-secondary); color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
+  .en-foot a { color: var(--k-text-secondary); }
+  .en-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: var(--k-space-3); margin-block: var(--k-space-4) var(--k-space-8); padding: 0; list-style: none; }
+  .en-cards li { margin: 0; }
+  .en-cards a { display: grid; gap: 0.25rem; block-size: 100%; padding: var(--k-space-4); border: 1px solid var(--k-border-secondary); border-radius: var(--k-radius-lg); background: var(--k-bg-secondary); color: inherit; text-decoration: none; transition: border-color var(--k-duration-fast) var(--k-ease-standard), translate var(--k-duration-fast) var(--k-ease-standard); }
+  .en-cards a:hover { border-color: var(--k-border-brand); translate: 0 -1px; }
+  .en-cards b { color: var(--k-text-primary); font-size: var(--k-text-sm); }
+  .en-cards span { color: var(--k-text-tertiary); font-size: var(--k-text-xs); line-height: 1.6; }
+</style>

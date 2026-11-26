@@ -33,23 +33,3 @@ export function Kbd({ keys, children, className, ...rest }: KbdProps) {
   }
   return <kbd className={cx("k-kbd", className)} {...rest}>{children}</kbd>;
 }
-
-export interface EmptyStateProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
-  title: ReactNode;
-  description?: ReactNode;
-  icon?: ReactNode;
-  /** دکمه‌ها */
-  actions?: ReactNode;
-}
-
-/** حالت خالی: وقتی داده‌ای برای نمایش نیست */
-export function EmptyState({ title, description, icon, actions, className, ...rest }: EmptyStateProps) {
-  return (
-    <div className={cx("k-empty", className)} {...rest}>
-      {icon && <span className="k-empty__icon" aria-hidden="true">{icon}</span>}
-      <p className="k-empty__title">{title}</p>
-      {description && <p className="k-empty__description">{description}</p>}
-      {actions && <div className="k-empty__actions">{actions}</div>}
-    </div>
-  );
-}

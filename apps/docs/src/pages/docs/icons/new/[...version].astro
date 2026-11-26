@@ -1,0 +1,51 @@
+---
+// آیکون‌های تازهٔ هر نسخه: /docs/icons/new/ برای آخرین نسخه و /docs/icons/new/2.10.0/ برای نسخه‌های پیشین
+import Docs from "../../../../layouts/Docs.astro";
+import { categories, categoryGroups, icons, iconSvg } from "@kashi-ui/icons";
+import { iconReleases, faVersion, faDate } from "../../../../data/newIcons";
+import "../../../../styles/icons.css";
+
+export function getStaticPaths() {
+  return iconReleases.map((r, i) => ({ params: { version: i === 0 ? undefined : r.version }, props: { release: r } }));
+}
+const { release } = Astro.props;
+const n = (x: number) => x.toLocaleString("fa-IR");
+const isLatest = release.version === iconReleases[0].version;
+type Cat = keyof typeof categories;
+type Name = keyof typeof icons;
+// به ترتیب گروه‌ها و دسته‌های صفحهٔ آیکون‌ها
+const order = categoryGroups.flatMap((g) => g.categories as Cat[]);
+const byCat = new Map<Cat, Name[]>();
+for (const name of release.added as Name[]) {
+  const c = icons[name].category as Cat;
+  if (!byCat.has(c)) byCat.set(c, []);
+  byCat.get(c)!.push(name);
+}
+const cats = order.filter((c) => byCat.has(c));
+const href = (version: string, i: number) => (i === 0 ? "/docs/icons/new/" : `/docs/icons/new/${version}/`);
+---
+<Docs
+  title={isLatest ? "آیکون‌های تازه" : `آیکون‌های تازهٔ نسخهٔ ${faVersion(release.version)}`}
+  description={`${n(release.added.length)} آیکون تازه در نسخهٔ ${faVersion(release.version)} (${faDate(release.date)})؛ با این نسخه شمار آیکون‌های کاشی به ${n(release.total)} رسید.`}
+>
+  <nav class="nw-versions" aria-label="نسخه‌ها">
+    {iconReleases.map((r, i) => (
+      <a href={href(r.version, i)} aria-current={r.version === release.version ? "page" : undefined}><bdi>{faVersion(r.version)}</bdi><small><bdi dir="ltr">+{n(r.added.length)}</bdi></small></a>
+    ))}
+  </nav>
+  <p>آیکون‌های تازه در {n(cats.length)} دسته. روی هر آیکون بزنید تا کد، دانلود و شش سبکش را ببینید.</p>
+  {cats.map((c) => (
+    <section class="nw-cat" aria-labelledby={`nw-${c}`}>
+      <h2 id={`nw-${c}`}><a href={`/docs/icons/category/${c}/`}>{categories[c]}</a><span>{n(byCat.get(c)!.length)} آیکون</span></h2>
+      <ul class="ib-grid" role="list">
+        {byCat.get(c)!.map((name) => (
+          <li><a class="ib-cell" href={`/docs/icons/${name}/`} aria-label={`${icons[name].title} (${name})`} title={`${icons[name].title}\n${name}`}>
+            <span class="ib-cell__art" set:html={iconSvg(name, { size: 24 })} />
+            <span class="ib-cell__title">{icons[name].title}</span>
+            <span class="ib-cell__name" dir="ltr">{name}</span>
+          </a></li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</Docs>

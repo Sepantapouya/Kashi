@@ -1,5 +1,301 @@
 # @kashi-ui/react
 
+## 2.16.0
+
+### Minor Changes
+
+- 80b4741: کامپوننت‌های تازه: گفتگو و دستیار هوش مصنوعی (`ChatThread`، `ChatMessage`، `TypingIndicator`، `ChatComposer` با پیوست و دکمهٔ توقف، `StreamingText` کلمه‌به‌کلمه و `CodeBlock`)، `SortableList` و `Kanban` کشیدنی با ماوس، لمس و کیبورد، `Gallery` و `Lightbox`، `RichTextEditor` فارسی با نیم‌فاصله و پاک‌سازی HTML، `NotificationCenter`، `QRCode` بدون وابستگی و `Scheduler` هفتگی شمسی. فارسی: `BusinessHours` و `WeekdayPicker` برای ساعت کاری، و سه نوع تازهٔ `PersianInput`: شناسهٔ صیادی چک (`sayad`)، کد اقتصادی (`economic-code`) و شمارهٔ مالیاتی فاکتور مودیان (`tax-id`)، با وب کامپوننت‌های `<kashi-sayad>`، `<kashi-economic-code>` و `<kashi-tax-id>`. ابزارهای تازهٔ `@kashi-ui/persian`: `isValidSayad`، `isValidEconomicCode`، `isValidTaxId`، `isOpenAt` و `summarizeHours`.
+
+### Patch Changes
+
+- Updated dependencies [80b4741]
+  - @kashi-ui/persian@2.16.0
+  - @kashi-ui/css@2.16.0
+  - @kashi-ui/bank-logos@2.16.0
+
+## 2.15.1
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.15.1
+  - @kashi-ui/css@2.15.1
+  - @kashi-ui/persian@2.15.1
+
+## 2.15.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.15.0
+  - @kashi-ui/css@2.15.0
+  - @kashi-ui/persian@2.15.0
+
+## 2.14.0
+
+### Minor Changes
+
+- 68350a2: پایه‌های کیفیت: حالت کنتراست بالا با متن AAA (خودکار با `prefers-contrast: more` یا `data-contrast="more"`)، پالت داده‌نمایی در توکن‌ها (۸ رنگ دسته‌ای، طیف ترتیبی و واگرا، `chartColor`)، توکن‌های `breakpoint` و لایهٔ `raised`، خروجی استاندارد W3C DTCG برای فیگما و Style Dictionary، و پکیج تازهٔ `@kashi-ui/codemod` برای مهاجرت خودکار. تست خودکار axe و صفحه‌کلید در CI. رفع: ناحیهٔ لمس نقطه‌های Carousel و ورودی Slider و PriceRange به ۲۴ پیکسل رسید؛ Navbar در ظرف باریک بر اساس عرض خودش به منو می‌رود و پیوندها دیگر روی دکمه‌ها نمی‌افتند؛ ناحیهٔ اسکرول ActivityHeatmap با صفحه‌کلید در دسترس است؛ حالت‌های انتخاب و فوکوس چند کامپوننت در حالت رنگ اجباری ویندوز دیده می‌شوند.
+
+### Patch Changes
+
+- Updated dependencies [68350a2]
+  - @kashi-ui/css@2.14.0
+  - @kashi-ui/bank-logos@2.14.0
+  - @kashi-ui/persian@2.14.0
+
+## 2.13.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.13.0
+  - @kashi-ui/css@2.13.0
+  - @kashi-ui/persian@2.13.0
+
+## 2.12.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.12.0
+  - @kashi-ui/css@2.12.0
+  - @kashi-ui/persian@2.12.0
+
+## 2.11.1
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.11.1
+  - @kashi-ui/css@2.11.1
+  - @kashi-ui/persian@2.11.1
+
+## 2.11.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.11.0
+  - @kashi-ui/css@2.11.0
+  - @kashi-ui/persian@2.11.0
+
+## 2.10.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.10.0
+  - @kashi-ui/css@2.10.0
+  - @kashi-ui/persian@2.10.0
+
+## 2.9.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.9.0
+  - @kashi-ui/css@2.9.0
+  - @kashi-ui/persian@2.9.0
+
+## 2.8.1
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.8.1
+  - @kashi-ui/css@2.8.1
+  - @kashi-ui/persian@2.8.1
+
+## 2.8.0
+
+### Minor Changes
+
+- 365ebb0: کامپوننت‌های تازه: `Drawer` (کشوی کناری در سه اندازه)، `BottomSheet` (برگهٔ پایین با دستگیره، ارتفاع‌های ایست و کشیدن برای بستن)، `Navbar` (با مدل‌های خط، قرص، وسط‌چین، شناور و شفاف و منوی کشو در گوشی) و هوک `useForm` با قاعده‌های آمادهٔ `rules` برای کد ملی، موبایل، شبا، کارت، کد پستی و پیام‌های فارسی و انگلیسی. `EmptyState` شش حالت آماده (`preset`)، اندازه و قاب خط‌چین گرفت و `DataTable` با `virtual` ده‌ها هزار ردیف را روان نشان می‌دهد. همهٔ پنجره‌ها حالا با انیمیشن خروج بسته می‌شوند و کشوی `placement="start"` درست در سمت شروع باز می‌شود.
+
+### Patch Changes
+
+- Updated dependencies [365ebb0]
+  - @kashi-ui/css@2.8.0
+  - @kashi-ui/persian@2.8.0
+  - @kashi-ui/bank-logos@2.8.0
+
+## 2.7.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.7.0
+  - @kashi-ui/css@2.7.0
+  - @kashi-ui/persian@2.7.0
+
+## 2.6.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.6.0
+  - @kashi-ui/css@2.6.0
+  - @kashi-ui/persian@2.6.0
+
+## 2.5.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.5.0
+  - @kashi-ui/css@2.5.0
+  - @kashi-ui/persian@2.5.0
+
+## 2.4.1
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.4.1
+  - @kashi-ui/css@2.4.1
+  - @kashi-ui/persian@2.4.1
+
+## 2.4.0
+
+### Patch Changes
+
+- ab09773: فقط‌خواندنی (`readOnly`) برای NumberInput، OtpInput، DatePicker (بدون دکمهٔ تقویم)، DateRangePicker و Slider.
+- Updated dependencies [ab09773]
+  - @kashi-ui/css@2.4.0
+  - @kashi-ui/bank-logos@2.4.0
+  - @kashi-ui/persian@2.4.0
+
+## 2.3.0
+
+### Patch Changes
+
+- دکمهٔ در حال بارگذاری (`loading`) با نگه داشتن ماوس، متنش را روی اسپینر نشان می‌داد؛ درست شد.
+
+### Minor Changes
+
+- 31b0ded: حالت‌های مشترک کامپوننت‌ها: فقط‌خواندنی (`readOnly`) برای Select، Combobox، MultiSelect، TagInput، Checkbox، Switch، RadioGroup، SegmentedControl، ChipGroup و SwatchGroup؛ بارگذاری و فهرست خالی (`loading`، `emptyMessage`) برای Select، MultiSelect، SearchSuggest و همهٔ نمودارها؛ `loading` برای StatCard. ظاهر مشترک در `states.css` و پیام‌های تازهٔ `common.noOptions` و `common.noData`. راهنما: /docs/states/
+
+### Patch Changes
+
+- Updated dependencies [31b0ded]
+  - @kashi-ui/css@2.3.0
+  - @kashi-ui/persian@2.3.0
+  - @kashi-ui/bank-logos@2.3.0
+
+## 2.2.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.2.0
+  - @kashi-ui/css@2.2.0
+  - @kashi-ui/persian@2.2.0
+
+## 2.1.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@2.1.0
+  - @kashi-ui/css@2.1.0
+  - @kashi-ui/persian@2.1.0
+
+## 2.0.0
+
+### Major Changes
+
+- 99a712f: کاشی ۲.۰: بازطراحی یکپارچه و مینیمال. هیچ prop، کلاس، تگ یا تابعی حذف نشده؛ ظاهر پیش‌فرض عوض شده (راهنما: /docs/migration/).
+  
+  - کنترل‌ها تخت‌اند (بدون سایهٔ اسکئومورفیک)، گوشه‌ها نرم‌تر با دو نقش `--k-radius-control` و `--k-radius-surface`، و یک حاشیه برای همهٔ کنترل‌ها با `--k-border-control`.
+  - سلکت در React فهرست کاشی با صفحه‌کلید کامل و select بومیِ پنهان؛ `native` برای فهرست مرورگر.
+  - سگمنت و زبانه‌های segmented با ریل پُرزمینه (`--k-bg-muted`، `--k-bg-raised`)، آکاردئون با کارت‌های جدا، `danger-secondary` نرم، منو و جدول و راهنمای نمودار آرام‌تر.
+  - ریزتعامل در همهٔ کامپوننت‌ها: فشرده شدن دکمه و کنترل‌ها، تیک و نقطه با فنر، دستگیرهٔ کش‌آمدنی سوییچ، دستگیرهٔ لغزان سگمنت، لرزش و ظاهر شدن نرم خطای فیلد، باز و بسته شدن نرم فهرست و پنجره و آکاردئون، دکمهٔ کپی با تیک؛ توکن‌های تازهٔ `--k-ease-spring` و `--k-ease-exit` و صفحهٔ /docs/motion/. با «کاهش حرکت» همه خاموش می‌شوند.
+  - تازه: دکمهٔ `outline`، کامپوننت‌های SearchSuggest، PriceRange و SwatchGroup (React، وب کامپوننت و فیگما).
+  - آیکون‌ها: `categoryGroups` با ۱۲ گروه؛ دو دسته نام روشن‌تر گرفتند.
+
+### Patch Changes
+
+- Updated dependencies [99a712f]
+  - @kashi-ui/css@2.0.0
+  - @kashi-ui/persian@2.0.0
+  - @kashi-ui/bank-logos@2.0.0
+
+## 1.8.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@1.8.0
+  - @kashi-ui/css@1.8.0
+  - @kashi-ui/persian@1.8.0
+
+## 1.7.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@1.7.0
+  - @kashi-ui/css@1.7.0
+  - @kashi-ui/persian@1.7.0
+
+## 1.6.0
+
+### Minor Changes
+
+- 5176ef2: رفع مشکل‌ها و بهبودهایی که هنگام ساخت فروشگاه اسکیل‌ها روی کاشی پیدا شد:
+  
+  - **SideNav** دیگر از ظرفش پهن‌تر نمی‌شود: `--k-sidenav-width` (پیش‌فرض ۱۷rem) با `max-inline-size: 100%`؛ در ستون ۲۵۰ پیکسلی نشان مورد بریده نمی‌شود.
+  - **Tooltip** (و `<kashi-tooltip>`) در لایهٔ بالایی مرورگر (Popover API) نمایش داده می‌شود؛ `overflow: hidden` والدها آن را نمی‌برد و اگر سمت خواسته‌شده جا نداشته باشد، به سمت مقابل می‌رود. کیبورد، hover و ARIA مثل قبل‌اند.
+  - **پایهٔ CSS**: `button`، `input`، `select` و `textarea` فونت را از صفحه می‌گیرند (`font: inherit`)؛ دکمهٔ سادهٔ بدون کلاس دیگر فونت سیستم ندارد.
+  - **متن‌ها**: راهنمای منوی راست‌کلیک به‌جای فعل «کلیک» کار را نام می‌برد (دکمهٔ راست ماوس، نگه‌داشتن انگشت) و ارقام لاتین کنار متن فارسی ندارد. منوی راست‌کلیک (React و `<kashi-context-menu>`) حالا با نگه‌داشتن انگشت روی صفحهٔ لمسی هم باز می‌شود.
+  - **جدا کردن متن چپ‌به‌راست**: `unicode-bidi: isolate` برای کلید (kbd)، میان‌بر منو، نام و پسوند فایل و نوار رنگ‌مایه؛ نشانه‌گذاری متن فارسی اطرافشان دیگر جابه‌جا نمی‌شود.
+  - **SegmentedControl** با چهار گزینه یا بیشتر در صفحهٔ ۳۷۵ پیکسلی خودش افقی اسکرول می‌خورد (بدون نوار اسکرول پیدا)؛ صفحه پهن نمی‌شود.
+  - **Carousel** (و `<kashi-carousel>`): `effect="fade"` محو شدن با opacity برای عکس‌های بزرگ، `thumbnails` (در وب کامپوننت `data-thumb`)، `autoplay` با نوار پیشرفت و دکمهٔ توقف که با hover، فوکوس و پنهان شدن زبانه مکث می‌کند، `lightbox` نمای بزرگ تمام‌صفحه با Esc و کلیدهای جهت، و کشیدن انگشت.
+  - **FileUpload** (و `<kashi-file-upload>`): با `name` فایل‌های پذیرفته‌شده در یک `<input type="file">` واقعی می‌مانند و با فرم معمولی، FormData و Server Action ارسال می‌شوند؛ `required`، پیش‌نمایش تصویر و `resizeImages` (در وب کامپوننت `max-dimension` و `quality`) برای کوچک کردن عکس‌های بزرگ در مرورگر پیش از ارسال. پیام‌های تازه در فارسی و انگلیسی.
+  - **Input** (و `<kashi-input>`): `variant="code"` برای کد تخفیف، کلید لایسنس و شناسه؛ متن تایپ‌شده تک‌فاصله، چپ‌به‌راست و جدا از متن فارسی، ولی placeholder با فونت فارسی.
+  - **Radio** در `variant="cards"`: `badge` (مثل «پیشنهادی») و `meta` (قیمت) و حالت انتخاب‌شدهٔ پررنگ‌تر با حلقهٔ فوکوس.
+  - **مستندات**: هشدار دربارهٔ تبدیل سه‌بعدی روی عکس‌های بزرگ در Safari و iOS در صفحه‌ها و راهنمای کارت و کاروسل.
+
+### Patch Changes
+
+- Updated dependencies [5176ef2]
+  - @kashi-ui/css@1.6.0
+  - @kashi-ui/persian@1.6.0
+  - @kashi-ui/bank-logos@1.6.0
+
+## 1.5.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@1.5.0
+  - @kashi-ui/css@1.5.0
+  - @kashi-ui/persian@1.5.0
+
+## 1.4.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@1.4.0
+  - @kashi-ui/css@1.4.0
+  - @kashi-ui/persian@1.4.0
+
+## 1.3.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@1.3.0
+  - @kashi-ui/css@1.3.0
+  - @kashi-ui/persian@1.3.0
+
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies [94d7b1e]
+  - @kashi-ui/css@1.2.1
+  - @kashi-ui/bank-logos@1.2.1
+  - @kashi-ui/persian@1.2.1
+
+## 1.2.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@1.2.0
+  - @kashi-ui/css@1.2.0
+  - @kashi-ui/persian@1.2.0
+
+## 1.1.0
+
+### Patch Changes
+
+- @kashi-ui/bank-logos@1.1.0
+  - @kashi-ui/css@1.1.0
+  - @kashi-ui/persian@1.1.0
+
 ## 1.0.0
 
 ### Major Changes

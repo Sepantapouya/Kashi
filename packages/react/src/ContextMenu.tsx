@@ -28,12 +28,19 @@ export function ContextMenu({ children, menu, label, className }: ContextMenuPro
   const list = useRef<HTMLUListElement>(null);
   const returnTo = useRef<HTMLElement | null>(null);
   const placed = useRef(false);
+  // نگه‌داشتن انگشت روی صفحهٔ لمسی؛ Safari در iOS رویداد contextmenu نمی‌فرستد
+  const press = useRef<{ t: ReturnType<typeof setTimeout>; x: number; y: number } | null>(null);
+  const cancelPress = () => {
+    if (press.current) clearTimeout(press.current.t);
+    press.current = null;
+  };
 
   const close = (focusBack = true) => {
     placed.current = false;
     setPos(null);
     if (focusBack) returnTo.current?.focus();
   };
+  useEffect(() => cancelPress, []);
   const openAt = (x: number, y: number) => {
     returnTo.current = (document.activeElement as HTMLElement) ?? area.current;
     setPos({ x, y });
@@ -81,6 +88,17 @@ export function ContextMenu({ children, menu, label, className }: ContextMenuPro
         e.preventDefault();
         openAt(e.clientX, e.clientY);
       }}
+      onPointerDown={(e) => {
+        if (e.pointerType !== "touch") return;
+        cancelPress();
+        const { clientX: x, clientY: y } = e;
+        press.current = { x, y, t: setTimeout(() => { press.current = null; openAt(x, y); }, 500) };
+      }}
+      onPointerMove={(e) => {
+        if (press.current && Math.hypot(e.clientX - press.current.x, e.clientY - press.current.y) > 10) cancelPress();
+      }}
+      onPointerUp={cancelPress}
+      onPointerCancel={cancelPress}
       onKeyDown={(e) => {
         if (e.key === "ContextMenu" || (e.shiftKey && e.key === "F10")) {
           e.preventDefault();

@@ -31,7 +31,11 @@
   font-size: var(--k-text-sm);
   line-height: var(--k-leading-tight);
 }
-.k-hint--error { color: var(--k-text-error); }
+.k-hint--error { color: var(--k-text-error); animation: k-hint-in var(--k-duration-normal) var(--k-ease-standard); }
+/* ریزتعامل: پیام خطا نرم از بالا می‌آید و خود فیلد یک بار کوتاه می‌لرزد */
+@keyframes k-hint-in { from { opacity: 0; translate: 0 -4px; } }
+.k-field[data-invalid] :is(.k-input, .k-select, .k-tag-input, .k-otp, .k-textarea) { animation: k-shake 320ms var(--k-ease-standard); }
+@keyframes k-shake { 20% { translate: 3px 0; } 40% { translate: -3px 0; } 60% { translate: 2px 0; } 80% { translate: -1px 0; } }
 
 .k-field__label-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--k-space-3); }
 .k-field__label-end { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }

@@ -1,0 +1,9 @@
+---
+const { id } = Astro.props as { id: string };
+---
+<li class="pm-act">
+  <label class="k-check">
+    <input type="checkbox" class="k-checkbox" data-act={id} />
+    <span class="k-check__text"><span class="k-check__label"><slot /></span></span>
+  </label>
+</li>

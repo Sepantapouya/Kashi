@@ -11,16 +11,17 @@
   - `Kashi · Density`: ارتفاع و فاصلهٔ داخلی کنترل‌ها با mode های Default، Compact و Comfortable
   - `Kashi · Spacing` و `Kashi · Typography`: فاصله‌ها، فونت، اندازه و ارتفاع خط
 - متن‌ها مستقیم به متغیرهای فونت، اندازه، وزن و ارتفاع خط وصل‌اند. هر لایهٔ سایه هم رنگ و فاصله‌اش را از متغیرهای تم می‌گیرد.
-- **بیش از ۷۵ کامپوننت با حدود ۷۵۰ variant**؛ هر کامپوننت در یک صفحه، variant ها در جدول مرتب با برچسب ردیف و ستون:
+- **بیش از ۹۰ کامپوننت با حدود ۸۳۰ variant**؛ هر کامپوننت در یک صفحه، variant ها در جدول مرتب با برچسب ردیف و ستون:
   - **Actions:** Button، Icon button، Button group، Segmented control، Copy button
-  - **Forms:** Input، Textarea، Select، Combobox، Multi select، Tag input، Checkbox، Radio، Switch، Choice card، Slider، Number input، OTP، File upload، Rating، Password strength، Color picker، Inline edit، Time input، Date picker (تقویم شمسی)، Calendar و Month picker
+  - **Forms:** Input، Textarea، Select، Combobox، Multi select، Tag input، Checkbox، Radio، Switch، Choice card، Slider، Number input، OTP، File upload، Rating، Password strength، Color picker، Search suggest، Swatch group، Price range، Inline edit، Time input، Date picker (تقویم شمسی)، Calendar، Month picker و Form (اعتبارسنجی)
   - **Persian:**
-    - فیلدها: کارت بانکی (با لوگوی بانک)، شبا، کد ملی، موبایل (با اپراتور)، مبلغ، پلاک، کد پستی، تلفن ثابت، شناسه ملی و اصلاح زبان کیبورد
-    - فیلدهای ترکیبی: فرم نشانی (با نقشه و بدون آن)، انتخاب نوبت، بازهٔ تاریخ شمسی و ویرایش نگارشی
+    - فیلدها: کارت بانکی (با لوگوی بانک)، شبا، کد ملی، موبایل (با اپراتور)، مبلغ، پلاک، کد پستی، تلفن ثابت، شناسه ملی، شناسهٔ صیادی چک، کد اقتصادی، شمارهٔ مالیاتی فاکتور و اصلاح زبان کیبورد
+    - فیلدهای ترکیبی: فرم نشانی (با نقشه و بدون آن)، انتخاب نوبت، ساعت کاری، بازهٔ تاریخ شمسی و ویرایش نگارشی
     - نمایش: استان، نقشهٔ ایران (نقشهٔ رنگی و انتخاب استان)، Money، کارت بانکی، نشان بانک، رسید پرداخت، Date tile و Countdown
-  - **Feedback:** Alert، Banner، Toast، Progress، Progress circle، Spinner، Meter، Skeleton، Empty state، Tooltip، Popover، Dialog، Drawer و Tour
+  - **Feedback:** Alert، Banner، Toast، Progress، Progress circle، Spinner، Meter، Skeleton، Empty state، Tooltip، Popover، Dialog، Drawer، Bottom sheet و Tour
   - **Data display:** Badge، Chip، Avatar، Avatar group، User، Card، Stat card، Table، Timeline، Tree view، Accordion، Kbd، Divider، Relative time، Heatmap، Bar chart و Carousel
-  - **Navigation:** Tabs، Breadcrumb، Pagination، Stepper، Side nav، Dropdown menu، Menu button، Command palette، Context menu و Splitter
+  - **Navigation:** Navbar، Tabs، Breadcrumb، Pagination، Stepper، Side nav، Dropdown menu، Menu button، Command palette، Context menu و Splitter
+  - **Chat & work:** Chat، Chat composer، Streaming text، Code block، Sortable list، Kanban، Gallery (با Lightbox)، Rich text editor، Notification center، QR code و Scheduler
 - **Assets:** ۷۰ آیکون و ۵۰ لوگوی بانک و درگاه پرداخت، هر کدام به شکل کامپوننت.
 
 همهٔ متن‌ها و آیکون‌ها راست‌به‌چپ چیده شده‌اند. متن‌ها، آیکون‌ها و بخش‌های اختیاری از پنل ویژگی‌ها (Properties) قابل تغییرند.

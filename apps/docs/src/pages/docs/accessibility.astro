@@ -60,6 +60,8 @@ const cssDir = path.resolve(process.cwd(), "../../packages/css/src/components");
 const cssFiles = fs.existsSync(cssDir) ? fs.readdirSync(cssDir).filter((f) => f.endsWith(".css")) : [];
 const withForced = cssFiles.filter((f) => fs.readFileSync(path.join(cssDir, f), "utf8").includes("forced-colors")).length;
 const contrastPairs = 82;
+// کنتراست بالا: ۶۰ جفت در هر تم با معیار AAA (packages/tokens/contrast.mjs)
+const highPairs = 120;
 
 const stats: [string, string][] = [
   [fa(contrastPairs), "جفت رنگ در هر بیلد بررسی می‌شود"],
@@ -186,12 +188,18 @@ const issue = "https://github.com/Sepantapouya/Kashi/issues/new?labels=a11y";
   <div class="ax-gate">
     <div class="ax-gate__term" dir="ltr" aria-label="خروجی بیلد">
       <span><i>$</i> npm run build -w @kashi-ui/tokens</span>
-      <span class="ok">contrast: {contrastPairs} pairs pass WCAG AA</span>
+      <span class="ok">contrast: {contrastPairs} pairs pass WCAG AA, {highPairs} high-contrast pairs pass AAA</span>
     </div>
     <p>اگر حتی یک جفت زیر حد باشد، بیلد با نام آن جفت و نسبتش متوقف می‌شود؛ رنگی که کنتراست کافی ندارد هیچ‌وقت به دست شما نمی‌رسد.</p>
   </div>
 
   <p>کنار کنتراست، تست‌های خودکار ساختار ARIA را هم نگه می‌دارند: برچسب، راهنما و پیام خطا به فیلد وصل‌اند، سوییچ نقش <code>switch</code> دارد، هشدار <code>role="alert"</code> دارد و دکمهٔ بستنش نام دارد، و دکمهٔ در حال بارگذاری فوکوس را از دست نمی‌دهد.</p>
+
+  <p>در هر تغییر کد، دو تست دیگر هم در مرورگر واقعی اجرا می‌شوند:</p>
+  <ul>
+    <li><strong>axe روی همهٔ نمونه‌ها.</strong> هر نمونهٔ زندهٔ صفحه‌های کامپوننت با <a href="https://github.com/dequelabs/axe-core" target="_blank" rel="noopener">axe-core</a> و معیار WCAG 2.2 سطح AA بررسی می‌شود، در تم روشن، تیره و کنتراست بالا. هر خطای تازه جلوی ادغام را می‌گیرد.</li>
+    <li><strong>صفحه‌کلید و فوکوس.</strong> پنجره و کشو فوکوس را نگه می‌دارند و پس از بستن به دکمه برمی‌گردانند، و جستجو، انتخاب، زبانه‌ها، منو، رادیو و آکاردئون فقط با صفحه‌کلید کار می‌کنند. این‌ها با فشردن کلیدهای واقعی آزموده می‌شوند، نه با فراخوانی تابع.</li>
+  </ul>
 
   <!-- ── در کامپوننت‌ها ─────────────────────────────────── -->
   <h2 id="built-in">آنچه در کامپوننت‌ها ساخته شده</h2>
@@ -230,7 +238,7 @@ const issue = "https://github.com/Sepantapouya/Kashi/issues/new?labels=a11y";
         <span><small>کنتراست بیشتر</small><em>متن کم‌رنگ</em></span>
       </div>
       <strong>کنتراست بیشتر</strong>
-      <p>اگر کاربر در سیستم کنتراست بیشتر خواسته باشد (<code>prefers-contrast: more</code>)، متن کم‌رنگ و حاشیه‌ها خودکار یک پله پررنگ‌تر می‌شوند.</p>
+      <p>اگر کاربر در سیستم کنتراست بیشتر خواسته باشد (<code>prefers-contrast: more</code>) یا شما <code>data-contrast="more"</code> بگذارید، همهٔ متن‌ها دست‌کم ۷ به ۱ (AAA) و حاشیه‌ها پررنگ می‌شوند. <a href="/docs/theming/#کنتراست-بالا">کنتراست بالا</a></p>
     </article>
     <article>
       <div class="ax-art ax-art--motion" aria-hidden="true">

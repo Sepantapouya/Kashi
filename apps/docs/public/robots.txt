@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kashi.sepantapouya.com/sitemap.xml

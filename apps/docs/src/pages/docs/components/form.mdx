@@ -1,0 +1,108 @@
+---
+layout: ../../../layouts/Docs.astro
+title: اعتبارسنجی فرم
+description: هوک useForm برای مقدار و خطای فیلدها با پیام‌های فارسی؛ قاعده‌های آماده برای کد ملی، موبایل، شبا، کارت و کد پستی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { FormDemo } from "../../../components/demos";
+
+```tsx
+import { useForm, rules } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} align="start" code={`const form = useForm({
+  defaultValues: { name: "", nationalId: "", mobile: "", password: "", repeat: "", agree: false },
+  rules: {
+    name: [rules.required(), rules.minLength(3)],
+    nationalId: [rules.required(), rules.nationalId()],
+    mobile: [rules.required(), rules.mobile()],
+    password: [rules.required(), rules.minLength(8)],
+    repeat: [rules.required(), rules.match("password")],
+    agree: [rules.required("برای ادامه قوانین را بپذیرید.")],
+  },
+});
+
+<form noValidate onSubmit={form.handleSubmit(save)}>
+  {form.summary && <Alert tone="error" title={form.summary} />}
+  <Input label="نام و نام خانوادگی" {...form.field("name")} />
+  <NationalIdInput label="کد ملی" {...form.field("nationalId", { type: "value" })} />
+  <MobileInput label="موبایل" {...form.field("mobile", { type: "value" })} />
+  <Input label="رمز عبور" type="password" {...form.field("password")} />
+  <Input label="تکرار رمز عبور" type="password" {...form.field("repeat")} />
+  <Checkbox label="قوانین را می‌پذیرم" {...form.field("agree", { type: "checkbox" })} />
+  <Button type="submit" loading={form.isSubmitting}>ثبت‌نام</Button>
+</form>`}>
+  <FormDemo client:load />
+</Demo>
+
+بدون پر کردن روی «ثبت‌نام» بزنید: خلاصهٔ خطاها بالای فرم می‌آید، اولین فیلد نادرست فوکوس می‌گیرد و هر خطا با اصلاح همان فیلد فوراً می‌رود.
+
+## اتصال فیلدها
+
+`form.field(name)` همهٔ چیزی را که یک فیلد کاشی لازم دارد برمی‌گرداند: `value`، رویداد تغییر، `onBlur`، `error`، `aria-invalid`، `required` و `ref` برای فوکوس. روی کامپوننت پخشش کنید:
+
+| نوع | برای | چه می‌دهد |
+| --- | --- | --- |
+| پیش‌فرض | `Input`، `Textarea`، input بومی | `value` و `onChange` |
+| `{ type: "value" }` | فیلدهای فارسی و هر کامپوننتی که `onValueChange` دارد: کد ملی، موبایل، شبا، کارت، مبلغ، کد پستی | `value` و `onValueChange` (مقدار خام بدون فاصله) |
+| `{ type: "checkbox" }` | `Checkbox` و `Switch` | `checked`، `onChange`؛ خطا در `description` |
+
+فیلدهای فارسی خودشان هم کد نامعتبر را تشخیص می‌دهند؛ با `useForm` همان پیام هنگام ارسال هم نشان داده می‌شود و ارسال تا اصلاح آن انجام نمی‌شود.
+
+## قاعده‌ها
+
+همهٔ قاعده‌ها جز `required` مقدار خالی را رد نمی‌کنند، پس یک فیلد اختیاری ایمیل فقط وقتی پر شده بررسی می‌شود. ارقام فارسی و عربی پذیرفته می‌شوند. پیام پیش‌فرض با زبان `KashiProvider` فارسی یا انگلیسی است و پیام دلخواه را به‌عنوان آخرین آرگومان بدهید.
+
+| قاعده | بررسی | پیام پیش‌فرض |
+| --- | --- | --- |
+| `rules.required()` | خالی نباشد (فاصلهٔ تنها هم خالی است) | این بخش را پر کنید. |
+| `rules.minLength(n)` / `maxLength(n)` | تعداد نویسه | دست‌کم n نویسه بنویسید. |
+| `rules.min(n)` / `max(n)` | مقدار عددی | مقدار باید دست‌کم n باشد. |
+| `rules.email()` | قالب ایمیل | نشانی ایمیل درست نیست؛ مثلاً name@example.com. |
+| `rules.pattern(re, msg)` | عبارت باقاعده | قالب این مقدار درست نیست. |
+| `rules.nationalId()` | کد ملی با رقم کنترل | کد ملی معتبر نیست. |
+| `rules.legalId()` | شناسهٔ ملی شرکت | شناسهٔ ملی معتبر نیست. |
+| `rules.mobile()` / `landline()` | موبایل و تلفن ثابت ایران | شماره موبایل معتبر نیست. |
+| `rules.card()` / `iban()` | شماره کارت (لون) و شبا | شماره کارت معتبر نیست. |
+| `rules.postalCode()` | کد پستی ده‌رقمی | کد پستی معتبر نیست. |
+| `rules.match(field)` | برابری با فیلد دیگر | این دو مقدار یکسان نیستند. |
+| `rules.custom(fn, msg)` | هر شرط دلخواه؛ `fn(value, values)` | پیام خودتان |
+
+پیام‌ها را برای کل برنامه با `KashiProvider` عوض کنید: `messages={{ form: { required: "پر کردن الزامی است." } }}`. متن خطا را طبق [نوشتن متن رابط](/docs/writing/) بنویسید: بگویید چه شده و چه کار کنند.
+
+## زمان بررسی
+
+`validateOn`: `"blur"` (پیش‌فرض) بعد از خروج از فیلد، `"change"` با هر تایپ و `"submit"` فقط هنگام ارسال. در هر سه حالت، بعد از اولین ارسال یا وقتی فیلدی خطا دارد، با هر تغییر دوباره بررسی می‌شود تا کاربر بلافاصله ببیند خطا رفته است.
+
+## خطای سرور
+
+خطایی را که سرور برگرداند روی همان فیلد بنشانید:
+
+```tsx
+const save = form.handleSubmit(async (values) => {
+  const res = await signup(values);
+  if (res.mobileTaken) form.setError("mobile", "این شماره قبلاً ثبت‌نام کرده است؛ وارد شوید.");
+});
+```
+
+## آنچه برمی‌گرداند
+
+<Props rows={[
+  ["field(name, { type })", "FieldBinding", "", "اتصال فیلد؛ type یکی از text، value، checkbox"],
+  ["handleSubmit(fn)", "(e) => Promise<void>", "", "بررسی همه، فوکوس روی اولین خطا و اجرای fn با مقادیر"],
+  ["values / errors / touched", "object", "", "مقادیر، پیام خطای هر فیلد و فیلدهای لمس‌شده"],
+  ["summary", "string | undefined", "", "«۲ مورد را اصلاح کنید.» پس از ارسال ناموفق"],
+  ["setValue / setError", "(name, value)", "", "تغییر مقدار یا خطای یک فیلد از بیرون"],
+  ["validate", "() => boolean", "", "بررسی بدون ارسال"],
+  ["reset(values?)", "", "", "بازگشت به مقادیر اولیه یا مقادیر تازه"],
+  ["isSubmitting / isDirty / submitCount", "boolean / number", "", "در حال ارسال، تغییر کرده، تعداد ارسال"],
+]} />
+
+## دسترس‌پذیری
+
+- خطای هر فیلد با `aria-invalid` و `aria-describedby` به همان فیلد وصل است.
+- پس از ارسال ناموفق، فوکوس به اولین فیلد نادرست می‌رود تا کاربر صفحه‌خوان و کیبورد مستقیم به مشکل برسد.
+- `noValidate` روی فرم بگذارید تا حباب‌های پیش‌فرض مرورگر با پیام‌های فارسی کاشی تداخل نکنند.

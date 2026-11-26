@@ -1,0 +1,495 @@
+{
+  "baseline": 13000,
+  "added": 21,
+  "active": 13021,
+  "review": {
+    "light": 0.88,
+    "bold": 0.92,
+    "semanticExclusions": [
+      "sink-pedal",
+      "reading-ruler",
+      "send-reply-privately",
+      "media-playback-audio-description"
+    ]
+  },
+  "accepted": {
+    "call-back-queue": {
+      "light": {
+        "catalog": "brand-bazel",
+        "score": 0.7501,
+        "batch": "rack-filler-panel",
+        "batchScore": 0.6582
+      },
+      "bold": {
+        "catalog": "fishbowl",
+        "score": 0.8331,
+        "batch": "wall-line-level",
+        "batchScore": 0.6589
+      }
+    },
+    "scrollbar-drag-position": {
+      "light": {
+        "catalog": "pet-collar",
+        "score": 0.7548,
+        "batch": "wall-line-level",
+        "batchScore": 0.6275
+      },
+      "bold": {
+        "catalog": "distribute-horizontal-center",
+        "score": 0.8311,
+        "batch": "floor-cable-guard",
+        "batchScore": 0.6941
+      }
+    },
+    "checkout-amount-range": {
+      "light": {
+        "catalog": "schedule-overlapping-appointments",
+        "score": 0.8301,
+        "batch": "split-view-reading-width",
+        "batchScore": 0.62
+      },
+      "bold": {
+        "catalog": "design-token-alias",
+        "score": 0.8503,
+        "batch": "hacksaw-frame",
+        "batchScore": 0.6583
+      }
+    },
+    "file-keep-offline": {
+      "light": {
+        "catalog": "file-corner-fold-wide",
+        "score": 0.8064,
+        "batch": "drawer-divider",
+        "batchScore": 0.6605
+      },
+      "bold": {
+        "catalog": "file-xml",
+        "score": 0.8363,
+        "batch": "public-defibrillator-cabinet",
+        "batchScore": 0.6931
+      }
+    },
+    "browser-search-selected-text": {
+      "light": {
+        "catalog": "web-validation",
+        "score": 0.8038,
+        "batch": "media-playback-audio-description",
+        "batchScore": 0.7153
+      },
+      "bold": {
+        "catalog": "display-scaling-factor",
+        "score": 0.8124,
+        "batch": "media-playback-audio-description",
+        "batchScore": 0.7443
+      }
+    },
+    "self-service-label-printer": {
+      "light": {
+        "catalog": "atm",
+        "score": 0.8777,
+        "batch": "drawer-divider",
+        "batchScore": 0.684
+      },
+      "bold": {
+        "catalog": "atm",
+        "score": 0.9131,
+        "batch": "portable-induction-hob",
+        "batchScore": 0.7919
+      }
+    },
+    "parcel-dimensioner": {
+      "light": {
+        "catalog": "garden-wick-watering-reservoir",
+        "score": 0.8089,
+        "batch": "drawer-divider",
+        "batchScore": 0.7082
+      },
+      "bold": {
+        "catalog": "brand-kakaotalk",
+        "score": 0.7594,
+        "batch": "loading-dock-bumper",
+        "batchScore": 0.6794
+      }
+    },
+    "receipt-spike": {
+      "light": {
+        "catalog": "bird-feeder",
+        "score": 0.7977,
+        "batch": "bagging-platform",
+        "batchScore": 0.6399
+      },
+      "bold": {
+        "catalog": "kalle-qand",
+        "score": 0.8603,
+        "batch": "bagging-platform",
+        "batchScore": 0.7877
+      }
+    },
+    "loading-dock-bumper": {
+      "light": {
+        "catalog": "retail-pegboard-hanging-tools",
+        "score": 0.7928,
+        "batch": "drawer-divider",
+        "batchScore": 0.7386
+      },
+      "bold": {
+        "catalog": "news",
+        "score": 0.7885,
+        "batch": "send-reply-privately",
+        "batchScore": 0.6929
+      }
+    },
+    "bicycle-repair-stand": {
+      "light": {
+        "catalog": "moon-landing",
+        "score": 0.7618,
+        "batch": "public-defibrillator-cabinet",
+        "batchScore": 0.6448
+      },
+      "bold": {
+        "catalog": "signal-tower",
+        "score": 0.8086,
+        "batch": "floor-outlet-lid",
+        "batchScore": 0.7194
+      }
+    },
+    "floor-outlet-lid": {
+      "light": {
+        "catalog": "ship",
+        "score": 0.8568,
+        "batch": "drawer-divider",
+        "batchScore": 0.6873
+      },
+      "bold": {
+        "catalog": "brand-elasticsearch",
+        "score": 0.8256,
+        "batch": "self-service-label-printer",
+        "batchScore": 0.7372
+      }
+    },
+    "tactile-crossing-button": {
+      "light": {
+        "catalog": "crm-sales-forecast",
+        "score": 0.7747,
+        "batch": "library-return-chute",
+        "batchScore": 0.6546
+      },
+      "bold": {
+        "catalog": "shoe-chelsea-boot",
+        "score": 0.8391,
+        "batch": "drawer-divider",
+        "batchScore": 0.6809
+      }
+    },
+    "library-return-chute": {
+      "light": {
+        "catalog": "shams-ol-emareh",
+        "score": 0.8551,
+        "batch": "bagging-platform",
+        "batchScore": 0.7408
+      },
+      "bold": {
+        "catalog": "live-streaming-01",
+        "score": 0.8644,
+        "batch": "public-defibrillator-cabinet",
+        "batchScore": 0.6952
+      }
+    },
+    "tilt-wall-mount": {
+      "light": {
+        "catalog": "brand-visualstudio",
+        "score": 0.7624,
+        "batch": "hacksaw-frame",
+        "batchScore": 0.6736
+      },
+      "bold": {
+        "catalog": "player-skip-back",
+        "score": 0.8641,
+        "batch": "hacksaw-frame",
+        "batchScore": 0.7636
+      }
+    },
+    "cable-pass-through": {
+      "light": {
+        "catalog": "paper-crane",
+        "score": 0.7737,
+        "batch": "floor-cable-guard",
+        "batchScore": 0.7032
+      },
+      "bold": {
+        "catalog": "fortune-cookie",
+        "score": 0.8024,
+        "batch": "reading-ruler",
+        "batchScore": 0.7075
+      }
+    },
+    "foot-switch-hinged": {
+      "light": {
+        "catalog": "brand-k6",
+        "score": 0.7762,
+        "batch": "receipt-spike",
+        "batchScore": 0.6237
+      },
+      "bold": {
+        "catalog": "ice-hockey",
+        "score": 0.8111,
+        "batch": "bagging-platform",
+        "batchScore": 0.6777
+      }
+    },
+    "wall-line-level": {
+      "light": {
+        "catalog": "fanny-pack",
+        "score": 0.8555,
+        "batch": "mail-slot-brush",
+        "batchScore": 0.7385
+      },
+      "bold": {
+        "catalog": "brand-ir-payment-gateways-idpay",
+        "score": 0.8719,
+        "batch": "reading-ruler",
+        "batchScore": 0.7627
+      }
+    },
+    "hacksaw-frame": {
+      "light": {
+        "catalog": "bluetooth-speaker",
+        "score": 0.8153,
+        "batch": "rack-filler-panel",
+        "batchScore": 0.7213
+      },
+      "bold": {
+        "catalog": "map-guinea",
+        "score": 0.8943,
+        "batch": "tilt-wall-mount",
+        "batchScore": 0.7636
+      }
+    },
+    "dust-extractor-hose": {
+      "light": {
+        "catalog": "brand-openapiinitiative",
+        "score": 0.798,
+        "batch": "rack-filler-panel",
+        "batchScore": 0.6745
+      },
+      "bold": {
+        "catalog": "edit-circle",
+        "score": 0.8234,
+        "batch": "foot-switch-hinged",
+        "batchScore": 0.6675
+      }
+    },
+    "microphone-desk-arm": {
+      "light": {
+        "catalog": "design-nib",
+        "score": 0.7263,
+        "batch": "dust-extractor-hose",
+        "batchScore": 0.5925
+      },
+      "bold": {
+        "catalog": "monitor-arm",
+        "score": 0.7878,
+        "batch": "self-service-label-printer",
+        "batchScore": 0.6312
+      }
+    },
+    "replaceable-sensor-probe": {
+      "light": {
+        "catalog": "letter-opener",
+        "score": 0.8258,
+        "batch": "foot-switch-hinged",
+        "batchScore": 0.6214
+      },
+      "bold": {
+        "catalog": "ease-in",
+        "score": 0.8111,
+        "batch": "foot-switch-hinged",
+        "batchScore": 0.5904
+      }
+    }
+  },
+  "excluded": {
+    "bagging-platform": {
+      "light": {
+        "catalog": "pyramid-structure-01",
+        "score": 0.8914,
+        "batch": "library-return-chute",
+        "batchScore": 0.7408
+      },
+      "bold": {
+        "catalog": "login-method",
+        "score": 0.941,
+        "batch": "receipt-spike",
+        "batchScore": 0.7877
+      }
+    },
+    "mail-slot-brush": {
+      "light": {
+        "catalog": "button-ui",
+        "score": 0.9297,
+        "batch": "rack-filler-panel",
+        "batchScore": 0.745
+      },
+      "bold": {
+        "catalog": "button-ui",
+        "score": 0.9484,
+        "batch": "rack-filler-panel",
+        "batchScore": 0.7749
+      }
+    },
+    "sink-pedal": {
+      "light": {
+        "catalog": "bath-pedestal-basin",
+        "score": 0.8507,
+        "batch": "self-service-label-printer",
+        "batchScore": 0.6717
+      },
+      "bold": {
+        "catalog": "bath-pedestal-basin",
+        "score": 0.8666,
+        "batch": "floor-outlet-lid",
+        "batchScore": 0.7172
+      }
+    },
+    "drawer-divider": {
+      "light": {
+        "catalog": "order-adjustment",
+        "score": 0.901,
+        "batch": "notification-hide-preview",
+        "batchScore": 0.8582
+      },
+      "bold": {
+        "catalog": "crypto-wallet-enkrypt",
+        "score": 0.8978,
+        "batch": "public-defibrillator-cabinet",
+        "batchScore": 0.8257
+      }
+    },
+    "public-defibrillator-cabinet": {
+      "light": {
+        "catalog": "plus-square",
+        "score": 0.9354,
+        "batch": "split-view-reading-width",
+        "batchScore": 0.8232
+      },
+      "bold": {
+        "catalog": "medical-wall-oxygen-outlet",
+        "score": 0.9688,
+        "batch": "portable-induction-hob",
+        "batchScore": 0.8735
+      }
+    },
+    "rack-filler-panel": {
+      "light": {
+        "catalog": "clock-digital-colon-face",
+        "score": 0.9432,
+        "batch": "mail-slot-brush",
+        "batchScore": 0.745
+      },
+      "bold": {
+        "catalog": "clock-digital-colon-face",
+        "score": 0.9175,
+        "batch": "mail-slot-brush",
+        "batchScore": 0.7749
+      }
+    },
+    "floor-cable-guard": {
+      "light": {
+        "catalog": "learn-desk-name-tent",
+        "score": 0.9104,
+        "batch": "reading-ruler",
+        "batchScore": 0.7035
+      },
+      "bold": {
+        "catalog": "sound-stage-monitor-wedge",
+        "score": 0.9516,
+        "batch": "mail-slot-brush",
+        "batchScore": 0.7575
+      }
+    },
+    "portable-induction-hob": {
+      "light": {
+        "catalog": "patent",
+        "score": 0.9312,
+        "batch": "public-defibrillator-cabinet",
+        "batchScore": 0.792
+      },
+      "bold": {
+        "catalog": "post-save",
+        "score": 0.9466,
+        "batch": "public-defibrillator-cabinet",
+        "batchScore": 0.8735
+      }
+    },
+    "reading-ruler": {
+      "light": {
+        "catalog": "lipstick-mark",
+        "score": 0.8594,
+        "batch": "wall-line-level",
+        "batchScore": 0.7347
+      },
+      "bold": {
+        "catalog": "care-gait-training-rail",
+        "score": 0.8822,
+        "batch": "wall-line-level",
+        "batchScore": 0.7627
+      }
+    },
+    "send-reply-privately": {
+      "light": {
+        "catalog": "blanket",
+        "score": 0.8259,
+        "batch": "media-playback-audio-description",
+        "batchScore": 0.8102
+      },
+      "bold": {
+        "catalog": "car-lock",
+        "score": 0.8401,
+        "batch": "media-playback-audio-description",
+        "batchScore": 0.8192
+      }
+    },
+    "media-playback-audio-description": {
+      "light": {
+        "catalog": "identity-review-pending",
+        "score": 0.8378,
+        "batch": "send-reply-privately",
+        "batchScore": 0.8102
+      },
+      "bold": {
+        "catalog": "subtitles-ai",
+        "score": 0.8305,
+        "batch": "send-reply-privately",
+        "batchScore": 0.8192
+      }
+    },
+    "notification-hide-preview": {
+      "light": {
+        "catalog": "report-schedule",
+        "score": 0.9268,
+        "batch": "drawer-divider",
+        "batchScore": 0.8582
+      },
+      "bold": {
+        "catalog": "audio-drum-pad-controller",
+        "score": 0.8725,
+        "batch": "public-defibrillator-cabinet",
+        "batchScore": 0.7581
+      }
+    },
+    "split-view-reading-width": {
+      "light": {
+        "catalog": "patient-insurance-card",
+        "score": 0.8955,
+        "batch": "public-defibrillator-cabinet",
+        "batchScore": 0.8232
+      },
+      "bold": {
+        "catalog": "measure-alignment-target-grid",
+        "score": 0.8845,
+        "batch": "drawer-divider",
+        "batchScore": 0.712
+      }
+    }
+  }
+}

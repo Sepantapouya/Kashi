@@ -1,7 +1,7 @@
 // ناوبری: تب، مسیر، صفحه‌بندی، مراحل، منوی کناری، منو و جستجوی فرمان
 
 function menuPanel(items, { w = 240 } = {}) {
-  return F({ name: "Menu", dir: "V", gap: 0, p: "space/1.5", w, radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover", css: "k-menu", cssCheck: ["pad", "radius", "bg", "border"] }, items.map((it) => {
+  return F({ name: "Menu", dir: "V", gap: 0, p: "space/1.5", w, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover", css: "k-menu", cssCheck: ["pad", "radius", "bg", "border"] }, items.map((it) => {
     if (it === "-") return F({ name: "Separator", dir: "H", w: "fill", py: "space/1" }, [R({ w: 10, h: 1, fill: "border-secondary", fillW: true, name: "Line" })]);
     if (it.label && it.heading) return F({ name: "Group label", dir: "H", px: 10, pt: "space/2", pb: "space/1", w: "fill" }, [T(it.label, { style: "Text xs/Medium", color: "text-tertiary" })]);
     const fg = it.danger ? "text-error" : it.disabled ? "text-quaternary" : it.active ? "text-primary" : "text-secondary";
@@ -19,7 +19,7 @@ function menuPanel(items, { w = 240 } = {}) {
 function buildNavigation() {
   const root = kitPage("🧭", "Navigation", "ناوبری", "تب، مسیر صفحه، صفحه‌بندی، مراحل، منوی کناری، منوی کشویی و جستجوی فرمان (⌘K).");
 
-  safe("Tabs", () => section(root, "Tabs · تب‌ها", "سه سبک خطی، قرصی و بخش‌بندی؛ افقی یا عمودی.", (h) => {
+  safe("Tabs", () => section(root, "Tabs · تب‌ها", "سه سبک خطی، قرصی و بخش‌بندی؛ افقی یا عمودی. در قاب باریک، فهرست افقی پهن‌تر نمی‌شود و زبانه‌ها اسکرول می‌خورند.", (h) => {
     const labels = ["نمای کلی", "تراکنش‌ها", "گزارش‌ها", "تنظیمات"];
     componentSet(h, "Tabs", {
       axes: { Variant: ["Line", "Pill", "Segmented"], Orientation: ["Horizontal", "Vertical"] },
@@ -33,15 +33,17 @@ function buildNavigation() {
               : [F({ dir: "H", gap: "space/2", h: 38, px: "space/1", cross: "center", css: on ? undefined : "k-tabs__tab", cssCheck: ["padx", "gap"] }, [T(label, { style: "Text sm/Semibold", color: on ? "text-primary" : "text-tertiary", name: "Label" }), i === 1 && badge({ tone: on ? "Brand" : "Neutral", size: "sm", label: "۱۲", dot: false })]), R({ w: 10, h: 2, radius: 2, fill: on ? "border-brand" : undefined, fillW: true, name: "Indicator", css: on ? "k-tabs__indicator" : undefined, cssCheck: ["bg", "h"] })]);
           }
           // سگمنت: حداقل ۳۶ پیکسل، تب انتخاب‌شده روی bg-elevated با سایهٔ sm و خط روشن
-          return F({ name: "Tab", dir: "H", gap: "space/2", h: p.Variant === "Segmented" ? 36 : "tab/height", px: "space/3", w: vertical ? "fill" : undefined, cross: "center", radius: "radius/md", fill: on ? (p.Variant === "Pill" ? "bg-brand-subtle" : "bg-elevated") : undefined, shadow: on && p.Variant === "Segmented" ? ["Shadow/sm", "highlight-only"] : undefined }, [
+          return F({ name: "Tab", dir: "H", gap: "space/2", h: p.Variant === "Segmented" ? 36 : "tab/height", px: "space/3", w: vertical ? "fill" : undefined, cross: "center", radius: "radius/md", fill: on ? (p.Variant === "Pill" ? "bg-brand-subtle" : "bg-raised") : undefined }, [
             T(label, { style: "Text sm/Semibold", color: on ? (p.Variant === "Pill" ? "text-brand" : "text-primary") : "text-tertiary", name: "Label" }),
           ]);
         };
         const list = F({
           name: "Tab list", dir: vertical ? "V" : "H", gap: p.Variant === "Line" ? (vertical ? 0 : "space/4") : "space/1", w: vertical ? 200 : undefined,
-          p: p.Variant === "Segmented" ? 3 : undefined, radius: p.Variant === "Segmented" ? 11 : undefined,
-          fill: p.Variant === "Segmented" ? "bg-secondary" : undefined, stroke: p.Variant === "Segmented" ? "border-secondary" : p.Variant === "Line" && !vertical ? "border-secondary" : undefined,
+          p: p.Variant === "Segmented" ? 3 : undefined, radius: p.Variant === "Segmented" ? "radius/md" : undefined,
+          fill: p.Variant === "Segmented" ? "bg-muted" : undefined, stroke: p.Variant === "Line" && !vertical ? "border-secondary" : undefined,
           sides: p.Variant === "Line" && !vertical ? [0, 0, 1, 0] : undefined,
+          // مثل overflow-x: auto در k-tabs__list: اگر نمونه را باریک‌تر کنید، زبانه‌های اضافه بریده می‌شوند و قاب پهن نمی‌شود
+          clip: !vertical,
           css: p.Variant === "Segmented" && !vertical ? "k-tabs--segmented .k-tabs__list" : undefined, cssCheck: ["pad", "radius", "bg", "border"],
         }, labels.map(tab));
         return list;
@@ -166,6 +168,40 @@ function buildNavigation() {
         ]);
       },
       docs: "side-nav",
+    });
+  }));
+
+  safe("Navbar", () => section(root, "Navbar · نوار ناوبری", "نوار بالای سایت؛ در گوشی پیوندها به منوی کشو می‌روند.", (h) => {
+    componentSet(h, "Navbar", {
+      axes: { Style: ["Line", "Pill", "Centered", "Floating"], Size: ["Desktop", "Mobile"] },
+      // k-navbar: ارتفاع ۶۴، فاصلهٔ افقی ۱۶، پیوندها ۸/۱۲ با گوشهٔ ۸
+      build: (p) => {
+        const mobile = p.Size === "Mobile";
+        const pill = p.Style !== "Line";
+        const floating = p.Style === "Floating";
+        const link = (label, on, badgeText) => F({ name: "Link", dir: "V", gap: 0, cross: "center" }, [
+          F({ dir: "H", gap: "space/2", py: "space/2", px: "space/3", radius: pill ? "radius/full" : "radius/md", fill: on ? (pill ? "bg-brand-subtle" : "bg-hover") : undefined, cross: "center" }, [
+            T(label, { style: "Text sm/Medium", color: on ? (pill ? "text-brand" : "text-primary") : "text-tertiary" }),
+            badgeText && badge({ tone: "Brand", size: "sm", label: badgeText, dot: false }),
+          ]),
+          on && !pill && R({ w: 56, h: 2, radius: 1, fill: "text-brand", name: "Underline" }),
+        ]);
+        const linksRow = !mobile && F({ name: "Links", dir: "H", gap: "space/1", cross: "center" }, [link("خانه"), link("محصولات", true), link("قیمت‌ها"), link("وبلاگ", false, "جدید")]);
+        return F({ name: "Navbar", dir: "H", gap: "space/6", px: floating ? "space/3" : "space/4", h: floating ? 56 : 64, w: mobile ? 375 : 960, cross: "center", fill: floating ? "bg-elevated" : "bg-primary", stroke: "border-secondary", sides: floating ? undefined : [0, 0, 1, 0], radius: floating ? "radius/2xl" : undefined, shadow: floating ? "Shadow/md" : undefined }, [
+          F({ name: "Brand", dir: "H", gap: "space/2", cross: "center" }, [
+            F({ dir: "H", w: 28, h: 28, align: "center", cross: "center", radius: "radius/md", fill: "bg-brand" }, [T("ک", { style: "Text sm/Bold", color: "text-on-brand" })]),
+            T("فروشگاه کاشی", { style: "Text md/Bold", color: "text-primary" }),
+          ]),
+          p.Style === "Centered" && !mobile ? Spacer() : linksRow,
+          p.Style === "Centered" && !mobile ? linksRow : null,
+          Spacer(),
+          !mobile && button({ variant: "Tertiary", size: "sm", label: "ورود" }),
+          button({ variant: "Primary", size: "sm", label: "ثبت‌نام" }),
+          mobile && button({ variant: "Tertiary", size: "sm", iconOnly: "menu" }),
+        ]);
+      },
+      cols: 2,
+      docs: "navbar",
     });
   }));
 

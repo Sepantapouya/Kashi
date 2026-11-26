@@ -1,0 +1,88 @@
+---
+layout: ../../../layouts/Docs.astro
+title: گفتگو
+description: حباب پیام، جداکنندهٔ روز و نشانگر «در حال نوشتن» برای چت و دستیار هوش مصنوعی؛ راست‌به‌چپ، با جهت خودکار هر پیام و ناحیهٔ log برای صفحه‌خوان.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import Vars from "../../../components/Vars.astro";
+import { ChatDemo, ChatGroupDemo } from "../../../components/demos-extra";
+
+```tsx
+import { ChatThread, ChatMessage, ChatDivider, TypingIndicator } from "@kashi-ui/react";
+```
+
+## نمونه
+
+پیام کاربر با رنگ برند سمت پایان خط می‌آید (در راست‌به‌چپ، چپ؛ مثل پیام‌رسان‌های فارسی) و پاسخ دستیار سمت شروع. جهت هر پیام خودکار است (`dir="auto"`)، پس پیام انگلیسی هم درست چیده می‌شود. زیر پاسخ دستیار دکمه‌های کپی، تلاش دوباره و بازخورد هست که با نشانگر ماوس یا فوکوس دیده می‌شوند.
+
+<Demo align="stretch" html={false} code={`<ChatThread>
+  <ChatDivider>امروز</ChatDivider>
+  <ChatMessage from="user" time={sentAt} status="read">کاشی را چطور در Next.js نصب کنم؟</ChatMessage>
+  <ChatMessage
+    from="assistant"
+    avatar={<Avatar name="دستیار کاشی" size="sm" />}
+    copyText={answer}
+    onRetry={regenerate}
+    onFeedback={setFeedback}
+    feedback={feedback}
+  >
+    {answer}
+  </ChatMessage>
+  <TypingIndicator name="دستیار کاشی" />
+</ChatThread>`}>
+  <ChatDemo client:only="react" />
+</Demo>
+
+`ChatThread` با هر پیام تازه پایین می‌رود، مگر کاربر برای خواندن پیام‌های قبلی بالا رفته باشد؛ در آن حالت دکمهٔ «رفتن به آخرین پیام» ظاهر می‌شود. برای متن پاسخی که زنده می‌رسد، [StreamingText](/docs/components/streaming-text/) را داخل `ChatMessage` بگذارید و برای کد، [CodeBlock](/docs/components/code-block/).
+
+## گفتگوی گروهی و خطا
+
+با `name` نام فرستنده بالای پیام می‌آید. پیام سیستمی (`from="system"`) وسط و کوچک است. پیامی که ارسال نشده (`status="failed"`) حاشیهٔ قرمز و دکمهٔ تلاش دوباره می‌گیرد.
+
+<Demo align="stretch" html={false} code={`<ChatMessage from="system">سارا محمدی به گروه پیوست</ChatMessage>
+<ChatMessage from="assistant" name="سارا محمدی" avatar={<Avatar name="سارا محمدی" size="sm" />} time="۱۰:۲۰">
+  سلام! فایل فیگما را فرستادم.
+</ChatMessage>
+<ChatMessage from="user" time="۱۰:۲۲" status="failed" onRetry={resend}>ممنون، الان نگاه می‌کنم.</ChatMessage>
+<TypingIndicator name="رضا کریمی" showLabel />`}>
+  <ChatGroupDemo client:only="react" />
+</Demo>
+
+## ویژگی‌ها
+
+### ChatMessage
+
+<Props rows={[
+  ["from", '"user" | "assistant" | "system"', '"assistant"', "فرستنده؛ جای پیام و رنگ حباب"],
+  ["name", "string", "", "نام فرستنده بالای پیام، برای گفتگوی گروهی"],
+  ["avatar", "ReactNode", "", "آواتار کنار پیام"],
+  ["time", "Date | string", "", "زمان؛ Date به شکل نسبی («۵ دقیقه پیش»)"],
+  ["status", '"sending" | "sent" | "delivered" | "read" | "failed"', "", "وضعیت پیام کاربر با تیک"],
+  ["edited", "boolean", "false", "نشان «ویرایش‌شده»"],
+  ["copyText", "string", "", "متن دکمهٔ کپی؛ با آن دکمه نشان داده می‌شود"],
+  ["onRetry", "() => void", "", "دکمهٔ تلاش دوباره"],
+  ["onFeedback / feedback", '(v: "up" | "down") => void', "", "دکمه‌های پسندیدن و نپسندیدن"],
+  ["actions", "ReactNode", "", "دکمه‌های دلخواه دیگر"],
+]} />
+
+### ChatThread و TypingIndicator
+
+<Props rows={[
+  ["ChatThread label", "string", '"گفتگو"', "نام ناحیهٔ پیام‌ها برای صفحه‌خوان"],
+  ["ChatThread autoScroll", "boolean", "true", "با پیام تازه پایین برود، اگر کاربر نزدیک پایین است"],
+  ["TypingIndicator name", "string", "", "نام کسی که می‌نویسد"],
+  ["TypingIndicator showLabel", "boolean", "false", "متن «… در حال نوشتن است» کنار نقطه‌ها"],
+]} />
+
+<Vars rows={[
+  ["--k-chat-height", "32rem", "بیشترین ارتفاع ناحیهٔ پیام‌ها پیش از اسکرول"],
+]} />
+
+## دسترس‌پذیری
+
+- ناحیهٔ پیام‌ها `role="log"` است: صفحه‌خوان پیام تازه را بدون جابه‌جا کردن فوکوس می‌خواند و خود ناحیه با Tab قابل اسکرول است.
+- نام فرستنده برای صفحه‌خوان پیش از متن هر پیام می‌آید («شما: …»)، چون جای پیام در صفحه برای او معنایی ندارد.
+- تیک وضعیت فقط نماد نیست؛ نام دسترس‌پذیر دارد («خوانده شد»، «ارسال نشد»).
+- «در حال نوشتن» یک بار با `role="status"` اعلام می‌شود و انیمیشن نقطه‌ها با «کاهش حرکت» آرام می‌شود.
+- دکمه‌های زیر پیام در صفحهٔ لمسی همیشه دیده می‌شوند.

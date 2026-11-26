@@ -30,7 +30,8 @@ function niceTicks(max: number, count = 4): number[] {
   return Array.from({ length: Math.ceil(max / step) + 1 }, (_, i) => i * step);
 }
 const pctOf = (v: number, total: number) => msg().common.percent(dec((v / (total || 1)) * 100));
-const chartColor = (i: number) => `var(--k-chart-${i + 1})`;
+/** هشت رنگ دسته‌ای با ترتیب ثابت؛ سری نهم به بعد خنثی («سایر») */
+const chartColor = (i: number) => (i < 8 ? `var(--k-chart-${i + 1})` : "var(--k-text-quaternary)");
 
 const json = <T,>(t: string | null, fallback: T): T => {
   if (!t) return fallback;
@@ -216,6 +217,7 @@ export class KashiPieChart extends Chart {
     const sorted = [...this.data].sort((a, b) => b.value - a.value);
     const parts = sorted.length > 5 ? [...sorted.slice(0, 4), { label: msg().common.other, value: sorted.slice(4).reduce((n, d) => n + d.value, 0) }] : sorted;
     const total = parts.reduce((n, d) => n + d.value, 0) || 1;
+    // چهار برش رنگی، بقیه در «سایر» با رنگ خنثی جمع می‌شوند
     const slot = (i: number) => (i < 4 ? chartColor(i) : "var(--k-text-quaternary)");
     const donut = this.getAttribute("variant") !== "pie";
     const size = Number(this.getAttribute("size")) || 176;
@@ -419,7 +421,7 @@ export class KashiActivityHeatmap extends Chart {
     const monthly = calendarNames().months.map((name, m) => ({ name, sum: days.filter((d) => toJalali(d.date).jm === m + 1).reduce((s, d) => s + d.value, 0) }));
     const yearText = formatNumber(year).replace(/[٬,]/g, "");
     const name = this.getAttribute("label") ?? H.inYear(unit, yearText);
-    this.innerHTML = `<figure class="k-heatmap" style="margin: 0"><div class="k-heatmap__scroll"><div role="img" aria-label="${esc(`${name}: ${formatNumber(total)} ${unit}`)}"><div class="k-heatmap__months" aria-hidden="true">${months.map((m) => `<span style="grid-column: ${m.col + 1}">${m.name}</span>`).join("")}</div><div class="k-heatmap__body" aria-hidden="true"><div class="k-heatmap__days">${H.weekdays.map((w) => `<span>${w}</span>`).join("")}</div><div class="k-heatmap__grid">${'<span class="k-heatmap__cell" data-empty=""></span>'.repeat(offset)}${days.map((d, i) => `<span class="k-heatmap__cell" data-l="${level(d.value)}" data-i="${i}"></span>`).join("")}</div></div></div></div><figcaption class="k-heatmap__foot"><span>${esc(H.total(formatNumber(total), unit, yearText))}</span><span class="k-heatmap__scale" aria-hidden="true">${esc(H.less)} ${[0, 1, 2, 3, 4].map((l) => `<span class="k-heatmap__cell" data-l="${l}"></span>`).join("")} ${esc(H.more)}</span></figcaption><table class="k-sr-only"><caption>${esc(H.byMonth(name))}</caption><tbody>${monthly.map((m) => `<tr><th scope="row">${m.name}</th><td>${formatNumber(m.sum)}</td></tr>`).join("")}</tbody></table></figure>`;
+    this.innerHTML = `<figure class="k-heatmap" style="margin: 0"><div class="k-heatmap__scroll" tabindex="0" role="region" aria-label="${esc(name)}"><div role="img" aria-label="${esc(`${name}: ${formatNumber(total)} ${unit}`)}"><div class="k-heatmap__months" aria-hidden="true">${months.map((m) => `<span style="grid-column: ${m.col + 1}">${m.name}</span>`).join("")}</div><div class="k-heatmap__body" aria-hidden="true"><div class="k-heatmap__days">${H.weekdays.map((w) => `<span>${w}</span>`).join("")}</div><div class="k-heatmap__grid">${'<span class="k-heatmap__cell" data-empty=""></span>'.repeat(offset)}${days.map((d, i) => `<span class="k-heatmap__cell" data-l="${level(d.value)}" data-i="${i}"></span>`).join("")}</div></div></div></div><figcaption class="k-heatmap__foot"><span>${esc(H.total(formatNumber(total), unit, yearText))}</span><span class="k-heatmap__scale" aria-hidden="true">${esc(H.less)} ${[0, 1, 2, 3, 4].map((l) => `<span class="k-heatmap__cell" data-l="${l}"></span>`).join("")} ${esc(H.more)}</span></figcaption><table class="k-sr-only"><caption>${esc(H.byMonth(name))}</caption><tbody>${monthly.map((m) => `<tr><th scope="row">${m.name}</th><td>${formatNumber(m.sum)}</td></tr>`).join("")}</tbody></table></figure>`;
     const fig = this.querySelector<HTMLElement>("figure")!;
     this.querySelector(".k-heatmap__grid")!.addEventListener("pointerover", (e) => {
       const cell = (e.target as HTMLElement).closest<HTMLElement>("[data-i]");

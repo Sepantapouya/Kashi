@@ -1,13 +1,13 @@
 /* ─────────────────────────────────────────────────────────────
-   لایهٔ عمق (۳بعدی) سایت — روی همهٔ صفحه‌ها
-   سطح‌ها مثل لایه‌های فیزیکی روی هم می‌نشینند: نور از بالا، سایهٔ چندلایه،
-   و کج شدن نرم با نشانگر (scripts/depth.ts). هیچ‌چیز داخل .demo__preview تغییر نمی‌کند
-   تا پیش‌نمایش کامپوننت‌ها و تست‌های بصری همان بمانند.
+   لایهٔ عمق (۳بعدی) — روی لایهٔ ظاهری enterprise.css و chrome.css
+   فقط چیزی اضافه می‌کند که آن‌ها ندارند: سطح‌های لایه‌دار، کج شدن سه‌بعدی
+   با نشانگر (scripts/depth.ts)، دکمه‌های برجسته و نشان شناور کاشی سر صفحه‌ها.
+   نور ملایم صفحه، نور دنبال‌کنندهٔ ماوس (data-spot) و سر صفحه از enterprise.css می‌آیند.
+   هیچ‌چیز داخل .demo__preview و [data-visual] تغییر نمی‌کند (تست‌های بصری).
    ───────────────────────────────────────────────────────────── */
 
 :root {
-  --d-edge: color-mix(in srgb, #fff 9%, transparent);          /* لبهٔ نورخوردهٔ بالا */
-  --d-rim: color-mix(in srgb, var(--k-text-brand) 38%, transparent);
+  --d-edge: color-mix(in srgb, #fff 8%, transparent);
   --d-slab:
     0 0 0 1px color-mix(in srgb, #000 22%, transparent),
     0 1px 1px rgb(0 0 0 / 0.12),
@@ -34,26 +34,9 @@
     0 40px 64px -24px color-mix(in srgb, var(--k-text-brand) 30%, rgb(15 23 42 / 0.3));
 }
 
-/* ───── فضای پس‌زمینه: هالهٔ دور و کف شبکه‌ای در پرسپکتیو ───── */
-body { position: relative; isolation: isolate; }
-body::before {
-  content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
-  background:
-    radial-gradient(60rem 30rem at 85% -10%, color-mix(in srgb, var(--k-text-brand) 9%, transparent), transparent 70%),
-    radial-gradient(50rem 26rem at 5% 0%, color-mix(in srgb, #3d5ef8 7%, transparent), transparent 70%);
-}
-/* بافت نویز خیلی کم تا گرادیان‌ها نوار نیندازند */
-body::after {
-  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-[data-theme="light"] body::after { opacity: 0.035; }
-/* صفحه‌های تست بصری بدون تزئین پس‌زمینه تا اسکرین‌شات‌ها پایدار بمانند */
-body:has([data-visual])::before, body:has([data-visual])::after { display: none; }
-
-/* کف شبکه‌ای سه‌بعدی: زیر هیروها و سر صفحه‌های مستندات */
+/* ───── کف شبکه‌ای سه‌بعدی بالای صفحه‌های مستندات ───── */
 .floor3d {
-  position: absolute; inset-inline: 0; inset-block-start: 0; block-size: 34rem; z-index: -1;
+  position: absolute; inset-inline: 0; inset-block-start: 0; block-size: 26rem; z-index: -1;
   overflow: hidden; pointer-events: none; perspective: 520px; perspective-origin: 50% 0%;
   -webkit-mask-image: linear-gradient(#000 30%, transparent);
   mask-image: linear-gradient(#000 30%, transparent);
@@ -66,58 +49,17 @@ body:has([data-visual])::before, body:has([data-visual])::after { display: none;
     linear-gradient(90deg, color-mix(in srgb, var(--k-text-brand) 30%, transparent) 1px, transparent 1px) 0 0 / 64px 64px;
   -webkit-mask-image: radial-gradient(ellipse 50% 60% at 50% 10%, #000 10%, transparent 70%);
   mask-image: radial-gradient(ellipse 50% 60% at 50% 10%, #000 10%, transparent 70%);
-  opacity: 0.55;
+  opacity: 0.45;
 }
-[data-theme="light"] .floor3d::before { opacity: 0.35; }
-.floor3d::after {
-  content: ""; position: absolute; inset: 0;
-  background: radial-gradient(40rem 14rem at 50% 0%, color-mix(in srgb, var(--k-text-brand) 14%, transparent), transparent 70%);
-}
+[data-theme="light"] .floor3d::before { opacity: 0.3; }
 @media (prefers-reduced-motion: no-preference) {
   .floor3d::before { animation: floor-run 14s linear infinite; }
 }
 @keyframes floor-run { to { background-position: 0 64px, 0 0; } }
+.docs { position: relative; isolation: isolate; }
 
-/* ───── هدر: شیشهٔ ضخیم با لبهٔ نورانی ───── */
-.site-header {
-  background: color-mix(in srgb, var(--k-bg-primary) 72%, transparent);
-  backdrop-filter: blur(18px) saturate(1.5);
-  -webkit-backdrop-filter: blur(18px) saturate(1.5);
-  box-shadow: inset 0 1px 0 var(--d-edge);
-}
-.site-header::after {
-  content: ""; position: absolute; inset-inline: 0; inset-block-end: -1px; block-size: 1px; pointer-events: none;
-  background: linear-gradient(90deg, transparent, var(--d-rim) 30%, color-mix(in srgb, #3d8bf0 40%, transparent) 70%, transparent);
-  opacity: 0; transition: opacity var(--k-duration-normal);
-}
-.site-header[data-scrolled] { box-shadow: inset 0 1px 0 var(--d-edge), 0 12px 32px -18px rgb(0 0 0 / 0.55); }
-.site-header[data-scrolled]::after { opacity: 1; }
-
-/* شمسهٔ لوگو با عمق: هنگام هاور در فضا می‌چرخد */
-.brand { perspective: 200px; }
-.brand .logo-mark { filter: drop-shadow(0 2px 4px color-mix(in srgb, var(--k-text-brand) 45%, transparent)); transition: transform 0.7s var(--d-ease), rotate 0.6s var(--k-ease-emphasized); }
-.brand:hover .logo-mark { transform: rotateY(180deg); rotate: 0deg; }
-
-/* پنل منوها مثل کارت شناور روی صفحه */
-.nav-menu__panel {
-  background: color-mix(in srgb, var(--k-bg-elevated) 88%, transparent);
-  backdrop-filter: blur(20px) saturate(1.4);
-  box-shadow: inset 0 1px 0 var(--d-edge), var(--d-slab), 0 40px 80px -30px rgb(0 0 0 / 0.5);
-  transform-origin: 50% 0;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .nav-menu__panel:not([hidden]) { animation: nav-in3d 0.22s var(--d-ease); }
-}
-@keyframes nav-in3d { from { opacity: 0; transform: perspective(800px) rotateX(-8deg) translateY(-6px); } }
-.nav-menu__icon {
-  background: linear-gradient(180deg, var(--k-bg-elevated), var(--k-bg-primary));
-  box-shadow: inset 0 1px 0 var(--d-edge), 0 2px 4px -1px rgb(0 0 0 / 0.25);
-  transition: transform var(--k-duration-normal) var(--d-ease), box-shadow var(--k-duration-normal);
-}
-.nav-menu__item:hover .nav-menu__icon { transform: translateY(-2px); box-shadow: inset 0 1px 0 var(--d-edge), 0 6px 12px -4px color-mix(in srgb, var(--k-text-brand) 40%, transparent); }
-
-/* ───── دکمه‌های اصلی سایت: برجسته با لبهٔ زیرین و فرورفتن هنگام فشار ─────
-   فقط بیرون از پیش‌نمایش کامپوننت‌ها */
+/* ───── دکمه‌های اصلی: برجسته با لبهٔ زیرین و فرورفتن هنگام فشار ─────
+   صفحهٔ اصلی هالهٔ نور خودش را از enterprise.css دارد */
 .k-btn--primary:not(.demo__preview *, .product *, .gcard *, [data-visual] *) {
   background-image: linear-gradient(180deg, color-mix(in srgb, #fff 16%, transparent), transparent 55%);
   box-shadow:
@@ -127,14 +69,7 @@ body:has([data-visual])::before, body:has([data-visual])::after { display: none;
     0 8px 20px -8px color-mix(in srgb, var(--k-bg-brand) 70%, transparent);
   transition: transform var(--k-duration-fast) var(--d-ease), box-shadow var(--k-duration-fast), background-color var(--k-duration-fast);
 }
-.k-btn--primary:not(.demo__preview *, .product *, .gcard *, [data-visual] *):hover {
-  transform: translateY(-1px);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, #fff 34%, transparent),
-    inset 0 -2px 0 color-mix(in srgb, #000 22%, transparent),
-    0 2px 4px rgb(0 0 0 / 0.2),
-    0 14px 28px -10px color-mix(in srgb, var(--k-bg-brand) 85%, transparent);
-}
+.k-btn--primary:not(.demo__preview *, .product *, .gcard *, [data-visual] *):hover { transform: translateY(-1px); }
 .k-btn--primary:not(.demo__preview *, .product *, .gcard *, [data-visual] *):active {
   transform: translateY(1px);
   box-shadow: inset 0 2px 4px color-mix(in srgb, #000 28%, transparent), 0 1px 1px rgb(0 0 0 / 0.2);
@@ -143,15 +78,14 @@ body:has([data-visual])::before, body:has([data-visual])::after { display: none;
   box-shadow: inset 0 1px 0 var(--d-edge), 0 1px 2px rgb(0 0 0 / 0.14);
   transition: transform var(--k-duration-fast) var(--d-ease), box-shadow var(--k-duration-fast), background-color var(--k-duration-fast), border-color var(--k-duration-fast);
 }
-.k-btn--secondary:not(.demo__preview *, .product *, .gcard *, [data-visual] *):hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 var(--d-edge), 0 8px 16px -8px rgb(0 0 0 / 0.35); }
+.k-btn--secondary:not(.demo__preview *, .product *, .gcard *, [data-visual] *):hover { transform: translateY(-1px); }
 .k-btn--secondary:not(.demo__preview *, .product *, .gcard *, [data-visual] *):active { transform: translateY(1px); box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.18); }
 
-/* ───── سطح‌های سایت: «اسلب»‌های لایه‌دار با نور از بالا ───── */
-:is(.gcard, .pager__link, .demo, .codeblock, .tile, .ent__item, .quality__item, .adopt, .ci, .vs, .arch, .iconset,
-    .author, .support, .live, .metrics, .standards__list, .cta__card, .sysmap, .faq__list details, .table-wrap, .home-pro) {
+/* ───── سطح‌ها: «اسلب»‌های لایه‌دار با نور از بالا ───── */
+:is(.gcard, .pager__link, .demo, .codeblock, .table-wrap, .home-pro, .dh-card, .ab-card, .cmp-card) {
   box-shadow: inset 0 1px 0 var(--d-edge), var(--d-slab);
 }
-/* کارت‌هایی که با نشانگر کج می‌شوند (depth.ts متغیرهای --rx و --ry را می‌دهد) */
+/* کج شدن با نشانگر: depth.ts متغیرهای --rx و --ry را می‌دهد */
 [data-tilt3d] {
   transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(0);
   transform-style: preserve-3d;
@@ -160,52 +94,25 @@ body:has([data-visual])::before, body:has([data-visual])::after { display: none;
 }
 [data-tilt3d][data-tilting] { transition: transform 0.08s linear, box-shadow 0.35s var(--d-ease), border-color var(--k-duration-fast), translate 0.35s var(--d-ease); }
 [data-tilt3d]:hover { box-shadow: inset 0 1px 0 var(--d-edge), var(--d-slab-hover); }
-/* درخشش نوری که با نشانگر روی سطح می‌لغزد */
-[data-tilt3d]::before {
+/* برق نور فقط برای کارت‌هایی که نور ماوس enterprise.css (data-spot) را ندارند */
+[data-tilt3d]:not([data-spot])::before {
   content: ""; position: absolute; inset: 0; z-index: 4; border-radius: inherit; pointer-events: none;
-  background: radial-gradient(28rem circle at var(--gx, 50%) var(--gy, 0%), color-mix(in srgb, #fff 9%, transparent), transparent 45%);
+  background: radial-gradient(28rem circle at var(--gx, 50%) var(--gy, 0%), color-mix(in srgb, #fff 8%, transparent), transparent 45%);
   opacity: 0; transition: opacity 0.35s;
 }
-[data-tilt3d]:hover::before { opacity: 1; }
-[data-theme="light"] [data-tilt3d]::before { background: radial-gradient(28rem circle at var(--gx, 50%) var(--gy, 0%), color-mix(in srgb, #fff 55%, transparent), transparent 45%); }
-.gcard[data-tilt3d], .pager__link[data-tilt3d] { position: relative; }
+[data-tilt3d]:not([data-spot]):hover::before { opacity: 1; }
+[data-theme="light"] [data-tilt3d]:not([data-spot])::before { background: radial-gradient(28rem circle at var(--gx, 50%) var(--gy, 0%), color-mix(in srgb, #fff 55%, transparent), transparent 45%); }
+.gcard[data-tilt3d], .pager__link[data-tilt3d], .home-pro[data-tilt3d] { position: relative; }
 
-/* ───── مستندات: سر صفحه با کف سه‌بعدی و نشان کاشی ───── */
-.docs { position: relative; }
-.docs > .floor3d { block-size: 26rem; }
-.page-head { position: relative; }
-.page-head > .page-head__art { position: absolute; inset-block-start: -1.25rem; inset-inline-end: -1rem; opacity: 0.9; }
+/* ───── سر صفحهٔ مستندات: نشان سه‌بعدی کاشی، زیر ردیف مسیر و دکمه‌ها ───── */
+.page-head > .page-head__art { position: absolute; inset-block-start: 2.75rem; inset-inline-end: -0.5rem; opacity: 0.9; }
 .page-head:has(.page-head__art) > :is(h1, .page-head__lead) { padding-inline-end: 9.5rem; }
 @media (max-width: 64rem) {
   .page-head > .page-head__art { display: none; }
   .page-head:has(.page-head__art) > :is(h1, .page-head__lead) { padding-inline-end: 0; }
 }
-.page-head__crumb {
-  display: inline-flex; align-items: center; gap: var(--k-space-2);
-  padding: 0.125rem var(--k-space-3); border: 1px solid color-mix(in srgb, var(--k-text-brand) 30%, transparent);
-  border-radius: var(--k-radius-full); background: color-mix(in srgb, var(--k-bg-brand-subtle) 70%, transparent);
-  box-shadow: inset 0 1px 0 var(--d-edge); font-size: var(--k-text-xs);
-}
-.page-head__crumb::before { content: ""; inline-size: 6px; block-size: 6px; border-radius: 2px; rotate: 45deg; background: var(--k-text-brand); box-shadow: 0 0 8px var(--k-text-brand); }
-.page-head h1 {
-  background: linear-gradient(180deg, var(--k-text-primary) 40%, color-mix(in srgb, var(--k-text-primary) 62%, var(--k-text-brand)));
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  letter-spacing: -0.015em;
-}
-.page-head h1 ::selection { -webkit-text-fill-color: var(--k-text-primary); }
 
-/* سایدبار: آیتم فعال مثل دکمهٔ برجسته */
-.sidebar a[aria-current="page"] {
-  background: linear-gradient(180deg, var(--k-bg-elevated), color-mix(in srgb, var(--k-bg-elevated) 70%, var(--k-bg-primary)));
-  box-shadow: inset 0 1px 0 var(--d-edge), 0 0 0 1px var(--k-border-secondary), 0 4px 10px -4px rgb(0 0 0 / 0.35);
-}
-.sidebar a[aria-current="page"]::before { box-shadow: 0 0 10px var(--k-text-brand); background: var(--k-text-brand); }
-.sidebar a:hover:not([aria-current]) { padding-inline-start: calc(var(--k-space-3) + 2px); }
-
-/* فهرست «در این صفحه» */
-.toc a[data-active] { text-shadow: 0 0 14px color-mix(in srgb, var(--k-text-brand) 55%, transparent); }
-
-/* عنوان‌های بخش در مستندات: نشانهٔ لوزی کوچک برجسته */
+/* عنوان بخش‌ها: لوزی کوچک برجسته */
 .prose > h2 { position: relative; }
 .prose > h2::before {
   content: ""; position: absolute; inset-inline-start: -1.25rem; inset-block-start: 0.7em;
@@ -215,36 +122,9 @@ body:has([data-visual])::before, body:has([data-visual])::after { display: none;
 }
 @media (max-width: 48rem) { .prose > h2::before { display: none; } }
 
-/* پیش‌نمایش‌ها: قاب بیرونی عمیق‌تر؛ داخل دست‌نخورده */
-.demo { background: var(--k-bg-primary); }
-
-/* صفحه‌بندی قبلی/بعدی */
-.pager__link:hover { translate: 0 -3px; }
-
-/* ───── فوتر: کف نورانی ───── */
-.site-footer { position: relative; isolation: isolate; overflow: clip; }
-.site-footer::before {
-  content: ""; position: absolute; inset-inline: 0; inset-block-start: 0; block-size: 1px; z-index: 1;
-  background: linear-gradient(90deg, transparent, var(--d-rim), color-mix(in srgb, #3d8bf0 40%, transparent), transparent);
-}
-.site-footer::after {
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    radial-gradient(40rem 12rem at 50% 0%, color-mix(in srgb, var(--k-text-brand) 8%, transparent), transparent 70%),
-    linear-gradient(color-mix(in srgb, var(--k-border-secondary) 60%, transparent) 1px, transparent 1px) 0 0 / 48px 48px,
-    linear-gradient(90deg, color-mix(in srgb, var(--k-border-secondary) 60%, transparent) 1px, transparent 1px) 0 0 / 48px 48px;
-  -webkit-mask-image: linear-gradient(transparent, #000 60%);
-  mask-image: linear-gradient(transparent, #000 60%);
-  opacity: 0.6;
-}
-
-/* ───── صفحه‌های طراحی‌شده (فیگما، هوش مصنوعی، دسترس‌پذیری، پرو، وضعیت) ───── */
-:is(.fg-hero, .ai-hero, .ax-hero, .pro-hero) {
-  position: relative;
-  box-shadow: inset 0 1px 0 var(--d-edge), var(--d-slab);
-}
+/* صفحه‌های طراحی‌شده (فیگما، هوش مصنوعی، دسترس‌پذیری، پرو) */
+:is(.fg-hero, .ai-hero, .ax-hero, .pro-hero) { position: relative; box-shadow: inset 0 1px 0 var(--d-edge), var(--d-slab); }
 
 @media (prefers-reduced-motion: reduce) {
   [data-tilt3d] { transform: none !important; }
-  .brand:hover .logo-mark { transform: none; }
 }

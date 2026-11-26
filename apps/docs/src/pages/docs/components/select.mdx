@@ -1,7 +1,7 @@
 ---
 layout: ../../../layouts/Docs.astro
 title: سلکت
-description: انتخاب یک گزینه از فهرست بلند، روی select بومی مرورگر.
+description: انتخاب یک گزینه از فهرست؛ با ظاهر کاشی، صفحه‌کلید کامل و select بومی پنهان برای فرم.
 ---
 import Demo from "../../../components/Demo.astro";
 import Props from "../../../components/Props.astro";
@@ -24,7 +24,7 @@ import { Select } from "@kashi-ui/react";
     { value: "krm", label: "کرمان" },
   ]}
 />`}>
-  <Select label="استان" placeholder="انتخاب کنید" hint="برای محاسبهٔ هزینهٔ ارسال" options={[{ value: "thr", label: "تهران" }, { value: "isf", label: "اصفهان" }, { value: "frs", label: "فارس" }, { value: "krm", label: "کرمان" }]} />
+  <Select client:load label="استان" placeholder="انتخاب کنید" hint="برای محاسبهٔ هزینهٔ ارسال" options={[{ value: "thr", label: "تهران" }, { value: "isf", label: "اصفهان" }, { value: "frs", label: "فارس" }, { value: "krm", label: "کرمان" }]} />
 </Demo>
 
 ## خطا و اندازه‌ها
@@ -37,25 +37,34 @@ import { Select } from "@kashi-ui/react";
   <option value="new">جدیدترین</option>
   <option value="price">ارزان‌ترین</option>
 </Select>`}>
-  <Select label="نقش" error="یک نقش انتخاب کنید." placeholder="انتخاب کنید" required>
-    <option value="admin">مدیر</option>
-    <option value="editor">ویرایشگر</option>
-  </Select>
-  <Select label="مرتب‌سازی" size="sm" defaultValue="new">
-    <option value="new">جدیدترین</option>
-    <option value="price">ارزان‌ترین</option>
-  </Select>
+  <Select client:load label="نقش" error="یک نقش انتخاب کنید." placeholder="انتخاب کنید" required options={[{ value: "admin", label: "مدیر" }, { value: "editor", label: "ویرایشگر" }]} />
+  <Select client:load label="مرتب‌سازی" size="sm" defaultValue="new" options={[{ value: "new", label: "جدیدترین" }, { value: "price", label: "ارزان‌ترین" }]} />
 </Demo>
 
-## چرا select بومی؟
+## صفحه‌کلید و دسترس‌پذیری
 
-فهرست بومی مرورگر در گوشی انتخاب‌گر سیستم‌عامل را باز می‌کند (که برای انگشت ساخته شده)، با صفحه‌خوان‌ها بی‌نقص کار می‌کند و در فرم‌ها بدون کد اضافه ارسال می‌شود. کاشی فقط ظاهر آن را هماهنگ می‌کند.
+از نسخهٔ ۲، فهرست با ظاهر کاشی باز می‌شود و نقش‌های ARIA الگوی combobox و listbox را دارد:
+
+- <kbd>↓</kbd> یا <kbd>Enter</kbd> یا <kbd>Space</kbd> فهرست را باز می‌کند؛ فلش‌ها، <kbd>Home</kbd> و <kbd>End</kbd> بین گزینه‌ها جابه‌جا می‌شوند و <kbd>Escape</kbd> می‌بندد.
+- تایپ حرف اول یک گزینه مستقیم به آن می‌پرد؛ حتی وقتی فهرست بسته است.
+- اگر پایین فیلد جا نباشد، فهرست بالای آن باز می‌شود.
+
+زیر آن یک `<select>` بومیِ پنهان هست، پس `name`، `required`، `onChange` و `ref` دقیقاً مثل قبل کار می‌کنند و فرم بدون کد اضافه ارسال می‌شود.
+
+## فهرست بومی
+
+برای فهرست‌های خیلی بلند، یا وقتی انتخاب‌گر سیستم‌عامل گوشی را ترجیح می‌دهید، `native` بدهید تا همان `<select>` مرورگر با ظاهر کاشی نمایش داده شود. در HTML ساده (بدون React) هم کلاس `k-select` همین فهرست بومی را می‌سازد.
+
+```tsx
+<Select native label="کشور" options={countries} />
+```
 
 ## ویژگی‌ها
 
 <Props rows={[
   ["label / hint / error", "ReactNode", "", "مثل Input"],
   ["placeholder", "string", "", "گزینهٔ خالی اول که قابل‌انتخاب نیست"],
-  ["options", "{ value, label, disabled? }[]", "", "گزینه‌ها؛ یا <option> به‌عنوان children"],
+  ["options", "{ value, label, disabled? }[]", "", "گزینه‌ها؛ یا <option> و <optgroup> به‌عنوان children"],
+  ["native", "boolean", "false", "فهرست بومی مرورگر به‌جای فهرست کاشی"],
   ["size", '"sm" | "md" | "lg"', '"md"', "ارتفاع"],
 ]} />

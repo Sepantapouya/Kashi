@@ -1,5 +1,197 @@
 # @kashi-ui/tailwind
 
+## 2.16.0
+
+### Patch Changes
+
+- Updated dependencies [80b4741]
+  - @kashi-ui/css@2.16.0
+
+## 2.15.1
+
+### Patch Changes
+
+- @kashi-ui/css@2.15.1
+
+## 2.15.0
+
+### Patch Changes
+
+- @kashi-ui/css@2.15.0
+
+## 2.14.0
+
+### Minor Changes
+
+- 68350a2: پایه‌های کیفیت: حالت کنتراست بالا با متن AAA (خودکار با `prefers-contrast: more` یا `data-contrast="more"`)، پالت داده‌نمایی در توکن‌ها (۸ رنگ دسته‌ای، طیف ترتیبی و واگرا، `chartColor`)، توکن‌های `breakpoint` و لایهٔ `raised`، خروجی استاندارد W3C DTCG برای فیگما و Style Dictionary، و پکیج تازهٔ `@kashi-ui/codemod` برای مهاجرت خودکار. تست خودکار axe و صفحه‌کلید در CI. رفع: ناحیهٔ لمس نقطه‌های Carousel و ورودی Slider و PriceRange به ۲۴ پیکسل رسید؛ Navbar در ظرف باریک بر اساس عرض خودش به منو می‌رود و پیوندها دیگر روی دکمه‌ها نمی‌افتند؛ ناحیهٔ اسکرول ActivityHeatmap با صفحه‌کلید در دسترس است؛ حالت‌های انتخاب و فوکوس چند کامپوننت در حالت رنگ اجباری ویندوز دیده می‌شوند.
+
+### Patch Changes
+
+- Updated dependencies [68350a2]
+  - @kashi-ui/css@2.14.0
+
+## 2.13.0
+
+### Patch Changes
+
+- @kashi-ui/css@2.13.0
+
+## 2.12.0
+
+### Patch Changes
+
+- @kashi-ui/css@2.12.0
+
+## 2.11.1
+
+### Patch Changes
+
+- @kashi-ui/css@2.11.1
+
+## 2.11.0
+
+### Patch Changes
+
+- @kashi-ui/css@2.11.0
+
+## 2.10.0
+
+### Patch Changes
+
+- @kashi-ui/css@2.10.0
+
+## 2.9.0
+
+### Patch Changes
+
+- @kashi-ui/css@2.9.0
+
+## 2.8.1
+
+### Patch Changes
+
+- @kashi-ui/css@2.8.1
+
+## 2.8.0
+
+### Patch Changes
+
+- Updated dependencies [365ebb0]
+  - @kashi-ui/css@2.8.0
+
+## 2.7.0
+
+### Patch Changes
+
+- @kashi-ui/css@2.7.0
+
+## 2.6.0
+
+### Patch Changes
+
+- @kashi-ui/css@2.6.0
+
+## 2.5.0
+
+### Patch Changes
+
+- @kashi-ui/css@2.5.0
+
+## 2.4.1
+
+### Patch Changes
+
+- @kashi-ui/css@2.4.1
+
+## 2.4.0
+
+### Patch Changes
+
+- Updated dependencies [ab09773]
+  - @kashi-ui/css@2.4.0
+
+## 2.3.0
+
+### Patch Changes
+
+- Updated dependencies [31b0ded]
+  - @kashi-ui/css@2.3.0
+
+## 2.2.0
+
+### Patch Changes
+
+- @kashi-ui/css@2.2.0
+
+## 2.1.0
+
+### Patch Changes
+
+- @kashi-ui/css@2.1.0
+
+## 2.0.0
+
+### Patch Changes
+
+- Updated dependencies [99a712f]
+  - @kashi-ui/css@2.0.0
+
+## 1.8.0
+
+### Patch Changes
+
+- @kashi-ui/css@1.8.0
+
+## 1.7.0
+
+### Patch Changes
+
+- @kashi-ui/css@1.7.0
+
+## 1.6.0
+
+### Patch Changes
+
+- Updated dependencies [5176ef2]
+  - @kashi-ui/css@1.6.0
+
+## 1.5.0
+
+### Patch Changes
+
+- @kashi-ui/css@1.5.0
+
+## 1.4.0
+
+### Patch Changes
+
+- @kashi-ui/css@1.4.0
+
+## 1.3.0
+
+### Patch Changes
+
+- @kashi-ui/css@1.3.0
+
+## 1.2.1
+
+### Patch Changes
+
+- Updated dependencies [94d7b1e]
+  - @kashi-ui/css@1.2.1
+
+## 1.2.0
+
+### Patch Changes
+
+- @kashi-ui/css@1.2.0
+
+## 1.1.0
+
+### Patch Changes
+
+- @kashi-ui/css@1.1.0
+
 ## 1.0.0
 
 ### Major Changes

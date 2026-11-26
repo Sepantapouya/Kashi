@@ -4,5 +4,48 @@
   "buildCommand": "npm run docs:build",
   "outputDirectory": "dist",
   "trailingSlash": true,
-  "git": { "deploymentEnabled": { "stats": false, "status": false } }
+  "git": {
+    "deploymentEnabled": {
+      "stats": false,
+      "status": false
+    }
+  },
+  "headers": [
+    {
+      "source": "/learn/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
+      ]
+    },
+    {
+      "source": "/academy/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/academy",
+      "destination": "https://skills.sepantapouya.com/academy/"
+    },
+    {
+      "source": "/academy/:path*",
+      "destination": "https://skills.sepantapouya.com/academy/:path*"
+    },
+    {
+      "source": "/_next/:path*",
+      "destination": "https://skills.sepantapouya.com/_next/:path*"
+    }
+  ]
 }

@@ -4,15 +4,24 @@
  *
  * متغیرها: --k-tab-height  --k-tab-radius  --k-tabs-gap  --k-tabs-indicator  --k-tabs-list-width
  */
-.k-tabs { display: grid; gap: var(--k-tabs-gap, var(--k-space-4)); inline-size: 100%; }
+/* ستون minmax(0, 1fr): فهرست زبانهٔ پهن یا محتوای پهن پنل، ظرف (و صفحهٔ موبایل) را پهن‌تر نمی‌کند */
+.k-tabs { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--k-tabs-gap, var(--k-space-4)); inline-size: 100%; min-inline-size: 0; }
+.k-tabs__panel { min-inline-size: 0; }
 
+/* زبانه‌های بیشتر از عرض، افقی اسکرول می‌شوند */
 .k-tabs__list {
   position: relative;
   display: flex;
   gap: var(--k-space-1);
+  min-inline-size: 0;
+  max-inline-size: 100%;
   overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scroll-padding-inline: var(--k-space-4);
   scrollbar-width: none;
 }
+.k-tabs__list::-webkit-scrollbar { display: none; }
+.k-tabs__tab { flex-shrink: 0; }
 
 .k-tabs__tab {
   position: relative;
@@ -65,15 +74,12 @@
   /* در ظرف باریک از کادر بیرون نزند؛ زبانه‌ها اسکرول می‌شوند */
   max-inline-size: 100%;
   padding: 3px;
-  border: 1px solid var(--k-border-secondary);
-  border-radius: calc(var(--k-radius-md) + 3px);
-  background: var(--k-bg-secondary);
+  border: 0;
+  border-radius: var(--k-radius-control);
+  background: var(--k-bg-muted);
 }
 .k-tabs--segmented .k-tabs__tab { min-block-size: calc(2.25rem * var(--k-density)); }
-.k-tabs--segmented .k-tabs__tab[aria-selected="true"] {
-  background: var(--k-bg-elevated);
-  box-shadow: var(--k-shadow-sm), var(--k-highlight);
-}
+.k-tabs--segmented .k-tabs__tab[aria-selected="true"] { background: var(--k-bg-raised); }
 .k-tabs--block .k-tabs__list { inline-size: auto; }
 .k-tabs--block .k-tabs__tab { flex: 1; }
 
@@ -98,8 +104,8 @@
 }
 
 /* نشانگر لغزان (وقتی JavaScript جای زبانهٔ فعال را اندازه گرفت) */
-.k-tabs__indicator { position: absolute; left: var(--_ix); top: var(--_iy); inline-size: var(--_iw); block-size: var(--_ih); pointer-events: none; transition: left var(--k-duration-slow) var(--k-ease-standard), top var(--k-duration-slow) var(--k-ease-standard), inline-size var(--k-duration-slow) var(--k-ease-standard), block-size var(--k-duration-slow) var(--k-ease-standard); }
-.k-tabs__list[data-indicator] .k-tabs__tab { z-index: 1; }
+.k-tabs__indicator { position: absolute; left: var(--_ix); top: var(--_iy); inline-size: var(--_iw); block-size: var(--_ih); pointer-events: none; transition: left var(--k-duration-slow) var(--k-ease-spring), top var(--k-duration-slow) var(--k-ease-spring), inline-size var(--k-duration-slow) var(--k-ease-standard), block-size var(--k-duration-slow) var(--k-ease-standard); }
+.k-tabs__list[data-indicator] .k-tabs__tab { z-index: var(--k-z-raised); }
 /* خطی */
 .k-tabs--line .k-tabs__list[data-indicator] .k-tabs__tab[aria-selected="true"]::after { content: none; }
 .k-tabs--line .k-tabs__indicator { top: auto; bottom: -1px; block-size: 2px; border-radius: 2px; background: var(--k-tabs-indicator, var(--k-border-brand)); }
@@ -111,6 +117,6 @@
 .k-tabs--pill .k-tabs__list[data-indicator] .k-tabs__tab[aria-selected="true"] { background: transparent; }
 .k-tabs--pill .k-tabs__indicator { border-radius: var(--k-tab-radius, var(--k-radius-md)); background: var(--k-bg-brand-subtle); }
 .k-tabs--segmented .k-tabs__list[data-indicator] .k-tabs__tab[aria-selected="true"] { background: transparent; box-shadow: none; }
-.k-tabs--segmented .k-tabs__indicator { border-radius: var(--k-tab-radius, var(--k-radius-md)); background: var(--k-bg-elevated); box-shadow: var(--k-shadow-sm), var(--k-highlight); }
+.k-tabs--segmented .k-tabs__indicator { border-radius: var(--k-tab-radius, calc(var(--k-radius-control) - 3px)); background: var(--k-bg-raised); }
 @media (prefers-reduced-motion: reduce) { .k-tabs__indicator { transition: none; } }
 @media (forced-colors: active) { .k-tabs__indicator { background: Highlight; } }

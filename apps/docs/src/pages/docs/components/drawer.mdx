@@ -1,0 +1,66 @@
+---
+layout: ../../../layouts/Docs.astro
+title: کشو
+description: پنلی که از کنار صفحه باز می‌شود؛ برای فیلترها، جزئیات یک ردیف، تنظیمات و منوی گوشی، با انیمیشن ورود و خروج.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { DrawerSizesDemo } from "../../../components/demos";
+
+```tsx
+import { Drawer } from "@kashi-ui/react";
+```
+
+## نمونه
+
+<Demo html={false} code={`const [open, setOpen] = useState(false);
+
+<Button onClick={() => setOpen(true)}>فیلترها</Button>
+<Drawer
+  open={open}
+  onOpenChange={setOpen}
+  title="فیلترها"
+  description="نتایج را محدود کنید."
+  footer={<>
+    <Button variant="secondary" onClick={() => setOpen(false)}>پاک کردن</Button>
+    <Button variant="primary">اعمال</Button>
+  </>}
+>
+  <RadioGroup label="وضعیت پرداخت">…</RadioGroup>
+</Drawer>`}>
+  <DrawerSizesDemo client:load />
+</Demo>
+
+کشو روی `<dialog>` بومی ساخته شده: فوکوس داخل آن می‌ماند، Esc و کلیک روی پس‌زمینه می‌بندند، اسکرول صفحه قفل می‌شود و بعد از بستن، فوکوس به دکمه‌ای که آن را باز کرده برمی‌گردد. هنگام بستن هم به همان سمتی که آمده برمی‌گردد، نه این‌که ناگهان ناپدید شود.
+
+## سمت و اندازه
+
+- `side="end"` (پیش‌فرض) در صفحهٔ فارسی از چپ باز می‌شود و `side="start"` از راست؛ در صفحهٔ انگلیسی برعکس.
+- `size`: `sm` (۲۰rem) برای منو، `md` (۲۶rem) برای فیلتر و فرم کوتاه، `lg` (۳۶rem) برای جزئیات، `full` برای تمام صفحه. در گوشی کشو هیچ‌وقت از عرض صفحه بزرگ‌تر نمی‌شود.
+- سربرگ و `footer` ثابت می‌مانند و فقط محتوای وسط اسکرول می‌خورد.
+
+بدون React، همین کشو با `<kashi-dialog placement="end">` ساخته می‌شود؛ [پنجره در وب کامپوننت‌ها](/docs/components/dialog/) را ببینید.
+
+برای انتخاب کوتاه در گوشی، [برگهٔ پایین](/docs/components/bottom-sheet/) راحت‌تر است چون با شست در دسترس است.
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["open", "boolean", "", "باز بودن (کنترل‌شده)"],
+  ["onOpenChange", "(open: boolean) => void", "", "هنگام بستن با Esc، پس‌زمینه یا دکمهٔ بستن"],
+  ["title", "ReactNode", "", "عنوان — الزامی، نام کشو برای صفحه‌خوان"],
+  ["description", "ReactNode", "", "توضیح زیر عنوان"],
+  ["side", '"start" | "end"', '"end"', "سمت باز شدن؛ در RTL «start» سمت راست است"],
+  ["size", '"sm" | "md" | "lg" | "full"', '"md"', "پهنا"],
+  ["footer", "ReactNode", "", "دکمه‌های پایین، همیشه دیده می‌شوند"],
+  ["dismissible", "boolean", "true", "بستن با کلیک روی پس‌زمینه"],
+  ["closeLabel", "string", '"بستن"', "متن دکمهٔ بستن برای صفحه‌خوان"],
+]} />
+
+متغیرهای CSS: `--k-drawer-width` و `--k-dialog-backdrop`.
+
+## دسترس‌پذیری
+
+- عنوان با `aria-labelledby` نام کشو است و توضیح با `aria-describedby` خوانده می‌شود.
+- بقیهٔ صفحه هنگام باز بودن از دسترس صفحه‌خوان و کیبورد خارج است.
+- با «کاهش حرکت» سیستم‌عامل، کشو بدون انیمیشن باز و بسته می‌شود.

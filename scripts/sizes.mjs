@@ -18,7 +18,7 @@ const update = process.argv.includes("--update");
 
 const kebab = (f) => f.replace(/\.js$/, "").replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 // فایل‌های کمکی که خودشان کامپوننت نیستند (همان HELPERS رجیستری)
-const HELPERS = new Set(["cx", "utils", "icons", "use-digits-input", "iran-map-data", "index"]);
+const HELPERS = new Set(["cx", "utils", "icons", "use-digits-input", "iran-map-data", "index", "dnd", "qr"]);
 const gz = (code) => gzipSync(code, { level: 9 }).length;
 
 async function bundle(input, external) {
@@ -50,8 +50,17 @@ const MODULES = ["inputs", "fields", "combobox", "map", "calendar", "display", "
 for (const m of MODULES) if (existsSync(join(elDist, `${m}.js`))) elements[m] = gz(await bundle(join(elDist, `${m}.js`), ["@kashi-ui/bank-logos"]));
 elements["cdn-loader"] = gz(readFileSync(join(elDist, "cdn/kashi-elements.js")));
 
+// آیکون‌ها: هر کامپوننت فقط طرح خودش را دارد؛ اگر tree-shaking بشکند، «سه آیکون» چند صد کیلوبایت می‌شود
+const iconsReact = join(root, "packages/icons/dist/react.js");
+const iconEntry = (names) => entry(`export { ${names} } from ${JSON.stringify(iconsReact)};`);
+const icons = {
+  "react-one": gz(await bundle(iconEntry("IconSearch"), EXT)),
+  "react-three": gz(await bundle(iconEntry("IconSearch, IconHome, IconUser"), EXT)),
+};
+rmSync(join(root, "scripts/.size-entry.mjs"));
+
 const css = { all: gz(readFileSync(join(root, "packages/css/dist/kashi.nofont.css"))) };
-const sizes = { react, elements, css, core: { react: core, english: withEn - core } };
+const sizes = { react, elements, icons, css, core: { react: core, english: withEn - core } };
 const own = Object.fromEntries(Object.entries(react).map(([n, v]) => [n, Math.max(100, v - core)]));
 
 let budget = existsSync(BUDGET) ? JSON.parse(readFileSync(BUDGET, "utf8")) : null;

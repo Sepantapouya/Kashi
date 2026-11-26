@@ -390,7 +390,7 @@ export const KbdDemo = () => (
 );
 
 export const SkeletonDemo = () => (
-  <div aria-busy="true" aria-label="در حال بارگذاری" className="k-card" style={{ inlineSize: "min(100%, 24rem)", padding: "1.5rem", display: "grid", gap: "1rem" }}>
+  <div role="status" aria-busy="true" aria-label="در حال بارگذاری" className="k-card" style={{ inlineSize: "min(100%, 24rem)", padding: "1.5rem", display: "grid", gap: "1rem" }}>
     <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
       <Skeleton circle width={40} />
       <div style={{ flex: 1 }}><Skeleton lines={2} /></div>
@@ -1499,6 +1499,342 @@ export const LocaleDemo = () => {
           <LocalePagination page={page} total={12} onChange={setPage} />
         </KashiProvider>
       </div>
+    </div>
+  );
+};
+
+// ---- ۱.۶: گالری عکس، فایل در فرم، فیلد کد، کارت رادیو با قیمت، کنترل تکه‌ای اسکرولی، راهنما داخل کارت
+
+const photos = [
+  ["حرم شاه‌چراغ", "#0b8077", "#2740ed"],
+  ["پل خواجو", "#dd5e02", "#7c3aed"],
+  ["کویر مرنجاب", "#c2410c", "#facc15"],
+  ["جنگل ابر", "#166534", "#0ea5e9"],
+] as const;
+const Photo = ({ name, a, b, small }: { name: string; a: string; b: string; small?: boolean }) => (
+  <div role="img" aria-label={name} style={{ display: "grid", placeItems: "end start", aspectRatio: small ? "1" : "16 / 9", inlineSize: "100%", padding: small ? 0 : "var(--k-space-4)", background: `linear-gradient(135deg, ${a}, ${b})`, color: "#fff", fontWeight: 700, fontSize: "var(--k-text-sm)" }}>
+    {!small && name}
+  </div>
+);
+
+export const CarouselGalleryDemo = () => (
+  <div style={{ inlineSize: "min(100%, 34rem)" }}>
+    <Carousel label="گالری سفر" effect="fade" autoplay={6000} lightbox thumbnails={photos.map(([n, a, b]) => <Photo key={n} name={n} a={a} b={b} small />)}>
+      {photos.map(([n, a, b]) => <Photo key={n} name={n} a={a} b={b} />)}
+    </Carousel>
+  </div>
+);
+
+export const FileUploadFormDemo = () => {
+  const [sent, setSent] = useState("");
+  return (
+    <form
+      className="demo-stack"
+      style={{ inlineSize: "min(100%, 30rem)" }}
+      onSubmit={(e) => {
+        e.preventDefault();
+        const files = new FormData(e.currentTarget).getAll("photo") as File[];
+        setSent(files.map((f) => `${f.name} (${Math.round(f.size / 1024).toLocaleString("fa")} کیلوبایت)`).join("، "));
+      }}
+    >
+      <FileUpload name="photo" required multiple={false} accept="image/png,image/jpeg,image/webp" maxSize={2 * 1024 * 1024} resizeImages={{ maxDimension: 1600, quality: 0.85 }} hint="عکس محصول؛ عکس‌های بزرگ پیش از ارسال تا ۱۶۰۰ پیکسل کوچک می‌شوند" />
+      <Button type="submit" variant="primary">ارسال فرم</Button>
+      <Out>{sent ? `در FormData: ${sent}` : "هنوز ارسال نشده"}</Out>
+    </form>
+  );
+};
+
+export const InputCodeDemo = () => (
+  <div className="demo-stack" style={{ inlineSize: "min(100%, 24rem)" }}>
+    <Input label="کد تخفیف" variant="code" placeholder="مثلاً NOWRUZ-1405" defaultValue="KASHI-25OFF" />
+    <Input label="کلید لایسنس" variant="code" placeholder="کلید ۲۵ نویسه‌ای را وارد کنید" hint="کلید را از ایمیل خرید کپی کنید." />
+  </div>
+);
+
+export const RadioLicenseDemo = () => {
+  const [plan, setPlan] = useState("team");
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 30rem)" }}>
+      <RadioGroup label="نوع لایسنس" variant="cards" value={plan} onChange={setPlan}>
+        <Radio value="solo" label="شخصی" description="یک نفر، همهٔ پروژه‌های خودتان" meta="۹۰ هزار تومان" />
+        <Radio value="team" label="تیمی" badge="پیشنهادی" description="تا ۱۰ نفر، با به‌روزرسانی یک‌ساله" meta="۴۹۰ هزار تومان" />
+        <Radio value="org" label="سازمانی" description="بدون محدودیت نفر، فاکتور رسمی" meta="تماس بگیرید" disabled />
+      </RadioGroup>
+      <Out>{`انتخاب: ${plan}`}</Out>
+    </div>
+  );
+};
+
+export const SegmentedScrollDemo = () => {
+  const [v, setV] = useState("week");
+  return (
+    <div style={{ inlineSize: "min(100%, 18rem)", padding: "var(--k-space-3)", border: "1px dashed var(--k-border-primary)", borderRadius: "var(--k-radius-lg)" }}>
+      <SegmentedControl aria-label="بازهٔ گزارش" value={v} onChange={setV} options={[
+        { value: "day", label: "امروز" }, { value: "week", label: "این هفته" }, { value: "month", label: "این ماه" }, { value: "season", label: "این فصل" }, { value: "year", label: "امسال" },
+      ]} />
+    </div>
+  );
+};
+
+export const TooltipClipDemo = () => (
+  <Card style={{ inlineSize: "min(100%, 20rem)", overflow: "hidden" }}>
+    <CardBody style={{ display: "flex", alignItems: "center", gap: "var(--k-space-2)" }}>
+      <strong>فروشگاه نارون</strong>
+      <Tooltip content="هویت فروشنده با مدارک رسمی بررسی شده است" placement="top">
+        <Button size="sm" variant="tertiary" iconOnly aria-label="فروشندهٔ تأییدشده"><CheckIcon /></Button>
+      </Tooltip>
+    </CardBody>
+  </Card>
+);
+
+/* ───── نسخهٔ ۲: جستجو با پیشنهاد، بازهٔ قیمت، نمونهٔ رنگ ───── */
+import { PriceRange, SearchSuggest, SwatchGroup } from "@kashi-ui/react";
+
+const PRODUCTS = ["ساعت مچی زنانه", "ساعت هوشمند", "ساعت دیواری", "گوشی سامسونگ", "گوشی هوشمند", "هدفون بی‌سیم", "هدفون گیمینگ", "میز آرایش", "میز تحریر", "کمد لباس", "اسکوتر برقی", "عروسک", "باتری قلمی"];
+
+export const SearchSuggestDemo = () => {
+  const [last, setLast] = useState("");
+  const [recent, setRecent] = useState(["باتری", "گریل", "کمد", "میز آرایش", "آینه"]);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 34rem)" }}>
+      <SearchSuggest
+        placeholder="جستجو در همهٔ کالاها"
+        recent={recent}
+        onClearRecent={() => setRecent([])}
+        popular={["ساعت مچی زنانه", "عروسک", "اسکوتر برقی", "ساعت هوشمند", "گوشی هوشمند"]}
+        suggestions={PRODUCTS}
+        onSearch={(q) => { setLast(q); setRecent((r) => [q, ...r.filter((x) => x !== q)].slice(0, 8)); }}
+      />
+      <Out>{last ? `جستجو: ${last}` : "روی فیلد بزنید"}</Out>
+    </div>
+  );
+};
+
+export const PriceRangeDemo = () => {
+  const [v, setV] = useState<[number, number]>([1_500_000, 18_000_000]);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 26rem)" }}>
+      <PriceRange label="قیمت" min={0} max={25_000_000} step={100_000} value={v} onChange={setV} name="price" />
+      <Out>{`${formatNumber(v[0])} تا ${formatNumber(v[1])} تومان`}</Out>
+    </div>
+  );
+};
+
+const shades = (...c: string[]) => `linear-gradient(90deg, ${c.map((x, i) => `${x} ${(i * 100) / c.length}% ${((i + 1) * 100) / c.length}%`).join(", ")})`;
+export const SWATCHES = [
+  { value: "blue", label: "آبی", color: shades("#3b6fd4", "#6b93e0", "#9db7ec", "#cfdcf6") },
+  { value: "yellow", label: "زرد", color: shades("#f2c14e", "#f5d17c", "#f8e1a9", "#fcf1d6") },
+  { value: "white", label: "سفید", color: "#ffffff" },
+  { value: "pink", label: "صورتی", color: shades("#b8305a", "#cb6385", "#de96ae", "#f0c9d6") },
+  { value: "gray", label: "طوسی", color: "#9ca3af" },
+  { value: "black", label: "مشکی", color: "#111111" },
+  { value: "orange", label: "نارنجی", color: shades("#ea7f2b", "#f0a05f", "#f5c193", "#fae1c8") },
+  { value: "silver", label: "نقره‌ای", color: "radial-gradient(circle at 35% 30%, #ffffff, #cfd2d6 55%, #a9adb3)" },
+];
+
+export const SwatchDemo = () => {
+  const [v, setV] = useState(["blue", "black"]);
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 22rem)" }}>
+      <SwatchGroup label="رنگ" options={SWATCHES} value={v} onChange={setV} name="color" />
+      <Out>{v.length ? v.map((x) => SWATCHES.find((s) => s.value === x)?.label).join("، ") : "بدون فیلتر رنگ"}</Out>
+    </div>
+  );
+};
+
+export const SwatchSingleDemo = () => {
+  const [v, setV] = useState(["black"]);
+  return <SwatchGroup single size="sm" label="رنگ کالا" options={SWATCHES.slice(4, 8)} value={v} onChange={setV} />;
+};
+
+// ---- ۲.۸: کشو، برگهٔ پایین، نوار ناوبری، حالت خالی آماده، جدول مجازی و useForm
+import { BottomSheet, Drawer, Navbar, useForm, rules, type EmptyStatePreset } from "@kashi-ui/react";
+
+export const DrawerSizesDemo = () => {
+  const [open, setOpen] = useState<null | { side: "start" | "end"; size: "sm" | "md" | "lg" }>(null);
+  return (
+    <>
+      <Button onClick={() => setOpen({ side: "end", size: "md" })}>فیلترها</Button>
+      <Button onClick={() => setOpen({ side: "start", size: "sm" })}>کشوی باریک، سمت دیگر</Button>
+      <Button onClick={() => setOpen({ side: "end", size: "lg" })}>جزئیات سفارش</Button>
+      <Drawer
+        open={open !== null}
+        onOpenChange={(o) => !o && setOpen(null)}
+        side={open?.side ?? "end"}
+        size={open?.size ?? "md"}
+        title={open?.size === "lg" ? "سفارش ۱۴۰۵-۲۸۴۱" : "فیلترها"}
+        description={open?.size === "lg" ? "ثبت‌شده در ۱۲ آبان، ساعت ۱۴:۳۰" : "نتایج را محدود کنید."}
+        footer={<><Button variant="secondary" onClick={() => setOpen(null)}>پاک کردن</Button><Button variant="primary" onClick={() => setOpen(null)}>اعمال</Button></>}
+      >
+        <div className="demo-stack" style={{ inlineSize: "100%" }}>
+          <RadioGroup label="وضعیت پرداخت" name="drawer2-status" defaultValue="all">
+            <Radio value="all" label="همه" /><Radio value="paid" label="پرداخت‌شده" /><Radio value="failed" label="ناموفق" />
+          </RadioGroup>
+          <Checkbox label="فقط مشتریان جدید" />
+          <Switch label="ارسال رایگان" />
+        </div>
+      </Drawer>
+    </>
+  );
+};
+
+export const BottomSheetDemo = () => {
+  const [open, setOpen] = useState<null | "snap" | "auto">(null);
+  const [sort, setSort] = useState("new");
+  const options = [["new", "جدیدترین"], ["cheap", "ارزان‌ترین"], ["expensive", "گران‌ترین"], ["popular", "پرفروش‌ترین"]];
+  return (
+    <>
+      <Button onClick={() => setOpen("auto")}>مرتب‌سازی</Button>
+      <Button onClick={() => setOpen("snap")}>نظرها (دو ارتفاع)</Button>
+      <BottomSheet open={open === "auto"} onOpenChange={(o) => !o && setOpen(null)} title="مرتب‌سازی">
+        <RadioGroup label="ترتیب نمایش" name="sheet-sort" value={sort} onChange={(v: string) => { setSort(v); setOpen(null); }}>
+          {options.map(([v, l]) => <Radio key={v} value={v} label={l} />)}
+        </RadioGroup>
+      </BottomSheet>
+      <BottomSheet
+        open={open === "snap"}
+        onOpenChange={(o) => !o && setOpen(null)}
+        title="نظر خریداران"
+        description="دستگیره را بالا بکشید تا همه را ببینید."
+        snapPoints={[0.45, 0.9]}
+        footer={<Button variant="primary" style={{ inlineSize: "100%" }} onClick={() => setOpen(null)}>نوشتن نظر</Button>}
+      >
+        <div className="demo-stack" style={{ inlineSize: "100%" }}>
+          {["کیفیت عالی، دقیقاً مثل عکس بود.", "ارسال یک روز دیرتر رسید ولی بسته‌بندی خوب بود.", "رنگش کمی روشن‌تر از تصویر است.", "برای هدیه خریدم، خیلی راضی بودند.", "قیمتش نسبت به کیفیت مناسب است.", "دومین بار است که می‌خرم."].map((t, i) => (
+            <div key={i} className="k-card" style={{ padding: "0.875rem 1rem" }}>
+              <Rating value={5 - (i % 3)} readOnly size="sm" label="امتیاز" />
+              <p style={{ margin: "0.375rem 0 0", color: "var(--k-text-secondary)", fontSize: "0.875rem" }}>{t}</p>
+            </div>
+          ))}
+        </div>
+      </BottomSheet>
+    </>
+  );
+};
+
+const KashiMark = () => (
+  <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 1 11.61 5.39H5.39v6.22L1 16l4.39 4.39v6.22h6.22L16 31l4.39-4.39h6.22v-6.22L31 16l-4.39-4.39V5.39h-6.22Z" fill="var(--k-text-brand)" /></svg>
+);
+export const NavbarDemo = ({ narrow = false }: { narrow?: boolean }) => {
+  const [page, setPage] = useState("/products");
+  const links = [["/", "خانه"], ["/products", "محصولات"], ["/pricing", "قیمت‌ها"], ["/blog", "وبلاگ"]].map(([href, label]) => ({
+    href, label, current: href === page, badge: href === "/blog" ? "جدید" : undefined,
+  }));
+  return (
+    <div style={{ inlineSize: narrow ? 375 : "100%", border: "1px solid var(--k-border-secondary)", borderRadius: "var(--k-radius-xl)", overflow: "hidden" }}
+      onClick={(e) => { const a = (e.target as HTMLElement).closest("a"); if (a) { e.preventDefault(); setPage(a.getAttribute("href") ?? "/"); } }}>
+      <Navbar
+        sticky={false}
+        collapseBelow={narrow ? "lg" : "sm"}
+        brand={<><KashiMark />فروشگاه کاشی</>}
+        links={links}
+        actions={<><Button size="sm" variant="tertiary">ورود</Button><Button size="sm" variant="primary">ثبت‌نام</Button></>}
+        menuFooter={<Button variant="primary" style={{ inlineSize: "100%" }}>ثبت‌نام</Button>}
+      />
+      <div style={{ padding: "1.5rem 1rem", color: "var(--k-text-tertiary)", fontSize: "0.875rem" }}>محتوای صفحه</div>
+    </div>
+  );
+};
+
+export const EmptyPresetsDemo = () => {
+  const [preset, setPreset] = useState<EmptyStatePreset>("noResults");
+  const list: [EmptyStatePreset, string][] = [["noData", "خالی"], ["noResults", "بی‌نتیجه"], ["error", "خطا"], ["offline", "آفلاین"], ["noAccess", "بدون دسترسی"], ["done", "تمام"]];
+  return (
+    <div className="demo-stack" style={{ inlineSize: "min(100%, 34rem)" }}>
+      <SegmentedControl aria-label="حالت آماده" size="sm" value={preset} onChange={(v: string) => setPreset(v as EmptyStatePreset)} options={list.map(([value, label]) => ({ value, label }))} />
+      <EmptyState key={preset} preset={preset} bordered actions={preset === "error" ? <Button size="sm">تلاش دوباره</Button> : preset === "noResults" ? <Button size="sm" variant="secondary">پاک کردن فیلترها</Button> : undefined} />
+    </div>
+  );
+};
+
+export const EmptySizesDemo = () => (
+  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(14rem, 1fr))", gap: 16, inlineSize: "100%", alignItems: "start" }}>
+    <EmptyState preset="noData" size="sm" bordered />
+    <EmptyState preset="noResults" bordered />
+  </div>
+);
+
+const VROWS = Array.from({ length: 10000 }, (_, i) => ({
+  id: String(i + 1),
+  order: `#${(14050000 + i * 7).toString()}`,
+  customer: ["سارا محمدی", "علی رضایی", "مریم کریمی", "حسین احمدی", "نگار حسینی", "رضا موسوی"][i % 6],
+  city: ["تهران", "اصفهان", "شیراز", "تبریز", "مشهد", "کاشان"][(i * 7) % 6],
+  amount: ((i * 7919) % 9000 + 120) * 1000,
+}));
+export const VirtualTableDemo = () => (
+  <div style={{ inlineSize: "100%" }}>
+    <DataTable
+      caption="۱۰٬۰۰۰ سفارش"
+      description="فقط ردیف‌های دیده‌شده ساخته می‌شوند؛ اسکرول کنید."
+      rows={VROWS}
+      getRowId={(r) => r.id}
+      virtual
+      maxHeight="22rem"
+      compact
+      striped
+      columns={[
+        { key: "order", header: "سفارش", width: "8rem", render: (r) => <bdi dir="ltr">{r.order.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d])}</bdi> },
+        { key: "customer", header: "مشتری", sortable: true },
+        { key: "city", header: "شهر", sortable: true, hideBelow: "sm" },
+        { key: "amount", header: "مبلغ (تومان)", numeric: true, sortable: true, render: (r) => formatNumber(r.amount) },
+      ]}
+    />
+  </div>
+);
+
+export const FormDemo = () => {
+  const [done, setDone] = useState<string | null>(null);
+  const form = useForm({
+    defaultValues: { name: "", nationalId: "", mobile: "", email: "", password: "", repeat: "", agree: false },
+    rules: {
+      name: [rules.required(), rules.minLength(3)],
+      nationalId: [rules.required(), rules.nationalId()],
+      mobile: [rules.required(), rules.mobile()],
+      email: [rules.email()],
+      password: [rules.required(), rules.minLength(8)],
+      repeat: [rules.required(), rules.match("password")],
+      agree: [rules.required("برای ادامه قوانین را بپذیرید.")],
+    },
+  });
+  return (
+    <form noValidate onSubmit={form.handleSubmit(async (v) => { await new Promise((r) => setTimeout(r, 700)); setDone(v.name); })} className="demo-stack" style={{ inlineSize: "min(100%, 30rem)" }}>
+      {form.summary && <Alert tone="error" title={form.summary} />}
+      {done && <Alert tone="success" title={`ثبت‌نام ${done} انجام شد`} onClose={() => { setDone(null); form.reset(); }} />}
+      <Input label="نام و نام خانوادگی" autoComplete="name" {...form.field("name")} />
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(12rem, 1fr))", gap: 16 }}>
+        <NationalIdInput label="کد ملی" {...form.field("nationalId", { type: "value" })} />
+        <MobileInput label="موبایل" {...form.field("mobile", { type: "value" })} />
+      </div>
+      <Input label="ایمیل" type="email" optional dir="ltr" placeholder="name@example.com" {...form.field("email")} />
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(12rem, 1fr))", gap: 16 }}>
+        <Input label="رمز عبور" type="password" autoComplete="new-password" {...form.field("password")} />
+        <Input label="تکرار رمز عبور" type="password" autoComplete="new-password" {...form.field("repeat")} />
+      </div>
+      <Checkbox label="قوانین و حریم خصوصی را می‌پذیرم" {...form.field("agree", { type: "checkbox" })} />
+      <Button type="submit" variant="primary" loading={form.isSubmitting}>ثبت‌نام</Button>
+    </form>
+  );
+};
+
+export const NavbarVariantsDemo = () => {
+  const links = [["#home", "خانه"], ["#products", "محصولات"], ["#pricing", "قیمت‌ها"], ["#blog", "وبلاگ"]].map(([href, label]) => ({ href, label, current: href === "#products" }));
+  const actions = <><Button size="sm" variant="tertiary">ورود</Button><Button size="sm" variant="primary">ثبت‌نام</Button></>;
+  const brand = <><KashiMark />کاشی</>;
+  const frame = (label: ReactNode, node: ReactNode, hero = false) => (
+    <figure style={{ margin: 0, display: "grid", gap: 8 }}>
+      <figcaption style={{ fontSize: "0.8125rem", color: "var(--k-text-tertiary)", fontWeight: 600 }}>{label}</figcaption>
+      <div onClick={(e) => (e.target as HTMLElement).closest("a") && e.preventDefault()} style={{ border: "1px solid var(--k-border-secondary)", borderRadius: "var(--k-radius-xl)", overflow: "hidden", background: hero ? "radial-gradient(120% 140% at 80% 0%, color-mix(in oklab, var(--k-text-brand) 35%, transparent), transparent 60%), linear-gradient(135deg, #0b3b4a, #101423)" : "var(--k-bg-primary)", minBlockSize: hero ? 150 : undefined }}>
+        {node}
+      </div>
+    </figure>
+  );
+  return (
+    <div style={{ display: "grid", gap: 20, inlineSize: "100%" }}>
+      {frame("پیش‌فرض · خط زیر صفحهٔ فعلی", <Navbar sticky={false} collapseBelow="sm" brand={brand} links={links} actions={actions} />)}
+      {frame(<>قرص · <bdi dir="ltr">variant="pill"</bdi></>, <Navbar sticky={false} collapseBelow="sm" variant="pill" brand={brand} links={links} actions={actions} />)}
+      {frame(<>وسط‌چین · <bdi dir="ltr">centered</bdi></>, <Navbar sticky={false} collapseBelow="sm" centered variant="pill" brand={brand} links={links} actions={actions} />)}
+      {frame(<>شناور · <bdi dir="ltr">floating</bdi></>, <div style={{ paddingBlockEnd: 12, background: "var(--k-bg-secondary)" }}><Navbar sticky={false} collapseBelow="sm" floating variant="pill" brand={brand} links={links} actions={actions} /></div>)}
+      {frame(<>شفاف روی هیرو · <bdi dir="ltr">transparent</bdi></>, <Navbar sticky={false} collapseBelow="sm" transparent brand={<span style={{ color: "#fff", display: "inline-flex", gap: 8, alignItems: "center" }}><KashiMark />کاشی</span>} links={links} actions={<Button size="sm" variant="primary">شروع کنید</Button>} />, true)}
     </div>
   );
 };

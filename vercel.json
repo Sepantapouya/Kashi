@@ -4,5 +4,35 @@
   "buildCommand": "npm run docs:build",
   "outputDirectory": "apps/docs/dist",
   "trailingSlash": true,
-  "git": { "deploymentEnabled": { "stats": false, "status": false } }
+  "git": {
+    "deploymentEnabled": {
+      "stats": false,
+      "status": false
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/academy",
+      "destination": "https://skills.sepantapouya.com/academy/"
+    },
+    {
+      "source": "/academy/:path*",
+      "destination": "https://skills.sepantapouya.com/academy/:path*"
+    },
+    {
+      "source": "/_next/:path*",
+      "destination": "https://skills.sepantapouya.com/_next/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/academy/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
+        }
+      ]
+    }
+  ]
 }

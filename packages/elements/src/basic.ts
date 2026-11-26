@@ -12,7 +12,7 @@ const PASS = ["name", "placeholder", "autocomplete", "inputmode", "maxlength", "
  * با show-count شمارندهٔ نویسه («۱۲ / ۱۰۰» با maxlength) و با loading اسپینر. input واقعی داخل عنصر است و با name مستقیم در فرم ارسال می‌شود.
  */
 export class KashiInput extends HTMLBase {
-  static observedAttributes = ["label", "hint", "error", "type", "required", "disabled", "readonly", "clearable", "revealable", "show-count", "loading", "size", "optional", "aria-label", "value", ...PASS];
+  static observedAttributes = ["label", "hint", "error", "type", "required", "disabled", "readonly", "clearable", "revealable", "show-count", "loading", "size", "optional", "aria-label", "value", "variant", ...PASS];
   protected multiline = false;
   protected key = uid("kashi-input");
   protected control!: HTMLInputElement | HTMLTextAreaElement;
@@ -55,12 +55,13 @@ export class KashiInput extends HTMLBase {
     const type = this.getAttribute("type") ?? "text";
     const size = this.getAttribute("size");
     const disabled = this.hasAttribute("disabled");
+    const code = !this.multiline && this.getAttribute("variant") === "code";
     const attrs = PASS.map((a) => (this.hasAttribute(a) ? ` ${a}="${esc(this.getAttribute(a))}"` : "")).join("");
     const flags = `${this.hasAttribute("required") ? " required" : ""}${disabled ? " disabled" : ""}${this.hasAttribute("readonly") ? " readonly" : ""}${!label && ariaLabel ? ` aria-label="${esc(ariaLabel)}"` : ""}`;
     const control = this.multiline
       ? `<textarea id="${id}" class="k-input__control" rows="${Number(this.getAttribute("rows")) || 4}"${attrs}${flags}></textarea>`
-      : `<input id="${id}" class="k-input__control" type="${esc(type === "password" && this.revealed ? "text" : type)}"${attrs}${flags}>`;
-    const box = `<div class="k-input${this.multiline ? " k-input--textarea" : ""}${bool(this, "autoresize") ? " k-input--autoresize" : ""}${size === "sm" || size === "lg" ? ` k-input--${size}` : ""}" data-size="${size ?? "md"}"${disabled ? ' data-state="disabled"' : ""}>${control}<span class="k-input__end"></span></div>`;
+      : `<input id="${id}" class="k-input__control" type="${esc(type === "password" && this.revealed ? "text" : type)}"${attrs}${flags}${code && !this.hasAttribute("spellcheck") ? ' spellcheck="false" autocapitalize="off" autocorrect="off"' : ""}${code && !this.hasAttribute("autocomplete") ? ' autocomplete="off"' : ""}>`;
+    const box = `<div class="k-input${code ? " k-input--code" : ""}${this.multiline ? " k-input--textarea" : ""}${bool(this, "autoresize") ? " k-input--autoresize" : ""}${size === "sm" || size === "lg" ? ` k-input--${size}` : ""}" data-size="${size ?? "md"}"${disabled ? ' data-state="disabled"' : ""}>${control}<span class="k-input__end"></span></div>`;
     const optional = this.getAttribute("optional");
     this.querySelector(":scope > .k-field")?.remove();
     this.insertAdjacentHTML("afterbegin", fieldHTML({ id, label, required: this.hasAttribute("required"), optional: optional === null ? null : optional || msg().common.optional, control: box }));

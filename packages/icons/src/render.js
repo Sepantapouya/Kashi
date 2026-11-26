@@ -14,21 +14,36 @@ export function sqPath(x, y, w, h, r, curved = false) {
   return `M${n(x + r)} ${y}H${n(X - r)}C${n(X - k)} ${y} ${X} ${n(y + k)} ${X} ${n(y + r)}V${n(Y - r)}C${X} ${n(Y - k)} ${n(X - k)} ${Y} ${n(X - r)} ${Y}H${n(x + r)}C${n(x + k)} ${Y} ${x} ${n(Y - k)} ${x} ${n(Y - r)}V${n(y + r)}C${x} ${n(y + k)} ${n(x + k)} ${y} ${n(x + r)} ${y}Z`;
 }
 
-/** بدنهٔ خطی بدون نشانهٔ data-sq، برای خروجی‌هایی که سبک ندارند */
-export const plain = (body) => body.replace(/ data-sq="[^"]*"/g, "");
+const outlineMarker = ' data-outline="true"';
+
+/** بدنهٔ خطی بدون نشانه‌های سبک */
+export const plain = (body) => body.replace(/ data-(?:sq|outline)="[^"]*"/g, "");
+
+/** زیرمسیر نسبی را با حفظ فرمان‌های بعدی، از مسیر قبلی مستقل می‌کند */
+function absoluteMove(segment, previous) {
+  const number = "[+-]?(?:\\d*\\.\\d+|\\d+\\.?)(?:[eE][+-]?\\d+)?";
+  const move = new RegExp(`^m\\s*(${number})[\\s,]*(${number})([\\s\\S]*)$`).exec(segment);
+  if (!move) return segment;
+  const [x, y] = geom(`<path d="${previous}"/>`).end;
+  const tail = move[3].trim().replace(/^,\s*/, "");
+  // مختصات اضافهٔ m همچنان فرمان ضمنی l (خط نسبی) هستند.
+  return `M${x + Number(move[1])} ${y + Number(move[2])}${/^[+\-.\d]/.test(tail) ? "l" : ""}${tail}`;
+}
 
 /** بدنه را به واحدهای «شکل» و «جزئیات» می‌شکند */
-function parts(body, curved) {
+function parts(body, variant) {
   const shape = [], detail = [];
   for (const [el, tag, attrs] of body.matchAll(/<(circle|path)\b([^>]*?)\/>/g)) {
     if (tag === "circle") {
       const r = Number(/\br="([\d.]+)"/.exec(attrs)?.[1] || 0);
-      (r >= 2.5 ? shape : detail).push(el);
+      // فضای خالی بعضی دایره‌ها (عدسی یا چرخ) جزئی از معناست.
+      const keepOutline = variant === "bold" && attrs.includes(outlineMarker);
+      (r >= 2.5 && !keepOutline ? shape : detail).push(el.replace(outlineMarker, ""));
       continue;
     }
     const sq = /data-sq="([^"]+)"/.exec(attrs);
     if (sq) {
-      shape.push(`<path d="${sqPath(...sq[1].split(" ").map(Number), curved)}"/>`);
+      shape.push(`<path d="${sqPath(...sq[1].split(" ").map(Number), variant === "curved")}"/>`);
       continue;
     }
     const d = /\bd="([^"]+)"/.exec(attrs)[1];
@@ -36,9 +51,13 @@ function parts(body, curved) {
     // خط‌هایی با ضخامت خودشان (نقطه‌ها) دست‌نخورده می‌مانند
     if (rest) { detail.push(el); continue; }
     const segs = d.split(/(?=[Mm])/).filter(Boolean);
-    // m کوچک وسط مسیر به نقطهٔ قبلی وابسته است؛ چنین مسیری یکجا می‌ماند
-    const units = segs.slice(1).some((s) => s[0] === "m") ? [d] : segs;
-    for (const u of units) (/[Zz]\s*$/.test(u) ? shape : detail).push(`<path d="${u.trim()}"/>`);
+    // در توپر، مرز بسته و خطوط باز باید حتی بعد از حرکت نسبی جدا شوند.
+    const units = variant !== "bold" && segs.slice(1).some((s) => s[0] === "m") ? [d] : segs;
+    for (let i = 0; i < units.length; i++) {
+      if (i && units[i][0] === "m") units[i] = absoluteMove(units[i], units[i - 1]);
+      const u = units[i].trim();
+      (/[Zz]$/.test(u) ? shape : detail).push(`<path d="${u}"/>`);
+    }
   }
   return { shape, detail };
 }
@@ -65,7 +84,7 @@ function geom(el) {
     polys.push(Array.from({ length: 25 }, (_, k) => [cx + r * Math.cos(k * Math.PI / 12), cy + r * Math.sin(k * Math.PI / 12)]));
   } else {
     const d = /\bd="([^"]+)"/.exec(el)?.[1] || "";
-    const toks = d.match(/[a-zA-Z]|-?(?:\d*\.\d+|\d+\.?)(?:e[-+]?\d+)?/g) || [];
+    const toks = d.match(/[a-zA-Z]|[+-]?(?:\d*\.\d+|\d+\.?)(?:[eE][-+]?\d+)?/g) || [];
     let x = 0, y = 0, sx = 0, sy = 0, cx2 = 0, cy2 = 0, prev = "", cmd = "", i = 0, poly = null;
     const to = (nx, ny) => { x = nx; y = ny; poly.push([x, y]); };
     const bez = (p) => {
@@ -125,7 +144,8 @@ function geom(el) {
   }
   let len = 0;
   for (const p of polys) for (let k = 1; k < p.length; k++) len += Math.hypot(p[k][0] - p[k - 1][0], p[k][1] - p[k - 1][1]);
-  const g = { polys, len, pts: polys.flat() };
+  const last = polys[polys.length - 1];
+  const g = { polys, len, end: last ? last[last.length - 1] : [0, 0] };
   geoms.set(el, g);
   return g;
 }
@@ -201,16 +221,74 @@ function twoToneShaped(shape, detail) {
   return size(outer) > size(shape) ? faint(shape.join("")) + outer.join("") : shape.join("") + faint(outer.join(""));
 }
 
+/** جابه‌جایی را در خود مختصات می‌پزد تا خروجی بدون transform بماند؛ اگر عنصری ناشناخته باشد null برمی‌گرداند */
+const NUM = /-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?/gi;
+function shiftPath(d, dx, dy) {
+  const out = [];
+  let first = true;
+  for (const seg of d.match(/[a-zA-Z][^a-zA-Z]*/g) || []) {
+    const cmd = seg[0], C = cmd.toUpperCase(), nums = (seg.slice(1).match(NUM) || []).map(Number);
+    const k = ARGS[C];
+    if (k === undefined) return null;
+    if (k ? nums.length % k : nums.length) return null; // پرچم‌های فشردهٔ کمان یا دادهٔ نامعمول: دست نزن
+    if (cmd !== C) {
+      // نسبی؛ فقط نخستین جفت m آغازین مطلق است
+      if (first && C === "M" && nums.length >= 2) { nums[0] += dx; nums[1] += dy; }
+    } else if (k) {
+      for (let i = 0; i < nums.length; i++) {
+        const j = i % k;
+        if (C === "H") nums[i] += dx;
+        else if (C === "V") nums[i] += dy;
+        else if (C === "A") { if (j === 5) nums[i] += dx; else if (j === 6) nums[i] += dy; }
+        else nums[i] += j % 2 ? dy : dx;
+      }
+    }
+    first = false;
+    out.push(cmd + nums.map(n).join(" "));
+  }
+  return out.join("");
+}
+const XY = { cx: "x", cy: "y", x: "x", y: "y", x1: "x", x2: "x", y1: "y", y2: "y" };
+function bakeShift(svg, dx, dy) {
+  if (/transform=|<use\b|<text\b|points=|patternUnits|gradientUnits/.test(svg)) return null;
+  let ok = true;
+  const res = svg.replace(/<(path|circle|ellipse|line|rect)\b[^>]*>/g, (tag) =>
+    tag.replace(/\s(d|cx|cy|x|y|x1|x2|y1|y2)="([^"]*)"/g, (m, a, v) => {
+      if (a === "d") { const d = shiftPath(v, dx, dy); if (d === null) ok = false; return ` d="${d}"`; }
+      return ` ${a}="${n(+v + (XY[a] === "x" ? dx : dy))}"`;
+    }));
+  // ماسک‌ها هم userSpaceOnUse اند؛ کادرشان باید همراه شکل جابه‌جا شود
+  return ok ? res.replace(/(maskUnits="userSpaceOnUse") x="(-?[\d.]+)" y="(-?[\d.]+)"/g, (m, u, x, y) => `${u} x="${n(+x + dx)}" y="${n(+y + dy)}"`) : null;
+}
+
 /**
  * بدنهٔ SVG یک سبک.
  * uid برای شناسهٔ ماسک‌های سبک bold است و باید در صفحه یکتا باشد؛ sw ضخامت خط است.
  */
 export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}) {
+  // نویسه‌های وزیرمتن مسیر واقعی فونت‌اند؛ سبک فقط قاب و وزن تعریف‌شدهٔ فونت را تغییر می‌دهد.
+  const glyph = /^<g data-vazirmatn="true"><g data-font-frame="true">([\s\S]*?)<\/g><g data-font-face="true">([\s\S]*?)<\/g><g data-font-bold="true" display="none">([\s\S]*?)<\/g><\/g>$/.exec(body);
+  if (glyph) {
+    const frame = glyph[1], face = variant === "bold" ? glyph[3] : glyph[2];
+    if (!frame) return face;
+    const enclosure = renderBody(frame, variant, { uid: `${uid}-font-frame`, sw });
+    if (variant !== "bold") return enclosure + face;
+    const id = `${uid}-font-cut`;
+    return `<defs><mask id="${id}" x="0" y="0" width="20" height="20" maskUnits="userSpaceOnUse"><path d="M0 0h20v20H0Z" fill="#fff" stroke="none"/>${face.replace(/currentColor/g, "#000")}</mask></defs><g mask="url(#${id})">${enclosure}</g>`;
+  }
+  // سبک و ضخامت نباید شکل رسمی، رنگ یا فضای منفی لوگوها را عوض کند.
+  const brand = /^<g data-brand="true">([\s\S]*)<\/g>$/.exec(body);
+  if (brand) return brand[1]
+    .replace(/>\s+</g, "><")
+    .replace(/\bid="([^"]+)"/g, (_, id) => `id="${uid}-brand-${id}"`)
+    .replace(/url\(#([^)]+)\)/g, (_, id) => `url(#${uid}-brand-${id})`);
   // جابه‌جایی کل آیکون برای هم‌مرکز شدن؛ همهٔ سبک‌ها با هم جابه‌جا می‌شوند
   const shift = /^<g data-shift="([^"]+)">([\s\S]*)<\/g>$/.exec(body);
   if (shift) {
     const [dx, dy] = shift[1].split(" ");
-    return `<g transform="translate(${dx} ${dy})">${renderBody(shift[2], variant, { uid, sw })}</g>`;
+    const inner = renderBody(shift[2], variant, { uid, sw });
+    const baked = bakeShift(inner, +dx, +dy);
+    return baked !== null ? baked : `<g transform="translate(${dx} ${dy})">${inner}</g>`;
   }
   // آیکون ترکیبی: پایه داخل <g data-cut> و نشان گوشه بعد از آن؛ زیر نشان از پایه بریده می‌شود
   const cut = /^<g data-cut="([^"]+)">([\s\S]*)<\/g>([^<]*(?:<(?!\/g>)[^<]*)*)$/.exec(body);
@@ -220,28 +298,37 @@ export function renderBody(body, variant = "light", { uid = "k", sw = 1.5 } = {}
       // در دوتُن و حجمی نشان گوشه یکدست پررنگ می‌ماند؛ نیمه‌کم‌رنگ شدن «+» یا «×» معنایش را می‌گیرد
       + `<g mask="url(#${uid}-c)">${renderBody(cut[2], variant, { uid: `${uid}b`, sw })}</g>${renderBody(cut[3], variant === "two-tone" || variant === "bulk" ? "light" : variant, { uid: `${uid}g`, sw })}`;
   }
+  // بعضی آیکون‌ها برای حفظ جزئیات، طرح توپر دست‌کشیده دارند.
+  const custom = /^<g data-bold="true" display="none">([\s\S]*)<\/g><g data-base="true">([\s\S]*)<\/g>$/.exec(body);
+  if (custom) return variant === "bold" ? custom[1] : renderBody(custom[2], variant, { uid, sw });
   if (variant === "light" || !variants.includes(variant)) return plain(body);
-  const { shape, detail } = parts(body, variant === "curved");
+  const { shape, detail } = parts(body, variant);
   const S = shape.join(""), D = detail.join("");
   switch (variant) {
     case "curved":
       return S + D;
     case "bold": {
-      const heavy = (els) => (els.length ? `<g stroke-width="${n(sw * 1.4)}">${els.join("").replace(/<circle\b/g, '<circle fill="currentColor"')}</g>` : "");
-      if (!S) return heavy(detail);
-      // فقط جزئیاتی که کامل داخل شکل‌اند سوراخ می‌شوند؛ بقیه هم‌وزن شکل پر و بی‌برش کشیده می‌شوند
-      // تا جای اتصالشان به شکل شکاف سفید نیفتد. خطی که از شکل رد می‌شود (روبان کادو، خط ممنوع) با فاصله‌ای
-      // دورش از شکل جدا می‌شود؛ خطی که فقط به لبهٔ شکل می‌رسد (سقف خودرو) بی‌فاصله به آن می‌چسبد
-      // شکلی که کامل داخل شکل دیگری است (دایرهٔ ضبط داخل قاب) فقط دورش بریده می‌شود تا در توپر گم نشود
+      // برای ضخامت‌های بالاتر از ۲، همان انتخاب کاربر را نگه می‌داریم.
+      const weight = n(Math.min(sw * 1.15, Math.max(sw, 2)));
+      const strokes = (els) => els.length ? `<g stroke-width="${weight}">${els.join("")}</g>` : "";
+      if (!S) return strokes(detail);
+      // لبهٔ نازک، فاصلهٔ شکل‌های پر را حفظ می‌کند. خط‌های عبوری از بدنه جدا می‌شوند
+      // و جزئیات داخلی به صورت برش شفاف روی بدنه دیده می‌شوند.
       const nested = nestedIn(shape);
       const top = shape.filter((s) => !nested.includes(s));
       const { inner, crossing } = classify(top, detail), outer = detail.filter((d) => !inner.includes(d));
-      const holes = nested.join("") + inner.join("").replace(/<circle\b/g, '<circle fill="#000"')
-        + (crossing.length ? `<g stroke-width="${n(sw * 1.4 + 1.5)}">${crossing.join("").replace(/<circle\b/g, '<circle fill="#000"')}</g>` : "");
-      const fill = holes
-        ? `<defs><mask id="${uid}-a" ${box}>${bg}<g stroke="#000">${holes}</g></mask></defs><g fill="currentColor" mask="url(#${uid}-a)">${S}</g>`
-        : `<g fill="currentColor">${S}</g>`;
-      return fill + heavy(outer);
+      const innerHoles = inner.map((el) => el.startsWith("<circle")
+        ? el.replace(/\s(?:fill|stroke)="[^"]*"/g, "").replace("<circle", '<circle fill="#000" stroke="none"')
+        : el).join("");
+      // ماسک باید مستقل از رنگ آیکون باشد؛ currentColor روشن نباید سوراخ را پُر کند.
+      const holes = (nested.join("") + innerHoles
+        + (crossing.length ? `<g stroke-width="${n(weight + 1.2)}">${crossing.join("")}</g>` : ""))
+        .replace(/fill="currentColor"/g, 'fill="#000"');
+      const fill = `fill="currentColor" stroke-width="${n(sw / 3)}"`;
+      const silhouette = holes
+        ? `<defs><mask id="${uid}-a" ${box}>${bg}<g stroke="#000">${holes}</g></mask></defs><g ${fill} mask="url(#${uid}-a)">${S}</g>`
+        : `<g ${fill}>${S}</g>`;
+      return silhouette + strokes(outer);
     }
     case "bulk": {
       if (!S) return twoToneOpen(detail);

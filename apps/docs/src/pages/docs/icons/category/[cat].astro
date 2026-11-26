@@ -2,7 +2,7 @@
 // صفحهٔ هر دسته: /docs/icons/category/<key>/
 import Docs from "../../../../layouts/Docs.astro";
 import { IconBrowser } from "../../../../components/IconBrowser";
-import { categories, icons } from "@kashi-ui/icons";
+import { categories, categoryGroups, icons } from "@kashi-ui/icons";
 import { toFaDigits } from "@kashi-ui/persian";
 
 type Category = keyof typeof categories;
@@ -17,7 +17,7 @@ const next = keys[i + 1];
 const count = Object.values(icons).filter((x) => x.category === cat).length;
 ---
 <Docs title={`آیکون‌های ${categories[cat]}`} description={`${toFaDigits(String(count))} آیکون در دستهٔ «${categories[cat]}»؛ روی هر آیکون بزنید تا کد و دانلودش را ببینید.`}>
-  <p class="ip-back"><a href="/docs/icons/">همهٔ دسته‌ها</a> / {categories[cat]}</p>
+  <p class="ip-back"><a href="/docs/icons/">همهٔ دسته‌ها</a> / {categoryGroups.find((g) => (g.categories as string[]).includes(cat))?.title} / {categories[cat]}</p>
   <IconBrowser client:load category={cat} />
   <nav class="pager" aria-label="دسته‌های مجاور">
     {prev ? <a class="pager__link" href={`/docs/icons/category/${prev}/`} rel="prev"><span>قبلی</span>{categories[prev]}</a> : <span />}

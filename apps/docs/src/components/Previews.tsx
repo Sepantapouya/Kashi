@@ -1,5 +1,5 @@
 // پیش‌نمایش کوچک هر کامپوننت در صفحهٔ فهرست؛ فقط نمایشی (inert)، بدون hydrate
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Icon } from "@kashi-ui/icons/react";
 import type { IconName } from "@kashi-ui/icons";
 import {
@@ -8,6 +8,7 @@ import {
   PersianInput, BankCard, DateTile, KeyboardFixInput, LegalIdInput, Money, PaymentReceipt, PersianTextarea,
   NumberInput, OtpInput, Pagination, PasswordStrength, PlateInput, PostalCodeInput, PriceInput, Progress, Radio, RadioGroup, Rating,
   SegmentedControl, Select, Skeleton, Slider, StatCard, Stepper, Switch, Tab, TabList, Tabs, TagInput, Textarea, Timeline,
+  PriceRange, SwatchGroup, QRCode, WeekdayPicker,
 } from "@kashi-ui/react";
 
 const I = ({ d }: { d: IconName }) => <Icon name={d} />;
@@ -24,6 +25,79 @@ const menu = (
 );
 
 export const previews: Record<string, ReactNode> = {
+  chat: (
+    <Box cls="pv-chat">
+      <div className="k-msg" data-from="user"><div className="k-msg__main"><div className="k-msg__bubble">سلام، سفارشم کجاست؟</div></div></div>
+      <div className="k-msg" data-from="assistant"><div className="k-msg__main"><div className="k-msg__bubble">در راه است؛ فردا می‌رسد.</div></div></div>
+      <div className="k-typing"><span className="k-typing__dots"><i /><i /><i /></span></div>
+    </Box>
+  ),
+  "chat-composer": (
+    <Box cls="pv--field">
+      <div className="k-composer">
+        <div className="k-composer__input" style={{ color: "var(--k-text-quaternary)" }}>پیامتان را بنویسید…</div>
+        <div className="k-composer__bar"><span className="k-composer__tool"><I d="paperclip" /></span><span className="k-composer__send"><I d="arrow-up" /></span></div>
+      </div>
+    </Box>
+  ),
+  "streaming-text": (
+    <Box cls="pv--field"><p className="k-stream">کاشی برای فارسی ساخته شده است، نه ترجمه<span className="k-stream__cursor" /></p></Box>
+  ),
+  "code-block": (
+    <Box cls="pv--field">
+      <figure className="k-code"><figcaption className="k-code__head"><span className="k-code__lang">tsx</span><span className="k-code__btn"><I d="copy" /></span></figcaption>
+        <pre className="k-code__pre" dir="ltr"><code><span className="k-code__line"><span className="k-code__text"><span className="k-code__t-keyword">import</span> {"{ Chat }"} <span className="k-code__t-keyword">from</span> <span className="k-code__t-string">"@kashi-ui/react"</span></span></span></code></pre>
+      </figure>
+    </Box>
+  ),
+  sortable: (
+    <Box cls="pv--field pv-sort">
+      {["طراحی صفحهٔ ورود", "اتصال درگاه", "تست روی گوشی"].map((t, i) => (
+        <div key={t} className="k-sortable__item" data-dragging={i === 1 ? "" : undefined}><span className="k-sortable__handle"><I d="drag-handle" /></span>{t}</div>
+      ))}
+    </Box>
+  ),
+  kanban: (
+    <Box cls="pv-kanban">
+      {[["برای انجام", 2], ["در حال انجام", 1]].map(([t, n]) => (
+        <div key={t as string} className="k-kanban__col"><div className="k-kanban__head"><span className="k-kanban__title">{t}</span><span className="k-kanban__count">{String(n).replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[+d])}</span></div>
+          {Array.from({ length: n as number }, (_, i) => <div key={i} className="k-kanban__card"><span className="k-kanban__label">{["طراحی", "پرداخت", "ترجمه"][i + (n === 1 ? 2 : 0)]}</span></div>)}
+        </div>
+      ))}
+    </Box>
+  ),
+  gallery: (
+    <Box cls="pv-gallery">
+      {[1, 2, 3, 4].map((i) => <span key={i} className="k-gallery__item"><img src={`/demo/tile-${i}.svg`} alt="" /></span>)}
+    </Box>
+  ),
+  "rich-text": (
+    <Box cls="pv--field">
+      <div className="k-rte__box">
+        <div className="k-rte__bar">{(["bold", "italic", "list", "link"] as IconName[]).map((n, i) => <span key={n} className="k-rte__tool" aria-pressed={i === 0}><I d={n} /></span>)}</div>
+        <div className="k-rte__area" style={{ minBlockSize: 0 }}><p><strong>کاشی</strong> برای متن فارسی</p></div>
+      </div>
+    </Box>
+  ),
+  notifications: (
+    <Box cls="pv--field pv-notif">
+      {[["سارا نظر گذاشت", true], ["سفارش ارسال شد", true], ["پرداخت انجام شد", false]].map(([t, u]) => (
+        <div key={t as string} className="k-notif__item" data-unread={u ? "" : undefined}><span className="k-notif__main"><span className="k-notif__text"><span className="k-notif__item-title">{t}</span><span className="k-notif__time">۵ دقیقه پیش</span></span></span>{u && <span className="k-notif__dot"><span /></span>}</div>
+      ))}
+    </Box>
+  ),
+  "qr-code": <Box><QRCode value="https://kashi.sepantapouya.com" size={104} /></Box>,
+  scheduler: (
+    <Box cls="pv-sched">
+      {["ش", "ی", "د", "س"].map((d, i) => (
+        <div key={d} className="pv-sched__col"><span className="pv-sched__day">{d}</span>
+          {i % 2 === 0 && <span className="k-sched__event" style={{ position: "static", inlineSize: "auto", blockSize: `${2 + i}rem`, "--k-sched-color": `var(--k-chart-${i + 1})` } as CSSProperties}><span className="k-sched__event-title">جلسه</span></span>}
+          {i === 1 && <span className="k-sched__event" style={{ position: "static", inlineSize: "auto", blockSize: "3rem", marginBlockStart: "1rem", "--k-sched-color": "var(--k-chart-3)" } as CSSProperties}><span className="k-sched__event-title">مشاوره</span></span>}
+        </div>
+      ))}
+    </Box>
+  ),
+  "business-hours": <Box><WeekdayPicker defaultValue={[0, 1, 2, 3, 4]} /></Box>,
   button: <Box><Button variant="primary">ذخیره</Button><Button>انصراف</Button></Box>,
   input: <Box cls="pv--field"><Input label="ایمیل" placeholder="you@example.com" /></Box>,
   select: <Box cls="pv--field"><Select label="شهر" options={[{ value: "t", label: "تهران" }]} defaultValue="t" /></Box>,
@@ -57,6 +131,10 @@ export const previews: Record<string, ReactNode> = {
   popover: <Box><div className="pv-pop"><Button size="sm">فیلتر</Button><div className="k-popover pv-static"><p className="k-popover__title">فیلترها</p><Checkbox label="پرداخت‌شده" defaultChecked /></div></div></Box>,
   "stat-card": <Box cls="pv--field"><StatCard label="فروش" value="۱۸۴٫۵" unit="میلیون" change={12.4} /></Box>,
   timeline: <Box cls="pv--field"><Timeline items={[{ title: "سفارش تأیید شد", time: "۵ دقیقه پیش", tone: "success" }, { title: "پرداخت انجام شد", time: "دیروز" }]} /></Box>,
+  drawer: <Box><div className="pv-drawer" aria-hidden="true"><span className="pv-drawer__page" /><div className="pv-drawer__panel"><p className="pv-dialog__title">فیلترها</p><Checkbox label="فقط موجود" defaultChecked /><Switch label="ارسال رایگان" /><Button size="sm" variant="primary">اعمال</Button></div></div></Box>,
+  "bottom-sheet": <Box><div className="pv-phone" aria-hidden="true"><div className="pv-sheet"><span className="pv-sheet__handle" /><p className="pv-dialog__title">مرتب‌سازی</p><span className="pv-sheet__row" data-on="">جدیدترین</span><span className="pv-sheet__row">ارزان‌ترین</span></div></div></Box>,
+  navbar: <Box cls="pv--field"><div className="pv-navbar" aria-hidden="true"><b>کاشی</b><span data-on="">محصولات</span><span>قیمت‌ها</span><span>وبلاگ</span><Button size="sm" variant="primary">ورود</Button></div></Box>,
+  form: <Box cls="pv--field pv--col"><Input label="کد ملی" defaultValue="۱۲۳۴۵۶۷۸۹۰" error="کد ملی معتبر نیست." dir="ltr" /><Button size="sm" variant="primary">ثبت</Button></Box>,
   "side-nav": <Box cls="pv--field"><nav className="k-sidenav pv-sidenav" aria-hidden="true"><ul className="k-sidenav__group"><li><span className="k-sidenav__item" aria-current="page"><I d="home" /><span className="k-sidenav__text">داشبورد</span></span></li><li><span className="k-sidenav__item"><I d="chart" /><span className="k-sidenav__text">گزارش‌ها</span></span></li></ul></nav></Box>,
   "segmented-control": <Box><SegmentedControl aria-label="نما" defaultValue="b" options={[{ value: "a", label: "روز" }, { value: "b", label: "هفته" }, { value: "c", label: "ماه" }]} /></Box>,
   "copy-button": <Box><Button size="sm" iconStart={<I d="copy" />}>کپی</Button><Badge tone="success">کپی شد</Badge></Box>,
@@ -119,7 +197,10 @@ export const previews: Record<string, ReactNode> = {
   "context-menu": <Box><div className="pv-ctx"><span className="pv-muted">راست‌کلیک</span><div className="k-menu pv-menu" role="presentation"><div className="k-menu__item">باز کردن</div><div className="k-menu__item" data-active="">تغییر نام</div><div className="k-menu__separator" /><div className="k-menu__item k-menu__item--danger">حذف</div></div></div></Box>,
   meter: <Box cls="pv--field"><Meter label="فضای ذخیره" value={8.6} max={10} format={(n) => `${n.toLocaleString("fa")} گیگ`} /></Box>,
   carousel: <Box cls="pv--col pv--field"><div className="pv-car">{["#0b8077", "#2740ed", "#dd5e02"].map((c) => <span key={c} style={{ background: c }} />)}</div><div className="k-carousel__dots" style={{ justifyContent: "center" }}><span className="k-carousel__dot" aria-current="true" /><span className="k-carousel__dot" /><span className="k-carousel__dot" /></div></Box>,
-  "color-picker": <Box cls="pv--col"><div className="k-color__swatches">{["#0b8077", "#2740ed", "#7c3aed", "#e51d2a", "#dd5e02"].map((c, i) => <span key={c} className="k-color__swatch" style={{ "--_sw": c, boxShadow: i === 0 ? `0 0 0 2px var(--k-bg-primary), 0 0 0 4px ${c}` : undefined } as React.CSSProperties} />)}</div><span className="pv-muted" dir="ltr">#0b8077</span></Box>,
+  "search-suggest": <Box cls="pv--field"><div className="k-search-suggest__box"><Icon name="search" size={18} /><span className="pv-muted">جستجو در همهٔ کالاها</span></div><ul className="k-search-suggest__chips">{["باتری", "کمد", "میز آرایش"].map((t) => <li key={t}><span className="k-search-suggest__chip"><Icon name="history" size={14} />{t}</span></li>)}</ul></Box>,
+  "swatch-group": <Box><SwatchGroup size="sm" defaultValue={["blue"]} options={[{ value: "blue", label: "آبی", color: "linear-gradient(90deg,#3b6fd4 25%,#6b93e0 25% 50%,#9db7ec 50% 75%,#cfdcf6 75%)" }, { value: "white", label: "سفید", color: "#fff" }, { value: "black", label: "مشکی", color: "#111" }, { value: "pink", label: "صورتی", color: "linear-gradient(90deg,#b8305a 25%,#cb6385 25% 50%,#de96ae 50% 75%,#f0c9d6 75%)" }]} /></Box>,
+  "price-range": <Box cls="pv--field"><PriceRange min={0} max={20_000_000} step={100_000} defaultValue={[1_500_000, 12_000_000]} /></Box>,
+  "color-picker": <Box cls="pv--col"><div className="k-color__swatches">{["#0b8077", "#2740ed", "#7c3aed", "#e51d2a", "#dd5e02"].map((c, i) => <span key={c} className="k-color__swatch" style={{ "--_sw": c, boxShadow: i === 0 ? `0 0 0 2px var(--k-bg-primary), 0 0 0 4px ${c}` : undefined } as CSSProperties} />)}</div><span className="pv-muted" dir="ltr">#0b8077</span></Box>,
   tour: <Box><div className="pv-tour"><span className="pv-tour__spot"><Button size="sm">خروجی اکسل</Button></span><div className="k-tour__card pv-static"><span className="k-tour__step">مرحلهٔ ۲ از ۳</span><p className="k-tour__title">خروجی اکسل</p></div></div></Box>,
   splitter: <Box cls="pv--field"><div className="k-splitter" style={{ blockSize: "6rem" }}><div className="k-splitter__pane" style={{ inlineSize: "40%", padding: 8 }}><span className="pv-muted">فهرست</span></div><div className="k-splitter__handle" /><div className="k-splitter__pane" style={{ padding: 8 }}><span className="pv-muted">پیش‌نمایش</span></div></div></Box>,
   "multi-select": <Box cls="pv--field"><div className="k-tag-input"><span className="k-badge k-badge--brand">سارا محمدی</span><span className="k-badge k-badge--brand">علی رضایی</span></div><ul className="k-listbox k-listbox--inline pv-list k-multiselect"><li className="k-option" data-active=""><span className="k-multiselect__box" /><span className="k-option__body"><span>مینا احمدی</span></span></li></ul></Box>,

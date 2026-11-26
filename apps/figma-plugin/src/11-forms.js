@@ -194,9 +194,9 @@ function buildForms() {
     });
   }));
 
-  safe("InputVariants", () => section(root, "Input types · انواع فیلد", "رمز عبور با دکمهٔ نمایش، جستجو با پاک کردن، فیلد با پیشوند و شمارندهٔ نویسه.", (h) => {
+  safe("InputVariants", () => section(root, "Input types · انواع فیلد", "رمز عبور با دکمهٔ نمایش، جستجو با پاک کردن، فیلد با پیشوند، شمارندهٔ نویسه و فیلد کد (variant=\"code\": تک‌فاصله و چپ‌به‌راست، placeholder فارسی).", (h) => {
     componentSet(h, "Input type", {
-      axes: { Type: ["Password", "Search", "URL", "Loading", "Counter"] },
+      axes: { Type: ["Password", "Search", "URL", "Loading", "Counter", "Code"] },
       build: (p) => {
         if (p.Type === "Password") return field({ label: "رمز عبور", labelEnd: T("فراموشی رمز؟", { style: "Text sm/Semibold", color: "text-brand" }), control: inputBox({ text: "••••••••••", end: [I("eye", 20, "text-tertiary")] }) });
         if (p.Type === "Search") return field({ label: "جستجو", control: inputBox({ iconStart: "search", text: "کاشی", end: [I("close", 18, "text-quaternary"), F({ dir: "H", px: 6, h: 22, cross: "center", radius: "radius/sm", stroke: "border-primary" }, [T("⌘K", { style: "Text xs/Medium", color: "text-tertiary", ltr: true })])] }) });
@@ -205,6 +205,13 @@ function buildForms() {
           F({ name: "Value wrap", dir: "H", px: "input/padding", h: "fill", grow: true, cross: "center" }, [T("kashi.ir", { style: "Text md/Regular", color: "text-primary", ltr: true, name: "Value", w: "fill" })]),
           F({ name: "Prefix", dir: "H", px: "space/3", h: "fill", cross: "center", fill: "bg-secondary", stroke: "border-input", sides: [0, 1, 0, 0] }, [T("https://", { style: "Text md/Regular", color: "text-tertiary", ltr: true })]),
         ]) });
+        // k-input--code: متن چپ‌به‌راست با فاصلهٔ حروف بیشتر (در کد، فونت تک‌فاصلهٔ سیستم)
+        if (p.Type === "Code") {
+          const f = field({ label: "کد تخفیف", hint: "کد را از پیامک یا ایمیل کپی کنید.", control: inputBox({ text: "KASHI-25OFF", ltr: true }) });
+          const v = f.findOne((n) => n.type === "TEXT" && n.name === "Value");
+          if (v) v.letterSpacing = { unit: "PERCENT", value: 8 };
+          return f;
+        }
         if (p.Type === "Loading") return field({ label: "نام کاربری", hint: "در حال بررسی…", control: inputBox({ text: "sepanta", ltr: true, end: [R({ ellipse: true, w: 16, h: 16, stroke: "bg-brand", sw: 2, arc: { startingAngle: 0, endingAngle: 4.5, innerRadius: 0.8 }, name: "Spinner" })] }) });
         return field({ label: "درباره", optional: true, control: inputBox({ text: "طراح محصول", end: [T("۱۰ / ۵۰", { style: "Text xs/Regular", color: "text-quaternary" })] }) });
       },
@@ -322,13 +329,14 @@ function buildForms() {
 
   safe("ChoiceCard", () => section(root, "Choice card · کارت انتخاب", "رادیو یا چک‌باکس به شکل کارت؛ برای انتخاب پلن یا روش ارسال.", (h) => {
     componentSet(h, "Choice card", {
-      axes: { Type: ["Radio", "Checkbox"], Selected: ["Off", "On"] },
+      axes: { Type: ["Radio", "Checkbox"], Selected: ["Off", "On"], Badge: ["Off", "On"] },
       build: (p) => {
         const on = p.Selected === "On";
+        // Radio badge و meta: نشان «پیشنهادی» کنار عنوان
         return F({ name: "Card", dir: "H", gap: "space/3", p: "space/4", w: 340, cross: "start", radius: "radius/xl", fill: on ? "bg-brand-subtle" : "bg-elevated", stroke: on ? "border-brand" : "border-secondary", sw: on ? 2 : 1 }, [
           F({ name: "Icon", dir: "H", w: 40, h: 40, align: "center", cross: "center", radius: "radius/md", fill: "bg-secondary", stroke: "border-secondary" }, [I("sparkle", 20, on ? "text-brand" : "text-tertiary")]),
           F({ name: "Text", dir: "V", gap: 2, grow: true }, [
-            F({ dir: "H", gap: "space/2" }, [T("پلن حرفه‌ای", { style: "Text sm/Semibold", color: "text-primary", name: "Title" }), T("۴۹۰ هزار تومان/ماه", { style: "Text sm/Regular", color: "text-tertiary", name: "Price" })]),
+            F({ dir: "H", gap: "space/2", cross: "center" }, [T("پلن حرفه‌ای", { style: "Text sm/Semibold", color: "text-primary", name: "Title" }), p.Badge === "On" && badge({ tone: "Brand", size: "sm", label: "پیشنهادی", dot: false }), T("۴۹۰ هزار تومان/ماه", { style: "Text sm/Regular", color: "text-tertiary", name: "Price" })]),
             T("تا ۲۰ کاربر، پشتیبانی اولویت‌دار و گزارش‌های پیشرفته.", { style: "Text sm/Regular", color: "text-tertiary", name: "Description", w: 220 }),
           ]),
           checkMark(p.Type === "Radio" ? "radio" : "checkbox", { checked: p.Selected, size: 18 }),
@@ -390,7 +398,7 @@ function buildForms() {
         const slots = Array.from({ length: n }, (_, i) => {
           const active = p.State === "Typing" && i === filled;
           const isFilled = i < filled;
-          return F({ name: "Slot", dir: "H", w: 52, h: 60, align: "center", cross: "center", radius: "radius/lg", fill: "bg-primary", stroke: p.State === "Error" ? "border-error" : active ? "border-brand" : isFilled ? "border-primary" : "border-input", shadow: active ? "Input focus" : "Shadow/xs",
+          return F({ name: "Slot", dir: "H", w: 52, h: 60, align: "center", cross: "center", radius: "radius/md", fill: "bg-primary", stroke: p.State === "Error" ? "border-error" : active ? "border-brand" : "border-control", shadow: active ? "Input focus" : undefined,
             css: isFilled && p.State === "Filled" ? "k-otp__slot" : undefined, cssCheck: ["radius", "bg", "border", "w"] }, [
             isFilled ? T(digits[i], { style: "Text sm/Semibold", color: "text-primary", align: "center", size: 26, weight: "semibold", leading: 1.75 }) : active ? R({ w: 2, h: 26, radius: 1, fill: "text-primary", name: "Caret" }) : null,
           ]);
@@ -410,7 +418,7 @@ function buildForms() {
 
   safe("FileUpload", () => section(root, "File upload · آپلود فایل", "کشیدن و رها کردن، با فهرست فایل‌ها و پیشرفت آپلود.", (h) => {
     componentSet(h, "File upload", {
-      axes: { State: ["Default", "Drag over", "Uploading"] },
+      axes: { State: ["Default", "Drag over", "Uploading", "Image"] },
       build: (p) => {
         const drag = p.State === "Drag over";
         // k-dropzone: فاصلهٔ ۳۲/۲۴، حاشیهٔ خط‌چین border-input؛ هنگام کشیدن خط پیوسته و پس‌زمینهٔ برند
@@ -433,8 +441,18 @@ function buildForms() {
           ]),
           button({ variant: "Tertiary", size: "sm", iconOnly: "trash" }),
         ]);
+        // پیش‌نمایش تصویر (k-file__thumb) به جای پسوند؛ عکس بزرگ پیش از ارسال کوچک شده است
+        const imageRow = () => F({ name: "File", dir: "H", gap: "space/3", p: "space/4", w: "fill", cross: "center", radius: "radius/lg", fill: "bg-elevated", stroke: "border-secondary", shadow: "Surface" }, [
+          R({ w: 40, h: 40, radius: "radius/md", fill: "firoozeh/600", stroke: "border-secondary", name: "Thumb" }),
+          F({ dir: "V", gap: "space/1", grow: true }, [
+            T("product-photo.jpg", { style: "Text sm/Medium", color: "text-primary", ltr: true, align: "end", w: "fill" }),
+            T("۴۲۰ کیلوبایت · بارگذاری شد · کوچک شد به ۱۶۰۰×۱۲۰۰", { style: "Text xs/Regular", color: "text-tertiary" }),
+          ]),
+          button({ variant: "Tertiary", size: "sm", iconOnly: "trash" }),
+        ]);
         return F({ name: "File upload", dir: "V", gap: "space/4", w: 420 }, [
           zone,
+          p.State === "Image" && imageRow(),
           p.State === "Uploading" && fileRow("brand-guide.pdf", "PDF", "۲٫۴ مگابایت · ۶۰٪", 0.6),
           p.State === "Uploading" && fileRow("logo.png", "PNG", "۸۴۰ کیلوبایت · بارگذاری شد", 1),
         ]);
@@ -501,6 +519,85 @@ function buildForms() {
     });
   }));
 
+  safe("SearchSuggest", () => section(root, "Search suggest · جستجو با پیشنهاد", "جعبهٔ جستجوی پُرزمینه؛ با فیلد خالی جستجوهای اخیر و پرطرفدار، با تایپ پیشنهادها.", (h) => {
+    const chip = (t, icon) => F({ name: "Chip", dir: "H", gap: "space/1.5", h: 40, px: "space/4", cross: "center", radius: "radius/full", fill: "bg-primary", stroke: "border-control" }, [
+      I(icon, 16, "text-tertiary"), T(t, { style: "Text sm/Regular", color: "text-primary" }),
+    ]);
+    const box = (q) => F({ name: "Box", dir: "H", gap: 10, h: 48, px: "space/4", w: 420, cross: "center", radius: "radius/full", fill: q ? "bg-primary" : "bg-secondary", stroke: q ? "border-brand" : undefined, shadow: q ? "Input focus" : undefined }, [
+      I("search", 20, "text-tertiary"), T(q || "جستجو در همهٔ کالاها", { style: "Text md/Regular", color: q ? "text-primary" : "text-tertiary", name: "Query" }),
+    ]);
+    componentSet(h, "Search suggest", {
+      axes: { State: ["Idle", "Typing"] },
+      build: (p) => {
+        const typing = p.State === "Typing";
+        const head = (t, clear) => F({ dir: "H", w: "fill", align: "between", cross: "center" }, [T(t, { style: "Text md/Semibold", color: "text-primary" }), clear && T("پاک کردن", { style: "Text sm/Medium", color: "text-tertiary" })]);
+        const panel = typing
+          ? F({ name: "Panel", dir: "V", gap: 2, p: "space/2", w: 420, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" },
+            ["ساعت مچی زنانه", "ساعت هوشمند", "ساعت دیواری"].map((t, i) => F({ name: "Option", dir: "H", gap: "space/2", h: 40, px: 10, w: "fill", cross: "center", radius: "radius/md", fill: i === 0 ? "bg-hover" : undefined }, [I("search", 18, "text-quaternary"), T(t, { style: "Text sm/Regular", color: "text-secondary" })])))
+          : F({ name: "Panel", dir: "V", gap: "space/6", p: "space/5", w: 420, radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
+            F({ dir: "V", gap: "space/3", w: "fill" }, [head("جستجوهای اخیر", true), F({ dir: "H", wrap: true, gap: 8, rowGap: 8, w: "fill" }, ["باتری", "کمد", "میز آرایش", "آینه"].map((t) => chip(t, "history")))]),
+            F({ dir: "V", gap: "space/3", w: "fill" }, [head("جستجوهای پرطرفدار"), F({ dir: "H", wrap: true, gap: 8, rowGap: 8, w: "fill" }, ["ساعت مچی زنانه", "عروسک", "اسکوتر برقی"].map((t) => chip(t, "trending-up")))]),
+          ]);
+        return F({ name: "Search suggest", dir: "V", gap: 8 }, [box(typing ? "ساعت" : ""), panel]);
+      },
+      text: { Query: ["Query", "جستجو در همهٔ کالاها"] },
+      docs: "search-suggest",
+    });
+  }));
+
+  safe("SwatchGroup", () => section(root, "Swatch group · نمونهٔ رنگ", "فیلتر رنگ با نمونه‌های نام‌دار؛ انتخاب با حلقهٔ برند و تیک.", (h) => {
+    const colors = [["آبی", "lajvard/500"], ["زرد", "zafaran/300"], ["سفید", "shab/0"], ["صورتی", "anar/400"], ["طوسی", "shab/400"], ["مشکی", "shab/1000"], ["نارنجی", "zafaran/500"], ["سبز", "pesteh/500"]];
+    componentSet(h, "Swatch", {
+      axes: { Selected: ["Off", "On"], Size: ["sm", "md", "lg"] },
+      build: (p) => {
+        const s = { sm: 40, md: 56, lg: 72 }[p.Size];
+        const on = p.Selected === "On";
+        return F({ name: "Swatch", dir: "V", gap: "space/1.5", cross: "center" }, [
+          F({ name: "Ring", dir: "H", p: 3, radius: "radius/xl", stroke: on ? "border-brand" : "border-secondary", sw: on ? 2 : 1, main: "center", cross: "center" }, [
+            F({ name: "Color", dir: "H", w: s, h: s, radius: "radius/lg", fill: "lajvard/500", main: "center", cross: "center" }, [
+              on && F({ name: "Check", dir: "H", w: 20, h: 20, radius: "radius/full", fill: "bg-brand", main: "center", cross: "center" }, [I("check", 14, "text-on-brand")]),
+            ]),
+          ]),
+          T("آبی", { style: on ? "Text sm/Semibold" : "Text sm/Regular", color: on ? "text-primary" : "text-secondary", name: "Label" }),
+        ]);
+      },
+      text: { Label: ["Label", "آبی"] },
+      cols: 3,
+      docs: "swatch-group",
+    });
+    add(h, F({ name: "Swatch group · نمونه", dir: "V", gap: "space/3", w: 320 }, [
+      T("رنگ", { style: "Tight sm/Medium", color: "text-secondary" }),
+      F({ dir: "H", wrap: true, gap: 8, rowGap: 16, w: "fill" }, colors.map(([t, c], i) => F({ dir: "V", gap: 6, cross: "center", w: 72 }, [
+        F({ dir: "H", p: 3, radius: "radius/xl", stroke: i === 0 ? "border-brand" : "border-secondary", sw: i === 0 ? 2 : 1 }, [R({ w: 56, h: 56, radius: "radius/lg", fill: c, stroke: t === "سفید" ? "border-secondary" : undefined })]),
+        T(t, { style: "Text sm/Regular", color: "text-secondary" }),
+      ]))),
+    ]));
+  }));
+
+  safe("PriceRange", () => section(root, "Price range · بازهٔ قیمت", "دو فیلد «از» و «تا» به تومان و اسلایدر دودستگیره.", (h) => {
+    componentSet(h, "Price range", {
+      axes: { State: ["Default", "Focus"] },
+      build: (p) => {
+        const W = 340;
+        const fieldBox = (edge, val, focus) => F({ name: edge, dir: "H", gap: "space/2", h: 44, px: "space/3", w: "fill", cross: "center", radius: "radius/md", fill: "bg-primary", stroke: focus ? "border-brand" : "border-control", shadow: focus ? "Input focus" : undefined }, [
+          T(edge, { style: "Text sm/Regular", color: "text-tertiary" }), T(val, { style: "Text md/Semibold", color: "text-primary", name: "Value", w: "fill", align: "end" }), T("تومان", { style: "Text sm/Regular", color: "text-tertiary" }),
+        ]);
+        const thumb = (x) => R({ ellipse: true, w: 20, h: 20, fill: "#ffffff", stroke: "bg-brand", sw: 2, shadow: "Shadow/sm", name: "Thumb", absolute: true, x: x * W - 10, y: 0 });
+        return F({ name: "Price range", dir: "V", gap: "space/4", w: W }, [
+          T("قیمت", { style: "Tight sm/Medium", color: "text-secondary", name: "Label" }),
+          F({ dir: "H", gap: "space/3", w: "fill" }, [fieldBox("از", "۱٬۵۰۰٬۰۰۰", p.State === "Focus"), fieldBox("تا", "۱۸٬۰۰۰٬۰۰۰", false)]),
+          F({ name: "Track", dir: "none", w: W, h: 20 }, [
+            R({ w: W, h: 6, radius: "radius/full", fill: "bg-tertiary", name: "Rail", x: 0, y: 7 }),
+            R({ w: W * 0.66, h: 6, radius: "radius/full", fill: "bg-brand", name: "Fill", x: W * 0.06, y: 7 }),
+            thumb(0.06), thumb(0.72),
+          ]),
+          F({ dir: "H", w: "fill", align: "between" }, [T("ارزان‌ترین", { style: "Text xs/Regular", color: "text-tertiary" }), T("گران‌ترین", { style: "Text xs/Regular", color: "text-tertiary" })]),
+        ]);
+      },
+      docs: "price-range",
+    });
+  }));
+
   safe("InlineEdit", () => section(root, "Inline edit · ویرایش درجا", "متن با کلیک به فیلد تبدیل می‌شود.", (h) => {
     componentSet(h, "Inline edit", {
       axes: { State: ["View", "Edit"] },
@@ -551,6 +648,24 @@ function buildForms() {
         )),
       ]),
       docs: "month-picker",
+    });
+  }));
+
+  safe("Form", () => section(root, "Form validation · اعتبارسنجی فرم", "useForm: خطای فارسی کنار هر فیلد و خلاصه بالای فرم پس از ارسال ناموفق.", (h) => {
+    componentSet(h, "Form", {
+      axes: { State: ["Default", "Errors"] },
+      build: (p) => {
+        const err = p.State === "Errors";
+        return F({ name: "Form", dir: "V", gap: "space/4", w: 420 }, [
+          err && F({ name: "Summary", dir: "H", gap: "space/3", p: 12, w: "fill", radius: "radius/lg", fill: "bg-secondary", stroke: "border-primary", cross: "center" }, [I("alert-circle", 18, "text-error"), T("۲ مورد را اصلاح کنید.", { style: "Text sm/Semibold", color: "text-primary" })]),
+          field({ label: "نام و نام خانوادگی", w: "fill", control: inputBox({ text: "سارا محمدی" }) }),
+          field({ label: "کد ملی", w: "fill", error: err ? "کد ملی معتبر نیست." : undefined, control: inputBox({ text: "۱۲۳۴۵۶۷۸۹۰", ltr: true, state: err ? "Error" : "Default" }) }),
+          field({ label: "موبایل", w: "fill", error: err ? "این بخش را پر کنید." : undefined, control: inputBox({ placeholder: "۰۹۱۲ ۱۲۳ ۴۵۶۷", ltr: true, state: err ? "Error" : "Default" }) }),
+          button({ variant: "Primary", label: "ثبت‌نام", w: "fill" }),
+        ]);
+      },
+      cols: 2,
+      docs: "form",
     });
   }));
 }

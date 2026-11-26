@@ -5,7 +5,7 @@ import { cx } from "./cx.js";
 import { isDev } from "./utils.js";
 import { useKashi } from "./KashiProvider.js";
 
-export type ButtonVariant = "primary" | "secondary" | "tertiary" | "link" | "danger" | "danger-secondary";
+export type ButtonVariant = "primary" | "secondary" | "outline" | "tertiary" | "link" | "danger" | "danger-secondary";
 export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type"> {

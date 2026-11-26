@@ -277,14 +277,70 @@ interface FileItem {
   status: "uploading" | "done" | "error";
   progress: number;
   error?: string;
+  previewUrl?: string;
+  note?: string;
+}
+
+export interface ImageResizeOptions {
+  /** بلندترین ضلع تصویر بعد از کوچک شدن، به پیکسل */
+  maxDimension: number;
+  /** کیفیت JPEG/WebP بین ۰ و ۱ @default 0.85 */
+  quality?: number;
+  /** نوع خروجی؛ پیش‌فرض همان نوع فایل */
+  type?: "image/jpeg" | "image/webp" | "image/png";
+}
+
+/**
+ * عکس بزرگ را پیش از ارسال در مرورگر کوچک می‌کند (JPEG، PNG و WebP؛ GIF و SVG دست نمی‌خورند).
+ * اگر عکس از maxDimension کوچک‌تر باشد یا خروجی سبک‌تر نشود، null برمی‌گرداند و همان فایل اصلی می‌ماند.
+ */
+export async function shrinkImage(file: File, { maxDimension, quality = 0.85, type }: ImageResizeOptions): Promise<{ file: File; width: number; height: number } | null> {
+  if (!/^image\/(jpeg|png|webp)$/.test(file.type) || typeof createImageBitmap !== "function") return null;
+  let bmp: ImageBitmap;
+  try {
+    bmp = await createImageBitmap(file, { imageOrientation: "from-image" } as ImageBitmapOptions);
+  } catch {
+    return null;
+  }
+  const scale = Math.min(1, maxDimension / Math.max(bmp.width, bmp.height));
+  if (scale >= 1) {
+    bmp.close?.();
+    return null;
+  }
+  const width = Math.round(bmp.width * scale), height = Math.round(bmp.height * scale);
+  const out = type ?? file.type;
+  let blob: Blob | null = null;
+  try {
+    if (typeof OffscreenCanvas !== "undefined") {
+      const c = new OffscreenCanvas(width, height);
+      const ctx = c.getContext("2d")!;
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(bmp, 0, 0, width, height);
+      blob = await c.convertToBlob({ type: out, quality });
+    } else {
+      const c = document.createElement("canvas");
+      c.width = width;
+      c.height = height;
+      const ctx = c.getContext("2d")!;
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(bmp, 0, 0, width, height);
+      blob = await new Promise<Blob | null>((r) => c.toBlob(r, out, quality));
+    }
+  } finally {
+    bmp.close?.();
+  }
+  if (!blob || blob.size >= file.size) return null;
+  const name = out === file.type ? file.name : `${file.name.replace(/\.[^.]+$/, "")}.${out === "image/jpeg" ? "jpg" : out.split("/")[1]}`;
+  return { file: new File([blob], name, { type: out, lastModified: file.lastModified }), width, height };
 }
 
 /**
  * بارگذاری فایل با کشیدن و رها کردن، بررسی نوع و حجم و فهرست فایل‌ها.
- * با name فایل‌ها با فرم HTML ارسال می‌شوند؛ برای بارگذاری فوری، element.uploader = (file, onProgress) => Promise بدهید.
+ * با name فایل‌ها با فرم HTML ارسال می‌شوند (FormData و Server Action هم)؛ برای بارگذاری فوری، element.uploader = (file, onProgress) => Promise بدهید.
+ * تصویرها پیش‌نمایش دارند (preview="false" خاموش می‌کند)؛ با max-dimension (و quality) عکس‌های بزرگ پیش از ارسال در مرورگر کوچک می‌شوند.
  */
 export class KashiFileUpload extends HTMLBase {
-  static observedAttributes = ["accept", "multiple", "max-size", "max-files", "hint", "name", "disabled", "label"];
+  static observedAttributes = ["accept", "multiple", "max-size", "max-files", "hint", "name", "disabled", "label", "required", "preview", "max-dimension", "quality"];
   /** بارگذاری هر فایل؛ onProgress(درصد) را صدا بزنید */
   uploader?: (file: File, onProgress: (percent: number) => void) => Promise<void>;
   private items: FileItem[] = [];
@@ -313,7 +369,7 @@ export class KashiFileUpload extends HTMLBase {
     const off = this.hasAttribute("disabled");
     const name = this.getAttribute("name");
     const accept = this.getAttribute("accept");
-    this.innerHTML = `<div class="k-dropzone"${off ? ' data-disabled=""' : ""}><span class="k-dropzone__icon" aria-hidden="true">${UPLOAD}</span><p class="k-dropzone__title" style="margin: 0"><button type="button" class="k-dropzone__browse"${off ? " disabled" : ""}${hint ? ` aria-describedby="${k}-hint"` : ""}>${esc(this.getAttribute("label") ?? msg().fileUpload.browse)}</button> <span>${esc(msg().fileUpload.drop)}</span></p>${hint ? `<p class="k-dropzone__hint" id="${k}-hint" style="margin: 0">${esc(hint)}</p>` : ""}<input type="file" tabindex="-1" aria-hidden="true"${accept ? ` accept="${esc(accept)}"` : ""}${this.multiple ? " multiple" : ""}${name ? ` name="${esc(name)}"` : ""}></div><ul class="k-file-list" role="list" hidden></ul><span class="k-sr-only" aria-live="polite"></span>`;
+    this.innerHTML = `<div class="k-dropzone"${off ? ' data-disabled=""' : ""}><span class="k-dropzone__icon" aria-hidden="true">${UPLOAD}</span><p class="k-dropzone__title" style="margin: 0"><button type="button" class="k-dropzone__browse"${off ? " disabled" : ""}${hint ? ` aria-describedby="${k}-hint"` : ""}>${esc(this.getAttribute("label") ?? msg().fileUpload.browse)}</button> <span>${esc(msg().fileUpload.drop)}</span></p>${hint ? `<p class="k-dropzone__hint" id="${k}-hint" style="margin: 0">${esc(hint)}</p>` : ""}<input type="file" tabindex="-1" aria-hidden="true"${accept ? ` accept="${esc(accept)}"` : ""}${this.multiple ? " multiple" : ""}${name ? ` name="${esc(name)}"` : ""}${this.hasAttribute("required") ? " required" : ""}></div><ul class="k-file-list" role="list" hidden></ul><span class="k-sr-only" aria-live="polite"></span>`;
     this.rendered = true;
     this.input = this.querySelector("input[type=file]")!;
     const zone = this.querySelector<HTMLElement>(".k-dropzone")!;
@@ -321,6 +377,7 @@ export class KashiFileUpload extends HTMLBase {
     this.input.addEventListener("change", () => {
       if (this.input.files?.length) this.add([...this.input.files]);
     });
+    this.input.addEventListener("invalid", () => zone.setAttribute("data-invalid", ""));
     zone.addEventListener("dragover", (e) => {
       e.preventDefault();
       if (!off) zone.setAttribute("data-dragging", "");
@@ -337,6 +394,7 @@ export class KashiFileUpload extends HTMLBase {
       const b = (e.target as Element).closest<HTMLElement>("[data-remove]");
       if (!b) return;
       const it = this.items.find((x) => x.id === b.dataset.remove);
+      if (it?.previewUrl) URL.revokeObjectURL(it.previewUrl);
       this.items = this.items.filter((x) => x.id !== b.dataset.remove);
       this.announce(msg().common.removed(it?.file.name ?? ""));
       this.changed();
@@ -353,7 +411,23 @@ export class KashiFileUpload extends HTMLBase {
   }
 
   private add(files: File[]) {
-    const list = this.multiple ? files : files.slice(0, 1);
+    const max = Number(this.getAttribute("max-dimension")) || 0;
+    const picked = this.multiple ? files : files.slice(0, 1);
+    if (!max) return this.accept(picked, new Map());
+    // کوچک کردن عکس‌ها ناهمگام است؛ بدون max-dimension همه چیز هم‌زمان می‌ماند
+    const quality = Number(this.getAttribute("quality")) || undefined;
+    const notes = new Map<File, string>();
+    Promise.all(picked.map(async (f) => {
+      const small = this.accepts(f) ? await shrinkImage(f, { maxDimension: max, quality }) : null;
+      if (!small) return f;
+      notes.set(small.file, msg().fileUpload.resized(num(this, small.width), num(this, small.height)));
+      return small.file;
+    })).then((list) => this.accept(list, notes));
+  }
+
+  private accept(list: File[], notes: Map<File, string>) {
+    const preview = this.getAttribute("preview") !== "false";
+    if (!this.multiple) this.items.forEach((x) => x.previewUrl && URL.revokeObjectURL(x.previewUrl));
     const maxSize = Number(this.getAttribute("max-size")) || 0;
     const maxFiles = Number(this.getAttribute("max-files")) || 0;
     const kept = this.multiple ? this.items.filter((i) => i.status !== "error").length : 0;
@@ -363,7 +437,8 @@ export class KashiFileUpload extends HTMLBase {
       else if (maxSize && file.size > maxSize) error = msg().fileUpload.tooBig(formatBytes(maxSize));
       else if (maxFiles && kept + i >= maxFiles) error = msg().fileUpload.tooMany(num(this, maxFiles));
       const up = !error && !!this.uploader;
-      return { id: uid("f"), file, status: error ? "error" : up ? "uploading" : "done", progress: error ? 0 : up ? 0 : 100, error };
+      const previewUrl = preview && !error && file.type.startsWith("image/") && typeof URL.createObjectURL === "function" ? URL.createObjectURL(file) : undefined;
+      return { id: uid("f"), file, status: error ? "error" : up ? "uploading" : "done", progress: error ? 0 : up ? 0 : 100, error, previewUrl, note: notes.get(file) };
     });
     this.items = this.multiple ? [...this.items, ...added] : added;
     this.announce(added.map((a) => `${a.file.name}: ${a.error ?? (this.uploader ? msg().fileUpload.uploading : msg().fileUpload.done)}`).join(msg().common.list));
@@ -397,6 +472,7 @@ export class KashiFileUpload extends HTMLBase {
       const dt = new DataTransfer();
       for (const f of this.files) dt.items.add(f);
       this.input.files = dt.files;
+      if (dt.files.length) this.querySelector(".k-dropzone")?.removeAttribute("data-invalid");
     } catch { /* مرورگر قدیمی */ }
     this.paint();
     emit(this, "kashi-change", { files: this.files });
@@ -406,7 +482,7 @@ export class KashiFileUpload extends HTMLBase {
     const list = this.querySelector<HTMLElement>(".k-file-list")!;
     list.hidden = !this.items.length;
     const ext = (n: string) => (n.split(".").pop() ?? "").slice(0, 4).toUpperCase();
-    list.innerHTML = this.items.map((it) => `<li class="k-file" data-status="${it.status}"><span class="k-file__icon" aria-hidden="true">${esc(ext(it.file.name))}</span><span class="k-file__name" title="${esc(it.file.name)}">${esc(it.file.name)}</span><button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm k-file__remove" data-remove="${it.id}" aria-label="${esc(msg().common.remove(it.file.name))}">${TRASH}</button><span class="k-file__meta">${esc(it.error ?? `${formatBytes(it.file.size)}${it.status === "uploading" ? ` · ${msg().common.percent(num(this, Math.round(it.progress)))}` : it.status === "done" ? ` · ${msg().fileUpload.done}` : ""}`)}</span>${it.status === "uploading" ? `<div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(it.progress)}" aria-label="${esc(msg().fileUpload.uploadingFile(it.file.name))}" class="k-progress k-progress--sm"><div class="k-progress__bar" style="--k-value: ${it.progress}%"></div></div>` : ""}</li>`).join("");
+    list.innerHTML = this.items.map((it) => `<li class="k-file" data-status="${it.status}">${it.previewUrl ? `<img class="k-file__thumb" src="${esc(it.previewUrl)}" alt="">` : `<span class="k-file__icon" aria-hidden="true">${esc(ext(it.file.name))}</span>`}<span class="k-file__name" title="${esc(it.file.name)}">${esc(it.file.name)}</span><button type="button" class="k-btn k-btn--tertiary k-btn--icon k-btn--sm k-file__remove" data-remove="${it.id}" aria-label="${esc(msg().common.remove(it.file.name))}">${TRASH}</button><span class="k-file__meta">${esc(it.error ?? `${formatBytes(it.file.size)}${it.status === "uploading" ? ` · ${msg().common.percent(num(this, Math.round(it.progress)))}` : it.status === "done" ? ` · ${msg().fileUpload.done}` : ""}${it.note ? ` · ${it.note}` : ""}`)}</span>${it.status === "uploading" ? `<div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(it.progress)}" aria-label="${esc(msg().fileUpload.uploadingFile(it.file.name))}" class="k-progress k-progress--sm"><div class="k-progress__bar" style="--k-value: ${it.progress}%"></div></div>` : ""}</li>`).join("");
   }
 }
 

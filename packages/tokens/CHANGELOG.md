@@ -1,5 +1,136 @@
 # @kashi-ui/tokens
 
+## 2.16.0
+
+No changes in this release.
+
+## 2.15.1
+
+No changes in this release.
+
+## 2.15.0
+
+No changes in this release.
+
+## 2.14.0
+
+### Minor Changes
+
+- 68350a2: پایه‌های کیفیت: حالت کنتراست بالا با متن AAA (خودکار با `prefers-contrast: more` یا `data-contrast="more"`)، پالت داده‌نمایی در توکن‌ها (۸ رنگ دسته‌ای، طیف ترتیبی و واگرا، `chartColor`)، توکن‌های `breakpoint` و لایهٔ `raised`، خروجی استاندارد W3C DTCG برای فیگما و Style Dictionary، و پکیج تازهٔ `@kashi-ui/codemod` برای مهاجرت خودکار. تست خودکار axe و صفحه‌کلید در CI. رفع: ناحیهٔ لمس نقطه‌های Carousel و ورودی Slider و PriceRange به ۲۴ پیکسل رسید؛ Navbar در ظرف باریک بر اساس عرض خودش به منو می‌رود و پیوندها دیگر روی دکمه‌ها نمی‌افتند؛ ناحیهٔ اسکرول ActivityHeatmap با صفحه‌کلید در دسترس است؛ حالت‌های انتخاب و فوکوس چند کامپوننت در حالت رنگ اجباری ویندوز دیده می‌شوند.
+
+## 2.13.0
+
+No changes in this release.
+
+## 2.12.0
+
+No changes in this release.
+
+## 2.11.1
+
+No changes in this release.
+
+## 2.11.0
+
+No changes in this release.
+
+## 2.10.0
+
+No changes in this release.
+
+## 2.9.0
+
+No changes in this release.
+
+## 2.8.1
+
+No changes in this release.
+
+## 2.8.0
+
+No changes in this release.
+
+## 2.7.0
+
+No changes in this release.
+
+## 2.6.0
+
+No changes in this release.
+
+## 2.5.0
+
+No changes in this release.
+
+## 2.4.1
+
+No changes in this release.
+
+## 2.4.0
+
+No changes in this release.
+
+## 2.3.0
+
+No changes in this release.
+
+## 2.2.0
+
+No changes in this release.
+
+## 2.1.0
+
+No changes in this release.
+
+## 2.0.0
+
+### Major Changes
+
+- 99a712f: کاشی ۲.۰: بازطراحی یکپارچه و مینیمال. هیچ prop، کلاس، تگ یا تابعی حذف نشده؛ ظاهر پیش‌فرض عوض شده (راهنما: /docs/migration/).
+  
+  - کنترل‌ها تخت‌اند (بدون سایهٔ اسکئومورفیک)، گوشه‌ها نرم‌تر با دو نقش `--k-radius-control` و `--k-radius-surface`، و یک حاشیه برای همهٔ کنترل‌ها با `--k-border-control`.
+  - سلکت در React فهرست کاشی با صفحه‌کلید کامل و select بومیِ پنهان؛ `native` برای فهرست مرورگر.
+  - سگمنت و زبانه‌های segmented با ریل پُرزمینه (`--k-bg-muted`، `--k-bg-raised`)، آکاردئون با کارت‌های جدا، `danger-secondary` نرم، منو و جدول و راهنمای نمودار آرام‌تر.
+  - ریزتعامل در همهٔ کامپوننت‌ها: فشرده شدن دکمه و کنترل‌ها، تیک و نقطه با فنر، دستگیرهٔ کش‌آمدنی سوییچ، دستگیرهٔ لغزان سگمنت، لرزش و ظاهر شدن نرم خطای فیلد، باز و بسته شدن نرم فهرست و پنجره و آکاردئون، دکمهٔ کپی با تیک؛ توکن‌های تازهٔ `--k-ease-spring` و `--k-ease-exit` و صفحهٔ /docs/motion/. با «کاهش حرکت» همه خاموش می‌شوند.
+  - تازه: دکمهٔ `outline`، کامپوننت‌های SearchSuggest، PriceRange و SwatchGroup (React، وب کامپوننت و فیگما).
+  - آیکون‌ها: `categoryGroups` با ۱۲ گروه؛ دو دسته نام روشن‌تر گرفتند.
+
+## 1.8.0
+
+No changes in this release.
+
+## 1.7.0
+
+No changes in this release.
+
+## 1.6.0
+
+No changes in this release.
+
+## 1.5.0
+
+No changes in this release.
+
+## 1.4.0
+
+No changes in this release.
+
+## 1.3.0
+
+No changes in this release.
+
+## 1.2.1
+
+No changes in this release.
+
+## 1.2.0
+
+No changes in this release.
+
+## 1.1.0
+
+No changes in this release.
+
 ## 1.0.0
 
 ### Major Changes

@@ -30,7 +30,8 @@
   transition:
     background-color var(--k-duration-fast) var(--k-ease-standard),
     border-color var(--k-duration-fast) var(--k-ease-standard),
-    box-shadow var(--k-duration-fast) var(--k-ease-standard);
+    box-shadow var(--k-duration-fast) var(--k-ease-standard),
+    scale var(--k-duration-fast) var(--k-ease-spring);
 }
 
 .k-checkbox::before {
@@ -40,8 +41,9 @@
   background: currentColor;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11.5 3.5 5.5 10 2.5 7'/%3E%3C/svg%3E") center / contain no-repeat;
   scale: 0;
-  transition: scale var(--k-duration-fast) var(--k-ease-emphasized);
+  transition: scale var(--k-duration-normal) var(--k-ease-spring);
 }
+.k-checkbox:active:not(:disabled) { scale: 0.9; }
 .k-checkbox:indeterminate::before {
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M3 7h8'/%3E%3C/svg%3E");
 }

@@ -1,0 +1,83 @@
+---
+// صفحهٔ رمز دوره. خود رمز روی سرور بررسی می‌شود (middleware.ts در ریشهٔ apps/docs)؛ این صفحه فقط فرم است.
+import Base from "../../../layouts/Base.astro";
+import Logo from "../../../components/Logo.astro";
+import { iconSvg } from "@kashi-ui/icons";
+import "../../../styles/learn.css";
+---
+<Base title="ورود به مدرسهٔ محصول" seoTitle="ورود · مدرسهٔ محصول کاشی" description="بخش خصوصی سایت کاشی" noindex>
+  <main id="main" class="pm-login" tabindex="-1">
+    <div class="pm-login__card">
+      <div class="pm-login__mark" aria-hidden="true"><Logo size={40} /><span class="pm-login__lock"><Fragment set:html={iconSvg("lock", { size: 14 })} /></span></div>
+      <h1 class="pm-login__title">مدرسهٔ محصول کاشی</h1>
+      <p class="pm-login__lead">این بخش خصوصی است. برای دیدن درس‌ها رمز را وارد کنید.</p>
+
+      <form class="pm-login__form" method="post" action="/learn/pm/unlock/" data-login>
+        <input type="hidden" name="next" value="/learn/pm/" data-next />
+        <div class="k-field" data-field>
+          <div class="k-field__label-row"><label class="k-label" for="pm-password">رمز</label></div>
+          <div class="k-input k-input--lg" data-box>
+            <input id="pm-password" class="k-input__control" type="password" name="password" autocomplete="current-password" required autofocus dir="ltr" aria-describedby="pm-error" />
+            <button type="button" class="k-input__action" aria-label="نمایش رمز" aria-pressed="false" data-reveal>
+              <Fragment set:html={iconSvg("eye", { size: 18, className: "pm-eye" })} />
+              <Fragment set:html={iconSvg("eye-off", { size: 18, className: "pm-eye-off" })} />
+            </button>
+          </div>
+          <div class="k-field__hint-row"><div class="k-field__hints"><p class="k-hint k-hint--error" id="pm-error" data-error hidden></p></div></div>
+        </div>
+        <button type="submit" class="k-btn k-btn--primary k-btn--lg pm-login__submit" data-submit>
+          <span>ورود</span>
+        </button>
+      </form>
+
+      <a class="pm-login__back" href="/">بازگشت به سایت کاشی</a>
+    </div>
+  </main>
+</Base>
+
+<script>
+  const q = new URLSearchParams(location.search);
+  const next = q.get("next");
+  const nextInput = document.querySelector<HTMLInputElement>("[data-next]")!;
+  if (next && next.startsWith("/learn/pm/")) nextInput.value = next;
+
+  const messages: Record<string, string> = {
+    wrong: "رمز درست نیست. دوباره امتحان کنید.",
+    config: "رمز این بخش هنوز روی سرور تنظیم نشده است.",
+  };
+  const err = q.get("error");
+  const errorEl = document.querySelector<HTMLElement>("[data-error]")!;
+  const field = document.querySelector<HTMLElement>("[data-field]")!;
+  const box = document.querySelector<HTMLElement>("[data-box]")!;
+  const input = document.querySelector<HTMLInputElement>("#pm-password")!;
+  if (err && messages[err]) {
+    errorEl.textContent = messages[err];
+    errorEl.hidden = false;
+    field.toggleAttribute("data-invalid", true);
+    box.dataset.state = "invalid";
+    input.setAttribute("aria-invalid", "true");
+    box.toggleAttribute("data-shake", true);
+  }
+  input.addEventListener("input", () => {
+    errorEl.hidden = true;
+    field.removeAttribute("data-invalid");
+    delete box.dataset.state;
+    input.removeAttribute("aria-invalid");
+  });
+
+  const reveal = document.querySelector<HTMLButtonElement>("[data-reveal]")!;
+  reveal.addEventListener("click", () => {
+    const show = input.type === "password";
+    input.type = show ? "text" : "password";
+    reveal.setAttribute("aria-pressed", String(show));
+    reveal.setAttribute("aria-label", show ? "پنهان کردن رمز" : "نمایش رمز");
+    input.focus();
+  });
+
+  document.querySelector("[data-login]")!.addEventListener("submit", () => {
+    const btn = document.querySelector<HTMLButtonElement>("[data-submit]")!;
+    btn.setAttribute("aria-busy", "true");
+    btn.disabled = true;
+    btn.insertAdjacentHTML("afterbegin", '<span class="k-spinner k-spinner--sm" aria-hidden="true"></span>');
+  });
+</script>

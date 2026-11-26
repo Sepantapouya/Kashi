@@ -1,5 +1,5 @@
 // مرورگر یک دستهٔ آیکون، به‌علاوهٔ نوار مشخصات و اصول طراحی برای صفحهٔ راهنما
-import { useRef, useState } from "react";
+import { useDeferredValue, useMemo, useRef, useState } from "react";
 import { EmptyState, Input, Kbd, SegmentedControl, Slider } from "@kashi-ui/react";
 import { IconGrid } from "./IconCatalog";
 import { VariantPicker, fa, useSlash, useVariant } from "./iconShared";
@@ -65,12 +65,16 @@ export function IconBrowser({ category }: { category: Category }) {
   const searchRef = useRef<HTMLInputElement>(null);
   useSlash(searchRef);
 
-  const inCat = all.filter((n) => icons[n].category === category);
-  const hits = new Set(searchIcons(query));
-  const found = inCat.filter((n) => hits.has(n));
+  const q = useDeferredValue(query.trim());
+  const inCat = useMemo(() => all.filter((n) => icons[n].category === category), [category]);
+  const found = useMemo(() => {
+    if (!q) return inCat;
+    const hits = new Set(searchIcons(q));
+    return inCat.filter((n) => hits.has(n));
+  }, [q, inCat]);
 
   return (
-    <div className="ib">
+    <div className={category === "black-friday" ? "ib ib--black-friday" : "ib"}>
       <div className="ib-bar">
         <div className="ib-bar__search">
           <Input
@@ -93,13 +97,13 @@ export function IconBrowser({ category }: { category: Category }) {
       </div>
 
       <p className="ib-count" aria-live="polite">
-        {query ? <>{fa(found.length)} نتیجه برای «{query}»</> : <>{fa(found.length)} آیکون</>}
+        {q ? <>{fa(found.length)} نتیجه برای «{q}»</> : <>{fa(found.length)} آیکون</>}
       </p>
 
       {found.length === 0 ? (
-        <EmptyState title="آیکونی پیدا نشد" description={`در این دسته برای «${query}» نتیجه‌ای نبود.`} />
+        <EmptyState title="آیکونی پیدا نشد" description={`در این دسته برای «${q}» نتیجه‌ای نبود.`} />
       ) : (
-        <IconGrid names={found} variant={variant} size={Number(size)} stroke={stroke} />
+        <IconGrid key={q} names={found} variant={variant} size={Number(size)} stroke={stroke} />
       )}
     </div>
   );

@@ -36,12 +36,21 @@ npm publish -w @kashi-ui/react
    - Organization or user: `Sepantapouya`
    - Repository: `Kashi`
    - Workflow filename: `release.yml`
-2. در GitHub: Settings ← Actions ← General ← گزینهٔ **Allow GitHub Actions to create and approve pull requests** را فعال کنید.
+2. در GitHub: Settings ← Actions ← General ← بخش Workflow permissions: گزینهٔ **Read and write permissions** را انتخاب و **Allow GitHub Actions to create and approve pull requests** را فعال کنید. بدون این، Release با خطای «GitHub Actions is not permitted to create or approve pull requests» شکست می‌خورد.
 3. در GitHub: Settings ← Secrets and variables ← Actions ← Variables، متغیر `NPM_PUBLISH` را با مقدار `true` بسازید.
 
 (روش جایگزین: یک Granular Access Token در npm بسازید و آن را با نام `NPM_TOKEN` در Secrets ذخیره کنید.)
 
+> **نکته‌ها:**
+> - بدون متغیر `NPM_PUBLISH=true` گردش کار Release در هر push به `main` «skipped» می‌شود و هیچ نسخه‌ای منتشر نمی‌شود، حتی اگر نسخهٔ پکیج‌ها در مخزن بالا رفته باشد. وضعیت را در تب Actions ببینید.
+> - توکن npm باید گزینهٔ **Bypass two-factor authentication** را داشته باشد؛ وگرنه انتشار از GitHub با `E403` رد می‌شود.
+> - Trusted Publishing فقط برای پکیجی که از قبل روی npm هست کار می‌کند. پکیج تازه (مثل `@kashi-ui/codemod`) اولین بار با توکن یا دستی منتشر می‌شود و بعد می‌توان Trusted Publisher را برایش تنظیم کرد.
+
 ## هر بار: انتشار نسخهٔ جدید
+
+بستهٔ آیکون‌ها پیش از انتشار با `npm run check:icon-package` بررسی می‌شود: شمار فایل‌ها باید کمتر از ۶۴۰۰۰ باشد و تمام مسیرهای عمومی SVG، اسپرایت‌ها و مجوزها در آرشیو موجود باشند. فایل SVG نشان‌های رسمی در سبک‌های مختلف یکسان است. نسخه‌های منحنی و دورنگِ عیناً یکسان با SVG پایه هم از طریق `exports` به فایل پایه اشاره می‌کنند. پس از تغییر هندسه یا موتور سبک‌ها، با `node packages/icons/scripts/update-svg-exports.mjs` نگاشت‌ها را به‌روز کنید.
+
+> **آیکون‌های تازه:** پس از `npx changeset version` (یا در PR «نسخهٔ جدید کاشی»)، `node packages/icons/scripts/releases.mjs` را اجرا و `packages/icons/releases.json` را کامیت کنید. صفحهٔ «آیکون‌های تازه» (`/docs/icons/new/`) و نوار همان در صفحهٔ آیکون‌ها از این فایل می‌خوانند؛ تست `releases.test.mjs` اگر فایل با نسخهٔ بسته یکی نباشد شکست می‌خورد.
 
 1. همراه هر تغییر، یک changeset بسازید:
    ```bash
@@ -49,6 +58,14 @@ npm publish -w @kashi-ui/react
    ```
 2. پس از ادغام در `main`، گردش کار Release یک PR با عنوان «نسخهٔ جدید کاشی» می‌سازد که نسخه‌ها و CHANGELOG را به‌روز می‌کند.
 3. با ادغام آن PR، هر سه پکیج با یک نسخهٔ یکسان روی npm منتشر می‌شوند، همراه با provenance که نشان می‌دهد پکیج دقیقاً از همین مخزن ساخته شده است.
+
+### GitHub Releases
+
+پس از هر ادغام در `main` که نسخهٔ پکیج‌ها را بالا می‌برد، گردش کار `github-release.yml` برای همان نسخه یک Release با نام «Kashi X.Y.Z» و برچسب `vX.Y.Z` می‌سازد. یادداشت انتشار از CHANGELOG همهٔ پکیج‌ها جمع می‌شود و خط‌های «Updated dependencies» حذف می‌شوند. نسخه‌هایی که Release دارند رد می‌شوند، پس اجرای دوباره بی‌خطر است. پیش‌نمایش بدون ساختن چیزی:
+
+```bash
+node scripts/github-release.mjs --dry-run
+```
 
 ### تست تصویری پیش از انتشار
 

@@ -1,0 +1,115 @@
+---
+title: "کامپوننت فارسی در Vue، Svelte و Angular با وب کامپوننت"
+seoTitle: "کامپوننت فارسی در Vue و Angular با وب کامپوننت"
+description: "وب کامپوننت چیست و چرا برای کامپوننت‌های فارسی مثل تقویم شمسی و کد ملی در Vue، Svelte، Angular یا HTML ساده راه خوبی است؛ با نمونهٔ نصب، رویداد و فرم."
+date: 2026-11-10
+category: "توسعه"
+tags: ["وب کامپوننت", "Vue", "Angular", "Svelte"]
+coverAlt: "کاشی‌های آبی با آیکون پازل، نماد وب کامپوننت‌ها در هر فریم‌ورک"
+coverIcons: ["puzzle", "code", "layers"]
+related: ["ui-library-for-persian-projects", "jalali-date-picker-react", "persian-form-design"]
+---
+
+بیشتر کتابخانه‌های کامپوننت فارسی برای React ساخته شده‌اند. اگر پروژهٔ شما با Vue، Svelte، Angular یا حتی HTML و کمی جاوااسکریپت است، معمولاً یا باید کامپوننت را از نو بنویسید یا یک کتابخانهٔ نیمه‌کارهٔ دیگر پیدا کنید. وب کامپوننت‌ها این مشکل را حل می‌کنند: یک بار ساخته می‌شوند و در هر فریم‌ورکی کار می‌کنند.
+
+## وب کامپوننت چیست؟
+
+وب کامپوننت یک تگ HTML سفارشی است که مرورگر خودش آن را می‌شناسد؛ مثل `<kashi-date-picker>`. پشتش استانداردهای خود مرورگر است (Custom Elements)، نه یک فریم‌ورک خاص. به همین دلیل:
+
+- در هر فریم‌ورکی که HTML رندر کند کار می‌کند.
+- با به‌روزرسانی فریم‌ورک خراب نمی‌شود.
+- می‌شود آن را بدون هیچ ابزار ساختی، با یک تگ `script` آورد.
+
+<Figure n={1} alt="یک کامپوننت تاریخ شمسی در مرکز که با فلش به Vue، Svelte، Angular و HTML ساده وصل شده" caption="یک پیاده‌سازی، چهار محیط؛ تگ سفارشی در همهٔ فریم‌ورک‌ها همان رفتار را دارد." />
+
+## شروع: بدون هیچ ابزاری
+
+ساده‌ترین حالت، یک صفحهٔ HTML معمولی است:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@kashi-ui/css/dist/kashi.css">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@kashi-ui/elements/dist/cdn/kashi-elements.js"></script>
+
+<form action="/checkout" method="post">
+  <kashi-national-id name="national_id" required></kashi-national-id>
+  <kashi-date-picker label="تاریخ تحویل" name="delivery"></kashi-date-picker>
+  <button class="k-btn k-btn--primary">ثبت سفارش</button>
+</form>
+```
+
+این کامپوننت‌ها در فرم معمولی شرکت می‌کنند: با `name` مقدارشان ارسال می‌شود و `required` جلوی ارسال فرم ناقص را می‌گیرد. برای پروژه‌های قدیمی (مثلاً یک سایت PHP یا قالب وردپرس) این بهترین راه اضافه کردن فیلدهای فارسی است.
+
+## در پروژه‌ای که bundler دارد
+
+```bash
+npm i @kashi-ui/elements @kashi-ui/css
+```
+
+```js
+import "@kashi-ui/css";
+import "@kashi-ui/elements"; // یا فقط یک گروه: "@kashi-ui/elements/inputs.js"
+```
+
+## Vue
+
+Vue باید بداند تگ‌هایی که با `kashi-` شروع می‌شوند کامپوننت Vue نیستند:
+
+```js
+// vite.config.js
+import vue from "@vitejs/plugin-vue";
+export default {
+  plugins: [vue({ template: { compilerOptions: { isCustomElement: (tag) => tag.startsWith("kashi-") } } })],
+};
+```
+
+```html
+<kashi-mobile :value="mobile" @kashi-change="mobile = $event.detail.value"></kashi-mobile>
+```
+
+## Svelte
+
+Svelte بدون تنظیم اضافه با تگ‌های سفارشی کار می‌کند:
+
+```html
+<kashi-mobile value={mobile} on:kashi-change={(e) => (mobile = e.detail.value)}></kashi-mobile>
+```
+
+## Angular
+
+در Angular باید `CUSTOM_ELEMENTS_SCHEMA` را به کامپوننت اضافه کنید:
+
+```ts
+@Component({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: `<kashi-mobile [value]="mobile" (kashi-change)="mobile = $event.detail.value"></kashi-mobile>`,
+})
+```
+
+<Figure n={2} alt="سه پنل کد کنار هم برای Vue، Svelte و Angular که هر کدام یک فیلد موبایل کاشی با رویداد kashi-change دارد" caption="نوشتن رویداد در هر فریم‌ورک کمی فرق دارد، ولی کامپوننت و داده‌ای که برمی‌گرداند یکی است." />
+
+## رویدادها و مقدار
+
+هر کامپوننت با تغییر مقدار رویداد `kashi-change` می‌فرستد و در `detail` اطلاعات مفیدی می‌دهد:
+
+```js
+const card = document.querySelector("kashi-card-number");
+card.addEventListener("kashi-change", (e) => {
+  console.log(e.detail); // { value: "6037…", valid: true, bank: "بانک ملی" }
+});
+card.value = "6037991234567893"; // مقدار از بیرون
+card.valid;                       // true
+```
+
+<Figure n={3} alt="فیلد شماره کارت در کنار پنل کنسول که جزئیات رویداد kashi-change شامل مقدار، معتبر بودن و نام بانک را نشان می‌دهد" caption="رویداد kashi-change علاوه بر مقدار، معتبر بودن و اطلاعات تکمیلی مثل نام بانک را هم می‌دهد." />
+
+## کی وب کامپوننت، کی React؟
+
+- **پروژهٔ React یا Next.js:** پکیج React طبیعی‌تر است؛ prop و state مستقیم و تایپ کامل دارد.
+- **Vue، Svelte، Angular، Astro یا HTML ساده:** وب کامپوننت‌ها.
+- **چند تیم با فریم‌ورک‌های مختلف:** وب کامپوننت‌ها تا همه یک کامپوننت مشترک داشته باشند.
+
+نکتهٔ مهم این است که در کاشی هر دو از یک CSS و یک منطق ساخته شده‌اند، پس ظاهر و رفتار در هر دو یکی است.
+
+## جمع‌بندی
+
+وب کامپوننت‌ها راه ساده‌ای برای آوردن کامپوننت‌های فارسی، مثل تقویم شمسی، کد ملی، کارت بانکی و شبا، به هر فریم‌ورکی هستند. با یک تگ `script` در HTML ساده و با یک خط تنظیم در Vue و Angular کار می‌کنند. فهرست کامل تگ‌ها، ویژگی‌ها و رویدادها را در [مستندات وب کامپوننت‌های کاشی](/docs/web-components/) ببینید.

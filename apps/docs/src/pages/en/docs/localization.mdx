@@ -1,0 +1,79 @@
+---
+layout: ../../../layouts/DocsEn.astro
+title: Using Kashi in English
+description: Every built-in text (buttons, screen reader labels, error messages, month names and digits) switches to English with one setting, and every component works left to right.
+fa: /docs/i18n/
+---
+
+Kashi is Persian by default. If your product has an English version, or is English-only but serves Iranian data (Jalali dates, Iranian IDs, Toman amounts), you don't have to relabel anything by hand.
+
+## React
+
+```tsx
+import { KashiProvider } from "@kashi-ui/react";
+
+export default function App({ children }) {
+  return <KashiProvider locale="en">{children}</KashiProvider>;
+}
+```
+
+Set the direction yourself with `dir="ltr"` on `<html>`. All Kashi styles use logical properties, so they lay out correctly in both directions. Any text prop you pass (`label`, `labels`, `invalidMessage`…) still wins over the default.
+
+| Prop | Type | Default | |
+|---|---|---|---|
+| `locale` | `"fa" \| "en"` | `"fa"` | Language of built-in text, month and weekday names |
+| `messages` | `KashiMessagesInput` | | Override any text; the rest comes from the base language |
+| `digits` | `"fa" \| "latin"` | `"fa"` for Persian, `"latin"` for English | Default digits; each component's `digits` prop wins |
+
+## What changes
+
+| | Persian | English |
+|---|---|---|
+| Buttons and labels | بستن، قبلی، بعدی | Close, Previous, Next |
+| Screen reader text | انتخاب تاریخ از تقویم | Choose a date from the calendar |
+| Error messages | کد ملی معتبر نیست. | Invalid national ID. |
+| Digits | ۱٬۲۵۰٬۰۰۰ | 1,250,000 |
+| Dates | شنبه ۱۶ آبان ۱۴۰۵ | Saturday, 16 Aban 1405 |
+| Bank and operator names | بانک ملت، همراه اول | Bank Mellat, Hamrah-e Aval |
+
+The calendar stays Jalali (Solar Hijri) with English month names (Farvardin, Aban…). Province and city names, license plate letters and the word «ایران» on plates stay Persian because they are part of the data.
+
+## Changing a few texts
+
+```tsx
+<KashiProvider locale="en" messages={{ common: { close: "Dismiss" }, form: { required: "This field is required." } }}>
+```
+
+The full dictionaries are exported as `faMessages` and `enMessages`, so you can see every key or build another language. In your own components, `useKashi()` gives you the same language, digits and month names:
+
+```tsx
+import { useKashi } from "@kashi-ui/react";
+
+function OrderCount({ count }: { count: number }) {
+  const { n, locale } = useKashi();
+  return <span>{locale === "en" ? `${n(count)} orders` : `${n(count)} سفارش`}</span>;
+}
+```
+
+## Web components
+
+```html
+<script type="module">
+  import { setLocale } from "https://cdn.jsdelivr.net/npm/@kashi-ui/elements/dist/cdn/kashi-elements.js";
+  setLocale("en");
+</script>
+```
+
+Call `setLocale` at the top of the page, before elements are created. Text attributes (`label`, `placeholder`, `close-label`…) still win.
+
+## Persian utilities
+
+The `@kashi-ui/persian` functions take a `locale` option too:
+
+```ts
+formatJalali(date, { style: "full", locale: "en" }); // Saturday, 16 Aban 1405
+formatRelative(date, { locale: "en" });              // 5 minutes ago
+formatMoney(1250000, { locale: "en" });              // 1,250,000 Toman
+numberToWords(1250000, { locale: "en" });            // one million two hundred fifty thousand
+getIranHoliday(date, { locale: "en" });              // Nowruz
+```

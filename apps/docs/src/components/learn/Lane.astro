@@ -1,0 +1,7 @@
+---
+const { when, hint } = Astro.props as { when: string; hint?: string };
+---
+<section class="pm-lane" aria-label={when}>
+  <header class="pm-lane__head"><span class="pm-lane__when">{when}</span>{hint && <span class="pm-lane__hint">{hint}</span>}</header>
+  <ul class="pm-lane__items" role="list"><slot /></ul>
+</section>

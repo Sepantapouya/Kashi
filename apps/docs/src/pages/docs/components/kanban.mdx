@@ -1,0 +1,54 @@
+---
+layout: ../../../layouts/Docs.astro
+title: کانبان
+description: تابلوی کانبان با ستون‌های کار؛ کارت‌ها را بین ستون‌ها بکشید یا با کیبورد جابه‌جا کنید، با سقف کارت هر ستون و اعلام جابه‌جایی برای صفحه‌خوان.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { KanbanDemo } from "../../../components/demos-extra";
+
+```tsx
+import { Kanban, type KanbanColumn } from "@kashi-ui/react";
+```
+
+## نمونه
+
+کارت را از هر جایش بکشید؛ ستونی که زیر آن است روشن می‌شود و کارت‌ها نرم جا باز می‌کنند. با کیبورد روی دستگیرهٔ کارت فاصله بزنید، بالا و پایین برای جای داخل ستون، چپ و راست برای ستون دیگر (در راست‌به‌چپ، چپ یعنی ستون بعد) و دوباره فاصله برای رها کردن.
+
+<Demo align="stretch" html={false} code={`const [columns, setColumns] = useState<KanbanColumn<Task>[]>([
+  { id: "todo", title: "برای انجام", items: [...] },
+  { id: "doing", title: "در حال انجام", limit: 2, items: [...] },
+  { id: "done", title: "انجام شد", items: [...] },
+]);
+
+<Kanban
+  columns={columns}
+  onChange={setColumns}
+  getId={(t) => t.id}
+  getLabel={(t) => t.title}
+  onAdd={(columnId) => openNewTask(columnId)}
+  renderCard={(t, { handle }) => (<>{handle}<TaskCard task={t} /></>)}
+/>`}>
+  <KanbanDemo client:only="react" />
+</Demo>
+
+`limit` سقف کارت (WIP) ستون است؛ اگر بیشتر شود شمارنده قرمز می‌شود ولی جلوی جابه‌جایی را نمی‌گیرد. `onChange` فقط با رها کردن صدا زده می‌شود. کلیک روی پیوند، دکمه یا فیلد داخل کارت کشیدن را شروع نمی‌کند و کشیدن فقط پس از چند پیکسل حرکت شروع می‌شود، پس کلیک ساده روی کارت هم کار می‌کند.
+
+## ویژگی‌ها
+
+<Props rows={[
+  ["columns", "{ id, title, label?, items, limit?, color? }[]", "", "ستون‌ها و کارت‌ها"],
+  ["getId / getLabel", "(item: T) => string", "", "شناسه و نام کارت"],
+  ["onChange", "(columns) => void", "", "با رها کردن کارت"],
+  ["renderCard", "(item, { handle, dragging }) => ReactNode", "", "محتوای کارت"],
+  ["onAdd", "(columnId: string) => void", "", "دکمهٔ «افزودن کارت» پایین ستون"],
+  ["addLabel", "string", '"افزودن کارت"', ""],
+  ["aria-label", "string", '"تابلو"', "نام تابلو"],
+]} />
+
+## دسترس‌پذیری
+
+- هر ستون یک `<section>` با عنوان است و صفحه‌خوان تعداد کارت‌هایش را می‌گوید.
+- دستگیرهٔ کارت نام کارت و ستونش را دارد و راهنمای کلیدها با `aria-describedby` به آن وصل است.
+- هر جابه‌جایی اعلام می‌شود: «اتصال درگاه پرداخت، ستون در حال انجام، جای ۲».
+- تابلو روی صفحهٔ باریک خودش افقی اسکرول می‌شود، نه کل صفحه.

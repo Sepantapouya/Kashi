@@ -27,16 +27,29 @@ const version = JSON.parse(readFileSync(join(root, "packages/react/package.json"
 const work = mkdtempSync(join(tmpdir(), "kashi-consumer-"));
 // بیرون از پوشه‌های کاری؛ npx خودِ verdaccio را باید از npm واقعی بگیرد، نه از رجیستری‌ای که هنوز بالا نیامده
 const npmrc = join(work, "npm-config");
+// فقط @kashi-ui از رجیستری موقت می‌آید؛ بقیهٔ پکیج‌ها (next، shadcn، …) مستقیم از npm واقعی.
+// قبلاً همه‌چیز از پروکسی verdaccio رد می‌شد و گاهی E404 می‌داد ("file doesn't exist on uplink" / "no such package available").
 // verdaccio برای انتشار بی‌نام هم یک توکن می‌خواهد؛ مقدارش مهم نیست
-writeFileSync(npmrc, `registry=${NPM}/\n//localhost:${NPM_PORT}/:_authToken=consumer-test\n`);
-const env = {
-  ...process.env,
-  npm_config_registry: `${NPM}/`,
+writeFileSync(
+  npmrc,
+  `registry=https://registry.npmjs.org/\n@kashi-ui:registry=${NPM}/\n//localhost:${NPM_PORT}/:_authToken=consumer-test\n`,
+);
+const overrides = {
+  npm_config_registry: "https://registry.npmjs.org/",
   npm_config_userconfig: npmrc,
+  // انتشار آزمایشی در verdaccio provenance نمی‌پذیرد (E400)؛ گردش کار Release آن را با NPM_CONFIG_PROVENANCE روشن می‌کند
+  npm_config_provenance: "false",
   npm_config_audit: "false",
   npm_config_fund: "false",
   npm_config_update_notifier: "false",
   NEXT_TELEMETRY_DISABLED: "1",
+};
+// npm هر دو شکل NPM_CONFIG_X و npm_config_x را می‌خواند (setup-node مثلاً NPM_CONFIG_USERCONFIG می‌گذارد)؛
+// شکل‌های به‌ارث‌رسیده با هر حروفی حذف می‌شوند تا فقط مقدار همین‌جا اثر کند.
+const overridden = new Set(Object.keys(overrides).map((k) => k.toLowerCase()));
+const env = {
+  ...Object.fromEntries(Object.entries(process.env).filter(([k]) => !overridden.has(k.toLowerCase()))),
+  ...overrides,
 };
 
 const children = [];

@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: پرسش، ایده و نمایش کار · Questions, ideas and show & tell
+    url: https://github.com/Sepantapouya/Kashi/discussions
+    about: پیش از ساختن Issue در Discussions بپرسید · Ask in Discussions before opening an issue
+  - name: پرسش و گفت‌وگو · Questions and discussion
+    url: https://t.me/kashidesign
+    about: کانال تلگرام کاشی · Kashi's Telegram channel
+  - name: گزارش آسیب‌پذیری امنیتی · Security vulnerability
+    url: https://github.com/Sepantapouya/Kashi/blob/main/SECURITY.md
+    about: لطفاً آسیب‌پذیری را عمومی گزارش نکنید · Please don't report vulnerabilities publicly
