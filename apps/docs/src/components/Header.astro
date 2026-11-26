@@ -121,6 +121,10 @@ const github = `<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
           <span class="hd__feature-art hd__feature-art--sheet" aria-hidden="true">
             <span class="hd__phone"><i></i><i></i><i></i><span class="hd__sheet"><em></em><i></i><i></i><u></u></span></span>
           </span>
+        ) : featured.art === "type" ? (
+          <span class="hd__feature-art hd__feature-art--type" aria-hidden="true">
+            {[300, 600, 900].map((w, i) => <span style={`--w:${w};--i:${i}`}>کاشی</span>)}
+          </span>
         ) : featured.art === "icons" ? (
           <span class="hd__feature-art hd__feature-art--icons" aria-hidden="true">
             {["home", "search", "calendar", "wallet", "credit-card", "bell", "heart", "chart", "user", "lock", "mail", "settings"].map((n, i) => <span style={`--i:${i}`} set:html={iconSvg(n, { size: 22, variant: i % 3 === 1 ? "bulk" : "light" })} />)}
