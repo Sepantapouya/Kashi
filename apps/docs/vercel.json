@@ -47,5 +47,22 @@
       "source": "/_next/:path*",
       "destination": "https://skills.sepantapouya.com/_next/:path*"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/pro",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/pro/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/templates/:path*",
+      "destination": "/",
+      "permanent": true
+    }
   ]
 }

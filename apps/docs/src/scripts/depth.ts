@@ -2,7 +2,7 @@
 // فقط با موس (pointer: fine) و وقتی کاربر کاهش حرکت نخواسته باشد.
 const SELECTOR = [
   ".gcard", ".pager__link", ".tile", ".ent__item", ".quality__item",
-  ".dh-card", ".ab-card", ".cmp-card", ".home-pro", "[data-tilt3d]",
+  ".dh-card", ".ab-card", ".cmp-card", "[data-tilt3d]",
 ].join(",");
 const MAX = 6; // درجه
 

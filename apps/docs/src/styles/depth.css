@@ -1,7 +1,7 @@
 /* ─────────────────────────────────────────────────────────────
    لایهٔ عمق (۳بعدی) — روی لایهٔ ظاهری enterprise.css و chrome.css
    فقط چیزی اضافه می‌کند که آن‌ها ندارند: سطح‌های لایه‌دار، کج شدن سه‌بعدی
-   با نشانگر (scripts/depth.ts)، دکمه‌های برجسته و نشان شناور کاشی سر صفحه‌ها.
+   با نشانگر (scripts/depth.ts) و نشان شناور کاشی سر صفحه‌ها.
    نور ملایم صفحه، نور دنبال‌کنندهٔ ماوس (data-spot) و سر صفحه از enterprise.css می‌آیند.
    هیچ‌چیز داخل .demo__preview و [data-visual] تغییر نمی‌کند (تست‌های بصری).
    ───────────────────────────────────────────────────────────── */
@@ -58,31 +58,8 @@
 @keyframes floor-run { to { background-position: 0 64px, 0 0; } }
 .docs { position: relative; isolation: isolate; }
 
-/* ───── دکمه‌های اصلی: برجسته با لبهٔ زیرین و فرورفتن هنگام فشار ─────
-   صفحهٔ اصلی هالهٔ نور خودش را از enterprise.css دارد */
-.k-btn--primary:not(.demo__preview *, .product *, .gcard *, [data-visual] *) {
-  background-image: linear-gradient(180deg, color-mix(in srgb, #fff 16%, transparent), transparent 55%);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, #fff 30%, transparent),
-    inset 0 -2px 0 color-mix(in srgb, #000 22%, transparent),
-    0 1px 2px rgb(0 0 0 / 0.2),
-    0 8px 20px -8px color-mix(in srgb, var(--k-bg-brand) 70%, transparent);
-  transition: transform var(--k-duration-fast) var(--d-ease), box-shadow var(--k-duration-fast), background-color var(--k-duration-fast);
-}
-.k-btn--primary:not(.demo__preview *, .product *, .gcard *, [data-visual] *):hover { transform: translateY(-1px); }
-.k-btn--primary:not(.demo__preview *, .product *, .gcard *, [data-visual] *):active {
-  transform: translateY(1px);
-  box-shadow: inset 0 2px 4px color-mix(in srgb, #000 28%, transparent), 0 1px 1px rgb(0 0 0 / 0.2);
-}
-.k-btn--secondary:not(.demo__preview *, .product *, .gcard *, [data-visual] *) {
-  box-shadow: inset 0 1px 0 var(--d-edge), 0 1px 2px rgb(0 0 0 / 0.14);
-  transition: transform var(--k-duration-fast) var(--d-ease), box-shadow var(--k-duration-fast), background-color var(--k-duration-fast), border-color var(--k-duration-fast);
-}
-.k-btn--secondary:not(.demo__preview *, .product *, .gcard *, [data-visual] *):hover { transform: translateY(-1px); }
-.k-btn--secondary:not(.demo__preview *, .product *, .gcard *, [data-visual] *):active { transform: translateY(1px); box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.18); }
-
 /* ───── سطح‌ها: «اسلب»‌های لایه‌دار با نور از بالا ───── */
-:is(.gcard, .pager__link, .demo, .codeblock, .table-wrap, .home-pro, .dh-card, .ab-card, .cmp-card) {
+:is(.gcard, .pager__link, .demo, .codeblock, .table-wrap, .dh-card, .ab-card, .cmp-card) {
   box-shadow: inset 0 1px 0 var(--d-edge), var(--d-slab);
 }
 /* کج شدن با نشانگر: depth.ts متغیرهای --rx و --ry را می‌دهد */
@@ -102,7 +79,7 @@
 }
 [data-tilt3d]:not([data-spot]):hover::before { opacity: 1; }
 [data-theme="light"] [data-tilt3d]:not([data-spot])::before { background: radial-gradient(28rem circle at var(--gx, 50%) var(--gy, 0%), color-mix(in srgb, #fff 55%, transparent), transparent 45%); }
-.gcard[data-tilt3d], .pager__link[data-tilt3d], .home-pro[data-tilt3d] { position: relative; }
+.gcard[data-tilt3d], .pager__link[data-tilt3d] { position: relative; }
 
 /* ───── سر صفحهٔ مستندات: نشان سه‌بعدی کاشی، زیر ردیف مسیر و دکمه‌ها ───── */
 .page-head > .page-head__art { position: absolute; inset-block-start: 2.75rem; inset-inline-end: -0.5rem; opacity: 0.9; }

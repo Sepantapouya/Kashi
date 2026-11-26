@@ -825,11 +825,6 @@ const chips = [
       </div>
     </section>
   </main>
-  <section class="home-pro" aria-label="کاشی پرو">
-    <div><span>کاشی پرو · صفحات آماده</span><h2>از یک صفحهٔ آماده شروع کنید.</h2><p>قالب‌های فارسی، ساخته‌شده با کامپوننت‌های کاشی. هر قالب، یک انتخاب مستقل برای محصول شما.</p></div>
-    <a class="k-btn k-btn--secondary" href="/pro/">دیدن قالب‌های پرو ←</a>
-  </section>
-  <style>.home-pro{max-width:1152px;margin:48px auto;padding:32px;display:flex;align-items:center;justify-content:space-between;gap:24px;background:var(--k-bg-secondary);border:1px solid var(--k-border-secondary);border-radius:var(--k-radius-xl)}.home-pro span{font-size:var(--k-text-sm);color:var(--k-text-brand)}.home-pro h2{font-size:var(--k-text-2xl);margin:12px 0}.home-pro p{color:var(--k-text-tertiary);line-height:1.9}.home-pro>a{flex-shrink:0}@media(max-width:750px){.home-pro{margin:32px 20px;padding:24px;flex-direction:column;align-items:start}}</style>
   <Footer cta={false} />
 </Base>
 
@@ -946,8 +941,6 @@ const chips = [
   .hero__accent { color: var(--k-text-brand); }
   .hero__lead { inline-size: min(100%, 40rem); max-inline-size: 40rem; margin: 0; color: var(--k-text-tertiary); font-size: var(--k-text-lg); line-height: 1.95; text-wrap: pretty; }
   .hero__actions { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: var(--k-space-3); margin-block-start: var(--k-space-7, 1.75rem); }
-  .hero__cta { position: relative; overflow: hidden; }
-  .hero__cta::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.35) 50%, transparent 70%); translate: 120% 0; pointer-events: none; }
   .hero__install { inline-size: min(100%, 26rem); margin-block-start: var(--k-space-4); text-align: start; }
   .proof { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: var(--k-space-2) var(--k-space-5); margin-block-start: var(--k-space-6); color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
   .proof b { color: var(--k-text-primary); font-weight: var(--k-weight-bold); }
@@ -1029,7 +1022,6 @@ const chips = [
   @media (prefers-reduced-motion: no-preference) {
     :global(.js) [data-reveal] { filter: blur(4px); transition: opacity 0.7s var(--k-ease-standard), translate 0.7s var(--k-ease-standard), filter 0.7s var(--k-ease-standard); }
     :global(.js) [data-reveal].is-in { filter: none; }
-    .hero__cta:hover::after { translate: -120% 0; transition: translate 0.8s var(--k-ease-standard); }
     .chip { animation: float 6s ease-in-out infinite; }
     .chip--2 { animation-delay: -1.5s; } .chip--3 { animation-delay: -3s; } .chip--4 { animation-delay: -4.5s; }
     .iconset__grid.is-swapping .iconset__glyph:not([hidden]) { animation: pop 0.45s var(--k-ease-standard) both; animation-delay: calc(var(--i, 0) * 14ms); }

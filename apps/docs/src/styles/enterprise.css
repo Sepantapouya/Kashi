@@ -306,8 +306,6 @@ main.home .hero__accent {
 @keyframes sheen { 0% { background-position: 100% 0; } 35%, 100% { background-position: -50% 0; } }
 
 /* دکمهٔ اصلی با هالهٔ نور برند */
-main.home .k-btn--primary { box-shadow: 0 0 0 1px color-mix(in srgb, var(--k-text-brand) 40%, transparent), 0 10px 30px -12px var(--k-bg-brand); transition: box-shadow var(--k-duration-normal), background-color var(--k-duration-fast), scale var(--k-duration-fast) var(--k-ease-spring); }
-main.home .k-btn--primary:hover { box-shadow: 0 0 0 1px color-mix(in srgb, var(--k-text-brand) 60%, transparent), 0 14px 40px -10px var(--k-bg-brand); }
 
 /* کارت‌های شیشه‌ای و مرز روشن بالای هر کارت */
 main.home :is(.tile, .sysmap, .metrics, .adopt, .ci, .aiband__chat, .iconset, .product) {

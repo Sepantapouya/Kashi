@@ -15,7 +15,6 @@
 .kf-hero__row{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:end}
 .kf-hero__lead{font-size:var(--k-text-lg);line-height:2.05;color:#c2f4ee;font-weight:350}.kf-hero__lead b{font-weight:800;color:#fff}
 .kf-hero__actions{display:flex;align-items:center;justify-content:flex-end;gap:24px;flex-wrap:wrap}
-.kf-hero .k-btn--primary{background:var(--kf-teal);color:var(--kf-ink);border-color:transparent}.kf-hero .k-btn--primary:hover{background:#4fd8cb}
 .kf-hero .k-btn span,.kf-cta .k-btn span,.kf-link span{display:inline-flex}
 .kf-link{display:inline-flex;align-items:center;gap:8px;color:var(--kf-mint);font-size:var(--k-text-sm)}.kf-link:hover{color:#fff}
 .kf-hero__axis{display:flex;align-items:center;gap:14px;margin-top:36px;font-size:12px;color:var(--kf-mint)}
