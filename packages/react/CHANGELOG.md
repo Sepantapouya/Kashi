@@ -1,5 +1,14 @@
 # @kashi-ui/react
 
+## 2.17.0
+
+### Patch Changes
+
+- Updated dependencies [ae0827d]
+  - @kashi-ui/css@2.17.0
+  - @kashi-ui/bank-logos@2.17.0
+  - @kashi-ui/persian@2.17.0
+
 ## 2.16.0
 
 ### Minor Changes
