@@ -1,0 +1,17 @@
+# gftools-builder recipe for the Google Fonts release (variable font only).
+# The full release set (statics, WOFF2, FaNum and NoEn builds) comes from sources/build.sh.
+#   pip install gftools
+#   gftools builder sources/config.yaml
+sources:
+  - ufo/Kashi/Kashi.designspace
+familyName: Kashi
+axisOrder:
+  - wght
+  - wdth
+buildVariable: true
+buildStatic: false
+buildOTF: false
+buildWebfont: false
+buildSmallCap: false
+outputDir: ../fonts/GoogleFonts
+vfDir: ../fonts/GoogleFonts/variable

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Ncaron.smcp" format="2">
+  <advance width="1450"/>
+  <anchor x="731" y="1289" name="Anchor-0"/>
+  <anchor x="726" y="4" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="1333" y="1137" type="line"/>
+      <point x="1333" y="0" type="line"/>
+      <point x="998" y="0" type="line"/>
+      <point x="452" y="729" type="line"/>
+      <point x="452" y="0" type="line"/>
+      <point x="118" y="0" type="line"/>
+      <point x="118" y="1137" type="line"/>
+      <point x="452" y="1137" type="line"/>
+      <point x="998" y="410" type="line"/>
+      <point x="998" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="557" y="1529" type="line"/>
+      <point x="731" y="1387" type="line"/>
+      <point x="905" y="1529" type="line"/>
+      <point x="1189" y="1529" type="line"/>
+      <point x="1189" y="1519" type="line"/>
+      <point x="838" y="1245" type="line"/>
+      <point x="625" y="1245" type="line"/>
+      <point x="272" y="1520" type="line"/>
+      <point x="272" y="1529" type="line"/>
+    </contour>
+  </outline>
+</glyph>

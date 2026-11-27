@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFEA9" format="2">
+  <advance width="957"/>
+  <unicode hex="FEA9"/>
+  <anchor x="440" y="-252" name="Anchor-2"/>
+  <anchor x="373" y="1155" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="308" y="59" type="qcurve"/>
+      <point x="256" y="59"/>
+      <point x="204" y="63"/>
+      <point x="134" y="72" type="qcurve"/>
+      <point x="134" y="16" type="line"/>
+      <point x="196" y="6"/>
+      <point x="253" y="2"/>
+      <point x="323" y="2" type="qcurve"/>
+      <point x="612" y="2"/>
+      <point x="732" y="42"/>
+      <point x="823" y="113"/>
+      <point x="823" y="310" type="qcurve"/>
+      <point x="823" y="487"/>
+      <point x="774" y="569"/>
+      <point x="687" y="666"/>
+      <point x="615" y="726"/>
+      <point x="387" y="835" type="qcurve"/>
+      <point x="359" y="784" type="line"/>
+      <point x="582" y="673"/>
+      <point x="680" y="586"/>
+      <point x="766" y="476"/>
+      <point x="766" y="307" type="qcurve"/>
+      <point x="766" y="141"/>
+      <point x="670" y="84"/>
+      <point x="560" y="59"/>
+    </contour>
+  </outline>
+</glyph>

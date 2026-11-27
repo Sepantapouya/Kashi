@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="W.smcp" format="2">
+  <advance width="1833"/>
+  <anchor x="921" y="1289" name="Anchor-0"/>
+  <anchor x="921" y="9" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="541" y="272" type="line"/>
+      <point x="842" y="1137" type="line"/>
+      <point x="975" y="1137" type="line"/>
+      <point x="916" y="903" type="line"/>
+      <point x="592" y="0" type="line"/>
+      <point x="462" y="0" type="line"/>
+    </contour>
+    <contour>
+      <point x="244" y="1137" type="line"/>
+      <point x="490" y="286" type="line"/>
+      <point x="548" y="0" type="line"/>
+      <point x="417" y="0" type="line"/>
+      <point x="58" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="1357" y="287" type="line"/>
+      <point x="1601" y="1137" type="line"/>
+      <point x="1787" y="1137" type="line"/>
+      <point x="1429" y="0" type="line"/>
+      <point x="1297" y="0" type="line"/>
+    </contour>
+    <contour>
+      <point x="1009" y="1137" type="line"/>
+      <point x="1307" y="270" type="line"/>
+      <point x="1383" y="0" type="line"/>
+      <point x="1254" y="0" type="line"/>
+      <point x="937" y="903" type="line"/>
+      <point x="877" y="1137" type="line"/>
+    </contour>
+  </outline>
+</glyph>

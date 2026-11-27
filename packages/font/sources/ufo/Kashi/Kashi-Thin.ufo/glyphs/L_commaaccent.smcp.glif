@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Lcommaaccent.smcp" format="2">
+  <advance width="889"/>
+  <anchor x="228" y="1289" name="Anchor-0"/>
+  <anchor x="514" y="7" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="843" y="50" type="line"/>
+      <point x="843" y="0" type="line"/>
+      <point x="187" y="0" type="line"/>
+      <point x="187" y="50" type="line"/>
+    </contour>
+    <contour>
+      <point x="216" y="1137" type="line"/>
+      <point x="216" y="0" type="line"/>
+      <point x="167" y="0" type="line"/>
+      <point x="167" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="550" y="-89" type="line"/>
+      <point x="550" y="-164" type="line"/>
+      <point x="550" y="-242"/>
+      <point x="505" y="-356"/>
+      <point x="467" y="-398" type="qcurve"/>
+      <point x="433" y="-369" type="line"/>
+      <point x="467" y="-319"/>
+      <point x="500" y="-230"/>
+      <point x="500" y="-166" type="qcurve"/>
+      <point x="500" y="-89" type="line"/>
+    </contour>
+  </outline>
+</glyph>

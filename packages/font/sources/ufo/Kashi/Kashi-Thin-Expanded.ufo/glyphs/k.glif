@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="k" format="2">
+  <advance width="1130"/>
+  <unicode hex="006B"/>
+  <anchor x="644" y="1573" name="Anchor-0"/>
+  <anchor x="620" y="69" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="257" y="1499" type="line"/>
+      <point x="257" y="0" type="line"/>
+      <point x="204" y="0" type="line"/>
+      <point x="204" y="1499" type="line"/>
+    </contour>
+    <contour>
+      <point x="1075" y="1056" type="line"/>
+      <point x="438" y="569" type="line"/>
+      <point x="251" y="438" type="line"/>
+      <point x="227" y="466" type="line"/>
+      <point x="408" y="606" type="line"/>
+      <point x="997" y="1056" type="line"/>
+    </contour>
+    <contour>
+      <point x="1040" y="0" type="line"/>
+      <point x="423" y="598" type="line"/>
+      <point x="461" y="632" type="line"/>
+      <point x="1110" y="0" type="line"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFE77" format="2">
+  <advance width="756"/>
+  <unicode hex="FE77"/>
+  <anchor x="371" y="-230" name="Anchor-2"/>
+  <anchor x="380" y="1294" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="-23" y="279" type="line"/>
+      <point x="-23" y="0" type="line"/>
+      <point x="397" y="0" type="line"/>
+      <point x="397" y="279" type="line"/>
+    </contour>
+    <contour>
+      <point x="360" y="279" type="line"/>
+      <point x="360" y="0" type="line"/>
+      <point x="779" y="0" type="line"/>
+      <point x="779" y="279" type="line"/>
+    </contour>
+    <contour>
+      <point x="101" y="1031" type="line"/>
+      <point x="652" y="1188" type="line"/>
+      <point x="652" y="1279" type="line"/>
+      <point x="101" y="1131" type="line"/>
+    </contour>
+  </outline>
+</glyph>

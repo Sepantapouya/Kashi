@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="arabic_dot" format="2">
+  <advance width="246"/>
+  <outline>
+    <contour>
+      <point x="208" y="-34" type="line"/>
+      <point x="235" y="-34"/>
+      <point x="257" y="-12"/>
+      <point x="257" y="15" type="curve"/>
+      <point x="257" y="190" type="line"/>
+      <point x="257" y="217"/>
+      <point x="235" y="239"/>
+      <point x="208" y="239" type="curve"/>
+      <point x="33" y="239" type="line"/>
+      <point x="6" y="239"/>
+      <point x="-16" y="217"/>
+      <point x="-16" y="190" type="curve"/>
+      <point x="-16" y="15" type="line"/>
+      <point x="-16" y="-12"/>
+      <point x="6" y="-34"/>
+      <point x="33" y="-34" type="curve"/>
+    </contour>
+  </outline>
+</glyph>

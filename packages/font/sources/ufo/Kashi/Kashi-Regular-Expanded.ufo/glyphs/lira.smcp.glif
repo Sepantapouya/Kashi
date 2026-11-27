@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="lira.smcp" format="2">
+  <advance width="1240"/>
+  <outline>
+    <contour>
+      <point x="917" y="664" type="line"/>
+      <point x="917" y="559" type="line"/>
+      <point x="54" y="559" type="line"/>
+      <point x="54" y="664" type="line"/>
+    </contour>
+    <contour>
+      <point x="917" y="442" type="line"/>
+      <point x="917" y="338" type="line"/>
+      <point x="54" y="338" type="line"/>
+      <point x="54" y="442" type="line"/>
+    </contour>
+    <contour>
+      <point x="1162" y="0" type="line"/>
+      <point x="125" y="0" type="line"/>
+      <point x="125" y="128" type="line"/>
+      <point x="1162" y="128" type="line"/>
+    </contour>
+    <contour>
+      <point x="436" y="727" type="qcurve"/>
+      <point x="445" y="455" type="line"/>
+      <point x="449" y="375"/>
+      <point x="426" y="225"/>
+      <point x="365" y="105"/>
+      <point x="312" y="68" type="qcurve"/>
+      <point x="136" y="128" type="line"/>
+      <point x="175" y="139"/>
+      <point x="226" y="208"/>
+      <point x="253" y="306"/>
+      <point x="263" y="411"/>
+      <point x="261" y="455" type="qcurve"/>
+      <point x="251" y="727" type="line"/>
+      <point x="241" y="928"/>
+      <point x="478" y="1153"/>
+      <point x="680" y="1153" type="qcurve"/>
+      <point x="830" y="1153"/>
+      <point x="1023" y="1058"/>
+      <point x="1116" y="888"/>
+      <point x="1116" y="775" type="qcurve"/>
+      <point x="931" y="775" type="line"/>
+      <point x="931" y="911"/>
+      <point x="789" y="1022"/>
+      <point x="680" y="1022" type="qcurve"/>
+      <point x="562" y="1022"/>
+      <point x="430" y="872"/>
+    </contour>
+  </outline>
+</glyph>

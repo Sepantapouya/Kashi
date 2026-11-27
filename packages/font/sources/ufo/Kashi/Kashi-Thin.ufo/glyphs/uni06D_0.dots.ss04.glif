@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni06D0.dots.ss04" format="2">
+  <advance width="549"/>
+  <outline>
+    <contour>
+      <point x="320" y="253" type="curve"/>
+      <point x="320" y="282"/>
+      <point x="296" y="306"/>
+      <point x="267" y="306" type="curve"/>
+      <point x="238" y="306"/>
+      <point x="214" y="282"/>
+      <point x="214" y="253" type="curve"/>
+      <point x="214" y="224"/>
+      <point x="238" y="200"/>
+      <point x="267" y="200" type="curve"/>
+      <point x="296" y="200"/>
+      <point x="320" y="224"/>
+    </contour>
+    <contour>
+      <point x="320" y="20" type="curve"/>
+      <point x="320" y="49"/>
+      <point x="296" y="73"/>
+      <point x="267" y="73" type="curve"/>
+      <point x="238" y="73"/>
+      <point x="214" y="49"/>
+      <point x="214" y="20" type="curve"/>
+      <point x="214" y="-9"/>
+      <point x="238" y="-33"/>
+      <point x="267" y="-33" type="curve"/>
+      <point x="296" y="-33"/>
+      <point x="320" y="-9"/>
+    </contour>
+  </outline>
+</glyph>

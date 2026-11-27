@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Oslashacute" format="2">
+  <advance width="1372"/>
+  <unicode hex="01FE"/>
+  <anchor x="698" y="1635" name="Anchor-0"/>
+  <outline>
+    <contour>
+      <point x="1274" y="1479" type="line"/>
+      <point x="296" y="-89" type="line"/>
+      <point x="162" y="-89" type="line"/>
+      <point x="1141" y="1479" type="line"/>
+    </contour>
+    <contour>
+      <point x="1256" y="760" type="qcurve"/>
+      <point x="1256" y="662" type="line"/>
+      <point x="1256" y="452"/>
+      <point x="1115" y="145"/>
+      <point x="860" y="-20"/>
+      <point x="689" y="-20" type="qcurve"/>
+      <point x="521" y="-20"/>
+      <point x="262" y="145"/>
+      <point x="118" y="452"/>
+      <point x="118" y="662" type="qcurve"/>
+      <point x="118" y="760" type="line"/>
+      <point x="118" y="971"/>
+      <point x="261" y="1277"/>
+      <point x="519" y="1442"/>
+      <point x="687" y="1442" type="qcurve"/>
+      <point x="858" y="1442"/>
+      <point x="1115" y="1277"/>
+      <point x="1256" y="971"/>
+    </contour>
+    <contour>
+      <point x="1078" y="662" type="qcurve"/>
+      <point x="1078" y="762" type="line"/>
+      <point x="1078" y="931"/>
+      <point x="985" y="1166"/>
+      <point x="811" y="1288"/>
+      <point x="687" y="1288" type="qcurve"/>
+      <point x="567" y="1288"/>
+      <point x="392" y="1166"/>
+      <point x="294" y="931"/>
+      <point x="294" y="762" type="qcurve"/>
+      <point x="294" y="662" type="line"/>
+      <point x="294" y="491"/>
+      <point x="392" y="255"/>
+      <point x="569" y="132"/>
+      <point x="689" y="132" type="qcurve"/>
+      <point x="813" y="132"/>
+      <point x="987" y="255"/>
+      <point x="1078" y="491"/>
+    </contour>
+    <contour>
+      <point x="603" y="1590" type="line"/>
+      <point x="792" y="1875" type="line"/>
+      <point x="999" y="1875" type="line"/>
+      <point x="742" y="1590" type="line"/>
+    </contour>
+  </outline>
+</glyph>

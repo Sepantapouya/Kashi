@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFE7E" format="2">
+  <advance width="739"/>
+  <unicode hex="FE7E"/>
+  <anchor x="356" y="-216" name="Anchor-2"/>
+  <anchor x="365" y="1258" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="247" y="1052" type="qcurve"/>
+      <point x="247" y="1109"/>
+      <point x="289" y="1138"/>
+      <point x="370" y="1138" type="qcurve"/>
+      <point x="449" y="1138"/>
+      <point x="491" y="1109"/>
+      <point x="491" y="1052" type="qcurve"/>
+      <point x="491" y="993"/>
+      <point x="449" y="961"/>
+      <point x="370" y="961" type="qcurve"/>
+      <point x="289" y="961"/>
+      <point x="247" y="993"/>
+    </contour>
+    <contour>
+      <point x="155" y="1052" type="qcurve"/>
+      <point x="155" y="946"/>
+      <point x="230" y="886"/>
+      <point x="370" y="886" type="qcurve"/>
+      <point x="509" y="886"/>
+      <point x="584" y="946"/>
+      <point x="584" y="1052" type="qcurve"/>
+      <point x="584" y="1148"/>
+      <point x="509" y="1199"/>
+      <point x="370" y="1199" type="qcurve"/>
+      <point x="230" y="1199"/>
+      <point x="155" y="1148"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Kcommaaccent.smcp" format="2">
+  <advance width="1104"/>
+  <anchor x="506" y="1289" name="Anchor-0"/>
+  <anchor x="520" y="6" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="399" y="1137" type="line"/>
+      <point x="399" y="0" type="line"/>
+      <point x="85" y="0" type="line"/>
+      <point x="85" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="1119" y="1137" type="line"/>
+      <point x="659" y="544" type="line"/>
+      <point x="397" y="286" type="line"/>
+      <point x="315" y="558" type="line"/>
+      <point x="487" y="802" type="line"/>
+      <point x="727" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="755" y="0" type="line"/>
+      <point x="458" y="499" type="line"/>
+      <point x="704" y="667" type="line"/>
+      <point x="1122" y="0" type="line"/>
+    </contour>
+    <contour>
+      <point x="596" y="-78" type="line"/>
+      <point x="596" y="-147" type="line"/>
+      <point x="596" y="-242"/>
+      <point x="513" y="-435"/>
+      <point x="458" y="-496" type="qcurve"/>
+      <point x="308" y="-418" type="line"/>
+      <point x="341" y="-366"/>
+      <point x="382" y="-250"/>
+      <point x="382" y="-164" type="qcurve"/>
+      <point x="382" y="-78" type="line"/>
+    </contour>
+  </outline>
+</glyph>

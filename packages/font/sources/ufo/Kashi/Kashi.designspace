@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<designspace format="5.0">
+  <axes>
+    <axis tag="wght" name="Weight" minimum="100" maximum="900" default="400">
+      <map input="100" output="100"/>
+      <map input="200" output="250"/>
+      <map input="300" output="325"/>
+      <map input="400" output="400"/>
+      <map input="500" output="583.69"/>
+      <map input="600" output="661.23"/>
+      <map input="700" output="738.78"/>
+      <map input="800" output="819.37"/>
+      <map input="900" output="900"/>
+    </axis>
+    <axis tag="wdth" name="Width" minimum="100" maximum="125" default="100"/>
+  </axes>
+  <sources>
+    <source filename="Kashi-Thin.ufo" name="Thin" familyname="Kashi" stylename="Thin">
+      <location><dimension name="Weight" xvalue="100"/><dimension name="Width" xvalue="100"/></location>
+    </source>
+    <source filename="Kashi-Regular.ufo" name="Regular" familyname="Kashi" stylename="Regular">
+      <location><dimension name="Weight" xvalue="400"/><dimension name="Width" xvalue="100"/></location>
+    </source>
+    <source filename="Kashi-Black.ufo" name="Black" familyname="Kashi" stylename="Black">
+      <location><dimension name="Weight" xvalue="900"/><dimension name="Width" xvalue="100"/></location>
+    </source>
+    <source filename="Kashi-Thin-Expanded.ufo" name="Thin Expanded" familyname="Kashi" stylename="Thin Expanded">
+      <location><dimension name="Weight" xvalue="100"/><dimension name="Width" xvalue="125"/></location>
+    </source>
+    <source filename="Kashi-Regular-Expanded.ufo" name="Regular Expanded" familyname="Kashi" stylename="Regular Expanded">
+      <location><dimension name="Weight" xvalue="400"/><dimension name="Width" xvalue="125"/></location>
+    </source>
+    <source filename="Kashi-Black-Expanded.ufo" name="Black Expanded" familyname="Kashi" stylename="Black Expanded">
+      <location><dimension name="Weight" xvalue="900"/><dimension name="Width" xvalue="125"/></location>
+    </source>
+  </sources>
+</designspace>

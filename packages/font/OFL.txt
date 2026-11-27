@@ -1,4 +1,4 @@
-Copyright 2015 The Vazirmatn Project Authors (https://github.com/rastikerdar/vazirmatn), Copyright 2026 The Dastkhat Project Authors (https://github.com/dastyar-io/dastkhat-font), Copyright 2026 The Kashi Project Authors (https://github.com/Sepantapouya/Kashi)
+Copyright 2026 The Kashi Project Authors (https://github.com/Sepantapouya/Kashi), Copyright 2015 The Vazirmatn Project Authors (https://github.com/rastikerdar/vazirmatn), Copyright 2026 The Dastkhat Project Authors (https://github.com/dastyar-io/dastkhat-font)
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:

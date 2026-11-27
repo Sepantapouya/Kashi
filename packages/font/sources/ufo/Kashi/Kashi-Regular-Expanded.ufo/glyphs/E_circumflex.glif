@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Ecircumflex" format="2">
+  <advance width="1365"/>
+  <unicode hex="00CA"/>
+  <anchor x="726" y="1574" name="Anchor-0"/>
+  <anchor x="726" y="9" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="1280" y="132" type="line"/>
+      <point x="1280" y="0" type="line"/>
+      <point x="353" y="0" type="line"/>
+      <point x="353" y="132" type="line"/>
+    </contour>
+    <contour>
+      <point x="398" y="1422" type="line"/>
+      <point x="398" y="0" type="line"/>
+      <point x="205" y="0" type="line"/>
+      <point x="205" y="1422" type="line"/>
+    </contour>
+    <contour>
+      <point x="1160" y="800" type="line"/>
+      <point x="1160" y="667" type="line"/>
+      <point x="353" y="667" type="line"/>
+      <point x="353" y="800" type="line"/>
+    </contour>
+    <contour>
+      <point x="1270" y="1422" type="line"/>
+      <point x="1270" y="1288" type="line"/>
+      <point x="353" y="1288" type="line"/>
+      <point x="353" y="1422" type="line"/>
+    </contour>
+    <contour>
+      <point x="782" y="1810" type="line"/>
+      <point x="1070" y="1549" type="line"/>
+      <point x="1070" y="1539" type="line"/>
+      <point x="910" y="1539" type="line"/>
+      <point x="726" y="1710" type="line"/>
+      <point x="542" y="1539" type="line"/>
+      <point x="386" y="1539" type="line"/>
+      <point x="386" y="1551" type="line"/>
+      <point x="669" y="1810" type="line"/>
+    </contour>
+  </outline>
+</glyph>

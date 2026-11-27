@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="dotbelow" format="2">
+  <unicode hex="0323"/>
+  <anchor x="-752" y="0" name="_Anchor-1"/>
+  <anchor x="-752" y="-372" name="Anchor-4"/>
+  <anchor x="-752" y="0" name="_Anchor-4"/>
+  <outline>
+    <contour>
+      <point x="-956" y="-248" type="qcurve"/>
+      <point x="-956" y="-187"/>
+      <point x="-847" y="-106"/>
+      <point x="-755" y="-106" type="qcurve"/>
+      <point x="-663" y="-106"/>
+      <point x="-553" y="-187"/>
+      <point x="-553" y="-248" type="qcurve"/>
+      <point x="-553" y="-307"/>
+      <point x="-663" y="-387"/>
+      <point x="-755" y="-387" type="qcurve"/>
+      <point x="-847" y="-387"/>
+      <point x="-956" y="-307"/>
+    </contour>
+  </outline>
+</glyph>

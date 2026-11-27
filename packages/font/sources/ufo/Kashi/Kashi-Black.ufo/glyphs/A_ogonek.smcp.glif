@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Aogonek.smcp" format="2">
+  <advance width="1177"/>
+  <anchor x="567" y="1289" name="Anchor-0"/>
+  <anchor x="579" y="0" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="583" y="800" type="line"/>
+      <point x="306" y="0" type="line"/>
+      <point x="-8" y="0" type="line"/>
+      <point x="435" y="1137" type="line"/>
+      <point x="651" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="870" y="0" type="line"/>
+      <point x="586" y="799" type="line"/>
+      <point x="516" y="1137" type="line"/>
+      <point x="735" y="1137" type="line"/>
+      <point x="1184" y="0" type="line"/>
+    </contour>
+    <contour>
+      <point x="872" y="424" type="line"/>
+      <point x="872" y="208" type="line"/>
+      <point x="256" y="208" type="line"/>
+      <point x="256" y="424" type="line"/>
+    </contour>
+    <contour>
+      <point x="947" y="59" type="qcurve"/>
+      <point x="1116" y="0" type="line"/>
+      <point x="1038" y="-40"/>
+      <point x="970" y="-113"/>
+      <point x="970" y="-164" type="qcurve"/>
+      <point x="970" y="-190"/>
+      <point x="998" y="-226"/>
+      <point x="1031" y="-226" type="qcurve"/>
+      <point x="1057" y="-226"/>
+      <point x="1089" y="-213"/>
+      <point x="1101" y="-208" type="qcurve"/>
+      <point x="1137" y="-366" type="line"/>
+      <point x="1112" y="-381"/>
+      <point x="1034" y="-410"/>
+      <point x="975" y="-410" type="qcurve"/>
+      <point x="879" y="-410"/>
+      <point x="743" y="-303"/>
+      <point x="743" y="-203" type="qcurve"/>
+      <point x="743" y="-154"/>
+      <point x="779" y="-62"/>
+      <point x="867" y="22"/>
+    </contour>
+  </outline>
+</glyph>

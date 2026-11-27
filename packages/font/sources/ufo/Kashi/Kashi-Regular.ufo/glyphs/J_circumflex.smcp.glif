@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Jcircumflex.smcp" format="2">
+  <advance width="951"/>
+  <anchor x="717" y="1289" name="Anchor-0"/>
+  <anchor x="446" y="-9" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="650" y="331" type="qcurve"/>
+      <point x="650" y="1137" type="line"/>
+      <point x="822" y="1137" type="line"/>
+      <point x="822" y="331" type="line"/>
+      <point x="822" y="223"/>
+      <point x="724" y="67"/>
+      <point x="554" y="-16"/>
+      <point x="445" y="-16" type="qcurve"/>
+      <point x="331" y="-16"/>
+      <point x="149" y="58"/>
+      <point x="45" y="208"/>
+      <point x="45" y="322" type="qcurve"/>
+      <point x="218" y="322" type="line"/>
+      <point x="218" y="218"/>
+      <point x="341" y="126"/>
+      <point x="445" y="126" type="qcurve"/>
+      <point x="537" y="126"/>
+      <point x="650" y="234"/>
+    </contour>
+    <contour>
+      <point x="772" y="1528" type="line"/>
+      <point x="1012" y="1263" type="line"/>
+      <point x="1012" y="1254" type="line"/>
+      <point x="868" y="1254" type="line"/>
+      <point x="719" y="1420" type="line"/>
+      <point x="571" y="1254" type="line"/>
+      <point x="429" y="1254" type="line"/>
+      <point x="429" y="1264" type="line"/>
+      <point x="668" y="1528" type="line"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="ycircumflex" format="2">
+  <advance width="947"/>
+  <unicode hex="0177"/>
+  <anchor x="496" y="1260" name="Anchor-0"/>
+  <anchor x="695" y="-154" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="439" y="109" type="line"/>
+      <point x="738" y="1056" type="line"/>
+      <point x="922" y="1056" type="line"/>
+      <point x="495" y="-164" type="line"/>
+      <point x="480" y="-203"/>
+      <point x="434" y="-293"/>
+      <point x="360" y="-375"/>
+      <point x="256" y="-426"/>
+      <point x="184" y="-426" type="qcurve"/>
+      <point x="163" y="-426"/>
+      <point x="98" y="-415"/>
+      <point x="84" y="-412" type="qcurve"/>
+      <point x="83" y="-272" type="line"/>
+      <point x="91" y="-273"/>
+      <point x="126" y="-276"/>
+      <point x="133" y="-276" type="qcurve"/>
+      <point x="227" y="-276"/>
+      <point x="330" y="-197"/>
+      <point x="362" y="-101" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="210" y="1056" type="line"/>
+      <point x="494" y="225" type="line"/>
+      <point x="538" y="44" type="line"/>
+      <point x="415" y="-21" type="line"/>
+      <point x="22" y="1056" type="line"/>
+    </contour>
+    <contour>
+      <point x="549" y="1498" type="line"/>
+      <point x="791" y="1235" type="line"/>
+      <point x="791" y="1224" type="line"/>
+      <point x="646" y="1224" type="line"/>
+      <point x="497" y="1390" type="line"/>
+      <point x="349" y="1224" type="line"/>
+      <point x="207" y="1224" type="line"/>
+      <point x="207" y="1236" type="line"/>
+      <point x="444" y="1498" type="line"/>
+    </contour>
+  </outline>
+</glyph>

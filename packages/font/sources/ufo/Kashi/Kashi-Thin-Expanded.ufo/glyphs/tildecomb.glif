@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="tildecomb" format="2">
+  <unicode hex="0303"/>
+  <anchor x="-677" y="1319" name="_Anchor-0"/>
+  <anchor x="-677" y="1678" name="Anchor-5"/>
+  <anchor x="-677" y="1319" name="_Anchor-5"/>
+  <outline>
+    <contour>
+      <point x="-296" y="1544" type="qcurve"/>
+      <point x="-232" y="1544" type="line"/>
+      <point x="-232" y="1487"/>
+      <point x="-291" y="1401"/>
+      <point x="-391" y="1352"/>
+      <point x="-451" y="1352" type="qcurve"/>
+      <point x="-519" y="1352"/>
+      <point x="-609" y="1392"/>
+      <point x="-680" y="1445"/>
+      <point x="-759" y="1486"/>
+      <point x="-814" y="1486" type="qcurve"/>
+      <point x="-878" y="1486"/>
+      <point x="-968" y="1421"/>
+      <point x="-968" y="1353" type="qcurve"/>
+      <point x="-1032" y="1352" type="line"/>
+      <point x="-1032" y="1409"/>
+      <point x="-974" y="1491"/>
+      <point x="-874" y="1536"/>
+      <point x="-814" y="1536" type="qcurve"/>
+      <point x="-747" y="1536"/>
+      <point x="-656" y="1497"/>
+      <point x="-581" y="1444"/>
+      <point x="-503" y="1404"/>
+      <point x="-450" y="1404" type="qcurve"/>
+      <point x="-387" y="1404"/>
+      <point x="-296" y="1476"/>
+    </contour>
+  </outline>
+</glyph>

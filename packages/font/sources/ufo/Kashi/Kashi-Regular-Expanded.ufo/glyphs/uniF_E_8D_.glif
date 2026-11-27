@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFE8D" format="2">
+  <advance width="582"/>
+  <unicode hex="FE8D"/>
+  <anchor x="292" y="-235" name="Anchor-2"/>
+  <anchor x="296" y="1476" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="386" y="1332" type="line"/>
+      <point x="196" y="1332" type="line"/>
+      <point x="196" y="1" type="line"/>
+      <point x="386" y="1" type="line"/>
+    </contour>
+  </outline>
+</glyph>

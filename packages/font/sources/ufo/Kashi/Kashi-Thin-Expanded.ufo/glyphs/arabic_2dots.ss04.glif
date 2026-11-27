@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="arabic_2dots.ss04" format="2">
+  <advance width="646"/>
+  <outline>
+    <contour>
+      <point x="508" y="101" type="curve"/>
+      <point x="508" y="130"/>
+      <point x="485" y="154"/>
+      <point x="455" y="154" type="curve"/>
+      <point x="426" y="154"/>
+      <point x="402" y="130"/>
+      <point x="402" y="101" type="curve"/>
+      <point x="402" y="72"/>
+      <point x="426" y="48"/>
+      <point x="455" y="48" type="curve"/>
+      <point x="485" y="48"/>
+      <point x="508" y="72"/>
+    </contour>
+    <contour>
+      <point x="240" y="101" type="curve"/>
+      <point x="240" y="130"/>
+      <point x="216" y="154"/>
+      <point x="187" y="154" type="curve"/>
+      <point x="157" y="154"/>
+      <point x="134" y="130"/>
+      <point x="134" y="101" type="curve"/>
+      <point x="134" y="72"/>
+      <point x="157" y="48"/>
+      <point x="187" y="48" type="curve"/>
+      <point x="216" y="48"/>
+      <point x="240" y="72"/>
+    </contour>
+  </outline>
+</glyph>

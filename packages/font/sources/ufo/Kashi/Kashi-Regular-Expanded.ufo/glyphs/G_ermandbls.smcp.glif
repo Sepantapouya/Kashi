@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Germandbls.smcp" format="2">
+  <advance width="1285"/>
+  <outline>
+    <contour>
+      <point x="354" y="735" type="line"/>
+      <point x="354" y="0" type="line"/>
+      <point x="170" y="0" type="line"/>
+      <point x="170" y="735" type="line"/>
+    </contour>
+    <contour>
+      <point x="354" y="733" type="qcurve"/>
+      <point x="170" y="733" type="line"/>
+      <point x="170" y="869"/>
+      <point x="267" y="1057"/>
+      <point x="470" y="1153"/>
+      <point x="627" y="1153" type="qcurve"/>
+      <point x="779" y="1153"/>
+      <point x="999" y="1051"/>
+      <point x="1089" y="973" type="qcurve"/>
+      <point x="664" y="561" type="line"/>
+      <point x="564" y="561" type="line"/>
+      <point x="564" y="654" type="line"/>
+      <point x="863" y="949" type="line"/>
+      <point x="824" y="980"/>
+      <point x="709" y="1026"/>
+      <point x="627" y="1026" type="qcurve"/>
+      <point x="525" y="1026"/>
+      <point x="406" y="950"/>
+      <point x="354" y="819"/>
+    </contour>
+    <contour>
+      <point x="457" y="30" type="qcurve"/>
+      <point x="513" y="159" type="line"/>
+      <point x="551" y="141"/>
+      <point x="655" y="109"/>
+      <point x="721" y="109" type="qcurve"/>
+      <point x="852" y="109"/>
+      <point x="1000" y="235"/>
+      <point x="1000" y="341" type="qcurve"/>
+      <point x="1000" y="441"/>
+      <point x="832" y="537"/>
+      <point x="658" y="537" type="qcurve"/>
+      <point x="564" y="537" type="line"/>
+      <point x="564" y="654" type="line"/>
+      <point x="688" y="654" type="line"/>
+      <point x="922" y="654"/>
+      <point x="1186" y="492"/>
+      <point x="1186" y="344" type="qcurve"/>
+      <point x="1186" y="228"/>
+      <point x="1070" y="65"/>
+      <point x="859" y="-21"/>
+      <point x="721" y="-21" type="qcurve"/>
+      <point x="654" y="-21"/>
+      <point x="520" y="4"/>
+    </contour>
+  </outline>
+</glyph>

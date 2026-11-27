@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="guillemotleft" format="2">
+  <advance width="1002"/>
+  <unicode hex="00AB"/>
+  <outline>
+    <contour>
+      <point x="471" y="4" type="line"/>
+      <point x="365" y="117"/>
+      <point x="260" y="295"/>
+      <point x="260" y="380" type="qcurve"/>
+      <point x="260" y="464"/>
+      <point x="365" y="640"/>
+      <point x="471" y="753" type="qcurve"/>
+      <point x="440" y="778" type="line"/>
+      <point x="324" y="657"/>
+      <point x="205" y="469"/>
+      <point x="205" y="380" type="qcurve"/>
+      <point x="205" y="289"/>
+      <point x="324" y="100"/>
+      <point x="440" y="-21" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="834" y="4" type="line"/>
+      <point x="730" y="117"/>
+      <point x="624" y="295"/>
+      <point x="624" y="380" type="qcurve"/>
+      <point x="624" y="464"/>
+      <point x="730" y="640"/>
+      <point x="834" y="753" type="qcurve"/>
+      <point x="804" y="778" type="line"/>
+      <point x="687" y="657"/>
+      <point x="570" y="469"/>
+      <point x="570" y="380" type="qcurve"/>
+      <point x="570" y="289"/>
+      <point x="687" y="100"/>
+      <point x="804" y="-21" type="qcurve"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Idieresis" format="2">
+  <advance width="625"/>
+  <unicode hex="00CF"/>
+  <anchor x="326" y="1574" name="Anchor-0"/>
+  <anchor x="326" y="8" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="338" y="1422" type="line"/>
+      <point x="338" y="0" type="line"/>
+      <point x="285" y="0" type="line"/>
+      <point x="285" y="1422" type="line"/>
+    </contour>
+    <contour>
+      <point x="-6" y="1702" type="qcurve"/>
+      <point x="-6" y="1723"/>
+      <point x="29" y="1754"/>
+      <point x="54" y="1754" type="qcurve"/>
+      <point x="78" y="1754"/>
+      <point x="116" y="1723"/>
+      <point x="116" y="1702" type="qcurve"/>
+      <point x="116" y="1681"/>
+      <point x="78" y="1651"/>
+      <point x="54" y="1651" type="qcurve"/>
+      <point x="29" y="1651"/>
+      <point x="-6" y="1681"/>
+    </contour>
+    <contour>
+      <point x="515" y="1702" type="qcurve"/>
+      <point x="515" y="1724"/>
+      <point x="551" y="1754"/>
+      <point x="577" y="1754" type="qcurve"/>
+      <point x="601" y="1754"/>
+      <point x="639" y="1724"/>
+      <point x="639" y="1702" type="qcurve"/>
+      <point x="639" y="1681"/>
+      <point x="601" y="1652"/>
+      <point x="577" y="1652" type="qcurve"/>
+      <point x="551" y="1652"/>
+      <point x="515" y="1681"/>
+    </contour>
+  </outline>
+</glyph>

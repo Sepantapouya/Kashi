@@ -22,9 +22,9 @@ MAIN_ONLY = set()
 WEIGHTS = [(100, 'Thin'), (200, 'ExtraLight'), (300, 'Light'), (400, 'Regular'), (500, 'Medium'),
            (600, 'SemiBold'), (700, 'Bold'), (800, 'ExtraBold'), (900, 'Black')]
 
-COPYRIGHT = ('Copyright 2015 The Vazirmatn Project Authors (https://github.com/rastikerdar/vazirmatn). '
-             'Copyright 2026 The Dastkhat Project Authors (https://github.com/dastyar-io/dastkhat-font). '
-             'Copyright 2026 The Kashi Project Authors (https://github.com/Sepantapouya/Kashi).')
+COPYRIGHT = ('Copyright 2026 The Kashi Project Authors (https://github.com/Sepantapouya/Kashi). '
+             'Copyright 2015 The Vazirmatn Project Authors (https://github.com/rastikerdar/vazirmatn). '
+             'Copyright 2026 The Dastkhat Project Authors (https://github.com/dastyar-io/dastkhat-font).')
 DESC = ('Kashi is the Persian and Latin UI typeface of the Kashi design system. It is derived from Dastkhat '
         '(Dastyar), itself derived from Vazirmatn by Saber Rastikerdar: wider, more open Persian letters at '
         'the same stem weight, geometric curves, a width axis (normal to expanded) and soft square "tile" dots, '

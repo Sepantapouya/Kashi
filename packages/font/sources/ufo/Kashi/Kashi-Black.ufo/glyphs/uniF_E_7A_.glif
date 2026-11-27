@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFE7A" format="2">
+  <advance width="616"/>
+  <unicode hex="FE7A"/>
+  <anchor x="354" y="-409" name="Anchor-2"/>
+  <anchor x="306" y="1029" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="77" y="-416" type="line"/>
+      <point x="541" y="-234" type="line"/>
+      <point x="541" y="-117" type="line"/>
+      <point x="77" y="-299" type="line"/>
+    </contour>
+  </outline>
+</glyph>

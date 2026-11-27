@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="AEacute.smcp" format="2">
+  <advance width="1553"/>
+  <anchor x="875" y="1260" name="Anchor-0"/>
+  <anchor x="875" y="0" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="1484" y="141" type="line"/>
+      <point x="1484" y="0" type="line"/>
+      <point x="917" y="0" type="line"/>
+      <point x="917" y="141" type="line"/>
+    </contour>
+    <contour>
+      <point x="1383" y="664" type="line"/>
+      <point x="1383" y="525" type="line"/>
+      <point x="891" y="525" type="line"/>
+      <point x="891" y="664" type="line"/>
+    </contour>
+    <contour>
+      <point x="1446" y="1137" type="line"/>
+      <point x="1446" y="998" type="line"/>
+      <point x="879" y="998" type="line"/>
+      <point x="879" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="759" y="1033" type="line"/>
+      <point x="194" y="0" type="line"/>
+      <point x="9" y="0" type="line"/>
+      <point x="660" y="1137" type="line"/>
+      <point x="770" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="898" y="438" type="line"/>
+      <point x="898" y="298" type="line"/>
+      <point x="314" y="298" type="line"/>
+      <point x="314" y="438" type="line"/>
+    </contour>
+    <contour>
+      <point x="905" y="1137" type="line"/>
+      <point x="942" y="0" type="line"/>
+      <point x="771" y="0" type="line"/>
+      <point x="733" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="777" y="1215" type="line"/>
+      <point x="967" y="1499" type="line"/>
+      <point x="1174" y="1499" type="line"/>
+      <point x="917" y="1215" type="line"/>
+    </contour>
+  </outline>
+</glyph>

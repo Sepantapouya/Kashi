@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Imacron.smcp" format="2">
+  <advance width="537"/>
+  <anchor x="286" y="1289" name="Anchor-0"/>
+  <anchor x="286" y="4" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="295" y="1137" type="line"/>
+      <point x="295" y="0" type="line"/>
+      <point x="242" y="0" type="line"/>
+      <point x="242" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="600" y="1440" type="line"/>
+      <point x="600" y="1393" type="line"/>
+      <point x="-57" y="1393" type="line"/>
+      <point x="-57" y="1440" type="line"/>
+    </contour>
+  </outline>
+</glyph>

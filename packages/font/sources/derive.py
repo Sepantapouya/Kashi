@@ -370,21 +370,15 @@ def derive(master, expanded):
             dotinfo[name] = info
 
     # tabular digits: Dastkhat's sit in a cell far wider than the digits, which reads as
-    # letter-spacing. The cell becomes the widest digit's ink plus a small margin, each digit centred.
-    for prefix in ('uni06F', 'uni066'):
-        prop = [f'{prefix}{d}' for d in '0123456789']
-        if not all(p in font for p in prop):
-            continue
-        inks = [font[p].getBounds(font) for p in prop]
-        cell = round(max(bb.xMax - bb.xMin for bb in inks if bb) + 70 * (ar_x / WIDTH))
-        for p in prop:
-            tn = f'{p}.tnum'
-            if tn not in font:
-                continue
+    # letter-spacing. Every .tnum glyph (Persian, Arabic-Indic, their locl forms and Latin) shares one
+    # cell: the widest digit's ink plus a small margin, each digit centred. One width for all is what
+    # tabular figures promise, and what Google Fonts checks.
+    tnums = [n for n in font.keys() if n.endswith('.tnum') and font[n].getBounds(font) is not None]
+    if tnums:
+        cell = round(max(font[n].getBounds(font).xMax - font[n].getBounds(font).xMin for n in tnums) + 70 * (ar_x / WIDTH))
+        for tn in tnums:
             g = font[tn]
             b = g.getBounds(font)
-            if b is None:
-                continue
             dx = round((cell - (b.xMax - b.xMin)) / 2 - b.xMin)
             for c in g.contours:
                 for pt in c.points:
@@ -441,9 +435,9 @@ def derive(master, expanded):
     i.openTypeNameUniqueID = None
     i.openTypeNamePreferredFamilyName = None
     i.openTypeNamePreferredSubfamilyName = None
-    i.copyright = ('Copyright 2015 The Vazirmatn Project Authors (https://github.com/rastikerdar/vazirmatn). '
-                   'Copyright 2026 The Dastkhat Project Authors (https://github.com/dastyar-io/dastkhat-font). '
-                   'Copyright 2026 The Kashi Project Authors (https://github.com/Sepantapouya/Kashi).')
+    i.copyright = ('Copyright 2026 The Kashi Project Authors (https://github.com/Sepantapouya/Kashi). '
+                   'Copyright 2015 The Vazirmatn Project Authors (https://github.com/rastikerdar/vazirmatn). '
+                   'Copyright 2026 The Dastkhat Project Authors (https://github.com/dastyar-io/dastkhat-font).')
     i.trademark = None
     i.openTypeNameManufacturer = 'Kashi'
     i.openTypeNameManufacturerURL = 'https://kashi.sepantapouya.com'
@@ -453,6 +447,22 @@ def derive(master, expanded):
     i.openTypeNameLicense = ('This Font Software is licensed under the SIL Open Font License, Version 1.1. '
                              'This license is available with a FAQ at: https://openfontlicense.org')
     i.openTypeNameLicenseURL = 'https://openfontlicense.org'
+    # Dastkhat's UFOs carry explicit name records (Dastkhat names, its trademark, its description);
+    # drop them so every name comes from the fields above.
+    i.openTypeNameRecords = []
+    i.openTypeNameDescription = ('Persian and Latin UI typeface of the Kashi design system, '
+                                 'derived from Dastkhat and Vazirmatn.')
+    # the meta table tells systems which scripts the font is designed for and supports
+    font.lib['public.openTypeMeta'] = {'dlng': ['Arab', 'Latn'], 'slng': ['Arab', 'Latn']}
+    i.openTypeNameSampleText = None
+    i.versionMajor, i.versionMinor = 1, 0
+    i.openTypeNameVersion = 'Version 1.000'
+    i.openTypeHeadCreated = None
+    # Google Fonts metrics: typo metrics on, and a win ascent that clears the tallest glyph
+    sel = set(i.openTypeOS2Selection or [])
+    sel.add(7)
+    i.openTypeOS2Selection = sorted(sel)
+    i.openTypeOS2WinAscent = max(i.openTypeOS2WinAscent or 0, 2300)
 
     fn = f'Kashi-{master}{"-Expanded" if expanded else ""}.ufo'
     font.save(os.path.join(OUT, fn), overwrite=True)

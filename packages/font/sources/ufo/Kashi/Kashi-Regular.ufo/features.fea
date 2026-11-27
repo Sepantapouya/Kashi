@@ -1,0 +1,3477 @@
+languagesystem DFLT dflt;
+languagesystem cyrl dflt;
+languagesystem grek dflt;
+languagesystem latn dflt;
+languagesystem latn AZE;
+languagesystem latn CRT;
+languagesystem latn FRA;
+languagesystem latn MOL;
+languagesystem latn NAV;
+languagesystem latn ROM;
+languagesystem latn TRK;
+languagesystem arab dflt;
+languagesystem arab URD;
+
+    markClass acutecomb <anchor -566 1290> @Anchor4__Anchor4;
+    markClass gravecomb <anchor -530 1290> @Anchor4__Anchor4;
+    markClass hook <anchor -590 1274> @Anchor4__Anchor4;
+    markClass tildecomb <anchor -537 1256> @Anchor4__Anchor4;
+    markClass uni030F <anchor -461 1295> @Anchor4__Anchor4;
+
+    markClass dotbelow <anchor -597 0> @Anchor5__Anchor5;
+
+    markClass dotbelow <anchor -597 0> @Anchor7_Anchor7_;
+
+    markClass acutecomb <anchor -566 1290> @Anchor9_Anchor9_;
+    markClass gravecomb <anchor -530 1290> @Anchor9_Anchor9_;
+    markClass hook <anchor -590 1274> @Anchor9_Anchor9_;
+    markClass tildecomb <anchor -537 1256> @Anchor9_Anchor9_;
+    markClass uni030F <anchor -461 1295> @Anchor9_Anchor9_;
+
+    markClass uni064D <anchor 253 -210> @Anchor18__Anchor18;
+    markClass uni0650 <anchor 272 -268> @Anchor18__Anchor18;
+    markClass uni0655 <anchor 228 -45> @Anchor18__Anchor18;
+    markClass uni0656 <anchor 109 -28> @Anchor18__Anchor18;
+
+    markClass uni0610 <anchor 501 1241> @Anchor21__Anchor21;
+    markClass uni0611 <anchor 504 1265> @Anchor21__Anchor21;
+    markClass uni0612 <anchor 525 976> @Anchor21__Anchor21;
+    markClass uni0615 <anchor 444 1207> @Anchor21__Anchor21;
+    markClass uni064B <anchor 301 1064> @Anchor21__Anchor21;
+    markClass uni064B0651 <anchor 359 937> @Anchor21__Anchor21;
+    markClass uni064C <anchor 427 952> @Anchor21__Anchor21;
+    markClass uni064E <anchor 298 1183> @Anchor21__Anchor21;
+    markClass uni064E0651 <anchor 343 1023> @Anchor21__Anchor21;
+    markClass uni064F <anchor 298 973> @Anchor21__Anchor21;
+    markClass uni0651 <anchor 333 998> @Anchor21__Anchor21;
+    markClass uni0651064B <anchor 327 1015> @Anchor21__Anchor21;
+    markClass uni0651064C <anchor 332 965> @Anchor21__Anchor21;
+    markClass uni0651064E <anchor 323 1008> @Anchor21__Anchor21;
+    markClass uni0651064F <anchor 327 964> @Anchor21__Anchor21;
+    markClass uni0652 <anchor 216 977> @Anchor21__Anchor21;
+    markClass uni0653 <anchor 310 1066> @Anchor21__Anchor21;
+    markClass uni0654 <anchor 260 972> @Anchor21__Anchor21;
+    markClass uni0654064E <anchor 297 927> @Anchor21__Anchor21;
+    markClass uni0654064F <anchor 286 815> @Anchor21__Anchor21;
+    markClass uni0657 <anchor 284 961> @Anchor21__Anchor21;
+    markClass uni0658 <anchor 325 988> @Anchor21__Anchor21;
+    markClass uni065A <anchor 584 1444> @Anchor21__Anchor21;
+    markClass uni065B <anchor 575 1419> @Anchor21__Anchor21;
+    markClass uni0670 <anchor 104 1108> @Anchor21__Anchor21;
+    markClass uni06DC <anchor 534 1204> @Anchor21__Anchor21;
+
+    markClass uni0610 <anchor 501 1241> @Anchor24_Anchor24_;
+    markClass uni0611 <anchor 504 1265> @Anchor24_Anchor24_;
+    markClass uni0612 <anchor 525 976> @Anchor24_Anchor24_;
+    markClass uni0615 <anchor 444 1207> @Anchor24_Anchor24_;
+    markClass uni064B <anchor 301 1064> @Anchor24_Anchor24_;
+    markClass uni064B0651 <anchor 359 937> @Anchor24_Anchor24_;
+    markClass uni064C <anchor 427 952> @Anchor24_Anchor24_;
+    markClass uni064E <anchor 298 1183> @Anchor24_Anchor24_;
+    markClass uni064E0651 <anchor 343 1023> @Anchor24_Anchor24_;
+    markClass uni064F <anchor 298 973> @Anchor24_Anchor24_;
+    markClass uni0651 <anchor 333 998> @Anchor24_Anchor24_;
+    markClass uni0651064B <anchor 327 1015> @Anchor24_Anchor24_;
+    markClass uni0651064C <anchor 332 965> @Anchor24_Anchor24_;
+    markClass uni0651064E <anchor 323 1008> @Anchor24_Anchor24_;
+    markClass uni0651064F <anchor 327 964> @Anchor24_Anchor24_;
+    markClass uni0652 <anchor 216 977> @Anchor24_Anchor24_;
+    markClass uni0653 <anchor 310 1066> @Anchor24_Anchor24_;
+    markClass uni0654 <anchor 260 972> @Anchor24_Anchor24_;
+    markClass uni0654064E <anchor 297 927> @Anchor24_Anchor24_;
+    markClass uni0654064F <anchor 286 815> @Anchor24_Anchor24_;
+    markClass uni0657 <anchor 284 961> @Anchor24_Anchor24_;
+    markClass uni0658 <anchor 325 988> @Anchor24_Anchor24_;
+    markClass uni065A <anchor 584 1444> @Anchor24_Anchor24_;
+    markClass uni065B <anchor 575 1419> @Anchor24_Anchor24_;
+    markClass uni0670 <anchor 104 1108> @Anchor24_Anchor24_;
+    markClass uni06DC <anchor 534 1204> @Anchor24_Anchor24_;
+
+    markClass uni064D <anchor 253 -210> @Anchor26_Anchor26_;
+    markClass uni0650 <anchor 272 -268> @Anchor26_Anchor26_;
+    markClass uni0655 <anchor 228 -45> @Anchor26_Anchor26_;
+    markClass uni0656 <anchor 109 -28> @Anchor26_Anchor26_;
+
+@class1 = [eight five four nine one seven six three two zero];
+@class2 = [eight.sup five.sup four.sup fraction nine.sup one.sup seven.sup six.sup three.sup two.sup zero.sup];
+@class3 = [uni063D.fina uni06CD.fina uni06CE.fina uni06D0.fina uniFBFD uniFE8A uniFEF0 uniFEF2];
+@class4 = [uni063D.init uni063D.medi uni06CE.init uni06CE.medi uniFB58 uniFB59 uniFBFE uniFBFF uniFEF3 uniFEF4];
+@class5 = [uni063D.medi uni0693.fina uni0695.fina uni0696.fina uni06B5.fina uni06BC.fina uni06BD.fina uni06CE.medi uniFB59 uniFB8B uniFB8D uniFB9F uniFBFF uniFEAE uniFEB0 uniFEDE uniFEE6 uniFEF4];
+@class6 = [uni0640 uni06AA.init uni06AA.medi uniFB7C uniFB7D uniFB90 uniFB91 uniFB94 uniFB95 uniFBAC uniFE8B uniFE8C uniFE97 uniFE98 uniFE9B uniFE9C uniFE9F uniFEA0 uniFEA3 uniFEA4 uniFEA7 uniFEA8 uniFEB3 uniFEB4 uniFEB7 uniFEB8 uniFEBB uniFEBC uniFEBF uniFEC0 uniFEC3 uniFEC4 uniFEC7 uniFECB uniFECC uniFECF uniFED0 uniFED3 uniFED4 uniFED7 uniFED8 uniFEDB uniFEDC uniFEDF uniFEE0 uniFEE3 uniFEE4 uniFEE7 uniFEE8 uniFEEB];
+@class7 = [NameMe.65574 uni06AB.fina uni06AB.medi uni06AC.fina uni06AC.medi uni06B5.fina uni06B5.medi uni06D5.fina uni0762.fina uni0762.medi uni0763.fina uni0763.medi uniFB69 uniFB8B uniFB8D uniFB8F uniFB91 uniFB93 uniFB95 uniFBA5.fina uniFBD4 uniFE82 uniFE84 uniFE88 uniFE8E uniFE94 uniFE98 uniFE9C uniFEB0 uniFED6 uniFED8 uniFEDA uniFEDC uniFEDE uniFEE0 uniFEE8 uniFEEA uniFEF6 uniFEF8 uniFEFA uniFEFC];
+@class8 = [uni063D.init uni063D.medi uni067C.init uni067C.medi uni06BC.init uni06BC.medi uni06CE.init uni06CE.medi uni06D0.init uni06D0.medi uniFB58 uniFB59 uniFBFE uniFBFF uniFE91 uniFE92 uniFEF3 uniFEF4];
+@class11 = [uni06CA.fina uni06CF.fina uniFB7B uniFBD8 uniFBDA uniFBDF uniFBE3 uniFE9E uniFEA2 uniFEA6 uniFECA uniFECE uniFEEC uniFEEE];
+@class12 = [uni063D.init uni063D.medi uni06CE.init uni06CE.medi uniFB58 uniFB59 uniFBFE uniFBFF uniFE91 uniFE92 uniFEF3 uniFEF4];
+@markFilteringSet3 = [dotbelow];
+@markFilteringSet4 = [acutecomb gravecomb hook tildecomb uni030F];
+@class13 = [LamAlefWasla lamVabove_alef.isol uni0622 uni0623 uni0625 uni0627 uni0643 uni0644 uni0671 uni06A9 uni06AB uni06AB.init uni06AD uni06AF uni06B5 uni06B5.init uni0763 uni0763.init uniFB50 uniFB90 uniFB94 uniFBD3 uniFBD5 uniFE81 uniFE83 uniFE87 uniFE8B uniFE8D uniFE97 uniFE9B uniFED7 uniFED9 uniFEDB uniFEDF uniFEF5 uniFEF7 uniFEF9 uniFEFB];
+@class14 = [LamAlefWasla lamVabove_alef.isol uni0621 uni0622 uni0623 uni0624 uni0627 uni0628 uni0629 uni062A uni062B uni062F uni0630 uni0631 uni0632 uni0633 uni0634 uni0635 uni0636 uni0637 uni0638 uni0640 uni0641 uni0642 uni0643 uni0644 uni0645 uni0646 uni0647 uni0648 uni0679 uni067E uni0688 uni0691 uni0698 uni06A0.init uni06A9 uni06AA uni06AA.init uni06AB uni06AB.init uni06AD uni06AF uni06B5.init uni06C0 uni06C1 uni06D2 uni06D3 uni06D5 uni0762 uni0762.init uni0763 uni0763.init uniFB68 uniFB8E uniFB90 uniFB92 uniFB94 uniFE8B uniFE91 uniFE91.long1 uniFE91.long2 uniFE97 uniFE97.long uniFE9B uniFE9B.long uniFE9F uniFEA3 uniFEA7 uniFEB3 uniFEB7 uniFEBB uniFEBF uniFEC3 uniFEC7 uniFECB uniFECF uniFED3 uniFED7 uniFEDB uniFEDF uniFEE3 uniFEE3.long uniFEE7 uniFEEB uniFEF5 uniFEF7 uniFEF9 uniFEFB];
+@class15 = [LamAlefWasla lamVabove_alef.isol uni0621 uni0622 uni0623 uni0624 uni0627 uni0628 uni0629 uni062A uni062B uni062F uni0630 uni0631 uni0632 uni0633 uni0634 uni0635 uni0636 uni0637 uni0638 uni0640 uni0641 uni0642 uni0643 uni0644 uni0645 uni0646 uni0647 uni0648 uni0679 uni067C uni067E uni0688 uni0691 uni0698 uni06A0.init uni06A9 uni06AA uni06AA.init uni06AB uni06AB.init uni06AC uni06AC.init uni06AD uni06AF uni06B5 uni06B5.init uni06C0 uni06C1 uni06D2 uni06D3 uni06D5 uni0762 uni0762.init uni0763 uni0763.init uniFB68 uniFB7C uniFB8E uniFB90 uniFB92 uniFB94 uniFE8B uniFE91 uniFE91.long1 uniFE91.long2 uniFE97 uniFE97.long uniFE9B uniFE9B.long uniFE9F uniFEA3 uniFEA7 uniFEB3 uniFEB7 uniFEBB uniFEBF uniFEC3 uniFEC7 uniFECB uniFECF uniFED3 uniFED7 uniFEDB uniFEDF uniFEE3 uniFEE3.long uniFEE7 uniFEEB uniFEF5 uniFEF7 uniFEF9 uniFEFB];
+@class16 = [uni0631 uni0632 uni0693 uni0693.fina uni0695 uni0695.fina uniFEAE uniFEB0];
+@class17 = [uni0622 uni0627 uniFE8E uniFEF5 uniFEF6 uniFEF7 uniFEF8 uniFEF9 uniFEFA uniFEFB uniFEFC];
+@class18 = [uni06A9 uni06AF uniFB8E uniFB90 uniFB92 uniFB94 uniFEDB];
+@class19 = [uni062F uni0630 uniFBFD uniFEAA uniFEAC uniFEF0];
+@class20 = [uni0631 uni0632 uni0691 uni0693 uni0693.fina uni0695 uni0695.fina uni0696 uni0696.fina uni0698 uniFB8A uniFB8B uniFB8C uniFB8D uniFEAD uniFEAE uniFEAF uniFEB0];
+
+lookup SingleSubstitution1 {
+    lookupflag 0;
+    ;
+    sub A by A.smcp;
+    sub AE by AE.smcp;
+    sub AEacute by AEacute.smcp;
+    sub Aacute by Aacute.smcp;
+    sub Abreve by Abreve.smcp;
+    sub Acircumflex by Acircumflex.smcp;
+    sub Adieresis by Adieresis.smcp;
+    sub Agrave by Agrave.smcp;
+    sub Amacron by Amacron.smcp;
+    sub Aogonek by Aogonek.smcp;
+    sub Aogonek.NAV by Aogonek.smcp.NAV;
+    sub Aring by Aring.smcp;
+    sub Aringacute by Aringacute.smcp;
+    sub Atilde by Atilde.smcp;
+    sub B by B.smcp;
+    sub C by C.smcp;
+    sub Cacute by Cacute.smcp;
+    sub Ccaron by Ccaron.smcp;
+    sub Ccedilla by Ccedilla.smcp;
+    sub Ccircumflex by Ccircumflex.smcp;
+    sub D by D.smcp;
+    sub Dcaron by Dcaron.smcp;
+    sub Dcroat by Dcroat.smcp;
+    sub Delta by Delta.smcp;
+    sub E by E.smcp;
+    sub Eacute by Eacute.smcp;
+    sub Ebreve by Ebreve.smcp;
+    sub Ecaron by Ecaron.smcp;
+    sub Ecircumflex by Ecircumflex.smcp;
+    sub Edieresis by Edieresis.smcp;
+    sub Edotaccent by Edotaccent.smcp;
+    sub Egrave by Egrave.smcp;
+    sub Emacron by Emacron.smcp;
+    sub Eng by Eng.smcp;
+    sub Eogonek by Eogonek.smcp;
+    sub Eogonek.NAV by Eogonek.smcp.NAV;
+    sub Eth by Eth.smcp;
+    sub Euro by Euro.smcp;
+    sub F by F.smcp;
+    sub G by G.smcp;
+    sub Gbreve by Gbreve.smcp;
+    sub Gcircumflex by Gcircumflex.smcp;
+    sub Gcommaaccent by Gcommaaccent.smcp;
+    sub H by H.smcp;
+    sub Hbar by Hbar.smcp;
+    sub Hcircumflex by Hcircumflex.smcp;
+    sub I by I.smcp;
+    sub IJ by IJ.smcp;
+    sub Iacute by Iacute.smcp;
+    sub Ibreve by Ibreve.smcp;
+    sub Icircumflex by Icircumflex.smcp;
+    sub Idieresis by Idieresis.smcp;
+    sub Idotaccent by Idotaccent.smcp;
+    sub Igrave by Igrave.smcp;
+    sub Imacron by Imacron.smcp;
+    sub Iogonek by Iogonek.smcp;
+    sub Itilde by Itilde.smcp;
+    sub J by J.smcp;
+    sub Jcircumflex by Jcircumflex.smcp;
+    sub K by K.smcp;
+    sub Kcommaaccent by Kcommaaccent.smcp;
+    sub L by L.smcp;
+    sub Lacute by Lacute.smcp;
+    sub Lcaron by Lcaron.smcp;
+    sub Lcommaaccent by Lcommaaccent.smcp;
+    sub Ldot by Ldot.smcp;
+    sub Lslash by Lslash.smcp;
+    sub M by M.smcp;
+    sub N by N.smcp;
+    sub Nacute by Nacute.smcp;
+    sub Ncaron by Ncaron.smcp;
+    sub Ncommaaccent by Ncommaaccent.smcp;
+    sub Ntilde by Ntilde.smcp;
+    sub O by O.smcp;
+    sub OE by OE.smcp;
+    sub Oacute by Oacute.smcp;
+    sub Obreve by Obreve.smcp;
+    sub Ocircumflex by Ocircumflex.smcp;
+    sub Odieresis by Odieresis.smcp;
+    sub Ograve by Ograve.smcp;
+    sub Ohungarumlaut by Ohungarumlaut.smcp;
+    sub Omacron by Omacron.smcp;
+    sub Omega by Omega.smcp;
+    sub Oslash by Oslash.smcp;
+    sub Oslashacute by Oslashacute.smcp;
+    sub Otilde by Otilde.smcp;
+    sub P by P.smcp;
+    sub Q by Q.smcp;
+    sub R by R.smcp;
+    sub Racute by Racute.smcp;
+    sub Rcaron by Rcaron.smcp;
+    sub Rcommaaccent by Rcommaaccent.smcp;
+    sub S by S.smcp;
+    sub Sacute by Sacute.smcp;
+    sub Scaron by Scaron.smcp;
+    sub Scedilla by Scedilla.smcp;
+    sub Scircumflex by Scircumflex.smcp;
+    sub T by T.smcp;
+    sub Tbar by Tbar.smcp;
+    sub Tcaron by Tcaron.smcp;
+    sub Thorn by Thorn.smcp;
+    sub U by U.smcp;
+    sub Uacute by Uacute.smcp;
+    sub Ubreve by Ubreve.smcp;
+    sub Ucircumflex by Ucircumflex.smcp;
+    sub Udieresis by Udieresis.smcp;
+    sub Ugrave by Ugrave.smcp;
+    sub Uhungarumlaut by Uhungarumlaut.smcp;
+    sub Umacron by Umacron.smcp;
+    sub Uogonek by Uogonek.smcp;
+    sub Uring by Uring.smcp;
+    sub Utilde by Utilde.smcp;
+    sub V by V.smcp;
+    sub W by W.smcp;
+    sub Wacute by Wacute.smcp;
+    sub Wcircumflex by Wcircumflex.smcp;
+    sub Wgrave by Wgrave.smcp;
+    sub X by X.smcp;
+    sub Y by Y.smcp;
+    sub Yacute by Yacute.smcp;
+    sub Ycircumflex by Ycircumflex.smcp;
+    sub Ydieresis by Ydieresis.smcp;
+    sub Ygrave by Ygrave.smcp;
+    sub Z by Z.smcp;
+    sub Zacute by Zacute.smcp;
+    sub Zcaron by Zcaron.smcp;
+    sub Zdotaccent by Zdotaccent.smcp;
+    sub ampersand by ampersand.smcp;
+    sub dollar by dollar.smcp;
+    sub eight by eight.smcp;
+    sub five by five.smcp;
+    sub four by four.smcp;
+    sub lira by lira.smcp;
+    sub nine by nine.smcp;
+    sub one by one.smcp;
+    sub seven by seven.smcp;
+    sub six by six.smcp;
+    sub sterling by sterling.smcp;
+    sub three by three.smcp;
+    sub two by two.smcp;
+    sub uni010A by uni010A.smcp;
+    sub uni0120 by uni0120.smcp;
+    sub uni0162 by uni0162.smcp;
+    sub uni0218 by Scommaaccent.smcp;
+    sub uni021A by Tcommaaccent.smcp;
+    sub uni20BD by uni20BD.smcp;
+    sub uni2116 by uni2116.smcp;
+    sub yen by yen.smcp;
+    sub zero by zero.smcp;
+} SingleSubstitution1;
+
+lookup SingleSubstitution2 {
+    lookupflag 0;
+    ;
+    # Original source: 1 
+    sub a by A.smcp;
+    sub aacute by Aacute.smcp;
+    sub abreve by Abreve.smcp;
+    sub acircumflex by Acircumflex.smcp;
+    sub adieresis by Adieresis.smcp;
+    sub ae by AE.smcp;
+    sub aeacute by AEacute.smcp;
+    sub agrave by Agrave.smcp;
+    sub amacron by Amacron.smcp;
+    sub ampersand by ampersand.smcp;
+    sub aogonek by Aogonek.smcp;
+    sub aogonek.NAV by Aogonek.smcp.NAV;
+    sub aring by Aring.smcp;
+    sub aringacute by Aringacute.smcp;
+    sub atilde by Atilde.smcp;
+    sub b by B.smcp;
+    sub c by C.smcp;
+    sub cacute by Cacute.smcp;
+    sub ccaron by Ccaron.smcp;
+    sub ccedilla by Ccedilla.smcp;
+    sub ccircumflex by Ccircumflex.smcp;
+    sub d by D.smcp;
+    sub dcaron by Dcaron.smcp;
+    sub dcroat by Dcroat.smcp;
+    sub dotlessi by I.smcp;
+    sub e by E.smcp;
+    sub eacute by Eacute.smcp;
+    sub ebreve by Ebreve.smcp;
+    sub ecaron by Ecaron.smcp;
+    sub ecircumflex by Ecircumflex.smcp;
+    sub edieresis by Edieresis.smcp;
+    sub edotaccent by Edotaccent.smcp;
+    sub egrave by Egrave.smcp;
+    sub emacron by Emacron.smcp;
+    sub eng by Eng.smcp;
+    sub eogonek by Eogonek.smcp;
+    sub eogonek.NAV by Eogonek.smcp.NAV;
+    sub eth by Eth.smcp;
+    sub f by F.smcp;
+    sub g by G.smcp;
+    sub gbreve by Gbreve.smcp;
+    sub gcircumflex by Gcircumflex.smcp;
+    sub gcommaaccent by Gcommaaccent.smcp;
+    sub germandbls by Germandbls.smcp;
+    sub h by H.smcp;
+    sub hbar by Hbar.smcp;
+    sub hcircumflex by Hcircumflex.smcp;
+    sub i by I.smcp;
+    sub iacute by Iacute.smcp;
+    sub ibreve by Ibreve.smcp;
+    sub icircumflex by Icircumflex.smcp;
+    sub idieresis by Idieresis.smcp;
+    sub igrave by Igrave.smcp;
+    sub ij by IJ.smcp;
+    sub imacron by Imacron.smcp;
+    sub iogonek by Iogonek.smcp;
+    sub itilde by Itilde.smcp;
+    sub j by J.smcp;
+    sub jcircumflex by Jcircumflex.smcp;
+    sub k by K.smcp;
+    sub kcommaaccent by Kcommaaccent.smcp;
+    sub l by L.smcp;
+    sub lacute by Lacute.smcp;
+    sub lcaron by Lcaron.smcp;
+    sub lcommaaccent by Lcommaaccent.smcp;
+    sub ldot by Ldot.smcp;
+    sub lslash by Lslash.smcp;
+    sub m by M.smcp;
+    sub n by N.smcp;
+    sub nacute by Nacute.smcp;
+    sub ncaron by Ncaron.smcp;
+    sub ncommaaccent by Ncommaaccent.smcp;
+    sub ntilde by Ntilde.smcp;
+    sub o by O.smcp;
+    sub oacute by Oacute.smcp;
+    sub obreve by Obreve.smcp;
+    sub ocircumflex by Ocircumflex.smcp;
+    sub odieresis by Odieresis.smcp;
+    sub oe by OE.smcp;
+    sub ograve by Ograve.smcp;
+    sub ohungarumlaut by Ohungarumlaut.smcp;
+    sub omacron by Omacron.smcp;
+    sub oslash by Oslash.smcp;
+    sub oslashacute by Oslashacute.smcp;
+    sub otilde by Otilde.smcp;
+    sub p by P.smcp;
+    sub q by Q.smcp;
+    sub r by R.smcp;
+    sub racute by Racute.smcp;
+    sub rcaron by Rcaron.smcp;
+    sub rcommaaccent by Rcommaaccent.smcp;
+    sub s by S.smcp;
+    sub sacute by Sacute.smcp;
+    sub scaron by Scaron.smcp;
+    sub scedilla by Scedilla.smcp;
+    sub scircumflex by Scircumflex.smcp;
+    sub t by T.smcp;
+    sub tbar by Tbar.smcp;
+    sub tcaron by Tcaron.smcp;
+    sub thorn by Thorn.smcp;
+    sub u by U.smcp;
+    sub uacute by Uacute.smcp;
+    sub ubreve by Ubreve.smcp;
+    sub ucircumflex by Ucircumflex.smcp;
+    sub udieresis by Udieresis.smcp;
+    sub ugrave by Ugrave.smcp;
+    sub uhungarumlaut by Uhungarumlaut.smcp;
+    sub umacron by Umacron.smcp;
+    sub uni010B by uni010A.smcp;
+    sub uni0121 by uni0120.smcp;
+    sub uni0163 by uni0162.smcp;
+    sub uni0219 by Scommaaccent.smcp;
+    sub uni021B by Tcommaaccent.smcp;
+    sub uogonek by Uogonek.smcp;
+    sub uring by Uring.smcp;
+    sub utilde by Utilde.smcp;
+    sub v by V.smcp;
+    sub w by W.smcp;
+    sub wacute by Wacute.smcp;
+    sub wcircumflex by Wcircumflex.smcp;
+    sub wgrave by Wgrave.smcp;
+    sub x by X.smcp;
+    sub y by Y.smcp;
+    sub yacute by Yacute.smcp;
+    sub ycircumflex by Ycircumflex.smcp;
+    sub ydieresis by Ydieresis.smcp;
+    sub ygrave by Ygrave.smcp;
+    sub z by Z.smcp;
+    sub zacute by Zacute.smcp;
+    sub zcaron by Zcaron.smcp;
+    sub zdotaccent by Zdotaccent.smcp;
+} SingleSubstitution2;
+
+lookup SingleSubstitution3 {
+    lookupflag 0;
+    ;
+    # Original source: 2 
+    sub A by A.unic;
+    sub Aacute by Aacute.unic;
+    sub Abreve by Abreve.unic;
+    sub Acircumflex by Acircumflex.unic;
+    sub Adieresis by Adieresis.unic;
+    sub Agrave by Agrave.unic;
+    sub Amacron by Amacron.unic;
+    sub Aogonek by Aogonek.unic;
+    sub Aring by Aring.unic;
+    sub Aringacute by Aringacute.unic;
+    sub Atilde by Atilde.unic;
+    sub E by E.unic;
+    sub Eacute by Eacute.unic;
+    sub Ebreve by Ebreve.unic;
+    sub Ecaron by Ecaron.unic;
+    sub Ecircumflex by Ecircumflex.unic;
+    sub Edieresis by Edieresis.unic;
+    sub Edotaccent by Edotaccent.unic;
+    sub Egrave by Egrave.unic;
+    sub Emacron by Emacron.unic;
+    sub Eogonek by Eogonek.unic;
+    sub M by M.unic;
+    sub N by N.unic;
+    sub Nacute by Nacute.unic;
+    sub Ncaron by Ncaron.unic;
+    sub Ncommaaccent by Ncommaaccent.unic;
+    sub Ntilde by Ntilde.unic;
+    sub U by U.unic;
+    sub Uacute by Uacute.unic;
+    sub Ubreve by Ubreve.unic;
+    sub Udieresis by Udieresis.unic;
+    sub Ugrave by Ugrave.unic;
+    sub Uhungarumlaut by Uhungarumlaut.unic;
+    sub Umacron by Umacron.unic;
+    sub Uogonek by Uogonek.unic;
+    sub Uring by Uring.unic;
+    sub Utilde by Utilde.unic;
+    sub a by A.unic;
+    sub aacute by Aacute.unic;
+    sub abreve by Abreve.unic;
+    sub acircumflex by Acircumflex.unic;
+    sub adieresis by Adieresis.unic;
+    sub ae by AE;
+    sub aeacute by AEacute;
+    sub agrave by Agrave.unic;
+    sub amacron by Amacron.unic;
+    sub aogonek by Aogonek.unic;
+    sub aring by Aring.unic;
+    sub aringacute by Aringacute.unic;
+    sub atilde by Atilde.unic;
+    sub b by B;
+    sub c by C;
+    sub cacute by Cacute;
+    sub ccaron by Ccaron;
+    sub ccedilla by Ccedilla;
+    sub ccircumflex by Ccircumflex;
+    sub d by D;
+    sub dcaron by Dcaron;
+    sub dcroat by Dcroat;
+    sub e by E.unic;
+    sub eacute by Eacute.unic;
+    sub ebreve by Ebreve.unic;
+    sub ecaron by Ecaron.unic;
+    sub ecircumflex by Ecircumflex.unic;
+    sub edieresis by Edieresis.unic;
+    sub edotaccent by Edotaccent.unic;
+    sub egrave by Egrave.unic;
+    sub emacron by Emacron.unic;
+    sub eng by Eng;
+    sub eogonek by Eogonek.unic;
+    sub eth by Eth;
+    sub f by F;
+    sub g by G;
+    sub gbreve by Gbreve;
+    sub gcircumflex by Gcircumflex;
+    sub gcommaaccent by Gcommaaccent;
+    sub h by H;
+    sub hbar by Hbar;
+    sub hcircumflex by Hcircumflex;
+    sub i by I;
+    sub iacute by Iacute;
+    sub ibreve by Ibreve;
+    sub icircumflex by Icircumflex;
+    sub idieresis by Idieresis;
+    sub igrave by Igrave;
+    sub ij by IJ;
+    sub imacron by Imacron;
+    sub iogonek by Iogonek;
+    sub itilde by Itilde;
+    sub j by J;
+    sub jcircumflex by Jcircumflex;
+    sub k by K;
+    sub kcommaaccent by Kcommaaccent;
+    sub l by L;
+    sub lacute by Lacute;
+    sub lcaron by Lcaron;
+    sub lcommaaccent by Lcommaaccent;
+    sub ldot by Ldot;
+    sub m by M.unic;
+    sub n by N.unic;
+    sub nacute by Nacute.unic;
+    sub ncaron by Ncaron.unic;
+    sub ncommaaccent by Ncommaaccent.unic;
+    sub ntilde by Ntilde.unic;
+    sub o by O;
+    sub oacute by Oacute;
+    sub obreve by Obreve;
+    sub ocircumflex by Ocircumflex;
+    sub odieresis by Odieresis;
+    sub oe by OE;
+    sub ograve by Ograve;
+    sub ohungarumlaut by Ohungarumlaut;
+    sub omacron by Omacron;
+    sub oslash by Oslash;
+    sub oslashacute by Oslashacute;
+    sub otilde by Otilde;
+    sub p by P;
+    sub q by Q;
+    sub r by R;
+    sub racute by Racute;
+    sub rcaron by Rcaron;
+    sub rcommaaccent by Rcommaaccent;
+    sub s by S;
+    sub sacute by Sacute;
+    sub scaron by Scaron;
+    sub scedilla by Scedilla;
+    sub scircumflex by Scircumflex;
+    sub t by T;
+    sub tbar by Tbar;
+    sub tcaron by Tcaron;
+    sub thorn by Thorn;
+    sub u by U.unic;
+    sub uacute by Uacute.unic;
+    sub ubreve by Ubreve.unic;
+    sub ucircumflex by Ucircumflex;
+    sub udieresis by Udieresis.unic;
+    sub ugrave by Ugrave.unic;
+    sub uhungarumlaut by Uhungarumlaut.unic;
+    sub umacron by Umacron.unic;
+    sub uni010B by uni010A;
+    sub uni0121 by uni0120;
+    sub uni0163 by uni0162;
+    sub uni0219 by uni0218;
+    sub uogonek by Uogonek.unic;
+    sub uring by Uring.unic;
+    sub utilde by Utilde.unic;
+    sub v by V;
+    sub w by W;
+    sub wacute by Wacute;
+    sub wcircumflex by Wcircumflex;
+    sub wgrave by Wgrave;
+    sub x by X;
+    sub y by Y;
+    sub yacute by Yacute;
+    sub ycircumflex by Ycircumflex;
+    sub ydieresis by Ydieresis;
+    sub ygrave by Ygrave;
+    sub z by Z;
+    sub zacute by Zacute;
+    sub zcaron by Zcaron;
+    sub zdotaccent by Zdotaccent;
+} SingleSubstitution3;
+
+lookup SingleSubstitution4 {
+    lookupflag 0;
+    ;
+    # Original source: 3 
+    sub i by uni0069.ccmp;
+    sub iogonek by uni012F.ccmp;
+    sub j by uni006A.ccmp;
+    sub uni1ECB by uni1ECB.ccmp;
+} SingleSubstitution4;
+
+lookup ChainedContextualGSUB5 {
+    lookupflag 0;
+    ;
+    # Original source: 4 
+    sub uni1ECB' lookup SingleSubstitution4 [acutecomb gravecomb hook tildecomb uni030F];
+    sub j' lookup SingleSubstitution4 [acutecomb gravecomb hook tildecomb uni030F];
+    sub iogonek' lookup SingleSubstitution4 [acutecomb gravecomb hook tildecomb uni030F];
+    sub i' lookup SingleSubstitution4 [acutecomb gravecomb hook tildecomb uni030F];
+} ChainedContextualGSUB5;
+
+lookup LigatureSubstitution6 {
+    lookupflag 0;
+    ;
+    # Original source: 5 
+    sub A acutecomb by Aacute;
+    sub A dotbelow by uni1EA0;
+    sub A gravecomb by Agrave;
+    sub A hook by uni1EA2;
+    sub A tildecomb by Atilde;
+    sub A uni030F by uni0200;
+    sub AE acutecomb by AEacute;
+    sub B dotbelow by uni1E04;
+    sub C acutecomb by Cacute;
+    sub D dotbelow by uni1E0C;
+    sub E acutecomb by Eacute;
+    sub E dotbelow by uni1EB8;
+    sub E gravecomb by Egrave;
+    sub E hook by uni1EBA;
+    sub E tildecomb by uni1EBC;
+    sub E uni030F by uni0204;
+    sub G acutecomb by Gacute;
+    sub H dotbelow by uni1E24;
+    sub I acutecomb by Iacute;
+    sub I dotbelow by uni1ECA;
+    sub I gravecomb by Igrave;
+    sub I hook by uni1EC8;
+    sub I tildecomb by Itilde;
+    sub I uni030F by uni0208;
+    sub K acutecomb by uni1E30;
+    sub K dotbelow by uni1E32;
+    sub L acutecomb by Lacute;
+    sub L dotbelow by uni1E36;
+    sub M acutecomb by uni1E3E;
+    sub M dotbelow by uni1E42;
+    sub N acutecomb by Nacute;
+    sub N dotbelow by uni1E46;
+    sub N gravecomb by uni01F8;
+    sub N tildecomb by Ntilde;
+    sub O tildecomb acutecomb by uni1E4C;
+    sub O acutecomb by Oacute;
+    sub O dotbelow by uni1ECC;
+    sub O gravecomb by Ograve;
+    sub O hook by uni1ECE;
+    sub O tildecomb by Otilde;
+    sub O uni030F by uni020C;
+    sub Ohorn acutecomb by uni1EDA;
+    sub Ohorn dotbelow by uni1EE2;
+    sub Ohorn gravecomb by uni1EDC;
+    sub Ohorn hook by uni1EDE;
+    sub Ohorn tildecomb by uni1EE0;
+    sub Oslash acutecomb by Oslashacute;
+    sub P acutecomb by uni1E54;
+    sub R acutecomb by Racute;
+    sub R dotbelow by uni1E5A;
+    sub R uni030F by uni0210;
+    sub S acutecomb by Sacute;
+    sub S dotbelow by uni1E62;
+    sub T dotbelow by uni1E6C;
+    sub U tildecomb acutecomb by uni1E78;
+    sub U acutecomb by Uacute;
+    sub U dotbelow by uni1EE4;
+    sub U gravecomb by Ugrave;
+    sub U hook by uni1EE6;
+    sub U tildecomb by Utilde;
+    sub U uni030F by uni0214;
+    sub Uhorn acutecomb by uni1EE8;
+    sub Uhorn dotbelow by uni1EF0;
+    sub Uhorn gravecomb by uni1EEA;
+    sub Uhorn hook by uni1EEC;
+    sub Uhorn tildecomb by uni1EEE;
+    sub V dotbelow by uni1E7E;
+    sub V tildecomb by uni1E7C;
+    sub W acutecomb by Wacute;
+    sub W dotbelow by uni1E88;
+    sub W gravecomb by Wgrave;
+    sub Y acutecomb by Yacute;
+    sub Y dotbelow by uni1EF4;
+    sub Y gravecomb by Ygrave;
+    sub Y hook by uni1EF6;
+    sub Y tildecomb by uni1EF8;
+    sub Z acutecomb by Zacute;
+    sub Z dotbelow by uni1E92;
+    sub a acutecomb by aacute;
+    sub a dotbelow by uni1EA1;
+    sub a gravecomb by agrave;
+    sub a hook by uni1EA3;
+    sub a tildecomb by atilde;
+    sub a uni030F by uni0201;
+    sub ae acutecomb by aeacute;
+    sub b dotbelow by uni1E05;
+    sub c acutecomb by cacute;
+    sub d dotbelow by uni1E0D;
+    sub dotlessi acutecomb by iacute;
+    sub dotlessi gravecomb by igrave;
+    sub dotlessi hook by uni1EC9;
+    sub dotlessi tildecomb by itilde;
+    sub dotlessi uni030F by uni0209;
+    sub e acutecomb by eacute;
+    sub e dotbelow by uni1EB9;
+    sub e gravecomb by egrave;
+    sub e hook by uni1EBB;
+    sub e tildecomb by uni1EBD;
+    sub e uni030F by uni0205;
+    sub g acutecomb by gacute;
+    sub h dotbelow by uni1E25;
+    sub i dotbelow by uni1ECB;
+    sub k acutecomb by uni1E31;
+    sub k dotbelow by uni1E33;
+    sub l acutecomb by lacute;
+    sub l dotbelow by uni1E37;
+    sub m acutecomb by uni1E3F;
+    sub m dotbelow by uni1E43;
+    sub n acutecomb by nacute;
+    sub n dotbelow by uni1E47;
+    sub n gravecomb by uni01F9;
+    sub n tildecomb by ntilde;
+    sub o acutecomb by oacute;
+    sub o dotbelow by uni1ECD;
+    sub o gravecomb by ograve;
+    sub o hook by uni1ECF;
+    sub o tildecomb by otilde;
+    sub o uni030F by uni020D;
+    sub ohorn acutecomb by uni1EDB;
+    sub ohorn dotbelow by uni1EE3;
+    sub ohorn gravecomb by uni1EDD;
+    sub ohorn hook by uni1EDF;
+    sub ohorn tildecomb by uni1EE1;
+    sub oslash acutecomb by oslashacute;
+    sub p acutecomb by uni1E55;
+    sub r acutecomb by racute;
+    sub r dotbelow by uni1E5B;
+    sub r uni030F by uni0211;
+    sub s acutecomb by sacute;
+    sub s dotbelow by uni1E63;
+    sub t dotbelow by uni1E6D;
+    sub u acutecomb by uacute;
+    sub u dotbelow by uni1EE5;
+    sub u gravecomb by ugrave;
+    sub u hook by uni1EE7;
+    sub u tildecomb by utilde;
+    sub u uni030F by uni0215;
+    sub uhorn acutecomb by uni1EE9;
+    sub uhorn dotbelow by uni1EF1;
+    sub uhorn gravecomb by uni1EEB;
+    sub uhorn hook by uni1EED;
+    sub uhorn tildecomb by uni1EEF;
+    sub v dotbelow by uni1E7F;
+    sub v tildecomb by uni1E7D;
+    sub w acutecomb by wacute;
+    sub w dotbelow by uni1E89;
+    sub w gravecomb by wgrave;
+    sub y acutecomb by yacute;
+    sub y dotbelow by uni1EF5;
+    sub y gravecomb by ygrave;
+    sub y hook by uni1EF7;
+    sub y tildecomb by uni1EF9;
+    sub z acutecomb by zacute;
+    sub z dotbelow by uni1E93;
+} LigatureSubstitution6;
+
+lookup SingleSubstitution7 {
+    lookupflag 0;
+    ;
+    # Original source: 6 
+    sub Scedilla by uni0218;
+    sub scedilla by uni0219;
+} SingleSubstitution7;
+
+lookup SingleSubstitution8 {
+    lookupflag 0;
+    ;
+    # Original source: 7 
+    sub Scedilla by uni0218;
+    sub scedilla by uni0219;
+} SingleSubstitution8;
+
+lookup SingleSubstitution9 {
+    lookupflag 0;
+    ;
+    # Original source: 8 
+    sub Aogonek by Aogonek.NAV;
+    sub Aogonek.smcp by Aogonek.smcp.NAV;
+    sub Eogonek by Eogonek.NAV;
+    sub Eogonek.smcp by Eogonek.smcp.NAV;
+    sub aogonek by aogonek.NAV;
+    sub eogonek by eogonek.NAV;
+} SingleSubstitution9;
+
+lookup SingleSubstitution10 {
+    lookupflag 0;
+    ;
+    # Original source: 9 
+    sub uni2009 by uni2009.fra;
+} SingleSubstitution10;
+
+lookup LigatureSubstitution11 {
+    lookupflag 0;
+    ;
+    # Original source: 10 
+    sub f f i by f_f_i;
+    sub f i by fi;
+} LigatureSubstitution11;
+
+lookup LigatureSubstitution12 {
+    lookupflag 0;
+    ;
+    # Original source: 11 
+    sub f f l by f_f_l;
+    sub f l by f_l;
+} LigatureSubstitution12;
+
+lookup LigatureSubstitution13 {
+    lookupflag 0;
+    ;
+    # Original source: 12 
+    sub f f by f_f;
+    sub longs t by longst;
+    sub s t by st;
+} LigatureSubstitution13;
+
+lookup SingleSubstitution14 {
+    lookupflag 0;
+    ;
+    # Original source: 13 
+    sub K by K.alt;
+    sub g by g.alt;
+} SingleSubstitution14;
+
+lookup SingleSubstitution15 {
+    lookupflag 0;
+    ;
+    # Original source: 14 
+    sub eight by eight.tnum;
+    sub eight.pnum by eight;
+    sub five by five.tnum;
+    sub four by four.tnum;
+    sub nine by nine.tnum;
+    sub one by one.tnum;
+    sub seven by seven.tnum;
+    sub six by six.tnum;
+    sub six.pnum by six;
+    sub three by three.tnum;
+    sub two by two.tnum;
+    sub zero by zero.tnum;
+} SingleSubstitution15;
+
+lookup SingleSubstitution16 {
+    lookupflag 0;
+    ;
+    # Original source: 15 
+    sub eight by eight.pnum;
+    sub eight.tnum by eight;
+    sub five.tnum by five;
+    sub four.tnum by four;
+    sub nine.tnum by nine;
+    sub one.tnum by one;
+    sub seven.tnum by seven;
+    sub six by six.pnum;
+    sub six.tnum by six;
+    sub three.tnum by three;
+    sub two.tnum by two;
+    sub zero.tnum by zero;
+} SingleSubstitution16;
+
+lookup SingleSubstitution17 {
+    lookupflag 0;
+    ;
+    # Original source: 16 
+    sub slash by fraction;
+} SingleSubstitution17;
+
+lookup SingleSubstitution19 {
+    lookupflag 0;
+    ;
+    # Original source: 18 
+    sub eight by eight.sup;
+    sub five by five.sup;
+    sub four by four.sup;
+    sub nine by nine.sup;
+    sub one by one.sup;
+    sub seven by seven.sup;
+    sub six by six.sup;
+    sub three by three.sup;
+    sub two by two.sup;
+    sub zero by zero.sup;
+} SingleSubstitution19;
+
+lookup ChainedContextualGSUB18 {
+    lookupflag 0;
+    ;
+    # Original source: 17 
+    sub @class2 @class1' lookup SingleSubstitution19;
+} ChainedContextualGSUB18;
+
+lookup SingleSubstitution20 {
+    lookupflag 0;
+    ;
+    # Original source: 19 
+    sub eight by eight.frac;
+    sub five by five.frac;
+    sub four by four.frac;
+    sub nine by nine.frac;
+    sub one by onesuperior;
+    sub seven by seven.frac;
+    sub six by six.frac;
+    sub three by threesuperior;
+    sub two by twosuperior;
+    sub zero by zero.frac;
+} SingleSubstitution20;
+
+lookup SingleSubstitution21 {
+    lookupflag 0;
+    ;
+    # Original source: 20 
+    sub eight by eight.sup;
+    sub five by five.sup;
+    sub four by four.sup;
+    sub nine by nine.sup;
+    sub one by one.sup;
+    sub seven by seven.sup;
+    sub six by six.sup;
+    sub three by three.sup;
+    sub two by two.sup;
+    sub zero by zero.sup;
+} SingleSubstitution21;
+
+lookup SingleSubstitution22 {
+    lookupflag 0;
+    ;
+    # Original source: 21 
+    sub eight by eight.frac;
+    sub five by five.frac;
+    sub four by four.frac;
+    sub nine by nine.frac;
+    sub one by onesuperior;
+    sub seven by seven.frac;
+    sub six by six.frac;
+    sub three by threesuperior;
+    sub two by twosuperior;
+    sub zero by zero.frac;
+} SingleSubstitution22;
+
+lookup SingleSubstitution23 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 22 
+    sub uni0622 by uniFE82;
+    sub uni0623 by uniFE84;
+    sub uni0624 by uniFE86;
+    sub uni0625 by uniFE88;
+    sub uni0626 by uniFE8A;
+    sub uni0627 by uniFE8E;
+    sub uni0628 by uniFE90;
+    sub uni0629 by uniFE94;
+    sub uni062A by uniFE96;
+    sub uni062B by uniFE9A;
+    sub uni062C by uniFE9E;
+    sub uni062D by uniFEA2;
+    sub uni062E by uniFEA6;
+    sub uni062F by uniFEAA;
+    sub uni0630 by uniFEAC;
+    sub uni0631 by uniFEAE;
+    sub uni0632 by uniFEB0;
+    sub uni0633 by uniFEB2;
+    sub uni0634 by uniFEB6;
+    sub uni0635 by uniFEBA;
+    sub uni0636 by uniFEBE;
+    sub uni0637 by uniFEC2;
+    sub uni0638 by uniFEC6;
+    sub uni0639 by uniFECA;
+    sub uni063A by uniFECE;
+    sub uni063D by uni063D.fina;
+    sub uni0641 by uniFED2;
+    sub uni0642 by uniFED6;
+    sub uni0643 by uniFEDA;
+    sub uni0644 by uniFEDE;
+    sub uni0645 by uniFEE2;
+    sub uni0646 by uniFEE6;
+    sub uni0647 by uniFEEA;
+    sub uni0648 by uniFEEE;
+    sub uni0649 by uniFEF0;
+    sub uni064A by uniFEF2;
+    sub uni066E by uni066E.fina;
+    sub uni066F by uni066F.fina;
+    sub uni0671 by uniFB51;
+    sub uni0679 by uniFB67;
+    sub uni067C by uni067C.fina;
+    sub uni067E by uniFB57;
+    sub uni0681 by uni0681.fina;
+    sub uni0685 by uni0685.fina;
+    sub uni0686 by uniFB7B;
+    sub uni0688 by uniFB89;
+    sub uni0689 by uni0689.fina;
+    sub uni0691 by uniFB8D;
+    sub uni0693 by uni0693.fina;
+    sub uni0695 by uni0695.fina;
+    sub uni0696 by uni0696.fina;
+    sub uni0698 by uniFB8B;
+    sub uni069A by uni069A.fina;
+    sub uni06A0 by uni06A0.fina;
+    sub uni06A1 by uni06A1.fina;
+    sub uni06A4 by uniFB6B;
+    sub uni06A9 by uniFB8F;
+    sub uni06AA by uni06AA.fina;
+    sub uni06AB by uni06AB.fina;
+    sub uni06AC by uni06AC.fina;
+    sub uni06AD by uniFBD4;
+    sub uni06AF by uniFB93;
+    sub uni06B5 by uni06B5.fina;
+    sub uni06BA by uniFB9F;
+    sub uni06BC by uni06BC.fina;
+    sub uni06BD by uni06BD.fina;
+    sub uni06BE by uniFBAB;
+    sub uni06C0 by uniFBA5.fina;
+    sub uni06C1 by uniFBA7;
+    sub uni06C2 by uni06C2.fina;
+    sub uni06C3 by uni06C3.fina;
+    sub uni06C6 by uniFBDA;
+    sub uni06C7 by uniFBD8;
+    sub uni06C8 by uniFBDC;
+    sub uni06C9 by uniFBE3;
+    sub uni06CA by uni06CA.fina;
+    sub uni06CB by uniFBDF;
+    sub uni06CC by uniFBFD;
+    sub uni06CD by uni06CD.fina;
+    sub uni06CE by uni06CE.fina;
+    sub uni06CF by uni06CF.fina;
+    sub uni06D0 by uni06D0.fina;
+    sub uni06D2 by uniFBAF;
+    sub uni06D3 by uniFBB1;
+    sub uni06D5 by uni06D5.fina;
+    sub uni0762 by uni0762.fina;
+    sub uni0763 by uni0763.fina;
+} SingleSubstitution23;
+
+lookup SingleSubstitution24 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 23 
+    sub uni0626 by uniFE8C;
+    sub uni0628 by uniFE92;
+    sub uni062A by uniFE98;
+    sub uni062B by uniFE9C;
+    sub uni062C by uniFEA0;
+    sub uni062D by uniFEA4;
+    sub uni062E by uniFEA8;
+    sub uni0633 by uniFEB4;
+    sub uni0634 by uniFEB8;
+    sub uni0635 by uniFEBC;
+    sub uni0636 by uniFEC0;
+    sub uni0637 by uniFEC4;
+    sub uni0638 by uniFEC8;
+    sub uni0639 by uniFECC;
+    sub uni063A by uniFED0;
+    sub uni063D by uni063D.medi;
+    sub uni0641 by uniFED4;
+    sub uni0642 by uniFED8;
+    sub uni0643 by uniFEDC;
+    sub uni0644 by uniFEE0;
+    sub uni0645 by uniFEE4;
+    sub uni0646 by uniFEE8;
+    sub uni0647 by uniFEEC;
+    sub uni0649 by uniFBE9;
+    sub uni064A by uniFEF4;
+    sub uni066E by uni066E.medi;
+    sub uni066F by uni066F.medi;
+    sub uni0679 by uniFB69;
+    sub uni067C by uni067C.medi;
+    sub uni067E by uniFB59;
+    sub uni0681 by uni0681.medi;
+    sub uni0685 by uni0685.medi;
+    sub uni0686 by uniFB7D;
+    sub uni069A by uni069A.medi;
+    sub uni06A0 by uni06A0.medi;
+    sub uni06A1 by uni06A1.medi;
+    sub uni06A4 by uniFB6D;
+    sub uni06A9 by uniFB91;
+    sub uni06AA by uni06AA.medi;
+    sub uni06AB by uni06AB.medi;
+    sub uni06AC by uni06AC.medi;
+    sub uni06AD by uniFBD6;
+    sub uni06AF by uniFB95;
+    sub uni06B5 by uni06B5.medi;
+    sub uni06BA by uni06BA.medi;
+    sub uni06BC by uni06BC.medi;
+    sub uni06BD by uniFB59;
+    sub uni06BE by uniFBAD;
+    sub uni06C1 by uniFBA9;
+    sub uni06C2 by uni06C2.medi;
+    sub uni06CC by uniFBFF;
+    sub uni06CE by uni06CE.medi;
+    sub uni06D0 by uni06D0.medi;
+    sub uni0762 by uni0762.medi;
+    sub uni0763 by uni0763.medi;
+} SingleSubstitution24;
+
+lookup SingleSubstitution25 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 24 
+    sub uni0626 by uniFE8B;
+    sub uni0628 by uniFE91;
+    sub uni062A by uniFE97;
+    sub uni062B by uniFE9B;
+    sub uni062C by uniFE9F;
+    sub uni062D by uniFEA3;
+    sub uni062E by uniFEA7;
+    sub uni0633 by uniFEB3;
+    sub uni0634 by uniFEB7;
+    sub uni0635 by uniFEBB;
+    sub uni0636 by uniFEBF;
+    sub uni0637 by uniFEC3;
+    sub uni0638 by uniFEC7;
+    sub uni0639 by uniFECB;
+    sub uni063A by uniFECF;
+    sub uni063D by uni063D.init;
+    sub uni0641 by uniFED3;
+    sub uni0642 by uniFED7;
+    sub uni0643 by uniFEDB;
+    sub uni0644 by uniFEDF;
+    sub uni0645 by uniFEE3;
+    sub uni0646 by uniFEE7;
+    sub uni0647 by uniFEEB;
+    sub uni0649 by uniFBE8;
+    sub uni064A by uniFEF3;
+    sub uni066E by uni066E.init;
+    sub uni066F by uni066F.init;
+    sub uni0679 by uniFB68;
+    sub uni067C by uni067C.init;
+    sub uni067E by uniFB58;
+    sub uni0681 by uni0681.init;
+    sub uni0685 by uni0685.init;
+    sub uni0686 by uniFB7C;
+    sub uni069A by uni069A.init;
+    sub uni06A0 by uni06A0.init;
+    sub uni06A1 by uni06A1.init;
+    sub uni06A4 by uniFB6C;
+    sub uni06A9 by uniFB90;
+    sub uni06AA by uni06AA.init;
+    sub uni06AB by uni06AB.init;
+    sub uni06AC by uni06AC.init;
+    sub uni06AD by uniFBD5;
+    sub uni06AF by uniFB94;
+    sub uni06B5 by uni06B5.init;
+    sub uni06BA by uni06BA.init;
+    sub uni06BC by uni06BC.init;
+    sub uni06BD by uniFB58;
+    sub uni06BE by uniFBAC;
+    sub uni06C1 by uniFBA8;
+    sub uni06C2 by uni06C2.init;
+    sub uni06CC by uniFBFE;
+    sub uni06CE by uni06CE.init;
+    sub uni06D0 by uni06D0.init;
+    sub uni0762 by uni0762.init;
+    sub uni0763 by uni0763.init;
+} SingleSubstitution25;
+
+lookup LigatureSubstitution26 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 25 
+    sub uni06B5.init uniFE8E by lamVabove_alef.isol;
+    sub uni06B5.medi uniFE8E by NameMe.65574;
+    sub uniFEDF uniFE8E by uniFEFB;
+    sub uniFEE0 uniFE8E by uniFEFC;
+} LigatureSubstitution26;
+
+lookup LigatureSubstitution27 {
+    lookupflag RightToLeft;
+    ;
+    # Original source: 26 
+    sub uni064B uni0651 by uni0651064B;
+    sub uni064C uni0651 by uni0651064C;
+    sub uni064D uni0651 by uni064B0651;
+    sub uni064E uni0651 by uni0651064E;
+    sub uni064E uni0654 by uni0654064E;
+    sub uni064F uni0651 by uni0651064F;
+    sub uni064F uni0654 by uni0654064F;
+    sub uni0650 uni0651 by uni064E0651;
+    sub uni0651 uni064B by uni0651064B;
+    sub uni0651 uni064C by uni0651064C;
+    sub uni0651 uni064D by uni064B0651;
+    sub uni0651 uni064E by uni0651064E;
+    sub uni0651 uni064F by uni0651064F;
+    sub uni0651 uni0650 by uni064E0651;
+    sub uni0654 uni064E by uni0654064E;
+    sub uni0654 uni064F by uni0654064F;
+} LigatureSubstitution27;
+
+lookup SingleSubstitution28 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 27 
+    sub uni063D.init by uni063D.init.long4;
+    sub uni063D.medi by uni063D.medi.long4;
+    sub uni06BC.init by uni06BC.init.long;
+    sub uni06BC.medi by uni06BC.medi.long;
+    sub uni06CE.init by uni06CE.init.long4;
+    sub uni06CE.medi by uni06CE.medi.long4;
+    sub uni06D0.init by uni06D0.init.long;
+    sub uni06D0.medi by uni06D0.medi.long;
+    sub uniFB58 by uniFB58.long4;
+    sub uniFB59 by uniFB59.long4;
+    sub uniFBFE by uniFBFE.long4;
+    sub uniFBFF by uniFBFF.long4;
+    sub uniFE91 by uniFE91.long2;
+    sub uniFE92 by uniFE92.long2;
+    sub uniFE97 by uniFE97.long;
+    sub uniFE98 by uniFE98.long;
+    sub uniFE9B by uniFE9B.long;
+    sub uniFE9C by uniFE9C.long;
+    sub uniFEF3 by uniFEF3.long4;
+    sub uniFEF4 by uniFEF4.long4;
+} SingleSubstitution28;
+
+lookup SingleSubstitution32 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 31 
+    sub uni063D.init by uni063D.init.long3;
+    sub uni063D.medi by uni063D.medi.long3;
+    sub uni06CE.init by uni06CE.init.long3;
+    sub uni06CE.medi by uni06CE.medi.long3;
+    sub uniFB58 by uniFB58.long3;
+    sub uniFB59 by uniFB59.long3;
+    sub uniFBFE by uniFBFE.long3;
+    sub uniFBFF by uniFBFF.long3;
+    sub uniFE91 by uniFE91.long1;
+    sub uniFE92 by uniFE92.long1;
+    sub uniFEF3 by uniFEF3.long3;
+    sub uniFEF4 by uniFEF4.long3;
+} SingleSubstitution32;
+
+lookup SingleSubstitution31 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 30 
+    sub uni063D.init by uni063D.init.long2;
+    sub uni063D.medi by uni063D.medi.long2;
+    sub uni06CE.init by uni06CE.init.long2;
+    sub uni06CE.medi by uni06CE.medi.long2;
+    sub uniFB58 by uniFB58.long2;
+    sub uniFB59 by uniFB59.long2;
+    sub uniFBFE by uniFBFE.long2;
+    sub uniFBFF by uniFBFF.long2;
+    sub uniFEF3 by uniFEF3.long2;
+    sub uniFEF4 by uniFEF4.long2;
+} SingleSubstitution31;
+
+lookup SingleSubstitution30 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 29 
+    sub uni063D.init by uni063D.init.long1;
+    sub uni063D.medi by uni063D.medi.long1;
+    sub uni06CE.init by uni06CE.init.long1;
+    sub uni06CE.medi by uni06CE.medi.long1;
+    sub uniFB58 by uniFB58.long1;
+    sub uniFB59 by uniFB59.long1;
+    sub uniFBAF by uniFBAF.compact;
+    sub uniFBB1 by uniFBB1.compact;
+    sub uniFBFE by uniFBFE.long1;
+    sub uniFBFF by uniFBFF.long1;
+    sub uniFEE3 by uniFEE3.long;
+    sub uniFEE4 by uniFEE4.long;
+    sub uniFEEC by uniFEEC.long;
+    sub uniFEF3 by uniFEF3.long1;
+    sub uniFEF4 by uniFEF4.long1;
+} SingleSubstitution30;
+
+lookup ChainedContextualGSUB29 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 28 
+    sub [uniFEE3 uniFEE4 uniFEEC]' lookup SingleSubstitution30 @class3;
+    sub @class4' lookup SingleSubstitution30 @class5;
+    sub @class6 [uniFBAF uniFBB1]' lookup SingleSubstitution30;
+    sub [uniFE97 uniFE98 uniFE9B uniFE9C]' lookup SingleSubstitution28 @class7;
+    sub @class8' lookup SingleSubstitution28 @class3;
+    sub @class4' lookup SingleSubstitution31 @class11;
+    sub @class12' lookup SingleSubstitution32 [uniFBAF uniFBB1 uniFE88 uniFED6];
+} ChainedContextualGSUB29;
+
+lookup LigatureSubstitution33 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 32 
+    sub uniFEDF uniFB51 by LamAlefWasla;
+    sub uniFEDF uniFE82 by uniFEF5;
+    sub uniFEDF uniFE84 by uniFEF7;
+    sub uniFEDF uniFE88 by uniFEF9;
+    sub uniFEE0 uniFB51 by LamAlefWasla.fina;
+    sub uniFEE0 uniFE82 by uniFEF6;
+    sub uniFEE0 uniFE84 by uniFEF8;
+    sub uniFEE0 uniFE88 by uniFEFA;
+} LigatureSubstitution33;
+
+lookup LigatureSubstitution34 {
+    lookupflag RightToLeft;
+    ;
+    # Original source: 33 
+    sub space uni064B by uniFE70;
+    sub space uni064C by uniFE72;
+    sub space uni064D by uniFE74;
+    sub space uni064E by uniFE76;
+    sub space uni064F by uniFE78;
+    sub space uni0650 by uniFE7A;
+    sub space uni0651 by uniFE7C;
+    sub space uni0652 by uniFE7E;
+    sub uni0627 uniFEDF uniFEE0 uniFEEA by uniFDF2;
+    sub uni0627 uni0653 by uni0622;
+    sub uni0627 uni0654 by uni0623;
+    sub uni0627 uni0655 by uni0625;
+    sub uni0640 uni064B by uniFE71;
+    sub uni0640 uni064E by uniFE77;
+    sub uni0640 uni064F by uniFE79;
+    sub uni0640 uni0650 by uniFE7B;
+    sub uni0640 uni0651 by uniFE7D;
+    sub uni0640 uni0652 by uniFE7F;
+    sub uni0647 uni0654 by uni06C0;
+    sub uni0648 uni0654 by uni0624;
+    sub uni064A uni0654 by uni0626;
+    sub uniFEEA uni0654 by uniFBA5.fina;
+} LigatureSubstitution34;
+
+lookup SingleSubstitution35 {
+    lookupflag 0;
+    ;
+    # Original source: 34 
+    sub uni06F4 by uni06F4.locl;
+    sub uni06F6 by uni0666;
+    sub uni06F7 by uni06F7.locl;
+} SingleSubstitution35;
+
+lookup SingleSubstitution36 {
+    lookupflag 0;
+    ;
+    # Original source: 35 
+    sub eight by uni06F8;
+    sub five by uni06F5;
+    sub four by uni06F4;
+    sub nine by uni06F9;
+    sub one by uni06F1;
+    sub seven by uni06F7;
+    sub six by uni06F6;
+    sub three by uni06F3;
+    sub two by uni06F2;
+    sub uni0660 by uni06F0;
+    sub uni0661 by uni06F1;
+    sub uni0662 by uni06F2;
+    sub uni0663 by uni06F3;
+    sub uni0664 by uni06F4;
+    sub uni0665 by uni06F5;
+    sub uni0666 by uni06F6;
+    sub uni0667 by uni06F7;
+    sub uni0668 by uni06F8;
+    sub uni0669 by uni06F9;
+    sub zero by uni06F0;
+} SingleSubstitution36;
+
+lookup SingleSubstitution37 {
+    lookupflag 0;
+    ;
+    # Original source: 36 
+    sub uni0660 by uni0660.tnum;
+    sub uni0661 by uni0661.tnum;
+    sub uni0662 by uni0662.tnum;
+    sub uni0663 by uni0663.tnum;
+    sub uni0664 by uni0664.tnum;
+    sub uni0665 by uni0665.tnum;
+    sub uni0666 by uni0666.tnum;
+    sub uni0667 by uni0667.tnum;
+    sub uni0668 by uni0668.tnum;
+    sub uni0669 by uni0669.tnum;
+    sub uni06F0 by uni06F0.tnum;
+    sub uni06F1 by uni06F1.tnum;
+    sub uni06F2 by uni06F2.tnum;
+    sub uni06F3 by uni06F3.tnum;
+    sub uni06F4 by uni06F4.tnum;
+    sub uni06F4.locl by uni06F4.locl.tnum;
+    sub uni06F5 by uni06F5.tnum;
+    sub uni06F6 by uni06F6.tnum;
+    sub uni06F7 by uni06F7.tnum;
+    sub uni06F7.locl by uni06F7.locl.tnum;
+    sub uni06F8 by uni06F8.tnum;
+    sub uni06F9 by uni06F9.tnum;
+} SingleSubstitution37;
+
+lookup SinglePositioning1 {
+    lookupflag 0;
+    ;
+    pos [A AE AEacute Aacute Abreve Acircumflex Adieresis Agrave Amacron Aogonek Aogonek.NAV Aring Aringacute Atilde B C Cacute Ccaron Ccedilla Ccircumflex D Dcaron Dcroat Delta E Eacute Ebreve Ecaron Ecircumflex Edieresis Edotaccent Egrave Emacron Eng Eogonek Eogonek.NAV Eth Euro F G Gbreve Gcircumflex Gcommaaccent H Hbar Hcircumflex I IJ Iacute Ibreve Icircumflex Idieresis Idotaccent Igrave Imacron Iogonek Itilde J Jcircumflex K Kcommaaccent L Lacute Lcaron Lcommaaccent Ldot Lslash M N Nacute Ncaron Ncommaaccent Ntilde O OE Oacute Obreve Ocircumflex Odieresis Ograve Ohungarumlaut Omacron Omega Oslash Oslashacute Otilde P Q R Racute Rcaron Rcommaaccent S Sacute Scaron Scedilla Scircumflex T Tbar Tcaron Thorn U Uacute Ubreve Ucircumflex Udieresis Ugrave Uhungarumlaut Umacron Uogonek Uring Utilde V W Wacute Wcircumflex Wgrave X Y Yacute Ycircumflex Ydieresis Ygrave Z Zacute Zcaron Zdotaccent ampersand dollar eight five four lira nine one seven six sterling three two uni010A uni0120 uni0162 uni0218 uni021A uni20BD uni2116 yen zero] <33 0 67 0>;
+} SinglePositioning1;
+
+lookup SinglePositioning10 {
+    lookupflag 0;
+    ;
+    # Original source: 5 
+    pos [LamAlefWasla lamVabove_alef.isol uni0625 uni0627 uni0643 uni0644 uni06AD uni06B5 uni06B5.init uni0763.init uniFBD3 uniFE81 uniFE83 uniFE87 uniFE8D uniFED9 uniFEDF uniFEF5 uniFEF7 uniFEF9 uniFEFB] 142;
+    pos [uni06A9 uni06AB uni06AB.init uni06AF uni0763 uniFB90 uniFB94 uniFBD5 uniFEDB] 197;
+    pos uni0622 348;
+    pos uni0623 208;
+    pos uni0671 250;
+    pos uniFB50 250;
+    pos uniFE8B 87;
+    pos uniFE97 66;
+    pos uniFE9B 66;
+    pos uniFED7 76;
+} SinglePositioning10;
+
+lookup SinglePositioning11 {
+    lookupflag 0;
+    ;
+    # Original source: 6 
+    pos [uni0629 uni062F uni0630 uni0635 uni0636 uni0637 uni0638 uni0640 uni0645 uni0647 uni0679 uni06A9 uni06AA uni06AA.init uni06AB uni06AB.init uni06AF uni06C0 uni06C1 uni06D5 uni0762 uni0762.init uni0763 uni0763.init uniFB8E uniFB90 uniFB92 uniFB94 uniFEBB uniFEBF uniFEC3 uniFEC7 uniFEDB uniFEE3 uniFEE3.long uniFEEB] -156;
+    pos [LamAlefWasla lamVabove_alef.isol uni0622 uni0623 uni0627 uni0628 uni062A uni062B uni0633 uni0634 uni0641 uni0643 uni067E uni0688 uni06A0.init uni06AD uni06B5.init uniFE8B uniFE9B uniFE9B.long uniFEB3 uniFEB7 uniFECB uniFECF uniFED3 uniFED7 uniFEDF uniFEF5 uniFEF7 uniFEF9 uniFEFB] -83;
+    pos uni0621 -104;
+    pos uni0624 -31;
+    pos uni0631 -31;
+    pos uni0632 -31;
+    pos uni0642 -62;
+    pos uni0644 -62;
+    pos uni0646 -62;
+    pos uni0648 -31;
+    pos uni0691 -31;
+    pos uni0698 -42;
+    pos uni06D2 -125;
+    pos uni06D3 -125;
+    pos uniFB7C -104;
+    pos uniFE9F -104;
+    pos uniFEA3 -104;
+    pos uniFEA7 -104;
+    pos uniFEE7 -62;
+    pos [uniFB68 uniFE91 uniFE91.long1 uniFE91.long2 uniFE97 uniFE97.long] -52;
+} SinglePositioning11;
+
+lookup SinglePositioning12 {
+    lookupflag 0;
+    ;
+    # Original source: 7 
+    pos [uni0628 uni0629 uni062A uni062B uni062F uni0630 uni0633 uni0634 uni0635 uni0636 uni0637 uni0638 uni0640 uni0645 uni0647 uni0679 uni067C uni067E uni0688 uni06A0.init uni06AA uni06AA.init uni06C0 uni06C1 uni06D5 uniFB7C uniFE9F uniFEA3 uniFEA7 uniFEB3 uniFEB7 uniFEBB uniFEBF uniFEC3 uniFEC7 uniFECB uniFECF uniFEE3 uniFEE3.long uniFEEB] -166;
+    pos [LamAlefWasla lamVabove_alef.isol uni0622 uni0623 uni0627 uni0641 uni0643 uni06AC uni06AD uni06B5.init uniFB68 uniFE8B uniFE97 uniFE97.long uniFE9B uniFE9B.long uniFED3 uniFED7 uniFEDF uniFEE7 uniFEF5 uniFEF7 uniFEF9 uniFEFB] -146;
+    pos uni0621 -108;
+    pos uni0624 -31;
+    pos uni0631 -32;
+    pos uni0632 -32;
+    pos uni0642 -62;
+    pos uni0644 -62;
+    pos uni0646 -62;
+    pos uni0648 -31;
+    pos uni0691 -31;
+    pos uni0698 -42;
+    pos uni06B5 -62;
+    pos uni06D2 -125;
+    pos uni06D3 -125;
+    pos uniFBFE 31;
+    pos uniFE91 -52;
+    pos uniFE91.long1 -52;
+    pos uniFE91.long2 -52;
+    pos [uni06A9 uni06AB uni06AB.init uni06AC.init uni06AF uni0762 uni0762.init uni0763 uni0763.init uniFB8E uniFB90 uniFB92 uniFB94 uniFEDB] -198;
+} SinglePositioning12;
+
+lookup SinglePositioning13 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 8 
+    pos bracketleft 156;
+    pos parenleft 156;
+    pos slash 175;
+} SinglePositioning13;
+
+lookup SinglePositioning14 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 9 
+    pos bracketleft 98;
+    pos parenleft 78;
+} SinglePositioning14;
+
+lookup SinglePositioning16 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 11 
+    pos [uni06A9 uni06AF uniFB8E uniFB90 uniFB92 uniFB94 uniFEDB] -24;
+    pos uni0622 125;
+    pos uni0639 -97;
+    pos uni063A -97;
+    pos uni06A0 -97;
+} SinglePositioning16;
+
+lookup ChainedContextualGPOS15 {
+    lookupflag RightToLeft IgnoreMarks;
+    ;
+    # Original source: 10 
+    pos uni0622 @class13' lookup SinglePositioning10;
+    pos [uni0691 uni0698 uniFB8B uniFB8D] @class14' lookup SinglePositioning11;
+    pos @class16 @class15' lookup SinglePositioning12;
+    pos @class17 [uni0639 uni063A uni06A0]' lookup SinglePositioning16;
+    pos @class19 @class18' lookup SinglePositioning16;
+    pos [bracketright parenright] uni0622' lookup SinglePositioning16;
+    pos uni0622 [bracketleft parenleft slash]' lookup SinglePositioning13;
+    pos @class20 [bracketleft parenleft]' lookup SinglePositioning14;
+} ChainedContextualGPOS15;
+
+feature c2sc {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution1;
+
+} c2sc;
+
+feature c2sc {
+    script cyrl;
+    language dflt;
+            lookup SingleSubstitution1;
+
+} c2sc;
+
+feature c2sc {
+    script grek;
+    language dflt;
+            lookup SingleSubstitution1;
+
+} c2sc;
+
+feature c2sc {
+    script latn;
+    language dflt;
+            lookup SingleSubstitution1;
+
+} c2sc;
+
+feature c2sc {
+    script latn;
+    language AZE;
+            lookup SingleSubstitution1;
+
+} c2sc;
+
+feature c2sc {
+    script latn;
+    language CRT;
+            lookup SingleSubstitution1;
+
+} c2sc;
+
+feature c2sc {
+    script latn;
+    language FRA;
+            lookup SingleSubstitution1;
+
+} c2sc;
+
+feature c2sc {
+    script latn;
+    language MOL;
+            lookup SingleSubstitution1;
+
+} c2sc;
+
+feature c2sc {
+    script latn;
+    language NAV;
+            lookup SingleSubstitution1;
+
+} c2sc;
+
+feature c2sc {
+    script latn;
+    language ROM;
+            lookup SingleSubstitution1;
+
+} c2sc;
+
+feature c2sc {
+    script latn;
+    language TRK;
+            lookup SingleSubstitution1;
+
+} c2sc;
+
+feature calt {
+    script DFLT;
+    language dflt;
+            lookup ChainedContextualGSUB29;
+
+} calt;
+
+feature calt {
+    script arab;
+    language dflt;
+            lookup ChainedContextualGSUB29;
+
+} calt;
+
+feature calt {
+    script arab;
+    language URD;
+            lookup ChainedContextualGSUB29;
+
+} calt;
+
+feature ccmp {
+    script DFLT;
+    language dflt;
+            lookup ChainedContextualGSUB5;
+
+} ccmp;
+
+feature ccmp {
+    script cyrl;
+    language dflt;
+            lookup ChainedContextualGSUB5;
+
+} ccmp;
+
+feature ccmp {
+    script grek;
+    language dflt;
+            lookup ChainedContextualGSUB5;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language dflt;
+            lookup ChainedContextualGSUB5;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language AZE;
+            lookup ChainedContextualGSUB5;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language CRT;
+            lookup ChainedContextualGSUB5;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language FRA;
+            lookup ChainedContextualGSUB5;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language MOL;
+            lookup ChainedContextualGSUB5;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language NAV;
+            lookup ChainedContextualGSUB5;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language ROM;
+            lookup ChainedContextualGSUB5;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language TRK;
+            lookup ChainedContextualGSUB5;
+
+} ccmp;
+
+feature ccmp {
+    script DFLT;
+    language dflt;
+            lookup LigatureSubstitution6;
+
+} ccmp;
+
+feature ccmp {
+    script cyrl;
+    language dflt;
+            lookup LigatureSubstitution6;
+
+} ccmp;
+
+feature ccmp {
+    script grek;
+    language dflt;
+            lookup LigatureSubstitution6;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language dflt;
+            lookup LigatureSubstitution6;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language AZE;
+            lookup LigatureSubstitution6;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language CRT;
+            lookup LigatureSubstitution6;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language FRA;
+            lookup LigatureSubstitution6;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language MOL;
+            lookup LigatureSubstitution6;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language NAV;
+            lookup LigatureSubstitution6;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language ROM;
+            lookup LigatureSubstitution6;
+
+} ccmp;
+
+feature ccmp {
+    script latn;
+    language TRK;
+            lookup LigatureSubstitution6;
+
+} ccmp;
+
+feature ccmp {
+    script DFLT;
+    language dflt;
+            lookup LigatureSubstitution27;
+
+} ccmp;
+
+feature ccmp {
+    script arab;
+    language dflt;
+            lookup LigatureSubstitution27;
+
+} ccmp;
+
+feature ccmp {
+    script arab;
+    language URD;
+            lookup LigatureSubstitution27;
+
+} ccmp;
+
+feature dlig {
+    script DFLT;
+    language dflt;
+            lookup LigatureSubstitution13;
+
+} dlig;
+
+feature dlig {
+    script cyrl;
+    language dflt;
+            lookup LigatureSubstitution13;
+
+} dlig;
+
+feature dlig {
+    script grek;
+    language dflt;
+            lookup LigatureSubstitution13;
+
+} dlig;
+
+feature dlig {
+    script latn;
+    language dflt;
+            lookup LigatureSubstitution13;
+
+} dlig;
+
+feature dlig {
+    script latn;
+    language AZE;
+            lookup LigatureSubstitution13;
+
+} dlig;
+
+feature dlig {
+    script latn;
+    language CRT;
+            lookup LigatureSubstitution13;
+
+} dlig;
+
+feature dlig {
+    script latn;
+    language FRA;
+            lookup LigatureSubstitution13;
+
+} dlig;
+
+feature dlig {
+    script latn;
+    language MOL;
+            lookup LigatureSubstitution13;
+
+} dlig;
+
+feature dlig {
+    script latn;
+    language NAV;
+            lookup LigatureSubstitution13;
+
+} dlig;
+
+feature dlig {
+    script latn;
+    language ROM;
+            lookup LigatureSubstitution13;
+
+} dlig;
+
+feature dlig {
+    script latn;
+    language TRK;
+            lookup LigatureSubstitution13;
+
+} dlig;
+
+feature dnom {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution21;
+
+} dnom;
+
+feature dnom {
+    script cyrl;
+    language dflt;
+            lookup SingleSubstitution21;
+
+} dnom;
+
+feature dnom {
+    script grek;
+    language dflt;
+            lookup SingleSubstitution21;
+
+} dnom;
+
+feature dnom {
+    script latn;
+    language dflt;
+            lookup SingleSubstitution21;
+
+} dnom;
+
+feature dnom {
+    script latn;
+    language AZE;
+            lookup SingleSubstitution21;
+
+} dnom;
+
+feature dnom {
+    script latn;
+    language CRT;
+            lookup SingleSubstitution21;
+
+} dnom;
+
+feature dnom {
+    script latn;
+    language FRA;
+            lookup SingleSubstitution21;
+
+} dnom;
+
+feature dnom {
+    script latn;
+    language MOL;
+            lookup SingleSubstitution21;
+
+} dnom;
+
+feature dnom {
+    script latn;
+    language NAV;
+            lookup SingleSubstitution21;
+
+} dnom;
+
+feature dnom {
+    script latn;
+    language ROM;
+            lookup SingleSubstitution21;
+
+} dnom;
+
+feature dnom {
+    script latn;
+    language TRK;
+            lookup SingleSubstitution21;
+
+} dnom;
+
+feature fina {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution23;
+
+} fina;
+
+feature fina {
+    script arab;
+    language dflt;
+            lookup SingleSubstitution23;
+
+} fina;
+
+feature fina {
+    script arab;
+    language URD;
+            lookup SingleSubstitution23;
+
+} fina;
+
+feature frac {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution17;
+
+} frac;
+
+feature frac {
+    script cyrl;
+    language dflt;
+            lookup SingleSubstitution17;
+
+} frac;
+
+feature frac {
+    script grek;
+    language dflt;
+            lookup SingleSubstitution17;
+
+} frac;
+
+feature frac {
+    script latn;
+    language dflt;
+            lookup SingleSubstitution17;
+
+} frac;
+
+feature frac {
+    script latn;
+    language AZE;
+            lookup SingleSubstitution17;
+
+} frac;
+
+feature frac {
+    script latn;
+    language CRT;
+            lookup SingleSubstitution17;
+
+} frac;
+
+feature frac {
+    script latn;
+    language FRA;
+            lookup SingleSubstitution17;
+
+} frac;
+
+feature frac {
+    script latn;
+    language MOL;
+            lookup SingleSubstitution17;
+
+} frac;
+
+feature frac {
+    script latn;
+    language NAV;
+            lookup SingleSubstitution17;
+
+} frac;
+
+feature frac {
+    script latn;
+    language ROM;
+            lookup SingleSubstitution17;
+
+} frac;
+
+feature frac {
+    script latn;
+    language TRK;
+            lookup SingleSubstitution17;
+
+} frac;
+
+feature frac {
+    script DFLT;
+    language dflt;
+            lookup ChainedContextualGSUB18;
+
+} frac;
+
+feature frac {
+    script cyrl;
+    language dflt;
+            lookup ChainedContextualGSUB18;
+
+} frac;
+
+feature frac {
+    script grek;
+    language dflt;
+            lookup ChainedContextualGSUB18;
+
+} frac;
+
+feature frac {
+    script latn;
+    language dflt;
+            lookup ChainedContextualGSUB18;
+
+} frac;
+
+feature frac {
+    script latn;
+    language AZE;
+            lookup ChainedContextualGSUB18;
+
+} frac;
+
+feature frac {
+    script latn;
+    language CRT;
+            lookup ChainedContextualGSUB18;
+
+} frac;
+
+feature frac {
+    script latn;
+    language FRA;
+            lookup ChainedContextualGSUB18;
+
+} frac;
+
+feature frac {
+    script latn;
+    language MOL;
+            lookup ChainedContextualGSUB18;
+
+} frac;
+
+feature frac {
+    script latn;
+    language NAV;
+            lookup ChainedContextualGSUB18;
+
+} frac;
+
+feature frac {
+    script latn;
+    language ROM;
+            lookup ChainedContextualGSUB18;
+
+} frac;
+
+feature frac {
+    script latn;
+    language TRK;
+            lookup ChainedContextualGSUB18;
+
+} frac;
+
+feature frac {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution20;
+
+} frac;
+
+feature frac {
+    script cyrl;
+    language dflt;
+            lookup SingleSubstitution20;
+
+} frac;
+
+feature frac {
+    script grek;
+    language dflt;
+            lookup SingleSubstitution20;
+
+} frac;
+
+feature frac {
+    script latn;
+    language dflt;
+            lookup SingleSubstitution20;
+
+} frac;
+
+feature frac {
+    script latn;
+    language AZE;
+            lookup SingleSubstitution20;
+
+} frac;
+
+feature frac {
+    script latn;
+    language CRT;
+            lookup SingleSubstitution20;
+
+} frac;
+
+feature frac {
+    script latn;
+    language FRA;
+            lookup SingleSubstitution20;
+
+} frac;
+
+feature frac {
+    script latn;
+    language MOL;
+            lookup SingleSubstitution20;
+
+} frac;
+
+feature frac {
+    script latn;
+    language NAV;
+            lookup SingleSubstitution20;
+
+} frac;
+
+feature frac {
+    script latn;
+    language ROM;
+            lookup SingleSubstitution20;
+
+} frac;
+
+feature frac {
+    script latn;
+    language TRK;
+            lookup SingleSubstitution20;
+
+} frac;
+
+feature init {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution25;
+
+} init;
+
+feature init {
+    script arab;
+    language dflt;
+            lookup SingleSubstitution25;
+
+} init;
+
+feature init {
+    script arab;
+    language URD;
+            lookup SingleSubstitution25;
+
+} init;
+
+feature liga {
+    script DFLT;
+    language dflt;
+            lookup LigatureSubstitution33;
+
+} liga;
+
+feature liga {
+    script arab;
+    language dflt;
+            lookup LigatureSubstitution33;
+
+} liga;
+
+feature liga {
+    script arab;
+    language URD;
+            lookup LigatureSubstitution33;
+
+} liga;
+
+feature liga {
+    script DFLT;
+    language dflt;
+            lookup LigatureSubstitution34;
+
+} liga;
+
+feature liga {
+    script arab;
+    language dflt;
+            lookup LigatureSubstitution34;
+
+} liga;
+
+feature liga {
+    script arab;
+    language URD;
+            lookup LigatureSubstitution34;
+
+} liga;
+
+feature liga {
+    script latn;
+    language dflt;
+            lookup LigatureSubstitution11;
+
+} liga;
+
+feature liga {
+    script latn;
+    language FRA;
+            lookup LigatureSubstitution11;
+
+} liga;
+
+feature liga {
+    script latn;
+    language MOL;
+            lookup LigatureSubstitution11;
+
+} liga;
+
+feature liga {
+    script latn;
+    language NAV;
+            lookup LigatureSubstitution11;
+
+} liga;
+
+feature liga {
+    script latn;
+    language ROM;
+            lookup LigatureSubstitution11;
+
+} liga;
+
+feature liga {
+    script latn;
+    language dflt;
+            lookup LigatureSubstitution12;
+
+} liga;
+
+feature liga {
+    script latn;
+    language AZE;
+            lookup LigatureSubstitution12;
+
+} liga;
+
+feature liga {
+    script latn;
+    language CRT;
+            lookup LigatureSubstitution12;
+
+} liga;
+
+feature liga {
+    script latn;
+    language FRA;
+            lookup LigatureSubstitution12;
+
+} liga;
+
+feature liga {
+    script latn;
+    language MOL;
+            lookup LigatureSubstitution12;
+
+} liga;
+
+feature liga {
+    script latn;
+    language NAV;
+            lookup LigatureSubstitution12;
+
+} liga;
+
+feature liga {
+    script latn;
+    language ROM;
+            lookup LigatureSubstitution12;
+
+} liga;
+
+feature liga {
+    script latn;
+    language TRK;
+            lookup LigatureSubstitution12;
+
+} liga;
+
+feature lnum {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution16;
+
+} lnum;
+
+feature lnum {
+    script cyrl;
+    language dflt;
+            lookup SingleSubstitution16;
+
+} lnum;
+
+feature lnum {
+    script grek;
+    language dflt;
+            lookup SingleSubstitution16;
+
+} lnum;
+
+feature lnum {
+    script latn;
+    language dflt;
+            lookup SingleSubstitution16;
+
+} lnum;
+
+feature lnum {
+    script latn;
+    language AZE;
+            lookup SingleSubstitution16;
+
+} lnum;
+
+feature lnum {
+    script latn;
+    language CRT;
+            lookup SingleSubstitution16;
+
+} lnum;
+
+feature lnum {
+    script latn;
+    language FRA;
+            lookup SingleSubstitution16;
+
+} lnum;
+
+feature lnum {
+    script latn;
+    language MOL;
+            lookup SingleSubstitution16;
+
+} lnum;
+
+feature lnum {
+    script latn;
+    language NAV;
+            lookup SingleSubstitution16;
+
+} lnum;
+
+feature lnum {
+    script latn;
+    language ROM;
+            lookup SingleSubstitution16;
+
+} lnum;
+
+feature lnum {
+    script latn;
+    language TRK;
+            lookup SingleSubstitution16;
+
+} lnum;
+
+feature medi {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution24;
+
+} medi;
+
+feature medi {
+    script arab;
+    language dflt;
+            lookup SingleSubstitution24;
+
+} medi;
+
+feature medi {
+    script arab;
+    language URD;
+            lookup SingleSubstitution24;
+
+} medi;
+
+feature numr {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution22;
+
+} numr;
+
+feature numr {
+    script cyrl;
+    language dflt;
+            lookup SingleSubstitution22;
+
+} numr;
+
+feature numr {
+    script grek;
+    language dflt;
+            lookup SingleSubstitution22;
+
+} numr;
+
+feature numr {
+    script latn;
+    language dflt;
+            lookup SingleSubstitution22;
+
+} numr;
+
+feature numr {
+    script latn;
+    language AZE;
+            lookup SingleSubstitution22;
+
+} numr;
+
+feature numr {
+    script latn;
+    language CRT;
+            lookup SingleSubstitution22;
+
+} numr;
+
+feature numr {
+    script latn;
+    language FRA;
+            lookup SingleSubstitution22;
+
+} numr;
+
+feature numr {
+    script latn;
+    language MOL;
+            lookup SingleSubstitution22;
+
+} numr;
+
+feature numr {
+    script latn;
+    language NAV;
+            lookup SingleSubstitution22;
+
+} numr;
+
+feature numr {
+    script latn;
+    language ROM;
+            lookup SingleSubstitution22;
+
+} numr;
+
+feature numr {
+    script latn;
+    language TRK;
+            lookup SingleSubstitution22;
+
+} numr;
+
+feature onum {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution15;
+
+} onum;
+
+feature onum {
+    script cyrl;
+    language dflt;
+            lookup SingleSubstitution15;
+
+} onum;
+
+feature onum {
+    script grek;
+    language dflt;
+            lookup SingleSubstitution15;
+
+} onum;
+
+feature onum {
+    script latn;
+    language dflt;
+            lookup SingleSubstitution15;
+
+} onum;
+
+feature onum {
+    script latn;
+    language AZE;
+            lookup SingleSubstitution15;
+
+} onum;
+
+feature onum {
+    script latn;
+    language CRT;
+            lookup SingleSubstitution15;
+
+} onum;
+
+feature onum {
+    script latn;
+    language FRA;
+            lookup SingleSubstitution15;
+
+} onum;
+
+feature onum {
+    script latn;
+    language MOL;
+            lookup SingleSubstitution15;
+
+} onum;
+
+feature onum {
+    script latn;
+    language NAV;
+            lookup SingleSubstitution15;
+
+} onum;
+
+feature onum {
+    script latn;
+    language ROM;
+            lookup SingleSubstitution15;
+
+} onum;
+
+feature onum {
+    script latn;
+    language TRK;
+            lookup SingleSubstitution15;
+
+} onum;
+
+feature rlig {
+    script DFLT;
+    language dflt;
+            lookup LigatureSubstitution26;
+
+} rlig;
+
+feature rlig {
+    script arab;
+    language dflt;
+            lookup LigatureSubstitution26;
+
+} rlig;
+
+feature rlig {
+    script arab;
+    language URD;
+            lookup LigatureSubstitution26;
+
+} rlig;
+
+feature salt {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution14;
+
+} salt;
+
+feature salt {
+    script cyrl;
+    language dflt;
+            lookup SingleSubstitution14;
+
+} salt;
+
+feature salt {
+    script grek;
+    language dflt;
+            lookup SingleSubstitution14;
+
+} salt;
+
+feature salt {
+    script latn;
+    language dflt;
+            lookup SingleSubstitution14;
+
+} salt;
+
+feature salt {
+    script latn;
+    language AZE;
+            lookup SingleSubstitution14;
+
+} salt;
+
+feature salt {
+    script latn;
+    language CRT;
+            lookup SingleSubstitution14;
+
+} salt;
+
+feature salt {
+    script latn;
+    language FRA;
+            lookup SingleSubstitution14;
+
+} salt;
+
+feature salt {
+    script latn;
+    language MOL;
+            lookup SingleSubstitution14;
+
+} salt;
+
+feature salt {
+    script latn;
+    language NAV;
+            lookup SingleSubstitution14;
+
+} salt;
+
+feature salt {
+    script latn;
+    language ROM;
+            lookup SingleSubstitution14;
+
+} salt;
+
+feature salt {
+    script latn;
+    language TRK;
+            lookup SingleSubstitution14;
+
+} salt;
+
+feature smcp {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution2;
+
+} smcp;
+
+feature smcp {
+    script cyrl;
+    language dflt;
+            lookup SingleSubstitution2;
+
+} smcp;
+
+feature smcp {
+    script grek;
+    language dflt;
+            lookup SingleSubstitution2;
+
+} smcp;
+
+feature smcp {
+    script latn;
+    language dflt;
+            lookup SingleSubstitution2;
+
+} smcp;
+
+feature smcp {
+    script latn;
+    language AZE;
+            lookup SingleSubstitution2;
+
+} smcp;
+
+feature smcp {
+    script latn;
+    language CRT;
+            lookup SingleSubstitution2;
+
+} smcp;
+
+feature smcp {
+    script latn;
+    language FRA;
+            lookup SingleSubstitution2;
+
+} smcp;
+
+feature smcp {
+    script latn;
+    language MOL;
+            lookup SingleSubstitution2;
+
+} smcp;
+
+feature smcp {
+    script latn;
+    language NAV;
+            lookup SingleSubstitution2;
+
+} smcp;
+
+feature smcp {
+    script latn;
+    language ROM;
+            lookup SingleSubstitution2;
+
+} smcp;
+
+feature smcp {
+    script latn;
+    language TRK;
+            lookup SingleSubstitution2;
+
+} smcp;
+
+feature ss01 {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution36;
+
+} ss01;
+
+feature ss01 {
+    script arab;
+    language dflt;
+            lookup SingleSubstitution36;
+
+} ss01;
+
+feature ss01 {
+    script arab;
+    language URD;
+            lookup SingleSubstitution36;
+
+} ss01;
+
+feature ss01 {
+    script latn;
+    language dflt;
+            lookup SingleSubstitution36;
+
+} ss01;
+
+feature tnum {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution37;
+
+} tnum;
+
+feature tnum {
+    script arab;
+    language dflt;
+            lookup SingleSubstitution37;
+
+} tnum;
+
+feature tnum {
+    script arab;
+    language URD;
+            lookup SingleSubstitution37;
+
+} tnum;
+
+feature tnum {
+    script latn;
+    language dflt;
+            lookup SingleSubstitution37;
+
+} tnum;
+
+feature unic {
+    script DFLT;
+    language dflt;
+            lookup SingleSubstitution3;
+
+} unic;
+
+feature unic {
+    script cyrl;
+    language dflt;
+            lookup SingleSubstitution3;
+
+} unic;
+
+feature unic {
+    script grek;
+    language dflt;
+            lookup SingleSubstitution3;
+
+} unic;
+
+feature unic {
+    script latn;
+    language dflt;
+            lookup SingleSubstitution3;
+
+} unic;
+
+feature unic {
+    script latn;
+    language AZE;
+            lookup SingleSubstitution3;
+
+} unic;
+
+feature unic {
+    script latn;
+    language CRT;
+            lookup SingleSubstitution3;
+
+} unic;
+
+feature unic {
+    script latn;
+    language FRA;
+            lookup SingleSubstitution3;
+
+} unic;
+
+feature unic {
+    script latn;
+    language MOL;
+            lookup SingleSubstitution3;
+
+} unic;
+
+feature unic {
+    script latn;
+    language NAV;
+            lookup SingleSubstitution3;
+
+} unic;
+
+feature unic {
+    script latn;
+    language ROM;
+            lookup SingleSubstitution3;
+
+} unic;
+
+feature unic {
+    script latn;
+    language TRK;
+            lookup SingleSubstitution3;
+
+} unic;
+
+feature locl {
+    script arab;
+    language URD;
+            lookup SingleSubstitution35;
+
+} locl;
+
+feature locl {
+    script latn;
+    language FRA;
+            lookup SingleSubstitution10;
+
+} locl;
+
+feature locl {
+    script latn;
+    language MOL;
+            lookup SingleSubstitution7;
+
+} locl;
+
+feature locl {
+    script latn;
+    language NAV;
+            lookup SingleSubstitution9;
+
+} locl;
+
+feature locl {
+    script latn;
+    language ROM;
+            lookup SingleSubstitution8;
+
+} locl;
+
+feature cpsp {
+    script DFLT;
+    language dflt;
+            lookup SinglePositioning1;
+
+} cpsp;
+
+feature cpsp {
+    script cyrl;
+    language dflt;
+            lookup SinglePositioning1;
+
+} cpsp;
+
+feature cpsp {
+    script grek;
+    language dflt;
+            lookup SinglePositioning1;
+
+} cpsp;
+
+feature cpsp {
+    script latn;
+    language dflt;
+            lookup SinglePositioning1;
+
+} cpsp;
+
+feature kern {
+    script DFLT;
+    language dflt;
+            lookup ChainedContextualGPOS15;
+
+} kern;
+
+feature kern {
+    script arab;
+    language dflt;
+            lookup ChainedContextualGPOS15;
+
+} kern;
+
+# --- Kashi currency signs (from Dastkhat) ---------------------------------------------
+# ss02 turns the typed words into the compact signs, ss03 into the word signs.
+# Both are opt-in: nothing changes unless the feature is switched on.
+
+lookup CurrencySignCompact {
+    lookupflag 0;
+    sub uniFE97 uniFEEE uniFEE3 uniFE8E uni0646 by tomansign;
+    sub uni0631 uniFBFE uniFE8E uni0644 by rialsign;
+    sub uni0631 uniFEF3 uniFE8E uni0644 by rialsign;
+} CurrencySignCompact;
+
+lookup CurrencySignWord {
+    lookupflag 0;
+    sub uniFE97 uniFEEE uniFEE3 uniFE8E uni0646 by tomansign.word;
+    sub uni0631 uniFBFE uniFE8E uni0644 by uniFDFC;
+    sub uni0631 uniFEF3 uniFE8E uni0644 by uniFDFC;
+} CurrencySignWord;
+
+feature ss02 {
+    featureNames { name "Toman and rial signs"; };
+    script DFLT;
+    language dflt;
+            lookup CurrencySignCompact;
+} ss02;
+
+feature ss02 {
+    script arab;
+    language dflt;
+            lookup CurrencySignCompact;
+    language URD;
+            lookup CurrencySignCompact;
+} ss02;
+
+feature ss03 {
+    featureNames { name "Toman and rial word signs"; };
+    script DFLT;
+    language dflt;
+            lookup CurrencySignWord;
+} ss03;
+
+feature ss03 {
+    script arab;
+    language dflt;
+            lookup CurrencySignWord;
+    language URD;
+            lookup CurrencySignWord;
+} ss03;
+
+# --- Kashi dot styles ---------------------------------------------------
+# ss04: round dots, ss05: sharp square dots. The default dots are tiles.
+lookup Dots_ss04 {
+    lookupflag 0;
+    sub arabic_2dots by arabic_2dots.ss04;
+    sub arabic_3dots by arabic_3dots.ss04;
+    sub arabic_3dots_a by arabic_3dots_a.ss04;
+    sub arabic_dot by arabic_dot.ss04;
+    sub tomansign.word by tomansign.word.ss04;
+    sub uni0628 by uni0628.ss04;
+    sub uni0629 by uni0629.ss04;
+    sub uni062A by uni062A.ss04;
+    sub uni062B by uni062B.ss04;
+    sub uni062C by uni062C.ss04;
+    sub uni062E by uni062E.ss04;
+    sub uni0630 by uni0630.ss04;
+    sub uni0632 by uni0632.ss04;
+    sub uni0634 by uni0634.ss04;
+    sub uni0636 by uni0636.ss04;
+    sub uni0638 by uni0638.ss04;
+    sub uni063A by uni063A.ss04;
+    sub uni063D.init by uni063D.init.ss04;
+    sub uni063D.init.long1 by uni063D.init.long1.ss04;
+    sub uni063D.init.long2 by uni063D.init.long2.ss04;
+    sub uni063D.init.long3 by uni063D.init.long3.ss04;
+    sub uni063D.init.long4 by uni063D.init.long4.ss04;
+    sub uni063D.medi by uni063D.medi.ss04;
+    sub uni063D.medi.long1 by uni063D.medi.long1.ss04;
+    sub uni063D.medi.long2 by uni063D.medi.long2.ss04;
+    sub uni063D.medi.long3 by uni063D.medi.long3.ss04;
+    sub uni063D.medi.long4 by uni063D.medi.long4.ss04;
+    sub uni0641 by uni0641.ss04;
+    sub uni0642 by uni0642.ss04;
+    sub uni0646 by uni0646.ss04;
+    sub uni064A by uni064A.ss04;
+    sub uni067C by uni067C.ss04;
+    sub uni067C.fina by uni067C.fina.ss04;
+    sub uni067C.init by uni067C.init.ss04;
+    sub uni067C.medi by uni067C.medi.ss04;
+    sub uni067E by uni067E.ss04;
+    sub uni0685 by uni0685.ss04;
+    sub uni0685.fina by uni0685.fina.ss04;
+    sub uni0685.init by uni0685.init.ss04;
+    sub uni0685.medi by uni0685.medi.ss04;
+    sub uni0686 by uni0686.ss04;
+    sub uni0696 by uni0696.ss04;
+    sub uni0696.fina by uni0696.fina.ss04;
+    sub uni0698 by uni0698.ss04;
+    sub uni069A by uni069A.ss04;
+    sub uni069A.fina by uni069A.fina.ss04;
+    sub uni069A.init by uni069A.init.ss04;
+    sub uni069A.medi by uni069A.medi.ss04;
+    sub uni06A0 by uni06A0.ss04;
+    sub uni06A0.fina by uni06A0.fina.ss04;
+    sub uni06A0.init by uni06A0.init.ss04;
+    sub uni06A0.medi by uni06A0.medi.ss04;
+    sub uni06A4 by uni06A4.ss04;
+    sub uni06AC by uni06AC.ss04;
+    sub uni06AC.fina by uni06AC.fina.ss04;
+    sub uni06AC.init by uni06AC.init.ss04;
+    sub uni06AC.medi by uni06AC.medi.ss04;
+    sub uni06AD by uni06AD.ss04;
+    sub uni06BC by uni06BC.ss04;
+    sub uni06BC.fina by uni06BC.fina.ss04;
+    sub uni06BC.init by uni06BC.init.ss04;
+    sub uni06BC.init.long by uni06BC.init.long.ss04;
+    sub uni06BC.medi by uni06BC.medi.ss04;
+    sub uni06BC.medi.long by uni06BC.medi.long.ss04;
+    sub uni06BD by uni06BD.ss04;
+    sub uni06BD.fina by uni06BD.fina.ss04;
+    sub uni06C3 by uni06C3.ss04;
+    sub uni06C3.fina by uni06C3.fina.ss04;
+    sub uni06CA by uni06CA.ss04;
+    sub uni06CA.fina by uni06CA.fina.ss04;
+    sub uni06CB by uni06CB.ss04;
+    sub uni06CE.init by uni06CE.init.ss04;
+    sub uni06CE.init.long1 by uni06CE.init.long1.ss04;
+    sub uni06CE.init.long2 by uni06CE.init.long2.ss04;
+    sub uni06CE.init.long3 by uni06CE.init.long3.ss04;
+    sub uni06CE.init.long4 by uni06CE.init.long4.ss04;
+    sub uni06CE.medi by uni06CE.medi.ss04;
+    sub uni06CE.medi.long1 by uni06CE.medi.long1.ss04;
+    sub uni06CE.medi.long2 by uni06CE.medi.long2.ss04;
+    sub uni06CE.medi.long3 by uni06CE.medi.long3.ss04;
+    sub uni06CE.medi.long4 by uni06CE.medi.long4.ss04;
+    sub uni06CF by uni06CF.ss04;
+    sub uni06CF.fina by uni06CF.fina.ss04;
+    sub uni06D0 by uni06D0.ss04;
+    sub uni06D0.dots by uni06D0.dots.ss04;
+    sub uni06D0.fina by uni06D0.fina.ss04;
+    sub uni06D0.init by uni06D0.init.ss04;
+    sub uni06D0.init.long by uni06D0.init.long.ss04;
+    sub uni06D0.medi by uni06D0.medi.ss04;
+    sub uni06D0.medi.long by uni06D0.medi.long.ss04;
+    sub uni0762 by uni0762.ss04;
+    sub uni0762.fina by uni0762.fina.ss04;
+    sub uni0762.init by uni0762.init.ss04;
+    sub uni0762.medi by uni0762.medi.ss04;
+    sub uni0763 by uni0763.ss04;
+    sub uni0763.fina by uni0763.fina.ss04;
+    sub uni0763.init by uni0763.init.ss04;
+    sub uni0763.medi by uni0763.medi.ss04;
+    sub uniFB56 by uniFB56.ss04;
+    sub uniFB57 by uniFB57.ss04;
+    sub uniFB58 by uniFB58.ss04;
+    sub uniFB58.long1 by uniFB58.long1.ss04;
+    sub uniFB58.long2 by uniFB58.long2.ss04;
+    sub uniFB58.long3 by uniFB58.long3.ss04;
+    sub uniFB58.long4 by uniFB58.long4.ss04;
+    sub uniFB59 by uniFB59.ss04;
+    sub uniFB59.long1 by uniFB59.long1.ss04;
+    sub uniFB59.long2 by uniFB59.long2.ss04;
+    sub uniFB59.long3 by uniFB59.long3.ss04;
+    sub uniFB59.long4 by uniFB59.long4.ss04;
+    sub uniFB6A by uniFB6A.ss04;
+    sub uniFB6B by uniFB6B.ss04;
+    sub uniFB6C by uniFB6C.ss04;
+    sub uniFB6D by uniFB6D.ss04;
+    sub uniFB7A by uniFB7A.ss04;
+    sub uniFB7B by uniFB7B.ss04;
+    sub uniFB7C by uniFB7C.ss04;
+    sub uniFB7D by uniFB7D.ss04;
+    sub uniFB8A by uniFB8A.ss04;
+    sub uniFB8B by uniFB8B.ss04;
+    sub uniFBD3 by uniFBD3.ss04;
+    sub uniFBD4 by uniFBD4.ss04;
+    sub uniFBD5 by uniFBD5.ss04;
+    sub uniFBD6 by uniFBD6.ss04;
+    sub uniFBDE by uniFBDE.ss04;
+    sub uniFBDF by uniFBDF.ss04;
+    sub uniFBFE by uniFBFE.ss04;
+    sub uniFBFE.long1 by uniFBFE.long1.ss04;
+    sub uniFBFE.long2 by uniFBFE.long2.ss04;
+    sub uniFBFE.long3 by uniFBFE.long3.ss04;
+    sub uniFBFE.long4 by uniFBFE.long4.ss04;
+    sub uniFBFF by uniFBFF.ss04;
+    sub uniFBFF.long1 by uniFBFF.long1.ss04;
+    sub uniFBFF.long2 by uniFBFF.long2.ss04;
+    sub uniFBFF.long3 by uniFBFF.long3.ss04;
+    sub uniFBFF.long4 by uniFBFF.long4.ss04;
+    sub uniFDFC by uniFDFC.ss04;
+    sub uniFE8F by uniFE8F.ss04;
+    sub uniFE90 by uniFE90.ss04;
+    sub uniFE91 by uniFE91.ss04;
+    sub uniFE91.long1 by uniFE91.long1.ss04;
+    sub uniFE91.long2 by uniFE91.long2.ss04;
+    sub uniFE92 by uniFE92.ss04;
+    sub uniFE92.long1 by uniFE92.long1.ss04;
+    sub uniFE92.long2 by uniFE92.long2.ss04;
+    sub uniFE93 by uniFE93.ss04;
+    sub uniFE94 by uniFE94.ss04;
+    sub uniFE95 by uniFE95.ss04;
+    sub uniFE96 by uniFE96.ss04;
+    sub uniFE97 by uniFE97.ss04;
+    sub uniFE97.long by uniFE97.long.ss04;
+    sub uniFE98 by uniFE98.ss04;
+    sub uniFE98.long by uniFE98.long.ss04;
+    sub uniFE99 by uniFE99.ss04;
+    sub uniFE9A by uniFE9A.ss04;
+    sub uniFE9B by uniFE9B.ss04;
+    sub uniFE9B.long by uniFE9B.long.ss04;
+    sub uniFE9C by uniFE9C.ss04;
+    sub uniFE9C.long by uniFE9C.long.ss04;
+    sub uniFE9D by uniFE9D.ss04;
+    sub uniFE9E by uniFE9E.ss04;
+    sub uniFE9F by uniFE9F.ss04;
+    sub uniFEA0 by uniFEA0.ss04;
+    sub uniFEA5 by uniFEA5.ss04;
+    sub uniFEA6 by uniFEA6.ss04;
+    sub uniFEA7 by uniFEA7.ss04;
+    sub uniFEA8 by uniFEA8.ss04;
+    sub uniFEAB by uniFEAB.ss04;
+    sub uniFEAC by uniFEAC.ss04;
+    sub uniFEAF by uniFEAF.ss04;
+    sub uniFEB0 by uniFEB0.ss04;
+    sub uniFEB5 by uniFEB5.ss04;
+    sub uniFEB6 by uniFEB6.ss04;
+    sub uniFEB7 by uniFEB7.ss04;
+    sub uniFEB8 by uniFEB8.ss04;
+    sub uniFEBD by uniFEBD.ss04;
+    sub uniFEBE by uniFEBE.ss04;
+    sub uniFEBF by uniFEBF.ss04;
+    sub uniFEC0 by uniFEC0.ss04;
+    sub uniFEC5 by uniFEC5.ss04;
+    sub uniFEC6 by uniFEC6.ss04;
+    sub uniFEC7 by uniFEC7.ss04;
+    sub uniFEC8 by uniFEC8.ss04;
+    sub uniFECD by uniFECD.ss04;
+    sub uniFECE by uniFECE.ss04;
+    sub uniFECF by uniFECF.ss04;
+    sub uniFED0 by uniFED0.ss04;
+    sub uniFED1 by uniFED1.ss04;
+    sub uniFED2 by uniFED2.ss04;
+    sub uniFED3 by uniFED3.ss04;
+    sub uniFED4 by uniFED4.ss04;
+    sub uniFED5 by uniFED5.ss04;
+    sub uniFED6 by uniFED6.ss04;
+    sub uniFED7 by uniFED7.ss04;
+    sub uniFED8 by uniFED8.ss04;
+    sub uniFEE5 by uniFEE5.ss04;
+    sub uniFEE6 by uniFEE6.ss04;
+    sub uniFEE7 by uniFEE7.ss04;
+    sub uniFEE8 by uniFEE8.ss04;
+    sub uniFEF1 by uniFEF1.ss04;
+    sub uniFEF2 by uniFEF2.ss04;
+    sub uniFEF3 by uniFEF3.ss04;
+    sub uniFEF3.long1 by uniFEF3.long1.ss04;
+    sub uniFEF3.long2 by uniFEF3.long2.ss04;
+    sub uniFEF3.long3 by uniFEF3.long3.ss04;
+    sub uniFEF3.long4 by uniFEF3.long4.ss04;
+    sub uniFEF4 by uniFEF4.ss04;
+    sub uniFEF4.long1 by uniFEF4.long1.ss04;
+    sub uniFEF4.long2 by uniFEF4.long2.ss04;
+    sub uniFEF4.long3 by uniFEF4.long3.ss04;
+    sub uniFEF4.long4 by uniFEF4.long4.ss04;
+} Dots_ss04;
+feature ss04 {
+    featureNames { name "Round dots"; };
+    script DFLT;
+    language dflt;
+    lookup Dots_ss04;
+} ss04;
+feature ss04 {
+    script arab;
+    language dflt;
+    lookup Dots_ss04;
+} ss04;
+feature ss04 {
+    script latn;
+    language dflt;
+    lookup Dots_ss04;
+} ss04;
+lookup Dots_ss05 {
+    lookupflag 0;
+    sub arabic_2dots by arabic_2dots.ss05;
+    sub arabic_3dots by arabic_3dots.ss05;
+    sub arabic_3dots_a by arabic_3dots_a.ss05;
+    sub arabic_dot by arabic_dot.ss05;
+    sub tomansign.word by tomansign.word.ss05;
+    sub uni0628 by uni0628.ss05;
+    sub uni0629 by uni0629.ss05;
+    sub uni062A by uni062A.ss05;
+    sub uni062B by uni062B.ss05;
+    sub uni062C by uni062C.ss05;
+    sub uni062E by uni062E.ss05;
+    sub uni0630 by uni0630.ss05;
+    sub uni0632 by uni0632.ss05;
+    sub uni0634 by uni0634.ss05;
+    sub uni0636 by uni0636.ss05;
+    sub uni0638 by uni0638.ss05;
+    sub uni063A by uni063A.ss05;
+    sub uni063D.init by uni063D.init.ss05;
+    sub uni063D.init.long1 by uni063D.init.long1.ss05;
+    sub uni063D.init.long2 by uni063D.init.long2.ss05;
+    sub uni063D.init.long3 by uni063D.init.long3.ss05;
+    sub uni063D.init.long4 by uni063D.init.long4.ss05;
+    sub uni063D.medi by uni063D.medi.ss05;
+    sub uni063D.medi.long1 by uni063D.medi.long1.ss05;
+    sub uni063D.medi.long2 by uni063D.medi.long2.ss05;
+    sub uni063D.medi.long3 by uni063D.medi.long3.ss05;
+    sub uni063D.medi.long4 by uni063D.medi.long4.ss05;
+    sub uni0641 by uni0641.ss05;
+    sub uni0642 by uni0642.ss05;
+    sub uni0646 by uni0646.ss05;
+    sub uni064A by uni064A.ss05;
+    sub uni067C by uni067C.ss05;
+    sub uni067C.fina by uni067C.fina.ss05;
+    sub uni067C.init by uni067C.init.ss05;
+    sub uni067C.medi by uni067C.medi.ss05;
+    sub uni067E by uni067E.ss05;
+    sub uni0685 by uni0685.ss05;
+    sub uni0685.fina by uni0685.fina.ss05;
+    sub uni0685.init by uni0685.init.ss05;
+    sub uni0685.medi by uni0685.medi.ss05;
+    sub uni0686 by uni0686.ss05;
+    sub uni0696 by uni0696.ss05;
+    sub uni0696.fina by uni0696.fina.ss05;
+    sub uni0698 by uni0698.ss05;
+    sub uni069A by uni069A.ss05;
+    sub uni069A.fina by uni069A.fina.ss05;
+    sub uni069A.init by uni069A.init.ss05;
+    sub uni069A.medi by uni069A.medi.ss05;
+    sub uni06A0 by uni06A0.ss05;
+    sub uni06A0.fina by uni06A0.fina.ss05;
+    sub uni06A0.init by uni06A0.init.ss05;
+    sub uni06A0.medi by uni06A0.medi.ss05;
+    sub uni06A4 by uni06A4.ss05;
+    sub uni06AC by uni06AC.ss05;
+    sub uni06AC.fina by uni06AC.fina.ss05;
+    sub uni06AC.init by uni06AC.init.ss05;
+    sub uni06AC.medi by uni06AC.medi.ss05;
+    sub uni06AD by uni06AD.ss05;
+    sub uni06BC by uni06BC.ss05;
+    sub uni06BC.fina by uni06BC.fina.ss05;
+    sub uni06BC.init by uni06BC.init.ss05;
+    sub uni06BC.init.long by uni06BC.init.long.ss05;
+    sub uni06BC.medi by uni06BC.medi.ss05;
+    sub uni06BC.medi.long by uni06BC.medi.long.ss05;
+    sub uni06BD by uni06BD.ss05;
+    sub uni06BD.fina by uni06BD.fina.ss05;
+    sub uni06C3 by uni06C3.ss05;
+    sub uni06C3.fina by uni06C3.fina.ss05;
+    sub uni06CA by uni06CA.ss05;
+    sub uni06CA.fina by uni06CA.fina.ss05;
+    sub uni06CB by uni06CB.ss05;
+    sub uni06CE.init by uni06CE.init.ss05;
+    sub uni06CE.init.long1 by uni06CE.init.long1.ss05;
+    sub uni06CE.init.long2 by uni06CE.init.long2.ss05;
+    sub uni06CE.init.long3 by uni06CE.init.long3.ss05;
+    sub uni06CE.init.long4 by uni06CE.init.long4.ss05;
+    sub uni06CE.medi by uni06CE.medi.ss05;
+    sub uni06CE.medi.long1 by uni06CE.medi.long1.ss05;
+    sub uni06CE.medi.long2 by uni06CE.medi.long2.ss05;
+    sub uni06CE.medi.long3 by uni06CE.medi.long3.ss05;
+    sub uni06CE.medi.long4 by uni06CE.medi.long4.ss05;
+    sub uni06CF by uni06CF.ss05;
+    sub uni06CF.fina by uni06CF.fina.ss05;
+    sub uni06D0 by uni06D0.ss05;
+    sub uni06D0.dots by uni06D0.dots.ss05;
+    sub uni06D0.fina by uni06D0.fina.ss05;
+    sub uni06D0.init by uni06D0.init.ss05;
+    sub uni06D0.init.long by uni06D0.init.long.ss05;
+    sub uni06D0.medi by uni06D0.medi.ss05;
+    sub uni06D0.medi.long by uni06D0.medi.long.ss05;
+    sub uni0762 by uni0762.ss05;
+    sub uni0762.fina by uni0762.fina.ss05;
+    sub uni0762.init by uni0762.init.ss05;
+    sub uni0762.medi by uni0762.medi.ss05;
+    sub uni0763 by uni0763.ss05;
+    sub uni0763.fina by uni0763.fina.ss05;
+    sub uni0763.init by uni0763.init.ss05;
+    sub uni0763.medi by uni0763.medi.ss05;
+    sub uniFB56 by uniFB56.ss05;
+    sub uniFB57 by uniFB57.ss05;
+    sub uniFB58 by uniFB58.ss05;
+    sub uniFB58.long1 by uniFB58.long1.ss05;
+    sub uniFB58.long2 by uniFB58.long2.ss05;
+    sub uniFB58.long3 by uniFB58.long3.ss05;
+    sub uniFB58.long4 by uniFB58.long4.ss05;
+    sub uniFB59 by uniFB59.ss05;
+    sub uniFB59.long1 by uniFB59.long1.ss05;
+    sub uniFB59.long2 by uniFB59.long2.ss05;
+    sub uniFB59.long3 by uniFB59.long3.ss05;
+    sub uniFB59.long4 by uniFB59.long4.ss05;
+    sub uniFB6A by uniFB6A.ss05;
+    sub uniFB6B by uniFB6B.ss05;
+    sub uniFB6C by uniFB6C.ss05;
+    sub uniFB6D by uniFB6D.ss05;
+    sub uniFB7A by uniFB7A.ss05;
+    sub uniFB7B by uniFB7B.ss05;
+    sub uniFB7C by uniFB7C.ss05;
+    sub uniFB7D by uniFB7D.ss05;
+    sub uniFB8A by uniFB8A.ss05;
+    sub uniFB8B by uniFB8B.ss05;
+    sub uniFBD3 by uniFBD3.ss05;
+    sub uniFBD4 by uniFBD4.ss05;
+    sub uniFBD5 by uniFBD5.ss05;
+    sub uniFBD6 by uniFBD6.ss05;
+    sub uniFBDE by uniFBDE.ss05;
+    sub uniFBDF by uniFBDF.ss05;
+    sub uniFBFE by uniFBFE.ss05;
+    sub uniFBFE.long1 by uniFBFE.long1.ss05;
+    sub uniFBFE.long2 by uniFBFE.long2.ss05;
+    sub uniFBFE.long3 by uniFBFE.long3.ss05;
+    sub uniFBFE.long4 by uniFBFE.long4.ss05;
+    sub uniFBFF by uniFBFF.ss05;
+    sub uniFBFF.long1 by uniFBFF.long1.ss05;
+    sub uniFBFF.long2 by uniFBFF.long2.ss05;
+    sub uniFBFF.long3 by uniFBFF.long3.ss05;
+    sub uniFBFF.long4 by uniFBFF.long4.ss05;
+    sub uniFDFC by uniFDFC.ss05;
+    sub uniFE8F by uniFE8F.ss05;
+    sub uniFE90 by uniFE90.ss05;
+    sub uniFE91 by uniFE91.ss05;
+    sub uniFE91.long1 by uniFE91.long1.ss05;
+    sub uniFE91.long2 by uniFE91.long2.ss05;
+    sub uniFE92 by uniFE92.ss05;
+    sub uniFE92.long1 by uniFE92.long1.ss05;
+    sub uniFE92.long2 by uniFE92.long2.ss05;
+    sub uniFE93 by uniFE93.ss05;
+    sub uniFE94 by uniFE94.ss05;
+    sub uniFE95 by uniFE95.ss05;
+    sub uniFE96 by uniFE96.ss05;
+    sub uniFE97 by uniFE97.ss05;
+    sub uniFE97.long by uniFE97.long.ss05;
+    sub uniFE98 by uniFE98.ss05;
+    sub uniFE98.long by uniFE98.long.ss05;
+    sub uniFE99 by uniFE99.ss05;
+    sub uniFE9A by uniFE9A.ss05;
+    sub uniFE9B by uniFE9B.ss05;
+    sub uniFE9B.long by uniFE9B.long.ss05;
+    sub uniFE9C by uniFE9C.ss05;
+    sub uniFE9C.long by uniFE9C.long.ss05;
+    sub uniFE9D by uniFE9D.ss05;
+    sub uniFE9E by uniFE9E.ss05;
+    sub uniFE9F by uniFE9F.ss05;
+    sub uniFEA0 by uniFEA0.ss05;
+    sub uniFEA5 by uniFEA5.ss05;
+    sub uniFEA6 by uniFEA6.ss05;
+    sub uniFEA7 by uniFEA7.ss05;
+    sub uniFEA8 by uniFEA8.ss05;
+    sub uniFEAB by uniFEAB.ss05;
+    sub uniFEAC by uniFEAC.ss05;
+    sub uniFEAF by uniFEAF.ss05;
+    sub uniFEB0 by uniFEB0.ss05;
+    sub uniFEB5 by uniFEB5.ss05;
+    sub uniFEB6 by uniFEB6.ss05;
+    sub uniFEB7 by uniFEB7.ss05;
+    sub uniFEB8 by uniFEB8.ss05;
+    sub uniFEBD by uniFEBD.ss05;
+    sub uniFEBE by uniFEBE.ss05;
+    sub uniFEBF by uniFEBF.ss05;
+    sub uniFEC0 by uniFEC0.ss05;
+    sub uniFEC5 by uniFEC5.ss05;
+    sub uniFEC6 by uniFEC6.ss05;
+    sub uniFEC7 by uniFEC7.ss05;
+    sub uniFEC8 by uniFEC8.ss05;
+    sub uniFECD by uniFECD.ss05;
+    sub uniFECE by uniFECE.ss05;
+    sub uniFECF by uniFECF.ss05;
+    sub uniFED0 by uniFED0.ss05;
+    sub uniFED1 by uniFED1.ss05;
+    sub uniFED2 by uniFED2.ss05;
+    sub uniFED3 by uniFED3.ss05;
+    sub uniFED4 by uniFED4.ss05;
+    sub uniFED5 by uniFED5.ss05;
+    sub uniFED6 by uniFED6.ss05;
+    sub uniFED7 by uniFED7.ss05;
+    sub uniFED8 by uniFED8.ss05;
+    sub uniFEE5 by uniFEE5.ss05;
+    sub uniFEE6 by uniFEE6.ss05;
+    sub uniFEE7 by uniFEE7.ss05;
+    sub uniFEE8 by uniFEE8.ss05;
+    sub uniFEF1 by uniFEF1.ss05;
+    sub uniFEF2 by uniFEF2.ss05;
+    sub uniFEF3 by uniFEF3.ss05;
+    sub uniFEF3.long1 by uniFEF3.long1.ss05;
+    sub uniFEF3.long2 by uniFEF3.long2.ss05;
+    sub uniFEF3.long3 by uniFEF3.long3.ss05;
+    sub uniFEF3.long4 by uniFEF3.long4.ss05;
+    sub uniFEF4 by uniFEF4.ss05;
+    sub uniFEF4.long1 by uniFEF4.long1.ss05;
+    sub uniFEF4.long2 by uniFEF4.long2.ss05;
+    sub uniFEF4.long3 by uniFEF4.long3.ss05;
+    sub uniFEF4.long4 by uniFEF4.long4.ss05;
+} Dots_ss05;
+feature ss05 {
+    featureNames { name "Square dots"; };
+    script DFLT;
+    language dflt;
+    lookup Dots_ss05;
+} ss05;
+feature ss05 {
+    script arab;
+    language dflt;
+    lookup Dots_ss05;
+} ss05;
+feature ss05 {
+    script latn;
+    language dflt;
+    lookup Dots_ss05;
+} ss05;

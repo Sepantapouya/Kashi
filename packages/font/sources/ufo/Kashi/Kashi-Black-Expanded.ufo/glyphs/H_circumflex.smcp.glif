@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Hcircumflex.smcp" format="2">
+  <advance width="1452"/>
+  <anchor x="721" y="1289" name="Anchor-0"/>
+  <anchor x="721" y="9" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="1106" y="667" type="line"/>
+      <point x="1106" y="449" type="line"/>
+      <point x="344" y="449" type="line"/>
+      <point x="344" y="667" type="line"/>
+    </contour>
+    <contour>
+      <point x="452" y="1137" type="line"/>
+      <point x="452" y="0" type="line"/>
+      <point x="118" y="0" type="line"/>
+      <point x="118" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="1333" y="1137" type="line"/>
+      <point x="1333" y="0" type="line"/>
+      <point x="1000" y="0" type="line"/>
+      <point x="1000" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="814" y="1529" type="line"/>
+      <point x="1166" y="1257" type="line"/>
+      <point x="1166" y="1245" type="line"/>
+      <point x="900" y="1245" type="line"/>
+      <point x="716" y="1389" type="line"/>
+      <point x="534" y="1245" type="line"/>
+      <point x="273" y="1245" type="line"/>
+      <point x="273" y="1260" type="line"/>
+      <point x="620" y="1529" type="line"/>
+    </contour>
+  </outline>
+</glyph>

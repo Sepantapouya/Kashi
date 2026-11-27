@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="yen.smcp" format="2">
+  <advance width="1096"/>
+  <outline>
+    <contour>
+      <point x="1026" y="598" type="line"/>
+      <point x="1026" y="439" type="line"/>
+      <point x="62" y="439" type="line"/>
+      <point x="62" y="598" type="line"/>
+    </contour>
+    <contour>
+      <point x="1026" y="373" type="line"/>
+      <point x="1026" y="215" type="line"/>
+      <point x="62" y="215" type="line"/>
+      <point x="62" y="373" type="line"/>
+    </contour>
+    <contour>
+      <point x="480" y="523" type="line"/>
+      <point x="737" y="1137" type="line"/>
+      <point x="1087" y="1137" type="line"/>
+      <point x="694" y="372" type="line"/>
+      <point x="513" y="372" type="line"/>
+    </contour>
+    <contour>
+      <point x="360" y="1137" type="line"/>
+      <point x="619" y="516" type="line"/>
+      <point x="582" y="372" type="line"/>
+      <point x="402" y="372" type="line"/>
+      <point x="9" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="712" y="536" type="line"/>
+      <point x="712" y="0" type="line"/>
+      <point x="377" y="0" type="line"/>
+      <point x="377" y="536" type="line"/>
+    </contour>
+  </outline>
+</glyph>
