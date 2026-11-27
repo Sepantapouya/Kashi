@@ -1,0 +1,123 @@
+/*
+ * صفحهٔ ساعت (TimeClock) و انتخاب ساعت (TimePicker)
+ * متغیرها: --k-clock-size  --k-clock-bg
+ */
+.k-clock {
+  display: grid;
+  justify-items: center;
+  gap: var(--k-space-3);
+  color: var(--k-text-primary);
+}
+
+.k-clock__header { display: flex; align-items: center; gap: var(--k-space-1); }
+.k-clock__unit {
+  min-inline-size: 3.5rem;
+  padding: var(--k-space-1) var(--k-space-2);
+  border: 0;
+  border-radius: var(--k-radius-md);
+  background: transparent;
+  color: var(--k-text-tertiary);
+  font: inherit;
+  font-size: var(--k-text-3xl);
+  font-weight: var(--k-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  cursor: pointer;
+}
+.k-clock__unit:hover { background: var(--k-bg-hover); color: var(--k-text-secondary); }
+.k-clock__unit[aria-pressed="true"] { background: var(--k-bg-brand-subtle); color: var(--k-text-brand); }
+.k-clock__unit:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+.k-clock__sep { color: var(--k-text-tertiary); font-size: var(--k-text-3xl); font-weight: var(--k-weight-semibold); line-height: 1; }
+
+.k-clock__dial {
+  --_num: 2.25rem;
+
+  position: relative;
+  inline-size: var(--k-clock-size, 16rem);
+  max-inline-size: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--k-radius-full);
+  background: var(--k-clock-bg, var(--k-bg-secondary));
+  touch-action: none;
+  user-select: none;
+  cursor: pointer;
+}
+.k-clock__dial:focus-visible { outline: 2px solid transparent; box-shadow: var(--k-ring-brand); }
+
+.k-clock__center {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: var(--k-radius-full);
+  background: var(--k-bg-brand);
+  translate: -50% -50%;
+}
+
+/* عقربه از مرکز تا عدد انتخاب‌شده؛ دایرهٔ سرش زیر همان عدد می‌نشیند */
+.k-clock__hand {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  inline-size: 2px;
+  margin-inline-start: -1px;
+  background: var(--k-bg-brand);
+  transform-origin: 50% 100%;
+  transition: rotate var(--k-duration-fast) var(--k-ease-standard), height var(--k-duration-fast) var(--k-ease-standard);
+}
+.k-clock__hand::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  inline-size: var(--_num);
+  block-size: var(--_num);
+  border-radius: var(--k-radius-full);
+  background: var(--k-bg-brand);
+  translate: -50% -50%;
+}
+/* دقیقه‌ای که عدد ندارد (مثل ۰۷): نقطهٔ کوچک وسط دایره */
+.k-clock__hand[data-free]::after { background: radial-gradient(circle, var(--k-text-on-brand) 0 3px, var(--k-bg-brand) 3.5px); }
+
+.k-clock__num {
+  position: absolute;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  inline-size: var(--_num);
+  block-size: var(--_num);
+  border-radius: var(--k-radius-full);
+  color: var(--k-text-primary);
+  font-size: var(--k-text-md);
+  font-weight: var(--k-weight-medium);
+  font-variant-numeric: tabular-nums;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+.k-clock__num[data-ring="outer"] { color: var(--k-text-secondary); }
+.k-clock__dial[data-view="hour"] .k-clock__num[data-ring="outer"] { font-size: var(--k-text-sm); }
+.k-clock__dial[data-view="hour"] .k-clock__num[data-ring="inner"] { color: var(--k-text-primary); }
+.k-clock__dial[data-view] .k-clock__num[data-selected] { color: var(--k-text-on-brand); font-weight: var(--k-weight-semibold); }
+.k-clock__num[data-disabled] { color: var(--k-text-quaternary); text-decoration: line-through; }
+
+/* انتخاب ساعت: همان فیلد و پنل شناور دیت‌پیکر، با پانویس «اکنون» و «تأیید» */
+/* فیلد ساعت باریک است؛ پنل از لبهٔ شروع فیلد باز می‌شود تا از صفحه بیرون نزند */
+.k-timepicker__popover { inset-inline: 0 auto; display: grid; gap: var(--k-space-3); }
+.k-timepicker__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--k-space-2);
+  padding-block-start: var(--k-space-3);
+  border-block-start: 1px solid var(--k-border-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .k-clock__hand { transition: none; }
+}
+@media (forced-colors: active) {
+  .k-clock__dial { border: 1px solid CanvasText; }
+  .k-clock__hand, .k-clock__hand::after, .k-clock__center { forced-color-adjust: none; background: Highlight; }
+  .k-clock__dial[data-view] .k-clock__num[data-selected] { forced-color-adjust: none; color: HighlightText; }
+  .k-clock__unit[aria-pressed="true"] { outline: 2px solid Highlight; }
+}

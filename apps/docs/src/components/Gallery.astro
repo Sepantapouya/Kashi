@@ -25,7 +25,7 @@ const CATEGORIES: Record<"components" | "persian", { key: string; label: string;
   persian: [
     { key: "input", label: "فیلدهای فارسی", text: "کد ملی، شناسهٔ شرکت، موبایل، تلفن، کارت، شبا، مبلغ، کد پستی، ساعت، پلاک، چک صیادی، کد اقتصادی، شمارهٔ مالیاتی و متن؛ همه در یک کامپوننت با kind.", slugs: ["input", "province", "otp"] },
     { key: "map", label: "نقشه و نشانی", text: "نقشهٔ ۳۱ استان ایران و فرم نشانی با فهرست بیش از ۱۲۰۰ شهر.", slugs: ["iran-map", "address"] },
-    { key: "date", label: "تاریخ و زمان", text: "تقویم جلالی دقیق برای سال‌های ۱۳۰۰ تا ۱۵۰۰، بدون کتابخانهٔ جانبی.", slugs: ["date-picker", "date-range", "month-picker", "appointment", "business-hours", "date-tile", "countdown", "activity-heatmap"] },
+    { key: "date", label: "تاریخ و زمان", text: "تقویم جلالی دقیق برای سال‌های ۱۳۰۰ تا ۱۵۰۰، بدون کتابخانهٔ جانبی.", slugs: ["date-picker", "time-picker", "date-range", "month-picker", "appointment", "business-hours", "date-tile", "countdown", "activity-heatmap"] },
     { key: "bank", label: "بانکی و مالی", text: "نمایش مبلغ، فیلتر بازهٔ قیمت، کارت بانکی با رنگ و لوگوی بانک، رسید پرداخت و لوگوی ۴۰ بانک.", slugs: ["money", "price-range", "bank-card", "receipt", "bank-logos"] },
     { key: "text", label: "متن فارسی", text: "نیم‌فاصله، «ي» و «ك» عربی و صفحه‌کلید اشتباه؛ مشکلاتی که فقط متن فارسی دارد.", slugs: ["text-fix"] },
   ],
@@ -184,6 +184,10 @@ numberToWords(<span class="t-n">2500000</span>);                     <span class
   .gcard__preview .pv-pag { scale: 0.78; }
   .gcard__preview .pv-muted { color: var(--k-text-tertiary); font-size: var(--k-text-sm); }
   .gcard__preview .pv-cal { scale: 0.62; margin: -4.5rem; }
+  .gcard__preview .pv-clock { --k-clock-size: 10rem; }
+  .gcard__preview .pv-clock .k-clock__header { display: none; }
+  .gcard__preview .pv-clock .k-clock__dial { --_num: 1.3rem; }
+  .gcard__preview .pv-clock .k-clock__num { font-size: 0.6875rem; }
   .gcard__preview .k-plate { --k-plate-height: 2.75rem; }
   .gcard__preview .pv-menu, .gcard__preview .pv-static { position: static; display: grid; inline-size: 12rem; }
   .gcard__preview .pv-pop { display: grid; justify-items: center; gap: var(--k-space-2); }

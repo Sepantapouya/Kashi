@@ -1,0 +1,79 @@
+---
+layout: ../../../layouts/Docs.astro
+title: انتخاب ساعت
+description: انتخاب ساعت ۲۴ساعته از روی صفحهٔ ساعت عقربه‌ای یا با تایپ، کنار دیت‌پیکر شمسی.
+---
+import Demo from "../../../components/Demo.astro";
+import Props from "../../../components/Props.astro";
+import { TimePickerDemo, TimePickerRangeDemo, TimeClockDemo } from "../../../components/demos-extra";
+
+```tsx
+import { TimePicker, TimeClock } from "@kashi-ui/react";
+```
+
+`TimePicker` همان فیلد [ساعت](/docs/persian/input/#time) است با یک دکمه که صفحهٔ ساعت را باز می‌کند: اول ساعت را انتخاب کنید، صفحه خودش به دقیقه می‌رود، بعد «تأیید». ساعت‌های ۱ تا ۱۲ در حلقهٔ داخلی‌اند و ۰۰ و ۱۳ تا ۲۳ در حلقهٔ بیرونی. می‌شود ساعت را مستقیم هم تایپ کرد («۹۳۰» یا «۹:۳۰»).
+
+## نمونه
+
+<Demo html={false} code={`const [date, setDate] = useState<Date | null>(null);
+const [time, setTime] = useState<string | null>("09:30");
+
+<DatePicker label="تاریخ جلسه" value={date} onChange={setDate} name="date" />
+<TimePicker label="ساعت جلسه" value={time} onChange={setTime} name="time" />`}>
+  <TimePickerDemo client:load />
+</Demo>
+
+مقدار رشتهٔ `"HH:MM"` با ارقام لاتین است (مثل `"09:30"`) و با `name` همین در فرم ارسال می‌شود؛ ارقام فارسی فقط برای نمایش‌اند.
+
+## بازه و گام
+
+ساعت‌ها و دقیقه‌های بیرون از `min` و `max` روی صفحه خط می‌خورند و انتخاب نمی‌شوند. `step` گام دقیقه‌ها روی صفحه و با <kbd>↑</kbd> <kbd>↓</kbd> در فیلد است.
+
+<Demo html={false} code={`<TimePicker label="ساعت تحویل" hint="بین ۰۸:۰۰ تا ۲۰:۰۰، هر ربع ساعت" min="08:00" max="20:00" step={15} defaultValue="10:15" />`}>
+  <TimePickerRangeDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["value / defaultValue", "string | null", "null", "\"HH:MM\" با ارقام لاتین"],
+  ["onChange", "(value: string | null) => void", "", "پس از «تأیید» روی ساعت یا خروج از فیلد"],
+  ["min / max", "string", "", "مثل \"08:00\" و \"20:00\""],
+  ["step", "number", "5", "گام دقیقه به دقیقه"],
+  ["digits", '"fa" | "latin"', '"fa"', ""],
+  ["showNow", "boolean", "true", "دکمهٔ «اکنون» پایین ساعت"],
+  ["openLabel", "string", "«انتخاب ساعت از روی ساعت»", "نام دکمهٔ باز کردن ساعت"],
+  ["label / hint / error / name", "", "", "مثل بقیهٔ فیلدها"],
+]} />
+
+## فقط صفحهٔ ساعت
+
+`TimeClock` خودِ صفحهٔ ساعت است، بدون فیلد و پنل شناور؛ برای وقتی که ساعت همیشه روی صفحه دیده شود، مثل داخل یک دیالوگ یا کارت تنظیمات.
+
+<Demo html={false} code={`const [t, setT] = useState<string | null>("21:40");
+
+<TimeClock value={t} onChange={setT} aria-label="ساعت یادآوری" />`}>
+  <TimeClockDemo client:load />
+</Demo>
+
+<Props rows={[
+  ["value / defaultValue", "string | null", "null", "\"HH:MM\""],
+  ["onChange", "(value: string) => void", "", "با هر انتخاب"],
+  ["onComplete", "(value: string) => void", "", "وقتی دقیقه انتخاب شد"],
+  ["view / defaultView / onViewChange", '"hour" | "minute"', '"hour"', "کدام صفحه دیده شود"],
+  ["min / max / step / digits", "", "", "مثل TimePicker"],
+  ["aria-label", "string", "«انتخاب ساعت»", ""],
+  ["labels", "{ hour?, minute? }", "«ساعت»، «دقیقه»", ""],
+]} />
+
+## کیبورد
+
+| کلید | عمل |
+|---|---|
+| <kbd>↑</kbd> / <kbd>→</kbd> | ساعت یا دقیقهٔ بعد (به اندازهٔ `step`) |
+| <kbd>↓</kbd> / <kbd>←</kbd> | ساعت یا دقیقهٔ قبل |
+| <kbd>Home</kbd> / <kbd>End</kbd> | اولین / آخرین مقدار مجاز |
+| <kbd>Enter</kbd> | از ساعت به دقیقه؛ روی دقیقه، رفتن به «تأیید» |
+| <kbd>Esc</kbd> | بستن ساعت بدون تغییر |
+
+## دسترس‌پذیری
+
+صفحهٔ ساعت یک `role="slider"` است که نامش «ساعت» یا «دقیقه» است و `aria-valuetext` کل ساعت را با ارقام فارسی می‌خواند («۰۹:۳۰»)؛ عددهای روی صفحه فقط تصویری‌اند. دو دکمهٔ بالای صفحه با `aria-pressed` نشان می‌دهند ساعت یا دقیقه در حال انتخاب است. پنل یک `role="dialog"` است و پس از بستن، فوکوس به دکمهٔ ساعت برمی‌گردد. تغییرها تا «تأیید» ثبت نمی‌شوند.

@@ -42,6 +42,7 @@ const RAW: NavGroup[] = [
     items: [
       { title: "فیلد فارسی", href: "/docs/persian/input/" },
       { title: "دیت‌پیکر شمسی", href: "/docs/persian/date-picker/" },
+      { title: "انتخاب ساعت", href: "/docs/persian/time-picker/" },
       { title: "کد تأیید (OTP)", href: "/docs/persian/otp/" },
       { title: "بازهٔ تاریخ شمسی", href: "/docs/persian/date-range/" },
       { title: "انتخاب ماه", href: "/docs/persian/month-picker/" },

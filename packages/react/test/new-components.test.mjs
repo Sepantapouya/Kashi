@@ -68,3 +68,36 @@ test("StreamingText و CodeBlock", () => {
   assert.match(code, /k-code__t-comment">\/\/ x</);
   assert.match(code, /dir="ltr" tabindex="0"/);
 });
+
+test("TimeClock: ۲۴ عدد در دو حلقه، عقربه و اسلایدر با متن کامل ساعت", () => {
+  const html = render(h(K.TimeClock, { defaultValue: "21:40" }));
+  assert.match(html, /role="slider"[^>]*aria-label="ساعت"/);
+  assert.match(html, /aria-valuenow="21"/);
+  assert.match(html, /aria-valuetext="۲۱:۴۰"/);
+  assert.equal([...html.matchAll(/class="k-clock__num"/g)].length, 24);
+  assert.equal([...html.matchAll(/data-ring="inner"/g)].length, 12, "۱ تا ۱۲ داخل، ۰۰ و ۱۳ تا ۲۳ بیرون");
+  assert.match(html, /data-ring="outer" data-selected=""[^>]*>۲۱</);
+  assert.match(html, /k-clock__hand[^>]*rotate:270deg/);
+  assert.match(html, /aria-pressed="true" aria-label="ساعت ۲۱">۲۱</);
+});
+
+test("TimeClock: صفحهٔ دقیقه، min/max و بدون مقدار", () => {
+  const html = render(h(K.TimeClock, { defaultValue: "08:10", defaultView: "minute", min: "08:05", max: "20:00" }));
+  assert.match(html, /aria-label="دقیقه"/);
+  assert.equal([...html.matchAll(/class="k-clock__num"/g)].length, 12);
+  assert.match(html, /data-disabled=""[^>]*>۰۰</, "۰۸:۰۰ پیش از min است");
+  assert.match(html, /data-selected=""[^>]*>۱۰</);
+  const hours = render(h(K.TimeClock, { min: "08:00", max: "20:00" }));
+  assert.equal([...hours.matchAll(/data-disabled=""/g)].length, 11, "۰۰ تا ۰۷ و ۲۱ تا ۲۳");
+  assert.doesNotMatch(hours, /k-clock__hand/);
+  assert.match(hours, />--</);
+});
+
+test("TimePicker: فیلد ساعت، دکمهٔ باز کردن و مقدار لاتین در فرم", () => {
+  const html = render(h(K.TimePicker, { label: "ساعت جلسه", defaultValue: "09:30", name: "at" }));
+  assert.match(html, /value="۰۹:۳۰"/);
+  assert.match(html, /aria-haspopup="dialog" aria-expanded="false"/);
+  assert.match(html, /aria-label="انتخاب ساعت از روی ساعت، ۰۹:۳۰"/);
+  assert.match(html, /<input type="hidden" name="at" value="09:30"\/>/);
+  assert.doesNotMatch(render(h(K.TimePicker, { label: "x", readOnly: true })), /aria-haspopup/);
+});
