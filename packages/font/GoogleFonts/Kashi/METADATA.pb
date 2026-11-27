@@ -29,7 +29,7 @@ axes {
 primary_script: "Arab"
 source {
   repository_url: "https://github.com/Sepantapouya/Kashi"
-  commit: "FILL_IN_AFTER_PUSH"
+  commit: "fff0bb652b53e38cf4d4e37a7d9790430cbe850b"
   files {
     source_file: "packages/font/OFL.txt"
     dest_file: "OFL.txt"

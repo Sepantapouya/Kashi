@@ -31,7 +31,7 @@ I know Vazirmatn is already in the catalog, so here is what Kashi changes (all r
 
 - Editable sources: UFO masters (Thin, Regular, Black × Normal, Expanded) and a designspace in `packages/font/sources/ufo/Kashi/`
 - Build: `packages/font/sources/config.yaml` (gftools builder)
-- Ready `METADATA.pb` and `DESCRIPTION.en_us.html` in `packages/font/GoogleFonts/Kashi/`
+- Ready `METADATA.pb` and an article with images in `packages/font/GoogleFonts/Kashi/`
 - Font Bakery `check-googlefonts`: see the report in `packages/font/GoogleFonts/fontbakery-report.md`
 
 ## Questions
