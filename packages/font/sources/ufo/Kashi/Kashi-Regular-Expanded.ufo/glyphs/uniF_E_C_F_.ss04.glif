@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFECF.ss04" format="2">
+  <advance width="1330"/>
+  <anchor x="635" y="-246" name="Anchor-2"/>
+  <anchor x="683" y="1416" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="383" y="165" type="qcurve"/>
+      <point x="-25" y="165" type="line"/>
+      <point x="-25" y="0" type="line"/>
+      <point x="127" y="0" type="line"/>
+      <point x="394" y="0"/>
+      <point x="534" y="12"/>
+      <point x="720" y="38"/>
+      <point x="866" y="65"/>
+      <point x="1201" y="147" type="qcurve"/>
+      <point x="1201" y="306" type="line"/>
+      <point x="677" y="206" type="line"/>
+      <point x="658" y="203"/>
+      <point x="642" y="204"/>
+      <point x="624" y="208" type="qcurve"/>
+      <point x="607" y="210"/>
+      <point x="515" y="271"/>
+      <point x="432" y="394"/>
+      <point x="432" y="476" type="qcurve"/>
+      <point x="432" y="617"/>
+      <point x="493" y="674"/>
+      <point x="566" y="715"/>
+      <point x="736" y="715" type="qcurve"/>
+      <point x="834" y="715"/>
+      <point x="931" y="686"/>
+      <point x="1058" y="620" type="qcurve"/>
+      <point x="1134" y="769" type="line"/>
+      <point x="982" y="858"/>
+      <point x="858" y="893"/>
+      <point x="721" y="893" type="qcurve"/>
+      <point x="449" y="893"/>
+      <point x="332" y="818"/>
+      <point x="234" y="708"/>
+      <point x="234" y="485" type="qcurve"/>
+      <point x="234" y="369"/>
+      <point x="264" y="295"/>
+      <point x="300" y="237"/>
+    </contour>
+    <contour>
+      <point x="816" y="1192" type="curve"/>
+      <point x="816" y="1257"/>
+      <point x="763" y="1309"/>
+      <point x="698" y="1309" type="curve"/>
+      <point x="634" y="1309"/>
+      <point x="581" y="1257"/>
+      <point x="581" y="1192" type="curve"/>
+      <point x="581" y="1127"/>
+      <point x="634" y="1075"/>
+      <point x="698" y="1075" type="curve"/>
+      <point x="763" y="1075"/>
+      <point x="816" y="1127"/>
+    </contour>
+  </outline>
+</glyph>

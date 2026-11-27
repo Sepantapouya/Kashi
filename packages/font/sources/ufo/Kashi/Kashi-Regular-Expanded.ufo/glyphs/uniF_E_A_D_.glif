@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFEAD" format="2">
+  <advance width="864"/>
+  <unicode hex="FEAD"/>
+  <anchor x="409" y="-603" name="Anchor-2"/>
+  <anchor x="541" y="979" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="60" y="-486" type="line"/>
+      <point x="468" y="-419"/>
+      <point x="630" y="-292"/>
+      <point x="733" y="-160"/>
+      <point x="733" y="139" type="qcurve"/>
+      <point x="733" y="264"/>
+      <point x="707" y="387"/>
+      <point x="647" y="567" type="qcurve"/>
+      <point x="458" y="501" type="line"/>
+      <point x="517" y="334"/>
+      <point x="544" y="223"/>
+      <point x="544" y="112" type="qcurve"/>
+      <point x="544" y="-107"/>
+      <point x="464" y="-202"/>
+      <point x="332" y="-285"/>
+      <point x="-6" y="-342" type="qcurve"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni06B5.init" format="2">
+  <advance width="697"/>
+  <anchor x="288" y="-245" name="Anchor-2"/>
+  <anchor x="440" y="1806" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="390" y="1391" type="line"/>
+      <point x="484" y="1391" type="line"/>
+      <point x="654" y="1653" type="line"/>
+      <point x="605" y="1672" type="line"/>
+      <point x="437" y="1408" type="line"/>
+      <point x="269" y="1672" type="line"/>
+      <point x="220" y="1653" type="line"/>
+    </contour>
+    <contour>
+      <point x="-25" y="56" type="line"/>
+      <point x="-25" y="0" type="line"/>
+      <point x="61" y="0" type="line"/>
+      <point x="358" y="0"/>
+      <point x="468" y="101"/>
+      <point x="468" y="349" type="qcurve"/>
+      <point x="468" y="1271" type="line"/>
+      <point x="412" y="1271" type="line"/>
+      <point x="412" y="348" type="line"/>
+      <point x="412" y="145"/>
+      <point x="318" y="56"/>
+      <point x="62" y="56" type="qcurve"/>
+    </contour>
+  </outline>
+</glyph>

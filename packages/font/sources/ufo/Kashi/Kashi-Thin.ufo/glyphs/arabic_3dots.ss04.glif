@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="arabic_3dots.ss04" format="2">
+  <advance width="549"/>
+  <outline>
+    <contour>
+      <point x="316" y="281" type="curve"/>
+      <point x="316" y="309"/>
+      <point x="293" y="332"/>
+      <point x="265" y="332" type="curve"/>
+      <point x="237" y="332"/>
+      <point x="214" y="309"/>
+      <point x="214" y="281" type="curve"/>
+      <point x="214" y="253"/>
+      <point x="237" y="230"/>
+      <point x="265" y="230" type="curve"/>
+      <point x="293" y="230"/>
+      <point x="316" y="253"/>
+    </contour>
+    <contour>
+      <point x="442" y="66" type="curve"/>
+      <point x="442" y="94"/>
+      <point x="419" y="117"/>
+      <point x="390" y="117" type="curve"/>
+      <point x="362" y="117"/>
+      <point x="339" y="94"/>
+      <point x="339" y="66" type="curve"/>
+      <point x="339" y="38"/>
+      <point x="362" y="15"/>
+      <point x="390" y="15" type="curve"/>
+      <point x="419" y="15"/>
+      <point x="442" y="38"/>
+    </contour>
+    <contour>
+      <point x="191" y="66" type="curve"/>
+      <point x="191" y="94"/>
+      <point x="168" y="117"/>
+      <point x="140" y="117" type="curve"/>
+      <point x="111" y="117"/>
+      <point x="88" y="94"/>
+      <point x="88" y="66" type="curve"/>
+      <point x="88" y="38"/>
+      <point x="111" y="15"/>
+      <point x="140" y="15" type="curve"/>
+      <point x="168" y="15"/>
+      <point x="191" y="38"/>
+    </contour>
+  </outline>
+</glyph>

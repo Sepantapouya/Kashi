@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="rialsign" format="2">
+  <advance width="1531"/>
+  <unicode hex="E001"/>
+  <outline>
+    <contour>
+      <point x="485" y="0" type="line"/>
+      <point x="676" y="0" type="line"/>
+      <point x="676" y="1219" type="line"/>
+      <point x="485" y="1219" type="line"/>
+    </contour>
+    <contour>
+      <point x="913" y="0" type="line"/>
+      <point x="1103" y="0" type="line"/>
+      <point x="1103" y="1219" type="line"/>
+      <point x="913" y="1219" type="line"/>
+    </contour>
+    <contour>
+      <point x="114" y="323" type="line"/>
+      <point x="484" y="189"/>
+      <point x="708" y="207"/>
+      <point x="902" y="264"/>
+      <point x="1144" y="484" type="qcurve"/>
+      <point x="1247" y="579"/>
+      <point x="1332" y="688"/>
+      <point x="1417" y="837" type="qcurve"/>
+      <point x="1220" y="881" type="line"/>
+      <point x="1134" y="727"/>
+      <point x="1060" y="628"/>
+      <point x="974" y="550" type="qcurve"/>
+      <point x="799" y="390"/>
+      <point x="654" y="350"/>
+      <point x="480" y="342"/>
+      <point x="168" y="449" type="qcurve"/>
+    </contour>
+  </outline>
+</glyph>

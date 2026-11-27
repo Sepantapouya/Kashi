@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni1ECB.ccmp" format="2">
+  <advance width="571"/>
+  <anchor x="295" y="1258" name="Anchor-0"/>
+  <anchor x="292" y="9" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="374" y="1056" type="line"/>
+      <point x="374" y="0" type="line"/>
+      <point x="189" y="0" type="line"/>
+      <point x="189" y="1056" type="line"/>
+    </contour>
+    <contour>
+      <point x="161" y="-225" type="qcurve"/>
+      <point x="161" y="-186"/>
+      <point x="220" y="-130"/>
+      <point x="276" y="-130" type="qcurve"/>
+      <point x="330" y="-130"/>
+      <point x="392" y="-186"/>
+      <point x="392" y="-225" type="qcurve"/>
+      <point x="392" y="-262"/>
+      <point x="330" y="-316"/>
+      <point x="276" y="-316" type="qcurve"/>
+      <point x="220" y="-316"/>
+      <point x="161" y="-262"/>
+    </contour>
+  </outline>
+</glyph>

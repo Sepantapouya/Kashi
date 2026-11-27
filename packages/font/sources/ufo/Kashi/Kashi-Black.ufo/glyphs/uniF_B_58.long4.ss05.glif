@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFB58.long4.ss05" format="2">
+  <advance width="986"/>
+  <anchor x="470" y="-809" name="Anchor-2"/>
+  <anchor x="644" y="1131" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="-21" y="309" type="line"/>
+      <point x="-21" y="0" type="line"/>
+      <point x="349" y="0" type="line"/>
+      <point x="349" y="309" type="line"/>
+    </contour>
+    <contour>
+      <point x="491" y="0" type="line"/>
+      <point x="751" y="0"/>
+      <point x="850" y="91"/>
+      <point x="904" y="206"/>
+      <point x="904" y="483" type="qcurve"/>
+      <point x="904" y="631"/>
+      <point x="890" y="781"/>
+      <point x="859" y="931" type="qcurve"/>
+      <point x="569" y="857" type="line"/>
+      <point x="602" y="694"/>
+      <point x="623" y="571"/>
+      <point x="623" y="474" type="qcurve"/>
+      <point x="623" y="361"/>
+      <point x="589" y="309"/>
+      <point x="493" y="309" type="qcurve"/>
+      <point x="327" y="309" type="line"/>
+      <point x="327" y="0" type="line"/>
+    </contour>
+    <contour>
+      <point x="369" y="-614" type="line"/>
+      <point x="565" y="-614" type="line"/>
+      <point x="565" y="-418" type="line"/>
+      <point x="369" y="-418" type="line"/>
+    </contour>
+    <contour>
+      <point x="552" y="-358" type="line"/>
+      <point x="748" y="-358" type="line"/>
+      <point x="748" y="-162" type="line"/>
+      <point x="552" y="-162" type="line"/>
+    </contour>
+    <contour>
+      <point x="187" y="-358" type="line"/>
+      <point x="383" y="-358" type="line"/>
+      <point x="383" y="-162" type="line"/>
+      <point x="187" y="-162" type="line"/>
+    </contour>
+  </outline>
+</glyph>

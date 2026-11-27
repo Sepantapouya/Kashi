@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFEDF" format="2">
+  <advance width="582"/>
+  <unicode hex="FEDF"/>
+  <anchor x="240" y="-245" name="Anchor-2"/>
+  <anchor x="357" y="1407" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="-21" y="61" type="line"/>
+      <point x="-21" y="0" type="line"/>
+      <point x="52" y="0" type="line"/>
+      <point x="299" y="0"/>
+      <point x="393" y="102"/>
+      <point x="393" y="351" type="qcurve"/>
+      <point x="393" y="1273" type="line"/>
+      <point x="340" y="1273" type="line"/>
+      <point x="340" y="351" type="line"/>
+      <point x="340" y="149"/>
+      <point x="263" y="61"/>
+      <point x="53" y="61" type="qcurve"/>
+    </contour>
+  </outline>
+</glyph>

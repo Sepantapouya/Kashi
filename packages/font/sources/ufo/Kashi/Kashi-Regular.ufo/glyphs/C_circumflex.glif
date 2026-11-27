@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Ccircumflex" format="2">
+  <advance width="1302"/>
+  <unicode hex="0108"/>
+  <anchor x="664" y="1595" name="Anchor-0"/>
+  <anchor x="664" y="-9" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="1030" y="452" type="qcurve"/>
+      <point x="1208" y="452" type="line"/>
+      <point x="1193" y="315"/>
+      <point x="1067" y="103"/>
+      <point x="840" y="-20"/>
+      <point x="671" y="-20" type="qcurve"/>
+      <point x="505" y="-20"/>
+      <point x="257" y="144"/>
+      <point x="119" y="439"/>
+      <point x="119" y="637" type="qcurve"/>
+      <point x="119" y="783" type="line"/>
+      <point x="119" y="982"/>
+      <point x="257" y="1277"/>
+      <point x="511" y="1442"/>
+      <point x="687" y="1442" type="qcurve"/>
+      <point x="846" y="1442"/>
+      <point x="1068" y="1321"/>
+      <point x="1193" y="1109"/>
+      <point x="1208" y="967" type="qcurve"/>
+      <point x="1030" y="967" type="line"/>
+      <point x="1008" y="1118"/>
+      <point x="854" y="1295"/>
+      <point x="687" y="1295" type="qcurve"/>
+      <point x="560" y="1295"/>
+      <point x="386" y="1168"/>
+      <point x="297" y="939"/>
+      <point x="297" y="785" type="qcurve"/>
+      <point x="297" y="637" type="line"/>
+      <point x="297" y="496"/>
+      <point x="378" y="265"/>
+      <point x="544" y="127"/>
+      <point x="671" y="127" type="qcurve"/>
+      <point x="792" y="127"/>
+      <point x="938" y="204"/>
+      <point x="1014" y="349"/>
+    </contour>
+    <contour>
+      <point x="716" y="1833" type="line"/>
+      <point x="958" y="1569" type="line"/>
+      <point x="958" y="1559" type="line"/>
+      <point x="813" y="1559" type="line"/>
+      <point x="664" y="1725" type="line"/>
+      <point x="517" y="1559" type="line"/>
+      <point x="373" y="1559" type="line"/>
+      <point x="373" y="1571" type="line"/>
+      <point x="611" y="1833" type="line"/>
+    </contour>
+  </outline>
+</glyph>

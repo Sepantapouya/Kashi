@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="NameMe.65583" format="2">
+  <advance width="460"/>
+  <outline>
+    <contour>
+      <point x="201" y="1295" type="qcurve"/>
+      <point x="86" y="1295" type="line"/>
+      <point x="146" y="1387"/>
+      <point x="262" y="1520"/>
+      <point x="334" y="1520" type="qcurve"/>
+      <point x="384" y="1520"/>
+      <point x="449" y="1456"/>
+      <point x="449" y="1407" type="qcurve"/>
+      <point x="449" y="1356"/>
+      <point x="378" y="1307"/>
+      <point x="265" y="1295"/>
+    </contour>
+    <contour>
+      <point x="-18" y="1307" type="line"/>
+      <point x="8" y="1277"/>
+      <point x="112" y="1260"/>
+      <point x="177" y="1260" type="qcurve"/>
+      <point x="203" y="1260" type="line"/>
+      <point x="284" y="1260"/>
+      <point x="410" y="1280"/>
+      <point x="482" y="1345"/>
+      <point x="482" y="1411" type="qcurve"/>
+      <point x="482" y="1475"/>
+      <point x="397" y="1557"/>
+      <point x="329" y="1557" type="qcurve"/>
+      <point x="258" y="1557"/>
+      <point x="133" y="1432"/>
+      <point x="56" y="1301" type="qcurve"/>
+      <point x="36" y="1308"/>
+      <point x="4" y="1326"/>
+      <point x="-12" y="1338" type="qcurve"/>
+    </contour>
+  </outline>
+</glyph>

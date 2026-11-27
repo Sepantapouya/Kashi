@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Tcaron.smcp" format="2">
+  <advance width="1094"/>
+  <anchor x="518" y="1289" name="Anchor-0"/>
+  <anchor x="519" y="3" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="699" y="1137" type="line"/>
+      <point x="699" y="0" type="line"/>
+      <point x="384" y="0" type="line"/>
+      <point x="384" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="1064" y="1137" type="line"/>
+      <point x="1064" y="896" type="line"/>
+      <point x="29" y="896" type="line"/>
+      <point x="29" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="396" y="1530" type="line"/>
+      <point x="540" y="1395" type="line"/>
+      <point x="684" y="1530" type="line"/>
+      <point x="950" y="1530" type="line"/>
+      <point x="950" y="1519" type="line"/>
+      <point x="640" y="1244" type="line"/>
+      <point x="441" y="1244" type="line"/>
+      <point x="129" y="1521" type="line"/>
+      <point x="129" y="1530" type="line"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Icircumflex.smcp" format="2">
+  <advance width="617"/>
+  <anchor x="286" y="1289" name="Anchor-0"/>
+  <anchor x="286" y="4" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="475" y="1137" type="line"/>
+      <point x="475" y="0" type="line"/>
+      <point x="141" y="0" type="line"/>
+      <point x="141" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="406" y="1529" type="line"/>
+      <point x="759" y="1257" type="line"/>
+      <point x="759" y="1245" type="line"/>
+      <point x="493" y="1245" type="line"/>
+      <point x="309" y="1389" type="line"/>
+      <point x="127" y="1245" type="line"/>
+      <point x="-134" y="1245" type="line"/>
+      <point x="-134" y="1260" type="line"/>
+      <point x="213" y="1529" type="line"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFBDC" format="2">
+  <advance width="1136"/>
+  <unicode hex="FBDC"/>
+  <anchor x="540" y="-611" name="Anchor-2"/>
+  <anchor x="526" y="1410" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="538" y="744" type="qcurve"/>
+      <point x="316" y="744"/>
+      <point x="244" y="689"/>
+      <point x="168" y="593"/>
+      <point x="128" y="520"/>
+      <point x="128" y="293" type="qcurve"/>
+      <point x="128" y="88"/>
+      <point x="268" y="0"/>
+      <point x="592" y="0" type="qcurve"/>
+      <point x="799" y="0" type="line"/>
+      <point x="746" y="-157"/>
+      <point x="635" y="-231"/>
+      <point x="486" y="-290"/>
+      <point x="146" y="-341" type="qcurve"/>
+      <point x="214" y="-485" type="line"/>
+      <point x="634" y="-418"/>
+      <point x="812" y="-311"/>
+      <point x="922" y="-209"/>
+      <point x="978" y="0" type="qcurve"/>
+      <point x="1157" y="0" type="line"/>
+      <point x="1157" y="165" type="line"/>
+      <point x="995" y="165" type="line"/>
+      <point x="992" y="471"/>
+      <point x="944" y="576"/>
+      <point x="858" y="689"/>
+      <point x="780" y="744"/>
+    </contour>
+    <contour>
+      <point x="580" y="165" type="line"/>
+      <point x="395" y="165"/>
+      <point x="318" y="201"/>
+      <point x="318" y="299" type="qcurve"/>
+      <point x="318" y="437"/>
+      <point x="347" y="503"/>
+      <point x="398" y="570"/>
+      <point x="535" y="570" type="qcurve"/>
+      <point x="673" y="570"/>
+      <point x="722" y="530"/>
+      <point x="769" y="451"/>
+      <point x="796" y="380"/>
+      <point x="810" y="165" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="484" y="960" type="line"/>
+      <point x="586" y="960" type="line"/>
+      <point x="586" y="1268" type="line"/>
+      <point x="484" y="1268" type="line"/>
+    </contour>
+  </outline>
+</glyph>

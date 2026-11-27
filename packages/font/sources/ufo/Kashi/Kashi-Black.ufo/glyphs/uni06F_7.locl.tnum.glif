@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni06F7.locl.tnum" format="2">
+  <advance width="1446"/>
+  <outline>
+    <contour>
+      <point x="1259" y="304" type="line"/>
+      <point x="540" y="304" type="line"/>
+      <point x="619" y="494"/>
+      <point x="714" y="611"/>
+      <point x="847" y="741"/>
+      <point x="947" y="823"/>
+      <point x="1250" y="1086" type="qcurve"/>
+      <point x="1013" y="1296" type="line"/>
+      <point x="599" y="905"/>
+      <point x="472" y="770"/>
+      <point x="296" y="550"/>
+      <point x="187" y="354"/>
+      <point x="187" y="0" type="qcurve"/>
+      <point x="1259" y="0" type="line"/>
+    </contour>
+  </outline>
+</glyph>

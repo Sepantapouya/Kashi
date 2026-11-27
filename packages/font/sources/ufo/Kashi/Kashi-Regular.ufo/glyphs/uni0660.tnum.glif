@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni0660.tnum" format="2">
+  <advance width="1303"/>
+  <outline>
+    <contour>
+      <point x="651.5" y="267" type="line"/>
+      <point x="873.5" y="445" type="line"/>
+      <point x="649.5" y="648" type="line"/>
+      <point x="429.5" y="446" type="line"/>
+    </contour>
+  </outline>
+</glyph>

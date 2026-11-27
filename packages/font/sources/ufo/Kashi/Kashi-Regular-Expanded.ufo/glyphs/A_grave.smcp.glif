@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Agrave.smcp" format="2">
+  <advance width="1333"/>
+  <anchor x="680" y="1289" name="Anchor-0"/>
+  <anchor x="694" y="0" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="687" y="988" type="line"/>
+      <point x="215" y="0" type="line"/>
+      <point x="25" y="0" type="line"/>
+      <point x="585" y="1137" type="line"/>
+      <point x="709" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="1118" y="0" type="line"/>
+      <point x="649" y="991" type="line"/>
+      <point x="627" y="1137" type="line"/>
+      <point x="753" y="1137" type="line"/>
+      <point x="1307" y="0" type="line"/>
+    </contour>
+    <contour>
+      <point x="1061" y="414" type="line"/>
+      <point x="1061" y="285" type="line"/>
+      <point x="267" y="285" type="line"/>
+      <point x="267" y="414" type="line"/>
+    </contour>
+    <contour>
+      <point x="552" y="1529" type="line"/>
+      <point x="777" y="1247" type="line"/>
+      <point x="615" y="1247" type="line"/>
+      <point x="328" y="1529" type="line"/>
+    </contour>
+  </outline>
+</glyph>

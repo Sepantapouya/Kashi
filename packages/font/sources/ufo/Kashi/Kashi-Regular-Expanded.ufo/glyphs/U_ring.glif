@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Uring" format="2">
+  <advance width="1565"/>
+  <unicode hex="016E"/>
+  <anchor x="781" y="1563" name="Anchor-0"/>
+  <anchor x="780" y="0" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="1205" y="1422" type="line"/>
+      <point x="1395" y="1422" type="line"/>
+      <point x="1395" y="460" type="line"/>
+      <point x="1395" y="300"/>
+      <point x="1228" y="87"/>
+      <point x="950" y="-20"/>
+      <point x="784" y="-20" type="qcurve"/>
+      <point x="612" y="-20"/>
+      <point x="335" y="87"/>
+      <point x="175" y="300"/>
+      <point x="175" y="460" type="qcurve"/>
+      <point x="175" y="1422" type="line"/>
+      <point x="365" y="1422" type="line"/>
+      <point x="365" y="460" type="line"/>
+      <point x="365" y="343"/>
+      <point x="472" y="189"/>
+      <point x="660" y="113"/>
+      <point x="784" y="113" type="qcurve"/>
+      <point x="908" y="113"/>
+      <point x="1097" y="189"/>
+      <point x="1205" y="343"/>
+      <point x="1205" y="460" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="548" y="1684" type="qcurve"/>
+      <point x="548" y="1766"/>
+      <point x="688" y="1881"/>
+      <point x="789" y="1881" type="qcurve"/>
+      <point x="891" y="1881"/>
+      <point x="1031" y="1766"/>
+      <point x="1031" y="1684" type="qcurve"/>
+      <point x="1031" y="1601"/>
+      <point x="891" y="1492"/>
+      <point x="789" y="1492" type="qcurve"/>
+      <point x="688" y="1492"/>
+      <point x="548" y="1601"/>
+    </contour>
+    <contour>
+      <point x="653" y="1684" type="qcurve"/>
+      <point x="653" y="1640"/>
+      <point x="730" y="1572"/>
+      <point x="789" y="1572" type="qcurve"/>
+      <point x="849" y="1572"/>
+      <point x="925" y="1638"/>
+      <point x="925" y="1684" type="qcurve"/>
+      <point x="925" y="1731"/>
+      <point x="849" y="1801"/>
+      <point x="789" y="1801" type="qcurve"/>
+      <point x="730" y="1801"/>
+      <point x="653" y="1731"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFE8E" format="2">
+  <advance width="526"/>
+  <unicode hex="FE8E"/>
+  <anchor x="281" y="-256" name="Anchor-2"/>
+  <anchor x="214" y="1437" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="189" y="1273" type="line"/>
+      <point x="189" y="347" type="line"/>
+      <point x="189" y="105"/>
+      <point x="268" y="0"/>
+      <point x="484" y="0" type="qcurve"/>
+      <point x="547" y="0" type="line"/>
+      <point x="547" y="61" type="line"/>
+      <point x="484" y="61" type="line"/>
+      <point x="313" y="61"/>
+      <point x="242" y="137"/>
+      <point x="242" y="351" type="qcurve"/>
+      <point x="242" y="1273" type="line"/>
+    </contour>
+  </outline>
+</glyph>

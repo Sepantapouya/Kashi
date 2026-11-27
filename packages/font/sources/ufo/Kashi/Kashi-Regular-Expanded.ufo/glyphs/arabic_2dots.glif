@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="arabic_2dots" format="2">
+  <advance width="646"/>
+  <outline>
+    <contour>
+      <point x="584" y="-1" type="line"/>
+      <point x="604" y="-1"/>
+      <point x="620" y="16"/>
+      <point x="620" y="36" type="curve"/>
+      <point x="620" y="166" type="line"/>
+      <point x="620" y="186"/>
+      <point x="604" y="203"/>
+      <point x="584" y="203" type="curve"/>
+      <point x="453" y="203" type="line"/>
+      <point x="433" y="203"/>
+      <point x="416" y="186"/>
+      <point x="416" y="166" type="curve"/>
+      <point x="416" y="36" type="line"/>
+      <point x="416" y="16"/>
+      <point x="433" y="-1"/>
+      <point x="453" y="-1" type="curve"/>
+    </contour>
+    <contour>
+      <point x="190" y="-1" type="line"/>
+      <point x="210" y="-1"/>
+      <point x="227" y="16"/>
+      <point x="227" y="36" type="curve"/>
+      <point x="227" y="166" type="line"/>
+      <point x="227" y="186"/>
+      <point x="210" y="203"/>
+      <point x="190" y="203" type="curve"/>
+      <point x="60" y="203" type="line"/>
+      <point x="39" y="203"/>
+      <point x="23" y="186"/>
+      <point x="23" y="166" type="curve"/>
+      <point x="23" y="36" type="line"/>
+      <point x="23" y="16"/>
+      <point x="39" y="-1"/>
+      <point x="60" y="-1" type="curve"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFEDC" format="2">
+  <advance width="1088"/>
+  <unicode hex="FEDC"/>
+  <anchor x="339" y="-248" name="Anchor-2"/>
+  <anchor x="357" y="1363" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="381" y="959" type="qcurve"/>
+      <point x="925" y="1153" type="line"/>
+      <point x="925" y="1469" type="line"/>
+      <point x="111" y="1208" type="line"/>
+      <point x="31" y="1178"/>
+      <point x="-3" y="1116"/>
+      <point x="-3" y="1015" type="qcurve"/>
+      <point x="-3" y="916"/>
+      <point x="26" y="840"/>
+      <point x="89" y="784" type="qcurve"/>
+      <point x="133" y="752"/>
+      <point x="253" y="673"/>
+      <point x="380" y="587"/>
+      <point x="489" y="503"/>
+      <point x="556" y="434"/>
+      <point x="556" y="411" type="qcurve"/>
+      <point x="556" y="344"/>
+      <point x="503" y="320"/>
+      <point x="425" y="309"/>
+      <point x="232" y="309" type="qcurve"/>
+      <point x="-21" y="309" type="line"/>
+      <point x="-21" y="0" type="line"/>
+      <point x="233" y="0" type="line"/>
+      <point x="448" y="0"/>
+      <point x="549" y="19"/>
+      <point x="631" y="55"/>
+      <point x="722" y="149" type="qcurve"/>
+      <point x="799" y="41"/>
+      <point x="903" y="0"/>
+      <point x="1080" y="0" type="qcurve"/>
+      <point x="1109" y="0" type="line"/>
+      <point x="1109" y="309" type="line"/>
+      <point x="1080" y="309" type="line"/>
+      <point x="966" y="309"/>
+      <point x="916" y="332"/>
+      <point x="883" y="380"/>
+      <point x="835" y="507" type="qcurve"/>
+      <point x="784" y="650"/>
+      <point x="754" y="700"/>
+      <point x="705" y="762"/>
+      <point x="635" y="815"/>
+      <point x="576" y="849"/>
+    </contour>
+  </outline>
+</glyph>

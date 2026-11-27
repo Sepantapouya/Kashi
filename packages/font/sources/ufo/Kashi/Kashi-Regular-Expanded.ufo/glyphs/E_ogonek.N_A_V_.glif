@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Eogonek.NAV" format="2">
+  <advance width="1365"/>
+  <anchor x="726" y="1574" name="Anchor-0"/>
+  <anchor x="726" y="9" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="1280" y="132" type="line"/>
+      <point x="1280" y="0" type="line"/>
+      <point x="353" y="0" type="line"/>
+      <point x="353" y="132" type="line"/>
+    </contour>
+    <contour>
+      <point x="398" y="1422" type="line"/>
+      <point x="398" y="0" type="line"/>
+      <point x="205" y="0" type="line"/>
+      <point x="205" y="1422" type="line"/>
+    </contour>
+    <contour>
+      <point x="1160" y="800" type="line"/>
+      <point x="1160" y="667" type="line"/>
+      <point x="353" y="667" type="line"/>
+      <point x="353" y="800" type="line"/>
+    </contour>
+    <contour>
+      <point x="1270" y="1422" type="line"/>
+      <point x="1270" y="1288" type="line"/>
+      <point x="353" y="1288" type="line"/>
+      <point x="353" y="1422" type="line"/>
+    </contour>
+    <contour>
+      <point x="724" y="58" type="qcurve"/>
+      <point x="803" y="9" type="line"/>
+      <point x="726" y="-39"/>
+      <point x="598" y="-147"/>
+      <point x="598" y="-211" type="qcurve"/>
+      <point x="598" y="-245"/>
+      <point x="640" y="-288"/>
+      <point x="693" y="-288" type="qcurve"/>
+      <point x="735" y="-288"/>
+      <point x="795" y="-268"/>
+      <point x="813" y="-259" type="qcurve"/>
+      <point x="830" y="-363" type="line"/>
+      <point x="803" y="-378"/>
+      <point x="716" y="-406"/>
+      <point x="649" y="-406" type="qcurve"/>
+      <point x="558" y="-406"/>
+      <point x="436" y="-316"/>
+      <point x="436" y="-228" type="qcurve"/>
+      <point x="436" y="-176"/>
+      <point x="499" y="-76"/>
+      <point x="627" y="18"/>
+    </contour>
+  </outline>
+</glyph>

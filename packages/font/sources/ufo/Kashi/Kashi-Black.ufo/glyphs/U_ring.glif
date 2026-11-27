@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Uring" format="2">
+  <advance width="1325"/>
+  <unicode hex="016E"/>
+  <anchor x="651" y="1563" name="Anchor-0"/>
+  <anchor x="650" y="0" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="891" y="1422" type="line"/>
+      <point x="1216" y="1422" type="line"/>
+      <point x="1216" y="489" type="line"/>
+      <point x="1216" y="324"/>
+      <point x="1076" y="97"/>
+      <point x="828" y="-20"/>
+      <point x="663" y="-20" type="qcurve"/>
+      <point x="499" y="-20"/>
+      <point x="248" y="97"/>
+      <point x="108" y="324"/>
+      <point x="108" y="489" type="qcurve"/>
+      <point x="108" y="1422" type="line"/>
+      <point x="433" y="1422" type="line"/>
+      <point x="433" y="489" type="line"/>
+      <point x="433" y="399"/>
+      <point x="487" y="285"/>
+      <point x="590" y="231"/>
+      <point x="663" y="231" type="qcurve"/>
+      <point x="736" y="231"/>
+      <point x="838" y="285"/>
+      <point x="891" y="399"/>
+      <point x="891" y="489" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="441" y="1688" type="qcurve"/>
+      <point x="441" y="1770"/>
+      <point x="565" y="1888"/>
+      <point x="659" y="1888" type="qcurve"/>
+      <point x="754" y="1888"/>
+      <point x="878" y="1770"/>
+      <point x="878" y="1688" type="qcurve"/>
+      <point x="878" y="1609"/>
+      <point x="754" y="1494"/>
+      <point x="659" y="1494" type="qcurve"/>
+      <point x="565" y="1494"/>
+      <point x="441" y="1609"/>
+    </contour>
+    <contour>
+      <point x="558" y="1688" type="qcurve"/>
+      <point x="558" y="1646"/>
+      <point x="612" y="1586"/>
+      <point x="659" y="1586" type="qcurve"/>
+      <point x="707" y="1586"/>
+      <point x="761" y="1646"/>
+      <point x="761" y="1688" type="qcurve"/>
+      <point x="761" y="1732"/>
+      <point x="707" y="1793"/>
+      <point x="659" y="1793" type="qcurve"/>
+      <point x="612" y="1793"/>
+      <point x="558" y="1732"/>
+    </contour>
+  </outline>
+</glyph>

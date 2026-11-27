@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="NameMe.65703" format="2">
+  <advance width="619"/>
+  <outline>
+    <contour>
+      <point x="455" y="1235" type="line"/>
+      <point x="165" y="1235" type="line"/>
+      <point x="165" y="1" type="line"/>
+      <point x="455" y="1" type="line"/>
+    </contour>
+  </outline>
+</glyph>

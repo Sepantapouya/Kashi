@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="T.smcp" format="2">
+  <advance width="1231"/>
+  <anchor x="621" y="1289" name="Anchor-0"/>
+  <anchor x="622" y="3" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="643" y="1137" type="line"/>
+      <point x="643" y="0" type="line"/>
+      <point x="590" y="0" type="line"/>
+      <point x="590" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="1177" y="1137" type="line"/>
+      <point x="1177" y="1090" type="line"/>
+      <point x="54" y="1090" type="line"/>
+      <point x="54" y="1137" type="line"/>
+    </contour>
+  </outline>
+</glyph>

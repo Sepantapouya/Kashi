@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Ldot.smcp" format="2">
+  <advance width="925"/>
+  <anchor x="228" y="1289" name="Anchor-0"/>
+  <anchor x="514" y="7" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="883" y="142" type="line"/>
+      <point x="883" y="0" type="line"/>
+      <point x="267" y="0" type="line"/>
+      <point x="267" y="142" type="line"/>
+    </contour>
+    <contour>
+      <point x="310" y="1137" type="line"/>
+      <point x="310" y="0" type="line"/>
+      <point x="138" y="0" type="line"/>
+      <point x="138" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="489" y="634" type="qcurve"/>
+      <point x="489" y="676"/>
+      <point x="542" y="735"/>
+      <point x="592" y="735" type="qcurve"/>
+      <point x="643" y="735"/>
+      <point x="697" y="676"/>
+      <point x="697" y="634" type="qcurve"/>
+      <point x="697" y="593"/>
+      <point x="643" y="536"/>
+      <point x="592" y="536" type="qcurve"/>
+      <point x="542" y="536"/>
+      <point x="489" y="593"/>
+    </contour>
+  </outline>
+</glyph>

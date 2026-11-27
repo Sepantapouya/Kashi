@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uni064E" format="2">
+  <unicode hex="064E"/>
+  <anchor x="313" y="1242" name="_Anchor-3"/>
+  <anchor x="308" y="1502" name="Anchor-6"/>
+  <anchor x="313" y="1242" name="_Anchor-6"/>
+  <outline>
+    <contour>
+      <point x="74" y="1230" type="line"/>
+      <point x="506" y="1406" type="line"/>
+      <point x="506" y="1453" type="line"/>
+      <point x="74" y="1277" type="line"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Uring.smcp" format="2">
+  <advance width="1148"/>
+  <anchor x="563" y="1289" name="Anchor-0"/>
+  <anchor x="561" y="0" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="747" y="1137" type="line"/>
+      <point x="1060" y="1137" type="line"/>
+      <point x="1060" y="404" type="line"/>
+      <point x="1060" y="269"/>
+      <point x="941" y="82"/>
+      <point x="724" y="-16"/>
+      <point x="574" y="-16" type="qcurve"/>
+      <point x="428" y="-16"/>
+      <point x="208" y="82"/>
+      <point x="86" y="269"/>
+      <point x="86" y="404" type="qcurve"/>
+      <point x="86" y="1137" type="line"/>
+      <point x="399" y="1137" type="line"/>
+      <point x="399" y="404" type="line"/>
+      <point x="399" y="341"/>
+      <point x="439" y="261"/>
+      <point x="518" y="226"/>
+      <point x="574" y="226" type="qcurve"/>
+      <point x="660" y="226"/>
+      <point x="747" y="309"/>
+      <point x="747" y="404" type="qcurve"/>
+    </contour>
+    <contour>
+      <point x="352" y="1415" type="qcurve"/>
+      <point x="352" y="1496"/>
+      <point x="476" y="1614"/>
+      <point x="569" y="1614" type="qcurve"/>
+      <point x="664" y="1614"/>
+      <point x="788" y="1496"/>
+      <point x="788" y="1415" type="qcurve"/>
+      <point x="788" y="1335"/>
+      <point x="664" y="1220"/>
+      <point x="569" y="1220" type="qcurve"/>
+      <point x="476" y="1220"/>
+      <point x="352" y="1335"/>
+    </contour>
+    <contour>
+      <point x="467" y="1415" type="qcurve"/>
+      <point x="467" y="1373"/>
+      <point x="522" y="1312"/>
+      <point x="569" y="1312" type="qcurve"/>
+      <point x="617" y="1312"/>
+      <point x="672" y="1373"/>
+      <point x="672" y="1415" type="qcurve"/>
+      <point x="672" y="1457"/>
+      <point x="617" y="1519"/>
+      <point x="569" y="1519" type="qcurve"/>
+      <point x="522" y="1519"/>
+      <point x="467" y="1457"/>
+    </contour>
+  </outline>
+</glyph>

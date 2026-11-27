@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="uniFBAF.compact" format="2">
+  <advance width="1566"/>
+  <anchor x="1038" y="-622" name="Anchor-2"/>
+  <anchor x="977" y="610" name="Anchor-3"/>
+  <outline>
+    <contour>
+      <point x="1044" y="-293" type="qcurve"/>
+      <point x="967" y="-293"/>
+      <point x="776" y="-284"/>
+      <point x="586" y="-265"/>
+      <point x="425" y="-236"/>
+      <point x="328" y="-194"/>
+      <point x="328" y="-165" type="qcurve"/>
+      <point x="328" y="-147"/>
+      <point x="418" y="-93"/>
+      <point x="569" y="-37"/>
+      <point x="752" y="0"/>
+      <point x="846" y="0" type="qcurve"/>
+      <point x="1591" y="0" type="line"/>
+      <point x="1591" y="165" type="line"/>
+      <point x="851" y="165" type="line"/>
+      <point x="720" y="165"/>
+      <point x="464" y="95"/>
+      <point x="254" y="-15"/>
+      <point x="128" y="-127"/>
+      <point x="128" y="-180" type="qcurve"/>
+      <point x="128" y="-243"/>
+      <point x="242" y="-339"/>
+      <point x="433" y="-402"/>
+      <point x="671" y="-436"/>
+      <point x="928" y="-448"/>
+      <point x="1048" y="-448" type="qcurve"/>
+      <point x="1312" y="-448"/>
+      <point x="1481" y="-433"/>
+      <point x="1606" y="-416"/>
+      <point x="1799" y="-377" type="qcurve"/>
+      <point x="1758" y="-231" type="line"/>
+      <point x="1721" y="-239"/>
+      <point x="1601" y="-259"/>
+      <point x="1428" y="-279"/>
+      <point x="1196" y="-293"/>
+    </contour>
+  </outline>
+</glyph>

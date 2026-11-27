@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Gacute" format="2">
+  <advance width="1363"/>
+  <anchor x="656" y="1595" name="Anchor-0"/>
+  <anchor x="713" y="-8" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="1215" y="704" type="line"/>
+      <point x="1215" y="186" type="line"/>
+      <point x="1189" y="146"/>
+      <point x="1073" y="50"/>
+      <point x="870" y="-20"/>
+      <point x="713" y="-20" type="qcurve"/>
+      <point x="541" y="-20"/>
+      <point x="274" y="141"/>
+      <point x="122" y="442"/>
+      <point x="122" y="653" type="qcurve"/>
+      <point x="122" y="772" type="line"/>
+      <point x="122" y="982"/>
+      <point x="255" y="1281"/>
+      <point x="510" y="1442"/>
+      <point x="691" y="1442" type="qcurve"/>
+      <point x="855" y="1442"/>
+      <point x="1073" y="1329"/>
+      <point x="1197" y="1133"/>
+      <point x="1215" y="1008" type="qcurve"/>
+      <point x="1034" y="1008" type="line"/>
+      <point x="1022" y="1086"/>
+      <point x="946" y="1215"/>
+      <point x="804" y="1295"/>
+      <point x="691" y="1295" type="qcurve"/>
+      <point x="559" y="1295"/>
+      <point x="386" y="1168"/>
+      <point x="302" y="933"/>
+      <point x="302" y="774" type="qcurve"/>
+      <point x="302" y="653" type="line"/>
+      <point x="302" y="489"/>
+      <point x="405" y="253"/>
+      <point x="591" y="127"/>
+      <point x="714" y="127" type="qcurve"/>
+      <point x="816" y="127"/>
+      <point x="944" y="162"/>
+      <point x="1017" y="212"/>
+      <point x="1036" y="233" type="qcurve"/>
+      <point x="1036" y="558" type="line"/>
+      <point x="700" y="558" type="line"/>
+      <point x="700" y="704" type="line"/>
+    </contour>
+    <contour>
+      <point x="563" y="1550" type="line"/>
+      <point x="753" y="1834" type="line"/>
+      <point x="960" y="1834" type="line"/>
+      <point x="702" y="1550" type="line"/>
+    </contour>
+  </outline>
+</glyph>

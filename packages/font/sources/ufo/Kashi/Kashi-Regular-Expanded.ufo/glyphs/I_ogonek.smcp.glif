@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Iogonek.smcp" format="2">
+  <advance width="566"/>
+  <anchor x="286" y="1289" name="Anchor-0"/>
+  <anchor x="286" y="4" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="375" y="1137" type="line"/>
+      <point x="375" y="0" type="line"/>
+      <point x="190" y="0" type="line"/>
+      <point x="190" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="297" y="48" type="qcurve"/>
+      <point x="375" y="0" type="line"/>
+      <point x="299" y="-48"/>
+      <point x="171" y="-156"/>
+      <point x="171" y="-222" type="qcurve"/>
+      <point x="171" y="-254"/>
+      <point x="213" y="-297"/>
+      <point x="266" y="-297" type="qcurve"/>
+      <point x="307" y="-297"/>
+      <point x="368" y="-278"/>
+      <point x="386" y="-269" type="qcurve"/>
+      <point x="403" y="-373" type="line"/>
+      <point x="375" y="-387"/>
+      <point x="289" y="-416"/>
+      <point x="222" y="-416" type="qcurve"/>
+      <point x="131" y="-416"/>
+      <point x="9" y="-326"/>
+      <point x="9" y="-238" type="qcurve"/>
+      <point x="9" y="-187"/>
+      <point x="72" y="-85"/>
+      <point x="200" y="8"/>
+    </contour>
+  </outline>
+</glyph>

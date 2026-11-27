@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="Zacute.smcp" format="2">
+  <advance width="1034"/>
+  <anchor x="521" y="1289" name="Anchor-0"/>
+  <anchor x="521" y="9" name="Anchor-1"/>
+  <outline>
+    <contour>
+      <point x="968" y="142" type="line"/>
+      <point x="968" y="0" type="line"/>
+      <point x="130" y="0" type="line"/>
+      <point x="130" y="142" type="line"/>
+    </contour>
+    <contour>
+      <point x="944" y="1026" type="line"/>
+      <point x="183" y="0" type="line"/>
+      <point x="70" y="0" type="line"/>
+      <point x="70" y="116" type="line"/>
+      <point x="834" y="1137" type="line"/>
+      <point x="944" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="876" y="1137" type="line"/>
+      <point x="876" y="995" type="line"/>
+      <point x="81" y="995" type="line"/>
+      <point x="81" y="1137" type="line"/>
+    </contour>
+    <contour>
+      <point x="424" y="1244" type="line"/>
+      <point x="613" y="1529" type="line"/>
+      <point x="821" y="1529" type="line"/>
+      <point x="564" y="1244" type="line"/>
+    </contour>
+  </outline>
+</glyph>

@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<glyph name="zero.frac" format="2">
+  <advance width="892"/>
+  <outline>
+    <contour>
+      <point x="808" y="1112" type="qcurve"/>
+      <point x="808" y="953" type="line"/>
+      <point x="808" y="792"/>
+      <point x="607" y="637"/>
+      <point x="449" y="637" type="qcurve"/>
+      <point x="287" y="637"/>
+      <point x="84" y="792"/>
+      <point x="84" y="953" type="qcurve"/>
+      <point x="84" y="1112" type="line"/>
+      <point x="84" y="1273"/>
+      <point x="285" y="1430"/>
+      <point x="446" y="1430" type="qcurve"/>
+      <point x="606" y="1430"/>
+      <point x="808" y="1273"/>
+    </contour>
+    <contour>
+      <point x="572" y="946" type="qcurve"/>
+      <point x="572" y="1120" type="line"/>
+      <point x="572" y="1203"/>
+      <point x="504" y="1274"/>
+      <point x="446" y="1274" type="qcurve"/>
+      <point x="387" y="1274"/>
+      <point x="320" y="1203"/>
+      <point x="320" y="1120" type="qcurve"/>
+      <point x="320" y="946" type="line"/>
+      <point x="320" y="861"/>
+      <point x="388" y="794"/>
+      <point x="449" y="794" type="qcurve"/>
+      <point x="505" y="794"/>
+      <point x="572" y="861"/>
+    </contour>
+  </outline>
+</glyph>
