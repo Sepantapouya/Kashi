@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   Avatar, Badge, BusinessHours, ChatComposer, ChatDivider, ChatMessage, ChatThread, CodeBlock, EconomicCodeInput, Gallery, Kanban,
   NotificationCenter, NotificationList, QRCode, RichTextEditor, SayadInput, Scheduler, SortableList, StreamingText, TaxIdInput, TypingIndicator,
-  WeekdayPicker,
+  WeekdayPicker, DatePicker, TimePicker, TimeClock,
   type KanbanColumn, type NotificationItem, type SchedulerEvent, type WeekHours,
 } from "@kashi-ui/react";
 import { summarizeHours } from "@kashi-ui/persian";
@@ -361,3 +361,29 @@ export const EconomicCodeDemo = () => (
 );
 export const TaxIdDemo = () => <div style={{ inlineSize: "min(100%, 22rem)" }}><TaxIdInput label="شمارهٔ مالیاتی فاکتور" name="taxId" hint="از سامانهٔ مودیان" /></div>;
 
+
+/* ---------- انتخاب ساعت ---------- */
+export function TimePickerDemo() {
+  const [date, setDate] = useState<Date | null>(null);
+  const [time, setTime] = useState<string | null>("09:30");
+  return (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "start" }}>
+      <div style={{ inlineSize: "min(100%, 15rem)" }}><DatePicker label="تاریخ جلسه" value={date} onChange={setDate} name="date" /></div>
+      <div style={{ inlineSize: "min(100%, 11rem)" }}><TimePicker label="ساعت جلسه" value={time} onChange={setTime} name="time" /></div>
+    </div>
+  );
+}
+export const TimePickerRangeDemo = () => (
+  <div style={{ inlineSize: "min(100%, 14rem)" }}>
+    <TimePicker label="ساعت تحویل" hint="بین ۰۸:۰۰ تا ۲۰:۰۰، هر ربع ساعت" min="08:00" max="20:00" step={15} defaultValue="10:15" />
+  </div>
+);
+export function TimeClockDemo() {
+  const [t, setT] = useState<string | null>("21:40");
+  return (
+    <div style={{ display: "grid", gap: "0.75rem", justifyItems: "center" }}>
+      <TimeClock value={t} onChange={setT} aria-label="ساعت یادآوری" />
+      <span style={{ color: "var(--k-text-secondary)", fontSize: "var(--k-text-sm)" }}>مقدار: <code>{t ?? "—"}</code></span>
+    </div>
+  );
+}

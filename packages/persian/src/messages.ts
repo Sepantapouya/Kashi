@@ -78,6 +78,7 @@ export const faMessages = {
     last7: (n: string) => `${n} روز اخیر`, last30: (n: string) => `${n} روز اخیر`, thisMonth: "این ماه", lastMonth: "ماه قبل",
   },
   monthPicker: { label: "انتخاب ماه", prevYear: "سال قبل", nextYear: "سال بعد" },
+  timePicker: { clock: "انتخاب ساعت", open: "انتخاب ساعت از روی ساعت", hour: "ساعت", minute: "دقیقه", now: "اکنون" },
   fileUpload: {
     units: ["بایت", "کیلوبایت", "مگابایت", "گیگابایت"], browse: "انتخاب فایل", drop: "یا فایل را اینجا رها کنید",
     tooBig: (max: string) => `حجم فایل بیشتر از ${max} است.`, wrongType: "این نوع فایل پذیرفته نیست.", tooMany: (n: string) => `حداکثر ${n} فایل.`,
@@ -295,6 +296,7 @@ export const enMessages: KashiMessages = {
     last7: (n) => `Last ${n} days`, last30: (n) => `Last ${n} days`, thisMonth: "This month", lastMonth: "Last month",
   },
   monthPicker: { label: "Choose a month", prevYear: "Previous year", nextYear: "Next year" },
+  timePicker: { clock: "Choose a time", open: "Choose a time from the clock", hour: "Hour", minute: "Minute", now: "Now" },
   fileUpload: {
     units: ["B", "KB", "MB", "GB"], browse: "Choose file", drop: "or drop a file here",
     tooBig: (max) => `File is larger than ${max}.`, wrongType: "This file type isn't accepted.", tooMany: (n) => `Up to ${n} files.`,

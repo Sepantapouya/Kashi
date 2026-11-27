@@ -122,6 +122,43 @@ function checkRow(control, { label = "مرا به خاطر بسپار", descript
   ]);
 }
 
+/**
+ * صفحهٔ ساعت TimeClock (k-clock): سربرگ «۰۹ : ۳۰» و صفحهٔ ۲۵۶ پیکسلی.
+ * ساعت: ۱ تا ۱۲ حلقهٔ داخلی (۲۶٪)، ۰۰ و ۱۳ تا ۲۳ بیرونی (۴۰٪)؛ دقیقه: ۰۰ تا ۵۵ در حلقهٔ بیرونی.
+ * عقربه برای ۹ (افقی به چپ) و ۳۰ (عمودی به پایین) کشیده می‌شود تا چرخش لازم نباشد.
+ */
+function timeClock({ view = "Hour" } = {}) {
+  const D = 256, NUM = 36, C = D / 2;
+  const hour = view === "Hour";
+  const outer = D * 0.4, inner = D * 0.26;
+  // left/top فیزیکی ← x منطقی (از راست) در چیدمان آزاد F
+  const at = (node, left, top) => { SIZING.get(node).x = D - left - node.width; SIZING.get(node).y = top; return node; };
+  const nums = hour
+    ? Array.from({ length: 24 }, (_, h) => ({ label: h === 0 ? "۰۰" : fa(h), angle: (h % 12) * 30, r: h >= 1 && h <= 12 ? inner : outer, on: h === 9, outerRing: !(h >= 1 && h <= 12) }))
+    : Array.from({ length: 12 }, (_, i) => ({ label: fa(String(i * 5).padStart(2, "0")), angle: i * 30, r: outer, on: i === 6, outerRing: true }));
+  const len = hour ? inner : outer;
+  const kids = [
+    at(R({ name: "Hand", w: hour ? len : 2, h: hour ? 2 : len, fill: "bg-brand" }), hour ? C - len : C - 1, hour ? C - 1 : C),
+    at(R({ name: "Knob", ellipse: true, w: NUM, h: NUM, fill: "bg-brand" }), hour ? C - len - NUM / 2 : C - NUM / 2, hour ? C - NUM / 2 : C + len - NUM / 2),
+    at(R({ name: "Center", ellipse: true, w: 8, h: 8, fill: "bg-brand" }), C - 4, C - 4),
+    ...nums.map((n) => {
+      const a = (n.angle * Math.PI) / 180;
+      const cell = F({ name: n.on ? "Number (selected)" : "Number", dir: "H", w: NUM, h: NUM, align: "center", cross: "center" }, [
+        T(n.label, { style: hour && n.outerRing ? "Text sm/Medium" : n.on ? "Text md/Semibold" : "Text md/Medium", color: n.on ? "text-on-brand" : n.outerRing && hour ? "text-secondary" : "text-primary", align: "center" }),
+      ]);
+      return at(cell, C + Math.sin(a) * n.r - NUM / 2, C - Math.cos(a) * n.r - NUM / 2);
+    }),
+  ];
+  const unit = (text, active) => F({ name: active ? "Unit (active)" : "Unit", dir: "H", px: "space/2", py: "space/1", radius: "radius/md", fill: active ? "bg-brand-subtle" : undefined, cross: "center" }, [
+    T(text, { style: "Display 3xl/Semibold", color: active ? "text-brand" : "text-tertiary" }),
+  ]);
+  return F({ name: "Time clock", dir: "V", gap: "space/3", cross: "center" }, [
+    // سربرگ چپ‌به‌راست است: ساعت : دقیقه؛ F افقی فرزندان را برای RTL برعکس می‌چیند، پس به ترتیب دیداری راست‌به‌چپ می‌دهیم
+    F({ name: "Header", dir: "H", gap: "space/1", cross: "center" }, [unit("۳۰", !hour), T(":", { style: "Display 3xl/Semibold", color: "text-tertiary" }), unit("۰۹", hour)]),
+    F({ name: "Dial", dir: "none", w: D, h: D, radius: "radius/full", fill: "bg-secondary" }, kids),
+  ]);
+}
+
 function jalaliGrid({ range, selected = 6, w = 300, bare } = {}) {
   const C = TOKENS.calendar;
   // k-calendar__day: ۴۰ پیکسل، خانهٔ جدول با ۱ پیکسل فاصله
@@ -634,6 +671,30 @@ function buildForms() {
       axes: { Type: ["Single", "Range"] },
       build: (p) => jalaliGrid(p.Type === "Range" ? { range: [10, 17] } : {}),
       docs: "calendar",
+    });
+  }));
+
+  safe("TimePicker", () => section(root, "Time picker · انتخاب ساعت", "صفحهٔ ساعت ۲۴ساعته کنار دیت‌پیکر: اول ساعت، بعد دقیقه، بعد «تأیید».", (h) => {
+    componentSet(h, "Time picker", {
+      axes: { State: ["Closed", "Open"] },
+      build: (p) => {
+        const open = p.State === "Open";
+        const node = field({ label: "ساعت جلسه", w: 300, control: inputBox({ state: open ? "Focus" : "Default", text: "۰۹:۳۰", ltr: true, iconStart: "clock" }) });
+        if (open) add(node, F({ name: "Popover", dir: "V", gap: "space/3", p: "space/4", w: "fill", cross: "center", radius: "radius/xl", fill: "bg-elevated", stroke: "border-secondary", shadow: "Popover" }, [
+          timeClock({ view: "Hour" }),
+          F({ name: "Footer", dir: "H", w: "fill", pt: "space/3", align: "between", cross: "center", stroke: "border-secondary", sides: [1, 0, 0, 0] }, [
+            T("اکنون", { style: "Text sm/Semibold", color: "text-brand", name: "Now" }),
+            button({ variant: "Primary", size: "sm", label: "تأیید" }),
+          ]),
+        ]));
+        return node;
+      },
+      docs: "time-picker",
+    });
+    componentSet(h, "Time clock", {
+      axes: { View: ["Hour", "Minute"] },
+      build: (p) => timeClock({ view: p.View }),
+      docs: "time-picker",
     });
   }));
 

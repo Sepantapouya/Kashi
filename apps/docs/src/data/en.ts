@@ -133,6 +133,7 @@ export const EN_PERSIAN: { title: string; items: Entry[] }[] = [
     title: "Dates and time (Jalali)",
     items: [
       ["date-picker", "Jalali date picker", "Solar Hijri calendar with holidays, accurate from 1300 to 1500."],
+      ["time-picker", "Time picker", "24-hour clock face beside the date picker: type the time or pick the hour, then the minute."],
       ["date-range", "Date range", "Start and end dates with Persian shortcuts."],
       ["month-picker", "Month picker", "Choose a Jalali month and year."],
       ["appointment", "Appointment picker", "Days and time slots with capacity."],

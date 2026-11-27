@@ -8,7 +8,7 @@ import {
   PersianInput, BankCard, DateTile, KeyboardFixInput, LegalIdInput, Money, PaymentReceipt, PersianTextarea,
   NumberInput, OtpInput, Pagination, PasswordStrength, PlateInput, PostalCodeInput, PriceInput, Progress, Radio, RadioGroup, Rating,
   SegmentedControl, Select, Skeleton, Slider, StatCard, Stepper, Switch, Tab, TabList, Tabs, TagInput, Textarea, Timeline,
-  PriceRange, SwatchGroup, QRCode, WeekdayPicker,
+  PriceRange, SwatchGroup, QRCode, WeekdayPicker, TimeClock,
 } from "@kashi-ui/react";
 
 const I = ({ d }: { d: IconName }) => <Icon name={d} />;
@@ -146,6 +146,7 @@ export const previews: Record<string, ReactNode> = {
   "password-strength": <Box cls="pv--field"><PasswordStrength password="Kashi20" showRules={false} /></Box>,
   // فارسی
   "date-picker": <Box><Calendar value={new Date(2026, 9, 27)} className="pv-cal" /></Box>,
+  "time-picker": <Box><TimeClock defaultValue="09:30" className="pv-clock" /></Box>,
   "date-range": <Box><Calendar range={{ start: new Date(2026, 9, 23), end: new Date(2026, 9, 27) }} value={new Date(2026, 9, 27)} className="pv-cal" /></Box>,
   "national-id": <Box cls="pv--field"><NationalIdInput aria-label="کد ملی" defaultValue="0013542419" /></Box>,
   "card-number": <Box cls="pv--field"><CardNumberInput aria-label="شماره کارت" defaultValue="6104337812345678" /></Box>,
